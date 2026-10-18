@@ -79,6 +79,9 @@ const regEntry = (repo) => {
 
 const titleCase = (s) => s.split('-').map((w) => w ? w[0].toUpperCase() + w.slice(1) : w).join(' ');
 const norm = (s) => (s || '').toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ').trim();
+// Drop HTML tags, and an unclosed `<…` too, with a character scan: no `<` is left, so no `<script` can be
+// (CodeQL js/incomplete-multi-character-sanitization; a regex replace can leave a tag behind).
+const stripTags = (s) => { let out = '', inTag = false; for (const ch of String(s)) { if (ch === '<') inTag = true; else if (ch === '>' && inTag) inTag = false; else if (!inTag) out += ch; } return out; };
 const placeholder = (s) => /pet-program-\d+|icon-\d+|placeholder|not decided|to be decided/i.test(s || '');
 const STRAY = [
   // Made-up user folders in examples and test fixtures (you, me, example, private, <name>) are not personal paths
@@ -222,7 +225,7 @@ for (const prog of catalog) {
     pet, tree: t, hubTree, readme: readme || null, profile, map: mapFor(prog), entryLive }));
 
   // A54 third-party programs.
-  const madeByOthers = ((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').replace(/<[^>]*>/g, '').replace(/[<>]/g, '').trim();
+  const madeByOthers = stripTags((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').trim();
   rec.thirdParty = { levels: madeByOthers || null, pet: pet?.third_party_programs || pet?.third_party || null, page: /Third Party Programs/i.test(entry) };
   if (madeByOthers && !/Third Party Programs/i.test(entry) && entryPath) add('A54', 'Missing', `INTELLIGENCE-LEVELS lists programs made by others (${madeByOthers.slice(0, 120)}) but the page has no Third Party Programs row.`);
 

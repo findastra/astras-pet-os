@@ -78,7 +78,10 @@ function retire(text, html = false) {
   return { text: out.join(''), n: count.n };
 }
 
-const clean = (s) => (s || '').replace(/<br\s*\/?>/gi, '; ').replace(/<[^>]*>/g, '').replace(/[<>]/g, '').replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
+// Drop HTML tags, and an unclosed `<…` too, with a character scan: no `<` is left, so no `<script` can be
+// (CodeQL js/incomplete-multi-character-sanitization; a regex replace can leave a tag behind).
+const stripTags = (s) => { let out = '', inTag = false; for (const ch of String(s)) { if (ch === '<') inTag = true; else if (ch === '>' && inTag) inTag = false; else if (!inTag) out += ch; } return out; };
+const clean = (s) => stripTags((s || '').replace(/<br\s*\/?>/gi, '; ')).replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
 
 
 // ---- fix2: re-apply the Flash Audit fixes on top of each repo's current default branch ----
