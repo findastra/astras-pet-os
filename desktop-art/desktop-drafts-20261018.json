@@ -9998,6 +9998,13 @@
    "blink": "desktop-art/gif-giraffe/blink-20261011.png"
   },
   {
+   "id": "workflow-whale",
+   "name": "Workflow Whale",
+   "interface": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
+   "idle": "art/drafts/workflow-whale/idle-20261018.png",
+   "blink": "art/drafts/workflow-whale/blink-20261018.png"
+  },
+  {
    "id": "mesh-moth",
    "name": "Mesh Moth",
    "interface": "https://github.com/findastra/mesh-moth",

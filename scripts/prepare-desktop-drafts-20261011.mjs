@@ -26,7 +26,7 @@ export const DRAFTS = [
   ['backup-beaver', 'backup-beaver'], ['rift-rabbit', 'rift-rabbit'], ['wifi-butterfly', 'wifi-butterfly'],
   ['chat-rat', 'chat-rat'], ['deck-duck', 'deck-duck'], ['raspberry-berry', 'raspberry-berry'],
   ['meme-fiend', 'meme-fiend'], ['fuzzboi-friend', 'fuzzboi-friend'], ['gif-giraffe', 'astras-gif-maker'],
-  ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'],
+  ['workflow-whale', 'workflow-whirlpool'], ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'],
 ];
 
 /** True when both of the folder's pictures are the ones on its repo's main (read-only git; live sync keeps it fetched). */
@@ -49,7 +49,11 @@ export function draftList() {
     idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: 'https://github.com/findastra/claude-bot' });
   for (const [id, repo] of DRAFTS) {
     const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
-    if (id === 'fuzzboi-friend') {
+    if (id === 'workflow-whale') {
+      entry.idle = need('art/drafts/workflow-whale/idle-20261018.png');
+      entry.blink = need('art/drafts/workflow-whale/blink-20261018.png');
+      entry.interface = 'https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html';
+    } else if (id === 'fuzzboi-friend') {
       // Built from Astra's 32 original Fuzzbois layers at launch; idle and blink are the fallback.
       entry.idle = need('art/drafts/fuzzboi-friend/idle-20261009.png');
       entry.blink = need('art/drafts/fuzzboi-friend/blink-20261009.png');

@@ -1632,6 +1632,18 @@
       "layer": 6,
       "category": "Dependency",
       "job": "Third-party runtime that runs npm run build and the tests."
+    },
+    {
+      "id": "ipad-workflow-caster",
+      "name": "ipad-workflow-caster",
+      "type": "tool",
+      "of": "workflow-whirlpool",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0",
+      "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. Native project prepared; iPad execution is unverified."
     }
   ],
   "links": [
@@ -4911,6 +4923,42 @@
             "language": "HTML",
             "percent": 100.0,
             "why": "One page that runs in any browser, so it can preview and check other pages on every device size without installing anything."
+          }
+        ]
+      },
+      "workflow-whirlpool": {
+        "checked": "2026-10-18",
+        "source": "Local source file bytes; excludes archives, artwork and Git metadata.",
+        "languages": [
+          {
+            "language": "Swift",
+            "percent": 35.1,
+            "why": "Native iPad PencilKit drawing and paired PC connection."
+          },
+          {
+            "language": "JavaScript",
+            "percent": 25.6,
+            "why": "Node companion security, capture transport and verification scripts."
+          },
+          {
+            "language": "HTML",
+            "percent": 22.0,
+            "why": "Program interface, local console and iPad setup guide."
+          },
+          {
+            "language": "CSS",
+            "percent": 11.2,
+            "why": "Responsive program, stationery and drawing-sheet presentation."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 3.9,
+            "why": "Windows capture bridge and companion startup."
+          },
+          {
+            "language": "Python",
+            "percent": 2.3,
+            "why": "Allowlisted source and native download packaging."
           }
         ]
       }

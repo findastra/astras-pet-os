@@ -42,7 +42,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Project Parrot** | your project ideas | weekly, Wednesday | a yes or no on an idea that is due |
 | **Voicemeeter Bug** | your Voicemeeter audio | weekly, Thursday | the Bug running on your PC |
 | **Platform Platypus** | how Astra's pages look across iPhone, Android, iPad and desktop | weekly, Friday | something only you can do |
-| **Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Sugarcube draft artwork and a live restaurant provider before real recommendations |
+| **Sugarcube** * | Spoonfedâ€™s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Sugarcube draft artwork and a live restaurant provider before real recommendations |
 | **Claude Bot** * | the Claude Bot plan and build | weekly, Sunday | a decision on the plan |
 | **RGBee** * | your RGB lights and scenes | weekly, Monday | the brand and model of each light |
 | **Mine Mole** * | the crypto mining research | weekly, Tuesday | your power price and graphics card model |
@@ -58,5 +58,6 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Friday | a job: what should Mesh Moth watch |
 | **Raspberry Pi Berry** * | my plan | weekly, Saturday | a job: what should Raspberry Pi Maker do |
 | **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Sunday | a bot's access to its server, or your OK for a new bot |
+| **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Monday | native iPad verification and a verified chat adapter |
 
 \* in the pipeline: on GitHub, not registered in the Cage yet.
