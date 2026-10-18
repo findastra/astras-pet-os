@@ -81,7 +81,9 @@ function nextStep(rec, row) {
   if (c === 'A31' && /008-farmer/.test(d)) return 'Card 008 (new placeholders) is an old draft on hub PR #5; the pet is already a pipeline pet. The fix PR replaces this line.';
   if (c === 'A31') return 'Fix or remove the link.';
   if (isPath(row)) return 'A stray PC path in code or docs; moving files goes through a File Master plan.';
+  if (isName(row) && /\.(md|json|html?|txt|ya?ml|svg)$/i.test(d.split(':')[0])) return 'A line that tells history, a file name, or a name inside the page\'s script (a storage key), so it was kept; anything else here is for the pet\'s chat.';
   if (isName(row)) return 'Inside code (a storage key or a name the code looks for), so it was left alone tonight.';
+  if (['A41', 'A44', 'A45', 'A52'].includes(c)) return 'Comes with Codex\'s shared page framework: card 035 asks Codex to bring its pull requests up to date.';
   if (c === 'A15' && PRODUCT_README.has(rec.audited?.repo)) return 'This README is the product\'s own, so tonight only names and links changed in it. Add a Limits section there?';
   if (c === 'A15' && /title/.test(d)) return 'The title is a naming choice, so it was left alone. Rename the heading?';
   if (c === 'A15') return 'Small README fix.';
