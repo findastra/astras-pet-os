@@ -393,6 +393,13 @@
         "why": "Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps."
       },
       {
+        "from": "role-fairy",
+        "to": "findastra-discord-presence",
+        "carries": "status",
+        "state": "planned",
+        "why": "Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are."
+      },
+      {
         "from": "github-goldfish",
         "to": "portfolio-puffer",
         "carries": "shipped",
@@ -520,7 +527,7 @@
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
       "interface_local_url": "apps/data-dealer-20261008.html",
       "interface_url": "apps/data-dealer-20261008.html",
-      "interface_live_url": "https://claude.ai/artifact/CzBXnEWyRjq5Tui7o3oRS8",
+      "interface_live_url": "https://findastra.github.io/astras-pet-os/apps/data-dealer-20261008.html",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "4f876dd7b22a7caebf0bb3fbb021539f5b474041",
       "audit": {
@@ -602,7 +609,7 @@
       "kind": "sprite",
       "status": "hatching",
       "published": true,
-      "job": "Watches the health of VRChat AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
+      "job": "Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
       "added": "2026-10-07",
       "note": "DRAFT. The name Wisp is a placeholder.",
       "interface_local_url": "apps/vrchat-ai-astra-20261008.html",
@@ -887,7 +894,7 @@
       "display_scale": 1,
       "status": "growing",
       "published": true,
-      "job": "A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.",
+      "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.",
       "added": "2026-10-08",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/voicemeeter-bug-20261008.html",
@@ -922,7 +929,7 @@
     {
       "repo": "spoonfed",
       "pet": "Sugarcube",
-      "visibility": "private",
+      "visibility": "public",
       "published": true,
       "status": "hatching",
       "job": "Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.",
@@ -980,7 +987,7 @@
       "pet": "Mail Snail",
       "visibility": "public",
       "status": "hatching",
-      "job": "Organizes your mail: sorts it, cleans it up and deletes what you no longer need, always with your OK first. Connects to no mail account yet.",
+      "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1113,7 +1120,7 @@
       "pet": "Raspberry Pi Berry",
       "visibility": "private",
       "status": "hatching",
-      "job": "Raspberry Pi Berry’s pet program is Raspberry Pi Maker (Astra, 2026-10-13): keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
+      "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1126,12 +1133,12 @@
       "pet": "Role Fairy",
       "visibility": "public",
       "status": "hatching",
-      "job": "Runs Mommy’s Role Fairy, a cute single-choice Discord role picker: new members get a welcome-channel link to the picker and everyone can change their role any time.",
+      "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
       "added": "2026-10-17",
       "audit": {
         "cadence": "weekly",
-        "subject": "Mommy’s Discord role picker and its roles",
-        "needs": "the Discord bot's access to the server"
+        "subject": "every Discord bot: its servers, roles, permissions and health",
+        "needs": "a bot's access to its server, or your OK for a new bot"
       },
       "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered."
     }
