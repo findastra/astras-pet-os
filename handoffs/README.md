@@ -46,7 +46,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 031.** Checked on 2026-10-17 across every branch by Claude Opus 5.5 (027 to 029 were taken on branches). When numbers clashed, the
+**Next free number: 034.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 and 032 are taken on branches; 033 is the credit-line card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
