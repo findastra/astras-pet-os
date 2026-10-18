@@ -73,12 +73,12 @@ function retire(text, html = false) {
   const count = { n: 0 };
   if (!html) return { text: text.split('\n').map((line) => retireChunk(line, count)).join('\n'), n: count.n };
   // HTML: skip script blocks; judge history per piece of text between tags, not per (one-line) file.
-  const out = text.split(/(<script\b[\s\S]*?<\/script>)/i).map((seg) => /^<script\b/i.test(seg) ? seg
+  const out = text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg
     : seg.split(/(?<=>)|(?=<)/).map((piece) => retireChunk(piece, count)).join(''));
   return { text: out.join(''), n: count.n };
 }
 
-const clean = (s) => (s || '').replace(/<br\s*\/?>/gi, '; ').replace(/<[^>]+>/g, '').replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
+const clean = (s) => (s || '').replace(/<br\s*\/?>/gi, '; ').replace(/<[^>]*>/g, '').replace(/[<>]/g, '').replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
 
 
 // ---- fix2: re-apply the Flash Audit fixes on top of each repo's current default branch ----
@@ -93,7 +93,7 @@ function credit(text, html) {
     .replace(/\bA pet app by Astra(?=[,.])/g, () => { n++; return NEWCREDIT; })
     .replace(/\b(is|,) a pet app by Astra\b/g, (m, w) => { n++; return `${w} an Intelligent App, or Pet, by Astra`; });
   if (!html) return { text: swap(text), n };
-  return { text: text.split(/(<script\b[\s\S]*?<\/script>)/i).map((seg) => /^<script\b/i.test(seg) ? seg : swap(seg)).join(''), n };
+  return { text: text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg : swap(seg)).join(''), n };
 }
 const catalogNow = Object.fromEntries(JSON.parse(execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', 'repos/findastra/astras-pet-os/contents/pet-programs.json?ref=main'], { encoding: 'utf8', maxBuffer: 32 << 20 })).programs.map((p) => [p.number, p]));
 const CARD008 = /Not in the Cage yet\. Registering it is \[card 008\]\(https:\/\/github\.com\/findastra\/astras-pet-(?:os|apps)\/blob\/main\/handoffs\/008-farmer-register-new-placeholders\.md\) for the Friendly Farmer\./;

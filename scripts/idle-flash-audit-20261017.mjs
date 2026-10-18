@@ -222,7 +222,7 @@ for (const prog of catalog) {
     pet, tree: t, hubTree, readme: readme || null, profile, map: mapFor(prog), entryLive }));
 
   // A54 third-party programs.
-  const madeByOthers = ((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').replace(/<[^>]+>/g, '').trim();
+  const madeByOthers = ((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').replace(/<[^>]*>/g, '').replace(/[<>]/g, '').trim();
   rec.thirdParty = { levels: madeByOthers || null, pet: pet?.third_party_programs || pet?.third_party || null, page: /Third Party Programs/i.test(entry) };
   if (madeByOthers && !/Third Party Programs/i.test(entry) && entryPath) add('A54', 'Missing', `INTELLIGENCE-LEVELS lists programs made by others (${madeByOthers.slice(0, 120)}) but the page has no Third Party Programs row.`);
 
