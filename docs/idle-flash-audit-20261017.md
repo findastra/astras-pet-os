@@ -84,7 +84,9 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
    ones too), never runs repo code, and uses Goldfish's preflight from
    `..\github-goldfish\scripts\flash-audit-local-20261015.mjs` when it is there (`FLASH_PREFLIGHT` overrides).
    Add program numbers (`3,4,5`) to audit only those. About 1,500 GitHub API calls for 80 repos; the limit is 5,000
-   an hour (`gh api rate_limit`).
+   an hour (`gh api rate_limit`). A59 (`scripts/pet-program-link-20261018.mjs`) also reads the profile README and
+   builds the System Map from the hub; its list-wide findings (a pet with no number, two pets on one program) go on
+   the Farmer's round card, #1 (add `1` to the numbers to include it).
 3. **Look for false alarms** in the ledger before fixing anything. Examples from the first run: test fixtures
    that use a made-up user folder (`you`) are not personal paths; a hub page whose file name still says `astras-pet-apps` must keep
    its name.
@@ -93,7 +95,9 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
    `node "$hub\scripts\idle-flash-showdiff-20261017.mjs" c`. Fix the tool, not the output, when something is wrong.
 5. **Fix for real** (same command without `--dry`). It clones, commits as findastra with the assistant as
    co-author, pushes the fix branch, opens the pull request and records it in `fix-results.json`. Running it again
-   skips repos that already have their pull request.
+   skips repos that already have their pull request. A59 links are fixed the same way: pet.json `entry` and the
+   README link in the pet's fix branch; pets.json, pet-programs.json and system-map.json in one fix branch of the hub
+   (it runs `npm run build -- --metadata-only` there), merged like every hub change, after Astra's OK in chat.
 6. **Start missing repos:** `node "$hub\scripts\idle-flash-new-repos-20261017.mjs" --dry`, then without `--dry`
    (add `--private` if public creation is blocked).
 7. **See what is left:** audit again with `AUDIT_REF=claude/flash-audit-fixes-<date>` set, so each repo is read
@@ -103,10 +107,14 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
    writes `README.md` (the index: answer-these-first, every round, every pull request) and one
    `round-NN-<repo>.md` per program, in the owner-round format (pictures, then exceptions in priority order, then
    decisions with four explained name options). Put them in `docs/flash-audit-rounds-<date>/` in this repo with the
-   ledger, on a `claude/` branch with a pull request.
+   ledger, on a `claude/` branch with a pull request. Every exception starts with its matrix row's dot: ⚪ the Idle
+   Flash Audit fixes it ("Fixed in" its pull request when it did), 🔵 it waits for the Active Flash Session. The
+   order and the dots are read from the matrix itself (`scripts/flash-matrix-20261018.mjs`), so a new check or a
+   changed dot needs no change in the tools.
 9. **Answer sheet** for the iPad:
    `node "$hub\scripts\idle-flash-answers-page-20261017.mjs" <out>\decisions.json audit\ledger.json fix-results.json $hub answers.html <cards-url>`
-   builds one tap-to-answer page of every decision (names with their four options, merges, visibility, branches).
+   builds one tap-to-answer page of every blue-dot (🔵) decision (names with their four options, merges, visibility,
+   branches); grey-dot items stay on the round cards.
    Publish it as a private Artifact with the `db` capability; each tap saves a document in its `answers`
    collection, which the next assistant reads (`ArtifactData` `list`). Put its link at the top of the round cards
    (`FLASH_ANSWERS_URL` when building them) and in the report.

@@ -2,7 +2,10 @@
 //   node scripts/idle-flash-answers-page-20261017.mjs <decisions.json> <ledger.json> <fix-results.json> <hub-dir> <out.html> <cards-base-url>
 // Every decision from the round cards becomes a tap-to-answer card. Answers are saved in the
 // page's db (collection "answers", one document per decision), where the next assistant reads them.
+// Only blue-dot (🔵) items become questions (Astra, 2026-10-18): grey-dot (⚪) checks are the Idle Flash Audit's to fix,
+// so they stay on the round cards. A decision's dot comes from decisions.json, else from its matrix row.
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import { readMatrix, decisionDot, BLUE } from './flash-matrix-20261018.mjs';
 
 const [decPath, ledgerPath, fixPath, hubDir, outPath, cardsBase] = process.argv.slice(2);
 const decisions = JSON.parse(readFileSync(decPath, 'utf8'));
@@ -26,7 +29,9 @@ const OPTIONS = {
   'Visibility': null,
   'Art': ['Yes, generate the art', 'Not now'],
   'Route': ['Give it a public page', 'Keep it private'],
+  'Pet program': null,
 };
+const MATRIX = readMatrix();
 const items = [];
 // The questions that matter most, first.
 const prCount = Object.values(fixes).filter((f) => f.pr).length;
@@ -36,16 +41,20 @@ items.push({ id: 'top-old-hub-prs', group: 'First', title: 'Close four old hub p
 items.push({ id: 'top-seed-repo-names', group: 'First', title: 'Rename the seed and roadmap repos to their program names?', body: 'Every pet program has a name now, and their READMEs say it (in the fix PRs), but 40 repos are still called pet-program-37 to pet-program-81. Renaming them, for example pet-program-60 to passport-harbor, follows your rule that names come from GitHub. GitHub keeps the old links working.', options: ['Rename them all', 'Rename the ones I note', 'Not yet'] });
 items.push({ id: 'top-kimi', group: 'First', title: 'Set up Kimi as a checker?', body: 'Kimi (Moonshot AI) would check Claude’s and Codex’s work on public repos only. It is a new farmhand on your allowlist, it is paid by use, and you make the account and key yourself.', options: ['Yes, set it up', 'Tell me more first', 'Not now'] });
 items.push({ id: 'top-folder-rename', group: 'First', title: 'Rename the folder to Astra’s PetOS', body: 'Tried at 04:16 and Windows said the folder was in use (most likely the Claude app’s open chats), so nothing changed. To finish: close the Claude app and Codex, then run the rename script from File Master’s plan folder (or ask an assistant to).', options: ['I’ll close the apps; rename it next', 'Wait'] });
+// Each of these is a merge, a rename, an account or a folder move: all hers.
+for (const it of items) it.dot = BLUE;
 for (const d of decisions) {
-  if (d.kind === 'Merge') continue;
+  if (d.kind === 'Merge') continue; // "Merge all" above asks once for every fix pull request
+  const dot = d.dot || decisionDot(d.kind, MATRIX);
+  if (dot !== BLUE) continue; // a grey-dot item is the Idle Flash Audit's to fix: it stays on the round card
   const id = `r${d.round}-${d.kind.toLowerCase().replace(/[^a-z]+/g, '-')}`;
   let options = OPTIONS[d.kind];
   if (d.kind === 'Visibility') options = /Spoonfed/.test(d.text) ? ['Make it private again', 'Keep it public (update the registry)'] : ['Make it public', 'Keep it private'];
   if (d.options) options = d.options.map(([n]) => n);
   const body = d.kind === 'Job' ? d.text.split('\n').slice(1).map((l) => strip(l.replace(/^\s*-\s*/, ''))).join('\n') : strip(d.text);
-  items.push({ id, group: d.kind === 'Program name' || d.kind === 'Pet name' ? 'Names' : 'Other', round: d.round, pet: d.pet, program: d.program, icon: iconFor(d.round), kind: d.kind,
+  items.push({ id, dot, group: d.kind === 'Program name' || d.kind === 'Pet name' ? 'Names' : 'Other', round: d.round, pet: d.pet, program: d.program, icon: iconFor(d.round), kind: d.kind,
     title: d.kind === 'Program name' ? `${d.pet}: program name` : d.kind === 'Pet name' ? `Round ${d.round}: pet name` : `${d.pet}: ${d.kind.toLowerCase()}`,
-    body: d.options ? '' : body, reasons: d.options ? d.options.map(([, why]) => why) : null, options, own: !!d.options || d.kind === 'Job',
+    body: d.options ? '' : body, reasons: d.options ? d.options.map(([, why]) => why) : null, options, own: !!d.options || d.kind === 'Job' || d.kind === 'Pet program',
     links: [{ label: `Round ${d.round} card`, url: `${cardsBase}/${d.card}` }, ...links(d.text).filter((l) => /compare|pull/.test(l.url)).slice(0, 6)] });
 }
 const data = { generated: '2026-10-17', cardsIndex: `${cardsBase}/README.md`, items, icons };
