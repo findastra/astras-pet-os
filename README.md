@@ -4,6 +4,8 @@
 
 **[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone.
 
+**[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
+
 ## Beta testers and their AI: start here
 
 Astra's PetOS is an **early beta** for Windows 10 and 11. The installer sets up **Astra's own farm as an example**:

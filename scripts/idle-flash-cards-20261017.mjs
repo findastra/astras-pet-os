@@ -193,7 +193,7 @@ for (const rec of ledger) {
 const I = [];
 // Astra, 2026-10-18: keep the top short; the decisions live on the answer sheet, not here.
 I.push('# Flash Audit rounds, 2026-10-17', '');
-I.push(`One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](${ANSWERS}).`, '');
+I.push(`One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](${ANSWERS}). What is going on right now: the [Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md).`, '');
 // Every program links to where it runs: the link the profile README gives it (FLASH_PROFILE, a copy of
 // findastra/findastra's README), else its repo. Order: the catalog's numbers, which is the order the pets were
 // made and the order of the profile README (FLASH_CATALOG: pet-programs.json). FLASH_EXTRA_PRS adds pull
