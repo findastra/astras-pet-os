@@ -494,7 +494,7 @@
       "status": "growing",
       "published": true,
       "visibility": "public",
-      "job": "Organizes the pets (intelligent apps). His daily rounds keep every petâ€™s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmerâ€™s desk opens every app. He will run the Farm, the native OS of Astraâ€™s PetOS.",
+      "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
       "interface_local_url": "apps/astras-pet-apps-20261008.html",
@@ -537,7 +537,7 @@
       "status": "hatching",
       "published": true,
       "visibility": "private",
-      "job": "Reports the health of Data Dealer, Astraâ€™s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
+      "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
       "interface_local_url": "apps/data-dealer-20261008.html",
@@ -861,7 +861,7 @@
       "asset_date": "20261008",
       "status": "hatching",
       "published": true,
-      "job": "Watches the public Ghost Protocol website and checks Astraâ€™s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
+      "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/ghost-protocol-20261008.html",
@@ -955,7 +955,7 @@
       "added": "2026-10-11",
       "audit": {
         "cadence": "weekly",
-        "subject": "Spoonfedâ€™s restaurant discovery, saved spots, and sample-data labels",
+        "subject": "Spoonfed’s restaurant discovery, saved spots, and sample-data labels",
         "needs": "review of Sugarcube draft artwork and a live restaurant provider before real recommendations"
       },
       "note": "Private artwork-only repository published; nine draft frames ready. Application remains a local draft. Card 009."
@@ -965,7 +965,7 @@
       "pet": "Claude Bot",
       "visibility": "private",
       "status": "hatching",
-      "job": "Claudeâ€™s twin of ChatGPTâ€™s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claudeâ€™s live status in a bubble and opens quick chat.",
+      "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -993,7 +993,7 @@
       "pet": "Mine Mole",
       "visibility": "public",
       "status": "hatching",
-      "job": "Manages the cryptocurrency mining program on Astraâ€™s PC and checks whether mining is worth the power.",
+      "job": "Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1128,7 +1128,7 @@
       "pet": "Mesh Moth",
       "visibility": "private",
       "status": "hatching",
-      "job": "Manages Astraâ€™s Meshtastic node: its place in the radio mesh, its health and its messages.",
+      "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1154,7 +1154,7 @@
       "pet": "Role Fairy",
       "visibility": "public",
       "status": "hatching",
-      "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes membersâ€™ roles when asked; and keeps each botâ€™s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astraâ€™s own presence.",
+      "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
       "added": "2026-10-17",
       "audit": {
         "cadence": "weekly",

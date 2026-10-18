@@ -42,7 +42,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Project Parrot** | your project ideas | weekly, Wednesday | a yes or no on an idea that is due |
 | **Voicemeeter Bug** | your Voicemeeter audio | weekly, Thursday | the Bug running on your PC |
 | **Platform Platypus** | how Astra's pages look across iPhone, Android, iPad and desktop | weekly, Friday | something only you can do |
-| **Sugarcube** * | Spoonfedâ€™s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Sugarcube draft artwork and a live restaurant provider before real recommendations |
+| **Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Sugarcube draft artwork and a live restaurant provider before real recommendations |
 | **Claude Bot** * | the Claude Bot plan and build | weekly, Sunday | a decision on the plan |
 | **RGBee** * | your RGB lights and scenes | weekly, Monday | the brand and model of each light |
 | **Mine Mole** * | the crypto mining research | weekly, Tuesday | your power price and graphics card model |

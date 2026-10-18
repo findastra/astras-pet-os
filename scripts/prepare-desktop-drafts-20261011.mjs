@@ -20,13 +20,16 @@ export const LIST = 'desktop-art/desktop-drafts-20261018.json';
 const petos = process.env.ASTRAS_PETOS || dirname(hub.replace(/[\\/]$/, ''));
 const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
 
-// [desktop-art id, repo]. Names come from pet-programs.json (the one list of names).
+// [desktop-art id, repo, picture date]. Names come from pet-programs.json (the one list of names). The date is the one in
+// the picture files' names; it defaults to 20261011, when most drafts were drawn.
+// Door Dormouse (The Threshold, Liminal Doors' caretaker; art by Astra, prepared with OpenAI Codex on 2026-10-18,
+// hub PR #61) joined on 2026-10-18 so Astra can see it on her desktop; its pictures are still a draft for her review.
 export const DRAFTS = [
   ['rgbee', 'rgbee'], ['mine-mole', 'mine-mole'], ['mail-snail', 'mail-snail'], ['patch-cat', 'patch-cat'],
   ['backup-beaver', 'backup-beaver'], ['rift-rabbit', 'rift-rabbit'], ['wifi-butterfly', 'wifi-butterfly'],
   ['chat-rat', 'chat-rat'], ['deck-duck', 'deck-duck'], ['raspberry-berry', 'raspberry-berry'],
   ['meme-fiend', 'meme-fiend'], ['fuzzboi-friend', 'fuzzboi-friend'], ['gif-giraffe', 'astras-gif-maker'],
-  ['workflow-whale', 'workflow-whirlpool'], ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'],
+  ['workflow-whale', 'workflow-whirlpool'], ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'], ['door-dormouse', 'the-threshold', '20261018'],
 ];
 
 /** True when both of the folder's pictures are the ones on its repo's main (read-only git; live sync keeps it fetched). */
@@ -47,7 +50,7 @@ export function draftList() {
   // Claude Bot first, as before. His pictures stay in his private repo; the desktop finds that repo's folder next to the hub.
   pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, repo: 'claude-bot',
     idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: 'https://github.com/findastra/claude-bot' });
-  for (const [id, repo] of DRAFTS) {
+  for (const [id, repo, date = '20261011'] of DRAFTS) {
     const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
     if (id === 'workflow-whale') {
       entry.idle = need('art/drafts/workflow-whale/idle-20261018.png');
@@ -60,8 +63,8 @@ export function draftList() {
       const recipes = JSON.parse(readFileSync(join(hub, need('desktop-art/fuzzboi-friend/desktop-recipes-20261011.json')), 'utf8'));
       entry.variants = recipes.variants.map((v) => ({ code: v.code, style: v.style, layers: v.layers.map(need) }));
     } else {
-      entry.idle = need(`desktop-art/${id}/idle-20261011.png`);
-      entry.blink = need(`desktop-art/${id}/blink-20261011.png`);
+      entry.idle = need(`desktop-art/${id}/idle-${date}.png`);
+      entry.blink = need(`desktop-art/${id}/blink-${date}.png`);
     }
     pets.push(entry);
   }
