@@ -1,38 +1,39 @@
-// Small icons for pets whose art lives outside this repo's registered frames: pipeline pets
-// (art in their own repos), Chat Rat, and seeds (draft art). The System Map and the
-// intelligence-levels chart use them. Astra, 2026-10-12.
+// Small icons for pets whose art lives outside this repo's registered frames: draft pets (desktop-art/ and
+// art/drafts/), Chat Rat, and seeds (draft art). The System Map and the intelligence-levels chart use them.
+// Astra, 2026-10-12.
 //
-//   node scripts/make-icons-20261012.mjs        fetch or read every source, write art/icons/<id>-20261012.png
+//   node scripts/make-icons-20261012.mjs        read every source, write art/icons/<id>-20261012.png
 //
-// Pipeline art is fetched from each pet's public repo on GitHub; seed sheets are read from
-// art/seeds/ (generate-seeds-20261012.mjs). A sheet's calm top-left cell becomes the icon.
+// Every source is in this hub (Flash Audit A58, one art source, 2026-10-17): draft pets' pictures moved here from
+// their own repos. Seed sheets are read from art/seeds/ (generate-seeds-20261012.mjs). A sheet's calm top-left cell
+// becomes the icon.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { decodePng, keyBackground } from './sheet-to-sprites.mjs';
 import { png } from './art-kit.mjs';
 
 const SIZE = 96;
-const RAW = (repo, path, branch = 'main') => `https://raw.githubusercontent.com/findastra/${repo}/${branch}/${path}`;
-const desk = (repo, art = repo) => RAW(repo, `desktop-art/${art}/idle-20261011.png`);
+const desk = (art) => `desktop-art/${art}/idle-20261011.png`;
 export const SOURCES = {
-  // pipeline pets: their own repos
-  'spoonfed': desk('spoonfed', 'spoonfed-sugarcube'),
-  'claude-bot': desk('claude-bot'),
+  // draft pets: their desktop art in this hub
+  'spoonfed': desk('spoonfed-sugarcube'),
+  // claude-bot: its repo is private since 2026-10-17 (its art is an exact copy of ChatGPT's BSOD,
+  // at Astra's request), so this public hub keeps the earlier orange-screen twin icon as it is.
   'rgbee': desk('rgbee'),
-  'mine-mole': RAW('mine-mole', 'draft-art/mine-mole/idle-20261011.png'),
+  'mine-mole': desk('mine-mole'),
   'mail-snail': desk('mail-snail'),
   'patch-cat': desk('patch-cat'),
   'meme-fiend': desk('meme-fiend'),
-  'astras-gif-maker': desk('astras-gif-maker', 'gif-giraffe'),
+  'astras-gif-maker': desk('gif-giraffe'),
   'backup-beaver': desk('backup-beaver'),
   'rift-rabbit': desk('rift-rabbit'),
-  'fuzzboi-friend': RAW('fuzzboi-friend', 'art/idle-20261009.png'),
+  'fuzzboi-friend': 'art/drafts/fuzzboi-friend/idle-20261009.png',
   'wifi-butterfly': desk('wifi-butterfly'),
   'deck-duck': desk('deck-duck'),
   'mesh-moth': desk('mesh-moth'),
   'raspberry-berry': desk('raspberry-berry'),
   'chat-rat': desk('chat-rat'),
   // seeds: Pole Puff's approved draft, and the draft sheets made on 2026-10-12
-  'pole-puff': RAW('astras-pet-os', 'drafts/pole-puff/art/frames/neutral-20261011.png', 'claude/pole-puff-draft-20261012'),
+  'pole-puff': 'drafts/pole-puff/art/frames/neutral-20261011.png',
   'osc-sealion': 'art/seeds/osc-sealion-sheet-20261012.png',
   'piranesi-nessi': 'art/seeds/piranesi-nessi-sheet-20261012.png',
   'procreate-panda': 'art/seeds/procreate-panda-sheet-20261012.png',

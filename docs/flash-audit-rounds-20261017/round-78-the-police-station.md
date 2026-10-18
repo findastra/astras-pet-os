@@ -19,12 +19,13 @@
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
 - **A14 Required files** — Required files: CLAUDE.md
-- **A15 README and credit** — README lacks the credit line "*A pet app by Astra.*".
+- **A15 README and credit** — README lacks the credit line "*An Intelligent App, or Pet, by Astra.*".
 
 <details><summary>What the fix PR changes, exactly</summary>
 
 - Added CLAUDE.md (pointer to AGENTS.md and the hub rules).
-- README: added the credit line "*A pet app by Astra.*".
+- README: added the credit line "*An Intelligent App, or Pet, by Astra.*".
+- 2026-10-18 refresh: Brought up to date with main (1 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

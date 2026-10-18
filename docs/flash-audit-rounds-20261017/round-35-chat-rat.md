@@ -41,6 +41,7 @@
 
 - Retired names: 6 replacement(s) in AGENTS.md, desktop-pet-20261011.json, pet.json, sprite-20261009.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
+- 2026-10-18 refresh: Brought up to date with main (7 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 1 in AGENTS.md. README: Limits section from INTELLIGENCE-LEVELS.md. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

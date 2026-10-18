@@ -33,7 +33,7 @@
 
 - **A09 Program page** — pet.json declares no entry (the program page).
 - **A14 Required files** — Required files: pet.json, AGENTS.md, CLAUDE.md, LICENSE
-- **A15 README and credit** — README lacks the credit line "*A pet app by Astra.*". No model, version and date recorded.
+- **A15 README and credit** — README lacks the credit line "*An Intelligent App, or Pet, by Astra.*". No model, version and date recorded.
 - **A16 pet.json** — pet.json is not a JSON object.
 
 <details><summary>What the fix PR changes, exactly</summary>
@@ -42,7 +42,8 @@
 - Added CLAUDE.md (pointer to AGENTS.md and the hub rules).
 - Added AGENTS.md (house rules pointer).
 - Added LICENSE (MIT, the house default for public pet repos).
-- README: added the credit line "*A pet app by Astra.*".
+- README: added the credit line "*An Intelligent App, or Pet, by Astra.*".
+- 2026-10-18 refresh: Brought up to date with main (1 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

@@ -25,6 +25,13 @@ namespace AstraDesktopPets {
     internal static string Root;
     internal static string StateFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "astras-pet-apps", "desktop-pets-status-20261008.json"); } }
     internal static string TestStateFile { get { return Path.Combine(Path.GetDirectoryName(StateFile),"desktop-pets-test-status-20261008.json"); } }
+    // The draft list lives in this hub, next to the pictures (Flash Audit A58, one art source), so every star reads the same
+    // list: a program started inside the Claude or Codex app sees that app's private copy of %LOCALAPPDATA% (2026-10-18).
+    // ASTRAS_PET_DRAFTS points at another list, for previews and tests. The old local list is read only while the hub has none.
+    internal const string DraftsList="desktop-art/desktop-drafts-20261018.json";
+    internal static string DraftsFile { get {
+      string other=Environment.GetEnvironmentVariable("ASTRAS_PET_DRAFTS");if(!String.IsNullOrWhiteSpace(other))return other;
+      string hub=SafePath(DraftsList);return File.Exists(hub)?hub:Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"); } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
     internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
@@ -34,6 +41,24 @@ namespace AstraDesktopPets {
       string full=Path.GetFullPath(Path.Combine(Root,relative.Replace('/',Path.DirectorySeparatorChar)));
       if(!full.StartsWith(Root+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Pet asset is outside its app folder.");
       return full;
+    }
+    // A draft's picture path is relative to this hub folder. Only an entry marked "private": true reads elsewhere: art that
+    // may not be public (Claude Bot's exact BSOD copy; Astra, 2026-10-17) is read from its own repo folder next to the hub,
+    // named by "repo" (on Astra's PC Claude Bot's sits one level down, in claude-bot-draft-art-20261011), or, in an old
+    // local list, from a full path.
+    internal static string DraftPath(Dictionary<string,object> entry,string path) {
+      object flag;bool own=entry.TryGetValue("private",out flag)&&flag is bool&&(bool)flag;
+      if(!own)return SafePath(path);
+      if(Path.IsPathRooted(path))return Path.GetFullPath(path);
+      string repo=Text(entry,"repo");
+      if(!System.Text.RegularExpressions.Regex.IsMatch(repo,"^[a-z0-9]+(-[a-z0-9]+)*$"))throw new InvalidDataException("A private draft needs its repo name.");
+      string parent=Path.GetDirectoryName(Root);
+      foreach(string folder in new[]{Path.Combine(parent,repo),Path.Combine(parent,repo,repo+"-draft-art-20261011")}) {
+        string full=Path.GetFullPath(Path.Combine(folder,path.Replace('/',Path.DirectorySeparatorChar)));
+        if(!full.StartsWith(folder+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Private draft art is outside its repo folder.");
+        if(File.Exists(full))return full;
+      }
+      throw new FileNotFoundException("Private draft art is not in the "+repo+" folder next to the hub: "+path);
     }
     internal static string Text(Dictionary<string,object> obj,string key,string fallback="") { object value; return obj.TryGetValue(key,out value)&&value!=null?Convert.ToString(value,CultureInfo.InvariantCulture):fallback; }
     internal static bool StartupEnabled() { using(var key=Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))return key!=null&&String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal); }
@@ -84,7 +109,7 @@ namespace AstraDesktopPets {
         var choice=choices[new Random(Guid.NewGuid().GetHashCode()).Next(choices.Count)];
         pet.Idle=new Bitmap(256,256,PixelFormat.Format32bppArgb);
         using(var canvas=Graphics.FromImage(pet.Idle))foreach(string path in (ArrayList)choice["layers"]){
-          using(var layer=Detached(path)) {
+          using(var layer=Detached(PetFiles.DraftPath(entry,path))) {
             if(Path.GetFileName(path)=="outlineB.png")using(var ink=new ImageAttributes()){
               var black=new ColorMatrix();black.Matrix00=black.Matrix11=black.Matrix22=0;ink.SetColorMatrix(black);
               canvas.DrawImage(layer,new Rectangle(0,0,256,256),0,0,layer.Width,layer.Height,GraphicsUnit.Pixel,ink);
@@ -92,7 +117,7 @@ namespace AstraDesktopPets {
           }
         }
         pet.Blink=new Bitmap(pet.Idle);pet.Name+=" "+style+" #"+PetFiles.Text(choice,"code");
-      }else {pet.Idle=Detached(PetFiles.Text(entry,"idle"));pet.Blink=Detached(PetFiles.Text(entry,"blink"));}
+      }else {pet.Idle=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"idle")));pet.Blink=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"blink")));}
       CrispTransparency(pet.Idle);CrispTransparency(pet.Blink);
       pet.Crop=Rectangle.Union(AlphaBounds(pet.Idle),AlphaBounds(pet.Blink));
       pet.PrepareEffects();pet.idleInk=BlackMask(pet.Idle);pet.blinkInk=BlackMask(pet.Blink);return pet;
@@ -381,8 +406,15 @@ namespace AstraDesktopPets {
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
     internal const float NormalHeight=58.75f,BugHeight=58.75f,MaxPetWidth=96;
+    // Group 3 share Mommy's Mommies' face and body in art pixels (docs/girls-same-size-20261017.md). Halos,
+    // horns, wings, the star and the headset make their alpha bounds differ, so instead of each being fitted
+    // by its bounds they all use one crop height, measured up from the soles: one scale for all six girls.
+    // 202 is Mommy's Mommies' own height, so they are drawn exactly as before.
+    internal static readonly string[] SameSize={"mommys-mommies","discord-damsel","api-fairy","astra-wisp","vscode-angel"};
+    internal const int SameSizeCrop=202;
     const int LogicalWidth=20,LogicalHeight=20,StarDrop=0;
     readonly List<PetSprite> pets=new List<PetSprite>();
+    readonly List<string> draftErrors=new List<string>();
     readonly List<PetWindow> roaming=new List<PetWindow>();
     internal bool LinedUp;
     readonly System.Windows.Forms.Timer timer=new System.Windows.Forms.Timer { Interval=200 };
@@ -468,11 +500,13 @@ namespace AstraDesktopPets {
     void LoadPets() {
       var registry=PetFiles.Read("pets.json");var index=(Dictionary<string,object>)PetFiles.Read("art/frames/index.json")["pets"];
       foreach(var raw in (ArrayList)registry["pets"]) { var sprite=PetSprite.Load((Dictionary<string,object>)raw,index);if(sprite.Role=="host") { if(farmer!=null)throw new InvalidDataException("There must be one Farmer.");farmer=sprite; }else pets.Add(sprite); }
-      // Local-only draft roster keeps private artwork and machine paths outside the public hub.
-      string drafts=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"astras-pet-apps","desktop-drafts-20261011.json");
+      // The draft list (desktop-art/desktop-drafts-20261018.json, written by scripts/prepare-desktop-drafts-20261011.mjs) names the draft pets.
+      string drafts=PetFiles.DraftsFile;
       if(File.Exists(drafts))foreach(var raw in (ArrayList)PetFiles.Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(drafts))["pets"]) {
         var entry=(Dictionary<string,object>)raw;string id=PetFiles.Text(entry,"id");
-        if(!pets.Exists(p=>p.Id==id)&&farmer.Id!=id)pets.Add(PetSprite.LoadDraft(entry));
+        // A draft that cannot load (a missing file, or a path outside the hub from an old list) is skipped, not fatal:
+        // run scripts/prepare-desktop-drafts-20261011.mjs to write the list again. The status file names it.
+        if(!pets.Exists(p=>p.Id==id)&&farmer.Id!=id)try{pets.Add(PetSprite.LoadDraft(entry));}catch(Exception error){if(!(error is InvalidDataException||error is IOException||error is ArgumentException))throw;draftErrors.Add(id+": "+error.Message);}
       }
       if(farmer==null||pets.Count==0)throw new InvalidDataException("The desktop pets need their Farmer and pets.");
     }
@@ -500,7 +534,8 @@ namespace AstraDesktopPets {
     void LayoutPets() {
       // Every pet stands the same height; wide art is fitted without distortion.
       foreach(var pet in pets) { float h=pet.Id=="voicemeeter-bug"?BugHeight:NormalHeight;float w=h*pet.Crop.Width/pet.Crop.Height;if(w>MaxPetWidth){h*=MaxPetWidth/w;w=MaxPetWidth;}float size=1;
-        switch(pet.Id) { case "wifi-butterfly":size=0.7f;break;case "fuzzboi-friend":size=0.75f;break;case "paper-girl":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break;case "claude-bot":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=1.5f;break;case "rift-rabbit":case "chat-rat":size=0.9f;break;case "meme-fiend":case "raspberry-berry":size=0.8f;break;case "rgbee":size=0.7f;break;case "mesh-moth":size=0.64f;break;case "spoonfed-sugarcube":size=0.7f;break;case "health-hummy":size=0.7776f;break;case "voicemeeter-bug":case "mail-snail":case "portfolio-puffer":case "ghost-protocol":size=0.8f;break;case "finance-finch":case "backup-beaver":case "patch-cat":size=0.85f;break;case "file-master":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break; }
+        if(Array.IndexOf(SameSize,pet.Id)>=0) { pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop,pet.Crop.Right,pet.Crop.Bottom);h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height; }
+        switch(pet.Id) { case "wifi-butterfly":size=0.7f;break;case "fuzzboi-friend":size=0.75f;break;case "paper-girl":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break;case "claude-bot":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=1.5f;break;case "rift-rabbit":size=0.9f;break;case "chat-rat":size=0.8f;break;case "meme-fiend":case "raspberry-berry":size=0.8f;break;case "rgbee":size=0.7f;break;case "mesh-moth":size=0.64f;break;case "spoonfed-sugarcube":size=0.7f;break;case "health-hummy":size=0.7776f;break;case "voicemeeter-bug":case "mail-snail":case "portfolio-puffer":case "ghost-protocol":size=0.8f;break;case "finance-finch":case "backup-beaver":case "patch-cat":size=0.85f;break;case "file-master":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break; }
         pet.Hit=new RectangleF(0,0,w*size,h*size); }
       float fh=NormalHeight*0.9f,fw=fh*farmer.Crop.Width/farmer.Crop.Height;farmer.Hit=new RectangleF(0,0,fw,fh);
     }
@@ -672,7 +707,7 @@ namespace AstraDesktopPets {
       if(test&&!started)return;
       int needed=(int)Math.Ceiling(LogicalWidth*scale);Rectangle area=Screen.FromRectangle(dockBounds??Bounds).WorkingArea;
       int sparkleCount=0;foreach(var pet in roaming)sparkleCount+=pet.SparkleCount;
-      PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=pets.Find(p=>p.Id=="voicemeeter-bug").Hit.Height,normal_height=NormalHeight,paper_girl_height=pets.Find(p=>p.Id=="paper-girl").Hit.Height,paper_girl_width=pets.Find(p=>p.Id=="paper-girl").Hit.Width,file_master_height=pets.Find(p=>p.Id=="file-master").Hit.Height,file_master_width=pets.Find(p=>p.Id=="file-master").Hit.Width,pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
+      PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=pets.Find(p=>p.Id=="voicemeeter-bug").Hit.Height,normal_height=NormalHeight,paper_girl_height=pets.Find(p=>p.Id=="paper-girl").Hit.Height,paper_girl_width=pets.Find(p=>p.Id=="paper-girl").Hit.Width,file_master_height=pets.Find(p=>p.Id=="file-master").Hit.Height,file_master_width=pets.Find(p=>p.Id=="file-master").Hit.Width,pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),draft_errors=draftErrors.ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
     }
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
@@ -682,11 +717,16 @@ namespace AstraDesktopPets {
       foreach(var pet in pets)if(pet.Hit.Height>(pet.Id=="claude-bot"?NormalHeight*1.5f:NormalHeight)+.01f||pet.Hit.Width>MaxPetWidth+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
       if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
+      foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
+        if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
 
       Rectangle left=new Rectangle(-1920,0,1920,1080);Size size=new Size(690,172);
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
       if(!PetFiles.StartupCommand.StartsWith("\""+PetFiles.Exe+"\" \""))throw new Exception("Startup quoting failed.");
       bool rejected=false;try{PetFiles.SafePath("../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("Asset path validation failed.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"}},Path.Combine(Path.GetTempPath(),"outside.png"));}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A public draft reached outside the hub.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","claude-bot"}},"../../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft reached outside its repo folder.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","../x"}},"idle.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft named a folder that is not a repo.");
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
       ClickTests();
@@ -708,7 +748,7 @@ namespace AstraDesktopPets {
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
-      Console.WriteLine("PASS: roster, decoded sprites, layout, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {

@@ -52,6 +52,11 @@ export function frameDirectory(id) {
    here, over the penguin Astra signed off on. */
 export const WEARS = { 'portfolio-puffer': ['glasses'] };
 
+/* Sheets drawn at frame size (one sheet pixel per frame pixel), cut without fitting. Every other sheet is
+   fitted so its drawing is about 200px; these girls share Mommy's Mommies' head and body in pixels
+   (docs/girls-same-size-20261017.md), so their frames keep the sheet's own sizes. */
+export const NATIVE = { 'api-fairy': 1, 'discord-damsel': 1 };
+
 /** One frame of { pal, rows } to a transparent PNG. */
 function framePng(frame, W, H) {
   const rgba = Buffer.alloc(W * H * 4); // all zero: fully transparent
@@ -130,7 +135,7 @@ export function buildFrames({ size = 256, colours = 24, only = [], log = console
       if (originalArt) {
         sprite = chipOriginalSprite({ size });
       } else if (existsSync(sheet)) {
-        sprite = sheetToSprite(readFileSync(sheet), { size, colours });
+        sprite = sheetToSprite(readFileSync(sheet), { size, colours, native: NATIVE[id] });
       } else {
         // The sheet is gone (it happened to the Farmer): fall back to the last small conversion,
         // enlarged. Marked as a placeholder so nobody mistakes it for finished art.

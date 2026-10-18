@@ -1,0 +1,24 @@
+{
+  "pet": "meme-fiend",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/meme-fiend/alarmed-20261011.png",
+    "desktop-art/meme-fiend/blink-20261011.png",
+    "desktop-art/meme-fiend/curious-20261011.png",
+    "desktop-art/meme-fiend/happy-20261011.png",
+    "desktop-art/meme-fiend/idle-20261011.png",
+    "desktop-art/meme-fiend/sad-20261011.png",
+    "desktop-art/meme-fiend/sick-20261011.png",
+    "desktop-art/meme-fiend/sleep-20261011.png",
+    "desktop-art/meme-fiend/worried-20261011.png"
+  ],
+  "notes": "Cute idle face like Astra's favourite pets: round dark eyes with a white highlight, pink blush, small cat mouth (was half-lidded eyes and a smirk). Other moods unchanged.",
+  "source_sheet": "desktop-art/meme-fiend/sheet-20261011.png",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-17, at Astra's request"
+}

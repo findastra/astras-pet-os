@@ -29,6 +29,7 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
 [PROTECTION-RINGS.md](PROTECTION-RINGS.md) and `skills/farm-security`, `skills/dev-mindset` and
 `skills/new-pet-or-tool` before changing anything. In short:
 - This repo is the core (ring 0): every change lands on a branch and merges only with Astra's approval.
+  **Approval, not clicks (Astra, 2026-10-18):** Astra's OK is still required, but she gives it in chat ("ok", "merge"). Once tests pass, the assistant merges the branch itself (or pushes the approved change to `main`) and links the commit. Never ask Astra to open GitHub to merge.
   Pets and pet programs (rings 2 and 3) are worked on branches too.
 - Nobody becomes an animal by saying so. New pets wait in `candidates` until Astra moves them in; scripts that act
   on a repo call `scripts/animal-guard-20261013.mjs` first.
@@ -79,7 +80,7 @@ Passport Panda is now **Passport Pelican**).
   software, deleting, force-pushing or repository transfers.
 - Who edits what while Claude and Codex work in parallel: see "Who edits what" in the plan.
 
-*A pet app by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
+*An Intelligent App, or Pet, by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
 
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record your model name and version here when you change something substantial.
 Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6), 2026-10-08.
@@ -95,6 +96,9 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
+- **One art source (Astra, 2026-10-18).** Every pet picture lives only here (`art/`, `desktop-art/`; PET-FILES.md,
+  "Where the pictures live"). Other repos, pages and the desktop pets link to it and never keep a copy. Claude Bot's
+  private BSOD copy is the one exception. Check with `node scripts/one-art-source-20261017.mjs` (Flash Audit A58).
 - **One style for every pet:** 256×256 finished transparent frames (Mommy's Mommies share one
   square sprite), nine moods, **generated** as a 3×3 sheet and converted by `scripts/sheet-to-sprites.mjs`.
   Prompts live in `scripts/generate-pets.mjs`; the shared `STYLE` string is never forked per pet.
@@ -148,9 +152,15 @@ Latest owner follow-up, OpenAI Codex (GPT-6), 2026-10-11: use docs/pet-revisions
 
 Paired desktop revision by OpenAI Codex (GPT-6), 2026-10-11: Paper Girl has no NEWS lettering and matches File Master's small rectangular eyes. File Master wears a crown and stern expression. They stay together during roaming; dragging either makes it lead. See docs/pet-partners-20261011.md. Preserve their equal heights and the existing no-sparkle rule.
 
-Astra's PetOS System Map, also called the 3D PFD (`system-map-20261012.html`, `system-map.json`, `scripts/system-map-20261012.mjs`, template `scripts/system-map-template-20261012.html`, guarded by `test/system-map-test-20261012.mjs`): the 3D map of every pet, model, program and piece of infrastructure and the links between them, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Pet-to-pet links belong in `relations` in pets.json; links with a non-pet end belong in system-map.json.
+Astra's PetOS System Map, also called the 3D PFD (`system-map-20261012.html`, `system-map.json`, `scripts/system-map-20261012.mjs`, template `scripts/system-map-template-20261012.html`, guarded by `test/system-map-test-20261012.mjs`): the 3D map of every pet, model, program and piece of infrastructure and the links between them, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Pet-to-pet links belong in `relations` in pets.json; links with a non-pet end belong in system-map.json. Redone with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17 and 2026-10-18 (Astra, option A): rings say where a thing lives and R W X lives on grants in system-map.json `access`, each enforced, written only or planned, shown on every card and generated into PROTECTION-RINGS.md; pet program names come from pet-programs.json; names placed by importance so none overlap; Claude Code and Codex drawn as rings around their AI; a 2D | 3D switch that folds the spheres flat; groups (the 13 trackers, 4 base stations, 2 controllers) whose lines reach each member (card 034).
 ASTRAS_PET_OS name and top-level architecture file (`ASTRAS_PET_OS.md`) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12.
 Astra's PetOS restructuring with Claude Opus 5.5 (`claude-opus-5-5`), head chat, 2026-10-12: repo renamed to astras-pet-os; the Cage retired from the Farmer's job and the README; names Gone Ghost and Patty; jobs from Astra's descriptions; seeds Photo Dodo and Video Vulture; Journal Jellyfish; INTELLIGENCE-LEVELS.md (program, runtime, updates, agentic harness, errors); the System Map's own-program shell, scroll and scroll-click controls, and pet icons (art/icons, art/seeds drafts).
 Pet-first profile lines (`N. **Pet** · *Home* · [`repo`](link) -- job [status]`), the Friendly Farmer's `pet-organizer` and `pet-finder` tricks (skills/pet-organizer, skills/pet-finder) and the read-only pet-finder tool (`scripts/pet-finder-20261016.mjs`, guarded by `test/pet-first-test-20261016.mjs`) with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Card 012 lists what waits on Astra. Later the same day Astra moved the home, repo and tools off the pet line into sub-bullets: `N. **Pet** -- job [status]`, then `- home`, `- repo`, `- tools` (skills/pet-organizer).
 The Farmer's daily round repaired and known gap 11 closed (the round opens a pull request on `farmer/rounds-YYYYMMDD` instead of pushing to `main`; a submitted name is only a note; the desk builder finds the host by role; `test/farmer-rounds-pr-test-20261017.mjs`) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 Flash Audit put in priority order (most imperative first, with the insertion rule), new checks A54 third-party programs, A55 pictures and A56 work saved in its native folder, and the project-image-generator decision, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
+Pole Puff draft app (`drafts/pole-puff/`, card 024; the `pole-puff` repo is approved but not created) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12; rewritten onto `main` from PR #8, 2026-10-18.
+Blueprint for the chat bot, a GitHub-issue queue and systemic updates (`docs/chat-bot-queue-blueprint-20261009.md`, a draft waiting on Astra's decisions) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-09; rewritten onto `main` from PR #7 with what changed since, 2026-10-18.
+
+Pet art redesign (rat size, brighter RGBee and Mesh Moth, WiFi Butterfly's face, Meme Fiend's cute face, Farmer, Discord Damsel and API Fairy at Mommy's Mommies' body ratio, Claude Bot as an exact BSOD copy in its now-private repo), Flash Audit A58 One art source and card 030 for the redraws, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17. Record: docs/pet-art-redesign-20261017.md.
+Group 3 at Mommy's Mommies' exact face and body in pixels (the head measured without hair: face 49 wide, 26 eye top to chin, body 109 on the frames; Mommy's Mommies unchanged), `NATIVE` sheets in the build, Mommy's Mommies' desktop scale for the five sprites (`SameSize` in scripts/desktop-pets-20261011.cs) and card 031, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/girls-same-size-20261017.md.
+One art source (Flash Audit A58, approved by Astra 2026-10-18): every pet picture moved into this hub, the desktop pets read only this folder (Claude Bot's private BSOD copy excepted), `scripts/one-art-source-20261017.mjs` checks it, and 35 pet-repo PRs point at the hub, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/one-art-source-20261017.md.

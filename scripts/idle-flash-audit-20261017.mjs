@@ -197,7 +197,8 @@ for (const prog of catalog) {
   if (!readme) add('A15', 'Missing', 'No README.md.');
   else {
     if (h1 && norm(h1) !== norm(want) && norm(h1) !== norm(prog.icon)) add('A15', 'Incorrect', `README title "${h1}" is neither the repo name in Title Case ("${want}") nor the pet name.`);
-    if (!/A pet app by Astra/i.test(readme)) add('A15', 'Missing', 'README lacks the credit line "*A pet app by Astra.*".', { fix: { type: 'credit' } });
+    // The credit is "An Intelligent App, or Pet, by Astra." (Astra, 2026-10-18, card 033); the old line still passes while repos switch.
+    if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme)) add('A15', 'Missing', 'README lacks the credit line "*An Intelligent App, or Pet, by Astra.*".', { fix: { type: 'credit' } });
     if (!/^#{2,3}\s.*(run|start|install|use|open|get it|download|quick)/im.test(readme)) add('A15', 'Missing', 'README has no "how to run it" section.');
     if (!/^#{2,3}\s.*(limit|not done|known|what.*(can|doesn))/im.test(readme)) add('A15', 'Missing', 'README has no Limits section.', { fix: { type: 'limits' } });
     if (!/(Claude|Codex|GPT|Opus|Sonnet|Haiku)[^\n]{0,80}20\d\d-\d\d-\d\d/.test(readme + (pet?.built_with || ''))) add('A15', 'Missing', 'No model, version and date recorded.');

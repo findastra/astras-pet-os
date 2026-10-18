@@ -47,6 +47,7 @@
 - Added CLAUDE.md (pointer to AGENTS.md and the hub rules).
 - Added LICENSE (MIT, the house default for public pet repos).
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. README: Limits section from INTELLIGENCE-LEVELS.md. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

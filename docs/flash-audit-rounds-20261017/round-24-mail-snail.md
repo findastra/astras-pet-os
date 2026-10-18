@@ -41,6 +41,7 @@
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-12. That submission needs the Farmer and Astra.
 - pet.json: audit block copied from the registry.
 - README: the stale "Not in the Cage yet ... card 008" line now says it is a pipeline pet in pets.json (card 008 is an old dropped draft).
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 2 in AGENTS.md, README.md. Not changed: the pet submitted its own job on 2026-10-12; that waits on the Farmer and Astra. pet.json: audit block from the registry. README: the stale card 008 line now says it is a pipeline pet. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

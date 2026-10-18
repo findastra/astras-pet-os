@@ -592,34 +592,7 @@
  {
   "round": 44,
   "pet": "Video Vulture",
-  "program": "pet-program-44",
-  "repo": "pet-program-44",
-  "card": "round-44-pet-program-44.md",
-  "kind": "Program name",
-  "text": "**Program name** for Video Vulture (now `pet-program-44`). Pick one, or write your own:",
-  "options": [
-   [
-    "Video Vault",
-    "the catalog idea: a vault of saved videos"
-   ],
-   [
-    "Film Perch",
-    "the vulture's perch over every video"
-   ],
-   [
-    "The Video Archive",
-    "plain, and a pair with a Photo Archive"
-   ],
-   [
-    "Reel Canyon",
-    "a canyon of reels, each one found and backed up"
-   ]
-  ]
- },
- {
-  "round": 44,
-  "pet": "Video Vulture",
-  "program": "pet-program-44",
+  "program": "Video Vault",
   "repo": "pet-program-44",
   "card": "round-44-pet-program-44.md",
   "kind": "Merge",
@@ -629,34 +602,7 @@
  {
   "round": 45,
   "pet": "Closet Cat",
-  "program": "pet-program-45",
-  "repo": "the-cats-closet",
-  "card": "round-45-the-cats-closet.md",
-  "kind": "Program name",
-  "text": "**Program name** for Closet Cat (now `pet-program-45`). Pick one, or write your own:",
-  "options": [
-   [
-    "Catwalk",
-    "the catalog idea: outfits and what goes together"
-   ],
-   [
-    "The Wardrobe Den",
-    "what you own, in one place"
-   ],
-   [
-    "Closet Kingdom",
-    "a pair with File Kingdom, for clothes"
-   ],
-   [
-    "Style Scratchpad",
-    "outfits plus favourite places to shop"
-   ]
-  ]
- },
- {
-  "round": 45,
-  "pet": "Closet Cat",
-  "program": "pet-program-45",
+  "program": "The Cat's Closet",
   "repo": "the-cats-closet",
   "card": "round-45-the-cats-closet.md",
   "kind": "Merge",
@@ -676,34 +622,7 @@
  {
   "round": 47,
   "pet": "Queue Quokka",
-  "program": "pet-program-47",
-  "repo": "pet-program-47",
-  "card": "round-47-pet-program-47.md",
-  "kind": "Program name",
-  "text": "**Program name** for Queue Quokka (now `pet-program-47`). Pick one, or write your own:",
-  "options": [
-   [
-    "Task Island",
-    "the catalog idea"
-   ],
-   [
-    "Queue Burrow",
-    "where stalled jobs and retries wait"
-   ],
-   [
-    "The Handoff Station",
-    "agent handoffs and retries in one place"
-   ],
-   [
-    "Quokka Line",
-    "a cheerful queue that never gets stuck"
-   ]
-  ]
- },
- {
-  "round": 47,
-  "pet": "Queue Quokka",
-  "program": "pet-program-47",
+  "program": "Task Island",
   "repo": "pet-program-47",
   "card": "round-47-pet-program-47.md",
   "kind": "Merge",
@@ -713,34 +632,7 @@
  {
   "round": 48,
   "pet": "Log Lynx",
-  "program": "pet-program-48",
-  "repo": "pet-program-48",
-  "card": "round-48-pet-program-48.md",
-  "kind": "Program name",
-  "text": "**Program name** for Log Lynx (now `pet-program-48`). Pick one, or write your own:",
-  "options": [
-   [
-    "Log Den",
-    "the catalog idea"
-   ],
-   [
-    "Trace Forest",
-    "following logs and traces through the trees"
-   ],
-   [
-    "The Watch Tower",
-    "health and failures seen from above"
-   ],
-   [
-    "Lynx Lookout",
-    "sharp eyes on every log"
-   ]
-  ]
- },
- {
-  "round": 48,
-  "pet": "Log Lynx",
-  "program": "pet-program-48",
+  "program": "Log Den",
   "repo": "pet-program-48",
   "card": "round-48-pet-program-48.md",
   "kind": "Merge",
@@ -750,34 +642,7 @@
  {
   "round": 49,
   "pet": "Server Salamander",
-  "program": "pet-program-49",
-  "repo": "pet-program-49",
-  "card": "round-49-pet-program-49.md",
-  "kind": "Program name",
-  "text": "**Program name** for Server Salamander (now `pet-program-49`). Pick one, or write your own:",
-  "options": [
-   [
-    "Server Hearth",
-    "the catalog idea: home servers kept warm"
-   ],
-   [
-    "Uptime Cave",
-    "a salamander's cave of services"
-   ],
-   [
-    "The Server Room",
-    "plain about the job"
-   ],
-   [
-    "Ember Rack",
-    "servers as embers it keeps alive"
-   ]
-  ]
- },
- {
-  "round": 49,
-  "pet": "Server Salamander",
-  "program": "pet-program-49",
+  "program": "Server Hearth",
   "repo": "pet-program-49",
   "card": "round-49-pet-program-49.md",
   "kind": "Merge",
@@ -787,34 +652,7 @@
  {
   "round": 50,
   "pet": "Docker Dragon",
-  "program": "pet-program-50",
-  "repo": "pet-program-50",
-  "card": "round-50-pet-program-50.md",
-  "kind": "Program name",
-  "text": "**Program name** for Docker Dragon (now `pet-program-50`). Pick one, or write your own:",
-  "options": [
-   [
-    "Container Hoard",
-    "the catalog idea: a dragon's hoard"
-   ],
-   [
-    "Dragon Harbor",
-    "where containers dock"
-   ],
-   [
-    "The Container Yard",
-    "plain about the job"
-   ],
-   [
-    "Docker Lair",
-    "the dragon's lair of images and containers"
-   ]
-  ]
- },
- {
-  "round": 50,
-  "pet": "Docker Dragon",
-  "program": "pet-program-50",
+  "program": "Container Hoard",
   "repo": "pet-program-50",
   "card": "round-50-pet-program-50.md",
   "kind": "Merge",
@@ -824,34 +662,7 @@
  {
   "round": 51,
   "pet": "Test Tortoise",
-  "program": "pet-program-51",
-  "repo": "pet-program-51",
-  "card": "round-51-pet-program-51.md",
-  "kind": "Program name",
-  "text": "**Program name** for Test Tortoise (now `pet-program-51`). Pick one, or write your own:",
-  "options": [
-   [
-    "Test Track",
-    "the catalog idea"
-   ],
-   [
-    "The Proving Grounds",
-    "where releases prove themselves"
-   ],
-   [
-    "Shell Check",
-    "the tortoise checks before anything ships"
-   ],
-   [
-    "Slow and Sure",
-    "careful release verification"
-   ]
-  ]
- },
- {
-  "round": 51,
-  "pet": "Test Tortoise",
-  "program": "pet-program-51",
+  "program": "Test Track",
   "repo": "pet-program-51",
   "card": "round-51-pet-program-51.md",
   "kind": "Merge",
@@ -861,34 +672,7 @@
  {
   "round": 52,
   "pet": "Token Toucan",
-  "program": "pet-program-52",
-  "repo": "pet-program-52",
-  "card": "round-52-pet-program-52.md",
-  "kind": "Program name",
-  "text": "**Program name** for Token Toucan (now `pet-program-52`). Pick one, or write your own:",
-  "options": [
-   [
-    "Token Canopy",
-    "the catalog idea"
-   ],
-   [
-    "The Token Bank",
-    "budgets and spend, plainly"
-   ],
-   [
-    "Budget Branch",
-    "the toucan's branch for AI costs"
-   ],
-   [
-    "Toucan Tally",
-    "counts every model token"
-   ]
-  ]
- },
- {
-  "round": 52,
-  "pet": "Token Toucan",
-  "program": "pet-program-52",
+  "program": "Token Canopy",
   "repo": "pet-program-52",
   "card": "round-52-pet-program-52.md",
   "kind": "Merge",
@@ -898,34 +682,7 @@
  {
   "round": 53,
   "pet": "Packet Piranha",
-  "program": "pet-program-53",
-  "repo": "pet-program-53",
-  "card": "round-53-pet-program-53.md",
-  "kind": "Program name",
-  "text": "**Program name** for Packet Piranha (now `pet-program-53`). Pick one, or write your own:",
-  "options": [
-   [
-    "Packet River",
-    "the catalog idea"
-   ],
-   [
-    "The Network Rapids",
-    "loss, latency and routing in the current"
-   ],
-   [
-    "Piranha Pipes",
-    "it bites on dropped packets"
-   ],
-   [
-    "DNS Delta",
-    "where the routes fan out"
-   ]
-  ]
- },
- {
-  "round": 53,
-  "pet": "Packet Piranha",
-  "program": "pet-program-53",
+  "program": "Packet River",
   "repo": "pet-program-53",
   "card": "round-53-pet-program-53.md",
   "kind": "Merge",
@@ -935,34 +692,7 @@
  {
   "round": 54,
   "pet": "Calendar Crow",
-  "program": "pet-program-54",
-  "repo": "pet-program-54",
-  "card": "round-54-pet-program-54.md",
-  "kind": "Program name",
-  "text": "**Program name** for Calendar Crow (now `pet-program-54`). Pick one, or write your own:",
-  "options": [
-   [
-    "Crow's Nest",
-    "the catalog idea: a lookout over the calendar"
-   ],
-   [
-    "The Schedule Roost",
-    "conflicts and reminders"
-   ],
-   [
-    "Calendar Rookery",
-    "a busy rookery of events"
-   ],
-   [
-    "Crow Clock",
-    "on time, every time"
-   ]
-  ]
- },
- {
-  "round": 54,
-  "pet": "Calendar Crow",
-  "program": "pet-program-54",
+  "program": "Crow's Nest",
   "repo": "pet-program-54",
   "card": "round-54-pet-program-54.md",
   "kind": "Merge",
@@ -972,34 +702,7 @@
  {
   "round": 55,
   "pet": "Browser Bat",
-  "program": "pet-program-55",
-  "repo": "pet-program-55",
-  "card": "round-55-pet-program-55.md",
-  "kind": "Program name",
-  "text": "**Program name** for Browser Bat (now `pet-program-55`). Pick one, or write your own:",
-  "options": [
-   [
-    "Browser Belfry",
-    "the catalog idea"
-   ],
-   [
-    "The Web Cave",
-    "authorized browser work and site checks"
-   ],
-   [
-    "Bat Signal",
-    "website QA that calls out problems"
-   ],
-   [
-    "Night Crawl",
-    "a careful crawl of every page"
-   ]
-  ]
- },
- {
-  "round": 55,
-  "pet": "Browser Bat",
-  "program": "pet-program-55",
+  "program": "Browser Belfry",
   "repo": "pet-program-55",
   "card": "round-55-pet-program-55.md",
   "kind": "Merge",
@@ -1009,34 +712,7 @@
  {
   "round": 56,
   "pet": "Data Dragonfly",
-  "program": "pet-program-56",
-  "repo": "pet-program-56",
-  "card": "round-56-pet-program-56.md",
-  "kind": "Program name",
-  "text": "**Program name** for Data Dragonfly (now `pet-program-56`). Pick one, or write your own:",
-  "options": [
-   [
-    "Data Marsh",
-    "the catalog idea"
-   ],
-   [
-    "The Data Pond",
-    "schemas and pipelines kept clean"
-   ],
-   [
-    "Pipeline Reeds",
-    "where the data flows through"
-   ],
-   [
-    "Dragonfly Ledger",
-    "data integrity, recorded"
-   ]
-  ]
- },
- {
-  "round": 56,
-  "pet": "Data Dragonfly",
-  "program": "pet-program-56",
+  "program": "Data Marsh",
   "repo": "pet-program-56",
   "card": "round-56-pet-program-56.md",
   "kind": "Merge",
@@ -1046,34 +722,7 @@
  {
   "round": 57,
   "pet": "Update Urchin",
-  "program": "pet-program-57",
-  "repo": "pet-program-57",
-  "card": "round-57-pet-program-57.md",
-  "kind": "Program name",
-  "text": "**Program name** for Update Urchin (now `pet-program-57`). Pick one, or write your own:",
-  "options": [
-   [
-    "Update Tidepool",
-    "the catalog idea"
-   ],
-   [
-    "The Patch Reef",
-    "packages and compatibility"
-   ],
-   [
-    "Urchin Upgrades",
-    "plain and pet-named"
-   ],
-   [
-    "Rollback Rock",
-    "updates with a way back"
-   ]
-  ]
- },
- {
-  "round": 57,
-  "pet": "Update Urchin",
-  "program": "pet-program-57",
+  "program": "Update Tidepool",
   "repo": "pet-program-57",
   "card": "round-57-pet-program-57.md",
   "kind": "Merge",
@@ -1083,34 +732,7 @@
  {
   "round": 58,
   "pet": "Linux Penguin",
-  "program": "pet-program-58",
-  "repo": "pet-program-58",
-  "card": "round-58-pet-program-58.md",
-  "kind": "Program name",
-  "text": "**Program name** for Linux Penguin (now `pet-program-58`). Pick one, or write your own:",
-  "options": [
-   [
-    "Linux Iceberg",
-    "the catalog idea"
-   ],
-   [
-    "Penguin Shell",
-    "SSH and the terminal"
-   ],
-   [
-    "The Ice Station",
-    "Linux administration headquarters"
-   ],
-   [
-    "Tux Colony",
-    "a colony of Linux machines"
-   ]
-  ]
- },
- {
-  "round": 58,
-  "pet": "Linux Penguin",
-  "program": "pet-program-58",
+  "program": "Linux Iceberg",
   "repo": "pet-program-58",
   "card": "round-58-pet-program-58.md",
   "kind": "Merge",
@@ -1120,34 +742,7 @@
  {
   "round": 59,
   "pet": "Stock Fox",
-  "program": "pet-program-59",
-  "repo": "pet-program-59",
-  "card": "round-59-pet-program-59.md",
-  "kind": "Program name",
-  "text": "**Program name** for Stock Fox (now `pet-program-59`). Pick one, or write your own:",
-  "options": [
-   [
-    "Market Meadow",
-    "the catalog idea; Stock Fox's job is still yours to choose"
-   ],
-   [
-    "The Fox Exchange",
-    "if the job is markets"
-   ],
-   [
-    "Den of Tickers",
-    "a fox's den of stock tickers"
-   ],
-   [
-    "Wait for the job",
-    "name it after you choose what Stock Fox does"
-   ]
-  ]
- },
- {
-  "round": 59,
-  "pet": "Stock Fox",
-  "program": "pet-program-59",
+  "program": "Market Meadow",
   "repo": "pet-program-59",
   "card": "round-59-pet-program-59.md",
   "kind": "Merge",
@@ -1157,34 +752,7 @@
  {
   "round": 60,
   "pet": "Passport Pelican",
-  "program": "pet-program-60",
-  "repo": "pet-program-60",
-  "card": "round-60-pet-program-60.md",
-  "kind": "Program name",
-  "text": "**Program name** for Passport Pelican (now `pet-program-60`). Pick one, or write your own:",
-  "options": [
-   [
-    "Passport Harbor",
-    "the catalog idea"
-   ],
-   [
-    "The Travel Desk",
-    "IDs, visas and deadlines, kept private"
-   ],
-   [
-    "Pelican Pouch",
-    "a pelican carries documents safely"
-   ],
-   [
-    "Border Beacon",
-    "warns before a passport or visa expires"
-   ]
-  ]
- },
- {
-  "round": 60,
-  "pet": "Passport Pelican",
-  "program": "pet-program-60",
+  "program": "Passport Harbor",
   "repo": "pet-program-60",
   "card": "round-60-pet-program-60.md",
   "kind": "Merge",
@@ -1194,34 +762,7 @@
  {
   "round": 61,
   "pet": "Journal Jellyfish",
-  "program": "pet-program-61",
-  "repo": "pet-program-61",
-  "card": "round-61-pet-program-61.md",
-  "kind": "Program name",
-  "text": "**Program name** for Journal Jellyfish (now `pet-program-61`). Pick one, or write your own:",
-  "options": [
-   [
-    "Journal Lagoon",
-    "the catalog idea"
-   ],
-   [
-    "Tide Diary",
-    "a private travel diary"
-   ],
-   [
-    "The Travel Log",
-    "plain about the job"
-   ],
-   [
-    "Jellyfish Drift",
-    "itineraries that drift from place to place"
-   ]
-  ]
- },
- {
-  "round": 61,
-  "pet": "Journal Jellyfish",
-  "program": "pet-program-61",
+  "program": "Journal Lagoon",
   "repo": "pet-program-61",
   "card": "round-61-pet-program-61.md",
   "kind": "Merge",
@@ -1231,34 +772,7 @@
  {
   "round": 62,
   "pet": "Shell Squid",
-  "program": "pet-program-62",
-  "repo": "pet-program-62",
-  "card": "round-62-pet-program-62.md",
-  "kind": "Program name",
-  "text": "**Program name** for Shell Squid (now `pet-program-62`). Pick one, or write your own:",
-  "options": [
-   [
-    "Shell Trench",
-    "the catalog idea"
-   ],
-   [
-    "Ink Terminal",
-    "a squid's ink for scripts"
-   ],
-   [
-    "The Script Reef",
-    "guarded automation"
-   ],
-   [
-    "Squid Shell",
-    "plain and pet-named"
-   ]
-  ]
- },
- {
-  "round": 62,
-  "pet": "Shell Squid",
-  "program": "pet-program-62",
+  "program": "Shell Trench",
   "repo": "pet-program-62",
   "card": "round-62-pet-program-62.md",
   "kind": "Merge",
@@ -1268,34 +782,7 @@
  {
   "round": 63,
   "pet": "Kernel Koala",
-  "program": "pet-program-63",
-  "repo": "pet-program-63",
-  "card": "round-63-pet-program-63.md",
-  "kind": "Program name",
-  "text": "**Program name** for Kernel Koala (now `pet-program-63`). Pick one, or write your own:",
-  "options": [
-   [
-    "Kernel Grove",
-    "the catalog idea"
-   ],
-   [
-    "The Core Tree",
-    "processes and memory at the root"
-   ],
-   [
-    "Eucalyptus Engine",
-    "the koala's tree of drivers"
-   ],
-   [
-    "Koala Core",
-    "plain and pet-named"
-   ]
-  ]
- },
- {
-  "round": 63,
-  "pet": "Kernel Koala",
-  "program": "pet-program-63",
+  "program": "Kernel Grove",
   "repo": "pet-program-63",
   "card": "round-63-pet-program-63.md",
   "kind": "Merge",
@@ -1305,34 +792,7 @@
  {
   "round": 64,
   "pet": "Proxy Axolotl",
-  "program": "pet-program-64",
-  "repo": "pet-program-64",
-  "card": "round-64-pet-program-64.md",
-  "kind": "Program name",
-  "text": "**Program name** for Proxy Axolotl (now `pet-program-64`). Pick one, or write your own:",
-  "options": [
-   [
-    "Proxy Lake",
-    "the catalog idea"
-   ],
-   [
-    "The Gatehouse Pond",
-    "secure private remote access"
-   ],
-   [
-    "Axolotl Tunnel",
-    "TLS tunnels and proxies"
-   ],
-   [
-    "Safe Passage",
-    "private access, done safely"
-   ]
-  ]
- },
- {
-  "round": 64,
-  "pet": "Proxy Axolotl",
-  "program": "pet-program-64",
+  "program": "Proxy Lake",
   "repo": "pet-program-64",
   "card": "round-64-pet-program-64.md",
   "kind": "Merge",
@@ -1342,34 +802,7 @@
  {
   "round": 65,
   "pet": "Cluster Crab",
-  "program": "pet-program-65",
-  "repo": "pet-program-65",
-  "card": "round-65-pet-program-65.md",
-  "kind": "Program name",
-  "text": "**Program name** for Cluster Crab (now `pet-program-65`). Pick one, or write your own:",
-  "options": [
-   [
-    "Cluster Shore",
-    "the catalog idea"
-   ],
-   [
-    "The Tide Pools",
-    "many services, one shoreline"
-   ],
-   [
-    "Crab Colony",
-    "distributed services that move together"
-   ],
-   [
-    "Orchestra Reef",
-    "orchestration as a reef"
-   ]
-  ]
- },
- {
-  "round": 65,
-  "pet": "Cluster Crab",
-  "program": "pet-program-65",
+  "program": "Cluster Shore",
   "repo": "pet-program-65",
   "card": "round-65-pet-program-65.md",
   "kind": "Merge",
@@ -1379,34 +812,7 @@
  {
   "round": 66,
   "pet": "Storage Stoat",
-  "program": "pet-program-66",
-  "repo": "pet-program-66",
-  "card": "round-66-pet-program-66.md",
-  "kind": "Program name",
-  "text": "**Program name** for Storage Stoat (now `pet-program-66`). Pick one, or write your own:",
-  "options": [
-   [
-    "Storage Warren",
-    "the catalog idea"
-   ],
-   [
-    "Snapshot Burrow",
-    "snapshots and capacity"
-   ],
-   [
-    "The Vault Den",
-    "NAS and ZFS health"
-   ],
-   [
-    "Stoat Stash",
-    "plain and pet-named"
-   ]
-  ]
- },
- {
-  "round": 66,
-  "pet": "Storage Stoat",
-  "program": "pet-program-66",
+  "program": "Storage Warren",
   "repo": "pet-program-66",
   "card": "round-66-pet-program-66.md",
   "kind": "Merge",
@@ -1416,34 +822,7 @@
  {
   "round": 67,
   "pet": "White Hat Weasel",
-  "program": "pet-program-67",
-  "repo": "pet-program-67",
-  "card": "round-67-pet-program-67.md",
-  "kind": "Program name",
-  "text": "**Program name** for White Hat Weasel (now `pet-program-67`). Pick one, or write your own:",
-  "options": [
-   [
-    "White Hat Lab",
-    "the catalog idea"
-   ],
-   [
-    "The Practice Range",
-    "authorized security tests only"
-   ],
-   [
-    "Weasel Watch",
-    "finds weak spots so they get fixed"
-   ],
-   [
-    "Patch Hollow",
-    "assessment and remediation"
-   ]
-  ]
- },
- {
-  "round": 67,
-  "pet": "White Hat Weasel",
-  "program": "pet-program-67",
+  "program": "White Hat Lab",
   "repo": "pet-program-67",
   "card": "round-67-pet-program-67.md",
   "kind": "Merge",
@@ -1453,34 +832,7 @@
  {
   "round": 68,
   "pet": "Port Spider",
-  "program": "pet-program-68",
-  "repo": "pet-program-68",
-  "card": "round-68-pet-program-68.md",
-  "kind": "Program name",
-  "text": "**Program name** for Port Spider (now `pet-program-68`). Pick one, or write your own:",
-  "options": [
-   [
-    "Port Web",
-    "the catalog idea"
-   ],
-   [
-    "The Harbor Map",
-    "which ports are open"
-   ],
-   [
-    "Spider Silk Scan",
-    "a careful web of exposure checks"
-   ],
-   [
-    "Open Door Patrol",
-    "services that should not be reachable"
-   ]
-  ]
- },
- {
-  "round": 68,
-  "pet": "Port Spider",
-  "program": "pet-program-68",
+  "program": "Port Web",
   "repo": "pet-program-68",
   "card": "round-68-pet-program-68.md",
   "kind": "Merge",
@@ -1490,34 +842,7 @@
  {
   "round": 69,
   "pet": "Cipher Owl",
-  "program": "pet-program-69",
-  "repo": "pet-program-69",
-  "card": "round-69-pet-program-69.md",
-  "kind": "Program name",
-  "text": "**Program name** for Cipher Owl (now `pet-program-69`). Pick one, or write your own:",
-  "options": [
-   [
-    "Cipher Hollow",
-    "the catalog idea"
-   ],
-   [
-    "The Key Tree",
-    "keys and certificates"
-   ],
-   [
-    "Owl Lockbox",
-    "encryption, kept wise"
-   ],
-   [
-    "Night Cipher",
-    "crypto education by an owl"
-   ]
-  ]
- },
- {
-  "round": 69,
-  "pet": "Cipher Owl",
-  "program": "pet-program-69",
+  "program": "Cipher Hollow",
   "repo": "pet-program-69",
   "card": "round-69-pet-program-69.md",
   "kind": "Merge",
@@ -1527,34 +852,7 @@
  {
   "round": 70,
   "pet": "Forensic Ferret",
-  "program": "pet-program-70",
-  "repo": "pet-program-70",
-  "card": "round-70-pet-program-70.md",
-  "kind": "Program name",
-  "text": "**Program name** for Forensic Ferret (now `pet-program-70`). Pick one, or write your own:",
-  "options": [
-   [
-    "Evidence Locker",
-    "the catalog idea"
-   ],
-   [
-    "The Timeline Den",
-    "incident timelines"
-   ],
-   [
-    "Ferret Files",
-    "log analysis, plainly"
-   ],
-   [
-    "Trace Tunnel",
-    "following an incident back"
-   ]
-  ]
- },
- {
-  "round": 70,
-  "pet": "Forensic Ferret",
-  "program": "pet-program-70",
+  "program": "Evidence Locker",
   "repo": "pet-program-70",
   "card": "round-70-pet-program-70.md",
   "kind": "Merge",
@@ -1564,34 +862,7 @@
  {
   "round": 71,
   "pet": "Llama Librarian",
-  "program": "pet-program-71",
-  "repo": "pet-program-71",
-  "card": "round-71-pet-program-71.md",
-  "kind": "Program name",
-  "text": "**Program name** for Llama Librarian (now `pet-program-71`). Pick one, or write your own:",
-  "options": [
-   [
-    "Model Library",
-    "the catalog idea"
-   ],
-   [
-    "The Llama Stacks",
-    "local models on shelves"
-   ],
-   [
-    "Weights Reading Room",
-    "downloads and compatibility"
-   ],
-   [
-    "Llama Ledger",
-    "an inventory of every local model"
-   ]
-  ]
- },
- {
-  "round": 71,
-  "pet": "Llama Librarian",
-  "program": "pet-program-71",
+  "program": "Model Library",
   "repo": "pet-program-71",
   "card": "round-71-pet-program-71.md",
   "kind": "Merge",
@@ -1601,34 +872,7 @@
  {
   "round": 72,
   "pet": "Inference Iguana",
-  "program": "pet-program-72",
-  "repo": "pet-program-72",
-  "card": "round-72-pet-program-72.md",
-  "kind": "Program name",
-  "text": "**Program name** for Inference Iguana (now `pet-program-72`). Pick one, or write your own:",
-  "options": [
-   [
-    "Benchmark Rock",
-    "the catalog idea: an iguana's sunning rock"
-   ],
-   [
-    "The Heat Lamp",
-    "GPU and VRAM under load"
-   ],
-   [
-    "Latency Lagoon",
-    "inference speed, measured"
-   ],
-   [
-    "Iguana Speedway",
-    "benchmarks, plainly"
-   ]
-  ]
- },
- {
-  "round": 72,
-  "pet": "Inference Iguana",
-  "program": "pet-program-72",
+  "program": "Benchmark Rock",
   "repo": "pet-program-72",
   "card": "round-72-pet-program-72.md",
   "kind": "Merge",
@@ -1638,34 +882,7 @@
  {
   "round": 73,
   "pet": "Agent Ant",
-  "program": "pet-program-73",
-  "repo": "pet-program-73",
-  "card": "round-73-pet-program-73.md",
-  "kind": "Program name",
-  "text": "**Program name** for Agent Ant (now `pet-program-73`). Pick one, or write your own:",
-  "options": [
-   [
-    "Agent Colony",
-    "the catalog idea"
-   ],
-   [
-    "The Ant Farm",
-    "agent experiments under glass"
-   ],
-   [
-    "Tool Tunnels",
-    "tool-use evaluation"
-   ],
-   [
-    "Hive Lab",
-    "many agents, one lab"
-   ]
-  ]
- },
- {
-  "round": 73,
-  "pet": "Agent Ant",
-  "program": "pet-program-73",
+  "program": "Agent Colony",
   "repo": "pet-program-73",
   "card": "round-73-pet-program-73.md",
   "kind": "Merge",
@@ -1675,34 +892,7 @@
  {
   "round": 74,
   "pet": "Roaming Raven",
-  "program": "pet-program-74",
-  "repo": "pet-program-74",
-  "card": "round-74-pet-program-74.md",
-  "kind": "Program name",
-  "text": "**Program name** for Roaming Raven (now `pet-program-74`). Pick one, or write your own:",
-  "options": [
-   [
-    "Roam Map",
-    "the catalog idea"
-   ],
-   [
-    "The Travel Nest",
-    "connectivity on the road"
-   ],
-   [
-    "Raven Relay",
-    "VPN and tailnet for remote access"
-   ],
-   [
-    "Far Perch",
-    "stays connected anywhere"
-   ]
-  ]
- },
- {
-  "round": 74,
-  "pet": "Roaming Raven",
-  "program": "pet-program-74",
+  "program": "Roam Map",
   "repo": "pet-program-74",
   "card": "round-74-pet-program-74.md",
   "kind": "Merge",
@@ -1712,34 +902,7 @@
  {
   "round": 75,
   "pet": "Cache Coyote",
-  "program": "pet-program-75",
-  "repo": "pet-program-75",
-  "card": "round-75-pet-program-75.md",
-  "kind": "Program name",
-  "text": "**Program name** for Cache Coyote (now `pet-program-75`). Pick one, or write your own:",
-  "options": [
-   [
-    "Cache Canyon",
-    "the catalog idea"
-   ],
-   [
-    "The Offline Den",
-    "works without the internet"
-   ],
-   [
-    "Coyote Cache",
-    "plain and pet-named"
-   ],
-   [
-    "Queue Mesa",
-    "queued actions wait here"
-   ]
-  ]
- },
- {
-  "round": 75,
-  "pet": "Cache Coyote",
-  "program": "pet-program-75",
+  "program": "Cache Canyon",
   "repo": "pet-program-75",
   "card": "round-75-pet-program-75.md",
   "kind": "Merge",
@@ -1749,34 +912,7 @@
  {
   "round": 76,
   "pet": "Sync Mink",
-  "program": "pet-program-76",
-  "repo": "pet-program-76",
-  "card": "round-76-pet-program-76.md",
-  "kind": "Program name",
-  "text": "**Program name** for Sync Mink (now `pet-program-76`). Pick one, or write your own:",
-  "options": [
-   [
-    "Sync Stream",
-    "the catalog idea"
-   ],
-   [
-    "The Mirror Pond",
-    "every device sees the same thing"
-   ],
-   [
-    "Mink Merge",
-    "conflict resolution"
-   ],
-   [
-    "River Sync",
-    "changes flow between devices"
-   ]
-  ]
- },
- {
-  "round": 76,
-  "pet": "Sync Mink",
-  "program": "pet-program-76",
+  "program": "Sync Stream",
   "repo": "pet-program-76",
   "card": "round-76-pet-program-76.md",
   "kind": "Merge",
@@ -1786,34 +922,7 @@
  {
   "round": 77,
   "pet": "Triage Tapir",
-  "program": "pet-program-77",
-  "repo": "pet-program-77",
-  "card": "round-77-pet-program-77.md",
-  "kind": "Program name",
-  "text": "**Program name** for Triage Tapir (now `pet-program-77`). Pick one, or write your own:",
-  "options": [
-   [
-    "Vet Clinic",
-    "the catalog idea: triage for the community vet-clinic"
-   ],
-   [
-    "Vetted Vet",
-    "the catalog's second idea: it vets offered cures"
-   ],
-   [
-    "The Triage Desk",
-    "labels tickets and checks for leaked secrets"
-   ],
-   [
-    "Waiting Room",
-    "where tickets wait to be checked, never merged"
-   ]
-  ]
- },
- {
-  "round": 77,
-  "pet": "Triage Tapir",
-  "program": "pet-program-77",
+  "program": "The Triage Desk",
   "repo": "pet-program-77",
   "card": "round-77-pet-program-77.md",
   "kind": "Merge",
@@ -1853,34 +962,7 @@
  {
   "round": 81,
   "pet": "Intel Owl",
-  "program": "pet-program-81",
-  "repo": "pet-program-81",
-  "card": "round-81-pet-program-81.md",
-  "kind": "Program name",
-  "text": "**Program name** for Intel Owl (now `pet-program-81`). Pick one, or write your own:",
-  "options": [
-   [
-    "Threat Observatory",
-    "the catalog idea"
-   ],
-   [
-    "Owl Watchtower",
-    "sees threats coming at night"
-   ],
-   [
-    "The Advisory Nest",
-    "CVEs and public advisories"
-   ],
-   [
-    "Intel Roost",
-    "plain and pet-named"
-   ]
-  ]
- },
- {
-  "round": 81,
-  "pet": "Intel Owl",
-  "program": "pet-program-81",
+  "program": "Threat Observatory",
   "repo": "pet-program-81",
   "card": "round-81-pet-program-81.md",
   "kind": "Visibility",

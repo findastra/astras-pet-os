@@ -48,6 +48,7 @@
 - Retired names: 9 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, findastra-discord-presence-20261008.html, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

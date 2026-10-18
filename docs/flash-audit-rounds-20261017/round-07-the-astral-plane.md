@@ -52,6 +52,7 @@
 - Retired names: 6 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, pet.json, vrchat-ai-astra-20261008.html (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-17. That submission needs the Farmer and Astra.
 - pet.json: audit block copied from the registry.
+- 2026-10-18 refresh: Brought up to date with main (6 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Not changed: the pet submitted its own job on 2026-10-17; that waits on the Farmer and Astra. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

@@ -1,0 +1,24 @@
+{
+  "pet": "rgbee",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.7,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/rgbee/alarmed-20261011.png",
+    "desktop-art/rgbee/blink-20261011.png",
+    "desktop-art/rgbee/curious-20261011.png",
+    "desktop-art/rgbee/happy-20261011.png",
+    "desktop-art/rgbee/idle-20261011.png",
+    "desktop-art/rgbee/sad-20261011.png",
+    "desktop-art/rgbee/sick-20261011.png",
+    "desktop-art/rgbee/sleep-20261011.png",
+    "desktop-art/rgbee/worried-20261011.png"
+  ],
+  "notes": "Brighter and less round: the dark body is bee yellow (rainbow abdomen still cycles RGB), drawn 12% narrower and 8% taller. Pale translucent wings unchanged.",
+  "source_sheet": "desktop-art/rgbee/sheet-20261011.png",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-17, at Astra's request"
+}

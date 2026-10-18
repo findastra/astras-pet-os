@@ -1,0 +1,25 @@
+{
+  "pet": "vscode-angel",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 1,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/vscode-angel/alarmed-20261011.png",
+    "desktop-art/vscode-angel/blink-20261011.png",
+    "desktop-art/vscode-angel/curious-20261011.png",
+    "desktop-art/vscode-angel/happy-20261011.png",
+    "desktop-art/vscode-angel/idle-20261011.png",
+    "desktop-art/vscode-angel/sad-20261011.png",
+    "desktop-art/vscode-angel/sick-20261011.png",
+    "desktop-art/vscode-angel/sleep-20261011.png",
+    "desktop-art/vscode-angel/worried-20261011.png"
+  ],
+  "notes": "Sheer silver-white flowing hair separated from opaque blue dress.",
+  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: Mommy's Mommies' own crop, 202 art pixels tall up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' face and body exactly, the head measured without hair (face 49 px wide, 26 px eye top to chin, body 109 px to the hem, on the 256 px frames)",
+  "source_sheet": "desktop-art/vscode-angel/sheet-20261011.png"
+}

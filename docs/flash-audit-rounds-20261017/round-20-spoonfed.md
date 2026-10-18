@@ -33,6 +33,7 @@
 - Retired names: 1 replacement(s) in desktop-pet-20261011.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Added CLAUDE.md (pointer to AGENTS.md and the hub rules).
 - Added AGENTS.md (house rules pointer).
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in AGENTS.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

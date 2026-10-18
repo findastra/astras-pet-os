@@ -10048,7 +10048,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -10215,7 +10215,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -10387,7 +10387,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -10564,7 +10564,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -10741,7 +10741,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -10918,7 +10918,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11090,7 +11090,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11192,18 +11192,13 @@
  {
   "number": 44,
   "icon": "Video Vulture",
-  "program": "pet-program-44",
-  "assigned": false,
+  "program": "Video Vault",
+  "assigned": true,
   "idea": "Video Vault",
   "stage": "seed",
   "repo": "pet-program-44",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Video Vault)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -11272,7 +11267,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11374,18 +11369,13 @@
  {
   "number": 45,
   "icon": "Closet Cat",
-  "program": "pet-program-45",
-  "assigned": false,
+  "program": "The Cat's Closet",
+  "assigned": true,
   "idea": "Catwalk",
   "stage": "seed",
   "repo": "the-cats-closet",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Catwalk)."
-   },
    {
     "check": "A01",
     "status": "Missing",
@@ -11446,7 +11436,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11631,7 +11621,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11728,18 +11718,13 @@
  {
   "number": 47,
   "icon": "Queue Quokka",
-  "program": "pet-program-47",
-  "assigned": false,
+  "program": "Task Island",
+  "assigned": true,
   "idea": "Task Island",
   "stage": "roadmap",
   "repo": "pet-program-47",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Task Island)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -11808,7 +11793,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -11910,18 +11895,13 @@
  {
   "number": 48,
   "icon": "Log Lynx",
-  "program": "pet-program-48",
-  "assigned": false,
+  "program": "Log Den",
+  "assigned": true,
   "idea": "Log Den",
   "stage": "roadmap",
   "repo": "pet-program-48",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Log Den)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -11990,7 +11970,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -12092,18 +12072,13 @@
  {
   "number": 49,
   "icon": "Server Salamander",
-  "program": "pet-program-49",
-  "assigned": false,
+  "program": "Server Hearth",
+  "assigned": true,
   "idea": "Server Hearth",
   "stage": "roadmap",
   "repo": "pet-program-49",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Server Hearth)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -12172,7 +12147,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -12274,18 +12249,13 @@
  {
   "number": 50,
   "icon": "Docker Dragon",
-  "program": "pet-program-50",
-  "assigned": false,
+  "program": "Container Hoard",
+  "assigned": true,
   "idea": "Container Hoard",
   "stage": "roadmap",
   "repo": "pet-program-50",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Container Hoard)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -12354,7 +12324,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -12456,18 +12426,13 @@
  {
   "number": 51,
   "icon": "Test Tortoise",
-  "program": "pet-program-51",
-  "assigned": false,
+  "program": "Test Track",
+  "assigned": true,
   "idea": "Test Track",
   "stage": "roadmap",
   "repo": "pet-program-51",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Test Track)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -12536,7 +12501,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -12638,18 +12603,13 @@
  {
   "number": 52,
   "icon": "Token Toucan",
-  "program": "pet-program-52",
-  "assigned": false,
+  "program": "Token Canopy",
+  "assigned": true,
   "idea": "Token Canopy",
   "stage": "roadmap",
   "repo": "pet-program-52",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Token Canopy)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -12718,7 +12678,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -12820,18 +12780,13 @@
  {
   "number": 53,
   "icon": "Packet Piranha",
-  "program": "pet-program-53",
-  "assigned": false,
+  "program": "Packet River",
+  "assigned": true,
   "idea": "Packet River",
   "stage": "roadmap",
   "repo": "pet-program-53",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Packet River)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -12900,7 +12855,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13002,18 +12957,13 @@
  {
   "number": 54,
   "icon": "Calendar Crow",
-  "program": "pet-program-54",
-  "assigned": false,
+  "program": "Crow's Nest",
+  "assigned": true,
   "idea": "Crow's Nest",
   "stage": "roadmap",
   "repo": "pet-program-54",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Crow's Nest)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13082,7 +13032,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13184,18 +13134,13 @@
  {
   "number": 55,
   "icon": "Browser Bat",
-  "program": "pet-program-55",
-  "assigned": false,
+  "program": "Browser Belfry",
+  "assigned": true,
   "idea": "Browser Belfry",
   "stage": "roadmap",
   "repo": "pet-program-55",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Browser Belfry)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13264,7 +13209,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13366,18 +13311,13 @@
  {
   "number": 56,
   "icon": "Data Dragonfly",
-  "program": "pet-program-56",
-  "assigned": false,
+  "program": "Data Marsh",
+  "assigned": true,
   "idea": "Data Marsh",
   "stage": "roadmap",
   "repo": "pet-program-56",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Data Marsh)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13446,7 +13386,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13548,18 +13488,13 @@
  {
   "number": 57,
   "icon": "Update Urchin",
-  "program": "pet-program-57",
-  "assigned": false,
+  "program": "Update Tidepool",
+  "assigned": true,
   "idea": "Update Tidepool",
   "stage": "roadmap",
   "repo": "pet-program-57",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Update Tidepool)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13628,7 +13563,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13730,18 +13665,13 @@
  {
   "number": 58,
   "icon": "Linux Penguin",
-  "program": "pet-program-58",
-  "assigned": false,
+  "program": "Linux Iceberg",
+  "assigned": true,
   "idea": "Linux Iceberg",
   "stage": "roadmap",
   "repo": "pet-program-58",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Linux Iceberg)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13810,7 +13740,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -13912,18 +13842,13 @@
  {
   "number": 59,
   "icon": "Stock Fox",
-  "program": "pet-program-59",
-  "assigned": false,
+  "program": "Market Meadow",
+  "assigned": true,
   "idea": "Market Meadow",
   "stage": "roadmap",
   "repo": "pet-program-59",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Market Meadow)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -13992,7 +13917,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -14094,18 +14019,13 @@
  {
   "number": 60,
   "icon": "Passport Pelican",
-  "program": "pet-program-60",
-  "assigned": false,
+  "program": "Passport Harbor",
+  "assigned": true,
   "idea": "Passport Harbor",
   "stage": "roadmap",
   "repo": "pet-program-60",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Passport Harbor)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -14174,7 +14094,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -14276,18 +14196,13 @@
  {
   "number": 61,
   "icon": "Journal Jellyfish",
-  "program": "pet-program-61",
-  "assigned": false,
+  "program": "Journal Lagoon",
+  "assigned": true,
   "idea": "Journal Lagoon",
   "stage": "roadmap",
   "repo": "pet-program-61",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Journal Lagoon)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -14356,7 +14271,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -14458,18 +14373,13 @@
  {
   "number": 62,
   "icon": "Shell Squid",
-  "program": "pet-program-62",
-  "assigned": false,
+  "program": "Shell Trench",
+  "assigned": true,
   "idea": "Shell Trench",
   "stage": "roadmap",
   "repo": "pet-program-62",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Shell Trench)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -14538,7 +14448,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -14640,18 +14550,13 @@
  {
   "number": 63,
   "icon": "Kernel Koala",
-  "program": "pet-program-63",
-  "assigned": false,
+  "program": "Kernel Grove",
+  "assigned": true,
   "idea": "Kernel Grove",
   "stage": "roadmap",
   "repo": "pet-program-63",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Kernel Grove)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -14720,7 +14625,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -14822,18 +14727,13 @@
  {
   "number": 64,
   "icon": "Proxy Axolotl",
-  "program": "pet-program-64",
-  "assigned": false,
+  "program": "Proxy Lake",
+  "assigned": true,
   "idea": "Proxy Lake",
   "stage": "roadmap",
   "repo": "pet-program-64",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Proxy Lake)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -14902,7 +14802,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15004,18 +14904,13 @@
  {
   "number": 65,
   "icon": "Cluster Crab",
-  "program": "pet-program-65",
-  "assigned": false,
+  "program": "Cluster Shore",
+  "assigned": true,
   "idea": "Cluster Shore",
   "stage": "roadmap",
   "repo": "pet-program-65",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Cluster Shore)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15084,7 +14979,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15186,18 +15081,13 @@
  {
   "number": 66,
   "icon": "Storage Stoat",
-  "program": "pet-program-66",
-  "assigned": false,
+  "program": "Storage Warren",
+  "assigned": true,
   "idea": "Storage Warren",
   "stage": "roadmap",
   "repo": "pet-program-66",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Storage Warren)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15266,7 +15156,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15368,18 +15258,13 @@
  {
   "number": 67,
   "icon": "White Hat Weasel",
-  "program": "pet-program-67",
-  "assigned": false,
+  "program": "White Hat Lab",
+  "assigned": true,
   "idea": "White Hat Lab",
   "stage": "roadmap",
   "repo": "pet-program-67",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: White Hat Lab)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15448,7 +15333,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15550,18 +15435,13 @@
  {
   "number": 68,
   "icon": "Port Spider",
-  "program": "pet-program-68",
-  "assigned": false,
+  "program": "Port Web",
+  "assigned": true,
   "idea": "Port Web",
   "stage": "roadmap",
   "repo": "pet-program-68",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Port Web)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15630,7 +15510,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15732,18 +15612,13 @@
  {
   "number": 69,
   "icon": "Cipher Owl",
-  "program": "pet-program-69",
-  "assigned": false,
+  "program": "Cipher Hollow",
+  "assigned": true,
   "idea": "Cipher Hollow",
   "stage": "roadmap",
   "repo": "pet-program-69",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Cipher Hollow)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15812,7 +15687,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -15914,18 +15789,13 @@
  {
   "number": 70,
   "icon": "Forensic Ferret",
-  "program": "pet-program-70",
-  "assigned": false,
+  "program": "Evidence Locker",
+  "assigned": true,
   "idea": "Evidence Locker",
   "stage": "roadmap",
   "repo": "pet-program-70",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Evidence Locker)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -15994,7 +15864,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -16096,18 +15966,13 @@
  {
   "number": 71,
   "icon": "Llama Librarian",
-  "program": "pet-program-71",
-  "assigned": false,
+  "program": "Model Library",
+  "assigned": true,
   "idea": "Model Library",
   "stage": "roadmap",
   "repo": "pet-program-71",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Model Library)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -16176,7 +16041,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -16278,18 +16143,13 @@
  {
   "number": 72,
   "icon": "Inference Iguana",
-  "program": "pet-program-72",
-  "assigned": false,
+  "program": "Benchmark Rock",
+  "assigned": true,
   "idea": "Benchmark Rock",
   "stage": "roadmap",
   "repo": "pet-program-72",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Benchmark Rock)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -16358,7 +16218,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -16460,18 +16320,13 @@
  {
   "number": 73,
   "icon": "Agent Ant",
-  "program": "pet-program-73",
-  "assigned": false,
+  "program": "Agent Colony",
+  "assigned": true,
   "idea": "Agent Colony",
   "stage": "roadmap",
   "repo": "pet-program-73",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Agent Colony)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -16540,7 +16395,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -16642,18 +16497,13 @@
  {
   "number": 74,
   "icon": "Roaming Raven",
-  "program": "pet-program-74",
-  "assigned": false,
+  "program": "Roam Map",
+  "assigned": true,
   "idea": "Roam Map",
   "stage": "roadmap",
   "repo": "pet-program-74",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Roam Map)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -16722,7 +16572,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -16824,18 +16674,13 @@
  {
   "number": 75,
   "icon": "Cache Coyote",
-  "program": "pet-program-75",
-  "assigned": false,
+  "program": "Cache Canyon",
+  "assigned": true,
   "idea": "Cache Canyon",
   "stage": "roadmap",
   "repo": "pet-program-75",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Cache Canyon)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -16904,7 +16749,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17006,18 +16851,13 @@
  {
   "number": 76,
   "icon": "Sync Mink",
-  "program": "pet-program-76",
-  "assigned": false,
+  "program": "Sync Stream",
+  "assigned": true,
   "idea": "Sync Stream",
   "stage": "roadmap",
   "repo": "pet-program-76",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Sync Stream)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -17086,7 +16926,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17188,18 +17028,13 @@
  {
   "number": 77,
   "icon": "Triage Tapir",
-  "program": "pet-program-77",
-  "assigned": false,
+  "program": "The Triage Desk",
+  "assigned": true,
   "idea": "Vet Clinic / Vetted Vet: triage for the community vet-clinic (labels tickets, checks for leaked secrets, tests offered cures in isolation; never merges)",
   "stage": "seed",
   "repo": "pet-program-77",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Vet Clinic / Vetted Vet: triage for the community vet-clinic (labels tickets, checks for leaked secrets, tests offered cures in isolation; never merges))."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -17268,7 +17103,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17441,7 +17276,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17630,7 +17465,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17844,7 +17679,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }
@@ -17941,18 +17776,13 @@
  {
   "number": 81,
   "icon": "Intel Owl",
-  "program": "pet-program-81",
-  "assigned": false,
+  "program": "Threat Observatory",
+  "assigned": true,
   "idea": "Threat Observatory",
   "stage": "seed",
   "repo": "pet-program-81",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Threat Observatory)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -18249,7 +18079,7 @@
    {
     "check": "A15",
     "status": "Missing",
-    "detail": "README lacks the credit line \"*A pet app by Astra.*\".",
+    "detail": "README lacks the credit line \"*An Intelligent App, or Pet, by Astra.*\".",
     "fix": {
      "type": "credit"
     }

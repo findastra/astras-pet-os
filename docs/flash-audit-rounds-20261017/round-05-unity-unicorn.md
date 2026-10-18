@@ -42,6 +42,7 @@
 
 - Retired names: 7 replacement(s) in AGENTS.md, README.md, docs/source-release-receipt-20261011.md, pet.json, sprite-20261008.json, unity-unicorn-20261008.html (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Retired names again after the merge: 1 in unity-unicorn-20261008.html. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 
 </details>
 

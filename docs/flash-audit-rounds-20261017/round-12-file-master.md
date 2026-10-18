@@ -43,6 +43,8 @@
 - Retired names: 13 replacement(s) in AGENTS.md, README.md, agent/file-master.md, desktop-pet-20261011.json, file-master-20261008.html (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
+- 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 3 in AGENTS.md, file-master-20261008.html. README: Limits section from INTELLIGENCE-LEVELS.md. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.
+- 2026-10-18: pet.json now use the program name "File Kingdom" from pet-programs.json; the "Name not assigned yet" line is gone (the repo keeps its name).
 
 </details>
 

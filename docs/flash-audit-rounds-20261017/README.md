@@ -59,44 +59,44 @@ Rounds 3 to 83, one card per pet program, in the [Flash Audit](https://github.co
 | [41](round-41-pet-program-41.md) | <img src="../../art/icons/osc-sealion-20261012.png" width="28" alt=""> [OSC Sealion](round-41-pet-program-41.md) | OSC Sonar | seed | 3 | 2 | 0 | [pet-program-41#1](https://github.com/findastra/pet-program-41/pull/1) |
 | [42](round-42-pet-program-42.md) | <img src="../../art/icons/piranesi-nessi-20261012.png" width="28" alt=""> [Piranesi Nessi](round-42-pet-program-42.md) | Nessi's Ocean | seed | 3 | 2 | 0 | [pet-program-42#1](https://github.com/findastra/pet-program-42/pull/1) |
 | [43](round-43-pet-program-43.md) | <img src="../../art/icons/photo-dodo-20261012.png" width="28" alt=""> [Photo Dodo](round-43-pet-program-43.md) | Photo Roost | seed | 3 | 2 | 0 | [pet-program-43#1](https://github.com/findastra/pet-program-43/pull/1) |
-| [44](round-44-pet-program-44.md) | <img src="../../art/icons/video-vulture-20261012.png" width="28" alt=""> [Video Vulture](round-44-pet-program-44.md) | pet-program-44 | seed | 4 | 2 | 1 | [pet-program-44#1](https://github.com/findastra/pet-program-44/pull/1) |
-| [45](round-45-the-cats-closet.md) | <img src="../../art/icons/closet-cat-20261012.png" width="28" alt=""> [Closet Cat](round-45-the-cats-closet.md) | pet-program-45 | seed | 4 | 2 | 1 | [the-cats-closet#1](https://github.com/findastra/the-cats-closet/pull/1) |
+| [44](round-44-pet-program-44.md) | <img src="../../art/icons/video-vulture-20261012.png" width="28" alt=""> [Video Vulture](round-44-pet-program-44.md) | Video Vault | seed | 3 | 2 | 0 | [pet-program-44#1](https://github.com/findastra/pet-program-44/pull/1) |
+| [45](round-45-the-cats-closet.md) | <img src="../../art/icons/closet-cat-20261012.png" width="28" alt=""> [Closet Cat](round-45-the-cats-closet.md) | The Cat's Closet | seed | 3 | 2 | 0 | [the-cats-closet#1](https://github.com/findastra/the-cats-closet/pull/1) |
 | [46](round-46-iron-gates.md) | [Gatekeeper Goddess](round-46-iron-gates.md) | Iron Gates | roadmap | 2 | 2 | 0 | [iron-gates#1](https://github.com/findastra/iron-gates/pull/1) |
-| [47](round-47-pet-program-47.md) | [Queue Quokka](round-47-pet-program-47.md) | pet-program-47 | roadmap | 3 | 2 | 1 | [pet-program-47#1](https://github.com/findastra/pet-program-47/pull/1) |
-| [48](round-48-pet-program-48.md) | [Log Lynx](round-48-pet-program-48.md) | pet-program-48 | roadmap | 3 | 2 | 1 | [pet-program-48#1](https://github.com/findastra/pet-program-48/pull/1) |
-| [49](round-49-pet-program-49.md) | [Server Salamander](round-49-pet-program-49.md) | pet-program-49 | roadmap | 3 | 2 | 1 | [pet-program-49#1](https://github.com/findastra/pet-program-49/pull/1) |
-| [50](round-50-pet-program-50.md) | [Docker Dragon](round-50-pet-program-50.md) | pet-program-50 | roadmap | 3 | 2 | 1 | [pet-program-50#1](https://github.com/findastra/pet-program-50/pull/1) |
-| [51](round-51-pet-program-51.md) | [Test Tortoise](round-51-pet-program-51.md) | pet-program-51 | roadmap | 3 | 2 | 1 | [pet-program-51#1](https://github.com/findastra/pet-program-51/pull/1) |
-| [52](round-52-pet-program-52.md) | [Token Toucan](round-52-pet-program-52.md) | pet-program-52 | roadmap | 3 | 2 | 1 | [pet-program-52#1](https://github.com/findastra/pet-program-52/pull/1) |
-| [53](round-53-pet-program-53.md) | [Packet Piranha](round-53-pet-program-53.md) | pet-program-53 | roadmap | 3 | 2 | 1 | [pet-program-53#1](https://github.com/findastra/pet-program-53/pull/1) |
-| [54](round-54-pet-program-54.md) | [Calendar Crow](round-54-pet-program-54.md) | pet-program-54 | roadmap | 3 | 2 | 1 | [pet-program-54#1](https://github.com/findastra/pet-program-54/pull/1) |
-| [55](round-55-pet-program-55.md) | [Browser Bat](round-55-pet-program-55.md) | pet-program-55 | roadmap | 3 | 2 | 1 | [pet-program-55#1](https://github.com/findastra/pet-program-55/pull/1) |
-| [56](round-56-pet-program-56.md) | [Data Dragonfly](round-56-pet-program-56.md) | pet-program-56 | roadmap | 3 | 2 | 1 | [pet-program-56#1](https://github.com/findastra/pet-program-56/pull/1) |
-| [57](round-57-pet-program-57.md) | [Update Urchin](round-57-pet-program-57.md) | pet-program-57 | roadmap | 3 | 2 | 1 | [pet-program-57#1](https://github.com/findastra/pet-program-57/pull/1) |
-| [58](round-58-pet-program-58.md) | [Linux Penguin](round-58-pet-program-58.md) | pet-program-58 | roadmap | 3 | 2 | 1 | [pet-program-58#1](https://github.com/findastra/pet-program-58/pull/1) |
-| [59](round-59-pet-program-59.md) | [Stock Fox](round-59-pet-program-59.md) | pet-program-59 | roadmap | 3 | 2 | 1 | [pet-program-59#1](https://github.com/findastra/pet-program-59/pull/1) |
-| [60](round-60-pet-program-60.md) | [Passport Pelican](round-60-pet-program-60.md) | pet-program-60 | roadmap | 3 | 2 | 1 | [pet-program-60#1](https://github.com/findastra/pet-program-60/pull/1) |
-| [61](round-61-pet-program-61.md) | [Journal Jellyfish](round-61-pet-program-61.md) | pet-program-61 | roadmap | 3 | 2 | 1 | [pet-program-61#1](https://github.com/findastra/pet-program-61/pull/1) |
-| [62](round-62-pet-program-62.md) | [Shell Squid](round-62-pet-program-62.md) | pet-program-62 | roadmap | 3 | 2 | 1 | [pet-program-62#1](https://github.com/findastra/pet-program-62/pull/1) |
-| [63](round-63-pet-program-63.md) | [Kernel Koala](round-63-pet-program-63.md) | pet-program-63 | roadmap | 3 | 2 | 1 | [pet-program-63#1](https://github.com/findastra/pet-program-63/pull/1) |
-| [64](round-64-pet-program-64.md) | [Proxy Axolotl](round-64-pet-program-64.md) | pet-program-64 | roadmap | 3 | 2 | 1 | [pet-program-64#1](https://github.com/findastra/pet-program-64/pull/1) |
-| [65](round-65-pet-program-65.md) | [Cluster Crab](round-65-pet-program-65.md) | pet-program-65 | roadmap | 3 | 2 | 1 | [pet-program-65#1](https://github.com/findastra/pet-program-65/pull/1) |
-| [66](round-66-pet-program-66.md) | [Storage Stoat](round-66-pet-program-66.md) | pet-program-66 | roadmap | 3 | 2 | 1 | [pet-program-66#1](https://github.com/findastra/pet-program-66/pull/1) |
-| [67](round-67-pet-program-67.md) | [White Hat Weasel](round-67-pet-program-67.md) | pet-program-67 | roadmap | 3 | 2 | 1 | [pet-program-67#1](https://github.com/findastra/pet-program-67/pull/1) |
-| [68](round-68-pet-program-68.md) | [Port Spider](round-68-pet-program-68.md) | pet-program-68 | roadmap | 3 | 2 | 1 | [pet-program-68#1](https://github.com/findastra/pet-program-68/pull/1) |
-| [69](round-69-pet-program-69.md) | [Cipher Owl](round-69-pet-program-69.md) | pet-program-69 | roadmap | 3 | 2 | 1 | [pet-program-69#1](https://github.com/findastra/pet-program-69/pull/1) |
-| [70](round-70-pet-program-70.md) | [Forensic Ferret](round-70-pet-program-70.md) | pet-program-70 | roadmap | 3 | 2 | 1 | [pet-program-70#1](https://github.com/findastra/pet-program-70/pull/1) |
-| [71](round-71-pet-program-71.md) | [Llama Librarian](round-71-pet-program-71.md) | pet-program-71 | roadmap | 3 | 2 | 1 | [pet-program-71#1](https://github.com/findastra/pet-program-71/pull/1) |
-| [72](round-72-pet-program-72.md) | [Inference Iguana](round-72-pet-program-72.md) | pet-program-72 | roadmap | 3 | 2 | 1 | [pet-program-72#1](https://github.com/findastra/pet-program-72/pull/1) |
-| [73](round-73-pet-program-73.md) | [Agent Ant](round-73-pet-program-73.md) | pet-program-73 | roadmap | 3 | 2 | 1 | [pet-program-73#1](https://github.com/findastra/pet-program-73/pull/1) |
-| [74](round-74-pet-program-74.md) | [Roaming Raven](round-74-pet-program-74.md) | pet-program-74 | roadmap | 3 | 2 | 1 | [pet-program-74#1](https://github.com/findastra/pet-program-74/pull/1) |
-| [75](round-75-pet-program-75.md) | [Cache Coyote](round-75-pet-program-75.md) | pet-program-75 | roadmap | 3 | 2 | 1 | [pet-program-75#1](https://github.com/findastra/pet-program-75/pull/1) |
-| [76](round-76-pet-program-76.md) | [Sync Mink](round-76-pet-program-76.md) | pet-program-76 | roadmap | 3 | 2 | 1 | [pet-program-76#1](https://github.com/findastra/pet-program-76/pull/1) |
-| [77](round-77-pet-program-77.md) | [Triage Tapir](round-77-pet-program-77.md) | pet-program-77 | seed | 3 | 2 | 1 | [pet-program-77#1](https://github.com/findastra/pet-program-77/pull/1) |
+| [47](round-47-pet-program-47.md) | [Queue Quokka](round-47-pet-program-47.md) | Task Island | roadmap | 2 | 2 | 0 | [pet-program-47#1](https://github.com/findastra/pet-program-47/pull/1) |
+| [48](round-48-pet-program-48.md) | [Log Lynx](round-48-pet-program-48.md) | Log Den | roadmap | 2 | 2 | 0 | [pet-program-48#1](https://github.com/findastra/pet-program-48/pull/1) |
+| [49](round-49-pet-program-49.md) | [Server Salamander](round-49-pet-program-49.md) | Server Hearth | roadmap | 2 | 2 | 0 | [pet-program-49#1](https://github.com/findastra/pet-program-49/pull/1) |
+| [50](round-50-pet-program-50.md) | [Docker Dragon](round-50-pet-program-50.md) | Container Hoard | roadmap | 2 | 2 | 0 | [pet-program-50#1](https://github.com/findastra/pet-program-50/pull/1) |
+| [51](round-51-pet-program-51.md) | [Test Tortoise](round-51-pet-program-51.md) | Test Track | roadmap | 2 | 2 | 0 | [pet-program-51#1](https://github.com/findastra/pet-program-51/pull/1) |
+| [52](round-52-pet-program-52.md) | [Token Toucan](round-52-pet-program-52.md) | Token Canopy | roadmap | 2 | 2 | 0 | [pet-program-52#1](https://github.com/findastra/pet-program-52/pull/1) |
+| [53](round-53-pet-program-53.md) | [Packet Piranha](round-53-pet-program-53.md) | Packet River | roadmap | 2 | 2 | 0 | [pet-program-53#1](https://github.com/findastra/pet-program-53/pull/1) |
+| [54](round-54-pet-program-54.md) | [Calendar Crow](round-54-pet-program-54.md) | Crow's Nest | roadmap | 2 | 2 | 0 | [pet-program-54#1](https://github.com/findastra/pet-program-54/pull/1) |
+| [55](round-55-pet-program-55.md) | [Browser Bat](round-55-pet-program-55.md) | Browser Belfry | roadmap | 2 | 2 | 0 | [pet-program-55#1](https://github.com/findastra/pet-program-55/pull/1) |
+| [56](round-56-pet-program-56.md) | [Data Dragonfly](round-56-pet-program-56.md) | Data Marsh | roadmap | 2 | 2 | 0 | [pet-program-56#1](https://github.com/findastra/pet-program-56/pull/1) |
+| [57](round-57-pet-program-57.md) | [Update Urchin](round-57-pet-program-57.md) | Update Tidepool | roadmap | 2 | 2 | 0 | [pet-program-57#1](https://github.com/findastra/pet-program-57/pull/1) |
+| [58](round-58-pet-program-58.md) | [Linux Penguin](round-58-pet-program-58.md) | Linux Iceberg | roadmap | 2 | 2 | 0 | [pet-program-58#1](https://github.com/findastra/pet-program-58/pull/1) |
+| [59](round-59-pet-program-59.md) | [Stock Fox](round-59-pet-program-59.md) | Market Meadow | roadmap | 2 | 2 | 0 | [pet-program-59#1](https://github.com/findastra/pet-program-59/pull/1) |
+| [60](round-60-pet-program-60.md) | [Passport Pelican](round-60-pet-program-60.md) | Passport Harbor | roadmap | 2 | 2 | 0 | [pet-program-60#1](https://github.com/findastra/pet-program-60/pull/1) |
+| [61](round-61-pet-program-61.md) | [Journal Jellyfish](round-61-pet-program-61.md) | Journal Lagoon | roadmap | 2 | 2 | 0 | [pet-program-61#1](https://github.com/findastra/pet-program-61/pull/1) |
+| [62](round-62-pet-program-62.md) | [Shell Squid](round-62-pet-program-62.md) | Shell Trench | roadmap | 2 | 2 | 0 | [pet-program-62#1](https://github.com/findastra/pet-program-62/pull/1) |
+| [63](round-63-pet-program-63.md) | [Kernel Koala](round-63-pet-program-63.md) | Kernel Grove | roadmap | 2 | 2 | 0 | [pet-program-63#1](https://github.com/findastra/pet-program-63/pull/1) |
+| [64](round-64-pet-program-64.md) | [Proxy Axolotl](round-64-pet-program-64.md) | Proxy Lake | roadmap | 2 | 2 | 0 | [pet-program-64#1](https://github.com/findastra/pet-program-64/pull/1) |
+| [65](round-65-pet-program-65.md) | [Cluster Crab](round-65-pet-program-65.md) | Cluster Shore | roadmap | 2 | 2 | 0 | [pet-program-65#1](https://github.com/findastra/pet-program-65/pull/1) |
+| [66](round-66-pet-program-66.md) | [Storage Stoat](round-66-pet-program-66.md) | Storage Warren | roadmap | 2 | 2 | 0 | [pet-program-66#1](https://github.com/findastra/pet-program-66/pull/1) |
+| [67](round-67-pet-program-67.md) | [White Hat Weasel](round-67-pet-program-67.md) | White Hat Lab | roadmap | 2 | 2 | 0 | [pet-program-67#1](https://github.com/findastra/pet-program-67/pull/1) |
+| [68](round-68-pet-program-68.md) | [Port Spider](round-68-pet-program-68.md) | Port Web | roadmap | 2 | 2 | 0 | [pet-program-68#1](https://github.com/findastra/pet-program-68/pull/1) |
+| [69](round-69-pet-program-69.md) | [Cipher Owl](round-69-pet-program-69.md) | Cipher Hollow | roadmap | 2 | 2 | 0 | [pet-program-69#1](https://github.com/findastra/pet-program-69/pull/1) |
+| [70](round-70-pet-program-70.md) | [Forensic Ferret](round-70-pet-program-70.md) | Evidence Locker | roadmap | 2 | 2 | 0 | [pet-program-70#1](https://github.com/findastra/pet-program-70/pull/1) |
+| [71](round-71-pet-program-71.md) | [Llama Librarian](round-71-pet-program-71.md) | Model Library | roadmap | 2 | 2 | 0 | [pet-program-71#1](https://github.com/findastra/pet-program-71/pull/1) |
+| [72](round-72-pet-program-72.md) | [Inference Iguana](round-72-pet-program-72.md) | Benchmark Rock | roadmap | 2 | 2 | 0 | [pet-program-72#1](https://github.com/findastra/pet-program-72/pull/1) |
+| [73](round-73-pet-program-73.md) | [Agent Ant](round-73-pet-program-73.md) | Agent Colony | roadmap | 2 | 2 | 0 | [pet-program-73#1](https://github.com/findastra/pet-program-73/pull/1) |
+| [74](round-74-pet-program-74.md) | [Roaming Raven](round-74-pet-program-74.md) | Roam Map | roadmap | 2 | 2 | 0 | [pet-program-74#1](https://github.com/findastra/pet-program-74/pull/1) |
+| [75](round-75-pet-program-75.md) | [Cache Coyote](round-75-pet-program-75.md) | Cache Canyon | roadmap | 2 | 2 | 0 | [pet-program-75#1](https://github.com/findastra/pet-program-75/pull/1) |
+| [76](round-76-pet-program-76.md) | [Sync Mink](round-76-pet-program-76.md) | Sync Stream | roadmap | 2 | 2 | 0 | [pet-program-76#1](https://github.com/findastra/pet-program-76/pull/1) |
+| [77](round-77-pet-program-77.md) | [Triage Tapir](round-77-pet-program-77.md) | The Triage Desk | seed | 2 | 2 | 0 | [pet-program-77#1](https://github.com/findastra/pet-program-77/pull/1) |
 | [78](round-78-the-police-station.md) | [Pet Police Officer](round-78-the-police-station.md) | The Police Station | seed | 3 | 2 | 0 | [the-police-station#1](https://github.com/findastra/the-police-station/pull/1) |
 | [79](round-79-ai-doghouse.md) | [AI Dashund](round-79-ai-doghouse.md) | AI Doghouse | seed | 2 | 2 | 0 | [ai-doghouse#1](https://github.com/findastra/ai-doghouse/pull/1) |
 | [80](round-80-the-recovery-room.md) | [Rescue Retriever](round-80-the-recovery-room.md) | The Recovery Room | seed | 3 | 2 | 0 | [the-recovery-room#1](https://github.com/findastra/the-recovery-room/pull/1) |
-| [81](round-81-pet-program-81.md) | [Intel Owl](round-81-pet-program-81.md) | pet-program-81 | seed | 4 | 0 | 2 | — |
+| [81](round-81-pet-program-81.md) | [Intel Owl](round-81-pet-program-81.md) | Threat Observatory | seed | 3 | 0 | 1 | — |
 | [82](round-82-the-threshold.md) | [Door Dormouse](round-82-the-threshold.md) | The Threshold | seed | 3 | 0 | 1 | — |
 | [83](round-83-role-fairy.md) | [Role Fairy](round-83-role-fairy.md) | Fairy Ring | pipeline | 9 | 4 | 1 | [role-fairy#1](https://github.com/findastra/role-fairy/pull/1) |
 
