@@ -12,7 +12,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
 | [024: Pole Puff: create the `pole-puff` repo from `drafts/pole-puff/`](024-any-pole-puff-repo-20261012.md) | any | open: Astra approved the repo, the art and the look (2026-10-12); repo not created yet |
 | [027: Skill sheet audit and fix batches (Skill Scout)](027-any-skill-sheet-audit-and-fixes-20261017.md) | any | open, waits on Astra: repo rename, pet-app v2, yes per batch |
-| [026: Pictures only Astra can take (Flash Audit A55), and 25 picture PRs](026-any-pictures-astra-takes-20261017.md) | any | open, waits on Astra: in-world and desktop pictures; chat-rat#4 after chat-rat#1 |
+| [026: Pictures only Astra can take (Flash Audit A55), and 25 picture PRs](026-any-pictures-astra-takes-20261017.md) | any | open, waits on Astra: merge drum-dog#4; chat-rat#1 (Codex's draft) then #4; in-world and desktop pictures |
 | [025: Security follow-ups from the 2026-10-16 assessment](025-any-security-follow-ups-20261017.md) | any | open: findings 3 to 5; the security model (PR #26, now in PR #23); the Actions setting for the Farmer's round |
 | [021: Startup Star shows API Fairy's bubbles](021-codex-startup-star-api-fairy-bubbles-20261017.md) | Codex | open |
 | [020: Chat sync, folder rename plan row, Role Fairy (Fairy Ring #83), Nullbot dropped](020-any-chat-sync-and-folder-rename-20261017.md) | any | open, waits on Astra: File Master rename row |
