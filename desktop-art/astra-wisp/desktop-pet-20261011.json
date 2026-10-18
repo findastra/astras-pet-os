@@ -19,7 +19,7 @@
     "desktop-art/astra-wisp/worried-20261011.png"
   ],
   "notes": "Fairy wings with partial alpha.",
-  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: a crop 212 art pixels tall, up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
-  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' head and body exactly (head 76 px, body 109 px, on the 256 px frames); the star is not counted",
+  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: Mommy's Mommies' own crop, 202 art pixels tall up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' face and body exactly, the head measured without hair (face 49 px wide, 26 px eye top to chin, body 109 px, on the 256 px frames); her hair and star above the eyes are a little lower so the star fits the shared crop",
   "source_sheet": "desktop-art/astra-wisp/sheet-20261011.png"
 }

@@ -18,7 +18,7 @@
     "desktop-art/mommys-mommies/worried-20261011.png"
   ],
   "creator": "Astra",
-  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: a crop 212 art pixels tall, up from the soles, drawn 58.75 logical pixels high. Mommy's Mommies are the reference: head 76 px, body 109 px (astras-pet-os docs/girls-same-size-20261017.md, Claude Opus 5.5, 2026-10-18)",
+  "scale_reference": "Standard 58.75 logical-pixel height, with aspect-ratio width clamp before scaling",
   "assistant": "OpenAI Codex (GPT-6)",
   "notes": "Astra wears light blue, ash-blonde hair and pale white/yellow halo. Devilish wears red with red horns. Both wear skating dresses. Interaction sheet approved as alternate draft.",
   "pet": "mommys-mommies"

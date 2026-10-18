@@ -19,7 +19,7 @@
     "desktop-art/vscode-angel/worried-20261011.png"
   ],
   "notes": "Sheer silver-white flowing hair separated from opaque blue dress.",
-  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: a crop 212 art pixels tall, up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
-  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' head and body exactly (head 76 px, body 109 px to the hem, on the 256 px frames); the halo and wings are not counted",
+  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: Mommy's Mommies' own crop, 202 art pixels tall up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' face and body exactly, the head measured without hair (face 49 px wide, 26 px eye top to chin, body 109 px to the hem, on the 256 px frames)",
   "source_sheet": "desktop-art/vscode-angel/sheet-20261011.png"
 }
