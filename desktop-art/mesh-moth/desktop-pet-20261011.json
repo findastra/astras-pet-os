@@ -1,0 +1,24 @@
+{
+  "pet": "mesh-moth",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.64,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/mesh-moth/alarmed-20261011.png",
+    "desktop-art/mesh-moth/blink-20261011.png",
+    "desktop-art/mesh-moth/curious-20261011.png",
+    "desktop-art/mesh-moth/happy-20261011.png",
+    "desktop-art/mesh-moth/idle-20261011.png",
+    "desktop-art/mesh-moth/sad-20261011.png",
+    "desktop-art/mesh-moth/sick-20261011.png",
+    "desktop-art/mesh-moth/sleep-20261011.png",
+    "desktop-art/mesh-moth/worried-20261011.png"
+  ],
+  "notes": "Brighter and less round: sky-blue fur and antennae, silver static wings (still partly transparent), drawn 12% narrower and 8% taller.",
+  "source_sheet": "desktop-art/mesh-moth/sheet-20261011.png",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-17, at Astra's request"
+}

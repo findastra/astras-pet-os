@@ -1,0 +1,22 @@
+{
+  "pet": "chip",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 1,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/chip/alarmed-20261011.png",
+    "desktop-art/chip/blink-20261011.png",
+    "desktop-art/chip/curious-20261011.png",
+    "desktop-art/chip/happy-20261011.png",
+    "desktop-art/chip/idle-20261011.png",
+    "desktop-art/chip/sad-20261011.png",
+    "desktop-art/chip/sick-20261011.png",
+    "desktop-art/chip/sleep-20261011.png",
+    "desktop-art/chip/worried-20261011.png"
+  ],
+  "notes": "Desktop screen is the face; original drawing retained as default."
+}

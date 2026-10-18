@@ -1,0 +1,24 @@
+{
+  "pet": "wifi-butterfly",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.7,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/wifi-butterfly/alarmed-20261011.png",
+    "desktop-art/wifi-butterfly/blink-20261011.png",
+    "desktop-art/wifi-butterfly/curious-20261011.png",
+    "desktop-art/wifi-butterfly/happy-20261011.png",
+    "desktop-art/wifi-butterfly/idle-20261011.png",
+    "desktop-art/wifi-butterfly/sad-20261011.png",
+    "desktop-art/wifi-butterfly/sick-20261011.png",
+    "desktop-art/wifi-butterfly/sleep-20261011.png",
+    "desktop-art/wifi-butterfly/worried-20261011.png"
+  ],
+  "notes": "Orange face in every mood so it shows on a dark desktop (the sick, alarmed and sleep frames already had it). Slim dark body and translucent wings unchanged.",
+  "source_sheet": "desktop-art/wifi-butterfly/sheet-20261011.png",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-17, at Astra's request"
+}

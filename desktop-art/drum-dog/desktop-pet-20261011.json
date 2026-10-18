@@ -1,0 +1,25 @@
+{
+  "desktop_scale": 1,
+  "alpha": "Desktop renderer thresholds partial alpha to prevent magenta color-key flecks",
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "status": "approved",
+  "date": "2026-10-11",
+  "art_files": [
+    "desktop-art/drum-dog/alarmed-20261011.png",
+    "desktop-art/drum-dog/blink-20261011.png",
+    "desktop-art/drum-dog/curious-20261011.png",
+    "desktop-art/drum-dog/happy-20261011.png",
+    "desktop-art/drum-dog/idle-20261011.png",
+    "desktop-art/drum-dog/sad-20261011.png",
+    "desktop-art/drum-dog/sheet-20261011.png",
+    "desktop-art/drum-dog/sick-20261011.png",
+    "desktop-art/drum-dog/sleep-20261011.png",
+    "desktop-art/drum-dog/worried-20261011.png"
+  ],
+  "creator": "Astra",
+  "scale_reference": "Standard 58.75 logical-pixel height, with aspect-ratio width clamp before scaling",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "notes": "Shih Tzu with blue headphones only.",
+  "pet": "drum-dog"
+}
