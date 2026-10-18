@@ -176,7 +176,24 @@ for (const rec of ledger) {
         rm = rm.replace(/\s*$/, '') + `\n\n## Limits\n\nWhat is not done, plainly. From the hub's [intelligence levels](https://github.com/findastra/astras-pet-os/blob/main/INTELLIGENCE-LEVELS.md) (checked ${ISO}):\n\n- **Program (L1/L2):** ${clean(row.program)}\n- **Runtime (L2):** ${clean(row.runtime)}\n- **Agentic harness (L3):** ${clean(row.harness).replace(/^—\s*$/, '— not built yet')}\n`;
         log.push('README: added a Limits section from INTELLIGENCE-LEVELS.md.');
       }
+      // Seeds and roadmap pets have no row in INTELLIGENCE-LEVELS.md (it lists what is built): their Limits say so.
+      else if (rec.rows.some((r) => r.fix?.type === 'limits') && !row && ['seed', 'roadmap'].includes(rec.stage) && !/^#{2,3}\s.*(limit|not done|known)/im.test(rm)) {
+        rm = rm.replace(/\s*$/, '') + `\n\n## Limits\n\n- This is a ${rec.stage} pet program: it is designed, and nothing runs yet (no program, no runtime, no agent). What is here is its design and its documents.\n- It is not registered: it waits at the gate until Astra lets it in.\n`;
+        log.push(`README: added a Limits section (a ${rec.stage}: designed, nothing runs yet).`);
+      }
       if (rm !== before) writeFileSync(rmPath, rm);
+    }
+
+    // 4b. Links to renamed repos (GitHub redirects them, but the current name is correct), where the audit found them.
+    for (const r of rec.rows.filter((x) => x.fix?.type === 'link' && x.fix.to)) {
+      for (const f of ['README.md', 'pet.json']) {
+        const p = `${dir}/${f}`;
+        if (!existsSync(p)) continue;
+        const t = readFileSync(p, 'utf8');
+        if (!t.includes(r.fix.from)) continue;
+        writeFileSync(p, t.split(r.fix.from).join(r.fix.to));
+        log.push(`${f}: link to a renamed repo, ${r.fix.from} -> ${r.fix.to}.`);
+      }
     }
 
     // 5. A59: pet.json `entry` opens the program page, and the README links to the program. A product's own README

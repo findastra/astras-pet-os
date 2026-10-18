@@ -61,7 +61,7 @@ for (const d of decisions) {
 const data = { generated: DATE, cardsIndex: `${cardsBase}/README.md`, items, icons };
 const json = JSON.stringify(data).replaceAll('<', '\\u003c');
 
-const html = `<title>Flash Audit Answers</title>
+const html = `<title>Flash Audit Answers ${DATE}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
