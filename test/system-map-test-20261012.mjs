@@ -97,7 +97,8 @@ test('R W X lives on grants with a status, never on a ring', () => {
 
 test('every gap a grant names is in the Known gaps table', () => {
   const doc = read(SYSTEM_MAP.doc);
-  for (const g of extra.access.grants) for (const gap of g.gaps || []) assert.match(doc, new RegExp(`^\| ${gap} \|`, 'm'), `${g.id}: gap ${gap}`);
+  const rows = doc.split(/\r?\n/);
+  for (const g of extra.access.grants) for (const gap of g.gaps || []) assert.ok(rows.some((r) => r.startsWith(`| ${gap} | `)), `${g.id}: gap ${gap} is not in Known gaps`);
 });
 
 test('PROTECTION-RINGS.md shows the same rings and grants as the map (run npm run build)', () => {
