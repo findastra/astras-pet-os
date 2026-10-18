@@ -1,0 +1,14 @@
+{
+  "pet": "api-fairy",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 1,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [],
+  "notes": "Fairy wings partly transparent.",
+  "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: a crop 212 art pixels tall, up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",
+  "revised": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-18, at Astra's request: Mommy's Mommies' head and body exactly (head 76 px with her bun, body 109 px, on the 256 px frames)"
+}

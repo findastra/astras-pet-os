@@ -1,51 +1,61 @@
-// Local previews only: never copy private character assets into the public hub.
-import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
-import {join,dirname} from 'node:path';
-import {png} from './art-kit.mjs';
-const projects=join(process.env.USERPROFILE,'Documents','Projects');
-const local=join(process.env.LOCALAPPDATA,'astras-pet-apps');
-const cache=join(local,'drafts-20261011');
-const pets=[];
-const firstDir=(...dirs)=>dirs.find(d=>existsSync(d))||dirs[0];
-// Sugarcube finished after the initial draft inventory.
-function add(id,name,dir,idle,blink,repo=id){
-  // A pet's own repo may contain a newer desktop-only draft; keep private art there.
-  let parent=dir;
-  while(dirname(parent)!==parent){
-    const revised=join(parent,'desktop-art',id);
-    if(existsSync(join(revised,'idle-20261011.png'))&&existsSync(join(revised,'blink-20261011.png'))){dir=revised;idle='idle-20261011.png';blink='blink-20261011.png';break;}
-    if(existsSync(join(parent,'.git')))break;
-    parent=dirname(parent);
+// Writes the desktop pets' local draft list, %LOCALAPPDATA%\astras-pet-apps\desktop-drafts-20261011.json.
+// OpenAI Codex (GPT-6), 2026-10-11. Rewritten for one art source (Flash Audit A58) by Claude Opus 5.5, 2026-10-17:
+// every draft pet's picture lives in this hub (desktop-art/<pet>/, art/drafts/<pet>/), so the list holds paths
+// relative to this folder and the desktop pets app refuses anything outside it. The one exception is Claude Bot:
+// his exact copy of ChatGPT's BSOD may not be public, so his entry points into his private repo's folder on this PC
+// and is marked "private" (Astra, 2026-10-17).
+//
+//   node scripts/prepare-desktop-drafts-20261011.mjs            write the list
+//   node scripts/prepare-desktop-drafts-20261011.mjs --print    print it instead
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const hub = fileURLToPath(new URL('..', import.meta.url));
+const petos = dirname(hub.replace(/[\\/]$/, ''));           // %USERPROFILE%\Documents\Astra's PetOS
+const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
+
+// [desktop-art id, repo]. Names come from pet-programs.json (the one list of names).
+export const DRAFTS = [
+  ['rgbee', 'rgbee'], ['mine-mole', 'mine-mole'], ['mail-snail', 'mail-snail'], ['patch-cat', 'patch-cat'],
+  ['backup-beaver', 'backup-beaver'], ['rift-rabbit', 'rift-rabbit'], ['wifi-butterfly', 'wifi-butterfly'],
+  ['chat-rat', 'chat-rat'], ['deck-duck', 'deck-duck'], ['raspberry-berry', 'raspberry-berry'],
+  ['meme-fiend', 'meme-fiend'], ['fuzzboi-friend', 'fuzzboi-friend'], ['gif-giraffe', 'astras-gif-maker'],
+  ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'],
+];
+
+export function draftList() {
+  const pets = [];
+  const need = (rel) => { if (!existsSync(join(hub, rel))) throw new Error(`Missing ${rel} in the hub`); return rel; };
+  // Claude Bot first, as before: the one entry outside the hub.
+  const bot = [join(petos, 'claude-bot', 'desktop-art', 'claude-bot'), join(petos, 'claude-bot', 'claude-bot-draft-art-20261011', 'desktop-art', 'claude-bot')]
+    .find((d) => existsSync(join(d, 'idle-20261011.png')));
+  if (bot) pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, idle: join(bot, 'idle-20261011.png'), blink: join(bot, 'blink-20261011.png'), interface: 'https://github.com/findastra/claude-bot' });
+  else console.warn('Claude Bot left out: his private repo is not on this PC.');
+  for (const [id, repo] of DRAFTS) {
+    const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
+    if (id === 'fuzzboi-friend') {
+      // Built from Astra's 32 original Fuzzbois layers at launch; idle and blink are the fallback.
+      entry.idle = need('art/drafts/fuzzboi-friend/idle-20261009.png');
+      entry.blink = need('art/drafts/fuzzboi-friend/blink-20261009.png');
+      const recipes = JSON.parse(readFileSync(join(hub, need('desktop-art/fuzzboi-friend/desktop-recipes-20261011.json')), 'utf8'));
+      entry.variants = recipes.variants.map((v) => ({ code: v.code, style: v.style, layers: v.layers.map(need) }));
+    } else {
+      entry.idle = need(`desktop-art/${id}/idle-20261011.png`);
+      entry.blink = need(`desktop-art/${id}/blink-20261011.png`);
+    }
+    pets.push(entry);
   }
-  const entry={id,name,idle:join(dir,idle),blink:join(dir,blink),interface:`https://github.com/findastra/${repo}`};
-  for(const key of ['idle','blink'])if(!existsSync(entry[key]))throw Error(`Missing ${entry[key]}`);
-  pets.push(entry);
+  return { pets };
 }
-for(const id of ['claude-bot','rgbee','mine-mole','mail-snail','patch-cat','backup-beaver','rift-rabbit']){
-  // Astra moved the separate draft-art folders inside each pet's folder on 2026-10-12; the old layout still works.
-  const repo=['claude-bot','rgbee'].includes(id)?firstDir(join(projects,id,`${id}-draft-art-20261011`),join(projects,`${id}-draft-art-20261011`)):join(projects,id);
-  add(id,id.split('-').map(s=>s[0].toUpperCase()+s.slice(1)).join(' '),join(repo,'draft-art',id),'idle-20261011.png','blink-20261011.png');
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  const list = draftList();
+  if (process.argv.includes('--print')) console.log(JSON.stringify(list, null, 2));
+  else {
+    const local = join(process.env.LOCALAPPDATA, 'astras-pet-apps');
+    mkdirSync(local, { recursive: true });
+    writeFileSync(join(local, 'desktop-drafts-20261011.json'), JSON.stringify(list, null, 2));
+    console.log(`${list.pets.length} draft pets listed; every picture but Claude Bot's is in this hub.`);
+  }
 }
-for(const id of ['wifi-butterfly','chat-rat'])add(id,id==='chat-rat'?'Chat Rat':'Wifi Butterfly',join(projects,id,'art'),'idle-20261009.png','blink-20261009.png');
-add('deck-duck','Deck Duck',join(projects,'deck-duck','art','frames'),'neutral.png','blink.png');
-add('raspberry-berry','Raspberry Pi Berry',join(projects,'raspberry-berry','art','frames'),'idle-20261010.png','blink-20261010.png');
-add('meme-fiend','Meme Fiend',join(projects,'meme-fiend','art'),'meme-fiend-20261009.png','meme-fiend-20261009.png');
-add('fuzzboi-friend','Fuzzboi Friend',join(cache,'fuzzboi-friend','art'),'idle-20261009.png','blink-20261009.png');
-add('gif-giraffe','Gif Giraffe',join(cache,'astras-gif-maker','art','frames','gif-giraffe'),'idle.png','blink.png','astras-gif-maker');
-const mesh=JSON.parse(readFileSync(join(projects,'mesh-moth','sprite.json')));
-const dir=join(cache,'mesh-moth');mkdirSync(dir,{recursive:true});
-for(const mood of ['idle','blink']){
-  const frame=mesh.frames[mood], [w,h]=mesh.size,rgba=Buffer.alloc(w*h*4);
-  frame.rows.forEach((row,y)=>[...row].forEach((c,x)=>{if(c==='.')return;const hex=frame.pal[c].slice(1);const offset=(y*w+x)*4;for(let k=0;k<3;k++)rgba[offset+k]=parseInt(hex.slice(k*2,k*2+2),16);rgba[offset+3]=255;}));
-  writeFileSync(join(dir,`${mood}-20261011.png`),png(w,h,rgba));
-}
-const meshRevised=join(projects,'mesh-moth','desktop-art','mesh-moth');
-add('mesh-moth','Mesh Moth',existsSync(join(meshRevised,'idle-20261011.png'))?meshRevised:dir,'idle-20261011.png','blink-20261011.png');
-add('spoonfed-sugarcube','Sugarcube',join(firstDir(join(projects,'spoonfed-sugarcube','spoonfed-art-20261011'),join(projects,'spoonfed-art-20261011')),'draft-art','spoonfed-sugarcube'),'idle-20261011.png','blink-20261011.png','spoonfed');
-const fuzzRoot=join(cache,'fuzzbois'),fuzzRecipes=join(fuzzRoot,'desktop-recipes-20261011.json');
-if(existsSync(fuzzRecipes)){
-  const fuzz=pets.find(p=>p.id==='fuzzboi-friend');
-  fuzz.variants=JSON.parse(readFileSync(fuzzRecipes)).variants.map(v=>({code:v.code,style:v.style,layers:v.layers.map(p=>join(fuzzRoot,p))}));
-}
-writeFileSync(join(local,'desktop-drafts-20261011.json'),JSON.stringify({pets},null,2));
-console.log(`${pets.length} local draft pets ready.`);

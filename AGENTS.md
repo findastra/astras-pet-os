@@ -95,6 +95,9 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
+- **One art source (Astra, 2026-10-18).** Every pet picture lives only here (`art/`, `desktop-art/`; PET-FILES.md,
+  "Where the pictures live"). Other repos, pages and the desktop pets link to it and never keep a copy. Claude Bot's
+  private BSOD copy is the one exception. Check with `node scripts/one-art-source-20261017.mjs` (Flash Audit A58).
 - **One style for every pet:** 256×256 finished transparent frames (Mommy's Mommies share one
   square sprite), nine moods, **generated** as a 3×3 sheet and converted by `scripts/sheet-to-sprites.mjs`.
   Prompts live in `scripts/generate-pets.mjs`; the shared `STYLE` string is never forked per pet.

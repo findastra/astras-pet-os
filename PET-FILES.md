@@ -127,7 +127,29 @@ Every pet uses the same nine meanings, so Astra can read any pet's face without 
 | `sad` | I could not finish, and that is my fault. |
 
 `sick` is the only mood that asks Astra for something. Use it whenever the pet cannot go on without her: a site needs her to sign in, a token or key is missing or expired, a permission was refused, a file or folder it was pointed at is not there, an app it manages is not installed. It is **not** for problems the pet found in its subject matter (that is `worried` / `alarmed`) and **not** for the pet's own crash (that is `sad`). When a pet goes `sick` it must say in words what it needs and how to give it.
-- Current frame paths are recorded in `art/frames/index.json`. Consumers use that index so they support both existing mood filenames and dated filenames. A pet repo can copy its own frames.
+- Current frame paths are recorded in `art/frames/index.json`. Consumers use that index so they support both existing mood filenames and dated filenames.
+
+### Where the pictures live: one art source (Flash Audit A58, Astra 2026-10-18)
+
+Every picture of every pet lives **only in this hub**, so a picture is changed once, here, and no program's code is
+touched. Never copy a pet picture into another repo.
+
+| Pictures | Folder |
+| --- | --- |
+| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` |
+| Web frames and sheets of draft pets (the build never touches them) | `art/drafts/<pet>/` |
+| Icons | `art/icons/<repo>-20261012.png` |
+| App icons built into Windows programs | `art/app-icons/<repo>/` |
+| Desktop pets, registered and draft, with their `desktop-pet-20261011.json` | `desktop-art/<pet>/` |
+| Fuzzboi Friend's 32 original layers and desktop recipes | `desktop-art/fuzzboi-friend/` |
+
+Pages and READMEs load `https://raw.githubusercontent.com/findastra/astras-pet-os/main/<path>`; a page that must
+work by double-click falls back to `../astras-pet-os/<path>`, the hub folder next to it on Astra's PC. The desktop
+pets app reads only this folder: the local draft list (`scripts/prepare-desktop-drafts-20261011.mjs`) holds paths
+relative to it. Windows programs read their frames and `.ico` from `..\astras-pet-os\` when they are built.
+**The one exception** is Claude Bot: his exact copy of ChatGPT's BSOD may not be public, so it lives only in his
+private repo, and his draft-list entry is marked `"private": true`. Check with
+`node scripts/one-art-source-20261017.mjs` ([docs/one-art-source-20261017.md](docs/one-art-source-20261017.md)).
 
 ## How pets move in the Cage
 

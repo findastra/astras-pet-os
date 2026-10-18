@@ -1,0 +1,23 @@
+{
+  "pet": "portfolio-puffer",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/portfolio-puffer/alarmed-20261011.png",
+    "desktop-art/portfolio-puffer/blink-20261011.png",
+    "desktop-art/portfolio-puffer/curious-20261011.png",
+    "desktop-art/portfolio-puffer/happy-20261011.png",
+    "desktop-art/portfolio-puffer/idle-20261011.png",
+    "desktop-art/portfolio-puffer/sad-20261011.png",
+    "desktop-art/portfolio-puffer/sick-20261011.png",
+    "desktop-art/portfolio-puffer/sleep-20261011.png",
+    "desktop-art/portfolio-puffer/worried-20261011.png"
+  ],
+  "notes": "Pink belly, seated forward-facing yellow foot soles.",
+  "source_sheet": "desktop-art/portfolio-puffer/sheet-20261011.png"
+}

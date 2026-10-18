@@ -25,6 +25,9 @@ namespace AstraDesktopPets {
     internal static string Root;
     internal static string StateFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "astras-pet-apps", "desktop-pets-status-20261008.json"); } }
     internal static string TestStateFile { get { return Path.Combine(Path.GetDirectoryName(StateFile),"desktop-pets-test-status-20261008.json"); } }
+    // The local draft list names which draft pets roam; their pictures live in this hub (Flash Audit A58, one art source).
+    // ASTRAS_PET_DRAFTS points at another list, for previews and tests only.
+    internal static string DraftsFile { get { string other=Environment.GetEnvironmentVariable("ASTRAS_PET_DRAFTS");return String.IsNullOrWhiteSpace(other)?Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"):other; } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
     internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
@@ -34,6 +37,13 @@ namespace AstraDesktopPets {
       string full=Path.GetFullPath(Path.Combine(Root,relative.Replace('/',Path.DirectorySeparatorChar)));
       if(!full.StartsWith(Root+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Pet asset is outside its app folder.");
       return full;
+    }
+    // A draft's picture path is relative to this hub folder. Only an entry marked "private": true may name a file outside
+    // it: art that may not be public (Claude Bot's exact BSOD copy, in his private repo; Astra, 2026-10-17).
+    internal static string DraftPath(Dictionary<string,object> entry,string path) {
+      object flag;bool own=entry.TryGetValue("private",out flag)&&flag is bool&&(bool)flag;
+      if(own&&Path.IsPathRooted(path))return Path.GetFullPath(path);
+      return SafePath(path);
     }
     internal static string Text(Dictionary<string,object> obj,string key,string fallback="") { object value; return obj.TryGetValue(key,out value)&&value!=null?Convert.ToString(value,CultureInfo.InvariantCulture):fallback; }
     internal static bool StartupEnabled() { using(var key=Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))return key!=null&&String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal); }
@@ -84,7 +94,7 @@ namespace AstraDesktopPets {
         var choice=choices[new Random(Guid.NewGuid().GetHashCode()).Next(choices.Count)];
         pet.Idle=new Bitmap(256,256,PixelFormat.Format32bppArgb);
         using(var canvas=Graphics.FromImage(pet.Idle))foreach(string path in (ArrayList)choice["layers"]){
-          using(var layer=Detached(path)) {
+          using(var layer=Detached(PetFiles.DraftPath(entry,path))) {
             if(Path.GetFileName(path)=="outlineB.png")using(var ink=new ImageAttributes()){
               var black=new ColorMatrix();black.Matrix00=black.Matrix11=black.Matrix22=0;ink.SetColorMatrix(black);
               canvas.DrawImage(layer,new Rectangle(0,0,256,256),0,0,layer.Width,layer.Height,GraphicsUnit.Pixel,ink);
@@ -92,7 +102,7 @@ namespace AstraDesktopPets {
           }
         }
         pet.Blink=new Bitmap(pet.Idle);pet.Name+=" "+style+" #"+PetFiles.Text(choice,"code");
-      }else {pet.Idle=Detached(PetFiles.Text(entry,"idle"));pet.Blink=Detached(PetFiles.Text(entry,"blink"));}
+      }else {pet.Idle=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"idle")));pet.Blink=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"blink")));}
       CrispTransparency(pet.Idle);CrispTransparency(pet.Blink);
       pet.Crop=Rectangle.Union(AlphaBounds(pet.Idle),AlphaBounds(pet.Blink));
       pet.PrepareEffects();pet.idleInk=BlackMask(pet.Idle);pet.blinkInk=BlackMask(pet.Blink);return pet;
@@ -473,8 +483,8 @@ namespace AstraDesktopPets {
     void LoadPets() {
       var registry=PetFiles.Read("pets.json");var index=(Dictionary<string,object>)PetFiles.Read("art/frames/index.json")["pets"];
       foreach(var raw in (ArrayList)registry["pets"]) { var sprite=PetSprite.Load((Dictionary<string,object>)raw,index);if(sprite.Role=="host") { if(farmer!=null)throw new InvalidDataException("There must be one Farmer.");farmer=sprite; }else pets.Add(sprite); }
-      // Local-only draft roster keeps private artwork and machine paths outside the public hub.
-      string drafts=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"astras-pet-apps","desktop-drafts-20261011.json");
+      // The local draft list (written by scripts/prepare-desktop-drafts-20261011.mjs) names the draft pets; their art is in desktop-art/.
+      string drafts=PetFiles.DraftsFile;
       if(File.Exists(drafts))foreach(var raw in (ArrayList)PetFiles.Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(drafts))["pets"]) {
         var entry=(Dictionary<string,object>)raw;string id=PetFiles.Text(entry,"id");
         if(!pets.Exists(p=>p.Id==id)&&farmer.Id!=id)pets.Add(PetSprite.LoadDraft(entry));
@@ -695,6 +705,7 @@ namespace AstraDesktopPets {
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
       if(!PetFiles.StartupCommand.StartsWith("\""+PetFiles.Exe+"\" \""))throw new Exception("Startup quoting failed.");
       bool rejected=false;try{PetFiles.SafePath("../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("Asset path validation failed.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"}},Path.Combine(Path.GetTempPath(),"outside.png"));}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A public draft reached outside the hub.");
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
       ClickTests();
@@ -716,7 +727,7 @@ namespace AstraDesktopPets {
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
