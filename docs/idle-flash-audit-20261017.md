@@ -54,7 +54,9 @@ the checks themselves take about an hour.
 - Facts in the hub catalog that GitHub contradicts (for example `repo_exists`).
 - **Every pet connected to its pet program** (A59, Astra 2026-10-18): pet.json `entry`, `interface_url` in
   `pets.json`, the profile line, The Farm's card, the System Map node and the README all link to the same, real
-  program (A10, A12, A39).
+  program (A10, A12, A39). A registered or pipeline pet missing from `pet-programs.json` gets the next free number,
+  its program called `pet-program-N` until Astra names it.
+- Tool behavior with made-up data in a scratch copy, no sign-in (A19).
 
 ### Never fixed overnight
 
@@ -114,8 +116,8 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
 ## What it does not check
 
 Anything that needs a person or a signed-in browser (the 🔵 checks that need Astra there): double-clicking a desktop
-pet (A11), clicking tools and tutorials (A19, A36, A37, A40), chat seats and what they do (A22, A23, A52), live routes
-behind a sign-in (A10). Those stay **Not verified** until an Active Flash Session.
+pet (A11), tools on Astra's real data, accounts or PC (A19's live part), tutorials (A36, A37, A40), chat seats and
+what they do (A22, A23, A52), live routes behind a sign-in (A10). Those stay **Not verified** until an Active Flash Session.
 
 ## Lessons from the first run (2026-10-17)
 
