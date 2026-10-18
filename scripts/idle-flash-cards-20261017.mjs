@@ -55,6 +55,7 @@ function fixedBy(rec, row) {
   if (row.fix?.type === 'petjson-name') return /pet "/.test(log);
   if (row.fix?.type === 'credit') return /credit line/.test(log);
   if (row.fix?.type === 'limits') return /Limits section/.test(log);
+  if (row.fix?.type === 'readme-title') return /the title is now its program's name/.test(log);
   if (row.check === 'A14' && /Required files/.test(row.detail)) return row.detail.replace(/^.*?:\s*/, '').split(/,\s*/).every((f) => log.includes(`Added ${f}`));
   if (row.check === 'A14' && /topic/.test(row.detail)) return TOPIC_ADDED.has(rec.audited.repo);
   return false;

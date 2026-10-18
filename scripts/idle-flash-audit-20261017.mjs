@@ -243,7 +243,12 @@ for (const prog of catalog) {
   const want = titleCase(meta.name);
   if (!readme) add('A15', 'Missing', 'No README.md.');
   else {
-    if (h1 && norm(h1) !== norm(want) && norm(h1) !== norm(prog.icon)) add('A15', 'Incorrect', `README title "${h1}" is neither the repo name in Title Case ("${want}") nor the pet name.`);
+    // The program's own name is a right title too ("Luna's Log" for lunas-log). A pet-program-N title left after the repo
+    // took its program's name is fixed idle: the name is decided in pet-programs.json (2026-10-18).
+    if (h1 && norm(h1) !== norm(want) && norm(h1) !== norm(prog.icon) && !(prog.assigned && norm(h1) === norm(prog.program))) {
+      const stale = prog.assigned && /^pet-program-\d+$/.test(h1.trim());
+      add('A15', 'Incorrect', `README title "${h1}" is neither the repo name in Title Case ("${want}") nor the pet or program name.`, stale ? { fix: { type: 'readme-title', to: prog.program } } : {});
+    }
     // The credit is "An Intelligent App, or Pet, by Astra." (Astra, 2026-10-18, card 033); the old line still passes while repos switch.
     if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme)) add('A15', 'Missing', 'README lacks the credit line "*An Intelligent App, or Pet, by Astra.*".', { fix: { type: 'credit' } });
     if (!/^#{2,3}\s.*(run|start|install|use|open|get it|download|quick)/im.test(readme)) add('A15', 'Missing', 'README has no "how to run it" section.');

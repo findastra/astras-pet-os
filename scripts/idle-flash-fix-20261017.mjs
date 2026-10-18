@@ -167,6 +167,12 @@ for (const rec of ledger) {
         const made = existsSync(`${dir}/AGENTS.md`) && readFileSync(`${dir}/AGENTS.md`, 'utf8').match(/^Created by .+?, \d{4}-\d\d-\d\d, at Astra's request\./m);
         if (made && !/Created by|Started by|Built with/i.test(rm)) { rm = rm.replace(/\s*$/, '') + `\n\n${made[0]}\n`; log.push('README: records who made it and when (copied from AGENTS.md).'); }
       }
+      // A pet-program-N title left after the repo took its program's name follows pet-programs.json.
+      const titleRow = rec.rows.find((r) => r.fix?.type === 'readme-title');
+      if (titleRow && /^#[ \t]+pet-program-\d+[ \t]*\r?$/m.test(rm)) {
+        rm = rm.replace(/^#[ \t]+pet-program-\d+[ \t]*(\r?)$/m, (m, cr) => `# ${titleRow.fix.to}${cr}`);
+        log.push(`README: the title is now its program's name, ${titleRow.fix.to} (pet-programs.json).`);
+      }
       if (rec.rows.some((r) => r.fix?.type === 'credit') && !/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) {
         rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*An Intelligent App, or Pet, by Astra.*') : `*An Intelligent App, or Pet, by Astra.*\n\n${rm}`;
         log.push('README: added the credit line "*An Intelligent App, or Pet, by Astra.*".');
