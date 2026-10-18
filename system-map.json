@@ -205,6 +205,18 @@
       "category": "Desktop app"
     },
     {
+      "id": "sticker-manager",
+      "name": "Sticker Manager",
+      "type": "tool",
+      "of": "program-13",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "discord-tower-v1.0-sticker-manager-v1.0",
+      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. On a branch (findastra-discord-presence PR), not installed yet."
+    },
+    {
       "id": "voicemeeter",
       "name": "Voicemeeter",
       "type": "program",
@@ -522,6 +534,15 @@
       "layer": 6,
       "job": "Cloud service. Your profile shows AI activity through the presence apps; Discord Damsel manages your Discord apps and cleanup.",
       "category": "Cloud service"
+    },
+    {
+      "id": "betterdiscord",
+      "name": "BetterDiscord",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "job": "Third-party client mod for Discord desktop that loads plugins, such as Discord Damsel's Sticker Manager. Made by others (betterdiscord.app), not through the Shed; client mods are against Discord's Terms of Service. A Discord update can remove it. Not loaded in Discord on 2026-10-18.",
+      "category": "Desktop app"
     },
     {
       "id": "github",
@@ -2255,6 +2276,27 @@
       "carries": "manages",
       "state": "planned",
       "why": "Discord Damsel's server and DM cleanup and future Discord tools (Astra, 2026-10-11)."
+    },
+    {
+      "from": "findastra-discord-presence",
+      "to": "sticker-manager",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Discord Damsel's page links her Sticker Manager, which runs inside Discord (Astra, 2026-10-18)."
+    },
+    {
+      "from": "sticker-manager",
+      "to": "betterdiscord",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "The Sticker Manager is a BetterDiscord plugin."
+    },
+    {
+      "from": "sticker-manager",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Reads your servers and their stickers; changes only your favorite stickers, after you confirm, through Discord's own settings saver."
     },
     {
       "from": "astras-pet-os",
