@@ -148,6 +148,8 @@ test('A59: the System Map draws a line from the pet to its one program', () => {
   const other = a59ForPet({ prog: p, repo, map: { node: 'rgbee', home: { number: 30, name: 'Fuzz Factory' }, programNodes: [], linked: false, private: false } });
   assert.equal(rowDot(other[0], readMatrix()), BLUE, 'two programs on one pet is Astra\'s');
   assert.deepEqual(a59ForPet({ prog: p, repo, map: { node: 'rgbee', home: { number: 22 }, programNodes: [], linked: false, private: true } }), [], 'a private pet\'s program stays off the map');
+  const unregistered = a59ForPet({ prog: prog({ number: 35, icon: 'Chat Rat', repo: 'chat-rat' }), repo: { ...repo, name: 'chat-rat' }, map: { node: null, home: null, programNodes: [], linked: false, private: false } });
+  assert.equal(rowDot(unregistered[0], readMatrix()), BLUE, 'a pet missing from pets.json waits for Astra to register it');
 });
 
 test('A59: the README links to the program, added under the credit line', () => {

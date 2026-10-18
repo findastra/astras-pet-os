@@ -147,7 +147,9 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
 
   // The System Map: the pet's node, its program's node, and the line between them.
   if (map && !map.private) {
-    if (!map.node) { if (animal) add('Missing', `${prog.icon} is not on the System Map.`, 'The map is built from pets.json: check that the pet is registered there.'); }
+    // The map is built from pets.json, so a pet missing from it is missing from the registry: moving it in is
+    // Astra's (A33, nobody becomes an animal by saying so).
+    if (!map.node) { if (animal) add('Missing', `${prog.icon} is not on the System Map${reg ? '' : ', because pets.json does not list it'}.`, reg ? 'The map is built from pets.json: rebuild it (npm run build).' : 'Yours: register it in pets.json (A33), then the map shows it.', null, reg ? null : BLUE); }
     else if (map.home && map.home.number !== prog.number) add('Incorrect', `The System Map links ${prog.icon} to pet program #${map.home.number} (${map.home.name}), not #${prog.number}.`, 'Not changed: two programs share a repo or a pet name; the hub list needs one program per pet.', null, BLUE);
     else if (prog.assigned && animal && map.programNodes.length > 1) add('Incorrect', `The System Map has ${map.programNodes.length} nodes for ${label}: ${map.programNodes.join(', ')}.`, 'Keep one node in system-map.json for the program.');
     else if (prog.assigned && animal && map.programNodes.length === 1 && !map.linked) {
