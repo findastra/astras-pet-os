@@ -41,6 +41,12 @@ export function nameDrift({ programs, registry, systemMap = null, intelligence =
     for (const line of intelligence.split('\n')) {
       const m = /^\| <img[^|]*\| ([^|]+?) \| (registered|pipeline|seed|unregistered|roadmap) \|/.exec(line);
       if (m && !byIcon.has(m[1].trim())) out.push(`INTELLIGENCE-LEVELS.md: "${m[1].trim()}" is not a pet in pet-programs.json`);
+      // The "1 Program" column names the pet's own program first, in bold, after "Made by Astra:" (2026-10-18): it must
+      // be the list's name. Once the list names a program, an italic suggestion or a missing name is drift too.
+      const q = m && byIcon.get(m[1].trim());
+      if (!q?.assigned) continue;
+      const named = /\*\*Made by Astra:\*\* \*\*\[?([^*\]]+)/.exec(line)?.[1].trim();
+      if (named !== q.program) out.push(`INTELLIGENCE-LEVELS.md: ${q.icon}'s program is ${named ? `"${named}"` : 'not named in bold'}, the list says "${q.program}"`);
     }
   }
   return out;
