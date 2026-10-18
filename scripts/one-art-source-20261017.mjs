@@ -62,7 +62,8 @@ export function audit(trees, drafts) {
   const hub = trees[HUB];
   if (!hub) throw new Error(`No tree for ${HUB}`);
   const hubBySha = new Map();
-  for (const f of hub.files) if (IMG.test(f.path)) { if (!hubBySha.has(f.sha)) hubBySha.set(f.sha, []); hubBySha.get(f.sha).push(f.path); }
+  // Pet pictures only: the hub's screenshots and System Map renders (docs/) may be shown elsewhere.
+  for (const f of hub.files) if (IMG.test(f.path) && /^(art|desktop-art)\//.test(f.path)) { if (!hubBySha.has(f.sha)) hubBySha.set(f.sha, []); hubBySha.get(f.sha).push(f.path); }
   const findings = [], exceptions = [];
   for (const [repo, t] of Object.entries(trees)) {
     if (repo === HUB || !t.files) continue;
@@ -110,10 +111,11 @@ async function fetchTrees(branch, token) {
 function arg(name) { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null; }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  const readJson = (file) => JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, ''));   // PowerShell writes a BOM
   const treesFile = arg('--trees');
-  const trees = treesFile ? JSON.parse(readFileSync(treesFile, 'utf8')) : await fetchTrees(arg('--branch'), process.env.GITHUB_TOKEN);
+  const trees = treesFile ? readJson(treesFile) : await fetchTrees(arg('--branch'), process.env.GITHUB_TOKEN);
   const draftsFile = arg('--drafts') || (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
-  const drafts = draftsFile && existsSync(draftsFile) ? JSON.parse(readFileSync(draftsFile, 'utf8')) : null;
+  const drafts = draftsFile && existsSync(draftsFile) ? readJson(draftsFile) : null;
   const result = audit(trees, drafts);
   if (process.argv.includes('--json')) console.log(JSON.stringify(result, null, 1));
   else {

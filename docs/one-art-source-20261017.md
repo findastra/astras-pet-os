@@ -1,6 +1,7 @@
 # One art source: the plan, 2026-10-17
 
-By Claude Opus 5.5 (`claude-opus-5-5`) for Astra. **A plan, waiting on Astra's OK.** Nothing below is built yet.
+By Claude Opus 5.5 (`claude-opus-5-5`) for Astra. **Approved by Astra on 2026-10-18**, all four decisions as
+recommended, and built the same day: see [What was done](#what-was-done-2026-10-18) at the end. Nothing is merged yet.
 
 ## What Astra asked
 
@@ -156,7 +157,111 @@ reads only the hub.
 4. On the PC: draft list, rebuild, restart (an assistant does it once Astra has merged step 1).
 5. A58 run: no copies left except Claude Bot.
 
+## What was done (2026-10-18)
+
+Astra: "Approved: the one-art-source plan in PR #58, with all four decisions as recommended. Go ahead and build it."
+By Claude Opus 5.5 (`claude-opus-5-5`). Work in scratchpad clones only; nothing merged.
+
+**This hub** (PR #58, branch `claude/one-art-source-20261017`, built on PR #60's branch `claude/girls-same-size-20261017`,
+which holds main with #53 and the group 3 sizes; merge #60 first):
+- `desktop-art/<pet>/` for the 15 draft pets, `art/drafts/<pet>/` (draft web frames and sheets), `art/app-icons/<repo>/`
+  (5 repos), `desktop-art/fuzzboi-friend/layers/` (32 layers) and its 858 recipes, and every pet's
+  `desktop-pet-20261011.json`. Copied from each repo's base branch and checked byte for byte.
+- Desktop pets app: draft pictures resolve inside the hub folder (`PetFiles.DraftPath`); only `"private": true` may
+  name a file outside it (Claude Bot). A draft that cannot load is skipped and named in the status file
+  (`draft_errors`) instead of stopping every pet. `ASTRAS_PET_DRAFTS` points at another list for tests. Self-test
+  PASS with the new list and with today's old list; preview shows all 16 draft pets; a public path outside the hub is
+  refused.
+- `prepare-desktop-drafts-20261011.mjs` writes hub-relative paths and names from `pet-programs.json`;
+  `make-icons-20261012.mjs` reads hub files only.
+- `scripts/one-art-source-20261017.mjs` (A58 check) and `test/one-art-source-test-20261017.mjs`. `npm test`: all pass.
+- PET-FILES.md "Where the pictures live", AGENTS.md rule, A58 text, a note on card 030, card 032 for the PC steps.
+
+**Not as planned:**
+- The desktop app still has its compiled list of 15 registered pets that use `desktop-art/`: Ghost Protocol has desktop
+  art in the hub that is deliberately unused ("Ghost uses original body", docs/pet-release-20261011.md), so making it
+  automatic would change what the desktop shows.
+- `make-icons` was not run for real: from the same pictures it would change 6 committed icons (the redesign made those
+  by hand), so `art/icons/` is untouched.
+
+**Pet repos, one PR each** (branch `claude/one-art-source-20261017`; merge after #58):
+
+| Repo | PR | Built on | Files removed |
+| --- | --- | --- | --- |
+| drum-dog | [#3](https://github.com/findastra/drum-dog/pull/3) | main | 20 |
+| ghost-protocol | [#5](https://github.com/findastra/ghost-protocol/pull/5) | main | 10 |
+| api-fairy | [#4](https://github.com/findastra/api-fairy/pull/4) | its #3 (group 3 sizes) | 11 |
+| findastra-discord-presence | [#6](https://github.com/findastra/findastra-discord-presence/pull/6) | its #5 | 20 |
+| voicemeeter-bug | [#2](https://github.com/findastra/voicemeeter-bug/pull/2) | master | 21 |
+| project-parrot | [#3](https://github.com/findastra/project-parrot/pull/3) | main | 20 |
+| vscode-angel | [#4](https://github.com/findastra/vscode-angel/pull/4) | its #3 | 20 |
+| portfolio-puffer | [#3](https://github.com/findastra/portfolio-puffer/pull/3) | main | 20 |
+| finance-finch | [#3](https://github.com/findastra/finance-finch/pull/3) | main | 20 |
+| health-hummy | [#3](https://github.com/findastra/health-hummy/pull/3) | main | 20 |
+| mommys-mommies | [#4](https://github.com/findastra/mommys-mommies/pull/4) | its #3 | 30 |
+| file-master | [#6](https://github.com/findastra/file-master/pull/6) | main | 21 |
+| paper-girl | [#2](https://github.com/findastra/paper-girl/pull/2) | main | 21 |
+| the-astral-plane | [#5](https://github.com/findastra/the-astral-plane/pull/5) | its #4 | 20 |
+| learn-python | [#4](https://github.com/findastra/learn-python/pull/4) | main | 20 |
+| data-dealer | [#3](https://github.com/findastra/data-dealer/pull/3) | main | 19 |
+| unity-unicorn | [#5](https://github.com/findastra/unity-unicorn/pull/5) | main | 9 |
+| github-goldfish | [#16](https://github.com/findastra/github-goldfish/pull/16) | main | 10 |
+| chat-rat | [#7](https://github.com/findastra/chat-rat/pull/7) | main | 23 |
+| wifi-butterfly | [#4](https://github.com/findastra/wifi-butterfly/pull/4) | main | 23 |
+| mesh-moth | [#4](https://github.com/findastra/mesh-moth/pull/4) | main | 12 |
+| meme-fiend | [#4](https://github.com/findastra/meme-fiend/pull/4) | main | 12 |
+| rgbee | [#4](https://github.com/findastra/rgbee/pull/4) | main | 23 |
+| rift-rabbit | [#3](https://github.com/findastra/rift-rabbit/pull/3) | main | 23 |
+| patch-cat | [#3](https://github.com/findastra/patch-cat/pull/3) | main | 23 |
+| mail-snail | [#3](https://github.com/findastra/mail-snail/pull/3) | main | 23 |
+| backup-beaver | [#3](https://github.com/findastra/backup-beaver/pull/3) | main | 23 |
+| spoonfed | [#2](https://github.com/findastra/spoonfed/pull/2) | main | 23 |
+| mine-mole | [#3](https://github.com/findastra/mine-mole/pull/3) | main | 12 |
+| deck-duck | [#3](https://github.com/findastra/deck-duck/pull/3) | main | 21 |
+| raspberry-berry | [#4](https://github.com/findastra/raspberry-berry/pull/4) | main | 22 |
+| fuzzboi-friend | [#3](https://github.com/findastra/fuzzboi-friend/pull/3) | main | 11 |
+| astras-gif-maker | [#2](https://github.com/findastra/astras-gif-maker/pull/2) | main | 22 |
+| fuzzbois (the 32 layers) | [#1](https://github.com/findastra/fuzzbois/pull/1) | main | 33 |
+| findastra.github.io (portfolio) | [#6](https://github.com/findastra/findastra.github.io/pull/6) | its #4 | 61 |
+
+Each pet repo PR: copies deleted; sprite JSON, README pictures, `pet.json` and pages use the hub address; 14 pages
+that carried their pictures inlined (base64) now load them from the hub (an older inlined copy was matched to the
+hub's frame for the same mood); every page got the offline fallback to `../astras-pet-os/`; AGENTS.md says where the
+pictures live. First drafts in `draft-art/` (6 pets) are only in each repo's history; README links point there.
+
+**Tested:**
+- API Fairy's `build.cmd` and Voicemeeter Bug's build read from the hub folder next to them, in a path with spaces
+  and an apostrophe; both executables carry all nine frames.
+- `draw-berry.mjs`, the Deck Duck drawing script and the Fuzzbois recipe export write byte-identical files into the
+  hub.
+- In the browser pane, with the hub as a sibling folder:
+  - Drum Dog's page loads its frames from the hub address.
+  - Wifi Butterfly's and Fuzzboi Friend's pages fall back to the hub folder (their hub addresses exist only after #58).
+  - The Fuzzboi Forge loads all 32 layers from the hub.
+  - The portfolio's main page shows 109 hub pictures and its parchment page 17, none broken.
+- Goldfish (59) and Discord presence (68) tests pass.
+
+**A58 run** (`node scripts/one-art-source-20261017.mjs --branch claude/one-art-source-20261017`, all 96 findastra
+repos with a token, draft list as `prepare-desktop-drafts` writes it): **Correct**. The only pictures outside the hub
+are Claude Bot's 20, the written exception. The same check on today's `main` reports 674 pictures in 35 repos, and 16
+draft pets read from outside the hub.
+
 ## Not done
 
-Everything: this is the plan. Unity Unicorn, Gif Giraffe and group 1 still wait on card 030; when Codex redraws them,
-the new pictures go into this hub only.
+- **Nothing is merged.** Merge order:
+  1. #60.
+  2. This PR (#58).
+  3. The pet repo PRs, each after the PR it is built on.
+  4. The portfolio (#6, after its #4).
+  5. Fuzzbois.
+- **Astra's PC** waits on card 032. After #58 is on main and live sync has pulled it, an assistant:
+  1. writes the draft list;
+  2. rebuilds the desktop pets app (together with card 031);
+  3. restarts it.
+
+  Until then her desktop keeps reading the pet working copies. The old `%LOCALAPPDATA%\astras-pet-apps\drafts-20261011\`
+  clones become unused; they are left for Astra to delete.
+- Unity Unicorn, Gif Giraffe and group 1 still wait on card 030. When Codex redraws them, the new pictures go into this
+  hub only.
+- Platform Platypus's `index.html` names `icon-180.png` and `art/icons/astras-pet-os-20261012.png`, which its repo does
+  not have. That is a broken link, not a copy, so it is left for that pet's chat.
