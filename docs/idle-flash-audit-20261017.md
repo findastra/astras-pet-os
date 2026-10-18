@@ -98,8 +98,9 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
    skips repos that already have their pull request. A59 links are fixed the same way: pet.json `entry` and the
    README link in the pet's fix branch; pets.json, pet-programs.json and system-map.json in one fix branch of the hub
    (it runs `npm run build -- --metadata-only` there), merged like every hub change, after Astra's OK in chat.
-6. **Start missing repos:** `node "$hub\scripts\idle-flash-new-repos-20261017.mjs" --dry`, then without `--dry`
-   (add `--private` if public creation is blocked).
+6. **Start missing repos:** `node "$hub\scripts\idle-flash-new-repos-20261017.mjs" --dry`, then without `--dry`.
+   A farm's repos start private (Astra, 2026-10-18); on Astra's own farm add `--public`, because her pets are public
+   by her choice (only Data Dealer is private).
 7. **See what is left:** audit again with `AUDIT_REF=claude/flash-audit-fixes-<date>` set, so each repo is read
    from its fix branch. Whatever disappears is fixed by the pull request.
 8. **Round cards** for the iPad:

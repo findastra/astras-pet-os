@@ -30,6 +30,17 @@ change your mind. Choosing changes only your installed copy; the steps below cha
 Or ask your AI: *"Help me fork findastra/astras-pet-os, rename it to `<name>`, and install it from my fork with its
 installer. Show me each step before you do it."*
 
+**Want your whole farm private? (Astra, 2026-10-18)** GitHub always keeps a fork of a public repo public, so a private
+farm is a **private copy** instead of a fork. The Friendly Farmer's `pet-privatizer` tool makes one on your account,
+with every branch and tag:
+
+```
+node scripts/pet-privatizer-20261018.mjs copy findastra/astras-pet-os <name> --yes
+```
+
+A copy is not linked to Astra's original the way a fork is: get updates with
+`git pull https://github.com/findastra/astras-pet-os.git main` in your copy, when you choose (step 4).
+
 ## 2. Delete examples
 
 | Where | How | Undo |
@@ -62,11 +73,15 @@ conflict, ask your AI for help or open a ticket at the [vet-clinic](https://gith
 - Ask your AI to make a pet for whatever you use: it follows the
   [Pet Program Framework](PET-PROGRAM-FRAMEWORK.md), gives the pet program its own repo (`<you>/<pet-program>`), and
   adds it to your `pets.json`. The Friendly Farmer will do this for you once his spawning tool is built.
+- **Your pets' repos start private** (Astra, 2026-10-18). Making one public is your choice, any time. To make a public
+  pet private again: `node scripts/pet-privatizer-20261018.mjs plan <repo>` shows what changes (stars and watchers are
+  erased, a Pages site stops), then `apply <repo> --yes`. `plan --all` checks every pet on your farm at once.
 - Proud of it? Bring it to [the Kennel](https://github.com/findastra/the-kennel) so other farmers can adopt it.
 
 ## 6. Keep it safe
 
-- **A fork of a public repo is public.** Never put keys, passwords or personal information in it. Your pets keep your
+- **A fork of a public repo is public**, and GitHub cannot make it private: for a private farm, make a private copy
+  (step 1). Never put keys, passwords or personal information in a public repo. Your pets keep your
   data on your PC, and GitHub's push protection stops most leaked keys.
 - Pets with private data (health, money, private notes) belong in **private** repos of their own, not in your public fork.
 - Install only with the installer, and only from your own fork or Astra's releases. See [SECURITY.md](SECURITY.md).
