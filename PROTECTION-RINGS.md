@@ -1,7 +1,7 @@
 # Protection Rings
 
 How Astra's PetOS keeps the farm safe: who may read, write and run what, which parts are connected, and what
-stops a mistake or an attack. Companion to [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md). Short rule list for
+stops a mistake or an attack. Companion to [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) and the [security model](docs/security-model-20261018.md); to report a problem, see [SECURITY.md](SECURITY.md). Short rule list for
 agents: [skills/farm-security](skills/farm-security/SKILL.md). Started by Claude Opus 5.5, 2026-10-13.
 
 > **🐾 Everything inside the harness is an animal. Agents can only control animals.
@@ -22,7 +22,7 @@ agents: [skills/farm-security](skills/farm-security/SKILL.md). Started by Claude
 
 ## The rings: what the agent in the seat may do
 
-`R` read · `W` write · `X` execute · `🔒W` only through a pull request Astra merges · `–` no
+`R` read · `W` write · `X` execute · `🔒W` only on a branch, merged after Astra's OK in chat (the assistant does the merge; Astra, 2026-10-18) · `–` no
 
 | Ring | What lives there | R | W | X | Animal? |
 |---|---|---|---|---|---|
@@ -120,7 +120,7 @@ What is not true yet, in order of risk. Tracked in [docs/structure-audit-2026101
 
 | # | Gap | Status |
 |---|---|---|
-| 1 | Agents act on Astra's own GitHub account, so GitHub cannot tell her from an agent, and "core needs Astra" is a written rule, not an enforced one. | First step chosen: Astra signs her own commits with her security key. Designed: a short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12) |
+| 1 | Agents act on Astra's own GitHub account, so GitHub cannot tell her from an agent, and "core needs Astra" is a written rule, not an enforced one. Since 2026-10-18 (approval, not clicks) Astra gives her OK in chat and the assistant does the merge, so the chat record and the `Co-Authored-By` line are the only proof of her OK. | First step chosen: Astra signs her own commits with her security key. Designed: a short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12) |
 | 2 | Remote Control and Desktop Commander let a phone control this PC: a path into the native farm from outside. | Astra deciding (on only when she turns it on?) |
 | 3 | The Farmer's daily round used to make any repo with `pet.json` an animal automatically. | **Fixed 2026-10-13:** it now waits at the gate |
 | 4 | Main has no branch protection, so nothing technical stops a push to main. | Needs Astra (a repository setting) |
