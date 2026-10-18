@@ -10010,6 +10010,13 @@
    "interface": "https://github.com/findastra/spoonfed",
    "idle": "desktop-art/spoonfed-sugarcube/idle-20261011.png",
    "blink": "desktop-art/spoonfed-sugarcube/blink-20261011.png"
+  },
+  {
+   "id": "door-dormouse",
+   "name": "Door Dormouse",
+   "interface": "https://github.com/findastra/the-threshold",
+   "idle": "desktop-art/door-dormouse/idle-20261018.png",
+   "blink": "desktop-art/door-dormouse/blink-20261018.png"
   }
  ]
 }
