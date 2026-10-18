@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [036: Every pet's click opens its program; pages for the 58 pets without one](036-any-pet-program-pages-and-clicks-20261018.md) | any | open, waits on Astra: push the 48 repo pages, GitHub Pages, the double-click check |
 | [035: Codex framework pull requests, and branches that conflict with main](035-codex-framework-pull-requests-20261018.md) | Codex | open: 17 Codex pull requests to bring up to date; 3 branches held back for Astra |
 | [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | open: pull requests listed in the card (Idle Flash Audit chat); done when merged |
 | [032: The desktop pets read only the hub: draft list, rebuild, restart](032-any-desktop-reads-only-the-hub-20261018.md) | any | open, after Astra merges #60 and #58 |
@@ -50,7 +51,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 036.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card). When numbers clashed, the
+**Next free number: 037.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; 036 is the pet-click card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -78,6 +79,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 032 | `032-any-desktop-reads-only-the-hub-20261018.md` | `claude/one-art-source-20261017` |
 | 034 | `034-any-system-map-rings-and-grants-20261018.md` | `claude/system-map-redo-20261017` (PR #64; was 032, renumbered on 2026-10-18 because the desktop card took 032) |
 | 035 | `035-codex-framework-pull-requests-20261018.md` | `claude/flash-audit-answers-20261018` |
+| 036 | `036-any-pet-program-pages-and-clicks-20261018.md` | `claude/press-plai-tools-20261017` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on

@@ -1,0 +1,494 @@
+<!doctype html>
+<!-- Bundled copy of findastra/rgbee main rgbee-20261009.html at 04f054eb1fa33656ef2ea482db7f5d42beb63336, so the desktop pet opens its program before GitHub Pages is on. Made by astras-pet-os scripts/pet-program-pages-20261018.mjs --bundle (Claude Opus 5.5, 2026-10-18). Change the pet's repo, then bundle it again; never edit this copy. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Astra; Claude Opus 5.5">
+<title>RGBee · Astra</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark;font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:#ece8f4;background:#0c0b12;
+  --line:#2a2638;--soft:#16141f;--panel:#121019;--muted:#a39cb6;--accent:#ff3df0;--ok:#4dff9a}
+body{margin:0}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}
+.rail{background:#08070d;border-right:1px solid var(--line);padding:26px 20px;display:flex;flex-direction:column;gap:20px;position:relative}
+.brand{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#c9a8ff}
+.brand a{color:inherit;text-decoration:none}
+.pet-well{position:relative;aspect-ratio:1/1;border-radius:24px;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(ellipse,#1d1a2b 0%,#0e0c16 70%);border:1px solid #352f4a;overflow:hidden}
+.pet-well::before{content:"";position:absolute;inset:14%;border-radius:50%;
+  background:conic-gradient(#ff2b4e,#ffd43b,#3bff7a,#2bd9ff,#5b5bff,#ff3df0,#ff2b4e);filter:blur(18px);opacity:.55;animation:spin 9s linear infinite}
+.pet-well .wait{position:relative;font-size:12px;color:#ddd5ee;padding:0 16px}
+.pet-well .wait strong{display:block;font-size:22px;letter-spacing:-.02em;color:#fff}
+.mood{position:relative;font-size:11px;margin-top:6px;color:#cfc6e6}
+.pet-wrap{position:relative}
+.bubble{position:absolute;left:6px;right:6px;bottom:-16px;z-index:3;background:#fff6fd;color:#2b0627;border:2px solid var(--accent);
+  border-radius:12px;padding:6px 10px;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.bubble[hidden]{display:none}
+.rail h2{font-size:20px;margin:0}
+.rail p{font-size:13px;color:var(--muted);margin:0}
+.rail label{font-size:12px;color:#c7bedb}
+.rail select{width:100%;background:#16131f;border:1px solid #3b3452;border-radius:9px;padding:7px;margin-top:5px}
+.rail footer{margin-top:auto;font-size:11px;color:#8c84a3}
+.rail footer a{color:#e3c4ff}
+.main{padding:34px clamp(16px,4vw,52px);max-width:1400px;width:100%;margin:auto}
+.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:750;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;flex-wrap:wrap}
+h1{font-size:clamp(26px,3.4vw,40px);letter-spacing:-.04em;line-height:1.15;margin:0 0 10px;font-weight:680;max-width:680px}
+.intro{max-width:640px;color:var(--muted);margin:0}
+.pill{border:1px solid #4a2346;background:#1c0d1b;color:#ffb6f6;border-radius:30px;padding:8px 14px;font-size:12px;white-space:nowrap}
+.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:hidden}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-head h2{font-size:16px;margin:0;font-weight:650}
+.count{font-size:12px;color:var(--muted)}
+.room{margin:24px 0 20px}
+.room svg{display:block;width:100%;height:auto;background:#07060b}
+.room-foot{display:flex;gap:10px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.legend{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid #0006}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.list{min-height:120px}
+.row{padding:14px 20px;border-bottom:1px solid #1f1c2b;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.row:last-child{border-bottom:0}
+.row h3{font-size:14px;margin:0;font-weight:640}
+.row .meta{font-size:12px;color:var(--muted)}
+.row.active{background:#1a1124;box-shadow:inset 3px 0 0 var(--accent)}
+.swatches{display:flex;gap:4px}
+.btns{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid #3b3452;background:#1a1725;border-radius:9px;padding:6px 11px;font-size:13px}
+.btn:hover{border-color:#6b5f8f}
+.btn.primary{background:linear-gradient(90deg,#ff2b4e,#ff3df0 40%,#5b5bff);border:0;color:#fff;font-weight:650}
+.btn.quiet{background:transparent}
+.empty{padding:22px 20px;color:var(--muted);font-size:13px}
+.form{padding:16px 20px;display:grid;gap:10px;border-top:1px solid var(--line);background:#0f0d16}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form label{font-size:12px;color:#c7bedb;display:grid;gap:4px}
+.form input,.form select{border:1px solid #3b3452;border-radius:9px;background:#15121e;padding:8px 10px;width:100%}
+.form input[type=color]{padding:2px;height:38px}
+.form input[type=range]{padding:0}
+.overrides{display:grid;gap:6px}
+.ov{display:grid;grid-template-columns:110px 1fr 44px;gap:8px;align-items:center;font-size:12px}
+.ov input[type=color]{height:30px}
+.note{font-size:12px;color:var(--muted);margin:0}
+.limits{margin-top:22px;padding:16px 20px;border:1px dashed #3b3452;border-radius:14px;font-size:13px;color:var(--muted)}
+.limits strong{color:#ffd1f7}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#1d1828;border:1px solid #3b3452;border-radius:10px;padding:8px 12px;font-size:13px;display:flex;gap:10px;align-items:center;z-index:5}
+.toast[hidden]{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* light effects. Kept slow on purpose: never more than 3 flashes a second. */
+.lit{transition:fill .4s,stroke .4s,opacity .4s}
+.fx-breathe{animation:breathe var(--dur,4s) ease-in-out infinite}
+.fx-wave{animation:hue var(--dur,6s) linear infinite;animation-delay:var(--lag,0s)}
+.fx-cycle{animation:hue var(--dur,9s) steps(6) infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes hue{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.fx-breathe,.fx-wave,.fx-cycle,.pet-well::before{animation:none}}
+@media (max-width:860px){.shell{grid-template-columns:1fr}.rail{border-right:0;border-bottom:1px solid var(--line)}.pet-wrap{max-width:200px}.workspace{grid-template-columns:1fr}}
+@media (max-width:480px){.form .two{grid-template-columns:1fr}.ov{grid-template-columns:90px 1fr 40px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="rail" aria-label="RGBee">
+    <div class="brand"><a href="https://github.com/findastra/astras-pet-os">Astra's PetOS</a></div>
+    <div class="pet-wrap">
+      <div class="pet-well" aria-label="RGBee's pet well">
+        <div class="wait"><strong>RGBee</strong>art on the way<div class="mood" id="mood-label">mood: sleep</div></div>
+      </div>
+      <div class="bubble" id="bubble" role="status" hidden></div>
+    </div>
+    <div>
+      <h2>RGBee</h2>
+      <p>Plans and previews a lighting scene for every RGB light in the room.</p>
+    </div>
+    <label>Mood
+      <select id="mood-pick">
+        <option value="auto">Automatic</option>
+        <option>idle</option><option>blink</option><option>happy</option><option>curious</option><option>worried</option>
+        <option>sad</option><option>sick</option><option>alarmed</option><option>sleep</option>
+      </select>
+    </label>
+    <footer>
+      An Intelligent App, or Pet, by Astra. <a href="https://github.com/findastra/rgbee">Source</a> · MIT.<br>
+      Hatched 2026-10-09 with Claude Opus 5.5 (<code>claude-opus-5-5</code>).
+    </footer>
+  </aside>
+
+  <main class="main">
+    <header>
+      <div>
+        <p class="eyebrow">RGBee · lighting desk</p>
+        <h1>Every light in the room, one scene at a time.</h1>
+        <p class="intro">List the lights you have, mix a scene, and see it on the preview desk. Sending scenes to the real lights comes next.</p>
+      </div>
+      <span class="pill">Preview only · no lights connected yet</span>
+    </header>
+
+    <section class="panel room" aria-labelledby="room-title">
+      <div class="panel-head">
+        <h2 id="room-title">Preview desk</h2>
+        <span class="count" id="scene-now">No scene applied</span>
+      </div>
+      <svg viewBox="0 0 800 400" role="img" aria-labelledby="room-desc" id="room">
+        <desc id="room-desc">A dark room with a light strip on the wall, a monitor, a PC tower with fans, a keyboard, a mouse pad and a mouse, each glowing in the current scene's colour.</desc>
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="wash" x="-20%" y="-60%" width="140%" height="320%"><feGaussianBlur stdDeviation="28"/></filter>
+        </defs>
+        <rect width="800" height="400" fill="#07060b"/>
+        <!-- room lights -->
+        <g data-kind="room">
+          <ellipse class="lit" cx="400" cy="70" rx="330" ry="55" filter="url(#wash)" opacity=".45"/>
+          <rect class="lit" x="70" y="46" width="660" height="9" rx="4.5" filter="url(#glow)"/>
+        </g>
+        <!-- monitor (not a light) -->
+        <rect x="235" y="105" width="330" height="175" rx="10" fill="#14121c" stroke="#2c2840"/>
+        <rect x="249" y="119" width="302" height="147" rx="4" fill="#0d0c14"/>
+        <rect x="385" y="280" width="30" height="22" fill="#1b1926"/>
+        <!-- PC tower -->
+        <g data-kind="pc">
+          <rect x="604" y="138" width="118" height="166" rx="8" fill="#110f18" stroke="#2c2840"/>
+          <rect class="lit" x="610" y="144" width="4" height="154" rx="2" filter="url(#glow)"/>
+          <circle class="lit fan" cx="668" cy="180" r="24" fill="none" stroke-width="5" filter="url(#glow)"/>
+          <circle class="lit fan" cx="668" cy="240" r="24" fill="none" stroke-width="5" filter="url(#glow)"/>
+          <circle cx="668" cy="180" r="6" fill="#1d1a28"/><circle cx="668" cy="240" r="6" fill="#1d1a28"/>
+        </g>
+        <!-- desk -->
+        <rect x="40" y="302" width="720" height="16" rx="3" fill="#191622"/>
+        <rect x="70" y="318" width="14" height="70" fill="#141220"/><rect x="716" y="318" width="14" height="70" fill="#141220"/>
+        <!-- mouse pad -->
+        <g data-kind="mousepad">
+          <rect class="lit" x="455" y="292" width="140" height="10" rx="3" fill="#0f0d16" stroke-width="3" filter="url(#glow)"/>
+        </g>
+        <!-- keyboard -->
+        <g data-kind="keyboard">
+          <rect x="255" y="284" width="180" height="18" rx="4" fill="#15131e" stroke="#2c2840"/>
+          <rect class="lit" x="261" y="288" width="168" height="5" rx="2" filter="url(#glow)"/>
+          <rect class="lit" x="261" y="295" width="168" height="4" rx="2" opacity=".7"/>
+        </g>
+        <!-- mouse -->
+        <g data-kind="mouse">
+          <ellipse cx="530" cy="288" rx="14" ry="8" fill="#15131e" stroke="#2c2840"/>
+          <ellipse class="lit" cx="530" cy="289" rx="4" ry="2.5" filter="url(#glow)"/>
+        </g>
+      </svg>
+      <div class="room-foot" id="legend" aria-label="Light colours in the preview"></div>
+    </section>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="scenes-title">
+        <div class="panel-head"><h2 id="scenes-title">Scenes</h2><span class="count" id="scene-count"></span></div>
+        <div class="list" id="scenes"></div>
+        <form class="form" id="scene-form" autocomplete="off">
+          <p class="note" id="scene-form-title">New scene</p>
+          <div class="two">
+            <label>Name<input id="s-name" required maxlength="40" placeholder="Movie night"></label>
+            <label>Effect<select id="s-effect">
+              <option value="static">Static</option><option value="breathe">Breathe</option>
+              <option value="wave">Rainbow wave</option><option value="cycle">Colour cycle</option><option value="off">Off</option>
+            </select></label>
+          </div>
+          <div class="two">
+            <label>Colour<input id="s-color" type="color" value="#b14cff"></label>
+            <label>Brightness <span id="s-bright-v">80%</span><input id="s-bright" type="range" min="5" max="100" value="80"></label>
+          </div>
+          <label>Speed (slow is easier on the eyes) <input id="s-speed" type="range" min="1" max="5" value="2"></label>
+          <div class="overrides" id="overrides" aria-label="Per-light colours"></div>
+          <div class="btns"><button class="btn primary" type="submit" id="s-save">Save scene</button><button class="btn quiet" type="button" id="s-cancel" hidden>Cancel</button></div>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="lights-title">
+        <div class="panel-head"><h2 id="lights-title">Your lights</h2><span class="count" id="light-count"></span></div>
+        <div class="list" id="lights"></div>
+        <form class="form" id="light-form" autocomplete="off">
+          <p class="note">Add a light. The brand and how it connects decide how RGBee will talk to it later.</p>
+          <div class="two">
+            <label>Name<input id="l-name" required maxlength="40" placeholder="Desk light strip"></label>
+            <label>What it is<select id="l-kind"></select></label>
+          </div>
+          <div class="two">
+            <label>Brand and model<input id="l-brand" maxlength="60" placeholder="e.g. the name on the box"></label>
+            <label>Connects by<select id="l-link">
+              <option>not sure</option><option>USB, set by a brand app</option><option>OpenRGB</option>
+              <option>Wi-Fi or LAN</option><option>Bluetooth</option><option>a hub or bridge</option><option>motherboard header</option>
+            </select></label>
+          </div>
+          <div class="btns"><button class="btn primary" type="submit">Add light</button></div>
+        </form>
+      </section>
+    </div>
+
+    <div class="btns" style="margin-top:18px">
+      <button class="btn" type="button" id="export">Export backup (JSON)</button>
+      <label class="btn" for="import-file">Import backup</label>
+      <input id="import-file" type="file" accept="application/json,.json" class="sr">
+    </div>
+
+    <div class="limits">
+      <strong>What RGBee cannot do yet.</strong> It does not reach any real light: scenes play on the preview desk only.
+      Your lights and scenes are saved in this browser (export a backup; clearing site data removes them) and are never sent anywhere.
+      The pet's art is waiting for Astra's OK, and there is no desktop pet or quick chat yet.
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" hidden><span id="toast-text"></span><button class="btn" type="button" id="undo">Undo</button></div>
+
+<script>
+'use strict';
+const KINDS = [
+  ['room', 'Room lights'], ['keyboard', 'Keyboard'], ['mouse', 'Mouse'], ['mousepad', 'Mouse pad'], ['pc', 'PC'],
+  ['headset', 'Headset'], ['monitor', 'Monitor light bar'], ['other', 'Other'],
+];
+const KIND_NAME = Object.fromEntries(KINDS);
+const PREVIEWED = ['room', 'pc', 'keyboard', 'mousepad', 'mouse'];
+const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+const KEY = 'rgbee.v1';
+const $ = (id) => document.getElementById(id);
+const uid = () => Math.random().toString(36).slice(2, 10);
+const isColor = (c) => typeof c === 'string' && /^#[0-9a-f]{6}$/i.test(c);
+const EFFECTS = ['static', 'breathe', 'wave', 'cycle', 'off'];
+const RAINBOW = 'conic-gradient(#ff2b4e,#ffd43b,#3bff7a,#2bd9ff,#5b5bff,#ff3df0,#ff2b4e)';
+// How a light looks in a swatch: rainbow for moving colour, grey when off.
+const swatch = (scene, kind) => { const c = scene && colorFor(scene, kind); return !c ? '#2a2633' : (scene.effect === 'wave' || scene.effect === 'cycle') ? RAINBOW : c; };
+
+// The five lights Astra named on 2026-10-09; brands are hers to fill in.
+const seed = () => ({
+  lights: [
+    { id: uid(), name: 'Room lights', kind: 'room', brand: '', link: 'not sure' },
+    { id: uid(), name: 'Mouse pad', kind: 'mousepad', brand: '', link: 'not sure' },
+    { id: uid(), name: 'Mouse', kind: 'mouse', brand: '', link: 'not sure' },
+    { id: uid(), name: 'PC', kind: 'pc', brand: '', link: 'not sure' },
+    { id: uid(), name: 'Keyboard', kind: 'keyboard', brand: '', link: 'not sure' },
+  ],
+  scenes: [
+    { id: uid(), name: 'Astra purple', effect: 'static', color: '#b14cff', bright: 85, speed: 2, overrides: {} },
+    { id: uid(), name: 'Rainbow wave', effect: 'wave', color: '#ff2b4e', bright: 90, speed: 2, overrides: {} },
+    { id: uid(), name: 'Night calm', effect: 'breathe', color: '#2bd9ff', bright: 40, speed: 1, overrides: { pc: { mode: 'off' } } },
+    { id: uid(), name: 'Lights out', effect: 'off', color: '#000000', bright: 5, speed: 1, overrides: {} },
+  ],
+  active: null,
+  mood: 'auto',
+});
+
+// Stored or imported data is untrusted: keep only well-formed fields.
+function clean(d) {
+  const s = (v, n) => (typeof v === 'string' ? v.slice(0, n) : '');
+  const out = { lights: [], scenes: [], active: null, mood: 'auto' };
+  if (!d || typeof d !== 'object') return out;
+  for (const l of Array.isArray(d.lights) ? d.lights.slice(0, 100) : []) {
+    if (!l || !s(l.name, 40).trim()) continue;
+    out.lights.push({ id: s(l.id, 20) || uid(), name: s(l.name, 40), kind: KIND_NAME[l.kind] ? l.kind : 'other', brand: s(l.brand, 60), link: s(l.link, 40) || 'not sure' });
+  }
+  for (const c of Array.isArray(d.scenes) ? d.scenes.slice(0, 100) : []) {
+    if (!c || !s(c.name, 40).trim()) continue;
+    const ov = {};
+    for (const [k, v] of Object.entries(c.overrides && typeof c.overrides === 'object' ? c.overrides : {})) {
+      if (!KIND_NAME[k] || !v) continue;
+      if (v.mode === 'off') ov[k] = { mode: 'off' };
+      else if (v.mode === 'color' && isColor(v.color)) ov[k] = { mode: 'color', color: v.color };
+    }
+    out.scenes.push({ id: s(c.id, 20) || uid(), name: s(c.name, 40), effect: EFFECTS.includes(c.effect) ? c.effect : 'static',
+      color: isColor(c.color) ? c.color : '#b14cff', bright: Math.min(100, Math.max(5, Number(c.bright) || 80)),
+      speed: Math.min(5, Math.max(1, Number(c.speed) || 2)), overrides: ov });
+  }
+  if (out.scenes.some((c) => c.id === d.active)) out.active = d.active;
+  if (MOODS.includes(d.mood)) out.mood = d.mood;
+  return out;
+}
+let state;
+try { const raw = localStorage.getItem(KEY); state = raw ? clean(JSON.parse(raw)) : seed(); } catch { state = seed(); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* preview still works without storage */ } };
+
+/* ---------- the pet: mood and bubble ---------- */
+let autoMood = 'sleep', bubbleTimer = 0;
+function setMood(m) { autoMood = m; showMood(); }
+function showMood() {
+  const m = state.mood === 'auto' ? autoMood : state.mood;
+  $('mood-label').textContent = 'mood: ' + m;
+}
+function say(text) {
+  const b = $('bubble'); b.textContent = text; b.hidden = false;
+  clearTimeout(bubbleTimer); bubbleTimer = setTimeout(() => { b.hidden = true; }, 3200);
+}
+
+/* ---------- preview desk ---------- */
+function colorFor(scene, kind) {
+  const o = scene.overrides[kind];
+  if (scene.effect === 'off' || (o && o.mode === 'off')) return null;
+  return o && o.mode === 'color' ? o.color : scene.color;
+}
+function paint() {
+  const scene = state.scenes.find((c) => c.id === state.active);
+  const legend = $('legend'); legend.replaceChildren();
+  const have = new Set(state.lights.map((l) => l.kind));
+  PREVIEWED.forEach((kind, i) => {
+    const g = document.querySelector(`#room [data-kind="${kind}"]`);
+    const c = scene ? colorFor(scene, kind) : null;
+    const listed = have.has(kind);
+    g.classList.remove('fx-breathe', 'fx-wave', 'fx-cycle');
+    g.style.opacity = listed ? '1' : '.25';
+    for (const el of g.querySelectorAll('.lit')) {
+      const isStroke = el.classList.contains('fan') || el.getAttribute('stroke-width');
+      el.style[isStroke ? 'stroke' : 'fill'] = c || '#2a2633';
+      if (isStroke && el.getAttribute('fill') !== 'none') el.style.fill = '#0f0d16';
+      el.style.filter = c ? '' : 'none';
+    }
+    if (scene && c && scene.effect !== 'static') {
+      g.classList.add('fx-' + scene.effect);
+      const dur = { breathe: 6, wave: 10, cycle: 14 }[scene.effect] / scene.speed;
+      g.style.setProperty('--dur', Math.max(dur, 2) + 's');
+      g.style.setProperty('--lag', (-i * 0.6) + 's');
+    }
+    if (c) g.style.opacity = String((listed ? 1 : 0.25) * (0.35 + 0.65 * scene.bright / 100));
+    const item = document.createElement('span'); item.className = 'legend';
+    const dot = document.createElement('span'); dot.className = 'dot'; dot.style.background = swatch(scene, kind);
+    item.append(dot, document.createTextNode(KIND_NAME[kind] + (listed ? '' : ' (not listed)') + (c ? '' : ': off')));
+    legend.append(item);
+  });
+  $('scene-now').textContent = scene ? `Showing: ${scene.name}` : 'No scene applied';
+}
+
+/* ---------- lists ---------- */
+function btn(label, fn, cls = 'btn') { const b = document.createElement('button'); b.type = 'button'; b.className = cls; b.textContent = label; b.onclick = fn; return b; }
+function renderScenes() {
+  const box = $('scenes'); box.replaceChildren();
+  $('scene-count').textContent = state.scenes.length + (state.scenes.length === 1 ? ' scene' : ' scenes');
+  if (!state.scenes.length) { const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'No scenes yet. Make one below.'; box.append(e); }
+  for (const c of state.scenes) {
+    const row = document.createElement('div'); row.className = 'row' + (c.id === state.active ? ' active' : '');
+    const left = document.createElement('div');
+    const h = document.createElement('h3'); h.textContent = c.name;
+    const meta = document.createElement('div'); meta.className = 'meta';
+    const label = { static: 'Static', breathe: 'Breathe', wave: 'Rainbow wave', cycle: 'Colour cycle', off: 'Off' }[c.effect];
+    meta.textContent = `${label} · ${c.bright}%` + (Object.keys(c.overrides).length ? ` · ${Object.keys(c.overrides).length} light(s) set apart` : '');
+    const sw = document.createElement('div'); sw.className = 'swatches';
+    for (const kind of PREVIEWED) { const d = document.createElement('span'); d.className = 'dot'; d.style.background = swatch(c, kind); d.title = KIND_NAME[kind]; sw.append(d); }
+    left.append(h, meta, sw);
+    const b = document.createElement('div'); b.className = 'btns';
+    b.append(btn(c.id === state.active ? 'Showing' : 'Preview', () => apply(c.id), c.id === state.active ? 'btn' : 'btn primary'), btn('Edit', () => editScene(c.id)), btn('Delete', () => removeItem('scenes', c.id)));
+    row.append(left, b); box.append(row);
+  }
+}
+function renderLights() {
+  const box = $('lights'); box.replaceChildren();
+  $('light-count').textContent = state.lights.length + (state.lights.length === 1 ? ' light' : ' lights');
+  if (!state.lights.length) { const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'No lights listed yet. Add the ones you have.'; box.append(e); }
+  for (const l of state.lights) {
+    const row = document.createElement('div'); row.className = 'row';
+    const left = document.createElement('div');
+    const h = document.createElement('h3'); h.textContent = l.name;
+    const meta = document.createElement('div'); meta.className = 'meta';
+    meta.textContent = `${KIND_NAME[l.kind]} · ${l.brand || 'brand not set'} · ${l.link}`;
+    left.append(h, meta);
+    const b = document.createElement('div'); b.className = 'btns';
+    b.append(btn('Delete', () => removeItem('lights', l.id)));
+    row.append(left, b); box.append(row);
+  }
+}
+function renderAll() { renderScenes(); renderLights(); paint(); setMood(state.lights.length ? (state.active ? 'idle' : 'idle') : 'sleep'); }
+
+/* ---------- actions ---------- */
+function apply(id) {
+  state.active = id; save(); renderScenes(); paint();
+  const c = state.scenes.find((x) => x.id === id);
+  setMood('happy'); say(c.effect === 'off' ? 'bzz… lights out (on the preview)' : `bzz! ${c.name} is on the preview`);
+  setTimeout(() => setMood(state.lights.length ? 'idle' : 'sleep'), 2500);
+}
+let undoItem = null, toastTimer = 0;
+function removeItem(list, id) {
+  const i = state[list].findIndex((x) => x.id === id); if (i < 0) return;
+  const [item] = state[list].splice(i, 1);
+  const wasActive = list === 'scenes' && state.active === id;
+  if (wasActive) state.active = null;
+  undoItem = { list, item, i, wasActive }; save(); renderAll();
+  $('toast-text').textContent = `Deleted ${item.name}.`; $('toast').hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('toast').hidden = true; undoItem = null; }, 6000);
+}
+$('undo').onclick = () => { if (!undoItem) return; state[undoItem.list].splice(undoItem.i, 0, undoItem.item); if (undoItem.wasActive) state.active = undoItem.item.id; undoItem = null; $('toast').hidden = true; save(); renderAll(); };
+
+/* scene form */
+let editing = null;
+function overridesUI(ov = {}) {
+  const box = $('overrides'); box.replaceChildren();
+  for (const kind of PREVIEWED) {
+    const row = document.createElement('div'); row.className = 'ov';
+    const name = document.createElement('span'); name.textContent = KIND_NAME[kind];
+    const sel = document.createElement('select'); sel.id = 'ov-' + kind; sel.setAttribute('aria-label', KIND_NAME[kind] + ' in this scene');
+    for (const [v, t] of [['follow', 'Same as scene'], ['color', 'Its own colour'], ['off', 'Off']]) { const o = document.createElement('option'); o.value = v; o.textContent = t; sel.append(o); }
+    const col = document.createElement('input'); col.type = 'color'; col.id = 'ovc-' + kind; col.setAttribute('aria-label', KIND_NAME[kind] + ' colour');
+    const cur = ov[kind];
+    sel.value = cur ? cur.mode : 'follow'; col.value = cur && cur.color ? cur.color : $('s-color').value;
+    col.disabled = sel.value !== 'color'; sel.onchange = () => { col.disabled = sel.value !== 'color'; };
+    row.append(name, sel, col); box.append(row);
+  }
+}
+function editScene(id) {
+  const c = state.scenes.find((x) => x.id === id); if (!c) return;
+  editing = id; $('scene-form-title').textContent = `Editing ${c.name}`;
+  $('s-name').value = c.name; $('s-effect').value = c.effect; $('s-color').value = c.color;
+  $('s-bright').value = c.bright; $('s-bright-v').textContent = c.bright + '%'; $('s-speed').value = c.speed;
+  overridesUI(c.overrides); $('s-cancel').hidden = false; $('s-save').textContent = 'Save changes';
+  $('s-name').focus(); setMood('curious');
+}
+function resetSceneForm() {
+  editing = null; $('scene-form').reset(); $('s-bright-v').textContent = '80%'; $('scene-form-title').textContent = 'New scene';
+  $('s-cancel').hidden = true; $('s-save').textContent = 'Save scene'; overridesUI();
+}
+$('s-bright').oninput = () => { $('s-bright-v').textContent = $('s-bright').value + '%'; };
+$('s-cancel').onclick = () => { resetSceneForm(); setMood(state.lights.length ? 'idle' : 'sleep'); };
+$('scene-form').onsubmit = (e) => {
+  e.preventDefault();
+  const name = $('s-name').value.trim(); if (!name) return;
+  const overrides = {};
+  for (const kind of PREVIEWED) {
+    const mode = $('ov-' + kind).value;
+    if (mode === 'off') overrides[kind] = { mode: 'off' };
+    if (mode === 'color') overrides[kind] = { mode: 'color', color: $('ovc-' + kind).value };
+  }
+  const scene = { id: editing || uid(), name, effect: $('s-effect').value, color: $('s-color').value, bright: Number($('s-bright').value), speed: Number($('s-speed').value), overrides };
+  const i = state.scenes.findIndex((x) => x.id === scene.id);
+  if (i >= 0) state.scenes[i] = scene; else state.scenes.push(scene);
+  save(); resetSceneForm(); apply(scene.id);
+};
+
+/* light form */
+for (const [v, t] of KINDS) { const o = document.createElement('option'); o.value = v; o.textContent = t; $('l-kind').append(o); }
+$('light-form').onsubmit = (e) => {
+  e.preventDefault();
+  const name = $('l-name').value.trim(); if (!name) return;
+  state.lights.push({ id: uid(), name, kind: $('l-kind').value, brand: $('l-brand').value.trim(), link: $('l-link').value });
+  save(); $('light-form').reset(); renderAll();
+  say(PREVIEWED.includes(state.lights.at(-1).kind) ? `bzz, hi ${name}!` : `added ${name}. It is not on the preview desk, but it is on the list.`);
+};
+
+/* mood picker */
+$('mood-pick').value = state.mood;
+$('mood-pick').onchange = () => { state.mood = $('mood-pick').value; save(); showMood(); };
+
+/* backup */
+$('export').onclick = () => {
+  const blob = new Blob([JSON.stringify({ app: 'rgbee', saved: new Date().toISOString(), lights: state.lights, scenes: state.scenes, active: state.active }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'rgbee-backup-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '.json';
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+$('import-file').onchange = async () => {
+  const f = $('import-file').files[0]; if (!f) return;
+  try {
+    const next = clean(JSON.parse(await f.text()));
+    if (!next.lights.length && !next.scenes.length) throw new Error('empty');
+    state = { ...next, mood: state.mood }; save(); resetSceneForm(); renderAll(); say('backup loaded. bzz!');
+  } catch { setMood('sad'); say('I could not read that file. Is it an RGBee backup?'); }
+  $('import-file').value = '';
+};
+
+overridesUI(); renderAll();
+if (!state.active && state.scenes[0]) apply(state.scenes[0].id); else say(state.lights.length ? 'bzz. pick a scene' : 'no lights yet. add one?');
+</script>
+</body>
+</html>

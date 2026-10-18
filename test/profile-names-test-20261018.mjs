@@ -38,7 +38,9 @@ test('every pet on GitHub shows its icon name and its pet program name from pet-
 test('a pet whose repo is private is listed without a link, from the registry', () => {
   const repos = programs.filter((p) => p.repo !== 'claude-bot').map((p) => ({ name: p.repo, private: false, description: '' }));
   const text = syncProfile(readme, registry, repos, programs).text;
-  assert.match(text, /^21\. \*\*Claude Bot\*\* -- [^\n]+\n {4}- `claude-dock` -- the pet program$/m);
+  // His home links to its public page on The Farm (Flash Audit A59, 2026-10-18); the private repo is never linked.
+  assert.match(text, /^21\. \*\*Claude Bot\*\* -- [^\n]+\n {4}- \[`claude-dock`\]\(https:\/\/findastra\.github\.io\/astras-pet-os\/apps\/claude-bot-20261018\.html\) -- the pet program$/m);
+  assert.doesNotMatch(text, /github\.com\/findastra\/claude-bot/);
 });
 
 test('a line Astra labelled with another name stays, and its repo is not added again (fuzzboi-factory, 2026-10-17)', () => {

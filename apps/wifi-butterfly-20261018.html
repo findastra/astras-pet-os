@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Bundled copy of findastra/wifi-butterfly main wifi-butterfly-20261009.html at 8a5c232bb89f9cfba262f89111b2e2b415134b18, so the desktop pet opens its program before GitHub Pages is on. Made by astras-pet-os scripts/pet-program-pages-20261018.mjs --bundle (Claude Opus 5.5, 2026-10-18). Change the pet's repo, then bundle it again; never edit this copy. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wifi Butterfly</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/app-icons/wifi-butterfly/icon-20261009.png">
+  <style>
+    :root { --bg: #17110c; --panel: #241a12; --ink: #fbf1e6; --muted: #cbb8a4; --accent: #ff8a1f; --line: #3a2a1c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font-family: system-ui, sans-serif; display: grid; place-items: center; padding: 16px; }
+    main { width: min(560px, 100%); background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; text-align: center; }
+    .well { width: 192px; height: 192px; margin: 0 auto 12px; border-radius: 12px; background: #0f0b08; display: grid; place-items: center; }
+    .well img { width: 160px; height: 160px; image-rendering: pixelated; }
+    h1 { margin: 4px 0 6px; }
+    p { color: var(--muted); margin: 6px 0; }
+    .moods { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 16px; }
+    button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font: inherit; cursor: pointer; }
+    button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  </style>
+<script>/* Pet pictures live in findastra/astras-pet-os (one art source, Flash Audit A58). Offline, read them from the hub folder next to this repo. */document.addEventListener('error',function(e){var t=e.target,h='https://raw.githubusercontent.com/findastra/astras-pet-os/main/';if(t&&t.tagName==='IMG'&&t.src.indexOf(h)===0&&!t.getAttribute('data-hub-local')){t.setAttribute('data-hub-local','1');t.src='../'+t.src.slice(h.length);}},true);</script></head>
+<body>
+  <main>
+    <div class="well"><img id="pet" src="https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/drafts/wifi-butterfly/idle-20261009.png" alt="Wifi Butterfly, idle"></div>
+    <h1>Wifi Butterfly</h1>
+    <p>An Intelligent App, or Pet, by Astra. Placeholder: what it does is not decided yet.</p>
+    <p>The art is a draft until Astra approves it.</p>
+    <div class="moods" id="moods"></div>
+  </main>
+  <script>
+    const moods = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+    const pet = document.getElementById('pet');
+    const bar = document.getElementById('moods');
+    for (const mood of moods) {
+      const b = document.createElement('button');
+      b.textContent = mood;
+      b.setAttribute('aria-pressed', mood === 'idle');
+      b.onclick = () => {
+        pet.src = `https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/drafts/wifi-butterfly/${mood}-20261009.png`;
+        pet.alt = `Wifi Butterfly, ${mood}`;
+        bar.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+      };
+      bar.append(b);
+    }
+  </script>
+</body>
+</html>

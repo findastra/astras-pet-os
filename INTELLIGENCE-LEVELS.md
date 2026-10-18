@@ -83,7 +83,11 @@ when you change a level, with the date and your evidence. Each intelligent app h
 
 - 📦 $\color{red}{\textsf{Double-clicking a registered desktop pet opens a copy of its app kept in the hub, not the program in its own repo.}}$
   Two copies of each app can drift apart.
-- 🔌 $\color{red}{\textsf{Double-clicking a pipeline desktop pet only opens its GitHub page; no app is wired up.}}$
+- ~~Double-clicking a pipeline desktop pet only opens its GitHub page; no app is wired up.~~ Fixed 2026-10-18 on branch
+  `claude/press-plai-tools-20261017` (Flash Audit A11, A10 and A59): every desktop pet opens its program page, its own live
+  site where it has one, else its page in the hub's `apps/`. 58 pets with no page of their own have one, modeled on Platform
+  Platypus ([docs/pet-click-audit-20261018.md](docs/pet-click-audit-20261018.md)). Astra's double-click on her desktop is
+  still to check, after the star is rebuilt.
 - 🏷️ $\color{red}{\textsf{New names and jobs from 2026-10-12 are in the registry, but each pet's own repo still has the old text.}}$
   Gone Ghost, Paper Girl Patty and every pet with a new job: each pet's chat updates its repo's `pet.json` (the Farmer's round flags the difference until then).
 - ~~Two different handoff cards are numbered 010~~ Fixed 2026-10-17: Pole Puff’s card is 024. Card numbers across every

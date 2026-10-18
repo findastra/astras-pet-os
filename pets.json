@@ -929,6 +929,8 @@
     {
       "repo": "spoonfed",
       "pet": "Sugarcube",
+      "interface_url": "apps/spoonfed-20261018.html",
+      "interface_local_url": "apps/spoonfed-20261018.html",
       "visibility": "public",
       "published": true,
       "status": "hatching",
@@ -944,6 +946,8 @@
     {
       "repo": "claude-bot",
       "pet": "Claude Bot",
+      "interface_url": "apps/claude-bot-20261018.html",
+      "interface_local_url": "apps/claude-bot-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
@@ -958,6 +962,8 @@
     {
       "repo": "rgbee",
       "pet": "RGBee",
+      "interface_url": "apps/rgbee-20261018.html",
+      "interface_local_url": "apps/rgbee-20261018.html",
       "visibility": "public",
       "status": "hatching",
       "job": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
@@ -972,6 +978,8 @@
     {
       "repo": "mine-mole",
       "pet": "Mine Mole",
+      "interface_url": "apps/mine-mole-20261018.html",
+      "interface_local_url": "apps/mine-mole-20261018.html",
       "visibility": "public",
       "status": "hatching",
       "job": "Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.",
@@ -985,6 +993,8 @@
     {
       "repo": "mail-snail",
       "pet": "Mail Snail",
+      "interface_url": "apps/mail-snail-20261018.html",
+      "interface_local_url": "apps/mail-snail-20261018.html",
       "visibility": "public",
       "status": "hatching",
       "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
@@ -999,6 +1009,8 @@
     {
       "repo": "patch-cat",
       "pet": "Patch Cat",
+      "interface_url": "apps/patch-cat-20261018.html",
+      "interface_local_url": "apps/patch-cat-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
@@ -1012,6 +1024,8 @@
     {
       "repo": "meme-fiend",
       "pet": "Meme Fiend",
+      "interface_url": "apps/meme-fiend-20261018.html",
+      "interface_local_url": "apps/meme-fiend-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
@@ -1025,6 +1039,8 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
+      "interface_url": "apps/astras-gif-maker-20261018.html",
+      "interface_local_url": "apps/astras-gif-maker-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
@@ -1039,6 +1055,8 @@
     {
       "repo": "backup-beaver",
       "pet": "Backup Beaver",
+      "interface_url": "apps/backup-beaver-20261018.html",
+      "interface_local_url": "apps/backup-beaver-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
@@ -1052,6 +1070,8 @@
     {
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
+      "interface_url": "apps/rift-rabbit-20261018.html",
+      "interface_local_url": "apps/rift-rabbit-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
@@ -1065,6 +1085,8 @@
     {
       "repo": "fuzzboi-friend",
       "pet": "Fuzzboi Friend",
+      "interface_url": "https://findastra.github.io/fuzzboi-friend/",
+      "interface_live_url": "https://findastra.github.io/fuzzboi-friend/",
       "visibility": "public",
       "status": "hatching",
       "job": "Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood. Mostly for fun: swap his look any time.",
@@ -1079,6 +1101,8 @@
     {
       "repo": "wifi-butterfly",
       "pet": "Wifi Butterfly",
+      "interface_url": "apps/wifi-butterfly-20261018.html",
+      "interface_local_url": "apps/wifi-butterfly-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
@@ -1092,6 +1116,8 @@
     {
       "repo": "deck-duck",
       "pet": "Deck Duck",
+      "interface_url": "apps/deck-duck-20261018.html",
+      "interface_local_url": "apps/deck-duck-20261018.html",
       "visibility": "public",
       "status": "hatching",
       "job": "Helps you manage your Elgato Stream Deck: what every button does, on every profile.",
@@ -1105,6 +1131,8 @@
     {
       "repo": "mesh-moth",
       "pet": "Mesh Moth",
+      "interface_url": "apps/mesh-moth-20261018.html",
+      "interface_local_url": "apps/mesh-moth-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
@@ -1118,6 +1146,8 @@
     {
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
+      "interface_url": "apps/raspberry-berry-20261018.html",
+      "interface_local_url": "apps/raspberry-berry-20261018.html",
       "visibility": "private",
       "status": "hatching",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
@@ -1131,6 +1161,8 @@
     {
       "repo": "role-fairy",
       "pet": "Role Fairy",
+      "interface_url": "apps/role-fairy-20261018.html",
+      "interface_local_url": "apps/role-fairy-20261018.html",
       "visibility": "public",
       "status": "hatching",
       "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",

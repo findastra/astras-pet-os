@@ -20,7 +20,9 @@ test('every pet frame is square, never sized by min-height', () => {
     const rules = petWellRules(html);
     assert.ok(rules.some((r) => r.includes('aspect-ratio:1/1')), `${f}: pet frame has no aspect-ratio:1/1`);
     for (const r of rules) assert.doesNotMatch(r, /(?:^|;)(?:min-)?height:/, `${f}: pet frame height is set separately from its width: ${r}`);
-    assert.equal(squarePetWell(html), html, `${f}: run scripts/square-pet-well-20261009.mjs`);
+    // A bundled copy of a pet's own page (scripts/pet-program-pages-20261018.mjs --bundle) keeps that pet's own layout:
+    // it must be square too, but the shared fix is for the hub's rail-style apps only.
+    if (!html.includes('<!-- Bundled copy of findastra/')) assert.equal(squarePetWell(html), html, `${f}: run scripts/square-pet-well-20261009.mjs`);
   }
 });
 

@@ -34,7 +34,13 @@ namespace AstraDesktopPets {
       string hub=SafePath(DraftsList);return File.Exists(hub)?hub:Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"); } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
-    internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
+    // Voicemeeter Bug's own repo folder next to the hub first (one working copy per repo, AGENTS.md), then the folder he was
+    // made in. Null when neither has his exe: a double-click then opens his page instead of doing nothing (Flash Audit A11).
+    internal static string BugExe { get {
+      foreach(string folder in new[]{Path.Combine(Path.GetDirectoryName(Root),"voicemeeter-bug"),Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug")}) {
+        string exe=Path.Combine(folder,"voicemeeter-bug-20261008.exe");if(File.Exists(exe))return exe;
+      }
+      return null; } }
     internal static Dictionary<string,object> Read(string relative) { return Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(SafePath(relative))); }
     internal static string SafePath(string relative) {
       if(String.IsNullOrWhiteSpace(relative)||Path.IsPathRooted(relative))throw new InvalidDataException("Expected a relative pet asset path.");
@@ -67,7 +73,7 @@ namespace AstraDesktopPets {
     internal static bool Signal(string action,string suffix="") { try { using(var handle=EventWaitHandle.OpenExisting(Identity+suffix+"-"+action))handle.Set();return true; } catch(WaitHandleCannotBeOpenedException) { return false; } }
     internal static void WriteStatus(object value,bool test=false) { Directory.CreateDirectory(Path.GetDirectoryName(StateFile));File.WriteAllText(test?TestStateFile:StateFile,Json.Serialize(value)); }
     internal static void Open(string relative) { string file=SafePath(relative);if(File.Exists(file))Process.Start(new ProcessStartInfo(file) { UseShellExecute=true }); }
-    internal static void StartBug(string argument) { if(!File.Exists(BugExe))return;Process.Start(new ProcessStartInfo(BugExe,argument) { UseShellExecute=false,WindowStyle=argument=="--status"?ProcessWindowStyle.Normal:ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(BugExe) }); }
+    internal static bool StartBug(string argument) { string exe=BugExe;if(exe==null)return false;Process.Start(new ProcessStartInfo(exe,argument) { UseShellExecute=false,WindowStyle=argument=="--status"?ProcessWindowStyle.Normal:ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(exe) });return true; }
   }
 
   internal sealed class PetSprite : IDisposable {
@@ -648,7 +654,7 @@ namespace AstraDesktopPets {
     }
     internal void OpenPet(PetSprite pet) {
       testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
-      if(pet.Id=="voicemeeter-bug"){PetFiles.StartBug("--status");return;}
+      if(pet.Id=="voicemeeter-bug"&&PetFiles.StartBug("--status"))return;
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
     }

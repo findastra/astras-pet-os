@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- Bundled copy of findastra/mine-mole main mine-mole-20261009.html at 24701f3b72436c230d146b3f2cd516263dabf00a, so the desktop pet opens its program before GitHub Pages is on. Made by astras-pet-os scripts/pet-program-pages-20261018.mjs --bundle (Claude Opus 5.5, 2026-10-18). Change the pet's repo, then bundle it again; never edit this copy. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mine Mole</title>
+<style>
+  :root { --bg:#1b1424; --card:#271c35; --ink:#f3eafc; --dim:#b9a8cc; --fur:#8e3fd1; --pink:#ff4fae; --teal:#19e3d0; --bad:#ff6b6b; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui, sans-serif; padding:24px 16px; }
+  main { max-width:560px; margin:0 auto; }
+  h1 { margin:0 0 4px; color:var(--teal); }
+  p.sub { margin:0 0 20px; color:var(--dim); }
+  .well { width:96px; height:96px; border:2px solid var(--fur); border-radius:12px; display:grid; place-items:center; font-size:48px; float:right; margin-left:12px; background:var(--card); }
+  .card { background:var(--card); border-radius:12px; padding:16px; margin-bottom:16px; }
+  label { display:grid; grid-template-columns:1fr 120px; gap:8px; align-items:center; margin:8px 0; color:var(--dim); }
+  input { width:100%; padding:6px 8px; border-radius:6px; border:1px solid var(--fur); background:var(--bg); color:var(--ink); font:inherit; }
+  .out { font-size:20px; }
+  .good { color:var(--teal); } .meh { color:var(--pink); } .loss { color:var(--bad); }
+  .bubble { color:var(--ink); background:var(--fur); border-radius:12px; padding:8px 12px; display:inline-block; margin-top:8px; }
+  small { color:var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <div class="well" title="Mine Mole's art is not drawn yet">⛏️</div>
+  <h1>Mine Mole</h1>
+  <p class="sub">Is digging worth the power? v0 calculator. Nothing here mines.</p>
+
+  <section class="card">
+    <label>Hashrate (kH/s)<input id="hr" type="number" step="0.1" value="14"></label>
+    <label>Extra watts while mining<input id="w" type="number" value="80"></label>
+    <label>Power price ($/kWh)<input id="kwh" type="number" step="0.01" value="0.15"></label>
+    <label>XMR price ($)<input id="px" type="number" value="300"></label>
+    <label>XMR per day per kH/s<input id="rate" type="number" step="0.00001" value="0.00013"></label>
+  </section>
+
+  <section class="card">
+    <div class="out" id="out"></div>
+    <div class="bubble" id="say"></div>
+    <p><small>Defaults are estimates from <a href="https://github.com/findastra/mine-mole/blob/main/docs/research-20261009.md" style="color:var(--teal)">the research note</a> (2026-10-09). Measure your hashrate with an XMRig benchmark and recheck the price and rate before relying on this.</small></p>
+  </section>
+</main>
+<script>
+  const ids = ['hr', 'w', 'kwh', 'px', 'rate'];
+  const val = id => Number(document.getElementById(id).value) || 0;
+  function update() {
+    const coins = val('hr') * val('rate');
+    const earn = coins * val('px');
+    const cost = val('w') * 24 / 1000 * val('kwh');
+    const net = earn - cost;
+    const out = document.getElementById('out');
+    out.textContent = `Earns $${earn.toFixed(2)}/day, power costs $${cost.toFixed(2)}/day, net $${net.toFixed(2)}/day ($${(net * 30).toFixed(2)}/month)`;
+    out.className = 'out ' + (net > 0.25 ? 'good' : net >= 0 ? 'meh' : 'loss');
+    document.getElementById('say').textContent =
+      net > 0.25 ? 'dig dig! worth it' : net >= 0 ? 'barely worth the dirt' : 'is it worth the power? not today';
+  }
+  ids.forEach(id => document.getElementById(id).addEventListener('input', update));
+  update();
+</script>
+</body>
+</html>

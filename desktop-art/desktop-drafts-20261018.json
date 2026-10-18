@@ -7,89 +7,89 @@
    "repo": "claude-bot",
    "idle": "desktop-art/claude-bot/idle-20261011.png",
    "blink": "desktop-art/claude-bot/blink-20261011.png",
-   "interface": "https://github.com/findastra/claude-bot"
+   "interface": "apps/claude-bot-20261018.html"
   },
   {
    "id": "rgbee",
    "name": "RGBee",
-   "interface": "https://github.com/findastra/rgbee",
+   "interface": "apps/rgbee-20261018.html",
    "idle": "desktop-art/rgbee/idle-20261011.png",
    "blink": "desktop-art/rgbee/blink-20261011.png"
   },
   {
    "id": "mine-mole",
    "name": "Mine Mole",
-   "interface": "https://github.com/findastra/mine-mole",
+   "interface": "apps/mine-mole-20261018.html",
    "idle": "desktop-art/mine-mole/idle-20261011.png",
    "blink": "desktop-art/mine-mole/blink-20261011.png"
   },
   {
    "id": "mail-snail",
    "name": "Mail Snail",
-   "interface": "https://github.com/findastra/mail-snail",
+   "interface": "apps/mail-snail-20261018.html",
    "idle": "desktop-art/mail-snail/idle-20261011.png",
    "blink": "desktop-art/mail-snail/blink-20261011.png"
   },
   {
    "id": "patch-cat",
    "name": "Patch Cat",
-   "interface": "https://github.com/findastra/patch-cat",
+   "interface": "apps/patch-cat-20261018.html",
    "idle": "desktop-art/patch-cat/idle-20261011.png",
    "blink": "desktop-art/patch-cat/blink-20261011.png"
   },
   {
    "id": "backup-beaver",
    "name": "Backup Beaver",
-   "interface": "https://github.com/findastra/backup-beaver",
+   "interface": "apps/backup-beaver-20261018.html",
    "idle": "desktop-art/backup-beaver/idle-20261011.png",
    "blink": "desktop-art/backup-beaver/blink-20261011.png"
   },
   {
    "id": "rift-rabbit",
    "name": "Rift Rabbit",
-   "interface": "https://github.com/findastra/rift-rabbit",
+   "interface": "apps/rift-rabbit-20261018.html",
    "idle": "desktop-art/rift-rabbit/idle-20261011.png",
    "blink": "desktop-art/rift-rabbit/blink-20261011.png"
   },
   {
    "id": "wifi-butterfly",
    "name": "Wifi Butterfly",
-   "interface": "https://github.com/findastra/wifi-butterfly",
+   "interface": "apps/wifi-butterfly-20261018.html",
    "idle": "desktop-art/wifi-butterfly/idle-20261011.png",
    "blink": "desktop-art/wifi-butterfly/blink-20261011.png"
   },
   {
    "id": "chat-rat",
    "name": "Chat Rat",
-   "interface": "https://github.com/findastra/chat-rat",
+   "interface": "apps/chat-rat-20261018.html",
    "idle": "desktop-art/chat-rat/idle-20261011.png",
    "blink": "desktop-art/chat-rat/blink-20261011.png"
   },
   {
    "id": "deck-duck",
    "name": "Deck Duck",
-   "interface": "https://github.com/findastra/deck-duck",
+   "interface": "apps/deck-duck-20261018.html",
    "idle": "desktop-art/deck-duck/idle-20261011.png",
    "blink": "desktop-art/deck-duck/blink-20261011.png"
   },
   {
    "id": "raspberry-berry",
    "name": "Raspberry Pi Berry",
-   "interface": "https://github.com/findastra/raspberry-berry",
+   "interface": "apps/raspberry-berry-20261018.html",
    "idle": "desktop-art/raspberry-berry/idle-20261011.png",
    "blink": "desktop-art/raspberry-berry/blink-20261011.png"
   },
   {
    "id": "meme-fiend",
    "name": "Meme Fiend",
-   "interface": "https://github.com/findastra/meme-fiend",
+   "interface": "apps/meme-fiend-20261018.html",
    "idle": "desktop-art/meme-fiend/idle-20261011.png",
    "blink": "desktop-art/meme-fiend/blink-20261011.png"
   },
   {
    "id": "fuzzboi-friend",
    "name": "Fuzzboi Friend",
-   "interface": "https://github.com/findastra/fuzzboi-friend",
+   "interface": "https://findastra.github.io/fuzzboi-friend/",
    "idle": "art/drafts/fuzzboi-friend/idle-20261009.png",
    "blink": "art/drafts/fuzzboi-friend/blink-20261009.png",
    "variants": [
@@ -9993,21 +9993,21 @@
   {
    "id": "gif-giraffe",
    "name": "Gif Giraffe",
-   "interface": "https://github.com/findastra/astras-gif-maker",
+   "interface": "apps/astras-gif-maker-20261018.html",
    "idle": "desktop-art/gif-giraffe/idle-20261011.png",
    "blink": "desktop-art/gif-giraffe/blink-20261011.png"
   },
   {
    "id": "mesh-moth",
    "name": "Mesh Moth",
-   "interface": "https://github.com/findastra/mesh-moth",
+   "interface": "apps/mesh-moth-20261018.html",
    "idle": "desktop-art/mesh-moth/idle-20261011.png",
    "blink": "desktop-art/mesh-moth/blink-20261011.png"
   },
   {
    "id": "spoonfed-sugarcube",
    "name": "Sugarcube",
-   "interface": "https://github.com/findastra/spoonfed",
+   "interface": "apps/spoonfed-20261018.html",
    "idle": "desktop-art/spoonfed-sugarcube/idle-20261011.png",
    "blink": "desktop-art/spoonfed-sugarcube/blink-20261011.png"
   }

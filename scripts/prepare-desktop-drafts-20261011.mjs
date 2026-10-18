@@ -9,16 +9,21 @@
 //
 //   node scripts/prepare-desktop-drafts-20261011.mjs            write the list
 //   node scripts/prepare-desktop-drafts-20261011.mjs --print    print it instead
+//
+// A double-click on a draft pet opens its program (Flash Audit A11 and A59, Astra 2026-10-18), never its GitHub repo page:
+// `interface` is the pet's `interface_url` in pets.json, else its page from scripts/pet-program-pages-20261018.mjs.
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { clickTarget } from './pet-program-pages-20261018.mjs';
 
 const hub = fileURLToPath(new URL('..', import.meta.url));
 export const LIST = 'desktop-art/desktop-drafts-20261018.json';
 // %USERPROFILE%\Documents\Astra's PetOS, where the other repos sit next to this one (ASTRAS_PETOS for a check elsewhere).
 const petos = process.env.ASTRAS_PETOS || dirname(hub.replace(/[\\/]$/, ''));
 const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
+const pipeline = JSON.parse(readFileSync(join(hub, 'pets.json'), 'utf8')).pipeline;
 
 // [desktop-art id, repo]. Names come from pet-programs.json (the one list of names).
 export const DRAFTS = [
@@ -44,11 +49,12 @@ function matchesMain(dir) {
 export function draftList() {
   const pets = [];
   const need = (rel) => { if (!existsSync(join(hub, rel))) throw new Error(`Missing ${rel} in the hub`); return rel; };
+  const opens = (repo) => { const url = pipeline.find((p) => p.repo === repo)?.interface_url || clickTarget(repo); return /^https?:/.test(url) ? url : need(url); };
   // Claude Bot first, as before. His pictures stay in his private repo; the desktop finds that repo's folder next to the hub.
   pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, repo: 'claude-bot',
-    idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: 'https://github.com/findastra/claude-bot' });
+    idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: opens('claude-bot') });
   for (const [id, repo] of DRAFTS) {
-    const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
+    const entry = { id, name: names[repo], interface: opens(repo) };
     if (id === 'fuzzboi-friend') {
       // Built from Astra's 32 original Fuzzbois layers at launch; idle and blink are the fallback.
       entry.idle = need('art/drafts/fuzzboi-friend/idle-20261009.png');
