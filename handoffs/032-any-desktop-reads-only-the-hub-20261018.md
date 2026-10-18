@@ -29,6 +29,11 @@ needs: docs/one-art-source-20261017.md, PET-FILES.md ("Where the pictures live")
 - **The temporary pointer the redesign chat made on 2026-10-18** (`desktop-art-main-20261018\` and five changed entries
   in the old list) lives only in the Claude app's private copy of `%LOCALAPPDATA%`. The new list does not use it.
   - The four public pets' copies there are byte-identical to the hub's.
+- **Astra copied the old list herself, 2026-10-18 02:24** (Startup Star session's script, run from her own PowerShell).
+  The real `%LOCALAPPDATA%\astras-pet-apps\` now holds Claude's copy of the old draft list (temporary pointer
+  included), `drafts-20261011\` and `folder-icons\`. The scheduled task "Astras PetOS Startup Star" (sign-in and
+  unlock) starts the real star, which shows 36 pets including the 16 drafts. Until the rebuild, the current exe keeps
+  using that copy. After the rebuild, the hub's list wins.
 - **Did not touch Astra's PC.**
 
 ## Task
@@ -40,8 +45,9 @@ there):
    - Quit the star: `bin\desktop-pets-20261008.exe "<hub>" --quit`.
    - Run `build-desktop-pets-20261011.ps1`.
    - `bin\desktop-pets-check-20261011.exe "<hub>" --self-test` must say PASS.
-2. **Astra starts the star herself**, from the Start menu or Explorer, or by signing out and in. A star started from a
-   Claude or Codex session runs inside that app and uses its private `%LOCALAPPDATA%`.
+2. **Astra starts the star herself**: from the Start menu or Explorer, or by locking and unlocking the PC, or by signing
+   out and in (the scheduled task "Astras PetOS Startup Star" starts it then). A star started from a Claude or Codex
+   session runs inside that app and uses its private `%LOCALAPPDATA%`.
    - Then she looks: all 16 draft pets should be there, and nothing should show double.
 3. **Claude Bot's pictures.** `node scripts/prepare-desktop-drafts-20261011.mjs --print` ends with a line about Claude
    Bot.
@@ -53,8 +59,9 @@ there):
    - While pet PRs are open, it lists their copies.
    - Once they are all merged, it must say Correct, with only Claude Bot's exception.
 5. **Tell Astra** which folders are no longer used, so she may delete them. Agents never delete.
-   - `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\astras-pet-apps\` holds the old
-     `desktop-drafts-*.json`, `drafts-20261011\` and `desktop-art-main-20261018\`.
+   - The real `%LOCALAPPDATA%\astras-pet-apps\`: the old `desktop-drafts-*.json`, `drafts-20261011\` and
+     `desktop-art-main-20261018\`. Keep `folder-icons\` (desktop.ini uses it) and the status and log files.
+   - `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\astras-pet-apps\` holds the same old files.
    - Any of the same names under Codex's `Packages\OpenAI.Codex_…\LocalCache\Local\astras-pet-apps\`.
 
 ## Done when
