@@ -37,12 +37,21 @@ rows in `INTELLIGENCE-LEVELS.md`; `npm run build` and `npm test` pass.
 
 Seeds now carry `program` in `pets.json` too.
 
+## Round 3 (2026-10-18)
+| # | Pet | Decided | Note |
+|---|---|---|---|
+| 44 | Video Vulture | **Video Vault** | the suggested idea |
+| 45 | Closet Cat | **The Cat's Closet** | matches its repo, `the-cats-closet` |
+| 77 | Triage Tapir | **The Triage Desk** | Codex's earlier suggestion |
+| 81 | Intel Owl | **Threat Observatory** | the suggested idea |
+
+Every pet that is registered, in the pipeline or a seed now has a named pet program.
+
 ## Left to name now
 - **0 pets.**
-- **34 pet programs:** #44, 45, 77 and 81 (seeds), #47–76 (roadmap).
-- **Next round:** #44 Video Vulture, #45 Closet Cat, #77 Triage Tapir, #81 Intel Owl.
+- **30 pet programs**, all roadmap pets (#47–76), each with a suggested `idea` in `pet-programs.json`.
 
 ## Not done
 - The pet repos' own `pet.json` files are not updated here (each pet's chat does that, or the next Flash Audit round
   on each repo).
-- On branch `claude/tender-gauss-m2nbhp` (PR #46). Not on `main` until Astra merges it.
+- Rounds 1 and 2 are on `main` (PR #46). Round 3 is on branch `claude/tender-gauss-m2nbhp` until it merges.
