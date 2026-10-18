@@ -1142,6 +1142,20 @@
         "needs": "a bot's access to its server, or your OK for a new bot"
       },
       "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered."
+    },
+    {
+      "repo": "chat-rat",
+      "pet": "Chat Rat",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Files every chat Astra has with Claude or OpenAI into one shared folder, with an index every assistant can read.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the chats it has filed and their index",
+        "needs": "where your Claude and OpenAI chats are saved"
+      },
+      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit."
     }
   ],
   "seeds": {
