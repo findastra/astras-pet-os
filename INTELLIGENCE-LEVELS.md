@@ -79,6 +79,17 @@ when you change a level, with the date and your evidence. Each intelligent app h
 | <img src="https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/icons/vscode-angel-20261012.png" width="40" alt=""> | VSCode Angel | registered | [vscode-angel](https://github.com/findastra/vscode-angel) | 🟡 **Made by Astra:** *Halo List*: today only the [VSCode Angel web app](https://github.com/findastra/vscode-angel/blob/main/vscode-angel-20261008.html)<br>**Made by others:** VS Code, Visual Studio | — **Should:** record code-review findings and next steps (editor connections planned) | **Today:** whenever a review is exported | — | | |
 | <img src="https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/icons/wifi-butterfly-20261012.png" width="40" alt=""> | Wifi Butterfly | pipeline | [wifi-butterfly](https://github.com/findastra/wifi-butterfly) | 🟡 **Made by Astra:** **Signal Garden** (Astra, 2026-10-18): today only the [Wifi Butterfly web app](https://github.com/findastra/wifi-butterfly/blob/main/wifi-butterfly-20261009.html) | — Job not decided (Wi-Fi; the architecture keeps it separate from Mesh Moth and Packet Piranha) | **Suggested:** live Wi-Fi strength | — | | |
 
+## Door Dormouse / The Threshold (2026-10-18)
+
+The existing browser prototype manages Liminal Doors' 37-floor concept register, local notes and exports.
+Nine draft mood frames now live in `desktop-art/door-dormouse/`. The optional installer
+`scripts/install-door-dormouse-20261018.mjs` adds a desktop visual to Startup Star and configures its double-click
+to open the owner's HTTPS program URL. Verified on the owner's PC: host self-test passed, and fresh host diagnostics
+included Door Dormouse among 37 visible pets. The native UI inspection tool could not target the small pet window,
+so a physical double-click was not independently verified. The website portrait was inspected in the browser.
+Four installer tests and all 105 hub tests passed. This is a visual and launcher, not a new runtime or an enrolled
+farm animal. L3 activity remains disconnected; agent chat, cyberhome docking and Unity execution are pending.
+
 ## Errors that affect every app
 
 - 📦 $\color{red}{\textsf{Double-clicking a registered desktop pet opens a copy of its app kept in the hub, not the program in its own repo.}}$

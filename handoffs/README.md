@@ -45,7 +45,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 031.** Checked on 2026-10-17 across every branch by Claude Opus 5.5 (027 to 029 were taken on branches). When numbers clashed, the
+**Next free number: 032.** Door Dormouse took 031 on 2026-10-18. Checked on 2026-10-17 across every branch by Claude Opus 5.5 (027 to 029 were taken on branches). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -69,6 +69,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 028 | `028-any-idle-flash-audit-20261017.md` | `claude/idle-flash-audit-20261017` |
 | 029 | `029-codex-hub-folder-back-on-main-20261017.md` | `claude/star-hub-on-main-20261017` |
 | 030 | `030-codex-redraw-giraffe-unicorn-group-1-20261017.md` | `claude/pet-art-redesign-20261017` |
+| 031 | `031-codex-door-dormouse-desktop-20261018.md` | `codex/door-dormouse-20261018` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
