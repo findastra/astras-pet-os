@@ -20,7 +20,21 @@ needs: docs/one-art-source-20261017.md, PET-FILES.md ("Where the pictures live")
     skipped).
   - `--preview` showed all 16 draft pets.
 - **Did not touch Astra's PC.** Her desktop pets app, `%LOCALAPPDATA%\astras-pet-apps\desktop-drafts-20261011.json` and
-  her hub folder are unchanged. Her draft list still points into 14 pet working copies.
+  her hub folder are unchanged.
+- **The redesign chat's temporary pointer, 2026-10-18.** That chat made it at Astra's request, to show the new bee,
+  moth, butterfly, fox and Claude Bot before this move lands. It is on the PC only:
+  - The art is copied into `%LOCALAPPDATA%\astras-pet-apps\desktop-art-main-20261018\<pet>\` for rgbee, mesh-moth,
+    wifi-butterfly, meme-fiend and claude-bot.
+  - Those five draft-list entries point there. Their backup is `desktop-drafts-20261011.before-art-pointer-20261018.json`.
+  - The other 11 entries still point into pet working copies and `drafts-20261011\`.
+
+  I checked it read-only:
+  - The four public pets' copies are byte-identical to this hub's `desktop-art/`.
+  - Claude Bot's copy is not the same as the art in his repo folder on the PC: `claude-bot\claude-bot-draft-art-20261011` is on `main`
+    with an older **untracked** `desktop-art/`.
+  - So `prepare-desktop-drafts` now uses his folder only when both pictures match `claude-bot` `origin/main`;
+    otherwise he keeps his current entry. I dry-ran it against Astra's real folders with `--print`: 16 pets, and Claude Bot
+    kept the `desktop-art-main-20261018\claude-bot\` pointer.
 
 ## Task
 
@@ -32,9 +46,12 @@ Check `git log -1` there first.
    - Quit the star: `bin\desktop-pets-20261008.exe "<hub>" --quit`.
    - Run `build-desktop-pets-20261011.ps1`.
 2. **Write the draft list.** Run `node scripts/prepare-desktop-drafts-20261011.mjs`.
-   - It should list 16 pets.
-   - Claude Bot is the only `"private": true` entry, pointing into his private repo's folder. Check that the folder
-     holds his BSOD art from claude-bot `main`; it may need a pull, and that working copy has had untracked art.
+   - It should list 16 pets. This replaces the temporary pointer for rgbee, mesh-moth, wifi-butterfly and meme-fiend
+     with hub paths.
+   - Claude Bot is the only `"private": true` entry. If the script warns that he kept his current entry, his repo
+     folder on the PC is out of date. Bring it up to date with `claude-bot` `main`, then run the script again.
+     - The folder's untracked `desktop-art/` blocks a fast-forward.
+     - Ask Astra before moving or replacing those files. Never delete them yourself.
 3. **Check the build:** `bin\desktop-pets-check-20261011.exe "<hub>" --self-test` must say PASS.
 4. **Start the star again.** Then check `%LOCALAPPDATA%\astras-pet-apps\desktop-pets-status-20261008.json`:
    - `draft_errors` is empty;
@@ -42,8 +59,10 @@ Check `git log -1` there first.
 5. **Run A58:** `node scripts/one-art-source-20261017.mjs` with `GITHUB_TOKEN` set.
    - While pet PRs are still open, it lists their copies.
    - Once all are merged, it must say Correct, with only Claude Bot's exception.
-6. **Tell Astra** that `%LOCALAPPDATA%\astras-pet-apps\drafts-20261011\` is no longer used, so she may delete it.
-   Agents never delete.
+6. **Tell Astra** which old folders are no longer used, so she may delete them. Agents never delete.
+   - `%LOCALAPPDATA%\astras-pet-apps\drafts-20261011\`.
+   - The temporary `desktop-art-main-20261018\` (a copy, against A58), but only once no draft-list entry points
+     into it. Claude Bot's entry points there until his repo folder is up to date.
 
 ## Done when
 

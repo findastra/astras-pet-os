@@ -7,12 +7,14 @@
 //
 //   node scripts/prepare-desktop-drafts-20261011.mjs            write the list
 //   node scripts/prepare-desktop-drafts-20261011.mjs --print    print it instead
+import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const hub = fileURLToPath(new URL('..', import.meta.url));
-const petos = dirname(hub.replace(/[\\/]$/, ''));           // %USERPROFILE%\Documents\Astra's PetOS
+// %USERPROFILE%\Documents\Astra's PetOS, where the other repos sit next to this one (ASTRAS_PETOS for a dry run elsewhere).
+const petos = process.env.ASTRAS_PETOS || dirname(hub.replace(/[\\/]$/, ''));
 const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
 
 // [desktop-art id, repo]. Names come from pet-programs.json (the one list of names).
@@ -24,14 +26,35 @@ export const DRAFTS = [
   ['mesh-moth', 'mesh-moth'], ['spoonfed-sugarcube', 'spoonfed'],
 ];
 
+const listFile = () => join(process.env.LOCALAPPDATA || '', 'astras-pet-apps', 'desktop-drafts-20261011.json');
+function currentList() {
+  try { return JSON.parse(readFileSync(listFile(), 'utf8').replace(/^﻿/, '')); } catch { return null; }
+}
+/** True when both of the folder's pictures are the ones on claude-bot's main (read-only git; live sync keeps it fetched). */
+function matchesMain(dir) {
+  let root = dir;
+  while (!existsSync(join(root, '.git'))) { const up = dirname(root); if (up === root) return false; root = up; }
+  const rel = dir.slice(root.length + 1).split(/[\\/]/).join('/');
+  try {
+    return ['idle-20261011.png', 'blink-20261011.png'].every((f) =>
+      execFileSync('git', ['hash-object', join(dir, f)], { cwd: root, encoding: 'utf8' }).trim()
+        === execFileSync('git', ['rev-parse', `origin/main:${rel}/${f}`], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim());
+  } catch { return false; }
+}
+
 export function draftList() {
   const pets = [];
   const need = (rel) => { if (!existsSync(join(hub, rel))) throw new Error(`Missing ${rel} in the hub`); return rel; };
-  // Claude Bot first, as before: the one entry outside the hub.
+  // Claude Bot first, as before: the one entry outside the hub. His folder is used only when its pictures match his
+  // repo's main (an older, untracked copy sat in that working copy on 2026-10-18); otherwise his current entry stays.
   const bot = [join(petos, 'claude-bot', 'desktop-art', 'claude-bot'), join(petos, 'claude-bot', 'claude-bot-draft-art-20261011', 'desktop-art', 'claude-bot')]
-    .find((d) => existsSync(join(d, 'idle-20261011.png')));
+    .find((d) => existsSync(join(d, 'idle-20261011.png')) && matchesMain(d));
   if (bot) pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, idle: join(bot, 'idle-20261011.png'), blink: join(bot, 'blink-20261011.png'), interface: 'https://github.com/findastra/claude-bot' });
-  else console.warn('Claude Bot left out: his private repo is not on this PC.');
+  else {
+    const kept = currentList()?.pets?.find((p) => p.id === 'claude-bot');
+    if (kept) { pets.push({ ...kept, private: true }); console.warn(`Claude Bot keeps his current entry (${kept.idle}): his repo folder on this PC is missing or does not match claude-bot main. Update that working copy, then run this again.`); }
+    else console.warn('Claude Bot left out: his private repo is not on this PC.');
+  }
   for (const [id, repo] of DRAFTS) {
     const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
     if (id === 'fuzzboi-friend') {
