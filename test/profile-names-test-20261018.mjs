@@ -50,6 +50,16 @@ test('a line Astra labelled with another name stays, and its repo is not added a
   assert.doesNotMatch(gone, /fuzzboi-factory/, 'a line whose repo is gone from GitHub is still dropped');
 });
 
+test('a line Astra writes with a dash instead of " -- " is kept as written and its repo is not added again (2026-10-18)', () => {
+  const mine = "- [`findastra.github.io`](https://github.com/findastra/findastra.github.io) -— Astra's  portfolio: worlds, projects, pets";
+  const text = readme.replace('### Astra\'s PetOS', `${mine}\n\n### Astra's PetOS`);
+  const repos = [{ name: 'astras-pet-os', private: false, description: '' }, { name: 'findastra.github.io', private: false, description: 'The one place that connects two names' }];
+  const out = syncProfile(text, registry, repos, programs).text;
+  assert.ok(out.split('\n').includes(mine), 'her line stays word for word');
+  assert.equal(out.match(/\[`findastra\.github\.io`\]/g).length, 1, 'the repo is not added a second time');
+  assert.doesNotMatch(out, /connects two names/, 'the GitHub description does not come back');
+});
+
 test('a repo Astra links above the list is not repeated under its pet; without her line it is (2026-10-17)', () => {
   const repos = ['astras-pet-os', 'startup-star'].map((name) => ({ name, private: false, description: '' }));
   const above = syncProfile(readme, registry, repos, programs).text;

@@ -16,7 +16,9 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const OWNER = 'findastra';
-const BULLET = /^- (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- (.*)$/;
+// The separator is " -- "; a line Astra writes with a dash instead (" -— ", " — ", 2026-10-18) is still hers and is kept.
+const SEP = ' (?:--|-?[—–]) ';
+const BULLET = new RegExp(`^- (?:\\[\`([^\`]+)\`\\]\\([^)]*\\)|\`([^\`]+)\` \\*\\(private\\)\\*)${SEP}(.*)$`);
 // The old repo-first pet line, still read so a profile written before 2026-10-16 converts cleanly.
 const NUMBERED = /^\d+\. (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- \*\*([^*]+)\*\* · (.*)$/;
 // Pet first (Astra, 2026-10-16): N. **Pet** · *Home* · [`repo`](link) -- what the pet does [status]. Home is optional.
@@ -107,7 +109,7 @@ export function syncProfile(readme, registry, repos, programs = null) {
   lines.forEach((ln, i) => {
     if (/^#{2,4} /.test(ln) && !/align=/.test(ln)) sections.push({ title: ln.replace(/^#+ /, ''), start: i });
     let m;
-    const sub = !HOME_SUB.test(ln) && /^\s*- (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- (.*)$/.exec(ln);
+    const sub = !HOME_SUB.test(ln) && new RegExp(`^\\s*${BULLET.source.slice(1)}`).exec(ln);
     if (sub && !blurbs.has(repoOf(sub[1] || sub[2], ln))) blurbs.set(repoOf(sub[1] || sub[2], ln), sub[3]);
     if ((m = PET_LINE.exec(ln))) { const n = m[1] || m[2]; const r = (programs || []).find((x) => x.icon === n)?.repo || pets.find((x) => x.pet === n)?.repo; if (r) blurbs.set(r, m[3]); }
     else if ((m = PET_HOME.exec(ln))) { const p = (programs || []).find((x) => x.icon === m[1]); if (p) blurbs.set(p.repo, m[4]); }
