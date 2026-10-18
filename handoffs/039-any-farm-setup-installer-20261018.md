@@ -1,5 +1,5 @@
-status: open (waiting on Astra: OK to merge the pull request, OK to publish release v0.2.0-beta, and "core pets" or another name)
-for: any (the release step is Astra's OK, then any assistant; Codex: read "For Codex" below)
+status: done 2026-10-18 (#88 merged, v0.2.0-beta released, "core pets" kept; task 4 is for later)
+for: any (Codex: read "For Codex" below)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: installer/install-astras-pet-os-20261014.ps1, README.md ("Beta testers and their AI: start here"), test/farm-setup-test-20261018.mjs, skills/dev-mindset/SKILL.md
 ---
@@ -53,6 +53,17 @@ other than Astra's. Windows SmartScreen and the downloaded-file warning were not
 that reason (skills/dev-mindset). I used **core pets**, which matches "core kit" and ring 0, the Core. One word changes
 it if Astra prefers another. Card 038 is used twice on other branches (`farmer-register-workflow-whirlpool` and
 `skill-scout-record-chat-order`); I took 039 and left that clash to those chats.
+
+**Finished the same day** (Astra in chat: "Merge astras-pet-os#88 once its checks pass, then publish release
+v0.2.0-beta. Keep the name core pets."):
+- CodeQL (actions, csharp, javascript-typescript) passed on #88; `npm test` on #88 merged with `main` `0bf2d4e`:
+  147 pass, 1 skipped (the Pets Board workflow test). Merged as `7c706cf` on `main`.
+- Release [v0.2.0-beta](https://github.com/findastra/astras-pet-os/releases/tag/v0.2.0-beta), a pre-release like
+  v0.1.0 and v0.1.1, made at `7c706cf`.
+- The release's own Source code zip (97.8 MB), downloaded and unzipped into `%TEMP%`: double-click-style runs of its
+  `.cmd`, driven from outside, installed From Scratch (Farmer and Fuzzboi Friend) and Example (36 pets), both showed
+  "Your farm is ready" and exited 0, and each farm ran 8 s in the desktop pets with no UI exception.
+- "Core pets" added to the glossary in skills/dev-mindset. This card update is on `claude/card-039-done-20261018`.
 
 ## Task
 1. Astra: OK to merge the pull request. Then merge it (squash not needed) after `npm test` passes.
