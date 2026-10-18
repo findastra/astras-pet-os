@@ -192,8 +192,10 @@ test('relations only name pets the Cage knows, with known kinds and states', () 
 });
 
 test('RELATIONS.md and MOOD-KEY.md are up to date (run npm run build)', () => {
-  assert.equal(read('RELATIONS.md'), buildRelations(registry));
-  assert.equal(read('MOOD-KEY.md'), buildMoodKey(registry));
+  // Windows checkouts (core.autocrlf) give CRLF; the builders write LF.
+  const lf = (s) => s.replace(/\r\n/g, '\n');
+  assert.equal(lf(read('RELATIONS.md')), buildRelations(registry));
+  assert.equal(lf(read('MOOD-KEY.md')), buildMoodKey(registry));
 });
 
 const profile = `<h2 align="center">Hi</h2>
