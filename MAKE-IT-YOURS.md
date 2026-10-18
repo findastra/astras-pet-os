@@ -4,6 +4,11 @@ Astra's PetOS comes with **Astra's farm as an example**: her pets, her worlds an
 **EXAMPLE** tag on the System Map. This page shows how to turn it into **your own farm**: your own copy, your own
 name, your own pets, and how to delete examples and get them back. Astra, 2026-10-14.
 
+**Choose when you install (Astra, 2026-10-18).** The installer's **Set up your farm** window offers **Set up Your Farm
+with Astra's Example Pets** (every example comes along) or **Set up Your Farm From Scratch** (only the **core pets**,
+which every farm needs and which cannot be taken away, plus any examples you tick). Run the installer again any time to
+change your mind. Choosing changes only your installed copy; the steps below change your own fork.
+
 ## The idea in one minute
 
 - You make your own copy of Astra's PetOS on GitHub. Developers call it a **fork**: it is yours, and it stays linked to
