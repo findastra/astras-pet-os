@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | open |
 | [030: Redraw Gif Giraffe, Unity Unicorn and group 1 in group 4's style](030-codex-redraw-giraffe-unicorn-group-1-20261017.md) | Codex | open |
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
 | [024: Pole Puff: create the `pole-puff` repo from `drafts/pole-puff/`](024-any-pole-puff-repo-20261012.md) | any | open: Astra approved the repo, the art and the look (2026-10-12); repo not created yet |
