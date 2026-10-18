@@ -1,7 +1,7 @@
 # PROVENANCE
 
 **Provenance** answers three questions about every piece of Astra's PetOS: *who made it, who changed it, and can you
-prove it?* Companion to [SECURITY.md](SECURITY.md) and [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md). Astra, 2026-10-14.
+prove it?* Companion to the [security model](docs/security-model-20261018.md) and [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md). Astra, 2026-10-14.
 
 Nothing written in a plain file can be made impossible to remove, so provenance works like a cow's ear tag: a
 **cryptographic signature**. Removing or changing it is *detected*, and the farm refuses to run what does not check out.

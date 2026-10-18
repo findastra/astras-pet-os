@@ -43,7 +43,7 @@ This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets ar
 
 - **[Astra's PetOS System Map](system-map-20261012.html)** (the 3D PFD): every pet, program, model and device, and what flows between them. **Network view** shows how the devices are physically connected.
 - **[INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)**: the four levels: L1 Programs, L2 Pet program, L3 Agentic harness, L4 Verified human, and what each pet has built.
-- **[SECURITY.md](SECURITY.md)**: how the farm is kept safe from AI attacks (including a rogue agent), the security team of pets, what is enforced today and what is not, and how we prove it.
+- **[SECURITY.md](SECURITY.md)**: how to report a vulnerability privately. **[Security model](docs/security-model-20261018.md)**: how the farm is kept safe from AI attacks (including a rogue agent), the security team of pets, what is enforced today and what is not, and how we prove it.
 - **[PROVENANCE.md](PROVENANCE.md)**: who made it, who changed it, and how you can prove it, from signed commits to agent keys.
 - **[PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md)**: the standard every pet program is built to. **[TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)**: what a pet has (tools) and what it knows (tricks), with four real examples.
 - **Community:** is your pet sick? Open a ticket at the [vet-clinic](https://github.com/findastra/vet-clinic). Made a tool or trick for others? Bring it to [the Shed](https://github.com/findastra/the-shed). Made a pet? Bring it to [the Kennel](https://github.com/findastra/the-kennel).

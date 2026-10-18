@@ -261,10 +261,10 @@ Every agent, ours or **external**, needs a **key** to operate a pet. That is how
   Officer watches, alarms and switches OFF. Log Lynx keeps the records. Forensic Ferret investigates past breaches.
   API Fairy shows the keys. L4 approves.
 - **Farmhands:** the AI models that take the seat are farmhands, not pets. Only farmhands on the allowlist get a key,
-  and trust is earned in levels ([SECURITY.md](SECURITY.md)). A pet program never trusts a farmhand by itself.
+  and trust is earned in levels ([security model](docs/security-model-20261018.md)). A pet program never trusts a farmhand by itself.
 - **Shutdown and recovery:** on an alarm, keys are revoked, agents stop and agent network is cut (containment, not a
   crash). Rescue Retriever (The Recovery Room) rebuilds and restarts the farm in the safe order; only L4 turns
-  anything back on ([SECURITY.md](SECURITY.md)).
+  anything back on ([security model](docs/security-model-20261018.md)).
 
 ## 13. The first run: How to Take Care of Your Farm!
 

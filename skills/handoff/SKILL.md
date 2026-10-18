@@ -71,5 +71,6 @@ Add a row for the card to `handoffs/README.md`. Numbers never repeat.
 - Work that only exists on Astra's PC or on an unmerged branch is easy to lose: say where it
   is on the card. Search every branch (`git ls-remote --heads`, `git log --all`) before saying
   a pet does not exist.
+- Approval, not clicks (Astra, 2026-10-18): ask for her OK in chat, then merge the branch yourself.
 - Follow the repo's own rules: no pushing to `main` and no new GitHub repos without
   Astra's OK; work on a branch otherwise.
