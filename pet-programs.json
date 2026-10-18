@@ -548,7 +548,7 @@
       "icon": "Dubstep Gunsmith",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-37",
+      "repo": "dubstep-armory",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "dubstep-armory-v1.0-mini-descriptor-v1.0",
@@ -563,7 +563,7 @@
       "icon": "Pole Puff",
       "idea": "Astra's Infinite Pole (the world she looks after), or Pole Lookout",
       "stage": "seed",
-      "repo": "pet-program-38",
+      "repo": "infinite-studio",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "infinite-studio-v1.0-mini-descriptor-v1.0",
@@ -578,7 +578,7 @@
       "icon": "Procreate Panda",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-39",
+      "repo": "bamboo-studio",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-39-v1.0-mini-descriptor-v1.0",
@@ -593,7 +593,7 @@
       "icon": "Skill Scout",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-40",
+      "repo": "lunas-log",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-40-v1.0-mini-descriptor-v1.0",
@@ -608,7 +608,7 @@
       "icon": "OSC Sealion",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-41",
+      "repo": "osc-sonar",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-41-v1.0-mini-descriptor-v1.0",
@@ -623,7 +623,7 @@
       "icon": "Piranesi Nessi",
       "idea": "Piranesi House (the world she looks after), or Tide Tables",
       "stage": "seed",
-      "repo": "pet-program-42",
+      "repo": "nessis-ocean",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "nessis-ocean-v1.0-mini-descriptor-v1.0",
@@ -638,7 +638,7 @@
       "icon": "Photo Dodo",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-43",
+      "repo": "photo-roost",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-43-v1.0-mini-descriptor-v1.0",
@@ -653,7 +653,7 @@
       "icon": "Video Vulture",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-44",
+      "repo": "video-vault",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-44-v1.0-mini-descriptor-v1.0",
@@ -698,7 +698,7 @@
       "icon": "Queue Quokka",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-47",
+      "repo": "task-island",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-47-v1.0-mini-descriptor-v1.0",
@@ -713,7 +713,7 @@
       "icon": "Log Lynx",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-48",
+      "repo": "log-den",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-48-v1.0-mini-descriptor-v1.0",
@@ -728,7 +728,7 @@
       "icon": "Server Salamander",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-49",
+      "repo": "server-hearth",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-49-v1.0-mini-descriptor-v1.0",
@@ -743,7 +743,7 @@
       "icon": "Docker Dragon",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-50",
+      "repo": "container-hoard",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-50-v1.0-mini-descriptor-v1.0",
@@ -758,7 +758,7 @@
       "icon": "Test Tortoise",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-51",
+      "repo": "test-track",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-51-v1.0-mini-descriptor-v1.0",
@@ -773,7 +773,7 @@
       "icon": "Token Toucan",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-52",
+      "repo": "token-canopy",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-52-v1.0-mini-descriptor-v1.0",
@@ -788,7 +788,7 @@
       "icon": "Packet Piranha",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-53",
+      "repo": "packet-river",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-53-v1.0-mini-descriptor-v1.0",
@@ -803,7 +803,7 @@
       "icon": "Calendar Crow",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-54",
+      "repo": "crows-nest",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-54-v1.0-mini-descriptor-v1.0",
@@ -818,7 +818,7 @@
       "icon": "Browser Bat",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-55",
+      "repo": "browser-belfry",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-55-v1.0-mini-descriptor-v1.0",
@@ -833,7 +833,7 @@
       "icon": "Data Dragonfly",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-56",
+      "repo": "data-marsh",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-56-v1.0-mini-descriptor-v1.0",
@@ -848,7 +848,7 @@
       "icon": "Update Urchin",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-57",
+      "repo": "update-tidepool",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-57-v1.0-mini-descriptor-v1.0",
@@ -863,7 +863,7 @@
       "icon": "Linux Penguin",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-58",
+      "repo": "linux-iceberg",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-58-v1.0-mini-descriptor-v1.0",
@@ -878,7 +878,7 @@
       "icon": "Stock Fox",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-59",
+      "repo": "market-meadow",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-59-v1.0-mini-descriptor-v1.0",
@@ -893,7 +893,7 @@
       "icon": "Passport Pelican",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-60",
+      "repo": "passport-harbor",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-60-v1.0-mini-descriptor-v1.0",
@@ -908,7 +908,7 @@
       "icon": "Journal Jellyfish",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-61",
+      "repo": "journal-lagoon",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-61-v1.0-mini-descriptor-v1.0",
@@ -923,7 +923,7 @@
       "icon": "Shell Squid",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-62",
+      "repo": "shell-trench",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-62-v1.0-mini-descriptor-v1.0",
@@ -938,7 +938,7 @@
       "icon": "Kernel Koala",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-63",
+      "repo": "kernel-grove",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-63-v1.0-mini-descriptor-v1.0",
@@ -953,7 +953,7 @@
       "icon": "Proxy Axolotl",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-64",
+      "repo": "proxy-lake",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-64-v1.0-mini-descriptor-v1.0",
@@ -968,7 +968,7 @@
       "icon": "Cluster Crab",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-65",
+      "repo": "cluster-shore",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-65-v1.0-mini-descriptor-v1.0",
@@ -983,7 +983,7 @@
       "icon": "Storage Stoat",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-66",
+      "repo": "storage-warren",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-66-v1.0-mini-descriptor-v1.0",
@@ -998,7 +998,7 @@
       "icon": "White Hat Weasel",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-67",
+      "repo": "white-hat-lab",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-67-v1.0-mini-descriptor-v1.0",
@@ -1013,7 +1013,7 @@
       "icon": "Port Spider",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-68",
+      "repo": "port-web",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-68-v1.0-mini-descriptor-v1.0",
@@ -1028,7 +1028,7 @@
       "icon": "Cipher Owl",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-69",
+      "repo": "cipher-hollow",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-69-v1.0-mini-descriptor-v1.0",
@@ -1043,7 +1043,7 @@
       "icon": "Forensic Ferret",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-70",
+      "repo": "evidence-locker",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-70-v1.0-mini-descriptor-v1.0",
@@ -1058,7 +1058,7 @@
       "icon": "Llama Librarian",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-71",
+      "repo": "model-library",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-71-v1.0-mini-descriptor-v1.0",
@@ -1073,7 +1073,7 @@
       "icon": "Inference Iguana",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-72",
+      "repo": "benchmark-rock",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-72-v1.0-mini-descriptor-v1.0",
@@ -1088,7 +1088,7 @@
       "icon": "Agent Ant",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-73",
+      "repo": "agent-colony",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-73-v1.0-mini-descriptor-v1.0",
@@ -1103,7 +1103,7 @@
       "icon": "Roaming Raven",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-74",
+      "repo": "roam-map",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-74-v1.0-mini-descriptor-v1.0",
@@ -1118,7 +1118,7 @@
       "icon": "Cache Coyote",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-75",
+      "repo": "cache-canyon",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-75-v1.0-mini-descriptor-v1.0",
@@ -1133,7 +1133,7 @@
       "icon": "Sync Mink",
       "idea": null,
       "stage": "roadmap",
-      "repo": "pet-program-76",
+      "repo": "sync-stream",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-76-v1.0-mini-descriptor-v1.0",
@@ -1148,7 +1148,7 @@
       "icon": "Triage Tapir",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-77",
+      "repo": "the-triage-desk",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-77-v1.0-mini-descriptor-v1.0",
@@ -1208,7 +1208,7 @@
       "icon": "Intel Owl",
       "idea": null,
       "stage": "seed",
-      "repo": "pet-program-81",
+      "repo": "threat-observatory",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-81-v1.0-mini-descriptor-v1.0",
@@ -1243,7 +1243,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "fairy-ring-v1.0-mini-descriptor-v1.0",
-        "text": "Runs Mommy’s Role Fairy, a cute single-choice Discord role picker: new members get a welcome-channel link to the picker and everyone can change their role any time.",
+        "text": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
         "reviewed": false
       }
     }
