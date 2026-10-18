@@ -8,13 +8,16 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
+| [038: Skill Scout records the new chat-order trick](038-skill-scout-record-chat-order-20261018.md) | skill-scout | open: record it at the next census |
+| [036: Two PCs tonight: which jobs each one does, and the overnight Idle Flash Audit](036-any-overnight-two-pcs-20261018.md) | any | open, waits on Astra: the answer sheet (merges OK'd 2026-10-18) |
 | [035: Codex framework pull requests, and branches that conflict with main](035-codex-framework-pull-requests-20261018.md) | Codex | open: 17 Codex pull requests to bring up to date; 3 branches held back for Astra |
-| [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | open: pull requests listed in the card (Idle Flash Audit chat); done when merged |
+| [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | done 2026-10-18: all 29 pull requests merged |
 | [032: The desktop pets read only the hub: draft list, rebuild, restart](032-any-desktop-reads-only-the-hub-20261018.md) | any | open, after Astra merges #60 and #58 |
 | [031: Rebuild the desktop exe for group 3's one scale, keeping the Goldfish triple-click](031-codex-rebuild-desktop-girls-same-size-20261017.md) | Codex | open, after Astra merges `claude/girls-same-size-20261017` |
 | [030: Redraw Gif Giraffe, Unity Unicorn and group 1 in group 4's style](030-codex-redraw-giraffe-unicorn-group-1-20261017.md) | Codex | open |
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
-| [028: Idle Flash Audit of 2026-10-17: 78 fix PRs, round cards, every pet has a repo, folder rename tried](028-any-idle-flash-audit-20261017.md) | any | open, waits on Astra: the Flash Audit Answers page |
+| [028: Idle Flash Audit of 2026-10-17: 78 fix PRs, round cards, every pet has a repo, folder rename tried](028-any-idle-flash-audit-20261017.md) | any | done 2026-10-18: Astra answered (#75); what is left is card 035 |
 | [024: Pole Puff: create the `pole-puff` repo from `drafts/pole-puff/`](024-any-pole-puff-repo-20261012.md) | any | open: Astra approved the repo, the art and the look (2026-10-12); repo not created yet |
 | [027: Skill sheet audit and fix batches (Skill Scout)](027-any-skill-sheet-audit-and-fixes-20261017.md) | any | open, waits on Astra: repo rename, pet-app v2, yes per batch |
 | [026: Pictures only Astra can take (Flash Audit A55), and 25 picture PRs](026-any-pictures-astra-takes-20261017.md) | any | open, waits on Astra: in-world and desktop pictures; chat-rat#1 left for Codex |
@@ -50,7 +53,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 036.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card). When numbers clashed, the
+**Next free number: 040.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; 038 is used on two branches, `farmer-register-workflow-whirlpool` and `skill-scout-record-chat-order`, so one of them moves; 039 is the installer card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -78,6 +81,10 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 032 | `032-any-desktop-reads-only-the-hub-20261018.md` | `claude/one-art-source-20261017` |
 | 034 | `034-any-system-map-rings-and-grants-20261018.md` | `claude/system-map-redo-20261017` (PR #64; was 032, renumbered on 2026-10-18 because the desktop card took 032) |
 | 035 | `035-codex-framework-pull-requests-20261018.md` | `claude/flash-audit-answers-20261018` |
+| 036 | `036-any-overnight-two-pcs-20261018.md` | `claude/idle-flash-audit-20261018` |
+| 037 | kept for the desktop PC's overnight run (card 036) | `claude/idle-flash-audit-20261018` |
+| 038 | `038-skill-scout-record-chat-order-20261018.md` | `claude/chat-order-skill-20261018` |
+| 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on

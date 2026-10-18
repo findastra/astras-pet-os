@@ -1,5 +1,5 @@
 ---
-status: open (pull requests listed below; done when they are merged)
+status: done 2026-10-18 (all 29 pull requests merged)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: PET-FILES.md, AGENTS.md, skills/handoff/SKILL.md
@@ -19,6 +19,8 @@ needs: PET-FILES.md, AGENTS.md, skills/handoff/SKILL.md
 - `npm run check` passed (20 pet apps), and `npm test` passed (101 tests).
 - Not touched: `status/pets-status.json` and the findings embedded in `apps/astras-pet-apps-20261008.html`
   (the Farmer's next round rewrites both), and the history in older handoff cards.
+
+**Done, checked overnight 2026-10-18 by Claude Opus 5.5 (`claude-opus-5-5`):** all 29 pull requests in the table below are merged (2026-10-18, 10:21 to 10:27 UTC).
 
 ## Task
 

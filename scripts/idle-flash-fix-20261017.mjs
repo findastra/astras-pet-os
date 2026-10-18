@@ -167,6 +167,12 @@ for (const rec of ledger) {
         const made = existsSync(`${dir}/AGENTS.md`) && readFileSync(`${dir}/AGENTS.md`, 'utf8').match(/^Created by .+?, \d{4}-\d\d-\d\d, at Astra's request\./m);
         if (made && !/Created by|Started by|Built with/i.test(rm)) { rm = rm.replace(/\s*$/, '') + `\n\n${made[0]}\n`; log.push('README: records who made it and when (copied from AGENTS.md).'); }
       }
+      // A pet-program-N title left after the repo took its program's name follows pet-programs.json.
+      const titleRow = rec.rows.find((r) => r.fix?.type === 'readme-title');
+      if (titleRow && /^#[ \t]+pet-program-\d+[ \t]*\r?$/m.test(rm)) {
+        rm = rm.replace(/^#[ \t]+pet-program-\d+[ \t]*(\r?)$/m, (m, cr) => `# ${titleRow.fix.to}${cr}`);
+        log.push(`README: the title is now its program's name, ${titleRow.fix.to} (pet-programs.json).`);
+      }
       if (rec.rows.some((r) => r.fix?.type === 'credit') && !/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) {
         rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*An Intelligent App, or Pet, by Astra.*') : `*An Intelligent App, or Pet, by Astra.*\n\n${rm}`;
         log.push('README: added the credit line "*An Intelligent App, or Pet, by Astra.*".');
@@ -176,7 +182,24 @@ for (const rec of ledger) {
         rm = rm.replace(/\s*$/, '') + `\n\n## Limits\n\nWhat is not done, plainly. From the hub's [intelligence levels](https://github.com/findastra/astras-pet-os/blob/main/INTELLIGENCE-LEVELS.md) (checked ${ISO}):\n\n- **Program (L1/L2):** ${clean(row.program)}\n- **Runtime (L2):** ${clean(row.runtime)}\n- **Agentic harness (L3):** ${clean(row.harness).replace(/^—\s*$/, '— not built yet')}\n`;
         log.push('README: added a Limits section from INTELLIGENCE-LEVELS.md.');
       }
+      // Seeds and roadmap pets have no row in INTELLIGENCE-LEVELS.md (it lists what is built): their Limits say so.
+      else if (rec.rows.some((r) => r.fix?.type === 'limits') && !row && ['seed', 'roadmap'].includes(rec.stage) && !/^#{2,3}\s.*(limit|not done|known)/im.test(rm)) {
+        rm = rm.replace(/\s*$/, '') + `\n\n## Limits\n\n- This is a ${rec.stage} pet program: it is designed, and nothing runs yet (no program, no runtime, no agent). What is here is its design and its documents.\n- It is not registered: it waits at the gate until Astra lets it in.\n`;
+        log.push(`README: added a Limits section (a ${rec.stage}: designed, nothing runs yet).`);
+      }
       if (rm !== before) writeFileSync(rmPath, rm);
+    }
+
+    // 4b. Links to renamed repos (GitHub redirects them, but the current name is correct), where the audit found them.
+    for (const r of rec.rows.filter((x) => x.fix?.type === 'link' && x.fix.to)) {
+      for (const f of ['README.md', 'pet.json']) {
+        const p = `${dir}/${f}`;
+        if (!existsSync(p)) continue;
+        const t = readFileSync(p, 'utf8');
+        if (!t.includes(r.fix.from)) continue;
+        writeFileSync(p, t.split(r.fix.from).join(r.fix.to));
+        log.push(`${f}: link to a renamed repo, ${r.fix.from} -> ${r.fix.to}.`);
+      }
     }
 
     // 5. A59: pet.json `entry` opens the program page, and the README links to the program. A product's own README

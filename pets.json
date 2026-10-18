@@ -430,8 +430,7 @@
     ],
     "private": [
       "health-hummy",
-      "finance-finch",
-      "meme-fiend"
+      "finance-finch"
     ],
     "private_rule": "These pets' data never leaves the PC. Other pets do not read from them, and the self-audit checks only their repo files.",
     "groups": {
@@ -904,7 +903,7 @@
         "subject": "your Voicemeeter audio",
         "needs": "the Bug running on your PC"
       },
-      "visibility": "private"
+      "visibility": "public"
     },
     {
       "repo": "platform-platypus",
@@ -999,7 +998,7 @@
     {
       "repo": "patch-cat",
       "pet": "Patch Cat",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
@@ -1012,7 +1011,7 @@
     {
       "repo": "meme-fiend",
       "pet": "Meme Fiend",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
@@ -1025,7 +1024,7 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
@@ -1039,7 +1038,7 @@
     {
       "repo": "backup-beaver",
       "pet": "Backup Beaver",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
@@ -1052,7 +1051,7 @@
     {
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
@@ -1064,6 +1063,8 @@
     },
     {
       "repo": "fuzzboi-friend",
+      "interface_live_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
+      "interface_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
       "pet": "Fuzzboi Friend",
       "visibility": "public",
       "status": "hatching",
@@ -1079,7 +1080,7 @@
     {
       "repo": "wifi-butterfly",
       "pet": "Wifi Butterfly",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
@@ -1105,7 +1106,7 @@
     {
       "repo": "mesh-moth",
       "pet": "Mesh Moth",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
@@ -1118,7 +1119,7 @@
     {
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",

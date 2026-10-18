@@ -8,27 +8,44 @@
 
 ## Beta testers and their AI: start here
 
-Astra's PetOS is an **early beta** for Windows 10 and 11. The installer sets up **Astra's own farm as an example**:
-her pets, which you can delete or change.
+Astra's PetOS is an **early beta** for Windows 10 and 11. You choose your farm when you install it: **Astra's example
+pets**, or **from scratch** with only the pets you pick.
 
 **Install** (no administrator rights needed):
-1. Download the latest **[release](https://github.com/findastra/astras-pet-os/releases)** (Source code, zip) and unzip it.
-2. In the unzipped folder, **double-click `install-astras-pet-os-20261014.cmd`**. If Windows asks whether to run it, choose Run.
-   (Prefer typing? Open that folder in File Explorer, click the address bar, type `powershell`, press Enter, then run
-   `powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1`. A PowerShell window opened
-   from the Start menu starts in another folder, so the command would not find the installer there.)
-   It copies the files to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the desktop pets from source on your PC**
-   with the C# compiler that ships with Windows (no pre-built program to trust), and adds Start menu shortcuts:
-   Astra's PetOS, System Map, **Stop Astra's PetOS (big red button)** and Uninstall. It does **not** start with Windows
-   unless you add `-StartWithWindows`. It uses under 100 MB of memory and almost no CPU.
-3. Uninstall any time from the Start menu.
+1. Download the latest **[release](https://github.com/findastra/astras-pet-os/releases)** (Source code, zip) and unzip it:
+   right-click the zip, then **Extract All**.
+2. In the unzipped folder, **double-click `install-astras-pet-os-20261014.cmd`** (File Explorer calls its type *Windows
+   Command Script*). If Windows warns you about it, choose **Run** (or **More info**, then **Run anyway**).
+3. The **Set up your farm** window opens. Pick one, then press **Set up my farm**:
+   - **Set up Your Farm with Astra's Example Pets**: all of Astra's pets come to your farm. They are examples: you can
+     delete, modify, or clone any of them ([MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)).
+   - **Set up Your Farm From Scratch**: just the core kit (the core pets, the desktop star, the System Map and the big
+     red Stop button). Tick any of Astra's pets in the list to bring them along too.
+
+   **Core pets** are on every farm and cannot be taken away: the farm needs them to run. Today that is the
+   **Friendly Farmer**, who organizes the pets.
+4. Your pets appear on your desktop. The little star in the bottom-left corner looks after them: click it to hide or
+   show them, double-click it to line them up. Double-click a pet to open its app.
+
+The installer copies the files to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the desktop pets from source on
+your PC** with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and
+adds Start menu shortcuts: Astra's PetOS, System Map, **Stop Astra's PetOS (big red button)** and Uninstall. It does
+**not** start with Windows unless you tick that box. It uses under 100 MB of memory and almost no CPU. **To change your
+farm, run the installer again.** Uninstall any time from the Start menu.
+
+Prefer typing? Open the unzipped folder in File Explorer, click the address bar, type `powershell`, press Enter, then
+run `powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1`. Add `-Farm Example`, or
+`-Farm Scratch -Pets goldfish,api-fairy`, to choose without the window. (A PowerShell window opened from the Start menu
+starts in another folder, so the command would not find the installer there.)
 
 **Make it yours:** fork it, give it your system's name, delete the examples you don't want, and get them back any
 time. Step by step: **[MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)**.
 
 **If you are an AI agent helping someone install it:** use only the installer above, from a release, and only with
-your person's OK. Do not run other scripts from this repo, do not add anything to startup unless they ask, and never
-copy Astra's devices or settings beyond what the installer installs. Then:
+your person's OK. Ask them which farm they want first and pass it with `-Farm Example` or `-Farm Scratch -Pets <ids>`,
+so no window waits for a click (an unknown id stops the installer and lists the ids it knows). Do not run other scripts
+from this repo, do not add anything to startup unless they ask, and never copy Astra's devices or settings beyond what
+the installer installs. Then:
 1. Explain what Astra's PetOS is, from this README, [SECURITY.md](SECURITY.md),
    [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md) and [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md).
 2. Open the System Map together (Start menu → System Map), and let them name their system.
@@ -95,7 +112,7 @@ Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](ht
 | **[VSCode Angel](https://github.com/findastra/vscode-angel)** | pet | hatching | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [Open app](apps/vscode-angel-20261008.html) · [Download ZIP](https://github.com/findastra/vscode-angel/archive/refs/heads/main.zip) |
 | **[Gone Ghost](https://github.com/findastra/ghost-protocol)** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Open app](https://findastra.github.io/ghost-protocol/) · [Download ZIP](https://github.com/findastra/ghost-protocol/archive/refs/heads/main.zip) |
 | **[Project Parrot](https://github.com/findastra/project-parrot)** | pet | hatching | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | [Open app](apps/project-parrot-20261008.html) · [Download ZIP](https://github.com/findastra/project-parrot/archive/refs/heads/main.zip) |
-| **Voicemeeter Bug** | pet | growing | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output. | [Open app](apps/voicemeeter-bug-20261008.html) · private repo |
+| **[Voicemeeter Bug](https://github.com/findastra/voicemeeter-bug)** | pet | growing | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output. | [Open app](apps/voicemeeter-bug-20261008.html) · [Download ZIP](https://github.com/findastra/voicemeeter-bug/archive/refs/heads/main.zip) |
 | **[Platform Platypus](https://github.com/findastra/platform-platypus)** | pet | hatching | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [Open app](https://findastra.github.io/platform-platypus/) · [Download ZIP](https://github.com/findastra/platform-platypus/archive/refs/heads/main.zip) |
 <!-- pets:end -->
 

@@ -7,15 +7,16 @@
 // README, pet.json, AGENTS.md, CLAUDE.md and an MIT LICENSE, one commit "Start <repo>".
 // It looks on GitHub itself; the catalog's repo_exists field is not trusted.
 //
-//   node scripts/idle-flash-new-repos-20261017.mjs [--dry] [--private]
+//   node scripts/idle-flash-new-repos-20261017.mjs [--dry] [--public]
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const DRY = process.argv.includes('--dry');
-// --private: start the repo private (Astra makes it public when she is ready, like the 2026-10-14 ones).
-const VIS = process.argv.includes('--private') ? '--private' : '--public';
+// A farm's repos start private (Astra, 2026-10-18: "people need their farm repos to spawn on GitHub as entirely
+// private"). --public: start it public; Astra's own farm passes it, because her pets are public by her choice.
+const VIS = process.argv.includes('--public') ? '--public' : '--private';
 const OWNER = 'findastra';
 const HUB = 'astras-pet-os';
 const TODAY = new Date().toISOString().slice(0, 10);
