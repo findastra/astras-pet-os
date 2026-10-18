@@ -16,7 +16,8 @@ const desk = (repo, art = repo) => RAW(repo, `desktop-art/${art}/idle-20261011.p
 export const SOURCES = {
   // pipeline pets: their own repos
   'spoonfed': desk('spoonfed', 'spoonfed-sugarcube'),
-  'claude-bot': desk('claude-bot'),
+  // claude-bot: its repo is private since 2026-10-17 (its art is an exact copy of ChatGPT's BSOD,
+  // at Astra's request), so this public hub keeps the earlier orange-screen twin icon as it is.
   'rgbee': desk('rgbee'),
   'mine-mole': RAW('mine-mole', 'draft-art/mine-mole/idle-20261011.png'),
   'mail-snail': desk('mail-snail'),

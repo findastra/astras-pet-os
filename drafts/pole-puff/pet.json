@@ -1,0 +1,23 @@
+{
+  "pet": "Pole Puff",
+  "program": "Infinite Studio",
+  "kind": "pet-app",
+  "owner": "Astra",
+  "sprite": "sprite.json",
+  "job": "Manages Astra's Infinite Pole, her VRChat world (findastra/astras-infinite-pole). Works with Unity Unicorn on the world's Unity builds. Nothing is built yet.",
+  "runs_on": "Windows PC (planned)",
+  "entry": "index.html",
+  "status": "hatching",
+  "cage": {
+    "topic": "pet-app",
+    "home": "README.md",
+    "repository": "https://github.com/findastra/astras-pet-os"
+  },
+  "built_with": "Claude Opus 5.5 (claude-opus-5-5), 2026-10-11; stand-in art by Claude Opus 5.5 (claude-opus-5-5), 2026-10-11",
+  "updated": "2026-10-18",
+  "audit": {
+    "cadence": "weekly",
+    "subject": "Astra's Infinite Pole",
+    "needs": "the pole-puff repo created (approved by Astra on 2026-10-12)"
+  }
+}
