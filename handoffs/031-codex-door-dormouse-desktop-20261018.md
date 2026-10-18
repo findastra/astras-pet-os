@@ -10,6 +10,8 @@ Continued Astra's selected Door Dormouse / The Threshold pairing after her "GO".
 
 - Worktree: `%USERPROFILE%\Documents\Codex\2026-10-15\we-re-going-to-create-a\work\door-dormouse-20261018`,
   branch `codex/door-dormouse-20261018`. The live hub stays on `main` in `Documents\Astra's PetOS\astras-pet-os`.
+- Implementation commit `33a31fb06e0bc42ccb83c382999d016991609d27` is pushed in
+  [PR #61](https://github.com/findastra/astras-pet-os/pull/61), not merged to main.
 - New original art: `desktop-art/door-dormouse/sheet-20261018.png`, `prompt-20261018.md` and nine 256px mood frames.
   Built-in image generation; no third-party reference art. Draft pending visual approval.
 - Updated `scripts/build-desktop-art-20261011.mjs` to accept `--date YYYYMMDD`, retaining its old default.
