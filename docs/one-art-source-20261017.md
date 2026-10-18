@@ -174,6 +174,16 @@ which holds main with #53 and the group 3 sizes; merge #60 first):
   refused.
 - `prepare-desktop-drafts-20261011.mjs` writes hub-relative paths and names from `pet-programs.json`;
   `make-icons-20261012.mjs` reads hub files only.
+- **The draft list moved into the hub** (`desktop-art/desktop-drafts-20261018.json`, committed, guarded by
+  `test/desktop-drafts-test-20261018.mjs`). The Startup Star session showed on 2026-10-18 that a program started
+  inside the Claude or Codex app reads and writes that app's private copy of `%LOCALAPPDATA%`
+  (`%LOCALAPPDATA%\Packages\Claude_…\LocalCache\Local\…`). So the old list, the temporary pointer and the folder icons
+  were never seen by the star Windows starts at sign-in, and no Claude session can write the real one. The hub
+  folder is in Documents, which is not redirected, so every star now reads the same list.
+  - Claude Bot's entry names only his repo (`"repo": "claude-bot"`). The app looks for his pictures in that folder next
+    to the hub, or one level down in `claude-bot-draft-art-20261011` (where they are on Astra's PC), and never outside it.
+  - The old `%LOCALAPPDATA%` list is read only while the hub has no list.
+  - Self-test PASS. The preview shows all 16 draft pets, Claude Bot included, read through his repo folder.
 - `scripts/one-art-source-20261017.mjs` (A58 check) and `test/one-art-source-test-20261017.mjs`. `npm test`: all pass.
 - PET-FILES.md "Where the pictures live", AGENTS.md rule, A58 text, a note on card 030, card 032 for the PC steps.
 
@@ -254,13 +264,14 @@ draft pets read from outside the hub.
   3. The pet repo PRs, each after the PR it is built on.
   4. The portfolio (#6, after its #4).
   5. Fuzzbois.
-- **Astra's PC** waits on card 032. After #58 is on main and live sync has pulled it, an assistant:
-  1. writes the draft list;
-  2. rebuilds the desktop pets app (together with card 031);
-  3. restarts it.
+- **Astra's PC** waits on card 032. After #58 is on main and live sync has pulled it:
+  1. An assistant rebuilds the desktop pets app (together with card 031). The exe is in Documents, so that works
+     from any session.
+  2. Astra restarts the star herself, or signs out and in, so it runs outside the Claude and Codex apps.
+  3. Claude Bot's repo folder is brought up to `claude-bot` main, with Astra's OK.
 
-  Until then her desktop keeps reading the pet working copies. The old `%LOCALAPPDATA%\astras-pet-apps\drafts-20261011\`
-  clones become unused; they are left for Astra to delete.
+  No `%LOCALAPPDATA%` write is needed any more. The old lists, the `drafts-20261011\` clones and the temporary
+  `desktop-art-main-20261018\` folder, all in the apps' private copies, become unused; they are left for Astra to delete.
 - Unity Unicorn, Gif Giraffe and group 1 still wait on card 030. When Codex redraws them, the new pictures go into this
   hub only.
 - Platform Platypus's `index.html` names `icon-180.png` and `art/icons/astras-pet-os-20261012.png`, which its repo does

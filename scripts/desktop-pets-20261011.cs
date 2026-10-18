@@ -25,9 +25,13 @@ namespace AstraDesktopPets {
     internal static string Root;
     internal static string StateFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "astras-pet-apps", "desktop-pets-status-20261008.json"); } }
     internal static string TestStateFile { get { return Path.Combine(Path.GetDirectoryName(StateFile),"desktop-pets-test-status-20261008.json"); } }
-    // The local draft list names which draft pets roam; their pictures live in this hub (Flash Audit A58, one art source).
-    // ASTRAS_PET_DRAFTS points at another list, for previews and tests only.
-    internal static string DraftsFile { get { string other=Environment.GetEnvironmentVariable("ASTRAS_PET_DRAFTS");return String.IsNullOrWhiteSpace(other)?Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"):other; } }
+    // The draft list lives in this hub, next to the pictures (Flash Audit A58, one art source), so every star reads the same
+    // list: a program started inside the Claude or Codex app sees that app's private copy of %LOCALAPPDATA% (2026-10-18).
+    // ASTRAS_PET_DRAFTS points at another list, for previews and tests. The old local list is read only while the hub has none.
+    internal const string DraftsList="desktop-art/desktop-drafts-20261018.json";
+    internal static string DraftsFile { get {
+      string other=Environment.GetEnvironmentVariable("ASTRAS_PET_DRAFTS");if(!String.IsNullOrWhiteSpace(other))return other;
+      string hub=SafePath(DraftsList);return File.Exists(hub)?hub:Path.Combine(Path.GetDirectoryName(StateFile),"desktop-drafts-20261011.json"); } }
     internal static string Exe { get { return Path.Combine(Root,"bin","desktop-pets-20261008.exe"); } }
     internal static string StartupCommand { get { return "\"" + Exe + "\" \"" + Root + "\" --startup"; } }
     internal static string BugExe { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"ChatGPT","Voicemeeter Bug","voicemeeter-bug-20261008.exe"); } }
@@ -38,12 +42,23 @@ namespace AstraDesktopPets {
       if(!full.StartsWith(Root+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Pet asset is outside its app folder.");
       return full;
     }
-    // A draft's picture path is relative to this hub folder. Only an entry marked "private": true may name a file outside
-    // it: art that may not be public (Claude Bot's exact BSOD copy, in his private repo; Astra, 2026-10-17).
+    // A draft's picture path is relative to this hub folder. Only an entry marked "private": true reads elsewhere: art that
+    // may not be public (Claude Bot's exact BSOD copy; Astra, 2026-10-17) is read from its own repo folder next to the hub,
+    // named by "repo" (on Astra's PC Claude Bot's sits one level down, in claude-bot-draft-art-20261011), or, in an old
+    // local list, from a full path.
     internal static string DraftPath(Dictionary<string,object> entry,string path) {
       object flag;bool own=entry.TryGetValue("private",out flag)&&flag is bool&&(bool)flag;
-      if(own&&Path.IsPathRooted(path))return Path.GetFullPath(path);
-      return SafePath(path);
+      if(!own)return SafePath(path);
+      if(Path.IsPathRooted(path))return Path.GetFullPath(path);
+      string repo=Text(entry,"repo");
+      if(!System.Text.RegularExpressions.Regex.IsMatch(repo,"^[a-z0-9]+(-[a-z0-9]+)*$"))throw new InvalidDataException("A private draft needs its repo name.");
+      string parent=Path.GetDirectoryName(Root);
+      foreach(string folder in new[]{Path.Combine(parent,repo),Path.Combine(parent,repo,repo+"-draft-art-20261011")}) {
+        string full=Path.GetFullPath(Path.Combine(folder,path.Replace('/',Path.DirectorySeparatorChar)));
+        if(!full.StartsWith(folder+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Private draft art is outside its repo folder.");
+        if(File.Exists(full))return full;
+      }
+      throw new FileNotFoundException("Private draft art is not in the "+repo+" folder next to the hub: "+path);
     }
     internal static string Text(Dictionary<string,object> obj,string key,string fallback="") { object value; return obj.TryGetValue(key,out value)&&value!=null?Convert.ToString(value,CultureInfo.InvariantCulture):fallback; }
     internal static bool StartupEnabled() { using(var key=Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))return key!=null&&String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal); }
@@ -485,7 +500,7 @@ namespace AstraDesktopPets {
     void LoadPets() {
       var registry=PetFiles.Read("pets.json");var index=(Dictionary<string,object>)PetFiles.Read("art/frames/index.json")["pets"];
       foreach(var raw in (ArrayList)registry["pets"]) { var sprite=PetSprite.Load((Dictionary<string,object>)raw,index);if(sprite.Role=="host") { if(farmer!=null)throw new InvalidDataException("There must be one Farmer.");farmer=sprite; }else pets.Add(sprite); }
-      // The local draft list (written by scripts/prepare-desktop-drafts-20261011.mjs) names the draft pets; their art is in desktop-art/.
+      // The draft list (desktop-art/desktop-drafts-20261018.json, written by scripts/prepare-desktop-drafts-20261011.mjs) names the draft pets.
       string drafts=PetFiles.DraftsFile;
       if(File.Exists(drafts))foreach(var raw in (ArrayList)PetFiles.Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(drafts))["pets"]) {
         var entry=(Dictionary<string,object>)raw;string id=PetFiles.Text(entry,"id");
@@ -710,6 +725,8 @@ namespace AstraDesktopPets {
       if(!PetFiles.StartupCommand.StartsWith("\""+PetFiles.Exe+"\" \""))throw new Exception("Startup quoting failed.");
       bool rejected=false;try{PetFiles.SafePath("../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("Asset path validation failed.");
       rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"}},Path.Combine(Path.GetTempPath(),"outside.png"));}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A public draft reached outside the hub.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","claude-bot"}},"../../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft reached outside its repo folder.");
+      rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","../x"}},"idle.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft named a folder that is not a repo.");
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
       ClickTests();

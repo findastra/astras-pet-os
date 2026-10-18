@@ -145,10 +145,13 @@ touched. Never copy a pet picture into another repo.
 
 Pages and READMEs load `https://raw.githubusercontent.com/findastra/astras-pet-os/main/<path>`; a page that must
 work by double-click falls back to `../astras-pet-os/<path>`, the hub folder next to it on Astra's PC. The desktop
-pets app reads only this folder: the local draft list (`scripts/prepare-desktop-drafts-20261011.mjs`) holds paths
-relative to it. Windows programs read their frames and `.ico` from `..\astras-pet-os\` when they are built.
+pets app reads only this folder, including its draft list, `desktop-art/desktop-drafts-20261018.json` (written by
+`scripts/prepare-desktop-drafts-20261011.mjs`, paths relative to the hub). The list lives in the hub, not in
+`%LOCALAPPDATA%`, because a program started inside the Claude or Codex app reads and writes that app's private copy of
+`%LOCALAPPDATA%`. Windows programs read their frames and `.ico` from `..\astras-pet-os\` when they are built.
 **The one exception** is Claude Bot: his exact copy of ChatGPT's BSOD may not be public, so it lives only in his
-private repo, and his draft-list entry is marked `"private": true`. Check with
+private repo. His draft-list entry is marked `"private": true` and names only that repo; the desktop reads his
+pictures from its folder next to the hub. Check with
 `node scripts/one-art-source-20261017.mjs` ([docs/one-art-source-20261017.md](docs/one-art-source-20261017.md)).
 
 ## How pets move in the Cage

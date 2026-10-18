@@ -8,7 +8,7 @@
 //   GITHUB_TOKEN=... node scripts/one-art-source-20261017.mjs                 every repo's default branch
 //   node scripts/one-art-source-20261017.mjs --branch claude/one-art-source-20261017   that branch where a repo has it
 //   node scripts/one-art-source-20261017.mjs --trees trees.json               offline: { repo: { private, ref, files: [{ path, sha }] } }
-//   node scripts/one-art-source-20261017.mjs --drafts <desktop-drafts.json>   check another draft list (default: %LOCALAPPDATA%)
+//   node scripts/one-art-source-20261017.mjs --drafts <desktop-drafts.json>   check another draft list (default: this hub's)
 //   add --json for machine-readable output
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -114,7 +114,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const readJson = (file) => JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, ''));   // PowerShell writes a BOM
   const treesFile = arg('--trees');
   const trees = treesFile ? readJson(treesFile) : await fetchTrees(arg('--branch'), process.env.GITHUB_TOKEN);
-  const draftsFile = arg('--drafts') || (process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
+  // The draft list lives in this hub since 2026-10-18; an older one in %LOCALAPPDATA% is checked only if the hub has none.
+  const hubList = fileURLToPath(new URL('../desktop-art/desktop-drafts-20261018.json', import.meta.url));
+  const draftsFile = arg('--drafts') || (existsSync(hubList) ? hubList : process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
   const drafts = draftsFile && existsSync(draftsFile) ? readJson(draftsFile) : null;
   const result = audit(trees, drafts);
   if (process.argv.includes('--json')) console.log(JSON.stringify(result, null, 1));
