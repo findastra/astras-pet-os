@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | open |
 | [031: Rebuild the desktop exe for group 3's one scale, keeping the Goldfish triple-click](031-codex-rebuild-desktop-girls-same-size-20261017.md) | Codex | open, after Astra merges `claude/girls-same-size-20261017` |
 | [030: Redraw Gif Giraffe, Unity Unicorn and group 1 in group 4's style](030-codex-redraw-giraffe-unicorn-group-1-20261017.md) | Codex | open |
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
@@ -46,7 +47,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 032.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (027 to 029 were taken on branches). When numbers clashed, the
+**Next free number: 034.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 and 032 are taken on branches; 033 is the credit-line card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |

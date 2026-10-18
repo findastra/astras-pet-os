@@ -16,7 +16,7 @@ const goodSnap = (over = {}) => ({
   readable: true, private: false, topics: ['pet-app'],
   files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE', 'app.html'],
   petJson: { pet: 'P', job: 'Does a thing.', entry: 'app.html', status: 'hatching' },
-  readme: '# P\n\n*A pet app by Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
+  readme: '# P\n\n*An Intelligent App, or Pet, by Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
   agents: 'Rules. The Cage is findastra/astras-pet-apps.', cards: [], ...over,
 });
 const pet = (over = {}) => ({ repo: 'p', pet: 'P', job: 'Does a thing.', audit: { cadence: 'weekly', subject: 'my stuff', needs: 'a thing only you can do' }, ...over });

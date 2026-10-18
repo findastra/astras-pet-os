@@ -122,7 +122,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: .85rem; border-top: 1
 <body>
 <main>
   <h1>GitHub Goldfish</h1>
-  <p class="sub"><em>A pet app by Astra.</em> A goldfish swims through every public word on a GitHub account and tells you what is wrong, misplaced, or inconsistent.</p>
+  <p class="sub"><em>An Intelligent App, or Pet, by Astra.</em> A goldfish swims through every public word on a GitHub account and tells you what is wrong, misplaced, or inconsistent.</p>
 
   <section class="device" aria-label="The goldfish tank">
     <div class="lcd-wrap"><canvas id="tank" width="160" height="72" role="img" aria-label="A pixel goldfish swimming in a tank"></canvas></div>
@@ -514,7 +514,7 @@ const Goldfish = (() => {
         }
         if (readme != null) {
           const head = readme.split('\n').filter((l) => l.trim()).slice(0, 8).join('\n');
-          if (!/A pet app by Astra/i.test(head)) add('Document control', 'error', name, 'README.md', 'README does not open with "*A pet app by Astra.*" (public credit line).', { fix: 'Put "*A pet app by Astra.*" right under the title.' });
+          if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(head)) add('Document control', 'error', name, 'README.md', 'README does not open with "*An Intelligent App, or Pet, by Astra.*" (public credit line).', { fix: 'Put "*An Intelligent App, or Pet, by Astra.*" right under the title.' });
           const hs = headings(readme).map((h) => h.text);
           if (!hs.some((h) => /run|start|install|use|get it|download|quick/i.test(h))) add('Document control', 'warn', name, 'README.md', 'README has no "how to run" section.');
           if (!hs.some((h) => /limit|not done|known|what.*(can|doesn)/i.test(h))) add('Document control', 'warn', name, 'README.md', 'README has no "limits" section (what it cannot do or has not done).');
@@ -622,7 +622,7 @@ const Goldfish = (() => {
 
   function toMarkdown(findings, meta) {
     const s = summarize(findings);
-    const out = [`# GitHub Goldfish report for ${meta.user}`, '', `*A pet app by Astra.* Audited ${meta.when}. ${meta.repoCount} public repos.`, '',
+    const out = [`# GitHub Goldfish report for ${meta.user}`, '', `*An Intelligent App, or Pet, by Astra.* Audited ${meta.when}. ${meta.repoCount} public repos.`, '',
       `**${s.by.error} errors, ${s.by.warn} warnings, ${s.by.note} notes.**`, '',
       ...CATS.map((c) => `- ${c}: ${s.cat[c]}`), ''];
     const groups = {};
