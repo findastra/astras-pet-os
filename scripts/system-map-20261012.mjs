@@ -189,7 +189,7 @@ export function buildSystemMap(registry, extra, template, icons = {}, programs =
 
 // PROTECTION-RINGS.md: the rings and the grants, written from the same data as the map so the two never disagree.
 const CELL = { yes: 'yes', pr: '🔒 PR', ask: 'asks', grant: '🔑 grant', no: '–' };
-const cell = (s) => String(s).replace(/\|/g, '\\|');
+const cell = (s) => String(s).replace(/\\/g, '\\\\').replace(/\|/g, '\\|'); // backslashes first, then the table's pipes
 export function ringsTable(extra) {
   return ['| Ring | Name | What lives there | Animal? |', '|---|---|---|---|',
     ...extra.rings.list.map((r) => r.ring === 'H'

@@ -323,14 +323,14 @@
         "why": "Claude Bot's status feeds the Anthropic presence card."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "rgbee",
         "carries": "cue",
         "state": "idea",
         "why": "A class or show starts its lighting scene."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "drum-dog",
         "carries": "cue",
         "state": "idea",
@@ -386,7 +386,7 @@
         "why": "Bills Astra has not paid yet, found in her mail, go to Finance Finch. Astra, 2026-10-12. Finance data stays on her PC."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "findastra-discord-presence",
         "carries": "cue",
         "state": "planned",
@@ -448,7 +448,7 @@
         "meme-fiend"
       ],
       "Stage": [
-        "mommys",
+        "mommys-mommies",
         "drum-dog",
         "rgbee",
         "deck-duck",
@@ -660,7 +660,7 @@
       }
     },
     {
-      "repo": "mommys",
+      "repo": "mommys-mommies",
       "pet": "Mommy's Mommies",
       "role": "pet",
       "art": "mommys-mommies",
@@ -937,7 +937,7 @@
     {
       "repo": "claude-bot",
       "pet": "Claude Bot",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
       "added": "2026-10-09",
