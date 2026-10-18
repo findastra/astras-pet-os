@@ -58,6 +58,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Friday | a job: what should Mesh Moth watch |
 | **Raspberry Pi Berry** * | my plan | weekly, Saturday | a job: what should Raspberry Pi Maker do |
 | **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Sunday | a bot's access to its server, or your OK for a new bot |
-| **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Monday | native iPad verification and a verified chat adapter |
+| **Chat Rat** * | the chats it has filed and their index | weekly, Monday | where your Claude and OpenAI chats are saved |
+| **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Tuesday | native iPad verification and a verified chat adapter |
 
 \* in the pipeline: on GitHub, not registered in the Cage yet.
