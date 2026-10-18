@@ -24,7 +24,10 @@ the checks themselves take about an hour.
 4. **Route around other work.** List the running sessions and processes first (`list_sessions` in the Claude app,
    `Get-CimInstance Win32_Process`). Do not edit a file another assistant has uncommitted; do not rename or move
    a folder anything is running from.
-5. **Fix only what needs no decision.** The list is below. Anything else becomes a decision on a round card.
+5. **Fix only the grey-dot (⚪) checks.** In the [Flash Audit](flash-audit-20261014.md) matrix, ⚪ means the Idle
+   Flash Audit checks and fixes it; 🔵 means it checks it and the answer waits for an Active Flash Session with Astra
+   (a decision on a round card). A sentence in a row that starts with the other dot goes the other way. The lists
+   below are the detail.
 6. **Nothing that costs money, signs in, installs, or sends.** No art generation, no sign-ins, no live clicking,
    no messages. Those checks are reported **Not verified**, never Pass.
 7. **Say what happened.** Keep a running log, then leave a morning report card in `handoffs/` and a chat message
@@ -49,12 +52,18 @@ the checks themselves take about an hour.
   is away, start it private and put "make it public?" on its card. A pet with no name yet (`pet-program-#-icon-#`)
   waits for its name.
 - Facts in the hub catalog that GitHub contradicts (for example `repo_exists`).
+- **Every pet connected to its pet program** (A59, Astra 2026-10-18): pet.json `entry`, `interface_url` in
+  `pets.json`, the profile line, The Farm's card, the System Map node and the README all link to the same, real
+  program (A10, A12, A39).
 
-### Never fixed overnight (always a decision)
+### Never fixed overnight
 
-Names (pet or program), jobs a pet submitted, visibility (public or private), merging other assistants' branches,
-anything in code (a name in code can be a storage key or something the code looks for), file renames, folder moves
-(File Master plan), art, accounts and connections.
+- 🔵 **Waits for Astra (Active Flash Session):** names (pet or program), what a pet does and jobs a pet submitted,
+  which tools and tricks it has, visibility (public or private), art, accounts and connections, grants and
+  permissions, merges (hers to OK, other assistants' branches included), file renames and folder moves (a File Master
+  plan she approves), and checks that need her there (a click, a sign-in, a picture only she can take).
+- ⚪ **Waits for the pet's own chat (no decision, but not overnight):** anything in code (a name in code can be a
+  storage key or something the code looks for). The round card names the fix for that chat.
 
 ## The steps
 
@@ -104,8 +113,9 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
 
 ## What it does not check
 
-Anything that needs a person or a signed-in browser: double-clicking a desktop pet (A11), clicking tools and
-tutorials (A19, A37, A40), chat seats (A22), live routes behind a sign-in (A10). Those stay **Not verified**.
+Anything that needs a person or a signed-in browser (the 🔵 checks that need Astra there): double-clicking a desktop
+pet (A11), clicking tools and tutorials (A19, A36, A37, A40), chat seats and what they do (A22, A23, A52), live routes
+behind a sign-in (A10). Those stay **Not verified** until an Active Flash Session.
 
 ## Lessons from the first run (2026-10-17)
 
