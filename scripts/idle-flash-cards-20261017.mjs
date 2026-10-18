@@ -191,21 +191,9 @@ for (const rec of ledger) {
 
 // Index.
 const I = [];
-I.push('# Flash Audit rounds, 2026-10-17 (Idle Flash Audit)', '');
-I.push(`Rounds 3 to 83, one card per pet program, in the [Flash Audit](${HUB}/blob/main/docs/flash-audit-20261014.md) owner-round format: pictures, then exceptions (most important first), then decisions. Rounds 1 (Farmer) and 2 (Goldfish) were done with Codex on 2026-10-14. How this run works: [Idle Flash Audit](../idle-flash-audit-20261017.md).`, '');
-I.push('**On the iPad:** answer on the [Flash Audit Answers](' + ANSWERS + ') page (open it in Claude; every tap saves, and the next assistant reads the answers there), or tap a round below and answer in chat in any shape, for example `31 A`, `59 wait`, `merge all`. Nothing changes until you answer.', '');
-I.push('## Answer these first', '');
-const top = [
-  ['Merge the fix PRs', `${Object.values(fixes).filter((f) => f.pr).length} pull requests hold only fixes that need no decision. Tap through them below, or say **merge all** and Claude merges each one whose checks pass.`],
-  ['Spoonfed is public', 'The registry and its provenance file say it is a private, artwork-only repo. [Round 20](round-20-spoonfed.md).'],
-  ['Codex\'s shared page framework', 'Clicker Training, the yellow phone, paper and zoom, and the L3 bubble (A41, A44, A45, A52) are built on Codex branches (`codex/l3-activity-20261016` and others) with no pull requests. Merging them clears four checks on most pets. See each round\'s Branches decision.'],
-  ['Four old hub PRs', '[#5](https://github.com/findastra/astras-pet-os/pull/5) is an old draft card 008 for five placeholder pets that are already pipeline pets (tonight\'s fix PRs replace the eight README lines that pointed at it); [#4](https://github.com/findastra/astras-pet-os/pull/4) (Backup Beaver candidate) and [#3](https://github.com/findastra/astras-pet-os/pull/3) (Meme Fiend in the Cage) are pipeline pets now; [#1](https://github.com/findastra/astras-pet-os/pull/1) is about the retired Cage. Close them?'],
-  ['Two new repos are private', '`pet-program-81` (Intel Owl) and `the-threshold` (Door Dormouse) were started tonight as private repos; the other 41 seed and roadmap repos are public. Make them public?'],
-  ['Folder rename', 'Renaming `Documents\\Astra\'s Pet Apps` to `Astra\'s PetOS` was tried at 04:16 and Windows said the folder was in use (most likely the Claude app\'s open chats), so nothing changed. Close the Claude app and Codex, then run `rename-petos-folder-20261017.ps1 -Apply` from File Master\'s plan folder (`file-master\\reports\\2026-10-17_rename-astras-petos`), or ask an assistant to.'],
-  ['Pending pet submissions','The Astral Plane, Mail Snail, Raspberry Pi Berry and Voicemeeter Bug each submitted a job that differs from the registry. Their rounds show both.'],
-];
-for (const [h, t] of top) I.push(`- **${h}.** ${t}`);
-I.push('');
+// Astra, 2026-10-18: keep the top short; the decisions live on the answer sheet, not here.
+I.push('# Flash Audit rounds, 2026-10-17', '');
+I.push(`One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](${ANSWERS}).`, '');
 // Every program links to where it runs: the link the profile README gives it (FLASH_PROFILE, a copy of
 // findastra/findastra's README), else its repo. Order: the catalog's numbers, which is the order the pets were
 // made and the order of the profile README (FLASH_CATALOG: pet-programs.json). FLASH_EXTRA_PRS adds pull
@@ -228,8 +216,7 @@ const repoUrl = (repo) => `https://github.com/findastra/${repo}`;
 const progUrl = (repo) => programLink[repo] || repoUrl(repo);
 // One chart (Astra, 2026-10-18: "combined or split … the second list needs to be a chart"): every pet in
 // the order they were made, the same order as findastra's profile README.
-I.push('<a id="every-round"></a><a id="all-fix-prs-in-one-list"></a>', '', '## Every pet, in the order they were made', '');
-I.push('The same order as the pet list in [findastra\'s profile README](https://github.com/findastra/findastra#readme). The pet links to its repo, the program to where it runs, and the card to its round. **Open** is what is still to do after the pull requests merge; **Fixed** is what they fix.', '');
+I.push('<a id="every-round"></a><a id="all-fix-prs-in-one-list"></a>', '');
 I.push('| # | Pet | Program | Stage | Open | Fixed | Decisions | Pull requests | Card |', '|--:|---|---|---|--:|--:|--:|---|---|');
 for (const p of [...catalogAll].sort((a, b) => a.number - b.number)) {
   const x = byNumber[p.number];
@@ -241,6 +228,7 @@ for (const p of [...catalogAll].sort((a, b) => a.number - b.number)) {
   I.push(`| ${x ? `[${p.number}](${x.fname})` : p.number} | ${ic}[${esc(p.icon)}](${repoUrl(repo)}) | [${esc(p.program)}](${progUrl(repo)}) | ${x?.rec.stage || p.stage} | ${x ? x.open : '—'} | ${x ? x.fixed : '—'} | ${x ? x.decisions : '—'} | ${prs.length ? prs.map((u) => `[${prShort(u)}](${u})`).join('<br>') : '—'} | ${card} |`);
 }
 I.push('');
+I.push('**Open**: still to do after the pull requests merge. **Fixed**: what they fix. The order is the pet list in [findastra\'s profile README](https://github.com/findastra/findastra#readme).', '');
 I.push(`<sub>Idle Flash Audit, ${DATE}, Claude Opus 5.5 (\`claude-opus-5-5\`). Built by \`scripts/idle-flash-cards-20261017.mjs\` from the evidence ledger in this folder.</sub>`, '');
 writeFileSync(`${OUT}/README.md`, I.join('\n'));
 writeFileSync(`${OUT}/decisions.json`, JSON.stringify(allDecisions.map((d) => ({ round: d.rec.number, pet: d.rec.icon, program: d.rec.program, repo: d.rec.audited?.repo || d.rec.repo, card: d.fname, kind: d.kind, text: d.text, options: d.options || null })), null, 1));
