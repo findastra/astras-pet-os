@@ -521,7 +521,7 @@
       "art_source": "chip-original-20261008",
       "status": "hatching",
       "published": true,
-      "visibility": "private",
+      "visibility": "public",
       "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
@@ -904,7 +904,7 @@
         "subject": "your Voicemeeter audio",
         "needs": "the Bug running on your PC"
       },
-      "visibility": "private"
+      "visibility": "public"
     },
     {
       "repo": "platform-platypus",
@@ -999,7 +999,7 @@
     {
       "repo": "patch-cat",
       "pet": "Patch Cat",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
@@ -1012,7 +1012,7 @@
     {
       "repo": "meme-fiend",
       "pet": "Meme Fiend",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
@@ -1025,7 +1025,7 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
@@ -1039,7 +1039,7 @@
     {
       "repo": "backup-beaver",
       "pet": "Backup Beaver",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
@@ -1052,7 +1052,7 @@
     {
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
@@ -1081,7 +1081,7 @@
     {
       "repo": "wifi-butterfly",
       "pet": "Wifi Butterfly",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
@@ -1107,7 +1107,7 @@
     {
       "repo": "mesh-moth",
       "pet": "Mesh Moth",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
@@ -1120,7 +1120,7 @@
     {
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
