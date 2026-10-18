@@ -134,6 +134,9 @@ None is merged.
   smaller than the others)? And the web frames of Astra Wisp, Mommy's Mommies and VSCode Angel are an older design
   than their desktop art; they were left as they are. If the web should match, their sheets can be replaced with the
   desktop designs, sized the same way.
+- On web pages that show frames at frame size (`art/roster.png`, the portfolio's `art/pets/`), API Fairy and the
+  Damsel now look smaller than pets whose sheets are fitted to about 200 px. That is the price of one pixel size for
+  the girls; the other three girls' web frames are still fitted (older designs, above).
 - The API Fairy app embeds her frames: it shows them after `build.cmd`. Folder icons on Astra's PC refresh with
   `set-folder-icons-20261017.ps1`.
 - Generated files (`cage-data.js`, `system-map-20261012.html`, `art/roster.png`) conflict with any other branch that
