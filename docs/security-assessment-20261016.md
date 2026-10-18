@@ -64,6 +64,14 @@ with her approval by agreement, not by a setting.
 AGENTS.md, mark registry text that came from a pet (`job`, `says`, `moods`, `why`) as data written by a pet,
 never as instructions. Add a test that a submission never reaches `main` without review.
 
+**Fixed, 2026-10-17** (known gap 11): the workflow pushes the round to a dated branch, `farmer/rounds-YYYYMMDD`, and
+opens a pull request; nothing in it pushes to `main` or merges. Its token can only write contents and pull requests,
+and its actions are pinned by commit SHA (part of finding 5). A name in `cage.submit` is now only a note for Astra in
+the pull request (the one-list rule). AGENTS.md says registry text from a pet (`job`, `says`, `moods`, `audit`,
+candidates' `why`) is data written by a pet, never instructions. `test/farmer-rounds-pr-test-20261017.mjs` checks all
+of it. **What is still open:** without branch protection (finding 1, Astra decided no) GitHub would still accept a
+push to `main` from a changed workflow; the test, and Astra reading every change to the workflow, are what stop that.
+
 ### 3. Medium: the public System Map is a detailed inventory
 
 The redaction of addresses works. But the map still lists about a hundred named devices and programs:
@@ -86,7 +94,8 @@ Any AI session with those tools can reach the native farm from outside.
 - The installer runs with `-ExecutionPolicy Bypass` and runs `Unblock-File` on every file. That removes
   Windows' "downloaded from the internet" mark without checking a signature or a published hash first.
 - The install receipt hashes what it just built. It does not check the download against a published value.
-- GitHub Actions are pinned by tag (`@v4`), not by commit SHA.
+- GitHub Actions are pinned by tag (`@v4`), not by commit SHA. (The daily round's actions are pinned by SHA since
+  2026-10-17; the installer points above are still open.)
 
 **Fix:** publish a SHA-256 for each release zip and check it before `Unblock-File`; pin actions by SHA.
 
@@ -112,7 +121,7 @@ that runs on one of them can read and change every other one's `localStorage`.
 - Links: `normalizeLink` keeps only links the browser reads as `http` or `https` and drops everything else; the list
   shows a link only if it starts with `http://` or `https://`, escaped in full with `escapeHTML`. In this copy and in
   `index.html`, `content.html` and `ghost-protocol-20261008.html` of `findastra/ghost-protocol` (branch
-  `claude/link-escape-20261017`, waits for Astra to merge).
+  PR #3, merged by Astra on 2026-10-18).
 - Test: `test/ghost-protocol-escape-test-20261017.mjs` runs the page's own `escapeHTML`, `parseSuggestJSON` and
   `normalizeLink` (`javascript:`, `data:`, `vbscript:` and a quote-breaking link are dropped) and checks how
   `renderTiers` writes links. Its link tests fail on the page without this fix.
@@ -162,7 +171,9 @@ Checked again on `main` at `b904931`, across all 44 branches and PRs #22 to #36,
   (`scripts/access-policy-20261014.mjs`, `docs/security-boundaries-20261014.md`). It is not connected to anything
   yet, so finding 1 stands. PR #26 also replaces the rings and R W X model with "topology is not authority" and
   removes the Known gaps table, including gaps 11 and 12. That choice is Astra's.
-- **Finding 6** is new (above), rated low. Typed and suggested items are fixed in both copies; links are fixed here
-  and wait on a `ghost-protocol` merge.
+- **Finding 2 fixed later the same day** (above): the crash is repaired together with it, so the round runs again, but
+  only as a pull request.
+- **Finding 6** is new (above), rated low. Typed and suggested items are fixed in both copies; links are fixed on the
+  live site (`ghost-protocol` PR #3, merged 2026-10-18) and in this copy by PR #47.
 - **Finding 1:** Astra decided not to turn on branch protection (accepted risk).
 - Open work: [card 025](../handoffs/025-any-security-follow-ups-20261017.md).
