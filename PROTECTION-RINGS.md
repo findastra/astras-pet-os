@@ -1,8 +1,9 @@
 # Protection Rings
 
 How Astra's PetOS keeps the farm safe: where each thing lives, who may read, write and run what, which parts are
-connected, and what stops a mistake or an attack. Companion to [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md). Short
-rule list for agents: [skills/farm-security](skills/farm-security/SKILL.md). Started by Claude Opus 5.5, 2026-10-13.
+connected, and what stops a mistake or an attack. Companion to [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) and the
+[security model](docs/security-model-20261018.md); to report a problem, see [SECURITY.md](SECURITY.md). Short rule list
+for agents: [skills/farm-security](skills/farm-security/SKILL.md). Started by Claude Opus 5.5, 2026-10-13.
 
 **Rings and grants (Astra, 2026-10-17).** A ring says **where a thing lives**. It grants nothing. **R W X lives on
 grants**: who may read, write or run one thing. Every grant says whether it is **enforced**, **written only** or
@@ -55,7 +56,7 @@ A grant is one line: **who** may **R**ead, **W**rite or e**X**ecute (run) **whic
 [System Map](system-map-20261012.html) lists the grants that reach it. The grants live in `system-map.json` (`access`),
 and `npm run build` writes this table from them, so the map and this page always agree.
 
-`yes` · `🔒 PR` only through a pull request Astra merges · `asks` only after the harness asks Astra ·
+`yes` · `🔒 PR` only on a branch, merged after Astra's OK in chat (the assistant does the merge; Astra, 2026-10-18) · `asks` only after the harness asks Astra ·
 `🔑 grant` only with a grant from Iron Gates that Astra approves · `–` no
 
 **Enforced**: a program, setting or test stops anything else. **Written only**: a rule agents agree to follow
@@ -68,7 +69,7 @@ so these lines hold because agents follow AGENTS.md and the skills, and because 
 | # | Who | On what | R | W | X | Status | How it holds |
 |---|---|---|---|---|---|---|---|
 | 1 | Astra (you, L4) | everything | yes | yes | yes | **Enforced** | It is your PC and your accounts. You give and take back every other grant in this list. |
-| 2 | The agent in the seat (Claude Code or Codex, with a farmhand in it) | the core and the Friendly Farmer (rings 0 and 1) | yes | 🔒 PR | yes | **Written only** | AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only with Astra's approval. Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17). **Next (planned):** A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12). Known gaps 1, 4. |
+| 2 | The agent in the seat (Claude Code or Codex, with a farmhand in it) | the core and the Friendly Farmer (rings 0 and 1) | yes | 🔒 PR | yes | **Written only** | AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18). Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17). **Next (planned):** A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12). Known gaps 1, 4. |
 | 3 | The agent in the seat | registered pets and their programs (the animals on rings 2 and 3) | yes | yes | yes | **Written only** | Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs; nothing checks the branch part. **Next (planned):** Short-lived session keys from Iron Gates. Known gap 1. |
 | 4 | The agent in the seat | commands, and files outside its project folder | asks | asks | asks | **Enforced** | Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list). |
 | 5 | The Friendly Farmer's daily round | the core (rings 0 and 1) | yes | 🔒 PR | yes | **Enforced** | The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes. Known gap 11. |
@@ -161,7 +162,7 @@ What is not true yet, in order of risk. Tracked in [docs/structure-audit-2026101
 
 | # | Gap | Status |
 |---|---|---|
-| 1 | Agents act on Astra's own GitHub account, so GitHub cannot tell her from an agent, and "core needs Astra" is a written rule, not an enforced one. | First step chosen: Astra signs her own commits with her security key. Designed: a short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12) |
+| 1 | Agents act on Astra's own GitHub account, so GitHub cannot tell her from an agent, and "core needs Astra" is a written rule, not an enforced one. Since 2026-10-18 (approval, not clicks) Astra gives her OK in chat and the assistant does the merge, so the chat record and the `Co-Authored-By` line are the only proof of her OK. | First step chosen: Astra signs her own commits with her security key. Designed: a short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12) |
 | 2 | Remote Control and Desktop Commander let a phone control this PC: a path into the native farm from outside. | Astra deciding (on only when she turns it on?) |
 | 3 | The Farmer's daily round used to make any repo with `pet.json` an animal automatically. | **Fixed 2026-10-13:** it now waits at the gate |
 | 4 | Main has no branch protection, so nothing technical stops a push to main. | Accepted risk: Astra chose not to turn it on (2026-10-17). Core changes merge with her approval by agreement (written only) |

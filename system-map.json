@@ -598,7 +598,7 @@
       "type": "assistant",
       "state": "now",
       "layer": 5,
-      "job": "Anthropic's coding assistant. Claude accounts pick up handoff cards and build or change pets on branches. An agent harness program, drawn as a ring around Claude (Anthropic): a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only through a pull request Astra merges. Both are written rules, not locks."
+      "job": "Anthropic's coding assistant. Claude accounts pick up handoff cards and build or change pets on branches. An agent harness program, drawn as a ring around Claude (Anthropic): a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only on a branch, merged after Astra's OK in chat. Both are written rules, not locks."
     },
     {
       "id": "codex",
@@ -606,7 +606,7 @@
       "type": "assistant",
       "state": "now",
       "layer": 5,
-      "job": "OpenAI's coding assistant. Picks up handoff cards and builds or changes pets on branches. An agent harness program, drawn as a ring around OpenAI: a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only through a pull request Astra merges. Both are written rules, not locks."
+      "job": "OpenAI's coding assistant. Picks up handoff cards and builds or changes pets on branches. An agent harness program, drawn as a ring around OpenAI: a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only on a branch, merged after Astra's OK in chat. Both are written rules, not locks."
     },
     {
       "id": "security-key",
@@ -2098,7 +2098,7 @@
       "why": "Overlap to settle: both check how pages look on phones, tablets and desktop."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "osc-sealion",
       "carries": "cue",
       "state": "suggested",
@@ -2679,7 +2679,7 @@
       "why": "Deck Duck is the Elgato Stream Deck pet."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "magic-chatbox",
       "carries": "manages",
       "state": "idea",
@@ -3043,7 +3043,7 @@
       "why": "Installed on the Desktop PC."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "ai-astra",
       "carries": "opens",
       "state": "now",
@@ -4104,7 +4104,7 @@
     "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
     "values": {
       "yes": "yes",
-      "pr": "only through a pull request Astra merges",
+      "pr": "only on a branch, merged after Astra's OK in chat (the assistant does the merge)",
       "ask": "only after the harness asks Astra",
       "grant": "only with a grant from Iron Gates that Astra approves",
       "no": "no"
@@ -4156,7 +4156,7 @@
         "w": "pr",
         "x": "yes",
         "status": "written",
-        "how": "AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only with Astra's approval. Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17).",
+        "how": "AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18). Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17).",
         "next": "A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12).",
         "gaps": [
           1,
@@ -4840,7 +4840,7 @@
           }
         ]
       },
-      "vrchat-ai-astra": {
+      "the-astral-plane": {
         "languages": [
           {
             "language": "Python",
@@ -4952,7 +4952,7 @@
     "finance-finch": "finance-finch",
     "mommys": "mommys",
     "drum-dog": "drum-dog",
-    "vrchat-ai-astra": "vrchat-ai-astra",
+    "the-astral-plane": "the-astral-plane",
     "data-dealer": "data-dealer",
     "paper-girl": "paper-girl",
     "fuzzboi-friend": "fuzzboi-friend",
@@ -4974,7 +4974,7 @@
     "piranesi-nessi": "piranesi-house",
     "procreate-panda": "astras-pet-os",
     "closet-cat": "astras-pet-os",
-    "ai-astra": "vrchat-ai-astra",
+    "ai-astra": "the-astral-plane",
     "data-dealer-project": "data-dealer",
     "paper-girl-site": "paper-girl",
     "gif-maker": "astras-gif-maker",

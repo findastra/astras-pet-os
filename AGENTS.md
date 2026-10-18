@@ -29,6 +29,7 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
 [PROTECTION-RINGS.md](PROTECTION-RINGS.md) and `skills/farm-security`, `skills/dev-mindset` and
 `skills/new-pet-or-tool` before changing anything. In short:
 - This repo is the core (ring 0): every change lands on a branch and merges only with Astra's approval.
+  **Approval, not clicks (Astra, 2026-10-18):** Astra's OK is still required, but she gives it in chat ("ok", "merge"). Once tests pass, the assistant merges the branch itself (or pushes the approved change to `main`) and links the commit. Never ask Astra to open GitHub to merge.
   Pets and pet programs (rings 2 and 3) are worked on branches too.
 - Nobody becomes an animal by saying so. New pets wait in `candidates` until Astra moves them in; scripts that act
   on a repo call `scripts/animal-guard-20261013.mjs` first.
@@ -79,7 +80,7 @@ Passport Panda is now **Passport Pelican**).
   software, deleting, force-pushing or repository transfers.
 - Who edits what while Claude and Codex work in parallel: see "Who edits what" in the plan.
 
-*A pet app by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
+*An Intelligent App, or Pet, by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
 
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record your model name and version here when you change something substantial.
 Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6), 2026-10-08.

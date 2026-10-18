@@ -20,7 +20,8 @@ Farm and its tools) · 1 Friendly Farmer · 2 Pets · 3 Pet programs · **the ha
 the seat) · 4 Farmhands (AI models) · 5 Third-party programs and the community places · 6 Devices · 7 Advisers
 (ChatGPT) · 8 You (Astra).
 
-The agent in the seat, today (🔒 = only through a pull request Astra merges):
+The agent in the seat, today (🔒 = only on a branch, merged after Astra's OK in chat; the assistant does the merge,
+Astra, 2026-10-18):
 
 | On | R W X | Status |
 |---|---|---|
@@ -30,7 +31,7 @@ The agent in the seat, today (🔒 = only through a pull request Astra merges):
 | Farmhands (ring 4) | X: send a request | written only; nobody rewrites a model |
 | Third-party programs and devices (rings 5 and 6) | R X | written only |
 
-The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval.
+The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval, given in chat.
 
 ## 2. Animal code
 - **Everything inside the harness is an animal. Agents can only control animals.** Say it this way in docs and code.
