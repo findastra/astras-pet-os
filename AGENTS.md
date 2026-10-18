@@ -158,3 +158,5 @@ Pole Puff draft app (`drafts/pole-puff/`, card 024; the `pole-puff` repo is appr
 Blueprint for the chat bot, a GitHub-issue queue and systemic updates (`docs/chat-bot-queue-blueprint-20261009.md`, a draft waiting on Astra's decisions) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-09; rewritten onto `main` from PR #7 with what changed since, 2026-10-18.
 
 Pet art redesign (rat size, brighter RGBee and Mesh Moth, WiFi Butterfly's face, Meme Fiend's cute face, Farmer, Discord Damsel and API Fairy at Mommy's Mommies' body ratio, Claude Bot as an exact BSOD copy in its now-private repo), Flash Audit A58 One art source and card 030 for the redraws, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17. Record: docs/pet-art-redesign-20261017.md.
+
+Door Dormouse's original nine-mood draft and optional Startup Star website launcher added by OpenAI Codex (GPT-6), 2026-10-18. One art source: `desktop-art/door-dormouse/`; the installer caches matching frames locally. No farm enrollment, permissions, startup or desktop executable changes. See handoff 031.

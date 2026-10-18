@@ -9,6 +9,10 @@ import { png } from './art-kit.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2);
+const dateAt = args.indexOf('--date');
+const date = dateAt < 0 ? '20261011' : args[dateAt + 1];
+if (!/^\d{8}$/.test(date || '')) throw new Error('--date requires YYYYMMDD.');
+if (dateAt >= 0) args.splice(dateAt, 2);
 const external = args[0] === '--directory' ? args[1] : null;
 const ids = external ? [basename(resolve(external))] : args;
 if (!ids.length) throw new Error('Pass one or more desktop-art pet directory names.');
@@ -46,7 +50,7 @@ function gutterCuts(src, axis) {
 for (const id of ids) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) throw new Error('Invalid pet id.');
   const dir = external ? resolve(external) : resolve(root, 'desktop-art', id);
-  const src = decodePng(readFileSync(resolve(dir, 'sheet-20261011.png')));
+  const src = decodePng(readFileSync(resolve(dir, `sheet-${date}.png`)));
   const xs = gutterCuts(src, 'x'), ys = gutterCuts(src, 'y');
   const cells = MOODS.map((mood, i) => {
     const x0 = xs[i % 3], y0 = ys[Math.floor(i / 3)];
@@ -70,7 +74,7 @@ for (const id of ids) {
       const from = (sy * src.width + sx) * 4, to = (y * 256 + x) * 4;
       src.rgba.copy(out, to, from, from + 4);
     }
-    writeFileSync(resolve(dir, `${c.mood}-20261011.png`), png(256, 256, out));
+    writeFileSync(resolve(dir, `${c.mood}-${date}.png`), png(256, 256, out));
   }
   console.log(`${id}: 9 transparent 256px frames, shared scale, original alpha preserved.`);
 }
