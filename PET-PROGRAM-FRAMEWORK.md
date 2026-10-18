@@ -1,7 +1,8 @@
 # Pet Program Framework
 
 The standard every pet program follows: what its page shows, how its tools, data, versions, backlog and agents
-work, and how security patches reach every farm. Written from Astra's instructions of 2026-10-13 by Claude Opus 5.5.
+work, and how security patches reach every farm. Written from Astra's instructions of 2026-10-13 by Claude Opus 5.5;
+the page layout redrawn from her sketch of 2026-10-18 by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 **Every new pet program is built to this, and every existing one is brought up to it.**
 
 > 🐾 Everything inside the harness is an animal. Agents can only control animals. L4 approves everything that matters.
@@ -43,32 +44,75 @@ Mood numbers: 1 calm, 2 blink, 3 happy, 4 curious, 5 worried, 6 sad, 7 sick, 8 s
 
 ## 3. The page, top to bottom
 
-### Layout (Astra's sketch, 2026-10-16): this order wins over the list below
+### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
-Dark slate stationery and light, hand-lettered text. Every group sits in a thin bordered box with its label set into
-the top border, in lowercase-with-hyphens. The tool, notes and connection boxes from the list below go inside the
-matching box here.
+![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)
 
-1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The real desktop pet docks here when the page is open.
-   Its paired lights sit on the top edge.
+This sketch is the **minimum every pet program page contains** (Astra, 2026-10-18). It replaces her sketch of
+2026-10-16, which was never saved here; the Unity Unicorn's page is the example. Dark slate stationery and light,
+hand-lettered text. Every group is a **module**: a thin bordered box with its label set into the top border, in
+lowercase-with-hyphens. **Every module can collapse**, so the page works on a phone. The tool, notes and connection
+boxes from the list below go inside the matching module here.
+
+1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The desktop pet comes to live here while the page is
+   open. Its paired lights sit on the top edge.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
-   the same line, for example `The Unity Den   V3.0.0 // 20261016`.
+   the same line. The sketch shows `The Unity Den   V3.0.0 // 20261016`; the name itself always comes from
+   `pet-programs.json` (AGENTS.md, "One list of names").
 3. **`<home>-pet-program-quick-summary`** (box under the title): one to three plain sentences: what the home is, who
-   runs it (you and the pet), and what it organizes. Taken from the pet's mini-descriptor.
-4. **`<pet>-intelligence-levels`**: one boxed group per level, L1 first, then L2, L3 and L4.
-   - **L1: Third Party Program(s), Native Programs & Tools you create.** Columns: intelligence level, activity
-     status, 3rd party programs, native programs, tools. Example from the sketch: L1 ○ | ○○ Unity · ○○ VCC · ○○ VRChat
-     | ○○ Piranesi House · ○○ Unity Unicorn Icon | ○○ copyright-collector · ○○ copyright-auditor.
-   - **L2: Pet Program, Native Tricks you create.** The dashboard itself and the tricks it manages (for example
-     ○○ weekly-update-from-friendly-farmer · ○○ weekly-copyright-auditor), plus the status line, notes and backlog,
-     connections and links.
-   - **L3: Pet Program Agentic Harness + Your AI Model** (proposed contents): the seat (model, task, since), the L3
-     activity bubble, and the tricks it is running now.
-   - **L4: Human (User)** (proposed contents): approvals waiting on you, sick reports, the pet passport.
-   - **activity status:** one light per level. **○○ before every item:** the paired lights. The left one is ON/OFF
-     (green/red). The right one is maintenance: blue means working, orange means you marked it as needing work.
-5. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
-   (cyberdeck).
+   runs it (you and the pet), what it organizes, and the intention behind it. Taken from the pet's mini-descriptor.
+4. **`<pet>-intelligence-levels`**: one module, in columns:
+
+   | activity status | intelligence level | 3rd party programs | your programs (L1) | your tricks (L2) | your tools (L1) |
+   |---|---|---|---|---|---|
+   | one light per level | L1, L2, L3, L4 | made by others, run by the pet (Unity, VCC, VRChat) | made by you, looked after by the pet (Piranesi House, Unity Unicorn Icon) | skills the seated AI follows (weekly-update-from-friendly-farmer, weekly-copyright-auditor) | code the pet program owns and runs without AI (copyright-collector, copyright-auditor) |
+
+   **○○ before every item: the paired lights.** Left light: **green** on, **red** off. Right light: **blue** working
+   correctly, **yellow** requires maintenance (yellow replaces the orange of 2026-10-16).
+5. **`<pet>-session-notes`**: a notes text box with **submit** and **add file**. Every submission goes to the backlog
+   (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
+6. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a speech bubble that says when it shows.
+
+   | Sketch | Mood frame | Shows when (Astra's sketch) |
+   |---|---|---|
+   | sleepy | `sleep` | it is running in the background |
+   | awake | `blink` (proposed) | the program is open and you have interacted with it recently |
+   | idle | `idle` | the program is open and you haven't interacted with it recently |
+   | curious | `curious` | an L3 agent requires L4 authorization or input |
+   | happy | `happy` | it just pushed new information; it has an L3 suggestion for a workflow; ideas or work are ready |
+   | worried | `worried` | missed runtimes, missed checks, failed audits, token overusage |
+   | alarmed | `alarmed` | a connected source reports an active alarm; a potential or active security breach |
+   | sick | `sick` | too many broken tools; broken pet programs |
+   | sad | `sad` | it hasn't been opened in more than 2 weeks |
+
+   These meanings are not the mood key the Farmer's rounds use today ([PET-FILES.md](PET-FILES.md), "What each mood
+   means"; [MOOD-KEY.md](MOOD-KEY.md)). Until Astra picks one set, the rounds keep the mood key.
+7. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. One click: show the current
+   reminder. Two clicks: open the pet program. Three clicks: refresh the tools and the tool list. More can be assigned.
+   A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks").
+8. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
+   outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
+   grant (section 11). It holds item 10 of the list below.
+9. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat bot.
+
+### Required, but not in the 2026-10-18 sketch yet
+
+The rules below and in sections 4 and 12 still need a place on the page. Each waits on Astra to say which module it
+goes in.
+
+- **L3 and L4 contents.** The 2026-10-16 layout gave L3 the seat (model, task, since) and the L3 activity bubble, and
+  L4 the approvals waiting on you, sick reports and the pet passport. The new sketch shows both levels only as lights.
+- **The status line** (item 2 below): whose data, last entry, last update, the seat, and the link to its own System
+  Map node.
+- **ON/OFF and sick on every tool, enforced by the core** (section 4). If the paired lights are the switches, they are
+  buttons, not only lights.
+- **A "not on this PC" state.** A missing third-party program is not an error (section 4): it shows asleep, not red.
+- **Connection boxes** for the pets it talks to (item 6 below), each with its own ON/OFF.
+- **Links by kind** (section 5), **backlog health** (item 8 below) and the **pet passport** (item 9 below).
+- **The alarm's red banner** across the page (section 12).
+- **Lights that do not rely on colour alone**: red and green look alike to many colour-blind people, so each light also
+  needs a word or shape (WCAG 2.1, success criterion 1.4.1).
+- **One mood when several apply** (alarmed and sad at once, say): an order, most urgent first.
 
 **One source for the page:** each pet's `pet.json` holds an `intelligence_levels` block, with `L1` (`third_party`,
 `native`, `tools`) and `L2` (`tricks`). The page draws its boxes from that block, so the page, the map and the audit
@@ -281,8 +325,9 @@ copies a request for the user's own AI to start a seed like it on their farm.
 
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.
-- [ ] Page has every block in section 3, in that order. Every tool box has ON/OFF and sick; every connection box
-      has its own border colour, the other pet's icon name as its title, sends and receives, and ON/OFF.
+- [ ] Page has every module of Astra's 2026-10-18 sketch (section 3), in that order, and every module collapses on a
+      phone. Every tool box has ON/OFF and sick; every connection box has its own border colour, the other pet's icon
+      name as its title, sends and receives, and ON/OFF.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).
 - [ ] Backlog and the weekly run work, and backlog health shows (section 7).
 - [ ] The map link focuses its own node. Languages show in the footer.
