@@ -41,7 +41,7 @@ function clientMain() {
   if (cfg.type === 'manager') {
     // The Farmer's latest round (status/pets-status.json): who needs Astra, and every pet's mood key. Claude Opus 5.5, 2026-10-09.
     const st = cfg.status || { pets: {}, needs_astra: [] }, nowIso = new Date().toISOString();
-    const needBox = card('Needs you', st.updated ? 'From the Farmer\'s round on ' + st.updated.slice(0, 10) + '. A pet is sick when only you can unblock it.' : 'The Farmer has not done a round yet.');
+    const needBox = card('Needs you', st.updated ? 'From the Farmer\'s round on ' + st.updated.slice(0, 10) + '. A pet is curious when it needs your OK or your input.' : 'The Farmer has not done a round yet.');
     if (!(st.needs_astra || []).length) h('p', st.updated ? 'Nobody needs you right now.' : 'No round yet.', 'muted', needBox);
     for (const n of st.needs_astra || []) { const row = h('p', undefined, 'need', needBox); h('strong', n.pet + ': ', '', row); h('span', n.need, '', row); row.append(' '); link(row, 'Repo', 'https://github.com/findastra/' + n.repo, 'inline'); }
     const keyBox = card('Mood key', 'What each face means for each pet, and how each one is right now.');
@@ -49,7 +49,7 @@ function clientMain() {
     for (const p of cfg.everyone) { const o = h('option', p.pet + (p.stage === 'pipeline' ? ' (pipeline)' : ''), '', pick); o.value = p.repo; }
     const now = h('p', undefined, 'key-now', keyBox), keyGrid = h('div', undefined, 'key-grid', keyBox);
     const showKey = () => {
-      const p = cfg.everyone.find((x) => x.repo === pick.value), s = st.pets[p.repo], mood = s ? (s.mood === 'happy' && Date.parse(nowIso) - Date.parse(s.checked) > 864e5 ? 'idle' : s.mood) : 'sleep';
+      const p = cfg.everyone.find((x) => x.repo === pick.value), s = st.pets[p.repo], mood = s ? (s.mood === 'happy' && Date.parse(nowIso) - Date.parse(s.checked) > 864e5 ? 'sleep' : s.mood) : 'sleep';
       now.textContent = p.pet + ' is ' + mood + (s ? ': “' + s.says + '”' + (s.checked ? ' (checked ' + s.checked.slice(0, 10) + ')' : '') : ': not checked yet.') + ' Checks ' + p.audit.subject + ', ' + p.audit.cadence + '.';
       keyGrid.replaceChildren();
       for (const m of cfg.order) {

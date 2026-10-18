@@ -147,16 +147,16 @@
     ]
   },
   "mood_key": {
-    "about": "What each mood means for every pet. {subject} and {needs} come from the pet's audit block; a pet can override any line with \"moods\" in its pet.json.",
-    "sleep": "I haven't checked {subject} yet.",
-    "idle": "{Subject} was fine at my last check.",
-    "blink": "Just blinking.",
-    "curious": "Checking {subject} now.",
-    "happy": "Checked {subject}: nothing wrong.",
-    "worried": "Found a few problems in {subject}.",
-    "alarmed": "Found a lot of problems in {subject}.",
-    "sick": "I need you: {needs}.",
-    "sad": "I couldn't finish checking {subject}. My fault; I'll try again."
+    "about": "What each mood means for every pet, from Astra's sketch of 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3). {subject} and {needs} come from the pet's audit block; a pet can override any line with \"moods\" in its pet.json.",
+    "sleep": "Sleepy: I'm running in the background. {Subject} needs nothing from you.",
+    "idle": "Idle: my program is open, but you haven't used it for a while.",
+    "blink": "Awake: my program is open and you've used it recently.",
+    "curious": "Curious: I need your OK or your input: {needs}.",
+    "happy": "Happy: something new is ready: fresh work on {subject}, a suggestion or an idea.",
+    "worried": "Worried: something slipped with {subject}: a missed run, a missed check, a failed audit or too many tokens.",
+    "alarmed": "Alarmed: a connected source reports an alarm, or there may be a security breach.",
+    "sick": "Sick: too many of my tools are broken, or my program is.",
+    "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
     "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools.",

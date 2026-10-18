@@ -37,24 +37,28 @@ test('the mood key fills all nine moods for every pet, with no leftover placehol
   }
   const k = moodKey(registry, pet({ moods: { happy: 'Buzzing.' } }));
   assert.equal(k.happy, 'Buzzing.');
-  assert.equal(k.sick, 'I need you: a thing only you can do.');
-  assert.equal(k.idle, 'My stuff was fine at my last check.');
+  assert.equal(k.curious, 'Curious: I need your OK or your input: a thing only you can do.');
+  assert.equal(k.sleep, "Sleepy: I'm running in the background. My stuff needs nothing from you.");
 });
 
-test('self-audit moods follow PET-FILES: happy, worried, alarmed, sick, sleep', () => {
-  assert.equal(auditPet(registry, pet(), goodSnap()).mood, 'happy');
+test("self-audit moods follow Astra's sketch (PET-FILES): sick, curious, worried, happy, sleep", () => {
+  assert.equal(auditPet(registry, pet(), goodSnap()).mood, 'sleep');
+  const last = { checked: '2026-10-10T00:00:00Z' };
+  assert.equal(auditPet(registry, pet(), goodSnap({ pushed: '2026-10-11T00:00:00Z' }), last).mood, 'happy');
+  assert.equal(auditPet(registry, pet(), goodSnap({ pushed: '2026-10-09T00:00:00Z' }), last).mood, 'sleep');
   const w = auditPet(registry, pet(), goodSnap({ readme: '# P\n\nhello\n' }));
   assert.equal(w.mood, 'worried');
   assert.equal(w.says, '3 to fix: my README needs the credit line, …');
-  assert.equal(auditPet(registry, pet(), goodSnap({ petJson: null, petJsonError: 'bad' })).mood, 'alarmed');
+  assert.equal(auditPet(registry, pet(), goodSnap({ petJson: null, petJsonError: 'bad' })).mood, 'sick');
+  assert.equal(auditPet(registry, pet(), goodSnap({ files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE'] })).mood, 'sick', 'a missing program file is a broken pet program');
   assert.equal(auditPet(registry, pet(), { readable: false, private: true }).mood, 'sleep');
   assert.match(auditPet(registry, pet(), { readable: false, private: true }).says, /can't see my private repo/);
   const s = auditPet(registry, pet({ job: 'Placeholder: a pet.' }), goodSnap({ petJson: { ...goodSnap().petJson, job: 'Placeholder: a pet.' } }));
-  assert.equal(s.mood, 'sick');
+  assert.equal(s.mood, 'curious');
   assert.equal(s.says, 'Need: a thing only you can do');
 });
 
-test('a card waiting on Astra makes a pet sick and says what it needs', () => {
+test('a card waiting on Astra makes a pet curious and says what it needs', () => {
   const cards = [
     { name: '001-any-light-control.md', text: 'status: open (waiting on Astra: the brand and model of each light)\nfor: any\n---\n' },
     { name: '002-x.md', text: 'status: done\nfor: astra\n---\n' },
@@ -62,7 +66,7 @@ test('a card waiting on Astra makes a pet sick and says what it needs', () => {
   ];
   assert.deepEqual(needsFromSnapshot(pet(), { cards }), ['the brand and model of each light']);
   const r = auditPet(registry, pet(), goodSnap({ cards }));
-  assert.equal(r.mood, 'sick');
+  assert.equal(r.mood, 'curious');
   assert.equal(r.says, 'Need: the brand and model of each light');
 });
 
@@ -83,9 +87,12 @@ test('cadence: weekly pets audit on their own day, daily every day, never-checke
   assert.equal(isDue(registry, registry.pets[0], { checked: '2026-10-11T12:00:00Z' }, '2026-10-11'), false);
 });
 
-test('a clean check shows idle after a day', () => {
+test('new work turns back to sleepy after a day, and a missed check is worried', () => {
   assert.equal(displayMood({ mood: 'happy', checked: '2026-10-10T00:00:00Z' }, '2026-10-10T20:00:00Z'), 'happy');
-  assert.equal(displayMood({ mood: 'happy', checked: '2026-10-10T00:00:00Z' }, '2026-10-12T00:00:00Z'), 'idle');
+  assert.equal(displayMood({ mood: 'happy', checked: '2026-10-10T00:00:00Z' }, '2026-10-12T00:00:00Z'), 'sleep');
+  assert.equal(displayMood({ mood: 'sleep', checked: '2026-10-10T00:00:00Z' }, '2026-10-19T00:00:00Z'), 'worried', 'a weekly check missed by more than a day');
+  assert.equal(displayMood({ mood: 'sleep', checked: '2026-10-10T00:00:00Z' }, '2026-10-12T12:00:00Z', 1), 'worried', 'a daily check missed by more than a day');
+  assert.equal(displayMood({ mood: 'sick', checked: '2026-10-10T00:00:00Z' }, '2026-10-19T00:00:00Z'), 'sick', 'a more urgent mood stays');
   assert.equal(displayMood(null, '2026-10-12T00:00:00Z'), 'sleep');
 });
 
@@ -145,8 +152,9 @@ test('the animal guard only lets scripts act on pets in the registry', () => {
   assert.throws(() => assertInside('pets/file-master', '../api-fairy/keys.json'), /outside/);
 });
 
-test('the Farmer is sick when he cannot see private repos, and worried while pets wait', () => {
-  assert.equal(auditFarmer(registry, { unreadable: ['x'] }).mood, 'sick');
+test('the Farmer is curious when he cannot see private repos, sick when the registry is broken, and worried while pets wait', () => {
+  assert.equal(auditFarmer(registry, { unreadable: ['x'] }).mood, 'curious');
+  assert.equal(auditFarmer(registry, { validateProblems: ['pets.json: bad'] }).mood, 'sick');
   const r = auditFarmer(registry, {});
   assert.equal(r.mood, registry.pipeline.length ? 'worried' : 'happy');
 });
@@ -166,10 +174,10 @@ test('a whole round, against a pretend GitHub', async () => {
   assert.deepEqual(report.discovered, ['new-newt']);
   assert.ok(!allPets(r).some((p) => p.repo === 'new-newt'), 'a new repo waits at the gate; it is not a pet yet');
   assert.ok(report.unreadable.includes('data-dealer'), 'private pets are unreadable without FARMER_TOKEN');
-  assert.equal(status.pets['astras-pet-os'].mood, 'sick');
+  assert.equal(status.pets['astras-pet-os'].mood, 'curious');
   assert.equal(status.pets['data-dealer'].mood, 'sleep');
   assert.ok(status.needs_astra.some((n) => n.repo === 'astras-pet-os'));
-  assert.ok(['happy', 'sick', 'worried'].includes(status.pets['github-goldfish'].mood));
+  assert.ok(['sleep', 'curious', 'worried'].includes(status.pets['github-goldfish'].mood));
 });
 
 test('relations only name pets the Cage knows, with known kinds and states', () => {

@@ -1,8 +1,7 @@
 // Builds RELATIONS.md and MOOD-KEY.md from pets.json. Claude Opus 5.5 (claude-opus-5-5), 2026-10-09.
 // Both are generated: edit pets.json ("relations", "mood_key", each pet's "audit"), then npm run build.
-import { allPets, moodKey, auditDay } from './farmer-rounds-20261009.mjs';
+import { allPets, moodKey, auditDay, ORDER, SKETCH } from './farmer-rounds-20261009.mjs';
 
-const ORDER = ['sleep', 'idle', 'blink', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const id = (repo) => repo.replace(/[^a-z0-9]/gi, '_');
 const q = (s) => s.replace(/"/g, "'");
@@ -41,7 +40,7 @@ export function buildRelations(registry) {
   out.push('  PR --> PF["findastra/findastra README"]');
   out.push('  R -->|"registry, pet words"| G{{"GitHub Goldfish"}}');
   out.push('  G -->|"findings as cards"| F');
-  out.push('  ST -->|"sick pets: Needs you"| A');
+  out.push('  ST -->|"curious pets: Needs you"| A');
   out.push('```', '');
 
   out.push('## Who tells whom', '');
@@ -80,18 +79,18 @@ export function buildMoodKey(registry) {
   const out = [];
   out.push('# Mood key', '');
   out.push('*What each mood means, for every pet. Generated from `mood_key` and each pet\'s `audit` in [pets.json](pets.json) by `npm run build`. The Farmer\'s desk shows the same key with each pet\'s current mood and bubble.*', '');
-  out.push('Every pet uses the same meanings, so a face reads the same everywhere. `{subject}` is what the pet checks; `{needs}` is what it asks Astra for when it is sick.', '');
+  out.push('Every pet uses the same meanings, so a face reads the same everywhere. `{subject}` is what the pet checks; `{needs}` is what it asks Astra for when it is curious. The meanings are Astra\'s sketch of 2026-10-18 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3), most urgent first: when several apply, the first one shows.', '');
   out.push('| Mood | Means |', '|---|---|');
-  for (const m of ORDER) out.push(`| \`${m}\` | ${key[m]} |`);
+  for (const m of ORDER) out.push(`| \`${m}\`${SKETCH[m] ? ` (${SKETCH[m]})` : ''} | ${key[m]} |`);
   out.push('');
   out.push('## Each pet', '');
   out.push('A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).', '');
-  out.push('| Pet | Checks | How often | When it is sick it needs |', '|---|---|---|---|');
+  out.push('| Pet | Checks | How often | When it is curious it needs |', '|---|---|---|---|');
   for (const p of allPets(registry)) {
     const a = p.audit || {};
     const when = a.cadence === 'weekly' ? `weekly, ${DAYS[auditDay(registry, p.repo)]}` : a.cadence;
     const custom = p.moods ? ` (custom lines: ${Object.keys(p.moods).join(', ')})` : '';
-    out.push(`| **${p.pet}**${p.stage === 'pipeline' ? ' *' : ''} | ${a.subject} | ${when} | ${moodKey(registry, p).sick.replace(/^I need you: /, '').replace(/\.$/, '')}${custom} |`);
+    out.push(`| **${p.pet}**${p.stage === 'pipeline' ? ' *' : ''} | ${a.subject} | ${when} | ${moodKey(registry, p).curious.replace(/^Curious: I need your OK or your input: /, '').replace(/\.$/, '')}${custom} |`);
   }
   out.push('', '\\* in the pipeline: on GitHub, not registered in the Cage yet.', '');
   return out.join('\n');

@@ -2,25 +2,25 @@
 
 *What each mood means, for every pet. Generated from `mood_key` and each pet's `audit` in [pets.json](pets.json) by `npm run build`. The Farmer's desk shows the same key with each pet's current mood and bubble.*
 
-Every pet uses the same meanings, so a face reads the same everywhere. `{subject}` is what the pet checks; `{needs}` is what it asks Astra for when it is sick.
+Every pet uses the same meanings, so a face reads the same everywhere. `{subject}` is what the pet checks; `{needs}` is what it asks Astra for when it is curious. The meanings are Astra's sketch of 2026-10-18 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3), most urgent first: when several apply, the first one shows.
 
 | Mood | Means |
 |---|---|
-| `sleep` | I haven't checked {subject} yet. |
-| `idle` | {Subject} was fine at my last check. |
-| `blink` | Just blinking. |
-| `curious` | Checking {subject} now. |
-| `happy` | Checked {subject}: nothing wrong. |
-| `worried` | Found a few problems in {subject}. |
-| `alarmed` | Found a lot of problems in {subject}. |
-| `sick` | I need you: {needs}. |
-| `sad` | I couldn't finish checking {subject}. My fault; I'll try again. |
+| `alarmed` | Alarmed: a connected source reports an alarm, or there may be a security breach. |
+| `sick` | Sick: too many of my tools are broken, or my program is. |
+| `curious` | Curious: I need your OK or your input: {needs}. |
+| `worried` | Worried: something slipped with {subject}: a missed run, a missed check, a failed audit or too many tokens. |
+| `happy` | Happy: something new is ready: fresh work on {subject}, a suggestion or an idea. |
+| `sad` | Sad: you haven't opened me in more than two weeks. |
+| `idle` | Idle: my program is open, but you haven't used it for a while. |
+| `blink` (awake) | Awake: my program is open and you've used it recently. |
+| `sleep` (sleepy) | Sleepy: I'm running in the background. {Subject} needs nothing from you. |
 
 ## Each pet
 
 A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).
 
-| Pet | Checks | How often | When it is sick it needs |
+| Pet | Checks | How often | When it is curious it needs |
 |---|---|---|---|
 | **Friendly Farmer** | the pet registry and the System Map | daily | a FARMER_TOKEN secret so I can see the private pet repos |
 | **GitHub Goldfish** | the findastra GitHub account | weekly, Monday | a GitHub token that can read the private repos |
