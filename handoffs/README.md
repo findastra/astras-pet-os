@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [036: Two PCs tonight: which jobs each one does, and the overnight Idle Flash Audit](036-any-overnight-two-pcs-20261018.md) | any | taken by the desktop PC (overnight 2026-10-18); the other PC does the light jobs listed |
+| [036: Two PCs tonight: which jobs each one does, and the overnight Idle Flash Audit](036-any-overnight-two-pcs-20261018.md) | any | open, waits on Astra: the answer sheet and the merges (desktop jobs done) |
 | [035: Codex framework pull requests, and branches that conflict with main](035-codex-framework-pull-requests-20261018.md) | Codex | open: 17 Codex pull requests to bring up to date; 3 branches held back for Astra |
 | [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | done 2026-10-18: all 29 pull requests merged |
 | [032: The desktop pets read only the hub: draft list, rebuild, restart](032-any-desktop-reads-only-the-hub-20261018.md) | any | open, after Astra merges #60 and #58 |
