@@ -30,24 +30,9 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 ## Merge order
 
-What Astra merges first, at the top ([skills/merge-order](../skills/merge-order/SKILL.md)). Every chat's title starts
-with its number here. Ranked by Claude Opus 5.5 on 2026-10-17; Astra can reorder it.
-
-| # | Pull request | What it is | Chat | Why here |
-| --- | --- | --- | --- | --- |
-| 1 | [astras-pet-os#49](https://github.com/findastra/astras-pet-os/pull/49) | "Astra's PetOS" in the hub's names; also fixes the Farmer's desk crash | | #46 (the round fix) merged 2026-10-18, so the round's pushes stay reviewed; it edits the same lines as #46, so it needs a small fix first |
-| 2 | [astras-pet-os#52](https://github.com/findastra/astras-pet-os/pull/52) | Card 029: the hub folder on Astra's PC is back on `main` | Startup-star version confusion | Small; a card only |
-| 3 | [astras-pet-os#53](https://github.com/findastra/astras-pet-os/pull/53) | Pet art redesign: group 2 fixes, group 3, A58 | App designs redesign | Art: Astra looks at the pictures |
-| 4 | [astras-pet-os#50](https://github.com/findastra/astras-pet-os/pull/50) | Card 027: Skill Scout's skill sheet audit; two core contradictions fixed | Skill Scout audit | Changes core rules: read with care |
-| 5 | [astras-pet-os#51](https://github.com/findastra/astras-pet-os/pull/51) | Idle Flash Audit round cards (iPad), A57 | Idle Flash Audit | Audit records |
-| 6 | [astras-pet-os#23](https://github.com/findastra/astras-pet-os/pull/23) | Codex: README auditor, plus PR #26 (The Threshold, Liminal Doors, and the security model that replaces the rings and the Known gaps table) | Codex | Needs Astra's decision on the security model; large |
-| 7 | [astras-pet-os#36](https://github.com/findastra/astras-pet-os/pull/36) | Fuzzbois is now Fuzzboi Factory | | Feature |
-| 8 | [astras-pet-os#22](https://github.com/findastra/astras-pet-os/pull/22) | Codex: keep reviewed profile READMEs during daily rounds | Codex | Feature |
-| 9 | [astras-pet-os#8](https://github.com/findastra/astras-pet-os/pull/8) | Pole Puff draft pet app (its card becomes 024) | | Feature, oldest |
-| 10 | #1, #3, #4, #5, #7 | Cage-era pull requests from 2026-10-09 and 2026-10-10 | | Close? The Cage is retired; most are superseded |
-
-Chats waiting on Astra with no pull request: **Astra's PetOS System Map** (pick access-rule option A, B or C; A recommended)
-and **Idle Flash Audit** (whether to set up Kimi as a checker). Re-ranked 2026-10-18 by Claude Opus 5.5. #46, #47 and ghost-protocol#3 left the list when they merged (2026-10-18).
+Not kept in a file: a shared list here made every pull request conflict with the others. Each chat works the order out
+from GitHub's open pull requests when it answers, and puts its number in its title
+([skills/merge-order](../skills/merge-order/SKILL.md)). Astra, 2026-10-18.
 
 ## Card numbers on every branch
 
