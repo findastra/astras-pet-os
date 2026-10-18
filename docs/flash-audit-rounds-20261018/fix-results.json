@@ -1,0 +1,63 @@
+{
+ "mommys-mommies": {
+  "log": [
+   "README.md: link to a renamed repo, https://github.com/findastra/mommys/tree/v0.1.1-20261009 -> https://github.com/findastra/mommys-mommies/tree/v0.1.1-20261009.",
+   "pet.json: link to a renamed repo, https://github.com/findastra/mommys/tree/v0.1.1-20261009 -> https://github.com/findastra/mommys-mommies/tree/v0.1.1-20261009."
+  ],
+  "changed": true,
+  "a59": [],
+  "pr": "https://github.com/findastra/mommys-mommies/pull/5",
+  "commit": "bdac59f"
+ },
+ "voicemeeter-bug": {
+  "log": [
+   "README: links to its pet program, Audio Rescue (https://findastra.github.io/astras-pet-os/apps/voicemeeter-bug-20261008.html) (A59)."
+  ],
+  "changed": true,
+  "a59": [
+   "readme"
+  ],
+  "pr": "https://github.com/findastra/voicemeeter-bug/pull/3",
+  "commit": "f760c9b"
+ },
+ "the-cats-closet": {
+  "log": [
+   "README: \"Status\" became the \"Run it\" and \"Limits\" sections the pet file rules ask for.",
+   "README: records who made it and when (copied from AGENTS.md)."
+  ],
+  "changed": true,
+  "a59": [],
+  "pr": "https://github.com/findastra/the-cats-closet/pull/2",
+  "commit": "4f93a7e"
+ },
+ "the-police-station": {
+  "log": [
+   "README: added a Limits section (a seed: designed, nothing runs yet)."
+  ],
+  "changed": true,
+  "a59": [],
+  "pr": "https://github.com/findastra/the-police-station/pull/2",
+  "commit": "9264e86"
+ },
+ "ai-doghouse": {
+  "log": [
+   "README: added a Limits section (a seed: designed, nothing runs yet)."
+  ],
+  "changed": true,
+  "a59": [],
+  "pr": "https://github.com/findastra/ai-doghouse/pull/2",
+  "commit": "3ac9354"
+ },
+ "astras-pet-os": {
+  "log": [
+   "pets.json: fuzzboi-friend interface_url -> https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html, interface_live_url -> https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html (A59).",
+   "Ran `npm run build -- --metadata-only` so the generated files follow."
+  ],
+  "changed": true,
+  "a59": [
+   "registry:fuzzboi-friend:interface_url"
+  ],
+  "pr": "https://github.com/findastra/astras-pet-os/pull/79",
+  "commit": "b07429a"
+ }
+}
