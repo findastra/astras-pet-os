@@ -1,6 +1,6 @@
 # Flash Audit rounds, 2026-10-17
 
-One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](https://claude.ai/artifact/W6FMZthEzhj9EWxBgggCyc).
+One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](https://claude.ai/artifact/W6FMZthEzhj9EWxBgggCyc). What is going on right now: the [Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md).
 
 <a id="every-round"></a><a id="all-fix-prs-in-one-list"></a>
 
