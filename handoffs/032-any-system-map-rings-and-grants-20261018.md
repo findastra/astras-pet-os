@@ -36,7 +36,9 @@ if a ring were a permission and every rule a lock.
 - **Pet program names come from pet-programs.json.** Map nodes carry their program number. This fixed File Kingdom,
   Unity Stable, Audio Rescue, Fuzzboi Factory and Dubstep Armory (they showed as `pet-program-#`). Every registered or
   pipeline pet's program is on the map now (25 added), except the private pets' (health-hummy, finance-finch,
-  meme-fiend): they send nothing, so their programs stay off. `scripts/name-list-20261016.mjs` now checks these nodes.
+  meme-fiend): they send nothing, so their programs stay off. Seed and roadmap pets' programs (42, all named in
+  naming audit round 4) are drawn as **planned** on a faint outer lane of ring 3, not animals (Astra, 2026-10-18).
+  The map shows Sugarcube by the list's name (an old hard-coded "Spoonfed Sugarcube" is gone). `scripts/name-list-20261016.mjs` now checks these nodes.
 - **Tests:** five new ones in `test/system-map-test-20261012.mjs` (rings, animals, grants and their statuses, the
   PROTECTION-RINGS.md tables, program names).
 - **Pictures:** `docs/images/astras-pet-os-system-map-20261018.png` (whole map) and
@@ -53,7 +55,9 @@ if a ring were a permission and every rule a lock.
 - **Trackers connect to what uses them** (Astra, 2026-10-18), not to a "13 trackers" node.
 
 ## What is not done
-0. Which body spot each tracker is on is still Astra's to label.
+0. Which body spot each tracker is on is still Astra's to label. **Not on the map:** Chat Rat (#35, pipeline), Dubstep
+   Gunsmith (#37, seed) and AI Dashund (#79, seed) are in pet-programs.json but not in pets.json, so the map cannot
+   show them (or AI Doghouse, #79's program). Registering them is a core change: Astra's OK.
 1. **Codex's PR #23 chain** (with #26 merged into it) rewrites PROTECTION-RINGS.md as "topology is not authority" and
    changes this template (provider planets, optional rings). Option A replaces its PROTECTION-RINGS.md rewrite; its
    reference verifier (`scripts/access-policy-20261014.mjs`) fits as a tested prototype for the planned Iron Gates

@@ -254,14 +254,15 @@ const RING = Object.fromEntries(DATA.rings.map(r=>[r.ring,r]));
 // through the ring (the agent app) or straight to the model. No seat is drawn on the glass.
 const RING_R = {'0':10, '1':20, '2':34, '3':44, 'H':52, '4':58, '5':66, '6':72, '7':76, '8':80};
 const HARNESS_R = RING_R.H;
-const radiusOf = n => (RING_R[n.ring] ?? 60) + (n.type==='roadmap' ? .8 : 0);
+// Seeds, roadmap pets and their planned programs sit just outside their ring's animals.
+const radiusOf = n => (RING_R[n.ring] ?? 60) + (n.type==='roadmap' || (n.ring==='3' && !n.animal) ? .8 : 0);
 const APP_RING = {'claude-code':'claude', codex:'openai'}; // the agent app : the farmhand it rings
 const APP_RING_R = 2.6;
 // 3D or 2D (Astra, 2026-10-18). 3D: every ring a sphere inside the next. 2D: every ring laid flat on the ground. The
 // 2D | 3D switch in the bottom bar folds one into the other; every node keeps its direction, and the camera stays on what you selected.
 let flat = false, morph = null; // opens in 3D
 const MORPH_MS = 1200;
-const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':21, '3':27, '4':35, '5':40, '6':48.5, '7':56};
+const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':21, '3':26, '3b':29, '4':35, '5':40, '6':48.5, '7':56};
 const DOME_R = 31, DOME_H = 11, ASTRA_FLAT_Y = DOME_H+14;
 const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 64;
 // Pinned spots: the farmhands near the top, outside the glass; each agent app's line ends on its planet's ring.
@@ -394,8 +395,8 @@ const pos = {};
 const posSphere = {}; Object.keys(pos).forEach(id=>posSphere[id]=pos[id].clone());
 const posFlat = (function flatLayout(){
   const TAU=Math.PI*2, wrap=a=>((a%TAU)+TAU)%TAU, P={}, ang={};
-  const laneOf = n => n.ring==='2' ? (['seed','roadmap'].includes(n.type)?'2b':'2') : n.ring;
-  const LANES = ['2','2b','3','4','5','6','7'];
+  const laneOf = n => n.ring==='2' ? (['seed','roadmap'].includes(n.type)?'2b':'2') : n.ring==='3' && !n.animal ? '3b' : n.ring;
+  const LANES = ['2','2b','3','3b','4','5','6','7'];
   const lane = {}; LANES.forEach(k=>lane[k]=DATA.nodes.filter(n=>!inCluster(n) && !APP_RING[n.id] && n.type!=='harness' && laneOf(n)===k));
   const springs = layoutSprings();
   const nbrs = {}; DATA.nodes.forEach(n=>nbrs[n.id]=[]); springs.forEach(l=>{ nbrs[l.from].push(l.to); nbrs[l.to].push(l.from); });
@@ -451,7 +452,7 @@ yard.rotation.x=-Math.PI/2; yard.position.y=-.02; flatDecor.add(yard);
 const ground = new THREE.Mesh(new THREE.RingGeometry(DOME_R,FLAT_R['7']+4,128), new THREE.MeshBasicMaterial({color:css('--shell'),transparent:true,opacity:.04,depthWrite:false,side:THREE.DoubleSide}));
 ground.rotation.x=-Math.PI/2; ground.position.y=-.02; flatDecor.add(ground);
 [yard,ground].forEach(o=>o.material.userData.base=o.material.opacity);
-const flatRings = {}; Object.entries(FLAT_R).forEach(([k,r])=>{ const inside=r<DOME_R; flatRings[k]=circle(r, inside?css('--host'):css('--shell'), k==='2b'?.16:inside?.26:.32, k==='2b'); });
+const flatRings = {}; Object.entries(FLAT_R).forEach(([k,r])=>{ const inside=r<DOME_R; const outer=k==='2b'||k==='3b'; flatRings[k]=circle(r, inside?css('--host'):css('--shell'), outer?.16:inside?.26:.32, outer); });
 const domeGlass = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,64,24,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),transparent:true,opacity:.045,side:THREE.DoubleSide,depthWrite:false}));
 domeGlass.scale.y=DOME_H/DOME_R; flatDecor.add(domeGlass);
 const domeWire = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,32,8,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.09}));
@@ -743,7 +744,7 @@ function apply(){
   const glassHot = (fid && nodeById[fid] && nodeById[fid].type==='harness') || ringOn==='H';
   harnessWire.material.opacity = glassHot ? .35 : .1; harnessGlass.material.opacity = glassHot ? .1 : .05;
   domeWire.material.opacity = glassHot ? .35 : .09; domeGlass.material.opacity = glassHot ? .1 : .045; domeRim.material.opacity = glassHot ? .7 : .3;
-  Object.entries(flatRings).forEach(([k,l])=>{ const r=k==='2b'?'2':k; l.material.opacity = ringOn ? (ringOn===r?.85:.1) : (k==='2b'?.16:FLAT_R[k]<DOME_R?.26:.32); });
+  Object.entries(flatRings).forEach(([k,l])=>{ const r=k==='2b'?'2':k==='3b'?'3':k; l.material.opacity = ringOn ? (ringOn===r?.85:.1) : (k==='2b'||k==='3b'?.16:FLAT_R[k]<DOME_R?.26:.32); });
   if(!morph) ringTags.forEach(t=>{ const d=t.userData[flat?'flat':'sphere']; if(d){ t.position.copy(d.p); t.userData.base.copy(d.base); } });
   [harnessGlass,harnessWire,domeGlass,domeWire,domeRim,...Object.values(shells),...Object.values(flatRings)].forEach(o=>o.material.userData.base=o.material.opacity);
   fadeDecor(morph?morph.e:1);

@@ -105,7 +105,7 @@ test('PROTECTION-RINGS.md shows the same rings and grants as the map (run npm ru
   assert.equal(doc, applyAccessDoc(doc, extra));
 });
 
-test('pet program names come from pet-programs.json, and every registered or pipeline pet has its program on the map', () => {
+test('pet program names come from pet-programs.json, and every pet on the map has its program on the map', () => {
   const data = systemMapData(registry, extra, programs);
   for (const n of data.nodes.filter((x) => x.program !== undefined)) assert.equal(n.name, programs.find((p) => p.number === n.program).program);
   assert.ok(!data.nodes.some((n) => /^pet-program-\d+$/.test(n.name) && programs.find((p) => p.number === n.program)?.assigned), 'an assigned name shows as pet-program-#');
@@ -113,6 +113,15 @@ test('pet program names come from pet-programs.json, and every registered or pip
   const hidden = new Set(registry.relations.private); // private pets send nothing, so their programs stay off the map
   for (const p of programs.filter((x) => ['registered', 'pipeline'].includes(x.stage) && x.assigned && ids.has(x.repo) && !hidden.has(x.repo)))
     assert.ok(data.nodes.some((n) => n.program === p.number), `${p.program} (#${p.number}) is not on the map`);
+  // Seeds and roadmap pets (Astra, 2026-10-18): their programs are drawn as planned, and are not animals.
+  const early = new Set(data.nodes.filter((n) => ['seed', 'roadmap'].includes(n.type)).map((n) => n.name));
+  for (const p of programs.filter((x) => ['seed', 'roadmap'].includes(x.stage) && x.assigned && early.has(x.icon))) {
+    const n = data.nodes.find((m) => m.program === p.number);
+    assert.ok(n, `${p.program} (#${p.number}) is not on the map`);
+    assert.ok(!n.animal, `${p.program} is an animal before its pet is registered`);
+  }
+  // Names come from the list, never from an old hard-coded spelling.
+  assert.equal(data.nodes.find((n) => n.id === 'spoonfed').name, programs.find((p) => p.repo === 'spoonfed').icon);
 });
 
 // Groups (Astra, 2026-10-18): the 13 trackers connect to what uses them, not to a "13 trackers" node.

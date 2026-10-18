@@ -16,7 +16,7 @@ export function systemMapData(registry, extra, programs = []) {
   const nodes = new Map();
   const add = (n) => { if (nodes.has(n.id)) throw new Error(`duplicate node ${n.id}`); nodes.set(n.id, n); };
   for (const p of allPets(registry)) {
-    add({ id: p.repo, name: p.repo === 'spoonfed' ? 'Spoonfed Sugarcube' : p.pet,
+    add({ id: p.repo, name: p.pet,
       type: p.role === 'host' ? 'host' : p.stage === 'pipeline' ? 'pipeline' : 'pet',
       state: 'now', job: p.job || '', status: p.status || null, repo: p.repo, visibility: p.visibility || null, art: p.art || null });
   }
@@ -26,8 +26,9 @@ export function systemMapData(registry, extra, programs = []) {
   add({ id: 'astra', name: 'Astra (you)', type: 'you', state: 'now', job: 'Every pet reports to you, and you approve anything that matters.' });
   for (const n of extra.nodes) add({ ...n });
 
-  // Pet programs from the one list. A node with a "program" number takes its name from the list; every registered or
-  // pipeline pet's program that has no node yet gets one, linked from its pet, so the map never falls behind the list.
+  // Pet programs from the one list. A node with a "program" number takes its name from the list; every pet's program
+  // that has no node yet gets one, linked from its pet, so the map never falls behind the list: built for registered and
+  // pipeline pets, planned for seeds and roadmap pets (Astra, 2026-10-18), which are not animals until registered.
   const programByNumber = new Map(programs.map((p) => [p.number, p]));
   for (const n of nodes.values()) {
     if (n.program === undefined) continue;
@@ -40,13 +41,18 @@ export function systemMapData(registry, extra, programs = []) {
   for (const id of privatePets) if (nodes.has(id)) nodes.get(id).private = true;
   const generatedLinks = [];
   for (const p of programs) {
-    if (!['registered', 'pipeline'].includes(p.stage) || !p.assigned || privatePets.has(p.repo)) continue;
+    if (!p.assigned || privatePets.has(p.repo)) continue;
     if ([...nodes.values()].some((n) => n.program === p.number)) continue;
-    if (!nodes.has(p.repo)) continue; // its pet is not in pets.json yet: nothing to hang the program on
-    const state = p.repo_exists ? 'now' : 'planned';
-    add({ id: `program-${p.number}`, name: p.program, type: 'own-program', state, program: p.number, category: 'Made by Astra',
+    const early = ['seed', 'roadmap'].includes(p.stage);
+    if (!early && !['registered', 'pipeline'].includes(p.stage)) continue;
+    // Its pet: a registered or pipeline pet by repo, a seed or roadmap pet by name.
+    const pet = early ? [...nodes.values()].find((n) => ['seed', 'roadmap'].includes(n.type) && n.name === p.icon) : nodes.get(p.repo);
+    if (!pet) continue; // its pet is not on the map yet: nothing to hang the program on
+    const state = !early && p.repo_exists ? 'now' : 'planned';
+    add({ id: `program-${p.number}`, name: p.program, type: 'own-program', state, program: p.number, category: early ? 'Planned' : 'Made by Astra',
       job: p.mini_descriptor?.text || `${p.icon}'s pet program.` });
-    generatedLinks.push({ from: p.repo, to: `program-${p.number}`, carries: 'opens', state, why: `${p.program} is ${p.icon}'s own program (pet-programs.json, #${p.number}).` });
+    generatedLinks.push({ from: pet.id, to: `program-${p.number}`, carries: 'opens', state,
+      why: early ? `${p.program} will be ${p.icon}'s own program (pet-programs.json, #${p.number}).` : `${p.program} is ${p.icon}'s own program (pet-programs.json, #${p.number}).` });
   }
   // Each pet's own pet program, for its card.
   for (const n of nodes.values()) {
