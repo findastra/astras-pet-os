@@ -47,6 +47,10 @@ Shared prompt text (use with each pet's line below; image 1 is that pet's curren
 | Paper Girl / Patty (`paper-girl`) | `desktop-art/paper-girl/sheet-20261011.png` | Pink folded newspaper with a folded corner and column lines, no lettering. Group-4 face. Same height as File Master (they travel together). |
 
 After each sheet (one pet at a time; regenerate a pet, never the set):
+**Once astras-pet-os PR #58 (one art source) is merged, every picture lives only in this hub:** the giraffe's desktop
+art is `desktop-art/gif-giraffe/` and its web frames `art/drafts/gif-giraffe/` here, and step 4 has no copies left to
+update (the pet repos and the portfolio load from the hub). Until then, follow the steps as written.
+
 1. Desktop art: save it as that pet's `desktop-art/<pet>/sheet-20261011.png` (hub for Finch, Hummy, File Master,
    Paper Girl; `astras-gif-maker` for the giraffe) and cut it with `node scripts/build-desktop-art-20261011.mjs <pet>`
    (or `--directory <folder>`). Save the prompt next to it as `prompt-20261017.md`. Unity Unicorn has no desktop art:

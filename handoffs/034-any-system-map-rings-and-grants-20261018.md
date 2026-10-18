@@ -66,7 +66,8 @@ if a ring were a permission and every rule a lock.
    the public `system-map.json`, so hiding items on the page alone would not help. Astra decides whether item-level data
    moves to a file kept on the PC.
 3. **PR #36 (Fuzzboi Factory)** renames the `fuzzbois-site` node: after it merges, run `npm run build`.
-4. Card 032 is listed in `handoffs/README.md`, and the next free number is now 033. Open pull requests that also edit that
+4. This card was 032 and is now 034 (the desktop card on PR #58 took 032); it is listed in `handoffs/README.md`, and the
+   next free number is now 035. Open pull requests that also edit that
    table may conflict there; keep every row.
 
 ## Done when

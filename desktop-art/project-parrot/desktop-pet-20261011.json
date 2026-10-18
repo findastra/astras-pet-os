@@ -1,0 +1,23 @@
+{
+  "pet": "project-parrot",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 1,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/project-parrot/alarmed-20261011.png",
+    "desktop-art/project-parrot/blink-20261011.png",
+    "desktop-art/project-parrot/curious-20261011.png",
+    "desktop-art/project-parrot/happy-20261011.png",
+    "desktop-art/project-parrot/idle-20261011.png",
+    "desktop-art/project-parrot/sad-20261011.png",
+    "desktop-art/project-parrot/sick-20261011.png",
+    "desktop-art/project-parrot/sleep-20261011.png",
+    "desktop-art/project-parrot/worried-20261011.png"
+  ],
+  "notes": "Shorter tidy three-feather blue tail.",
+  "source_sheet": "desktop-art/project-parrot/sheet-20261011.png"
+}

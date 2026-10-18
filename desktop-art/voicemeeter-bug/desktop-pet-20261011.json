@@ -1,0 +1,23 @@
+{
+  "pet": "voicemeeter-bug",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/voicemeeter-bug/alarmed-20261011.png",
+    "desktop-art/voicemeeter-bug/blink-20261011.png",
+    "desktop-art/voicemeeter-bug/curious-20261011.png",
+    "desktop-art/voicemeeter-bug/happy-20261011.png",
+    "desktop-art/voicemeeter-bug/idle-20261011.png",
+    "desktop-art/voicemeeter-bug/sad-20261011.png",
+    "desktop-art/voicemeeter-bug/sick-20261011.png",
+    "desktop-art/voicemeeter-bug/sleep-20261011.png",
+    "desktop-art/voicemeeter-bug/worried-20261011.png"
+  ],
+  "notes": "Lime-green and black headphones, original red-and-black ladybug identity.",
+  "source_sheet": "desktop-art/voicemeeter-bug/sheet-20261011.png"
+}

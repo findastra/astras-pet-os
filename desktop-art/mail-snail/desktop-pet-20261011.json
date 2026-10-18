@@ -1,0 +1,23 @@
+{
+  "pet": "mail-snail",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/mail-snail/alarmed-20261011.png",
+    "desktop-art/mail-snail/blink-20261011.png",
+    "desktop-art/mail-snail/curious-20261011.png",
+    "desktop-art/mail-snail/happy-20261011.png",
+    "desktop-art/mail-snail/idle-20261011.png",
+    "desktop-art/mail-snail/sad-20261011.png",
+    "desktop-art/mail-snail/sick-20261011.png",
+    "desktop-art/mail-snail/sleep-20261011.png",
+    "desktop-art/mail-snail/worried-20261011.png"
+  ],
+  "notes": "Straight antennae without balls or stalk eyes; two face eyes; no mail sign; Bug height.",
+  "source_sheet": "desktop-art/mail-snail/sheet-20261011.png"
+}
