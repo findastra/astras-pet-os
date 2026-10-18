@@ -2,7 +2,7 @@
   "cage": "astras-pet-os",
   "owner": "Astra",
   "topic": "pet-app",
-  "updated": "2026-10-11",
+  "updated": "2026-10-18",
   "mascots": [],
   "cage_life": {
     "about": "How the pets move in the Cage. Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
@@ -161,9 +161,20 @@
   "profile": {
     "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools.",
     "hidden": [],
-    "also_listed": ["findastra-discord-presence"],
+    "also_listed": [
+      "findastra-discord-presence"
+    ],
     "tools": {
-      "astras-pet-os": { "home_url": "https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html", "repo_note": "Astra's PetOS home repo", "tools": ["startup-star", "the-kennel", "the-shed", "vet-clinic"] }
+      "astras-pet-os": {
+        "home_url": "https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html",
+        "repo_note": "Astra's PetOS home repo",
+        "tools": [
+          "startup-star",
+          "the-kennel",
+          "the-shed",
+          "vet-clinic"
+        ]
+      }
     }
   },
   "rounds": {
@@ -521,7 +532,7 @@
       "art_source": "chip-original-20261008",
       "status": "hatching",
       "published": true,
-      "visibility": "private",
+      "visibility": "public",
       "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
@@ -554,9 +565,10 @@
       "source_commit": "a63b027fca258816996767eff5d6e3a75431a1fb",
       "audit": {
         "cadence": "weekly",
-        "subject": "the notes about your API keys",
-        "needs": "a key renewed or a note confirmed"
-      }
+        "subject": "Pet Program source, shared controls and declared tool behavior",
+        "needs": "Local source review; real runtime and desktop actions require separate verification"
+      },
+      "submitted": "2026-10-15"
     },
     {
       "repo": "unity-unicorn",
@@ -621,7 +633,8 @@
         "cadence": "weekly",
         "subject": "AI Astra: her mind, VRChat body and voice",
         "needs": "the AI Astra app started on your PC"
-      }
+      },
+      "submitted": "2026-10-17"
     },
     {
       "repo": "health-hummy",
@@ -901,10 +914,11 @@
       "interface_url": "apps/voicemeeter-bug-20261008.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "your Voicemeeter audio",
-        "needs": "the Bug running on your PC"
+        "subject": "the app's build, fake-API recovery checks, and selected output reconnect monitoring",
+        "needs": "a compatible installed Voicemeeter Remote API; a listening check when audible distortion persists"
       },
-      "visibility": "private"
+      "visibility": "public",
+      "submitted": "2026-10-11"
     },
     {
       "repo": "platform-platypus",
@@ -921,7 +935,11 @@
       "interface_local_url": "apps/platform-platypus-20261017.html",
       "interface_url": "https://findastra.github.io/platform-platypus/",
       "interface_live_url": "https://findastra.github.io/platform-platypus/",
-      "audit": { "cadence": "weekly", "subject": "how Astra's pages look across iPhone, Android, iPad and desktop", "needs": "something only you can do" },
+      "audit": {
+        "cadence": "weekly",
+        "subject": "how Astra's pages look across iPhone, Android, iPad and desktop",
+        "needs": "something only you can do"
+      },
       "visibility": "public"
     }
   ],
@@ -994,12 +1012,13 @@
         "subject": "my plan",
         "needs": "a job: what should Mail Snail do?"
       },
-      "note": "Card 007."
+      "note": "Card 007.",
+      "submitted": "2026-10-12"
     },
     {
       "repo": "patch-cat",
       "pet": "Patch Cat",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
@@ -1012,7 +1031,7 @@
     {
       "repo": "meme-fiend",
       "pet": "Meme Fiend",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
@@ -1025,7 +1044,7 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
@@ -1039,7 +1058,7 @@
     {
       "repo": "backup-beaver",
       "pet": "Backup Beaver",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
@@ -1052,7 +1071,7 @@
     {
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
@@ -1081,7 +1100,7 @@
     {
       "repo": "wifi-butterfly",
       "pet": "Wifi Butterfly",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
@@ -1107,7 +1126,7 @@
     {
       "repo": "mesh-moth",
       "pet": "Mesh Moth",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
@@ -1120,15 +1139,29 @@
     {
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
-      "visibility": "private",
-      "status": "hatching",
+      "visibility": "public",
+      "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
-        "needs": "a job: what should Raspberry Pi Maker do?"
-      }
+        "subject": "Astra's Raspberry Pi projects",
+        "needs": "site storage allowed for the page"
+      },
+      "says": {
+        "raspberry-berry": [
+          "berry good",
+          "backed up and up to date"
+        ]
+      },
+      "moods": {
+        "happy": "Every running Pi is backed up and updated.",
+        "worried": "A few Pis need a backup, an update or a hostname.",
+        "sad": "I could not read a backup file.",
+        "sick": "The browser is blocking site storage, so I cannot remember the Pis.",
+        "alarmed": "More than five things to fix across the Pis."
+      },
+      "submitted": "2026-10-13"
     },
     {
       "repo": "role-fairy",
