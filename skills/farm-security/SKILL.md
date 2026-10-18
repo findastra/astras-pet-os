@@ -1,29 +1,37 @@
 ---
 name: farm-security
-description: The security model of Astra's PetOS — protection rings, R W X, animal code, the gate, single-user farms, local models, privacy and supply chain. Use before changing any script, registry entry, repo, permission, connector or anything that crosses from one farm, device, account or network to another; and whenever Astra asks "is this secure?".
+description: The security model of Astra's PetOS — protection rings (where things live), grants with R W X and their status (enforced, written only, planned), animal code, the gate, single-user farms, local models, privacy and supply chain. Use before changing any script, registry entry, repo, permission, connector or anything that crosses from one farm, device, account or network to another; and whenever Astra asks "is this secure?".
 ---
 
 # Farm security (Astra, 2026-10-13)
 
 Full explanation and diagrams: [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md). This skill is the short rule list.
 
-## 1. Rings and R W X
-Inside out. **R**ead, **W**rite, e**X**ecute is what the agent in the seat may do. 🔒W = only through a pull request Astra merges.
+## 1. Rings, grants and R W X (Astra, 2026-10-17)
+**A ring says where a thing lives. It grants nothing.** **R**ead, **W**rite, e**X**ecute live on **grants**: who may do
+what to which things. Every grant has a status: **enforced** (a program, setting or test stops anything else),
+**written only** (a rule agents agree to follow; nothing stops a break) or **planned**. Never describe a written rule
+as if it were a lock. The full list is generated into [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md#who-may-do-what-grants)
+from `system-map.json` (`access`), and every System Map card shows the grants that reach it. Change a grant there,
+never only in prose.
 
-| Ring | What | Agent in the seat |
+Rings, inside out: 0 Core (Pet Directory `pets.json`, Program Manager, rules `AGENTS.md` and `skills/`, tests, the
+Farm and its tools) · 1 Friendly Farmer · 2 Pets · 3 Pet programs · **the harness** (the glass; Claude Code or Codex is
+the seat) · 4 Farmhands (AI models) · 5 Third-party programs and the community places · 6 Devices · 7 Advisers
+(ChatGPT) · 8 You (Astra).
+
+The agent in the seat, today (🔒 = only on a branch, merged after Astra's OK in chat; the assistant does the merge,
+Astra, 2026-10-18):
+
+| On | R W X | Status |
 |---|---|---|
-| 0 Core | Pet Directory (`pets.json`), Program Manager, rules (`AGENTS.md`, `skills/`), tests, the Farm, Startup Star | R 🔒W X |
-| 1 Friendly Farmer | orchestrator and package manager | R 🔒W X |
-| 2 Pets | every intelligent app | R W X (on a branch) |
-| 3 Pet programs | programs, sites and worlds Astra made | R W X (on a branch) |
-| **Harness** | the glass: the R W X line. Claude Code or Codex is the seat | |
-| 4 AI models | Claude, OpenAI, local models | X only |
-| 5 Third-party programs | apps, drivers, cloud services made by others | R X |
-| 6 Devices | PCs, phones, headsets, peripherals | R X |
-| 7 Advisers | ChatGPT | none: ideas reach the Farm only through Astra |
-| 8 You | Astra | grants every permission |
+| Core and the Friendly Farmer (rings 0 and 1) | R 🔒W X | written only (known gaps 1 and 4) |
+| Registered pets and their programs (rings 2 and 3) | R W X, on a branch | written only |
+| Commands, and files outside the project folder | asks first | enforced by Claude Code and Codex, unless Astra turns the question off |
+| Farmhands (ring 4) | X: send a request | written only; nobody rewrites a model |
+| Third-party programs and devices (rings 5 and 6) | R X | written only |
 
-The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval.
+The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval, given in chat.
 
 ## 2. Animal code
 - **Everything inside the harness is an animal. Agents can only control animals.** Say it this way in docs and code.
@@ -98,4 +106,5 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
 - Deleting things online (Discord Damsel's DM cleanup, Mail Snail's mail cleanup) follows the same rules: Astra approves the exact list, and File Master and Goldfish get the notice.
 
 ## 9. When unsure
-Stop and ask Astra. Name the ring, the R W X involved and what crosses which boundary.
+Stop and ask Astra. Name the ring, the grant and its R W X, whether it is enforced or written only, and what crosses
+which boundary.

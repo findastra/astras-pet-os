@@ -147,16 +147,16 @@
     ]
   },
   "mood_key": {
-    "about": "What each mood means for every pet. {subject} and {needs} come from the pet's audit block; a pet can override any line with \"moods\" in its pet.json.",
-    "sleep": "I haven't checked {subject} yet.",
-    "idle": "{Subject} was fine at my last check.",
-    "blink": "Just blinking.",
-    "curious": "Checking {subject} now.",
-    "happy": "Checked {subject}: nothing wrong.",
-    "worried": "Found a few problems in {subject}.",
-    "alarmed": "Found a lot of problems in {subject}.",
-    "sick": "I need you: {needs}.",
-    "sad": "I couldn't finish checking {subject}. My fault; I'll try again."
+    "about": "What each mood means for every pet, from Astra's sketch of 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3). {subject} and {needs} come from the pet's audit block; a pet can override any line with \"moods\" in its pet.json.",
+    "sleep": "Sleepy: I'm running in the background. {Subject} needs nothing from you.",
+    "idle": "Idle: my program is open, but you haven't used it for a while.",
+    "blink": "Awake: my program is open and you've used it recently.",
+    "curious": "Curious: I need your OK or your input: {needs}.",
+    "happy": "Happy: something new is ready: fresh work on {subject}, a suggestion or an idea.",
+    "worried": "Worried: something slipped with {subject}: a missed run, a missed check, a failed audit or too many tokens.",
+    "alarmed": "Alarmed: a connected source reports an alarm, or there may be a security breach.",
+    "sick": "Sick: too many of my tools are broken, or my program is.",
+    "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
     "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools.",
@@ -167,10 +167,9 @@
     }
   },
   "rounds": {
-    "about": "The Friendly Farmer's rounds (scripts/farmer-rounds-20261009.mjs). Daily: find new pet repos, take each pet's submissions from its pet.json, run the self-audits that are due, write status/pets-status.json, rebuild. Each pet audits itself on its cadence and day.",
+    "about": "The Friendly Farmer's rounds (scripts/farmer-rounds-20261009.mjs). Daily: find new pet repos, take each pet's submissions from its pet.json, run the self-audits that are due, write status/pets-status.json, rebuild, and open a pull request for Astra (never a push to main). A submitted name is only a note: names live in pet-programs.json. Each pet audits itself on its cadence and day.",
     "status_file": "status/pets-status.json",
     "submit_keys": [
-      "pet",
       "job",
       "status",
       "says",
@@ -324,14 +323,14 @@
         "why": "Claude Bot's status feeds the Anthropic presence card."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "rgbee",
         "carries": "cue",
         "state": "idea",
         "why": "A class or show starts its lighting scene."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "drum-dog",
         "carries": "cue",
         "state": "idea",
@@ -387,11 +386,18 @@
         "why": "Bills Astra has not paid yet, found in her mail, go to Finance Finch. Astra, 2026-10-12. Finance data stays on her PC."
       },
       {
-        "from": "mommys",
+        "from": "mommys-mommies",
         "to": "findastra-discord-presence",
         "carries": "cue",
         "state": "planned",
         "why": "Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps."
+      },
+      {
+        "from": "role-fairy",
+        "to": "findastra-discord-presence",
+        "carries": "status",
+        "state": "planned",
+        "why": "Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are."
       },
       {
         "from": "github-goldfish",
@@ -449,7 +455,7 @@
         "meme-fiend"
       ],
       "Stage": [
-        "mommys",
+        "mommys-mommies",
         "drum-dog",
         "rgbee",
         "deck-duck",
@@ -521,7 +527,7 @@
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
       "interface_local_url": "apps/data-dealer-20261008.html",
       "interface_url": "apps/data-dealer-20261008.html",
-      "interface_live_url": "https://claude.ai/artifact/CzBXnEWyRjq5Tui7o3oRS8",
+      "interface_live_url": "https://findastra.github.io/astras-pet-os/apps/data-dealer-20261008.html",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "4f876dd7b22a7caebf0bb3fbb021539f5b474041",
       "audit": {
@@ -596,14 +602,14 @@
       }
     },
     {
-      "repo": "vrchat-ai-astra",
+      "repo": "the-astral-plane",
       "pet": "Astra Wisp",
       "role": "pet",
       "art": "astra-wisp",
       "kind": "sprite",
       "status": "hatching",
       "published": true,
-      "job": "Watches the health of VRChat AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
+      "job": "Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
       "added": "2026-10-07",
       "note": "DRAFT. The name Wisp is a placeholder.",
       "interface_local_url": "apps/vrchat-ai-astra-20261008.html",
@@ -661,7 +667,7 @@
       }
     },
     {
-      "repo": "mommys",
+      "repo": "mommys-mommies",
       "pet": "Mommy's Mommies",
       "role": "pet",
       "art": "mommys-mommies",
@@ -700,7 +706,7 @@
     },
     {
       "repo": "paper-girl",
-      "pet": "Patty",
+      "pet": "Paper Girl Patty",
       "role": "pet",
       "art": "paper-girl",
       "kind": "human",
@@ -888,7 +894,7 @@
       "display_scale": 1,
       "status": "growing",
       "published": true,
-      "job": "A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.",
+      "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.",
       "added": "2026-10-08",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/voicemeeter-bug-20261008.html",
@@ -923,7 +929,7 @@
     {
       "repo": "spoonfed",
       "pet": "Sugarcube",
-      "visibility": "private",
+      "visibility": "public",
       "published": true,
       "status": "hatching",
       "job": "Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.",
@@ -938,7 +944,7 @@
     {
       "repo": "claude-bot",
       "pet": "Claude Bot",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
       "added": "2026-10-09",
@@ -981,7 +987,7 @@
       "pet": "Mail Snail",
       "visibility": "public",
       "status": "hatching",
-      "job": "Organizes your mail: sorts it, cleans it up and deletes what you no longer need, always with your OK first. Connects to no mail account yet.",
+      "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1114,7 +1120,7 @@
       "pet": "Raspberry Pi Berry",
       "visibility": "private",
       "status": "hatching",
-      "job": "Raspberry Pi Berry’s pet program is Raspberry Pi Maker (Astra, 2026-10-13): keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
+      "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
       "audit": {
         "cadence": "weekly",
@@ -1127,12 +1133,12 @@
       "pet": "Role Fairy",
       "visibility": "public",
       "status": "hatching",
-      "job": "Runs Mommy’s Role Fairy, a cute single-choice Discord role picker: new members get a welcome-channel link to the picker and everyone can change their role any time.",
+      "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
       "added": "2026-10-17",
       "audit": {
         "cadence": "weekly",
-        "subject": "Mommy’s Discord role picker and its roles",
-        "needs": "the Discord bot's access to the server"
+        "subject": "every Discord bot: its servers, roles, permissions and health",
+        "needs": "a bot's access to its server, or your OK for a new bot"
       },
       "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered."
     }
@@ -1153,22 +1159,28 @@
             "why": "Astra's Infinite Pole is a Unity world: what Pole Puff finds the world needs becomes Unity Unicorn build work, and Unity Unicorn's world tools ship the changes. Astra, 2026-10-12.",
             "becomes": "relations links (findings to unity-unicorn, shipped back) once this seed has a repo"
           }
-        ]
+        ],
+        "draft": "drafts/pole-puff/ (Claude Opus 5.5, 2026-10-11/12; brought to main 2026-10-18): pet.json, README, AGENTS, CLAUDE, LICENSE, page and hand-drawn stand-in art, ready to become findastra/pole-puff (approved by Astra 2026-10-12). Card 024.",
+        "kind": "sprite",
+        "kind_note": "Astra, 2026-10-11: a puffball sprite that floats (sky zone)."
       },
       {
         "pet": "Procreate Panda",
+        "program": "Bamboo Studio",
         "repo": null,
         "job": "Handles the redlines Astra makes in Procreate and manages her Procreate tools and drawings.",
         "note": "Named after Procreate. Takes the panda, so the v5.2 passport pet is now Passport Pelican."
       },
       {
         "pet": "Skill Scout",
+        "program": "Luna's Log",
         "repo": null,
         "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
         "note": "Job and look decided by Astra on 2026-10-12: an original sailor-style girl in the Mommies' design with very long braids (not a copy of any existing character)."
       },
       {
         "pet": "OSC Sealion",
+        "program": "OSC Sonar",
         "repo": null,
         "job": "Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.",
         "note": "Astra, 2026-10-12: the seed recorded as PSC Sealion is OSC Sealion.",
@@ -1197,6 +1209,7 @@
       },
       {
         "pet": "Photo Dodo",
+        "program": "Photo Roost",
         "repo": null,
         "job": "Keeps track of all your saved pictures: where each one is, what it shows, and whether it is backed up.",
         "note": "Named by Astra on 2026-10-12.",
@@ -1215,6 +1228,7 @@
       },
       {
         "pet": "Video Vulture",
+        "program": "Video Vault",
         "repo": null,
         "job": "Keeps track of all your saved videos, the same way Photo Dodo does for pictures: where each one is, what it shows, and whether it is backed up.",
         "note": "Named by Astra on 2026-10-12.",
@@ -1233,6 +1247,7 @@
       },
       {
         "pet": "Closet Cat",
+        "program": "The Cat's Closet",
         "repo": null,
         "job": "Organizes your closet (what you own and what goes together) and keeps your favourite places to shop.",
         "note": "Named by Astra on 2026-10-12."
@@ -1245,10 +1260,11 @@
         "note": "Approved by Astra on 2026-10-14. Pet program: The Police Station (repo findastra/the-police-station, created 2026-10-14). Moves to the pipeline when Astra lets it in at the gate."
       },
       {
-        "pet": "pet-program-77-icon-77",
+        "pet": "Triage Tapir",
+        "program": "The Triage Desk",
         "repo": null,
         "job": "Triages the vet-clinic: labels tickets, checks them for leaked secrets, and tests offered cures in isolation. Never merges anything.",
-        "note": "Approved by Astra on 2026-10-14 as a new pet; its pet program (pet-program-77) and icon names are not assigned yet (idea: Vet Clinic / Vetted Vet)."
+        "note": "Approved by Astra on 2026-10-14 as a new pet; named Triage Tapir by Astra on 2026-10-18 (Flash Audit A06); its pet program is The Triage Desk (2026-10-18)."
       },
       {
         "pet": "Rescue Retriever",
@@ -1259,6 +1275,7 @@
       },
       {
         "pet": "Intel Owl",
+        "program": "Threat Observatory",
         "repo": null,
         "job": "Researches emerging cyber threats, CVEs, adversary tactics and public advisories, including lawful Tor-based intelligence sources when separately authorized. Shares defensive findings with File Master and security pets; distinct from Cipher Owl and Skill Scout.",
         "note": "Selected in the October 14 phone handoff supplied by Astra. Replaces Scout Fox / Intel Ibis; planned seed only, no repo or runtime yet.",

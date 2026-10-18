@@ -12,7 +12,7 @@ Same card format as `findastra/data-dealer` (`skills/handoff/SKILL.md` there).
 ## When Astra's request is unclear or sounds like an assignment
 Check GitHub **before** asking her:
 1. List `findastra` repos. Look for the name, pet or person she used (pet names are in
-   `findastra/astras-pet-os/pets.json`; the **Friendly Farmer** is the Cage's host, so
+   `findastra/astras-pet-os/pets.json`; the **Friendly Farmer** runs The Farm, so
    "tell the farmer" means a card in `astras-pet-os/handoffs/`).
 2. Read `handoffs/README.md` in the likely repos and any card that is `open` and `for:` you
    or `any`.
@@ -53,11 +53,12 @@ Add a row for the card to `handoffs/README.md`. Numbers never repeat.
 - A new pet repo needs `pet.json` with an `audit` block, the `pet-app` topic, and an AGENTS.md that links
   `findastra/astras-pet-os` and its PET-FILES.md. The Farmer's daily round finds it and adds it to the
   pipeline; leave a `farmer-register-<repo>` card in `astras-pet-os/handoffs/` too.
-- Changing a pet's name, job, status, bubble lines (`says`), mood lines (`moods`) or audit: also put the change in
-  `cage.submit` in its pet.json with today's date, so the Farmer picks it up. See PET-FILES.md, "Submitting a
+- Changing a pet's job, status, bubble lines (`says`), mood lines (`moods`) or audit: also put the change in
+  `cage.submit` in its pet.json with today's date, so the Farmer picks it up (his round opens a pull request).
+  A pet's **name** changes only in `findastra/astras-pet-os/pet-programs.json`, by Astra; a name in `cage.submit` is only a note. See PET-FILES.md, "Submitting a
   change to the Farmer".
 - To ask Astra for something, leave a card with `status: open (waiting on Astra: <what you need>)`. The pet
-  turns sick and that text becomes its bubble on the Cage and the Farmer's desk.
+  turns curious (Astra's sketch, 2026-10-18) and that text becomes its bubble on the Cage and the Farmer's desk.
 
 ## Rules
 - One card, one deliverable. Name the files to read. Never paste keys or personal data.
@@ -70,5 +71,6 @@ Add a row for the card to `handoffs/README.md`. Numbers never repeat.
 - Work that only exists on Astra's PC or on an unmerged branch is easy to lose: say where it
   is on the card. Search every branch (`git ls-remote --heads`, `git log --all`) before saying
   a pet does not exist.
+- Approval, not clicks (Astra, 2026-10-18): ask for her OK in chat, then merge the branch yourself.
 - Follow the repo's own rules: no pushing to `main` and no new GitHub repos without
   Astra's OK; work on a branch otherwise.

@@ -1,5 +1,5 @@
 {
-  "about": "The non-pet parts of the System Map (system-map-20261012.html): AI models, infrastructure, programs, computers and roadmap pets, plus links that cannot live in pets.json relations because one end is not a pet with a repo. Pet-to-pet links stay in pets.json relations. @pets means every registered and pipeline pet; @seeds and @roadmap mean every seed and every roadmap pet. Links to @pets reach every pet and drawn behind their own toggle. Built by scripts/system-map-20261012.mjs during npm run build. Claude Opus 5.5 (claude-opus-5-5), 2026-10-12. Each node has a layer from Astra's architecture chart (0 development, 1 You, 2 Program Manager and Pet Directory, 3 Friendly Farmer, 4 pet agents, 5 AI harness, 6 real programs); each link's colour is the layer it belongs to, worked out in scripts/system-map-20261012.mjs.",
+  "about": "The non-pet parts of the System Map (system-map-20261012.html): AI models, infrastructure, programs, computers and roadmap pets, plus links that cannot live in pets.json relations because one end is not a pet with a repo. Pet-to-pet links stay in pets.json relations. @pets means every registered and pipeline pet; @seeds and @roadmap mean every seed and every roadmap pet. Links to @pets reach every pet and drawn behind their own toggle. Built by scripts/system-map-20261012.mjs during npm run build. Rings say where a thing lives; access.grants say who may read, write or run it, and whether that is enforced, written only or planned (Astra, 2026-10-17). Pet program names come from pet-programs.json through each node's program number. Claude Opus 5.5 (claude-opus-5-5), 2026-10-12. Each node has a layer from Astra's architecture chart (0 development, 1 You, 2 Program Manager and Pet Directory, 3 Friendly Farmer, 4 pet agents, 5 AI harness, 6 real programs); each link's colour is the layer it belongs to, worked out in scripts/system-map-20261012.mjs.",
   "states": {
     "now": "Works today",
     "planned": "Planned (decided, or in a pet's own job)",
@@ -33,12 +33,14 @@
     "reports": "an AI assistant answering you: results with evidence, questions only you can decide, links to what changed",
     "card": "a handoff card or brief left for another assistant to pick up",
     "audio": "sound travelling: microphones in, speakers and headphones out, and the virtual cables in between (drawn as a wave)",
+    "tracking": "where a tracked device is in the room: base stations sweep the trackers and controllers so SteamVR can find them, and the trackers' positions drive full-body tracking in VRChat",
     "network": "Network: how data physically travels between devices (Wi-Fi, Ethernet, Bluetooth, 2.4 GHz dongle radio, USB, cellular, NFC, LoRa). Shown in the Network view."
   },
   "nodes": [
     {
       "id": "farm",
       "name": "The Farm",
+      "program": 1,
       "type": "infrastructure",
       "state": "planned",
       "job": "The Friendly Farmer’s pet program (pet-program-1) and the core of Astra’s PetOS, ring 0: the native home where your pets live and run, organized by the Farmer. It holds the Pet Directory and Program Manager, and its tools are the System Map and Startup Star. Astra’s PetOS is a platform that runs on Windows, not an operating system. Repo: astras-pet-os today; it splits later into the-farm (the app) and astras-pet-os (registry and docs).",
@@ -78,10 +80,10 @@
     },
     {
       "id": "agent-harness",
-      "name": "AI harness",
+      "name": "Agent harness",
       "type": "harness",
       "state": "planned",
-      "job": "One layer wrapped around every pet agent, drawn as the glass shell around the pets. It is the standard interface and runtime from the Astra Pet SDK: AI model adapters (Claude, GPT, local), skills and tools, memory, scheduler, inbox, communication, permissions and guardrails. Every pet, the Farmer included, runs its own copy with its own identity, but the design is shared. Pets reach AI models and real programs through it. Planned (ASTRAS_PET_OS sections 7 and 8).",
+      "job": "The glass between the animals (rings 0 to 3) and everything else. Claude Code and Codex are drawn as rings around their farmhand (Claude, OpenAI): an agent can go through a ring or call the model straight. The glass marks where the rules change; it is not a sandbox: what an agent may do is in the grants on each card. Each pet's own L3 agent will use the same design: model adapters, skills and tools, memory, scheduler, inbox and permissions (ASTRAS_PET_OS sections 7 and 8, planned).",
       "layer": 5
     },
     {
@@ -596,7 +598,7 @@
       "type": "assistant",
       "state": "now",
       "layer": 5,
-      "job": "Anthropic's coding assistant. Claude accounts pick up handoff cards and build or change pets on branches. An agent harness program: the donut at the seat on top of the glass. The model in the seat gets R W X on every animal inside the glass, and core writes go through a pull request Astra merges."
+      "job": "Anthropic's coding assistant. Claude accounts pick up handoff cards and build or change pets on branches. An agent harness program, drawn as a ring around Claude (Anthropic): a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only on a branch, merged after Astra's OK in chat. Both are written rules, not locks."
     },
     {
       "id": "codex",
@@ -604,7 +606,7 @@
       "type": "assistant",
       "state": "now",
       "layer": 5,
-      "job": "OpenAI's coding assistant. Picks up handoff cards and builds or changes pets on branches. An agent harness program: the donut at the seat on top of the glass. The model in the seat gets R W X on every animal inside the glass, and core writes go through a pull request Astra merges."
+      "job": "OpenAI's coding assistant. Picks up handoff cards and builds or changes pets on branches. An agent harness program, drawn as a ring around OpenAI: a request can go through the ring or straight to the model. What it may do is in its grants (PROTECTION-RINGS.md): R W X on animals on a branch, core changes only on a branch, merged after Astra's OK in chat. Both are written rules, not locks."
     },
     {
       "id": "security-key",
@@ -968,6 +970,7 @@
     {
       "id": "key-ring",
       "name": "API Fairy Ring",
+      "program": 4,
       "type": "own-program",
       "state": "now",
       "layer": 6,
@@ -989,6 +992,7 @@
     {
       "id": "ai-astra",
       "name": "The Astral Plane",
+      "program": 7,
       "type": "own-program",
       "state": "now",
       "layer": 6,
@@ -998,6 +1002,7 @@
     {
       "id": "data-dealer-project",
       "name": "Data Dealer",
+      "program": 3,
       "type": "own-program",
       "state": "now",
       "layer": 6,
@@ -1006,12 +1011,13 @@
     },
     {
       "id": "file-kingdom",
-      "name": "pet-program-12",
+      "name": "File Kingdom",
+      "program": 12,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "File Master’s scanner, plan and undo tools. Name not assigned yet (idea: File Kingdom); see docs/naming-20261013.md."
+      "job": "File Master’s scanner, plan and undo tools."
     },
     {
       "id": "new-programs-watch",
@@ -1063,34 +1069,38 @@
     },
     {
       "id": "unity-stable",
-      "name": "pet-program-5",
+      "name": "Unity Stable",
+      "program": 5,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Unity Unicorn’s tool library and editor tools for avatars and worlds. Name not assigned yet (idea: Unity Stable); see docs/naming-20261013.md."
+      "job": "Unity Unicorn’s tool library and editor tools for avatars and worlds."
     },
     {
       "id": "audio-rescue",
-      "name": "pet-program-19",
+      "name": "Audio Rescue",
+      "program": 19,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Voicemeeter Bug’s Windows app: asks Voicemeeter to restart its audio engine when a device reconnects. Name not assigned yet (idea: Audio Rescue); see docs/naming-20261013.md."
+      "job": "Voicemeeter Bug’s Windows app: asks Voicemeeter to restart its audio engine when a device reconnects."
     },
     {
       "id": "paper-girl-site",
       "name": "Paper Girl",
+      "program": 11,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Patty."
+      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Girl Patty."
     },
     {
       "id": "am-i-a-ghost",
       "name": "Am I a Ghost?",
+      "program": 17,
       "type": "own-program",
       "state": "planned",
       "layer": 6,
@@ -1100,6 +1110,7 @@
     {
       "id": "the-police-station",
       "name": "The Police Station",
+      "program": 78,
       "type": "own-program",
       "state": "planned",
       "layer": 6,
@@ -1109,6 +1120,7 @@
     {
       "id": "the-recovery-room",
       "name": "The Recovery Room",
+      "program": 80,
       "type": "own-program",
       "state": "planned",
       "layer": 6,
@@ -1150,7 +1162,8 @@
     },
     {
       "id": "gif-maker",
-      "name": "Astra’s GIF Maker",
+      "name": "Astra's GIF Maker",
+      "program": 27,
       "type": "own-program",
       "state": "now",
       "layer": 6,
@@ -1160,6 +1173,7 @@
     {
       "id": "spoonfed-app",
       "name": "Spoonfed",
+      "program": 20,
       "type": "own-program",
       "state": "now",
       "layer": 6,
@@ -1191,7 +1205,7 @@
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "The pair of finger-tracking controllers, tracked by the base stations through SteamVR. Each hand is its own node around this one."
+      "job": "The pair of finger-tracking controllers, tracked by the base stations through SteamVR. Each hand is its own node in this group, and every line drawn to the group reaches each of them."
     },
     {
       "id": "index-controller-left",
@@ -1220,7 +1234,7 @@
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "Thirteen HTC Vive Tracker 3.0 body trackers, tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this cluster. Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
+      "job": "Thirteen HTC Vive Tracker 3.0 body trackers, tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
     },
     {
       "id": "vive-tracker-01",
@@ -1359,7 +1373,7 @@
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "Four SteamVR base stations that track the controllers and trackers. Each is its own node in this cluster; Astra chooses which ones are on for each session."
+      "job": "Four SteamVR base stations that track the controllers and trackers. Each is its own node in this group, and every line drawn to the group reaches each of them; Astra chooses which ones are on for each session."
     },
     {
       "id": "base-station-1",
@@ -1565,21 +1579,23 @@
     },
     {
       "id": "fuzz-factory",
-      "name": "pet-program-30",
+      "name": "Fuzzboi Factory",
+      "program": 30,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Fuzzboi Friend’s own page (findastra.github.io/fuzzboi-friend): make your own Fuzzboi. Name not assigned yet (idea: Fuzz Factory); see docs/naming-20261013.md."
+      "job": "Fuzzboi Friend’s own page (findastra.github.io/fuzzboi-friend): make your own Fuzzboi."
     },
     {
       "id": "dubstep-gunsmith",
-      "name": "pet-program-37",
+      "name": "Dubstep Armory",
+      "program": 37,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The pet program of Dubstep Gunsmith (pet program icon); name not assigned yet (idea: Dubstep Gunsmith Shop). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet."
+      "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet."
     },
     {
       "id": "threejs",
@@ -1746,7 +1762,7 @@
       "why": "Unity Unicorn will personalize an avatar's face-tracking rig in conjunction with VRCFT (Astra, 2026-10-12)."
     },
     {
-      "from": "mommys",
+      "from": "mommys-mommies",
       "to": "calendar-crow",
       "carries": "cue",
       "state": "planned",
@@ -2082,7 +2098,7 @@
       "why": "Overlap to settle: both check how pages look on phones, tablets and desktop."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "osc-sealion",
       "carries": "cue",
       "state": "suggested",
@@ -2426,7 +2442,7 @@
     },
     {
       "from": "laptop-pc",
-      "to": "mommys",
+      "to": "mommys-mommies",
       "carries": "cue",
       "state": "suggested",
       "why": "The laptop does streaming and recording (Astra, 2026-10-12). Mommy's classes and events may be streamed or recorded."
@@ -2663,7 +2679,7 @@
       "why": "Deck Duck is the Elgato Stream Deck pet."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "magic-chatbox",
       "carries": "manages",
       "state": "idea",
@@ -3027,7 +3043,7 @@
       "why": "Installed on the Desktop PC."
     },
     {
-      "from": "vrchat-ai-astra",
+      "from": "the-astral-plane",
       "to": "ai-astra",
       "carries": "opens",
       "state": "now",
@@ -3172,6 +3188,41 @@
       "carries": "opens",
       "state": "now",
       "why": "Hip tracking from the trackers."
+    },
+    {
+      "from": "ovr-smooth-tracking",
+      "to": "vr-trackers",
+      "carries": "opens",
+      "state": "now",
+      "why": "Smooths each tracker's movement in SteamVR."
+    },
+    {
+      "from": "ovr-smooth-tracking",
+      "to": "index-controllers",
+      "carries": "opens",
+      "state": "now",
+      "why": "Smooths each controller's movement in SteamVR."
+    },
+    {
+      "from": "base-stations",
+      "to": "vr-trackers",
+      "carries": "tracking",
+      "state": "now",
+      "why": "The base stations sweep the room so SteamVR can find each tracker (Astra, 2026-10-18: the trackers connect to what uses them)."
+    },
+    {
+      "from": "base-stations",
+      "to": "index-controllers",
+      "carries": "tracking",
+      "state": "now",
+      "why": "The base stations sweep the room so SteamVR can find each controller."
+    },
+    {
+      "from": "vr-trackers",
+      "to": "vrchat",
+      "carries": "tracking",
+      "state": "now",
+      "why": "Full-body tracking in VRChat: SteamVR passes each tracker's position on to your avatar (Astra, 2026-10-18)."
     },
     {
       "from": "base-station-fov",
@@ -3962,6 +4013,349 @@
       "why": "Asks for the newest clean backup from before the incident."
     }
   ],
+  "rings": {
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring.",
+    "list": [
+      {
+        "ring": "0",
+        "name": "Core",
+        "what": "The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools",
+        "animal": "yes"
+      },
+      {
+        "ring": "1",
+        "name": "Friendly Farmer",
+        "what": "organizes the pets",
+        "animal": "yes"
+      },
+      {
+        "ring": "2",
+        "name": "Pets",
+        "what": "every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them",
+        "animal": "registered and pipeline pets; seeds and roadmap pets once Astra registers them"
+      },
+      {
+        "ring": "3",
+        "name": "Pet programs",
+        "what": "the programs, sites and worlds Astra made, and their tools",
+        "animal": "yes, once their pet is registered"
+      },
+      {
+        "ring": "H",
+        "name": "Agent harness",
+        "what": "the glass sphere between the animals and everything else",
+        "animal": "the line between animals and everything else"
+      },
+      {
+        "ring": "4",
+        "name": "Farmhands (AI models)",
+        "what": "Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model",
+        "animal": "no"
+      },
+      {
+        "ring": "5",
+        "name": "Third-party programs",
+        "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
+        "animal": "no"
+      },
+      {
+        "ring": "6",
+        "name": "Devices",
+        "what": "PCs, phones, headsets, trackers and other hardware",
+        "animal": "no"
+      },
+      {
+        "ring": "7",
+        "name": "Advisers",
+        "what": "ChatGPT",
+        "animal": "no"
+      },
+      {
+        "ring": "8",
+        "name": "You (L4)",
+        "what": "Astra, who owns the whole farm",
+        "animal": "no: the owner"
+      }
+    ],
+    "by_type": {
+      "infrastructure": "0",
+      "host": "1",
+      "pet": "2",
+      "pipeline": "2",
+      "seed": "2",
+      "roadmap": "2",
+      "own-program": "3",
+      "harness": "H",
+      "model": "4",
+      "program": "5",
+      "host-machine": "6",
+      "assistant": "7",
+      "you": "8"
+    },
+    "by_id": {
+      "claude-code": "4",
+      "codex": "4",
+      "kennel": "5",
+      "the-shed": "5",
+      "vet-clinic": "5"
+    }
+  },
+  "access": {
+    "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
+    "values": {
+      "yes": "yes",
+      "pr": "only on a branch, merged after Astra's OK in chat (the assistant does the merge)",
+      "ask": "only after the harness asks Astra",
+      "grant": "only with a grant from Iron Gates that Astra approves",
+      "no": "no"
+    },
+    "statuses": {
+      "enforced": {
+        "name": "Enforced",
+        "what": "A program, setting or test stops anything else. The grant says which."
+      },
+      "written": {
+        "name": "Written only",
+        "what": "A rule agents agree to follow (AGENTS.md or a skill). Nothing stops someone who breaks it."
+      },
+      "planned": {
+        "name": "Planned",
+        "what": "Designed, not built yet."
+      }
+    },
+    "grants": [
+      {
+        "id": "owner",
+        "who": "Astra (you, L4)",
+        "subjects": [
+          "id:astra"
+        ],
+        "on": "everything",
+        "resources": [
+          "*"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "enforced",
+        "how": "It is your PC and your accounts. You give and take back every other grant in this list."
+      },
+      {
+        "id": "seat-core",
+        "who": "The agent in the seat (Claude Code or Codex, with a farmhand in it)",
+        "subjects": [
+          "id:claude-code",
+          "id:codex"
+        ],
+        "on": "the core and the Friendly Farmer (rings 0 and 1)",
+        "resources": [
+          "ring:0",
+          "ring:1"
+        ],
+        "r": "yes",
+        "w": "pr",
+        "x": "yes",
+        "status": "written",
+        "how": "AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18). Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17).",
+        "next": "A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12).",
+        "gaps": [
+          1,
+          4
+        ]
+      },
+      {
+        "id": "seat-animals",
+        "who": "The agent in the seat",
+        "subjects": [
+          "id:claude-code",
+          "id:codex"
+        ],
+        "on": "registered pets and their programs (the animals on rings 2 and 3)",
+        "resources": [
+          "animal:2",
+          "animal:3"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "written",
+        "how": "Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs; nothing checks the branch part.",
+        "next": "Short-lived session keys from Iron Gates.",
+        "gaps": [
+          1
+        ]
+      },
+      {
+        "id": "seat-asks",
+        "who": "The agent in the seat",
+        "subjects": [
+          "id:claude-code",
+          "id:codex"
+        ],
+        "on": "commands, and files outside its project folder",
+        "resources": [],
+        "r": "ask",
+        "w": "ask",
+        "x": "ask",
+        "status": "enforced",
+        "how": "Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list)."
+      },
+      {
+        "id": "farmer-round",
+        "who": "The Friendly Farmer's daily round",
+        "subjects": [
+          "type:host"
+        ],
+        "on": "the core (rings 0 and 1)",
+        "resources": [
+          "ring:0",
+          "ring:1"
+        ],
+        "r": "yes",
+        "w": "pr",
+        "x": "yes",
+        "status": "enforced",
+        "how": "The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes.",
+        "gaps": [
+          11
+        ]
+      },
+      {
+        "id": "pet-own-folder",
+        "who": "Each pet (its own code and its L3 agent)",
+        "subjects": [
+          "type:pet",
+          "type:pipeline"
+        ],
+        "on": "its own repo folder and its declared data folder",
+        "resources": [
+          "self"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "written",
+        "how": "farm-security, section 2. Hub scripts refuse a path outside the pet's folder (scripts/animal-guard-20261013.mjs), but a pet's own program runs as you, so it could reach further.",
+        "next": "The Police Station watches every write and every key use."
+      },
+      {
+        "id": "pet-elsewhere",
+        "who": "Each pet",
+        "subjects": [
+          "type:pet",
+          "type:pipeline"
+        ],
+        "on": "shared tools, other people's programs and devices",
+        "resources": [
+          "type:tool",
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "grant",
+        "w": "grant",
+        "x": "grant",
+        "status": "written",
+        "how": "One copy of a shared tool, one owner; other pets get a grant: folders, R W X and limits (TOOLS-AND-TRICKS.md). Until Iron Gates is built, a pet asks Astra and the grant is written in both pets' connection boxes.",
+        "next": "Iron Gates issues grants and Astra approves them."
+      },
+      {
+        "id": "call-models",
+        "who": "The agent in the seat, or a pet's L3 agent with a key",
+        "subjects": [
+          "id:claude-code",
+          "id:codex",
+          "type:pet",
+          "type:pipeline",
+          "type:host"
+        ],
+        "on": "farmhands (ring 4)",
+        "resources": [
+          "ring:4"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "X on a farmhand means sending it a request and reading the answer. Nobody rewrites a model, and only Astra changes her local farmhands. Only farmhands on the allowlist get keys; today they are Astra's own API keys.",
+        "next": "Short-lived keys from Iron Gates, shown in API Fairy's mushroom circle; local farmhands bound to this PC with a key.",
+        "gaps": [
+          9
+        ]
+      },
+      {
+        "id": "seat-third-party",
+        "who": "The agent in the seat",
+        "subjects": [
+          "id:claude-code",
+          "id:codex"
+        ],
+        "on": "third-party programs (ring 5)",
+        "resources": [
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Run them and read what they show; never rewrite a program made by others."
+      },
+      {
+        "id": "seat-devices",
+        "who": "The agent in the seat",
+        "subjects": [
+          "id:claude-code",
+          "id:codex"
+        ],
+        "on": "devices (ring 6)",
+        "resources": [
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Read and operate them through their drivers and apps."
+      },
+      {
+        "id": "adviser",
+        "who": "ChatGPT (adviser)",
+        "subjects": [
+          "id:chatgpt"
+        ],
+        "on": "anything on the farm",
+        "resources": [
+          "*"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Its ideas reach the farm only through Astra, who carries them into a Claude Code or Codex chat."
+      },
+      {
+        "id": "community",
+        "who": "Pets, tools and cures from the Kennel, the Shed or the vet-clinic",
+        "subjects": [
+          "id:kennel",
+          "id:the-shed",
+          "id:vet-clinic"
+        ],
+        "on": "your farm",
+        "resources": [
+          "*"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Nothing from here runs on a farm until it is signed, checked, quarantined and adopted by that farm's owner.",
+        "next": "The Farm checks signatures and refuses anything that does not check out.",
+        "gaps": [
+          10
+        ]
+      }
+    ]
+  },
   "layers": {
     "0": {
       "name": "Development (outside the running system)",
@@ -3985,7 +4379,7 @@
     },
     "5": {
       "name": "AI harness (per pet)",
-      "detail": "The agent harness: the glass around rings 0 to 3 (the R W X line), the donut at the seat (Claude Code or Codex) and the AI models that take the seat. Everything inside the glass is an animal."
+      "detail": "The agent harness: the glass around rings 0 to 3, the AI models outside it, and Claude Code and Codex as rings around their models. Everything inside the glass is an animal. What an agent may do is in its grants, not in the glass."
     },
     "6": {
       "name": "Real programs and integrations",
@@ -4278,7 +4672,7 @@
           }
         ]
       },
-      "mommys": {
+      "mommys-mommies": {
         "languages": [
           {
             "language": "HTML",
@@ -4446,7 +4840,7 @@
           }
         ]
       },
-      "vrchat-ai-astra": {
+      "the-astral-plane": {
         "languages": [
           {
             "language": "Python",
@@ -4543,7 +4937,7 @@
     "packet-piranha": "blue",
     "wifi-butterfly": "blue",
     "forensic-ferret": "blue",
-    "pet-program-77-icon-77": "blue",
+    "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
     "test-tortoise": "purple",
@@ -4556,9 +4950,9 @@
     "rift-rabbit": "rift-rabbit",
     "health-hummy": "health-hummy",
     "finance-finch": "finance-finch",
-    "mommys": "mommys",
+    "mommys-mommies": "mommys-mommies",
     "drum-dog": "drum-dog",
-    "vrchat-ai-astra": "vrchat-ai-astra",
+    "the-astral-plane": "the-astral-plane",
     "data-dealer": "data-dealer",
     "paper-girl": "paper-girl",
     "fuzzboi-friend": "fuzzboi-friend",
@@ -4580,7 +4974,7 @@
     "piranesi-nessi": "piranesi-house",
     "procreate-panda": "astras-pet-os",
     "closet-cat": "astras-pet-os",
-    "ai-astra": "vrchat-ai-astra",
+    "ai-astra": "the-astral-plane",
     "data-dealer-project": "data-dealer",
     "paper-girl-site": "paper-girl",
     "gif-maker": "astras-gif-maker",

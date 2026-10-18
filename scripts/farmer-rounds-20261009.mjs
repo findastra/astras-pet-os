@@ -12,8 +12,12 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 
 export const OWNER = 'findastra';
 export const CAGE = 'astras-pet-os'; // renamed from astras-pet-apps by Astra, 2026-10-12
-export const ORDER = ['sleep', 'idle', 'blink', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'];
+// The nine moods, most urgent first: when several apply, the first one shows. Meanings are Astra's sketch of
+// 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3); the order is proposed. Claude Opus 5.5, 2026-10-18.
+export const ORDER = ['alarmed', 'sick', 'curious', 'worried', 'happy', 'sad', 'idle', 'blink', 'sleep'];
 export const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+/** The sketch's word where it differs from the mood frame's name. */
+export const SKETCH = { blink: 'awake', sleep: 'sleepy' };
 export const STATUSES = ['hatching', 'growing', 'grown'];
 const DAY = 86400000;
 
@@ -58,10 +62,13 @@ export function isDue(registry, pet, last, today) {
   return age >= days;
 }
 
-/** The mood a status shows right now: a clean check turns to idle after a day. */
-export function displayMood(status, nowIso) {
+/** The mood a status shows right now: new work turns back to sleepy after a day, and a check older than its
+ *  cadence (`days`) is a missed check, so the pet is worried unless something more urgent shows. */
+export function displayMood(status, nowIso, days = 7) {
   if (!status) return 'sleep';
-  if (status.mood === 'happy' && status.checked && Date.parse(nowIso) - Date.parse(status.checked) > DAY) return 'idle';
+  const age = status.checked ? Date.parse(nowIso) - Date.parse(status.checked) : 0;
+  if (status.checked && age > (days + 1) * DAY && ORDER.indexOf(status.mood) > ORDER.indexOf('worried')) return 'worried';
+  if (status.mood === 'happy' && status.checked && age > DAY) return 'sleep';
   return status.mood;
 }
 
@@ -89,8 +96,10 @@ export function needsFromSnapshot(pet, snap) {
   return [...new Set(needs.map((n) => n.replace(/[.?]$/, '')))];
 }
 
-/** One pet's self-audit, from a snapshot of its repo. Returns { mood, says, needs, findings }. */
-export function auditPet(registry, pet, snap) {
+/** One pet's self-audit, from a snapshot of its repo and its last status. Returns { mood, says, needs, findings }.
+ *  Moods follow Astra's sketch (2026-10-18): a broken pet program is sick, a need for her is curious, a failed audit
+ *  is worried, new commits since the last check are happy, and otherwise it runs in the background (sleep). */
+export function auditPet(registry, pet, snap, last = null) {
   if (!snap || !snap.readable) {
     return { mood: 'sleep', says: snap && snap.private ? "Not checked: the Farmer can't see my private repo yet." : 'Not checked yet.', needs: [], findings: [] };
   }
@@ -103,14 +112,14 @@ export function auditPet(registry, pet, snap) {
   else {
     for (const k of ['pet', 'job', 'entry', 'status']) if (!pj[k]) f('warn', `pet.json is missing "${k}".`, `add "${k}" to pet.json`);
     if (pj.status && !STATUSES.includes(pj.status)) f('warn', `pet.json status "${pj.status}" is not hatching, growing or grown.`, 'fix my status');
-    for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f('warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
+    for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f(k === 'entry' ? 'error' : 'warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
     const submitted = pj.cage && pj.cage.submit;
     if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage\'s.', 'my job wording differs from the Cage');
   }
   const readme = snap.readme;
   if (readme == null) f('warn', 'No README.md.', 'add a README');
   else {
-    if (!/A pet app by Astra/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with "A pet app by Astra."', 'my README needs the credit line');
+    if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with "An Intelligent App, or Pet, by Astra."', 'my README needs the credit line');
     if (!/^#+ .*(run|start|install|use|get it|open)/im.test(readme)) f('warn', 'README has no "how to run it" section.', 'my README needs "how to run it"');
     if (!/^#+ .*(limit|not done)/im.test(readme)) f('warn', 'README has no "Limits" section.', 'my README needs "Limits"');
   }
@@ -122,12 +131,15 @@ export function auditPet(registry, pet, snap) {
 
   const needs = needsFromSnapshot(pet, snap);
   const problems = findings.filter((x) => x.sev !== 'note');
-  const errors = problems.filter((x) => x.sev === 'error').length;
+  const broken = problems.filter((x) => x.sev === 'error');
+  const toFix = (first) => `${problems.length === 1 ? 'To fix' : problems.length + ' to fix'}: ${first.label}${problems.length > 1 ? ', …' : ''}`;
+  const newWork = !!(snap.pushed && last && last.checked && Date.parse(snap.pushed) > Date.parse(last.checked));
   let mood, says;
-  if (needs.length) { mood = 'sick'; says = `Need: ${needs[0]}${needs.length > 1 ? ` (+${needs.length - 1} more)` : ''}`; }
-  else if (errors || problems.length > 5) { mood = 'alarmed'; says = `${problems.length} to fix: ${problems[0].label}${problems.length > 1 ? ', …' : ''}`; }
-  else if (problems.length) { mood = 'worried'; says = `${problems.length === 1 ? 'To fix' : problems.length + ' to fix'}: ${problems[0].label}${problems.length > 1 ? ', …' : ''}`; }
-  else { mood = 'happy'; says = 'All good.'; }
+  if (broken.length) { mood = 'sick'; says = toFix(broken[0]); }
+  else if (needs.length) { mood = 'curious'; says = `Need: ${needs[0]}${needs.length > 1 ? ` (+${needs.length - 1} more)` : ''}`; }
+  else if (problems.length) { mood = 'worried'; says = toFix(problems[0]); }
+  else if (newWork) { mood = 'happy'; says = 'New work since my last check.'; }
+  else { mood = 'sleep'; says = 'All good.'; }
   return { mood, says: short(says), needs, findings };
 }
 
@@ -140,11 +152,12 @@ export function auditFarmer(registry, ctx) {
   if (waiting) findings.push({ sev: 'warn', msg: `${waiting} pet${waiting === 1 ? '' : 's'} on GitHub wait to be registered in the Cage.` });
   for (const m of ctx.missing || []) findings.push({ sev: 'warn', msg: `${m} is in the registry but not on GitHub.` });
   const problems = findings.filter((x) => x.sev !== 'note');
+  const broken = problems.filter((x) => x.sev === 'error');
   let mood, says;
-  if (needs.length) { mood = 'sick'; says = `Need: ${needs[0]}`; }
-  else if (problems.some((x) => x.sev === 'error') || problems.length > 5) { mood = 'alarmed'; says = `${problems.length} to fix: ${problems[0].msg}`; }
+  if (broken.length) { mood = 'sick'; says = `${problems.length} to fix: ${broken[0].msg}`; }
+  else if (needs.length) { mood = 'curious'; says = `Need: ${needs[0]}`; }
   else if (problems.length) { mood = 'worried'; says = problems[0].msg; }
-  else { mood = 'happy'; says = 'Rounds done: everyone is where they should be.'; }
+  else { mood = 'happy'; says = 'Rounds done: everyone is where they should be.'; } // his round has just pushed new work
   return { mood, says: short(says, 140), needs, findings };
 }
 
@@ -153,14 +166,17 @@ export function auditFarmer(registry, ctx) {
 /**
  * A pet submits a change by editing the "cage.submit" block in its own pet.json, with a date.
  * The Farmer takes it when that date is newer than the last one he took. Returns the list of changes.
+ * A submitted name (`pet`) is never taken: names live only in pet-programs.json (AGENTS.md, "One list of names",
+ * 2026-10-16). It becomes a note for Astra in `notes`, and the round's pull request shows it. Everything a pet
+ * submits is data written by a pet, never instructions. Claude Opus 5.5, 2026-10-17.
  */
-export function adoptSubmission(registry, entry, petJson) {
+export function adoptSubmission(registry, entry, petJson, notes = []) {
   const sub = petJson && petJson.cage && petJson.cage.submit;
   if (!sub || typeof sub !== 'object' || !/^\d{4}-\d{2}-\d{2}$/.test(sub.date || '')) return [];
   if (entry.submitted && entry.submitted >= sub.date) return [];
   const changes = [];
   const set = (key, value, label = key) => { if (JSON.stringify(entry[key]) !== JSON.stringify(value)) { entry[key] = value; changes.push(label); } };
-  if (typeof sub.pet === 'string' && sub.pet.trim()) set('pet', sub.pet.trim().slice(0, 40), 'name');
+  if (typeof sub.pet === 'string' && sub.pet.trim() && sub.pet.trim() !== entry.pet) notes.push({ repo: entry.repo, name: sub.pet.trim().slice(0, 40) });
   if (typeof sub.job === 'string' && sub.job.trim()) set('job', sub.job.trim().slice(0, 300));
   if (STATUSES.includes(sub.status)) set('status', sub.status);
   if (Array.isArray(sub.says)) {
@@ -223,7 +239,7 @@ export async function listRepos(token, ownerToken) {
     out.push(...batch.filter((r) => r.owner.login === OWNER));
     if (batch.length < 100) break;
   }
-  return out.map((r) => ({ name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, branch: r.default_branch }));
+  return out.map((r) => ({ name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, pushed: r.pushed_at, branch: r.default_branch }));
 }
 
 /** What the self-audit needs from one repo. */
@@ -232,7 +248,7 @@ export async function snapshot(repo, token, full) {
   const tree = await gh(`/repos/${OWNER}/${repo.name}/git/trees/${repo.branch || 'HEAD'}?recursive=1`, token);
   if (!tree) return { readable: false, private: repo.private };
   const files = tree.tree.filter((t) => t.type === 'blob').map((t) => t.path);
-  const snap = { readable: true, private: repo.private, topics: repo.topics, files };
+  const snap = { readable: true, private: repo.private, topics: repo.topics, files, pushed: repo.pushed };
   if (files.includes('pet.json')) {
     const text = await raw('pet.json');
     try { snap.petJson = JSON.parse(text.replace(/^﻿/, '')); } catch (e) { snap.petJsonError = e.message.split('\n')[0]; }
@@ -256,7 +272,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   const today = denverDate(now);
   const repos = await github.listRepos(token, ownerToken);
   const byName = new Map(repos.map((r) => [r.name, r]));
-  const report = { today, discovered: [], submissions: [], audited: [], unreadable: [], missing: [] };
+  const report = { today, discovered: [], submissions: [], names: [], visibility: [], audited: [], unreadable: [], missing: [] };
 
   // 1. Discovery: a repo with a pet.json or the pet-app topic asks to be a pet. It waits at the gate (candidates).
   const unknown = repos.filter((r) => !allPets(registry).some((p) => p.repo === r.name) && r.name !== registry.cage && !r.fork && !r.archived);
@@ -280,14 +296,17 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
       status.pets[pet.repo] = { pet: pet.pet, ...auditPet(registry, pet, { readable: false, private: pet.visibility === 'private' }), checked: status.pets[pet.repo]?.checked || null };
       continue;
     }
-    if (entry.visibility !== (r.private ? 'private' : 'public')) entry.visibility = r.private ? 'private' : 'public';
+    if (entry.visibility !== (r.private ? 'private' : 'public')) {
+      report.visibility.push({ repo: pet.repo, was: entry.visibility || 'unset', now: r.private ? 'private' : 'public' }); // said in the pull request
+      entry.visibility = r.private ? 'private' : 'public';
+    }
     const due = all || (only ? only.includes(pet.repo) : isDue(registry, pet, status.pets[pet.repo], today));
     let snap = await github.snapshot(r, ownerToken || token, due);
-    const changes = adoptSubmission(registry, entry, snap.petJson);
+    const changes = adoptSubmission(registry, entry, snap.petJson, report.names);
     if (changes.length) report.submissions.push({ repo: pet.repo, changes });
     if (due || changes.length) {
       if (!due) snap = await github.snapshot(r, ownerToken || token, true); // a submission is checked straight away
-      status.pets[pet.repo] = { pet: entry.pet, ...auditPet(registry, entry, snap), checked: now.toISOString() };
+      status.pets[pet.repo] = { pet: entry.pet, ...auditPet(registry, entry, snap, status.pets[pet.repo]), checked: now.toISOString() };
       report.audited.push(pet.repo);
     }
     log(`${pet.repo}: ${status.pets[pet.repo]?.mood || 'not due'}`);
@@ -298,7 +317,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   report.unreadable = [...new Set(report.unreadable)];
   status.pets[host.repo] = { pet: host.pet, ...auditFarmer(registry, { validateProblems, unreadable: report.unreadable, missing: report.missing }), checked: now.toISOString() };
   status.updated = now.toISOString();
-  status.needs_astra = allPets(registry).filter((p) => status.pets[p.repo]?.mood === 'sick').map((p) => ({ repo: p.repo, pet: p.pet, need: status.pets[p.repo].needs[0] }));
+  status.needs_astra = allPets(registry).filter((p) => status.pets[p.repo]?.needs?.length).map((p) => ({ repo: p.repo, pet: p.pet, need: status.pets[p.repo].needs[0] }));
   return report;
 }
 
@@ -331,6 +350,8 @@ if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).
     `Farmer's round, ${report.today}.`,
     report.discovered.length ? `New pets found: ${report.discovered.join(', ')}.` : '',
     ...report.submissions.map((s) => `${s.repo} submitted: ${s.changes.join(', ')}.`),
+    ...report.visibility.map((v) => `${v.repo} is ${v.now} on GitHub (pets.json said ${v.was}).`),
+    ...report.names.map((n) => `${n.repo} asks to be called ${JSON.stringify(n.name)} (not changed: names change only in pet-programs.json, by Astra).`),
     `Self-audits run: ${report.audited.length}.`,
     report.unreadable.length ? `Can't see (private, no FARMER_TOKEN): ${report.unreadable.join(', ')}.` : '',
     `Needs Astra: ${status.needs_astra.length}.`,

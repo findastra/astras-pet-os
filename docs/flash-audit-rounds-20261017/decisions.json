@@ -1,0 +1,1002 @@
+[
+ {
+  "round": 3,
+  "pet": "Chip",
+  "program": "Data Dealer",
+  "repo": "data-dealer",
+  "card": "round-03-data-dealer.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/dashboard-fixes-20261017`](https://github.com/findastra/data-dealer/compare/main...claude%2Fdashboard-fixes-20261017) (+1), [`codex/chip-coin-20261014`](https://github.com/findastra/data-dealer/compare/main...codex%2Fchip-coin-20261014) (+2), [`codex/l3-activity-20261016`](https://github.com/findastra/data-dealer/compare/main...codex%2Fl3-activity-20261016) (+4), [`codex/yellow-phone-20261015`](https://github.com/findastra/data-dealer/compare/main...codex%2Fyellow-phone-20261015) (+3). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 3,
+  "pet": "Chip",
+  "program": "Data Dealer",
+  "repo": "data-dealer",
+  "card": "round-03-data-dealer.md",
+  "kind": "Route",
+  "text": "**Data Dealer's program route** is a claude.ai artifact behind a sign-in. Should the route point somewhere public (a GitHub Pages page), or stay private?",
+  "options": null
+ },
+ {
+  "round": 3,
+  "pet": "Chip",
+  "program": "Data Dealer",
+  "repo": "data-dealer",
+  "card": "round-03-data-dealer.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [data-dealer#2](https://github.com/findastra/data-dealer/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 4,
+  "pet": "API Fairy",
+  "program": "API Fairy Ring",
+  "repo": "api-fairy",
+  "card": "round-04-api-fairy.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [api-fairy#1](https://github.com/findastra/api-fairy/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 5,
+  "pet": "Unity Unicorn",
+  "program": "Unity Stable",
+  "repo": "unity-unicorn",
+  "card": "round-05-unity-unicorn.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/face-transfer-20261011`](https://github.com/findastra/unity-unicorn/compare/main...claude%2Fface-transfer-20261011) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 5,
+  "pet": "Unity Unicorn",
+  "program": "Unity Stable",
+  "repo": "unity-unicorn",
+  "card": "round-05-unity-unicorn.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [unity-unicorn#4](https://github.com/findastra/unity-unicorn/pull/4)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 6,
+  "pet": "Python Panther",
+  "program": "Python Jungle",
+  "repo": "learn-python",
+  "card": "round-06-learn-python.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [learn-python#3](https://github.com/findastra/learn-python/pull/3)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 7,
+  "pet": "Astra Wisp",
+  "program": "The Astral Plane",
+  "repo": "the-astral-plane",
+  "card": "round-07-the-astral-plane.md",
+  "kind": "Job",
+  "text": "**Job:** Astra Wisp submitted its own job to the Farmer (2026-10-17), and the registry says something else. Which one is right?\n  - Pet's own: \"Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.\"\n  - Registry: \"Watches the health of VRChat AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.\"",
+  "options": null
+ },
+ {
+  "round": 7,
+  "pet": "Astra Wisp",
+  "program": "The Astral Plane",
+  "repo": "the-astral-plane",
+  "card": "round-07-the-astral-plane.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/the-astral-plane-links-20261017`](https://github.com/findastra/the-astral-plane/compare/main...claude%2Fthe-astral-plane-links-20261017) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 7,
+  "pet": "Astra Wisp",
+  "program": "The Astral Plane",
+  "repo": "the-astral-plane",
+  "card": "round-07-the-astral-plane.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [the-astral-plane#3](https://github.com/findastra/the-astral-plane/pull/3)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 8,
+  "pet": "Health Hummy",
+  "program": "The Nectar Nest",
+  "repo": "health-hummy",
+  "card": "round-08-health-hummy.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [health-hummy#2](https://github.com/findastra/health-hummy/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 9,
+  "pet": "Finance Finch",
+  "program": "Nest Egg",
+  "repo": "finance-finch",
+  "card": "round-09-finance-finch.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [finance-finch#2](https://github.com/findastra/finance-finch/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 10,
+  "pet": "Mommy's Mommies",
+  "program": "Mommy’s Green Room",
+  "repo": "mommys-mommies",
+  "card": "round-10-mommys-mommies.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [mommys-mommies#2](https://github.com/findastra/mommys-mommies/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 11,
+  "pet": "Paper Girl Patty",
+  "program": "Paper Girl",
+  "repo": "paper-girl",
+  "card": "round-11-paper-girl.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [paper-girl#1](https://github.com/findastra/paper-girl/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 12,
+  "pet": "File Master",
+  "program": "File Kingdom",
+  "repo": "file-master",
+  "card": "round-12-file-master.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/file-master/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/file-master/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 12,
+  "pet": "File Master",
+  "program": "File Kingdom",
+  "repo": "file-master",
+  "card": "round-12-file-master.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [file-master#5](https://github.com/findastra/file-master/pull/5)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 13,
+  "pet": "Discord Damsel",
+  "program": "Discord Tower",
+  "repo": "findastra-discord-presence",
+  "card": "round-13-findastra-discord-presence.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/galaxy-art-and-handoff-20261017`](https://github.com/findastra/findastra-discord-presence/compare/main...claude%2Fgalaxy-art-and-handoff-20261017) (+4), [`claude/presence-names-shuffle-20261014`](https://github.com/findastra/findastra-discord-presence/compare/main...claude%2Fpresence-names-shuffle-20261014) (+6), [`claude/rescue-damsel-unsaved-20261017`](https://github.com/findastra/findastra-discord-presence/compare/main...claude%2Frescue-damsel-unsaved-20261017) (+7), [`codex/discord-tower-interface-20261015`](https://github.com/findastra/findastra-discord-presence/compare/main...codex%2Fdiscord-tower-interface-20261015) (+3), [`codex/l3-activity-20261016`](https://github.com/findastra/findastra-discord-presence/compare/main...codex%2Fl3-activity-20261016) (+4). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 13,
+  "pet": "Discord Damsel",
+  "program": "Discord Tower",
+  "repo": "findastra-discord-presence",
+  "card": "round-13-findastra-discord-presence.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [findastra-discord-presence#3](https://github.com/findastra/findastra-discord-presence/pull/3)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 14,
+  "pet": "Portfolio Puffer",
+  "program": "Iced Out Iceberg",
+  "repo": "portfolio-puffer",
+  "card": "round-14-portfolio-puffer.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [portfolio-puffer#2](https://github.com/findastra/portfolio-puffer/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 15,
+  "pet": "Drum Dog",
+  "program": "Bass & Biscuits",
+  "repo": "drum-dog",
+  "card": "round-15-drum-dog.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [drum-dog#2](https://github.com/findastra/drum-dog/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 16,
+  "pet": "VSCode Angel",
+  "program": "Halo List",
+  "repo": "vscode-angel",
+  "card": "round-16-vscode-angel.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/halo-list-pet-json-20261017`](https://github.com/findastra/vscode-angel/compare/main...claude%2Fhalo-list-pet-json-20261017) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 16,
+  "pet": "VSCode Angel",
+  "program": "Halo List",
+  "repo": "vscode-angel",
+  "card": "round-16-vscode-angel.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [vscode-angel#2](https://github.com/findastra/vscode-angel/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 17,
+  "pet": "Gone Ghost",
+  "program": "Am I a Ghost?",
+  "repo": "ghost-protocol",
+  "card": "round-17-ghost-protocol.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [ghost-protocol#4](https://github.com/findastra/ghost-protocol/pull/4)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 18,
+  "pet": "Project Parrot",
+  "program": "Idea Perch",
+  "repo": "project-parrot",
+  "card": "round-18-project-parrot.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [project-parrot#2](https://github.com/findastra/project-parrot/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 19,
+  "pet": "Voicemeeter Bug",
+  "program": "Audio Rescue",
+  "repo": "voicemeeter-bug",
+  "card": "round-19-voicemeeter-bug.md",
+  "kind": "Job",
+  "text": "**Job:** Voicemeeter Bug submitted its own job to the Farmer (2026-10-11), and the registry says something else. Which one is right?\n  - Pet's own: \"Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.\"\n  - Registry: \"A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.\"",
+  "options": null
+ },
+ {
+  "round": 19,
+  "pet": "Voicemeeter Bug",
+  "program": "Audio Rescue",
+  "repo": "voicemeeter-bug",
+  "card": "round-19-voicemeeter-bug.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [voicemeeter-bug#1](https://github.com/findastra/voicemeeter-bug/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 20,
+  "pet": "Sugarcube",
+  "program": "Spoonfed",
+  "repo": "spoonfed",
+  "card": "round-20-spoonfed.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/rescue-spoonfed-app-20261012`](https://github.com/findastra/spoonfed/compare/main...claude%2Frescue-spoonfed-app-20261012) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 20,
+  "pet": "Sugarcube",
+  "program": "Spoonfed",
+  "repo": "spoonfed",
+  "card": "round-20-spoonfed.md",
+  "kind": "Visibility",
+  "text": "**Spoonfed is public on GitHub**, but the registry and its own provenance file say it is a private, artwork-only repo. Make it private again, or keep it public and update the registry?",
+  "options": null
+ },
+ {
+  "round": 20,
+  "pet": "Sugarcube",
+  "program": "Spoonfed",
+  "repo": "spoonfed",
+  "card": "round-20-spoonfed.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [spoonfed#1](https://github.com/findastra/spoonfed/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 21,
+  "pet": "Claude Bot",
+  "program": "Claude Dock",
+  "repo": "claude-bot",
+  "card": "round-21-claude-bot.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [claude-bot#1](https://github.com/findastra/claude-bot/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 22,
+  "pet": "RGBee",
+  "program": "Light Hive",
+  "repo": "rgbee",
+  "card": "round-22-rgbee.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [rgbee#2](https://github.com/findastra/rgbee/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 23,
+  "pet": "Mine Mole",
+  "program": "Crypto Burrow",
+  "repo": "mine-mole",
+  "card": "round-23-mine-mole.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/mine-mole/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/mine-mole/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 23,
+  "pet": "Mine Mole",
+  "program": "Crypto Burrow",
+  "repo": "mine-mole",
+  "card": "round-23-mine-mole.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [mine-mole#2](https://github.com/findastra/mine-mole/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 24,
+  "pet": "Mail Snail",
+  "program": "Mail Shell",
+  "repo": "mail-snail",
+  "card": "round-24-mail-snail.md",
+  "kind": "Job",
+  "text": "**Job:** Mail Snail submitted its own job to the Farmer (2026-10-12), and the registry says something else. Which one is right?\n  - Pet's own: \"Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.\"\n  - Registry: \"Organizes your mail: sorts it, cleans it up and deletes what you no longer need, always with your OK first. Connects to no mail account yet.\"",
+  "options": null
+ },
+ {
+  "round": 24,
+  "pet": "Mail Snail",
+  "program": "Mail Shell",
+  "repo": "mail-snail",
+  "card": "round-24-mail-snail.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/mail-snail/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/mail-snail/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 24,
+  "pet": "Mail Snail",
+  "program": "Mail Shell",
+  "repo": "mail-snail",
+  "card": "round-24-mail-snail.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [mail-snail#2](https://github.com/findastra/mail-snail/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 25,
+  "pet": "Patch Cat",
+  "program": "The Litter Box",
+  "repo": "patch-cat",
+  "card": "round-25-patch-cat.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/patch-cat/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/patch-cat/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 25,
+  "pet": "Patch Cat",
+  "program": "The Litter Box",
+  "repo": "patch-cat",
+  "card": "round-25-patch-cat.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [patch-cat#2](https://github.com/findastra/patch-cat/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 26,
+  "pet": "Meme Fiend",
+  "program": "Cursed Archive",
+  "repo": "meme-fiend",
+  "card": "round-26-meme-fiend.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [meme-fiend#2](https://github.com/findastra/meme-fiend/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 27,
+  "pet": "Gif Giraffe",
+  "program": "Astra's GIF Maker",
+  "repo": "astras-gif-maker",
+  "card": "round-27-astras-gif-maker.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [astras-gif-maker#1](https://github.com/findastra/astras-gif-maker/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 28,
+  "pet": "Backup Beaver",
+  "program": "Backup Dam",
+  "repo": "backup-beaver",
+  "card": "round-28-backup-beaver.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [backup-beaver#2](https://github.com/findastra/backup-beaver/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 29,
+  "pet": "Rift Rabbit",
+  "program": "Wonderland Launchpad",
+  "repo": "rift-rabbit",
+  "card": "round-29-rift-rabbit.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/rift-rabbit/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/rift-rabbit/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 29,
+  "pet": "Rift Rabbit",
+  "program": "Wonderland Launchpad",
+  "repo": "rift-rabbit",
+  "card": "round-29-rift-rabbit.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [rift-rabbit#2](https://github.com/findastra/rift-rabbit/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 30,
+  "pet": "Fuzzboi Friend",
+  "program": "Fuzzboi Factory",
+  "repo": "fuzzboi-friend",
+  "card": "round-30-fuzzboi-friend.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [fuzzboi-friend#2](https://github.com/findastra/fuzzboi-friend/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 31,
+  "pet": "Wifi Butterfly",
+  "program": "Signal Garden",
+  "repo": "wifi-butterfly",
+  "card": "round-31-wifi-butterfly.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [wifi-butterfly#2](https://github.com/findastra/wifi-butterfly/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 32,
+  "pet": "Deck Duck",
+  "program": "Deck Pond",
+  "repo": "deck-duck",
+  "card": "round-32-deck-duck.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`codex/l3-activity-20261016`](https://github.com/findastra/deck-duck/compare/main...codex%2Fl3-activity-20261016) (+2), [`codex/yellow-phone-20261015`](https://github.com/findastra/deck-duck/compare/main...codex%2Fyellow-phone-20261015) (+1). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 32,
+  "pet": "Deck Duck",
+  "program": "Deck Pond",
+  "repo": "deck-duck",
+  "card": "round-32-deck-duck.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [deck-duck#2](https://github.com/findastra/deck-duck/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 33,
+  "pet": "Mesh Moth",
+  "program": "Mesh Lantern",
+  "repo": "mesh-moth",
+  "card": "round-33-mesh-moth.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [mesh-moth#2](https://github.com/findastra/mesh-moth/pull/2)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 34,
+  "pet": "Raspberry Pi Berry",
+  "program": "Raspberry Pi Maker",
+  "repo": "raspberry-berry",
+  "card": "round-34-raspberry-berry.md",
+  "kind": "Job",
+  "text": "**Job:** Raspberry Pi Berry submitted its own job to the Farmer (2026-10-13), and the registry says something else. Which one is right?\n  - Pet's own: \"Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.\"\n  - Registry: \"Raspberry Pi Berry’s pet program is Raspberry Pi Maker (Astra, 2026-10-13): keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update.\"",
+  "options": null
+ },
+ {
+  "round": 34,
+  "pet": "Raspberry Pi Berry",
+  "program": "Raspberry Pi Maker",
+  "repo": "raspberry-berry",
+  "card": "round-34-raspberry-berry.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [raspberry-berry#3](https://github.com/findastra/raspberry-berry/pull/3)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 35,
+  "pet": "Chat Rat",
+  "program": "Chat Stack",
+  "repo": "chat-rat",
+  "card": "round-35-chat-rat.md",
+  "kind": "Branches",
+  "text": "**Branches with work not on main** and no pull request: [`claude/chat-rat-ask-20261017`](https://github.com/findastra/chat-rat/compare/main...claude%2Fchat-rat-ask-20261017) (+3). Open a PR, merge, or leave?",
+  "options": null
+ },
+ {
+  "round": 35,
+  "pet": "Chat Rat",
+  "program": "Chat Stack",
+  "repo": "chat-rat",
+  "card": "round-35-chat-rat.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [chat-rat#5](https://github.com/findastra/chat-rat/pull/5)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 37,
+  "pet": "Dubstep Gunsmith",
+  "program": "Dubstep Armory",
+  "repo": "pet-program-37",
+  "card": "round-37-pet-program-37.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-37#1](https://github.com/findastra/pet-program-37/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 38,
+  "pet": "Pole Puff",
+  "program": "Infinite Studio",
+  "repo": "pet-program-38",
+  "card": "round-38-pet-program-38.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-38#1](https://github.com/findastra/pet-program-38/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 39,
+  "pet": "Procreate Panda",
+  "program": "Bamboo Studio",
+  "repo": "pet-program-39",
+  "card": "round-39-pet-program-39.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-39#1](https://github.com/findastra/pet-program-39/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 40,
+  "pet": "Skill Scout",
+  "program": "Luna's Log",
+  "repo": "pet-program-40",
+  "card": "round-40-pet-program-40.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-40#1](https://github.com/findastra/pet-program-40/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 41,
+  "pet": "OSC Sealion",
+  "program": "OSC Sonar",
+  "repo": "pet-program-41",
+  "card": "round-41-pet-program-41.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-41#1](https://github.com/findastra/pet-program-41/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 42,
+  "pet": "Piranesi Nessi",
+  "program": "Nessi's Ocean",
+  "repo": "pet-program-42",
+  "card": "round-42-pet-program-42.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-42#1](https://github.com/findastra/pet-program-42/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 43,
+  "pet": "Photo Dodo",
+  "program": "Photo Roost",
+  "repo": "pet-program-43",
+  "card": "round-43-pet-program-43.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-43#1](https://github.com/findastra/pet-program-43/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 44,
+  "pet": "Video Vulture",
+  "program": "Video Vault",
+  "repo": "pet-program-44",
+  "card": "round-44-pet-program-44.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-44#1](https://github.com/findastra/pet-program-44/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 45,
+  "pet": "Closet Cat",
+  "program": "The Cat's Closet",
+  "repo": "the-cats-closet",
+  "card": "round-45-the-cats-closet.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [the-cats-closet#1](https://github.com/findastra/the-cats-closet/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 46,
+  "pet": "Gatekeeper Goddess",
+  "program": "Iron Gates",
+  "repo": "iron-gates",
+  "card": "round-46-iron-gates.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [iron-gates#1](https://github.com/findastra/iron-gates/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 47,
+  "pet": "Queue Quokka",
+  "program": "Task Island",
+  "repo": "pet-program-47",
+  "card": "round-47-pet-program-47.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-47#1](https://github.com/findastra/pet-program-47/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 48,
+  "pet": "Log Lynx",
+  "program": "Log Den",
+  "repo": "pet-program-48",
+  "card": "round-48-pet-program-48.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-48#1](https://github.com/findastra/pet-program-48/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 49,
+  "pet": "Server Salamander",
+  "program": "Server Hearth",
+  "repo": "pet-program-49",
+  "card": "round-49-pet-program-49.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-49#1](https://github.com/findastra/pet-program-49/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 50,
+  "pet": "Docker Dragon",
+  "program": "Container Hoard",
+  "repo": "pet-program-50",
+  "card": "round-50-pet-program-50.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-50#1](https://github.com/findastra/pet-program-50/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 51,
+  "pet": "Test Tortoise",
+  "program": "Test Track",
+  "repo": "pet-program-51",
+  "card": "round-51-pet-program-51.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-51#1](https://github.com/findastra/pet-program-51/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 52,
+  "pet": "Token Toucan",
+  "program": "Token Canopy",
+  "repo": "pet-program-52",
+  "card": "round-52-pet-program-52.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-52#1](https://github.com/findastra/pet-program-52/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 53,
+  "pet": "Packet Piranha",
+  "program": "Packet River",
+  "repo": "pet-program-53",
+  "card": "round-53-pet-program-53.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-53#1](https://github.com/findastra/pet-program-53/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 54,
+  "pet": "Calendar Crow",
+  "program": "Crow's Nest",
+  "repo": "pet-program-54",
+  "card": "round-54-pet-program-54.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-54#1](https://github.com/findastra/pet-program-54/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 55,
+  "pet": "Browser Bat",
+  "program": "Browser Belfry",
+  "repo": "pet-program-55",
+  "card": "round-55-pet-program-55.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-55#1](https://github.com/findastra/pet-program-55/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 56,
+  "pet": "Data Dragonfly",
+  "program": "Data Marsh",
+  "repo": "pet-program-56",
+  "card": "round-56-pet-program-56.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-56#1](https://github.com/findastra/pet-program-56/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 57,
+  "pet": "Update Urchin",
+  "program": "Update Tidepool",
+  "repo": "pet-program-57",
+  "card": "round-57-pet-program-57.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-57#1](https://github.com/findastra/pet-program-57/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 58,
+  "pet": "Linux Penguin",
+  "program": "Linux Iceberg",
+  "repo": "pet-program-58",
+  "card": "round-58-pet-program-58.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-58#1](https://github.com/findastra/pet-program-58/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 59,
+  "pet": "Stock Fox",
+  "program": "Market Meadow",
+  "repo": "pet-program-59",
+  "card": "round-59-pet-program-59.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-59#1](https://github.com/findastra/pet-program-59/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 60,
+  "pet": "Passport Pelican",
+  "program": "Passport Harbor",
+  "repo": "pet-program-60",
+  "card": "round-60-pet-program-60.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-60#1](https://github.com/findastra/pet-program-60/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 61,
+  "pet": "Journal Jellyfish",
+  "program": "Journal Lagoon",
+  "repo": "pet-program-61",
+  "card": "round-61-pet-program-61.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-61#1](https://github.com/findastra/pet-program-61/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 62,
+  "pet": "Shell Squid",
+  "program": "Shell Trench",
+  "repo": "pet-program-62",
+  "card": "round-62-pet-program-62.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-62#1](https://github.com/findastra/pet-program-62/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 63,
+  "pet": "Kernel Koala",
+  "program": "Kernel Grove",
+  "repo": "pet-program-63",
+  "card": "round-63-pet-program-63.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-63#1](https://github.com/findastra/pet-program-63/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 64,
+  "pet": "Proxy Axolotl",
+  "program": "Proxy Lake",
+  "repo": "pet-program-64",
+  "card": "round-64-pet-program-64.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-64#1](https://github.com/findastra/pet-program-64/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 65,
+  "pet": "Cluster Crab",
+  "program": "Cluster Shore",
+  "repo": "pet-program-65",
+  "card": "round-65-pet-program-65.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-65#1](https://github.com/findastra/pet-program-65/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 66,
+  "pet": "Storage Stoat",
+  "program": "Storage Warren",
+  "repo": "pet-program-66",
+  "card": "round-66-pet-program-66.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-66#1](https://github.com/findastra/pet-program-66/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 67,
+  "pet": "White Hat Weasel",
+  "program": "White Hat Lab",
+  "repo": "pet-program-67",
+  "card": "round-67-pet-program-67.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-67#1](https://github.com/findastra/pet-program-67/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 68,
+  "pet": "Port Spider",
+  "program": "Port Web",
+  "repo": "pet-program-68",
+  "card": "round-68-pet-program-68.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-68#1](https://github.com/findastra/pet-program-68/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 69,
+  "pet": "Cipher Owl",
+  "program": "Cipher Hollow",
+  "repo": "pet-program-69",
+  "card": "round-69-pet-program-69.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-69#1](https://github.com/findastra/pet-program-69/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 70,
+  "pet": "Forensic Ferret",
+  "program": "Evidence Locker",
+  "repo": "pet-program-70",
+  "card": "round-70-pet-program-70.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-70#1](https://github.com/findastra/pet-program-70/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 71,
+  "pet": "Llama Librarian",
+  "program": "Model Library",
+  "repo": "pet-program-71",
+  "card": "round-71-pet-program-71.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-71#1](https://github.com/findastra/pet-program-71/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 72,
+  "pet": "Inference Iguana",
+  "program": "Benchmark Rock",
+  "repo": "pet-program-72",
+  "card": "round-72-pet-program-72.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-72#1](https://github.com/findastra/pet-program-72/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 73,
+  "pet": "Agent Ant",
+  "program": "Agent Colony",
+  "repo": "pet-program-73",
+  "card": "round-73-pet-program-73.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-73#1](https://github.com/findastra/pet-program-73/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 74,
+  "pet": "Roaming Raven",
+  "program": "Roam Map",
+  "repo": "pet-program-74",
+  "card": "round-74-pet-program-74.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-74#1](https://github.com/findastra/pet-program-74/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 75,
+  "pet": "Cache Coyote",
+  "program": "Cache Canyon",
+  "repo": "pet-program-75",
+  "card": "round-75-pet-program-75.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-75#1](https://github.com/findastra/pet-program-75/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 76,
+  "pet": "Sync Mink",
+  "program": "Sync Stream",
+  "repo": "pet-program-76",
+  "card": "round-76-pet-program-76.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-76#1](https://github.com/findastra/pet-program-76/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 77,
+  "pet": "Triage Tapir",
+  "program": "The Triage Desk",
+  "repo": "pet-program-77",
+  "card": "round-77-pet-program-77.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [pet-program-77#1](https://github.com/findastra/pet-program-77/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 78,
+  "pet": "Pet Police Officer",
+  "program": "The Police Station",
+  "repo": "the-police-station",
+  "card": "round-78-the-police-station.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [the-police-station#1](https://github.com/findastra/the-police-station/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 79,
+  "pet": "AI Dashund",
+  "program": "AI Doghouse",
+  "repo": "ai-doghouse",
+  "card": "round-79-ai-doghouse.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [ai-doghouse#1](https://github.com/findastra/ai-doghouse/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 80,
+  "pet": "Rescue Retriever",
+  "program": "The Recovery Room",
+  "repo": "the-recovery-room",
+  "card": "round-80-the-recovery-room.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [the-recovery-room#1](https://github.com/findastra/the-recovery-room/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ },
+ {
+  "round": 81,
+  "pet": "Intel Owl",
+  "program": "Threat Observatory",
+  "repo": "pet-program-81",
+  "card": "round-81-pet-program-81.md",
+  "kind": "Visibility",
+  "text": "**Started tonight as a private repo** (the overnight permission check would not create public repos). The other 41 seed and roadmap repos are public. Make it public?",
+  "options": null
+ },
+ {
+  "round": 82,
+  "pet": "Door Dormouse",
+  "program": "The Threshold",
+  "repo": "the-threshold",
+  "card": "round-82-the-threshold.md",
+  "kind": "Visibility",
+  "text": "**Started tonight as a private repo** (the overnight permission check would not create public repos). The other 41 seed and roadmap repos are public. Make it public?",
+  "options": null
+ },
+ {
+  "round": 83,
+  "pet": "Role Fairy",
+  "program": "Fairy Ring",
+  "repo": "role-fairy",
+  "card": "round-83-role-fairy.md",
+  "kind": "Art",
+  "text": "**Role Fairy needs art** before the Farmer can register it (card 020). Generating art costs money: OK to generate?",
+  "options": null
+ },
+ {
+  "round": 83,
+  "pet": "Role Fairy",
+  "program": "Fairy Ring",
+  "repo": "role-fairy",
+  "card": "round-83-role-fairy.md",
+  "kind": "Merge",
+  "text": "**Merge the fix PR** [role-fairy#1](https://github.com/findastra/role-fairy/pull/1)? It only holds fixes that need no decision (listed above).",
+  "options": null
+ }
+]

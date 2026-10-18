@@ -12,7 +12,7 @@ Every pet app is its own repo under `findastra`, named in lowercase words joined
 |---|---|
 | **`pet.json`** | See below. Includes an `audit` block. |
 | **GitHub topic** | `pet-app`. Added in the repo's About box (the gear). The Cage finds pets by this topic. |
-| **`README.md`** | Title is the repo name in Title Case. The first lines include `*A pet app by Astra.*`. Has a "how to run it" section and a "limits" section that says plainly what is not done. |
+| **`README.md`** | Title is the repo name in Title Case. The first lines include `*An Intelligent App, or Pet, by Astra.*` (Astra, 2026-10-18; it replaces "A pet app by Astra", and the checks accept the old line until every repo has switched). Has a "how to run it" section and a "limits" section that says plainly what is not done. |
 | **`AGENTS.md` and `CLAUDE.md`** | Rules so any assistant can pick the repo up. |
 | **A pet** | Drawn in the shared style (below). What every part of a pet app is called: [PET-WORDS.md](PET-WORDS.md). |
 | **Model and version** | The assistant that built or changed it is recorded (e.g. `Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07`). |
@@ -112,22 +112,47 @@ pixel toolkit. It is kept for the drawing primitives and the sticker set that
 
 ### What each mood means
 
-Every pet uses the same nine meanings, so Astra can read any pet's face without learning it twice. A pet must be able to reach all nine; a mood that is drawn but never shown is a bug.
+Every pet uses the same nine meanings, so Astra can read any pet's face without learning it twice. A pet must be able to reach all nine; a mood that is drawn but never shown is a bug. The meanings are **Astra's sketch of 2026-10-18** (PET-PROGRAM-FRAMEWORK.md, section 3, `<pet>-emotions`); they replace the earlier key. Most urgent first: when several apply, the first one shows.
 
-| Mood | The pet is saying |
-|---|---|
-| `sleep` | I have not run yet, or I have no data. |
-| `idle` | I am resting. Nothing to report. |
-| `blink` | (idle only, every few seconds) |
-| `curious` | I am working on it. |
-| `happy` | I finished and found nothing wrong. |
-| `worried` | I finished and found problems. |
-| `alarmed` | I finished and found a lot of problems. |
-| `sick` | **I am stuck and I need you.** |
-| `sad` | I could not finish, and that is my fault. |
+| Mood | Sketch | The pet shows it when |
+|---|---|---|
+| `alarmed` | alarmed | a connected source reports an active alarm, or there is a potential or active security breach |
+| `sick` | sick | too many of its tools are broken, or its pet program is broken |
+| `curious` | curious | an L3 agent needs L4's (Astra's) authorization or input |
+| `worried` | worried | missed runtimes, missed checks, failed audits, token overusage |
+| `happy` | happy | it just pushed new information, it has an L3 suggestion for a workflow, or ideas or work are ready |
+| `sad` | sad | it hasn't been opened in more than two weeks |
+| `idle` | idle | its program is open and Astra hasn't interacted with it recently |
+| `blink` | awake | its program is open and Astra has interacted with it recently (the idle frame, blinking every few seconds, until a frame with open eyes is drawn) |
+| `sleep` | sleepy | it is running in the background |
 
-`sick` is the only mood that asks Astra for something. Use it whenever the pet cannot go on without her: a site needs her to sign in, a token or key is missing or expired, a permission was refused, a file or folder it was pointed at is not there, an app it manages is not installed. It is **not** for problems the pet found in its subject matter (that is `worried` / `alarmed`) and **not** for the pet's own crash (that is `sad`). When a pet goes `sick` it must say in words what it needs and how to give it.
-- Current frame paths are recorded in `art/frames/index.json`. Consumers use that index so they support both existing mood filenames and dated filenames. A pet repo can copy its own frames.
+`curious` is the mood that asks Astra for something. Use it whenever the pet cannot go on without her: a site needs her to sign in, a token or key is missing or expired, a permission was refused, a file or folder it was pointed at is not there, a decision only she can make. When a pet is `curious` it must say in words what it needs and how to give it. A program it looks after that is **not on this PC** is not a problem: the pet stays `sleep` (PET-PROGRAM-FRAMEWORK.md, section 4).
+- Current frame paths are recorded in `art/frames/index.json`. Consumers use that index so they support both existing mood filenames and dated filenames.
+
+### Where the pictures live: one art source (Flash Audit A58, Astra 2026-10-18)
+
+Every picture of every pet lives **only in this hub**, so a picture is changed once, here, and no program's code is
+touched. Never copy a pet picture into another repo.
+
+| Pictures | Folder |
+| --- | --- |
+| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` |
+| Web frames and sheets of draft pets (the build never touches them) | `art/drafts/<pet>/` |
+| Icons | `art/icons/<repo>-20261012.png` |
+| App icons built into Windows programs | `art/app-icons/<repo>/` |
+| Desktop pets, registered and draft, with their `desktop-pet-20261011.json` | `desktop-art/<pet>/` |
+| Fuzzboi Friend's 32 original layers and desktop recipes | `desktop-art/fuzzboi-friend/` |
+
+Pages and READMEs load `https://raw.githubusercontent.com/findastra/astras-pet-os/main/<path>`; a page that must
+work by double-click falls back to `../astras-pet-os/<path>`, the hub folder next to it on Astra's PC. The desktop
+pets app reads only this folder, including its draft list, `desktop-art/desktop-drafts-20261018.json` (written by
+`scripts/prepare-desktop-drafts-20261011.mjs`, paths relative to the hub). The list lives in the hub, not in
+`%LOCALAPPDATA%`, because a program started inside the Claude or Codex app reads and writes that app's private copy of
+`%LOCALAPPDATA%`. Windows programs read their frames and `.ico` from `..\astras-pet-os\` when they are built.
+**The one exception** is Claude Bot: his exact copy of ChatGPT's BSOD may not be public, so it lives only in his
+private repo. His draft-list entry is marked `"private": true` and names only that repo; the desktop reads his
+pictures from its folder next to the hub. Check with
+`node scripts/one-art-source-20261017.mjs` ([docs/one-art-source-20261017.md](docs/one-art-source-20261017.md)).
 
 ## How pets move in the Cage
 
@@ -169,26 +194,25 @@ Every pet checks itself on a schedule and reports in the same nine moods, so Ast
 2. Takes each pet's **submission** (below).
 3. Runs the **self-audits** that are due. Each pet runs on its `audit.cadence`: `weekly` pets on their own day of the week (spread across the week, listed in [MOOD-KEY.md](MOOD-KEY.md)); the Farmer every day.
 4. Writes `status/pets-status.json`: each pet's mood, a one-line bubble, and what it needs from Astra. The Cage page rests each pet in that mood and shows the bubble when clicked; the Farmer's desk lists everyone who **Needs you**.
-5. Rebuilds, and commits as the Friendly Farmer.
+5. Rebuilds, runs `npm test`, and opens a **pull request** as the Friendly Farmer, from the branch `farmer/rounds-YYYYMMDD`. It never pushes to `main`: Astra reads the changes and merges them (known gap 11, closed 2026-10-17). A newer round's pull request replaces an older one that is still open.
 
 **What a self-audit checks:** the pet files above (pet.json, README credit line, "how to run it" and "Limits", AGENTS.md pointing at the Cage, CLAUDE.md, LICENSE and the `pet-app` topic for public repos), plus anything only Astra can answer.
 
-**How the mood is chosen, the same way for every pet:**
+**How the round chooses the mood, the same way for every pet** (Astra's sketch, 2026-10-18; most urgent first). The
+round only sees GitHub, so it never sets `alarmed`, `sad`, `idle` or `blink`: those come from the Police Station and
+the open pet program page once they are built.
 
 | Mood | When | Bubble |
 |---|---|---|
-| `sleep` | Not checked yet, or the Farmer cannot see the repo | Not checked yet. |
-| `curious` | Being checked right now | |
-| `happy` | Checked today, nothing to fix | All good. |
-| `idle` | Clean, last checked more than a day ago | |
-| `worried` | 1 to 5 things to fix | `3 to fix: my README needs "Limits", …` |
-| `alarmed` | More than 5, or a broken pet.json | same |
-| `sick` | **Only Astra can unblock it:** its job is still a placeholder, or one of its cards says `waiting on Astra: …` or is `for: astra` | `Need: the brand and model of each light` |
-| `sad` | The check itself failed | |
+| `sick` | **A broken pet program:** pet.json is missing or not valid JSON, or its `entry` file is not in the repo | `To fix: fix pet.json` |
+| `curious` | **Only Astra can unblock it:** its job is still a placeholder, or one of its cards says `waiting on Astra: …` or is `for: astra` | `Need: the brand and model of each light` |
+| `worried` | A failed self-audit (any number of things to fix), or a check missed by more than a day | `3 to fix: my README needs "Limits", …` |
+| `happy` | Clean, and new commits since its last check; it turns back to `sleep` after a day | New work since my last check. |
+| `sleep` | Clean with nothing new, not checked yet, or the Farmer cannot see the repo | All good. / Not checked yet. |
 
-So to ask Astra for something, a pet leaves a card with `status: open (waiting on Astra: <what you need>)`. The words after the colon become its bubble.
+So to ask Astra for something, a pet leaves a card with `status: open (waiting on Astra: <what you need>)`. The words after the colon become its bubble, and the Farmer's desk lists it under **Needs you**.
 
-**What each mood means for each pet** comes from `mood_key` in pets.json, filled in with the pet's `audit.subject` (what it checks) and `audit.needs` (what it asks for when sick). The full key is in [MOOD-KEY.md](MOOD-KEY.md) and on the Farmer's desk.
+**What each mood means for each pet** comes from `mood_key` in pets.json, filled in with the pet's `audit.subject` (what it checks) and `audit.needs` (what it asks for when curious). The full key is in [MOOD-KEY.md](MOOD-KEY.md) and on the Farmer's desk.
 
 ### The audit block
 
@@ -202,7 +226,7 @@ In pets.json, and copied into the pet's own pet.json:
 
 ### Submitting a change to the Farmer
 
-A pet owns its own name, job, status, bubble lines, mood lines and audit. When it changes any of them, it **submits** the change in its own pet.json, with the date:
+A pet owns its own job, status, bubble lines, mood lines and audit. When it changes any of them, it **submits** the change in its own pet.json, with the date. Its **name** is not submitted this way: names live only in `pet-programs.json` (AGENTS.md, "One list of names"), so a `pet` in `cage.submit` becomes a note for Astra in the round's pull request, never a change:
 
 ```json
 "cage": {
@@ -219,7 +243,7 @@ A pet owns its own name, job, status, bubble lines, mood lines and audit. When i
 }
 ```
 
-Include only what changed. The next daily round takes it (once per date), updates pets.json, and the Cage, the desk, MOOD-KEY.md and the profile follow. Art, `kind`, friends and relations belong to the Farmer: ask for those with a card in this repo's `handoffs/`, because new art costs money and needs Astra's OK.
+Include only what changed. The next daily round takes it (once per date) and updates pets.json in its pull request; once Astra merges it, the Cage, the desk, MOOD-KEY.md and the profile follow. Art, `kind`, friends and relations belong to the Farmer: ask for those with a card in this repo's `handoffs/`, because new art costs money and needs Astra's OK.
 
 A pet that changes its job in pet.json **without** submitting gets a note in its self-audit, so the two never drift apart unnoticed.
 

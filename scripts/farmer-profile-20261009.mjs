@@ -1,21 +1,24 @@
 // The Farmer's profile round: keeps findastra/findastra's README matched to the repos on GitHub.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-09. Run daily by findastra/findastra's workflow:
-//   node astras-pet-apps/scripts/farmer-profile-20261009.mjs --readme README.md --registry astras-pet-apps/pets.json
+//   node astras-pet-os/scripts/farmer-profile-20261009.mjs --readme README.md --registry astras-pet-os/pets.json
 //
 // It only touches the repo lists. The header, tagline, socials, headings and Astra's own blurbs stay as
 // she wrote them (layout rules: github-goldfish/docs/profile-style-20261009.md). It:
 //   - rewrites the pet apps list as a numbered running list, in pet program order. Each pet is (Astra, 2026-10-16):
 //       N. **Pet** -- what the pet does [status]
 //          - [`home-slug`](page) -- the pet program      (or `pet-program-N` until it is named)
-//          - [`repo`](link) -- the repo note
+//          - [`repo`](link) -- the repo note           (left out when Astra links that repo above the list)
 //          - [`tool`](link) -- each tool, from pets.json profile.tools
-//   - drops lines for repos that are gone, and moves pets out of the other sections;
+//   - drops lines for repos that are gone, and moves pets out of the other sections. A line Astra labelled with
+//     another name keeps its label when its link points at a repo on GitHub ([`fuzzboi-factory`](…/fuzzbois));
 //   - adds new non-pet repos to a section (VR, Discord, else Web & More) with their GitHub description.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const OWNER = 'findastra';
-const BULLET = /^- (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- (.*)$/;
+// The separator is " -- "; a line Astra writes with a dash instead (" -— ", " — ", 2026-10-18) is still hers and is kept.
+const SEP = ' (?:--|-?[—–]) ';
+const BULLET = new RegExp(`^- (?:\\[\`([^\`]+)\`\\]\\([^)]*\\)|\`([^\`]+)\` \\*\\(private\\)\\*)${SEP}(.*)$`);
 // The old repo-first pet line, still read so a profile written before 2026-10-16 converts cleanly.
 const NUMBERED = /^\d+\. (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- \*\*([^*]+)\*\* · (.*)$/;
 // Pet first (Astra, 2026-10-16): N. **Pet** · *Home* · [`repo`](link) -- what the pet does [status]. Home is optional.
@@ -28,7 +31,9 @@ const PET_LINE = /^\d+\. \*\*(?:\[([^\]]+)\]\([^)]*\)|([^*]+))\*\* -- (.*)$/;
 // The home's sub-bullet: - [`the-farm`](page) -- the pet program. The name is said once (Astra, 2026-10-16).
 const HOME_SUB = /^\s+- (?:\[`[^`]+`\]\([^)]*\)|`[^`]+`(?: \*\(private\)\*)?) -- (?:(?:\*[^*]+\*, )?the pet program|pet program(?: and its repo)?, not named yet)/;
 const PAGES = `https://${OWNER}.github.io/astras-pet-os`;
-const slug = (s) => s.toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// A link to one of Astra's repos, wherever it is on a line: [`label`](https://github.com/findastra/repo).
+const GH_LINK = `\\(https://github\\.com/${OWNER}/([A-Za-z0-9._-]+)\\)`;
+const slug =(s) => s.toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const link = (repo, isPrivate) => (isPrivate ? `\`${repo}\` *(private)*` : `[\`${repo}\`](https://github.com/${OWNER}/${repo})`);
 // Astra's blurbs start lowercase and end without a full stop; names keep their capitals.
 // A two-word name that opens the line ("Startup Star: …", "Closet Cat's …") keeps its capitals too.
@@ -64,6 +69,13 @@ export function syncProfile(readme, registry, repos, programs = null) {
   // also_listed: pet repos Astra also lists in another section on purpose (findastra-discord-presence under Discord).
   const alsoListed = new Set(registry.profile?.also_listed || []);
   const places = Object.values(toolsOf).flatMap((t) => t.tools || []).filter((r) => !petRepos.has(r));
+  // Astra may label a repo's line with another name (`fuzzboi-factory` for the fuzzbois repo, 2026-10-17). When the
+  // label is not a repo on GitHub but the link is, the line belongs to the linked repo: it stays, and is not added twice.
+  const repoOf = (name, ln) => {
+    if (!name || online.has(name)) return name;
+    const linked = new RegExp(GH_LINK).exec(ln)?.[1];
+    return linked && online.has(linked) ? linked : name;
+  };
   // Every pet's sub-bullets: its home (pet program) first, then its repo, then its tools.
   const subLines = (repo) => {
     const t = toolsOf[repo] || {};
@@ -84,8 +96,9 @@ export function syncProfile(readme, registry, repos, programs = null) {
       const href = target || (name === homeRepo && online.has(homeRepo) && !isPriv(homeRepo) ? `https://github.com/${OWNER}/${homeRepo}` : null);
       out.push(`- ${href ? `[\`${name}\`](${href})` : `\`${name}\``} -- ${note}`);
     }
-    // A repo that is more than the pet's (astras-pet-os, "Astra's PetOS home repo") keeps its own line.
-    if (t.repo_note && (online.has(homeRepo) || isPriv(homeRepo))) out.push(`- ${link(homeRepo, isPriv(homeRepo))} -- ${t.repo_note}`);
+    // A repo that is more than the pet's (astras-pet-os, "Astra's PetOS home repo") keeps its own line, unless Astra
+    // already links it above the list (she moved astras-pet-os there on 2026-10-17): no name twice.
+    if (t.repo_note && !linkedAbove.has(homeRepo) && (online.has(homeRepo) || isPriv(homeRepo))) out.push(`- ${link(homeRepo, isPriv(homeRepo))} -- ${t.repo_note}`);
     for (const r of t.tools || []) if (online.has(r)) out.push(`- ${link(r, online.get(r).private)} -- ${blurbs.get(r) || lowerFirst(online.get(r).description) || 'no description yet'}`);
     return out;
   };
@@ -96,13 +109,13 @@ export function syncProfile(readme, registry, repos, programs = null) {
   lines.forEach((ln, i) => {
     if (/^#{2,4} /.test(ln) && !/align=/.test(ln)) sections.push({ title: ln.replace(/^#+ /, ''), start: i });
     let m;
-    const sub = !HOME_SUB.test(ln) && /^\s*- (?:\[`([^`]+)`\]\([^)]*\)|`([^`]+)` \*\(private\)\*) -- (.*)$/.exec(ln);
-    if (sub && !blurbs.has(sub[1] || sub[2])) blurbs.set(sub[1] || sub[2], sub[3]);
+    const sub = !HOME_SUB.test(ln) && new RegExp(`^\\s*${BULLET.source.slice(1)}`).exec(ln);
+    if (sub && !blurbs.has(repoOf(sub[1] || sub[2], ln))) blurbs.set(repoOf(sub[1] || sub[2], ln), sub[3]);
     if ((m = PET_LINE.exec(ln))) { const n = m[1] || m[2]; const r = (programs || []).find((x) => x.icon === n)?.repo || pets.find((x) => x.pet === n)?.repo; if (r) blurbs.set(r, m[3]); }
     else if ((m = PET_HOME.exec(ln))) { const p = (programs || []).find((x) => x.icon === m[1]); if (p) blurbs.set(p.repo, m[4]); }
     else if ((m = PET_FIRST.exec(ln))) blurbs.set(m[3] || m[4], m[5]);
     else if ((m = NUMBERED.exec(ln))) blurbs.set(m[1] || m[2], m[4]);
-    else if ((m = BULLET.exec(ln))) blurbs.set(m[1] || m[2], m[3]);
+    else if ((m = BULLET.exec(ln))) blurbs.set(repoOf(m[1] || m[2], ln), m[3]);
   });
   sections.forEach((s, k) => { s.end = k + 1 < sections.length ? sections[k + 1].start : lines.length; });
   // Astra renamed the section "Astra's PetOS - Personal AI Agent Platform" on 2026-10-11; accept either name.
@@ -147,6 +160,10 @@ export function syncProfile(readme, registry, repos, programs = null) {
   }
 
   const isList = (ln) => PET_LINE.test(ln) || BULLET.test(ln) || NUMBERED.test(ln) || PET_FIRST.test(ln) || PET_HOME.test(ln) || /^\s+- /.test(ln);
+  // Repos Astra links in the pet section above the numbered list (her "Astra's PetOS home repo" line, 2026-10-17).
+  const petBody = lines.slice(petSection.start + 1, petSection.end);
+  const firstListed = petBody.findIndex(isList);
+  const linkedAbove = new Set(petBody.slice(0, firstListed < 0 ? petBody.length : firstListed).flatMap((ln) => [...ln.matchAll(new RegExp(GH_LINK, 'g'))].map((x) => x[1])));
   out.push(...lines.slice(0, sections.length ? sections[0].start : lines.length));
   for (const sec of sections) {
     const body = lines.slice(sec.start + 1, sec.end);
@@ -165,7 +182,7 @@ export function syncProfile(readme, registry, repos, programs = null) {
       const pf = PET_FIRST.exec(ln);
       const m = pf ? [ln, pf[3], pf[4]] : BULLET.exec(ln) || NUMBERED.exec(ln);
       if (m) {
-        const repo = m[1] || m[2];
+        const repo = repoOf(m[1] || m[2], ln);
         if (petRepos.has(repo) && !alsoListed.has(repo)) { changes.push(`moved ${repo} to the pet apps list`); continue; }
         if (hidden.has(repo)) { changes.push(`took ${repo} off the profile`); continue; }
         if (places.includes(repo)) { changes.push(`moved ${repo} under its pet in Astra's PetOS`); continue; }

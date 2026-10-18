@@ -1,0 +1,23 @@
+{
+  "pet": "backup-beaver",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.85,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/backup-beaver/alarmed-20261011.png",
+    "desktop-art/backup-beaver/blink-20261011.png",
+    "desktop-art/backup-beaver/curious-20261011.png",
+    "desktop-art/backup-beaver/happy-20261011.png",
+    "desktop-art/backup-beaver/idle-20261011.png",
+    "desktop-art/backup-beaver/sad-20261011.png",
+    "desktop-art/backup-beaver/sick-20261011.png",
+    "desktop-art/backup-beaver/sleep-20261011.png",
+    "desktop-art/backup-beaver/worried-20261011.png"
+  ],
+  "notes": "Smaller beaver holding clear floppy disk.",
+  "source_sheet": "desktop-art/backup-beaver/sheet-20261011.png"
+}

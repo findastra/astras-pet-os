@@ -1,0 +1,25 @@
+{
+  "desktop_scale": 1,
+  "alpha": "Desktop renderer thresholds partial alpha to prevent magenta color-key flecks",
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "status": "approved",
+  "date": "2026-10-11",
+  "art_files": [
+    "desktop-art/mommys-mommies/alarmed-20261011.png",
+    "desktop-art/mommys-mommies/blink-20261011.png",
+    "desktop-art/mommys-mommies/curious-20261011.png",
+    "desktop-art/mommys-mommies/happy-20261011.png",
+    "desktop-art/mommys-mommies/idle-20261011.png",
+    "desktop-art/mommys-mommies/sad-20261011.png",
+    "desktop-art/mommys-mommies/sheet-20261011.png",
+    "desktop-art/mommys-mommies/sick-20261011.png",
+    "desktop-art/mommys-mommies/sleep-20261011.png",
+    "desktop-art/mommys-mommies/worried-20261011.png"
+  ],
+  "creator": "Astra",
+  "scale_reference": "Standard 58.75 logical-pixel height, with aspect-ratio width clamp before scaling",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "notes": "Astra wears light blue, ash-blonde hair and pale white/yellow halo. Devilish wears red with red horns. Both wear skating dresses. Interaction sheet approved as alternate draft.",
+  "pet": "mommys-mommies"
+}

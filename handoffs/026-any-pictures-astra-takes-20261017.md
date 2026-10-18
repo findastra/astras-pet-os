@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the in-world and desktop pictures listed under Task; chat-rat#4 waits on chat-rat#1)
+status: open (waiting on Astra: the in-world and desktop pictures listed under Task; chat-rat#1 is left for Codex)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/flash-audit-20261014.md (A55), findastra.github.io `art/projects/project-images-20261017.json`, github-goldfish `scripts/project-image-generator-20261017.mjs`
@@ -38,6 +38,22 @@ screenshots taken that morning, and list the pictures only Astra can take.
 - **After the 24 merges (2026-10-17):** project-image-generator run on `main` for these 25 repos: 21 pass, 3 too-few (drum-dog,
   meme-fiend, mommys-mommies), and chat-rat missing until #4 merges.
 - On Astra's PC: nothing in any project folder changed. Worktrees and clones were in Claude's temp folder.
+- **2026-10-18** (Astra: "do it for me" for the open items), Claude Opus 5.5:
+  - [drum-dog#4](https://github.com/findastra/drum-dog/pull/4), branch `claude/pictures-20261018`, commit `14c423e`: two more pictures, the desk
+    with three made-up sample track ideas and the edit form. project-image-generator opened a copy of `drum-dog-20261008.html` with one
+    added line that puts the sample entries into the page's browser storage (app code unchanged); its temporary profile was deleted after.
+    A55 on the branch: pass with 3. **Not merged:** this session's permission check wants Astra's OK for the merge itself.
+  - [chat-rat#1](https://github.com/findastra/chat-rat/pull/1) is a GitHub **draft** by Codex and now conflicts with `main` (chat-rat#6). The only
+    conflict is two credit lines at the same place in `AGENTS.md` (keep both); in a scratch clone the merged result passes all 19 Chat Rat
+    tests. Pushing that fix to Codex's branch was refused by the permission check, so nothing was pushed. The PC's `chat-rat` folder also
+    has Codex's uncommitted edits on that branch. chat-rat#4 still waits on #1.
+  - Checked the PC: no Unity, VRChat, Discord or OBS running, so none of the in-world, Discord or OBS shots could be taken. The Astral Plane
+    is not cloned on this PC (running it needs about 41 Python packages and Electron installed), so its desktop shots were not taken either.
+  - Later on 2026-10-18: drum-dog#4 and astras-pet-os#63 merged with Astra's OK. chat-rat#4 was merged (not by this session)
+    before chat-rat#1. project-image-generator on `main` for the 25 repos: **23 pass**, 2 too-few (meme-fiend, mommys-mommies).
+  - **chat-rat#1 is left for Codex** (Astra, 2026-10-18). It conflicts with `main` in two files: `AGENTS.md` (keep every credit line)
+    and `README.md` (keep `main`'s Pictures section above this branch's "Status: growing" section; drop `## Status: hatching`).
+    After #1 merges, change the Chat Rat picture caption, which still says #1 "is not merged into `main` yet".
 
 ## Task
 Pictures only Astra can take. Best picture first. Each one is committed as `docs/images/<repo>-<what>-<date>.png` with alt
@@ -55,7 +71,7 @@ text. VRChat's camera saves PNGs to `Pictures\VRChat`. Hide nameplates, and leav
 | startup-star | Missing. | The desktop pets out on Astra's desktop and the tray star's menu. BSOD and Claude Bot are other creators' artwork: blur or crop them (card 011, decision 1). |
 
 Pictures an agent can add later (no Astra needed):
-- **drum-dog** (too-few): 2 more shots of the desk with a made-up track idea, and of the Markdown export.
+- **drum-dog**: done in [drum-dog#4](https://github.com/findastra/drum-dog/pull/4), merged 2026-10-18; passes with 3 pictures.
 - **meme-fiend** (too-few), **astras-gif-maker**, **claude-bot**, **spoonfed** (art drafts only): nothing built to picture yet.
   Pet art does not count.
 - **the-kennel, the-shed, vet-clinic, ai-doghouse:** forms and documents only. A System Map view of each node would count

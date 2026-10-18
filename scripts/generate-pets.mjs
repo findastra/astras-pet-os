@@ -84,6 +84,12 @@ export const PETS = [
   { id: 'platform-platypus', what: 'a cheerful platypus standing upright, with a wide flat duck-like bill, a flat paddle tail and webbed feet, holding a small smartphone', colours: 'deep plum-purple fur, bright banana-yellow bill and feet, neon cyan phone' },
 ];
 
+// Role Fairy (Fairy Ring, #83), draft: generated 2026-10-18 with Astra's OK, sheet in art/seeds/role-fairy-sheet-20261018.png.
+// Her wings carry the five Discord role colours she hands out (Raver, DJ, Dancer, Drinker, Dreamer), so she never reads
+// as API Fairy. When Astra approves the sheet and the Farmer registers her, move this line into PETS and copy the
+// sheet to art/sheets/role-fairy.png (then --match keeps this body). Claude Opus 5.5.
+export const DRAFT_ROLE_FAIRY = { id: 'role-fairy', what: 'a tiny cheerful fairy girl with LARGE butterfly wings made of five clearly separate coloured panels, a short ruffled tutu dress, hair in two round buns, holding a small star wand topped with a round badge, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink tutu, snow-white hair, gold wand and star' };
+
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;
 
 /* ---------- run ----------
