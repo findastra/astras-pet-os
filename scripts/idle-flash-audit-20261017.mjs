@@ -81,8 +81,9 @@ const titleCase = (s) => s.split('-').map((w) => w ? w[0].toUpperCase() + w.slic
 const norm = (s) => (s || '').toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ').trim();
 const placeholder = (s) => /pet-program-\d+|icon-\d+|placeholder|not decided|to be decided/i.test(s || '');
 const STRAY = [
-  // Made-up user folders in examples and test fixtures (you, example, <name>) are not personal paths.
-  [/[A-Z]:\\{1,2}Users\\{1,2}(?!(?:you|example|user|name|<[^>]*>)\\)[^\\\s"'`]+/gi, 'a personal C:\\Users path'],
+  // Made-up user folders in examples and test fixtures (you, me, example, private, <name>) are not personal paths
+  // (findastra-discord-presence's tests use C:\Users\me and C:\Users\private, 2026-10-18).
+  [/[A-Z]:\\{1,2}Users\\{1,2}(?!(?:you|me|example|user|name|private|<[^>]*>)(?:\\|['"`]|$))[^\\\s"'`]+/gim, 'a personal C:\\Users path'],
   [/Documents[\\/]Projects/g, 'the retired Documents\\Projects folder'],
   [/Astra['’]s Pet Apps/g, "the retired name Astra's Pet Apps"],
   [/astras-pet-apps/g, 'the retired repo name astras-pet-apps'],
