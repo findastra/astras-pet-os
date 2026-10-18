@@ -1156,18 +1156,21 @@
       },
       {
         "pet": "Procreate Panda",
+        "program": "Bamboo Studio",
         "repo": null,
         "job": "Handles the redlines Astra makes in Procreate and manages her Procreate tools and drawings.",
         "note": "Named after Procreate. Takes the panda, so the v5.2 passport pet is now Passport Pelican."
       },
       {
         "pet": "Skill Scout",
+        "program": "Luna's Log",
         "repo": null,
         "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
         "note": "Job and look decided by Astra on 2026-10-12: an original sailor-style girl in the Mommies' design with very long braids (not a copy of any existing character)."
       },
       {
         "pet": "OSC Sealion",
+        "program": "OSC Sonar",
         "repo": null,
         "job": "Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.",
         "note": "Astra, 2026-10-12: the seed recorded as PSC Sealion is OSC Sealion.",
@@ -1196,6 +1199,7 @@
       },
       {
         "pet": "Photo Dodo",
+        "program": "Photo Roost",
         "repo": null,
         "job": "Keeps track of all your saved pictures: where each one is, what it shows, and whether it is backed up.",
         "note": "Named by Astra on 2026-10-12.",

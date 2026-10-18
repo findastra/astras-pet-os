@@ -27,10 +27,20 @@ for Astra by Claude Opus 5.5 (`claude-opus-5-5`). Owner: GitHub Goldfish (GitHub
 Written to `pet-programs.json`, the #77 seed entry in `pets.json`, its colour key in `system-map.json`, and the three
 rows in `INTELLIGENCE-LEVELS.md`; `npm run build` and `npm test` pass.
 
+## Round 2 (2026-10-18)
+| # | Pet | Decided | Note |
+|---|---|---|---|
+| 39 | Procreate Panda | **Bamboo Studio** | the suggested idea |
+| 40 | Skill Scout | **Luna's Log** | Astra asked for something Sailor Moon themed (Skill Scout already nods to the Sailor Scouts); Luna is the cat who watches over the Scouts. A name only: the art stays Astra's own |
+| 41 | OSC Sealion | **OSC Sonar** | the suggested idea |
+| 43 | Photo Dodo | **Photo Roost** | the suggested idea |
+
+Seeds now carry `program` in `pets.json` too.
+
 ## Left to name now
 - **0 pets.**
-- **38 pet programs:** #39–41, 43–45 and 81 (seeds), #47–76 (roadmap), #77 Triage Tapir.
-- **Next round:** #39 Procreate Panda, #40 Skill Scout, #41 OSC Sealion, #43 Photo Dodo.
+- **34 pet programs:** #44, 45, 77 and 81 (seeds), #47–76 (roadmap).
+- **Next round:** #44 Video Vulture, #45 Closet Cat, #77 Triage Tapir, #81 Intel Owl.
 
 ## Not done
 - The pet repos' own `pet.json` files are not updated here (each pet's chat does that, or the next Flash Audit round
