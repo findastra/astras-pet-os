@@ -80,7 +80,7 @@ Passport Panda is now **Passport Pelican**).
   software, deleting, force-pushing or repository transfers.
 - Who edits what while Claude and Codex work in parallel: see "Who edits what" in the plan.
 
-*A pet app by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
+*An Intelligent App, or Pet, by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
 
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record your model name and version here when you change something substantial.
 Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6), 2026-10-08.

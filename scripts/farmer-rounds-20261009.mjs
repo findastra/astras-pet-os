@@ -110,7 +110,7 @@ export function auditPet(registry, pet, snap) {
   const readme = snap.readme;
   if (readme == null) f('warn', 'No README.md.', 'add a README');
   else {
-    if (!/A pet app by Astra/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with "A pet app by Astra."', 'my README needs the credit line');
+    if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with "An Intelligent App, or Pet, by Astra."', 'my README needs the credit line');
     if (!/^#+ .*(run|start|install|use|get it|open)/im.test(readme)) f('warn', 'README has no "how to run it" section.', 'my README needs "how to run it"');
     if (!/^#+ .*(limit|not done)/im.test(readme)) f('warn', 'README has no "Limits" section.', 'my README needs "Limits"');
   }
