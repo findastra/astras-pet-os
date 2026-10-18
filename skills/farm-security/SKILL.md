@@ -8,7 +8,7 @@ description: The security model of Astra's PetOS — protection rings, R W X, an
 Full explanation and diagrams: [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md). This skill is the short rule list.
 
 ## 1. Rings and R W X
-Inside out. **R**ead, **W**rite, e**X**ecute is what the agent in the seat may do. 🔒W = only through a pull request Astra merges.
+Inside out. **R**ead, **W**rite, e**X**ecute is what the agent in the seat may do. 🔒W = only on a branch, merged after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18).
 
 | Ring | What | Agent in the seat |
 |---|---|---|
@@ -23,7 +23,7 @@ Inside out. **R**ead, **W**rite, e**X**ecute is what the agent in the seat may d
 | 7 Advisers | ChatGPT | none: ideas reach the Farm only through Astra |
 | 8 You | Astra | grants every permission |
 
-The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval.
+The whole `astras-pet-os` repo is the core: every change to it merges only with Astra's approval, given in chat.
 
 ## 2. Animal code
 - **Everything inside the harness is an animal. Agents can only control animals.** Say it this way in docs and code.
