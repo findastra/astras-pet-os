@@ -381,11 +381,12 @@ namespace AstraDesktopPets {
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
     internal const float NormalHeight=58.75f,BugHeight=58.75f,MaxPetWidth=96;
-    // Group 3 share Mommy's Mommies' head and body in art pixels (docs/girls-same-size-20261017.md). Halos,
+    // Group 3 share Mommy's Mommies' face and body in art pixels (docs/girls-same-size-20261017.md). Halos,
     // horns, wings, the star and the headset make their alpha bounds differ, so instead of each being fitted
     // by its bounds they all use one crop height, measured up from the soles: one scale for all six girls.
+    // 202 is Mommy's Mommies' own height, so they are drawn exactly as before.
     internal static readonly string[] SameSize={"mommys-mommies","discord-damsel","api-fairy","astra-wisp","vscode-angel"};
-    internal const int SameSizeCrop=212;
+    internal const int SameSizeCrop=202;
     const int LogicalWidth=20,LogicalHeight=20,StarDrop=0;
     readonly List<PetSprite> pets=new List<PetSprite>();
     readonly List<PetWindow> roaming=new List<PetWindow>();
