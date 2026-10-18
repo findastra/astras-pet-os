@@ -1,8 +1,8 @@
-# Round 11: Patty — Paper Girl
+# Round 11: Paper Girl Patty — Paper Girl
 
 [All rounds](README.md) · Stage: **registered** · Repo: [findastra/paper-girl](https://github.com/findastra/paper-girl) (public) · audited `main` at `ad01a52`
 
-<img src="../../art/icons/paper-girl-20261012.png" width="88" alt="Patty icon">
+<img src="../../art/icons/paper-girl-20261012.png" width="88" alt="Paper Girl Patty icon">
 
 | Sleepy | Awake | Idle | Curious | Happy | Worried | Alarmed | Sick | Sad |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
