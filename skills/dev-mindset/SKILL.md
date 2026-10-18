@@ -49,6 +49,7 @@ Astra wants other software developers to read her build without frustration. She
 | Third-party dependency | Library, font or service your code uses (three.js, Google Fonts, GitHub Pages) | Third-party, ring 5, drawn as a satellite like third-party programs. |
 | Build output | A generated file (`system-map-20261012.html`) | Made by `npm run build`; never edited by hand. |
 | Third-party program | Third-party software | Was "root program"; "root" means superuser to developers. Decided 2026-10-13. |
+| Core pets | Required (base) packages: the part of an install that cannot be deselected | The pets every farm needs; the installer never lets anyone untick them (today the Friendly Farmer). Not "root pets": "root" means superuser. Decided 2026-10-18. |
 | Animal / animal code | Code inside the trust boundary the seated agent may change | Everything inside the harness is an animal. See `skills/farm-security`. |
 | Agentic harness / the seat | Agent harness (Claude Code, Codex) | The model is the agent that sits in the seat. |
 | Friendly Farmer | Orchestrator and package manager | He hatches pets (installs dependencies) and keeps `farm.lock`. |

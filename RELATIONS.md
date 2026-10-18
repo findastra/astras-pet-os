@@ -167,7 +167,7 @@ flowchart LR
 
 ### Private pets
 
-Health Hummy, Finance Finch, Meme Fiend *. These pets' data never leaves the PC. Other pets do not read from them, and the self-audit checks only their repo files.
+Health Hummy, Finance Finch. These pets' data never leaves the PC. Other pets do not read from them, and the self-audit checks only their repo files.
 
 ### On their own so far
 

@@ -25,3 +25,12 @@ Core enrollment is approved and merged, profile output includes the home, and na
 ## Return
 
 Record exact final pushed commit and PR/deployment evidence in the review or a follow-up card. Set this card done only after the enrollment and visibility conditions above are verified.
+
+
+## Startup Star clarification — 2026-10-18
+
+Astra clarified that visibility means the native Startup Star UI as well as the program/tool pages and other listings. Renumbered this card to 040 because chat-order card 038 reached main first. Incorporated newer installer/private-farm changes from main; the canonical checkout and installed executable remain untouched.
+
+The currently installed diagnostic executable can load the proposed hub draft list and passes its self-test, including group 3 sizing and drafts only from the hub. Activation still requires approved core merge and a native-session launch/reload; preview rendering is not evidence of an active desktop pet. Preserve the installed host instead of rebuilding it unnecessarily. Card 032 documents the native-session versus assistant-session startup boundary.
+
+Validation after incorporating main 5c69c91: 153 tests passed, one skipped. The Windows installer test needed the standard Windows PowerShell module search path in this command environment; no machine setting changed. Installed diagnostic rendered Workflow Whale among the desktop pets in a preview and passed self-test. This wrote test diagnostics only; it did not install or launch a live host. The executable was not rebuilt.

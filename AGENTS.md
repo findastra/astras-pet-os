@@ -39,8 +39,12 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
   L3 Agentic harness, **L4 the verified human who owns the entire secure ecosystem** (on this farm, Astra). L4
   approves every security change, permission and exception.
 - **Beta testers' agents:** install Astra's PetOS only with `installer/install-astras-pet-os-20261014.ps1` from a
-  release, with the person's OK (see the README). Never run other scripts from this repo for them, never add
+  release, with the person's OK (see the README). Ask which farm they want and pass `-Farm Example` or
+  `-Farm Scratch -Pets <ids>`, so no window waits. Never run other scripts from this repo for them, never add
   startup unless asked, and never copy Astra's devices or settings beyond what the installer installs.
+- **Core pets (Astra, 2026-10-18):** the pets every farm needs, which the installer's "Set up your farm" window never
+  lets anyone untick. Today that is the host, the Friendly Farmer. The desktop pets must keep running when any other
+  pet is left out (`test/farm-setup-test-20261018.mjs`).
 - **Every pet program is built to [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md)** and passes its checklist:
   versioned names everywhere (`pet-program-3-v1.0-icon-2-v1.0`), tool boxes with ON/OFF and sick, connection boxes,
   the notes tool and backlog, the chat bot, links by kind, the status line and its System Map node.
@@ -131,7 +135,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 - The GitHub Goldfish (`findastra/github-goldfish`) audits this repo and the whole account.
 - **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `cage.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
 - **The pipeline** in pets.json holds pets that are on GitHub but not registered (no art yet). Registering one moves it to `pets`.
-- **Merge order:** every chat's title starts with its place in the merge order (`1 · Merge #46: …`), worked out from GitHub's open pull requests, never kept in a file ([skills/merge-order](skills/merge-order/SKILL.md)). The app cannot sort the chat list itself. When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
+- **Merge order:** every chat's title starts with its place in the merge order, in front of the name the chat already has (`1 · <its name>`; Astra, 2026-10-18: keep the name she gave it), worked out from GitHub's open pull requests, never kept in a file ([skills/merge-order](skills/merge-order/SKILL.md) ranks, [skills/chat-order](skills/chat-order/SKILL.md) numbers the chats). Astra's chat list is sorted by name, so the numbers put it in order. When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
 - **Handoffs:** work left for another assistant is a card in `handoffs/` ([skills/handoff/SKILL.md](skills/handoff/SKILL.md)). "Tell the Farmer" means a card here. Every card lists explicitly what you did (repos, commits, files, paths on Astra's PC, tests) under `## What I did`, not only what is left.
 
 ## Commands
@@ -171,3 +175,6 @@ The Idle Flash Audit tools follow the dots: the order and each row's dot are rea
 ## Complete top-level Markdown reading (Astra, 2026-10-18)
 
 Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [pet-app](skills/pet-app/SKILL.md). OpenAI Codex (GPT-6), 2026-10-18.
+The Friendly Farmer's pet-privatizer (`scripts/pet-privatizer-20261018.mjs`, `the-farm-v1.0-pet-privatizer-v1.0`, Astra 2026-10-18: "people need their farm repos to spawn on GitHub as entirely private"): makes a pet's repo private, checks a whole farm, makes a private copy where a fork must stay public; a farm's new repos start private (Astra's own farm passes `--public`). Guarded by `test/pet-privatizer-test-20261018.mjs`, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+Installer v0.2.0-beta, "Set up your farm" (Astra, 2026-10-18): Astra's example pets or from scratch with the core pets and ticked examples, `-Farm`/`-Pets` for agents, a load check before "done", running it again changes the farm; the desktop pets run with the Farmer alone and no longer crash when Voicemeeter Bug, Paper Girl or File Master is left out (`test/farm-setup-test-20261018.mjs`, card 039), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+Chat order (`skills/chat-order`, Astra 2026-10-18: chats number themselves 1, 2, 3 in the order she should push, keeping the name she gave each chat; merge-order still ranks them), recorded with Skill Scout on card 038, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
