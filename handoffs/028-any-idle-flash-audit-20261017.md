@@ -43,8 +43,7 @@ The list of links is in the round cards' index.
   the tools (`scripts/idle-flash-*-20261017.mjs`), the round cards and evidence ledger, `repo_exists` corrected for
   43 programs in `pet-programs.json`, and two additions to the Flash Audit: **A57 Current names only** (tier 2, after
   A56) and, in **A13**, "every named pet has a repo; the audit starts one".
-- Merge note: #50 (Skill Scout, card 027) and #51 both edit the card table in `handoffs/README.md`. Whichever merges
-  second has a one-line conflict on "Next free number": keep both 027 and 028 rows and make it **029**.
+- Merge note: the card-table conflict with #50 was fixed on 2026-10-18 after #50 merged (main's table kept; this card's row added).
 
 **Every pet has a repo now (83 of 83).** 41 seed and roadmap repos were already started on 2026-10-14 (public), but the
 catalog still said they did not exist. The two that had none were started tonight in the same shape:

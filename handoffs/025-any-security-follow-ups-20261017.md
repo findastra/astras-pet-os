@@ -35,6 +35,11 @@ chat took 019 at the same time, so it is 025 (handoffs/README.md, "Card numbers 
   (`conversation-import-20261016.md`, source `claude-code-cloud`, id `astras-pet-os:session_01TguXHjbrVeHscuKMCGzJCp`)
   was built with Chat Rat's own parser and sent to Astra in the chat. It is not in any repo (Chat Rat's rule).
 
+- **2026-10-17, branch `claude/tender-keller-dksbbl` (Claude Opus 5.5):** finding 6's links. `normalizeLink`
+  keeps only http and https links; the list escapes a link fully with `escapeHTML`. Same change in
+  `findastra/ghost-protocol` (`index.html`, `content.html`, `ghost-protocol-20261008.html`), branch
+  `claude/link-escape-20261017`. Two tests added to `test/ghost-protocol-escape-test-20261017.mjs`; Chromium check
+  recorded in the assessment. `ghost-protocol` PR #3 merged by Astra on 2026-10-18; the hub copy is PR #47.
 - **2026-10-17, later, branch `claude/tender-gauss-m2nbhp` (Claude Opus 5.5): item 1 below, the Farmer's round and
   finding 2 (known gap 11).** Pull request #46; not on `main` until Astra merges it. Test runs 8 and 9 (workflow_dispatch): run 9 pushed `farmer/rounds-20261017` and GitHub refused to open its pull request until Astra allows Actions to create pull requests (Settings > Actions > General).
   - `scripts/build-interfaces-20261008.mjs`: the Farmer's desk finds the host by role (`petFor`), not by the old repo
@@ -62,10 +67,11 @@ chat took 019 at the same time, so it is 025 (handoffs/README.md, "Card numbers 
   with her approval by agreement, not by a GitHub setting.
 
 ## What is not done
-1. ~~The Farmer's daily round has failed every day since the 2026-10-12 rename.~~ Fixed together with finding 2 on
-   `claude/tender-gauss-m2nbhp` (above). **Waiting on Astra:** merge it. If GitHub refuses to let the round open its
-   pull request, tick Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
-2. **Merge `findastra/ghost-protocol` PR #1** (Astra), so the live site has finding 6's fix.
+1. ~~The Farmer's daily round has failed every day since the 2026-10-12 rename.~~ Fixed together with finding 2 in
+   PR #46, merged 2026-10-18. **Waiting on Astra:** if GitHub refuses to let the round open its pull request, tick
+   Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+2. ~~Merge `findastra/ghost-protocol` PR #1~~ Merged by Astra 2026-10-17. ~~The link fix, `ghost-protocol` PR #3~~
+   merged 2026-10-18. The hub copy's link fix is PR #47.
 3. **PR #26 (Codex)** replaces the rings and R W X model with "topology is not authority" and removes the Known gaps
    table, including gaps 11 and 12. Astra decides; then gaps 11 and 12 either stay or move to the new page.
 4. Renames when branches merge: Codex's `012-security-enforcement-…` → 022 (PRs #23, #26); Halo List's `013-…` → 023;

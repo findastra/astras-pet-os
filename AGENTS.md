@@ -22,7 +22,7 @@ no "I'll read it if I need it". This applies to small tasks too.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
 ## One list of names (Astra, 2026-10-16)
-Every pet name (icon) and pet program (home) name is decided in **`pet-programs.json` only**, in the same chat that decides it, on a branch merged that day. Never write a new name into pets.json, the System Map, INTELLIGENCE-LEVELS.md, a doc or a repo first: `npm test` (test/name-list-test-20261016.mjs) fails when another list disagrees, and the Farmer's profile round writes the README from the list. Tools vs tricks: a **tool** is code a pet program owns and runs without AI (ON/OFF, sick light, can be bound to a click: one, two, three or more); a **trick** is a skill its seated AI follows, using only that pet's tools.
+Every pet name (icon) and pet program (home) name is decided in **`pet-programs.json` only**, in the same chat that decides it, on a branch Astra merges (the same day when she can). Never write a new name into pets.json, the System Map, INTELLIGENCE-LEVELS.md, a doc or a repo first: `npm test` (test/name-list-test-20261016.mjs) fails when another list disagrees, and the Farmer's profile round writes the README from the list. Tools vs tricks: a **tool** is code a pet program owns and runs without AI (ON/OFF, sick light, can be bound to a click: one, two, three or more); a **trick** is a skill its seated AI follows, using only that pet's tools.
 
 ## Protection rings and animal code (Astra, 2026-10-13)
 **🐾 Everything inside the harness is an animal. Agents can only control animals.** Read
@@ -91,7 +91,7 @@ ASTRAS_PET_OS v5.2 filed as the canonical architecture, with the Phase 0 audit, 
 Voicemeeter Bug (made with OpenAI Codex (GPT-6) on 2026-10-08) registered on main from the unmerged roam-free branch, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-11. His Windows app and source are still only on Astra's PC.
 
 ## What this is
-The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, who hosts the Cage today and will run the Farm under ASTRAS_PET_OS. `pets.json` is the single registry. Everything else (README table, ROSTER.md, `cage-data.js`, the art) is generated from it.
+The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage is retired; `cage.html` still works). `pets.json` is the single registry. Everything else (README table, ROSTER.md, `cage-data.js`, the art) is generated from it.
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
@@ -127,7 +127,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 - The GitHub Goldfish (`findastra/github-goldfish`) audits this repo and the whole account.
 - **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `cage.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
 - **The pipeline** in pets.json holds pets that are on GitHub but not registered (no art yet). Registering one moves it to `pets`.
-- **Merge order:** every chat's title starts with its place in the merge order (`1 · Merge #46: …`), from the one ranked list in `handoffs/README.md` ([skills/merge-order](skills/merge-order/SKILL.md)). The app cannot sort the chat list itself.
+- **Merge order:** every chat's title starts with its place in the merge order (`1 · Merge #46: …`), worked out from GitHub's open pull requests, never kept in a file ([skills/merge-order](skills/merge-order/SKILL.md)). The app cannot sort the chat list itself. When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
 - **Handoffs:** work left for another assistant is a card in `handoffs/` ([skills/handoff/SKILL.md](skills/handoff/SKILL.md)). "Tell the Farmer" means a card here. Every card lists explicitly what you did (repos, commits, files, paths on Astra's PC, tests) under `## What I did`, not only what is left.
 
 ## Commands
@@ -136,7 +136,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 
 Platform Platypus registered with its existing seed sheet (no new paid art), card 010 closed, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 
-Security assessment (`docs/security-assessment-20261016.md`, known gaps 11 and 12) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Update, finding 6, card 025 and one table of handoff card numbers across every branch (`test/handoff-numbers-test-20261017.mjs`), 2026-10-17.
+Security assessment (`docs/security-assessment-20261016.md`, known gaps 11 and 12) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Update, finding 6, card 025 and one table of handoff card numbers across every branch (`test/handoff-numbers-test-20261017.mjs`), 2026-10-17. Ghost Protocol links kept to http and https and fully escaped (finding 6), 2026-10-17.
 
 System tray launcher added with OpenAI Codex (GPT-6), 2026-10-11. Desktop source and build: scripts/desktop-pets-20261011.cs and build-desktop-pets-20261011.ps1. See docs/tray-star-handoff-20261011.md before changing the installed desktop app.
 
