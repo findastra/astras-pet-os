@@ -15,9 +15,11 @@ Astra asked: **the chats on the left should be in the order of which merges she 
   and chats that run only on Astra's PC cannot be reached from the cloud: their own chat renames itself when it reads
   this skill, or Astra renames it.
 
-## The one list
-**Merge order** in [handoffs/README.md](../../handoffs/README.md) is the one ranked list of pull requests waiting on
-Astra, across every repo. The chat titles follow it, never the other way round.
+## The list lives on GitHub, never in a file (Astra, 2026-10-18)
+A ranked list kept in a repo file made every open pull request edit the same lines, so each merge left all the others
+saying **"This branch has conflicts"**. So the order is **worked out fresh** each time from GitHub's open pull requests
+(every repo Astra uses), with the rank rules below, and shown in two places only: **chat titles** and the **chart** in a
+reply. No pull request edits a shared list.
 
 Rank, most important first:
 1. **Security fixes**, by the severity in the newest assessment (high before low). A fix that turns a protection on
@@ -33,7 +35,7 @@ Same pull request in two repos (a hub copy and a live site): they sit next to ea
 
 ## How to give Astra her action items (Astra, 2026-10-18)
 **Every reply that has more than one merge or action for Astra** shows them as one numbered chart, in the order she
-should do them (the Merge order list), never as loose bullets:
+should do them (rank rules above, from the open pull requests right now), never as loose bullets:
 
 | # | Do this | Pull request (what it does, one line) | Link | Chat |
 |---|---|---|---|---|
@@ -45,13 +47,23 @@ should do them (the Merge order list), never as loose bullets:
   URL, in the repo that needs the action (ghost-protocol's pull requests link to ghost-protocol, not the hub).
 - Say what must wait for what in the row ("only after #1").
 - Things that need no action from her are not rows.
+- Check each pull request's state just before the chart (`mergeable_state`): a row that has conflicts says
+  **"Wait: its chat fixes the conflict first"**, never "Merge".
+
+## When GitHub says "This branch has conflicts"
+- Two pull requests changed the same lines; the one merged first wins. **Astra does not fix it on GitHub** (the
+  "Resolve conflicts" button can lose work). The chat that made the pull request merges `main` into its branch, keeps
+  both sides' meaning, runs `npm test`, pushes, and tells her when it is ready.
+- To keep conflicts rare: merge one at a time, top of the chart first, and wait for the next chat's "ready" before the
+  next merge when it touches the same files.
 
 ## Steps
-1. **When your chat opens a pull request for Astra:** add its row to Merge order at its rank (rules above) on your
-   branch, in the same pull request, and say the rank in the pull request's text. Renumber the rows below it.
+1. **When your chat opens a pull request for Astra:** work out its rank from the open pull requests (rules above) and say
+   it in the pull request's text. Do not write the list into any file.
 2. **Title your chat** `N · Merge #<pr>: <what, in a few words>`, or `✓ <topic>` when nothing waits on Astra.
 3. **Tell the other chats** whose number changed: rename the cloud chats you can reach and send each one a short message
    with its new number. List the chats you could not reach for Astra.
-4. **After a merge or close:** remove the row, move everyone below it up by one, and retitle (steps 2 and 3).
+4. **After a merge or close:** everyone below moves up by one: retitle (steps 2 and 3). If your pull request now has a
+   conflict, fix it right away (section above) and tell Astra when it is ready.
 5. Astra can reorder the list any time; her order wins over the rules above.
 6. Never merge to move up the list: merging is Astra's (AGENTS.md).

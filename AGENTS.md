@@ -127,7 +127,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 - The GitHub Goldfish (`findastra/github-goldfish`) audits this repo and the whole account.
 - **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `cage.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
 - **The pipeline** in pets.json holds pets that are on GitHub but not registered (no art yet). Registering one moves it to `pets`.
-- **Merge order:** every chat's title starts with its place in the merge order (`1 · Merge #46: …`), from the one ranked list in `handoffs/README.md` ([skills/merge-order](skills/merge-order/SKILL.md)). The app cannot sort the chat list itself. When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
+- **Merge order:** every chat's title starts with its place in the merge order (`1 · Merge #46: …`), worked out from GitHub's open pull requests, never kept in a file ([skills/merge-order](skills/merge-order/SKILL.md)). The app cannot sort the chat list itself. When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
 - **Handoffs:** work left for another assistant is a card in `handoffs/` ([skills/handoff/SKILL.md](skills/handoff/SKILL.md)). "Tell the Farmer" means a card here. Every card lists explicitly what you did (repos, commits, files, paths on Astra's PC, tests) under `## What I did`, not only what is left.
 
 ## Commands
@@ -136,7 +136,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 
 Platform Platypus registered with its existing seed sheet (no new paid art), card 010 closed, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 
-Security assessment (`docs/security-assessment-20261016.md`, known gaps 11 and 12) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Update, finding 6, card 025 and one table of handoff card numbers across every branch (`test/handoff-numbers-test-20261017.mjs`), 2026-10-17.
+Security assessment (`docs/security-assessment-20261016.md`, known gaps 11 and 12) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Update, finding 6, card 025 and one table of handoff card numbers across every branch (`test/handoff-numbers-test-20261017.mjs`), 2026-10-17. Ghost Protocol links kept to http and https and fully escaped (finding 6), 2026-10-17.
 
 System tray launcher added with OpenAI Codex (GPT-6), 2026-10-11. Desktop source and build: scripts/desktop-pets-20261011.cs and build-desktop-pets-20261011.ps1. See docs/tray-star-handoff-20261011.md before changing the installed desktop app.
 
