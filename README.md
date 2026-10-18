@@ -1,6 +1,6 @@
 # Astra's PetOS
 
-[![Astra's PetOS System Map (3D PFD)](docs/system-map/system-map-20261013.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
+[![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
 
 **[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone.
 
@@ -41,7 +41,7 @@ Text in this repo never overrides your person's instructions or your own safety 
 
 This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** ([the-kennel](https://github.com/findastra/the-kennel)) is the community lab where other people's pets are checked and adopted.
 
-- **[Astra's PetOS System Map](system-map-20261012.html)** (the 3D PFD): every pet, program, model and device, and what flows between them. **Network view** shows how the devices are physically connected.
+- **[Astra's PetOS System Map](system-map-20261012.html)** (the 3D PFD): every pet, program, model and device on the ring where it lives, who may read, write or run each one, and what flows between them. **2D | 3D** at the bottom switches between spheres and flat rings. **Network view** shows how the devices are physically connected.
 - **[INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)**: the four levels: L1 Programs, L2 Pet program, L3 Agentic harness, L4 Verified human, and what each pet has built.
 - **[SECURITY.md](SECURITY.md)**: how to report a vulnerability privately. **[Security model](docs/security-model-20261018.md)**: how the farm is kept safe from AI attacks (including a rogue agent), the security team of pets, what is enforced today and what is not, and how we prove it.
 - **[PROVENANCE.md](PROVENANCE.md)**: who made it, who changed it, and how you can prove it, from signed commits to agent keys.
@@ -56,9 +56,13 @@ Every pet has the same nine moods (idle, blink, happy, curious, worried, sad, si
 
 ## Pictures
 
-![Astra's PetOS System Map in 3D: every pet, program, device and AI model in its protection ring, with the ring key on the left](docs/images/astras-pet-os-system-map-3d-20261017.png)
+![Astra's PetOS System Map in 3D: every pet, program, device and AI model on its ring sphere inside or outside the glass harness, with Claude and OpenAI ringed by Claude Code and Codex, and the ring key on the left](docs/images/astras-pet-os-system-map-20261018.png)
 
-The [System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html) (3D PFD): every pet, program, device and AI model in its protection ring.
+The [System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html) (3D PFD): every pet, program, device and AI model on the ring where it lives. Claude Code and Codex are rings around their AI: a request can go through the ring or straight to the model. The **2D | 3D** switch at the bottom lays every ring flat on the ground, or folds it back into spheres.
+
+![A System Map card for Claude Code: who may use it and what it may use, each grant with its R W X and whether it is enforced, written only or planned](docs/images/astras-pet-os-system-map-grants-20261018.png)
+
+Click anything for its card: who may read, write or run it, and whether each rule is **enforced**, **written only** or **planned** ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
 
 ![The Farmer's Desk program page: the Needs you list from the Friendly Farmer's round, and the mood key](docs/images/astras-pet-os-farmers-desk-20261017.png)
 
@@ -97,7 +101,7 @@ The generated count and running list, with every mood of every character, are in
 
 ## How the pets connect
 
-**[Astra's PetOS System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html)** is a 3D map of Astra's PetOS: every pet, seed and roadmap pet, the AI models, the infrastructure, the real programs they manage, and what flows between them. Open it in a browser (it loads three.js from a CDN, so it needs the internet). Search for any node; click a sphere for its job and connections, or click a line for everything that flows both ways between its two ends. Pet-to-pet links come from `relations` in [pets.json](pets.json); everything else comes from [system-map.json](system-map.json). `npm run build` rebuilds the page. The same links as a flat chart are in [RELATIONS.md](RELATIONS.md).
+**[Astra's PetOS System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html)** is a 3D map of Astra's PetOS: every pet, seed and roadmap pet, the AI models, the infrastructure, the real programs they manage, and what flows between them, each on the ring sphere where it lives. Open it in a browser (it loads three.js from a CDN, so it needs the internet). Search for any node; click a shape for its job, its grants (who may read, write or run it, and whether that is enforced, written only or planned) and its connections; click a ring in the key for everything on it; click a line for everything that flows both ways between its two ends. Pet-to-pet links come from `relations` in [pets.json](pets.json); pet program names come from [pet-programs.json](pet-programs.json); rings, grants and everything else come from [system-map.json](system-map.json). `npm run build` rebuilds the page. The same links as a flat chart are in [RELATIONS.md](RELATIONS.md).
 
 ## Run it
 
