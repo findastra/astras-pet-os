@@ -4557,18 +4557,13 @@
  {
   "number": 31,
   "icon": "Wifi Butterfly",
-  "program": "pet-program-31",
-  "assigned": false,
+  "program": "Signal Garden",
+  "assigned": true,
   "idea": "Signal Garden",
   "stage": "pipeline",
   "repo": "wifi-butterfly",
   "regStage": "pipeline",
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Signal Garden)."
-   },
    {
     "check": "A16",
     "status": "Missing",
@@ -4689,18 +4684,13 @@
  {
   "number": 32,
   "icon": "Deck Duck",
-  "program": "pet-program-32",
-  "assigned": false,
+  "program": "Deck Pond",
+  "assigned": true,
   "idea": "Deck Pond",
   "stage": "pipeline",
   "repo": "deck-duck",
   "regStage": "pipeline",
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Deck Pond)."
-   },
    {
     "check": "A54",
     "status": "Missing",
@@ -4850,18 +4840,13 @@
  {
   "number": 33,
   "icon": "Mesh Moth",
-  "program": "pet-program-33",
-  "assigned": false,
+  "program": "Mesh Lantern",
+  "assigned": true,
   "idea": "Mesh Lantern",
   "stage": "pipeline",
   "repo": "mesh-moth",
   "regStage": "pipeline",
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Mesh Lantern)."
-   },
    {
     "check": "A54",
     "status": "Missing",
@@ -5775,18 +5760,13 @@
  {
   "number": 39,
   "icon": "Procreate Panda",
-  "program": "pet-program-39",
-  "assigned": false,
+  "program": "Bamboo Studio",
+  "assigned": true,
   "idea": "Bamboo Studio",
   "stage": "seed",
   "repo": "pet-program-39",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Bamboo Studio)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -5925,18 +5905,13 @@
  {
   "number": 40,
   "icon": "Skill Scout",
-  "program": "pet-program-40",
-  "assigned": false,
+  "program": "Luna's Log",
+  "assigned": true,
   "idea": "Skill Logbook",
   "stage": "seed",
   "repo": "pet-program-40",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Skill Logbook)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -6086,18 +6061,13 @@
  {
   "number": 41,
   "icon": "OSC Sealion",
-  "program": "pet-program-41",
-  "assigned": false,
+  "program": "OSC Sonar",
+  "assigned": true,
   "idea": "OSC Sonar",
   "stage": "seed",
   "repo": "pet-program-41",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: OSC Sonar)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -6376,18 +6346,13 @@
  {
   "number": 43,
   "icon": "Photo Dodo",
-  "program": "pet-program-43",
-  "assigned": false,
+  "program": "Photo Roost",
+  "assigned": true,
   "idea": "Photo Roost",
   "stage": "seed",
   "repo": "pet-program-43",
   "regStage": null,
   "rows": [
-   {
-    "check": "A07",
-    "status": "Missing",
-    "detail": "Program name not chosen (suggested idea: Photo Roost)."
-   },
    {
     "check": "A13",
     "status": "Incorrect",
@@ -11470,7 +11435,7 @@
  },
  {
   "number": 77,
-  "icon": "pet-program-77-icon-77",
+  "icon": "Triage Tapir",
   "program": "pet-program-77",
   "assigned": false,
   "idea": "Vet Clinic / Vetted Vet: triage for the community vet-clinic (labels tickets, checks for leaked secrets, tests offered cures in isolation; never merges)",
@@ -11478,11 +11443,6 @@
   "repo": "pet-program-77",
   "regStage": null,
   "rows": [
-   {
-    "check": "A06",
-    "status": "Missing",
-    "detail": "Pet name is still the placeholder \"pet-program-77-icon-77\"."
-   },
    {
     "check": "A07",
     "status": "Missing",

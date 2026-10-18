@@ -1,4 +1,4 @@
-# Round 31: Wifi Butterfly — pet-program-31
+# Round 31: Wifi Butterfly — Signal Garden
 
 [All rounds](README.md) · Stage: **pipeline** · Repo: [findastra/wifi-butterfly](https://github.com/findastra/wifi-butterfly) (public) · audited `main` at `6108bbb`
 
@@ -10,19 +10,17 @@
 
 ### Exceptions
 
-1. **A07 Program name** — Missing. Program name not chosen (suggested idea: Signal Garden).  
-   *Next:* Your pick: see Decisions.
-2. **A16 pet.json** — Missing. Metadata: framework declaration  
+1. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
-3. **A18 Tool list** — Missing. No declared tool inventory.  
+2. **A18 Tool list** — Missing. No declared tool inventory.  
    *Next:* No tool list yet. It comes with the shared page framework.
-4. **A52 L3 activity bubble** — Missing. Required shared L3 activity bubble/config/script/style not found in the inspected entry source.  
+3. **A52 L3 activity bubble** — Missing. Required shared L3 activity bubble/config/script/style not found in the inspected entry source.  
    *Next:* Open.
-5. **A44 Yellow phone** — Missing. Shared phone baseline not found.  
+4. **A44 Yellow phone** — Missing. Shared phone baseline not found.  
    *Next:* Open.
-6. **A45 Paper and zoom** — Missing. Shared stationery source not found.  
+5. **A45 Paper and zoom** — Missing. Shared stationery source not found.  
    *Next:* Open.
-7. **A41 Clicker Training** — Missing. No Clicker Training section found in the inspected entry source.  
+6. **A41 Clicker Training** — Missing. No Clicker Training section found in the inspected entry source.  
    *Next:* Open.
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
@@ -41,12 +39,7 @@
 
 ### Decisions
 
-1. **Program name** for Wifi Butterfly (now `pet-program-31`). Pick one, or write your own:
-   - **A. Signal Garden** — the catalog idea: radios as flowers the butterfly visits
-   - **B. Airwave Meadow** — an open field where every nearby signal shows up
-   - **C. The Radio Garden** — plain about the job: Wi-Fi and Bluetooth
-   - **D. Butterfly Watch** — a lookout for unknown devices, its confirmed security role
-2. **Merge the fix PR** [wifi-butterfly#2](https://github.com/findastra/wifi-butterfly/pull/2)? It only holds fixes that need no decision (listed above).
+1. **Merge the fix PR** [wifi-butterfly#2](https://github.com/findastra/wifi-butterfly/pull/2)? It only holds fixes that need no decision (listed above).
 
 **Tools:** none declared in pet.json yet (A18).  
 **Tutorial tools:** Play with, Care for — Not verified overnight.

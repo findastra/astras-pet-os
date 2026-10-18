@@ -442,34 +442,7 @@
  {
   "round": 31,
   "pet": "Wifi Butterfly",
-  "program": "pet-program-31",
-  "repo": "wifi-butterfly",
-  "card": "round-31-wifi-butterfly.md",
-  "kind": "Program name",
-  "text": "**Program name** for Wifi Butterfly (now `pet-program-31`). Pick one, or write your own:",
-  "options": [
-   [
-    "Signal Garden",
-    "the catalog idea: radios as flowers the butterfly visits"
-   ],
-   [
-    "Airwave Meadow",
-    "an open field where every nearby signal shows up"
-   ],
-   [
-    "The Radio Garden",
-    "plain about the job: Wi-Fi and Bluetooth"
-   ],
-   [
-    "Butterfly Watch",
-    "a lookout for unknown devices, its confirmed security role"
-   ]
-  ]
- },
- {
-  "round": 31,
-  "pet": "Wifi Butterfly",
-  "program": "pet-program-31",
+  "program": "Signal Garden",
   "repo": "wifi-butterfly",
   "card": "round-31-wifi-butterfly.md",
   "kind": "Merge",
@@ -479,34 +452,7 @@
  {
   "round": 32,
   "pet": "Deck Duck",
-  "program": "pet-program-32",
-  "repo": "deck-duck",
-  "card": "round-32-deck-duck.md",
-  "kind": "Program name",
-  "text": "**Program name** for Deck Duck (now `pet-program-32`). Pick one, or write your own:",
-  "options": [
-   [
-    "Deck Pond",
-    "the catalog idea: the duck's pond of buttons"
-   ],
-   [
-    "Button Pond",
-    "says what it keeps: what every button does"
-   ],
-   [
-    "The Control Deck",
-    "a ship's deck of profiles and keys"
-   ],
-   [
-    "Duck Dock",
-    "where every profile is moored and labelled"
-   ]
-  ]
- },
- {
-  "round": 32,
-  "pet": "Deck Duck",
-  "program": "pet-program-32",
+  "program": "Deck Pond",
   "repo": "deck-duck",
   "card": "round-32-deck-duck.md",
   "kind": "Branches",
@@ -516,7 +462,7 @@
  {
   "round": 32,
   "pet": "Deck Duck",
-  "program": "pet-program-32",
+  "program": "Deck Pond",
   "repo": "deck-duck",
   "card": "round-32-deck-duck.md",
   "kind": "Merge",
@@ -526,34 +472,7 @@
  {
   "round": 33,
   "pet": "Mesh Moth",
-  "program": "pet-program-33",
-  "repo": "mesh-moth",
-  "card": "round-33-mesh-moth.md",
-  "kind": "Program name",
-  "text": "**Program name** for Mesh Moth (now `pet-program-33`). Pick one, or write your own:",
-  "options": [
-   [
-    "Mesh Lantern",
-    "the catalog idea: a lantern on the radio mesh"
-   ],
-   [
-    "Moonlight Mesh",
-    "moths fly at night, when the mesh carries messages"
-   ],
-   [
-    "The Relay Tower",
-    "the node's place and health in the mesh"
-   ],
-   [
-    "Mesh Porchlight",
-    "a small light other nodes find"
-   ]
-  ]
- },
- {
-  "round": 33,
-  "pet": "Mesh Moth",
-  "program": "pet-program-33",
+  "program": "Mesh Lantern",
   "repo": "mesh-moth",
   "card": "round-33-mesh-moth.md",
   "kind": "Merge",
@@ -623,34 +542,7 @@
  {
   "round": 39,
   "pet": "Procreate Panda",
-  "program": "pet-program-39",
-  "repo": "pet-program-39",
-  "card": "round-39-pet-program-39.md",
-  "kind": "Program name",
-  "text": "**Program name** for Procreate Panda (now `pet-program-39`). Pick one, or write your own:",
-  "options": [
-   [
-    "Bamboo Studio",
-    "the catalog idea: the panda's studio"
-   ],
-   [
-    "Redline Studio",
-    "named for the redlines it handles"
-   ],
-   [
-    "The Sketch Grove",
-    "a grove of drawings and brushes"
-   ],
-   [
-    "Panda Canvas",
-    "plain: her Procreate drawings and tools"
-   ]
-  ]
- },
- {
-  "round": 39,
-  "pet": "Procreate Panda",
-  "program": "pet-program-39",
+  "program": "Bamboo Studio",
   "repo": "pet-program-39",
   "card": "round-39-pet-program-39.md",
   "kind": "Merge",
@@ -660,34 +552,7 @@
  {
   "round": 40,
   "pet": "Skill Scout",
-  "program": "pet-program-40",
-  "repo": "pet-program-40",
-  "card": "round-40-pet-program-40.md",
-  "kind": "Program name",
-  "text": "**Program name** for Skill Scout (now `pet-program-40`). Pick one, or write your own:",
-  "options": [
-   [
-    "Skill Logbook",
-    "the catalog idea: a log of what changed and why"
-   ],
-   [
-    "Scout Camp",
-    "where the scout reports on every agent file"
-   ],
-   [
-    "The Trail Journal",
-    "who changed which skill, and when"
-   ],
-   [
-    "Skill Watchtower",
-    "keeps an eye on AGENTS.md, CLAUDE.md and SKILL.md"
-   ]
-  ]
- },
- {
-  "round": 40,
-  "pet": "Skill Scout",
-  "program": "pet-program-40",
+  "program": "Luna's Log",
   "repo": "pet-program-40",
   "card": "round-40-pet-program-40.md",
   "kind": "Merge",
@@ -697,34 +562,7 @@
  {
   "round": 41,
   "pet": "OSC Sealion",
-  "program": "pet-program-41",
-  "repo": "pet-program-41",
-  "card": "round-41-pet-program-41.md",
-  "kind": "Program name",
-  "text": "**Program name** for OSC Sealion (now `pet-program-41`). Pick one, or write your own:",
-  "options": [
-   [
-    "OSC Sonar",
-    "the catalog idea: listening for packets"
-   ],
-   [
-    "Packet Reef",
-    "a sealion's reef where the OSC traffic swims"
-   ],
-   [
-    "The Channel Lighthouse",
-    "spots apps colliding on shared channels"
-   ],
-   [
-    "Sealion Signal Rock",
-    "the rock it watches VRChat traffic from"
-   ]
-  ]
- },
- {
-  "round": 41,
-  "pet": "OSC Sealion",
-  "program": "pet-program-41",
+  "program": "OSC Sonar",
   "repo": "pet-program-41",
   "card": "round-41-pet-program-41.md",
   "kind": "Merge",
@@ -744,34 +582,7 @@
  {
   "round": 43,
   "pet": "Photo Dodo",
-  "program": "pet-program-43",
-  "repo": "pet-program-43",
-  "card": "round-43-pet-program-43.md",
-  "kind": "Program name",
-  "text": "**Program name** for Photo Dodo (now `pet-program-43`). Pick one, or write your own:",
-  "options": [
-   [
-    "Photo Roost",
-    "the catalog idea: where pictures roost"
-   ],
-   [
-    "Picture Nest",
-    "every saved picture, found and backed up"
-   ],
-   [
-    "The Photo Archive",
-    "plain about the job"
-   ],
-   [
-    "Dodo Album",
-    "a friendly album that never goes extinct"
-   ]
-  ]
- },
- {
-  "round": 43,
-  "pet": "Photo Dodo",
-  "program": "pet-program-43",
+  "program": "Photo Roost",
   "repo": "pet-program-43",
   "card": "round-43-pet-program-43.md",
   "kind": "Merge",
@@ -1974,39 +1785,12 @@
  },
  {
   "round": 77,
-  "pet": "pet-program-77-icon-77",
-  "program": "pet-program-77",
-  "repo": "pet-program-77",
-  "card": "round-77-pet-program-77.md",
-  "kind": "Pet name",
-  "text": "**Pet name** (it is still `pet-program-77-icon-77`). Pick one, or write your own:",
-  "options": [
-   [
-    "Nurse Newt",
-    "a calm nurse for sick-pet tickets"
-   ],
-   [
-    "Triage Toad",
-    "sorts tickets by how urgent they are"
-   ],
-   [
-    "Vet Vole",
-    "small, careful, and it never merges anything"
-   ],
-   [
-    "Medic Marmot",
-    "stands watch at the clinic door"
-   ]
-  ]
- },
- {
-  "round": 77,
-  "pet": "pet-program-77-icon-77",
+  "pet": "Triage Tapir",
   "program": "pet-program-77",
   "repo": "pet-program-77",
   "card": "round-77-pet-program-77.md",
   "kind": "Program name",
-  "text": "**Program name** for pet-program-77-icon-77 (now `pet-program-77`). Pick one, or write your own:",
+  "text": "**Program name** for Triage Tapir (now `pet-program-77`). Pick one, or write your own:",
   "options": [
    [
     "Vet Clinic",
@@ -2028,7 +1812,7 @@
  },
  {
   "round": 77,
-  "pet": "pet-program-77-icon-77",
+  "pet": "Triage Tapir",
   "program": "pet-program-77",
   "repo": "pet-program-77",
   "card": "round-77-pet-program-77.md",

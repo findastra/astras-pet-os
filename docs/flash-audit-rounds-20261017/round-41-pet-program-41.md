@@ -1,4 +1,4 @@
-# Round 41: OSC Sealion — pet-program-41
+# Round 41: OSC Sealion — OSC Sonar
 
 [All rounds](README.md) · Stage: **seed** · Repo: [findastra/pet-program-41](https://github.com/findastra/pet-program-41) (public) · audited `main` at `770a4ba`
 
@@ -10,13 +10,11 @@
 
 ### Exceptions
 
-1. **A07 Program name** — Missing. Program name not chosen (suggested idea: OSC Sonar).  
-   *Next:* Your pick: see Decisions.
-2. **A01 Icon** — Missing. No icon in astras-pet-os art/icons.  
+1. **A01 Icon** — Missing. No icon in astras-pet-os art/icons.  
    *Next:* Needs pet art. Generating art costs money, so it waits for your OK.
-3. **A13 Repo** — Incorrect. Catalog says repo_exists false, but pet-program-41 is on GitHub.  
+2. **A13 Repo** — Incorrect. Catalog says repo_exists false, but pet-program-41 is on GitHub.  
    *Next:* The hub PR for tonight fixes the catalog.
-4. **Not built yet (planned):** A09 Program page, A16 pet.json, A55 Pictures, A18 Tool list, A52 L3 activity bubble, A44 Yellow phone, A45 Paper and zoom, A41 Clicker Training. Normal for a seed; not a failure.
+3. **Not built yet (planned):** A09 Program page, A16 pet.json, A55 Pictures, A18 Tool list, A52 L3 activity bubble, A44 Yellow phone, A45 Paper and zoom, A41 Clicker Training. Normal for a seed; not a failure.
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
@@ -34,12 +32,7 @@
 
 ### Decisions
 
-1. **Program name** for OSC Sealion (now `pet-program-41`). Pick one, or write your own:
-   - **A. OSC Sonar** — the catalog idea: listening for packets
-   - **B. Packet Reef** — a sealion's reef where the OSC traffic swims
-   - **C. The Channel Lighthouse** — spots apps colliding on shared channels
-   - **D. Sealion Signal Rock** — the rock it watches VRChat traffic from
-2. **Merge the fix PR** [pet-program-41#1](https://github.com/findastra/pet-program-41/pull/1)? It only holds fixes that need no decision (listed above).
+1. **Merge the fix PR** [pet-program-41#1](https://github.com/findastra/pet-program-41/pull/1)? It only holds fixes that need no decision (listed above).
 
 **Tools:** none declared in pet.json yet (A18).  
 **Tutorial tools:** Play with, Care for — Not verified overnight.

@@ -1,4 +1,4 @@
-# Round 33: Mesh Moth — pet-program-33
+# Round 33: Mesh Moth — Mesh Lantern
 
 [All rounds](README.md) · Stage: **pipeline** · Repo: [findastra/mesh-moth](https://github.com/findastra/mesh-moth) (public) · audited `main` at `6486c41`
 
@@ -10,23 +10,21 @@
 
 ### Exceptions
 
-1. **A07 Program name** — Missing. Program name not chosen (suggested idea: Mesh Lantern).  
-   *Next:* Your pick: see Decisions.
-2. **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (Meshtastic) but the page has no Third Party Programs row.  
+1. **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (Meshtastic) but the page has no Third Party Programs row.  
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
-3. **A16 pet.json** — Missing. Metadata: framework declaration  
+2. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
-4. **A55 Pictures** — Missing. README shows 1 picture(s).  
+3. **A55 Pictures** — Missing. README shows 1 picture(s).  
    *Next:* Needs real pictures of the program working (you take some: card 026).
-5. **A18 Tool list** — Missing. No declared tool inventory.  
+4. **A18 Tool list** — Missing. No declared tool inventory.  
    *Next:* No tool list yet. It comes with the shared page framework.
-6. **A52 L3 activity bubble** — Missing. Required shared L3 activity bubble/config/script/style not found in the inspected entry source.  
+5. **A52 L3 activity bubble** — Missing. Required shared L3 activity bubble/config/script/style not found in the inspected entry source.  
    *Next:* Open.
-7. **A44 Yellow phone** — Missing. Shared phone baseline not found.  
+6. **A44 Yellow phone** — Missing. Shared phone baseline not found.  
    *Next:* Open.
-8. **A45 Paper and zoom** — Missing. Shared stationery source not found.  
+7. **A45 Paper and zoom** — Missing. Shared stationery source not found.  
    *Next:* Open.
-9. **A41 Clicker Training** — Missing. No Clicker Training section found in the inspected entry source.  
+8. **A41 Clicker Training** — Missing. No Clicker Training section found in the inspected entry source.  
    *Next:* Open.
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
@@ -46,12 +44,7 @@
 
 ### Decisions
 
-1. **Program name** for Mesh Moth (now `pet-program-33`). Pick one, or write your own:
-   - **A. Mesh Lantern** — the catalog idea: a lantern on the radio mesh
-   - **B. Moonlight Mesh** — moths fly at night, when the mesh carries messages
-   - **C. The Relay Tower** — the node's place and health in the mesh
-   - **D. Mesh Porchlight** — a small light other nodes find
-2. **Merge the fix PR** [mesh-moth#2](https://github.com/findastra/mesh-moth/pull/2)? It only holds fixes that need no decision (listed above).
+1. **Merge the fix PR** [mesh-moth#2](https://github.com/findastra/mesh-moth/pull/2)? It only holds fixes that need no decision (listed above).
 
 **Tools:** none declared in pet.json yet (A18).  
 **Tutorial tools:** Play with, Care for — Not verified overnight.

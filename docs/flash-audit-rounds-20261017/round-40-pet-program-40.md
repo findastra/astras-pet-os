@@ -1,4 +1,4 @@
-# Round 40: Skill Scout — pet-program-40
+# Round 40: Skill Scout — Luna's Log
 
 [All rounds](README.md) · Stage: **seed** · Repo: [findastra/pet-program-40](https://github.com/findastra/pet-program-40) (public) · audited `main` at `789a3c3`
 
@@ -10,15 +10,13 @@
 
 ### Exceptions
 
-1. **A07 Program name** — Missing. Program name not chosen (suggested idea: Skill Logbook).  
-   *Next:* Your pick: see Decisions.
-2. **A01 Icon** — Missing. No icon in astras-pet-os art/icons.  
+1. **A01 Icon** — Missing. No icon in astras-pet-os art/icons.  
    *Next:* Needs pet art. Generating art costs money, so it waits for your OK.
-3. **A13 Repo** — Incorrect. Catalog says repo_exists false, but pet-program-40 is on GitHub.  
+2. **A13 Repo** — Incorrect. Catalog says repo_exists false, but pet-program-40 is on GitHub.  
    *Next:* The hub PR for tonight fixes the catalog.
-4. **A17 Git branches** — Incorrect. 1 branch(es) with work not on main and no open pull request: claude/skill-scout-v0.1-20261017 (+1).  
+3. **A17 Git branches** — Incorrect. 1 branch(es) with work not on main and no open pull request: claude/skill-scout-v0.1-20261017 (+1).  
    *Next:* See Decisions: open a pull request, merge, or leave each branch.
-5. **Not built yet (planned):** A09 Program page, A16 pet.json, A55 Pictures, A18 Tool list, A52 L3 activity bubble, A44 Yellow phone, A45 Paper and zoom, A41 Clicker Training. Normal for a seed; not a failure.
+4. **Not built yet (planned):** A09 Program page, A16 pet.json, A55 Pictures, A18 Tool list, A52 L3 activity bubble, A44 Yellow phone, A45 Paper and zoom, A41 Clicker Training. Normal for a seed; not a failure.
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
@@ -36,12 +34,7 @@
 
 ### Decisions
 
-1. **Program name** for Skill Scout (now `pet-program-40`). Pick one, or write your own:
-   - **A. Skill Logbook** — the catalog idea: a log of what changed and why
-   - **B. Scout Camp** — where the scout reports on every agent file
-   - **C. The Trail Journal** — who changed which skill, and when
-   - **D. Skill Watchtower** — keeps an eye on AGENTS.md, CLAUDE.md and SKILL.md
-2. **Merge the fix PR** [pet-program-40#1](https://github.com/findastra/pet-program-40/pull/1)? It only holds fixes that need no decision (listed above).
+1. **Merge the fix PR** [pet-program-40#1](https://github.com/findastra/pet-program-40/pull/1)? It only holds fixes that need no decision (listed above).
 
 **Tools:** none declared in pet.json yet (A18).  
 **Tutorial tools:** Play with, Care for — Not verified overnight.

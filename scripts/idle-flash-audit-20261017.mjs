@@ -211,7 +211,7 @@ for (const prog of catalog) {
     if (!txt) continue;
     for (const [re, what] of STRAY) {
       const m = txt.match(re);
-      if (m) rec.stray.push({ file: p, what, count: m.length, sample: m[0].replace(/C:\\Users\\[^\\]+/, '%USERPROFILE%') });
+      if (m) rec.stray.push({ file: p, what, count: m.length, sample: m[0].replace(/[A-Z]:\\{1,2}Users\\{1,2}[^\\]+/i, '%USERPROFILE%') });
     }
   }
   for (const s of rec.stray) add(s.what.includes('personal') ? 'A26' : 'A56', 'Incorrect', `${s.file}: ${s.count}× ${s.what} (e.g. "${s.sample}").`, { fix: { type: 'stray', file: s.file, what: s.what } });

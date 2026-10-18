@@ -133,7 +133,7 @@ for (const rec of ledger) {
   const fname = `round-${String(rec.number).padStart(2, '0')}-${rec.audited?.repo || rec.repo}.md`;
 
   // Decisions.
-  if (names[`${rec.number}-pet`]) decisions.push({ kind: 'Pet name', text: `**Pet name** (it is still \`${rec.icon}\`). Pick one, or write your own:`, options: names[`${rec.number}-pet`] });
+  if (names[`${rec.number}-pet`] && /^pet-program-\d+-icon-\d+$/.test(rec.icon)) decisions.push({ kind: 'Pet name', text: `**Pet name** (it is still \`${rec.icon}\`). Pick one, or write your own:`, options: names[`${rec.number}-pet`] });
   if (names[rec.number] && (!rec.assigned || /^pet-program-/.test(rec.program))) decisions.push({ kind: 'Program name', text: `**Program name** for ${rec.icon} (now \`${rec.program}\`). Pick one, or write your own:`, options: names[rec.number] });
   for (const l of fx.log || []) if (/^Not changed: pet.json job/.test(l)) decisions.push({ kind: 'Job', text: `**Job:** ${rec.icon} submitted its own job to the Farmer (${(l.match(/on (\d{4}-\d\d-\d\d)/) || [])[1] || 'date unknown'}), and the registry says something else. Which one is right?\n  - Pet's own: "${esc(rec.pet?.cage?.submit?.job || rec.pet?.job)}"\n  - Registry: "${esc(rec.rows.find((r) => r.fix?.type === 'petjson-job')?.fix.to)}"` });
   const unmerged = rec.rows.find((r) => r.check === 'A17');
