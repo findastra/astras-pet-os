@@ -381,6 +381,11 @@ namespace AstraDesktopPets {
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
     internal const float NormalHeight=58.75f,BugHeight=58.75f,MaxPetWidth=96;
+    // Group 3 share Mommy's Mommies' head and body in art pixels (docs/girls-same-size-20261017.md). Halos,
+    // horns, wings, the star and the headset make their alpha bounds differ, so instead of each being fitted
+    // by its bounds they all use one crop height, measured up from the soles: one scale for all six girls.
+    internal static readonly string[] SameSize={"mommys-mommies","discord-damsel","api-fairy","astra-wisp","vscode-angel"};
+    internal const int SameSizeCrop=212;
     const int LogicalWidth=20,LogicalHeight=20,StarDrop=0;
     readonly List<PetSprite> pets=new List<PetSprite>();
     readonly List<PetWindow> roaming=new List<PetWindow>();
@@ -500,6 +505,7 @@ namespace AstraDesktopPets {
     void LayoutPets() {
       // Every pet stands the same height; wide art is fitted without distortion.
       foreach(var pet in pets) { float h=pet.Id=="voicemeeter-bug"?BugHeight:NormalHeight;float w=h*pet.Crop.Width/pet.Crop.Height;if(w>MaxPetWidth){h*=MaxPetWidth/w;w=MaxPetWidth;}float size=1;
+        if(Array.IndexOf(SameSize,pet.Id)>=0) { pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop,pet.Crop.Right,pet.Crop.Bottom);h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height; }
         switch(pet.Id) { case "wifi-butterfly":size=0.7f;break;case "fuzzboi-friend":size=0.75f;break;case "paper-girl":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break;case "claude-bot":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=1.5f;break;case "rift-rabbit":size=0.9f;break;case "chat-rat":size=0.8f;break;case "meme-fiend":case "raspberry-berry":size=0.8f;break;case "rgbee":size=0.7f;break;case "mesh-moth":size=0.64f;break;case "spoonfed-sugarcube":size=0.7f;break;case "health-hummy":size=0.7776f;break;case "voicemeeter-bug":case "mail-snail":case "portfolio-puffer":case "ghost-protocol":size=0.8f;break;case "finance-finch":case "backup-beaver":case "patch-cat":size=0.85f;break;case "file-master":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break; }
         pet.Hit=new RectangleF(0,0,w*size,h*size); }
       float fh=NormalHeight*0.9f,fw=fh*farmer.Crop.Width/farmer.Crop.Height;farmer.Hit=new RectangleF(0,0,fw,fh);
@@ -682,6 +688,8 @@ namespace AstraDesktopPets {
       foreach(var pet in pets)if(pet.Hit.Height>(pet.Id=="claude-bot"?NormalHeight*1.5f:NormalHeight)+.01f||pet.Hit.Width>MaxPetWidth+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
       if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
+      foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
+        if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
 
       Rectangle left=new Rectangle(-1920,0,1920,1080);Size size=new Size(690,172);
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
@@ -708,7 +716,7 @@ namespace AstraDesktopPets {
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
-      Console.WriteLine("PASS: roster, decoded sprites, layout, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {

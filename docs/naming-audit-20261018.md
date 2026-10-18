@@ -37,12 +37,30 @@ rows in `INTELLIGENCE-LEVELS.md`; `npm run build` and `npm test` pass.
 
 Seeds now carry `program` in `pets.json` too.
 
+## Round 3 (2026-10-18)
+| # | Pet | Decided | Note |
+|---|---|---|---|
+| 44 | Video Vulture | **Video Vault** | the suggested idea |
+| 45 | Closet Cat | **The Cat's Closet** | matches its repo, `the-cats-closet` |
+| 77 | Triage Tapir | **The Triage Desk** | Codex's earlier suggestion |
+| 81 | Intel Owl | **Threat Observatory** | the suggested idea |
+
+Every pet that is registered, in the pipeline or a seed now has a named pet program.
+
+## Round 4 (2026-10-18): the 30 roadmap pets
+Astra saw all 30 suggested homes in one list and kept every one ("looks good to me"): #47 Task Island, #48 Log Den,
+#49 Server Hearth, #50 Container Hoard, #51 Test Track, #52 Token Canopy, #53 Packet River, #54 Crow's Nest,
+#55 Browser Belfry, #56 Data Marsh, #57 Update Tidepool, #58 Linux Iceberg, #59 Market Meadow, #60 Passport Harbor,
+#61 Journal Lagoon, #62 Shell Trench, #63 Kernel Grove, #64 Proxy Lake, #65 Cluster Shore, #66 Storage Warren,
+#67 White Hat Lab, #68 Port Web, #69 Cipher Hollow, #70 Evidence Locker, #71 Model Library, #72 Benchmark Rock,
+#73 Agent Colony, #74 Roam Map, #75 Cache Canyon, #76 Sync Stream. Noted for later: #59's job is not decided yet.
+
 ## Left to name now
-- **0 pets.**
-- **34 pet programs:** #44, 45, 77 and 81 (seeds), #47–76 (roadmap).
-- **Next round:** #44 Video Vulture, #45 Closet Cat, #77 Triage Tapir, #81 Intel Owl.
+- **Nothing.** All 83 pets and all 83 pet programs in `pet-programs.json` have names (Flash Audit A06 and A07, in-repo
+  lists).
 
 ## Not done
 - The pet repos' own `pet.json` files are not updated here (each pet's chat does that, or the next Flash Audit round
   on each repo).
-- On branch `claude/tender-gauss-m2nbhp` (PR #46). Not on `main` until Astra merges it.
+- Rounds 1 and 2 merged with PR #46; rounds 3 and 4 with the pull request after it.
+- Not numbered yet (from the 2026-10-16 audit): Workflow Whale, Index Mole. Astra decides whether they join.

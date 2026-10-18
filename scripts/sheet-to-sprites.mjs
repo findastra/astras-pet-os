@@ -260,9 +260,13 @@ function pack(rows) {
 }
 
 /* ---------- the conversion ---------- */
-export function sheetToSprite(buf, { size = 0, colours = 20, tolerance = 30, aspect = 1, pad = 0.14 } = {}) {
+export function sheetToSprite(buf, { size = 0, colours = 20, tolerance = 30, aspect = 1, pad = 0.14, native = 0 } = {}) {
   const img = decodePng(buf);
   const mask = keyBackground(img, tolerance);
+  // A native sheet is finished frames laid on one solid colour, so every pixel of exactly that colour is
+  // background, also where an outline encloses it (between an arm and the body). Left in, it would show
+  // as grey and take one of the palette's colours.
+  if (native) for (let i = 0; i < mask.length; i++) if (img.rgba[i * 4] === img.rgba[0] && img.rgba[i * 4 + 1] === img.rgba[1] && img.rgba[i * 4 + 2] === img.rgba[2]) mask[i] = 1;
   const { pix, palette } = quantize(img, mask, colours);
 
   const rects = MOODS.map((_, i) => cellRect(img, i));
@@ -292,12 +296,20 @@ export function sheetToSprite(buf, { size = 0, colours = 20, tolerance = 30, asp
   // afterwards, and a sprite drawn edge to edge leaves them nowhere to sit; it also looks
   // cramped. See indicators.mjs.
   const grow = 1 + pad * 2;
-  const h = Math.round(Math.max(boxH, boxW / ratio) * grow);
+  // native: the sheet is drawn at the frame's own pixel size (that many sheet pixels per frame pixel), so
+  // the window is exactly one frame and nothing is fitted. Group 3 is measured in frame pixels (Astra,
+  // 2026-10-17: the same head and body size exactly), and fitting would scale each girl differently.
+  const h = native ? size * native : Math.round(Math.max(boxH, boxW / ratio) * grow);
   const w = Math.round(h * ratio);
-  // Each cell gets the same w x h window, placed over the middle of that cell's own content.
-  const crops = boxes.map((b) => {
-    const cx = (b.x0 + b.x1) / 2, cy = (b.y0 + b.y1) / 2;
-    return { x0: Math.round(cx - w / 2), y0: Math.round(cy - h / 2), x1: Math.round(cx + w / 2), y1: Math.round(cy + h / 2) };
+  if (native && (boxH > h || boxW > w)) throw new Error(`native sheet: a cell's drawing (${boxW}x${boxH}) is bigger than one frame (${w}x${h})`);
+  // Each cell gets the same w x h window, placed over the middle of that cell's own content. A native
+  // sheet holds finished frames laid in the middle of their cells, so its window is the cell's middle:
+  // the frame comes back exactly as it was laid, feet on the same row in every mood.
+  const crops = boxes.map((b, i) => {
+    const cx = native ? rects[i].w / 2 : (b.x0 + b.x1) / 2, cy = native ? rects[i].h / 2 : (b.y0 + b.y1) / 2;
+    const crop = { x0: Math.round(cx - w / 2), y0: Math.round(cy - h / 2), x1: Math.round(cx + w / 2), y1: Math.round(cy + h / 2) };
+    if (native && (b.x0 < crop.x0 || b.y0 < crop.y0 || b.x1 >= crop.x1 || b.y1 >= crop.y1)) throw new Error(`native sheet: ${MOODS[i]} is drawn outside the middle ${w}x${h} of its cell`);
+    return crop;
   });
   const crop = crops[0];
 
