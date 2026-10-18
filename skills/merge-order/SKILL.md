@@ -31,6 +31,21 @@ Rank, most important first:
 
 Same pull request in two repos (a hub copy and a live site): they sit next to each other, with the same chat.
 
+## How to give Astra her action items (Astra, 2026-10-18)
+**Every reply that has more than one merge or action for Astra** shows them as one numbered chart, in the order she
+should do them (the Merge order list), never as loose bullets:
+
+| # | Do this | Pull request (what it does, one line) | Link | Chat |
+|---|---|---|---|---|
+| 1 | Merge | #47 Ghost Protocol links kept to http and https | https://github.com/findastra/astras-pet-os/pull/47 | 1 · Merge #47 |
+| 2 | Tick the box, then Save | Lets the Farmer's round open its pull request | https://github.com/findastra/astras-pet-os/settings/actions | (setting) |
+
+- **#** is the order to do them in. **Do this** is one verb: Merge, Close, Answer, Look at, Tick, Delete.
+- **Link** goes straight to the page where she acts: the pull request, the exact settings page, the chat's question. Full
+  URL, in the repo that needs the action (ghost-protocol's pull requests link to ghost-protocol, not the hub).
+- Say what must wait for what in the row ("only after #1").
+- Things that need no action from her are not rows.
+
 ## Steps
 1. **When your chat opens a pull request for Astra:** add its row to Merge order at its rank (rules above) on your
    branch, in the same pull request, and say the rank in the pull request's text. Renumber the rows below it.
