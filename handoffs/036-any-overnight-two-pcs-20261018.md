@@ -99,6 +99,30 @@ profile round last ran. The Farmer's profile round (daily, 12:47 UTC) rewrites t
 **Not verified:** anything that needs a click, a desktop launch, a sign-in or a person (A11, A19's live part, A22, A37,
 A40). **Other PC:** nothing from it on GitHub by 05:15 (no review on #76 yet).
 
+## Astra's answers (answer sheet, 2026-10-18 evening), and what was done
+
+Read from the sheet's store (24 answers) and pasted by Astra in chat. Claude Opus 5.5 (`claude-opus-5-5`).
+- **Fix and hub pull requests:** already merged on her OK in chat (above).
+- **Ten repos public, pets.json said private:** "Keep them public; update pets.json". pets.json now says public for
+  Chip, Voicemeeter Bug, Patch Cat, Meme Fiend, Gif Giraffe, Backup Beaver, Rift Rabbit, Wifi Butterfly, Mesh Moth and
+  Raspberry Pi Berry (hub branch `claude/flash-audit-answers-2-20261018`). Meme Fiend stays on the private-data list
+  (`relations.private`: its data never leaves the PC), which is about data, not the repo.
+- **Chat Rat:** "So pets need to be on pets.json to show up on the map? Can we write this into the Flash Audit … Should be
+  at the top of the list." Yes: the System Map and The Farm are built from pets.json. A59, the first check, now says so,
+  and a numbered pet missing from pets.json is blue (registering it is hers, A33). Chat Rat itself is not registered yet.
+- **Branches ("Merge them"):** merged [ai-doghouse#3](https://github.com/findastra/ai-doghouse/pull/3) (clean). Opened, and
+  waiting to be brought up to date with main: [unity-unicorn#7](https://github.com/findastra/unity-unicorn/pull/7),
+  [lunas-log#2](https://github.com/findastra/lunas-log/pull/2) (Skill Scout v0.1),
+  [findastra-discord-presence#13](https://github.com/findastra/findastra-discord-presence/pull/13),
+  [chat-rat#8](https://github.com/findastra/chat-rat/pull/8). Card 035's scan had held back the last two: neither adds a
+  personal path or a secret (a made-up test folder, and a made-up `sk-abcd…` test string).
+- **Not merged:** the art branches (`girls-same-size`, `one-art-source`) in api-fairy, the-astral-plane,
+  mommys-mommies, findastra-discord-presence and vscode-angel. Astra closed the size-change pull requests on purpose
+  (the size lives in the hub); the one-art-source clean-up was stacked on them, so it never reached main in API Fairy,
+  Mommy's Mommies and Discord Damsel, and it conflicts now. It is card 032's work, best redone from today's main.
+  Spoonfed's `claude/rescue-spoonfed-app-20261012` adds Astra's real user folder path to AGENTS.md; the repo is public,
+  so that branch shows it today. What to do with that branch is hers.
+
 ## Done when
 The audit's pull requests are open, the round cards and answer sheet are ready, and both PCs have reported.
 
