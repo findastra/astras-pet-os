@@ -1,0 +1,23 @@
+{
+  "pet": "python-panther",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 1,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/python-panther/alarmed-20261011.png",
+    "desktop-art/python-panther/blink-20261011.png",
+    "desktop-art/python-panther/curious-20261011.png",
+    "desktop-art/python-panther/happy-20261011.png",
+    "desktop-art/python-panther/idle-20261011.png",
+    "desktop-art/python-panther/sad-20261011.png",
+    "desktop-art/python-panther/sick-20261011.png",
+    "desktop-art/python-panther/sleep-20261011.png",
+    "desktop-art/python-panther/worried-20261011.png"
+  ],
+  "notes": "Brighter purple panther.",
+  "source_sheet": "desktop-art/python-panther/sheet-20261011.png"
+}

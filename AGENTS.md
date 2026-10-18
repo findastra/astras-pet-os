@@ -96,6 +96,9 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
+- **One art source (Astra, 2026-10-18).** Every pet picture lives only here (`art/`, `desktop-art/`; PET-FILES.md,
+  "Where the pictures live"). Other repos, pages and the desktop pets link to it and never keep a copy. Claude Bot's
+  private BSOD copy is the one exception. Check with `node scripts/one-art-source-20261017.mjs` (Flash Audit A58).
 - **One style for every pet:** 256×256 finished transparent frames (Mommy's Mommies share one
   square sprite), nine moods, **generated** as a 3×3 sheet and converted by `scripts/sheet-to-sprites.mjs`.
   Prompts live in `scripts/generate-pets.mjs`; the shared `STYLE` string is never forked per pet.
@@ -160,3 +163,4 @@ Blueprint for the chat bot, a GitHub-issue queue and systemic updates (`docs/cha
 
 Pet art redesign (rat size, brighter RGBee and Mesh Moth, WiFi Butterfly's face, Meme Fiend's cute face, Farmer, Discord Damsel and API Fairy at Mommy's Mommies' body ratio, Claude Bot as an exact BSOD copy in its now-private repo), Flash Audit A58 One art source and card 030 for the redraws, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17. Record: docs/pet-art-redesign-20261017.md.
 Group 3 at Mommy's Mommies' exact face and body in pixels (the head measured without hair: face 49 wide, 26 eye top to chin, body 109 on the frames; Mommy's Mommies unchanged), `NATIVE` sheets in the build, Mommy's Mommies' desktop scale for the five sprites (`SameSize` in scripts/desktop-pets-20261011.cs) and card 031, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/girls-same-size-20261017.md.
+One art source (Flash Audit A58, approved by Astra 2026-10-18): every pet picture moved into this hub, the desktop pets read only this folder (Claude Bot's private BSOD copy excepted), `scripts/one-art-source-20261017.mjs` checks it, and 35 pet-repo PRs point at the hub, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/one-art-source-20261017.md.
