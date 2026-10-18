@@ -112,21 +112,21 @@ pixel toolkit. It is kept for the drawing primitives and the sticker set that
 
 ### What each mood means
 
-Every pet uses the same nine meanings, so Astra can read any pet's face without learning it twice. A pet must be able to reach all nine; a mood that is drawn but never shown is a bug.
+Every pet uses the same nine meanings, so Astra can read any pet's face without learning it twice. A pet must be able to reach all nine; a mood that is drawn but never shown is a bug. The meanings are **Astra's sketch of 2026-10-18** (PET-PROGRAM-FRAMEWORK.md, section 3, `<pet>-emotions`); they replace the earlier key. Most urgent first: when several apply, the first one shows.
 
-| Mood | The pet is saying |
-|---|---|
-| `sleep` | I have not run yet, or I have no data. |
-| `idle` | I am resting. Nothing to report. |
-| `blink` | (idle only, every few seconds) |
-| `curious` | I am working on it. |
-| `happy` | I finished and found nothing wrong. |
-| `worried` | I finished and found problems. |
-| `alarmed` | I finished and found a lot of problems. |
-| `sick` | **I am stuck and I need you.** |
-| `sad` | I could not finish, and that is my fault. |
+| Mood | Sketch | The pet shows it when |
+|---|---|---|
+| `alarmed` | alarmed | a connected source reports an active alarm, or there is a potential or active security breach |
+| `sick` | sick | too many of its tools are broken, or its pet program is broken |
+| `curious` | curious | an L3 agent needs L4's (Astra's) authorization or input |
+| `worried` | worried | missed runtimes, missed checks, failed audits, token overusage |
+| `happy` | happy | it just pushed new information, it has an L3 suggestion for a workflow, or ideas or work are ready |
+| `sad` | sad | it hasn't been opened in more than two weeks |
+| `idle` | idle | its program is open and Astra hasn't interacted with it recently |
+| `blink` | awake | its program is open and Astra has interacted with it recently (the idle frame, blinking every few seconds, until a frame with open eyes is drawn) |
+| `sleep` | sleepy | it is running in the background |
 
-`sick` is the only mood that asks Astra for something. Use it whenever the pet cannot go on without her: a site needs her to sign in, a token or key is missing or expired, a permission was refused, a file or folder it was pointed at is not there, an app it manages is not installed. It is **not** for problems the pet found in its subject matter (that is `worried` / `alarmed`) and **not** for the pet's own crash (that is `sad`). When a pet goes `sick` it must say in words what it needs and how to give it.
+`curious` is the mood that asks Astra for something. Use it whenever the pet cannot go on without her: a site needs her to sign in, a token or key is missing or expired, a permission was refused, a file or folder it was pointed at is not there, a decision only she can make. When a pet is `curious` it must say in words what it needs and how to give it. A program it looks after that is **not on this PC** is not a problem: the pet stays `sleep` (PET-PROGRAM-FRAMEWORK.md, section 4).
 - Current frame paths are recorded in `art/frames/index.json`. Consumers use that index so they support both existing mood filenames and dated filenames.
 
 ### Where the pictures live: one art source (Flash Audit A58, Astra 2026-10-18)
@@ -198,22 +198,21 @@ Every pet checks itself on a schedule and reports in the same nine moods, so Ast
 
 **What a self-audit checks:** the pet files above (pet.json, README credit line, "how to run it" and "Limits", AGENTS.md pointing at the Cage, CLAUDE.md, LICENSE and the `pet-app` topic for public repos), plus anything only Astra can answer.
 
-**How the mood is chosen, the same way for every pet:**
+**How the round chooses the mood, the same way for every pet** (Astra's sketch, 2026-10-18; most urgent first). The
+round only sees GitHub, so it never sets `alarmed`, `sad`, `idle` or `blink`: those come from the Police Station and
+the open pet program page once they are built.
 
 | Mood | When | Bubble |
 |---|---|---|
-| `sleep` | Not checked yet, or the Farmer cannot see the repo | Not checked yet. |
-| `curious` | Being checked right now | |
-| `happy` | Checked today, nothing to fix | All good. |
-| `idle` | Clean, last checked more than a day ago | |
-| `worried` | 1 to 5 things to fix | `3 to fix: my README needs "Limits", …` |
-| `alarmed` | More than 5, or a broken pet.json | same |
-| `sick` | **Only Astra can unblock it:** its job is still a placeholder, or one of its cards says `waiting on Astra: …` or is `for: astra` | `Need: the brand and model of each light` |
-| `sad` | The check itself failed | |
+| `sick` | **A broken pet program:** pet.json is missing or not valid JSON, or its `entry` file is not in the repo | `To fix: fix pet.json` |
+| `curious` | **Only Astra can unblock it:** its job is still a placeholder, or one of its cards says `waiting on Astra: …` or is `for: astra` | `Need: the brand and model of each light` |
+| `worried` | A failed self-audit (any number of things to fix), or a check missed by more than a day | `3 to fix: my README needs "Limits", …` |
+| `happy` | Clean, and new commits since its last check; it turns back to `sleep` after a day | New work since my last check. |
+| `sleep` | Clean with nothing new, not checked yet, or the Farmer cannot see the repo | All good. / Not checked yet. |
 
-So to ask Astra for something, a pet leaves a card with `status: open (waiting on Astra: <what you need>)`. The words after the colon become its bubble.
+So to ask Astra for something, a pet leaves a card with `status: open (waiting on Astra: <what you need>)`. The words after the colon become its bubble, and the Farmer's desk lists it under **Needs you**.
 
-**What each mood means for each pet** comes from `mood_key` in pets.json, filled in with the pet's `audit.subject` (what it checks) and `audit.needs` (what it asks for when sick). The full key is in [MOOD-KEY.md](MOOD-KEY.md) and on the Farmer's desk.
+**What each mood means for each pet** comes from `mood_key` in pets.json, filled in with the pet's `audit.subject` (what it checks) and `audit.needs` (what it asks for when curious). The full key is in [MOOD-KEY.md](MOOD-KEY.md) and on the Farmer's desk.
 
 ### The audit block
 

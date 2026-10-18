@@ -28,7 +28,7 @@ flowchart TD
   PR --> PF["findastra/findastra README"]
   R -->|"registry, pet words"| G{{"GitHub Goldfish"}}
   G -->|"findings as cards"| F
-  ST -->|"sick pets: Needs you"| A
+  ST -->|"curious pets: Needs you"| A
 ```
 
 ## Who tells whom

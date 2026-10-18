@@ -12,8 +12,12 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 
 export const OWNER = 'findastra';
 export const CAGE = 'astras-pet-os'; // renamed from astras-pet-apps by Astra, 2026-10-12
-export const ORDER = ['sleep', 'idle', 'blink', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'];
+// The nine moods, most urgent first: when several apply, the first one shows. Meanings are Astra's sketch of
+// 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3); the order is proposed. Claude Opus 5.5, 2026-10-18.
+export const ORDER = ['alarmed', 'sick', 'curious', 'worried', 'happy', 'sad', 'idle', 'blink', 'sleep'];
 export const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+/** The sketch's word where it differs from the mood frame's name. */
+export const SKETCH = { blink: 'awake', sleep: 'sleepy' };
 export const STATUSES = ['hatching', 'growing', 'grown'];
 const DAY = 86400000;
 
@@ -58,10 +62,13 @@ export function isDue(registry, pet, last, today) {
   return age >= days;
 }
 
-/** The mood a status shows right now: a clean check turns to idle after a day. */
-export function displayMood(status, nowIso) {
+/** The mood a status shows right now: new work turns back to sleepy after a day, and a check older than its
+ *  cadence (`days`) is a missed check, so the pet is worried unless something more urgent shows. */
+export function displayMood(status, nowIso, days = 7) {
   if (!status) return 'sleep';
-  if (status.mood === 'happy' && status.checked && Date.parse(nowIso) - Date.parse(status.checked) > DAY) return 'idle';
+  const age = status.checked ? Date.parse(nowIso) - Date.parse(status.checked) : 0;
+  if (status.checked && age > (days + 1) * DAY && ORDER.indexOf(status.mood) > ORDER.indexOf('worried')) return 'worried';
+  if (status.mood === 'happy' && status.checked && age > DAY) return 'sleep';
   return status.mood;
 }
 
@@ -89,8 +96,10 @@ export function needsFromSnapshot(pet, snap) {
   return [...new Set(needs.map((n) => n.replace(/[.?]$/, '')))];
 }
 
-/** One pet's self-audit, from a snapshot of its repo. Returns { mood, says, needs, findings }. */
-export function auditPet(registry, pet, snap) {
+/** One pet's self-audit, from a snapshot of its repo and its last status. Returns { mood, says, needs, findings }.
+ *  Moods follow Astra's sketch (2026-10-18): a broken pet program is sick, a need for her is curious, a failed audit
+ *  is worried, new commits since the last check are happy, and otherwise it runs in the background (sleep). */
+export function auditPet(registry, pet, snap, last = null) {
   if (!snap || !snap.readable) {
     return { mood: 'sleep', says: snap && snap.private ? "Not checked: the Farmer can't see my private repo yet." : 'Not checked yet.', needs: [], findings: [] };
   }
@@ -103,7 +112,7 @@ export function auditPet(registry, pet, snap) {
   else {
     for (const k of ['pet', 'job', 'entry', 'status']) if (!pj[k]) f('warn', `pet.json is missing "${k}".`, `add "${k}" to pet.json`);
     if (pj.status && !STATUSES.includes(pj.status)) f('warn', `pet.json status "${pj.status}" is not hatching, growing or grown.`, 'fix my status');
-    for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f('warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
+    for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f(k === 'entry' ? 'error' : 'warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
     const submitted = pj.cage && pj.cage.submit;
     if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage\'s.', 'my job wording differs from the Cage');
   }
@@ -122,12 +131,15 @@ export function auditPet(registry, pet, snap) {
 
   const needs = needsFromSnapshot(pet, snap);
   const problems = findings.filter((x) => x.sev !== 'note');
-  const errors = problems.filter((x) => x.sev === 'error').length;
+  const broken = problems.filter((x) => x.sev === 'error');
+  const toFix = (first) => `${problems.length === 1 ? 'To fix' : problems.length + ' to fix'}: ${first.label}${problems.length > 1 ? ', …' : ''}`;
+  const newWork = !!(snap.pushed && last && last.checked && Date.parse(snap.pushed) > Date.parse(last.checked));
   let mood, says;
-  if (needs.length) { mood = 'sick'; says = `Need: ${needs[0]}${needs.length > 1 ? ` (+${needs.length - 1} more)` : ''}`; }
-  else if (errors || problems.length > 5) { mood = 'alarmed'; says = `${problems.length} to fix: ${problems[0].label}${problems.length > 1 ? ', …' : ''}`; }
-  else if (problems.length) { mood = 'worried'; says = `${problems.length === 1 ? 'To fix' : problems.length + ' to fix'}: ${problems[0].label}${problems.length > 1 ? ', …' : ''}`; }
-  else { mood = 'happy'; says = 'All good.'; }
+  if (broken.length) { mood = 'sick'; says = toFix(broken[0]); }
+  else if (needs.length) { mood = 'curious'; says = `Need: ${needs[0]}${needs.length > 1 ? ` (+${needs.length - 1} more)` : ''}`; }
+  else if (problems.length) { mood = 'worried'; says = toFix(problems[0]); }
+  else if (newWork) { mood = 'happy'; says = 'New work since my last check.'; }
+  else { mood = 'sleep'; says = 'All good.'; }
   return { mood, says: short(says), needs, findings };
 }
 
@@ -140,11 +152,12 @@ export function auditFarmer(registry, ctx) {
   if (waiting) findings.push({ sev: 'warn', msg: `${waiting} pet${waiting === 1 ? '' : 's'} on GitHub wait to be registered in the Cage.` });
   for (const m of ctx.missing || []) findings.push({ sev: 'warn', msg: `${m} is in the registry but not on GitHub.` });
   const problems = findings.filter((x) => x.sev !== 'note');
+  const broken = problems.filter((x) => x.sev === 'error');
   let mood, says;
-  if (needs.length) { mood = 'sick'; says = `Need: ${needs[0]}`; }
-  else if (problems.some((x) => x.sev === 'error') || problems.length > 5) { mood = 'alarmed'; says = `${problems.length} to fix: ${problems[0].msg}`; }
+  if (broken.length) { mood = 'sick'; says = `${problems.length} to fix: ${broken[0].msg}`; }
+  else if (needs.length) { mood = 'curious'; says = `Need: ${needs[0]}`; }
   else if (problems.length) { mood = 'worried'; says = problems[0].msg; }
-  else { mood = 'happy'; says = 'Rounds done: everyone is where they should be.'; }
+  else { mood = 'happy'; says = 'Rounds done: everyone is where they should be.'; } // his round has just pushed new work
   return { mood, says: short(says, 140), needs, findings };
 }
 
@@ -226,7 +239,7 @@ export async function listRepos(token, ownerToken) {
     out.push(...batch.filter((r) => r.owner.login === OWNER));
     if (batch.length < 100) break;
   }
-  return out.map((r) => ({ name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, branch: r.default_branch }));
+  return out.map((r) => ({ name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, pushed: r.pushed_at, branch: r.default_branch }));
 }
 
 /** What the self-audit needs from one repo. */
@@ -235,7 +248,7 @@ export async function snapshot(repo, token, full) {
   const tree = await gh(`/repos/${OWNER}/${repo.name}/git/trees/${repo.branch || 'HEAD'}?recursive=1`, token);
   if (!tree) return { readable: false, private: repo.private };
   const files = tree.tree.filter((t) => t.type === 'blob').map((t) => t.path);
-  const snap = { readable: true, private: repo.private, topics: repo.topics, files };
+  const snap = { readable: true, private: repo.private, topics: repo.topics, files, pushed: repo.pushed };
   if (files.includes('pet.json')) {
     const text = await raw('pet.json');
     try { snap.petJson = JSON.parse(text.replace(/^﻿/, '')); } catch (e) { snap.petJsonError = e.message.split('\n')[0]; }
@@ -293,7 +306,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
     if (changes.length) report.submissions.push({ repo: pet.repo, changes });
     if (due || changes.length) {
       if (!due) snap = await github.snapshot(r, ownerToken || token, true); // a submission is checked straight away
-      status.pets[pet.repo] = { pet: entry.pet, ...auditPet(registry, entry, snap), checked: now.toISOString() };
+      status.pets[pet.repo] = { pet: entry.pet, ...auditPet(registry, entry, snap, status.pets[pet.repo]), checked: now.toISOString() };
       report.audited.push(pet.repo);
     }
     log(`${pet.repo}: ${status.pets[pet.repo]?.mood || 'not due'}`);
@@ -304,7 +317,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   report.unreadable = [...new Set(report.unreadable)];
   status.pets[host.repo] = { pet: host.pet, ...auditFarmer(registry, { validateProblems, unreadable: report.unreadable, missing: report.missing }), checked: now.toISOString() };
   status.updated = now.toISOString();
-  status.needs_astra = allPets(registry).filter((p) => status.pets[p.repo]?.mood === 'sick').map((p) => ({ repo: p.repo, pet: p.pet, need: status.pets[p.repo].needs[0] }));
+  status.needs_astra = allPets(registry).filter((p) => status.pets[p.repo]?.needs?.length).map((p) => ({ repo: p.repo, pet: p.pet, need: status.pets[p.repo].needs[0] }));
   return report;
 }
 

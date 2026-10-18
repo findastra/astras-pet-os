@@ -58,7 +58,7 @@ Add a row for the card to `handoffs/README.md`. Numbers never repeat.
   A pet's **name** changes only in `findastra/astras-pet-os/pet-programs.json`, by Astra; a name in `cage.submit` is only a note. See PET-FILES.md, "Submitting a
   change to the Farmer".
 - To ask Astra for something, leave a card with `status: open (waiting on Astra: <what you need>)`. The pet
-  turns sick and that text becomes its bubble on the Cage and the Farmer's desk.
+  turns curious (Astra's sketch, 2026-10-18) and that text becomes its bubble on the Cage and the Farmer's desk.
 
 ## Rules
 - One card, one deliverable. Name the files to read. Never paste keys or personal data.
