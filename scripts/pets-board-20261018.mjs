@@ -35,7 +35,7 @@ export function prState(pr) {
   return 'ready';
 }
 
-const esc = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+const esc = (s) => String(s ?? '').replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 const day = (iso) => (iso ? iso.slice(0, 10) : '—');
 
 /**

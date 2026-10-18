@@ -32,7 +32,7 @@ const titleOf = (c) => TITLE[c] || MATRIX.title[c] || '';
 const HUB_REPO = 'astras-pet-os';
 const MOODS = [['sleep', 'Sleepy'], ['blink', 'Awake'], ['idle', 'Idle'], ['curious', 'Curious'], ['happy', 'Happy'], ['worried', 'Worried'], ['alarmed', 'Alarmed'], ['sick', 'Sick'], ['sad', 'Sad']];
 const PLANNED = new Set(['seed', 'roadmap']);
-const esc = (s) => String(s ?? '').replace(/\|/g, '\\|');
+const esc = (s) => String(s ?? '').replace(/\\/g, '\\\\').replace(/\|/g, '\\|');
 const prShort = (url) => url ? url.replace('https://github.com/findastra/', '').replace('/pull/', '#') : '';
 
 // Retired names and paths are reported under A57 (added tonight), not A56.

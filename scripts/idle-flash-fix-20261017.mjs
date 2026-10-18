@@ -73,12 +73,15 @@ function retire(text, html = false) {
   const count = { n: 0 };
   if (!html) return { text: text.split('\n').map((line) => retireChunk(line, count)).join('\n'), n: count.n };
   // HTML: skip script blocks; judge history per piece of text between tags, not per (one-line) file.
-  const out = text.split(/(<script\b[\s\S]*?<\/script>)/i).map((seg) => /^<script\b/i.test(seg) ? seg
+  const out = text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg
     : seg.split(/(?<=>)|(?=<)/).map((piece) => retireChunk(piece, count)).join(''));
   return { text: out.join(''), n: count.n };
 }
 
-const clean = (s) => (s || '').replace(/<br\s*\/?>/gi, '; ').replace(/<[^>]+>/g, '').replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
+// Drop HTML tags, and an unclosed `<…` too, with a character scan: no `<` is left, so no `<script` can be
+// (CodeQL js/incomplete-multi-character-sanitization; a regex replace can leave a tag behind).
+const stripTags = (s) => { let out = '', inTag = false; for (const ch of String(s)) { if (ch === '<') inTag = true; else if (ch === '>' && inTag) inTag = false; else if (!inTag) out += ch; } return out; };
+const clean = (s) => stripTags((s || '').replace(/<br\s*\/?>/gi, '; ')).replace(/\$\\color\{red\}\{\\textsf\{([^}]*)\}\}\$/g, '$1').replace(/\s+/g, ' ').trim();
 
 for (const rec of ledger) {
   if (!rec.audited) continue;
