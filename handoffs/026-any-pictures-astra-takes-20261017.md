@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge drum-dog#4; chat-rat#1, Codex's draft, then #4; the in-world and desktop pictures listed under Task)
+status: open (waiting on Astra: the in-world and desktop pictures listed under Task; chat-rat#1 is left for Codex)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/flash-audit-20261014.md (A55), findastra.github.io `art/projects/project-images-20261017.json`, github-goldfish `scripts/project-image-generator-20261017.mjs`
@@ -49,6 +49,11 @@ screenshots taken that morning, and list the pictures only Astra can take.
     has Codex's uncommitted edits on that branch. chat-rat#4 still waits on #1.
   - Checked the PC: no Unity, VRChat, Discord or OBS running, so none of the in-world, Discord or OBS shots could be taken. The Astral Plane
     is not cloned on this PC (running it needs about 41 Python packages and Electron installed), so its desktop shots were not taken either.
+  - Later on 2026-10-18: drum-dog#4 and astras-pet-os#63 merged with Astra's OK. chat-rat#4 was merged (not by this session)
+    before chat-rat#1. project-image-generator on `main` for the 25 repos: **23 pass**, 2 too-few (meme-fiend, mommys-mommies).
+  - **chat-rat#1 is left for Codex** (Astra, 2026-10-18). It conflicts with `main` in two files: `AGENTS.md` (keep every credit line)
+    and `README.md` (keep `main`'s Pictures section above this branch's "Status: growing" section; drop `## Status: hatching`).
+    After #1 merges, change the Chat Rat picture caption, which still says #1 "is not merged into `main` yet".
 
 ## Task
 Pictures only Astra can take. Best picture first. Each one is committed as `docs/images/<repo>-<what>-<date>.png` with alt
@@ -66,7 +71,7 @@ text. VRChat's camera saves PNGs to `Pictures\VRChat`. Hide nameplates, and leav
 | startup-star | Missing. | The desktop pets out on Astra's desktop and the tray star's menu. BSOD and Claude Bot are other creators' artwork: blur or crop them (card 011, decision 1). |
 
 Pictures an agent can add later (no Astra needed):
-- **drum-dog** (too-few): done in [drum-dog#4](https://github.com/findastra/drum-dog/pull/4), waiting for Astra's OK to merge.
+- **drum-dog**: done in [drum-dog#4](https://github.com/findastra/drum-dog/pull/4), merged 2026-10-18; passes with 3 pictures.
 - **meme-fiend** (too-few), **astras-gif-maker**, **claude-bot**, **spoonfed** (art drafts only): nothing built to picture yet.
   Pet art does not count.
 - **the-kennel, the-shed, vet-clinic, ai-doghouse:** forms and documents only. A System Map view of each node would count

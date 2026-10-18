@@ -24,7 +24,13 @@ N. **[Pet](https://github.com/findastra/repo)** -- what the pet does [status]
   pets.json, else a live github.io site, else its page on The Farm, else the repo when they share a name). Unnamed:
   `` `pet-program-N` -- pet program, not named yet ``. Suggested homes live in `idea` until Astra approves one.
 - **Tools** follow, from `profile.tools.<repo>.tools`. A repo that is more than the pet's own
-  (`repo_note`, e.g. astras-pet-os, "Astra's PetOS home repo") keeps its own line before the tools.
+  (`repo_note`, e.g. astras-pet-os, "Astra's PetOS home repo") keeps its own line before the tools, unless Astra
+  links that repo above the numbered list: she moved astras-pet-os to its own line there on 2026-10-17, so it is not
+  repeated under the Friendly Farmer.
+- **Astra's own labels stay.** A line in another section may show a name that is not the repo's, as long as its link
+  points at the repo (`` [`fuzzboi-factory`](https://github.com/findastra/fuzzbois) ``, Astra, 2026-10-17). The round
+  keeps it and does not add the repo again. A line she writes with a dash in place of ` -- ` (` -— `) is kept word for
+  word too.
 - **What it does** is `mini_descriptor.text`: a finished sentence about what the pet does. It does not repeat the home,
   does not start with a category (`Tasks:`, `AI cost:`), and uses floors for counts ("30+ tools").
 - **Status goes in [brackets] at the end**, never in the job. The round moves `Planned: …` to `[planned]` and
