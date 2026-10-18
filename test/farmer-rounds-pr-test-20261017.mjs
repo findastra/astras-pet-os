@@ -10,7 +10,8 @@ import { configs, petFor } from '../scripts/build-interfaces-20261008.mjs';
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const registry = JSON.parse(read('pets.json'));
 const clone = () => JSON.parse(JSON.stringify(registry));
-const workflow = read('.github/workflows/farmer-daily-rounds.yml');
+// Windows checkouts (core.autocrlf) give CRLF; the patterns below are written for LF.
+const workflow = read('.github/workflows/farmer-daily-rounds.yml').replace(/\r\n/g, '\n');
 const drift = (r) => nameDrift({ programs: JSON.parse(read('pet-programs.json')).programs, registry: r, systemMap: JSON.parse(read('system-map.json')), intelligence: read('INTELLIGENCE-LEVELS.md') });
 
 test('the daily round never pushes to main: it pushes a dated farmer/rounds- branch and opens a pull request', () => {
