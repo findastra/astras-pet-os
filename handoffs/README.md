@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | open, waits on Astra: merge, release v0.2.0-beta, the name "core pets" |
+| [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
 | [036: Two PCs tonight: which jobs each one does, and the overnight Idle Flash Audit](036-any-overnight-two-pcs-20261018.md) | any | open, waits on Astra: the answer sheet (merges OK'd 2026-10-18) |
 | [035: Codex framework pull requests, and branches that conflict with main](035-codex-framework-pull-requests-20261018.md) | Codex | open: 17 Codex pull requests to bring up to date; 3 branches held back for Astra |
 | [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | done 2026-10-18: all 29 pull requests merged |
@@ -82,7 +82,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 035 | `035-codex-framework-pull-requests-20261018.md` | `claude/flash-audit-answers-20261018` |
 | 036 | `036-any-overnight-two-pcs-20261018.md` | `claude/idle-flash-audit-20261018` |
 | 037 | kept for the desktop PC's overnight run (card 036) | `claude/idle-flash-audit-20261018` |
-| 039 | `039-any-farm-setup-installer-20261018.md` | `claude/farm-setup-choice-20261018` |
+| 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
