@@ -8,9 +8,10 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
 | [027: Skill sheet audit and fix batches (Skill Scout)](027-any-skill-sheet-audit-and-fixes-20261017.md) | any | open, waits on Astra: repo rename, pet-app v2, yes per batch |
 | [026: Pictures only Astra can take (Flash Audit A55), and 25 picture PRs](026-any-pictures-astra-takes-20261017.md) | any | open, waits on Astra: in-world and desktop pictures; chat-rat#4 after chat-rat#1 |
-| [025: Security follow-ups from the 2026-10-16 assessment](025-any-security-follow-ups-20261017.md) | any | open: the Farmer's round; findings 3 to 5; PR #26's security model |
+| [025: Security follow-ups from the 2026-10-16 assessment](025-any-security-follow-ups-20261017.md) | any | open: findings 3 to 5; the security model (PR #26, now in PR #23); the Actions setting for the Farmer's round |
 | [021: Startup Star shows API Fairy's bubbles](021-codex-startup-star-api-fairy-bubbles-20261017.md) | Codex | open |
 | [020: Chat sync, folder rename plan row, Role Fairy (Fairy Ring #83), Nullbot dropped](020-any-chat-sync-and-folder-rename-20261017.md) | any | open, waits on Astra: File Master rename row |
 | [019: Portfolio Puffer and the portfolio](019-any-portfolio-puffer-and-the-portfolio-20261017.md) | any | open, waits on Astra: read every employer page (site merged 2026-10-17) |
@@ -29,6 +30,12 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [008: Voicemeeter Bug to GitHub, then scrambled-audio detection](008-any-voicemeeter-bug-github-and-detection.md) | any | open: repo done; detection waits on the next failure |
 | [011: Wrap-up of Claude session 012RaHVD (movement merge WIP, README screenshots)](011-any-claude-session-012RaHVD-wrapup-20261012.md) | any | open, waits on Astra |
 
+## Merge order
+
+Not kept in a file: a shared list here made every pull request conflict with the others. Each chat works the order out
+from GitHub's open pull requests when it answers, and puts its number in its title
+([skills/merge-order](../skills/merge-order/SKILL.md)). Astra, 2026-10-18.
+
 ## Card numbers on every branch
 
 A card number is used once, across `main` and every branch. **Before you write a card, take the next free number
@@ -36,7 +43,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 028.** Checked on 2026-10-17 across every branch by Claude Opus 5.5. When numbers clashed, the
+**Next free number: 030.** Checked on 2026-10-17 at 21:10 across every branch by Claude Opus 5.5. When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -56,7 +63,9 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 024 | `024-any-pole-puff-repo-20261012.md` | `claude/pole-puff-draft-20261012` (PR #8; was 010) |
 | 025 | `025-any-security-follow-ups-20261017.md` | `main` |
 | 026 | `026-any-pictures-astra-takes-20261017.md` | `main` |
-| 027 | `027-any-skill-sheet-audit-and-fixes-20261017.md` | `claude/skill-scout-audit-20261017` |
+| 027 | `027-any-skill-sheet-audit-and-fixes-20261017.md` | `claude/skill-scout-audit-20261017` (PR #50) |
+| 028 | `028-any-idle-flash-audit-20261017.md` | `claude/idle-flash-audit-20261017` |
+| 029 | `029-codex-hub-folder-back-on-main-20261017.md` | `claude/star-hub-on-main-20261017` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
