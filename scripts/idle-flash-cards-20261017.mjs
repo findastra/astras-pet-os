@@ -206,15 +206,43 @@ const top = [
 ];
 for (const [h, t] of top) I.push(`- **${h}.** ${t}`);
 I.push('');
+// Every program links to where it runs: the link the profile README gives it (FLASH_PROFILE, a copy of
+// findastra/findastra's README), else its repo. Order: the catalog's numbers, which is the order the pets were
+// made and the order of the profile README (FLASH_CATALOG: pet-programs.json). FLASH_EXTRA_PRS adds pull
+// requests made outside the fix run (JSON: {"repo": ["url", ...]}).
+const readOpt = (env) => { try { return process.env[env] ? readFileSync(process.env[env], 'utf8') : null; } catch { return null; } };
+const programLink = {};
+{
+  const md = readOpt('FLASH_PROFILE') || '';
+  const lines = md.split('\n');
+  lines.forEach((l, i) => {
+    const pet = l.match(/^\s*\d+\. \*\*(?:\[[^\]]+\]\(https:\/\/github\.com\/findastra\/([^)/]+)\)|[^*]+)\*\*/);
+    const sub = (lines[i + 1] || '').match(/^\s*- \[`[^`]+`\]\((https:[^)]+)\) -- the pet program/);
+    if (pet && pet[1] && sub) programLink[pet[1]] = sub[1];
+  });
+}
+const catalogAll = (() => { const t = readOpt('FLASH_CATALOG'); return t ? JSON.parse(t).programs : ledger.map((r) => ({ number: r.number, icon: r.icon, program: r.program, repo: r.audited?.repo || r.repo })); })();
+const extraPrs = (() => { const t = readOpt('FLASH_EXTRA_PRS'); return t ? JSON.parse(t) : {}; })();
+const byNumber = Object.fromEntries(index.map((x) => [x.rec.number, x]));
+const repoUrl = (repo) => `https://github.com/findastra/${repo}`;
+const progUrl = (repo) => programLink[repo] || repoUrl(repo);
 I.push('## Every round', '');
 I.push('| Round | Pet | Program | Stage | Open | Fixed in PR | Decisions | Fix PR |', '|--:|---|---|---|--:|--:|--:|---|');
 for (const x of index) {
   const ic = iconOf(x.rec) ? `<img src="${UP}/${iconOf(x.rec)}" width="28" alt=""> ` : '';
-  I.push(`| [${x.rec.number}](${x.fname}) | ${ic}[${esc(x.rec.icon)}](${x.fname}) | ${esc(x.rec.program)} | ${x.rec.stage} | ${x.open} | ${x.fixed} | ${x.decisions} | ${x.pr ? `[${prShort(x.pr)}](${x.pr})` : '—'} |`);
+  const repo = x.rec.audited?.repo || x.rec.repo;
+  I.push(`| [${x.rec.number}](${x.fname}) | ${ic}[${esc(x.rec.icon)}](${x.fname}) | [${esc(x.rec.program)}](${progUrl(repo)}) | ${x.rec.stage} | ${x.open} | ${x.fixed} | ${x.decisions} | ${x.pr ? `[${prShort(x.pr)}](${x.pr})` : '—'} |`);
 }
 I.push('');
-I.push('## All fix PRs in one list', '');
-for (const x of index) if (x.pr) I.push(`- [${prShort(x.pr)}](${x.pr}) — Round ${x.rec.number}, ${x.rec.icon}`);
+I.push('<a id="all-fix-prs-in-one-list"></a>', '', '## Every pet, in the order they were made', '');
+I.push('The same order as the pet list in [findastra\'s profile README](https://github.com/findastra/findastra#readme). Each pet links to its repo, each program to where it runs, then its pull requests from this audit and its round card.', '');
+for (const p of [...catalogAll].sort((a, b) => a.number - b.number)) {
+  const x = byNumber[p.number];
+  const repo = x?.rec.audited?.repo || p.repo;
+  const prs = [x?.pr, ...(extraPrs[repo] || [])].filter(Boolean);
+  const card = x ? ` · [Round ${p.number} card](${x.fname})` : '';
+  I.push(`${p.number}. **[${esc(p.icon)}](${repoUrl(repo)})**: [${esc(p.program)}](${progUrl(repo)}) · ${prs.length ? prs.map((u) => `[${prShort(u)}](${u})`).join(', ') : 'no pull request needed'}${card}`);
+}
 I.push('');
 I.push(`<sub>Idle Flash Audit, ${DATE}, Claude Opus 5.5 (\`claude-opus-5-5\`). Built by \`scripts/idle-flash-cards-20261017.mjs\` from the evidence ledger in this folder.</sub>`, '');
 writeFileSync(`${OUT}/README.md`, I.join('\n'));
