@@ -176,6 +176,18 @@ for (const rec of ledger) {
       if (rm !== before) writeFileSync(rmPath, rm);
     }
 
+    // 4b. Links to renamed repos (GitHub redirects them, but the current name is correct), where the audit found them.
+    for (const r of rec.rows.filter((x) => x.fix?.type === 'link' && x.fix.to)) {
+      for (const f of ['README.md', 'pet.json']) {
+        const p = `${dir}/${f}`;
+        if (!existsSync(p)) continue;
+        const t = readFileSync(p, 'utf8');
+        if (!t.includes(r.fix.from)) continue;
+        writeFileSync(p, t.split(r.fix.from).join(r.fix.to));
+        log.push(`${f}: link to a renamed repo, ${r.fix.from} -> ${r.fix.to}.`);
+      }
+    }
+
     // 5. A59: pet.json `entry` opens the program page, and the README links to the program. A product's own README
     // (PRODUCT_README) keeps its text; its missing link stays on the round card.
     const a59 = applyA59Repo(dir, rec.rows, { readme: !PRODUCT_README.has(repo) });

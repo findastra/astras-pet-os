@@ -49,7 +49,7 @@ function fixedBy(rec, row) {
   if (branch[rec.number]) return !!row._fixed;
   const log = fx.log.join('\n');
   if (isName(row)) { const f = row.detail.split(':')[0]; return log.includes(f) && /\.(md|json|html?|txt|ya?ml|svg)$/i.test(f); }
-  if (row.fix?.type === 'link') return /Retired names/.test(log) && !/handoffs\/008-farmer/.test(row.detail);
+  if (row.fix?.type === 'link') return (/Retired names/.test(log) && !/handoffs\/008-farmer/.test(row.detail)) || (!!row.fix.to && log.includes(`-> ${row.fix.to}.`));
   if (row.fix?.type === 'petjson-job') return /job now matches/.test(log);
   if (row.fix?.type === 'petjson-audit') return /audit block copied/.test(log);
   if (row.fix?.type === 'petjson-name') return /pet "/.test(log);
