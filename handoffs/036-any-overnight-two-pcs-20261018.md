@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the answer sheet and the merges; the desktop PC's jobs are done, the other PC's are its own)
+status: open (waiting on Astra: the answer sheet; she OK'd the merges in chat; the other PC's jobs are its own)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: docs/idle-flash-audit-20261017.md, docs/flash-audit-20261014.md, skills/merge-order/SKILL.md, handoffs/035-codex-framework-pull-requests-20261018.md
@@ -93,6 +93,8 @@ lists (A54); Codex's framework parts (A41, A44, A45, A52) wait on card 035.
 
 **Fixes itself:** about 40 profile lines do not link their program yet, because #75 renamed the seed repos after the
 profile round last ran. The Farmer's profile round (daily, 12:47 UTC) rewrites them from the hub.
+
+**Merges (Astra's OK in chat, 2026-10-18, in her order):** #78 and #76 were merged by another chat at 11:11 and 11:01 UTC; #73; #81 (four commits that reached #76's branch after it merged); this card's #77; then #79 and mommys-mommies#5, voicemeeter-bug#3, the-cats-closet#2, the-police-station#2 and ai-doghouse#2.
 
 **Not verified:** anything that needs a click, a desktop launch, a sign-in or a person (A11, A19's live part, A22, A37,
 A40). **Other PC:** nothing from it on GitHub by 05:15 (no review on #76 yet).
