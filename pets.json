@@ -1244,10 +1244,10 @@
         "note": "Approved by Astra on 2026-10-14. Pet program: The Police Station (repo findastra/the-police-station, created 2026-10-14). Moves to the pipeline when Astra lets it in at the gate."
       },
       {
-        "pet": "pet-program-77-icon-77",
+        "pet": "Triage Tapir",
         "repo": null,
         "job": "Triages the vet-clinic: labels tickets, checks them for leaked secrets, and tests offered cures in isolation. Never merges anything.",
-        "note": "Approved by Astra on 2026-10-14 as a new pet; its pet program (pet-program-77) and icon names are not assigned yet (idea: Vet Clinic / Vetted Vet)."
+        "note": "Approved by Astra on 2026-10-14 as a new pet; named Triage Tapir by Astra on 2026-10-18 (Flash Audit A06). Its pet program (pet-program-77) is not named yet."
       },
       {
         "pet": "Rescue Retriever",
