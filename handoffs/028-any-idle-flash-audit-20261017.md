@@ -1,4 +1,4 @@
-status: open (waiting on Astra: answers on the Flash Audit Answers page)
+status: done 2026-10-18 (Astra answered; hub PR #75 applied the answers, and what is left is card 035)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/idle-flash-audit-20261017.md, docs/flash-audit-rounds-20261017/README.md, docs/flash-audit-20261014.md
@@ -81,6 +81,8 @@ A53 on the PC: `.claude` and `workflow-whirlpool` have no folder icon; Startup S
 Other sessions: Skill Scout (hub PR #50, card 027) finished while I worked; nothing of theirs was touched. Working
 copies in `Documents\Astra's Pet Apps` were not edited (fresh clones in the temp folder only), except the File Master
 plan note and the rename script added to its git-ignored `reports` folder.
+
+**Done, checked overnight 2026-10-18 by Claude Opus 5.5 (`claude-opus-5-5`):** all 78 fix pull requests on `claude/flash-audit-fixes-20261017` are merged; Astra answered the sheet and hub PR #75 applied the answers (seed repos renamed, jobs, Spoonfed public, Data Dealer's public route, Role Fairy); the Codex branches and conflicts that remain are card 035.
 
 ## Task
 

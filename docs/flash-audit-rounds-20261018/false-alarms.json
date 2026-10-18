@@ -1,0 +1,4 @@
+[
+  { "repo": "api-fairy", "check": "A26", "match": "a personal C:\\Users path", "why": "the paths in `src/Snapshot.cs` and `tests/Tests.cs` are test fixtures with a made-up user folder (`you`), not personal paths (A26). The auditor skips made-up folders." },
+  { "repo": "findastra-discord-presence", "check": "A26", "match": "a personal C:\\Users path", "why": "the paths in both presence tests are test fixtures with made-up user folders (`me`, `private`), not personal paths (A26). Checked by hand on 2026-10-18; the auditor now skips those two names too (hub PR #76)." }
+]

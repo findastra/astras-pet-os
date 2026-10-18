@@ -1,0 +1,35 @@
+# Round 28: Backup Beaver — Backup Dam
+
+[All rounds](README.md) · Stage: **pipeline** · Repo: [findastra/backup-beaver](https://github.com/findastra/backup-beaver) (public) · audited `main` at `dbe8906`
+
+<img src="../../art/icons/backup-beaver-20261012.png" width="88" alt="Backup Beaver icon">
+
+*Nine-emotion sheet: Missing (no art yet; generating it costs money, so it waits for your OK).*
+
+### Exceptions
+
+<sub>⚪ the Idle Flash Audit fixes it (a fix in code is named for the pet's chat) · 🔵 waits for your Active Flash Session</sub>
+
+1. ⚪ **A16 pet.json** — Missing. Metadata: framework declaration  
+   *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
+2. ⚪ **A55 Pictures** — Missing. README shows 1 picture(s).  
+   *Next:* Needs real pictures of the program working (you take some: card 026).
+3. 🔵 **A18 Tool list** — Missing. No declared tool inventory.  
+   *Next:* No tool list yet. It comes with the shared page framework.
+4. ⚪ **A52 L3 activity bubble** — Missing. Required shared L3 activity bubble/config/script/style not found in the inspected entry source.  
+   *Next:* Comes with Codex's shared page framework: card 035 asks Codex to bring its pull requests up to date.
+5. ⚪ **A44 Yellow phone** — Missing. Shared phone baseline not found.  
+   *Next:* Comes with Codex's shared page framework: card 035 asks Codex to bring its pull requests up to date.
+6. ⚪ **A45 Paper and zoom** — Missing. Shared stationery source not found.  
+   *Next:* Comes with Codex's shared page framework: card 035 asks Codex to bring its pull requests up to date.
+7. ⚪ **A41 Clicker Training** — Missing. No Clicker Training section found in the inspected entry source.  
+   *Next:* Comes with Codex's shared page framework: card 035 asks Codex to bring its pull requests up to date.
+
+### Decisions
+
+1. 🔵 **pets.json says Backup Beaver is private, but GitHub says public.** Change the repo, or keep it and update the registry?
+
+**Tools:** none declared in pet.json yet (A18).  
+**Tutorial tools:** Play with, Care for — Not verified overnight.
+
+<sub>Idle Flash Audit, 2026-10-18, Claude Opus 5.5. Read-only checks through the GitHub API; nothing was clicked, launched or signed in to.</sub>
