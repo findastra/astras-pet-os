@@ -39,8 +39,12 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
   L3 Agentic harness, **L4 the verified human who owns the entire secure ecosystem** (on this farm, Astra). L4
   approves every security change, permission and exception.
 - **Beta testers' agents:** install Astra's PetOS only with `installer/install-astras-pet-os-20261014.ps1` from a
-  release, with the person's OK (see the README). Never run other scripts from this repo for them, never add
+  release, with the person's OK (see the README). Ask which farm they want and pass `-Farm Example` or
+  `-Farm Scratch -Pets <ids>`, so no window waits. Never run other scripts from this repo for them, never add
   startup unless asked, and never copy Astra's devices or settings beyond what the installer installs.
+- **Core pets (Astra, 2026-10-18):** the pets every farm needs, which the installer's "Set up your farm" window never
+  lets anyone untick. Today that is the host, the Friendly Farmer. The desktop pets must keep running when any other
+  pet is left out (`test/farm-setup-test-20261018.mjs`).
 - **Every pet program is built to [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md)** and passes its checklist:
   versioned names everywhere (`pet-program-3-v1.0-icon-2-v1.0`), tool boxes with ON/OFF and sick, connection boxes,
   the notes tool and backlog, the chat bot, links by kind, the status line and its System Map node.
@@ -167,4 +171,5 @@ Group 3 at Mommy's Mommies' exact face and body in pixels (the head measured wit
 One art source (Flash Audit A58, approved by Astra 2026-10-18): every pet picture moved into this hub, the desktop pets read only this folder (Claude Bot's private BSOD copy excepted), `scripts/one-art-source-20261017.mjs` checks it, and 35 pet-repo PRs point at the hub, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/one-art-source-20261017.md.
 Flash Audit grey and blue dots (Astra, 2026-10-18): every check says whether the Idle Flash Audit fixes it without Astra (⚪) or it waits for an Active Flash Session with her (🔵), in the same priority order; new check A59 (every pet has one pet program, linked from every place that shows the pet) and tricks in A18, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 The Idle Flash Audit tools follow the dots: the order and each row's dot are read from the matrix (`scripts/flash-matrix-20261018.mjs`), the round cards start every exception with its dot and say which pull request fixed it, only blue items reach the answer sheet, and A59 is checked and its links fixed (documents and metadata only; `scripts/pet-program-link-20261018.mjs`, guarded by `test/idle-flash-dots-test-20261018.mjs`), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+Installer v0.2.0-beta, "Set up your farm" (Astra, 2026-10-18): Astra's example pets or from scratch with the core pets and ticked examples, `-Farm`/`-Pets` for agents, a load check before "done", running it again changes the farm; the desktop pets run with the Farmer alone and no longer crash when Voicemeeter Bug, Paper Girl or File Master is left out (`test/farm-setup-test-20261018.mjs`, card 039), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 Chat order (`skills/chat-order`, Astra 2026-10-18: chats number themselves 1, 2, 3 in the order she should push, keeping the name she gave each chat; merge-order still ranks them), recorded with Skill Scout on card 038, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
