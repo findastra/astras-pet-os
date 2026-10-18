@@ -430,8 +430,7 @@
     ],
     "private": [
       "health-hummy",
-      "finance-finch",
-      "meme-fiend"
+      "finance-finch"
     ],
     "private_rule": "These pets' data never leaves the PC. Other pets do not read from them, and the self-audit checks only their repo files.",
     "groups": {
@@ -521,7 +520,7 @@
       "art_source": "chip-original-20261008",
       "status": "hatching",
       "published": true,
-      "visibility": "public",
+      "visibility": "private",
       "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
