@@ -44,7 +44,7 @@ That is 30 tools on `main` and 21 not merged. The sketch shows two, **copyright-
 
 ## `unity-unicorn-L2-module`
 
-**Your tricks:** none written as tricks yet.
+**Your tricks:** one, on a branch, not merged: `unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0` ([skills/make-a-prop-look-real](https://github.com/findastra/unity-unicorn/blob/claude/realistic-props-20261018/skills/make-a-prop-look-real/SKILL.md), 2026-10-18), using the tools prop-decomposer and realistic-prop-restyle.
 - From the sketch, to write: weekly-update-from-friendly-farmer, weekly-copyright-auditor.
 - The skill book ([docs/skills-20261009.md](https://github.com/findastra/unity-unicorn/blob/main/docs/skills-20261009.md))
   holds what the Unicorn has learned (finding the newest avatar version, uploading through the SDK, diagnosing failed

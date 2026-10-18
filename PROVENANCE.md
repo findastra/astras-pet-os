@@ -34,7 +34,7 @@ builds). Astra's PetOS is at **SLSA Build L0** today and aims for L2 with the fi
 | Builds | This `.exe` was built from this exact source | Build provenance attestations from GitHub Actions (the SLSA standard); checksums on every release | Planned |
 | Ingredients | Every third-party part inside a release | A software bill of materials (SBOM) with each release | Planned |
 | Your farm | Exactly which pets and versions you run, and where each came from | `farm.lock`, with a hash for each pet | Designed |
-| Tricks | Where every skill an agent learned came from, and every change to it | Skill Scout's records | Designed |
+| Tricks | Where every trick a pet owns came from, and every change to it (and the seat's harness skills) | Skill Scout's records | Designed |
 | Community parts | Whether something is official, verified or a stranger's | Trust tiers on the Kennel, the Shed and the vet-clinic | **Done** |
 | History | Old commits carry no personal data | Author names and emails rewritten to the private address (2026-10-13) | **Done** |
 
