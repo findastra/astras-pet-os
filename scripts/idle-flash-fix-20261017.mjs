@@ -4,9 +4,13 @@
 // claude/flash-audit-fixes-20261017, then pushes and opens a pull request. Never touches the
 // working copies on Astra's PC, never pushes to a default branch.
 //   node scripts/idle-flash-fix-20261017.mjs <ledger.json> [repo,repo] [--dry]
+// A59 (every pet linked to its one pet program, Claude Opus 5.5, 2026-10-18): pet.json `entry` and the README link go
+// in each pet's fix branch; pets.json, pet-programs.json and system-map.json fixes go in one fix branch of the hub
+// (same branch name, pull request against main). Documents and metadata only, never code.
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { applyA59Repo, applyA59Hub, HUB } from './pet-program-link-20261018.mjs';
 
 const [ledgerPath, onlyArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const DRY = process.argv.includes('--dry');
@@ -172,8 +176,13 @@ for (const rec of ledger) {
       if (rm !== before) writeFileSync(rmPath, rm);
     }
 
+    // 5. A59: pet.json `entry` opens the program page, and the README links to the program. A product's own README
+    // (PRODUCT_README) keeps its text; its missing link stays on the round card.
+    const a59 = applyA59Repo(dir, rec.rows, { readme: !PRODUCT_README.has(repo) });
+    log.push(...a59.log);
+
     const status = git(dir, 'status', '--porcelain');
-    results[repo] = { log, changed: !!status };
+    results[repo] = { log, changed: !!status, a59: a59.applied };
     if (!status) { console.error(`${repo}: nothing to fix`); save(); continue; }
     if (DRY) { results[repo].diff = git(dir, 'diff', '--stat'); console.error(`${repo} (dry):\n  ${log.join('\n  ')}`); save(); continue; }
     git(dir, 'add', '-A');
@@ -186,6 +195,44 @@ for (const rec of ledger) {
   } catch (e) {
     results[repo] = { log, error: String(e.stderr || e.message).slice(0, 400) };
     console.error(`${repo}: ERROR ${results[repo].error}`);
+  }
+  save();
+}
+
+// The hub's A59 fixes, in one fix branch of astras-pet-os: pets.json links, a number in pet-programs.json for a pet
+// that has none, the System Map line from a pet to its program. The hub is the core: its pull request waits for
+// Astra's OK in chat like every other.
+const hubFixes = [...new Map(ledger.flatMap((rec) => rec.rows.filter((r) => r.check === 'A59' && r.fix?.where === 'hub').map((r) => [r.fix.id, r.fix]))).values()];
+if (hubFixes.length && (!ONLY.length || ONLY.includes(HUB)) && !results[HUB]?.pr) {
+  const dir = `${W}/c/${HUB}`;
+  const log = [];
+  try {
+    if (existsSync(dir)) rmSync(dir, { recursive: true, force: true });
+    mkdirSync(`${W}/c`, { recursive: true });
+    execFileSync('gh', ['repo', 'clone', `findastra/${HUB}`, dir, '--', '--filter=blob:none', '--quiet'], { stdio: 'ignore' });
+    git(dir, 'checkout', '-q', '-B', BRANCH, 'origin/main');
+    git(dir, 'config', 'user.name', 'findastra');
+    git(dir, 'config', 'user.email', '88600745+findastra@users.noreply.github.com');
+    const a59 = applyA59Hub(dir, hubFixes);
+    log.push(...a59.log);
+    // The generated files (cage-data.js, the README table, the System Map page) follow pets.json; no art is built.
+    if (a59.applied.length) { execFileSync(process.execPath, ['scripts/build.mjs', '--metadata-only'], { cwd: dir, stdio: 'ignore' }); log.push('Ran `npm run build -- --metadata-only` so the generated files follow.'); }
+    const status = git(dir, 'status', '--porcelain');
+    results[HUB] = { log, changed: !!status, a59: a59.applied };
+    if (!status) console.error(`${HUB}: nothing to fix`);
+    else if (DRY) { results[HUB].diff = git(dir, 'diff', '--stat'); console.error(`${HUB} (dry):\n  ${log.join('\n  ')}`); }
+    else {
+      git(dir, 'add', '-A');
+      git(dir, 'commit', '-q', '-m', `A59: every pet linked to its one pet program (${ISO})\n\n${log.map((l) => '- ' + l).join('\n')}\n\nFound by the Idle Flash Audit (docs/flash-audit-20261014.md, A59).\n\nCo-Authored-By: ${COAUTHOR}`);
+      git(dir, 'push', '-q', '-u', 'origin', BRANCH);
+      const body = `Idle Flash Audit, ${ISO}, by ${MODEL}. A59 fixes in the hub that need no decision from Astra (documents and metadata only):\n\n${log.map((l) => '- ' + l).join('\n')}\n\nThe hub is the core: this waits for Astra's OK in chat. The round cards (docs/flash-audit-rounds-${DATE}/) say "fixed in" this pull request for each finding it fixes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)`;
+      results[HUB].pr = execFileSync('gh', ['pr', 'create', '-R', `findastra/${HUB}`, '--base', 'main', '--head', BRANCH, '--title', `#1 Friendly Farmer: A59 links that need no decision (${ISO})`, '--body', body], { encoding: 'utf8' }).trim().split('\n').pop();
+      results[HUB].commit = git(dir, 'rev-parse', '--short', 'HEAD');
+      console.error(`${HUB}: ${results[HUB].pr}`);
+    }
+  } catch (e) {
+    results[HUB] = { log, error: String(e.stderr || e.message).slice(0, 400) };
+    console.error(`${HUB}: ERROR ${results[HUB].error}`);
   }
   save();
 }

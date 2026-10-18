@@ -10,6 +10,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { applyA59Repo } from './pet-program-link-20261018.mjs';
 
 const [ledgerPath, onlyArg] = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const DRY = process.argv.includes('--dry');
@@ -171,8 +172,11 @@ for (const rec of ledger) {
       const r = credit(t, /\.html?$/i.test(p)); if (r.n) { writeFileSync(`${dir}/${p}`, r.text); cn += r.n; ct.push(p); }
     }
     if (cn) log.push(`Credit line is now "${NEWCREDIT}." (card 033): ${cn} change(s) in ${ct.join(', ')}. Art prompts and provenance notes keep their wording.`);
+    // 6. A59: pet.json entry and the README link to the pet program, again on top of today's base.
+    const a59 = applyA59Repo(dir, rec.rows, { readme: !PRODUCT_README.has(repo) });
+    log.push(...a59.log);
     const status = g('status', '--porcelain');
-    results2[repo] = { log, changed: !!status || !!behind };
+    results2[repo] = { log, changed: !!status || !!behind, a59: a59.applied };
     if (status) { g('add', '-A'); g('commit', '-q', '-m', `Flash Audit fixes on today's ${base}; credit line for card 033 (${TODAY})\n\n${log.map((l) => '- ' + l).join('\n')}\n\nCo-Authored-By: ${COAUTHOR}`); }
     if (!DRY && (status || behind)) g('push', '-q', 'origin', BRANCH);
     console.error(`${repo}: ${DRY ? 'dry' : 'pushed'} — ${log.length} note(s)`);

@@ -4,10 +4,16 @@
 // Reads every pet program in astras-pet-os/pet-programs.json through the GitHub API (default
 // branch, private repos included via gh), reuses Goldfish's preflight, adds the static checks
 // it lacks, and writes an evidence ledger. Never executes repository code, never writes to a repo.
+// A59 (each pet linked to its one pet program, 2026-10-18) is checked by pet-program-link-20261018.mjs; the list-wide
+// part goes on the Farmer's round card (#1). A row's `dot` marks a finding that is its matrix row's sentence of the
+// other dot; every other row takes its dot from the matrix (flash-matrix-20261018.mjs).
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { a59ForPet, a59ForCatalog, parseProfileHomes, pagesOf } from './pet-program-link-20261018.mjs';
+import { systemMapData } from './system-map-20261012.mjs';
+import { GREY, BLUE } from './flash-matrix-20261018.mjs';
 
 // Goldfish's local preflight (github-goldfish/scripts/flash-audit-local-20261015.mjs) adds the
 // framework checks. Without it those checks are reported Not verified.
@@ -39,6 +45,21 @@ const frames = JSON.parse(hubFile('art/frames/index.json'));
 const levels = hubFile('INTELLIGENCE-LEVELS.md');
 const hubTree = tree(HUB, 'main');
 
+// A59: the places that show each pet. The profile README (findastra/findastra) and the System Map as the hub builds it.
+const profileMd = file(OWNER, 'README.md', gh(`repos/${OWNER}/${OWNER}`)?.default_branch || 'main');
+const profile = profileMd ? parseProfileHomes(profileMd) : null;
+if (!profile) console.error('Profile README not readable: A59 skips the profile links.');
+let mapData = null;
+try { mapData = systemMapData(registry, systemMap, catalog); } catch (e) { console.error(`System Map not built (${e.message}): A59 skips the map.`); }
+const MAP_PETS = ['host', 'pet', 'pipeline', 'seed', 'roadmap'];
+function mapFor(prog) {
+  if (!mapData) return null;
+  const node = mapData.nodes.find((n) => MAP_PETS.includes(n.type) && ((n.repo && n.repo === prog.repo) || n.name === prog.icon));
+  const programNodes = mapData.nodes.filter((m) => m.program === prog.number).map((m) => m.id);
+  const linked = !!node && programNodes.length === 1 && mapData.links.some((l) => (l.from === node.id && l.to === programNodes[0]) || (l.to === node.id && l.from === programNodes[0]));
+  return { node: node?.id || null, home: node?.home || null, programNodes, linked, private: !!node?.private || (registry.relations?.private || []).includes(prog.repo) };
+}
+
 // INTELLIGENCE-LEVELS.md rows, keyed by repo.
 const levelRows = {};
 for (const line of levels.split('\n')) {
@@ -60,8 +81,9 @@ const titleCase = (s) => s.split('-').map((w) => w ? w[0].toUpperCase() + w.slic
 const norm = (s) => (s || '').toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ').trim();
 const placeholder = (s) => /pet-program-\d+|icon-\d+|placeholder|not decided|to be decided/i.test(s || '');
 const STRAY = [
-  // Made-up user folders in examples and test fixtures (you, example, <name>) are not personal paths.
-  [/[A-Z]:\\{1,2}Users\\{1,2}(?!(?:you|example|user|name|<[^>]*>)\\)[^\\\s"'`]+/gi, 'a personal C:\\Users path'],
+  // Made-up user folders in examples and test fixtures (you, me, example, private, <name>) are not personal paths
+  // (findastra-discord-presence's tests use the folders "me" and "private", 2026-10-18).
+  [/[A-Z]:\\{1,2}Users\\{1,2}(?!(?:you|me|example|user|name|private|<[^>]*>)(?:\\|['"`]|$))[^\\\s"'`]+/gim, 'a personal C:\\Users path'],
   [/Documents[\\/]Projects/g, 'the retired Documents\\Projects folder'],
   [/Astra['’]s Pet Apps/g, "the retired name Astra's Pet Apps"],
   [/astras-pet-apps/g, 'the retired repo name astras-pet-apps'],
@@ -102,6 +124,13 @@ function checkGithubLink(u) {
 const pagesUrl = (repo) => `https://findastra.github.io/${repo}/`;
 const ledger = [];
 
+// The Farmer's round card (#1, The Farm) holds A59 for the whole list: pets with no number, two pets on one program.
+if (!ONLY.length || ONLY.includes(1)) {
+  const farm = catalog.find((p) => p.number === 1) || { icon: 'Friendly Farmer', program: 'The Farm', assigned: true, stage: 'registered' };
+  ledger.push({ number: 1, icon: farm.icon, program: farm.program, assigned: farm.assigned, stage: farm.stage, repo: HUB, hub: true, audited: null,
+    rows: a59ForCatalog(catalog, registry), fixes: [], decisions: [] });
+}
+
 for (const prog of catalog) {
   if (prog.number < 3) continue;
   if (ONLY.length && !ONLY.includes(prog.number)) continue;
@@ -111,7 +140,9 @@ for (const prog of catalog) {
   const rec = { number: prog.number, icon: prog.icon, program: prog.program, assigned: prog.assigned, idea: prog.idea, stage: prog.stage, repo: prog.repo, regStage, rows, fixes: [], decisions: [] };
 
   // ---- 1. Is it a pet, and is it named
-  if (placeholder(prog.icon)) { add('A06', 'Missing', `Pet name is still the placeholder "${prog.icon}".`); rec.decisions.push({ kind: 'pet-name' }); }
+  // A row's dot comes from the matrix (flash-matrix-20261018.mjs); `dot` marks a finding that is the row's sentence of
+  // the other dot (A06: "🔵 A placeholder or a new name is Astra's").
+  if (placeholder(prog.icon)) { add('A06', 'Missing', `Pet name is still the placeholder "${prog.icon}".`, { dot: BLUE }); rec.decisions.push({ kind: 'pet-name' }); }
   if (!prog.assigned || placeholder(prog.program)) { add('A07', 'Missing', `Program name not chosen${prog.idea ? ` (suggested idea: ${typeof prog.idea === 'string' ? prog.idea : JSON.stringify(prog.idea)})` : ''}.`); rec.decisions.push({ kind: 'program-name', idea: prog.idea }); }
 
   // Always ask GitHub: the catalog's repo_exists can be stale (it said false for 41 repos made 2026-10-14).
@@ -122,6 +153,7 @@ for (const prog of catalog) {
   if (!meta) {
     if (prog.stage === 'seed' || prog.stage === 'roadmap') add('A13', 'Missing (planned)', `No repo yet (${prog.stage}).`);
     else add('A13', 'Missing', `Catalog says repo ${prog.repo} but it is not on GitHub.`);
+    rows.push(...a59ForPet({ prog, reg, repo: { exists: false } }));
     ledger.push(rec); writeFileSync(`${OUT}/ledger.json`, JSON.stringify(ledger, null, 1));
     console.error(`#${prog.number} ${prog.icon}: no repo`); continue;
   }
@@ -150,7 +182,8 @@ for (const prog of catalog) {
   if (differ.length) add('A06', 'Incorrect', `Pet name differs from the catalog ("${prog.icon}"): ${differ.map(([k, v]) => `${k} says "${v}"`).join('; ')}.`, { fix: differ.some(([k]) => k === 'pet.json') ? { type: 'petjson-name', to: prog.icon } : null });
   const title = (entry.match(/<title>([^<]*)<\/title>/i) || [])[1];
   rec.pageTitle = title;
-  if (title && prog.assigned && !norm(title).includes(norm(prog.program)) && !norm(title).includes(norm(prog.icon))) add('A07', 'Incorrect', `Page title "${title}" names neither the pet nor the program "${prog.program}".`);
+  // A07: "⚪ A versioned label or number that differs from pet-programs.json is fixed idle" (in code: the pet's chat).
+  if (title && prog.assigned && !norm(title).includes(norm(prog.program)) && !norm(title).includes(norm(prog.icon))) add('A07', 'Incorrect', `Page title "${title}" names neither the pet nor the program "${prog.program}".`, { dot: GREY });
 
   // A01 icon, A02/A05 frames.
   const art = reg?.art;
@@ -175,9 +208,18 @@ for (const prog of catalog) {
     if (u === pagesUrl(meta.name) && u !== reg?.interface_live_url && u !== meta.homepage) continue; // only informative
     if (!r || r.status >= 400 || r.status === 0) add('A10', 'Incorrect', `Program route ${u} answers ${r?.status || r?.error}.`);
     else if (/^https:\/\/github\.com\/findastra\/[^/]+\/?$/.test(r.final)) add('A10', 'Incorrect', `Program route ${u} is a repo page posing as the program.`);
-    else if (/claude\.ai|accounts\.google|login/.test(r.final)) add('A10', 'Not verified', `Program route ${u} lands behind a sign-in (${new URL(r.final).host}).`);
+    else if (/claude\.ai|accounts\.google|login/.test(r.final)) add('A10', 'Not verified', `Program route ${u} lands behind a sign-in (${new URL(r.final).host}).`, { dot: BLUE }); // A10: "🔵 A route behind a sign-in is checked with Astra"
   }
   if (!routes.length) add('A10', 'Missing', 'No program URL (private repo with no hosted page, or none configured).');
+
+  // A59 pet program and its link: pet.json entry, pets.json, the profile, The Farm's card, the System Map, the README.
+  let entryLive = false;
+  if (entryPath && !meta.private && ['registered', 'pipeline'].includes(prog.stage)) {
+    const r = await check(entryPath === 'index.html' ? pagesOf(meta.name) : pagesOf(meta.name) + entryPath);
+    entryLive = !!r && r.status > 0 && r.status < 400;
+  }
+  rows.push(...a59ForPet({ prog, reg, tools: registry.profile?.tools?.[prog.repo] || null, repo: { exists: true, private: meta.private, archived: meta.archived, name: meta.name },
+    pet, tree: t, hubTree, readme: readme || null, profile, map: mapFor(prog), entryLive }));
 
   // A54 third-party programs.
   const madeByOthers = ((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').replace(/<[^>]+>/g, '').trim();
@@ -186,7 +228,8 @@ for (const prog of catalog) {
 
   // ---- 2. Where the work lives
   const pre = inspectSnapshot({ files: t, metadata: pet, entry });
-  for (const r of pre) if (r.status !== 'Pass' && !['A19', 'A20', 'A21', 'A22', 'A25', 'A26', 'A27', 'A28', 'A29', 'A30', 'A32', 'A39', 'A43', 'A46', 'A47', 'A48', 'A49', 'A50', 'A51'].includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight' });
+  // A52: "⚪ A bubble missing from the page is named on the round card for the pet's chat" (its live check stays 🔵).
+  for (const r of pre) if (r.status !== 'Pass' && !['A19', 'A20', 'A21', 'A22', 'A25', 'A26', 'A27', 'A28', 'A29', 'A30', 'A32', 'A39', 'A43', 'A46', 'A47', 'A48', 'A49', 'A50', 'A51'].includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight', ...(r.check === 'A52' && r.status === 'Missing' ? { dot: GREY } : {}) });
   const required = ['LICENSE', 'AGENTS.md', 'CLAUDE.md'].filter((f) => !t.includes(f));
   if (required.length) rec.fixes.push({ type: 'add-files', files: required });
   if (!meta.private && !(meta.topics || []).includes('pet-app')) add('A14', 'Missing', 'Public pet repo without the pet-app topic.', { fix: { type: 'topic' } });
@@ -215,11 +258,13 @@ for (const prog of catalog) {
       if (m) rec.stray.push({ file: p, what, count: m.length, sample: m[0].replace(/[A-Z]:\\{1,2}Users\\{1,2}[^\\]+/i, '%USERPROFILE%') });
     }
   }
-  for (const s of rec.stray) add(s.what.includes('personal') ? 'A26' : 'A56', 'Incorrect', `${s.file}: ${s.count}× ${s.what} (e.g. "${s.sample}").`, { fix: { type: 'stray', file: s.file, what: s.what } });
+  // A26: "⚪ A personal path in a public document is replaced with %USERPROFILE% on a branch".
+  for (const s of rec.stray) add(s.what.includes('personal') ? 'A26' : 'A56', 'Incorrect', `${s.file}: ${s.count}× ${s.what} (e.g. "${s.sample}").`, { fix: { type: 'stray', file: s.file, what: s.what }, ...(s.what.includes('personal') ? { dot: GREY } : {}) });
 
   // A16 metadata vs registry.
   if (pet && reg) {
-    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job } });
+    // A16: "🔵 A field the pet submitted itself (cage.submit) that the registry has not taken is a decision".
+    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job }, ...(pet.cage?.submit?.job ? { dot: BLUE } : {}) });
     if (reg.status && pet.status && reg.status !== pet.status) add('A16', 'Incorrect', `pet.json status "${pet.status}" differs from the registry "${reg.status}".`);
     if (reg.audit && !pet.audit) add('A16', 'Missing', 'pet.json has no audit block (the registry has one).', { fix: { type: 'petjson-audit', audit: reg.audit } });
   }
