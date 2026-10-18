@@ -1,0 +1,25 @@
+{
+  "pet": "file-master",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.72,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/file-master/alarmed-20261011.png",
+    "desktop-art/file-master/blink-20261011.png",
+    "desktop-art/file-master/curious-20261011.png",
+    "desktop-art/file-master/happy-20261011.png",
+    "desktop-art/file-master/idle-20261011.png",
+    "desktop-art/file-master/sad-20261011.png",
+    "desktop-art/file-master/sick-20261011.png",
+    "desktop-art/file-master/sleep-20261011.png",
+    "desktop-art/file-master/worried-20261011.png"
+  ],
+  "notes": "Commanding golden manila folder with a small angular crown, stern eyebrows and small black rectangular eyes with white highlights. Height remains 42.3 logical pixels.",
+  "source_sheet": "desktop-art/file-master/sheet-20261011.png",
+  "paired_with": "paper-girl",
+  "following": "Always roam together in the shared desktop host. File Master leads initially; dragging either pet makes it lead while the companion catches up. Both pause for interaction and remain neighbors in the floor lineup."
+}

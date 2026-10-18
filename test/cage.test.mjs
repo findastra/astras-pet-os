@@ -203,6 +203,29 @@ test('sheetToSprite slices a 3x3 sheet, removes the background and keeps nine mo
   assert.equal(new Set(MOODS.map((m) => asColours(sprite.frames[m]))).size, 9);
 });
 
+// Group 3 (2026-10-17): a sheet of finished frames is cut 1:1, not fitted, so measured head and body heights survive.
+test('a native sheet comes back at its own pixel size and place, with enclosed background removed', () => {
+  const S = 300, F = 64, buf = Buffer.alloc(S * S * 4);
+  for (let i = 0; i < S * S; i++) buf.set([128, 128, 128, 255], i * 4); // solid #808080, like the hub's sheets
+  for (let c = 0; c < 9; c++) {
+    const ox = (c % 3) * 100 + 18, oy = Math.floor(c / 3) * 100 + 18; // a 64px frame in the middle of each cell
+    for (let y = 10; y < 50; y++) for (let x = 20; x < 40; x++) {
+      const edge = x < 22 || x > 37 || y < 12 || y > 47, hole = x >= 27 && x < 33 && y >= 25 && y < 31;
+      if (hole) continue; // stays #808080, enclosed by the drawing
+      buf.set(edge ? [0, 0, 0, 255] : [255, 40 + c * 20, 128, 255], ((oy + y) * S + ox + x) * 4);
+    }
+  }
+  const sprite = sheetToSprite(png(S, S, buf), { size: F, native: 1 });
+  assert.deepEqual(sprite.size, [F, F]);
+  for (const mood of MOODS) {
+    const rows = sprite.frames[mood].rows;
+    const drawn = rows.map((r, y) => [y, r.replace(/\.+$/, '').search(/[^.]/)]).filter(([, x]) => x >= 0);
+    assert.deepEqual([drawn[0][0], drawn.at(-1)[0]], [10, 49], `${mood}: drawn rows moved or were scaled`);
+    assert.ok(drawn.every(([, x]) => x === 20), `${mood}: drawn columns moved or were scaled`);
+    assert.equal(rows[27][29], '.', `${mood}: background enclosed by the drawing was kept`);
+  }
+});
+
 test('decodePng reads back exactly what png() wrote', () => {
   const rgba = Buffer.from([255, 0, 0, 255, 0, 255, 0, 128, 0, 0, 255, 0, 10, 20, 30, 255]);
   const img = decodePng(png(2, 2, rgba));

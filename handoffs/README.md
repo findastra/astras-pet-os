@@ -9,6 +9,8 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | open |
+| [032: The desktop pets read only the hub: draft list, rebuild, restart](032-any-desktop-reads-only-the-hub-20261018.md) | any | open, after Astra merges #60 and #58 |
+| [031: Rebuild the desktop exe for group 3's one scale, keeping the Goldfish triple-click](031-codex-rebuild-desktop-girls-same-size-20261017.md) | Codex | open, after Astra merges `claude/girls-same-size-20261017` |
 | [030: Redraw Gif Giraffe, Unity Unicorn and group 1 in group 4's style](030-codex-redraw-giraffe-unicorn-group-1-20261017.md) | Codex | open |
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
 | [024: Pole Puff: create the `pole-puff` repo from `drafts/pole-puff/`](024-any-pole-puff-repo-20261012.md) | any | open: Astra approved the repo, the art and the look (2026-10-12); repo not created yet |
@@ -70,6 +72,8 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 028 | `028-any-idle-flash-audit-20261017.md` | `claude/idle-flash-audit-20261017` |
 | 029 | `029-codex-hub-folder-back-on-main-20261017.md` | `claude/star-hub-on-main-20261017` |
 | 030 | `030-codex-redraw-giraffe-unicorn-group-1-20261017.md` | `claude/pet-art-redesign-20261017` |
+| 031 | `031-codex-rebuild-desktop-girls-same-size-20261017.md` | `claude/girls-same-size-20261017` |
+| 032 | `032-any-desktop-reads-only-the-hub-20261018.md` | `claude/one-art-source-20261017` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on

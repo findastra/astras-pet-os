@@ -2,6 +2,11 @@
 
 By Claude Opus 5.5 (`claude-opus-5-5`) for Astra. Every picture here is a **draft until Astra approves it**.
 
+**Followed by [girls-same-size-20261017.md](girls-same-size-20261017.md)** (Astra, 2026-10-17: the same body and
+head size exactly; 2026-10-18: the head is measured without hair): group 3 now has Mommy's Mommies' face and body in
+pixels, not only the ratio, and the desktop draws them at Mommy's Mommies' scale. Mommy's Mommies: face 49 and 50 wide,
+26 from the top of the eyes to the chin, body 109 (the hair-top 72 and 106 below were read by eye).
+
 ## What Astra asked
 
 From a screenshot of the desktop pets in four groups (2026-10-17):

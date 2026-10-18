@@ -1,0 +1,43 @@
+{
+  "pet": "mine-mole",
+  "status": "draft",
+  "approved": false,
+  "created": "2026-10-11",
+  "creator": "Astra",
+  "built_with": "OpenAI Codex (GPT-6), built-in image generation",
+  "source": "sheet-20261011.png",
+  "prompt": "prompt-20261011.md",
+  "frame_size": [
+    256,
+    256
+  ],
+  "background": "transparent",
+  "sheet_layout": {
+    "columns": 3,
+    "rows": 3,
+    "order": [
+      "idle",
+      "blink",
+      "happy",
+      "curious",
+      "worried",
+      "sad",
+      "sick",
+      "alarmed",
+      "sleep"
+    ]
+  },
+  "frames": {
+    "idle": "idle-20261011.png",
+    "blink": "blink-20261011.png",
+    "happy": "happy-20261011.png",
+    "curious": "curious-20261011.png",
+    "worried": "worried-20261011.png",
+    "sad": "sad-20261011.png",
+    "sick": "sick-20261011.png",
+    "alarmed": "alarmed-20261011.png",
+    "sleep": "sleep-20261011.png"
+  },
+  "icon": "idle-20261011.png",
+  "notes": "Draft artwork for review. Not activated in the app or Cage registry. No generated mood symbols; shared overlays can be composited during integration."
+}
