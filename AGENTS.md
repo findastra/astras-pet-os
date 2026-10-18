@@ -22,7 +22,7 @@ no "I'll read it if I need it". This applies to small tasks too.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
 ## One list of names (Astra, 2026-10-16)
-Every pet name (icon) and pet program (home) name is decided in **`pet-programs.json` only**, in the same chat that decides it, on a branch merged that day. Never write a new name into pets.json, the System Map, INTELLIGENCE-LEVELS.md, a doc or a repo first: `npm test` (test/name-list-test-20261016.mjs) fails when another list disagrees, and the Farmer's profile round writes the README from the list. Tools vs tricks: a **tool** is code a pet program owns and runs without AI (ON/OFF, sick light, can be bound to a click: one, two, three or more); a **trick** is a skill its seated AI follows, using only that pet's tools.
+Every pet name (icon) and pet program (home) name is decided in **`pet-programs.json` only**, in the same chat that decides it, on a branch Astra merges (the same day when she can). Never write a new name into pets.json, the System Map, INTELLIGENCE-LEVELS.md, a doc or a repo first: `npm test` (test/name-list-test-20261016.mjs) fails when another list disagrees, and the Farmer's profile round writes the README from the list. Tools vs tricks: a **tool** is code a pet program owns and runs without AI (ON/OFF, sick light, can be bound to a click: one, two, three or more); a **trick** is a skill its seated AI follows, using only that pet's tools.
 
 ## Protection rings and animal code (Astra, 2026-10-13)
 **🐾 Everything inside the harness is an animal. Agents can only control animals.** Read
@@ -91,7 +91,7 @@ ASTRAS_PET_OS v5.2 filed as the canonical architecture, with the Phase 0 audit, 
 Voicemeeter Bug (made with OpenAI Codex (GPT-6) on 2026-10-08) registered on main from the unmerged roam-free branch, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-11. His Windows app and source are still only on Astra's PC.
 
 ## What this is
-The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, who hosts the Cage today and will run the Farm under ASTRAS_PET_OS. `pets.json` is the single registry. Everything else (README table, ROSTER.md, `cage-data.js`, the art) is generated from it.
+The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage is retired; `cage.html` still works). `pets.json` is the single registry. Everything else (README table, ROSTER.md, `cage-data.js`, the art) is generated from it.
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
@@ -154,4 +154,7 @@ Astra's PetOS restructuring with Claude Opus 5.5 (`claude-opus-5-5`), head chat,
 Pet-first profile lines (`N. **Pet** · *Home* · [`repo`](link) -- job [status]`), the Friendly Farmer's `pet-organizer` and `pet-finder` tricks (skills/pet-organizer, skills/pet-finder) and the read-only pet-finder tool (`scripts/pet-finder-20261016.mjs`, guarded by `test/pet-first-test-20261016.mjs`) with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Card 012 lists what waits on Astra. Later the same day Astra moved the home, repo and tools off the pet line into sub-bullets: `N. **Pet** -- job [status]`, then `- home`, `- repo`, `- tools` (skills/pet-organizer).
 The Farmer's daily round repaired and known gap 11 closed (the round opens a pull request on `farmer/rounds-YYYYMMDD` instead of pushing to `main`; a submitted name is only a note; the desk builder finds the host by role; `test/farmer-rounds-pr-test-20261017.mjs`) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 Flash Audit put in priority order (most imperative first, with the insertion rule), new checks A54 third-party programs, A55 pictures and A56 work saved in its native folder, and the project-image-generator decision, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
+Pole Puff draft app (`drafts/pole-puff/`, card 024; the `pole-puff` repo is approved but not created) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12; rewritten onto `main` from PR #8, 2026-10-18.
+Blueprint for the chat bot, a GitHub-issue queue and systemic updates (`docs/chat-bot-queue-blueprint-20261009.md`, a draft waiting on Astra's decisions) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-09; rewritten onto `main` from PR #7 with what changed since, 2026-10-18.
+
 Pet art redesign (rat size, brighter RGBee and Mesh Moth, WiFi Butterfly's face, Meme Fiend's cute face, Farmer, Discord Damsel and API Fairy at Mommy's Mommies' body ratio, Claude Bot as an exact BSOD copy in its now-private repo), Flash Audit A58 One art source and card 030 for the redraws, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17. Record: docs/pet-art-redesign-20261017.md.
