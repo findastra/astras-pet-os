@@ -242,7 +242,8 @@ test('round cards start every exception with its dot, say which pull request fix
     writeFileSync(join(dir, 'ledger.json'), JSON.stringify(ledger));
     writeFileSync(join(dir, 'fix.json'), JSON.stringify(fixes));
     writeFileSync(join(dir, 'names.json'), '{}');
-    execFileSync(process.execPath, [join(HUB_DIR, 'scripts/idle-flash-cards-20261017.mjs'), join(dir, 'ledger.json'), join(dir, 'fix.json'), join(dir, 'names.json'), out], { stdio: 'pipe' });
+    execFileSync(process.execPath, [join(HUB_DIR, 'scripts/idle-flash-cards-20261017.mjs'), join(dir, 'ledger.json'), join(dir, 'fix.json'), join(dir, 'names.json'), out], { stdio: 'pipe', env: { ...process.env, FLASH_DATE: '20261018' } });
+    assert.match(readFileSync(join(out, 'README.md'), 'utf8'), /^# Flash Audit rounds, 2026-10-18$/m, 'the cards carry the run\'s date');
     const card = readFileSync(join(out, 'round-22-rgbee.md'), 'utf8');
     const exceptions = card.split('### Exceptions')[1].split('### Fixed')[0].split('\n').filter((l) => /^\d+\. /.test(l));
     assert.ok(exceptions.length >= 2);

@@ -14,7 +14,8 @@ const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8')).sort((a, b) => a.num
 const fixes = existsSync(fixPath) ? JSON.parse(readFileSync(fixPath, 'utf8')) : {};
 const names = JSON.parse(readFileSync(namesPath, 'utf8'));
 const branch = branchPath && existsSync(branchPath) ? Object.fromEntries(JSON.parse(readFileSync(branchPath, 'utf8')).map((r) => [r.number, r])) : {};
-const DATE = '2026-10-17';
+// The run's date (FLASH_DATE, as the fixer takes it: 2026-10-18 or 20261018); today when it is not given.
+const DATE = ((d) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`)((process.env.FLASH_DATE || new Date().toISOString().slice(0, 10)).replaceAll('-', ''));
 const HUB = 'https://github.com/findastra/astras-pet-os';
 const UP = '../..';
 // The iPad answer sheet (an Artifact made by idle-flash-answers-page-20261017.mjs) for this run.
@@ -119,7 +120,9 @@ const rowKey = (r) => (r.check === 'A56' || r.check === 'A26') ? `${r.check}|${r
 // A row read from a fix branch is worded against main, which is where Astra merges.
 const asMain = (r, fixRef, mainRef) => { if (!fixRef || fixRef === mainRef) return r; const s = (v) => typeof v === 'string' ? v.split(`compare/${fixRef}...`).join(`compare/${mainRef}...`).split(`not on ${fixRef}`).join(`not on ${mainRef}`) : v; return { ...r, detail: s(r.detail), link: s(r.link) }; };
 const PRODUCT_README = new Set(['data-dealer']);
-const FALSE = existsSync(`${OUT}/false-alarms.json`) ? JSON.parse(readFileSync(`${OUT}/false-alarms.json`, 'utf8')) : [];
+// The hub's registry beside the cards (docs/flash-audit-rounds-<date>/../../pets.json), for the visibility question.
+const registryOf = (() => { try { const r = JSON.parse(readFileSync(`${OUT}/${UP}/pets.json`, 'utf8')); const all = [...(r.pets || []), ...(r.pipeline || [])]; return (repo) => all.find((e) => e.repo === repo); } catch { return () => null; } })();
+const FALSE =existsSync(`${OUT}/false-alarms.json`) ? JSON.parse(readFileSync(`${OUT}/false-alarms.json`, 'utf8')) : [];
 const seedSheets = (() => { try { return readdirSync(`${OUT}/${UP}/art/seeds`).filter((f) => f.endsWith('.png')); } catch { return []; } })();
 const hubIcons = (() => { try { return readdirSync(`${OUT}/${UP}/art/icons`); } catch { return []; } })();
 // The auditor finds icons by repo name; seed and roadmap icons are filed under the pet's name.
@@ -153,11 +156,15 @@ for (const rec of ledger) {
   if (names[rec.number] && (!rec.assigned || /^pet-program-/.test(rec.program))) decisions.push({ kind: 'Program name', text: `**Program name** for ${rec.icon} (now \`${rec.program}\`). Pick one, or write your own:`, options: names[rec.number] });
   for (const l of fx.log || []) if (/^Not changed: pet.json job/.test(l)) decisions.push({ kind: 'Job', text: `**Job:** ${rec.icon} submitted its own job to the Farmer (${(l.match(/on (\d{4}-\d\d-\d\d)/) || [])[1] || 'date unknown'}), and the registry says something else. Which one is right?\n  - Pet's own: "${esc(rec.pet?.cage?.submit?.job || rec.pet?.job)}"\n  - Registry: "${esc(rec.rows.find((r) => r.fix?.type === 'petjson-job')?.fix.to)}"` });
   const unmerged = rec.rows.find((r) => r.check === 'A17');
-  if (unmerged) decisions.push({ kind: 'Branches', text: `**Branches with work not on ${rec.audited.ref}** and no pull request: ${(rec.branches || []).filter((b) => !(rec.openPRs || []).some((p) => p.head === b.name) && !/pictures-20261017|flash-audit-fixes-20261017/.test(b.name)).map((b) => `[\`${b.name}\`](https://github.com/findastra/${rec.audited.repo}/compare/${rec.audited.ref}...${encodeURIComponent(b.name)}) (+${b.ahead})`).join(', ')}. Open a PR, merge, or leave?` });
-  if (rec.repo === 'spoonfed') decisions.push({ kind: 'Visibility', text: '**Spoonfed is public on GitHub**, but the registry and its own provenance file say it is a private, artwork-only repo. Make it private again, or keep it public and update the registry?' });
-  if (rec.audited?.repo === 'role-fairy') decisions.push({ kind: 'Art', text: '**Role Fairy needs art** before the Farmer can register it (card 020). Generating art costs money: OK to generate?' });
-  if (['pet-program-81', 'the-threshold'].includes(rec.audited?.repo)) decisions.push({ kind: 'Visibility', text: `**Started tonight as a private repo** (the overnight permission check would not create public repos). The other 41 seed and roadmap repos are public. Make it public?` });
-  if (/data-dealer/.test(rec.audited?.repo || '') && rec.rows.some((r) => r.check === 'A10')) decisions.push({ kind: 'Route', text: '**Data Dealer\'s program route** is a claude.ai artifact behind a sign-in. Should the route point somewhere public (a GitHub Pages page), or stay private?' });
+  if (unmerged) decisions.push({ kind: 'Branches', text: `**Branches with work not on ${rec.audited.ref}** and no pull request: ${(rec.branches || []).filter((b) => !(rec.openPRs || []).some((p) => p.head === b.name) && !/pictures-20261017|flash-audit-fixes-\d{8}/.test(b.name)).map((b) => `[\`${b.name}\`](https://github.com/findastra/${rec.audited.repo}/compare/${rec.audited.ref}...${encodeURIComponent(b.name)}) (+${b.ahead})`).join(', ')}. Open a PR, merge, or leave?` });
+  // Visibility, art and routes are asked from what this run found, never from a list of pets (the first run's
+  // questions about Spoonfed, Role Fairy, two private seed repos and Data Dealer were answered on 2026-10-18).
+  const regVis = registryOf(rec.audited?.repo || rec.repo)?.visibility;
+  if (rec.repoMeta && regVis && (regVis === 'private') !== !!rec.repoMeta.private) decisions.push({ kind: 'Visibility', text: `**pets.json says ${rec.icon} is ${regVis}, but GitHub says ${rec.repoMeta.private ? 'private' : 'public'}.** Change the repo, or keep it and update the registry?` });
+  else if (rec.repoMeta?.private && PLANNED.has(rec.stage)) decisions.push({ kind: 'Visibility', text: `**${rec.icon}'s repo is private**, while seed and roadmap repos are usually public. Make it public?` });
+  if (rec.rows.some((r) => r.check === 'A02' && r.status === 'Missing')) decisions.push({ kind: 'Art', text: `**${rec.icon} needs art** (its nine moods). Generating art costs money: OK to generate?` });
+  const signIn = rec.rows.find((r) => r.check === 'A10' && /sign-in/.test(r.detail));
+  if (signIn) decisions.push({ kind: 'Route', text: `**${rec.icon}'s program route** lands behind a sign-in (${esc(signIn.detail)}). Should it point at a public page (GitHub Pages), or stay private?` });
   // A59's blue sentences (two pets on one program, a map that links the pet to another program) are hers.
   for (const r of rec.rows) if (r.check === 'A59' && rowDot(r, MATRIX) === BLUE) decisions.push({ kind: 'Pet program', text: `**Pet program:** ${r.detail} ${r.next || ''}`.trim() });
   if (fx.pr) decisions.push({ kind: 'Merge', text: `**Merge the fix PR** [${prShort(fx.pr)}](${fx.pr})? It only holds fixes that need no decision (listed above).` });
@@ -212,7 +219,7 @@ for (const rec of ledger) {
 // Index.
 const I = [];
 // Astra, 2026-10-18: keep the top short; the decisions live on the answer sheet, not here.
-I.push('# Flash Audit rounds, 2026-10-17', '');
+I.push(`# Flash Audit rounds, ${DATE}`, '');
 I.push(`One row per pet, in the order they were made. Tap a number for that pet's round card. Decisions waiting on you: [Flash Audit Answers](${ANSWERS}). What is going on right now: the [Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md).`, '');
 // Every program links to where it runs: the link the profile README gives it (FLASH_PROFILE, a copy of
 // findastra/findastra's README), else its repo. Order: the catalog's numbers, which is the order the pets were

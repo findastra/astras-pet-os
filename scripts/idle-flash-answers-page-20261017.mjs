@@ -32,15 +32,16 @@ const OPTIONS = {
   'Pet program': null,
 };
 const MATRIX = readMatrix();
+// The run's date (FLASH_DATE, 2026-10-18 or 20261018); today when it is not given.
+const DATE = ((d) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`)((process.env.FLASH_DATE || new Date().toISOString().slice(0, 10)).replaceAll('-', ''));
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const items = [];
-// The questions that matter most, first.
+// The questions that matter most, first: merging this run's fix pull requests, then this run's own top questions
+// (FLASH_FIRST: a JSON list of { id, title, body, options, links }). They are data, not code: the first run's
+// questions (Codex's framework, old hub PRs, seed repo names, Kimi, the folder rename) were answered on 2026-10-18.
 const prCount = Object.values(fixes).filter((f) => f.pr).length;
-items.push({ id: 'top-merge-all', group: 'First', title: `Merge the ${prCount} fix pull requests?`, body: `Each one holds only fixes that need no decision: today's names, missing files, README credit and Limits, pet.json catching up with the registry. Your OK here is enough: Claude merges them.`, options: ['Merge all of them', 'Merge all except the ones I note', 'Not yet'] });
-items.push({ id: 'top-codex-framework', group: 'First', title: 'Codex’s shared page framework', body: 'Clicker Training, the yellow phone, paper and zoom, and the L3 activity bubble (A41, A44, A45, A52) are built on Codex branches such as codex/l3-activity-20261016, with no pull requests. Merging them clears four checks on most pets.', options: ['Ask Codex to open pull requests', 'Merge them', 'Leave them for now'] });
-items.push({ id: 'top-old-hub-prs', group: 'First', title: 'Close four old hub pull requests?', body: '#5 is an old draft card 008 that registers five placeholder pets, which are already pipeline pets (the card table lists that draft as dropped; tonight’s fix PRs replace the README lines that pointed at it). #4 adds Backup Beaver as a candidate and #3 registers Meme Fiend in the Cage: both are pipeline pets now. #1 describes how pets move in the Cage, which is retired.', options: ['Close all four', 'Close the ones I note', 'Keep them'], links: [5, 4, 3, 1].map((n) => ({ label: 'Hub PR #' + n, url: 'https://github.com/findastra/astras-pet-os/pull/' + n })) });
-items.push({ id: 'top-seed-repo-names', group: 'First', title: 'Rename the seed and roadmap repos to their program names?', body: 'Every pet program has a name now, and their READMEs say it (in the fix PRs), but 40 repos are still called pet-program-37 to pet-program-81. Renaming them, for example pet-program-60 to passport-harbor, follows your rule that names come from GitHub. GitHub keeps the old links working.', options: ['Rename them all', 'Rename the ones I note', 'Not yet'] });
-items.push({ id: 'top-kimi', group: 'First', title: 'Set up Kimi as a checker?', body: 'Kimi (Moonshot AI) would check Claude’s and Codex’s work on public repos only. It is a new farmhand on your allowlist, it is paid by use, and you make the account and key yourself.', options: ['Yes, set it up', 'Tell me more first', 'Not now'] });
-items.push({ id: 'top-folder-rename', group: 'First', title: 'Rename the folder to Astra’s PetOS', body: 'Tried at 04:16 and Windows said the folder was in use (most likely the Claude app’s open chats), so nothing changed. To finish: close the Claude app and Codex, then run the rename script from File Master’s plan folder (or ask an assistant to).', options: ['I’ll close the apps; rename it next', 'Wait'] });
+if (prCount) items.push({ id: 'top-merge-all', group: 'First', title: `Merge the ${prCount} fix pull requests?`, body: `Each one holds only fixes that need no decision: today's names, missing files, README credit and Limits, pet.json catching up with the registry, links to each pet's program (A59). Your OK here is enough: Claude merges them.`, options: ['Merge all of them', 'Merge all except the ones I note', 'Not yet'] });
+if (process.env.FLASH_FIRST) for (const it of JSON.parse(readFileSync(process.env.FLASH_FIRST, 'utf8'))) items.push({ ...it, group: 'First' });
 // Each of these is a merge, a rename, an account or a folder move: all hers.
 for (const it of items) it.dot = BLUE;
 for (const d of decisions) {
@@ -49,7 +50,7 @@ for (const d of decisions) {
   if (dot !== BLUE) continue; // a grey-dot item is the Idle Flash Audit's to fix: it stays on the round card
   const id = `r${d.round}-${d.kind.toLowerCase().replace(/[^a-z]+/g, '-')}`;
   let options = OPTIONS[d.kind];
-  if (d.kind === 'Visibility') options = /Spoonfed/.test(d.text) ? ['Make it private again', 'Keep it public (update the registry)'] : ['Make it public', 'Keep it private'];
+  if (d.kind === 'Visibility') options = /pets\.json says/.test(d.text) ? ['Change the repo to match pets.json', 'Keep the repo; update pets.json'] : ['Make it public', 'Keep it private'];
   if (d.options) options = d.options.map(([n]) => n);
   const body = d.kind === 'Job' ? d.text.split('\n').slice(1).map((l) => strip(l.replace(/^\s*-\s*/, ''))).join('\n') : strip(d.text);
   items.push({ id, dot, group: d.kind === 'Program name' || d.kind === 'Pet name' ? 'Names' : 'Other', round: d.round, pet: d.pet, program: d.program, icon: iconFor(d.round), kind: d.kind,
@@ -57,7 +58,7 @@ for (const d of decisions) {
     body: d.options ? '' : body, reasons: d.options ? d.options.map(([, why]) => why) : null, options, own: !!d.options || d.kind === 'Job' || d.kind === 'Pet program',
     links: [{ label: `Round ${d.round} card`, url: `${cardsBase}/${d.card}` }, ...links(d.text).filter((l) => /compare|pull/.test(l.url)).slice(0, 6)] });
 }
-const data = { generated: '2026-10-17', cardsIndex: `${cardsBase}/README.md`, items, icons };
+const data = { generated: DATE, cardsIndex: `${cardsBase}/README.md`, items, icons };
 const json = JSON.stringify(data).replaceAll('<', '\\u003c');
 
 const html = `<title>Flash Audit Answers</title>
@@ -122,7 +123,7 @@ footer { font-size: .85rem; color: var(--muted) }
       <button class="filter" id="f-all" aria-pressed="false" type="button">Everything</button>
     </div>
   </header>
-  <p class="note-top">From the Idle Flash Audit of 17 October. Tap an answer; it saves right away, and the next assistant reads it from here. Nothing changes on GitHub until an assistant acts on your answers. The full round cards, with pictures and every finding: <a id="cards" href="#">all rounds</a>.</p>
+  <p class="note-top">From the Idle Flash Audit of ${Number(DATE.slice(8, 10))} ${MONTHS[Number(DATE.slice(5, 7)) - 1]}. Tap an answer; it saves right away, and the next assistant reads it from here. Nothing changes on GitHub until an assistant acts on your answers. The full round cards, with pictures and every finding: <a id="cards" href="#">all rounds</a>.</p>
   <div class="status" id="status" hidden></div>
   <main id="list" class="wrap"></main>
   <button class="copy" id="copy" type="button">Copy my answers as text</button>
