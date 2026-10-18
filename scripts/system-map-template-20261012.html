@@ -1,18 +1,22 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Astra's PetOS System Map</title>
-<meta name="description" content="3D map of Astra's PetOS: every pet, model, program and piece of infrastructure, and what flows between them.">
+<meta name="description" content="3D map of Astra's PetOS: every pet, program, model and device on its ring, who may read, write or run each one, and what flows between them.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
 /* Generated page: edit scripts/system-map-template-20261012.html, then npm run build.
-   Layout: full-bleed 3D night field; controls float top-left, details dock right (bottom sheet on phones). Deliberately dark-only. */
+   Rebuilt 2026-10-17 and 2026-10-18 (Claude Opus 5.5): opens in 3D (nested spheres), with a 2D | 3D switch that folds them flat; labels only where they fit, lines bright only for
+   what you point at, Claude Code and Codex as rings around their AI, and R W X on grants (each card), not on rings.
+   Deliberately dark-only. */
 :root{
   color-scheme:dark;
   /* Warm on navy (Astra, 2026-10-12): reds, oranges, yellows and pinks on a navy night sky. */
-  --bg:#0a1430; --panel:rgba(14,26,62,.92); --line:#2b3d75; --fg:#fff4ec; --muted:#b7bfdc;
+  --bg:#0a1430; --panel:rgba(14,26,62,.93); --line:#2b3d75; --fg:#fff4ec; --muted:#b7bfdc;
   --raise:#1c2c63; --raise-edge:#4a5fa8; --well:#0d1a40; --shell:#4a5fa8;
   --host:#ffd23f; --you:#ff4fa3; --pet:#ff4d5e; --pipe:#ff8c3a; --seed:#fff07a; --road:#d99aaa; --model:#ff6f3c; --infra:#ffb3cf; --program:#ffd6a5; --own:#ff9ecb; --tool:#ffb86b; --machine:#f7a072;
   --l0:#9c93b5; --l1:#ff4fa3; --l2:#ffb3cf; --l3:#ffd23f; --l4:#ff4d5e; --l5:#ff8c3a; --l6:#ffd6a5;
+  /* Grant status (Astra, 2026-10-17): enforced, written only, planned. */
+  --enforced:#7fe0a8; --written:#ffd23f; --planned:#b7bfdc;
   --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
@@ -23,52 +27,63 @@ html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;overflow:hidden}
 #stage{position:fixed;inset:0}
 #labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-.lbl{position:absolute;left:0;top:0;font-size:11px;white-space:nowrap;color:var(--fg);text-shadow:0 0 4px #000,0 0 2px #000;will-change:transform,opacity}
-.lbl.big{font-size:13px;font-weight:500}
-.hud{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;width:min(var(--hud-w,370px),calc(100vw - 24px));max-height:calc(100% - 24px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;backdrop-filter:blur(6px)}
-h1{font-family:var(--display);font-size:1.5rem;margin:0;line-height:1;letter-spacing:-.01em}
+.lbl{position:absolute;left:0;top:0;font-size:11px;line-height:14px;white-space:nowrap;color:var(--fg);text-shadow:0 0 4px #000,0 0 2px #000,0 0 1px #000;will-change:transform;visibility:hidden}
+.lbl.big{font-size:12.5px;font-weight:500}
+.lbl.hot{font-size:13px;font-weight:500;color:#fff}
+.hud{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;width:min(var(--hud-w,340px),calc(100vw - 24px));max-height:calc(100% - 24px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;backdrop-filter:blur(6px)}
+h1{font-family:var(--display);font-size:1.45rem;margin:0;line-height:1.05;letter-spacing:-.01em}
 h1 span{color:var(--you)}
-/* Your system's name (Astra, 2026-10-14): double-click it to rename; asked on the first visit. */
+/* Your system's name (Astra, 2026-10-14): double-click it to rename; asked on the first visit, without covering the map. */
 .sysname{font-weight:inherit;cursor:text;border-radius:6px;padding:0 2px;margin:0 -2px}
 .sysname:hover,.sysname:focus-visible{outline:1px dashed var(--muted);outline-offset:2px}
-.namebox{position:fixed;inset:0;display:grid;place-items:center;background:rgba(5,10,28,.6);z-index:10}
-.namebox>div{background:var(--panel);border:1px solid var(--raise-edge);border-radius:14px;padding:20px;width:min(380px,calc(100vw - 32px));display:grid;gap:10px}
-.namebox h2{font-family:var(--display);margin:0;font-size:1.2rem}
-.namebox input{font:inherit;padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:var(--well);color:var(--fg)}
+.nameask{display:grid;gap:6px;border:1px solid var(--raise-edge);border-radius:10px;padding:10px;background:var(--well)}
+.nameask input{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
 .sub{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
 .row{display:flex;flex-wrap:wrap;gap:6px}
 .btn{font:inherit;font-size:12.5px;border:1px solid var(--line);background:transparent;color:var(--fg);padding:6px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .btn[aria-pressed="true"]{background:var(--raise);border-color:var(--raise-edge)}
-.btn:focus-visible,input:focus-visible,.res button:focus-visible{outline:2px solid var(--host);outline-offset:2px}
+.btn:focus-visible,input:focus-visible,.res button:focus-visible,summary:focus-visible{outline:2px solid var(--host);outline-offset:2px}
 .sw{width:14px;height:3px;border-radius:2px;display:inline-block}
 .sw.d{background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px)!important}
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
-.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:4px 10px;font-size:12px;color:var(--muted)}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 10px;font-size:12px;color:var(--muted)}
 .legend span{display:flex;align-items:center;gap:6px}
-.shapes{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:5px 14px;font-size:12px;color:var(--muted)}
-.shapes div{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center}
+.shapes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:5px 14px;font-size:12px;color:var(--muted)}
 /* Every key item is a switch: click to hide or show that kind of thing on the map. */
 button.key{font:inherit;color:inherit;background:none;border:0;padding:2px 4px;margin:0 -4px;border-radius:6px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:6px}
-.shapes button.key{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center;margin:0 -4px}
+.shapes button.key{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center}
 button.key:hover{background:var(--raise)}
 button.key[aria-pressed="false"]{opacity:.35}
 button.key[aria-pressed="mixed"]{opacity:.65}
-button.key[aria-pressed="false"] span,button.key[aria-pressed="false"]>.t{text-decoration:line-through}
+button.key[aria-pressed="false"] span{text-decoration:line-through}
 button.key:focus-visible{outline:2px solid var(--host);outline-offset:1px}
 .shapes b{color:var(--fg);font-weight:500}
 .shapes svg{width:18px;height:18px}
-/* Protection rings and their R W X tags (Astra, 2026-10-13): eye-catching, not large. */
-.rwx-title{font-family:var(--display);font-size:1.05rem;letter-spacing:.14em;margin:0;line-height:1.1}
-.rwx-title i{font-style:normal;color:var(--host)} .rwx-title i+i{color:var(--you)} .rwx-title i+i+i{color:var(--pipe)}
-.rings{display:grid;gap:2px;font-size:12px;color:var(--muted)}
-.rings .ring{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center;padding:2px 0}
-.rings .glass{border-top:1px dashed var(--l5);border-bottom:1px dashed var(--l5);color:var(--l5);font-weight:500;padding:3px 0;margin:2px 0}
-.rings .ring b{color:var(--fg);font-weight:500}
-.rwx{display:inline-flex;gap:2px;font:700 10.5px/1 var(--mono)}
-.rwx b{width:15px;height:15px;display:grid;place-items:center;border-radius:4px;color:var(--bg)!important}
-.rwx .r{background:var(--host)} .rwx .w{background:var(--you)} .rwx .x{background:var(--pipe)}
-.rwx .gate{background:none;box-shadow:inset 0 0 0 1.5px var(--you);color:var(--you)!important}
-.rwx .off{background:none;color:var(--muted)!important;opacity:.4}
+/* The ring key: click a ring to light it up and see the grants that reach it. */
+.rings{display:grid;gap:1px}
+.rings button{font:inherit;font-size:12.5px;text-align:left;color:var(--muted);background:none;border:0;border-radius:6px;padding:4px 6px;margin:0 -6px;cursor:pointer;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center}
+.rings button:hover,.rings button[aria-pressed="true"]{background:var(--raise);color:var(--fg)}
+.rings button b{color:var(--fg);font-weight:500}
+.rings .num{font:600 12px/1 var(--mono);color:var(--host);text-align:center}
+.rings .count{font:11px var(--mono);color:var(--muted)}
+.rings .glass{border-top:1px dashed var(--l5);border-bottom:1px dashed var(--l5);border-radius:0}
+.rings .glass .num,.rings .glass b{color:var(--l5)}
+details.sec{border-top:1px solid var(--line);padding-top:8px}
+details.sec>summary{cursor:pointer;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);list-style-position:outside}
+details.sec[open]>summary{margin-bottom:8px}
+details.sec>div{display:grid;gap:8px}
+/* R W X on a grant (Astra, 2026-10-17): filled = yes; outlined with a mark = only through a PR, a grant or the harness asking. */
+.rwx{display:inline-flex;gap:2px;font:700 10.5px/1 var(--mono);flex:none}
+.rwx b{width:17px;height:17px;display:grid;place-items:center;border-radius:4px;color:var(--bg);position:relative}
+.rwx .r.yes{background:var(--host)} .rwx .w.yes{background:var(--you)} .rwx .x.yes{background:var(--pipe)}
+.rwx .pr,.rwx .grant,.rwx .ask{background:none;box-shadow:inset 0 0 0 1.5px currentColor}
+.rwx .r:not(.yes){color:var(--host)} .rwx .w:not(.yes){color:var(--you)} .rwx .x:not(.yes){color:var(--pipe)}
+.rwx .pr::after,.rwx .grant::after,.rwx .ask::after{position:absolute;right:-3px;top:-5px;font-size:8px}
+.rwx .pr::after{content:"🔒"} .rwx .grant::after{content:"🔑"} .rwx .ask::after{content:"?";font:700 9px var(--mono);color:var(--fg)}
+.rwx .no{background:none;color:var(--muted)!important;opacity:.35}
+.status{font-size:10.5px;border-radius:999px;padding:1px 7px;border:1px solid currentColor;white-space:nowrap;flex:none}
+.status.enforced{color:var(--enforced)} .status.written{color:var(--written)} .status.planned{color:var(--planned);border-style:dashed}
+.keyrow{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
 .animal{color:var(--host)}
 .label{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
 .search{position:relative}
@@ -77,16 +92,27 @@ button.key:focus-visible{outline:2px solid var(--host);outline-offset:1px}
 .res button{font:inherit;text-align:left;background:none;border:0;color:var(--fg);padding:6px 8px;border-radius:6px;cursor:pointer;display:flex;gap:8px;align-items:center}
 .res button:hover,.res button.on{background:var(--raise)}
 .res small{color:var(--muted);margin-left:auto}
-details summary{cursor:pointer;font-size:12px;color:var(--muted)}
-.side{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:min(360px,calc(100vw - 24px));max-height:calc(100% - 24px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;backdrop-filter:blur(6px)}
+.side{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:min(370px,calc(100vw - 24px));max-height:calc(100% - 24px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;backdrop-filter:blur(6px)}
 .side h2{font-family:var(--display);font-size:1.25rem;margin:0;overflow-wrap:anywhere}
 .chip{font-size:11px;border-radius:999px;padding:2px 8px;border:1px solid currentColor;display:inline-block;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
 .job{margin:0;line-height:1.5}
 .meta{font-family:var(--mono);font-size:11.5px;color:var(--muted);overflow-wrap:anywhere;margin:0}
 .side a{color:var(--pipe)}
+.ringline{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.ringline b{color:var(--fg);font-weight:500}
+/* Access on a card: who may use this thing, and what it may use. Each grant opens to say how it holds. */
+.access{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--well)}
+.access .label{margin-top:2px}
+details.grant summary{display:flex;gap:8px;align-items:center;cursor:pointer;list-style:none;font-size:12.5px;line-height:1.35}
+details.grant summary::-webkit-details-marker{display:none}
+details.grant summary .gwho{flex:1;min-width:0}
+details.grant[open] summary .gwho{color:var(--fg)}
+details.grant p{margin:6px 0 4px 59px;font-size:12px;line-height:1.45;color:var(--muted)}
+details.grant p b{color:var(--fg);font-weight:500}
 ul.conns{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 ul.conns li{border-top:1px solid var(--line);padding-top:8px;font-size:12.5px;line-height:1.45;display:grid;gap:3px}
-ul.conns button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line)}
+button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--raise-edge);text-align:left}
 .kind{font-family:var(--mono);font-size:11.5px}
 .why{color:var(--muted)}
 .langs{display:grid;gap:8px}
@@ -94,37 +120,44 @@ ul.conns button.link{font:inherit;color:var(--fg);background:none;border:0;paddi
 .lang .bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden}
 .lang .bar i{display:block;height:100%}
 .lang b{font-weight:500}
-.chips{display:flex;flex-wrap:wrap;gap:4px}
-.codechip{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:5px;background:var(--raise);color:var(--fg)}
+.codechip{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:5px;background:var(--raise);color:var(--fg);border:0}
 .close{justify-self:end}
 .navpad{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px;backdrop-filter:blur(6px)}
 .navpad .btn{min-width:44px;min-height:36px;justify-content:center}
-/* Drag bar on the key panel's right edge (Astra, 2026-10-13): drag it right to widen the panel and see more without scrolling. */
+/* Drag bar on the key panel's right edge (Astra, 2026-10-13): drag it right to widen the panel. */
 .grip{position:fixed;width:16px;cursor:ew-resize;touch-action:none;background:none;border:0;padding:0;z-index:3;display:grid;place-items:center}
 .grip::before{content:"";width:4px;height:48px;border-radius:2px;background:var(--raise-edge);opacity:.8}
 .grip:hover::before,.grip:focus-visible::before,.grip.on::before{background:var(--host);opacity:1}
 .grip:focus-visible{outline:none}
-.tip{position:fixed;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;max-width:280px}
+.tip{position:fixed;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;max-width:300px;line-height:1.4}
+.tip b{font-weight:500}
+/* The 2D | 3D switch (Astra, 2026-10-18): in the bottom bar, just right of Spin. */
+.dims{display:flex;gap:2px;padding:3px;margin-left:2px;background:var(--well);border:1px solid var(--raise-edge);border-radius:999px}
+.dims button{font:700 15px/1 var(--display);letter-spacing:.04em;min-width:48px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+.dims button:hover{color:var(--fg)}
+.dims button[aria-pressed="true"]{background:var(--host);color:var(--bg)}
+.dims button:focus-visible{outline:2px solid var(--host);outline-offset:2px}
 @media (max-width:700px){
-  .hud{width:auto;right:12px;max-height:46%}
+  .hud{width:auto;right:12px;max-height:44%}
   .grip{display:none}
-  .hud .legend,.hud .shapes,.hud details,.hud .types-h,.hud .sub{display:none}
-  .side{top:auto;bottom:calc(68px + env(safe-area-inset-bottom,0px));max-height:46%;width:auto;left:12px}
+  .hud .sub.long{display:none}
+  .side{top:auto;bottom:calc(68px + env(safe-area-inset-bottom,0px));max-height:50%;width:auto;left:12px}
+  .navpad{flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);border-radius:24px}
 }
 </style></head><body>
 <div id="stage" aria-label="3D map of Astra's PetOS"></div>
 <div id="labels" aria-hidden="true"></div>
 
-<section class="hud">
+<section class="hud" aria-label="Map key and controls">
   <div>
     <h1><b id="sysName" class="sysname" tabindex="0" title="Double-click (or press Enter) to rename your system">Astra's PetOS</b> <span>System Map</span></h1>
-    <p class="sub">Every pet, and what each one talks to, in protection rings. The core and the Farmer sit at the centre, then the pets, then the pet programs Astra made. The glass agent harness wraps all of them: <b class="animal">🐾 everything inside the harness is an animal</b>, and an agent in the seat can only control animals. Outside the glass are the AI models, third-party programs, your devices and you. Lines show what flows between them. Click anything for details.</p>
   </div>
-  <div>
-    <p class="rwx-title"><i>READ</i> · <i>WRITE</i> · <i>EXECUTE</i></p>
-    <p class="sub">What the agent in the seat may do on each ring, inside out. <span class="rwx"><b class="gate">W</b></span> = only through a pull request Astra merges.</p>
-    <div class="rings" id="ringKey"></div>
+  <div class="nameask" id="nameAsk" hidden>
+    <label class="label" for="nameInput" title="Make it yours, for example Jordan's PetOS. Saved in this browser only; it is never sent anywhere.">Name your system (saved in this browser only)</label>
+    <input id="nameInput" maxlength="40" autocomplete="off">
+    <div class="row"><button class="btn" id="nameSave" aria-pressed="true">Save</button><button class="btn" id="nameSkip">Keep "Astra's PetOS"</button></div>
   </div>
+  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom. Click anything to see who may read, write or run it, and what flows to it.</p>
   <div class="search">
     <label class="label" for="q">Search</label>
     <input id="q" type="search" placeholder="Pet, program, job…" autocomplete="off" aria-controls="res">
@@ -133,43 +166,68 @@ ul.conns button.link{font:inherit;color:var(--fg);background:none;border:0;paddi
   <div class="row" role="group" aria-label="View">
     <button class="btn" id="vNow" aria-pressed="false">Works today</button>
     <button class="btn" id="vAll" aria-pressed="true">Everything planned</button>
-    <button class="btn" id="vHub" aria-pressed="false">Links to every pet</button>
-    <button class="btn" id="vExamples" aria-pressed="false" title="Hide Astra's example pets, worlds and programs">Hide examples</button>
-    <button class="btn" id="vRemoved" hidden title="Put back everything you removed from your map">Show removed</button>
-    <button class="btn" id="vHat" aria-pressed="false" title="Every pet wears its security hat: white trusted, blue defends, red red-team, purple checks, grey not verified, black intruder">Security hats</button>
     <button class="btn" id="vNet" aria-pressed="false" title="How the devices are physically connected: Wi-Fi, Ethernet, Bluetooth, USB and more">Network view</button>
+    <button class="btn" id="vHat" aria-pressed="false" title="Every pet wears its security hat: white trusted, blue defends, red red-team, purple checks, grey not verified, black intruder">Security hats</button>
     <button class="btn" id="vIcon" aria-pressed="false">Pet icons</button>
     <button class="btn" id="vCode">Code list</button>
-    <button class="btn" id="vReset">Show everything</button>
   </div>
-  <p class="sub">Every item in the keys below is a switch: click it to hide or show that kind of thing.</p>
   <div class="legend" id="netLegend" hidden></div>
   <div class="legend" id="hatLegend" hidden></div>
-  <div class="label">Line colour = architecture layer (click to hide)</div>
-  <div class="legend" id="layerLegend"></div>
-  <div class="label">Line style = how real it is (click to hide)</div>
-  <div class="row" id="edgeToggles"></div>
-  <div class="label types-h">Shape key (click to hide)</div>
-  <div class="shapes" id="shapeKey"></div>
-  <div class="label types-h">Colour key (nodes, click to hide)</div>
-  <div class="legend" id="nodeLegend"></div>
-  <details open><summary>Moving around (like Unity)</summary><p class="sub" style="margin-top:6px"><b>Right-drag</b> to look around; while holding it, <b>W A S D</b> fly, <b>Q</b>/<b>E</b> down and up, <b>Shift</b> faster (the keys also work without the mouse). <b>Scroll</b> zooms toward the centre, or toward what you selected. <b>Scroll-click drag</b> (hold the wheel down) or <b>left-drag</b> spins the sphere freely in any direction, with no stops; <b>Shift + scroll-click drag</b> pans. <b>F</b> frames what you selected (or every pet). On a phone: one finger orbits, two fingers zoom and pan.</p></details>
-  <details><summary>How to use it</summary><p class="sub" style="margin-top:6px"> Click a shape for its job, its ring and every connection; click a line for everything that flows both ways between its two ends. Moving dots show which way information flows. Links to every pet (pets that reach every other pet) stay hidden until you switch them on or click one of those pets.</p></details>
+
+  <details class="sec" open><summary>Rings: where things live</summary><div>
+    <p class="sub long">Inside out, each ring a sphere. A ring says where a thing lives; it grants nothing. Click a ring to light it up and see the grants that reach it.</p>
+    <div class="rings" id="ringKey"></div>
+  </div></details>
+
+  <details class="sec"><summary>R W X: who may do what</summary><div>
+    <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card lists its grants; click one to see how it holds.</p>
+    <div class="keyrow"><span class="rwx"><b class="r yes">R</b><b class="w yes">W</b><b class="x yes">X</b></span>read, write, run: yes</div>
+    <div class="keyrow"><span class="rwx"><b class="w pr">W</b></span>only through a pull request Astra merges</div>
+    <div class="keyrow"><span class="rwx"><b class="r grant">R</b></span>only with a grant that Astra approves</div>
+    <div class="keyrow"><span class="rwx"><b class="x ask">X</b></span>only after the harness asks Astra</div>
+    <div class="keyrow"><span class="rwx"><b class="w no">W</b></span>no</div>
+    <div class="keyrow"><span class="status enforced">Enforced</span>a program, setting or test stops anything else</div>
+    <div class="keyrow"><span class="status written">Written only</span>a rule agents follow; nothing stops a break</div>
+    <div class="keyrow"><span class="status planned">Planned</span>designed, not built yet</div>
+    <p class="sub"><a href="https://github.com/findastra/astras-pet-os/blob/main/PROTECTION-RINGS.md#who-may-do-what-grants" target="_blank" rel="noopener" style="color:var(--pipe)">Every grant, and the known gaps</a></p>
+  </div></details>
+
+  <details class="sec"><summary>Lines: what flows</summary><div>
+    <p class="sub long">Lines stay faint until you point at something. Moving dots show which way information flows. Click a line for everything on it.</p>
+    <div class="label">Colour = architecture layer (click to hide)</div>
+    <div class="legend" id="layerLegend"></div>
+    <div class="label">Style = how real it is (click to hide)</div>
+    <div class="row" id="edgeToggles"></div>
+    <div class="row">
+      <button class="btn" id="vHub" aria-pressed="false" title="Links that reach every pet: hidden until you switch them on or click one of those pets">Links to every pet</button>
+      <button class="btn" id="vAllLines" aria-pressed="false" title="Show every line at full strength, not only the ones you point at">Every line bright</button>
+    </div>
+  </div></details>
+
+  <details class="sec"><summary>Shapes and colours</summary><div>
+    <div class="shapes" id="shapeKey"></div>
+    <div class="label">Colour key (click to hide)</div>
+    <div class="legend" id="nodeLegend"></div>
+    <div class="row">
+      <button class="btn" id="vExamples" aria-pressed="false" title="Hide Astra's example pets, worlds and programs">Hide examples</button>
+      <button class="btn" id="vRemoved" hidden title="Put back everything you removed from your map">Show removed</button>
+      <button class="btn" id="vReset">Show everything</button>
+    </div>
+  </div></details>
+
+  <details class="sec"><summary>Moving around</summary><div>
+    <p class="sub"><b>Left-drag</b> or <b>scroll-click drag</b> turns the map freely; <b>Shift + scroll-click drag</b> pans. <b>Scroll</b> zooms toward the centre, or toward what you selected. <b>Right-drag</b> looks around; while holding it, <b>W A S D</b> fly, <b>Q</b>/<b>E</b> down and up, <b>Shift</b> faster. <b>F</b> frames what you selected. <b>Esc</b> closes the card. On a phone: one finger turns, two fingers zoom and pan.</p>
+  </div></details>
 </section>
 
 <button class="grip" id="grip" type="button" role="separator" aria-orientation="vertical" aria-valuemin="300" aria-label="Key panel width" title="Drag to widen or narrow the key panel. Arrow keys work too; double-click to reset."></button>
-<div class="namebox" id="nameBox" hidden><div role="dialog" aria-modal="true" aria-labelledby="nameBoxTitle">
-  <h2 id="nameBoxTitle">Name your system</h2>
-  <p class="sub">Make it yours, for example "Jordan's PetOS". Change it any time: double-click the name at the top. Saved in this browser only; it is never sent anywhere.</p>
-  <input id="nameInput" maxlength="40" autocomplete="off" aria-label="System name">
-  <div class="row"><button class="btn" id="nameSave" aria-pressed="true">Save</button><button class="btn" id="nameSkip">Keep "Astra's PetOS"</button></div>
-</div></div>
 <aside class="side" id="side" hidden aria-live="polite"></aside>
 <nav class="navpad" aria-label="Move around the map">
   <button class="btn" id="nZoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
   <button class="btn" id="nZoomOut" title="Zoom out" aria-label="Zoom out">－</button>
   <button class="btn" id="nReset" title="Back to the whole map">Reset view</button>
   <button class="btn" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
+  <span class="dims" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
 </nav>
 <div class="tip" id="tip" hidden></div>
 
@@ -179,50 +237,50 @@ ul.conns button.link{font:inherit;color:var(--fg);background:none;border:0;paddi
 const DATA = __DATA__;
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const TYPE = {
-  host:{color:css('--host'),r:.95,shape:'sphere'}, pet:{color:css('--pet'),r:.55,shape:'sphere'},
-  pipeline:{color:css('--pipe'),r:.44,shape:'sphere'}, seed:{color:css('--seed'),r:.38,shape:'sphere'},
-  roadmap:{color:css('--road'),r:.34,shape:'sphere'}, infrastructure:{color:css('--infra'),r:.6,shape:'gem'},
-  harness:{color:css('--l5'),r:.45,shape:'sphere'}, model:{color:css('--model'),r:.7,shape:'octa'}, program:{color:css('--program'),r:.42,shape:'satellite'}, 'own-program':{color:css('--own'),r:.42,shape:'box'}, tool:{color:css('--tool'),r:.5,shape:'hammer'},
-  'host-machine':{color:css('--machine'),r:.55,shape:'cyl'}, you:{color:css('--you'),r:.8,shape:'sphere'}, assistant:{color:css('--l0'),r:.6,shape:'tetra'},
+  host:{color:css('--host'),r:.95,shape:'sphere'}, pet:{color:css('--pet'),r:.6,shape:'sphere'},
+  pipeline:{color:css('--pipe'),r:.48,shape:'sphere'}, seed:{color:css('--seed'),r:.4,shape:'sphere'},
+  roadmap:{color:css('--road'),r:.34,shape:'sphere'}, infrastructure:{color:css('--infra'),r:.7,shape:'gem'},
+  harness:{color:css('--l5'),r:.45,shape:'sphere'}, model:{color:css('--model'),r:.8,shape:'octa'}, program:{color:css('--program'),r:.42,shape:'satellite'}, 'own-program':{color:css('--own'),r:.45,shape:'box'}, tool:{color:css('--tool'),r:.5,shape:'hammer'},
+  'host-machine':{color:css('--machine'),r:.55,shape:'cyl'}, you:{color:css('--you'),r:1.1,shape:'sphere'}, assistant:{color:css('--l0'),r:.7,shape:'tetra'},
 };
-// Shells follow the architecture layers. Neutral registry at the core (Program Manager is not the Farmer's),
-// the Farmer around it, every pet agent, the glass AI harness around all of them, the models and real programs
-// they reach through it, and outermost you and your devices. Development sits apart, outside the running system.
-// Roomier centre (Astra, 2026-10-12): every shell sits further out than the first version.
-// The glass sphere around the pets is twice the first diameter (Astra, 2026-10-12): pets spread out inside it.
-// Protection rings (Astra, 2026-10-13), inside out: core, Farmer, pets, pet programs, then the glass agent harness.
-// Everything inside the glass is an ANIMAL: the agent in the seat may read, write and execute it (core writes only
-// through a pull request Astra merges). Outside the glass: models, third-party programs, devices, advisers, you.
-const LAYER_R = {2:10, 3:20, 4:34, 5:58, 6:66, 0:76, 1:80};
-const OWN_R = 44;     // ring 3: pet programs (programs and websites Astra made), inside the glass just outside the pets
-const HARNESS_R = 52; // the glass agent harness: the R W X line, below the third-party programs at LAYER_R[6]
-const DEVICE_R = 72;  // ring 6: every device on one ring
-const SEAT = new THREE.Vector3(0,HARNESS_R,0), DONUT_R = 3.4; // the seat on top of the glass; the donut is the harness program
-// Pinned spots: the harness programs on the donut, and the models above its hole, waiting to take the seat.
-const PIN = {'agent-harness':SEAT.clone(), 'claude-code':new THREE.Vector3(DONUT_R,HARNESS_R,0), codex:new THREE.Vector3(-DONUT_R,HARNESS_R,0),
-  claude:new THREE.Vector3(0,LAYER_R[5],0), openai:new THREE.Vector3(0,LAYER_R[5],0).applyAxisAngle(new THREE.Vector3(1,0,0),.13),
-  'local-models':new THREE.Vector3(0,LAYER_R[5],0).applyAxisAngle(new THREE.Vector3(1,0,0),-.13)};
-const radiusOf = n => n.type==='tool' && n.of && nodeById[n.of] ? radiusOf(nodeById[n.of]) : n.type==='harness' ? HARNESS_R : n.type==='own-program' ? OWN_R : n.type==='host-machine' ? DEVICE_R : LAYER_R[n.layer] + (n.type==='roadmap' ? .8 : 0);
-// What the agent in the seat may do on each ring: on, gate (only through a pull request Astra merges) or off.
-const RINGS = [
-  {ring:0, name:'Core', what:'The Farm (the Farmer\'s pet program): Pet Directory, Program Manager and its tools', r:LAYER_R[2], rwx:['on','gate','on'], animal:true},
-  {ring:1, name:'Friendly Farmer', what:'orchestrator and package manager', r:LAYER_R[3], rwx:['on','gate','on'], animal:true},
-  {ring:2, name:'Pets', what:'every intelligent app', r:LAYER_R[4], rwx:['on','on','on'], animal:true},
-  {ring:3, name:'Pet programs', what:'the programs, sites and worlds Astra made', r:OWN_R, rwx:['on','on','on'], animal:true},
-  {ring:'H', name:'Agent harness', what:'the glass: the R W X line. Claude Code or Codex is the donut at the seat', r:HARNESS_R, glass:true},
-  {ring:4, name:'Farmhands (AI models)', what:'only those on the allowlist get keys; called, never rewritten; local farmhands change only through Astra', r:LAYER_R[5], rwx:['off','off','on']},
-  {ring:5, name:'Third-party programs', what:'satellites: programs, libraries and services made by others. Run and read, never rewritten', r:LAYER_R[6], rwx:['on','off','on']},
-  {ring:6, name:'Devices', what:'read and operated through drivers and apps', r:DEVICE_R, rwx:['on','off','on']},
-  {ring:7, name:'Advisers', what:'ChatGPT: no access; ideas reach the Farm only through Astra', r:LAYER_R[0], rwx:['off','off','off']},
-  {ring:8, name:'You (L4)', what:'the verified human who owns the entire secure ecosystem: grants every permission and approves every security change', r:LAYER_R[1], rwx:['off','off','off']},
-];
-const ringOf = n => { if(n.type==='harness'||(n.type==='assistant'&&PIN[n.id])) return RINGS[4]; const r=radiusOf(n); return RINGS.reduce((a,b)=>Math.abs(b.r-r)<Math.abs(a.r-r)?b:a); };
-const rwxHtml = g => g.rwx ? `<span class="rwx">${['R','W','X'].map((c,i)=>`<b class="${g.rwx[i]==='on'?c.toLowerCase():g.rwx[i]}" title="${['Read','Write','Execute'][i]}: ${g.rwx[i]==='on'?'yes':g.rwx[i]==='gate'?'only through a pull request Astra merges':'no'}">${c}</b>`).join('')}</span>` : '';
-const HOME_CAM = [0,48,185];
+const nodeById = Object.fromEntries(DATA.nodes.map(n=>[n.id,n]));
+const GRANT = Object.fromEntries(DATA.access.grants.map(g=>[g.id,g]));
+const RING = Object.fromEntries(DATA.rings.map(r=>[r.ring,r]));
+
+// ---------- the rings: nested spheres (Astra, 2026-10-12 and 2026-10-13) ----------
+// Inside out: the core, the Friendly Farmer, the pets, the pet programs, then the glass sphere of the agent harness
+// around all of them. Outside the glass: the farmhands (AI models), third-party programs, devices, ChatGPT and you.
+// Claude Code and Codex are rings around their own farmhand, like a planet's ring (Astra, 2026-10-18): a request can go
+// through the ring (the agent app) or straight to the model. No seat is drawn on the glass.
+const RING_R = {'0':10, '1':20, '2':34, '3':44, 'H':52, '4':58, '5':66, '6':72, '7':76, '8':80};
+const HARNESS_R = RING_R.H;
+const radiusOf = n => (RING_R[n.ring] ?? 60) + (n.type==='roadmap' ? .8 : 0);
+const APP_RING = {'claude-code':'claude', codex:'openai'}; // the agent app : the farmhand it rings
+const APP_RING_R = 2.6;
+// 3D or 2D (Astra, 2026-10-18). 3D: every ring a sphere inside the next. 2D: every ring laid flat on the ground. The
+// 2D | 3D switch in the bottom bar folds one into the other; every node keeps its direction, and the camera stays on what you selected.
+let flat = false, morph = null; // opens in 3D
+const MORPH_MS = 1200;
+const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':21, '3':27, '4':35, '5':40, '6':48.5, '7':56};
+const DOME_R = 31, DOME_H = 11, ASTRA_FLAT_Y = DOME_H+14;
+const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 64;
+// Pinned spots: the farmhands near the top, outside the glass; each agent app's line ends on its planet's ring.
+const PIN = {'agent-harness':new THREE.Vector3(0,HARNESS_R,0), claude:new THREE.Vector3(-25,46,25).setLength(RING_R['4']),
+  openai:new THREE.Vector3(25,46,25).setLength(RING_R['4']), 'local-models':new THREE.Vector3(0,30,-48).setLength(RING_R['4'])};
+for(const [app,model] of Object.entries(APP_RING)) if(nodeById[app]&&PIN[model]) PIN[app]=PIN[model].clone().add(new THREE.Vector3(APP_RING_R,0,0));
+const ringLabel = r => r.ring==='H' ? r.name : `Ring ${r.ring} · ${r.name}`;
+const HOME_TARGET = [0,0,0], HOME_ELEV = .26, FIT_R = 80;
+const homeTarget = () => new THREE.Vector3(...(flat?FLAT_TARGET:HOME_TARGET));
+// The opening view fits the whole sphere into the space beside the key panel, at any window size.
+function homeCam(){ const {fw,fh}=openSpace(), tanV=Math.tan(camera.fov*Math.PI/360);
+  if(flat){ const d=Math.max(FLAT_FIT/(tanV*camera.aspect*fw),(FLAT_FIT*Math.sin(FLAT_ELEV)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(FLAT_ELEV),Math.cos(FLAT_ELEV)).multiplyScalar(d).add(homeTarget()); }
+  const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = FIT_R/Math.sin(half);
+  return new THREE.Vector3(0,Math.sin(HOME_ELEV),Math.cos(HOME_ELEV)).multiplyScalar(d).add(homeTarget()); }
 const LAYER_COLOR = {0:css('--l0'),1:css('--l1'),2:css('--l2'),3:css('--l3'),4:css('--l4'),5:css('--l5'),6:css('--l6')};
 const STATE = {
-  now:{dash:null,op:.75}, planned:{dash:[.6,.25],op:.7}, idea:{dash:[.15,.2],op:.6}, architecture:{dash:[.35,.35],op:.4}, suggested:{dash:[.1,.12],op:.85},
+  now:{dash:null,op:.75}, planned:{dash:[.6,.25],op:.7}, idea:{dash:[.15,.2],op:.6}, architecture:{dash:[.35,.35],op:.45}, suggested:{dash:[.1,.12],op:.85},
 };
+const IDLE = .13; // how strong a line is when nothing is pointed at: the radial spokes, not a hairball
 // Network view (Astra, 2026-10-14): how bits physically travel between devices. These lines grow with devices, not with
 // pets: a new pet adds no network lines, its traffic rides on these.
 const MEDIUM = { 'wi-fi':{name:'Wi-Fi',color:'#7fd1ff',dash:[.5,.3]}, ethernet:{name:'Ethernet',color:'#e8e8e8',dash:null},
@@ -243,10 +301,9 @@ let hatsOn = false;
 const LANG_COLOR = {'HTML':'#e34c26','JavaScript':'#f1e05a','TypeScript':'#3178c6','C#':'#178600','Python':'#3572a5','PowerShell':'#5391fe','Batchfile':'#c1f12e','CSS':'#663399','Shell':'#89e051','SQL':'#e38c00'};
 const langOf = n => (n.code?.languages||[]).map(l=>l.language).join(' ');
 const shown = {now:true,planned:true,idea:true,architecture:true,suggested:true};
-let showHub = false;
+let showHub = false, allLines = false;
 let audioOn = true; // the wavy audio lines, switched in the line-style key
-// Key switches: hidden node types, hidden line layers, and the faint layer shells.
-const hiddenTypes = new Set(), hiddenLayers = new Set(); let shellsOn = true;
+const hiddenTypes = new Set(), hiddenLayers = new Set();
 // EXAMPLE tags and "Remove from my map" (Astra, 2026-10-14). Removing only changes this map in this browser; the
 // original always stays in Astra's repo, and "Show removed" puts everything back.
 const EXAMPLES = DATA.examples || {}; // node id -> the repo it comes from
@@ -254,10 +311,9 @@ const REMOVED_KEY = 'petos-removed';
 const removed = new Set((()=>{ try{ return JSON.parse(localStorage.getItem(REMOVED_KEY)||'[]'); }catch(e){ return []; } })());
 const saveRemoved = ()=>{ try{ localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed])); }catch(e){} };
 let examplesHidden = false;
-const nodeOn = n => !hiddenTypes.has(n.type) && !removed.has(n.id) && !(examplesHidden && EXAMPLES[n.id]);
-const nodeById = Object.fromEntries(DATA.nodes.map(n=>[n.id,n]));
+const nodeOn = n => !hiddenTypes.has(n.type) && !(APP_RING[n.id] && hiddenTypes.has('@apps')) && !removed.has(n.id) && !(examplesHidden && EXAMPLES[n.id]);
 // Clusters (Astra, 2026-10-14): a node with "in" is its own node, placed on a small ring around its hub node (each
-// tracker around "13 HTC Vive Trackers 3.0"), instead of taking its own spot on the shell.
+// tracker around "13 HTC Vive Trackers 3.0").
 const inCluster = n => !!(n && n.in && nodeById[n.in]);
 const clusterOf = id => DATA.nodes.filter(m=>m.in===id);
 
@@ -266,30 +322,37 @@ const stage = document.getElementById('stage');
 const renderer = new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setClearColor(css('--bg'));
 stage.appendChild(renderer.domElement);
-const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(css('--bg'), .0012);
-const camera = new THREE.PerspectiveCamera(50,1,.1,500); camera.position.set(...HOME_CAM);
+const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(css('--bg'), .0035);
+const camera = new THREE.PerspectiveCamera(48,1,.1,900); camera.position.set(0,70,104);
 // Trackball, not orbit: it turns freely in every direction, over the top and under the bottom, with no stops.
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
+controls.target.copy(homeTarget());
 let autoSpin = !matchMedia('(prefers-reduced-motion: reduce)').matches;
 controls.rotateSpeed = 1.2; controls.zoomSpeed = 1.4; controls.panSpeed = .6; controls.dynamicDampingFactor = .2;
-controls.minDistance = 2; controls.maxDistance = 320;
+controls.minDistance = 2; controls.maxDistance = 600;
 // The switch maps mouse BUTTONS to actions: left (0) rotates, middle (1) pans, right (2) is left free for fly-look.
 controls.mouseButtons = {LEFT:0, MIDDLE:-9, RIGHT:-8}; controls.noZoom = true; // scroll and scroll-click drag are handled below
 controls.keys = ['NoKeyA','NoKeyS','NoKeyD']; // keep A, S and D for flying, not the trackball's key modes
-scene.add(new THREE.AmbientLight(0xffffff,.55));
-const key = new THREE.PointLight(0xffffff,1.1); key.position.set(10,20,15); scene.add(key);
-const rim = new THREE.PointLight(0xff4fa3,.8); rim.position.set(-15,-8,-10); scene.add(rim);
+scene.add(new THREE.AmbientLight(0xffffff,.6));
+const key = new THREE.PointLight(0xffffff,1.1); key.position.set(20,60,40); scene.add(key);
+const rim = new THREE.PointLight(0xff4fa3,.7); rim.position.set(-40,20,-30); scene.add(rim);
 
-// ---------- layout: force-directed. Links pull, nodes push, the Farmer is pinned at the centre.
+// ---------- layout: force-directed on the spheres. Links pull, nodes push, every node stays on its ring's sphere.
 // Links to every pet are left out of the forces so the hubs do not swallow the map. Seeded: same shape every load.
+// The links that shape the layout: all but links to every pet and network links. A line to a group member pulls on
+// its group once per other end, so the group sits near what uses it.
+function layoutSprings(){ const out=[], seen=new Set(), anchor=id=>inCluster(nodeById[id])?nodeById[id].in:id;
+  DATA.links.forEach(l=>{ if(l.everyApp||l.carries==='network') return; const a=anchor(l.from), b=anchor(l.to); if(a===b) return;
+    if(a!==l.from||b!==l.to){ const k=a<b?a+'|'+b:b+'|'+a; if(seen.has(k)) return; seen.add(k); }
+    out.push({from:a,to:b}); });
+  return out; }
 const pos = {};
 (function settle(){
-  // Each node lives on its shell (radius) and moves freely around it: links pull, nodes push.
   let seed=7; const rnd=()=>((seed=(seed*16807)%2147483647)/2147483647);
   const ids=DATA.nodes.filter(n=>!inCluster(n)).map(n=>n.id), P={}, R={};
   DATA.nodes.forEach(n=>{ if(inCluster(n)) return; R[n.id]= radiusOf(n); const u=rnd()*2-1, t=rnd()*Math.PI*2, s=Math.sqrt(1-u*u);
     P[n.id]=new THREE.Vector3(s*Math.cos(t), u, s*Math.sin(t)).multiplyScalar(Math.max(R[n.id],.001)); });
-  const springs = DATA.links.filter(l=>!l.everyApp&&l.carries!=='network'&&!inCluster(nodeById[l.from])&&!inCluster(nodeById[l.to])), d=new THREE.Vector3(); // network links do not move the layout
+  const springs = layoutSprings(), d=new THREE.Vector3(); // network links do not move the layout
   for(let step=0;step<500;step++){
     const F={}; ids.forEach(i=>F[i]=new THREE.Vector3());
     for(let a=0;a<ids.length;a++) for(let b=a+1;b<ids.length;b++){
@@ -318,39 +381,108 @@ const pos = {};
         d.subVectors(P[ids[a]],P[ids[b]]); const dist=Math.max(d.length(),.3); if(dist>9) continue; d.multiplyScalar(30/(dist*dist*dist)); F[ids[a]].add(d); F[ids[b]].sub(d); }
       ids.forEach(i=>{ if(PIN[i]) return; if(F[i].length()>1.5) F[i].setLength(1.5); P[i].addScaledVector(F[i],1-step/60).setLength(R[i]); }); }
   }
-  // Clusters: members on a small ring around their hub, on the hub's shell, so they read as one group.
+  // Clusters: members on a small ring around their hub, on the hub's sphere, so they read as one group.
   DATA.nodes.filter(n=>!inCluster(n)).forEach(h=>{ const list=clusterOf(h.id); if(!list.length) return;
     const c=P[h.id], up=c.clone().normalize(), e1=new THREE.Vector3().crossVectors(up,Math.abs(up.y)<.9?new THREE.Vector3(0,1,0):new THREE.Vector3(1,0,0)).normalize(), e2=new THREE.Vector3().crossVectors(up,e1);
     const r=1.8+list.length*.3;
     list.forEach((m,k)=>{ const a=k/list.length*Math.PI*2; P[m.id]=c.clone().addScaledVector(e1,r*Math.cos(a)).addScaledVector(e2,r*Math.sin(a)).setLength(c.length()); ids.push(m.id); }); });
   ids.forEach(i=>pos[i]=P[i]);
+  DATA.nodes.forEach(n=>{ if(!pos[n.id]) pos[n.id]=new THREE.Vector3(); });
 })();
-// faint shells so the layers read as layers, and the glass AI harness wrapped around every pet agent
-const harnessGlass = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,64,32), new THREE.MeshBasicMaterial({color:css('--l5'),transparent:true,opacity:.055,side:THREE.DoubleSide,depthWrite:false}));
+
+// ---------- the same map, flat: every ring a circle on the ground, every node keeping its direction ----------
+const posSphere = {}; Object.keys(pos).forEach(id=>posSphere[id]=pos[id].clone());
+const posFlat = (function flatLayout(){
+  const TAU=Math.PI*2, wrap=a=>((a%TAU)+TAU)%TAU, P={}, ang={};
+  const laneOf = n => n.ring==='2' ? (['seed','roadmap'].includes(n.type)?'2b':'2') : n.ring;
+  const LANES = ['2','2b','3','4','5','6','7'];
+  const lane = {}; LANES.forEach(k=>lane[k]=DATA.nodes.filter(n=>!inCluster(n) && !APP_RING[n.id] && n.type!=='harness' && laneOf(n)===k));
+  const springs = layoutSprings();
+  const nbrs = {}; DATA.nodes.forEach(n=>nbrs[n.id]=[]); springs.forEach(l=>{ nbrs[l.from].push(l.to); nbrs[l.to].push(l.from); });
+  // Start from each node's direction on the spheres, so folding flat keeps neighbours together.
+  const azimuth = id => { const p=posSphere[id]; return Math.hypot(p.x,p.z)>1e-3 ? wrap(Math.atan2(p.z,p.x)) : 0; };
+  LANES.forEach(k=>lane[k].forEach(n=>ang[n.id]=azimuth(n.id)));
+  const spacing = k => { const r=FLAT_R[k], c=lane[k].length; return c ? Math.min(TAU/c, 3.1/r) : 0; };
+  // Spread a ring: keep each node near its wanted angle, at least `gap` apart, in the same order around the circle.
+  function spread(k, want){
+    const list = lane[k].slice().sort((a,b)=>want[a.id]-want[b.id]), c=list.length; if(!c) return;
+    const gap = spacing(k), a = list.map(n=>want[n.id]);
+    for(let it=0; it<200; it++){ let moved=false;
+      for(let i=0;i<c;i++){ const j=(i+1)%c, d=(j?a[j]:a[j]+TAU)-a[i]; if(c>1 && d<gap-1e-6){ const push=(gap-d)/2; a[i]-=push; a[j]+=push; moved=true; } }
+      if(!moved) break; }
+    list.forEach((n,i)=>ang[n.id]=wrap(a[i]));
+  }
+  // A node's wanted angle: where its placed neighbours are, or where it already is.
+  const meanAngle = (id, fallback) => { let x=0,y=0,c=0; nbrs[id].forEach(o=>{ if(ang[o]===undefined) return; x+=Math.cos(ang[o]); y+=Math.sin(ang[o]); c++; });
+    return c && Math.hypot(x,y)>1e-3*c ? wrap(Math.atan2(y,x)) : fallback; };
+  for(let round=0; round<4; round++) LANES.forEach(k=>{ const want={}; lane[k].forEach(n=>want[n.id]=round?meanAngle(n.id, ang[n.id]):ang[n.id]); spread(k,want); });
+  LANES.forEach(k=>lane[k].forEach(n=>P[n.id]=new THREE.Vector3(Math.cos(ang[n.id])*FLAT_R[k], TYPE[n.type].r, Math.sin(ang[n.id])*FLAT_R[k])));
+  // The core: The Farm in the middle, the rest of ring 0 around it. The Farmer on ring 1, just right of the front.
+  const core=DATA.nodes.filter(n=>n.ring==='0'&&!inCluster(n)), farm=core.find(n=>n.id==='farm')||core[0];
+  core.filter(n=>n!==farm).forEach((n,i,arr)=>P[n.id]=new THREE.Vector3(Math.cos(i/arr.length*TAU+.4)*FLAT_R['0'], TYPE[n.type].r, Math.sin(i/arr.length*TAU+.4)*FLAT_R['0']));
+  if(farm) P[farm.id]=new THREE.Vector3(0,TYPE[farm.type].r+.4,0);
+  DATA.nodes.filter(n=>n.ring==='1').forEach((n,i)=>{ const a=Math.PI/2-.5-i*.6; P[n.id]=new THREE.Vector3(Math.cos(a)*FLAT_R['1'], TYPE[n.type].r, Math.sin(a)*FLAT_R['1']); });
+  DATA.nodes.filter(n=>n.type==='harness').forEach(n=>P[n.id]=new THREE.Vector3(0,DOME_H,0));
+  DATA.nodes.filter(n=>n.ring==='8').forEach((n,i)=>P[n.id]=new THREE.Vector3(i*3, ASTRA_FLAT_Y, 0));
+  Object.entries(APP_RING).forEach(([app,model])=>{ if(P[model]&&nodeById[app]) P[app]=P[model].clone().add(new THREE.Vector3(APP_RING_R,0,0)); });
+  // Clusters: members on a small ring around their hub, flat on the ground.
+  DATA.nodes.filter(n=>!inCluster(n)).forEach(h=>{ const list=clusterOf(h.id); if(!list.length||!P[h.id]) return;
+    const c=P[h.id], o=new THREE.Vector3(c.x,0,c.z).normalize(), side=new THREE.Vector3(-o.z,0,o.x), r=1.6+list.length*.22;
+    list.forEach((m,k)=>{ const a=k/list.length*TAU; P[m.id]=c.clone().addScaledVector(o,r*Math.cos(a)).addScaledVector(side,r*Math.sin(a)); P[m.id].y=TYPE[m.type].r*.7; }); });
+  DATA.nodes.forEach(n=>{ if(!P[n.id]) P[n.id]=new THREE.Vector3(); });
+  return P; })();
+
+// ---------- faint ring spheres, the glass harness, and the rings around the farmhands ----------
+// The glass sphere around every animal (rings 0 to 3) is the agent harness. It is drawn, not a sandbox.
+const harnessGlass = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,64,32), new THREE.MeshBasicMaterial({color:css('--l5'),transparent:true,opacity:.05,side:THREE.DoubleSide,depthWrite:false}));
 scene.add(harnessGlass);
-const harnessWire = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,24,12), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.12}));
+const harnessWire = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,24,12), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.1}));
 scene.add(harnessWire);
-const shells = RINGS.filter(g=>!g.glass&&g.ring!==0).map(g=>{ const s=new THREE.Mesh(new THREE.SphereGeometry(g.r,48,24),new THREE.MeshBasicMaterial({color:css('--shell'),wireframe:true,transparent:true,opacity:.035})); scene.add(s); return s; });
-// The donut at the seat: the harness program (Claude Code or Codex). The model in the seat sits in its hole.
-const donut = new THREE.Mesh(new THREE.TorusGeometry(DONUT_R,.42,16,72), new THREE.MeshStandardMaterial({color:css('--l5'),emissive:css('--l5'),emissiveIntensity:.35,roughness:.4,transparent:true,opacity:.9}));
-donut.position.copy(SEAT); donut.rotation.x=Math.PI/2; scene.add(donut);
-// R W X tags: one tag per ring, fanned up the left side of the sphere from the inside out, always facing you.
-const tagSpot = (g,i) => { const e=(-50+i*11)*Math.PI/180; return new THREE.Vector3(-Math.cos(e)*.82, Math.sin(e), Math.cos(e)*.57).multiplyScalar(g.r+(g.ring===0?3:1)); };
-const ringTags = RINGS.map((g,i)=>{
-  const c=document.createElement('canvas'); c.width=640; c.height=112; const x=c.getContext('2d');
-  x.fillStyle='rgba(10,20,48,.86)'; x.strokeStyle=g.glass?css('--l5'):g.animal?css('--host'):'#4a5fa8'; x.lineWidth=4;
-  x.beginPath(); (x.roundRect||x.rect).call(x,4,4,632,104,52); x.fill(); x.stroke();
-  x.textBaseline='middle'; x.font='600 38px "IBM Plex Sans",system-ui,sans-serif'; x.fillStyle=g.glass?css('--l5'):css('--fg');
-  x.fillText((g.animal?'🐾 ':'')+(g.glass?'HARNESS · R W X LINE':(`RING ${g.ring} · ${g.name}`).toUpperCase()),34,58);
-  if(g.rwx){ const cols={R:css('--host'),W:css('--you'),X:css('--pipe')}; ['R','W','X'].forEach((L,i)=>{ const bx=452+i*58, s=g.rwx[i];
-    x.beginPath(); (x.roundRect||x.rect).call(x,bx,26,50,62,10); if(s==='on'){ x.fillStyle=cols[L]; x.fill(); } else if(s==='gate'){ x.strokeStyle=cols[L]; x.lineWidth=5; x.stroke(); }
-    x.font='800 40px "IBM Plex Mono",monospace'; x.fillStyle=s==='on'?css('--bg'):s==='gate'?cols[L]:'rgba(183,191,220,.35)'; x.textAlign='center'; x.fillText(L,bx+25,59); x.textAlign='left'; }); }
+const shells = {};
+DATA.rings.filter(r=>r.ring!=='H'&&r.ring!=='0').forEach(r=>{ const sh=new THREE.Mesh(new THREE.SphereGeometry(RING_R[r.ring],48,24),new THREE.MeshBasicMaterial({color:css('--shell'),wireframe:true,transparent:true,opacity:.035})); scene.add(sh); shells[r.ring]=sh; });
+// The flat look: the animals' yard under a low glass dome, each ring a circle on the ground.
+const flatDecor = new THREE.Group(); scene.add(flatDecor);
+function circle(r, color, opacity, dashed){
+  const pts=[]; for(let i=0;i<=160;i++){ const a=i/160*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r)); }
+  const mat = dashed ? new THREE.LineDashedMaterial({color,transparent:true,opacity,dashSize:.8,gapSize:.6}) : new THREE.LineBasicMaterial({color,transparent:true,opacity});
+  const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),mat); if(dashed) l.computeLineDistances(); flatDecor.add(l); return l; }
+const yard = new THREE.Mesh(new THREE.CircleGeometry(DOME_R,96), new THREE.MeshBasicMaterial({color:css('--host'),transparent:true,opacity:.035,depthWrite:false,side:THREE.DoubleSide}));
+yard.rotation.x=-Math.PI/2; yard.position.y=-.02; flatDecor.add(yard);
+const ground = new THREE.Mesh(new THREE.RingGeometry(DOME_R,FLAT_R['7']+4,128), new THREE.MeshBasicMaterial({color:css('--shell'),transparent:true,opacity:.04,depthWrite:false,side:THREE.DoubleSide}));
+ground.rotation.x=-Math.PI/2; ground.position.y=-.02; flatDecor.add(ground);
+[yard,ground].forEach(o=>o.material.userData.base=o.material.opacity);
+const flatRings = {}; Object.entries(FLAT_R).forEach(([k,r])=>{ const inside=r<DOME_R; flatRings[k]=circle(r, inside?css('--host'):css('--shell'), k==='2b'?.16:inside?.26:.32, k==='2b'); });
+const domeGlass = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,64,24,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),transparent:true,opacity:.045,side:THREE.DoubleSide,depthWrite:false}));
+domeGlass.scale.y=DOME_H/DOME_R; flatDecor.add(domeGlass);
+const domeWire = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,32,8,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.09}));
+domeWire.scale.y=DOME_H/DOME_R; flatDecor.add(domeWire);
+const domeRim = circle(DOME_R, css('--l5'), .3); // a faint rim, not a bright ring
+// Claude Code and Codex: a thin ring around their farmhand. Lines to the agent app end on its ring; lines that call the
+// model directly go straight to the planet. Each ring has a wider invisible twin so it is easy to click.
+const appRings = Object.entries(APP_RING).filter(([app,model])=>nodeById[app]&&pos[model]).map(([app,model])=>{
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(APP_RING_R,.09,8,72), new THREE.MeshStandardMaterial({color:css('--l5'),emissive:css('--l5'),emissiveIntensity:.35,roughness:.4,transparent:true,opacity:.9}));
+  const hit=new THREE.Mesh(new THREE.TorusGeometry(APP_RING_R,.5,6,36), new THREE.MeshBasicMaterial({visible:false}));
+  [ring,hit].forEach(m=>{ m.position.copy(pos[model]); m.rotation.x=Math.PI/2-.35; m.userData.node=nodeById[app]; scene.add(m); });
+  ring.userData.hit=hit; return ring; });
+// Ring names, fanned up the left side of the spheres from the inside out, always facing you.
+function tagSprite(text, color, border){
+  const c=document.createElement('canvas'); c.width=720; c.height=96; const x=c.getContext('2d');
+  x.font='600 40px "IBM Plex Sans",system-ui,sans-serif'; const w=Math.min(700, x.measureText(text).width+56);
+  x.fillStyle='rgba(10,20,48,.82)'; x.strokeStyle=border; x.lineWidth=3; x.beginPath(); (x.roundRect||x.rect).call(x,(720-w)/2,6,w,84,42); x.fill(); x.stroke();
+  x.fillStyle=color; x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,360,50);
   const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false,depthWrite:false}));
-  const w=Math.min(22,6+g.r*.4); sp.scale.set(w,w*112/640,1); sp.position.copy(tagSpot(g,i)); sp.renderOrder=10; scene.add(sp); return sp; });
-// The ring key in the panel: the same tags, inside out, with the glass line between animals and everything else.
-document.getElementById('ringKey').innerHTML = RINGS.map(g=> g.glass
-  ? `<div class="ring glass">━━ ${g.name}: ${g.what}</div>`
-  : `<div class="ring">${rwxHtml(g)}<span><b>${g.animal?'🐾 ':''}Ring ${g.ring} · ${g.name}</b>: ${g.what}</span></div>`).join('');
+  sp.renderOrder=10; return sp; }
+const tagSpot = (r,i) => { const e=(-50+i*11)*Math.PI/180; return new THREE.Vector3(-Math.cos(e)*.82, Math.sin(e), Math.cos(e)*.57).multiplyScalar(RING_R[r.ring]+(r.ring==='0'?3:1)); };
+const ringTags = DATA.rings.map((r,i)=>{
+  const animal=['0','1','2','3'].includes(r.ring), label=(animal?'🐾 ':'')+(r.ring==='H'?'AGENT HARNESS · THE GLASS':ringLabel(r).toUpperCase());
+  const sp=tagSprite(label, r.ring==='H'?css('--l5'):css('--fg'), r.ring==='H'?css('--l5'):animal?css('--host'):'#4a5fa8');
+  const w=Math.min(22,6+RING_R[r.ring]*.4); sp.scale.set(w,w*96/720,1); sp.position.copy(tagSpot(r,i));
+  sp.userData.ring=r.ring; sp.userData.base=sp.scale.clone(); scene.add(sp); return sp; });
+const RULER_A = Math.PI/2 + .17; // just left of straight toward the camera
+ringTags.forEach((sp,i)=>{ const r=DATA.rings[i], rad = r.ring==='H' ? DOME_R : FLAT_R[r.ring];
+  sp.userData.sphere={p:sp.position.clone(), base:sp.userData.base.clone()};
+  const p = r.ring==='8' ? new THREE.Vector3(0,ASTRA_FLAT_Y+2.6,0) : new THREE.Vector3(Math.cos(RULER_A)*(rad+(r.ring==='0'?2:1.6)), .1, Math.sin(RULER_A)*(rad+(r.ring==='0'?2:1.6)));
+  sp.userData.flat={p, base:new THREE.Vector3(15,2,1)}; });
 
 // ---------- nodes ----------
 // makeAvatar is the single swap point: return a loaded 3D model of the pet here later instead of a shape.
@@ -369,7 +501,7 @@ function makeAvatar(n){
   const geo = n.id==='desktop-host' ? starWandGeo(t.r*1.6) : t.shape==='octa' ? new THREE.OctahedronGeometry(t.r) : t.shape==='tetra' ? new THREE.TetrahedronGeometry(t.r*1.2) : t.shape==='gem' ? new THREE.DodecahedronGeometry(t.r)
     : t.shape==='hammer' ? hammerGeo(t.r*1.4) : t.shape==='satellite' ? satelliteGeo(t.r*1.4)
     : t.shape==='box' ? new THREE.BoxGeometry(t.r*1.4,t.r*1.4,t.r*1.4) : t.shape==='cyl' ? new THREE.CylinderGeometry(t.r*.8,t.r*.8,t.r*1.2,24) : new THREE.SphereGeometry(t.r,32,20);
-  const mat = new THREE.MeshStandardMaterial({color:t.color, emissive:t.color, emissiveIntensity:.28, roughness:.45, metalness:.1,
+  const mat = new THREE.MeshStandardMaterial({color:t.color, emissive:t.color, emissiveIntensity:.3, roughness:.45, metalness:.1,
     transparent:true, opacity:planned?.55:1});
   if(n.id==='desktop-host'){ mat.color.set(css('--host')); mat.emissive.set(css('--host')); mat.metalness=.35; }
   const m = new THREE.Mesh(geo, mat); m.userData.baseOpacity = planned?.55:1;
@@ -399,8 +531,10 @@ function makeIcon(n){
 }
 const meshes = [], icons = [], labelEls = {};
 const labelsBox = document.getElementById('labels');
+const BIG = ['host','you','model','infrastructure','assistant'];
 DATA.nodes.forEach(n=>{
   const m = makeAvatar(n); m.position.copy(pos[n.id]); m.userData.node = n; scene.add(m); meshes.push(m); n.mesh=m;
+  if(n.group){ m.geometry.dispose(); m.geometry=new THREE.SphereGeometry(1.6,12,8); m.material.visible=false; } // a group is its members: an invisible, clickable centre
   const ic = makeIcon(n); ic.position.copy(pos[n.id]); scene.add(ic); icons.push(ic); n.iconSprite=ic;
   if(EXAMPLES[n.id]){ const c=document.createElement('canvas'); c.width=300; c.height=110; const g=c.getContext('2d');
     g.fillStyle='#fff4ec'; g.strokeStyle='#ff4d5e'; g.lineWidth=6; g.beginPath();
@@ -408,104 +542,156 @@ DATA.nodes.forEach(n=>{
     g.fillStyle='#0a1430'; g.beginPath(); g.arc(40,55,9,0,Math.PI*2); g.fill();
     g.fillStyle='#e8384f'; g.font='800 40px "Bricolage Grotesque",system-ui,sans-serif'; g.textBaseline='middle'; g.fillText('EXAMPLE',72,57);
     const tag=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));
-    const r=TYPE[n.type].r; tag.scale.set(2.4,.88,1); tag.position.copy(pos[n.id]).add(new THREE.Vector3(r*2.6,r*1.6,0)); scene.add(tag); n.exampleTag=tag; }
-  const el = document.createElement('div'); el.className='lbl'+(['host','you','model','infrastructure'].includes(n.type)?' big':''); el.textContent=n.name; labelsBox.appendChild(el); labelEls[n.id]=el;
+    const r=TYPE[n.type].r; tag.scale.set(1.9,.7,1); tag.position.copy(pos[n.id]).add(new THREE.Vector3(0,r*2.4+.4,0)); tag.visible=false; scene.add(tag); n.exampleTag=tag; }
+  const el = document.createElement('div'); el.className='lbl'+(BIG.includes(n.type)||n.group?' big':''); el.textContent=n.name; labelsBox.appendChild(el); labelEls[n.id]=el;
 });
+// Label widths, measured once (and again when the web font arrives) so placing labels never touches the layout.
+const labelW = {};
+const measureLabels = () => DATA.nodes.forEach(n=>{ const e=labelEls[n.id], cls=e.className; e.className=cls.replace(' hot','')+' hot'; labelW[n.id]=e.offsetWidth; e.className=cls; });
+measureLabels(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measureLabels);
 
 // ---------- links: bowed curves, flow dots, and an invisible tube on each so it can be clicked ----------
 const pairKey = (a,b)=> a<b ? a+'|'+b : b+'|'+a;
 const viaGlass = l => nodeById[l.from].type==='harness' || nodeById[l.to].type==='harness';
-const links = DATA.links.filter(l=>!viaGlass(l)).map((l,i)=>{
-  const a=pos[l.from], b=pos[l.to], st=STATE[l.state], md=l.carries==='network'&&MEDIUM[l.medium], col=md?md.color:LAYER_COLOR[l.layer];
-  const mid=a.clone().add(b).multiplyScalar(.5); const out=mid.length()<.5?new THREE.Vector3(0,1,0):mid.clone().normalize();
-  mid.addScaledVector(out, a.distanceTo(b)*.12 + (i%3)*.12);
+const UP = new THREE.Vector3(0,1,0);
+// A line's path in the look in use: bowed out from the centre on the spheres, arched over the ground when flat.
+function linkPath(l,i){
+  const a=pos[l.from], b=pos[l.to];
+  const mid=a.clone().add(b).multiplyScalar(.5);
+  if(flat) mid.y += a.distanceTo(b)*.16 + .4 + (i%3)*.15;
+  else { const out=mid.length()<.5?new THREE.Vector3(0,1,0):mid.clone().normalize(); mid.addScaledVector(out, a.distanceTo(b)*.12 + (i%3)*.12); }
   const curve=new THREE.QuadraticBezierCurve3(a.clone(),mid,b.clone());
   // Lines stop at the edge of each shape, so nothing runs through a pet's face (Astra, 2026-10-14).
-  const padOf = id => Math.max((TYPE[nodeById[id].type]||{r:.4}).r*1.8,.6);
+  const padOf = id => APP_RING[id] ? .08 : Math.max((TYPE[nodeById[id].type]||{r:.4}).r*1.6,.55); // lines to an agent app touch its ring
   const edgeT = (from,pad,dir) => { for(let k=0;k<=60;k++){ const tt=dir>0?k/60:1-k/60; if(curve.getPoint(tt).distanceTo(from)>=pad) return tt; } return dir>0?0:1; };
   const t0=edgeT(a,padOf(l.from),1), t1=Math.max(t0+.05,edgeT(b,padOf(l.to),-1)), span=t=>t0+t*(t1-t0);
   // Audio is drawn as a sound wave (Astra, 2026-10-12): sound travelling between microphones, Voicemeeter, virtual cables, speakers and headphones.
   let path=new THREE.CatmullRomCurve3(Array.from({length:25},(_,k)=>curve.getPoint(span(k/24))));
   if(l.carries==='audio'){ const len=a.distanceTo(b), n=Math.max(60,Math.round(len*4)), waves=Math.max(4,Math.round(len/3)), pts=[];
-    for(let k=0;k<=n;k++){ const t=k/n, p=curve.getPoint(span(t)), tan=curve.getTangent(span(t)), side=new THREE.Vector3().crossVectors(tan,p.lengthSq()>1e-6?p.clone().normalize():new THREE.Vector3(0,1,0)).normalize();
-      if(side.lengthSq()<1e-6) side.set(0,1,0); pts.push(p.addScaledVector(side,Math.sin(t*waves*Math.PI*2)*.5*Math.sin(t*Math.PI))); }
+    for(let k=0;k<=n;k++){ const t=k/n, p=curve.getPoint(span(t)), tan=curve.getTangent(span(t)), side=new THREE.Vector3().crossVectors(tan,!flat&&p.lengthSq()>1e-6?p.clone().normalize():UP).normalize();
+      if(side.lengthSq()<1e-6) side.set(1,0,0); pts.push(p.addScaledVector(side,Math.sin(t*waves*Math.PI*2)*.5*Math.sin(t*Math.PI))); }
     path=new THREE.CatmullRomCurve3(pts); }
+  return path; }
+function reshapeLinks(){ links.forEach(l=>{ const path=linkPath(l,l.i); l.curve=path;
+  l.line.geometry.dispose(); l.line.geometry=new THREE.BufferGeometry().setFromPoints(path.getPoints(l.carries==='audio'?240:40)); if(l.line.material.isLineDashedMaterial) l.line.computeLineDistances();
+  l.hit.geometry.dispose(); l.hit.geometry=new THREE.TubeGeometry(path,l.carries==='audio'?90:20,.18,5,false); }); }
+const links = DATA.links.filter(l=>!viaGlass(l)).map((l,i)=>{
+  const a=pos[l.from], b=pos[l.to], st=STATE[l.state], md=l.carries==='network'&&MEDIUM[l.medium], col=md?md.color:LAYER_COLOR[l.layer];
+  const path=linkPath(l,i);
   const dash = md ? md.dash : st.dash;
-  const mat = dash ? new THREE.LineDashedMaterial({color:col,dashSize:dash[0],gapSize:dash[1],transparent:true,opacity:md?.9:st.op})
-                     : new THREE.LineBasicMaterial({color:col,transparent:true,opacity:st.op});
+  const mat = dash ? new THREE.LineDashedMaterial({color:col,dashSize:dash[0],gapSize:dash[1],transparent:true,opacity:md?.9:st.op,depthWrite:false})
+                     : new THREE.LineBasicMaterial({color:col,transparent:true,opacity:st.op,depthWrite:false});
   const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(path.getPoints(l.carries==='audio'?240:40)),mat); if(dash) line.computeLineDistances(); scene.add(line);
-  const hit=new THREE.Mesh(new THREE.TubeGeometry(path,l.carries==='audio'?90:20,.16,5,false),new THREE.MeshBasicMaterial({visible:false})); hit.userData.link=null; scene.add(hit);
+  const hit=new THREE.Mesh(new THREE.TubeGeometry(path,l.carries==='audio'?90:20,.18,5,false),new THREE.MeshBasicMaterial({visible:false})); scene.add(hit);
   let dot=null;
-  if(l.state==='now'||l.state==='planned'){ dot=new THREE.Mesh(new THREE.SphereGeometry(.09,8,6),new THREE.MeshBasicMaterial({color:col,transparent:true})); scene.add(dot); }
-  const rec={...l,curve:path,line,hit,dot,t:Math.random(),base:mat.opacity,pair:pairKey(l.from,l.to)}; hit.userData.link=rec; return rec;
+  if(l.state==='now'||l.state==='planned'){ dot=new THREE.Mesh(new THREE.SphereGeometry(.1,8,6),new THREE.MeshBasicMaterial({color:col,transparent:true})); scene.add(dot); }
+  const rec={...l,i,curve:path,line,hit,dot,t:(i*.137)%1,base:mat.opacity,pair:pairKey(l.from,l.to)}; hit.userData.link=rec; return rec;
 });
 const hits = links.map(l=>l.hit);
 
-// ---------- controls: toggles, legend ----------
+// ---------- spheres and flat rings ----------
+function placeNodes(P){ DATA.nodes.forEach(n=>{ const p=P[n.id]; if(!p) return; pos[n.id].copy(p); n.mesh.position.copy(p); n.iconSprite.position.copy(p);
+    if(n.exampleTag){ const r=TYPE[n.type].r; n.exampleTag.position.copy(p).add(new THREE.Vector3(0,r*2.4+.4,0)); } });
+  appRings.forEach(r=>{ const m=pos[APP_RING[r.userData.node.id]]; r.position.copy(m); r.userData.hit.position.copy(m); }); }
+function setFlat(on){ if(on===flat||morph) return;
+  const from={}; Object.keys(pos).forEach(id=>from[id]=pos[id].clone());
+  flat=on; syncDims(); autoSpin=false; fly=null;
+  const to=on?posFlat:posSphere;
+  // Keep the camera on the node you are looking at; with nothing selected, show the whole map.
+  const id = selected ? selected.id : selectedPair ? selectedPair.split('|')[0] : null;
+  const cam = id ? {id, offFrom:camera.position.clone().sub(pos[id]), offTo:viewFrom(to[id]).sub(to[id])}
+    : {fromT:controls.target.clone(), toT:homeTarget(), fromC:camera.position.clone(), toC:homeCam()};
+  morph={t0:performance.now(), from, to, cam, e:0, fromUp:camera.up.clone()};
+  apply(); }
+// While folding, each line bends smoothly from its sphere shape to its flat shape; it is redrawn exactly at the end.
+const _m=new THREE.Vector3(), _o=new THREE.Vector3(), _c=new THREE.Vector3();
+function bendLinks(e){ const w=flat?e:1-e; // 0 = sphere shape, 1 = flat shape
+  links.forEach(l=>{ if(!l.line.visible) return; const a=pos[l.from], b=pos[l.to], dist=a.distanceTo(b);
+    _m.addVectors(a,b).multiplyScalar(.5); _o.copy(_m); if(_o.lengthSq()<.25) _o.set(0,1,0); else _o.normalize();
+    _m.addScaledVector(_o,(dist*.12+(l.i%3)*.12)*(1-w)); _m.y += (dist*.16+.4+(l.i%3)*.15)*w;
+    const attr=l.line.geometry.attributes.position, n=attr.count;
+    for(let k=0;k<n;k++){ const t=k/(n-1), u=1-t; attr.setXYZ(k, u*u*a.x+2*u*t*_m.x+t*t*b.x, u*u*a.y+2*u*t*_m.y+t*t*b.y, u*u*a.z+2*u*t*_m.z+t*t*b.z); }
+    attr.needsUpdate=true; l.line.frustumCulled=false; }); }
+// The look being left fades out while the look being entered fades in.
+function fadeDecor(e){ const fs=flat?1-e:e, ff=flat?e:1-e;
+  [harnessGlass,harnessWire,...Object.values(shells)].forEach(o=>{ const b=o.material.userData.base; if(b!==undefined) o.material.opacity=b*fs; });
+  flatDecor.children.forEach(o=>{ const b=o.material.userData.base; if(b!==undefined) o.material.opacity=b*ff; }); }
+// The 2D | 3D switch.
+const d2=document.getElementById('d2'), d3=document.getElementById('d3');
+function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
+d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
+
+// ---------- the key: rings, line toggles, shapes, colours ----------
 const STATE_WORD = DATA.states;
+const el=(tag,cls,text)=>{const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e;};
+const ringKey=document.getElementById('ringKey'), ringButtons={};
+DATA.rings.forEach(r=>{ const count=DATA.nodes.filter(n=>n.ring===r.ring).length;
+  const b=el('button', r.ring==='H'?'glass':''); b.type='button'; b.setAttribute('aria-pressed','false'); b.title=r.what;
+  const name=el('span'); name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name), document.createTextNode(': '+r.what));
+  b.append(el('span','num',r.ring==='H'?'◠':r.ring), name, el('span','count',String(count)));
+  b.onclick=()=>selectRing(r.ring); ringKey.appendChild(b); ringButtons[r.ring]=b; });
 const tg=document.getElementById('edgeToggles');
 Object.keys(STATE).forEach(k=>{
   const n=DATA.links.filter(e=>e.state===k&&!e.everyApp).length;
-  const b=document.createElement('button'); b.className='btn'; b.setAttribute('aria-pressed','true'); b.dataset.state=k;
-  const sw=document.createElement('i'); sw.className='sw'+(STATE[k].dash?' d':''); sw.style.background=css('--fg'); sw.style.color=css('--fg'); sw.style.opacity=STATE[k].op;
+  const b=el('button','btn'); b.setAttribute('aria-pressed','true'); b.dataset.state=k;
+  const sw=el('i','sw'+(STATE[k].dash?' d':'')); sw.style.background=css('--fg'); sw.style.color=css('--fg'); sw.style.opacity=STATE[k].op;
   b.append(sw, document.createTextNode(`${STATE_WORD[k]} (${n})`));
   b.onclick=()=>{shown[k]=!shown[k]; b.setAttribute('aria-pressed',shown[k]); syncView(); apply();};
   tg.appendChild(b);
 });
-{ const n=DATA.links.filter(e=>e.carries==='audio').length; if(n){ const b=document.createElement('button'); b.className='btn'; b.id='audioKey'; b.setAttribute('aria-pressed','true');
+{ const n=DATA.links.filter(e=>e.carries==='audio').length; if(n){ const b=el('button','btn'); b.id='audioKey'; b.setAttribute('aria-pressed','true');
   b.title='Sound travelling between microphones, Voicemeeter, virtual cables, speakers and headphones (drawn as a wave)';
-  const sw=document.createElement('span'); sw.textContent='\u3030'; sw.setAttribute('aria-hidden','true'); b.append(sw, document.createTextNode(` Audio: sound travelling (${n})`));
+  const sw=el('span','','〰'); sw.setAttribute('aria-hidden','true'); b.append(sw, document.createTextNode(` Audio: sound travelling (${n})`));
   b.onclick=()=>{ audioOn=!audioOn; b.setAttribute('aria-pressed',audioOn); apply(); }; tg.appendChild(b); } }
 const ll=document.getElementById('layerLegend');
 // A key switch: a button that shows its on/off state and calls toggle() when clicked.
-function keyButton(parent, title, build, toggle){ const b=document.createElement('button'); b.className='key'; b.type='button'; b.title=title; b.setAttribute('aria-pressed','true');
+function keyButton(parent, title, build, toggle){ const b=el('button','key'); b.type='button'; b.title=title; b.setAttribute('aria-pressed','true');
   build(b); b.onclick=()=>{ toggle(); syncKeys(); apply(); }; parent.appendChild(b); return b; }
 const keyButtons = []; // [button, isOn()]
 Object.entries(DATA.layers).forEach(([k,L])=>{ const n=DATA.links.filter(l=>l.layer===+k&&!l.everyApp).length;
-  const b=keyButton(ll, L.detail, b=>{ const d=document.createElement('i'); d.className='sw'; d.style.background=LAYER_COLOR[k]; d.style.height='4px';
-    const s=document.createElement('span'); s.textContent=`${k} ${L.name} · ${n}`; b.append(d,s); },
+  const b=keyButton(ll, L.detail, b=>{ const d=el('i','sw'); d.style.background=LAYER_COLOR[k]; d.style.height='4px';
+    b.append(d, el('span','',`${L.name} · ${n}`)); },
     ()=>{ hiddenLayers.has(+k) ? hiddenLayers.delete(+k) : hiddenLayers.add(+k); });
   keyButtons.push([b,()=>!hiddenLayers.has(+k)]); });
-{ const b=keyButton(ll, 'The faint wire spheres that mark each protection ring, and their R W X tags', b=>{ const d=document.createElement('i'); d.className='sw d'; d.style.color=css('--shell');
-    const s=document.createElement('span'); s.textContent='Ring outlines and R W X tags'; b.append(d,s); }, ()=>{ shellsOn=!shellsOn; });
-  keyButtons.push([b,()=>shellsOn]); }
 const SHAPES=[
   ['<circle cx="9" cy="9" r="7"/>','Sphere','🐾 a pet (intelligent app), ring 2; the Friendly Farmer is the gold one, ring 1. Also you, on the outermost ring'],
-  ['<rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/>','Pink cube','🐾 a pet program: a program, site or world Astra made. Ring 3, inside the harness, just outside the pets. R W X','--own'],
-  ['<circle cx="9" cy="9" r="7.5" fill-opacity=".18" stroke-width="1.2"/>','Glass ring','the agent harness, wrapped around rings 0 to 3: the R W X line. Click its edge for details'],
-  ['<path d="M9 4a5 5 0 1 0 .01 0M9 1a8 8 0 1 1-.01 0" fill-rule="evenodd"/>','Donut','the seat on top of the glass: the harness program in use (Claude Code or Codex). The model in the seat sits in its hole','--l5'],
-  ['<path d="M9 1 17 9 9 17 1 9Z"/>','Diamond','a farmhand: an AI model that takes the seat (Claude, OpenAI, Astra\'s local farmhands). Ring 4. Only farmhands on the allowlist get keys; called, never rewritten'],
-  ['<path d="M3 3h9v4H3zM6 7h3v9.5H6z"/>','Hammer','🐾 a tool: any other program a pet program makes or owns (the System Map, Startup Star, name-eraser). Same ring and permissions as its pet program, never more','--tool'],
-  ['<path d="M6.5 6.5h5v5h-5zM1 8h4.5v2H1zM12.5 8H17v2h-4.5z"/>','Satellite','third-party: a program, library or service made by others (Voicemeeter, Steam, three.js, Google Fonts). Ring 5, outside the harness. R X only','--program'],
-  ['<rect x="4" y="1.5" width="10" height="15" rx="4"/>','Cylinder','a device: PCs, phones, iPad, headsets, trackers, Raspberry Pi. Ring 6. R X only'],
+  ['<rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/>','Pink cube','🐾 a pet program: a program, site or world Astra made. Ring 3, inside the glass, just outside the pets','--own'],
+  ['<circle cx="9" cy="9" r="7.5" fill-opacity=".18" stroke-width="1.2"/>','Glass sphere','the agent harness around rings 0 to 3. Click its edge for details'],
+  ['<ellipse cx="9" cy="9" rx="8" ry="3.2" fill="none" stroke-width="1.6"/><circle cx="9" cy="9" r="2.6"/>','Planet ring','Claude Code or Codex: a ring around its AI. A request can go through the ring (the agent app) or straight to the model','--l5'],
+  ['<path d="M9 1 17 9 9 17 1 9Z"/>','Diamond','a farmhand: an AI model (Claude, OpenAI, Astra\'s local farmhands). Ring 4, outside the glass. Only farmhands on the allowlist get keys'],
+  ['<path d="M3 3h9v4H3zM6 7h3v9.5H6z"/>','Hammer','a tool: a program a pet program owns (the System Map, Startup Star, name-eraser). It sits on its pet program\'s ring','--tool'],
+  ['<path d="M6.5 6.5h5v5h-5zM1 8h4.5v2H1zM12.5 8H17v2h-4.5z"/>','Satellite','third-party: a program, library or service made by others (Voicemeeter, Steam, three.js). Ring 5, outside the glass','--program'],
+  ['<rect x="4" y="1.5" width="10" height="15" rx="4"/>','Cylinder','a device: PCs, phones, iPad, headsets, trackers, Raspberry Pi. Ring 6'],
   ['<path d="M9 1l2.1 4.3 4.7.7-3.4 3.3.8 4.7L9 11.8 4.8 14l.8-4.7L2.2 6l4.7-.7z"/>','Star wand','⭐ Startup Star, a tool of The Farm: it starts the desktop pets when you sign in to Windows','--host'],
-  ['<path d="M9 1.5 16.5 7 13.6 16H4.4L1.5 7Z"/>','Gem','🐾 the core, ring 0: The Farm (the Friendly Farmer\'s pet program), Pet Directory, Program Manager. The Kennel (other people\'s pets, waiting to be checked) sits outside the harness'],
-  ['<path d="M9 1.5 16.5 15.5H1.5Z"/>','Pyramid','a harness program on the donut (Claude Code, Codex), or an adviser outside with no access (ChatGPT)'],
+  ['<path d="M9 1.5 16.5 7 13.6 16H4.4L1.5 7Z"/>','Gem','🐾 the core, ring 0: The Farm, Pet Directory, Program Manager. The Kennel, the Shed and the vet-clinic sit outside, on ring 5'],
+  ['<path d="M9 1.5 16.5 15.5H1.5Z"/>','Pyramid','an adviser outside with no access (ChatGPT, ring 7)'],
 ];
 // Which node types each shape stands for; hiding a shape hides all of them.
-const SHAPE_TYPES = {Sphere:['host','pet','pipeline','seed','roadmap','you'], 'Pink cube':['own-program'], Hammer:['tool'], 'Glass ring':['harness'], Donut:['harness'], Diamond:['model'], Satellite:['program'], Cylinder:['host-machine'], Gem:['infrastructure'], Pyramid:['assistant']};
+const SHAPE_TYPES = {Sphere:['host','pet','pipeline','seed','roadmap','you'], 'Pink cube':['own-program'], Hammer:['tool'], 'Glass sphere':['harness'], 'Planet ring':['@apps'], Diamond:['model'], Satellite:['program'], Cylinder:['host-machine'], Gem:['infrastructure'], Pyramid:['assistant']};
 const sk=document.getElementById('shapeKey');
 SHAPES.forEach(([svg,name,what,colour])=>{ const types=SHAPE_TYPES[name]||[]; const ink=colour?css(colour):css('--fg');
   const b=keyButton(sk, `Hide or show every ${name.toLowerCase()}`, b=>{
     b.innerHTML=`<svg viewBox="0 0 18 18" aria-hidden="true" fill="${ink}" stroke="${ink}">${svg}</svg>`;
-    const s=document.createElement('span'); const t=document.createElement('b'); t.textContent=name; s.append(t, document.createTextNode(': '+what)); b.appendChild(s); },
+    const s=el('span'); s.append(el('b','',name), document.createTextNode(': '+what)); b.appendChild(s); },
     ()=>{ const allOn=types.every(t=>!hiddenTypes.has(t)); types.forEach(t=>allOn?hiddenTypes.add(t):hiddenTypes.delete(t)); });
   keyButtons.push([b,()=>{ const on=types.filter(t=>!hiddenTypes.has(t)).length; return on===types.length ? true : on ? 'mixed' : false; }]); });
 const lg=document.getElementById('nodeLegend');
 Object.entries(DATA.types).forEach(([k,label])=>{ const n=DATA.nodes.filter(x=>x.type===k).length; if(!n) return;
-  const b=keyButton(lg, `Hide or show: ${label}`, b=>{ const d=document.createElement('i'); d.className='dot'; d.style.background=TYPE[k].color;
-    const s=document.createElement('span'); s.textContent=`${label} · ${n}`; b.append(d,s); },
+  const b=keyButton(lg, `Hide or show: ${label}`, b=>{ const d=el('i','dot'); d.style.background=TYPE[k].color;
+    b.append(d, el('span','',`${label} · ${n}`)); },
     ()=>{ hiddenTypes.has(k) ? hiddenTypes.delete(k) : hiddenTypes.add(k); });
   keyButtons.push([b,()=>!hiddenTypes.has(k)]); });
 function syncKeys(){ keyButtons.forEach(([b,on])=>b.setAttribute('aria-pressed',on())); }
-document.getElementById('vReset').onclick=()=>{ hiddenTypes.clear(); hiddenLayers.clear(); shellsOn=true; audioOn=true; const ak=document.getElementById('audioKey'); if(ak) ak.setAttribute('aria-pressed','true'); setView(false); syncKeys(); };
+document.getElementById('vReset').onclick=()=>{ hiddenTypes.clear(); hiddenLayers.clear(); audioOn=true; const ak=document.getElementById('audioKey'); if(ak) ak.setAttribute('aria-pressed','true'); setView(false); syncKeys(); };
 function setView(onlyNow){ Object.keys(shown).forEach(k=>shown[k]=onlyNow?k==='now':true);
-  document.querySelectorAll('#edgeToggles .btn').forEach(b=>b.setAttribute('aria-pressed',shown[b.dataset.state])); syncView(); apply(); }
+  document.querySelectorAll('#edgeToggles .btn[data-state]').forEach(b=>b.setAttribute('aria-pressed',shown[b.dataset.state])); syncView(); apply(); }
 function syncView(){ document.getElementById('vNow').setAttribute('aria-pressed',Object.entries(shown).every(([k,v])=>v===(k==='now')));
-  document.getElementById('vAll').setAttribute('aria-pressed',Object.values(shown).every(Boolean)); document.getElementById('vHub').setAttribute('aria-pressed',showHub); }
+  document.getElementById('vAll').setAttribute('aria-pressed',Object.values(shown).every(Boolean)); document.getElementById('vHub').setAttribute('aria-pressed',showHub);
+  document.getElementById('vAllLines').setAttribute('aria-pressed',allLines); }
 document.getElementById('vNow').onclick=()=>setView(true);
 document.getElementById('vAll').onclick=()=>setView(false);
 document.getElementById('vHub').onclick=()=>{showHub=!showHub; syncView(); apply();};
+document.getElementById('vAllLines').onclick=()=>{allLines=!allLines; syncView(); apply();};
 function syncRemoved(){ const b=document.getElementById('vRemoved'); b.hidden=!removed.size; b.textContent='Show removed ('+removed.size+')'; }
 document.getElementById('vExamples').onclick=()=>{ examplesHidden=!examplesHidden; document.getElementById('vExamples').setAttribute('aria-pressed',examplesHidden); apply(); };
 document.getElementById('vRemoved').onclick=()=>{ removed.clear(); saveRemoved(); syncRemoved(); apply(); };
@@ -518,11 +704,10 @@ syncRemoved();
   nlg.innerHTML = Object.values(MEDIUM).map(m=>`<span><i class="sw${m.dash?' d':''}" style="background:${m.color};color:${m.color}"></i>${m.name}</span>`).join('');
   document.getElementById('vNet').onclick=()=>{ netOn=!netOn; document.getElementById('vNet').setAttribute('aria-pressed',netOn); nlg.hidden=!netOn; apply(); }; }
 let iconMode=false;
-document.getElementById('vIcon').onclick=()=>{ iconMode=!iconMode; document.getElementById('vIcon').setAttribute('aria-pressed',iconMode);
-  apply(); };
+document.getElementById('vIcon').onclick=()=>{ iconMode=!iconMode; document.getElementById('vIcon').setAttribute('aria-pressed',iconMode); apply(); };
 
-// ---------- focus: hover, selected node, selected link, search ----------
-let hovered=null, selected=null, selectedPair=null, matches=null;
+// ---------- focus: hover, selected node, selected link, selected ring, search ----------
+let hovered=null, selected=null, selectedPair=null, matches=null, ringOn=null, near=new Set();
 const isHubNode = id => links.some(l=>l.everyApp&&l.from===id);
 function linkVisible(l, focusId){
   if((l.carries==='network')!==netOn) return false; // the network view and the flow view never mix
@@ -534,52 +719,98 @@ function linkVisible(l, focusId){
 }
 function apply(){
   meshes.forEach(m=>{ if(m.userData.hat) m.userData.hat.visible=hatsOn; });
-  DATA.nodes.forEach(n=>{ if(n.exampleTag) n.exampleTag.visible=nodeOn(n); });
   const focus = selected||hovered, fid = focus&&focus.id;
-  const near=new Set();
-  if(fid){ near.add(fid); links.forEach(l=>{ if(linkVisible(l,fid)&&(l.from===fid||l.to===fid)){near.add(l.from);near.add(l.to);} }); }
+  near=new Set();
+  const fset=new Set(fid ? (nodeById[fid]&&nodeById[fid].group ? [fid,...clusterOf(fid).map(m=>m.id)] : [fid]) : []);
+  if(fid){ fset.forEach(i=>near.add(i)); links.forEach(l=>{ if(linkVisible(l,fid)&&(fset.has(l.from)||fset.has(l.to))){near.add(l.from);near.add(l.to);} }); }
   if(selectedPair){ selectedPair.split('|').forEach(i=>near.add(i)); }
   const anyFocus = !!(fid||selectedPair||matches);
-  links.forEach(l=>{ const vis=linkVisible(l,fid); const on = selectedPair ? l.pair===selectedPair : fid ? (l.from===fid||l.to===fid) : matches ? (matches.has(l.from)&&matches.has(l.to)) : true;
-    l.line.visible=vis; l.hit.visible=vis; l.line.material.opacity = on ? (anyFocus?.95:l.base*(l.everyApp?.5:1)) : .05; if(l.dot) l.dot.visible=vis&&on; });
+  links.forEach(l=>{ const vis=linkVisible(l,fid); const on = selectedPair ? l.pair===selectedPair : fid ? (fset.has(l.from)||fset.has(l.to)) : matches ? (matches.has(l.from)&&matches.has(l.to)) : true;
+    const strength = anyFocus ? (on?.95:.025) : (allLines||netOn) ? l.base*(l.everyApp?.5:1) : l.base*IDLE*(l.everyApp?.5:1);
+    l.line.visible=vis; l.hit.visible=vis&&!morph; l.line.material.opacity=strength; if(l.dot) l.dot.visible=vis&&on&&(anyFocus||allLines)&&!morph; });
   meshes.forEach(m=>{ const n=m.userData.node; const on = selectedPair||fid ? near.has(n.id) : matches ? matches.has(n.id) : true;
     const hot = (fid&&n.id===fid) || (matches&&matches.has(n.id)&&!fid&&!selectedPair);
-    m.material.emissiveIntensity = hot ? .9 : .28; m.material.opacity = on ? m.userData.baseOpacity : .1;
-    m.scale.setScalar(fid&&n.id===fid ? 1.35 : 1); labelEls[n.id].dataset.dim = on?'':'1';
+    m.material.emissiveIntensity = hot ? .95 : .3; m.material.opacity = on ? m.userData.baseOpacity : .12;
+    m.scale.setScalar(fid&&n.id===fid ? 1.4 : 1); n.dim = !on;
     n.iconSprite.material.opacity = on ? 1 : .12;
-    // The harness has no dot of its own: the glass shell is the harness.
-    const keep=nodeOn(n), solid=n.type!=='harness'; m.visible=keep&&solid&&!iconMode; n.iconSprite.visible=keep&&solid&&iconMode; labelEls[n.id].dataset.off = keep?'':'1'; });
-  const glass=!hiddenTypes.has('harness'); harnessGlass.visible=glass; harnessWire.visible=glass; donut.visible=glass;
-  const glassHot = fid && nodeById[fid] && nodeById[fid].type==='harness';
-  harnessWire.material.opacity = glassHot ? .4 : .12; harnessGlass.material.opacity = glassHot ? .1 : .055; donut.material.emissiveIntensity = glassHot ? .9 : .35;
-  shells.forEach(s=>s.visible=shellsOn); ringTags.forEach(s=>s.visible=shellsOn);
+    // The harness has no dot of its own: the glass dome is the harness.
+    // An agent app (Claude Code, Codex) is drawn as its ring, not as a shape of its own.
+    const keep=nodeOn(n), solid=n.type!=='harness'&&!APP_RING[n.id]; m.visible=keep&&solid&&!iconMode; n.iconSprite.visible=keep&&solid&&iconMode&&!n.group; n.off=!keep||n.type==='harness'; // an agent app keeps its name on its ring
+    // !! because three.js hides an object only when visible is false, never when it is null.
+    if(n.exampleTag) n.exampleTag.visible=!!(keep&&(fid===n.id||(matches&&matches.has(n.id)))); });
+  const glass=!hiddenTypes.has('harness'), both=!!morph; harnessGlass.visible=glass&&(!flat||both); harnessWire.visible=glass&&(!flat||both); flatDecor.visible=flat||both; domeGlass.visible=glass; domeWire.visible=glass; domeRim.visible=glass;
+  Object.values(shells).forEach(sh=>sh.visible=!flat||both);
+  const glassHot = (fid && nodeById[fid] && nodeById[fid].type==='harness') || ringOn==='H';
+  harnessWire.material.opacity = glassHot ? .35 : .1; harnessGlass.material.opacity = glassHot ? .1 : .05;
+  domeWire.material.opacity = glassHot ? .35 : .09; domeGlass.material.opacity = glassHot ? .1 : .045; domeRim.material.opacity = glassHot ? .7 : .3;
+  Object.entries(flatRings).forEach(([k,l])=>{ const r=k==='2b'?'2':k; l.material.opacity = ringOn ? (ringOn===r?.85:.1) : (k==='2b'?.16:FLAT_R[k]<DOME_R?.26:.32); });
+  if(!morph) ringTags.forEach(t=>{ const d=t.userData[flat?'flat':'sphere']; if(d){ t.position.copy(d.p); t.userData.base.copy(d.base); } });
+  [harnessGlass,harnessWire,domeGlass,domeWire,domeRim,...Object.values(shells),...Object.values(flatRings)].forEach(o=>o.material.userData.base=o.material.opacity);
+  fadeDecor(morph?morph.e:1);
+  Object.entries(shells).forEach(([k,sh])=>{ sh.material.opacity = ringOn ? (ringOn===k?.2:.02) : .035; });
+  appRings.forEach(r=>{ const n=r.userData.node, on=!(anyFocus) || near.has(n.id) || (matches&&matches.has(n.id));
+    r.visible=nodeOn(n)&&nodeOn(nodeById[APP_RING[n.id]]); r.material.emissiveIntensity = fid===n.id ? .55 : .25; r.material.opacity = on ? .85 : .2; });
+  // While a card is open, only its own ring keeps its name tag.
+  const focusRing = fid&&nodeById[fid] ? nodeById[fid].ring : null;
+  ringTags.forEach(s=>{ s.visible = ringOn || !(fid||selectedPair) || s.userData.ring===focusRing; s.material.opacity = ringOn ? (s.userData.ring===ringOn?1:.35) : anyFocus ? .55 : 1; });
+  Object.entries(ringButtons).forEach(([k,b])=>b.setAttribute('aria-pressed',ringOn===k));
 }
 const ray=new THREE.Raycaster(), mouse=new THREE.Vector2(); const tip=document.getElementById('tip');
+const groundPlane = new THREE.Plane(new THREE.Vector3(0,1,0),0), groundHit = new THREE.Vector3();
 function pick(ev){ const r=renderer.domElement.getBoundingClientRect(); mouse.set(((ev.clientX-r.left)/r.width)*2-1, -((ev.clientY-r.top)/r.height)*2+1); ray.setFromCamera(mouse,camera);
   const hn=ray.intersectObjects((iconMode?icons:meshes).filter(o=>o.visible))[0]; if(hn) return {node:hn.object.userData.node};
-  if(donut.visible && harnessNode && ray.intersectObject(donut)[0]) return {node:harnessNode};
+  const rh=ray.intersectObjects(appRings.filter(r=>r.visible).map(r=>r.userData.hit))[0]; if(rh) return {node:rh.object.userData.node};
   const hl=ray.intersectObjects(hits.filter(h=>h.visible))[0]; if(hl) return {link:hl.object.userData.link};
-  // The glass harness is picked only near its visible rim, so clicks through the middle still reach what is inside.
+  // The glass is picked only near its visible rim, so clicks through the middle still reach what is inside.
   if(harnessGlass.visible && harnessNode){ const miss=ray.ray.distanceToPoint(new THREE.Vector3()); if(miss>HARNESS_R*.88 && miss<HARNESS_R*1.03) return {node:harnessNode}; }
+  if(flat && domeRim.visible && harnessNode && ray.ray.intersectPlane(groundPlane,groundHit)){ const d=Math.hypot(groundHit.x,groundHit.z); if(Math.abs(d-DOME_R)<1.1) return {node:harnessNode}; }
   return null; }
 const harnessNode = DATA.nodes.find(n=>n.type==='harness');
-renderer.domElement.addEventListener('pointermove',ev=>{ const p=pick(ev); const n=p&&p.node||null;
+const short = (s,n=170) => s && s.length>n ? s.slice(0,n-1).replace(/\s+\S*$/,'')+'…' : (s||'');
+renderer.domElement.addEventListener('pointermove',ev=>{ if(looking||midDrag) return; const p=pick(ev); const n=p&&p.node||null;
   if(n!==hovered){hovered=n; if(!selected&&!selectedPair) apply();}
   renderer.domElement.style.cursor=p?'pointer':'grab';
-  if(p){ tip.hidden=false; tip.textContent = p.node ? `${p.node.name}: ${p.node.job||''}` : `${nodeById[p.link.from].name} → ${nodeById[p.link.to].name}: ${p.link.carries}. Click for everything on this line.`;
-    tip.style.left=Math.min(ev.clientX+14,innerWidth-290)+'px'; tip.style.top=(ev.clientY+14)+'px'; } else tip.hidden=true; });
+  if(p){ tip.hidden=false; tip.replaceChildren();
+    if(p.node){ tip.append(el('b','',p.node.name), document.createTextNode(' · '+(p.node.ring==='H'?RING.H.name:'ring '+p.node.ring)+(p.node.animal?' · 🐾':'')), el('br'), document.createTextNode(short(p.node.job))); }
+    else tip.append(el('b','',`${nodeById[p.link.from].name} → ${nodeById[p.link.to].name}`), document.createTextNode(`: ${p.link.carries}. Click for everything on this line.`));
+    tip.style.left=Math.min(ev.clientX+14,innerWidth-310)+'px'; tip.style.top=Math.min(ev.clientY+14,innerHeight-120)+'px'; } else tip.hidden=true; });
 renderer.domElement.addEventListener('pointerleave',()=>{hovered=null;tip.hidden=true;apply();});
 let downAt=null; renderer.domElement.addEventListener('pointerdown',ev=>{downAt=[ev.clientX,ev.clientY]; autoSpin=false;});
 renderer.domElement.addEventListener('pointerup',ev=>{ if(!downAt||ev.button!==0) { downAt=null; return; } const moved=Math.hypot(ev.clientX-downAt[0],ev.clientY-downAt[1]); downAt=null; if(moved>5) return;
   const p=pick(ev); if(!p) return close(); p.node ? selectNode(p.node) : selectPair(p.link.pair); });
 
-// ---------- detail panel ----------
+// ---------- the card ----------
 const side=document.getElementById('side');
-const el=(tag,cls,text)=>{const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e;};
-function close(){ selected=null; selectedPair=null; side.hidden=true; apply(); try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+function close(){ selected=null; selectedPair=null; ringOn=null; if(!q.value.trim()) matches=null; side.hidden=true; apply(); try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
 function head(title){ side.replaceChildren(); const c=el('button','btn close','Close'); c.onclick=close; side.append(c, el('h2','',title)); }
-function flowItem(l, perspective){
-  const li=el('li'); const st=el('span','chip',`Layer ${l.layer} · ${STATE_WORD[l.state]}`); st.style.color=LAYER_COLOR[l.layer];
+// R W X boxes for one grant: filled = yes; outlined = only through a pull request, a grant or the harness asking.
+const VALUE_WORD = DATA.access.values;
+function rwxBoxes(g){ const s=el('span','rwx');
+  ['r','w','x'].forEach(k=>{ const b=el('b',`${k} ${g[k]}`,k.toUpperCase()); b.title=`${{r:'Read',w:'Write',x:'Run (execute)'}[k]}: ${VALUE_WORD[g[k]]}`; s.appendChild(b); });
+  return s; }
+function statusChip(status){ const s=el('span','status '+status, DATA.access.statuses[status].name); s.title=DATA.access.statuses[status].what; return s; }
+function grantRow(title, g){
+  const d=el('details','grant'), s=el('summary'); s.append(rwxBoxes(g), el('span','gwho',title), statusChip(g.status)); d.appendChild(s);
+  const how=el('p'); how.append(el('b','',DATA.access.statuses[g.status].name+': '), document.createTextNode(g.how)); d.appendChild(how);
+  if(g.next){ const p=el('p'); p.append(el('b','','Next (planned): '), document.createTextNode(g.next)); d.appendChild(p); }
+  if(g.gaps&&g.gaps.length){ const p=el('p'), a=el('a','',`Known gap${g.gaps.length>1?'s':''} ${g.gaps.join(', ')}`); a.href='https://github.com/findastra/astras-pet-os/blob/main/PROTECTION-RINGS.md#known-gaps'; a.target='_blank'; a.rel='noopener'; p.appendChild(a); d.appendChild(p); }
+  return d; }
+function accessBlock(n){
+  const box=el('div','access'), on=n.access.on.map(id=>GRANT[id]), by=n.access.by.map(id=>GRANT[id]);
+  box.appendChild(el('div','label','Who may use it'));
+  if(on.length) on.forEach(g=>box.appendChild(grantRow(g.resources.includes('self')?'Itself: '+g.on:g.who, g)));
+  else box.appendChild(el('div','why', n.type==='you' ? 'Nobody acts on you. You give and take back every grant.' : 'No grant reaches it.'));
+  if(by.length){ box.appendChild(el('div','label','What it may use')); by.forEach(g=>box.appendChild(grantRow(g.on.charAt(0).toUpperCase()+g.on.slice(1), g))); }
+  return box; }
+function ringLine(n){
+  const r=RING[n.ring], p=el('p','ringline'), b=el('button','link',r.ring==='H'?r.name.toLowerCase():`Ring ${r.ring} · ${r.name}`); b.onclick=()=>selectRing(r.ring);
+  p.append(document.createTextNode(r.ring==='H'?'Sits on the ':'Lives on '), b, document.createTextNode('. '));
+  if(n.animal) p.append(el('b','animal','🐾 An animal: '), document.createTextNode('inside the harness, so agents may work on it, but only as its grants allow.'));
+  else if(['seed','roadmap'].includes(n.type) || (['0','1','2','3'].includes(n.ring))) p.append(el('b','','Not an animal yet: '), document.createTextNode('it becomes one when Astra registers its pet.'));
+  else if(n.type!=='you') p.append(document.createTextNode('Not an animal: agents never rewrite it.'));
+  return p; }
+function flowItem(l){
+  const li=el('li'); const st=el('span','chip',STATE_WORD[l.state]); st.style.color=LAYER_COLOR[l.layer];
   const top=el('div'); const from=el('button','link',nodeById[l.from].name), to=el('button','link',nodeById[l.to].name);
   from.onclick=()=>selectNode(nodeById[l.from]); to.onclick=()=>selectNode(nodeById[l.to]);
   top.append(from, document.createTextNode(' → '), to, document.createTextNode(' '), st);
@@ -587,17 +818,22 @@ function flowItem(l, perspective){
   li.append(top, kind, el('div','why',l.why)); return li;
 }
 function selectNode(n){
-  selected=n; selectedPair=null; apply(); flyTo(n.id);
+  selected=n; selectedPair=null; ringOn=null; apply(); flyTo(n.id);
   head(n.name); try{ history.replaceState(null,'','#node='+encodeURIComponent(n.id)); }catch(e){}
-  const c=el('span','chip',DATA.types[n.type]+(n.status?` · ${n.status}`:'')+(n.state==='planned'&&!['seed','roadmap'].includes(n.type)?' · planned':'')); c.style.color=TYPE[n.type].color; side.appendChild(c);
-  const g=ringOf(n), rc=el('p','meta');
-  rc.innerHTML = g.glass ? `<b style="color:${css('--l5')}">The agent harness: the R W X line.</b> Everything inside it is an animal the agent in the seat can control.`
-    : `${rwxHtml(g)} <b class="${g.animal?'animal':''}">${g.animal?'\u{1F43E} Animal \u00b7 ':''}Ring ${g.ring} \u00b7 ${g.name}</b>${g.animal?': inside the harness, so the agent in the seat can control it'+(g.rwx[1]==='gate'?' (writes only through a pull request Astra merges)':''):': outside the harness, never rewritten by an agent'}.`;
-  side.appendChild(rc);
-  const lc=el('span','chip',`Layer ${n.layer}: ${DATA.layers[n.layer].name}`+(n.category?` · ${n.category}`:'')); lc.style.color=LAYER_COLOR[n.layer]; side.appendChild(lc);
+  const chips=el('div','chips');
+  const c=el('span','chip',DATA.types[n.type]+(n.status?` · ${n.status}`:'')+(n.state==='planned'&&!['seed','roadmap'].includes(n.type)?' · planned':'')); c.style.color=TYPE[n.type].color; chips.appendChild(c);
+  if(n.category) chips.appendChild(el('span','chip',n.category));
+  side.appendChild(chips);
+  side.appendChild(ringLine(n));
+  if(n.home){ const p=el('p','meta'); p.append(document.createTextNode(`Pet program #${n.home.number}: `));
+    if(n.home.node&&nodeById[n.home.node]){ const b=el('button','link',n.home.name); b.onclick=()=>selectNode(nodeById[n.home.node]); p.appendChild(b); } else p.append(document.createTextNode(!n.home.assigned?'name not assigned yet':n.private?n.home.name+' (a private pet: its program stays off the map)':n.home.name+' (not on the map yet)'));
+    side.appendChild(p); }
+  if(n.program!==undefined && n.type==='own-program'){ const owner=DATA.nodes.find(m=>m.home&&m.home.number===n.program);
+    if(owner){ const p=el('p','meta'), b=el('button','link',owner.name); b.onclick=()=>selectNode(owner); p.append(document.createTextNode(`Pet program #${n.program} of `), b); side.appendChild(p); } }
   side.appendChild(el('p','job',n.job||'No job recorded.'));
+  side.appendChild(accessBlock(n));
   if(PET_TYPES.includes(n.type)){ const h=HATS[hatOf(n)]; const hp=el('p','meta'); hp.innerHTML=`<span style="color:${h.color==='#141414'?'#ff4d5e':h.color}">\u{1F3A9}</span> <b>${h.name}</b>: ${h.what}`; side.appendChild(hp); }
-  if(EXAMPLES[n.id]){ const p=el('p','meta'); p.append(el('b','','\u{1F3F7}\u{FE0F} EXAMPLE'), document.createTextNode(': Astra\u2019s own, included to show how a farm works. Remove it whenever you like. If the programs it looks after are not on your PC, it simply sleeps: no errors, and it sends nothing.')); side.appendChild(p); }
+  if(EXAMPLES[n.id]){ const p=el('p','meta'); p.append(el('b','','\u{1F3F7}\u{FE0F} EXAMPLE'), document.createTextNode(': Astra’s own, included to show how a farm works. Remove it whenever you like. If the programs it looks after are not on your PC, it simply sleeps: no errors, and it sends nothing.')); side.appendChild(p); }
   if(n.type!=='host' && n.type!=='you' && (PET_TYPES.includes(n.type) || EXAMPLES[n.id])){
     const gone=removed.has(n.id), b=el('button','btn', gone?'Put it back on my map':'Remove from my map');
     b.onclick=()=>{ gone?removed.delete(n.id):removed.add(n.id); saveRemoved(); syncRemoved(); apply(); selectNode(n); };
@@ -612,22 +848,46 @@ function selectNode(n){
       mk.onclick=()=>{ try{ navigator.clipboard.writeText(prompt); }catch(e){} out.hidden=false; out.textContent='Copied. Paste this to your AI on your own farm: '+prompt; };
       side.append(mk, out); } }
   if(n.type==='tool'&&nodeById[n.of]){ const p=el('p','meta'); const b=el('button','link',nodeById[n.of].name); b.onclick=()=>selectNode(nodeById[n.of]);
-    p.append(document.createTextNode('\u{1F528} A tool of '), b, document.createTextNode(': same ring and permissions as its pet program, never more.')); side.appendChild(p);
+    p.append(document.createTextNode('\u{1F528} A tool of '), b, document.createTextNode(': it sits on its pet program’s ring, and its grants never exceed its pet program’s.')); side.appendChild(p);
     if(n.label){ const lb=el('p','meta'); lb.append(document.createTextNode('Tool box label: ')); lb.appendChild(el('code','',n.label)); side.appendChild(lb); } }
   if(inCluster(n)){ const p=el('p','meta'), b=el('button','link',nodeById[n.in].name); b.onclick=()=>selectNode(nodeById[n.in]); p.append(document.createTextNode('Part of '), b); side.appendChild(p); }
-  const members=clusterOf(n.id); if(members.length){ const p=el('p','meta'); p.append(document.createTextNode(members.length+' in this cluster: '));
+  const members=clusterOf(n.id); if(members.length){ const p=el('p','meta'); p.append(document.createTextNode(members.length+' in this group: '));
     members.forEach((m,k)=>{ const b=el('button','link',m.name); b.onclick=()=>selectNode(m); p.append(b); if(k<members.length-1) p.append(document.createTextNode(', ')); }); side.appendChild(p); }
   if(n.repo){ const m=el('p','meta'); const a=el('a','', 'findastra/'+n.repo); a.href='https://github.com/findastra/'+n.repo; a.target='_blank'; a.rel='noopener'; m.append(a, document.createTextNode(n.visibility?` · ${n.visibility}`:'')); side.appendChild(m); }
   side.appendChild(codeBlock(n));
   const list = n.type==='harness' ? DATA.links.filter(l=>l.from===n.id||l.to===n.id).filter((l,i,a)=>!l.everyApp||a.findIndex(x=>x.everyApp&&x.why===l.why)===i)
-    : links.filter(l=>(l.from===n.id||l.to===n.id)&&shown[l.state]&&(!l.everyApp||showHub||l.from===n.id));
-  if(n.type==='harness') side.appendChild(el('p','why','Its connections are the glass ring itself: every animal (rings 0 to 3) sits inside it, and models, third-party programs and devices are reached through it. The donut on top is the seat: the harness program in use (Claude Code or Codex), with a model in its hole. "Every pet" rows stand for one link per pet.'));
+    : n.group ? groupFlows(n) : links.filter(l=>(l.from===n.id||l.to===n.id)&&shown[l.state]&&(!l.everyApp||showHub||l.from===n.id));
+  if(n.group) side.appendChild(el('p','why',`Every line here reaches each of the ${clusterOf(n.id).length} in this group.`));
+  if(n.type==='harness') side.appendChild(el('p','why','Its connections are the glass itself: every animal (rings 0 to 3) sits inside it, and farmhands, third-party programs and devices are reached through it. Claude Code and Codex are rings around their AI: an agent can go through a ring or call the model straight. "Every pet" rows stand for one link per pet.'));
   const outN=list.filter(l=>l.from===n.id).length, inN=list.length-outN;
-  side.appendChild(el('div','label',`${outN} sent · ${inN} received`));
+  side.appendChild(el('div','label',`What flows · ${outN} sent · ${inN} received`));
   const ul=el('ul','conns'); list.forEach(l=>ul.appendChild(flowItem(l)));
   if(!list.length) ul.appendChild(el('li','why','No connections in the views that are switched on.'));
-  side.appendChild(ul); side.hidden=false;
+  side.appendChild(ul); side.hidden=false; side.scrollTop=0;
 }
+// A ring's card: what lives there and every grant that reaches it.
+function selectRing(ring){
+  const r=RING[ring]; selected=null; selectedPair=null; ringOn=ring; q.value=''; res.hidden=true;
+  const ids=DATA.nodes.filter(n=>n.ring===ring).map(n=>n.id); matches=new Set(ids); apply();
+  head(r.ring==='H'?r.name:`Ring ${r.ring} · ${r.name}`);
+  side.appendChild(el('p','job',r.what.charAt(0).toUpperCase()+r.what.slice(1)+'.'));
+  const a=el('p','ringline'); a.append(el('b',r.animal.startsWith('yes')?'animal':'',(r.animal.startsWith('yes')?'🐾 ':'')+'Animals: '), document.createTextNode(r.animal+'.')); side.appendChild(a);
+  if(ring!=='H'){ const reach=new Set(); DATA.nodes.filter(n=>n.ring===ring).forEach(n=>n.access.on.forEach(id=>reach.add(id)));
+    const box=el('div','access'); box.appendChild(el('div','label','Grants that reach this ring'));
+    if(reach.size) DATA.access.grants.filter(g=>reach.has(g.id)).forEach(g=>box.appendChild(grantRow(g.who+' → '+g.on, g)));
+    else box.appendChild(el('div','why','No grant reaches it.'));
+    side.appendChild(box); }
+  else side.appendChild(harnessNode ? (()=>{ const b=el('button','btn','The agent harness card'); b.onclick=()=>selectNode(harnessNode); return b; })() : el('span'));
+  side.appendChild(el('div','label',`${ids.length} on this ring`));
+  const list=el('div','chips'); DATA.nodes.filter(n=>n.ring===ring).sort((a,b)=>a.name.localeCompare(b.name)).forEach(n=>{ const b=el('button','codechip',n.name); b.style.cursor='pointer'; b.style.borderLeft='3px solid '+TYPE[n.type].color; b.onclick=()=>selectNode(n); list.appendChild(b); });
+  side.appendChild(list); side.hidden=false; side.scrollTop=0;
+  frameAll();
+}
+// A group's flows, once each: every line that reaches its members, shown as reaching the group.
+function groupFlows(n){ const ids=new Set(clusterOf(n.id).map(m=>m.id)), seen=new Set(), out=[];
+  links.forEach(l=>{ const f=ids.has(l.from), t=ids.has(l.to); if(f===t&&!(l.from===n.id||l.to===n.id)) return; if(!shown[l.state]) return;
+    const r={...l, from:f?n.id:l.from, to:t?n.id:l.to}, k=r.from+'|'+r.to+'|'+r.carries+'|'+r.state; if(seen.has(k)) return; seen.add(k); out.push(r); });
+  return out; }
 function codeBlock(n){
   const box=el('div','langs');
   const has = n.code && n.code.languages.length;
@@ -640,21 +900,21 @@ function codeBlock(n){
   return box;
 }
 function showCodeList(){
-  selected=null; selectedPair=null; apply();
+  selected=null; selectedPair=null; ringOn=null; apply();
   head('Code list');
   side.appendChild(el('p','why',`What each pet is written in and why, measured from each repo's main branch${DATA.codeChecked?' on '+DATA.codeChecked:''}. Click a pet for the reasons.`));
   const totals={}; DATA.nodes.forEach(n=>(n.code?.languages||[]).forEach(l=>{ totals[l.language]=(totals[l.language]||0)+1; }));
-  const sum=el('div','chips'); Object.entries(totals).sort((a,b)=>b[1]-a[1]).forEach(([k,c])=>{ const ch=el('button','codechip',`${k} · ${c}`); ch.style.borderLeft='3px solid '+(LANG_COLOR[k]||css('--muted')); ch.style.border='0'; ch.style.borderLeft='3px solid '+(LANG_COLOR[k]||css('--muted')); ch.style.cursor='pointer'; ch.onclick=()=>{ q.value=k; runSearch(); }; sum.appendChild(ch); });
+  const sum=el('div','chips'); Object.entries(totals).sort((a,b)=>b[1]-a[1]).forEach(([k,c])=>{ const ch=el('button','codechip',`${k} · ${c}`); ch.style.borderLeft='3px solid '+(LANG_COLOR[k]||css('--muted')); ch.style.cursor='pointer'; ch.onclick=()=>{ q.value=k; runSearch(); }; sum.appendChild(ch); });
   side.append(el('div','label','Used by how many repos (click to find them)'), sum);
   const ul=el('ul','conns');
   DATA.nodes.filter(n=>n.code).sort((a,b)=>a.name.localeCompare(b.name)).forEach(n=>{ const li=el('li'); const b=el('button','link',n.name); b.onclick=()=>selectNode(n);
     const chips=el('div','chips'); (n.code.languages.length?n.code.languages:[{language:'no code yet',percent:''}]).forEach(l=>{ const c=el('span','codechip',l.percent!==''?`${l.language} ${Math.round(l.percent)}%`:l.language); c.style.borderLeft='3px solid '+(LANG_COLOR[l.language]||css('--muted')); chips.appendChild(c); });
     li.append(b, chips); ul.appendChild(li); });
-  side.appendChild(ul); side.hidden=false;
+  side.appendChild(ul); side.hidden=false; side.scrollTop=0;
 }
 document.getElementById('vCode').onclick=showCodeList;
 function selectPair(pair){
-  selectedPair=pair; selected=null; apply();
+  selectedPair=pair; selected=null; ringOn=null; apply();
   const [a,b]=pair.split('|').map(i=>nodeById[i]);
   head(`${a.name} ⇄ ${b.name}`);
   const flows=links.filter(l=>l.pair===pair);
@@ -663,21 +923,21 @@ function selectPair(pair){
     const ul=el('ul','conns'); f.forEach(l=>ul.appendChild(flowItem(l)));
     if(!f.length) ul.appendChild(el('li','why','Nothing flows this way.'));
     side.appendChild(ul); });
-  side.hidden=false;
+  side.hidden=false; side.scrollTop=0;
 }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
 
 // ---------- search ----------
 const q=document.getElementById('q'), res=document.getElementById('res'); let resItems=[], resOn=0;
 function runSearch(){
-  const s=q.value.trim().toLowerCase();
+  const s=q.value.trim().toLowerCase(); ringOn=null;
   if(!s){ matches=null; res.hidden=true; apply(); return; }
-  const found=DATA.nodes.filter(n=>[n.name,n.job,n.id,DATA.types[n.type],langOf(n)].join(' ').toLowerCase().includes(s))
+  const found=DATA.nodes.filter(n=>[n.name,n.job,n.id,DATA.types[n.type],langOf(n),n.category||'',n.home?n.home.name:''].join(' ').toLowerCase().includes(s))
     .sort((x,y)=>(y.name.toLowerCase().startsWith(s))-(x.name.toLowerCase().startsWith(s)));
   matches=new Set(found.map(n=>n.id)); resItems=found.slice(0,12); resOn=0; res.replaceChildren();
   if(!found.length){ res.appendChild(el('div','why','  Nothing matches.')); }
   resItems.forEach((n,i)=>{ const b=el('button',i===0?'on':''); b.setAttribute('role','option');
-    const d=el('i','dot'); d.style.background=TYPE[n.type].color; b.append(d, document.createTextNode(n.name), el('small','',DATA.types[n.type].split(' (')[0]));
+    const d=el('i','dot'); d.style.background=TYPE[n.type].color; b.append(d, document.createTextNode(n.name), el('small','',n.ring==='H'?'harness':'ring '+n.ring));
     b.onclick=()=>{ res.hidden=true; selectNode(n); }; res.appendChild(b); });
   res.hidden=false; apply();
 }
@@ -691,9 +951,14 @@ q.addEventListener('keydown',e=>{
 
 // ---------- camera fly ----------
 let fly=null;
+// Fly to a node: come in from outside it, looking toward the centre, so its neighbours stay in view.
+// Where the camera goes to look at a point: from above and outside it in 2D, from outside it in 3D.
+function viewFrom(p){
+  if(flat){ const o=new THREE.Vector3(p.x,0,p.z); if(o.lengthSq()<1) o.copy(camera.position).setY(0); o.normalize(); return p.clone().addScaledVector(o,26).add(new THREE.Vector3(0,22,0)); }
+  const o=p.length()>1 ? p.clone().normalize() : camera.position.clone().sub(controls.target).normalize(); return p.clone().addScaledVector(o,24).add(new THREE.Vector3(0,4,0)); }
 function flyTo(id){ const p=pos[id]; if(!p) return; autoSpin=false;
-  const dir=camera.position.clone().sub(controls.target).normalize();
-  fly={t0:performance.now(), fromT:controls.target.clone(), toT:p.clone(), fromC:camera.position.clone(), toC:p.clone().add(p.length()>1?p.clone().normalize().multiplyScalar(14):dir.multiplyScalar(14))}; }
+  fly={t0:performance.now(), fromT:controls.target.clone(), toT:p.clone(), fromC:camera.position.clone(), toC:viewFrom(p), fromUp:camera.up.clone()}; }
+function frameAll(){ fly={t0:performance.now(),fromT:controls.target.clone(),toT:homeTarget(),fromC:camera.position.clone(),toC:homeCam(),fromUp:camera.up.clone()}; }
 
 // ---------- Unity-style navigation: hold right mouse to look, WASD to fly, Q/E down/up, Shift faster, F to frame ----------
 const keys = new Set(); let looking=false; const euler=new THREE.Euler(0,0,0,'YXZ');
@@ -707,7 +972,7 @@ addEventListener('pointermove',e=>{ if(!looking) return; euler.y-=e.movementX*.0
 const typing = () => ['INPUT','TEXTAREA'].includes(document.activeElement?.tagName);
 addEventListener('keydown',e=>{ if(typing()) return; const k=e.key.toLowerCase();
   if('wasdqe'.includes(k)&&k.length===1||e.key.startsWith('Arrow')||k==='shift'){ keys.add(k); autoSpin=false; }
-  if(k==='f'){ const id=(selected&&selected.id)||(selectedPair&&selectedPair.split('|')[0]); if(id) flyTo(id); else { fly={t0:performance.now(),fromT:controls.target.clone(),toT:new THREE.Vector3(),fromC:camera.position.clone(),toC:new THREE.Vector3(...HOME_CAM)}; } } });
+  if(k==='f'){ const id=(selected&&selected.id)||(selectedPair&&selectedPair.split('|')[0]); if(id) flyTo(id); else frameAll(); } });
 addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
 addEventListener('blur',()=>keys.clear());
 function move(dt){ if(!keys.size) return;
@@ -715,15 +980,15 @@ function move(dt){ if(!keys.size) return;
   if(keys.has('w')||keys.has('arrowup')) v.add(f); if(keys.has('s')||keys.has('arrowdown')) v.sub(f);
   if(keys.has('d')||keys.has('arrowright')) v.add(r); if(keys.has('a')||keys.has('arrowleft')) v.sub(r);
   if(keys.has('e')) v.add(u); if(keys.has('q')) v.sub(u);
-  if(!v.lengthSq()) return; v.normalize().multiplyScalar((keys.has('shift')?40:14)*dt);
+  if(!v.lengthSq()) return; v.normalize().multiplyScalar((keys.has('shift')?45:16)*dt);
   camera.position.add(v); if(!looking) controls.target.add(v); }
 
 // ---------- scroll and scroll-click (Astra, 2026-10-12) ----------
 // Scroll zooms toward the centre, or toward what is selected. Scroll-click drag (middle button)
-// turns the sphere freely in any direction, over the top and under the bottom; with Shift it pans.
+// turns the map freely in any direction; with Shift it pans.
 function focusPoint(){ if(selected&&pos[selected.id]) return pos[selected.id].clone();
   if(selectedPair){ const [a,b]=selectedPair.split('|'); return pos[a].clone().add(pos[b]).multiplyScalar(.5); }
-  return new THREE.Vector3(); }
+  return homeTarget(); }
 renderer.domElement.addEventListener('wheel',e=>{ e.preventDefault(); autoSpin=false; fly=null;
   const off=camera.position.clone().sub(controls.target);
   const len=Math.min(Math.max(off.length()*Math.pow(1.0015,e.deltaY),controls.minDistance),controls.maxDistance);
@@ -734,26 +999,56 @@ renderer.domElement.addEventListener('pointerdown',e=>{ if(e.button!==1) return;
 addEventListener('pointermove',e=>{ if(!midDrag) return; const dx=e.clientX-midDrag.x, dy=e.clientY-midDrag.y; midDrag.x=e.clientX; midDrag.y=e.clientY;
   const off=camera.position.clone().sub(controls.target);
   if(midDrag.pan||e.shiftKey){ const k=off.length()*.0016, right=new THREE.Vector3().setFromMatrixColumn(camera.matrix,0), up=new THREE.Vector3().setFromMatrixColumn(camera.matrix,1);
-    const move=right.multiplyScalar(-dx*k).add(up.multiplyScalar(dy*k)); camera.position.add(move); controls.target.add(move); return; }
+    const mv=right.multiplyScalar(-dx*k).add(up.multiplyScalar(dy*k)); camera.position.add(mv); controls.target.add(mv); return; }
   const up=camera.up.clone().normalize(), right=new THREE.Vector3().crossVectors(up,off).normalize();
-  const q=new THREE.Quaternion().setFromAxisAngle(up,-dx*.006).multiply(new THREE.Quaternion().setFromAxisAngle(right,-dy*.006));
-  off.applyQuaternion(q); camera.up.applyQuaternion(q).normalize(); camera.position.copy(controls.target).add(off); camera.lookAt(controls.target); });
+  const qq=new THREE.Quaternion().setFromAxisAngle(up,-dx*.006).multiply(new THREE.Quaternion().setFromAxisAngle(right,-dy*.006));
+  off.applyQuaternion(qq); camera.up.applyQuaternion(qq).normalize(); camera.position.copy(controls.target).add(off); camera.lookAt(controls.target); });
 addEventListener('pointerup',e=>{ if(e.button===1) midDrag=null; });
 // ---------- on-screen navigation: zoom, reset, spin (Astra, 2026-10-12) ----------
-function zoomBy(k){ fly=null; const f=focusPoint(), off=camera.position.clone().sub(controls.target); const len=Math.min(Math.max(off.length()*k,controls.minDistance),controls.maxDistance); fly={t0:performance.now(),fromT:controls.target.clone(),toT:f,fromC:camera.position.clone(),toC:f.clone().add(off.setLength(len))}; }
+function zoomBy(k){ fly=null; const f=focusPoint(), off=camera.position.clone().sub(controls.target); const len=Math.min(Math.max(off.length()*k,controls.minDistance),controls.maxDistance); fly={t0:performance.now(),fromT:controls.target.clone(),toT:f,fromC:camera.position.clone(),toC:f.clone().add(off.setLength(len)),fromUp:camera.up.clone()}; }
 document.getElementById('nZoomIn').onclick=()=>zoomBy(.7);
 document.getElementById('nZoomOut').onclick=()=>zoomBy(1.4);
-document.getElementById('nReset').onclick=()=>{ close(); fly={t0:performance.now(),fromT:controls.target.clone(),toT:new THREE.Vector3(),fromC:camera.position.clone(),toC:new THREE.Vector3(...HOME_CAM)}; camera.up.set(0,1,0); };
+document.getElementById('nReset').onclick=()=>{ close(); frameAll(); };
 const spinBtn=document.getElementById('nSpin'); spinBtn.setAttribute('aria-pressed',autoSpin);
 spinBtn.onclick=()=>{ autoSpin=!autoSpin; spinBtn.setAttribute('aria-pressed',autoSpin); };
 setInterval(()=>spinBtn.setAttribute('aria-pressed',autoSpin),500); // other controls stop the spin
+
+// ---------- labels: the most important names first, and only where they fit ----------
+// Each frame, names are placed in order of importance (what you point at and its neighbours, then you, the Farmer,
+// the core and the farmhands, then pets, programs and devices) and a name that would overlap one already placed
+// waits until you zoom in. That keeps every visible name readable at any distance.
+const BASE_P = {you:60,host:60,infrastructure:52,model:50,assistant:46,pet:40,pipeline:36,'own-program':30,seed:24,tool:22,program:20,'host-machine':18,roadmap:14,harness:0};
+const v=new THREE.Vector3(), placed=[];
+function placeLabels(){
+  const W=innerWidth, H=innerHeight, focusOn=!!(selected||hovered||selectedPair||matches), items=[];
+  for(const n of DATA.nodes){ const lab=labelEls[n.id];
+    if(n.off || (focusOn && n.dim) || inCluster(n)&&!(selected&&(selected.id===n.id||selected.id===n.in))&&!near.has(n.id)){ if(lab._on){ lab.style.visibility='hidden'; lab._on=false; } continue; }
+    v.copy(n.mesh.position); v.y+=TYPE[n.type].r+.25; v.project(camera);
+    if(v.z>1||v.x<-1.05||v.x>1.05||v.y<-1.05||v.y>1.05){ if(lab._on){ lab.style.visibility='hidden'; lab._on=false; } continue; }
+    const p = (selected&&n.id===selected.id)?1000 : (hovered&&n.id===hovered.id)?950 : near.has(n.id)?800 : (matches&&matches.has(n.id))?700 : n.group ? 34 : BASE_P[n.type]||10;
+    items.push({n,lab,x:(v.x*.5+.5)*W,y:(-v.y*.5+.5)*H,p,d:camera.position.distanceToSquared(n.mesh.position)}); }
+  items.sort((a,b)=>b.p-a.p||a.d-b.d);
+  placed.length=0;
+  for(const it of items){ const w=labelW[it.n.id]||60, r={l:it.x-w/2-3,r:it.x+w/2+3,t:it.y-17,b:it.y+1};
+    let ok=true; for(const o of placed){ if(r.l<o.r&&r.r>o.l&&r.t<o.b&&r.b>o.t){ ok=false; break; } }
+    if(!ok && it.p<900){ if(it.lab._on){ it.lab.style.visibility='hidden'; it.lab._on=false; } continue; }
+    placed.push(r); const hot=it.p>=800;
+    if(it.lab._hot!==hot){ it.lab.classList.toggle('hot',hot); it.lab._hot=hot; }
+    it.lab.style.transform=`translate(${it.x}px,${it.y}px) translate(-50%,-100%)`;
+    if(!it.lab._on){ it.lab.style.visibility='visible'; it.lab._on=true; } }
+}
+
 // ---------- loop ----------
-// The sphere sits in the open space to the right of the key panel, not behind it (Astra, 2026-10-13).
-// On narrow screens the panel is on top, so there is no shift.
+// The map sits in the open space to the right of the key panel, not behind it (Astra, 2026-10-13).
+// On narrow screens the panel is on top, so the map sits in the space below it.
+const openSpace = () => { const hud=document.querySelector('.hud'), r=hud?hud.getBoundingClientRect():null;
+  // on a computer the map fits beside the key panel and above the buttons at the bottom
+  return innerWidth>700 ? {sx:r?Math.round((r.right+12)/2):0, sy:-34, fw:r?Math.max(200,innerWidth-r.right-12)/innerWidth:1, fh:Math.max(.5,(innerHeight-84)/innerHeight)}
+    : {sx:0, sy:r?Math.round((r.bottom+8+innerHeight-70)/2-innerHeight/2):0, fw:1, fh:r?Math.max(160,innerHeight-70-r.bottom-8)/innerHeight:1}; };
 function resize(){ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight;
-  const hud=document.querySelector('.hud'), wide=innerWidth>700, shift=wide&&hud?Math.round((hud.getBoundingClientRect().right+12)/2):0;
-  if(shift) camera.setViewOffset(innerWidth,innerHeight,-shift,0,innerWidth,innerHeight); else camera.clearViewOffset();
-  const pad=document.querySelector('.navpad'); if(pad) pad.style.left=(innerWidth/2+shift)+'px';
+  const {sx,sy}=openSpace();
+  if(sx||sy) camera.setViewOffset(innerWidth,innerHeight,-sx,-sy,innerWidth,innerHeight); else camera.clearViewOffset();
+  const pad=document.querySelector('.navpad'); if(pad) pad.style.left=(innerWidth/2+sx)+'px';
   camera.updateProjectionMatrix(); controls.handleResize(); }
 // Drag bar: widen or narrow the key panel. The width is remembered on this device only.
 const hudEl=document.querySelector('.hud'), grip=document.getElementById('grip'), HUD_MIN=300, HUD_KEY='system-map-hud-width';
@@ -763,48 +1058,58 @@ function placeGrip(){ const r=hudEl.getBoundingClientRect(); grip.style.left=(r.
 function setHudWidth(w,save){ w=Math.min(hudMax(),Math.max(HUD_MIN,Math.round(w))); document.documentElement.style.setProperty('--hud-w',w+'px'); placeGrip(); resize();
   if(save) try{ localStorage.setItem(HUD_KEY,String(w)); }catch(e){} }
 grip.addEventListener('pointerdown',e=>{ e.preventDefault(); grip.setPointerCapture(e.pointerId); grip.classList.add('on');
-  const x0=e.clientX, w0=hudEl.getBoundingClientRect().width, move=ev=>setHudWidth(w0+ev.clientX-x0,false);
-  const up=()=>{ grip.classList.remove('on'); grip.removeEventListener('pointermove',move); grip.removeEventListener('pointerup',up); setHudWidth(hudEl.getBoundingClientRect().width,true); };
-  grip.addEventListener('pointermove',move); grip.addEventListener('pointerup',up); });
+  const x0=e.clientX, w0=hudEl.getBoundingClientRect().width, mv=ev=>setHudWidth(w0+ev.clientX-x0,false);
+  const up=()=>{ grip.classList.remove('on'); grip.removeEventListener('pointermove',mv); grip.removeEventListener('pointerup',up); setHudWidth(hudEl.getBoundingClientRect().width,true); };
+  grip.addEventListener('pointermove',mv); grip.addEventListener('pointerup',up); });
 grip.addEventListener('keydown',e=>{ const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return; e.preventDefault(); setHudWidth(hudEl.getBoundingClientRect().width+d*(e.shiftKey?60:20),true); });
 grip.addEventListener('dblclick',()=>{ document.documentElement.style.removeProperty('--hud-w'); try{ localStorage.removeItem(HUD_KEY); }catch(e){} placeGrip(); resize(); });
 try{ const w=Number(localStorage.getItem(HUD_KEY)); if(w) document.documentElement.style.setProperty('--hud-w',Math.min(hudMax(),Math.max(HUD_MIN,w))+'px'); }catch(e){}
-if('ResizeObserver' in window) new ResizeObserver(placeGrip).observe(hudEl);
-addEventListener('resize',()=>{ resize(); placeGrip(); }); resize(); placeGrip();
-const v=new THREE.Vector3(); let last=performance.now();
+if('ResizeObserver' in window) new ResizeObserver(()=>{ placeGrip(); resize(); }).observe(hudEl);
+addEventListener('resize',()=>{ resize(); placeGrip(); }); resize(); placeGrip(); camera.position.copy(homeCam()); camera.lookAt(controls.target);
+let last=performance.now();
+const Y_AXIS=new THREE.Vector3(0,1,0);
 function frame(now){
   const dt=Math.min(Math.max((now-last)/1000,0),.05); last=now; // never backwards: the wavy audio curves cannot take a negative point
-  if(fly){ const k=Math.min(1,(now-fly.t0)/700), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
-    controls.target.lerpVectors(fly.fromT,fly.toT,e); camera.position.lerpVectors(fly.fromC,fly.toC,e); if(k>=1) fly=null; }
+  if(fly){ const k=Math.min(1,(now-fly.t0)/750), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    controls.target.lerpVectors(fly.fromT,fly.toT,e); camera.position.lerpVectors(fly.fromC,fly.toC,e);
+    if(fly.fromUp) camera.up.copy(fly.fromUp).lerp(Y_AXIS,e).normalize(); camera.lookAt(controls.target); if(k>=1) fly=null; }
+  if(morph){ const k=Math.min(1,(now-morph.t0)/MORPH_MS), e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2, P={}; morph.e=e;
+    for(const id in morph.to) P[id]=morph.from[id].clone().lerp(morph.to[id],e);
+    placeNodes(P); bendLinks(e); fadeDecor(e);
+    ringTags.forEach(t=>{ const a=t.userData[flat?'sphere':'flat'], b=t.userData[flat?'flat':'sphere']; t.position.lerpVectors(a.p,b.p,e); t.userData.base.lerpVectors(a.base,b.base,e); });
+    const c=morph.cam;
+    if(c.id){ controls.target.copy(pos[c.id]); camera.position.copy(pos[c.id]).add(_c.lerpVectors(c.offFrom,c.offTo,e)); }
+    else { controls.target.lerpVectors(c.fromT,c.toT,e); camera.position.lerpVectors(c.fromC,c.toC,e); }
+    camera.up.copy(morph.fromUp).lerp(Y_AXIS,e).normalize(); camera.lookAt(controls.target);
+    if(k>=1){ placeNodes(morph.to); morph=null; reshapeLinks(); apply(); } }
   move(dt);
-  if(autoSpin && !looking && !fly){ const off=camera.position.clone().sub(controls.target); off.applyAxisAngle(camera.up, dt*.12); camera.position.copy(controls.target).add(off); camera.lookAt(controls.target); }
+  // Spin like a turntable around the map's own axis.
+  if(autoSpin && !looking && !fly){ const off=camera.position.clone().sub(controls.target); off.applyAxisAngle(Y_AXIS, dt*.07); camera.position.copy(controls.target).add(off); camera.lookAt(controls.target); }
   if(!looking) controls.update();
   links.forEach(l=>{ if(l.dot&&l.dot.visible){ l.t=((l.t+dt*.25)%1+1)%1; l.dot.position.copy(l.curve.getPoint(l.t)); } });
+  // Ring tags shrink as you come close, so they keep about the same size on screen instead of filling it.
+  ringTags.forEach(s=>{ if(!s.visible) return; const k=Math.min(1,Math.max(.1,camera.position.distanceTo(s.position)/140)); s.scale.set(s.userData.base.x*k,s.userData.base.y*k,1); });
   renderer.render(scene,camera);
-  const W=innerWidth,H=innerHeight;
-  DATA.nodes.forEach(n=>{ const lab=labelEls[n.id]; v.copy(n.mesh.position); v.y+=TYPE[n.type].r+.25; v.project(camera);
-    if(v.z>1||lab.dataset.off){lab.style.opacity=0;return;}
-    const d=camera.position.distanceTo(n.mesh.position); const op=Math.max(.6,Math.min(1,1.6-d/220))*(lab.dataset.dim?.25:1);
-    lab.style.opacity=op; lab.style.transform=`translate(${(v.x*.5+.5)*W}px,${(-v.y*.5+.5)*H}px) translate(-50%,-100%)`; });
+  placeLabels();
   requestAnimationFrame(frame);
 }
 apply(); requestAnimationFrame(frame);
 // Every pet program page links here as #node=<its node id>, so the map opens on it (PET-PROGRAM-FRAMEWORK.md, section 3).
 function openFromHash(){ const m=location.hash.match(/node=([^&]+)/); const id=m&&decodeURIComponent(m[1]); if(id&&nodeById[id]&&(!selected||selected.id!==id)) selectNode(nodeById[id]); }
 addEventListener('hashchange',openFromHash); openFromHash();
-// Your system's name (Astra, 2026-10-14): asked on the first visit; double-click the name at the top to change it.
-// Saved in this browser only (a per-viewer preference); nothing is sent anywhere.
+// Your system's name (Astra, 2026-10-14): asked on the first visit, in the key panel so the map stays visible;
+// double-click the name at the top to change it. Saved in this browser only (a per-viewer preference).
 { const KEY='petos-system-name', DEFAULT_NAME="Astra's PetOS";
-  const nameEl=document.getElementById('sysName'), box=document.getElementById('nameBox'), input=document.getElementById('nameInput');
+  const nameEl=document.getElementById('sysName'), box=document.getElementById('nameAsk'), input=document.getElementById('nameInput');
   const read=()=>{ try{ return localStorage.getItem(KEY); }catch(e){ return undefined; } };
   const show=n=>{ const name=(n||'').replace(/\s+/g,' ').trim().slice(0,40)||DEFAULT_NAME; nameEl.textContent=name; document.title=name+' System Map'; return name; };
-  const save=n=>{ const name=show(n); try{ localStorage.setItem(KEY,name); }catch(e){} box.hidden=true; };
-  const ask=()=>{ input.value=nameEl.textContent; box.hidden=false; input.focus(); input.select(); };
+  const save=n=>{ const name=show(n); try{ localStorage.setItem(KEY,name); }catch(e){} box.hidden=true; placeGrip(); };
+  const ask=()=>{ input.value=nameEl.textContent; box.hidden=false; input.focus(); input.select(); placeGrip(); };
   document.getElementById('nameSave').onclick=()=>save(input.value);
   document.getElementById('nameSkip').onclick=()=>save(DEFAULT_NAME);
-  input.addEventListener('keydown',e=>{ e.stopPropagation(); if(e.key==='Enter') save(input.value); if(e.key==='Escape') box.hidden=true; });
+  input.addEventListener('keydown',e=>{ e.stopPropagation(); if(e.key==='Enter') save(input.value); if(e.key==='Escape'){ box.hidden=true; placeGrip(); } });
   nameEl.addEventListener('dblclick',ask);
   nameEl.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key==='F2'){ e.preventDefault(); ask(); } });
-  const stored=read(); show(stored); if(stored===null) ask(); }
+  const stored=read(); show(stored); if(stored===null){ input.value=DEFAULT_NAME; box.hidden=false; } }
 </script>
 </body></html>

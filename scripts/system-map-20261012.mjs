@@ -1,14 +1,18 @@
 // Builds system-map-20261012.html: the 3D map of every pet, model, program and piece of
 // infrastructure in Astra's PetOS, and everything that flows between them.
-// Sources: pets.json (pets, pipeline, seeds, relations) and system-map.json (everything that is not a
-// pet with a repo). Run by npm run build. Claude Opus 5.5 (claude-opus-5-5), 2026-10-12.
+// Sources: pets.json (pets, pipeline, seeds, relations), pet-programs.json (every pet program's name) and
+// system-map.json (everything that is not a pet with a repo, the rings and the grants). Run by npm run build.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-12. Rings and grants, 2026-10-17 (Astra, option A): a ring says where a
+// thing lives; who may read, write or run it is a grant with a status (enforced, written only, planned).
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { allPets } from './farmer-rounds-20261009.mjs';
 
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const RWX_VALUES = ['yes', 'pr', 'ask', 'grant', 'no'];
 
-/** Every node and link, checked: a link to an unknown node throws instead of vanishing. */
-export function systemMapData(registry, extra) {
+/** Every node and link, checked: a link to an unknown node throws instead of vanishing.
+    programs is pet-programs.json's list; pet program names come only from there (AGENTS.md, one list). */
+export function systemMapData(registry, extra, programs = []) {
   const nodes = new Map();
   const add = (n) => { if (nodes.has(n.id)) throw new Error(`duplicate node ${n.id}`); nodes.set(n.id, n); };
   for (const p of allPets(registry)) {
@@ -21,6 +25,38 @@ export function systemMapData(registry, extra) {
   }
   add({ id: 'astra', name: 'Astra (you)', type: 'you', state: 'now', job: 'Every pet reports to you, and you approve anything that matters.' });
   for (const n of extra.nodes) add({ ...n });
+
+  // Pet programs from the one list. A node with a "program" number takes its name from the list; every registered or
+  // pipeline pet's program that has no node yet gets one, linked from its pet, so the map never falls behind the list.
+  const programByNumber = new Map(programs.map((p) => [p.number, p]));
+  for (const n of nodes.values()) {
+    if (n.program === undefined) continue;
+    const p = programByNumber.get(n.program);
+    if (programs.length && !p) throw new Error(`${n.id}: no pet program #${n.program} in pet-programs.json`);
+    if (p) n.name = p.program;
+  }
+  // Private pets (pets.json relations.private) send nothing but their registry entry, so their programs stay off the map.
+  const privatePets = new Set(registry.relations?.private || []);
+  for (const id of privatePets) if (nodes.has(id)) nodes.get(id).private = true;
+  const generatedLinks = [];
+  for (const p of programs) {
+    if (!['registered', 'pipeline'].includes(p.stage) || !p.assigned || privatePets.has(p.repo)) continue;
+    if ([...nodes.values()].some((n) => n.program === p.number)) continue;
+    if (!nodes.has(p.repo)) continue; // its pet is not in pets.json yet: nothing to hang the program on
+    const state = p.repo_exists ? 'now' : 'planned';
+    add({ id: `program-${p.number}`, name: p.program, type: 'own-program', state, program: p.number, category: 'Made by Astra',
+      job: p.mini_descriptor?.text || `${p.icon}'s pet program.` });
+    generatedLinks.push({ from: p.repo, to: `program-${p.number}`, carries: 'opens', state, why: `${p.program} is ${p.icon}'s own program (pet-programs.json, #${p.number}).` });
+  }
+  // Each pet's own pet program, for its card.
+  for (const n of nodes.values()) {
+    if (!['host', 'pet', 'pipeline', 'seed', 'roadmap'].includes(n.type)) continue;
+    const p = programs.find((x) => (n.repo && x.repo === n.repo) || x.icon === n.name);
+    if (!p) continue;
+    const home = [...nodes.values()].find((m) => m.program === p.number);
+    n.home = { number: p.number, name: p.program, assigned: !!p.assigned, node: home ? home.id : null };
+  }
+
   for (const n of nodes.values()) {
     const code = extra.code?.repos?.[n.repo || n.id];
     if (code) n.code = code;
@@ -28,12 +64,40 @@ export function systemMapData(registry, extra) {
     if (!extra.layers[n.layer]) throw new Error(`${n.id} has no layer`);
   }
 
+  // Rings: where a thing lives (system-map.json "rings"). A tool sits on its pet program's ring.
+  const rings = extra.rings;
+  const ringIds = new Set(rings.list.map((r) => r.ring));
+  const ringOf = (n) => {
+    if (rings.by_id[n.id]) return rings.by_id[n.id];
+    if (n.type === 'tool') { const o = nodes.get(n.of); if (!o) throw new Error(`tool ${n.id} belongs to unknown ${n.of}`); const r = ringOf(o); return r === '2' ? '3' : r; }
+    return rings.by_type[n.type];
+  };
+  for (const n of nodes.values()) { n.ring = ringOf(n); if (!ringIds.has(n.ring)) throw new Error(`${n.id} has no ring`); }
+  // Animals: the core, the Farmer, registered and pipeline pets, and the programs Astra made for them. Seeds and
+  // roadmap pets, and their programs, are not animals until Astra registers them.
+  const stageOf = (n) => programByNumber.get(n.program)?.stage;
+  const animalOf = (n) => {
+    if (n.type === 'tool') { const o = nodes.get(n.of); return o.ring === '2' ? ['host', 'pet', 'pipeline'].includes(o.type) : animalOf(o); }
+    if (n.ring === '0' || n.ring === '1') return true;
+    if (n.ring === '2') return ['host', 'pet', 'pipeline'].includes(n.type);
+    if (n.ring === '3') return n.program !== undefined && programs.length ? ['registered', 'pipeline'].includes(stageOf(n)) : n.state === 'now';
+    return false;
+  };
+  for (const n of nodes.values()) n.animal = animalOf(n);
+
   const group = (t) => [...nodes.values()].filter((n) => n.type === t).map((n) => n.id);
+  // Groups (Astra, 2026-10-18): a node whose members name it with "in" (the 13 trackers, the 4 base stations, the two
+  // controllers) is a group, not a device of its own. A line drawn to a group reaches each member; a line between two
+  // groups stays one line between them.
+  const members = (id) => [...nodes.values()].filter((m) => m.in === id).map((m) => m.id);
+  for (const n of nodes.values()) if (members(n.id).length) n.group = true;
+  const isGroup = (id) => !!nodes.get(id)?.group;
   const expand = (id) => id === '@pets' || id === 'pets' ? [...group('pet'), ...group('pipeline')]
-    : id === '@seeds' ? group('seed') : id === '@roadmap' ? group('roadmap') : [id];
+    : id === '@seeds' ? group('seed') : id === '@roadmap' ? group('roadmap') : isGroup(id) ? members(id) : [id];
   const links = [];
   const push = (from, to, carries, state, why, everyApp = false, medium) => {
-    for (const a of expand(from)) for (const b of expand(to)) {
+    const pair = isGroup(from) && isGroup(to);
+    for (const a of pair ? [from] : expand(from)) for (const b of pair ? [to] : expand(to)) {
       if (!nodes.has(a)) throw new Error(`unknown "from": ${a}`);
       if (!nodes.has(b)) throw new Error(`unknown "to": ${b}`);
       if (a === b) continue;
@@ -43,6 +107,7 @@ export function systemMapData(registry, extra) {
   for (const l of registry.relations.links) push(l.from, l.to, l.carries, l.state, l.why);
   for (const s of registry.seeds?.pets || []) for (const w of s.works_with || []) push(slug(s.pet), w.pet, 'findings', 'planned', w.why);
   for (const l of extra.links) push(l.from, l.to, l.carries, l.state, l.why, [l.from, l.to].includes('@pets'), l.medium); // medium: how a network link physically travels (2026-10-14)
+  for (const l of generatedLinks) push(l.from, l.to, l.carries, l.state, l.why);
 
   // Which architecture layer a link belongs to, so its colour matches Astra's chart:
   // 0 development (assistants building pets, the art pipeline): outside the running system;
@@ -64,7 +129,37 @@ export function systemMapData(registry, extra) {
     if (!carries[l.carries]) throw new Error(`unknown kind: ${l.carries}`);
     if (!states[l.state]) throw new Error(`unknown state: ${l.state}`);
   }
-  return { nodes: [...nodes.values()], links, carries, states, types: extra.types, layers: extra.layers, hats: extra.hats || {}, examples: extra.examples || {}, codeChecked: extra.code?.checked || null };
+
+  // Grants: who may read, write or run which things (system-map.json "access"). Each node lists the grants it holds
+  // ("by") and the grants that reach it ("on"). A grant with R, W and X all "no" shows only on its subject's card.
+  const access = extra.access;
+  const seen = new Set();
+  const matches = (sel, n) => {
+    if (sel === '*') return true;
+    const [kind, value] = sel.split(':');
+    if (kind === 'ring') { if (!ringIds.has(value)) throw new Error(`unknown ring in ${sel}`); return n.ring === value; }
+    if (kind === 'animal') { if (!ringIds.has(value)) throw new Error(`unknown ring in ${sel}`); return n.ring === value && n.animal; }
+    if (kind === 'type') { if (!extra.types[value]) throw new Error(`unknown type in ${sel}`); return n.type === value; }
+    if (kind === 'id') { if (!nodes.has(value)) throw new Error(`unknown node in ${sel}`); return n.id === value; }
+    throw new Error(`unknown selector ${sel}`);
+  };
+  for (const g of access.grants) {
+    if (seen.has(g.id)) throw new Error(`duplicate grant ${g.id}`); seen.add(g.id);
+    for (const k of ['r', 'w', 'x']) if (!RWX_VALUES.includes(g[k]) || !access.values[g[k]]) throw new Error(`grant ${g.id}: ${k} is "${g[k]}"`);
+    if (!access.statuses[g.status]) throw new Error(`grant ${g.id}: unknown status ${g.status}`);
+    if (!g.subjects.length) throw new Error(`grant ${g.id} has no subjects`);
+  }
+  // A grant's own subject is not listed as something it reaches, except for "self" (a pet's own folder).
+  for (const n of nodes.values()) {
+    const holds = (g) => g.subjects.some((s) => matches(s, n));
+    const by = access.grants.filter(holds);
+    const on = access.grants.filter((g) => ['r', 'w', 'x'].some((k) => g[k] !== 'no')
+      && (g.resources.includes('self') ? holds(g) : !holds(g) && g.resources.some((s) => matches(s, n))));
+    n.access = { by: by.map((g) => g.id), on: on.map((g) => g.id) };
+  }
+
+  return { nodes: [...nodes.values()], links, carries, states, types: extra.types, layers: extra.layers, hats: extra.hats || {}, examples: extra.examples || {}, codeChecked: extra.code?.checked || null,
+    rings: rings.list, access: { values: access.values, statuses: access.statuses, grants: access.grants } };
 }
 
 /** Each pet's idle mood frame, embedded so icons also work when the page is opened by double-click.
@@ -79,13 +174,36 @@ export function petIcons(index) {
   return icons;
 }
 
-export function buildSystemMap(registry, extra, template, icons = {}) {
-  const data = systemMapData(registry, extra);
+export function buildSystemMap(registry, extra, template, icons = {}, programs = []) {
+  const data = systemMapData(registry, extra, programs);
   // A pet's own icon in art/icons/ (its newest look) wins over its older mood frame.
   for (const n of data.nodes) { n.icon = icons['node:' + n.id] || (n.art && icons[n.art]) || null; delete n.art; }
   return template.replace('__DATA__', () => JSON.stringify(data).replaceAll('<', '\\u003c'));
 }
 
-export const SYSTEM_MAP = { output: 'system-map-20261012.html', template: 'scripts/system-map-template-20261012.html', extra: 'system-map.json' };
+// PROTECTION-RINGS.md: the rings and the grants, written from the same data as the map so the two never disagree.
+const CELL = { yes: 'yes', pr: '🔒 PR', ask: 'asks', grant: '🔑 grant', no: '–' };
+const cell = (s) => String(s).replace(/\|/g, '\\|');
+export function ringsTable(extra) {
+  return ['| Ring | Name | What lives there | Animal? |', '|---|---|---|---|',
+    ...extra.rings.list.map((r) => r.ring === 'H'
+      ? `| — | **${cell(r.name)}** | ${cell(r.what)} | ${cell(r.animal)} |`
+      : `| ${r.ring} | ${cell(r.name)} | ${cell(r.what)} | ${r.animal === 'yes' || r.animal.startsWith('yes') ? '🐾 ' : ''}${cell(r.animal)} |`)].join('\n');
+}
+export function grantsTable(extra) {
+  const { grants, statuses } = extra.access;
+  return ['| # | Who | On what | R | W | X | Status | How it holds |', '|---|---|---|---|---|---|---|---|',
+    ...grants.map((g, i) => `| ${i + 1} | ${cell(g.who)} | ${cell(g.on)} | ${CELL[g.r]} | ${CELL[g.w]} | ${CELL[g.x]} | **${statuses[g.status].name}** | ${cell(g.how)}`
+      + (g.next ? ` **Next (planned):** ${cell(g.next)}` : '') + (g.gaps?.length ? ` Known gap${g.gaps.length > 1 ? 's' : ''} ${g.gaps.join(', ')}.` : '') + ' |')].join('\n');
+}
+const between = (md, name, body) => {
+  const re = new RegExp(`(<!-- ${name}:start[^>]*-->)[\\s\\S]*?(<!-- ${name}:end -->)`);
+  if (!re.test(md)) throw new Error(`PROTECTION-RINGS.md has no ${name}:start / ${name}:end markers`);
+  return md.replace(re, (m, a, b) => `${a}\n${body}\n${b}`);
+};
+export const applyAccessDoc = (md, extra) => between(between(md, 'rings', ringsTable(extra)), 'access', grantsTable(extra));
+
+export const SYSTEM_MAP = { output: 'system-map-20261012.html', template: 'scripts/system-map-template-20261012.html', extra: 'system-map.json', programs: 'pet-programs.json', doc: 'PROTECTION-RINGS.md' };
 export const readSystemMapSources = () => ({ extra: JSON.parse(readFileSync(SYSTEM_MAP.extra, 'utf8')), template: readFileSync(SYSTEM_MAP.template, 'utf8'),
+  programs: JSON.parse(readFileSync(SYSTEM_MAP.programs, 'utf8')).programs,
   icons: petIcons(JSON.parse(readFileSync('art/frames/index.json', 'utf8'))) });

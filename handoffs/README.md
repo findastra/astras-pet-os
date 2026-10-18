@@ -45,7 +45,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 031.** Checked on 2026-10-17 across every branch by Claude Opus 5.5 (027 to 029 were taken on branches). When numbers clashed, the
+**Next free number: 033.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (031 is taken twice on branches: `031-codex-rebuild-desktop-girls-same-size-20261017.md` on `claude/girls-same-size-20261017` and `claude/one-art-source-20261017`, and `031-codex-door-dormouse-desktop-20261018.md` on `codex/door-dormouse-20261018`; the second to reach `main` takes a new number). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -69,6 +69,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 028 | `028-any-idle-flash-audit-20261017.md` | `claude/idle-flash-audit-20261017` |
 | 029 | `029-codex-hub-folder-back-on-main-20261017.md` | `claude/star-hub-on-main-20261017` |
 | 030 | `030-codex-redraw-giraffe-unicorn-group-1-20261017.md` | `claude/pet-art-redesign-20261017` |
+| 032 | `032-any-system-map-rings-and-grants-20261018.md` | `claude/system-map-redo-20261017` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
