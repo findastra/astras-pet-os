@@ -9,6 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [029: The hub folder on Astra's PC is back on `main`; rebuild the star after PR #23](029-codex-hub-folder-back-on-main-20261017.md) | Codex | open, after PR #23 is merged |
+| [024: Pole Puff: create the `pole-puff` repo from `drafts/pole-puff/`](024-any-pole-puff-repo-20261012.md) | any | open: Astra approved the repo, the art and the look (2026-10-12); repo not created yet |
 | [027: Skill sheet audit and fix batches (Skill Scout)](027-any-skill-sheet-audit-and-fixes-20261017.md) | any | open, waits on Astra: repo rename, pet-app v2, yes per batch |
 | [026: Pictures only Astra can take (Flash Audit A55), and 25 picture PRs](026-any-pictures-astra-takes-20261017.md) | any | open, waits on Astra: in-world and desktop pictures; chat-rat#4 after chat-rat#1 |
 | [025: Security follow-ups from the 2026-10-16 assessment](025-any-security-follow-ups-20261017.md) | any | open: findings 3 to 5; the security model (PR #26, now in PR #23); the Actions setting for the Farmer's round |
@@ -60,7 +61,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 021 | `021-codex-startup-star-api-fairy-bubbles-20261017.md` | `main` (was a second 020) |
 | 022 | `022-security-enforcement-and-pet-catalog-20261014.md` | Codex branches (PRs #23, #26), still named `012-…`: rename it to 022 when it is merged |
 | 023 | `023-halo-list-vscode-angel-program-20261017.md` | `claude/halo-list-program-20261017`, still named `013-…`: rename it to 023 when it is merged |
-| 024 | `024-any-pole-puff-repo-20261012.md` | `claude/pole-puff-draft-20261012` (PR #8; was 010) |
+| 024 | `024-any-pole-puff-repo-20261012.md` | `main` (rewritten from PR #8 on 2026-10-18; was 010, then 018) |
 | 025 | `025-any-security-follow-ups-20261017.md` | `main` |
 | 026 | `026-any-pictures-astra-takes-20261017.md` | `main` |
 | 027 | `027-any-skill-sheet-audit-and-fixes-20261017.md` | `claude/skill-scout-audit-20261017` (PR #50) |
