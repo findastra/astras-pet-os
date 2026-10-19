@@ -46,7 +46,7 @@ Astra wants other software developers to read her build without frustration. She
 | Enforced, written only, planned | Technical control, policy (administrative control), roadmap | Every grant carries one. Never call a written rule a lock. Decided 2026-10-17. |
 | Pet program | Program (an app, site, world, service or script) Astra made | Umbrella term; see "app vs program". |
 | Pet program icon | Mascot / character | The image files are icons; the character name is the mascot. |
-| Tool | A program, page, script or utility that belongs to a pet program | Same ring and permissions as its pet program, never more. In AI, "tool" also means a function an agent can call; keep them the same thing: a pet's tools are what its connector offers. Drawn as a hammer. Decided 2026-10-13. |
+| Tool | A program, page, script or utility that belongs to a pet program | Same ring and permissions as its pet program, never more. In AI, "tool" also means a function an agent can call; keep them the same thing: a pet's tools are what its connector offers. Never drawn on the System Map: listed on its pet program's card (Astra, 2026-10-19; drawn as a hammer until then). Decided 2026-10-13. |
 | Third-party dependency | Library, font or service your code uses (three.js, Google Fonts, GitHub Pages) | Third-party, ring 5, drawn as a satellite like third-party programs. |
 | Build output | A generated file (`system-map-20261012.html`) | Made by `npm run build`; never edited by hand. |
 | Third-party program | Third-party software | Was "root program"; "root" means superuser to developers. Decided 2026-10-13. |
@@ -57,7 +57,7 @@ Astra wants other software developers to read her build without frustration. She
 | Program Manager / registry (`pets.json`) | Package registry | Part of the protected core. |
 | Seed / pipeline / registered | Planned / in development / released | |
 | `farm.lock` | Lockfile | Exactly which pets and versions a farm runs, and where each came from. |
-| Startup Star (desktop host) | Launcher / process supervisor | A tool, not a pet: no face. |
+| Startup Star (desktop host) | Launcher / process supervisor | A native program of The Farm, not a pet: no face (Astra, 2026-10-19; a tool of The Farm before). |
 | Astra's PetOS | Platform (runs on Windows) | It is not an operating system. "PetOS" is a brand name; docs say "platform". |
 | A farm | One user's install of Astra's PetOS (a tenant) | Farms never connect to each other. |
 | Local session vs public site (Am I a Ghost? vs Ghost Protocol) | Local / staging environment vs production | Same code, two environments. |
@@ -70,6 +70,7 @@ Astra wants other software developers to read her build without frustration. She
 | Trick | Skill (`SKILL.md`), prompt or workflow | What the seated AI knows how to do; uses only that pet's tools. If an AI has to follow it, it is a trick (or a harness skill). Decided 2026-10-16. |
 | Harness skill | Development skill (`SKILL.md` installed in Claude Code or Codex) | Belongs to the seat, not a pet; helps an AI work on a pet. Shown on the pet's L3 panel. Not a security boundary, like every skill. Decided 2026-10-18. |
 | Your Programs | Applications or sites you built that a pet looks after (worlds, websites) | Not tools: the pet manages them; they are not part of it. Decided 2026-10-16. |
+| Native program, native tool, native trick | First-party application; first-party module or script; first-party agent skill (vs. third-party) | Native = Astra made it. A native program is opened or run on its own and is the only one of the three drawn on the System Map; tools and tricks are listed on their pet program's card. All three are in the registry table in TOOLS-AND-TRICKS.md. Decided 2026-10-19. |
 | Commons | Shared registry / issue tracker (the Kennel, the Shed, the vet-clinic) | Hold other people's submissions, not our code. Decided 2026-10-16. |
 | Third-party programs | Third-party software | Made by others; a pet runs them (R X). |
 | Farm event log | Structured event log (JSON Lines) with a versioned schema | One record per line, per pet program, on the PC; owned by Log Den (`farm-event-v1`). Not a "message bus": nothing is sent, records are read. Decided 2026-10-18. |

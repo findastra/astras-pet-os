@@ -96,7 +96,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **Astra's PetOS** | platform (it runs on Windows; it is not an operating system) | The whole system. "PetOS" is a brand name. In code: `ASTRAS_PET_OS`. |
 | **a farm** | one user's install (a tenant) | Everything one person runs. Farms never connect to each other. |
 | **farmer** | user (the farm's owner and admin) | The person who runs a farm. On Astra's farm, Astra. |
-| **The Farm** | core platform and control plane | The Friendly Farmer's pet program (#1). Its tools include the System Map and Startup Star. |
+| **The Farm** | core platform and control plane | The Friendly Farmer's pet program (#1). Its native programs include the System Map and Startup Star. |
 | **Friendly Farmer** | orchestrator and package manager | The pet that organizes the pets, hatches new ones and keeps `farm.lock`. |
 | **the pets** | the apps (modular apps, each with an optional AI agent) | Every intelligent app together. Never "the herd". |
 | **intelligent app** | app with an optional AI agent | What a pet is. "An Intelligent App, or Pet." |
@@ -110,10 +110,12 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **farmhand** | AI model (LLM) | Claude, OpenAI or a local model. Not a pet. |
 | **the seat** | active agent session | Which AI is working on a pet now, through Claude Code or Codex. "Seat: empty" when none. |
 | **agentic harness** | agent harness | The program that gives a model tools, skills, memory and permissions (Claude Code, Codex). |
-| **tool** | program, script or utility the app owns (deterministic code) | Code that runs without AI. ON/OFF, maintenance light, version. |
-| **trick** | skill (`SKILL.md`), prompt or workflow | Know-how the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. |
+| **native** | first-party (Astra made it), as opposed to third-party | Everything a pet program owns is a native program, a native tool or a native trick ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). |
+| **native program** | first-party application | Opened or run on its own (Startup Star, the System Map, Ghost Protocol). The only kind the System Map draws. |
+| **tool** (native tool) | first-party module or script (deterministic code) | Code the pet program runs with no AI, for one job. ON/OFF, maintenance light, version. Listed on its card, never drawn. |
+| **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | Written steps the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. Listed on its card, never drawn. |
 | **harness skill** | development skill installed in Claude Code or Codex | Belongs to the seat, not the pet; helps an AI work on the pet. |
-| **your programs** | managed applications | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
+| **your programs** | managed applications (the L1 panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |
 | **seed** | planned (an approved idea, no repo yet) | A pet with an approved name and no repo yet. |
@@ -131,10 +133,10 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **mood key** | status legend | What each mood means for each pet ([MOOD-KEY.md](MOOD-KEY.md)). |
 | **sick** | failing health check (degraded) | A broken pet program, or too many broken tools. |
 | **not on this PC** | feature detection (graceful degradation) | A program a pet looks after is not installed: no error, the pet sleeps. |
-| **System Map** (3D PFD) | architecture diagram and dependency graph (interactive) | Every pet, program, model and device on its ring, with the grants on every card. |
+| **System Map** (3D PFD) | architecture diagram and dependency graph (interactive) | Every pet, program, model and device on its ring, with the grants on every card. Tools and tricks are listed on their pet program's card, not drawn. |
 | **Pets Board** | status dashboard | Every pet in one chart, rebuilt from GitHub every 30 minutes. |
-| **Startup Star** | launcher and process supervisor (a system tray app) | A tool of The Farm that starts the desktop pets. Not a pet: it has no face. |
-| **pet program spawner** | scaffolding and page generator | The Farmer's tool that writes every basic pet program page. |
+| **Startup Star** | launcher and process supervisor (a system tray app) | A native program of The Farm that starts the desktop pets. Not a pet: it has no face. |
+| **pet program spawner** | scaffolding and page generator | The Farmer's native tool that writes every basic pet program page. |
 | **seed-suggester** | recommendation tool | Suggests pets for the programs installed on a PC, read only. |
 | **How to Take Care of Your Farm!** | onboarding tutorial | The first-run walk-through on the System Map. |
 
