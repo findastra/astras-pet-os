@@ -214,7 +214,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-sticker-manager-v1.0",
-      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. On a branch (findastra-discord-presence PR), not installed yet."
+      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
     },
     {
       "id": "cli-proxy-api-manager",
@@ -226,7 +226,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
-      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. On a branch (findastra-discord-presence PR #16), never run."
+      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
     },
     {
       "id": "voicemeeter",
