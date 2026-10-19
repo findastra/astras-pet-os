@@ -8,9 +8,10 @@ has these panels since [PR #8](https://github.com/findastra/unity-unicorn/pull/8
 [PR #9](https://github.com/findastra/unity-unicorn/pull/9), and its `pet.json` holds the same lists as
 `intelligence_levels`; this doc follows that block. Claude Opus 5.5 (`claude-opus-5-5`).*
 
-*Panels, not modules (Astra, 2026-10-19): this doc called them modules, as Unity Unicorn's own page still does
-(`unity-unicorn-L1-module`) until its own pull request renames them. The file keeps its name, because links point at
-it. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
+*Panels, not modules (Astra, 2026-10-19): this doc called them modules, and so did Unity Unicorn's own page
+(`unity-unicorn-L1-module`) until [unity-unicorn PR #11](https://github.com/findastra/unity-unicorn/pull/11) renamed
+them `unity-unicorn-L1-panel` to `-L4-panel` (page 0.4.2; not merged until Astra's OK). The file keeps its name,
+because links point at it. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
 
 Home: **Unity Stable** (`pet-programs.json`; Astra kept the name on 2026-10-18).
 

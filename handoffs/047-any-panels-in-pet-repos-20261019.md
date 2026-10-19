@@ -26,14 +26,45 @@ card's commit), made in a worktree in Claude's scratchpad so the live hub folder
 - **Tests:** `npm test` 156 tests, 155 pass, 0 fail, 1 skipped (the Pets Board); `npm run check` OK.
 - On Astra's PC: nothing changed. The live hub folder was only read and fetched.
 
+**Tasks 1 and 2, the pet repos** (Claude Opus 5.5, `claude-opus-5-5`, a session started from the one above,
+2026-10-19). Each in a fresh clone in Claude's scratchpad, on branch `claude/panels-20261019`, one pull request each,
+not merged (Astra gives her OK per pull request in chat):
+
+| Repo | Pull request | Commits | Tests |
+|---|---|---|---|
+| findastra/unity-unicorn | [#11](https://github.com/findastra/unity-unicorn/pull/11) | `87e1ba3` (rename), `b7bc25a` (test cut by string search, for CodeQL's `js/bad-tag-filter`) | `node --test test/*.mjs` 18: 17 pass, 1 skipped (local seed); Python 50 OK |
+| findastra/findastra-discord-presence | [#20](https://github.com/findastra/findastra-discord-presence/pull/20) | `1d0464a` | `node --test` 120: 119 pass, 0 fail, 1 skipped (the hub cross-check, which passes with `ASTRAS_PET_OS` set) |
+
+- **Unity Unicorn (page 0.4.2):**
+  - Labels: `unity-unicorn-L1-panel` to `-L4-panel`.
+  - Page names: `#uu-panels` (was `#uu-modules`), `details.uu-panel` (was `uu-mod`), and "Add to the L1 panel".
+  - Saved lights: lights saved on the old `-module` labels carry over. The browser storage key keeps its name, so nothing saved is lost.
+  - New test `test/panels-test-20261019.mjs`.
+  - Docs: pet.json, README, an AGENTS.md credit line, and a dated note on Codex's open card 002 saying `uu-modules` is now `uu-panels`.
+  - Kept as modules: face tracking modules, masonry mesh modules and Python imports are real modules.
+  - Hub: the note at the top of docs/unity-unicorn-page-modules-20261018.md now points at #11 (this commit).
+- **Discord Damsel:**
+  - Sticker Manager plugin 1.0.1: its box is `discord-damsel-servers-panel` (`PANEL`, `fieldset.ddsm-panel`).
+    `pet.json`'s `"module"` field is now `"panel"`; nothing in the hub reads it.
+  - Her README and the plugin's README say panel. The README screenshot was retaken from the test page (`?demo`, headless Edge); only the label changed.
+  - Her page's L2 box is `discord-damsel-L2-panel` in `<details class="panel">`. I renamed it as task 4 for this repo: it is the same kind of box on the same page.
+  - Tests: a new sticker test checks the panel name in the plugin, pet.json and the page.
+  - **Damsel's `main` was failing 2 tests:** since her PR #19 the page sets `style.cssText`, and the connection test's pretend element had none. #20 gives the pretend element a `style` object.
+  - Codex's #10, #11 and #12 (the page rewrite) replace the page; whichever merges later keeps the panel names.
+- **Left as written:** dated credit lines in both AGENTS.md files, `pet.json` `built_with`, and Damsel's cards 005 and 006.
+- **Not done here:** the hub's `system-map.json` job text for `sticker-manager` (the end of task 2) waits with task 3 for #106 and #104.
+- **Search for task 4:** GitHub code search for `L1-module`, `L2-module` and `servers-module` finds only Unity Unicorn's `main` page, and it missed Damsel's L2 box. The index lags, so check each framework pet's repo by hand.
+- On Astra's PC: nothing changed (her pet folders are on Codex branches). Headless Edge ran from the scratchpad.
+
 ## Task
 
 1. **Unity Unicorn** (findastra/unity-unicorn, its own pull request): `unity-unicorn-20261008.html` labels its level
    boxes `unity-unicorn-L1-module` to `-L4-module` (found by GitHub code search). Rename them to `-L1-panel` to
    `-L4-panel`, with any class names, ids and docs that say module for a page box, then update the note at the top of
-   the hub's docs/unity-unicorn-page-modules-20261018.md.
+   the hub's docs/unity-unicorn-page-modules-20261018.md. **Done, waiting on Astra's OK:** unity-unicorn#11; the doc note is updated.
 2. **Discord Damsel** (findastra/findastra-discord-presence): the Sticker Manager sits in her `discord-damsel-servers-module`.
    Rename it to `discord-damsel-servers-panel` there, then the hub's `system-map.json` job text for `sticker-manager`.
+   **Repo part done, waiting on Astra's OK:** findastra-discord-presence#20 (the L2 box too). The map text moves to task 3.
 3. **Hub, after #106 and #104 merge** (both rebuild the System Map page, so changing it now would collide):
    `system-map.json` job texts for `pet-program-spawner` and `sticker-manager` still say "module"; change them and run
    `npm run build`.
