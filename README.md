@@ -135,6 +135,10 @@ git clone https://github.com/findastra/astras-pet-os
 
 **Open an app:** double-click a pet or use its **Open app** button. Gone Ghost, Paper Patty and Data Chip open their existing hosted apps (Ghost Protocol, Paper Girl, Data Dealer). Every registered pet also has a dated web app in `apps/`: the original app where it is portable, and a web stand-in where the original is a Windows app or still planned. Local form data stays in that browser.
 
+**Every pet program's page:** the Friendly Farmer's [pet program spawner](apps/pet-programs/pet-program-spawner-20261018.html)
+gives each of the 38 registered and pipeline pets a page with every module of Astra's sketch
+([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3): the basics first, rebuilt by `npm run build`.
+
 **The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):

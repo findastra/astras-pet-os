@@ -78,9 +78,11 @@ go inside the matching module here.
    | **`<pet>-L3-module`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
    | **`<pet>-L4-module`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · the **grants** you gave this pet (folders, R W X, limits, enforced or written only) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
 
-   Tricks and skills, divided: a **trick** belongs to the pet (L2) and only uses the pet's tools; a **harness skill**
-   belongs to the seat (L3) and helps an AI work on the pet. When an AI follows it, it is a trick or a skill, never a
-   tool.
+   Tricks and skills, divided: a **trick is owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
+   module, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
+   "running now" on the L3 module. A **harness skill** belongs to the seat (L3), not to the pet, and helps an AI work on
+   the pet. When an AI follows it, it is a trick or a skill, never a tool. The chart of all three, with runtime and
+   security: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
 
 5. **The paired lights: two buttons, side by side, before every item**, as in the sketch: `● ● copyright-auditor`.
    They sit left and right of each other, never stacked.
@@ -113,14 +115,21 @@ go inside the matching module here.
 
    Awake uses the `blink` mood frame, whose eyes are shut; until a frame with open eyes is drawn for awake, the page
    shows the idle frame blinking every few seconds.
-8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. One click: show the current
-   reminder. Two clicks: open the pet program. Three clicks: refresh the tools and the tool list. More can be assigned.
-   A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), so "assign more" means binding another tool.
+8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. **One and two clicks are the
+   same for every pet; from three clicks on, each can be assigned a tool** (Astra, 2026-10-18, which matches Flash Audit
+   A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
+   clicks: open or close the pet program, its page above. Three clicks or more: a tool of the pet program, one per
+   number of clicks, or "none assigned yet". A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), never
+   a trick. This replaces "three clicks: refresh the tools and the tool list".
 9. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
    grant (section 11). It holds item 10 of the list below.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
     bot.
+11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
+    just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
+    boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
+    pet program spawner writes it on every page.
 
 ### Waiting on Astra
 
@@ -139,6 +148,17 @@ go inside the matching module here.
 (`access`) and the approvals from the pet's cards. The page draws its modules from them, so the page, the map and the
 audit always agree. An audit that compares the L1 tools with the tool files in the repo, so none is missed, is still
 to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) shows what each pet had on 2026-10-16.
+
+**Every pet starts with the basics (Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page,
+with just the basics first"; of the sketch: "they need these at a minimum, and more").** The Friendly Farmer's **pet
+program spawner** (`the-farm-v1.0-pet-program-spawner-v1.0`, `scripts/pet-program-pages-20261018.mjs`) writes a page
+for every registered and pipeline pet, `apps/pet-programs/<repo>-20261018.html`, listed on
+[the spawner's page](apps/pet-programs/pet-program-spawner-20261018.html). Each has every module of the sketch in its
+place, with the four stacked level modules, from pets.json, pet-programs.json, the System Map data and the hub's art.
+What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
+lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
+not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum.
 
 ### Older detail (still required inside the boxes above)
 
@@ -300,9 +320,11 @@ the way Linux distributions take bug reports and fixes from their users. The **v
 ## 11. Tools, tricks, shared tools and the Shed
 
 Full explanation with four real examples: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md).
-- A **tool** is code the pet program owns; a **trick** is a skill its L3 agent has learned, shown in a trick box
-  (`<pet-program>-v<version>-<trick>-trick-v<trick version>`) with its origin, the tools it uses and ON/OFF.
-  A trick never brings permissions of its own. **Skill Scout** keeps track of every trick.
+- A **tool** is code the pet program owns (L1); a **trick** is a skill the pet program owns (L2) and its L3 agent
+  follows, shown in a trick box (`<pet-program>-v<version>-<trick>-trick-v<trick version>`) with its origin, the
+  tools it uses and ON/OFF. A trick never brings permissions of its own, and its text is not a security boundary: only
+  the grants on its tools hold. A **harness skill** belongs to the seat, not the pet. **Skill Scout** keeps track of
+  every trick.
 - **Shared tools:** one copy, owned by one pet program; other pets get a **grant** from Iron Gates (folders, R W X,
   limits), approved by L4 and shown in both pets' connection boxes.
 - **Third-party tools and tricks** come through **the Shed** (like the Kennel, for tools): quarantine, checker agent,
