@@ -1,4 +1,4 @@
-status: open (waiting on Astra: which page a pet's double-click opens; OK to merge task 2's pull request, `claude/tools-on-the-map-20261018`)
+status: open (waiting on Astra: which page a pet's double-click opens; OK to merge task 2, PR #106)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), docs/images/pet-program-page-sketch-20261018.webp, scripts/pet-program-pages-20261018.mjs, test/pet-program-pages-test-20261018.mjs
@@ -51,8 +51,9 @@ hub folder stayed on `main`; **merged into `main` with PR #100 (`f4a90e5`, Astra
 
 ### Task 2: each pet's tools on the map (Claude Opus 5.5, `claude-opus-5-5`, 2026-10-18)
 
-On branch `claude/tools-on-the-map-20261018` (from `main` at `f4a90e5`; not on `main` until Astra OKs its pull
-request), in a worktree in Claude's scratchpad:
+On branch `claude/tools-on-the-map-20261018`, commit `7e87fda` (from `main` at `f4a90e5`; `main` with #101 merged in
+at `8af50f2`), [PR #106](https://github.com/findastra/astras-pet-os/pull/106), not on `main` until Astra OKs it; made in
+a worktree in Claude's scratchpad:
 - **`system-map.json`: 60 new `type: "tool"` nodes**, the shape of `pet-privatizer`: `of` the pet's program node,
   `state` `now` for code on the pet's `main` and `planned` for an open pull request or a design, a label, a one-line
   `job` that names where the tool lives. Only tools the pet's repo or the hub's docs name; no name was made up.
@@ -106,7 +107,7 @@ request), in a worktree in Claude's scratchpad:
 1. Astra decides which page a pet's double-click and A59 point at: the spawn page (with "Open today's app" on it) or
    the existing app. Then link it everywhere A59 lists.
 2. ~~Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
-   Unicorn from the modules doc; the pages follow on the next build.~~ Done on `claude/tools-on-the-map-20261018`
+   Unicorn from the modules doc; the pages follow on the next build.~~ Done in PR #106
    (above), waiting on Astra's OK to merge. When unity-unicorn PR #1 or #3 merges, change those tools to `now`.
 3. Record each pet's version (from its pet.json) where the build can read it, so the title shows it.
 4. Add `interface_url` for the pipeline pets whose repo has a working page.
