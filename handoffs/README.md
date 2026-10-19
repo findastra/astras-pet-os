@@ -9,7 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
-| [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
+| [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | done 2026-10-18: #96 merged, v0.3.0-beta Latest, Cage releases deleted, workflow line fixed (f6bd9f7) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | open, waits on Astra: the open decisions in docs/linux-readiness-20261018.md |
 | [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
 | [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
@@ -91,7 +91,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 | 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `main` (merged with #85) |
 | 041 | `041-any-linux-readiness-20261018.md` | `claude/linux-readiness-20261018` (PR #95) |
-| 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
+| 042 | `042-any-no-cage-installer-zip-20261018.md` | `main` (merged with #96) |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
