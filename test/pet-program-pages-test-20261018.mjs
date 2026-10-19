@@ -45,6 +45,18 @@ test('every page has every module of the sketch, in its order, and every module 
   }
 });
 
+test('labels sit in the top border with nothing after them, and every emotion bubble is labelled the same way', () => {
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.doesNotMatch(css, /summary::(after|before)\s*\{[^}]*content:\s*'[^']/, 'no mark (a dash, a plus) after a module label');
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    for (const name of ['sleepy', 'awake', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'])
+      assert.ok(html.includes(`<fieldset class="mood-bubble"><legend>${name}</legend>`), `${d.repo}: the ${name} bubble has its name in its border`);
+    const order = [...html.matchAll(/<fieldset class="mood-bubble"><legend>([a-z]+)<\/legend>/g)].map((m) => m[1]);
+    assert.deepEqual(order, ['sleepy', 'awake', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'], `${d.repo}: the sketch's 3 by 3 order`);
+  }
+});
+
 test('the title is the pet program name from pet-programs.json', () => {
   for (const d of pages) {
     const prog = animals.find((p) => p.repo === d.repo);

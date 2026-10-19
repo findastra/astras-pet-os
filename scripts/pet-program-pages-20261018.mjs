@@ -159,7 +159,7 @@ function itemList(items, prefix, empty) {
 }
 
 const module = (label, body, { cls = '', light = false, open = true } = {}) =>
-  `<details class="module ${cls}"${open ? ' open' : ''}><summary><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+  `<details class="module ${cls}"${open ? ' open' : ''}><summary title="Click the label to fold or unfold this module"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -257,7 +257,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 
   const emotions = module(`${d.petSlug}-emotions`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const frame = mood === 'blink' ? f.idle : f[mood];
-    return `<figure class="mood"><figcaption><span class="mood-name">${esc(name)}</span><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></figcaption>${img(frame, `${d.pet}, ${name}`, mood === 'blink' ? 'awake' : '')}</figure>`;
+    return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${img(frame, `${d.pet}, ${name}`, mood === 'blink' ? 'awake' : '')}</figure>`;
   }).join('')}</div><p class="small">Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
 
   const clicker = module(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder</dd><dt>two clicks</dt><dd>open ${esc(d.home)}</dd><dt>three clicks</dt><dd>refresh tools and the tool list</dd></dl>

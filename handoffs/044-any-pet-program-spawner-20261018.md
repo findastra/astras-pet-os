@@ -41,6 +41,13 @@ commit), made in a worktree in Claude's scratchpad so the live hub folder stayed
   showed in L4; a note with `<b>` in it was saved as plain text; the chat panel opened; no console errors.
 - On Astra's PC: a temporary `spawner-preview-temp` entry was added to `Astra's Pet Apps\.claude\launch.json` and
   removed after the check; the test note and lights were cleared from that browser. No pet folder was touched.
+- **Astra's review, the same evening:** "the modules dont have dashes in the border text sometimes you have a dash at
+  the end. and make sure that the emotion bubbles are written with the text border format too. the page is just
+  supposed to demonstrate structural things, not actual aesthetic, you were closer before. do not loose all the things
+  you had from that other page." Done: no mark after any label (the fold marker is gone; clicking the label folds), each
+  emotion bubble has its mood's name in its top border, the emotions are the sketch's 3 by 3 again (one column on a
+  phone), labels in a plain monospace font so their hyphens read as hyphens, the cyberhome a plain box, and nothing
+  else removed. The test now checks the bubble labels, their order and that no label has a mark after it.
 
 ## Not there yet (the pages say so)
 
