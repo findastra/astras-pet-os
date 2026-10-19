@@ -3085,6 +3085,20 @@
       "why": "Runs locally on the PC; only this PC can reach it."
     },
     {
+      "from": "token-toucan",
+      "to": "cli-proxy-api-manager",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Tracks the tokens that go through CLI Proxy API, read from Discord Damsel's tool by a read-only grant; a token spike makes her worried (Astra, 2026-10-18)."
+    },
+    {
+      "from": "proxy-axolotl",
+      "to": "cli-proxy-api-manager",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Reads Discord Damsel's network safety check for CLI Proxy API by a read-only grant, and flags it if the proxy could be reached from beyond this PC (Astra, 2026-10-18)."
+    },
+    {
       "from": "astras-pet-os",
       "to": "github",
       "carries": "runs-on",
@@ -5193,6 +5207,40 @@
         "gaps": [
           10
         ]
+      },
+      {
+        "id": "toucan-reads-cli-proxy",
+        "who": "Token Toucan",
+        "subjects": [
+          "id:token-toucan"
+        ],
+        "on": "CLI Proxy API's token use, read through Discord Damsel's tool",
+        "resources": [
+          "id:cli-proxy-api-manager"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "planned",
+        "how": "Astra, 2026-10-18: Token Toucan watches the tokens that go through CLI Proxy API. The proxy has one owner, Discord Damsel's tool, so Token Toucan reads only what that tool reports: which models were used and how many tokens each took. Never the proxy's settings file, keys or sign-ins; Start, Stop and settings stay Discord Damsel's. Token Toucan is not built yet.",
+        "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
+      },
+      {
+        "id": "axolotl-reads-cli-proxy",
+        "who": "Proxy Axolotl",
+        "subjects": [
+          "id:proxy-axolotl"
+        ],
+        "on": "CLI Proxy API's network safety check, read through Discord Damsel's tool",
+        "resources": [
+          "id:cli-proxy-api-manager"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "planned",
+        "how": "Astra, 2026-10-18: Proxy Axolotl watches CLI Proxy API's network side. The proxy has one owner, Discord Damsel's tool, so Proxy Axolotl reads only that tool's safety check (this PC only, remote console, discovery and plugins off) and whether the proxy answers, and flags it if it could be reached from beyond this PC. Never the proxy's settings file, keys or sign-ins; Start, Stop and settings stay Discord Damsel's. Proxy Axolotl is not built yet.",
+        "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
       }
     ]
   },
