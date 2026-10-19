@@ -241,6 +241,18 @@
       "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
     },
     {
+      "id": "keep-voicemeeter-open",
+      "name": "Keep Voicemeeter open",
+      "type": "tool",
+      "of": "audio-rescue",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "audio-rescue-v1.0-keep-voicemeeter-open-v1.0",
+      "job": "A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC."
+    },
+    {
       "id": "voicemeeter",
       "name": "Voicemeeter",
       "type": "program",
@@ -3287,6 +3299,20 @@
       "carries": "opens",
       "state": "now",
       "why": "Asks Voicemeeter to restart its audio engine."
+    },
+    {
+      "from": "audio-rescue",
+      "to": "keep-voicemeeter-open",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-10-18)."
+    },
+    {
+      "from": "keep-voicemeeter-open",
+      "to": "voicemeeter",
+      "carries": "manages",
+      "state": "now",
+      "why": "Opens Voicemeeter again when it closes and closes its registration reminder at startup; never force-closes or registers it."
     },
     {
       "from": "steamvr",
