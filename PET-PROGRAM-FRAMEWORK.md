@@ -17,7 +17,9 @@ the page layout redrawn from her sketch of 2026-10-18 by Claude Opus 5.5 (`claud
 | **L4** Verified human | The verified human who owns the entire secure ecosystem (on Astra's farm: Astra). Every security change, every permission and every exception to a default is approved by L4. On another user's farm, that user is L4. |
 | Pet program icon | The character (Friendly Farmer). |
 | Pet program | The one main program a pet stands for (The Farm). |
-| Tool | Any other program, page or section a pet program owns. Same ring and permissions as its pet program, never more. |
+| Native program | A program, site, world or app Astra made that is opened or run on its own (Startup Star, Ghost Protocol). The only thing a pet program owns that the System Map draws (Astra, 2026-10-19). |
+| Tool | Code a pet program owns and runs with no AI: a script, page section, editor tool or plugin. Same ring and permissions as its pet program, never more. Listed on its pet program's card, never drawn on the System Map (Astra, 2026-10-19). |
+| Trick | Written steps the pet's seated AI follows with its tools (a `SKILL.md`). Listed on its pet program's card, never drawn. Every native program, tool and trick is in the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md). |
 | Tool box | How a tool appears on a page: a bordered box with its versioned label on the top border and everything about the tool inside. |
 | Connection box | How a link to another pet appears: a box with a border of its own colour (never the tool box colour), titled with just the other pet's **pet program icon** name, as if the two are talking. Inside: what flows each way. |
 | Third-party | Programs, libraries and services made by others. |
@@ -33,7 +35,7 @@ Versions start with `v`, like git tags. A name keeps its number; a version never
 | Pet program (no name yet) | `pet-program-<#>-v<version>` | `pet-program-3-v1.0` |
 | Pet program (named) | `<pet-program>-v<version>` | `the-farm-v1.0` |
 | Icon (mood 1 to 9) | `<pet-program>-v<version>-icon-<mood>-v<icon version>` | `pet-program-3-v1.0-icon-2-v1.0.png` |
-| Tool box label | `<pet-program>-v<version>-<tool>-v<tool version>` | `pet-program-3-v1.0-notes-tool-v1.0`, `the-farm-v1.0-astras-pet-os-system-map-v1.0`, `pet-program-5-v1.0-harness-strapper-v1.0` |
+| Tool box label | `<pet-program>-v<version>-<tool>-v<tool version>` | `pet-program-3-v1.0-notes-tool-v1.0`, `the-farm-v1.0-pet-privatizer-v1.0`, `pet-program-5-v1.0-harness-strapper-v1.0` |
 | Backlog (the store) | `<pet-program>-backlog` | `the-farm-backlog` |
 | Backlog entry | `<pet-program>-v<version>-backlog-<YYYYMMDD>-<NNN>` | `the-farm-v1.0-backlog-20261013-001` |
 | Weekly backlog run | `<pet-program>-v<version>-backlog-run-<YYYYMMDD>` | `the-farm-v1.0-backlog-run-20261019` |

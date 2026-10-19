@@ -19,11 +19,15 @@ like a package manager. Every farm can end up with different pets and versions; 
 A **new pet** only when the job needs its own program, its own data and its own schedule that no
 existing pet already owns. Otherwise it is a **tool of the pet whose job it fits.**
 
-Each pet has exactly **one pet program**. Every other program that pet program makes or owns is a **tool** of it
-(Astra, 2026-10-13): it sits on the same ring with the same permissions, never more, and the pet program's page
-links it. Example: Friendly Farmer (pet program icon) → The Farm (pet program) → Astra's PetOS System Map and
-Startup Star (tools of The Farm). Anything made by someone else that a tool uses (three.js, Google Fonts) is a
-third-party dependency, not a tool.
+Each pet has exactly **one pet program**. Everything else that pet program makes or owns is one of three kinds (Astra,
+2026-10-13 and 2026-10-19; [TOOLS-AND-TRICKS.md](../../TOOLS-AND-TRICKS.md)): a **native program** (opened or run on
+its own; the only kind drawn on the System Map), a **native tool** (code it runs with no AI) or a **native trick**
+(steps its AI follows). Each sits on the same ring with the same permissions, never more, and the pet program's page
+and card list it. Example: Friendly Farmer (pet program icon) → The Farm (pet program) → Astra's PetOS System Map and
+Startup Star (native programs of The Farm), pet-privatizer (a native tool) and pet-finder (a native trick). Anything
+made by someone else that a tool uses (three.js, Google Fonts) is a third-party dependency, not a tool. A new one is
+a node in `system-map.json` (`own-program`, `tool` or `trick`, with `of`), so it reaches the map, the pages and the
+registry table.
 
 ## Steps
 1. Restate the need in one line and name the standard software term for it (`skills/dev-mindset`).
