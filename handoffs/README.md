@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open, waits on Astra: merge, and which page a pet's double-click opens |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
@@ -59,7 +60,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 047.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
+**Next free number: 048.** Checked on 2026-10-19 across every branch by Claude Opus 5.5 (047 is the panels card on `claude/programmer-words-20261019`; 043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -98,6 +99,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100) |
 | 045 | `045-any-crash-watch-pets-20261018.md` | `claude/crash-watch-pets-20261018` |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `claude/clicker-rule-20261018` |
+| 047 | `047-any-panels-in-pet-repos-20261019.md` | `claude/programmer-words-20261019` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
