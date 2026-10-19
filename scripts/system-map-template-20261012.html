@@ -122,7 +122,7 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
 .lang b{font-weight:500}
 .codechip{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:5px;background:var(--raise);color:var(--fg);border:0}
 .close{justify-self:end}
-.navpad{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px;backdrop-filter:blur(6px)}
+.navpad{position:fixed;width:max-content;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px;backdrop-filter:blur(6px)}
 .navpad .btn{min-width:44px;min-height:36px;justify-content:center}
 /* Drag bar on the key panel's right edge (Astra, 2026-10-13): drag it right to widen the panel. */
 .grip{position:fixed;width:16px;cursor:ew-resize;touch-action:none;background:none;border:0;padding:0;z-index:3;display:grid;place-items:center}
@@ -137,27 +137,45 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
 .dims button:hover{color:var(--fg)}
 .dims button[aria-pressed="true"]{background:var(--host);color:var(--bg)}
 .dims button:focus-visible{outline:2px solid var(--host);outline-offset:2px}
+/* Both panes fold (Astra, 2026-10-18): the key panel to its title, the card to its name. On a phone both start folded. */
+.hudtop{display:flex;align-items:flex-start;gap:8px}
+.hudtop h1{flex:1;min-width:0}
+.mintoggle{flex:none}
+.hud.min>:not(.hudtop){display:none!important}
+.hud.min{padding:10px 12px}
+.sidehead{display:flex;align-items:flex-start;gap:6px}
+.sidehead h2{flex:1;min-width:0;cursor:pointer}
+.side.min>:not(.sidehead){display:none!important}
+.side.min{padding:10px 12px}
+#stage canvas{touch-action:none}
+/* Touch screens (Astra, 2026-10-18): a flat 2D map you drag and pinch; no turning, so no Spin and no 3D. */
+body.touch .no-touch{display:none!important}
+body:not(.touch) .touch-only{display:none!important}
+body.touch details.sec>summary{padding:8px 0;font-size:12px}
+body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
 @media (max-width:700px){
   .hud{width:auto;right:12px;max-height:44%}
   .grip{display:none}
   .hud .sub.long{display:none}
   .side{top:auto;bottom:calc(68px + env(safe-area-inset-bottom,0px));max-height:50%;width:auto;left:12px}
   .navpad{flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);border-radius:24px}
+  h1{font-size:1.15rem}
 }
 </style></head><body>
 <div id="stage" aria-label="3D map of Astra's PetOS"></div>
 <div id="labels" aria-hidden="true"></div>
 
 <section class="hud" aria-label="Map key and controls">
-  <div>
+  <div class="hudtop">
     <h1><b id="sysName" class="sysname" tabindex="0" title="Double-click (or press Enter) to rename your system">Astra's PetOS</b> <span>System Map</span></h1>
+    <button class="btn mintoggle" id="hudMin" type="button" aria-expanded="true" title="Fold the key panel down to its title">Hide key</button>
   </div>
   <div class="nameask" id="nameAsk" hidden>
     <label class="label" for="nameInput" title="Make it yours, for example Jordan's PetOS. Saved in this browser only; it is never sent anywhere.">Name your system (saved in this browser only)</label>
     <input id="nameInput" maxlength="40" autocomplete="off">
     <div class="row"><button class="btn" id="nameSave" aria-pressed="true">Save</button><button class="btn" id="nameSkip">Keep "Astra's PetOS"</button></div>
   </div>
-  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom. Click anything to see who may read, write or run it, and what flows to it.</p>
+  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI.<span class="no-touch"> Switch between <b>2D</b> and <b>3D</b> at the bottom.</span><span class="touch-only"> Drag to move, pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
   <div class="search">
     <label class="label" for="q">Search</label>
     <input id="q" type="search" placeholder="Pet, program, job…" autocomplete="off" aria-controls="res">
@@ -216,7 +234,7 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
   </div></details>
 
   <details class="sec"><summary>Moving around</summary><div>
-    <p class="sub"><b>Left-drag</b> or <b>scroll-click drag</b> turns the map freely; <b>Shift + scroll-click drag</b> pans. <b>Scroll</b> zooms toward the centre, or toward what you selected. <b>Right-drag</b> looks around; while holding it, <b>W A S D</b> fly, <b>Q</b>/<b>E</b> down and up, <b>Shift</b> faster. <b>F</b> frames what you selected. <b>Esc</b> closes the card. On a phone: one finger turns, two fingers zoom and pan.</p>
+    <p class="sub" id="moveHelp"><b>Left-drag</b> or <b>scroll-click drag</b> turns the map freely; <b>Shift + scroll-click drag</b> pans. <b>Scroll</b> zooms toward the centre, or toward what you selected. <b>Right-drag</b> looks around; while holding it, <b>W A S D</b> fly, <b>Q</b>/<b>E</b> down and up, <b>Shift</b> faster. <b>F</b> frames what you selected. <b>Esc</b> closes the card. On a phone: one finger turns, two fingers zoom and pan.</p>
   </div></details>
 </section>
 
@@ -226,8 +244,8 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
   <button class="btn" id="nZoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
   <button class="btn" id="nZoomOut" title="Zoom out" aria-label="Zoom out">－</button>
   <button class="btn" id="nReset" title="Back to the whole map">Reset view</button>
-  <button class="btn" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
-  <span class="dims" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
+  <button class="btn no-touch" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
+  <span class="dims no-touch" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
 </nav>
 <div class="tip" id="tip" hidden></div>
 
@@ -246,6 +264,11 @@ const TYPE = {
 const nodeById = Object.fromEntries(DATA.nodes.map(n=>[n.id,n]));
 const GRANT = Object.fromEntries(DATA.access.grants.map(g=>[g.id,g]));
 const RING = Object.fromEntries(DATA.rings.map(r=>[r.ring,r]));
+// Touch screens (Astra, 2026-10-18: "the rotation mechanism of pinch and push on the mobile isnt easy to navigate. make
+// it 2d navigational on the circles, no rotating"): phones and tablets open the flat map seen from above; one finger
+// drags it, two fingers pinch to zoom, and nothing turns it.
+const TOUCH = matchMedia('(pointer: coarse)').matches;
+if(TOUCH) document.body.classList.add('touch');
 
 // ---------- the rings: nested spheres (Astra, 2026-10-12 and 2026-10-13) ----------
 // Inside out: the core, the Friendly Farmer, the pets, the pet programs, then the glass sphere of the agent harness
@@ -264,7 +287,7 @@ let flat = false, morph = null; // opens in 3D
 const MORPH_MS = 1200;
 const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':21, '3':26, '3b':29, '4':35, '5':40, '6':48.5, '7':56};
 const DOME_R = 31, DOME_H = 11, ASTRA_FLAT_Y = DOME_H+14;
-const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 64;
+const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 64, TOUCH_ELEV = 1.45; // on touch screens the flat map is seen from (almost) straight above
 // Pinned spots: the farmhands near the top, outside the glass; each agent app's line ends on its planet's ring.
 const PIN = {'agent-harness':new THREE.Vector3(0,HARNESS_R,0), claude:new THREE.Vector3(-25,46,25).setLength(RING_R['4']),
   openai:new THREE.Vector3(25,46,25).setLength(RING_R['4']), 'local-models':new THREE.Vector3(0,30,-48).setLength(RING_R['4'])};
@@ -274,7 +297,7 @@ const HOME_TARGET = [0,0,0], HOME_ELEV = .26, FIT_R = 80;
 const homeTarget = () => new THREE.Vector3(...(flat?FLAT_TARGET:HOME_TARGET));
 // The opening view fits the whole sphere into the space beside the key panel, at any window size.
 function homeCam(){ const {fw,fh}=openSpace(), tanV=Math.tan(camera.fov*Math.PI/360);
-  if(flat){ const d=Math.max(FLAT_FIT/(tanV*camera.aspect*fw),(FLAT_FIT*Math.sin(FLAT_ELEV)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(FLAT_ELEV),Math.cos(FLAT_ELEV)).multiplyScalar(d).add(homeTarget()); }
+  if(flat){ const el_=TOUCH?TOUCH_ELEV:FLAT_ELEV, d=Math.max(FLAT_FIT/(tanV*camera.aspect*fw),(FLAT_FIT*Math.sin(el_)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(el_),Math.cos(el_)).multiplyScalar(d).add(homeTarget()); }
   const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = FIT_R/Math.sin(half);
   return new THREE.Vector3(0,Math.sin(HOME_ELEV),Math.cos(HOME_ELEV)).multiplyScalar(d).add(homeTarget()); }
 const LAYER_COLOR = {0:css('--l0'),1:css('--l1'),2:css('--l2'),3:css('--l3'),4:css('--l4'),5:css('--l5'),6:css('--l6')};
@@ -328,12 +351,13 @@ const camera = new THREE.PerspectiveCamera(48,1,.1,900); camera.position.set(0,7
 // Trackball, not orbit: it turns freely in every direction, over the top and under the bottom, with no stops.
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 controls.target.copy(homeTarget());
-let autoSpin = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+let autoSpin = !TOUCH && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 controls.rotateSpeed = 1.2; controls.zoomSpeed = 1.4; controls.panSpeed = .6; controls.dynamicDampingFactor = .2;
 controls.minDistance = 2; controls.maxDistance = 600;
 // The switch maps mouse BUTTONS to actions: left (0) rotates, middle (1) pans, right (2) is left free for fly-look.
 controls.mouseButtons = {LEFT:0, MIDDLE:-9, RIGHT:-8}; controls.noZoom = true; // scroll and scroll-click drag are handled below
 controls.keys = ['NoKeyA','NoKeyS','NoKeyD']; // keep A, S and D for flying, not the trackball's key modes
+if(TOUCH) controls.enabled = false; // touch screens use the flat drag-and-pinch below, never the trackball's turning
 scene.add(new THREE.AmbientLight(0xffffff,.6));
 const key = new THREE.PointLight(0xffffff,1.1); key.position.set(20,60,40); scene.add(key);
 const rim = new THREE.PointLight(0xff4fa3,.7); rim.position.set(-40,20,-30); scene.add(rim);
@@ -621,6 +645,7 @@ function fadeDecor(e){ const fs=flat?1-e:e, ff=flat?e:1-e;
 const d2=document.getElementById('d2'), d3=document.getElementById('d3');
 function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
 d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
+if(TOUCH){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold
 
 // ---------- the key: rings, line toggles, shapes, colours ----------
 const STATE_WORD = DATA.states;
@@ -776,14 +801,22 @@ renderer.domElement.addEventListener('pointermove',ev=>{ if(looking||midDrag) re
     else tip.append(el('b','',`${nodeById[p.link.from].name} → ${nodeById[p.link.to].name}`), document.createTextNode(`: ${p.link.carries}. Click for everything on this line.`));
     tip.style.left=Math.min(ev.clientX+14,innerWidth-310)+'px'; tip.style.top=Math.min(ev.clientY+14,innerHeight-120)+'px'; } else tip.hidden=true; });
 renderer.domElement.addEventListener('pointerleave',()=>{hovered=null;tip.hidden=true;apply();});
-let downAt=null; renderer.domElement.addEventListener('pointerdown',ev=>{downAt=[ev.clientX,ev.clientY]; autoSpin=false;});
-renderer.domElement.addEventListener('pointerup',ev=>{ if(!downAt||ev.button!==0) { downAt=null; return; } const moved=Math.hypot(ev.clientX-downAt[0],ev.clientY-downAt[1]); downAt=null; if(moved>5) return;
+let downAt=null, noTap=false; // noTap: this touch dragged or pinched the map, so lifting a finger picks nothing
+renderer.domElement.addEventListener('pointerdown',ev=>{downAt=[ev.clientX,ev.clientY]; autoSpin=false;});
+renderer.domElement.addEventListener('pointerup',ev=>{ if(!downAt||ev.button!==0||noTap) { downAt=null; return; } const moved=Math.hypot(ev.clientX-downAt[0],ev.clientY-downAt[1]); downAt=null; if(moved>5) return;
   const p=pick(ev); if(!p) return close(); p.node ? selectNode(p.node) : selectPair(p.link.pair); });
 
 // ---------- the card ----------
 const side=document.getElementById('side');
 function close(){ selected=null; selectedPair=null; ringOn=null; if(!q.value.trim()) matches=null; side.hidden=true; apply(); try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
-function head(title){ side.replaceChildren(); const c=el('button','btn close','Close'); c.onclick=close; side.append(c, el('h2','',title)); }
+// Every card has Hide and Close beside its name: Hide folds it down to its name, so the map shows (Astra, 2026-10-18).
+// A folded card stays folded when you pick something else; tap its name or Show to open it.
+let sideMin = TOUCH;
+function head(title){ side.replaceChildren(); const h=el('div','sidehead'), t=el('h2','',title), m=el('button','btn',''), c=el('button','btn','Close');
+  m.type='button'; c.type='button';
+  const sync=()=>{ side.classList.toggle('min',sideMin); m.textContent=sideMin?'Show':'Hide'; m.setAttribute('aria-expanded',String(!sideMin)); m.title=sideMin?'Open the whole card':'Fold the card down to its name'; };
+  m.onclick=()=>{ sideMin=!sideMin; sync(); side.scrollTop=0; }; t.onclick=m.onclick; c.onclick=close;
+  h.append(t,m,c); side.append(h); sync(); }
 // R W X boxes for one grant: filled = yes; outlined = only through a pull request, a grant or the harness asking.
 const VALUE_WORD = DATA.access.values;
 function rwxBoxes(g){ const s=el('span','rwx');
@@ -955,6 +988,7 @@ let fly=null;
 // Fly to a node: come in from outside it, looking toward the centre, so its neighbours stay in view.
 // Where the camera goes to look at a point: from above and outside it in 2D, from outside it in 3D.
 function viewFrom(p){
+  if(flat&&TOUCH) return p.clone().add(new THREE.Vector3(0,Math.sin(TOUCH_ELEV),Math.cos(TOUCH_ELEV)).multiplyScalar(34)); // from above, never turned
   if(flat){ const o=new THREE.Vector3(p.x,0,p.z); if(o.lengthSq()<1) o.copy(camera.position).setY(0); o.normalize(); return p.clone().addScaledVector(o,26).add(new THREE.Vector3(0,22,0)); }
   const o=p.length()>1 ? p.clone().normalize() : camera.position.clone().sub(controls.target).normalize(); return p.clone().addScaledVector(o,24).add(new THREE.Vector3(0,4,0)); }
 function flyTo(id){ const p=pos[id]; if(!p) return; autoSpin=false;
@@ -1014,6 +1048,31 @@ const spinBtn=document.getElementById('nSpin'); spinBtn.setAttribute('aria-press
 spinBtn.onclick=()=>{ autoSpin=!autoSpin; spinBtn.setAttribute('aria-pressed',autoSpin); };
 setInterval(()=>spinBtn.setAttribute('aria-pressed',autoSpin),500); // other controls stop the spin
 
+// ---------- touch screens: drag and pinch on the flat map, no turning (Astra, 2026-10-18) ----------
+// One finger drags the map; the spot under your finger stays under it. Two fingers pinch to zoom around the point
+// between them, and move together to drag. The camera only slides and moves closer or further: it never turns.
+if(TOUCH){
+  const fingers=new Map(), ground=new THREE.Plane(new THREE.Vector3(0,1,0),0), ray_=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  const groundAt=(x,y)=>{ camera.updateMatrixWorld(); ndc.set(x/innerWidth*2-1,-(y/innerHeight)*2+1); ray_.setFromCamera(ndc,camera); return ray_.ray.intersectPlane(ground,new THREE.Vector3()); };
+  const slide=(a,b)=>{ if(!a||!b) return; const d=a.sub(b); d.y=0; camera.position.add(d); controls.target.add(d); };
+  const both=()=>{ const [a,b]=[...fingers.values()]; return {x:(a.x+b.x)/2, y:(a.y+b.y)/2, d:Math.hypot(a.x-b.x,a.y-b.y)}; };
+  const cv=renderer.domElement;
+  cv.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse') return; if(!fingers.size) noTap=false;
+    fingers.set(e.pointerId,{x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY}); fly=null; autoSpin=false;
+    if(fingers.size>1) noTap=true; try{ cv.setPointerCapture(e.pointerId); }catch(err){} });
+  cv.addEventListener('pointermove',e=>{ const f=fingers.get(e.pointerId); if(!f) return; e.preventDefault();
+    if(fingers.size===1){ if(Math.hypot(e.clientX-f.x0,e.clientY-f.y0)>6) noTap=true; if(!noTap) return;
+      slide(groundAt(f.x,f.y),groundAt(e.clientX,e.clientY)); f.x=e.clientX; f.y=e.clientY; return; }
+    const before=both(); f.x=e.clientX; f.y=e.clientY; const after=both();
+    const under=groundAt(before.x,before.y), off=camera.position.clone().sub(controls.target);
+    const len=Math.min(Math.max(off.length()*(before.d/Math.max(after.d,1)),controls.minDistance+4),controls.maxDistance*.5);
+    camera.position.copy(controls.target).add(off.setLength(len));
+    slide(under,groundAt(after.x,after.y)); },{passive:false});
+  const lift=e=>{ fingers.delete(e.pointerId); fingers.forEach(f=>{ f.x0=f.x; f.y0=f.y; }); };
+  cv.addEventListener('pointerup',lift); cv.addEventListener('pointercancel',lift);
+  document.getElementById('moveHelp').textContent='On a touch screen the map lies flat and is seen from above. Drag with one finger to move around; pinch with two fingers to zoom in or out. It never turns. Tap anything for its card; ＋ and － zoom, Reset view shows the whole map.';
+}
+
 // ---------- labels: the most important names first, and only where they fit ----------
 // Each frame, names are placed in order of importance (what you point at and its neighbours, then you, the Farmer,
 // the core and the farmhands, then pets, programs and devices) and a name that would overlap one already placed
@@ -1065,6 +1124,12 @@ grip.addEventListener('pointerdown',e=>{ e.preventDefault(); grip.setPointerCapt
 grip.addEventListener('keydown',e=>{ const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return; e.preventDefault(); setHudWidth(hudEl.getBoundingClientRect().width+d*(e.shiftKey?60:20),true); });
 grip.addEventListener('dblclick',()=>{ document.documentElement.style.removeProperty('--hud-w'); try{ localStorage.removeItem(HUD_KEY); }catch(e){} placeGrip(); resize(); });
 try{ const w=Number(localStorage.getItem(HUD_KEY)); if(w) document.documentElement.style.setProperty('--hud-w',Math.min(hudMax(),Math.max(HUD_MIN,w))+'px'); }catch(e){}
+// The key panel folds down to its title (Astra, 2026-10-18). On a touch screen it starts folded, with every key closed.
+const hudBtn=document.getElementById('hudMin');
+function setHudMin(on){ hudEl.classList.toggle('min',on); hudBtn.textContent=on?'Show key':'Hide key'; hudBtn.setAttribute('aria-expanded',String(!on));
+  hudBtn.title=on?'Open the key panel':'Fold the key panel down to its title'; placeGrip(); }
+hudBtn.onclick=()=>setHudMin(!hudEl.classList.contains('min'));
+if(TOUCH){ setHudMin(true); hudEl.querySelectorAll('details.sec[open]').forEach(d=>d.open=false); }
 if('ResizeObserver' in window) new ResizeObserver(()=>{ placeGrip(); resize(); }).observe(hudEl);
 addEventListener('resize',()=>{ resize(); placeGrip(); }); resize(); placeGrip(); camera.position.copy(homeCam()); camera.lookAt(controls.target);
 let last=performance.now();

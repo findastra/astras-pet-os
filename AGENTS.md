@@ -1,5 +1,8 @@
 # Rules for assistants working on Astra's PetOS (astras-pet-os)
 
+> **Installing Astra's PetOS for someone? Stop here and follow [INSTALL.md](INSTALL.md).** You need the installer
+> zip from the latest release, not this repo. Everything below is for assistants who change Astra's PetOS itself.
+
 Spoonfed Sugarcube hatching metadata and its single-pet recipe prepared with OpenAI Codex (GPT-6), 2026-10-11. Paid artwork remains pending approval.
 
 ## Before any work: read every rule and skill file, in full (Astra, 2026-10-11)
@@ -38,9 +41,9 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
 - **L1 to L4:** L1 Programs (the third-party programs it runs, plus the programs and tools it creates), L2 Pet program (dashboard and runtime),
   L3 Agentic harness, **L4 the verified human who owns the entire secure ecosystem** (on this farm, Astra). L4
   approves every security change, permission and exception.
-- **Beta testers' agents:** install Astra's PetOS only with `installer/install-astras-pet-os-20261014.ps1` from a
-  release, with the person's OK (see the README). Ask which farm they want and pass `-Farm Example` or
-  `-Farm Scratch -Pets <ids>`, so no window waits. Never run other scripts from this repo for them, never add
+- **Beta testers' agents:** follow [INSTALL.md](INSTALL.md). Install Astra's PetOS only with the installer zip from
+  the latest release (`astras-pet-os-installer.zip`), with the person's OK. Ask which farm they want and pass
+  `-Farm Example` or `-Farm Scratch -Pets <ids>` (`-ListPets` shows the ids), so no window waits. Never run other scripts from this repo for them, never add
   startup unless asked, and never copy Astra's devices or settings beyond what the installer installs.
 - **Core pets (Astra, 2026-10-18):** the pets every farm needs, which the installer's "Set up your farm" window never
   lets anyone untick. Today that is the host, the Friendly Farmer. The desktop pets must keep running when any other
@@ -75,8 +78,9 @@ Passport Panda is now **Passport Pelican**).
 - Migration is planned in [docs/migration/PLAN.md](docs/migration/PLAN.md), with the
   [audit](docs/migration/AUDIT.md) and [gap analysis](docs/migration/GAP-ANALYSIS.md). The plan
   is a **draft until Astra approves it**; until then, change only what she asks for.
-- **The Cage is retired as a product concept.** Keep `cage.html` working, but add no new Cage or
-  browser-roaming features. Pets roam on the Windows desktop only. The Farm (a simple responsive
+- **The Cage is gone (Astra, 2026-10-18).** `cage.html`, `cage-data.js` and the old desktop Farmer (the Farmer dock)
+  were removed; never bring them back or add browser-roaming features. Pets roam on the Windows desktop only. The
+  word survives only in data keys that pets read (`cage`, `cage.submit`, `cage_life`). The Farm (a simple responsive
   website with a text box under every pet) replaces it, per the plan.
 - Nothing in the architecture is built until tests show it. Do not describe planned pets,
   repos (`astras-farm`, `astras-kennel`, `astra-pet-sdk`) or features as existing.
@@ -96,10 +100,10 @@ ASTRAS_PET_OS v5.2 filed as the canonical architecture, with the Phase 0 audit, 
 Voicemeeter Bug (made with OpenAI Codex (GPT-6) on 2026-10-08) registered on main from the unmerged roam-free branch, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-11. His Windows app and source are still only on Astra's PC.
 
 ## What this is
-The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage is retired; `cage.html` still works). `pets.json` is the single registry. Everything else (README table, ROSTER.md, `cage-data.js`, the art) is generated from it.
+The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
 
 ## Rules
-- **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md`, `cage-data.js` or `art/`. Run `npm run build`.
+- **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md` or `art/`. Run `npm run build`.
 - **One art source (Astra, 2026-10-18).** Every pet picture lives only here (`art/`, `desktop-art/`; PET-FILES.md,
   "Where the pictures live"). Other repos, pages and the desktop pets link to it and never keep a copy. Claude Bot's
   private BSOD copy is the one exception. Check with `node scripts/one-art-source-20261017.mjs` (Flash Audit A58).
@@ -111,14 +115,14 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 - **Owner-requested exception: Chip uses the original Data Dealer drawing code.** Preserve its
   32×24 LCD pixels and exact palette in `scripts/chip-original-20261008.mjs`; the build adds the
   original yellow pocket shell. Do not replace Chip with generated art. Its native sleep and
-  thinking marks remain part of the original drawing, alongside the Cage's shared mood badges.
+  thinking marks remain part of the original drawing, alongside the shared mood stickers.
 - **The mood symbols are composited, never generated.** `?`, `!`, `Z`, tear, sweat and bandage
   come from the one sticker set in `art-kit.mjs` so they are identical on every pet. If a
   generated sheet has a symbol drawn into it, redo the sheet.
 - **Generating costs money** (one image per pet, billed to Astra's OpenAI account). Regenerate
   one pet, not the set. Sheets in `art/sheets/` are kept so a re-run is free.
 - Do not put another creator's artwork, or a recognisable derivative of it, in this repo. It is public; keep provenance and sharing rights explicit. Astra's own characters only.
-- **No dependencies.** Node's built-in modules only. The page `cage.html` must work by double-click (that is why data is in `cage-data.js`, not fetched).
+- **No dependencies.** Node's built-in modules only. The pages in `apps/` and the System Map must work by double-click.
 - **Never commit** keys, `.env` files or personal data. Health and finance pets keep user data on the user's PC.
 - **Say plainly what is not done.** Every drawing is a draft until Astra approves it; do not call it final. Say when a pet is not on GitHub yet (`published: false`).
 - Fetched or user text goes into the DOM with `textContent`, never `innerHTML`.
@@ -156,7 +160,7 @@ Latest owner follow-up, OpenAI Codex (GPT-6), 2026-10-11: use docs/pet-revisions
 
 Paired desktop revision by OpenAI Codex (GPT-6), 2026-10-11: Paper Girl has no NEWS lettering and matches File Master's small rectangular eyes. File Master wears a crown and stern expression. They stay together during roaming; dragging either makes it lead. See docs/pet-partners-20261011.md. Preserve their equal heights and the existing no-sparkle rule.
 
-Astra's PetOS System Map, also called the 3D PFD (`system-map-20261012.html`, `system-map.json`, `scripts/system-map-20261012.mjs`, template `scripts/system-map-template-20261012.html`, guarded by `test/system-map-test-20261012.mjs`): the 3D map of every pet, model, program and piece of infrastructure and the links between them, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Pet-to-pet links belong in `relations` in pets.json; links with a non-pet end belong in system-map.json. Redone with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17 and 2026-10-18 (Astra, option A): rings say where a thing lives and R W X lives on grants in system-map.json `access`, each enforced, written only or planned, shown on every card and generated into PROTECTION-RINGS.md; pet program names come from pet-programs.json; names placed by importance so none overlap; Claude Code and Codex drawn as rings around their AI; a 2D | 3D switch that folds the spheres flat; groups (the 13 trackers, 4 base stations, 2 controllers) whose lines reach each member (card 034).
+Astra's PetOS System Map, also called the 3D PFD (`system-map-20261012.html`, `system-map.json`, `scripts/system-map-20261012.mjs`, template `scripts/system-map-template-20261012.html`, guarded by `test/system-map-test-20261012.mjs`): the 3D map of every pet, model, program and piece of infrastructure and the links between them, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Pet-to-pet links belong in `relations` in pets.json; links with a non-pet end belong in system-map.json. Redone with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17 and 2026-10-18 (Astra, option A): rings say where a thing lives and R W X lives on grants in system-map.json `access`, each enforced, written only or planned, shown on every card and generated into PROTECTION-RINGS.md; pet program names come from pet-programs.json; names placed by importance so none overlap; Claude Code and Codex drawn as rings around their AI; a 2D | 3D switch that folds the spheres flat; groups (the 13 trackers, 4 base stations, 2 controllers) whose lines reach each member (card 034). On touch screens (Astra, 2026-10-18) the map opens flat, seen from above, with one-finger drag and two-finger pinch and no turning (no trackball, Spin or 3D); the key panel and the card both fold (Hide / Show), and on a touch screen both start folded with every key closed, with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 ASTRAS_PET_OS name and top-level architecture file (`ASTRAS_PET_OS.md`) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12.
 Astra's PetOS restructuring with Claude Opus 5.5 (`claude-opus-5-5`), head chat, 2026-10-12: repo renamed to astras-pet-os; the Cage retired from the Farmer's job and the README; names Gone Ghost and Patty; jobs from Astra's descriptions; seeds Photo Dodo and Video Vulture; Journal Jellyfish; INTELLIGENCE-LEVELS.md (program, runtime, updates, agentic harness, errors); the System Map's own-program shell, scroll and scroll-click controls, and pet icons (art/icons, art/seeds drafts).
 Pet-first profile lines (`N. **Pet** · *Home* · [`repo`](link) -- job [status]`), the Friendly Farmer's `pet-organizer` and `pet-finder` tricks (skills/pet-organizer, skills/pet-finder) and the read-only pet-finder tool (`scripts/pet-finder-20261016.mjs`, guarded by `test/pet-first-test-20261016.mjs`) with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-16. Card 012 lists what waits on Astra. Later the same day Astra moved the home, repo and tools off the pet line into sub-bullets: `N. **Pet** -- job [status]`, then `- home`, `- repo`, `- tools` (skills/pet-organizer).
@@ -171,6 +175,11 @@ Group 3 at Mommy's Mommies' exact face and body in pixels (the head measured wit
 One art source (Flash Audit A58, approved by Astra 2026-10-18): every pet picture moved into this hub, the desktop pets read only this folder (Claude Bot's private BSOD copy excepted), `scripts/one-art-source-20261017.mjs` checks it, and 35 pet-repo PRs point at the hub, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. Record: docs/one-art-source-20261017.md.
 Flash Audit grey and blue dots (Astra, 2026-10-18): every check says whether the Idle Flash Audit fixes it without Astra (⚪) or it waits for an Active Flash Session with her (🔵), in the same priority order; new check A59 (every pet has one pet program, linked from every place that shows the pet) and tricks in A18, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 The Idle Flash Audit tools follow the dots: the order and each row's dot are read from the matrix (`scripts/flash-matrix-20261018.mjs`), the round cards start every exception with its dot and say which pull request fixed it, only blue items reach the answer sheet, and A59 is checked and its links fixed (documents and metadata only; `scripts/pet-program-link-20261018.mjs`, guarded by `test/idle-flash-dots-test-20261018.mjs`), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+
+## Complete top-level Markdown reading (Astra, 2026-10-18)
+
+Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [pet-app](skills/pet-app/SKILL.md). OpenAI Codex (GPT-6), 2026-10-18.
 The Friendly Farmer's pet-privatizer (`scripts/pet-privatizer-20261018.mjs`, `the-farm-v1.0-pet-privatizer-v1.0`, Astra 2026-10-18: "people need their farm repos to spawn on GitHub as entirely private"): makes a pet's repo private, checks a whole farm, makes a private copy where a fork must stay public; a farm's new repos start private (Astra's own farm passes `--public`). Guarded by `test/pet-privatizer-test-20261018.mjs`, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+The Cage removed and the installer zip made the one download (Astra, 2026-10-18: "Get rid of it"): `cage.html`, `cage-data.js` and the Farmer dock deleted; `INSTALL.md`, the README opening with the installer link, AGENTS.md and CLAUDE.md sending installing agents there; `scripts/installer-zip-20261018.mjs` and `-ListPets`; guarded by `test/install-link-no-cage-test-20261018.mjs` (card 042), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 Installer v0.2.0-beta, "Set up your farm" (Astra, 2026-10-18): Astra's example pets or from scratch with the core pets and ticked examples, `-Farm`/`-Pets` for agents, a load check before "done", running it again changes the farm; the desktop pets run with the Farmer alone and no longer crash when Voicemeeter Bug, Paper Girl or File Master is left out (`test/farm-setup-test-20261018.mjs`, card 039), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 A chat-order skill (numbering chat titles in merge order) was added and removed the same day, 2026-10-18, at Astra's request: chat titles are not numbered.

@@ -50,12 +50,12 @@ Evidence: [AUDIT.md](AUDIT.md), [GAP-ANALYSIS.md](GAP-ANALYSIS.md).
 
 | Part | Fate |
 |---|---|
-| `cage.html` (enclosure, door, page roaming) | Frozen now: no new features. Removed in Phase 3 once the Farm shows every pet. Kept in Git history |
+| `cage.html` (enclosure, door, page roaming) | **Removed 2026-10-18** (Astra: "get rid of it"), with the old desktop Farmer (Farmer dock) and their 2026-10-08 releases. Kept in Git history |
 | `cage_life` movement rules in `pets.json` | Move to the desktop host (Phase 7), where pets really roam |
-| `cage-data.js`, `npm run build` | Become the Farm's generated pet data in Phase 3 |
+| `cage-data.js`, `npm run build` | `cage-data.js` removed 2026-10-18; the Farm gets its own generated pet data in Phase 3 |
 | Mood buttons, bubble lines, `MOOD-KEY.md`, `PET-WORDS.md` | Keep; they serve the Farm cards and the desktop |
 | BSOD guest | Desktop only (already docked there) |
-| `cage.submit` in each pet's `pet.json`, `check-cage.mjs`, the word "Cage" in rules | Renamed in Phase 1 with a compatibility period, so pets that still say `cage.submit` keep working |
+| `cage.submit` in each pet's `pet.json`, `check-cage.mjs` (now `check-pets-20261018.mjs`), the word "Cage" in rules | Renamed in Phase 1 with a compatibility period, so pets that still say `cage.submit` keep working |
 | App pages in `apps/` | Stay as each pet's local program; the Farm links to them as programs |
 
 ## Phases

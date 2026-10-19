@@ -1,7 +1,8 @@
 # Linux readiness check for Astra's PetOS
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. **A document only: no code, setting or repo was changed.** Card 041
-holds what is left.
+holds what is left. Brought up to date the same evening, after `main` gained #85 (Workflow Whale) and #96 (the Cage
+removed, the installer zip made the one download, v0.3.0-beta).
 
 Astra is putting Kali Linux on her old MacBook Pro so she can test Astra's PetOS the way an outside attacker would, as
 an authorized lab (White Hat Weasel, pet program #67, White Hat Lab). She also wants Astra's PetOS to install on Linux
@@ -15,7 +16,7 @@ the platform against Linux, with evidence, and recommends an order.
   kernel"). So the first Linux goal is a package that installs on the Linux people already run, not a new
   distribution.
 - **Most of it already runs on Linux.** The Node scripts and tests run on Ubuntu every day (the Farmer's round), and
-  every page is plain HTML. 22 of the 36 pet repos are browser pages or plain Node.
+  every page is plain HTML. 22 of the 37 pet repos are browser pages or plain Node.
 - **The hard part is the desktop pets** (and Startup Star and the installer, which are built around them): they are
   WinForms and Win32 code, compiled with the C# compiler that ships with Windows.
 - **Kali is the tester, not the target.** It is White Hat Weasel's lab machine. The install target is the Debian
@@ -27,28 +28,31 @@ the platform against Linux, with evidence, and recommends an order.
 the next section)
 
 Pet runtimes come from `runs_on` in each repo's `pet.json` on `main`, read from GitHub on 2026-10-18. `pets.json` has
-no `runs_on` field. Code was read on GitHub, not cloned to the PC.
+no `runs_on` field. Code was read on GitHub, not cloned to the PC. The hub's own `pet.json` (the Friendly Farmer) now
+says: "Windows 10 and 11: the installer builds the desktop pets from source. The Farmer's desk and the System Map open
+in any browser. Node 20 or newer for builds and checks." The Cage (`cage.html`, `cage-data.js`) and the old Farmer
+dock were deleted in #96, so they are not in the table.
 
 | Component | Linux | Evidence | What it depends on, or what has to change |
 | --- | --- | --- | --- |
 | **Hub: `npm test`, `npm run build -- --metadata-only`** | ✅ | GitHub Actions run 39142399506, 2026-10-18 (`main` at `e4d54eb`), image `ubuntu-24.04`, Node 22: 143 tests, 142 pass, 0 fail, 1 skipped (the pets-board workflow test, which skips everywhere until its workflow is added). The Farmer's round (`.github/workflows/farmer-daily-rounds.yml`, `runs-on: ubuntu-latest`) runs `node scripts/build.mjs --metadata-only`, `node scripts/build-interfaces-20261008.mjs` and `npm test` every day. | Node 20 or newer (`engines` in package.json) and Node's built-in modules only. Child processes are `process.execPath`, `git` and `gh`, all on Linux. Since then #88 added `test/farm-setup-test-20261018.mjs`, whose one installer test skips itself when `process.platform !== 'win32'` (it runs the PowerShell installer). |
-| **Hub: full `npm run build`, `npm run check`** | ✅ (not run on Linux yet) | No Windows call found in `scripts/build.mjs`, `scripts/check-cage.mjs` or the frame scripts they run. | Untested: the full build (which renders frames) and the check have not been run on a Linux machine. It is the first thing to try on the MacBook. |
+| **Hub: full `npm run build`, `npm run check`** | ✅ (not run on Linux yet) | No Windows call found in `scripts/build.mjs`, `scripts/check-pets-20261018.mjs` or the frame scripts they run. | Untested: the full build (which renders frames) and the check have not been run on a Linux machine. It is the first thing to try on the MacBook. |
 | **Hub: the tools that call GitHub** (pet-finder, pet-privatizer, the Idle Flash Audit, `publish-pet-tags`) | ✅ | They reach GitHub with Node's `fetch` or the `gh` command and run `git`, without a shell. | Debian's `gh` and `git` packages. They speak GitHub's API only (see open decision 8). |
 | **Hub: `npm run generate`** (paid art) | ✅ (not run on Linux) | `scripts/generate-pets.mjs` runs the image bridge, `../image-bridge/imagine.mjs` (Node, kept in `findastra-discord-presence/image-bridge/`). | `OPENAI_API_KEY`. Costs money, so it stays Astra's call on any OS. |
 | **Pages: the System Map** (`system-map-20261012.html`) | ✅ | HTML and JavaScript. three.js r128 from cdnjs and TrackballControls from jsdelivr, fonts from Google Fonts. | Any current browser. Needs the network for three.js. |
-| **Pages: `cage.html`** (retired as a product, kept working) | ✅ | Reads `cage-data.js` so it works by double-click; no Windows call. | Nothing. No new Cage features (AGENTS.md). |
-| **Pages: the Farmer's desk and `apps/`** (20 pages, the Farm's page today) | ✅ | Plain HTML. Local-service buttons accept only the PC's own loopback address ([local services](local-services-20261014.md)). | Some pages print Windows launcher names as text (`start-farmer-dock-20261008.cmd`, `Start API Fairy.cmd`, `.\run-scan.cmd`), and Voicemeeter Bug's page carries a Windows `launchPath`. A Linux install should show the Linux way, or "Available on a Windows host" (ASTRAS_PET_OS.md 5.2). |
+| **Pages: the Farmer's desk and `apps/`** (21 pages, the Farm's page today) | ✅ | Plain HTML. Local-service buttons accept only the PC's own loopback address ([local services](local-services-20261014.md)). | Some pages print Windows steps as text ("Start menu > Astra's PetOS", `Start API Fairy.cmd`, `.\run-scan.cmd`, the Discord Presence `.cmd` launchers), and Voicemeeter Bug's page carries a Windows `launchPath`. A Linux install should show the Linux way, or "Available on a Windows host" (ASTRAS_PET_OS.md 5.2). |
+| **Hub: the installer zip** (`scripts/installer-zip-20261018.mjs`) | ✅ builds, ⛔ what it builds | Node and `git archive`. | It packs the Windows installer and its `.cmd`, so the zip itself is for Windows only. |
 | **The Farm** (the responsive website with a text box under every pet) | not built | [PLAN.md](migration/PLAN.md) Phase 3 plans Node `node:http` and `node:sqlite`. | Portable by design. `node:sqlite` needs Node 22.13 or newer without a flag. |
 | **Desktop pets** (`scripts/desktop-pets-20261011.cs`, `scripts/pet-dock-tracker-20261011.cs`, built by `build-desktop-pets-20261011.ps1`) | ⛔ | WinForms, Win32 calls into `user32.dll`, `gdi32.dll`, `dwmapi.dll` and `kernel32.dll`, the registry, named Windows events, UI Automation and the .NET Framework 4 compiler (next section). | A port: see "The desktop-pet problem on Linux". |
 | **Startup Star** (the tray Star is inside the desktop-pets program; `findastra/startup-star` adds its launchers) | ⛔ | The tray icon is WinForms `NotifyIcon`. The repo is PowerShell and VBScript: `install-shortcuts-20261012.ps1` (Start menu `.lnk`), `live-sync-20261017.ps1`, `open-star-20261018.vbs`, started from the Windows Startup folder and the scheduled task "Astras PetOS Startup Star". | Live sync is only `git` fast-forwards with safety checks, so it ports easily as a systemd user timer. The tray needs the desktop-pets port. |
-| **Installer** (`installer/install-astras-pet-os-20261014.ps1`, `.cmd`, uninstaller) | ⛔ | Windows PowerShell, a WinForms "Set up your farm" window, `csc.exe`, `robocopy`, `Unblock-File`, `WScript.Shell` shortcuts, `%LOCALAPPDATA%\Programs\astras-pet-os`, start-with-Windows through the registry. | Its farm logic (Example or Scratch, core pets, `-Pets`) is what a Linux package needs. The Windows mechanics are replaced, not ported. |
-| **Old Farmer dock** (`start-farmer-dock-20261008.cmd`) | ⛔ | A `.cmd` that compiles with `%WINDIR%\Microsoft.NET\...\csc.exe`. | Retired with the Cage; not worth porting. |
+| **Installer** (`installer/install-astras-pet-os-20261014.ps1` v0.3.0-beta, shipped in `astras-pet-os-installer.zip`; [INSTALL.md](../INSTALL.md) says "for Windows 10 and 11") | ⛔ | Windows PowerShell, a WinForms "Set up your farm" window, `csc.exe`, `robocopy`, `Unblock-File`, `WScript.Shell` shortcuts, `%LOCALAPPDATA%\Programs\astras-pet-os`, start-with-Windows through the registry. | Its farm logic (Example or Scratch, core pets, `-Pets`, `-ListPets`) is what a Linux package needs. The Windows mechanics are replaced, not ported. |
 | **Pets: browser pages** (21 repos): Backup Beaver, Mail Snail, Meme Fiend, Patch Cat, Mesh Moth, Finance Finch, Health Hummy, Mommy's Mommies, Portfolio Puffer, VSCode Angel, Wifi Butterfly, Fuzzboi Friend, Platform Platypus, GitHub Goldfish, Gone Ghost (`ghost-protocol`), Python Panther (`learn-python`), Chip (`data-dealer`), Mine Mole, Raspberry Pi Berry, Gif Giraffe (`astras-gif-maker`), Paper Girl Patty (`paper-girl`) | ✅ | `runs_on` says "Any modern browser" or "Modern browser" for each, except: Mine Mole has no `runs_on` (its `entry` is an HTML page), and Gif Giraffe says "Windows desktop, in a browser page" (its program is one HTML page). GitHub Goldfish adds an optional Node 20 command line; Paper Girl's site is TypeScript with shell build scripts (`scripts/build-verified.sh`). | Nothing for the pages. Chip's `runs_on` says Data Dealer's own requirements are in its README; that project was not checked. Raspberry Pi Berry says "on Astra's PC" with no Pi connection: on Linux it could run on the Pi itself, which is a new job, not a port. |
 | **Pet: Role Fairy** | ✅ (not run on Linux) | `runs_on`: "Node 24.17 or newer on Astra's PC, with her own Discord bot application". `src/bot.js` uses discord.js and reads its token from the environment; no Windows call. | Runs as a systemd user service. discord.js comes from npm (open decision 8). |
 | **Pets: page runs, planned job needs a Windows-only program**: Deck Duck, RGBee, Rift Rabbit, Drum Dog, Project Parrot | ✅ page, ⛔ job | Deck Duck: "Windows PC (planned)", Elgato's Stream Deck software is for Windows and macOS. RGBee: "Light control is planned for Windows" (MSI Center, Corsair iCUE, Razer Synapse, Logitech G HUB). Rift Rabbit: "Windows desktop (placeholder)", Meta Horizon Link and Virtual Desktop's streamer are Windows programs. Drum Dog looks after Ableton Live (Windows and macOS). Project Parrot reviews OneNote (a Microsoft program with no Linux app). | Each needs a Linux-side program to look after (for example OpenRGB for lights, SteamVR's Linux build): a decision about the pet's job, per pet. |
 | **Pet: Astra Wisp** (`the-astral-plane`) | 🟡 | Python with PySide6 (Qt) and psutil, an Electron front end (`standalone_frontend/`), a voice module (`voice/ai_astra_voice.py`). Launchers are `Run_AIAstra.bat` and `Launch_AIAstra_Test.cmd` (the `.bat` starts `electron.exe`). | Shell launchers instead of `.bat`/`.cmd`. Her VRChat body needs VRChat, which has no Linux build. |
 | **Pet: Chat Rat** | 🟡 | `runs_on`: "Windows, Node 20+ (planned)". A Node server on the PC's loopback address. `start-chat-rat-20261016.ps1` launches it; `openFolder` refuses unless `process.platform === 'win32'` (it opens File Explorer). | A shell launcher, `xdg-open` for folders, and the Linux places where Claude and Codex keep their chats. |
 | **Pet: Discord Damsel** (`findastra-discord-presence`) | 🟡 | Node apps with a local control panel. `src/rpc.js` stops unless `process.platform === 'win32'` and connects to Discord through the Windows named pipe `\\.\pipe\discord-ipc-N`. Tray: `scripts/tray-20261009.ps1`. Start at sign-in: `src/windows-startup.js` (the Startup folder under `%APPDATA%`). `.cmd` launchers. | Discord's Linux app listens on a Unix socket (`discord-ipc-N` under `$XDG_RUNTIME_DIR`), so the pipe path, a tray and a systemd user service change. Its detector already uses `os.homedir()`. |
+| **Pet: Workflow Whale** (`workflow-whirlpool`, private, pipeline since #85) | 🟡 | `runs_on`: "Windows", "iPadOS (unverified native project)". A Node host (`host/workflow-whirlpool-20261016.mjs`) and browser pages (`dist/`), plus `host/windows-bridge-20261016.ps1`: screen capture with WinForms and `System.Drawing`, and pointer control with `user32` `SetCursorPos`, `mouse_event` and `SetProcessDPIAware`. The iPad tool is Swift. | The Node host and pages port as they are; the bridge needs a Linux twin: XTest on X11, and on Wayland the desktop's screen-cast and remote-desktop portals, which ask the person first. |
 | **Pet: Unity Unicorn** | 🟡 | The tool library is a browser page; the tools are Python scripts run in Unity or Blender (`scripts/run-unity-tool-20261011.py`, `neck-blender`, `marble-carver`, ...). | Unity and Blender have Linux builds; VRChat's Creator Companion app is Windows-only. Untested on Linux. |
 | **Pet: File Master** | ⛔ | PowerShell: `Install-FileMaster.ps1` uses `Register-ScheduledTask`; `new-programs-watch-20261013.ps1` reads `HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*` and `Get-AppxPackage`; he looks after Everything and SpaceSniffer (Windows programs). | PowerShell exists for Linux, but these cmdlets and registry keys do not. A Linux version would use a systemd timer, `dpkg-query` for new programs and `plocate` for search. |
 | **Pet: API Fairy** | ⛔ | C# Windows app (`src/*.cs`, `build.cmd`). `src/Native.cs`: `user32` `GetLastInputInfo`, `GetWindowLong`, `SetWindowLong`, `AllowSetForegroundWindow`, `DestroyIcon`; `dwmapi` `DwmSetWindowAttribute`. `src/Scanner.cs` reads keys from the registry (`Registry.CurrentUser`, `Registry.LocalMachine`) and PowerShell's PSReadLine history; `src/Store.cs` encrypts notes with DPAPI (`ProtectedData`, `DataProtectionScope.CurrentUser`). | A Linux twin would read shell profiles, `environment.d` and shell history, and use the Secret Service (libsecret) instead of DPAPI. That is a new program. |
@@ -61,8 +65,8 @@ seed and roadmap pets have nothing built. Several roadmap pets are Linux by natu
 Shell Squid (#62), Kernel Koala (#63), Server Salamander (#49), Docker Dragon (#50), Proxy Axolotl (#64), White Hat
 Weasel (#67) and Port Spider (#68).
 
-**Count of the 36 pet repos:** 22 run on Linux today (21 pages and Role Fairy), 5 have a page that runs but a planned
-job that needs a Windows-only program, 4 need small changes, 4 are Windows-only, 1 was not checked.
+**Count of the 37 pet repos:** 22 run on Linux today (21 pages and Role Fairy), 5 have a page that runs but a planned
+job that needs a Windows-only program, 5 need small changes, 4 are Windows-only, 1 was not checked.
 
 ## Windows APIs the Windows-only hub parts use
 
@@ -123,8 +127,8 @@ across every monitor. Windows allows all of that. Linux desktops do not agree:
 **GNOME on Wayland** has three ways, none a sure one: run the pets as an X11 program under XWayland (it may partly
 work: test it, especially above full-screen apps and on monitors with different scaling); write a GNOME Shell
 extension (JavaScript inside GNOME, a second program to keep); or log in to GNOME on Xorg, which recent GNOME releases
-are removing. The retired Cage is **not** the fallback: no browser roaming (AGENTS.md). On a desktop without pets, the
-Farm page still shows every pet.
+are removing. The Cage is gone (#96) and is **not** the fallback: no browser roaming (AGENTS.md, CLAUDE.md). On a
+desktop without pets, the Farm page still shows every pet.
 
 ### A toolkit path for the port (for Astra to choose; not chosen here)
 
@@ -153,9 +157,10 @@ Windows program today uses only what ships with Windows. That exception is Astra
 One `.deb` that installs on Debian, Ubuntu, Raspberry Pi OS and Kali. No new distribution and no OS to maintain:
 Debian keeps the kernel and security updates, and the package rides on top.
 
-- **Contents:** the hub's pages and art (the System Map, the Farmer's desk, `apps/`, `cage.html` while it must keep
-  working), the Node scripts, the registry, and the farm setup from the Windows installer (Example or Scratch, the core
-  pets, a `--pets` list) as a Node script, so both installers share one farm logic.
+- **Contents:** the hub's pages and art (the System Map, the Farmer's desk, `apps/`), the Node scripts, the registry,
+  and the farm setup from the Windows installer (Example or Scratch, the core pets, a `--pets` list, `--list-pets`) as
+  a Node script, so both installers share one farm logic. It is the Linux twin of the installer zip: one download,
+  never the repo's source zip (INSTALL.md's rule).
 - **One file for every machine:** nothing is compiled, so it is `Architecture: all`: the same file on the MacBook
   (amd64) and a Raspberry Pi (arm64).
 - **Name:** the package takes the repo's name, `astras-pet-os` (names follow GitHub; Debian package names allow
@@ -183,8 +188,9 @@ Debian keeps the kernel and security updates, and the package rides on top.
 **Needs from Astra:** her OK to build it on a branch (it is a core change), the owner (decision 2), the Node versions
 it supports (decision 3), which pets get a Linux runtime first (decision 4), signing and where it is published
 (decision 7), and the MacBook as the first install test (decision 10). When it ships, the core docs change with her
-OK: the glossary row "Astra's PetOS: platform (runs on Windows)", the README's beta-tester steps and AGENTS.md's
-"install only with `installer/install-astras-pet-os-20261014.ps1`" rule gain their Linux line.
+OK: the glossary row "Astra's PetOS: platform (runs on Windows)", [INSTALL.md](../INSTALL.md) ("for Windows 10 and
+11"), the README's opening install link and AGENTS.md's beta-tester rule ("only with the installer zip") gain their
+Linux line.
 
 ### b) The desktop pets on Linux
 
@@ -199,8 +205,9 @@ After (a), because the pets need the core installed, and because the port is the
    without a desktop (its name from Astra).
 
 **Needs from Astra:** the supported desktops (decision 5), the toolkit and its dependency exception (decision 6),
-whether Windows moves to the same code or keeps its own, and an afternoon on the MacBook to look at the prototype,
-since only a person can judge how the pets look and feel.
+whether Windows moves to the same code or keeps its own, a change to AGENTS.md's "Pets roam on the Windows desktop
+only" (it was written against browser roaming, but read literally it rules out a Linux desktop too), and an afternoon
+on the MacBook to look at the prototype, since only a person can judge how the pets look and feel.
 
 ### c) Later: a Debian live image with Astra's PetOS installed
 
@@ -238,7 +245,8 @@ can take an hour or more to build), where an ISO of that size is published, its 
    Linux job, or none, for the pets whose program is Windows-only (File Master, API Fairy, Voicemeeter Bug, Deck
    Duck, RGBee, Rift Rabbit, Drum Dog, Project Parrot).
 5. **Which Linux desktops get desktop pets:** recommended X11 and KDE Plasma. On GNOME on Wayland: test XWayland, write
-   a GNOME Shell extension, or no desktop pets there (the Farm page still shows them).
+   a GNOME Shell extension, or no desktop pets there (the Farm page still shows them). Any of these changes AGENTS.md's
+   "Pets roam on the Windows desktop only" to name the Linux desktops too.
 6. **The desktop toolkit and its exception to "no dependencies":** chosen after the one-pet prototype (paths A and B
    above); and whether Windows moves to it too.
 7. **Signing and publishing:** who signs packages and with which key (not her security key for agents' work), and
