@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge unity-unicorn #13, #14 and #17, then this pull request)
+status: open (waiting on Astra: OK to merge unity-unicorn #13, #14 and #17, then hub #119)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: findastra/unity-unicorn PR #17 (its README section "Asset creator, assets library and shaders shop", `skills/unity-asset-creator/SKILL.md`), docs/unity-unicorn-page-modules-20261018.md, system-map.json (the `unity-stable` tool and trick nodes)
@@ -36,15 +36,15 @@ lines of `pet.json`, the page and the tool-count test.
 - Tests: `node --test test/*.mjs` gave 39 tests, 38 pass, 1 skipped, 0 fail. The four Python tests pass. The page
   renders in headless Edge with the three tools at the end of "Your tools on main".
 
-**findastra/astras-pet-os** (this pull request): branch `claude/unity-stable-asset-tools-20261019`, not on `main`.
+**findastra/astras-pet-os**: branch `claude/unity-stable-asset-tools-20261019`,
+[PR #119](https://github.com/findastra/astras-pet-os/pull/119), open, not on `main`.
 - `system-map.json`: tool nodes `unity-asset-creator`, `unity-assets-library` and `shaders-shop` (state `now`,
   labels `unity-stable-v1.0-<tool>-v1.0`) after `asset-ledger`, so their boxes sit below the existing ones on Unity
   Unicorn's page. The trick node `unity-asset-creator-trick` (name `unity-asset-creator`) sits after
   make-a-prop-look-real. The file keeps its CRLF line endings.
 - `npm run build` rebuilt `apps/pet-programs/unity-unicorn-20261018.html`, `system-map-20261012.html` and
   `TOOLS-AND-TRICKS.md` (168 rows).
-- `docs/unity-unicorn-page-modules-20261018.md` (the three tools and the trick, dated), Unity Unicorn's row in
-  `INTELLIGENCE-LEVELS.md`, AGENTS.md, this card and its rows in `handoffs/README.md`.
+- AGENTS.md, this card and its rows in `handoffs/README.md` (next free number 050).
 - Tested in an LF clone in Claude's scratchpad. Nothing on Astra's PC was changed: the Liminal Doors folder was not
   read or touched (I read the same branch from GitHub).
 
@@ -53,22 +53,25 @@ lines of `pet.json`, the page and the tool-count test.
 - unity-unicorn PRs #15 (also numbered 0.4.5) and #16, from other chats, are based on `main` and touch the same files
   (`pet.json`, the page, README, AGENTS.md). Whichever merges after the others needs `main` brought in and a new version
   number.
-- The hub has no tool boxes yet for matcap-palette and menu-map (unity-unicorn #13 and #14). The page doc's 2026-10-18
-  counts are older than all of these.
+- The hub has no tool boxes yet for matcap-palette and menu-map (unity-unicorn #13 and #14).
+- `docs/unity-unicorn-page-modules-20261018.md` and Unity Unicorn's row in `INTELLIGENCE-LEVELS.md` don't name the three
+  tools or the trick yet. Hub PR #117 (another chat) rewrites both, so I left them alone to keep the two PRs apart. Add
+  them there after #117 is merged.
 - The library still has no licence (Astra's choice).
 
 ## Task
 
-1. Astra: say which pull requests to merge, in this order: unity-unicorn #13, #14, #17, then this one.
+1. Astra: say which pull requests to merge, in this order: unity-unicorn #13, #14, #17, then hub #119.
 2. Whoever merges: before merging #13, retarget #14 to `main` (`gh pr edit 14 --base main -R findastra/unity-unicorn`),
    and before merging #14, retarget #17. Otherwise `--delete-branch` closes the stacked PR. Run unity-unicorn's tests
    after each.
-3. Merge this hub pull request after #17. Its tool boxes say "works today", which is true once the code is on
+3. Merge hub #119 after #17. Its tool boxes say "works today", which is true once the code is on
    unity-unicorn's `main`.
+4. After hub #117 is merged: add the three tools and the trick to the page doc and Unity Unicorn's levels row.
 
 ## Done when
 
-unity-unicorn #17 and this pull request are merged. Unity Unicorn's pet program page then shows unity-asset-creator,
+unity-unicorn #17 and hub #119 are merged. Unity Unicorn's pet program page then shows unity-asset-creator,
 unity-assets-library and shaders-shop below its other tool boxes, and the unity-asset-creator trick in L2.
 
 ## Return

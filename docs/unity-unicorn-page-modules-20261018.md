@@ -76,27 +76,12 @@ The sketch shows two of these as **copyright-collector** and **copyright-auditor
 No tool of another pet is listed here: the Friendly Farmer's, Skill Scout's and Door Dormouse's stay in their own pet
 programs.
 
-**Added on 2026-10-19** ([unity-unicorn PR #17](https://github.com/findastra/unity-unicorn/pull/17)): three tool boxes
-below the others, in this order: **unity-asset-creator** (Workflow: the researched 12-step checklist for a world asset,
-ending in an export and a pull request to the library), **unity-assets-library** (Library: the public repo
-[findastra/unity-assets-library](https://github.com/findastra/unity-assets-library); Astra asked for it right below
-unity-asset-creator) and **shaders-shop** (Workflow: downloads shaders for worlds and tracks which shaders each world
-uses). They were built in Liminal Doors and moved to `scripts/unity-asset-creator/` and `scripts/shaders-shop/`. The
-counts above are from 2026-10-18; they leave out these three, and the matcap-palette and menu-map tools of unity-unicorn
-PRs #13 and #14, which have no tool box in the hub yet. Claude Opus 5.5 (`claude-opus-5-5`).
-
 ## `unity-unicorn-L2-panel`
 
 **Your tricks** (`L2.tricks`): **make-a-prop-look-real**
 ([skills/make-a-prop-look-real/SKILL.md](https://github.com/findastra/unity-unicorn/blob/main/skills/make-a-prop-look-real/SKILL.md),
 merged in PR #7). It uses the L1 tools prop-decomposer and realistic-prop-restyle, and every download it makes is a row
 in `docs/download-ledger-20261018.json`.
-
-**unity-asset-creator** (trick, added 2026-10-19,
-[skills/unity-asset-creator/SKILL.md](https://github.com/findastra/unity-unicorn/blob/main/skills/unity-asset-creator/SKILL.md),
-unity-unicorn PR #17): how the seated agent walks the checklist's 12 steps through the world's agent queue, which steps
-need Astra's own words, and how it publishes. It has the tool's name, like face-transfer in L1 and L3: the tool is the
-code, the trick is the steps an agent follows with it. Its id in system-map.json is `unity-asset-creator-trick`.
 
 **Tricks to write** (`L2.tricks_to_write`), from the sketch: weekly-update-from-friendly-farmer,
 weekly-copyright-auditor. The skill book

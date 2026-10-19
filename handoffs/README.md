@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | open, waits on Astra: OK to merge unity-unicorn #13, #14, #17, then this pull request |
+| [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | open, waits on Astra: OK to merge unity-unicorn #13, #14, #17, then #119 |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, the three pets merged; the hub merges with #105](045-any-crash-watch-pets-20261018.md) | any | done when #105 merges; pet art waits on Astra |
@@ -102,7 +102,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 045 | `045-any-crash-watch-pets-20261018.md` | `claude/crash-watch-pets-20261018` |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `claude/clicker-rule-20261018` |
 | 047 | `047-any-panels-in-pet-repos-20261019.md` | `claude/programmer-words-20261019` |
-| 049 | `049-any-unity-stable-asset-tools-20261019.md` | `claude/unity-stable-asset-tools-20261019` |
+| 049 | `049-any-unity-stable-asset-tools-20261019.md` | `claude/unity-stable-asset-tools-20261019` (PR #119) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
