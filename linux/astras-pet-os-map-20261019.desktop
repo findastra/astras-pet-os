@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Astra's PetOS System Map
+GenericName=System Map
+Comment=The 3D map of your farm: every pet, program and connection
+Exec=astras-pet-os map
+Icon=astras-pet-os
+Terminal=false
+Categories=Utility;
+Keywords=pets;farm;map;
