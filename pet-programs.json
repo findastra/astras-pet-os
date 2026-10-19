@@ -712,7 +712,7 @@
       "assigned": true,
       "icon": "Log Lynx",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "log-den",
       "repo_exists": true,
       "mini_descriptor": {
@@ -787,7 +787,7 @@
       "assigned": true,
       "icon": "Packet Piranha",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "packet-river",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1042,7 +1042,7 @@
       "assigned": true,
       "icon": "Forensic Ferret",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "evidence-locker",
       "repo_exists": true,
       "mini_descriptor": {

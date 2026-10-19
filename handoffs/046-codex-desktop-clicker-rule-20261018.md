@@ -23,17 +23,20 @@ compoinent, and, 2 clicks opens/closes the pet program."
 Make the desktop pets follow the rule, the same for every pet:
 
 1. **Two clicks open or close the pet program:** its page `apps/pet-programs/<repo>-20261018.html` in the hub (a page
-   that must work by double-click), not `interface_url`. A second double-click closes the window it opened: track the
-   window you start (for example a dedicated browser app window) and close only that one. The Farmer's two clicks open
-   The Farm's page the same way. Voicemeeter Bug's `--status` window is today's app; its program page now has an
-   "Open today's app" button.
+   that must work by double-click). **Opening already works from the data** (branch `claude/program-page-links-20261019`,
+   Astra 2026-10-19: "one click always points to program page (Pet Program)"): pets.json `interface_url` and the draft
+   list's `interface` are now the program page, which `OpenPet` opens through `PetFiles.Open`. Still yours: a second
+   double-click closes the window it opened (track the window you start, for example a dedicated browser app window,
+   and close only that one), and Voicemeeter Bug's two clicks, which `OpenPet` still sends to its `--status` window
+   (today's app; its program page has an "Open today's app" button).
 2. **One click shows the current reminder in a dialog box,** a blurb like BSOD's. That dialog is a new component; it
    is not built anywhere yet. PET-WORDS.md has the **bubble** (a short one-way line over the pet); whether the dialog is
    the bubble or a new part with its own name is Astra's word, so ask before naming it. Its text: the pet's most
    urgent need from `status/pets-status.json` (`needs`), else its mood line, as A41 says.
-3. **Three clicks or more run assigned tools.** Fuzzboi Friend's body-style reroll stays on three clicks. **Voicemeeter
-   Bug's one-click repair has to move** (one click is the reminder for every pet): to three clicks, unless Astra says
-   otherwise. Ask her in chat, since it changes what her click does today.
+3. **Three clicks or more run assigned tools,** read from `clicks` in pets.json (`{"3": {"tool", "label", "what"}}`),
+   which the program pages show too. Fuzzboi Friend's body-style reroll (`reroll`) stays on three clicks. **Voicemeeter
+   Bug's repair moves from one click to three** (`repair`): Astra answered on 2026-10-19, "yes move voicemeeter bug to 3
+   clicks is the fix".
 4. Keep `PetClicks`' disambiguation, drag suppression and the cross-pet cancel, and add self-test cases for 1, 2
    (open, then close) and 3 clicks. Rebuild and run `--self-test` as card 031/032 describe. Do not restart Astra's
    running star yourself; she starts it.

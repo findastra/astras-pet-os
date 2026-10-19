@@ -60,5 +60,8 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Sunday | a bot's access to its server, or your OK for a new bot |
 | **Chat Rat** * | the chats it has filed and their index | weekly, Monday | where your Claude and OpenAI chats are saved |
 | **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Tuesday | native iPad verification and a verified chat adapter |
+| **Log Lynx** * | the farm’s logs and crash windows | weekly, Wednesday | a look at a crash I caught |
+| **Packet Piranha** * | the network: loss, latency, DNS and routes | weekly, Thursday | a host to trace |
+| **Forensic Ferret** * | cases and their chains of custody | weekly, Friday | what you saw at a moment with no crash record |
 
 \* in the pipeline: on GitHub, not registered yet.

@@ -1,6 +1,6 @@
 # AGENTS.md: Pole Puff
 
-An Intelligent App, or Pet, by Astra. Status: hatching (draft, repo not created yet). Pole Puff is the pet of `findastra/astras-infinite-pole`.
+Status: hatching (draft, repo not created yet). Pole Puff is the pet of `findastra/astras-infinite-pole`.
 
 Rules: see [PET-FILES.md](https://github.com/findastra/astras-pet-os/blob/main/PET-FILES.md) in
 [Astra's PetOS](https://github.com/findastra/astras-pet-os) (`findastra/astras-pet-os`).

@@ -12,7 +12,7 @@ Every pet app is its own repo under `findastra`, named in lowercase words joined
 |---|---|
 | **`pet.json`** | See below. Includes an `audit` block. |
 | **GitHub topic** | `pet-app`. Added in the repo's About box (the gear). The Cage finds pets by this topic. |
-| **`README.md`** | Title is the repo name in Title Case. The first lines include `*An Intelligent App, or Pet, by Astra.*` (Astra, 2026-10-18; it replaces "A pet app by Astra", and the checks accept the old line until every repo has switched). Has a "how to run it" section and a "limits" section that says plainly what is not done. |
+| **`README.md`** | Title is the repo name in Title Case. The first lines include `*An Intelligent App, or Pet, by Astra.*` (Astra, 2026-10-18; it replaces "A pet app by Astra", and the checks accept the old line until every repo has switched). **This line goes only here, once, in a pet repo's own README** (Astra, 2026-10-19: "this should only be when its at a pet repo"): never in AGENTS.md or CLAUDE.md, a tool's or folder's README, a page, a code comment, a generated file or a repo that is not a pet. Those say "by Astra" when they need a credit. Has a "how to run it" section and a "limits" section that says plainly what is not done. |
 | **`AGENTS.md` and `CLAUDE.md`** | Rules so any assistant can pick the repo up. |
 | **A pet** | Drawn in the shared style (below). What every part of a pet app is called: [PET-WORDS.md](PET-WORDS.md). |
 | **Model and version** | The assistant that built or changed it is recorded (e.g. `Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07`). |

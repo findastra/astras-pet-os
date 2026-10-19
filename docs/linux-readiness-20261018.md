@@ -233,6 +233,19 @@ can take an hour or more to build), where an ISO of that size is published, its 
 - Linux Penguin (#58, Linux Iceberg) owns Linux administration, SSH, systemd and packages. His Mac checker and Kali
   trick wait in [linux-iceberg#2](https://github.com/findastra/linux-iceberg/pull/2).
 
+## Astra's answers, 2026-10-19
+
+| Decision | Astra's answer |
+| --- | --- |
+| 1. Add-on or distribution first | **Add-on first**: the Debian package. A distribution (step c) later. |
+| 2. Who owns the Linux package | **The Farm**, with **Linux Penguin** as the checker on Linux computers. |
+| 3. Node versions | **Node 20 or newer distributions only**: no Node from outside the distribution. |
+| 4. Pets as Linux services first | **Role Fairy and Chat Rat**, then revised the same day: pet services are **an option that is off by default**. |
+| New: Linux Penguin as the Linux guide | **Yes**: his read-only Linux check and **one trick per distribution family** (Debian family first), picked from `/etc/os-release`. He pops up in the terminal now, on the desktop with step (b). |
+
+Built on `claude/linux-package-20261019`: [linux-package-20261019.md](linux-package-20261019.md) says what step (a)
+is, how to build it, and what was and was not tested. Decisions 5 to 10 are still open.
+
 ## Open decisions for Astra
 
 1. **Add-on first or distribution first?** Recommended: the Debian package first (a), a live image later (c).
