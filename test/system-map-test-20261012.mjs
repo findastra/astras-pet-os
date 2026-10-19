@@ -4,7 +4,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { systemMapData, buildSystemMap, petIcons, applyAccessDoc, SYSTEM_MAP } from '../scripts/system-map-20261012.mjs';
+import { systemMapData, buildSystemMap, petIcons, applyAccessDoc, applyPartsDoc, partsRows, SYSTEM_MAP } from '../scripts/system-map-20261012.mjs';
+import { redactData } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (f) => readFileSync(root + f, 'utf8');
@@ -155,4 +156,39 @@ test('on touch screens the map opens flat with no turning, and both panes fold',
   assert.match(page, /\.hud\.min>:not\(\.hudtop\)\{display:none!important\}/);
   assert.match(page, /\.side\.min>:not\(\.sidehead\)\{display:none!important\}/, 'the card folds to its name');
   assert.match(page, /if\(TOUCH\)\{ setHudMin\(true\); hudEl\.querySelectorAll\('details\.sec\[open\]'\)/, 'keys start closed on touch');
+});
+
+// Native programs, native tools, native tricks (Astra, 2026-10-19: "dont show on the system map at all, unless we are
+// calling it a native program"; "make sure that the entire tool trick and program registry is a table on github").
+test('native tools and tricks are never drawn: they belong to a pet program, whose card lists them in sections that fold', () => {
+  const data = systemMapData(registry, extra, programs);
+  const ids = new Map(data.nodes.map((n) => [n.id, n]));
+  const parts = data.nodes.filter((n) => ['tool', 'trick'].includes(n.type));
+  assert.ok(parts.some((n) => n.type === 'trick'), 'tricks are on the map data');
+  for (const n of parts) {
+    const o = ids.get(n.of);
+    assert.ok(o && !['tool', 'trick'].includes(o.type), `${n.id} belongs to a program or pet, not to "${n.of}"`);
+    assert.equal(n.ring, o.ring === '2' ? '3' : o.ring, `${n.id} sits on its pet program's ring`);
+    if (n.type === 'trick') assert.match(n.label, /-trick-v\d/, `${n.id}: a trick box label says trick`);
+  }
+  // Opened on their own, so native programs of The Farm, still drawn, still on ring 0.
+  for (const id of ['desktop-host', 'system-map']) { assert.equal(ids.get(id).type, 'own-program', id); assert.equal(ids.get(id).ring, '0', id); }
+  // No code, only written steps: tricks.
+  for (const id of ['vcc-package-manager', 'vrchat-avatar-upload']) assert.equal(ids.get(id).type, 'trick', id);
+  const page = read(SYSTEM_MAP.template);
+  assert.ok(page.includes('DATA.nodes = DATA.nodes.filter(n=>!PART[n.id]);'), 'the map draws no tool or trick');
+  assert.ok(page.includes('via:(a||b).name'), 'a line of a tool is drawn from its pet program, marked via');
+  assert.ok(page.includes("el('details','parts')"), 'the card lists them in a section that folds');
+  assert.ok(!/'Hammer'/.test(page), 'no hammer in the key: no tool is drawn');
+});
+
+test('TOOLS-AND-TRICKS.md holds the whole registry as one table, up to date (run npm run build)', () => {
+  const doc = read(SYSTEM_MAP.parts);
+  assert.equal(doc, applyPartsDoc(doc, redactData(registry, 'pets.json', []), redactData(extra, 'system-map.json', []), programs));
+  const rows = partsRows(registry, extra, programs);
+  const listed = new Set(rows.map((r) => r.id));
+  for (const n of extra.nodes.filter((x) => ['tool', 'trick'].includes(x.type) || (x.type === 'own-program' && x.program === undefined)))
+    assert.ok(listed.has(n.id), `${n.id} is missing from the registry table`);
+  for (const k of ['own-program', 'tool', 'trick', 'program']) assert.ok(rows.some((r) => r.kind === k), `no ${k} rows`);
+  for (const p of registry.relations.private) assert.ok(!rows.some((r) => programs.find((q) => q.repo === p && q.number === r.number)), `${p} is private`);
 });

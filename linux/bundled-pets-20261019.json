@@ -1,0 +1,17 @@
+{
+  "note": "Pet programs the Linux package carries, each from its own repo at a pinned commit (one copy, owned by its pet), installed in /usr/share/astras-pet-os/pets/<repo>. Astra, 2026-10-19: Linux Penguin comes with the package as the Linux guide.",
+  "pets": [
+    {
+      "pet": "Linux Penguin",
+      "repo": "linux-iceberg",
+      "commit": "b420f14431950abfa159d6016fa498658c80b779",
+      "pinned_from": "linux-iceberg's main after PR #4 (the credit line only at the top of the README), 2026-10-19. #3 and #2 before it were checker-reviewed; #4 changed three comment lines.",
+      "include": [
+        "tools/",
+        "skills/",
+        "pet.json",
+        "README.md"
+      ]
+    }
+  ]
+}

@@ -19,11 +19,15 @@ like a package manager. Every farm can end up with different pets and versions; 
 A **new pet** only when the job needs its own program, its own data and its own schedule that no
 existing pet already owns. Otherwise it is a **tool of the pet whose job it fits.**
 
-Each pet has exactly **one pet program**. Every other program that pet program makes or owns is a **tool** of it
-(Astra, 2026-10-13): it sits on the same ring with the same permissions, never more, and the pet program's page
-links it. Example: Friendly Farmer (pet program icon) → The Farm (pet program) → Astra's PetOS System Map and
-Startup Star (tools of The Farm). Anything made by someone else that a tool uses (three.js, Google Fonts) is a
-third-party dependency, not a tool.
+Each pet has exactly **one pet program**. Everything else that pet program makes or owns is one of three kinds (Astra,
+2026-10-13 and 2026-10-19; [TOOLS-AND-TRICKS.md](../../TOOLS-AND-TRICKS.md)): a **native program** (opened or run on
+its own; the only kind drawn on the System Map), a **native tool** (code it runs with no AI) or a **native trick**
+(steps its AI follows). Each sits on the same ring with the same permissions, never more, and the pet program's page
+and card list it. Example: Friendly Farmer (pet program icon) → The Farm (pet program) → Astra's PetOS System Map and
+Startup Star (native programs of The Farm), pet-privatizer (a native tool) and pet-finder (a native trick). Anything
+made by someone else that a tool uses (three.js, Google Fonts) is a third-party dependency, not a tool. A new one is
+a node in `system-map.json` (`own-program`, `tool` or `trick`, with `of`), so it reaches the map, the pages and the
+registry table.
 
 ## Steps
 1. Restate the need in one line and name the standard software term for it (`skills/dev-mindset`).
@@ -69,4 +73,6 @@ third-party dependency, not a tool.
 | Crash monitoring (catch a crash window the moment it appears, with its stack trace and a picture; read the Windows crash log; check every pet's log is still written) and the farm event log (one record format for every pet program) | Log Lynx (Log Den), tools `log-den-v1.0-crash-catcher-v1.0`, `log-den-v1.0-windows-log-reader-v1.0`, `log-den-v1.0-heartbeat-checker-v1.0`, `log-den-v1.0-farm-event-log-v1.0` | Observability and records are Log Lynx's job (ASTRAS_PET_OS.md; PET-PROGRAM-FRAMEWORK.md section 12: Log Lynx records). One copy of the record format, owned by Log Den; other pet programs compile it from its folder. Astra asked after a crash window closed unread (2026-10-18). | 2026-10-18 |
 | Investigating a crash or a moment: a case with the evidence around it, a chain of custody and a timeline | Forensic Ferret (Evidence Locker), tools `evidence-locker-v1.0-case-opener-v1.0`, `-evidence-collector-v1.0`, `-custody-log-v1.0`, `-timeline-builder-v1.0` | Incident timelines and log analysis are Forensic Ferret's job (Forensic Ferret investigates). Its own program, data (cases) and schedule. It reads and never changes what it investigates. | 2026-10-18 |
 | Whether the network was fine at a moment: loss, latency, DNS, reach, routes | Packet Piranha (Packet River), tools `packet-river-v1.0-ping-sampler-v1.0`, `-dns-checker-v1.0`, `-reach-checker-v1.0`, `-route-tracer-v1.0`, `-link-watcher-v1.0` | Network diagnostics are Packet Piranha's job (distinct from Wifi Butterfly and Mesh Moth). Contacts only the router, the DNS server and its targets file; never scans ports (Port Spider's job). | 2026-10-18 |
+| linux-package (Astra's PetOS as a Debian package: the release, the farm setup, the `astras-pet-os` command, pet services that are off until turned on) | Friendly Farmer (The Farm), tool `the-farm-v1.0-linux-package-v0.1`; Linux Penguin is its checker on Linux computers | Astra chose The Farm (decision 2 of docs/linux-readiness-20261018.md): the Windows installer is already The Farm's, and the Farmer is the package manager. | 2026-10-19 |
+| linux-check and the distro-family tricks (which Linux this is, read only, and how to look after it) | Linux Penguin (Linux Iceberg), tool `linux-iceberg-v0.1-linux-check-v1.0` and trick `linux-iceberg-v0.1-debian-family-trick-v1.0` | Astra's idea: the penguin knows each distribution and helps people find their way. Linux administration is his job. One trick per family (apt, dnf, pacman), not per distribution; the system is his to organize, files stay File Master's. The Linux package carries him at a pinned commit, one copy. | 2026-10-19 |
 | help bots and bot panels (one Discord bot per server, starting with Mommy's Mommies and Press Plai: it answers members' questions from what Astra posts or authorizes, explains how the server works, asks about and assigns roles, and walks members through its commands; later tools such as playing Astra's playlists. Each bot's commands are listed in its bot panel) | Role Fairy (Fairy Ring): one bot panel per bot, `mommys-help-bot-panel` for **Mommy's Helper Bot** first | Astra, 2026-10-19: "these bot panels live in the Role Fairy. She assigns roles and bots on discord." Fairy Ring already runs every Discord bot (2026-10-18). A bot's commands are tools (code, no AI); its answers come from the farmhand in Fairy Ring's seat, on an Anthropic API key with a spend limit, never the Max plan (AGENTS.md, "How the agents work"). Not built. | 2026-10-19 |

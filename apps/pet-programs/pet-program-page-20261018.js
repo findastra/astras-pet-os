@@ -101,7 +101,7 @@
   show(mood);
   if (den && has(den, 'idle')) den.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
 
-  // The awake picture in the emotions module blinks too.
+  // The awake picture in the emotions panel blinks too.
   var awake = document.querySelector('.awake-faces');
   if (has(awake, 'blink')) setInterval(function () {
     face(awake, 'blink'); setTimeout(function () { face(awake, 'idle'); }, 180);

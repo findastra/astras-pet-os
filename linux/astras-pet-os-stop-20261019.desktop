@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Stop Astra's PetOS (big red button)
+Comment=Stop every pet service now
+Exec=astras-pet-os stop
+Icon=process-stop
+Terminal=false
+Categories=Utility;
+Keywords=pets;stop;
