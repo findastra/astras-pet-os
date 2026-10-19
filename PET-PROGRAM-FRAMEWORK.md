@@ -140,6 +140,17 @@ go inside the matching module here.
 audit always agree. An audit that compares the L1 tools with the tool files in the repo, so none is missed, is still
 to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) shows what each pet had on 2026-10-16.
 
+**Every pet starts with the basics (Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page,
+with just the basics first"; of the sketch: "they need these at a minimum, and more").** The Friendly Farmer's **pet
+program spawner** (`the-farm-v1.0-pet-program-spawner-v1.0`, `scripts/pet-program-pages-20261018.mjs`) writes a page
+for every registered and pipeline pet, `apps/pet-programs/<repo>-20261018.html`, listed on
+[the spawner's page](apps/pet-programs/pet-program-spawner-20261018.html). Each has every module of the sketch in its
+place, with the four stacked level modules, from pets.json, pet-programs.json, the System Map data and the hub's art.
+What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
+lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
+not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum.
+
 ### Older detail (still required inside the boxes above)
 
 Every pet program page is made of tool boxes. Each has a border, its versioned label on the top border, and
