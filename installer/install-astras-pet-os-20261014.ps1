@@ -8,7 +8,7 @@
         2. Set up Your Farm From Scratch: the core kit only (the core pets, the System Map, the desktop star and the big
            red Stop button), plus any example pets you tick.
       Core pets are the ones a farm cannot run without; today that is the Friendly Farmer (role "host" in pets.json).
-      Pass -Farm Example or -Farm Scratch (with -Pets) to choose without the window.
+      Pass -Farm Example or -Farm Scratch (with -Pets) to choose without the window; -ListPets shows the ids.
     - Copies this release to %LOCALAPPDATA%\Programs\astras-pet-os (no administrator rights needed).
     - Builds the desktop pets program FROM SOURCE on this PC with the C# compiler that ships with Windows
       (.NET Framework 4), so there is no pre-built .exe to trust: what runs is the source you can read.
@@ -23,6 +23,9 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1 -Farm Scratch -Pets goldfish,api-fairy
+
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1 -ListPets
 #>
 [CmdletBinding()]
 param(
@@ -31,10 +34,11 @@ param(
     [ValidateSet('Example', 'Scratch')][string]$Farm,
     [string[]]$Pets = @(),
     [switch]$StartWithWindows,
-    [switch]$NoLaunch
+    [switch]$NoLaunch,
+    [switch]$ListPets
 )
 $ErrorActionPreference = 'Stop'
-$Version = 'v0.2.0-beta'
+$Version = 'v0.3.0-beta'
 $source = Split-Path -Parent $PSScriptRoot
 $draftsList = 'desktop-art\desktop-drafts-20261018.json'
 Add-Type -AssemblyName System.Web.Extensions
@@ -180,6 +184,10 @@ try {
 
     # 2. Choose the farm: in the window, or with -Farm (and -Pets) for no window
     $farmPets = Get-FarmPets $source
+    if ($ListPets) {   # for AI agents: the ids -Pets takes; nothing is installed
+        $farmPets | ForEach-Object { [pscustomobject]@{ id = $_.Id; pet = $_.Name; kind = $(if ($_.Core) { 'core: always on the farm' } elseif ($_.Draft) { 'example (draft)' } else { 'example' }); job = $_.Job } } | Format-Table -AutoSize -Wrap | Out-String -Width 160 | Write-Host
+        return
+    }
     if (-not $Farm) {
         Write-Host 'Choose your farm in the "Set up your farm" window.'
         $windowUsed = $true

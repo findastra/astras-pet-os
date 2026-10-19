@@ -70,8 +70,8 @@ function clientMain() {
       link(tile, 'Open app', /^https?:/.test(url) ? url : url.replace(/^apps\//, ''));
       const follow = h('label', undefined, 'check', tile), input = h('input', undefined, '', follow); input.type = 'checkbox'; input.checked = state.flags[pet.repo] === true; h('span', 'Needs my attention', '', follow); input.onchange = () => { state.flags[pet.repo] = input.checked; save(); };
     } }; search.oninput = render; render(); notesCard();
-    const desktop = card('Optional Windows Farmer', 'After extracting the app download, run the included launcher to place the Farmer beside your BSOD mini, on the right.');
-    h('code', 'start-farmer-dock-20261008.cmd', '', desktop); h('p', 'Double-click the desktop Farmer to open this desk. Browser pages cannot start a Windows launcher automatically.', 'muted', desktop);
+    const desktop = card('Desktop pets on Windows', 'Install Astra\x27s PetOS with the installer from its latest release: your pets then live on your Windows desktop.');
+    h('code', 'Start menu > Astra\x27s PetOS', '', desktop); h('p', 'Double-click the desktop Farmer to open this desk. Browser pages cannot start a Windows program by themselves.', 'muted', desktop);
   }
 
   if (cfg.type === 'keys') {

@@ -1,6 +1,6 @@
 # Roster
 
-*The running list of everyone who lives in the Cage. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
+*The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
 
 **20 pet apps so far, drawn as 20 characters (20 app pets, 0 companions, 0 mascots). 20 of the 20 pet apps have a repo on GitHub.**
 
