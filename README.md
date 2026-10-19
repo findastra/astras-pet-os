@@ -10,7 +10,7 @@
 
 [![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
 
-**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone.
+**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
 
 **[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
