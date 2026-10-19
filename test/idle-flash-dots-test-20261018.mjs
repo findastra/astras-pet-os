@@ -197,12 +197,14 @@ test('A59 repo fixes change pet.json\'s entry and the README only', () => {
 });
 
 test('A59 hub fixes keep pets.json, pet-programs.json and system-map.json in their own layout', () => {
+  // Derive the next number so enrolling a pet cannot invalidate this layout test.
+  const nextNumber = Math.max(...JSON.parse(read('pet-programs.json')).programs.map(p => p.number)) + 1;
   const dir = scratch();
   try {
     for (const f of ['pets.json', 'pet-programs.json', 'system-map.json']) writeFileSync(join(dir, f), read(f));
     const fixes = [
       { type: 'a59-registry', where: 'hub', id: 'registry:rgbee:interface_url', repo: 'rgbee', key: 'interface_url', to: pagesOf('rgbee'), also: { interface_live_url: pagesOf('rgbee') } },
-      { type: 'a59-number', where: 'hub', id: 'number:new-one', entry: { number: 84, program: 'pet-program-84', assigned: false, icon: 'New One', idea: null, stage: 'pipeline', repo: 'new-one', repo_exists: true, mini_descriptor: { label: 'pet-program-84-v1.0-mini-descriptor-v1.0', text: 'Does a thing.', reviewed: false } } },
+      { type: 'a59-number', where: 'hub', id: 'number:new-one', entry: { number: nextNumber, program: `pet-program-${nextNumber}`, assigned: false, icon: 'New One', idea: null, stage: 'pipeline', repo: 'new-one', repo_exists: true, mini_descriptor: { label: `pet-program-${nextNumber}-v1.0-mini-descriptor-v1.0`, text: 'Does a thing.', reviewed: false } } },
       { type: 'a59-map-link', where: 'hub', id: 'map:22', from: 'rgbee', to: 'program-22', why: 'Light Hive is RGBee\'s own program (pet-programs.json, #22).' },
     ];
     const { applied, log } = applyA59Hub(dir, fixes);

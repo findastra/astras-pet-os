@@ -14,3 +14,7 @@ For Claude:
   (approval, not clicks; Astra, 2026-10-18).
 - No new Cage or browser-roaming features: the Cage is retired as a product concept (see AGENTS.md).
 - Record your model name and version in AGENTS.md when you change something substantial (currently: Claude Opus 5.5, 2026-10-11).
+
+## Complete top-level Markdown reading (Astra, 2026-10-18)
+
+Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [pet-app](skills/pet-app/SKILL.md). OpenAI Codex (GPT-6), 2026-10-18.

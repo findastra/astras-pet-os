@@ -1246,6 +1246,22 @@
         "text": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
         "reviewed": false
       }
+    },
+    {
+      "number": 84,
+      "program": "Workflow Whirlpool",
+      "assigned": true,
+      "icon": "Workflow Whale",
+      "idea": null,
+      "stage": "pipeline",
+      "repo": "workflow-whirlpool",
+      "repo_exists": true,
+      "implementation_status": "Windows companion checked; native iPad compilation, device acceptance and chat delivery remain pending.",
+      "mini_descriptor": {
+        "label": "workflow-whirlpool-v1.0-mini-descriptor-v1.0",
+        "text": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
+        "reviewed": false
+      }
     }
   ]
 }
