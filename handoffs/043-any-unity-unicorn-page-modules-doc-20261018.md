@@ -41,20 +41,21 @@ commit), one file changed besides this card and its README row:
 Question 3 is answered by PR #114 (merged as `5de6f23`): vcc-package-manager and vrchat-avatar-upload are native
 tricks of Unity Stable, not tools. On branch `claude/unity-unicorn-tricks-20261019` (not on `main`; its pull request
 is linked from the commit):
-- `docs/unity-unicorn-page-modules-20261018.md`: a dated note at the top; L1 has 32 tools on `main` (kind Workflow:
-  face-transfer only); the two are tricks to write in L2, 4 in all; question 3 is marked answered.
+- `docs/unity-unicorn-page-modules-20261018.md`: a dated note at the top; L1 has 34 tools on `main` (kind Workflow:
+  face-transfer only; matcap-palette and menu-map came in with unity-unicorn PRs #13 and #14); the two are tricks to
+  write in L2, 4 in all; question 3 is marked answered.
 - `INTELLIGENCE-LEVELS.md`: Unity Unicorn's row now follows unity-unicorn's `pet.json` `intelligence_levels`:
-  32 tools on `main` (face-transfer was merged in PR #6, so it is no longer "on a branch"), 21 not merged, the four
+  34 tools on `main` (face-transfer was merged in PR #6, so it is no longer "on a branch"), 21 not merged, the four
   tricks to write; its error reads "20 tools stuck in two unmerged draft PRs".
-- findastra/unity-unicorn PR #15 (branch `claude/vcc-and-upload-tricks-20261019`, not merged) makes the same move in
-  `pet.json` and on the page (0.4.5). The two catalog files stay in `tools/`, with kind `Trick to write`.
+- findastra/unity-unicorn PR #15 (branch `claude/vcc-and-upload-tricks-20261019`, merged as `7b1fdce` on Astra's OK)
+  made the same move in `pet.json` and on the page (0.4.5). The two catalog files stay in `tools/`, with kind `Trick to write`.
 - This card's status and its row in `handoffs/README.md`. Tests are in the pull request.
 
 ## Task
 
 1. Astra: say if this pull request can be merged.
 2. Whoever is in Unity Unicorn's seat next: `pet.json`'s `job` line in findastra/unity-unicorn still says
-   "26 dated tools"; it has 32 on `main` once unity-unicorn PR #15 is merged (34 before). Change it there, in its own pull request.
+   "26 dated tools"; it has 34 on `main`. Change it there, in its own pull request.
 3. When Codex merges tools from unity-unicorn PR #1 or #3 (their card 002), update this doc's tables and counts in
    the same way, from `pet.json` `intelligence_levels`.
 
