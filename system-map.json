@@ -4492,12 +4492,12 @@
           {
             "language": "HTML",
             "percent": 81.9,
-            "why": "The Cage, every pet's app page in apps/, and the System Map: pages that open by double-click."
+            "why": "Every pet's app page in apps/, the Farmer's desk and the System Map: pages that open by double-click."
           },
           {
             "language": "JavaScript",
             "percent": 12.5,
-            "why": "Node scripts with built-in modules only (the repo's no-dependency rule): the build, the Farmer's daily round on GitHub Actions, and cage-data.js."
+            "why": "Node scripts with built-in modules only (the repo's no-dependency rule): the build, the Farmer's daily round on GitHub Actions, and the installer zip for each release."
           },
           {
             "language": "C#",

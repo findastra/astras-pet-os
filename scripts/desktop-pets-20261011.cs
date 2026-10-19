@@ -458,7 +458,7 @@ namespace AstraDesktopPets {
       menu.Items.Add("Open Farmer's desk",null,delegate { OpenPet(farmer); });
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
-      menu.Items.Add("Open the pets page in a browser",null,delegate { if(!test)PetFiles.Open(File.Exists(PetFiles.SafePath("pets.html"))?"pets.html":"cage.html"); });
+      menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-apps-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
       menu.Items.Add(new ToolStripSeparator());
       var startup=new ToolStripMenuItem("Start desktop pets when I sign in") { Checked=PetFiles.StartupEnabled(),CheckOnClick=true };
       startup.Click+=delegate { if(!test)PetFiles.Startup(startup.Checked);WriteStatus(); };menu.Items.Add(startup);

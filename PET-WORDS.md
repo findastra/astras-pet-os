@@ -1,6 +1,6 @@
 # Pet words: one name for each part of a pet app
 
-*Part of the Cage ([README](README.md)). The Friendly Farmer keeps this list. The GitHub Goldfish flags the old names across the account, and the File Master uses the file names at the bottom when it organizes pet projects.*
+*Part of Astra's PetOS ([README](README.md)). The Friendly Farmer keeps this list. The GitHub Goldfish flags the old names across the account, and the File Master uses the file names at the bottom when it organizes pet projects.*
 
 Every pet app is a set of parts. Each part has **one** name, used everywhere: READMEs, `pet.json`, card titles, code comments, and when talking to Astra. The machine-readable copy is `words` in [pets.json](pets.json); a test keeps the two in step.
 
@@ -9,7 +9,7 @@ Every pet app is a set of parts. Each part has **one** name, used everywhere: RE
 | Part | Call it | Not | What it is |
 |---|---|---|---|
 | The whole set | **pet app** | | One repo, one pet, and its app. "RGBee is a pet app." |
-| The character | **pet** | pixel twin | The creature itself, by name: "the Goldfish", "Chip". It lives in the Cage and in its app's pet well. |
+| The character | **pet** | pixel twin | The creature itself, by name: "the Goldfish", "Chip". It lives on the Windows desktop and in its app's pet well. |
 | The full window | **app** | pet app's app, application interface, pet interface, local interface, browser companion | What opens when you double-click the pet. Either a **web app** (an HTML page) or a **Windows app** (a program). The Farmer's app is called his **desk**. |
 | The pet on your desktop | **desktop pet** | pet app icon, desktop companion | The small pet that sits on the Windows desktop above other windows. Optional: the Farmer and Claude Bot have one. |
 | The pet talking | **bubble** | speech bubble, chat bubble | A short line that pops up over the pet for a few seconds. One way: the pet talks to you. The lines live in `says` in pets.json. |
@@ -46,7 +46,7 @@ farmhands; they are not pets.*
 
 | Call it | Meaning |
 |---|---|
-| **the Cage** | `cage.html`, the page where the pets live, and this repo. |
+| **the Cage** | Gone: the old browser page where the pets lived (`cage.html`), removed 2026-10-18 (Astra). The word survives only in data keys (`cage`, `cage.submit`, `cage_life`). |
 | **the Farmer's desk** | The Farmer's app: every app plus a follow-up list. |
 | **registry** | `pets.json`. |
 | **roster** | `ROSTER.md`. |
@@ -61,12 +61,12 @@ New files use these names. `<date>` is Astra's America/Denver date as `YYYYMMDD`
 | Part | File |
 |---|---|
 | pet metadata | `pet.json` |
-| web app | `<repo>-<date>.html` (in the Cage: `apps/<repo>-<date>.html`) |
+| web app | `<repo>-<date>.html` (in this hub: `apps/<repo>-<date>.html`) |
 | sprite | `sprite-<date>.json`, art in `art/`. Repos where the pet joined an older project may use `pet-sprite-<date>.json` and `pet-art/`. Keep one pattern per repo. |
 | desktop pet | `desktop-pet-<date>.<ext>`, started by `start-desktop-pet-<date>.cmd` |
 | app icon | `icon-<date>.png`, plus `icon-<date>.ico` for Windows |
-| mood sheet (Cage) | `art/sheets/<art>-<date>.png` |
-| mood frame (Cage) | `art/frames/<art>/<mood>-<date>.png` |
+| mood sheet (hub) | `art/sheets/<art>-<date>.png` |
+| mood frame (hub) | `art/frames/<art>/<mood>-<date>.png` |
 | card | `handoffs/NNN-<for>-<short-name>.md` |
 
 ## Keys that keep their old names

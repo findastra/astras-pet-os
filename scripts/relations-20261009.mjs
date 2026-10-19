@@ -23,9 +23,9 @@ export function buildRelations(registry) {
   out.push('Changes start at the bottom and are saved upward. Nothing generated is edited by hand.', '');
   out.push('| Level | Who | Owns | Saves by |', '|---|---|---|---|');
   out.push('| 1 | **Astra** | Approvals: new art (it costs money), a pet\'s job, anything in a card waiting on her | Answering a card, or telling an assistant |');
-  out.push('| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on the Cage |');
+  out.push('| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on this hub |');
   out.push('| 3 | **Each pet\'s repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `cage.submit` |');
-  out.push('| 4 | **Generated** | `cage-data.js`, `ROSTER.md`, the README table, the Farmer\'s desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile\'s pet list | Never by hand: the build and the rounds rewrite them |', '');
+  out.push('| 4 | **Generated** | `ROSTER.md`, the README table, the Farmer\'s desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile\'s pet list | Never by hand: the build and the rounds rewrite them |', '');
   out.push('```mermaid', 'flowchart TD');
   out.push('  A(["Astra"]) -->|asks| S["Any assistant session"]');
   out.push('  S -->|creates or changes| P["Pet repo<br/>pet.json · README · handoffs/"]');
@@ -35,7 +35,7 @@ export function buildRelations(registry) {
   out.push('  F -->|"self-audit on each pet\'s day"| ST["status/pets-status.json<br/>mood + bubble"]');
   out.push('  R --> B["npm run build"]');
   out.push('  ST --> B');
-  out.push('  B --> C["Cage page · ROSTER.md · Farmer\'s desk<br/>MOOD-KEY.md · RELATIONS.md"]');
+  out.push('  B --> C["ROSTER.md · Farmer\'s desk<br/>MOOD-KEY.md · RELATIONS.md"]');
   out.push('  R --> PR{{"Profile round, daily"}}');
   out.push('  PR --> PF["findastra/findastra README"]');
   out.push('  R -->|"registry, pet words"| G{{"GitHub Goldfish"}}');
@@ -44,7 +44,7 @@ export function buildRelations(registry) {
   out.push('```', '');
 
   out.push('## Who tells whom', '');
-  out.push('Thick arrows work today. Plain arrows are planned (in a plan or a card). Dotted arrows are ideas nobody has agreed to yet. A name with * is in the pipeline: on GitHub, not registered in the Cage yet.', '');
+  out.push('Thick arrows work today. Plain arrows are planned (in a plan or a card). Dotted arrows are ideas nobody has agreed to yet. A name with * is in the pipeline: on GitHub, not registered yet.', '');
   out.push('```mermaid', 'flowchart LR');
   const used = new Set(rel.links.flatMap((l) => [l.from, l.to]));
   const grouped = new Set();
@@ -92,6 +92,6 @@ export function buildMoodKey(registry) {
     const custom = p.moods ? ` (custom lines: ${Object.keys(p.moods).join(', ')})` : '';
     out.push(`| **${p.pet}**${p.stage === 'pipeline' ? ' *' : ''} | ${a.subject} | ${when} | ${moodKey(registry, p).curious.replace(/^Curious: I need your OK or your input: /, '').replace(/\.$/, '')}${custom} |`);
   }
-  out.push('', '\\* in the pipeline: on GitHub, not registered in the Cage yet.', '');
+  out.push('', '\\* in the pipeline: on GitHub, not registered yet.', '');
   return out.join('\n');
 }
