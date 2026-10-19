@@ -68,10 +68,12 @@ Astra wants other software developers to read her build without frustration. She
 | Home (cyberhome) | The pet program: its dashboard and runtime | One per pet. Listed first under the pet. Decided 2026-10-16. |
 | Tool | Program or script the pet program owns (deterministic code) | Runs without AI. ON/OFF, sick light, version. Can be bound to three clicks or more (Clicker Training); one click (the reminder) and two clicks (open or close the pet program) are the same for every pet (Astra, 2026-10-18). Decided 2026-10-16. |
 | Trick | Skill (`SKILL.md`), prompt or workflow | What the seated AI knows how to do; uses only that pet's tools. If an AI has to follow it, it is a trick (or a harness skill). Decided 2026-10-16. |
-| Harness skill | Development skill (`SKILL.md` installed in Claude Code or Codex) | Belongs to the seat, not a pet; helps an AI work on a pet. Shown on the pet's L3 module. Not a security boundary, like every skill. Decided 2026-10-18. |
+| Harness skill | Development skill (`SKILL.md` installed in Claude Code or Codex) | Belongs to the seat, not a pet; helps an AI work on a pet. Shown on the pet's L3 panel. Not a security boundary, like every skill. Decided 2026-10-18. |
 | Your Programs | Applications or sites you built that a pet looks after (worlds, websites) | Not tools: the pet manages them; they are not part of it. Decided 2026-10-16. |
 | Commons | Shared registry / issue tracker (the Kennel, the Shed, the vet-clinic) | Hold other people's submissions, not our code. Decided 2026-10-16. |
 | Third-party programs | Third-party software | Made by others; a pet runs them (R X). |
+| Farm event log | Structured event log (JSON Lines) with a versioned schema | One record per line, per pet program, on the PC; owned by Log Den (`farm-event-v1`). Not a "message bus": nothing is sent, records are read. Decided 2026-10-18. |
+| Chain of custody (Evidence Locker) | Chain of custody; a hash chain (tamper-evident log) | Shows that evidence changed; it does not prevent it. Signing (Cipher Owl) is what makes a rewrite of a whole case show. Decided 2026-10-18. |
 
 ## App vs program
 - A **program** is any code a computer runs: apps, services, drivers, scripts, libraries.
