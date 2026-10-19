@@ -1,4 +1,4 @@
-status: open (waiting on Astra: delete cage-data.js from line 59 of the Farmer's round workflow)
+status: done 2026-10-18 (Astra edited the round workflow herself, commit f6bd9f7)
 for: any (the workflow line is Astra's; Codex: read "For Codex")
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: INSTALL.md, README.md (top), scripts/installer-zip-20261018.mjs, test/install-link-no-cage-test-20261018.mjs, .github/workflows/farmer-daily-rounds.yml
@@ -52,7 +52,7 @@ The longest path a real user's Downloads folder gets is about 198 characters, un
 - Release [v0.3.0-beta](https://github.com/findastra/astras-pet-os/releases/tag/v0.3.0-beta) published as **Latest** (not a pre-release) at `b17419f`, with `astras-pet-os-installer.zip` (99 MB, SHA-256 `ED6957591D395BA35708CC884425AB3E57526D5E6ACA33E5B46151980885A312`), uploaded while it was a draft so the link never pointed at a release without the zip. `releases/latest` now answers v0.3.0-beta.
 - Release pages `v0.2.0-20261008` and `v0.2.1-20261008` deleted; their tags stay and their notes are in `docs/retired-releases-20261018.md`. v0.2.0-beta, v0.1.1-beta and v0.1.0-beta now open with "Old version: it still contains the retired Cage. Install the latest instead".
 - Tested from the live link: `releases/latest/download/astras-pet-os-installer.zip` downloaded the same file; `-Farm Scratch -Pets goldfish` and a double-click-style Example install both worked, with no Cage file, and the pets ran 8 s with no UI exception.
-- Not done: the workflow line below (this login cannot change workflow files). Until it is edited, the round stops at `git add` each morning; nothing else breaks.
+- The workflow line: Astra deleted `cage-data.js` from line 59 of `.github/workflows/farmer-daily-rounds.yml` on GitHub herself (commit `f6bd9f7`, one line, checked). The step is still titled "Rebuild the Cage and the Farmer's desk"; renaming it is cosmetic and also a workflow edit, so it is left for Astra.
 
 ## Task (Astra's, in this order)
 1. **Edit one line of the Farmer's round on GitHub** (this PC's GitHub login cannot change workflow files):
