@@ -28,7 +28,8 @@ on Linux without Microsoft.
   one row per number in the number table (040 now on `main`), next free number 043 from `main`. The doc now counts 37
   pet repos (Workflow Whale added as small changes: its Windows bridge), drops the Cage and Farmer dock rows, adds the
   installer zip, cites INSTALL.md, and notes AGENTS.md's "Pets roam on the Windows desktop only" as a line step (b)
-  needs Astra to change.
+  needs Astra to change. `npm test` after the merge: 141 tests, 140 pass, 0 fail, 1 skipped (#96 removed the Cage
+  tests). The installer-zip test zips `HEAD`, so it fails until the merge is committed.
 - **On Astra's PC:** nothing changed. The live hub folder was only read (`git status`); the work was in a clone in
   Claude's scratchpad. AGENTS.md has no new credit line, to keep clear of the three open pull requests that add lines
   there; the credit is at the top of the doc.
