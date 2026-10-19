@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge this pull request; which "in code" mark the System Map shows, A, B or C)
+status: open (waiting on Astra: merge this pull request; the R W X panel is built after #110, #111 and #104 merge)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: AGENTS.md ("How the agents work"), skills/dev-mindset, skills/new-pet-or-tool, PROTECTION-RINGS.md, system-map.json (`access`), scripts/system-map-template-20261012.html, PR #104, PR #106, PR #111
@@ -32,23 +32,35 @@ Code and Codex "the agentic harness", while L3 is each pet program's own harness
 1. **After PR #111 merges:** its new `PET-WORDS.md` rows "agentic harness" ("the program that gives a model tools ...
    (Claude Code, Codex)") and "the seat" ("through Claude Code or Codex") follow AGENTS.md: pet harness vs provider
    harness, any farmhand in the seat.
-2. **After PR #104 merges, and Astra picks one:** the System Map's mark for whether each level's R W X is reflected in
-   the code. Astra, 2026-10-19: "I think we need a W R X what it should be, then some kind of easy indicator of
-   whether that is reflected in the current code." The data already holds both: each grant's R W X is the design and
-   its status says whether code enforces it. Options shown to her in chat:
-   - **A** as PR #104 has it: R W X boxes and a status chip (Enforced, Written only, Planned).
-   - **B** the letters show it: a solid letter is enforced in code, an outlined one is a rule only, a dashed one is not
-     built.
-   - **C** (recommended) two parts on every level row: **Should be: R W X** and **In code: ✓ yes / rule only / not
-     built**. An enforced grant also names its **evidence** (the test, setting or script that enforces it, a new
-     `evidence` field in `system-map.json`), and `npm test` fails when that file is missing, so "in code" is never
-     claimed without proof.
-   Change the map's look only as she picks (her System Map design decisions are in card 034).
-3. **After PR #106 merges:** Role Fairy's bots as tools of Fairy Ring on the map, each with planned grants: read the
+2. **The R W X panel, option C (Astra, 2026-10-19).** Astra: "I think we need a W R X what it should be, then some
+   kind of easy indicator of whether that is reflected in the current code." She chose option C, then: "I think this
+   actually needs to be its own panel in each pet program." Build it **after #110, #111 and #104 merge**: #110 and
+   #111 rewrite the spawner (`scripts/pet-program-pages-20261018.mjs`; #111 renames modules to panels) and #104 gives
+   every grant its levels.
+   - **Data** (`system-map.json`): each status gets its mark: enforced **In code**, written **Rule only**, planned
+     **Not built**. Every enforced grant gets `evidence`, a test or script file or a setting: `owner`, a setting (her
+     own accounts); `seat-asks`, a setting (Claude Code's permission modes, Codex's approvals and sandbox);
+     `farmer-round`, `test/farmer-rounds-pr-test-20261017.mjs`. The generator refuses an enforced grant without
+     evidence, an evidence file that is missing, or evidence on a grant that is not enforced; a test checks the same.
+   - **Its own panel on every pet program page** (the spawner), working name `<pet>-rwx-panel` until Astra names it:
+     four rows, L1 to L4, each with **Should be: R W X** and **In code: In code / Rule only / Not built**. A row
+     opens to the grants behind it and each In code's proof; a row is only as sure as its weakest grant. The grant
+     tables move out of the L4 panel into it (the L4 panel keeps approvals, keys, maintenance and the passport).
+     PET-PROGRAM-FRAMEWORK.md section 3 and its checklist list the panel.
+   - **The System Map card's level rows** (from #104) use the same words and marks, so the page and the map agree.
+   - **PROTECTION-RINGS.md** names each proof in the grants table; its intro, `skills/farm-security` section 1 and the
+     dev-mindset row "Enforced, written only, planned" say In code, Rule only and Not built.
+3. **Now that PR #106 is merged (2026-10-19):** Role Fairy's bots as tools of Fairy Ring on the map, each with planned grants: read the
    channels Astra authorizes, post replies, change only the roles it created.
 
+## Decisions
+- **Option C** (Astra, 2026-10-19): what each level should be (R W X), then whether that is in code (In code, Rule
+  only, Not built), with evidence for every In code.
+- **Its own panel in each pet program** (Astra, 2026-10-19), not only the map card.
+
 ## Done when
-This pull request is merged, PET-WORDS.md agrees with AGENTS.md, and the map shows the mark Astra picked.
+This pull request is merged, PET-WORDS.md agrees with AGENTS.md, and every pet program page has the R W X panel, with
+the same marks on the System Map cards.
 
 ## Return
 Update `## What I did`, set `status: done`, commit on a branch.
