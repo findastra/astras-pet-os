@@ -241,6 +241,162 @@
       "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
     },
     {
+      "id": "crash-catcher",
+      "name": "Crash catcher",
+      "type": "tool",
+      "of": "program-48",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "log-den-v1.0-crash-catcher-v1.0",
+      "job": "A tool of Log Den (Astra, 2026-10-18): Records every crash window when it appears: program, path, SHA-256, command line, parent, window text, stack trace (presses Details only on .NET dialogs) and a picture. Merged (log-den PR #2); runs on this PC when Log Lynx is started."
+    },
+    {
+      "id": "windows-log-reader",
+      "name": "Windows log reader",
+      "type": "tool",
+      "of": "program-48",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "log-den-v1.0-windows-log-reader-v1.0",
+      "job": "A tool of Log Den (Astra, 2026-10-18): Reads crash records from the Windows Application log (Application Error 1000, .NET Runtime 1026, Windows Error Reporting 1001). Merged (log-den PR #2); runs on this PC when Log Lynx is started."
+    },
+    {
+      "id": "heartbeat-checker",
+      "name": "Heartbeat checker",
+      "type": "tool",
+      "of": "program-48",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "log-den-v1.0-heartbeat-checker-v1.0",
+      "job": "A tool of Log Den (Astra, 2026-10-18): Checks that every pet program writing farm events, and the desktop pets’ and Voicemeeter Bug’s logs, are still writing; writes Log Lynx’s heartbeat. Merged (log-den PR #2); runs on this PC when Log Lynx is started."
+    },
+    {
+      "id": "farm-event-log",
+      "name": "Farm event log",
+      "type": "tool",
+      "of": "program-48",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "log-den-v1.0-farm-event-log-v1.0",
+      "job": "A tool of Log Den (Astra, 2026-10-18): The shared farm event record format (contracts/farm-event-v1-20261018.cs and .schema.json); other pet programs compile this one copy. Merged (log-den PR #2); runs on this PC when Log Lynx is started."
+    },
+    {
+      "id": "ping-sampler",
+      "name": "Ping sampler",
+      "type": "tool",
+      "of": "program-53",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "packet-river-v1.0-ping-sampler-v1.0",
+      "job": "A tool of Packet River (Astra, 2026-10-18): Every minute: five pings each to the router and the DNS server; loss and latency. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started."
+    },
+    {
+      "id": "dns-checker",
+      "name": "Dns checker",
+      "type": "tool",
+      "of": "program-53",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "packet-river-v1.0-dns-checker-v1.0",
+      "job": "A tool of Packet River (Astra, 2026-10-18): Every minute: DNS answer time for each name in the targets file. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started."
+    },
+    {
+      "id": "reach-checker",
+      "name": "Reach checker",
+      "type": "tool",
+      "of": "program-53",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "packet-river-v1.0-reach-checker-v1.0",
+      "job": "A tool of Packet River (Astra, 2026-10-18): Every minute: one TCP connection to github.com:443, opened and closed with no data sent. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started."
+    },
+    {
+      "id": "route-tracer",
+      "name": "Route tracer",
+      "type": "tool",
+      "of": "program-53",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "packet-river-v1.0-route-tracer-v1.0",
+      "job": "A tool of Packet River (Astra, 2026-10-18): The hops to a host: on request, and once when the internet is lost while the router answers. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started."
+    },
+    {
+      "id": "link-watcher",
+      "name": "Link watcher",
+      "type": "tool",
+      "of": "program-53",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "packet-river-v1.0-link-watcher-v1.0",
+      "job": "A tool of Packet River (Astra, 2026-10-18): The adapter in use, its speed and router, and every change or drop. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started."
+    },
+    {
+      "id": "case-opener",
+      "name": "Case opener",
+      "type": "tool",
+      "of": "program-70",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "evidence-locker-v1.0-case-opener-v1.0",
+      "job": "A tool of Evidence Locker (Astra, 2026-10-18): Opens a case two minutes after every crash Log Lynx catches, or for a moment Astra names. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started."
+    },
+    {
+      "id": "evidence-collector",
+      "name": "Evidence collector",
+      "type": "tool",
+      "of": "program-70",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "evidence-locker-v1.0-evidence-collector-v1.0",
+      "job": "A tool of Evidence Locker (Astra, 2026-10-18): Gathers farm events, crash pictures and stack traces, screenshots, file activity (names and times) and Windows log errors around the moment; read-only copies. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started."
+    },
+    {
+      "id": "custody-log",
+      "name": "Custody log",
+      "type": "tool",
+      "of": "program-70",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "evidence-locker-v1.0-custody-log-v1.0",
+      "job": "A tool of Evidence Locker (Astra, 2026-10-18): A hash-chained chain of custody per case; --verify re-checks every item and entry. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started."
+    },
+    {
+      "id": "timeline-builder",
+      "name": "Timeline builder",
+      "type": "tool",
+      "of": "program-70",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "evidence-locker-v1.0-timeline-builder-v1.0",
+      "job": "A tool of Evidence Locker (Astra, 2026-10-18): One timeline and a plain report.md per case. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started."
+    },
+    {
       "id": "keep-voicemeeter-open",
       "name": "Keep Voicemeeter open",
       "type": "tool",
@@ -323,14 +479,6 @@
       "layer": 4
     },
     {
-      "id": "log-lynx",
-      "name": "Log Lynx",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Observability: correlates logs, traces, health and failures.",
-      "layer": 4
-    },
-    {
       "id": "server-salamander",
       "name": "Server Salamander",
       "type": "roadmap",
@@ -360,14 +508,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "AI cost: model tokens, budgets and inference usage. Security role: flags token and cost spikes; a runaway or hijacked agent burns tokens.",
-      "layer": 4
-    },
-    {
-      "id": "packet-piranha",
-      "name": "Packet Piranha",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Network: packet loss, DNS, latency, routing.",
       "layer": 4
     },
     {
@@ -472,14 +612,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Encryption, keys, certificates and crypto education. Security role: checks signatures and provenance (PROVENANCE.md).",
-      "layer": 4
-    },
-    {
-      "id": "forensic-ferret",
-      "name": "Forensic Ferret",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Incident timelines and log analysis.",
       "layer": 4
     },
     {
@@ -2796,7 +2928,7 @@
       "why": "Stalled jobs and handoffs."
     },
     {
-      "from": "log-lynx",
+      "from": "log-den",
       "to": "queue-quokka",
       "carries": "findings",
       "state": "architecture",
@@ -2866,14 +2998,14 @@
       "why": "Offline queue on the cyberdeck Pi."
     },
     {
-      "from": "packet-piranha",
+      "from": "packet-river",
       "to": "wifi-butterfly",
       "carries": "findings",
       "state": "architecture",
       "why": "Network diagnostics alongside Wi-Fi."
     },
     {
-      "from": "packet-piranha",
+      "from": "packet-river",
       "to": "mesh-moth",
       "carries": "findings",
       "state": "architecture",
@@ -2978,7 +3110,7 @@
       "why": "Watches every pet's retries, stalled jobs and handoffs."
     },
     {
-      "from": "log-lynx",
+      "from": "log-den",
       "to": "@pets",
       "carries": "findings",
       "state": "architecture",
@@ -5267,6 +5399,64 @@
         "status": "planned",
         "how": "Astra, 2026-10-18: Proxy Axolotl watches CLI Proxy API's network side. The proxy has one owner, Discord Damsel's tool, so Proxy Axolotl reads only that tool's safety check (this PC only, remote console, discovery and plugins off) and whether the proxy answers, and flags it if it could be reached from beyond this PC. Never the proxy's settings file, keys or sign-ins; Start, Stop and settings stay Discord Damsel's. Proxy Axolotl is not built yet.",
         "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
+      },
+      {
+        "id": "log-lynx-watch",
+        "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
+        "subjects": [
+          "id:log-den"
+        ],
+        "on": "every window on the desktop and the process that owns it (title, text, path, command line, parent), the Windows Application log, and the farm event folders and known logs of the other pets (last-write times)",
+        "resources": [
+          "ring:5",
+          "ring:6",
+          "type:pet",
+          "type:pipeline"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Log Den’s own code only reads, and on a .NET crash window presses Details and nothing else (log-den-20261018.cs). It writes only its own data folder. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Log Den writes only its own folder."
+      },
+      {
+        "id": "packet-piranha-probe",
+        "who": "Packet Piranha (Packet River: ping-sampler, dns-checker, reach-checker, route-tracer)",
+        "subjects": [
+          "id:packet-river"
+        ],
+        "on": "pings to this PC’s router and DNS server, DNS lookups, one TCP connection a minute to the names in its targets file (github.com:443 by default, no data sent), and traceroutes to a host Astra names",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "packet-river-20261018.cs contacts only the router, the DNS server and its targets file; it never scans ports or changes the network. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant with its targets as the limit."
+      },
+      {
+        "id": "forensic-ferret-read",
+        "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
+        "subjects": [
+          "id:evidence-locker"
+        ],
+        "on": "the other pets’ farm events and Log Lynx’s crash pictures, screenshots saved around a case (copied in), file names and times in the Claude Code, Codex and Astra’s PetOS folders (never contents), the Windows Application log, and the id and title of each Claude Code session",
+        "resources": [
+          "type:pet",
+          "type:pipeline",
+          "ring:4",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "evidence-locker-20261018.cs reads and copies into its own cases folder only; it never changes or deletes what it investigates. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; Cipher Owl signs each case so a rewritten case shows."
       }
     ]
   },
@@ -5805,6 +5995,63 @@
           }
         ]
       },
+      "log-den": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 62,
+            "why": "The tray program and its tools: Windows windows, processes and the event log need native calls, so it is C#."
+          },
+          {
+            "language": "HTML",
+            "percent": 36.8,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
+      "packet-river": {
+        "languages": [
+          {
+            "language": "HTML",
+            "percent": 50.1,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "C#",
+            "percent": 47.8,
+            "why": "The tray program and its network tools (ping, DNS, TCP, traceroute)."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
+      "evidence-locker": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 58.1,
+            "why": "The tray program and its case tools (collection, chain of custody, timeline)."
+          },
+          {
+            "language": "HTML",
+            "percent": 40.2,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.6,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
       "role-fairy": {
         "languages": [
           {
@@ -5886,11 +6133,11 @@
     "ghost-protocol": "blue",
     "pet-police-officer": "blue",
     "agent-ant": "blue",
-    "log-lynx": "blue",
+    "log-den": "blue",
     "token-toucan": "blue",
-    "packet-piranha": "blue",
+    "packet-river": "blue",
     "wifi-butterfly": "blue",
-    "forensic-ferret": "blue",
+    "evidence-locker": "blue",
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
