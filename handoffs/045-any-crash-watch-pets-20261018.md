@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to push the four branches and open their pull requests; then OK to merge; pet art)
+status: open (waiting on Astra: merge the four pull requests, in order; pet art)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `claude/build-20261018`; this card's branch `claude/crash-watch-pets-20261018`
@@ -14,12 +14,14 @@ monitor this crash ... show me the pet programs, then I will let you know if to 
 
 ## What I did
 
-Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18, chat "Astra's PetOS - Network Issue". Nothing is pushed.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18, chat "Astra's PetOS - Network Issue". Pushed on Astra's OK in chat ("Push the four branches and open one pull request per repo"); nothing is merged.
+
+**Pull requests, in merge order:** 1. [log-den#2](https://github.com/findastra/log-den/pull/2) · 2. [packet-river#2](https://github.com/findastra/packet-river/pull/2) · 3. [evidence-locker#2](https://github.com/findastra/evidence-locker/pull/2) · 4. [astras-pet-os#105](https://github.com/findastra/astras-pet-os/pull/105) (this branch). #101, #102 and #103 touch some of the same lines: whichever merges second needs `main` merged in.
 
 **Three pet programs, each a Windows tray program built on the PC by the C# compiler that ships with Windows, with a
 console build for checks, and a pet program page with every module of Astra's 2026-10-18 sketch:**
 
-| Repo | Branch, commit (local, not pushed) | Tools | Self-test |
+| Repo | Branch, commit (pushed) | Tools | Self-test |
 |---|---|---|---|
 | log-den (Log Lynx, #48) | `claude/build-20261018`, `9048875` | crash-catcher, windows-log-reader, heartbeat-checker, farm-event-log (`contracts/farm-event-v1-20261018.cs` and `.schema.json`) | 38 pass |
 | packet-river (Packet Piranha, #53) | `claude/build-20261018`, `4b77cc7` | ping-sampler, dns-checker, reach-checker, route-tracer, link-watcher | 20 pass |
@@ -64,7 +66,7 @@ desktop pets, PID 1960, were never touched):
 
 ## Task
 
-1. **Astra:** say whether to push. Then push the four branches, open one pull request per repo, and link them here.
+1. ~~Push and open the pull requests~~ done 2026-10-18 (above).
 2. **Astra:** merge (each pet's pull request, then this hub's). Until the hub merges, the pets are roadmap pets that work.
 3. **Astra:** pet art for Log Lynx, Packet Piranha and Forensic Ferret (paid; prompts not written yet). Until then the
    pages show a text face and the tray shows a small drawn icon.

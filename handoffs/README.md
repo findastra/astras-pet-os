@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [045: Log Lynx, Packet Piranha and Forensic Ferret: built and pushed, waiting on the merges](045-any-crash-watch-pets-20261018.md) | any | open, waits on Astra: merge the four pull requests; pet art |
+| [045: Log Lynx, Packet Piranha and Forensic Ferret: built and pushed, waiting on the merges](045-any-crash-watch-pets-20261018.md) | any | open, waits on Astra: merge log-den#2, packet-river#2, evidence-locker#2, then #105; pet art |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open, waits on Astra: merge, and which page a pet's double-click opens |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
