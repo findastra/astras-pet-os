@@ -8,6 +8,7 @@
 //   RELATIONS.md, MOOD-KEY.md   how the pets relate, and what each mood means for each pet (relations-20261009.mjs)
 //   system-map-20261012.html       the 3D map of Astra's PetOS, from pets.json, pet-programs.json and system-map.json (system-map-20261012.mjs)
 //   PROTECTION-RINGS.md          the rings and grants tables, from system-map.json (system-map-20261012.mjs)
+//   apps/pet-programs/           a pet program page for every registered and pipeline pet (pet-program-pages-20261018.mjs)
 //
 // This replaces build-art.mjs, which drew the original 32x32 pets by hand.
 // Generating new art is separate and costs money: see generate-pets.mjs.
@@ -22,6 +23,7 @@ import { MOODS } from './sheet-to-sprites.mjs';
 import { buildRelations, buildMoodKey } from './relations-20261009.mjs';
 import { buildSystemMap, readSystemMapSources, applyAccessDoc, SYSTEM_MAP } from './system-map-20261012.mjs';
 import { redactData, assertPublic } from './public-safety-20261014.mjs';
+import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -53,6 +55,8 @@ writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('p
   // The rings and grants in PROTECTION-RINGS.md come from the same data as the map (Astra, 2026-10-17).
   const doc = readFileSync(SYSTEM_MAP.doc, 'utf8'), nextDoc = applyAccessDoc(doc, extra);
   if (nextDoc !== doc) writeFileSync(SYSTEM_MAP.doc, nextDoc); }
+// Every pet's pet program page, from the same sources as the map (the Friendly Farmer's pet program spawner, 2026-10-18).
+writePetProgramPages('.');
 for (const { path, kind } of redacted) console.log(`Public safety: left out a ${kind} at ${path}; keep it on this PC (docs/local-services-20261014.md).`);
 
 const readme = readFileSync('README.md', 'utf8');

@@ -146,6 +146,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-18): makes a pet’s repo private on GitHub, checks every repo of a farm at once, and makes a private copy where GitHub keeps a fork public, so a farm can be entirely private. It shows what would be lost first (stars, watchers, a Pages site) and changes GitHub only with the owner’s OK, only for animals (scripts/pet-privatizer-20261018.mjs)."
     },
     {
+      "id": "pet-program-spawner",
+      "name": "pet-program-spawner",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-program-spawner-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every module of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
+    },
+    {
       "id": "claude",
       "name": "Claude (Anthropic)",
       "type": "model",
@@ -203,6 +215,42 @@
       "job": "Windows app that shows Claude activity on Astra's Discord profile. One of Discord Damsel's programs.",
       "layer": 6,
       "category": "Desktop app"
+    },
+    {
+      "id": "sticker-manager",
+      "name": "Sticker Manager",
+      "type": "tool",
+      "of": "program-13",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "discord-tower-v1.0-sticker-manager-v1.0",
+      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
+    },
+    {
+      "id": "cli-proxy-api-manager",
+      "name": "CLI Proxy API manager",
+      "type": "tool",
+      "of": "program-13",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
+      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
+    },
+    {
+      "id": "keep-voicemeeter-open",
+      "name": "Keep Voicemeeter open",
+      "type": "tool",
+      "of": "audio-rescue",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "audio-rescue-v1.0-keep-voicemeeter-open-v1.0",
+      "job": "A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC."
     },
     {
       "id": "voicemeeter",
@@ -522,6 +570,24 @@
       "layer": 6,
       "job": "Cloud service. Your profile shows AI activity through the presence apps; Discord Damsel manages your Discord apps and cleanup.",
       "category": "Cloud service"
+    },
+    {
+      "id": "betterdiscord",
+      "name": "BetterDiscord",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "job": "Third-party client mod for Discord desktop that loads plugins, such as Discord Damsel's Sticker Manager. Made by others (betterdiscord.app), not through the Shed; client mods are against Discord's Terms of Service. A Discord update can remove it. Not loaded in Discord on 2026-10-18.",
+      "category": "Desktop app"
+    },
+    {
+      "id": "cli-proxy-api",
+      "name": "CLI Proxy API",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 is in quarantine, checksum-verified, never run. Never signed in with Astra's Claude login.",
+      "category": "Desktop app"
     },
     {
       "id": "github",
@@ -2269,6 +2335,62 @@
       "why": "Discord Damsel's server and DM cleanup and future Discord tools (Astra, 2026-10-11)."
     },
     {
+      "from": "findastra-discord-presence",
+      "to": "sticker-manager",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Discord Damsel's page links her Sticker Manager, which runs inside Discord (Astra, 2026-10-18)."
+    },
+    {
+      "from": "sticker-manager",
+      "to": "betterdiscord",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "The Sticker Manager is a BetterDiscord plugin."
+    },
+    {
+      "from": "sticker-manager",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Reads your servers and their stickers; changes only your favorite stickers, after you confirm, through Discord's own settings saver."
+    },
+    {
+      "from": "findastra-discord-presence",
+      "to": "cli-proxy-api-manager",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Discord Damsel's page links the CLI Proxy API controls, which run only on this PC (Astra, 2026-10-18)."
+    },
+    {
+      "from": "cli-proxy-api-manager",
+      "to": "cli-proxy-api",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installs the verified release, writes a config that keeps it on this PC only, starts and stops it; refuses a Claude sign-in."
+    },
+    {
+      "from": "cli-proxy-api",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "Runs locally on the PC; only this PC can reach it."
+    },
+    {
+      "from": "token-toucan",
+      "to": "cli-proxy-api-manager",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Tracks the tokens that go through CLI Proxy API, read from Discord Damsel's tool by a read-only grant; a token spike makes her worried (Astra, 2026-10-18)."
+    },
+    {
+      "from": "proxy-axolotl",
+      "to": "cli-proxy-api-manager",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Reads Discord Damsel's network safety check for CLI Proxy API by a read-only grant, and flags it if the proxy could be reached from beyond this PC (Astra, 2026-10-18)."
+    },
+    {
       "from": "astras-pet-os",
       "to": "github",
       "carries": "runs-on",
@@ -3177,6 +3299,20 @@
       "carries": "opens",
       "state": "now",
       "why": "Asks Voicemeeter to restart its audio engine."
+    },
+    {
+      "from": "audio-rescue",
+      "to": "keep-voicemeeter-open",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-10-18)."
+    },
+    {
+      "from": "keep-voicemeeter-open",
+      "to": "voicemeeter",
+      "carries": "manages",
+      "state": "now",
+      "why": "Opens Voicemeeter again when it closes and closes its registration reminder at startup; never force-closes or registers it."
     },
     {
       "from": "steamvr",
@@ -4377,6 +4513,40 @@
         "gaps": [
           10
         ]
+      },
+      {
+        "id": "toucan-reads-cli-proxy",
+        "who": "Token Toucan",
+        "subjects": [
+          "id:token-toucan"
+        ],
+        "on": "CLI Proxy API's token use, read through Discord Damsel's tool",
+        "resources": [
+          "id:cli-proxy-api-manager"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "planned",
+        "how": "Astra, 2026-10-18: Token Toucan watches the tokens that go through CLI Proxy API. The proxy has one owner, Discord Damsel's tool, so Token Toucan reads only what that tool reports: which models were used and how many tokens each took. Never the proxy's settings file, keys or sign-ins; Start, Stop and settings stay Discord Damsel's. Token Toucan is not built yet.",
+        "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
+      },
+      {
+        "id": "axolotl-reads-cli-proxy",
+        "who": "Proxy Axolotl",
+        "subjects": [
+          "id:proxy-axolotl"
+        ],
+        "on": "CLI Proxy API's network safety check, read through Discord Damsel's tool",
+        "resources": [
+          "id:cli-proxy-api-manager"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "planned",
+        "how": "Astra, 2026-10-18: Proxy Axolotl watches CLI Proxy API's network side. The proxy has one owner, Discord Damsel's tool, so Proxy Axolotl reads only that tool's safety check (this PC only, remote console, discovery and plugins off) and whether the proxy answers, and flags it if it could be reached from beyond this PC. Never the proxy's settings file, keys or sign-ins; Start, Stop and settings stay Discord Damsel's. Proxy Axolotl is not built yet.",
+        "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
       }
     ]
   },

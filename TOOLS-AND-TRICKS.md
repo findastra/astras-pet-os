@@ -49,7 +49,7 @@ so its review lists every tool it names, and Skill Scout flags a trick that star
 | Friendly Farmer (The Farm) | `astras-pet-os-system-map`: the 3D map page | **How to Take Care of Your Farm!:** the first-run tutorial, walking a new farmer around the map one ring at a time |
 | Gone Ghost (Am I a Ghost?) | `name-eraser`: replaces a name with `USER` in files | **Scrub before posting:** before a vet-clinic ticket goes out, run name-eraser as a dry run, run the secret scan, show L4 the exact text, then post |
 | Unity Unicorn | `harness-strapper`: a Unity editor tool that rigs avatars | **Rig a new avatar:** import it, run harness-strapper, check the bones, then record which avatar it is rigged on in the tool box |
-| Unity Unicorn | `prop-decomposer`: a Blender script that takes a real model apart into its parts | **Make a prop look real** (`unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0`, 2026-10-18, on the branch `claude/realistic-props-20261018`, not merged): start from a real CC0 model, run prop-decomposer, restyle by mask, paint brands out of every map, mount at true size |
+| Unity Unicorn | `prop-decomposer`: a Blender script that takes a real model apart into its parts | **Make a prop look real** (`unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0`, 2026-10-18, in unity-unicorn's `skills/make-a-prop-look-real`): start from a real CC0 model, run prop-decomposer, restyle by mask, paint brands out of every map, mount at true size |
 
 Tricks that already exist: `skills/handoff`, `skills/pet-finder` and `skills/pet-organizer` in this repo are The Farm's
 tricks. They are instructions, and they only use tools the agents already have (git, files, the pet-finder tool).
