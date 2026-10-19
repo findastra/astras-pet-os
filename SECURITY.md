@@ -6,7 +6,8 @@ How the farm is protected (rings, walls, the security team, recovery) is describ
 
 ## Supported versions
 
-There are no releases yet. Security fixes go to the `main` branch of each repo; use the latest `main`.
+Install the [latest release](https://github.com/findastra/astras-pet-os/releases/latest) with its installer
+([INSTALL.md](INSTALL.md)). Security fixes go to the `main` branch of each repo and ship in the next release.
 
 ## Reporting a vulnerability
 

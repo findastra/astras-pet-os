@@ -9,9 +9,9 @@ Changes start at the bottom and are saved upward. Nothing generated is edited by
 | Level | Who | Owns | Saves by |
 |---|---|---|---|
 | 1 | **Astra** | Approvals: new art (it costs money), a pet's job, anything in a card waiting on her | Answering a card, or telling an assistant |
-| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on the Cage |
+| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on this hub |
 | 3 | **Each pet's repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `cage.submit` |
-| 4 | **Generated** | `cage-data.js`, `ROSTER.md`, the README table, the Farmer's desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile's pet list | Never by hand: the build and the rounds rewrite them |
+| 4 | **Generated** | `ROSTER.md`, the README table, the Farmer's desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile's pet list | Never by hand: the build and the rounds rewrite them |
 
 ```mermaid
 flowchart TD
@@ -23,7 +23,7 @@ flowchart TD
   F -->|"self-audit on each pet's day"| ST["status/pets-status.json<br/>mood + bubble"]
   R --> B["npm run build"]
   ST --> B
-  B --> C["Cage page · ROSTER.md · Farmer's desk<br/>MOOD-KEY.md · RELATIONS.md"]
+  B --> C["ROSTER.md · Farmer's desk<br/>MOOD-KEY.md · RELATIONS.md"]
   R --> PR{{"Profile round, daily"}}
   PR --> PF["findastra/findastra README"]
   R -->|"registry, pet words"| G{{"GitHub Goldfish"}}
@@ -33,7 +33,7 @@ flowchart TD
 
 ## Who tells whom
 
-Thick arrows work today. Plain arrows are planned (in a plan or a card). Dotted arrows are ideas nobody has agreed to yet. A name with * is in the pipeline: on GitHub, not registered in the Cage yet.
+Thick arrows work today. Plain arrows are planned (in a plan or a card). Dotted arrows are ideas nobody has agreed to yet. A name with * is in the pipeline: on GitHub, not registered yet.
 
 ```mermaid
 flowchart LR
@@ -171,4 +171,4 @@ Health Hummy, Finance Finch. These pets' data never leaves the PC. Other pets do
 
 ### On their own so far
 
-Python Panther, Astra Wisp, Paper Girl Patty, Voicemeeter Bug, Platform Platypus, Sugarcube *, Patch Cat *, Fuzzboi Friend *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.
+Python Panther, Astra Wisp, Paper Girl Patty, Voicemeeter Bug, Platform Platypus, Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.

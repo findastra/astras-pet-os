@@ -161,9 +161,24 @@
   "profile": {
     "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools.",
     "hidden": [],
-    "also_listed": ["findastra-discord-presence"],
+    "also_listed": [
+      "findastra-discord-presence"
+    ],
     "tools": {
-      "astras-pet-os": { "home_url": "https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html", "repo_note": "Astra's PetOS home repo", "tools": ["startup-star", "the-kennel", "the-shed", "vet-clinic"] }
+      "astras-pet-os": {
+        "home_url": "https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html",
+        "repo_note": "Astra's PetOS home repo",
+        "tools": [
+          "startup-star",
+          "the-kennel",
+          "the-shed",
+          "vet-clinic"
+        ]
+      },
+      "workflow-whirlpool": {
+        "home_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
+        "tools": []
+      }
     }
   },
   "rounds": {
@@ -920,7 +935,11 @@
       "interface_local_url": "apps/platform-platypus-20261017.html",
       "interface_url": "https://findastra.github.io/platform-platypus/",
       "interface_live_url": "https://findastra.github.io/platform-platypus/",
-      "audit": { "cadence": "weekly", "subject": "how Astra's pages look across iPhone, Android, iPad and desktop", "needs": "something only you can do" },
+      "audit": {
+        "cadence": "weekly",
+        "subject": "how Astra's pages look across iPhone, Android, iPad and desktop",
+        "needs": "something only you can do"
+      },
       "visibility": "public"
     }
   ],
@@ -1142,6 +1161,35 @@
         "needs": "a bot's access to its server, or your OK for a new bot"
       },
       "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered."
+    },
+    {
+      "repo": "chat-rat",
+      "pet": "Chat Rat",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Files every chat Astra has with Claude or OpenAI into one shared folder, with an index every assistant can read.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the chats it has filed and their index",
+        "needs": "where your Claude and OpenAI chats are saved"
+      },
+      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit."
+    },
+    {
+      "repo": "workflow-whirlpool",
+      "pet": "Workflow Whale",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "pairing, capture privacy, feedback delivery and device acceptance",
+        "needs": "native iPad verification and a verified chat adapter"
+      },
+      "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending.",
+      "interface_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html"
     }
   ],
   "seeds": {

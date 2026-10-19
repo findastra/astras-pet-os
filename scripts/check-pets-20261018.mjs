@@ -1,4 +1,4 @@
-// Usage: node scripts/check-cage.mjs [--online]
+// Usage: node scripts/check-pets-20261018.mjs [--online] (npm run check). Was check-cage.mjs until the Cage was removed, 2026-10-18.
 // Checks pets.json and the README table. --online also asks GitHub whether each pet's repo
 // exists, carries the pet-app topic, and has a pet.json.
 import { readFileSync } from 'node:fs';
@@ -24,6 +24,6 @@ if (process.argv.includes('--online')) {
 }
 if (problems.length) { console.error(problems.map((s) => '- ' + s).join('\n')); process.exit(1); }
 const stand = Object.entries(art.pets).filter(([, a]) => a.placeholder).map(([id]) => id);
-console.log(`Cage OK: ${registry.pets.length} pet apps, ${(registry.mascots || []).length} mascot(s), ${Object.keys(art.pets).length} characters drawn at ${art.size}px.`);
-// A placeholder is not an error (the Cage still works), but it is not finished art either.
+console.log(`Pets OK: ${registry.pets.length} pet apps, ${(registry.mascots || []).length} mascot(s), ${Object.keys(art.pets).length} characters drawn at ${art.size}px.`);
+// A placeholder is not an error (the desktop pets still work), but it is not finished art either.
 if (stand.length) console.log(`Placeholder art, needs regenerating: ${stand.join(", ")}`);

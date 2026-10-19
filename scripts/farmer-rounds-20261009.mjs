@@ -1,13 +1,13 @@
 // The Friendly Farmer's rounds. Claude Opus 5.5 (claude-opus-5-5), 2026-10-09.
 //
 // Daily, from .github/workflows/farmer-daily-rounds.yml (or by hand: node scripts/farmer-rounds-20261009.mjs):
-//   1. find pet repos on GitHub that the Cage does not know yet, and add them to the pipeline;
+//   1. find pet repos on GitHub that this hub does not know yet, and add them to the pipeline;
 //   2. take each pet's submission (the "cage.submit" block in its own pet.json);
 //   3. run the self-audits that are due (each pet on its own cadence and day);
 //   4. write status/pets-status.json: every pet's mood and one-line bubble, and what it needs from Astra.
 // Then npm run build (metadata only) and the Farmer's desk rebuild show the result.
 //
-// The pure functions below are what the tests exercise. Nothing here writes outside the Cage repo.
+// The pure functions below are what the tests exercise. Nothing here writes outside this hub repo.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 
 export const OWNER = 'findastra';
@@ -23,7 +23,7 @@ const DAY = 86400000;
 
 /* ---------------- who is who ---------------- */
 
-/** Every pet the Cage knows: registered pets first, then the pipeline, in order. */
+/** Every pet this hub knows: registered pets first, then the pipeline, in order. */
 export function allPets(registry) {
   return [
     ...(registry.pets || []).map((p) => ({ ...p, stage: 'registered' })),
@@ -108,13 +108,13 @@ export function auditPet(registry, pet, snap, last = null) {
   const has = (path) => (snap.files || []).includes(path);
   const pj = snap.petJson;
   if (snap.petJsonError) f('error', `pet.json is not valid JSON (${snap.petJsonError}).`, 'fix pet.json');
-  else if (!pj) f('error', 'No pet.json, so the Cage cannot read me.', 'add pet.json');
+  else if (!pj) f('error', 'No pet.json, so the Farmer cannot read me.', 'add pet.json');
   else {
     for (const k of ['pet', 'job', 'entry', 'status']) if (!pj[k]) f('warn', `pet.json is missing "${k}".`, `add "${k}" to pet.json`);
     if (pj.status && !STATUSES.includes(pj.status)) f('warn', `pet.json status "${pj.status}" is not hatching, growing or grown.`, 'fix my status');
     for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f(k === 'entry' ? 'error' : 'warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
     const submitted = pj.cage && pj.cage.submit;
-    if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage\'s.', 'my job wording differs from the Cage');
+    if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from pets.json in the hub. Submit the one I want (cage.submit) or copy the hub\'s.', 'my job wording differs from the Cage');
   }
   const readme = snap.readme;
   if (readme == null) f('warn', 'No README.md.', 'add a README');
@@ -127,7 +127,7 @@ export function auditPet(registry, pet, snap, last = null) {
   else if (snap.agents != null && !/astras-pet-(apps|os)/.test(snap.agents)) f('warn', 'AGENTS.md does not point at the hub (astras-pet-os), so I do not know how to submit changes to the Farmer.', 'my AGENTS.md should point at the Cage');
   if (!has('CLAUDE.md')) f('note', 'No CLAUDE.md.', 'add CLAUDE.md');
   if (!snap.private && !has('LICENSE')) f('warn', 'No LICENSE.', 'add a LICENSE');
-  if (!snap.private && Array.isArray(snap.topics) && !snap.topics.includes('pet-app')) f('warn', 'Missing the pet-app topic, so the Cage and the Goldfish cannot find me by topic.', 'add the pet-app topic');
+  if (!snap.private && Array.isArray(snap.topics) && !snap.topics.includes('pet-app')) f('warn', 'Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.', 'add the pet-app topic');
 
   const needs = needsFromSnapshot(pet, snap);
   const problems = findings.filter((x) => x.sev !== 'note');
@@ -149,7 +149,7 @@ export function auditFarmer(registry, ctx) {
   for (const p of ctx.validateProblems || []) findings.push({ sev: 'error', msg: p });
   if ((ctx.unreadable || []).length) needs.push(`${registry.pets.find((p) => p.role === 'host').audit.needs} (${ctx.unreadable.length} private: ${ctx.unreadable.join(', ')})`);
   const waiting = (registry.pipeline || []).length;
-  if (waiting) findings.push({ sev: 'warn', msg: `${waiting} pet${waiting === 1 ? '' : 's'} on GitHub wait to be registered in the Cage.` });
+  if (waiting) findings.push({ sev: 'warn', msg: `${waiting} pet${waiting === 1 ? '' : 's'} on GitHub wait to be registered.` });
   for (const m of ctx.missing || []) findings.push({ sev: 'warn', msg: `${m} is in the registry but not on GitHub.` });
   const problems = findings.filter((x) => x.sev !== 'note');
   const broken = problems.filter((x) => x.sev === 'error');
@@ -198,7 +198,7 @@ export function adoptSubmission(registry, entry, petJson, notes = []) {
   return changes;
 }
 
-/** Pet repos on GitHub that the Cage does not list yet become pipeline entries. */
+/** Pet repos on GitHub that this hub does not list yet become pipeline entries. */
 export function discover(registry, repos, today, approved = []) {
   // approved: the repos of seed and roadmap pets Astra already approved (pet-programs.json, in the core). They are known
   // pets, not newcomers, so they do not queue at the gate. A repo's own pet.json can never put itself on this list.

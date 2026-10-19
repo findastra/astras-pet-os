@@ -4,15 +4,15 @@
   "owner": "Astra",
   "sprite": "art/frames/index.json",
   "art_key": "farmer",
-  "job": "Hosts the Cage and opens or closes its door. The Farmer’s desk opens all apps and keeps a personal follow-up list.",
-  "runs_on": "Any modern browser (cage.html); optional Windows desktop Farmer launcher. Node 20 or newer for builds and checks.",
-  "entry": "cage.html",
+  "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
+  "runs_on": "Windows 10 and 11: the installer builds the desktop pets from source. The Farmer's desk and the System Map open in any browser. Node 20 or newer for builds and checks.",
+  "entry": "apps/astras-pet-apps-20261008.html",
   "status": "growing",
   "cage": {
     "topic": "pet-app",
     "home": "README.md"
   },
-  "version": "0.2.1-20261008",
-  "source": "https://github.com/findastra/astras-pet-os/tree/v0.2.1-20261008",
+  "version": "0.3.0-beta",
+  "source": "https://github.com/findastra/astras-pet-os/tree/v0.3.0-beta",
   "built_with": "Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07; OpenAI Codex (GPT-6), 2026-10-08"
 }
