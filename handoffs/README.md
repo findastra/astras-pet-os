@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | open, waits on Astra: the open decisions in docs/linux-readiness-20261018.md |
 | [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
@@ -56,7 +57,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 043.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 042 is the card for the Cage removal). When numbers clashed, the
+**Next free number: 044.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (043 is the Unity Unicorn page-modules card; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -91,6 +92,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `main` (merged with #85) |
 | 041 | `041-any-linux-readiness-20261018.md` | `claude/linux-readiness-20261018` (PR #95) |
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
+| 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
