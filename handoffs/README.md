@@ -12,7 +12,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open, waits on Astra: merge, and which page a pet's double-click opens |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
-| [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | open, waits on Astra: the open decisions in docs/linux-readiness-20261018.md |
+| [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | taken 2026-10-19: decisions 1 to 4 answered; step (a) on `claude/linux-package-20261019`, waits on Astra's OK and the Kali MacBook install |
 | [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
 | [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
 | [038: Skill Scout records the new chat-order trick](038-skill-scout-record-chat-order-20261018.md) | skill-scout | done 2026-10-18: the trick was removed at Astra's request |
@@ -92,7 +92,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 038 | `038-skill-scout-record-chat-order-20261018.md` | `claude/chat-order-skill-20261018` |
 | 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 | 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `main` (merged with #85) |
-| 041 | `041-any-linux-readiness-20261018.md` | `claude/linux-readiness-20261018` (PR #95) |
+| 041 | `041-any-linux-readiness-20261018.md` | `main` (PR #95); step (a) on `claude/linux-package-20261019` |
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100) |

@@ -1,0 +1,22 @@
+# Astra's PetOS: one pet program as a service of your own (a systemd user service, no administrator rights).
+# Installed as /usr/lib/systemd/user/astras-pet-os-pet@.service by the Linux package, and never turned on by it.
+#   astras-pet-os service on <pet>     turns one on (it checks the pet is ready first)
+#   astras-pet-os service off <pet>    turns it off
+#   astras-pet-os stop                 the big red button: stops every pet service now
+# Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
+
+[Unit]
+Description=Astra's PetOS pet service: %i
+Documentation=https://github.com/findastra/astras-pet-os/blob/main/docs/linux-package-20261019.md
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/astras-pet-os service run %i
+# The pet's secrets (Role Fairy's bot token), in a file only you can read. %E is your config folder (~/.config).
+EnvironmentFile=-%E/astras-pet-os/pets/%i.env
+Restart=on-failure
+RestartSec=30
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

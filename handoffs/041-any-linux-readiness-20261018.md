@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the open decisions in docs/linux-readiness-20261018.md)
+status: taken by Claude Opus 5.5, 2026-10-19 (decisions 1 to 4 answered; step (a) in a pull request, waiting on Astra's OK and the first install on the Kali MacBook)
 for: any (the desktop-pets port is Codex's area; Linux Penguin's chat checks on Linux hosts)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: docs/linux-readiness-20261018.md, installer/install-astras-pet-os-20261014.ps1, scripts/desktop-pets-20261011.cs, docs/migration/PLAN.md ("Who edits what"), skills/farm-security, findastra/startup-star README
@@ -33,6 +33,29 @@ on Linux without Microsoft.
 - **On Astra's PC:** nothing changed. The live hub folder was only read (`git status`); the work was in a clone in
   Claude's scratchpad. AGENTS.md has no new credit line, to keep clear of the three open pull requests that add lines
   there; the credit is at the top of the doc.
+
+### 2026-10-19, step (a): Claude Opus 5.5 (`claude-opus-5-5`)
+- **Astra's answers** (in chat, recorded in the readiness doc's new "Astra's answers" table): add-on first; The Farm
+  owns the package and Linux Penguin checks it; Node 20 or newer distributions only; Role Fairy and Chat Rat first, then
+  revised the same day: pet services are an option, off by default; and her idea, Linux Penguin as the Linux guide with
+  one trick per distribution family, picked from `/etc/os-release`.
+- **This repo, branch `claude/linux-package-20261019`** (from `main` at `b61397e`; not on `main` until Astra's OK):
+  `scripts/farm-setup-20261019.mjs` (the installer's farm logic in Node), `scripts/linux-cli-20261019.mjs` (the
+  `astras-pet-os` command), `scripts/linux-deb-20261019.mjs` (builds and reads the `.deb` with Node's own modules),
+  `linux/` (the `/usr/bin` wrapper, the pet service template, three menu entries, the bundled-pets pin),
+  `test/linux-package-test-20261019.mjs` (10 tests), `docs/linux-package-20261019.md`, the readiness doc's answers,
+  two rows in `skills/new-pet-or-tool`, this card and its row.
+- **`findastra/linux-iceberg`**: branch `claude/linux-guide-20261019`, commit `c2b945f`, PR #3 (built on PR #2, the Mac
+  checker): `tools/linux-check-20261019.sh`, `skills/debian-family/SKILL.md`, `tests/linux-check-test-20261019.sh`
+  (38 of 38). The hub's package pins that commit.
+- **Tested on Windows:** `npm test` 164 tests, 163 pass, 0 fail, 1 skipped; the farm list agrees with the installer's
+  `Get-FarmPets` exactly; a package built with the penguin bundled (99 MB, 1,215 files) was read by Windows' `tar`
+  (libarchive) and GNU tar, and `md5sum -c` matched every file. **Not tested:** `dpkg-deb`, `lintian` or `apt install` on
+  Linux (no WSL or Docker on this PC), the systemd unit, `xdg-open`, the menu entries.
+- **On Astra's PC:** nothing changed. The work was in clones in Claude's scratchpad.
+- **Left:** the first install on the Kali MacBook (RED USB holds Kali 2026.2), with `lintian`; publishing on a release
+  (decision 7); the penguin's pin moved to his `main` after linux-iceberg#3; Chat Rat's "open folder" on Linux; Role
+  Fairy's Node 24.17 requirement against Debian 13's Node 20; step (b) with Codex.
 
 ## Task
 1. Ask Astra the open decisions at the end of `docs/linux-readiness-20261018.md`, one chart, most important first

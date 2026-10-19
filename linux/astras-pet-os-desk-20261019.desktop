@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Friendly Farmer's Desk
+GenericName=Astra's PetOS
+Comment=Every pet on your farm, organized by the Friendly Farmer
+Exec=astras-pet-os desk
+Icon=astras-pet-os
+Terminal=false
+Categories=Utility;
+Keywords=pets;farm;farmer;
