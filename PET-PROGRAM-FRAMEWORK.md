@@ -17,8 +17,11 @@ the page layout redrawn from her sketch of 2026-10-18 by Claude Opus 5.5 (`claud
 | **L4** Verified human | The verified human who owns the entire secure ecosystem (on Astra's farm: Astra). Every security change, every permission and every exception to a default is approved by L4. On another user's farm, that user is L4. |
 | Pet program icon | The character (Friendly Farmer). |
 | Pet program | The one main program a pet stands for (The Farm). |
-| Tool | Any other program, page or section a pet program owns. Same ring and permissions as its pet program, never more. |
+| Native program | A program, site, world or app Astra made that is opened or run on its own (Startup Star, Ghost Protocol). The only thing a pet program owns that the System Map draws (Astra, 2026-10-19). |
+| Tool | Code a pet program owns and runs with no AI: a script, page section, editor tool or plugin. Same ring and permissions as its pet program, never more. Listed on its pet program's card, never drawn on the System Map (Astra, 2026-10-19). |
+| Trick | Written steps the pet's seated AI follows with its tools (a `SKILL.md`). Listed on its pet program's card, never drawn. Every native program, tool and trick is in the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md). |
 | Tool box | How a tool appears on a page: a bordered box with its versioned label on the top border and everything about the tool inside. |
+| Panel | A bordered, collapsible group on a pet program page, its label set into the top border (`unity-unicorn-L1-panel`). Panels hold the tool, connection and notes boxes. Called a **module** until 2026-10-19; Astra changed it because to developers a module is a file of code. |
 | Connection box | How a link to another pet appears: a box with a border of its own colour (never the tool box colour), titled with just the other pet's **pet program icon** name, as if the two are talking. Inside: what flows each way. |
 | Third-party | Programs, libraries and services made by others. |
 | Maker agent / checker agent | The agent that proposes and applies a change, and a separate read-only agent that verifies it (the maker-checker rule). |
@@ -33,7 +36,7 @@ Versions start with `v`, like git tags. A name keeps its number; a version never
 | Pet program (no name yet) | `pet-program-<#>-v<version>` | `pet-program-3-v1.0` |
 | Pet program (named) | `<pet-program>-v<version>` | `the-farm-v1.0` |
 | Icon (mood 1 to 9) | `<pet-program>-v<version>-icon-<mood>-v<icon version>` | `pet-program-3-v1.0-icon-2-v1.0.png` |
-| Tool box label | `<pet-program>-v<version>-<tool>-v<tool version>` | `pet-program-3-v1.0-notes-tool-v1.0`, `the-farm-v1.0-astras-pet-os-system-map-v1.0`, `pet-program-5-v1.0-harness-strapper-v1.0` |
+| Tool box label | `<pet-program>-v<version>-<tool>-v<tool version>` | `pet-program-3-v1.0-notes-tool-v1.0`, `the-farm-v1.0-pet-privatizer-v1.0`, `pet-program-5-v1.0-harness-strapper-v1.0` |
 | Backlog (the store) | `<pet-program>-backlog` | `the-farm-backlog` |
 | Backlog entry | `<pet-program>-v<version>-backlog-<YYYYMMDD>-<NNN>` | `the-farm-v1.0-backlog-20261013-001` |
 | Weekly backlog run | `<pet-program>-v<version>-backlog-run-<YYYYMMDD>` | `the-farm-v1.0-backlog-run-20261019` |
@@ -51,14 +54,15 @@ What each one means: section 3, `<pet>-emotions`.
 
 This sketch is the **minimum every pet program page contains** (Astra, 2026-10-18). It replaces her sketch of
 2026-10-16, which was never saved here. Astra's answers of the same day change two things in it: the intelligence
-levels are **four stacked modules**, one per level, and the lights are **buttons**. The Unity Unicorn's page is the
+levels are **four stacked panels**, one per level, and the lights are **buttons**. The Unity Unicorn's page is the
 example; [docs/unity-unicorn-page-modules-20261018.md](docs/unity-unicorn-page-modules-20261018.md) puts every one of
-its tools and tricks in its module.
+its tools and tricks in its panel.
 
-Dark slate stationery and light, hand-lettered text. Every group is a **module**: a thin bordered box with its label
-set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-module`).
-**Every module can collapse**, so the page works on a phone. The tool, notes and connection boxes from the list below
-go inside the matching module here.
+Dark slate stationery and light, hand-lettered text. Every group is a **panel**: a thin bordered box with its label
+set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-panel`).
+**Every panel can collapse**, so the page works on a phone. The tool, notes and connection boxes from the list below
+go inside the matching panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
+but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel.
 
 1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The desktop pet comes to live here while the page is
    open. Its paired lights sit on the top edge.
@@ -68,19 +72,19 @@ go inside the matching module here.
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
    behind it. Taken from the pet's mini-descriptor.
-4. **The four intelligence-level modules, stacked**, L1 at the top. Each module's activity light (the sketch's
+4. **The four intelligence-level panels, stacked**, L1 at the top. Each panel's activity light (the sketch's
    "activity status") sits on its top border, beside its label. Every item inside has its paired lights.
 
-   | Module | Level | What goes in it |
+   | Panel | Level | What goes in it |
    |---|---|---|
-   | **`<pet>-L1-module`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **your programs** (made by you, the pet looks after them: Piranesi House) · **your tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-module`** | L2 Pet program: what it does by itself | **your tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
-   | **`<pet>-L3-module`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-module`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · the **grants** you gave this pet (folders, R W X, limits, enforced or written only) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
+   | **`<pet>-L1-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **your programs** (made by you, the pet looks after them: Piranesi House) · **your tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
+   | **`<pet>-L2-panel`** | L2 Pet program: what it does by itself | **your tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
+   | **`<pet>-L3-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
+   | **`<pet>-L4-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · the **grants** you gave this pet (folders, R W X, limits, enforced or written only) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
 
    Tricks and skills, divided: a **trick is owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
-   module, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
-   "running now" on the L3 module. A **harness skill** belongs to the seat (L3), not to the pet, and helps an AI work on
+   panel, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
+   "running now" on the L3 panel. A **harness skill** belongs to the seat (L3), not to the pet, and helps an AI work on
    the pet. When an AI follows it, it is a trick or a skill, never a tool. The chart of all three, with runtime and
    security: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
 
@@ -105,9 +109,9 @@ go inside the matching module here.
    |---|---|---|---|
    | alarmed | `alarmed` | a connected source reports an active alarm; a potential or active security breach | The Police Station (planned) |
    | sick | `sick` | too many broken tools; broken pet programs | the Farmer's round (a broken `pet.json` or a missing program file); the page, from tools marked yellow (to build) |
-   | curious | `curious` | an L3 agent requires L4 authorization or input | the Farmer's round (a card waiting on Astra, a job not chosen yet); the L4 module (to build) |
+   | curious | `curious` | an L3 agent requires L4 authorization or input | the Farmer's round (a card waiting on Astra, a job not chosen yet); the L4 panel (to build) |
    | worried | `worried` | missed runtimes, missed checks, failed audits, token overusage | the Farmer's round (a failed self-audit, a missed check); Token Toucan (planned) |
-   | happy | `happy` | it just pushed new information; it has an L3 suggestion for a workflow; ideas or work are ready | the Farmer's round (new commits since its last check); the L3 module (to build) |
+   | happy | `happy` | it just pushed new information; it has an L3 suggestion for a workflow; ideas or work are ready | the Farmer's round (new commits since its last check); the L3 panel (to build) |
    | sad | `sad` | it hasn't been opened in more than 2 weeks | the page, which remembers when it was last opened (to build) |
    | idle | `idle` | the program is open and you haven't interacted with it recently | the open page (to build) |
    | awake | `blink` | the program is open and you have interacted with it recently | the open page (to build) |
@@ -139,13 +143,13 @@ go inside the matching module here.
 - **Two more light states**, proposed: **grey** for "not on this PC" (a missing third-party program is not an error,
   section 4; it must not show red) and for "not checked yet". And a mark inside each light (a line for on, a ring for
   off), because red and green look alike to many colour-blind people (WCAG 2.1, success criterion 1.4.1).
-- **What the activity light on each level's module means.** The sketch shows L1 to L3 red and L4 blue.
+- **What the activity light on each level's panel means.** The sketch shows L1 to L3 red and L4 blue.
 - **The order of the moods** above, and a frame with open eyes for awake.
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 
 **One source for the page:** each pet's `pet.json` holds an `intelligence_levels` block, with `L1` (`third_party`,
-`native`, `tools`), `L2` (`tricks`) and `L3` (`skills`); the L4 module reads the grants from `system-map.json`
-(`access`) and the approvals from the pet's cards. The page draws its modules from them, so the page, the map and the
+`native`, `tools`), `L2` (`tricks`) and `L3` (`skills`); the L4 panel reads the grants from `system-map.json`
+(`access`) and the approvals from the pet's cards. The page draws its panels from them, so the page, the map and the
 audit always agree. An audit that compares the L1 tools with the tool files in the repo, so none is missed, is still
 to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) shows what each pet had on 2026-10-16.
 
@@ -153,12 +157,15 @@ to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) s
 with just the basics first"; of the sketch: "they need these at a minimum, and more").** The Friendly Farmer's **pet
 program spawner** (`the-farm-v1.0-pet-program-spawner-v1.0`, `scripts/pet-program-pages-20261018.mjs`) writes a page
 for every registered and pipeline pet, `apps/pet-programs/<repo>-20261018.html`, listed on
-[the spawner's page](apps/pet-programs/pet-program-spawner-20261018.html). Each has every module of the sketch in its
-place, with the four stacked level modules, from pets.json, pet-programs.json, the System Map data and the hub's art.
+[the spawner's page](apps/pet-programs/pet-program-spawner-20261018.html). Each has every panel of the sketch in its
+place, with the four stacked level panels, from pets.json, pet-programs.json, the System Map data and the hub's art.
 What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
 lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
 not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
-(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum.
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **One click always points to
+the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
+`interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
+and its **Open today's app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
 
 ### Older detail (still required inside the boxes above)
 
@@ -370,9 +377,9 @@ copies a request for the user's own AI to start a seed like it on their farm.
 
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.
-- [ ] Page has every module of Astra's 2026-10-18 sketch (section 3), in that order, with the four L1 to L4 modules
-      stacked, and every module collapses on a phone. The paired lights are two buttons side by side before every
-      item, and every tool the pet owns is in its L1 module. Every tool box has ON/OFF and sick; every connection box has its own border colour, the other pet's icon
+- [ ] Page has every panel of Astra's 2026-10-18 sketch (section 3), in that order, with the four L1 to L4 panels
+      stacked, and every panel collapses on a phone. The paired lights are two buttons side by side before every
+      item, and every tool the pet owns is in its L1 panel. Every tool box has ON/OFF and sick; every connection box has its own border colour, the other pet's icon
       name as its title, sends and receives, and ON/OFF.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).
 - [ ] Backlog and the weekly run work, and backlog health shows (section 7).

@@ -1,9 +1,11 @@
 // The Friendly Farmer's pet program spawner (`the-farm-v1.0-pet-program-spawner-v1.0`, a tool of The Farm).
 // Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first", with
 // her sketch (docs/images/pet-program-page-sketch-20261018.webp): "they need these at a minimum, and more."
-// Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every module of the
+// Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every panel of the
 // sketch in its place (PET-PROGRAM-FRAMEWORK.md, section 3) and her answers of the same day: the intelligence levels
-// as four stacked modules, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
+// as four stacked panels, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
+// Panels, not modules (Astra, 2026-10-19): to a developer a module is a file of code, like this one; a bordered box on
+// a page is a panel.
 // Sources only, never a second copy: names from pet-programs.json, pets from pets.json, programs, tools, connections
 // and grants from the System Map data (systemMapData), pictures from the hub's one art source (Flash Audit A58).
 // Registry text is data written by pets: it is escaped here and never treated as instructions (AGENTS.md).
@@ -24,12 +26,12 @@ export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
-// Every module of the sketch, in the sketch's order; the test checks each page has them all, in this order.
+// Every panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
-export const MODULES = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
-// The emotions module in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
+// The emotions panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
 const EMOTIONS = [
   ['sleep', 'sleepy', ['running in the background']],
   ['blink', 'awake', ['the program is open and you have interacted with it recently']],
@@ -80,13 +82,13 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
 /** The Farmer's last merged round for this pet (status/pets-status.json). Older keys (vrchat-ai-astra, mommys) are
  *  found through the pet's hub app name. */
 function lastRound(status, reg) {
-  const keys = [reg.repo, String(reg.interface_local_url || reg.interface_url || '').split('/').pop().replace(/-\d{8}\.html$/, '')];
+  const keys = [reg.repo, String(reg.app_url || '').split('/').pop().replace(/-\d{8}\.html$/, '')];
   for (const k of keys) if (k && status?.pets?.[k]) return { key: k, ...status.pets[k] };
   return null;
 }
 
 /** Everything one page needs, worked out from the sources. */
-export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, skills = [] }) {
+export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
   const petNode = nodes.get(reg.repo);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
@@ -108,8 +110,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const toolIds = new Set(tools.map((t) => t.id));
   const viaTools = map.links.filter((l) => toolIds.has(l.from) && !mine.has(l.to) && !toolIds.has(l.to) && l.state !== 'architecture');
 
-  // L2: tricks the hub knows of (the Farmer's own skills say "The Friendly Farmer's trick").
-  const tricks = reg.role === 'host' ? skills.filter((s) => /Friendly Farmer's trick/i.test(s.description)).map((s) => ({ id: s.name, name: s.name, label: `${homeSlug}-v1.0-${s.name}-trick-v1.0`, why: s.description })) : [];
+  // L2: its native tricks, from the map data (Astra, 2026-10-19: native programs, tools and tricks; never drawn on the map).
+  const tricks = map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-trick-v1.0` }));
 
   // L2: connection boxes, one per pet it talks to (pets only; seeds and roadmap pets are not animals yet).
   const talks = new Map();
@@ -143,7 +145,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
     ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
 
-  const app = reg.interface_live_url || reg.interface_url || null;
+  // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it.
+  const app = reg.interface_live_url || reg.app_url || null;
   const appHref = !app ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   const lines = moodKey(registry, reg);
@@ -157,7 +160,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
-    languages: code?.languages || [], languageNote: code?.note || null,
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
   };
 }
 
@@ -175,8 +178,8 @@ function itemList(items, prefix, empty) {
   return `<ul class="items">${items.map((i) => `<li>${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<span class="item-name"${i.why ? ` title="${esc(i.why)}"` : ''}>${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</li>`).join('')}</ul>`;
 }
 
-const module = (label, body, { cls = '', light = false, open = true } = {}) =>
-  `<details class="module ${cls}"${open ? ' open' : ''}><summary title="Click the label to fold or unfold this module"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+const panel = (label, body, { cls = '', light = false, open = true } = {}) =>
+  `<details class="panel ${cls}"${open ? ' open' : ''}><summary title="Click the label to fold or unfold this panel"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -213,7 +216,7 @@ export function buildPetProgramPage(d) {
     : 'not checked by a merged round yet';
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
-  const cyberhome = module(`${d.petSlug}-cyberhome`, `<div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
+  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
 ${lights(`program:${d.homeSlug}`, d.home)}
 <div class="den">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
@@ -221,19 +224,19 @@ ${lights(`program:${d.homeSlug}`, d.home)}
   const title = `<div class="title">
 <h1>${esc(d.home)} <span class="version" title="The pet program's version comes from its own pet.json; the hub has not recorded it yet">V? // ${esc(ymd(d.added) || DATE)}</span></h1>
 <p class="who">${esc(d.pet)}'s pet program · #${esc(d.number)} · ${esc(d.stage)}${d.status ? ` · ${esc(d.status)}` : ''}${d.isPrivate ? ' · private: its data never leaves the PC' : ''}</p>
-${module(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
+${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
 <a class="button" href="${esc(map)}">On the System Map</a>${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
 
-  const L1 = module(`${d.petSlug}-L1-module`, `<div class="columns">
+  const L1 = panel(`${d.petSlug}-L1-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-<section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None on the map yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
+<section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
 <p class="small">From the System Map. A grey pair of lights means not built yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
 
   const cadence = d.audit.cadence ? `${d.audit.cadence}, by the Friendly Farmer's round` : 'not set';
-  const L2 = module(`${d.petSlug}-L2-module`, `<div class="columns">
+  const L2 = panel(`${d.petSlug}-L2-panel`, `<div class="columns">
 <section><h3>Your tricks</h3>${itemList(d.tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
 <section><h3>Schedule</h3><ul class="plain"><li>Self-audit: ${esc(cadence)}${d.audit.subject ? ` (${esc(d.audit.subject)})` : ''}</li><li>Weekly backlog run: not set up yet (needs an L3 seat)</li></ul></section>
 <section class="wide"><h3>Status line</h3><dl class="status">
@@ -245,7 +248,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></section></div>
 <h3>Pets it talks to</h3>${d.connections.length ? `<div class="connections">${d.connections.map((c) => connection(c, d.homeSlug)).join('')}</div>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
 
-  const L3 = module(`${d.petSlug}-L3-module`, `<ul class="plain">
+  const L3 = panel(`${d.petSlug}-L3-panel`, `<ul class="plain">
 <li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
 <li><b>L3 activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.pet)} right now.</span></li>
 <li><b>Tricks running now:</b> none</li>
@@ -253,7 +256,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <li><b>Suggestions for you:</b> none yet</li>
 <li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>`, { cls: 'level', light: true });
 
-  const L4 = module(`${d.petSlug}-L4-module`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
+  const L4 = panel(`${d.petSlug}-L4-panel`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
 <section><h3>Grants</h3><h4>This pet may</h4>${grantTable(d.grantsBy, 'No grants recorded.')}<h4>Who may reach it</h4>${grantTable(d.grantsOn, 'No grants recorded.')}<p class="small">From system-map.json, the same grants as the map card and PROTECTION-RINGS.md.</p></section>
 <section><h3>Keys</h3><p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p></section>
 <section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
@@ -264,9 +267,9 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
 
-  const levels = module(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not built yet</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not built yet</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
-  const notes = module(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
+  const notes = panel(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
 <label for="note-text">notes</label>
 <textarea id="note-text" rows="3" placeholder="A note, a bug or a change you want. It goes to the backlog straight away."></textarea>
 <div class="note-row"><label>about <select id="note-about">${aboutOptions}</select></label>
@@ -277,30 +280,36 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
 <p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { cls: 'session-notes' });
 
-  const emotions = module(`${d.petSlug}-emotions`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
+  const emotions = panel(`${d.petSlug}-emotions`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const picture = mood === 'blink'
       ? (f.idle ? `<span class="awake-faces">${faces(f, d.pet, ['idle', 'blink'], 'awake')}</span>` : img(null, `${d.pet}, ${name}`))
       : img(f[mood], `${d.pet}, ${name}`);
     return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div><p class="small">Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
 
-  // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool.
-  const clicker = module(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder in a dialog box, like BSOD's blurb <span class="tag">not built yet</span></dd>
+  // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
+  // tools bound so far come from `clicks` in pets.json (2026-10-19: Voicemeeter Bug's repair moved to three clicks).
+  const counts = ['three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const bound = Object.entries(d.clicks).filter(([n]) => Number(n) >= 3).sort(([a], [b]) => a - b);
+  const assigned = bound.length
+    ? bound.map(([n, c]) => `<dt>${esc(counts[n - 3] || n)} clicks</dt><dd>${esc(c.what || c.tool)}${c.label ? ` <code>${esc(c.label)}</code>` : ''}</dd>`).join('\n')
+    : '<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd>';
+  const clicker = panel(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder in a dialog box, like BSOD's blurb <span class="tag">not built yet</span></dd>
 <dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>
-<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd></dl>
+${assigned}</dl>
 <p class="small">One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).</p>`, { cls: 'clicker' });
 
   const relatedCard = (r) => {
     const inner = `${img(r.idle, `${r.pet}, idle`, 'thumb')}<span class="card-text"><b>${esc(r.pet)}</b><span>${esc(r.home || 'pet program not named yet')}${tag(r.state)}</span>${r.why ? `<span>${esc(r.why)}</span>` : ''}</span>`;
     return `<li class="card">${r.page ? `<a href="${esc(r.page)}">${inner}</a>` : `<span class="card-static">${inner}</span>`}</li>`;
   };
-  const related = module(`${d.petSlug}-related-pets`, d.related.length
+  const related = panel(`${d.petSlug}-related-pets`, d.related.length
     ? `<ul class="cards related">${d.related.map(relatedCard).join('')}</ul>
 <p class="small">Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.</p>`
     : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets' });
 
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
-  const footer = module('astras-pet-os-unified-footer', `<div class="footer-grid">
+  const footer = panel('astras-pet-os-unified-footer', `<div class="footer-grid">
 <p>By Astra. MIT license. Signature: not signed yet.</p>
 <p><b>Languages:</b> ${esc(langs)}</p>
 <p><b>Home:</b> <a href="${esc(map)}">System Map</a> · <a href="../astras-pet-apps-20261008.html">The Farm</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a></p>
@@ -350,7 +359,7 @@ export function buildSpawnerIndex(list) {
 </head>
 <body>
 <main class="page">
-<details class="module" open><summary><span class="legend">${TOOL_LABEL}</span></summary>
+<details class="panel" open><summary><span class="legend">${TOOL_LABEL}</span></summary>
 <h1>Every pet program</h1>
 <p>One page for every registered and pipeline pet, spawned by the Friendly Farmer with the minimum every pet program contains: Astra's sketch of 2026-10-18 (<a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a>, section 3). These are the basics; each pet's page grows from here.</p>
 ${group('registered', 'Registered')}
@@ -365,22 +374,13 @@ ${group('pipeline', 'Pipeline')}
 
 // ---------- Sources and writing ----------
 
-function readSkills(root) {
-  const dir = `${root}/skills`;
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir).filter((n) => existsSync(`${dir}/${n}/SKILL.md`)).sort().map((n) => {
-    const text = readFileSync(`${dir}/${n}/SKILL.md`, 'utf8');
-    return { name: (/^name:\s*(.+)$/m.exec(text) || [])[1]?.trim() || n, description: (/^description:\s*(.+)$/m.exec(text) || [])[1]?.trim() || '' };
-  });
-}
-
 export function readSpawnerSources(root = '.') {
   const j = (p) => JSON.parse(readFileSync(`${root}/${p}`, 'utf8'));
   const opt = (p, fallback) => (existsSync(`${root}/${p}`) ? j(p) : fallback);
   return {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
-    status: opt('status/pets-status.json', null), skills: readSkills(root),
+    status: opt('status/pets-status.json', null),
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
 }

@@ -21,7 +21,8 @@
     "host-machine": "Device, ring 6",
     "harness": "Agent harness (the glass and the seat)",
     "assistant": "Harness program or adviser",
-    "tool": "Tool: belongs to a pet program, same ring and permissions"
+    "tool": "Tool: belongs to a pet program, same ring and permissions",
+    "trick": "Trick: steps a pet's seated AI follows, using only that pet's tools"
   },
   "carries": {
     "builds": "code and changes made by an assistant on a branch, from a handoff card",
@@ -89,9 +90,10 @@
     {
       "id": "desktop-host",
       "name": "Startup Star",
-      "type": "tool",
+      "category": "Made by Astra",
+      "type": "own-program",
       "state": "now",
-      "job": "A tool of The Farm (no face, not a pet). The Windows tray Star and the desktop pets that roam your real desktop. Reads pets.json and the art index (scripts/desktop-pets-20261011.cs). Hiding it never stops a pet working.",
+      "job": "A native program of The Farm (no face, not a pet). The Windows tray Star and the desktop pets that roam your real desktop. Reads pets.json and the art index (scripts/desktop-pets-20261011.cs). Hiding it never stops a pet working.",
       "layer": 2,
       "of": "farm",
       "version": "v1.0",
@@ -100,12 +102,12 @@
     {
       "id": "system-map",
       "name": "Astra’s PetOS System Map",
-      "type": "tool",
+      "type": "own-program",
       "of": "farm",
       "state": "now",
       "layer": 2,
-      "category": "Tool",
-      "job": "A tool of The Farm: this 3D map of every pet, program, model and device, in protection rings, with what flows between them (findastra.github.io/astras-pet-os/system-map-20261012.html). Built by npm run build from system-map.json and pets.json.",
+      "category": "Made by Astra",
+      "job": "A native program of The Farm: this 3D map of every pet, program, model and device, in protection rings, with what flows between them (findastra.github.io/astras-pet-os/system-map-20261012.html). Built by npm run build from system-map.json and pets.json.",
       "version": "v1.0",
       "label": "the-farm-v1.0-astras-pet-os-system-map-v1.0"
     },
@@ -2206,14 +2208,14 @@
     {
       "id": "vcc-package-manager",
       "name": "vcc-package-manager",
-      "type": "tool",
+      "type": "trick",
       "of": "unity-stable",
-      "state": "now",
+      "state": "planned",
       "layer": 6,
-      "category": "Tool",
+      "category": "Trick",
       "version": "v1.0",
-      "label": "unity-stable-v1.0-vcc-package-manager-v1.0",
-      "job": "A tool of Unity Stable (Workflow): Review and manage a Unity project through VRChat Creator Companion and its package workflow (unity-unicorn tools/vcc-package-manager-20261011.json)."
+      "label": "unity-stable-v1.0-vcc-package-manager-trick-v1.0",
+      "job": "A trick of Unity Stable, not written as a skill file yet (no code: a catalog entry and the skill book): Review and manage a Unity project through VRChat Creator Companion and its package workflow (unity-unicorn tools/vcc-package-manager-20261011.json)."
     },
     {
       "id": "vine-bloomer",
@@ -2230,14 +2232,14 @@
     {
       "id": "vrchat-avatar-upload",
       "name": "vrchat-avatar-upload",
-      "type": "tool",
+      "type": "trick",
       "of": "unity-stable",
-      "state": "now",
+      "state": "planned",
       "layer": 6,
-      "category": "Tool",
+      "category": "Trick",
       "version": "v1.0",
-      "label": "unity-stable-v1.0-vrchat-avatar-upload-v1.0",
-      "job": "A tool of Unity Stable (Workflow): Follow the established avatar preparation and SDK upload workflow for the intended account (unity-unicorn tools/vrchat-avatar-upload-20261011.json)."
+      "label": "unity-stable-v1.0-vrchat-avatar-upload-trick-v1.0",
+      "job": "A trick of Unity Stable, not written as a skill file yet (no code: a catalog entry and the skill book): Follow the established avatar preparation and SDK upload workflow for the intended account (unity-unicorn tools/vrchat-avatar-upload-20261011.json)."
     },
     {
       "id": "wall-texture-rebuild",
@@ -2586,6 +2588,114 @@
       "version": "v0.1.0",
       "label": "chat-stack-v0.1.0-save-missing-v0.1.0",
       "job": "A tool of Chat Stack (Chat Rat): saves the Codex and Claude Code chats on this PC that are not in the archive yet, and imports official exports from the inbox. The chats stay on the PC, never in the repo (chat-rat chat-rat-20261016.mjs; its own label is chat-rat-v0.1.0-save-missing-v0.1.0)."
+    },
+    {
+      "id": "handoff-trick",
+      "name": "handoff",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-handoff-trick-v1.0",
+      "job": "A trick of The Farm (skills/handoff/SKILL.md): check for, pick up or write handoff cards, so work moves between Astra's assistants, with what was done listed under What I did."
+    },
+    {
+      "id": "pet-finder-trick",
+      "name": "pet-finder",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-finder-trick-v1.0",
+      "job": "A trick of The Farm (skills/pet-finder/SKILL.md): run the pet-finder tool, fix only what the data proves, and give Astra one short list of the rest."
+    },
+    {
+      "id": "pet-organizer-trick",
+      "name": "pet-organizer",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-organizer-trick-v1.0",
+      "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
+    },
+    {
+      "id": "make-a-prop-look-real",
+      "name": "make-a-prop-look-real",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0",
+      "job": "A trick of Unity Stable (unity-unicorn skills/make-a-prop-look-real/SKILL.md): start a prop from a real CC0 model or scan, take it apart with prop-decomposer, restyle it with realistic-prop-restyle and mount it at true size."
+    },
+    {
+      "id": "weekly-update-from-friendly-farmer",
+      "name": "weekly-update-from-friendly-farmer",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-weekly-update-from-friendly-farmer-trick-v1.0",
+      "job": "A trick of Unity Stable to write (unity-unicorn pet.json, L2 tricks_to_write, from Astra's sketch): the weekly update from the Friendly Farmer."
+    },
+    {
+      "id": "weekly-copyright-auditor",
+      "name": "weekly-copyright-auditor",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0",
+      "job": "A trick of Unity Stable to write (unity-unicorn pet.json, L2 tricks_to_write, from Astra's sketch): a weekly copyright check of the assets in Astra's avatars and worlds."
+    },
+    {
+      "id": "dm-cleanup",
+      "name": "dm-cleanup",
+      "type": "trick",
+      "of": "program-13",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "discord-tower-v1.0-dm-cleanup-trick-v1.0",
+      "job": "A trick of Discord Tower (findastra-discord-presence skills/dm-cleanup/SKILL.md): help Astra delete her own messages in one Discord DM or channel with Undiscord, a third-party userscript that only she runs; she approves the exact scope."
+    },
+    {
+      "id": "save-chats",
+      "name": "save-chats",
+      "type": "trick",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "chat-stack-v0.1.0-save-chats-trick-v1.0",
+      "job": "A trick of Chat Stack (chat-rat skills/save-chats/SKILL.md): save missing or changed local AI chats with Chat Rat, open the archive folders and import official exports."
+    },
+    {
+      "id": "ask-chat-rat",
+      "name": "ask-chat-rat",
+      "type": "trick",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "chat-stack-v0.1.0-ask-chat-rat-trick-v1.0",
+      "job": "A trick of Chat Stack (chat-rat skills/ask-chat-rat/SKILL.md): ask Chat Rat to find something in Astra's past Claude and OpenAI chats instead of searching the chats folder."
     }
   ],
   "links": [
@@ -5138,6 +5248,8 @@
       "you": "8"
     },
     "by_id": {
+      "desktop-host": "0",
+      "system-map": "0",
       "claude-code": "4",
       "codex": "4",
       "kennel": "5",

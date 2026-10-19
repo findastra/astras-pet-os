@@ -60,14 +60,15 @@ function clientMain() {
       }
     };
     pick.onchange = showKey; showKey();
-    const box = card('All ' + cfg.pets.length + ' apps', 'Each card opens that pet\'s app.');
+    const box = card('All ' + cfg.pets.length + ' apps', 'Each card opens that pet\'s pet program; its page has a button for today\'s app.');
     const search = field(box, 'Find an app', 'search'); search.type = 'search';
     const grid = h('div', undefined, 'app-grid', box);
     const render = () => { grid.replaceChildren(); for (const pet of cfg.pets.filter((p) => (p.pet + ' ' + p.job).toLowerCase().includes(search.value.toLowerCase()))) {
       const tile = h('article', undefined, 'app-tile', grid); h('h3', pet.pet, '', tile); h('p', pet.job, 'muted', tile);
       h('p', pet.published ? (pet.visibility === 'private' ? 'Private repository' : 'Public repository') : 'Repository pending', 'badge', tile);
       const url = pet.interface_url || (pet.repo + '-20261008.html');
-      link(tile, 'Open app', /^https?:/.test(url) ? url : url.replace(/^apps\//, ''));
+      // One click always points to the pet program page (Astra, 2026-10-19).
+      link(tile, 'Pet Program', /^https?:/.test(url) ? url : url.replace(/^apps\//, ''));
       const follow = h('label', undefined, 'check', tile), input = h('input', undefined, '', follow); input.type = 'checkbox'; input.checked = state.flags[pet.repo] === true; h('span', 'Needs my attention', '', follow); input.onchange = () => { state.flags[pet.repo] = input.checked; save(); };
     } }; search.oninput = render; render(); notesCard();
     const desktop = card('Desktop pets on Windows', 'Install Astra\x27s PetOS with the installer from its latest release: your pets then live on your Windows desktop.');

@@ -7,7 +7,11 @@ export const END = '<!-- pets:end -->';
 export const STATUSES = ['hatching', 'growing', 'grown'];
 export const ROLES = ['host', 'pet'];
 export const ENTRY_KEYS = ['repo', 'pet', 'role', 'status', 'job', 'art', 'added', 'interface_url'];
-export const safeInterfaceURL = (value) => typeof value === 'string' && (/^https?:\/\/[^\s]+$/.test(value) || /^apps\/[a-z0-9]+(?:-[a-z0-9]+)*-\d{8}(?:-\d{6})?\.html$/.test(value));
+// A dated page in the hub: an app copy in apps/, or a pet program page in apps/pet-programs/. Astra, 2026-10-19: "one
+// click always points to program page (Pet Program)": interface_url opens the pet program, app_url today's app.
+export const HUB_PAGE = /^apps\/(?:pet-programs\/)?[a-z0-9]+(?:-[a-z0-9]+)*-\d{8}(?:-\d{6})?\.html$/;
+export const PROGRAM_PAGE = (repo) => `apps/pet-programs/${repo}-20261018.html`;
+export const safeInterfaceURL = (value) => typeof value === 'string' && (/^https?:\/\/[^\s]+$/.test(value) || HUB_PAGE.test(value));
 
 /** Optional dated assets for new pets; existing pets retain their original filenames. */
 export function assetPaths(registry, id) {
@@ -36,7 +40,7 @@ export function buildTable(registry) {
     const accessible = p.published !== false && p.visibility !== 'private';
     // The host is Astra's PetOS itself: it is installed with the installer, so its row never offers the repo's ZIP.
     const availability = p.role === 'host' ? `[Installer](${INSTALLER_URL})` : p.published === false ? 'not on GitHub yet' : p.visibility === 'private' ? 'private repo' : `[Download ZIP](${repo}/archive/refs/heads/main.zip)`;
-    const get = `${p.interface_url ? `[Open app](${p.interface_url}) · ` : ''}${availability}`;
+    const get = `${p.interface_url ? `[Pet Program](${p.interface_url}) · ` : ''}${availability}`;
     const name = accessible ? `**[${esc(p.pet)}](${repo})**` : `**${esc(p.pet)}**`;
     return `| ${name} | ${p.role} | ${p.status} | ${esc(p.job)} | ${get} |`;
   });
@@ -62,7 +66,8 @@ export function validate(registry, readme, art) {
     if (typeof p.published !== 'boolean') problems.push(`${p.repo || '(entry)'}: "published" must be true or false (leaving it out claims the repo is already on GitHub)`);
     if (p.visibility !== undefined && !['public', 'private'].includes(p.visibility)) problems.push(`${p.repo}: visibility must be public or private`);
     if (!safeInterfaceURL(p.interface_url)) problems.push(`${p.repo}: interface_url must be an http(s) URL or a dated apps/ HTML path`);
-    if (p.interface_local_url !== undefined && !/^apps\/[a-z0-9]+(?:-[a-z0-9]+)*-\d{8}(?:-\d{6})?\.html$/.test(p.interface_local_url)) problems.push(`${p.repo}: interface_local_url must be a dated apps/ HTML path`);
+    if (p.interface_local_url !== undefined && !HUB_PAGE.test(p.interface_local_url)) problems.push(`${p.repo}: interface_local_url must be a dated apps/ HTML path`);
+    if (p.app_url !== undefined && !safeInterfaceURL(p.app_url)) problems.push(`${p.repo}: app_url (today's app) must be an http(s) URL or a dated apps/ HTML path`);
     if (p.repo && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.repo)) problems.push(`${p.repo}: repo names are lowercase words joined by hyphens`);
     try { assetPaths(registry, p.art); } catch (e) { problems.push(e.message); }
     if (p.status && !STATUSES.includes(p.status)) problems.push(`${p.repo}: status must be ${STATUSES.join(', ')}`);

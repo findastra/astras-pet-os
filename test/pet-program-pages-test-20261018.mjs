@@ -1,10 +1,10 @@
 // The Friendly Farmer's pet program spawner (Astra, 2026-10-18): every registered and pipeline pet has a pet program
-// page with at least every module of her sketch, built only from the hub's sources. Claude Opus 5.5, 2026-10-18.
+// page with at least every panel of her sketch, built only from the hub's sources. Claude Opus 5.5, 2026-10-18.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, MODULES, DIR, INDEX, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, PANELS, DIR, INDEX, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -28,10 +28,10 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
-test('every page has every module of the sketch, in its order, and every module collapses', () => {
+test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = MODULES.map((m) => (['cyberhome', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -40,14 +40,15 @@ test('every page has every module of the sketch, in its order, and every module 
       at = i;
     }
     assert.ok(html.indexOf('<h1>') > html.indexOf(`>${d.petSlug}-cyberhome<`), `${d.repo}: the title sits beside the cyberhome`);
-    const modules = (html.match(/<details class="module/g) || []).length;
-    assert.ok(modules >= MODULES.length - 1, `${d.repo}: every module is a <details> that collapses (${modules})`);
+    const panels = (html.match(/<details class="panel/g) || []).length;
+    assert.ok(panels >= PANELS.length - 1, `${d.repo}: every panel is a <details> that collapses (${panels})`);
+    assert.doesNotMatch(html, /-module<|class="module/, `${d.repo}: panels, not modules (Astra, 2026-10-19)`);
   }
 });
 
 test('labels sit in the top border with nothing after them, and every emotion bubble is labelled the same way', () => {
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
-  assert.doesNotMatch(css, /summary::(after|before)\s*\{[^}]*content:\s*'[^']/, 'no mark (a dash, a plus) after a module label');
+  assert.doesNotMatch(css, /summary::(after|before)\s*\{[^}]*content:\s*'[^']/, 'no mark (a dash, a plus) after a panel label');
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     for (const name of ['sleepy', 'awake', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'])
@@ -63,8 +64,26 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
     const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
     assert.match(box, /<dt>one click<\/dt><dd>show the current reminder in a dialog box/, `${d.repo}: one click`);
     assert.ok(box.includes(`<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>`), `${d.repo}: two clicks`);
-    assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
+    const three = d.clicks['3'];
+    if (three) assert.ok(box.includes(`<dt>three clicks</dt><dd>${esc(three.what)}`), `${d.repo}: three clicks run ${three.tool}`);
+    else assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
     assert.doesNotMatch(box, /refresh tools/, `${d.repo}: three clicks no longer refresh the tools`);
+  }
+  // Astra, 2026-10-19: "yes move voicemeeter bug to 3 clicks is the fix".
+  const bug = pages.find((d) => d.repo === 'voicemeeter-bug');
+  assert.equal(bug.clicks['3']?.tool, 'repair', 'Voicemeeter Bug repairs on three clicks');
+  assert.equal(bug.clicks['1'], undefined, 'one click is the reminder for every pet');
+});
+
+test('one click always points to the pet program page: every pet\'s link is its page; today\'s app is a button on it (Astra, 2026-10-19)', () => {
+  const regs = [...src.registry.pets, ...src.registry.pipeline];
+  for (const r of regs) {
+    assert.equal(r.interface_url, pagePath(r.repo), `${r.repo}: interface_url`);
+    assert.equal(r.interface_local_url, pagePath(r.repo), `${r.repo}: interface_local_url`);
+    const html = files[pagePath(r.repo)];
+    const today = r.interface_live_url || r.app_url;
+    if (today) assert.match(html, /<a class="button" href="[^"]+">Open today's app<\/a>/, `${r.repo}: today's app is a button on its page`);
+    assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open today's app`), `${r.repo}: the button never opens the page itself`);
   }
 });
 
