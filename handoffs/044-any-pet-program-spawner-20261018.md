@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge; which page a pet's double-click opens)
+status: open (waiting on Astra: which page a pet's double-click opens; OK to merge task 2's pull request, `claude/tools-on-the-map-20261018`)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), docs/images/pet-program-page-sketch-20261018.webp, scripts/pet-program-pages-20261018.mjs, test/pet-program-pages-test-20261018.mjs
@@ -9,8 +9,8 @@ Astra, 2026-10-18: "please make sure every single pet app has a pet program spaw
 then, with her sketch of the Unity Den: "they need these at a minimum, and more." "Spawn page" is the page the Friendly
 Farmer's Pet Program spawner makes (her words in the Startup Star chat that saved the sketch, 2026-10-18).
 
-On branch `claude/pet-program-spawner-20261018` of astras-pet-os (not on `main`; its pull request is linked from the
-commit), made in a worktree in Claude's scratchpad so the live hub folder stayed on `main`:
+On branch `claude/pet-program-spawner-20261018` of astras-pet-os, made in a worktree in Claude's scratchpad so the live
+hub folder stayed on `main`; **merged into `main` with PR #100 (`f4a90e5`, Astra's OK in chat, 2026-10-18)**:
 - **`scripts/pet-program-pages-20261018.mjs`**, the spawner, a tool of The Farm (`the-farm-v1.0-pet-program-spawner-v1.0`).
   It writes `apps/pet-programs/<repo>-20261018.html` for each of the **38** registered and pipeline pets (20 + 18), and
   `apps/pet-programs/pet-program-spawner-20261018.html`, the list. `npm run build` runs it (`scripts/build.mjs`).
@@ -49,10 +49,47 @@ commit), made in a worktree in Claude's scratchpad so the live hub folder stayed
   phone), labels in a plain monospace font so their hyphens read as hyphens, the cyberhome a plain box, and nothing
   else removed. The test now checks the bubble labels, their order and that no label has a mark after it.
 
+### Task 2: each pet's tools on the map (Claude Opus 5.5, `claude-opus-5-5`, 2026-10-18)
+
+On branch `claude/tools-on-the-map-20261018` (from `main` at `f4a90e5`; not on `main` until Astra OKs its pull
+request), in a worktree in Claude's scratchpad:
+- **`system-map.json`: 60 new `type: "tool"` nodes**, the shape of `pet-privatizer`: `of` the pet's program node,
+  `state` `now` for code on the pet's `main` and `planned` for an open pull request or a design, a label, a one-line
+  `job` that names where the tool lives. Only tools the pet's repo or the hub's docs name; no name was made up.
+  - **Unity Stable (55)**, exactly unity-unicorn's `pet.json` `intelligence_levels.L1` (`main` at `d485db9`, the same
+    lists as `docs/unity-unicorn-page-modules-20261018.md`): the **34 on `main`** (`now`; each job is the first
+    sentence of its `tools/*.json` catalog, run-unity-tool's from its script) and the **21 not merged** (`planned`):
+    18 in PR #1 (8 with a catalog file; for the 10 that are only in the Unity menu, the job comes from their C# code),
+    glass-animal-tool and bubble-chair-blower in PR #3, and asset-ledger (design only). Labels
+    `unity-stable-v1.0-<tool>-v1.0`. Dubstep Gunsmith's catalog file in PR #1 is a program, not a tool, so it is not
+    here.
+  - **The Farm:** `pet-finder` (`now`, `scripts/pet-finder-20261016.mjs`), `the-farm-v1.0-pet-finder-v1.0`.
+  - **GitHub Aquarium:** `flash-audit` (`now`; `github-aquarium-v1.0-flash-audit-v1.0`, its code is in this hub) and
+    `project-image-generator` (`now`; on github-goldfish `main`, `scripts/project-image-generator-20261017.mjs`).
+  - **File Kingdom:** `mass-delete` (`planned`: only its guard exists, `scripts/mass-delete-guard-20261016.mjs`), with
+    the label the docs give it, `file-master-v1.0-mass-delete-v1.0`. And **repo-catcher** and **new-programs-watch**
+    changed from `planned` to `now`: both scripts are on file-master `main`.
+  - **Chat Stack:** `save-missing` (`now`, chat-rat `chat-rat-20261016.mjs`), `chat-stack-v0.1.0-save-missing-v0.1.0`
+    (its own pet.json writes `chat-rat-v0.1.0-…`, with the repo name in place of the program's).
+- `npm run build -- --metadata-only` then changed only the System Map page and five spawn pages (Unity Stable, The
+  Farm, GitHub Aquarium, File Kingdom, Chat Stack). `npm test`: 153 tests, 152 pass, 1 skipped (the Pets Board).
+  `npm run check` OK.
+- In the browser pane (a temporary `tools-on-the-map-temp` entry in `Astra's Pet Apps\.claude\launch.json`, removed
+  after): Unity Stable's L1 module lists all 55 under "Your tools", the 21 not merged with grey lights and "planned";
+  the other four pages list theirs; the System Map draws the new hammers on ring 3 with no console errors.
+- Left out on purpose: harness-strapper (an example in TOOLS-AND-TRICKS.md and the framework, no code); Discord
+  Tower's two presence apps (its pet.json calls them tools, the map already has them as programs); File Master's
+  scanner, plan and undo scripts (INTELLIGENCE-LEVELS.md calls them tools, but they have no tool names); Chat Rat's
+  per-question search tools (made at run time). sticker-manager and cli-proxy-api stay `planned` (merged, never
+  installed or run), as their nodes already say.
+
 ## Not there yet (the pages say so)
 
-- **Tools:** only tools that are nodes on the System Map show. Unity Unicorn's 30-odd tools are only in
-  `docs/unity-unicorn-page-modules-20261018.md`; most pets list none. No pet.json has `intelligence_levels` in the hub.
+- **Tools:** a page lists what is on the map. After task 2, pets other than The Farm, Unity Stable, GitHub Aquarium,
+  File Kingdom, Chat Stack, Discord Tower, API Fairy Ring, Am I a Ghost? and Workflow Whirlpool list none, because
+  neither their repo nor the hub names a tool. A tool in an open pull request shows "planned", not "not merged" as the
+  framework asks; its job says which pull request. No pet.json has `intelligence_levels` in the hub, and no audit
+  compares a pet's tool files with the map yet.
 - **Versions:** the hub records no pet program version, so titles read `V? // <date added>`.
 - **Status:** the Farmer's last merged round on `main` is from 2026-10-11 and used the old mood meanings, so pages
   show only its line and date, never its mood.
@@ -68,8 +105,9 @@ commit), made in a worktree in Claude's scratchpad so the live hub folder stayed
 
 1. Astra decides which page a pet's double-click and A59 point at: the spawn page (with "Open today's app" on it) or
    the existing app. Then link it everywhere A59 lists.
-2. Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
-   Unicorn from the modules doc; the pages follow on the next build.
+2. ~~Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
+   Unicorn from the modules doc; the pages follow on the next build.~~ Done on `claude/tools-on-the-map-20261018`
+   (above), waiting on Astra's OK to merge. When unity-unicorn PR #1 or #3 merges, change those tools to `now`.
 3. Record each pet's version (from its pet.json) where the build can read it, so the title shows it.
 4. Add `interface_url` for the pipeline pets whose repo has a working page.
 
