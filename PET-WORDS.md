@@ -73,4 +73,11 @@ New files use these names. `<date>` is Astra's America/Denver date as `YYYYMMDD`
 
 Some keys are older than these words and stay as they are, because code reads them: `interface_url`, `interface_local_url` and `interface_live_url` in pets.json (the app's addresses), and `entry` and `sprite` in pet.json. Use the words above in prose and leave the keys alone.
 
+**One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
+Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,
+which the README, the profile, the Farmer's desk, the Pets Board and the desktop pet all open. **`app_url`** holds today's
+app (the older page or site), opened by the **Open today's app** button on the program page. `interface_live_url` stays the
+pet's own live site. A link to the program page is labelled **Pet Program**. `clicks` lists the tools bound to three clicks
+or more (PET-PROGRAM-FRAMEWORK.md, section 3, item 8).
+
 Set on 2026-10-09 at Astra's request, with Claude Opus 5.5 (`claude-opus-5-5`).

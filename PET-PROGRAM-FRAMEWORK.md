@@ -156,7 +156,10 @@ place, with the four stacked level modules, from pets.json, pet-programs.json, t
 What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
 lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
 not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
-(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum.
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **One click always points to
+the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
+`interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
+and its **Open today's app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
 
 ### Older detail (still required inside the boxes above)
 

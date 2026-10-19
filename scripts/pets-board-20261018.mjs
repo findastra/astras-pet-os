@@ -56,7 +56,8 @@ export function buildBoard({ programs, registry, status, repos, sites, now, icon
   for (const p of [...programs].sort((a, b) => a.number - b.number)) {
     const r = repos[p.repo] || null;
     const e = reg.find((x) => x.repo === p.repo) || {};
-    const live = e.interface_live_url || (e.interface_url && !/^https?:/.test(e.interface_url) ? `${SITE}/${e.interface_url}` : e.interface_url) || null;
+    // The program's name opens its pet program page (Astra, 2026-10-19: "one click always points to program page").
+    const live = (e.interface_url && !/^https?:/.test(e.interface_url) ? `${SITE}/${e.interface_url}` : null) || e.interface_live_url || e.interface_url || null;
     const icon = iconFor(p);
     const pet = `${icon ? `<img src="${icon}" width="24" alt=""> ` : ''}[${esc(p.icon)}](https://github.com/${OWNER}/${p.repo})`;
     const program = live ? `[${esc(p.program)}](${live})` : `[${esc(p.program)}](https://github.com/${OWNER}/${p.repo})`;
@@ -131,7 +132,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const iconFor = (p) => { const f = files.find((x) => x.startsWith(`${p.repo}-`)) || files.find((x) => x.startsWith(`${slug(p.icon)}-`)) || byPet[p.icon]; return f ? `${RAW}/art/icons/${f}` : null; };
   const repos = await fetchRepos(token, [...new Set(programs.map((p) => p.repo))]);
   const reg = [...(registry.pets || []), ...(registry.pipeline || [])];
-  const urls = Object.fromEntries(programs.map((p) => { const e = reg.find((x) => x.repo === p.repo) || {}; const u = e.interface_live_url || (e.interface_url && !/^https?:/.test(e.interface_url) ? `${SITE}/${e.interface_url}` : e.interface_url); return [p.repo, u]; }).filter(([, u]) => u));
+  // "Site" is whether the pet's own site or today's app answers (app_url since 2026-10-19), not its program page.
+  const urls = Object.fromEntries(programs.map((p) => { const e = reg.find((x) => x.repo === p.repo) || {}; const a = e.app_url; const u = e.interface_live_url || (a && !/^https?:/.test(a) ? `${SITE}/${a}` : a); return [p.repo, u]; }).filter(([, u]) => u));
   const sites = await checkSites(urls);
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Denver', dateStyle: 'medium', timeStyle: 'short' }) + ' Denver';
   const md = buildBoard({ programs, registry, status, repos, sites, now, iconFor });

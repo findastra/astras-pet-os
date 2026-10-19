@@ -18,12 +18,17 @@ const same = (a, b) => !!a && !!b && a.replace(/\/$/, '') === b.replace(/\/$/, '
 const isUrl = (u) => /^https?:\/\//.test(u || '');
 const programLabel = (prog) => (prog.assigned ? prog.program : `pet-program-${prog.number}`);
 
-/** The program's own page, worked out the way the Farmer's profile round does (farmer-profile-20261009.mjs):
- *  profile.tools home_url, else a live github.io site, else its page on The Farm. */
+/** A pet's program page in the hub, written by the Friendly Farmer's pet program spawner (2026-10-18). */
+export const programPage = (repo) => `apps/pet-programs/${repo}-20261018.html`;
+const isProgramPage = (p) => /^apps\/pet-programs\//.test(p || '');
+
+/** The program's own page, worked out the way the Farmer's profile round does (farmer-profile-20261009.mjs): its
+ *  pet program page on The Farm (Astra, 2026-10-19: "one click always points to program page (Pet Program)"), else
+ *  profile.tools home_url, else a live github.io site. */
 export function programHome(reg, tools) {
   const live = /^https:\/\/[^/]+\.github\.io\//.test(reg?.interface_live_url || '') ? reg.interface_live_url : null;
   const farmPage = reg?.interface_url && !isUrl(reg.interface_url) ? `${PAGES}/${reg.interface_url}` : null;
-  return tools?.home_url || live || farmPage || null;
+  return farmPage || tools?.home_url || live || null;
 }
 
 /** The profile line's home link the round writes for this program (null: an unlinked name). */
@@ -69,7 +74,11 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
     return rows;
   }
   const name = repo.name || prog.repo;
-  const hubPage = reg?.interface_local_url || (reg?.interface_url && !isUrl(reg.interface_url) ? reg.interface_url : null);
+  // Today's app in the hub (app_url since 2026-10-19; interface_* before that), the page pet.json `entry` matches.
+  const appHub = (u) => (u && !isUrl(u) && !isProgramPage(u) ? u : null);
+  const hubPage = appHub(reg?.app_url) || appHub(reg?.interface_local_url) || appHub(reg?.interface_url);
+  const page = programPage(prog.repo);
+  const pageIn = hubTree.includes(page);
   const hubBase = hubPage ? base(hubPage) : null;
   const home = programHome(reg, tools);
   const entry = pet?.entry || null;
@@ -92,20 +101,26 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
       add(entry ? 'Incorrect' : 'Missing', entry ? `pet.json entry "${entry}" is not in the repo; its program page is ${want}.` : `pet.json has no entry; its program page is ${want}.`,
         CONNECT, { type: 'a59-entry', where: 'repo', id: 'entry', to: want });
     } else if (entryIn && hubBase && base(entry) !== hubBase && !(home && same(home, servedAt(entry)))) {
-      if (tree.includes(hubBase)) add('Incorrect', `pet.json entry opens ${entry}, but the hub shows ${hubPage} as ${prog.icon}'s program, and ${hubBase} is in the repo.`, CONNECT, { type: 'a59-entry', where: 'repo', id: 'entry', to: hubBase });
-      else add('Incorrect', `pet.json entry opens ${entry}, but the hub shows ${hubPage} as ${prog.icon}'s program, and the repo has no ${hubBase}.`, 'Not changed: the pet\'s chat says which one is the program, then the other link follows.');
+      if (tree.includes(hubBase)) add('Incorrect', `pet.json entry opens ${entry}, but the hub shows ${hubPage} as ${prog.icon}'s app, and ${hubBase} is in the repo.`, CONNECT, { type: 'a59-entry', where: 'repo', id: 'entry', to: hubBase });
+      else add('Incorrect', `pet.json entry opens ${entry}, but the hub shows ${hubPage} as ${prog.icon}'s app, and the repo has no ${hubBase}.`, 'Not changed: the pet\'s chat says which one is the app, then the other link follows.');
     }
     // No page to point at: A09 reports the missing program page.
   }
 
-  // pets.json interface_url and interface_local_url, which The Farm's card opens.
+  // pets.json interface_url and interface_local_url, which The Farm's card, the README, the profile and the desktop pet
+  // open. Once the pet's program page is in the hub, both open it (Astra, 2026-10-19: "one click always points to
+  // program page (Pet Program)"); today's app moves to app_url, so its link is kept.
   if (reg) {
     const inHub = (p) => hubTree.includes(p);
     const hubCopy = entry && inHub(`apps/${base(entry)}`) ? `apps/${base(entry)}` : hubPage && inHub(hubPage) ? hubPage : null;
     const ownLive = reg.interface_live_url && same(reg.interface_live_url, pagesOf(name)) ? reg.interface_live_url : null;
     for (const key of ['interface_url', 'interface_local_url']) {
       const v = reg[key];
-      if (!v && prog.stage === 'registered') {
+      if (pageIn && v !== page) {
+        const fix = setReg(key, page);
+        if (fix && key === 'interface_url' && v && !reg.app_url) fix.also = { app_url: v };
+        add(v ? 'Incorrect' : 'Missing', v ? `pets.json ${key} is ${v}, but one click opens ${prog.icon}'s pet program, ${page}.` : `pets.json has no ${key} for ${prog.icon}; its pet program page is ${page}.`, CONNECT, fix);
+      } else if (!v && prog.stage === 'registered') {
         const to = key === 'interface_url' ? ownLive || hubCopy : hubCopy;
         add('Missing', `pets.json has no ${key} for ${prog.icon}.`, to ? CONNECT : `Nothing in the hub to point at: ${prog.icon}'s page is not built (A09).`, to ? setReg(key, to) : null);
       } else if (v && !isUrl(v) && !inHub(v)) {
@@ -115,7 +130,7 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
         if (other && other !== name && other !== HUB) add('Incorrect', `pets.json ${key} is ${v}, the site of ${other}, not ${name}.`, 'Not changed: the pet\'s chat says which site is the program, then the link follows.');
       }
     }
-    if (!reg.interface_url && prog.stage === 'pipeline' && entryUrl) {
+    if (!reg.interface_url && !pageIn && prog.stage === 'pipeline' && entryUrl) {
       const fix = setReg('interface_url', entryUrl);
       if (fix) fix.also = { interface_live_url: entryUrl };
       add('Missing', `pets.json has no interface_url for ${prog.icon}, though its program answers at ${entryUrl}, so the profile and the Pets Board cannot link it.`, CONNECT, fix);
@@ -129,9 +144,10 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
     if (!reg.interface_url && !hubTree.includes(`apps/${u}`)) add('Incorrect', `The Farm's card opens apps/${u}, which is not in the hub.`, 'Follows the interface_url fix above.');
     const ownLive = reg.interface_live_url && same(reg.interface_live_url, pagesOf(name)) ? reg.interface_live_url : null;
     if (reg.interface_url && home && !same(farmUrl, home)) {
+      const to = pageIn ? page : ownLive && same(home, ownLive) ? ownLive : null;
       add('Incorrect', `The Farm's card opens ${farmUrl}, but the profile opens ${home}: two pages for one program.`,
-        ownLive && same(home, ownLive) ? CONNECT : 'Not changed: which page is the program is for the pet\'s chat (or Astra, for a home she set).',
-        ownLive && same(home, ownLive) ? setReg('interface_url', ownLive) : null);
+        to ? CONNECT : 'Not changed: which page is the program is for the pet\'s chat (or Astra, for a home she set).',
+        to ? setReg('interface_url', to) : null);
     }
   }
 

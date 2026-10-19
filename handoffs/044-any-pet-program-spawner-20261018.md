@@ -71,8 +71,10 @@ commit), made in a worktree in Claude's scratchpad so the live hub folder stayed
    the current reminder dialog box (blurb like BSOD does) which has yet to be created as a compoinent, and, 2 clicks
    opens/closes the pet program." Two clicks open or close the pet program, its page (the spawn page; "Open today's
    app" stays on it). The pages and the framework say so (branch `claude/clicker-rule-20261018`); the desktop part is
-   card 046 (Codex). Still to do here: point A59's other places (pets.json `interface_url`, pet.json `entry`, the
-   profile home link, the map card) at the program page, with Astra's OK, since it changes every "Open app" link.
+   card 046 (Codex). **Done on branch `claude/program-page-links-20261019`** (Astra, 2026-10-19: "yes one click always
+   points to program page (Pet Program)"): pets.json `interface_url` and `interface_local_url` are each pet's program
+   page and today's app is `app_url`; the README's **Pet Program** links, the profile round's home link, the Farmer's
+   desk, the Pets Board, the desktop draft list and A59 follow it. pet.json `entry` stays the app in the pet's own repo.
 2. Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
    Unicorn from the modules doc; the pages follow on the next build.
 3. Record each pet's version (from its pet.json) where the build can read it, so the title shows it.

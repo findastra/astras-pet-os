@@ -44,18 +44,22 @@ function matchesMain(dir) {
   } catch { return false; }
 }
 
+// Two clicks on a draft pet open its pet program page, like every pet's (Astra, 2026-10-19: "one click always points to
+// program page (Pet Program)"): the hub page the spawner wrote, else its repo while it has none (a seed such as Door
+// Dormouse). The desktop opens a hub-relative path from this folder.
+const programPage = (repo) => (existsSync(join(hub, `apps/pet-programs/${repo}-20261018.html`)) ? `apps/pet-programs/${repo}-20261018.html` : `https://github.com/findastra/${repo}`);
+
 export function draftList() {
   const pets = [];
   const need = (rel) => { if (!existsSync(join(hub, rel))) throw new Error(`Missing ${rel} in the hub`); return rel; };
   // Claude Bot first, as before. His pictures stay in his private repo; the desktop finds that repo's folder next to the hub.
   pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, repo: 'claude-bot',
-    idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: 'https://github.com/findastra/claude-bot' });
+    idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: programPage('claude-bot') });
   for (const [id, repo, date = '20261011'] of DRAFTS) {
-    const entry = { id, name: names[repo], interface: `https://github.com/findastra/${repo}` };
+    const entry = { id, name: names[repo], interface: programPage(repo) };
     if (id === 'workflow-whale') {
       entry.idle = need('art/drafts/workflow-whale/idle-20261018.png');
       entry.blink = need('art/drafts/workflow-whale/blink-20261018.png');
-      entry.interface = 'https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html';
     } else if (id === 'fuzzboi-friend') {
       // Built from Astra's 32 original Fuzzbois layers at launch; idle and blink are the fallback.
       entry.idle = need('art/drafts/fuzzboi-friend/idle-20261009.png');

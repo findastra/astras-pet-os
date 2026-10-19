@@ -63,8 +63,26 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
     const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
     assert.match(box, /<dt>one click<\/dt><dd>show the current reminder in a dialog box/, `${d.repo}: one click`);
     assert.ok(box.includes(`<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>`), `${d.repo}: two clicks`);
-    assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
+    const three = d.clicks['3'];
+    if (three) assert.ok(box.includes(`<dt>three clicks</dt><dd>${esc(three.what)}`), `${d.repo}: three clicks run ${three.tool}`);
+    else assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
     assert.doesNotMatch(box, /refresh tools/, `${d.repo}: three clicks no longer refresh the tools`);
+  }
+  // Astra, 2026-10-19: "yes move voicemeeter bug to 3 clicks is the fix".
+  const bug = pages.find((d) => d.repo === 'voicemeeter-bug');
+  assert.equal(bug.clicks['3']?.tool, 'repair', 'Voicemeeter Bug repairs on three clicks');
+  assert.equal(bug.clicks['1'], undefined, 'one click is the reminder for every pet');
+});
+
+test('one click always points to the pet program page: every pet\'s link is its page; today\'s app is a button on it (Astra, 2026-10-19)', () => {
+  const regs = [...src.registry.pets, ...src.registry.pipeline];
+  for (const r of regs) {
+    assert.equal(r.interface_url, pagePath(r.repo), `${r.repo}: interface_url`);
+    assert.equal(r.interface_local_url, pagePath(r.repo), `${r.repo}: interface_local_url`);
+    const html = files[pagePath(r.repo)];
+    const today = r.interface_live_url || r.app_url;
+    if (today) assert.match(html, /<a class="button" href="[^"]+">Open today's app<\/a>/, `${r.repo}: today's app is a button on its page`);
+    assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open today's app`), `${r.repo}: the button never opens the page itself`);
   }
 });
 
