@@ -195,7 +195,7 @@ function copyrightFile(license, bundled) {
     'Files: *',
     'Copyright: 2026 Astra (findastra)',
     'License: Expat',
-    `Comment: Astra's PetOS, an Intelligent App, or Pet, by Astra. Bundled pets: ${bundled.map((p) => `${p.repo} at ${p.commit}`).join(', ') || 'none'}, same author and license.`,
+    `Comment: Astra's PetOS, by Astra. Bundled pets: ${bundled.map((p) => `${p.repo} at ${p.commit}`).join(', ') || 'none'}, same author and license.`,
     '',
     'License: Expat',
     text,
