@@ -4,8 +4,8 @@
     {
       "pet": "Linux Penguin",
       "repo": "linux-iceberg",
-      "commit": "bb39854b0b7cdf4255868481065a38f603e5be29",
-      "pinned_from": "claude/linux-guide-20261019 (linux-iceberg PR #3, after the checker review of 2026-10-19). Move the pin to linux-iceberg's main once that is merged.",
+      "commit": "4e5fb7d79ddcff442734cd1716d55b021bbd837b",
+      "pinned_from": "linux-iceberg's main: the merge of PR #3 (with #2), 2026-10-19, after the checker review.",
       "include": [
         "tools/",
         "skills/",

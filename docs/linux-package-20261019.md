@@ -57,7 +57,7 @@ family, and his trick for that family helps the person (and their AI) find their
 updates and services in order. **One trick per family** (Astra, 2026-10-19): the Debian-family trick covers Debian,
 Ubuntu, Kali, Raspberry Pi OS, Mint and Pop!_OS. His check already recognises the Fedora, Arch, SUSE and Alpine
 families and says their tricks are not written yet. He pops up in the terminal; on the desktop once desktop pets run
-on Linux. The pin points at [linux-iceberg#3](https://github.com/findastra/linux-iceberg/pull/3) until it is merged.
+on Linux. The pin is his `main` after [linux-iceberg#3](https://github.com/findastra/linux-iceberg/pull/3) was merged (`4e5fb7d`).
 
 ## Pet services (off unless you turn one on)
 
@@ -135,8 +135,8 @@ first test is the Kali MacBook, from RED USB.
 1. Install it on the Kali MacBook and run `lintian` there; fix what it finds.
 2. Publish it on a release: who signs it and where it lives (decision 7). Then INSTALL.md, the README's install link,
    AGENTS.md's beta-tester rule and the dev-mindset glossary ("runs on Windows") gain their Linux line.
-3. After [linux-iceberg#3](https://github.com/findastra/linux-iceberg/pull/3) is merged, move the penguin's pin to that
-   commit on his `main`.
+3. ~~Move the penguin's pin to his `main`~~: done, `4e5fb7d` (linux-iceberg#3 merged 2026-10-19). Move it again when
+   his tools or tricks change.
 4. Chat Rat's "open folder" on Linux (`xdg-open`), in his repo; Role Fairy's Node requirement, in hers.
 5. Desktop pets on Linux (step b), with Codex, so the penguin can pop up on the desktop. Until then, the pages show
    every pet in the release, as on Windows: only the desktop pets read the farm.
