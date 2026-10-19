@@ -267,8 +267,11 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
     return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div><p class="small">Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
 
-  const clicker = module(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder</dd><dt>two clicks</dt><dd>open ${esc(d.home)}</dd><dt>three clicks</dt><dd>refresh tools and the tool list</dd></dl>
-<p class="small">Clicking the desktop pet runs a tool. More clicks can be bound to more tools.</p>`, { cls: 'clicker' });
+  // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool.
+  const clicker = module(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder in a dialog box, like BSOD's blurb <span class="tag">not built yet</span></dd>
+<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>
+<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd></dl>
+<p class="small">One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).</p>`, { cls: 'clicker' });
 
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
   const footer = module('astras-pet-os-unified-footer', `<div class="footer-grid">

@@ -113,9 +113,12 @@ go inside the matching module here.
 
    Awake uses the `blink` mood frame, whose eyes are shut; until a frame with open eyes is drawn for awake, the page
    shows the idle frame blinking every few seconds.
-8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. One click: show the current
-   reminder. Two clicks: open the pet program. Three clicks: refresh the tools and the tool list. More can be assigned.
-   A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), so "assign more" means binding another tool.
+8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. **One and two clicks are the
+   same for every pet; from three clicks on, each can be assigned a tool** (Astra, 2026-10-18, which matches Flash Audit
+   A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
+   clicks: open or close the pet program, its page above. Three clicks or more: a tool of the pet program, one per
+   number of clicks, or "none assigned yet". A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), never
+   a trick. This replaces "three clicks: refresh the tools and the tool list".
 9. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
    grant (section 11). It holds item 10 of the list below.
