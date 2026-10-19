@@ -74,6 +74,8 @@ Astra wants other software developers to read her build without frustration. She
 | Your Programs | Applications or sites you built that a pet looks after (worlds, websites) | Not tools: the pet manages them; they are not part of it. Decided 2026-10-16. |
 | Commons | Shared registry / issue tracker (the Kennel, the Shed, the vet-clinic) | Hold other people's submissions, not our code. Decided 2026-10-16. |
 | Third-party programs | Third-party software | Made by others; a pet runs them (R X). |
+| Farm event log | Structured event log (JSON Lines) with a versioned schema | One record per line, per pet program, on the PC; owned by Log Den (`farm-event-v1`). Not a "message bus": nothing is sent, records are read. Decided 2026-10-18. |
+| Chain of custody (Evidence Locker) | Chain of custody; a hash chain (tamper-evident log) | Shows that evidence changed; it does not prevent it. Signing (Cipher Owl) is what makes a rewrite of a whole case show. Decided 2026-10-18. |
 
 ## App vs program
 - A **program** is any code a computer runs: apps, services, drivers, scripts, libraries.
