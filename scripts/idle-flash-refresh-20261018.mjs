@@ -88,13 +88,14 @@ const clean = (s) => stripTags((s || '').replace(/<br\s*\/?>/gi, '; ')).replace(
 const TODAY = new Date().toISOString().slice(0, 10);
 const NEWCREDIT = 'An Intelligent App, or Pet, by Astra';
 const CREDIT_SKIP = (p) => /prompt|provenance|(^|\/)handoffs\/|node_modules|\.min\./i.test(p);
-function credit(text, html) {
+// Astra, 2026-10-19: the full line only in a pet repo's own README; anywhere else the old line becomes "By Astra".
+function credit(text, html, readme = false) {
   let n = 0;
   const swap = (t) => t
-    .replace(/\*A pet app by Astra\.\*/g, () => { n++; return `*${NEWCREDIT}.*`; })
-    .replace(/<em>A pet app by Astra\.<\/em>/g, () => { n++; return `<em>${NEWCREDIT}.</em>`; })
-    .replace(/\bA pet app by Astra(?=[,.])/g, () => { n++; return NEWCREDIT; })
-    .replace(/\b(is|,) a pet app by Astra\b/g, (m, w) => { n++; return `${w} an Intelligent App, or Pet, by Astra`; });
+    .replace(/\*A pet app by Astra\.\*/g, () => { n++; return readme ? `*${NEWCREDIT}.*` : 'By Astra.'; })
+    .replace(/<em>A pet app by Astra\.<\/em>/g, () => { n++; return readme ? `<em>${NEWCREDIT}.</em>` : 'By Astra.'; })
+    .replace(/\bA pet app by Astra(?=[,.])/g, () => { n++; return readme ? NEWCREDIT : 'By Astra'; })
+    .replace(/\b(is|,) a pet app by Astra\b/g, (m, w) => { n++; return readme ? `${w} an Intelligent App, or Pet, by Astra` : `${w} a pet by Astra`; });
   if (!html) return { text: swap(text), n };
   return { text: text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg : swap(seg)).join(''), n };
 }
@@ -172,7 +173,7 @@ for (const rec of ledger) {
     let cn = 0; const ct = [];
     for (const p of g('ls-files').concat('\n').split('\n').filter((f) => /\.(md|html?)$/i.test(f) && !CREDIT_SKIP(f))) {
       let t; try { t = readFileSync(`${dir}/${p}`, 'utf8'); } catch { continue; }
-      const r = credit(t, /\.html?$/i.test(p)); if (r.n) { writeFileSync(`${dir}/${p}`, r.text); cn += r.n; ct.push(p); }
+      const r = credit(t, /\.html?$/i.test(p), p === 'README.md'); if (r.n) { writeFileSync(`${dir}/${p}`, r.text); cn += r.n; ct.push(p); }
     }
     if (cn) log.push(`Credit line is now "${NEWCREDIT}." (card 033): ${cn} change(s) in ${ct.join(', ')}. Art prompts and provenance notes keep their wording.`);
     // 6. A59: pet.json entry and the README link to the pet program, again on top of today's base.
