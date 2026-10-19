@@ -22,6 +22,7 @@ Astra wants other software developers to read her build without frustration. She
 | Maker agent / checker agent | Maker-checker rule (four-eyes, two-person rule) | Was "offensive / defensive agent"; in security "offensive" means attacking. Decided 2026-10-13. |
 | Versions with `v` | Version tags (`v1.0`) | `pet-program-3-v1.0-icon-2-v1.0`: a name keeps its number, a version never hides inside it. Decided 2026-10-13. |
 | Tool box | Card or panel with a title (HTML `fieldset` with a `legend`) | Border with the versioned label on top, everything about the tool inside. |
+| Panel (`<pet>-L1-panel`) | Panel: a collapsible section of a dashboard page (HTML `details` with a `summary`) | Was "module"; to developers a module is a file of code (an `.mjs` file is one). Decided 2026-10-19. |
 | Connection box | Integration panel (what flows between two services) | Its own border colour; titled with the other pet's icon name. |
 | Trick | Skill (`SKILL.md`), prompt, workflow | What a pet's agent knows; uses only the tools the pet has. Kept by Skill Scout. See TOOLS-AND-TRICKS.md. Decided 2026-10-14. |
 | Grant | Scope / permission grant (least privilege, capability-based access) | Folders + R W X + limits for one pet on a shared tool. Not a copy of the tool. Decided 2026-10-14. |
