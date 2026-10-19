@@ -98,7 +98,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100); task 2 on `claude/tools-on-the-map-20261018` (PR #106) |
-| 045 | `045-any-crash-watch-pets-20261018.md` | `claude/crash-watch-pets-20261018` |
+| 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105) |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `claude/clicker-rule-20261018` |
 | 047 | `047-any-panels-in-pet-repos-20261019.md` | `claude/programmer-words-20261019` |
 | 048 | `048-any-how-agents-work-and-rwx-in-code-20261019.md` | `claude/how-agents-work-20261019` |
