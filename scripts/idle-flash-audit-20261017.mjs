@@ -180,7 +180,7 @@ for (const prog of catalog) {
   // Names across every list (A06 / A07).
   const names = { catalog: prog.icon, registry: reg?.pet, 'pet.json': pet?.pet, 'INTELLIGENCE-LEVELS': levelRows[prog.repo]?.pet };
   // The pet's own node, never its program's (a program node can share the repo's id: the-police-station).
-  const mapNode = systemMap.nodes.find((n) => (n.id === prog.repo || (reg?.art && n.id === reg.art)) && n.program === undefined && !['own-program', 'tool', 'program'].includes(n.type));
+  const mapNode = systemMap.nodes.find((n) => (n.id === prog.repo || (reg?.art && n.id === reg.art)) && n.program === undefined && !['own-program', 'tool', 'trick', 'program'].includes(n.type));
   if (mapNode) names['System Map'] = mapNode.name;
   const differ = Object.entries(names).filter(([, v]) => v && norm(v) !== norm(prog.icon));
   if (differ.length) add('A06', 'Incorrect', `Pet name differs from the catalog ("${prog.icon}"): ${differ.map(([k, v]) => `${k} says "${v}"`).join('; ')}.`, { fix: differ.some(([k]) => k === 'pet.json') ? { type: 'petjson-name', to: prog.icon } : null });

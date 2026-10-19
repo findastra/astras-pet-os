@@ -121,6 +121,7 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
 .lang .bar i{display:block;height:100%}
 .lang b{font-weight:500}
 .codechip{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:5px;background:var(--raise);color:var(--fg);border:0}
+.parts{margin:8px 0}.parts>summary{cursor:pointer}.parts code.codechip{display:inline-block;margin:2px 0;word-break:break-all}
 .close{justify-self:end}
 .navpad{position:fixed;width:max-content;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px;backdrop-filter:blur(6px)}
 .navpad .btn{min-width:44px;min-height:36px;justify-content:center}
@@ -253,6 +254,14 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js" integrity="sha384-hf3oVtegKGVgPlVvpd9Lg2YX9MGMmV/Dn9iSbKOeIAvzwL2L3WLK4RWf7QNkNrfJ" crossorigin="anonymous"></script>
 <script>
 const DATA = __DATA__;
+// Native tools and tricks (Astra, 2026-10-19: "dont show on the system map at all, unless we are calling it a native
+// program"): only programs are drawn. Each pet program's tools and tricks are listed on its card (and its pet's card)
+// in sections that fold; search finds them there; a line that starts or ends at one is drawn from its pet program,
+// marked "via" it.
+const PARTS = {tool:{}, trick:{}}, PART = {};
+DATA.nodes.forEach(n=>{ if(PARTS[n.type]){ (PARTS[n.type][n.of]=PARTS[n.type][n.of]||[]).push(n); PART[n.id]=n; } });
+DATA.nodes = DATA.nodes.filter(n=>!PART[n.id]);
+DATA.links = DATA.links.map(l=>{ const a=PART[l.from], b=PART[l.to]; return a||b ? {...l, from:a?a.of:l.from, to:b?b.of:l.to, via:(a||b).name} : l; }).filter(l=>l.from!==l.to);
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const TYPE = {
   host:{color:css('--host'),r:.95,shape:'sphere'}, pet:{color:css('--pet'),r:.6,shape:'sphere'},
@@ -681,19 +690,18 @@ Object.entries(DATA.layers).forEach(([k,L])=>{ const n=DATA.links.filter(l=>l.la
   keyButtons.push([b,()=>!hiddenLayers.has(+k)]); });
 const SHAPES=[
   ['<circle cx="9" cy="9" r="7"/>','Sphere','🐾 a pet (intelligent app), ring 2; the Friendly Farmer is the gold one, ring 1. Also you, on the outermost ring'],
-  ['<rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/>','Pink cube','🐾 a pet program: a program, site or world Astra made. Ring 3, inside the glass, just outside the pets','--own'],
+  ['<rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/>','Pink cube','🐾 a pet program, or a native program: a program, site or world Astra made. Ring 3, inside the glass, just outside the pets. Native tools and tricks are not drawn: they are listed on their pet program\'s card','--own'],
   ['<circle cx="9" cy="9" r="7.5" fill-opacity=".18" stroke-width="1.2"/>','Glass sphere','the agent harness around rings 0 to 3. Click its edge for details'],
   ['<ellipse cx="9" cy="9" rx="8" ry="3.2" fill="none" stroke-width="1.6"/><circle cx="9" cy="9" r="2.6"/>','Planet ring','Claude Code or Codex: a ring around its AI. A request can go through the ring (the agent app) or straight to the model','--l5'],
   ['<path d="M9 1 17 9 9 17 1 9Z"/>','Diamond','a farmhand: an AI model (Claude, OpenAI, Astra\'s local farmhands). Ring 4, outside the glass. Only farmhands on the allowlist get keys'],
-  ['<path d="M3 3h9v4H3zM6 7h3v9.5H6z"/>','Hammer','a tool: a program a pet program owns (the System Map, Startup Star, name-eraser). It sits on its pet program\'s ring','--tool'],
   ['<path d="M6.5 6.5h5v5h-5zM1 8h4.5v2H1zM12.5 8H17v2h-4.5z"/>','Satellite','third-party: a program, library or service made by others (Voicemeeter, Steam, three.js). Ring 5, outside the glass','--program'],
   ['<rect x="4" y="1.5" width="10" height="15" rx="4"/>','Cylinder','a device: PCs, phones, iPad, headsets, trackers, Raspberry Pi. Ring 6'],
-  ['<path d="M9 1l2.1 4.3 4.7.7-3.4 3.3.8 4.7L9 11.8 4.8 14l.8-4.7L2.2 6l4.7-.7z"/>','Star wand','⭐ Startup Star, a tool of The Farm: it starts the desktop pets when you sign in to Windows','--host'],
+  ['<path d="M9 1l2.1 4.3 4.7.7-3.4 3.3.8 4.7L9 11.8 4.8 14l.8-4.7L2.2 6l4.7-.7z"/>','Star wand','⭐ Startup Star, a native program of The Farm: it starts the desktop pets when you sign in to Windows','--host'],
   ['<path d="M9 1.5 16.5 7 13.6 16H4.4L1.5 7Z"/>','Gem','🐾 the core, ring 0: The Farm, Pet Directory, Program Manager. The Kennel, the Shed and the vet-clinic sit outside, on ring 5'],
   ['<path d="M9 1.5 16.5 15.5H1.5Z"/>','Pyramid','an adviser outside with no access (ChatGPT, ring 7)'],
 ];
 // Which node types each shape stands for; hiding a shape hides all of them.
-const SHAPE_TYPES = {Sphere:['host','pet','pipeline','seed','roadmap','you'], 'Pink cube':['own-program'], Hammer:['tool'], 'Glass sphere':['harness'], 'Planet ring':['@apps'], Diamond:['model'], Satellite:['program'], Cylinder:['host-machine'], Gem:['infrastructure'], Pyramid:['assistant']};
+const SHAPE_TYPES = {Sphere:['host','pet','pipeline','seed','roadmap','you'], 'Pink cube':['own-program'], 'Glass sphere':['harness'], 'Planet ring':['@apps'], Diamond:['model'], Satellite:['program'], Cylinder:['host-machine'], Gem:['infrastructure'], Pyramid:['assistant']};
 const sk=document.getElementById('shapeKey');
 SHAPES.forEach(([svg,name,what,colour])=>{ const types=SHAPE_TYPES[name]||[]; const ink=colour?css(colour):css('--fg');
   const b=keyButton(sk, `Hide or show every ${name.toLowerCase()}`, b=>{
@@ -848,9 +856,20 @@ function flowItem(l){
   const top=el('div'); const from=el('button','link',nodeById[l.from].name), to=el('button','link',nodeById[l.to].name);
   from.onclick=()=>selectNode(nodeById[l.from]); to.onclick=()=>selectNode(nodeById[l.to]);
   top.append(from, document.createTextNode(' → '), to, document.createTextNode(' '), st);
-  const kind=el('div','kind',l.carries==='network'&&MEDIUM[l.medium] ? `network: ${MEDIUM[l.medium].name}` : `${l.carries}: ${DATA.carries[l.carries]||''}`);
+  const kind=el('div','kind',(l.carries==='network'&&MEDIUM[l.medium] ? `network: ${MEDIUM[l.medium].name}` : `${l.carries}: ${DATA.carries[l.carries]||''}`)+(l.via?` · via ${l.via}`:''));
   li.append(top, kind, el('div','why',l.why)); return li;
 }
+// A pet program's native tools and tricks, each in a section that folds (closed until clicked). A pet's card shows its
+// pet program's. They are never drawn on the map (Astra, 2026-10-19).
+function partsBlock(n){
+  const ids=[n.id]; if(n.home&&n.home.node&&n.home.node!==n.id) ids.push(n.home.node);
+  [['tool','Native tools'],['trick','Native tricks']].forEach(([k,word])=>{ const list=ids.flatMap(id=>PARTS[k][id]||[]); if(!list.length) return;
+    const d=el('details','parts'); d.appendChild(el('summary','label',`${word} · ${list.length}`));
+    const ul=el('ul','conns'); list.slice().sort((a,b)=>(a.state==='now'?0:1)-(b.state==='now'?0:1)||a.name.localeCompare(b.name)).forEach(t=>{
+      const li=el('li'), top=el('div'); top.append(el('b','',t.name));
+      if(t.state!=='now'){ top.append(document.createTextNode(' ')); top.appendChild(el('span','chip',(STATE_WORD[t.state]||t.state).split(' (')[0])); }
+      li.appendChild(top); if(t.label) li.appendChild(el('code','codechip',t.label)); li.appendChild(el('div','why',t.job||'')); ul.appendChild(li); });
+    d.appendChild(ul); side.appendChild(d); }); }
 function selectNode(n){
   selected=n; selectedPair=null; ringOn=null; apply(); flyTo(n.id);
   head(n.name); try{ history.replaceState(null,'','#node='+encodeURIComponent(n.id)); }catch(e){}
@@ -881,9 +900,7 @@ function selectNode(n){
       const out=el('p','why','Copied. Paste it to your AI (Claude or ChatGPT) on your own farm.'); out.hidden=true;
       mk.onclick=()=>{ try{ navigator.clipboard.writeText(prompt); }catch(e){} out.hidden=false; out.textContent='Copied. Paste this to your AI on your own farm: '+prompt; };
       side.append(mk, out); } }
-  if(n.type==='tool'&&nodeById[n.of]){ const p=el('p','meta'); const b=el('button','link',nodeById[n.of].name); b.onclick=()=>selectNode(nodeById[n.of]);
-    p.append(document.createTextNode('\u{1F528} A tool of '), b, document.createTextNode(': it sits on its pet program’s ring, and its grants never exceed its pet program’s.')); side.appendChild(p);
-    if(n.label){ const lb=el('p','meta'); lb.append(document.createTextNode('Tool box label: ')); lb.appendChild(el('code','',n.label)); side.appendChild(lb); } }
+  partsBlock(n);
   if(inCluster(n)){ const p=el('p','meta'), b=el('button','link',nodeById[n.in].name); b.onclick=()=>selectNode(nodeById[n.in]); p.append(document.createTextNode('Part of '), b); side.appendChild(p); }
   const members=clusterOf(n.id); if(members.length){ const p=el('p','meta'); p.append(document.createTextNode(members.length+' in this group: '));
     members.forEach((m,k)=>{ const b=el('button','link',m.name); b.onclick=()=>selectNode(m); p.append(b); if(k<members.length-1) p.append(document.createTextNode(', ')); }); side.appendChild(p); }
@@ -968,6 +985,8 @@ function runSearch(){
   if(!s){ matches=null; res.hidden=true; apply(); return; }
   const found=DATA.nodes.filter(n=>[n.name,n.job,n.id,DATA.types[n.type],langOf(n),n.category||'',n.home?n.home.name:''].join(' ').toLowerCase().includes(s))
     .sort((x,y)=>(y.name.toLowerCase().startsWith(s))-(x.name.toLowerCase().startsWith(s)));
+  // A native tool or trick is found through its pet program, where its card lists it.
+  Object.values(PART).filter(t=>[t.name,t.label||'',t.job||''].join(' ').toLowerCase().includes(s)).forEach(t=>{ const o=nodeById[t.of]; if(o&&!found.includes(o)) found.push(o); });
   matches=new Set(found.map(n=>n.id)); resItems=found.slice(0,12); resOn=0; res.replaceChildren();
   if(!found.length){ res.appendChild(el('div','why','  Nothing matches.')); }
   resItems.forEach((n,i)=>{ const b=el('button',i===0?'on':''); b.setAttribute('role','option');
