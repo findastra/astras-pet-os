@@ -88,7 +88,7 @@ Passport Panda is now **Passport Pelican**).
   software, deleting, force-pushing or repository transfers.
 - Who edits what while Claude and Codex work in parallel: see "Who edits what" in the plan.
 
-*An Intelligent App, or Pet, by Astra.* Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
+Public credit is always **Astra**, never a legal name. Keep work information (including any employer's name) out of this repo.
 
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record your model name and version here when you change something substantial.
 Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6), 2026-10-08.
@@ -186,3 +186,4 @@ A chat-order skill (numbering chat titles in merge order) was added and removed 
 The Friendly Farmer's pet program spawner (`scripts/pet-program-pages-20261018.mjs`, `the-farm-v1.0-pet-program-spawner-v1.0`, Astra 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first"): a page with every module of her sketch for each of the 38 registered and pipeline pets in `apps/pet-programs/`, rebuilt by `npm run build` and guarded by `test/pet-program-pages-test-20261018.mjs` (card 044), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 Related pets at the bottom of every pet program page (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"): the spawner's `<pet>-related-pets` module, above the unified footer, lists every pet it talks to (the same relations as its connection boxes and the System Map) with its picture and a link to its pet program page; PET-PROGRAM-FRAMEWORK.md section 3, item 11, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 Tools, tricks and harness skills (a trick is owned at L2 and followed at L3; the runtime and security chart in TOOLS-AND-TRICKS.md; known gap 14; the matching lines in PET-PROGRAM-FRAMEWORK.md, ASTRAS_PET_OS.md, INTELLIGENCE-LEVELS.md, PROVENANCE.md, the security model and the dev-mindset and farm-security skills) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+The credit line only in a pet repo's own README (Astra, 2026-10-19: "this should only be when its at a pet repo"): taken out of AGENTS.md, the spawned pages' footer, the hub's app copies and the Pole Puff draft (they say "By Astra"), the Flash Audit scripts no longer write it outside a README, PET-FILES.md and A15 say so, guarded by `test/credit-line-readme-only-test-20261019.mjs`; the same in 33 pet repos by their own PRs, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.

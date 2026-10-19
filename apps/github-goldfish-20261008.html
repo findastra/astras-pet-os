@@ -122,7 +122,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: .85rem; border-top: 1
 <body>
 <main>
   <h1>GitHub Goldfish</h1>
-  <p class="sub"><em>An Intelligent App, or Pet, by Astra.</em> A goldfish swims through every public word on a GitHub account and tells you what is wrong, misplaced, or inconsistent.</p>
+  <p class="sub">By Astra. A goldfish swims through every public word on a GitHub account and tells you what is wrong, misplaced, or inconsistent.</p>
 
   <section class="device" aria-label="The goldfish tank">
     <div class="lcd-wrap"><canvas id="tank" width="160" height="72" role="img" aria-label="A pixel goldfish swimming in a tank"></canvas></div>
@@ -622,7 +622,7 @@ const Goldfish = (() => {
 
   function toMarkdown(findings, meta) {
     const s = summarize(findings);
-    const out = [`# GitHub Goldfish report for ${meta.user}`, '', `*An Intelligent App, or Pet, by Astra.* Audited ${meta.when}. ${meta.repoCount} public repos.`, '',
+    const out = [`# GitHub Goldfish report for ${meta.user}`, '', `By Astra. Audited ${meta.when}. ${meta.repoCount} public repos.`, '',
       `**${s.by.error} errors, ${s.by.warn} warnings, ${s.by.note} notes.**`, '',
       ...CATS.map((c) => `- ${c}: ${s.cat[c]}`), ''];
     const groups = {};
