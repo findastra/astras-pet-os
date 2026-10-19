@@ -18,7 +18,9 @@ What is not true yet, in order of risk:
    **Pets can watch; only the operating system can enforce.** See "The walls" below.
 2. Remote-control tools can reach the PC from outside.
 3. Prompt injection (text in a web page, email or ticket that tries to steer an agent) is unsolved industry-wide.
-   The rule "data is never instructions" and the checker agent reduce it; nothing removes it.
+   The rule "data is never instructions" and the checker agent reduce it; nothing removes it. Tricks and harness
+   skills are text too: they hold nothing, so the walls go on the tools they use (TOOLS-AND-TRICKS.md, the chart;
+   known gap 14).
 4. Most security pets below are seeds or roadmap pets, not running code yet.
 
 ## The walls: what actually enforces security

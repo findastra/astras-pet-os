@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, MODULES, DIR, INDEX, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, MODULES, DIR, INDEX, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every module of the sketch, in its order, and every module collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = MODULES.map((m) => (['cyberhome', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'chat'].includes(m)
+    const labels = MODULES.map((m) => (['cyberhome', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -54,6 +54,17 @@ test('labels sit in the top border with nothing after them, and every emotion bu
       assert.ok(html.includes(`<fieldset class="mood-bubble"><legend>${name}</legend>`), `${d.repo}: the ${name} bubble has its name in its border`);
     const order = [...html.matchAll(/<fieldset class="mood-bubble"><legend>([a-z]+)<\/legend>/g)].map((m) => m[1]);
     assert.deepEqual(order, ['sleepy', 'awake', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'], `${d.repo}: the sketch's 3 by 3 order`);
+  }
+});
+
+test('clicker training: one and two clicks are the same for every pet, tools from three clicks on (Astra, 2026-10-18)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
+    assert.match(box, /<dt>one click<\/dt><dd>show the current reminder in a dialog box/, `${d.repo}: one click`);
+    assert.ok(box.includes(`<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>`), `${d.repo}: two clicks`);
+    assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
+    assert.doesNotMatch(box, /refresh tools/, `${d.repo}: three clicks no longer refresh the tools`);
   }
 });
 
@@ -119,4 +130,25 @@ test('private pets say their data never leaves the PC, and private repos are not
     if (d.isPrivate) assert.match(html, /its data never leaves the PC/, d.repo);
     if (!d.publicRepo) assert.ok(!html.includes(`href="https://github.com/findastra/${d.repo}"`), `${d.repo} is private: no repo link`);
   }
+});
+
+test('related pets sit at the bottom: every pet it talks to, linked to its own pet program page (Astra, 2026-10-19)', () => {
+  const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    assert.ok(html.indexOf(`>${d.petSlug}-related-pets<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: related pets come just above the footer`);
+    assert.deepEqual(d.related.map((r) => r.id).sort(), d.connections.map((c) => c.id).sort(), `${d.repo}: the same pets as its connection boxes`);
+    for (const r of d.related) {
+      assert.ok(names.has(r.page), `${d.repo}: ${r.pet} links to a page that exists (${r.page})`);
+      assert.ok(html.includes(`href="${r.page}"`), `${d.repo}: ${r.pet} is a link`);
+    }
+  }
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
+  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+});
+
+test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
 });

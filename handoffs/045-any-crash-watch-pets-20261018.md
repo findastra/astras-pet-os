@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge the four pull requests, in order; pet art)
+status: done when #105 merges (Astra's OK in chat, 2026-10-19: merge all four, #105 once CodeQL passes); left open: pet art (waiting on Astra)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `claude/build-20261018`; this card's branch `claude/crash-watch-pets-20261018`
@@ -14,9 +14,9 @@ monitor this crash ... show me the pet programs, then I will let you know if to 
 
 ## What I did
 
-Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18, chat "Astra's PetOS - Network Issue". Pushed on Astra's OK in chat ("Push the four branches and open one pull request per repo"); nothing is merged.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18 and 2026-10-19, chat "Astra's PetOS - Network Issue". Pushed on Astra's OK in chat ("Push the four branches and open one pull request per repo"), merged on her OK of 2026-10-19 ("Merge log-den#2, packet-river#2 and evidence-locker#2 now, then astras-pet-os#105 once its CodeQL checks pass").
 
-**Pull requests, in merge order:** 1. [log-den#2](https://github.com/findastra/log-den/pull/2) · 2. [packet-river#2](https://github.com/findastra/packet-river/pull/2) · 3. [evidence-locker#2](https://github.com/findastra/evidence-locker/pull/2) · 4. [astras-pet-os#105](https://github.com/findastra/astras-pet-os/pull/105) (this branch). #101, #102 and #103 touch some of the same lines: whichever merges second needs `main` merged in.
+**Pull requests, in merge order:** 1. [log-den#2](https://github.com/findastra/log-den/pull/2), merged as `5e0af07` · 2. [packet-river#2](https://github.com/findastra/packet-river/pull/2), merged as `eb3b2e0` · 3. [evidence-locker#2](https://github.com/findastra/evidence-locker/pull/2), merged as `502eb99` · 4. [astras-pet-os#105](https://github.com/findastra/astras-pet-os/pull/105) (this branch). `main` was merged into this branch twice while it waited: #101 (every grant kept; this branch's are 15 to 17), then #80, #102, #106, #107 and #108 (both sides of AGENTS.md, the decision table and the card table kept; card numbers from `main`, next free 047). Following #106, the three pets' 13 tools are tool nodes of their pet programs on the System Map (`program-48`, `program-53`, `program-70`), so the spawned pages list them; the code languages are GitHub's (2026-10-19).
 
 **Three pet programs, each a Windows tray program built on the PC by the C# compiler that ships with Windows, with a
 console build for checks, and a pet program page with every module of Astra's 2026-10-18 sketch:**
@@ -67,10 +67,10 @@ desktop pets, PID 1960, were never touched):
 ## Task
 
 1. ~~Push and open the pull requests~~ done 2026-10-18 (above).
-2. **Astra:** merge (each pet's pull request, then this hub's). Until the hub merges, the pets are roadmap pets that work.
+2. ~~Merge~~ the three pets merged 2026-10-19; this hub pull request merges once CodeQL passes (Astra's OK).
 3. **Astra:** pet art for Log Lynx, Packet Piranha and Forensic Ferret (paid; prompts not written yet). Until then the
    pages show a text face and the tray shows a small drawn icon.
-4. After the push, replace the measured code languages in `system-map.json` with GitHub's.
+4. ~~Code languages from GitHub~~ done 2026-10-19.
 5. Later (not asked for yet): Startup Star or the installer starting the three at sign-in; the Farmer watching Log
    Lynx's heartbeat (the relation is `planned`); Cipher Owl signing cases; a crash ticket to the vet-clinic.
 

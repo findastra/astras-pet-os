@@ -140,3 +140,7 @@ label.file { position: relative; }
 /* Faces the page script switches between: a hidden one never shows. */
 img[hidden] { display: none !important; }
 .awake-faces { display: inline-block; }
+/* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
+.cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
+.cards.related .card-text span + span { font-size: 12px; }
