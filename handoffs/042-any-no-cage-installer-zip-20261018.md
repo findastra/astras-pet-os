@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the one-line workflow edit, OK to merge, OK to release v0.3.0-beta and delete the two 2026-10-08 releases)
+status: open (waiting on Astra: delete cage-data.js from line 59 of the Farmer's round workflow)
 for: any (the workflow line is Astra's; Codex: read "For Codex")
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: INSTALL.md, README.md (top), scripts/installer-zip-20261018.mjs, test/install-link-no-cage-test-20261018.mjs, .github/workflows/farmer-daily-rounds.yml
@@ -46,6 +46,13 @@ OK. A real installer zip (99 MB), unzipped into a folder whose name has a space 
 ready" and exited 0; neither install has a Cage file; each farm ran 8 s in the desktop pets with no UI exception. The
 INSTALL.md agent commands (`-ListPets`, then `-Farm Scratch -Pets goldfish,api-fairy`) installed exactly those pets.
 The longest path a real user's Downloads folder gets is about 198 characters, under Windows' 260.
+
+**Shipped the same day** (Astra in chat, answering "Ship #96 as v0.3.0-beta and delete the two Cage releases?": "do it for me i am not at my desktop"):
+- #96 merged as `b17419f` on `main` (CodeQL passed; `npm test` 139 pass, 1 skipped).
+- Release [v0.3.0-beta](https://github.com/findastra/astras-pet-os/releases/tag/v0.3.0-beta) published as **Latest** (not a pre-release) at `b17419f`, with `astras-pet-os-installer.zip` (99 MB, SHA-256 `ED6957591D395BA35708CC884425AB3E57526D5E6ACA33E5B46151980885A312`), uploaded while it was a draft so the link never pointed at a release without the zip. `releases/latest` now answers v0.3.0-beta.
+- Release pages `v0.2.0-20261008` and `v0.2.1-20261008` deleted; their tags stay and their notes are in `docs/retired-releases-20261018.md`. v0.2.0-beta, v0.1.1-beta and v0.1.0-beta now open with "Old version: it still contains the retired Cage. Install the latest instead".
+- Tested from the live link: `releases/latest/download/astras-pet-os-installer.zip` downloaded the same file; `-Farm Scratch -Pets goldfish` and a double-click-style Example install both worked, with no Cage file, and the pets ran 8 s with no UI exception.
+- Not done: the workflow line below (this login cannot change workflow files). Until it is edited, the round stops at `git add` each morning; nothing else breaks.
 
 ## Task (Astra's, in this order)
 1. **Edit one line of the Farmer's round on GitHub** (this PC's GitHub login cannot change workflow files):
