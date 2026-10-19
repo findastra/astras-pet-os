@@ -166,7 +166,7 @@
     ],
     "tools": {
       "astras-pet-os": {
-        "home_url": "https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html",
+        "home_url": "https://findastra.github.io/astras-pet-os/apps/pet-programs/astras-pet-os-20261018.html",
         "repo_note": "Astra's PetOS home repo",
         "tools": [
           "startup-star",
@@ -176,7 +176,7 @@
         ]
       },
       "workflow-whirlpool": {
-        "home_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
+        "home_url": "https://findastra.github.io/astras-pet-os/apps/pet-programs/workflow-whirlpool-20261018.html",
         "tools": []
       }
     }
@@ -524,8 +524,9 @@
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
-      "interface_local_url": "apps/astras-pet-apps-20261008.html",
-      "interface_url": "apps/astras-pet-apps-20261008.html",
+      "interface_local_url": "apps/pet-programs/astras-pet-os-20261018.html",
+      "interface_url": "apps/pet-programs/astras-pet-os-20261018.html",
+      "app_url": "apps/astras-pet-apps-20261008.html",
       "audit": {
         "cadence": "daily",
         "subject": "the pet registry and the System Map",
@@ -542,8 +543,9 @@
       "published": true,
       "job": "Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors.",
       "added": "2026-10-07",
-      "interface_local_url": "apps/github-goldfish-20261008.html",
-      "interface_url": "apps/github-goldfish-20261008.html",
+      "interface_local_url": "apps/pet-programs/github-goldfish-20261018.html",
+      "interface_url": "apps/pet-programs/github-goldfish-20261018.html",
+      "app_url": "apps/github-goldfish-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "c77f326d16d85dcf2d2328683e798605e3253a6c",
@@ -567,8 +569,9 @@
       "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
-      "interface_local_url": "apps/data-dealer-20261008.html",
-      "interface_url": "apps/data-dealer-20261008.html",
+      "interface_local_url": "apps/pet-programs/data-dealer-20261018.html",
+      "interface_url": "apps/pet-programs/data-dealer-20261018.html",
+      "app_url": "apps/data-dealer-20261008.html",
       "interface_live_url": "https://findastra.github.io/astras-pet-os/apps/data-dealer-20261008.html",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "4f876dd7b22a7caebf0bb3fbb021539f5b474041",
@@ -589,8 +592,9 @@
       "job": "Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop.",
       "added": "2026-10-07",
       "note": "Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).",
-      "interface_local_url": "apps/api-fairy-20261008.html",
-      "interface_url": "apps/api-fairy-20261008.html",
+      "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
+      "interface_url": "apps/pet-programs/api-fairy-20261018.html",
+      "app_url": "apps/api-fairy-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "a63b027fca258816996767eff5d6e3a75431a1fb",
@@ -610,8 +614,9 @@
       "published": true,
       "job": "A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.",
       "added": "2026-10-07",
-      "interface_local_url": "apps/unity-unicorn-20261008.html",
-      "interface_url": "apps/unity-unicorn-20261008.html",
+      "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
+      "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
+      "app_url": "apps/unity-unicorn-20261008.html",
       "visibility": "public",
       "source_tag": "v0.3.0-20261011",
       "source_commit": "ce0d2eb811569ecdaedfc087b42ae8a387ada6f1",
@@ -632,8 +637,9 @@
       "job": "A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.",
       "added": "2026-10-07",
       "note": "A panther, not a snake. Python blue and yellow on dark fur.",
-      "interface_local_url": "apps/learn-python-20261008.html",
-      "interface_url": "apps/learn-python-20261008.html",
+      "interface_local_url": "apps/pet-programs/learn-python-20261018.html",
+      "interface_url": "apps/pet-programs/learn-python-20261018.html",
+      "app_url": "apps/learn-python-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "d5088d07566f7c698818e6a2c93a91ca68bfa5e1",
@@ -654,8 +660,9 @@
       "job": "Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
       "added": "2026-10-07",
       "note": "DRAFT. The name Wisp is a placeholder.",
-      "interface_local_url": "apps/vrchat-ai-astra-20261008.html",
-      "interface_url": "apps/vrchat-ai-astra-20261008.html",
+      "interface_local_url": "apps/pet-programs/the-astral-plane-20261018.html",
+      "interface_url": "apps/pet-programs/the-astral-plane-20261018.html",
+      "app_url": "apps/vrchat-ai-astra-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "5e15125a7d35144f883117c51b9f3cd2faf26c40",
@@ -676,8 +683,9 @@
       "job": "Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed.",
       "added": "2026-10-07",
       "note": "DRAFT as a hummingbird (a guess from the name).",
-      "interface_local_url": "apps/health-hummy-20261008.html",
-      "interface_url": "apps/health-hummy-20261008.html",
+      "interface_local_url": "apps/pet-programs/health-hummy-20261018.html",
+      "interface_url": "apps/pet-programs/health-hummy-20261018.html",
+      "app_url": "apps/health-hummy-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "9ef38ebb911b9f49586f6c6502e1040afd8f354c",
@@ -697,8 +705,9 @@
       "published": true,
       "job": "Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed.",
       "added": "2026-10-07",
-      "interface_local_url": "apps/finance-finch-20261008.html",
-      "interface_url": "apps/finance-finch-20261008.html",
+      "interface_local_url": "apps/pet-programs/finance-finch-20261018.html",
+      "interface_url": "apps/pet-programs/finance-finch-20261018.html",
+      "app_url": "apps/finance-finch-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "8c184fbd7ca8ad492deacd17183b1e810e2eea15",
@@ -735,8 +744,9 @@
           "the helipad is decorative"
         ]
       },
-      "interface_local_url": "apps/mommys-20261008.html",
-      "interface_url": "apps/mommys-20261008.html",
+      "interface_local_url": "apps/pet-programs/mommys-mommies-20261018.html",
+      "interface_url": "apps/pet-programs/mommys-mommies-20261018.html",
+      "app_url": "apps/mommys-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "a0a8275aca9feba005d01f4a762752b2cd55626b",
@@ -757,8 +767,9 @@
       "job": "Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.",
       "added": "2026-10-07",
       "note": "DRAFT. Dark mauve and pink from the site, a folded paper hat, a rolled paper.",
-      "interface_local_url": "apps/paper-girl-20261008.html",
-      "interface_url": "https://findastra.github.io/paper-girl/",
+      "interface_local_url": "apps/pet-programs/paper-girl-20261018.html",
+      "interface_url": "apps/pet-programs/paper-girl-20261018.html",
+      "app_url": "https://findastra.github.io/paper-girl/",
       "interface_live_url": "https://findastra.github.io/paper-girl/",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
@@ -780,8 +791,9 @@
       "job": "Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned).",
       "added": "2026-10-07",
       "note": "DRAFT as a manila folder.",
-      "interface_local_url": "apps/file-master-20261008.html",
-      "interface_url": "apps/file-master-20261008.html",
+      "interface_local_url": "apps/pet-programs/file-master-20261018.html",
+      "interface_url": "apps/pet-programs/file-master-20261018.html",
+      "app_url": "apps/file-master-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.1-20261008-pets",
       "source_commit": "77f2853ee3e8b6865fee0cf9b2e3ce09af79a77d",
@@ -802,8 +814,9 @@
       "job": "Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist.",
       "added": "2026-10-07",
       "note": "DRAFT. Blurple hennin and veil; no Discord logo.",
-      "interface_local_url": "apps/findastra-discord-presence-20261008.html",
-      "interface_url": "apps/findastra-discord-presence-20261008.html",
+      "interface_local_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
+      "interface_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
+      "app_url": "apps/findastra-discord-presence-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.1-20261008-pets",
       "source_commit": "25bfb4031ee98e5f496b052643189f56cfec92be",
@@ -824,8 +837,9 @@
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
-      "interface_local_url": "apps/portfolio-puffer-20261008.html",
-      "interface_url": "apps/portfolio-puffer-20261008.html",
+      "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
+      "interface_url": "apps/pet-programs/portfolio-puffer-20261018.html",
+      "app_url": "apps/portfolio-puffer-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "aef38db6544322c54e01b0ef9a1cf8dff1a8fcf1",
@@ -846,8 +860,9 @@
       "job": "Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned.",
       "added": "2026-10-08",
       "note": "DRAFT. A local music-project notebook is available. It does not connect to Ableton Live or acquire samples.",
-      "interface_local_url": "apps/drum-dog-20261008.html",
-      "interface_url": "apps/drum-dog-20261008.html",
+      "interface_local_url": "apps/pet-programs/drum-dog-20261018.html",
+      "interface_url": "apps/pet-programs/drum-dog-20261018.html",
+      "app_url": "apps/drum-dog-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "f6f9470a5cdea6eb8e620696cf5eb2876dbf764e",
@@ -868,8 +883,9 @@
       "job": "Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned.",
       "added": "2026-10-08",
       "note": "DRAFT. The job is taken from the session where Astra named it; confirm the scope with her.",
-      "interface_local_url": "apps/vscode-angel-20261008.html",
-      "interface_url": "apps/vscode-angel-20261008.html",
+      "interface_local_url": "apps/pet-programs/vscode-angel-20261018.html",
+      "interface_url": "apps/pet-programs/vscode-angel-20261018.html",
+      "app_url": "apps/vscode-angel-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "37c1727f7ba304e835b6f65f53d04d3a308d9126",
@@ -891,8 +907,9 @@
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
-      "interface_local_url": "apps/ghost-protocol-20261008.html",
-      "interface_url": "https://findastra.github.io/ghost-protocol/",
+      "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
+      "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
+      "app_url": "https://findastra.github.io/ghost-protocol/",
       "interface_live_url": "https://findastra.github.io/ghost-protocol/",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
@@ -915,8 +932,9 @@
       "job": "Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.",
       "added": "2026-10-08",
       "note": "DRAFT. Officially named Project Parrot, replacing Project Pal. The local desk stores manually entered ideas and due dates. OneNote scanning and background reminder integration remain unconnected.",
-      "interface_local_url": "apps/project-parrot-20261008.html",
-      "interface_url": "apps/project-parrot-20261008.html",
+      "interface_local_url": "apps/pet-programs/project-parrot-20261018.html",
+      "interface_url": "apps/pet-programs/project-parrot-20261018.html",
+      "app_url": "apps/project-parrot-20261008.html",
       "visibility": "public",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "43f2bc7eee8d4bf4cec96a99e2f2ac4518c8f2cb",
@@ -939,14 +957,22 @@
       "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.",
       "added": "2026-10-08",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
-      "interface_local_url": "apps/voicemeeter-bug-20261008.html",
-      "interface_url": "apps/voicemeeter-bug-20261008.html",
+      "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
+      "interface_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
+      "app_url": "apps/voicemeeter-bug-20261008.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your Voicemeeter audio",
         "needs": "the Bug running on your PC"
       },
-      "visibility": "public"
+      "visibility": "public",
+      "clicks": {
+        "3": {
+          "tool": "repair",
+          "label": "audio-rescue-v1.0-repair-v1.0",
+          "what": "restart Voicemeeter's audio engine (the repair; it was one click until 2026-10-19)"
+        }
+      }
     },
     {
       "repo": "platform-platypus",
@@ -960,8 +986,9 @@
       "job": "Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.",
       "added": "2026-10-13",
       "note": "DRAFT art until Astra approves it: a purple platypus with a yellow bill and a cyan phone, the seed sheet generated 2026-10-12 (art/seeds/platform-platypus-sheet-20261012.png). Registered with that sheet on Astra's OK, 2026-10-17, by Claude Opus 5.5. Kind 'penguin' only borrows a plain ground walk; a platypus-specific kind is the Farmer's call.",
-      "interface_local_url": "apps/platform-platypus-20261017.html",
-      "interface_url": "https://findastra.github.io/platform-platypus/",
+      "interface_local_url": "apps/pet-programs/platform-platypus-20261018.html",
+      "interface_url": "apps/pet-programs/platform-platypus-20261018.html",
+      "app_url": "https://findastra.github.io/platform-platypus/",
       "interface_live_url": "https://findastra.github.io/platform-platypus/",
       "audit": {
         "cadence": "weekly",
@@ -980,6 +1007,8 @@
       "status": "hatching",
       "job": "Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.",
       "added": "2026-10-11",
+      "interface_local_url": "apps/pet-programs/spoonfed-20261018.html",
+      "interface_url": "apps/pet-programs/spoonfed-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "Spoonfed’s restaurant discovery, saved spots, and sample-data labels",
@@ -994,6 +1023,8 @@
       "status": "hatching",
       "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/claude-bot-20261018.html",
+      "interface_url": "apps/pet-programs/claude-bot-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the Claude Bot plan and build",
@@ -1008,6 +1039,8 @@
       "status": "hatching",
       "job": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/rgbee-20261018.html",
+      "interface_url": "apps/pet-programs/rgbee-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your RGB lights and scenes",
@@ -1022,6 +1055,8 @@
       "status": "hatching",
       "job": "Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/mine-mole-20261018.html",
+      "interface_url": "apps/pet-programs/mine-mole-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the crypto mining research",
@@ -1035,6 +1070,8 @@
       "status": "hatching",
       "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/mail-snail-20261018.html",
+      "interface_url": "apps/pet-programs/mail-snail-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1049,6 +1086,8 @@
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/patch-cat-20261018.html",
+      "interface_url": "apps/pet-programs/patch-cat-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1062,6 +1101,8 @@
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/meme-fiend-20261018.html",
+      "interface_url": "apps/pet-programs/meme-fiend-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your saved memes (on your PC only)",
@@ -1075,6 +1116,8 @@
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/astras-gif-maker-20261018.html",
+      "interface_url": "apps/pet-programs/astras-gif-maker-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1089,6 +1132,8 @@
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/backup-beaver-20261018.html",
+      "interface_url": "apps/pet-programs/backup-beaver-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1102,6 +1147,8 @@
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/rift-rabbit-20261018.html",
+      "interface_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your VR software and performance notes",
@@ -1111,7 +1158,9 @@
     {
       "repo": "fuzzboi-friend",
       "interface_live_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
-      "interface_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
+      "interface_local_url": "apps/pet-programs/fuzzboi-friend-20261018.html",
+      "interface_url": "apps/pet-programs/fuzzboi-friend-20261018.html",
+      "app_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
       "pet": "Fuzzboi Friend",
       "visibility": "public",
       "status": "hatching",
@@ -1122,7 +1171,14 @@
         "subject": "the Fuzzboi maker and its live site",
         "needs": "your OK to register me in the Cage"
       },
-      "note": "Card 006: patch and paid sheet ready."
+      "note": "Card 006: patch and paid sheet ready.",
+      "clicks": {
+        "3": {
+          "tool": "reroll",
+          "label": "fuzzboi-factory-v1.0-reroll-v1.0",
+          "what": "change his body style to the next one"
+        }
+      }
     },
     {
       "repo": "wifi-butterfly",
@@ -1131,6 +1187,8 @@
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/wifi-butterfly-20261018.html",
+      "interface_url": "apps/pet-programs/wifi-butterfly-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1144,6 +1202,8 @@
       "status": "hatching",
       "job": "Helps you manage your Elgato Stream Deck: what every button does, on every profile.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/deck-duck-20261018.html",
+      "interface_url": "apps/pet-programs/deck-duck-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1157,6 +1217,8 @@
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/mesh-moth-20261018.html",
+      "interface_url": "apps/pet-programs/mesh-moth-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the Meshtastic node plan",
@@ -1170,6 +1232,8 @@
       "status": "hatching",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
+      "interface_local_url": "apps/pet-programs/raspberry-berry-20261018.html",
+      "interface_url": "apps/pet-programs/raspberry-berry-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
@@ -1183,6 +1247,8 @@
       "status": "hatching",
       "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
       "added": "2026-10-17",
+      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
+      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "every Discord bot: its servers, roles, permissions and health",
@@ -1197,6 +1263,8 @@
       "status": "hatching",
       "job": "Files every chat Astra has with Claude or OpenAI into one shared folder, with an index every assistant can read.",
       "added": "2026-10-18",
+      "interface_local_url": "apps/pet-programs/chat-rat-20261018.html",
+      "interface_url": "apps/pet-programs/chat-rat-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the chats it has filed and their index",
@@ -1211,13 +1279,15 @@
       "status": "hatching",
       "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
       "added": "2026-10-18",
+      "interface_local_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
+      "interface_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
+      "app_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "pairing, capture privacy, feedback delivery and device acceptance",
         "needs": "native iPad verification and a verified chat adapter"
       },
-      "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending.",
-      "interface_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html"
+      "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending."
     },
     {
       "repo": "log-den",
@@ -1231,7 +1301,9 @@
         "subject": "the farm’s logs and crash windows",
         "needs": "a look at a crash I caught"
       },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in log-den); no pet art yet (generating it waits on her OK)."
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in log-den); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/log-den-20261018.html",
+      "interface_local_url": "apps/pet-programs/log-den-20261018.html"
     },
     {
       "repo": "packet-river",
@@ -1245,7 +1317,9 @@
         "subject": "the network: loss, latency, DNS and routes",
         "needs": "a host to trace"
       },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in packet-river); no pet art yet (generating it waits on her OK)."
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in packet-river); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/packet-river-20261018.html",
+      "interface_local_url": "apps/pet-programs/packet-river-20261018.html"
     },
     {
       "repo": "evidence-locker",
@@ -1259,7 +1333,9 @@
         "subject": "cases and their chains of custody",
         "needs": "what you saw at a moment with no crash record"
       },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK)."
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
+      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html"
     }
   ],
   "seeds": {

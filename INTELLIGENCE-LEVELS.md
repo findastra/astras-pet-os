@@ -85,9 +85,10 @@ when you change a level, with the date and your evidence. Each intelligent app h
 
 ## Errors that affect every app
 
-- 📦 $\color{red}{\textsf{Double-clicking a registered desktop pet opens a copy of its app kept in the hub, not the program in its own repo.}}$
-  Two copies of each app can drift apart.
-- 🔌 $\color{red}{\textsf{Double-clicking a pipeline desktop pet only opens its GitHub page; no app is wired up.}}$
+- 📦 $\color{red}{\textsf{Today's app of a registered pet is a copy kept in the hub, not the program in its own repo.}}$
+  Two copies of each app can drift apart. Since 2026-10-19, double-clicking a desktop pet (registered or pipeline)
+  opens its pet program page in the hub, and today's app is a button there (Astra: "one click always points to program
+  page"). Closing it with a second double-click, and the one-click reminder, are card 046.
 - 🏷️ $\color{red}{\textsf{New names and jobs from 2026-10-12 are in the registry, but each pet's own repo still has the old text.}}$
   Gone Ghost, Paper Girl Patty and every pet with a new job: each pet's chat updates its repo's `pet.json` (the Farmer's round flags the difference until then).
 - ~~Two different handoff cards are numbered 010~~ Fixed 2026-10-17: Pole Puff’s card is 024. Card numbers across every

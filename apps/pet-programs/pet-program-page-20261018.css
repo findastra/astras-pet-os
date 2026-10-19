@@ -1,6 +1,6 @@
 /* Every pet program page, from Astra's sketch of 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3). The page shows the
-   structure, not a finished look (Astra, 2026-10-18): thin light lines on slate, each module's label set into its top
-   border with no marks after it, the emotion bubbles labelled the same way, every module collapsible.
+   structure, not a finished look (Astra, 2026-10-18): thin light lines on slate, each panel's label set into its top
+   border with no marks after it, the emotion bubbles labelled the same way, every panel collapsible.
    One copy for every page spawned by the Friendly Farmer's pet program spawner. Claude Opus 5.5, 2026-10-18. */
 :root {
   --slate: #46463f; --slate-2: #3d3d37; --chalk: #f1ecd8; --chalk-dim: #c9c4b0; --line: #e6e0c9;
@@ -17,13 +17,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visib
 code { font: 12px var(--label); color: var(--chalk-dim); }
 .page { max-width: 1180px; margin: 0 auto; padding: 28px 16px 120px; }
 
-/* Modules: a thin bordered box with its label set into the top border. Clicking the label folds it. */
-.module { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
-.module > summary { position: absolute; top: -0.8em; left: 14px; list-style: none; cursor: pointer; background: var(--slate); padding: 0 6px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
-.module > summary::-webkit-details-marker { display: none; }
-.module > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; }
-.module:not([open]) { padding: 14px 18px 0; }
-.module .module { margin-top: 26px; }
+/* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
+.panel { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
+.panel > summary { position: absolute; top: -0.8em; left: 14px; list-style: none; cursor: pointer; background: var(--slate); padding: 0 6px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+.panel > summary::-webkit-details-marker { display: none; }
+.panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; }
+.panel:not([open]) { padding: 14px 18px 0; }
+.panel .panel { margin-top: 26px; }
 .activity { width: 12px; height: 12px; border-radius: 50%; background: var(--planned); border: 1px solid #000; display: inline-block; flex: none; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
@@ -38,9 +38,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 
 /* Top: cyberhome left, title right. */
 .top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 28px; align-items: start; }
-.top > .module { margin-top: 12px; }
+.top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
-.title .module { margin-top: 22px; }
+.title .panel { margin-top: 22px; }
 .habitat { position: relative; text-align: center; }
 .habitat > .lights { position: absolute; top: -12px; right: 6px; background: var(--slate); padding: 0 4px; }
 .den { aspect-ratio: 1 / 1; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
@@ -64,7 +64,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
 
-/* Inside the intelligence-level modules. */
+/* Inside the intelligence-level panels. */
 .columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 28px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
@@ -126,10 +126,10 @@ label.file { position: relative; }
 .card .thumb, .card .no-art { width: 56px; height: 56px; image-rendering: pixelated; flex: none; }
 .card-text { display: grid; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
 
-/* Phones: everything stacks and every module still collapses. */
+/* Phones: everything stacks and every panel still collapses. */
 @media (max-width: 760px) {
   .top, .pair { grid-template-columns: 1fr; }
-  .top > .module { max-width: 340px; }
+  .top > .panel { max-width: 340px; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
