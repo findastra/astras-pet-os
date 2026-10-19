@@ -66,8 +66,13 @@ commit), made in a worktree in Claude's scratchpad so the live hub folder stayed
 
 ## Task
 
-1. Astra decides which page a pet's double-click and A59 point at: the spawn page (with "Open today's app" on it) or
-   the existing app. Then link it everywhere A59 lists.
+1. ~~Astra decides which page a pet's double-click and A59 point at.~~ **Answered by Astra, 2026-10-18:** "the clicker
+   training first 2 clicks are the same across the board, and starting at 3 they can be tool assigned. so 1 click shows
+   the current reminder dialog box (blurb like BSOD does) which has yet to be created as a compoinent, and, 2 clicks
+   opens/closes the pet program." Two clicks open or close the pet program, its page (the spawn page; "Open today's
+   app" stays on it). The pages and the framework say so (branch `claude/clicker-rule-20261018`); the desktop part is
+   card 046 (Codex). Still to do here: point A59's other places (pets.json `interface_url`, pet.json `entry`, the
+   profile home link, the map card) at the program page, with Astra's OK, since it changes every "Open app" link.
 2. Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
    Unicorn from the modules doc; the pages follow on the next build.
 3. Record each pet's version (from its pet.json) where the build can read it, so the title shows it.
