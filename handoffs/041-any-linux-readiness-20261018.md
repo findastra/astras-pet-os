@@ -56,7 +56,7 @@ on Linux without Microsoft.
   (`lib/dpkg/tarfn.c`), fixed by plain ustar prefix names and a test that no header is pax; and the smaller findings
   (no git or license files or `linux/` shipped, a man page, a systemd stop is not a failure, `--pets` ignores case,
   the penguin's update count in any language). The penguin's fixes are commit `bb39854`; Astra OK'd linux-iceberg#3 in chat
-  (2026-10-19) and it was merged as `4e5fb7d` (with #2), which the package now pins.
+  (2026-10-19) and it was merged as `4e5fb7d` (with #2); then #4 (the credit line, three comment lines) as `b420f14`, which the package now pins.
 - **On Astra's PC:** nothing changed. The work was in clones in Claude's scratchpad.
 - **Left:** the first install on the Kali MacBook (RED USB holds Kali 2026.2), with `lintian`; publishing on a release
   (decision 7); Chat Rat's "open folder" on Linux; Role
