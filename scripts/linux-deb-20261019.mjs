@@ -28,11 +28,24 @@ export const PACKAGE = 'astras-pet-os';
 export const SHARE = `./usr/share/${PACKAGE}/`;
 export const MAINTAINER = 'Astra <88600745+findastra@users.noreply.github.com>';
 export const BUNDLED = 'linux/bundled-pets-20261019.json';
-/** The Windows installer's own files, which mean nothing on Linux. Everything else in the release is kept. */
-export const WINDOWS_ONLY = [/^installer\//, /^install-astras-pet-os-[\w.-]+\.cmd$/, /^build-desktop-pets-[\w.-]+\.ps1$/];
+/**
+ * What the release keeps out, and why. Everything else in the repo is installed.
+ * - The Windows installer's own files, which mean nothing on Linux.
+ * - Git and GitHub files (.gitignore, .gitattributes, the round's workflow): a package is not a repository.
+ * - linux/: its files are installed in their own places (PLACED), not twice.
+ * - License files: Debian keeps the license once, in /usr/share/doc/astras-pet-os/copyright.
+ */
+export const NOT_SHIPPED = [
+  /^installer\//, /^install-astras-pet-os-[\w.-]+\.cmd$/, /^build-desktop-pets-[\w.-]+\.ps1$/,
+  /(^|\/)\.git(ignore|attributes|modules)$/, /^\.github\//,
+  /^linux\//,
+  /(^|\/)(LICEN[CS]E|COPYING)(\.[a-z]+)?$/i,
+];
+export const shipped = (path) => !NOT_SHIPPED.some((re) => re.test(path));
 /** Files from linux/ that are installed in fixed places, with their mode. */
 export const PLACED = [
   ['linux/astras-pet-os-20261019.sh', `./usr/bin/${PACKAGE}`, 0o755],
+  ['linux/astras-pet-os-20261019.1', `./usr/share/man/man1/${PACKAGE}.1.gz`, 0o644, 'gzip'],
   ['linux/astras-pet-os-pet-20261019.service', `./usr/lib/systemd/user/${PACKAGE}-pet@.service`, 0o644],
   ['linux/astras-pet-os-map-20261019.desktop', `./usr/share/applications/${PACKAGE}.desktop`, 0o644],
   ['linux/astras-pet-os-desk-20261019.desktop', `./usr/share/applications/${PACKAGE}-desk.desktop`, 0o644],
@@ -63,12 +76,31 @@ export function treeFiles(cwd, tree, keep = () => true) {
   });
 }
 
-// --- tar (ustar, with pax headers for long names) ------------------------------------------------------------------
+// --- tar (plain ustar: dpkg reads ustar and GNU headers, and refuses pax ones) ---------------------------------------
 function octal(n, width) { return `${n.toString(8).padStart(width - 1, '0')}\0`; }
 
-function header(name, { size = 0, mode = 0o644, mtime, type = '0', linkname = '' }) {
+/**
+ * A path as ustar stores it: up to 100 bytes in `name`, or split at a slash into `prefix` (up to 155 bytes) and
+ * `name`. dpkg joins them again (lib/dpkg/tarfn.c). Pax headers would be simpler, but dpkg stops on them
+ * ("unsupported PAX tar header type"), so a path that does not fit stops the build instead.
+ */
+export function ustarName(path) {
+  if (Buffer.byteLength(path) <= 100) return { name: path, prefix: '' };
+  const slash = path.endsWith('/') ? '/' : '';
+  const body = slash ? path.slice(0, -1) : path;
+  for (let i = body.lastIndexOf('/'); i > 0; i = body.lastIndexOf('/', i - 1)) {
+    const prefix = body.slice(0, i);
+    const name = body.slice(i + 1) + slash;
+    if (Buffer.byteLength(prefix) <= 155 && Buffer.byteLength(name) <= 100) return { name, prefix };
+  }
+  throw new Error(`${path} is too long for a tar header dpkg can read (155 + 100 bytes, split at a slash).`);
+}
+
+function header(path, { size = 0, mode = 0o644, mtime, type = '0', linkname = '' }) {
+  const { name, prefix } = ustarName(path);
   const h = Buffer.alloc(512);
   h.write(name, 0, 100, 'utf8');
+  h.write(prefix, 345, 155, 'utf8');
   h.write(octal(mode, 8), 100, 'ascii'); h.write(octal(0, 8), 108, 'ascii'); h.write(octal(0, 8), 116, 'ascii');
   h.write(octal(size, 12), 124, 'ascii'); h.write(octal(mtime, 12), 136, 'ascii');
   h.fill(0x20, 148, 156); h.write(type, 156, 'ascii'); h.write(linkname, 157, 100, 'utf8');
@@ -76,13 +108,6 @@ function header(name, { size = 0, mode = 0o644, mtime, type = '0', linkname = ''
   let sum = 0; for (const byte of h) sum += byte;
   h.write(`${sum.toString(8).padStart(6, '0')}\0 `, 148, 'ascii');
   return h;
-}
-
-function paxRecord(key, value) {
-  const body = ` ${key}=${value}\n`;
-  let length = Buffer.byteLength(body) + 1;
-  while (String(length).length + Buffer.byteLength(body) !== length) length = String(length).length + Buffer.byteLength(body);
-  return `${length}${body}`;
 }
 
 const pad = (data) => (data.length % 512 ? Buffer.concat([data, Buffer.alloc(512 - (data.length % 512))]) : data);
@@ -102,24 +127,20 @@ export function tar(entries, mtime) {
   const blocks = [];
   for (const e of [...all.values()].sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0))) {
     const size = e.dir ? 0 : e.data.length;
-    let name = e.path;
-    if (Buffer.byteLength(name) > 100 || /[^\x20-\x7e]/.test(name)) {
-      const pax = Buffer.from(paxRecord('path', name), 'utf8');
-      blocks.push(header('./PaxHeaders/entry', { size: pax.length, mtime, type: 'x' }), pad(pax));
-      name = Buffer.from(name).subarray(0, 99).toString('latin1');
-    }
-    blocks.push(header(name, { size, mode: e.mode, mtime, type: e.dir ? '5' : '0' }));
+    blocks.push(header(e.path, { size, mode: e.mode, mtime, type: e.dir ? '5' : '0' }));
     if (size) blocks.push(pad(e.data));
   }
   blocks.push(Buffer.alloc(1024));
   return Buffer.concat(blocks);
 }
 
-/** Reads a tar archive back: [{ path, type, mode, size, data }] (for tests and --list). */
+/**
+ * Reads a tar archive back the way dpkg does (ustar `prefix` joined to `name`): [{ path, type, magic, mode, size,
+ * data }], for tests and --list. Every header is returned, so a test can see that there is no pax ('x', 'g') header.
+ */
 export function readTar(buffer) {
   const entries = [];
   let at = 0;
-  let longName = null;
   while (at + 512 <= buffer.length) {
     const h = buffer.subarray(at, at + 512);
     if (h.every((b) => b === 0)) break;
@@ -128,10 +149,9 @@ export function readTar(buffer) {
     const type = field(156, 1) || '0';
     const data = buffer.subarray(at + 512, at + 512 + size);
     at += 512 + Math.ceil(size / 512) * 512;
-    if (type === 'x') { longName = /(?:^|\n)\d+ path=([^\n]*)\n/.exec(data.toString('utf8'))?.[1] ?? null; continue; }
     const prefix = field(345, 155);
-    entries.push({ path: longName ?? (prefix ? `${prefix}/${field(0, 100)}` : field(0, 100)), type, mode: parseInt(field(100, 8), 8), size, data });
-    longName = null;
+    entries.push({ path: prefix ? `${prefix}/${field(0, 100)}` : field(0, 100), type, magic: h.toString('latin1', 257, 265),
+      mode: parseInt(field(100, 8), 8), size, data });
   }
   return entries;
 }
@@ -205,7 +225,7 @@ function bundledFiles(list) {
       git(dir, ['fetch', '-q', '--depth', '1', `https://github.com/findastra/${pet.repo}.git`, pet.commit]);
       const got = git(dir, ['rev-parse', 'FETCH_HEAD']).toString().trim();
       if (got !== pet.commit) throw new Error(`${pet.repo}: fetched ${got}, not the pinned ${pet.commit}.`);
-      const keep = (p) => pet.include.some((inc) => (inc.endsWith('/') ? p.startsWith(inc) : p === inc));
+      const keep = (p) => shipped(p) && pet.include.some((inc) => (inc.endsWith('/') ? p.startsWith(inc) : p === inc));
       for (const f of treeFiles(dir, pet.commit, keep)) files.push({ path: `${SHARE}pets/${pet.repo}/${f.path}`, mode: f.mode === '100755' ? 0o755 : 0o644, data: f.data });
     } finally { rmSync(dir, { recursive: true, force: true }); }
   }
@@ -220,9 +240,9 @@ export function buildDeb({ tree = 'HEAD', outDir = '.', cwd = ROOT, bundled = tr
   const version = debVersion(JSON.parse(show('package.json').toString('utf8')).version);
   const pets = bundled ? JSON.parse(show(BUNDLED).toString('utf8')).pets : [];
 
-  const files = treeFiles(cwd, commit, (p) => !WINDOWS_ONLY.some((re) => re.test(p)))
+  const files = treeFiles(cwd, commit, shipped)
     .map((f) => ({ path: `${SHARE}${f.path}`, mode: f.mode === '100755' ? 0o755 : 0o644, data: f.data }));
-  for (const [from, to, mode] of PLACED) files.push({ path: to, mode, data: show(from) });
+  for (const [from, to, mode, how] of PLACED) files.push({ path: to, mode, data: how === 'gzip' ? gzipSync(show(from), { level: 9 }) : show(from) });
   files.push(...bundledFiles(pets));
   files.push({ path: `./usr/share/doc/${PACKAGE}/copyright`, mode: 0o644, data: Buffer.from(copyrightFile(show('LICENSE'), pets)) });
   files.push({ path: `./usr/share/doc/${PACKAGE}/changelog.gz`, mode: 0o644, data: gzipSync(changelog(version, commit, new Date(mtime * 1000)), { level: 9 }) });

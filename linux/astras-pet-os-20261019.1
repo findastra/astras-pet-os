@@ -1,0 +1,74 @@
+.\" The astras-pet-os manual page, installed as /usr/share/man/man1/astras-pet-os.1.gz by the Linux package.
+.\" Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
+.TH ASTRAS-PET-OS 1 2026-10-19 "Astra's PetOS" "User Commands"
+.SH NAME
+astras-pet-os \- Astra's PetOS on Linux: your farm of pets, the System Map and Linux Penguin
+.SH SYNOPSIS
+.B astras-pet-os
+.RI [ command ]
+.br
+.B astras-pet-os setup
+.RB [ \-\-farm " example|scratch" ]
+.RB [ \-\-pets " id,id..." ]
+.br
+.B astras-pet-os service
+.RB { on | off }
+.I pet
+.SH DESCRIPTION
+Astra's PetOS is a platform of small intelligent apps, called pets, organized by the Friendly Farmer.
+.B astras-pet-os
+sets up your farm, opens its pages, runs Linux Penguin's check of this computer, and turns optional pet services on
+and off. The program is read only in
+.IR /usr/share/astras-pet-os ;
+your farm is in
+.IR ~/.local/share/astras-pet-os .
+With no command it shows the commands, and Linux Penguin says which Linux this is and which of his tricks fits it.
+.SH COMMANDS
+.TP
+.B setup
+Set up your farm: Astra's example pets, or from scratch (the core pets, plus the pets you pick). Asks when no
+.B \-\-farm
+is given. Run it again to change the farm.
+.TP
+.B list\-pets
+The pets you can put on your farm, with their ids.
+.TP
+.BR map ", " desk
+Open the System Map, or the Friendly Farmer's desk, in your browser.
+.TP
+.B penguin
+Linux Penguin's read\-only check of this computer: distribution and family, updates waiting, failed services, the SSH
+server, disk, memory and anything listening beyond this computer. It never runs sudo.
+.TP
+.B services
+The pet services and whether each is on. They are all off until you turn one on.
+.TP
+.BI "service on " pet ", service off " pet
+Turn a pet service (a systemd user service) on or off. Before turning one on, it checks that the pet's program, its
+packages, its settings and its secrets file are there, and says what is missing.
+.TP
+.B stop
+The big red button: stop every pet service now.
+.TP
+.B version
+The version, and where the release is.
+.SH FILES
+.TP
+.I ~/.local/share/astras-pet-os/farm/
+Your farm: its pets.json, draft list and farm\-receipt.json.
+.TP
+.I ~/.local/share/astras-pet-os/pets/
+Pet programs you cloned yourself, for pet services.
+.TP
+.I ~/.config/astras-pet-os/pets/<pet>.env
+A pet service's secrets, readable only by you (chmod 600).
+.TP
+.I /usr/lib/systemd/user/astras-pet-os-pet@.service
+The pet service template. The package never turns it on.
+.SH SEE ALSO
+.BR systemctl (1),
+.BR journalctl (1)
+.PP
+https://github.com/findastra/astras-pet-os/blob/main/docs/linux-package-20261019.md
+.SH AUTHOR
+Astra. Astra's PetOS is an Intelligent App, or Pet, by Astra.

@@ -52,6 +52,11 @@ on Linux without Microsoft.
   `Get-FarmPets` exactly; a package built with the penguin bundled (99 MB, 1,215 files) was read by Windows' `tar`
   (libarchive) and GNU tar, and `md5sum -c` matched every file. **Not tested:** `dpkg-deb`, `lintian` or `apt install` on
   Linux (no WSL or Docker on this PC), the systemd unit, `xdg-open`, the menu entries.
+- **Checker review** (a separate read-only Claude session, 2026-10-19): one blocker, pax tar headers that dpkg refuses
+  (`lib/dpkg/tarfn.c`), fixed by plain ustar prefix names and a test that no header is pax; and the smaller findings
+  (no git or license files or `linux/` shipped, a man page, a systemd stop is not a failure, `--pets` ignores case,
+  the penguin's update count in any language). The penguin's fixes are commit `bb39854` on linux-iceberg#3, and the
+  package pins it.
 - **On Astra's PC:** nothing changed. The work was in clones in Claude's scratchpad.
 - **Left:** the first install on the Kali MacBook (RED USB holds Kali 2026.2), with `lintian`; publishing on a release
   (decision 7); the penguin's pin moved to his `main` after linux-iceberg#3; Chat Rat's "open folder" on Linux; Role

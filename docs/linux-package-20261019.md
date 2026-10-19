@@ -79,9 +79,9 @@ pet first and says what is missing. The package never downloads code or packages
 
 | Where | What |
 | --- | --- |
-| `/usr/share/astras-pet-os/` | The release, read only: this repo at the release's commit, without the Windows installer |
-| `/usr/share/astras-pet-os/pets/linux-iceberg/` | Linux Penguin's tools, tricks, `pet.json`, README and license |
-| `/usr/bin/astras-pet-os` | The command (runs `scripts/linux-cli-20261019.mjs` with Node) |
+| `/usr/share/astras-pet-os/` | The release, read only: this repo at the release's commit, without the Windows installer, git files, `linux/` (placed below instead) and license files (the license is in `copyright`, once) |
+| `/usr/share/astras-pet-os/pets/linux-iceberg/` | Linux Penguin's tools, tricks, `pet.json` and README |
+| `/usr/bin/astras-pet-os` | The command (runs `scripts/linux-cli-20261019.mjs` with Node); `man astras-pet-os` explains it |
 | `/usr/lib/systemd/user/astras-pet-os-pet@.service` | The pet service template, off |
 | `/usr/share/applications/` | System Map, Friendly Farmer's Desk, Stop Astra's PetOS (big red button) |
 | `/usr/share/icons/hicolor/256x256/apps/astras-pet-os.png` | The Friendly Farmer's happy picture, from the one art source |
@@ -100,10 +100,19 @@ The first argument is any tag or commit (default `HEAD`); the package is built f
 folder, so it holds exactly what is committed. It needs the network to fetch the bundled pets at their pinned commits
 (`--no-bundled` leaves them out). `node scripts/linux-deb-20261019.mjs --list <file.deb>` shows what is inside a
 package. The builder uses Node's own modules only (a `.deb` is an `ar` archive of `debian-binary`, `control.tar.gz` and
-`data.tar.gz`), so it builds on Windows too. On Debian, check a package with `dpkg-deb --info`, `dpkg-deb --contents`
+`data.tar.gz`), so it builds on Windows too. Its tar headers are plain ustar: a path over 100 bytes is split at a slash
+into ustar's `prefix` and `name`, which dpkg joins again. **Never pax headers:** dpkg stops on them ("unsupported PAX tar
+header type", `lib/dpkg/tarfn.c`), while GNU tar, libarchive and lintian read them without a word, so only a test that
+looks at each header catches it. On Debian, check a package with `dpkg-deb --info`, `dpkg-deb --contents`
 and `lintian`.
 
 ## What was tested, and what was not
+
+**Checker review, 2026-10-19** (a separate read-only Claude session, the maker-checker rule): one blocker, fixed. The
+first build wrote pax headers for its two paths over 100 bytes, which dpkg refuses, so `apt install` would have failed.
+Also fixed from the review: git and license files and `linux/` are no longer shipped, a man page is added, a pet
+service stopped by systemd is no longer marked failed, `--pets` ignores case as the installer does, and Linux
+Penguin's check counts updates in any language and holds no loopback address with a port.
 
 **Tested on Windows, 2026-10-19:**
 - `npm test`: 164 tests, 163 pass, 0 fail, 1 skipped (the pets-board workflow test, which skips everywhere). The 10
@@ -111,9 +120,10 @@ and `lintian`.
   Windows installer's `Get-FarmPets` (same 37 pets, order, core flags, drafts, repos and jobs), the command, the
   service checks, the menu entries, the bundle pin, long tar names, and a full package read back with every md5
   checked.
-- A package built with Linux Penguin bundled (99 MB, 1,215 files) was read by two independent programs: Windows'
-  `tar` (libarchive) read the `ar` wrapper, and GNU tar listed both archives inside. Unpacked, `md5sum -c` matched all
-  1,215 files, and the command ran from the unpacked copy.
+- A package built with Linux Penguin bundled (99 MB, 1,205 files) was read by three independent programs: Windows'
+  `tar` (libarchive) read the `ar` wrapper, GNU tar unpacked both archives inside, and Python's `tarfile` found no pax
+  and no GNU long-name header (its longest path, 120 bytes, reads back whole). Unpacked, `md5sum -c` matched all 1,205
+  files, and the command ran from the unpacked copy.
 - Linux Penguin's tests in his repo: 38 of 38 (`bash tests/linux-check-test-20261019.sh`).
 
 **Not tested yet** (no Linux computer was used): `dpkg-deb --info`, `lintian`, `apt install` on Debian or Kali; the
@@ -128,4 +138,9 @@ first test is the Kali MacBook, from RED USB.
 3. After [linux-iceberg#3](https://github.com/findastra/linux-iceberg/pull/3) is merged, move the penguin's pin to that
    commit on his `main`.
 4. Chat Rat's "open folder" on Linux (`xdg-open`), in his repo; Role Fairy's Node requirement, in hers.
-5. Desktop pets on Linux (step b), with Codex, so the penguin can pop up on the desktop.
+5. Desktop pets on Linux (step b), with Codex, so the penguin can pop up on the desktop. Until then, the pages show
+   every pet in the release, as on Windows: only the desktop pets read the farm.
+6. Known lintian note: the System Map loads three.js and Google Fonts from the internet (`privacy-breach-generic`), so
+   the 3D map does not work offline. A local copy is a change to the "no dependencies" rule, so it is Astra's call.
+7. A System Map card for this tool (`the-farm-v1.0-linux-package-v0.1`) and The Farm's grant to run Linux Penguin's
+   check: after the tools-on-the-map pull request (#106), with Astra.

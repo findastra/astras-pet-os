@@ -57,7 +57,9 @@ export function choosePets(all, { farm, pets = [] } = {}) {
   if (kind === 'scratch') {
     const names = [pets].flat().flatMap((x) => text(x).split(',')).map((s) => s.trim()).filter(Boolean);
     for (const name of names) {
-      const match = examples.find((p) => p.id === name || p.repo === name || p.name === name);
+      // Case does not matter, as with the installer's -eq: --pets Goldfish and goldfish are the same pet.
+      const same = (value) => value.toLowerCase() === name.toLowerCase();
+      const match = examples.find((p) => same(p.id) || same(p.repo) || same(p.name));
       if (!match) throw new Error(`There is no example pet called '${name}'. You can pick: ${examples.map((p) => p.id).join(', ')}`);
       if (!keep.includes(match.id)) keep.push(match.id);
     }

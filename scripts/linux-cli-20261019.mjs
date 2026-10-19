@@ -41,7 +41,7 @@ export const SERVICES = {
   'chat-rat': {
     pet: 'Chat Rat', repo: 'chat-rat', run: ['chat-rat-20261016.mjs', 'serve'], needs: [], env: [],
     steps: ['git clone https://github.com/findastra/chat-rat.git "{dir}"'],
-    warning: 'Chat Rat listens on this computer only. His "open folder" button still needs a Linux change in his repo; saving and searching chats work.',
+    warning: 'Chat Rat listens on this computer only. His "open folder" button opens folders on Linux once his change (findastra/chat-rat#9) is merged; saving and searching chats work already.',
   },
 };
 
@@ -202,13 +202,19 @@ async function service(action, pet) {
   say(`${s.pet} is on, and starts when you log in. Log: journalctl --user -u ${UNIT(pet)}`);
 }
 
+/** The pet's exit code for systemd. Stopped with SIGTERM or SIGINT (a normal stop) is success, so the unit is not marked failed. */
+export function serviceExitCode(code, signal) {
+  if (code !== null && code !== undefined) return code;
+  return signal === 'SIGTERM' || signal === 'SIGINT' ? 0 : 1;
+}
+
 function runService(pet) {
   const s = SERVICES[pet];
   const problems = serviceProblems(pet);
   if (problems.length) return fail([`${s.pet} cannot start:`, ...problems].join('\n'));
   const child = spawn(process.execPath, s.run, { cwd: join(PETS_DIR, s.repo), stdio: 'inherit', env: process.env });
   for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => child.kill(signal));
-  child.on('exit', (code, signal) => { process.exitCode = code ?? (signal ? 1 : 0); });
+  child.on('exit', (code, signal) => { process.exitCode = serviceExitCode(code, signal); });
 }
 
 function stop() {

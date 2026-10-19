@@ -7,11 +7,12 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { gunzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DRAFTS_LIST, choosePets, farmPets, writeFarm } from '../scripts/farm-setup-20261019.mjs';
-import { SERVICES } from '../scripts/linux-cli-20261019.mjs';
-import { BUNDLED, PACKAGE, PLACED, WINDOWS_ONLY, buildDeb, debVersion, readDeb, readTar, tar } from '../scripts/linux-deb-20261019.mjs';
+import { SERVICES, serviceExitCode } from '../scripts/linux-cli-20261019.mjs';
+import { BUNDLED, NOT_SHIPPED, PACKAGE, PLACED, buildDeb, debVersion, readDeb, readTar, tar, ustarName } from '../scripts/linux-deb-20261019.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (rel) => readFileSync(join(root, rel), 'utf8').replace(/^﻿/, '');
@@ -36,6 +37,7 @@ test("Astra's example pets, or from scratch with picks by id, repo or name; an u
   assert.deepEqual(choosePets(pets, { farm: 'scratch' }).onFarm.map((p) => p.id), ['farmer'], 'the Farmer alone');
   assert.throws(() => choosePets(pets, { farm: 'scratch', pets: ['nobody'] }), /no example pet called 'nobody'.*goldfish/);
   assert.throws(() => choosePets(pets, { farm: 'zoo' }), /Choose a farm/);
+  assert.deepEqual(choosePets(pets, { farm: 'scratch', pets: ['GoldFish'] }).keep, ['goldfish'], 'case does not matter, as in the installer');
 });
 
 test("the farm is written to the person's own folder, kept to the chosen pets as the installer keeps them", () => {
@@ -117,6 +119,9 @@ test('pet services are off until someone turns one on, and a pet that is not rea
   assert.match(unit, /^ExecStart=\/usr\/bin\/astras-pet-os service run %i$/m);
   assert.match(unit, /^EnvironmentFile=-%E\/astras-pet-os\/pets\/%i\.env$/m, 'secrets in the person\'s own config, never in the unit');
   assert.match(unit, /^WantedBy=default\.target$/m);
+  assert.equal(serviceExitCode(null, 'SIGTERM'), 0, 'systemd stopping a pet is not a failure');
+  assert.equal(serviceExitCode(null, 'SIGKILL'), 1);
+  assert.equal(serviceExitCode(3, null), 3);
 });
 
 test('the app menu entries run commands the astras-pet-os command has', () => {
@@ -134,16 +139,25 @@ test('Linux Penguin is bundled from his own repo at a full commit id', () => {
   assert.deepEqual(pets.map((p) => p.repo), ['linux-iceberg']);
   for (const p of pets) {
     assert.match(p.commit, /^[0-9a-f]{40}$/);
-    assert.ok(p.include.includes('tools/') && p.include.includes('skills/') && p.include.includes('LICENSE'));
+    assert.ok(p.include.includes('tools/') && p.include.includes('skills/'));
+    assert.ok(!p.include.includes('LICENSE'), 'the license is in the copyright file, once');
   }
 });
 
-test('tar names longer than 100 bytes, or not plain ASCII, come back whole', () => {
-  const long = `./usr/share/${'deep/'.repeat(30)}file.txt`;
+test('long and non-ASCII names use plain ustar, which dpkg reads; pax headers, which dpkg refuses, are never written', () => {
+  const long = `./usr/share/${'deep/'.repeat(25)}file.txt`;
+  assert.deepEqual(ustarName(long), { name: 'file.txt', prefix: long.slice(0, long.lastIndexOf('/')) });
+  const folder = long.slice(0, -'file.txt'.length);
+  assert.ok(ustarName(folder).name.endsWith('/'), 'a folder keeps its slash');
   const entries = readTar(tar([{ path: long, mode: 0o644, data: Buffer.from('a') }, { path: './usr/share/é.txt', mode: 0o755, data: Buffer.from('bc') }], 0));
   assert.deepEqual(entries.find((e) => e.path === long)?.data.toString(), 'a');
+  assert.ok(entries.some((e) => e.path === folder && e.type === '5'), 'its folder reads back whole too');
   assert.equal(entries.find((e) => e.path === './usr/share/é.txt')?.mode, 0o755);
   assert.equal(entries[0].path, './', 'folders come before what is in them');
+  assert.deepEqual(entries.filter((e) => e.type === 'x' || e.type === 'g'), []);
+  for (const e of entries) assert.equal(e.magic, 'ustar\u000000', e.path);
+  assert.throws(() => ustarName(`./${'x'.repeat(101)}`), /too long for a tar header dpkg can read/);
+  assert.throws(() => ustarName(`./${'a/'.repeat(130)}b`), /too long/);
 });
 
 test('the .deb: one package for every machine, every file checked, nothing that runs at install', () => {
@@ -171,9 +185,15 @@ test('the .deb: one package for every machine, every file checked, nothing that 
     for (const [, to] of PLACED) assert.ok(files.has(to), to);
     for (const page of ['system-map-20261012.html', 'apps/astras-pet-apps-20261008.html', 'pets.json', 'scripts/linux-cli-20261019.mjs', 'scripts/farm-setup-20261019.mjs'])
       assert.ok(files.has(`./usr/share/${PACKAGE}/${page}`), page);
-    const tracked = execFileSync('git', ['ls-files'], { cwd: root, encoding: 'utf8' }).split('\n').filter((f) => WINDOWS_ONLY.some((re) => re.test(f)));
-    assert.ok(tracked.length >= 2, 'the Windows installer files exist in the repo');
-    for (const f of tracked) assert.ok(!files.has(`./usr/share/${PACKAGE}/${f}`), `${f} is Windows only`);
+    const kept = execFileSync('git', ['ls-files'], { cwd: root, encoding: 'utf8' }).split('\n').filter((f) => NOT_SHIPPED.some((re) => re.test(f)));
+    for (const f of ['installer/install-astras-pet-os-20261014.ps1', '.gitignore', 'LICENSE', 'linux/astras-pet-os-20261019.sh'])
+      assert.ok(kept.includes(f), `${f} is kept out`);
+    for (const f of kept) assert.ok(!files.has(`./usr/share/${PACKAGE}/${f}`), `${f} is not shipped`);
+    assert.deepEqual(deb.files.filter((e) => e.type === 'x' || e.type === 'g').map((e) => e.path), [], 'no pax headers: dpkg refuses them');
+    for (const e of [...deb.files, ...deb.control]) assert.equal(e.magic, 'ustar\u000000', e.path);
+    const longest = [...files.keys()].sort((a, b) => Buffer.byteLength(b) - Buffer.byteLength(a))[0];
+    assert.ok(Buffer.byteLength(longest) > 100, `a path over 100 bytes (${longest}) is in the package and reads back whole`);
+    assert.match(gunzipSync(files.get(`./usr/share/man/man1/${PACKAGE}.1.gz`).data).toString(), /^\.TH ASTRAS-PET-OS 1 /m);
     const icon = files.get(`./usr/share/icons/hicolor/256x256/apps/${PACKAGE}.png`).data;
     assert.equal(icon.toString('latin1', 1, 4), 'PNG');
     assert.deepEqual([icon.readUInt32BE(16), icon.readUInt32BE(20)], [256, 256]);
