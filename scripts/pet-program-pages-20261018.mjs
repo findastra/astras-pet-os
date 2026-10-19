@@ -163,6 +163,10 @@ const module = (label, body, { cls = '', light = false, open = true } = {}) =>
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
+// The faces the page script switches between (idle first and shown; the others hidden until the script shows them).
+const faces = (f, pet, moods, cls) => moods.filter((m) => f[m]).map((m, i) =>
+  `<img class="${cls}" data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+
 function grantTable(rows, empty) {
   if (!rows.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<div class="scroll"><table><thead><tr><th>Who</th><th>On what</th><th>R</th><th>W</th><th>X</th><th>Status</th></tr></thead><tbody>${rows.map((g) => `<tr><td>${esc(g.who)}</td><td>${esc(g.on)}</td><td>${esc(g.r)}</td><td>${esc(g.w)}</td><td>${esc(g.x)}</td><td>${esc(g.status)}</td></tr>`).join('')}</tbody></table></div>`;
@@ -180,9 +184,10 @@ export function buildPetProgramPage(d) {
   const idleAlt = `${d.pet}, idle`;
   const map = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
   const reminder = d.needs[0] ? `Waiting on you: ${d.needs[0]}` : 'Nothing is waiting on you.';
+  // No picture address goes through the page script: every face it shows is already in the page, and the script only
+  // shows or hides them (CodeQL js/xss-through-dom, PR #100).
   const config = {
     repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder,
-    frames: Object.fromEntries(Object.entries(f).map(([m, p]) => [m, up(p)])),
     lines: { idle: d.lines.idle, blink: d.lines.blink, sad: d.lines.sad },
   };
   const json = JSON.stringify(config).replaceAll('<', '\\u003c');
@@ -193,7 +198,7 @@ export function buildPetProgramPage(d) {
 
   const cyberhome = module(`${d.petSlug}-cyberhome`, `<div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
 ${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den">${img(f.idle, idleAlt, 'pet')}</div>
+<div class="den">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
 
   const title = `<div class="title">
@@ -256,8 +261,10 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { cls: 'session-notes' });
 
   const emotions = module(`${d.petSlug}-emotions`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
-    const frame = mood === 'blink' ? f.idle : f[mood];
-    return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${img(frame, `${d.pet}, ${name}`, mood === 'blink' ? 'awake' : '')}</figure>`;
+    const picture = mood === 'blink'
+      ? (f.idle ? `<span class="awake-faces">${faces(f, d.pet, ['idle', 'blink'], 'awake')}</span>` : img(null, `${d.pet}, ${name}`))
+      : img(f[mood], `${d.pet}, ${name}`);
+    return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div><p class="small">Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
 
   const clicker = module(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder</dd><dt>two clicks</dt><dd>open ${esc(d.home)}</dd><dt>three clicks</dt><dd>refresh tools and the tool list</dd></dl>

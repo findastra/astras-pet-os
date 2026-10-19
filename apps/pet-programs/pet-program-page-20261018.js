@@ -69,20 +69,27 @@
 
   // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
   // face blinking) after you use the page, idle again after two quiet minutes. ----
-  var pet = document.querySelector('.den img.pet');
+  // Every face is already in the page; the script only shows one and hides the others (no picture address passes
+  // through here).
+  var den = document.querySelector('.den');
   var bubble = document.getElementById('bubble');
-  var frames = config.frames || {};
+  function has(box, name) { return !!(box && box.querySelector('img[data-face="' + name + '"]')); }
+  function face(box, name) {
+    if (!box || !has(box, name)) return;
+    var imgs = box.querySelectorAll('img[data-face]');
+    for (var i = 0; i < imgs.length; i++) imgs[i].hidden = imgs[i].dataset.face !== name;
+  }
   var opened = read('opened', null);
-  var mood = opened && Date.now() - Date.parse(opened) > 14 * 864e5 && frames.sad ? 'sad' : 'idle';
+  var mood = opened && Date.now() - Date.parse(opened) > 14 * 864e5 && has(den, 'sad') ? 'sad' : 'idle';
   write('opened', new Date().toISOString());
   var quiet, blinker;
   function show(next) {
     mood = next;
-    if (pet) pet.src = mood === 'sad' ? frames.sad : frames.idle;
+    face(den, mood === 'sad' ? 'sad' : 'idle');
     if (bubble) bubble.textContent = config.lines[mood === 'awake' ? 'blink' : mood] || '';
     clearInterval(blinker);
-    if (mood === 'awake' && pet && frames.blink) blinker = setInterval(function () {
-      pet.src = frames.blink; setTimeout(function () { if (mood === 'awake') pet.src = frames.idle; }, 180);
+    if (mood === 'awake' && has(den, 'blink')) blinker = setInterval(function () {
+      face(den, 'blink'); setTimeout(function () { if (mood === 'awake') face(den, 'idle'); }, 180);
     }, 4000);
   }
   function used() {
@@ -92,12 +99,12 @@
   }
   ['pointerdown', 'keydown', 'input'].forEach(function (t) { document.addEventListener(t, used, { passive: true }); });
   show(mood);
-  if (pet) pet.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
+  if (den && has(den, 'idle')) den.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
 
   // The awake picture in the emotions module blinks too.
-  var awake = document.querySelector('.mood img.awake');
-  if (awake && frames.blink && frames.idle) setInterval(function () {
-    awake.src = frames.blink; setTimeout(function () { awake.src = frames.idle; }, 180);
+  var awake = document.querySelector('.awake-faces');
+  if (has(awake, 'blink')) setInterval(function () {
+    face(awake, 'blink'); setTimeout(function () { face(awake, 'idle'); }, 180);
   }, 3500);
 
   // ---- Session notes: every submission goes to the backlog first (section 7). ----

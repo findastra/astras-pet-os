@@ -137,3 +137,6 @@ label.file { position: relative; }
   .chat-open { width: 36px; height: 36px; font-size: 18px; }
   .chat-label { font-size: 11px; }
 }
+/* Faces the page script switches between: a hidden one never shows. */
+img[hidden] { display: none !important; }
+.awake-faces { display: inline-block; }
