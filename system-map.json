@@ -311,14 +311,6 @@
       "layer": 4
     },
     {
-      "id": "log-lynx",
-      "name": "Log Lynx",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Observability: correlates logs, traces, health and failures.",
-      "layer": 4
-    },
-    {
       "id": "server-salamander",
       "name": "Server Salamander",
       "type": "roadmap",
@@ -348,14 +340,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "AI cost: model tokens, budgets and inference usage. Security role: flags token and cost spikes; a runaway or hijacked agent burns tokens.",
-      "layer": 4
-    },
-    {
-      "id": "packet-piranha",
-      "name": "Packet Piranha",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Network: packet loss, DNS, latency, routing.",
       "layer": 4
     },
     {
@@ -460,14 +444,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Encryption, keys, certificates and crypto education. Security role: checks signatures and provenance (PROVENANCE.md).",
-      "layer": 4
-    },
-    {
-      "id": "forensic-ferret",
-      "name": "Forensic Ferret",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Incident timelines and log analysis.",
       "layer": 4
     },
     {
@@ -2064,7 +2040,7 @@
       "why": "Stalled jobs and handoffs."
     },
     {
-      "from": "log-lynx",
+      "from": "log-den",
       "to": "queue-quokka",
       "carries": "findings",
       "state": "architecture",
@@ -2134,14 +2110,14 @@
       "why": "Offline queue on the cyberdeck Pi."
     },
     {
-      "from": "packet-piranha",
+      "from": "packet-river",
       "to": "wifi-butterfly",
       "carries": "findings",
       "state": "architecture",
       "why": "Network diagnostics alongside Wi-Fi."
     },
     {
-      "from": "packet-piranha",
+      "from": "packet-river",
       "to": "mesh-moth",
       "carries": "findings",
       "state": "architecture",
@@ -2246,7 +2222,7 @@
       "why": "Watches every pet's retries, stalled jobs and handoffs."
     },
     {
-      "from": "log-lynx",
+      "from": "log-den",
       "to": "@pets",
       "carries": "findings",
       "state": "architecture",
@@ -4473,6 +4449,64 @@
         "gaps": [
           10
         ]
+      },
+      {
+        "id": "log-lynx-watch",
+        "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
+        "subjects": [
+          "id:log-den"
+        ],
+        "on": "every window on the desktop and the process that owns it (title, text, path, command line, parent), the Windows Application log, and the farm event folders and known logs of the other pets (last-write times)",
+        "resources": [
+          "ring:5",
+          "ring:6",
+          "type:pet",
+          "type:pipeline"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Log Den’s own code only reads, and on a .NET crash window presses Details and nothing else (log-den-20261018.cs). It writes only its own data folder. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Log Den writes only its own folder."
+      },
+      {
+        "id": "packet-piranha-probe",
+        "who": "Packet Piranha (Packet River: ping-sampler, dns-checker, reach-checker, route-tracer)",
+        "subjects": [
+          "id:packet-river"
+        ],
+        "on": "pings to this PC’s router and DNS server, DNS lookups, one TCP connection a minute to the names in its targets file (github.com:443 by default, no data sent), and traceroutes to a host Astra names",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "packet-river-20261018.cs contacts only the router, the DNS server and its targets file; it never scans ports or changes the network. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant with its targets as the limit."
+      },
+      {
+        "id": "forensic-ferret-read",
+        "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
+        "subjects": [
+          "id:evidence-locker"
+        ],
+        "on": "the other pets’ farm events and Log Lynx’s crash pictures, screenshots saved around a case (copied in), file names and times in the Claude Code, Codex and Astra’s PetOS folders (never contents), the Windows Application log, and the id and title of each Claude Code session",
+        "resources": [
+          "type:pet",
+          "type:pipeline",
+          "ring:4",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "evidence-locker-20261018.cs reads and copies into its own cases folder only; it never changes or deletes what it investigates. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; Cipher Owl signs each case so a rewritten case shows."
       }
     ]
   },
@@ -5011,6 +5045,63 @@
           }
         ]
       },
+      "log-den": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 62,
+            "why": "The tray program and its tools: Windows windows, processes and the event log need native calls, so it is C#."
+          },
+          {
+            "language": "HTML",
+            "percent": 36.8,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the claude/build-20261018 branch on 2026-10-18, before the push."
+          }
+        ]
+      },
+      "packet-river": {
+        "languages": [
+          {
+            "language": "HTML",
+            "percent": 50.1,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "C#",
+            "percent": 47.8,
+            "why": "The tray program and its network tools (ping, DNS, TCP, traceroute)."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the claude/build-20261018 branch on 2026-10-18, before the push."
+          }
+        ]
+      },
+      "evidence-locker": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 58.1,
+            "why": "The tray program and its case tools (collection, chain of custody, timeline)."
+          },
+          {
+            "language": "HTML",
+            "percent": 40.2,
+            "why": "The pet program page, one self-contained file with its CSS and JavaScript."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.6,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the claude/build-20261018 branch on 2026-10-18, before the push."
+          }
+        ]
+      },
       "role-fairy": {
         "languages": [
           {
@@ -5092,11 +5183,11 @@
     "ghost-protocol": "blue",
     "pet-police-officer": "blue",
     "agent-ant": "blue",
-    "log-lynx": "blue",
+    "log-den": "blue",
     "token-toucan": "blue",
-    "packet-piranha": "blue",
+    "packet-river": "blue",
     "wifi-butterfly": "blue",
-    "forensic-ferret": "blue",
+    "evidence-locker": "blue",
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
