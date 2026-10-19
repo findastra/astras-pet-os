@@ -441,6 +441,34 @@
         "carries": "status",
         "state": "idea",
         "why": "The cyberdeck plan puts a Wi-Fi HAT on the Pi."
+      },
+      {
+        "from": "packet-river",
+        "to": "log-den",
+        "carries": "findings",
+        "state": "now",
+        "why": "Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment."
+      },
+      {
+        "from": "log-den",
+        "to": "evidence-locker",
+        "carries": "findings",
+        "state": "now",
+        "why": "Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later."
+      },
+      {
+        "from": "packet-river",
+        "to": "evidence-locker",
+        "carries": "findings",
+        "state": "now",
+        "why": "The network samples around each case: fine, or what was wrong."
+      },
+      {
+        "from": "log-den",
+        "to": "astras-pet-os",
+        "carries": "status",
+        "state": "planned",
+        "why": "The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8)."
       }
     ],
     "private": [
@@ -1260,6 +1288,54 @@
         "needs": "native iPad verification and a verified chat adapter"
       },
       "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending."
+    },
+    {
+      "repo": "log-den",
+      "pet": "Log Lynx",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Observability: correlates logs, traces, health and failures.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the farm’s logs and crash windows",
+        "needs": "a look at a crash I caught"
+      },
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in log-den); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/log-den-20261018.html",
+      "interface_local_url": "apps/pet-programs/log-den-20261018.html"
+    },
+    {
+      "repo": "packet-river",
+      "pet": "Packet Piranha",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Network: packet loss, DNS, latency, routing.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the network: loss, latency, DNS and routes",
+        "needs": "a host to trace"
+      },
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in packet-river); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/packet-river-20261018.html",
+      "interface_local_url": "apps/pet-programs/packet-river-20261018.html"
+    },
+    {
+      "repo": "evidence-locker",
+      "pet": "Forensic Ferret",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Incident timelines and log analysis.",
+      "added": "2026-10-18",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "cases and their chains of custody",
+        "needs": "what you saw at a moment with no crash record"
+      },
+      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
+      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html"
     }
   ],
   "seeds": {
