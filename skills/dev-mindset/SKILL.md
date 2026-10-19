@@ -51,7 +51,10 @@ Astra wants other software developers to read her build without frustration. She
 | Third-party program | Third-party software | Was "root program"; "root" means superuser to developers. Decided 2026-10-13. |
 | Core pets | Required (base) packages: the part of an install that cannot be deselected | The pets every farm needs; the installer never lets anyone untick them (today the Friendly Farmer). Not "root pets": "root" means superuser. Decided 2026-10-18. |
 | Animal / animal code | Code inside the trust boundary the seated agent may change | Everything inside the harness is an animal. See `skills/farm-security`. |
-| Agentic harness / the seat | Agent harness (Claude Code, Codex) | The model is the agent that sits in the seat. |
+| Agentic harness (L3) / the seat | Agent harness, one instance per pet program; the seat is the active agent session | Each pet program's own harness: any farmhand can sit in it, straight through its API or inside a provider harness (Astra, 2026-10-19). Not built yet; today a pet borrows Claude Code or Codex. AGENTS.md, "How the agents work". |
+| Provider harness | Agent harness made by others (Claude Code, Codex, OpenClaw) | Drawn as a ring around its farmhand. Until 2026-10-19 this row called Claude Code and Codex "the agentic harness", which mixed the two kinds up. |
+| Bot (a Discord bot) | Discord bot application | Not a harness. Role Fairy runs every one (Fairy Ring); its commands are tools, its answers come from the farmhand in Fairy Ring's seat. Decided 2026-10-19. |
+| Bot panel | Admin panel for one bot | On Fairy Ring's page: that bot's commands, servers, permissions and health. Named by Astra, 2026-10-19 (`mommys-help-bot-panel`). |
 | Friendly Farmer | Orchestrator and package manager | He hatches pets (installs dependencies) and keeps `farm.lock`. |
 | Program Manager / registry (`pets.json`) | Package registry | Part of the protected core. |
 | Seed / pipeline / registered | Planned / in development / released | |

@@ -52,6 +52,39 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
   versioned names everywhere (`pet-program-3-v1.0-icon-2-v1.0`), tool boxes with ON/OFF and sick, connection boxes,
   the notes tool and backlog, the chat bot, links by kind, the status line and its System Map node.
 
+## How the agents work: farmhands, harnesses and seats (Astra, 2026-10-19)
+Astra, 2026-10-19: "it's supposed to be so that any agent can sit in the program and it becomes L3." There are two
+kinds of harness, and "harness" alone is ambiguous: say which one.
+
+| Part | What it is | Standard term | On the System Map |
+|---|---|---|---|
+| **Farmhand** | The AI model that does the thinking: Claude, OpenAI's models, Astra's local models | Model (LLM) | A planet on ring 4 |
+| **Provider harness** | A program made by others that wraps a farmhand in tools, memory, skills and permissions: Claude Code, Codex, OpenClaw | Agent harness (agent runtime) | A ring around its farmhand's planet |
+| **Pet harness (L3)** | Each pet program's own harness: its seat, with that pet's tools, tricks, memory and grants. Any farmhand can sit in it, straight through its API or inside a provider harness. **Not built yet** (the Astra Pet SDK, migration Phase 5): today a pet borrows Claude Code's or Codex's | Agent harness, one instance per service | The pet program's L3 row, inside the glass |
+| **The seat** | Who is in a pet harness right now, and on what task | Active agent session | "Seat: empty" on the pet program page |
+
+Every agent Astra uses, and what really limits it:
+
+| Agent | Kind | Takes orders from | Runs | What actually stops it (enforced) | Paid by |
+|---|---|---|---|---|---|
+| **Claude Code** (CLI and the desktop Code tab) | Provider harness (Anthropic) | Astra: her sessions, her scheduled tasks, Remote Control from her phone or iPad | Astra's PC, in a project folder | Its permission modes: it asks before commands and files outside the folder unless Astra turns that off (grant `seat-asks`). The repo rules are written only | Astra's Claude Max plan |
+| **Claude Code Channels** (Anthropic's Discord plugin) | A door into one running Claude Code session, not a new agent | Only the Discord accounts on its allowlist; each of them can approve actions on the PC | Inside that session | The plugin's sender allowlist, then that session's permission modes | The Max plan, for Astra's own accounts only |
+| **Codex** (app and CLI) | Provider harness (OpenAI) | Astra | Astra's PC | Its sandbox and approval settings | Astra's ChatGPT plan |
+| **ChatGPT** | Adviser (ring 7), no access | Astra | OpenAI's servers | Nothing reaches the farm except through Astra | Astra's ChatGPT plan |
+| **Local farmhands** (AI Astra's mind) | Farmhand; no harness of its own yet | Astra only | Astra's PC or local network | Only Astra changes them; a key and binding to this PC are planned (known gap 9) | Her own hardware |
+| **OpenClaw** | Provider harness made by others (open source): an always-on gateway with chat channels such as Discord, a scheduler and a skills store (ClawHub) | Anyone its channel settings let in | A background gateway on the PC | Only its own settings (DM policy, server and channel allowlists, tool policy): PetOS grants do not reach inside it | An Anthropic API key. **Not adopted** (weighed 2026-10-17 to 2026-10-19) |
+| **A Discord bot** (Role Fairy's) | Not a harness: a Discord application. Its commands are tools of Fairy Ring (code, no AI); its answers come from the farmhand in Fairy Ring's seat | Members of its servers, through its commands | Astra's PC, one process per bot | Discord's bot permissions and role order, its channel allowlist and its code | Its answers: an Anthropic API key with a monthly spend limit |
+
+- **Ask who an agent takes orders from.** One that takes orders from other people (a server bot, OpenClaw in Discord)
+  gets the smallest grants, and never runs commands or touches files on the PC.
+- **Astra's Claude Max plan is for Astra's own use, in Anthropic's own apps** (Claude Code, its Channels plugin, the
+  Claude apps). Never put it behind a bot other people use, a third-party harness or CLI Proxy API: Anthropic allows
+  ordinary individual use only, and since 2026-04-04 subscriptions no longer cover third-party harnesses
+  ([Claude Code legal and compliance](https://code.claude.com/docs/en/legal-and-compliance)). A bot other people use
+  runs on an API key with a spend limit.
+- **A harness's limits hold only where code enforces them.** Every grant on the System Map says which: `enforced`,
+  `written only` or `planned` ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
+
 ## One copy of each repo, always on GitHub (Astra, 2026-10-12)
 Work was being lost between assistants because every chat kept its own copy of the repos
 (`Documents\ChatGPT\...`, `Documents\Codex\<date>\...`) and some never pushed. From now on:
@@ -186,3 +219,4 @@ A chat-order skill (numbering chat titles in merge order) was added and removed 
 The Friendly Farmer's pet program spawner (`scripts/pet-program-pages-20261018.mjs`, `the-farm-v1.0-pet-program-spawner-v1.0`, Astra 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first"): a page with every module of her sketch for each of the 38 registered and pipeline pets in `apps/pet-programs/`, rebuilt by `npm run build` and guarded by `test/pet-program-pages-test-20261018.mjs` (card 044), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 Related pets at the bottom of every pet program page (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"): the spawner's `<pet>-related-pets` module, above the unified footer, lists every pet it talks to (the same relations as its connection boxes and the System Map) with its picture and a link to its pet program page; PET-PROGRAM-FRAMEWORK.md section 3, item 11, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 Tools, tricks and harness skills (a trick is owned at L2 and followed at L3; the runtime and security chart in TOOLS-AND-TRICKS.md; known gap 14; the matching lines in PET-PROGRAM-FRAMEWORK.md, ASTRAS_PET_OS.md, INTELLIGENCE-LEVELS.md, PROVENANCE.md, the security model and the dev-mindset and farm-security skills) by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
+How the agents work (Astra, 2026-10-19: "any agent can sit in the program and it becomes L3"): farmhands, provider harnesses (Claude Code, Codex, OpenClaw) and each pet program's own L3 harness, every agent Astra uses with who it takes orders from and what actually stops it, the Max plan kept to her own use, and Role Fairy's bots and bot panels (card 048; role-fairy PR #4), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
