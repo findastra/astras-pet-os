@@ -9,6 +9,9 @@ import { allPets } from './farmer-rounds-20261009.mjs';
 
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const RWX_VALUES = ['yes', 'pr', 'ask', 'grant', 'no'];
+// Native tools and tricks (Astra, 2026-10-19): they belong to a pet program (`of`) and are never drawn on the map; the
+// map lists them on their pet program's card, and TOOLS-AND-TRICKS.md lists them in the registry table.
+export const PARTS = ['tool', 'trick'];
 
 /** Every node and link, checked: a link to an unknown node throws instead of vanishing.
     programs is pet-programs.json's list; pet program names come only from there (AGENTS.md, one list). */
@@ -70,12 +73,12 @@ export function systemMapData(registry, extra, programs = []) {
     if (!extra.layers[n.layer]) throw new Error(`${n.id} has no layer`);
   }
 
-  // Rings: where a thing lives (system-map.json "rings"). A tool sits on its pet program's ring.
+  // Rings: where a thing lives (system-map.json "rings"). A tool or a trick sits on its pet program's ring.
   const rings = extra.rings;
   const ringIds = new Set(rings.list.map((r) => r.ring));
   const ringOf = (n) => {
     if (rings.by_id[n.id]) return rings.by_id[n.id];
-    if (n.type === 'tool') { const o = nodes.get(n.of); if (!o) throw new Error(`tool ${n.id} belongs to unknown ${n.of}`); const r = ringOf(o); return r === '2' ? '3' : r; }
+    if (PARTS.includes(n.type)) { const o = nodes.get(n.of); if (!o) throw new Error(`${n.type} ${n.id} belongs to unknown ${n.of}`); const r = ringOf(o); return r === '2' ? '3' : r; }
     return rings.by_type[n.type];
   };
   for (const n of nodes.values()) { n.ring = ringOf(n); if (!ringIds.has(n.ring)) throw new Error(`${n.id} has no ring`); }
@@ -83,7 +86,7 @@ export function systemMapData(registry, extra, programs = []) {
   // roadmap pets, and their programs, are not animals until Astra registers them.
   const stageOf = (n) => programByNumber.get(n.program)?.stage;
   const animalOf = (n) => {
-    if (n.type === 'tool') { const o = nodes.get(n.of); return o.ring === '2' ? ['host', 'pet', 'pipeline'].includes(o.type) : animalOf(o); }
+    if (PARTS.includes(n.type)) { const o = nodes.get(n.of); return o.ring === '2' ? ['host', 'pet', 'pipeline'].includes(o.type) : animalOf(o); }
     if (n.ring === '0' || n.ring === '1') return true;
     if (n.ring === '2') return ['host', 'pet', 'pipeline'].includes(n.type);
     if (n.ring === '3') return n.program !== undefined && programs.length ? ['registered', 'pipeline'].includes(stageOf(n)) : n.state === 'now';
@@ -209,7 +212,72 @@ const between = (md, name, body) => {
 };
 export const applyAccessDoc = (md, extra) => between(between(md, 'rings', ringsTable(extra)), 'access', grantsTable(extra));
 
-export const SYSTEM_MAP = { output: 'system-map-20261012.html', template: 'scripts/system-map-template-20261012.html', extra: 'system-map.json', programs: 'pet-programs.json', doc: 'PROTECTION-RINGS.md' };
+// TOOLS-AND-TRICKS.md: the registry of every native program, native tool, native trick and third-party program, by pet
+// program, written from the same data as the map (Astra, 2026-10-19: "make sure that the entire tool trick and program
+// registry is a table on github"). A pet program itself is a row of PET-PROGRAMS.md, so it is the group here, not a row.
+const KINDS = [['own-program', 'native program'], ['tool', 'native tool'], ['trick', 'native trick'], ['program', 'third-party program']];
+const PET_TYPES = ['host', 'pet', 'pipeline', 'seed', 'roadmap'];
+export function partsRows(registry, extra, programs) {
+  const data = systemMapData(registry, extra, programs);
+  const nodes = new Map(data.nodes.map((n) => [n.id, n]));
+  const byNumber = new Map(programs.map((p) => [p.number, p]));
+  // The pet program a thing belongs to: a pet program node, or the pet program of a pet.
+  const programOf = (n) => {
+    if (!n) return null;
+    if (n.program !== undefined) { const p = byNumber.get(n.program); return p ? { number: p.number, pet: p.icon, program: p.program } : null; }
+    if (PET_TYPES.includes(n.type) && n.home) return { number: n.home.number, pet: n.name, program: n.home.name };
+    if (n.of) return programOf(nodes.get(n.of));
+    return null;
+  };
+  // A native program with no `of` belongs to the pet or pet program that opens or manages it, else to the one with a
+  // line to it (as its pet program page lists it).
+  const ownerOf = (n) => {
+    if (n.of) return programOf(nodes.get(n.of));
+    const from = (x) => x.to === n.id && programOf(nodes.get(x.from));
+    const l = data.links.find((x) => from(x) && ['opens', 'manages'].includes(x.carries)) || data.links.find(from);
+    return l ? programOf(nodes.get(l.from)) : null;
+  };
+  const rows = new Map();
+  const add = (owner, n, kind, state) => {
+    if (!owner) return;
+    const key = `${owner.number}:${n.id}`;
+    const old = rows.get(key);
+    if (!old) rows.set(key, { ...owner, kind, name: n.name, label: n.label || '', state, id: n.id });
+    else if (state === 'now') old.state = 'now';
+  };
+  for (const n of data.nodes) {
+    if (n.private) continue;
+    if (n.type === 'tool' || n.type === 'trick') add(programOf(nodes.get(n.of)), n, n.type, n.state);
+    else if (n.type === 'own-program' && n.program === undefined) add(ownerOf(n) || { number: Infinity, pet: '—', program: 'no pet program yet' }, n, n.type, n.state);
+  }
+  // Third-party programs: every line between one and a pet, its pet program or one of its programs, tools or tricks.
+  for (const l of data.links) {
+    if (l.state === 'architecture') continue;
+    for (const [mine, other] of [[l.from, l.to], [l.to, l.from]]) {
+      const o = nodes.get(other), m = nodes.get(mine);
+      if (o?.type !== 'program' || !m || m.private) continue;
+      add(m.type === 'own-program' && m.program === undefined ? ownerOf(m) : programOf(m), o, 'program', l.state);
+    }
+  }
+  const order = Object.fromEntries(KINDS.map(([k], i) => [k, i]));
+  return [...rows.values()].sort((a, b) => (a.number === b.number ? 0 : a.number < b.number ? -1 : 1) || order[a.kind] - order[b.kind] || (a.state === 'now' ? 0 : 1) - (b.state === 'now' ? 0 : 1) || a.name.localeCompare(b.name));
+}
+export function partsTable(registry, extra, programs) {
+  const rows = partsRows(registry, extra, programs);
+  const kindName = Object.fromEntries(KINDS);
+  const counts = KINDS.map(([k, name]) => `${rows.filter((r) => r.kind === k).length} ${name}s`).join(', ');
+  const state = (s) => extra.states[s] ? extra.states[s].split(' (')[0] : s;
+  return [`${rows.length} rows: ${counts}. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.`, '',
+    '| # | Pet | Pet program | Kind | Name | Label | State |', '|---|---|---|---|---|---|---|',
+    ...rows.map((r) => `| ${Number.isFinite(r.number) ? r.number : '—'} | ${cell(r.pet)} | ${cell(r.program)} | ${kindName[r.kind]} | ${cell(r.name)} | ${r.label ? '`' + cell(r.label) + '`' : ''} | ${cell(state(r.state))} |`)].join('\n');
+}
+export const applyPartsDoc = (md, registry, extra, programs) => {
+  const re = /(<!-- registry:start[^>]*-->)[\s\S]*?(<!-- registry:end -->)/;
+  if (!re.test(md)) throw new Error('TOOLS-AND-TRICKS.md has no registry:start / registry:end markers');
+  return md.replace(re, (m, a, b) => `${a}\n${partsTable(registry, extra, programs)}\n${b}`);
+};
+
+export const SYSTEM_MAP = { output: 'system-map-20261012.html', template: 'scripts/system-map-template-20261012.html', extra: 'system-map.json', programs: 'pet-programs.json', doc: 'PROTECTION-RINGS.md', parts: 'TOOLS-AND-TRICKS.md' };
 export const readSystemMapSources = () => ({ extra: JSON.parse(readFileSync(SYSTEM_MAP.extra, 'utf8')), template: readFileSync(SYSTEM_MAP.template, 'utf8'),
   programs: JSON.parse(readFileSync(SYSTEM_MAP.programs, 'utf8')).programs,
   icons: petIcons(JSON.parse(readFileSync('art/frames/index.json', 'utf8'))) });

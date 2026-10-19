@@ -86,7 +86,7 @@ function lastRound(status, reg) {
 }
 
 /** Everything one page needs, worked out from the sources. */
-export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, skills = [] }) {
+export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
   const petNode = nodes.get(reg.repo);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
@@ -108,8 +108,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const toolIds = new Set(tools.map((t) => t.id));
   const viaTools = map.links.filter((l) => toolIds.has(l.from) && !mine.has(l.to) && !toolIds.has(l.to) && l.state !== 'architecture');
 
-  // L2: tricks the hub knows of (the Farmer's own skills say "The Friendly Farmer's trick").
-  const tricks = reg.role === 'host' ? skills.filter((s) => /Friendly Farmer's trick/i.test(s.description)).map((s) => ({ id: s.name, name: s.name, label: `${homeSlug}-v1.0-${s.name}-trick-v1.0`, why: s.description })) : [];
+  // L2: its native tricks, from the map data (Astra, 2026-10-19: native programs, tools and tricks; never drawn on the map).
+  const tricks = map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-trick-v1.0` }));
 
   // L2: connection boxes, one per pet it talks to (pets only; seeds and roadmap pets are not animals yet).
   const talks = new Map();
@@ -228,7 +228,7 @@ ${module(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, 
   const L1 = module(`${d.petSlug}-L1-module`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-<section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None on the map yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
+<section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
 <p class="small">From the System Map. A grey pair of lights means not built yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
 
@@ -365,22 +365,13 @@ ${group('pipeline', 'Pipeline')}
 
 // ---------- Sources and writing ----------
 
-function readSkills(root) {
-  const dir = `${root}/skills`;
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir).filter((n) => existsSync(`${dir}/${n}/SKILL.md`)).sort().map((n) => {
-    const text = readFileSync(`${dir}/${n}/SKILL.md`, 'utf8');
-    return { name: (/^name:\s*(.+)$/m.exec(text) || [])[1]?.trim() || n, description: (/^description:\s*(.+)$/m.exec(text) || [])[1]?.trim() || '' };
-  });
-}
-
 export function readSpawnerSources(root = '.') {
   const j = (p) => JSON.parse(readFileSync(`${root}/${p}`, 'utf8'));
   const opt = (p, fallback) => (existsSync(`${root}/${p}`) ? j(p) : fallback);
   return {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
-    status: opt('status/pets-status.json', null), skills: readSkills(root),
+    status: opt('status/pets-status.json', null),
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
 }
