@@ -41,7 +41,7 @@ around rings 0 to 3, and Claude Code and Codex as rings around their AI models (
 | 3 | Pet programs | the programs, sites and worlds Astra made, and their tools | 🐾 yes, once their pet is registered |
 | — | **Agent harness** | the glass sphere between the animals and everything else | the line between animals and everything else |
 | 4 | Farmhands (AI models) | Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model | no |
-| 5 | Third-party programs | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also everything-search, File Master's connector to Everything (Astra, 2026-10-18) | no |
+| 5 | Third-party programs | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also the tools that only plug into one of them: everything-search, Sticker Manager and the CLI Proxy API manager (Astra, 2026-10-18) | no |
 | 6 | Devices | PCs, phones, headsets, trackers and other hardware | no |
 | 7 | Advisers | ChatGPT | no |
 | 8 | You (L4) | Astra, who owns the whole farm | no: the owner |
@@ -49,9 +49,12 @@ around rings 0 to 3, and Claude Code and Codex as rings around their AI models (
 
 Ring 3 sits inside the glass because Astra made those programs. Ring 5 sits outside because other people made those
 programs. What an agent may do on either is in the grants below, not in the ring. The map draws the two apart (Astra,
-2026-10-18): ring 3 pink, "made by you", like its cubes; ring 5 peach, "made by others". One tool sits with the
-programs made by others: everything-search, File Master's connector to Everything (Astra, 2026-10-18). Out there it is
-not an animal, so agents may run it and read it but never rewrite it.
+2026-10-18): ring 3 pink, "made by you", like its cubes; ring 5 peach, "made by others". Tools that only plug into a
+program made by others sit out there with it (Astra, 2026-10-18): everything-search (File Master's connector to
+Everything), Sticker Manager (a BetterDiscord plugin) and the CLI Proxy API manager (both Discord Damsel's). Out there
+they are not animals, so agents may run and read them but never rewrite them. Every other tool sits on a tools lane just
+outside the pet programs, still on ring 3 and inside the glass (Astra, 2026-10-19). The pets have extra room around them
+inside the glass: seeds and roadmap pets on their own lane, then the pet programs.
 
 ## Who may do what: grants
 

@@ -4910,7 +4910,7 @@
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring, except where by_id puts it elsewhere: everything-search, File Master's connector to Everything, sits with the third-party programs on ring 5 (Astra, 2026-10-18). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring, except where by_id puts it elsewhere: tools that only plug into a program made by others sit with the third-party programs on ring 5 (Astra, 2026-10-18): everything-search (File Master's connector to Everything), and Discord Damsel's Sticker Manager (a BetterDiscord plugin) and CLI Proxy API manager. Every other tool sits on its own lane just outside its ring's pet programs (Astra, 2026-10-19). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
     "list": [
       {
         "ring": "0",
@@ -4952,7 +4952,7 @@
       {
         "ring": "5",
         "name": "Third-party programs",
-        "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also everything-search, File Master's connector to Everything (Astra, 2026-10-18)",
+        "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also the tools that only plug into one of them: everything-search, Sticker Manager and the CLI Proxy API manager (Astra, 2026-10-18)",
         "made": "others",
         "animal": "no"
       },
@@ -4996,7 +4996,9 @@
       "kennel": "5",
       "the-shed": "5",
       "vet-clinic": "5",
-      "everything-search-tool": "5"
+      "everything-search-tool": "5",
+      "sticker-manager": "5",
+      "cli-proxy-api-manager": "5"
     }
   },
   "access": {

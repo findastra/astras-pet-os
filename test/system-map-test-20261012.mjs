@@ -106,6 +106,8 @@ test('ring 3 is made by you, ring 5 by others, and everything-search sits with t
   assert.equal(tool.ring, '5');
   assert.ok(!tool.animal, 'a tool outside the glass is not an animal');
   assert.equal(data.nodes.find((n) => n.id === 'repo-catcher').ring, '3', 'File Master\'s other tools stay on his ring');
+  // Plug-in tools sit with the program they plug into (Astra, 2026-10-19).
+  for (const id of ['sticker-manager', 'cli-proxy-api-manager']) assert.equal(data.nodes.find((n) => n.id === id).ring, '5', id);
 });
 
 test('every grant says which levels (L1 to L4) hold it', () => {
