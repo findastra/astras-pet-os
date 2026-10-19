@@ -21,7 +21,9 @@ export function systemMapData(registry, extra, programs = []) {
   for (const p of allPets(registry)) {
     add({ id: p.repo, name: p.pet,
       type: p.role === 'host' ? 'host' : p.stage === 'pipeline' ? 'pipeline' : 'pet',
-      state: 'now', job: p.job || '', status: p.status || null, repo: p.repo, visibility: p.visibility || null, art: p.art || null });
+      state: 'now', job: p.job || '', status: p.status || null, repo: p.repo, visibility: p.visibility || null, art: p.art || null,
+      // Its pet program page (pets.json interface_url since #110): the map card links it (Astra, 2026-10-19).
+      page: p.interface_url || null });
   }
   for (const s of registry.seeds?.pets || []) {
     add({ id: slug(s.pet), name: s.pet, type: 'seed', state: 'planned', job: s.job === 'undecided' ? 'Job undecided.' : s.job, repo: null });

@@ -904,6 +904,11 @@ function selectNode(n){
   if(inCluster(n)){ const p=el('p','meta'), b=el('button','link',nodeById[n.in].name); b.onclick=()=>selectNode(nodeById[n.in]); p.append(document.createTextNode('Part of '), b); side.appendChild(p); }
   const members=clusterOf(n.id); if(members.length){ const p=el('p','meta'); p.append(document.createTextNode(members.length+' in this group: '));
     members.forEach((m,k)=>{ const b=el('button','link',m.name); b.onclick=()=>selectNode(m); p.append(b); if(k<members.length-1) p.append(document.createTextNode(', ')); }); side.appendChild(p); }
+  // The pet program page (Astra, 2026-10-19: every place that shows a pet opens it, with Open today's app on it): on a
+  // pet's card, and on its pet program's card.
+  { const owner = n.page ? n : (n.type==='own-program'&&n.program!==undefined ? DATA.nodes.find(m=>m.page&&m.home&&m.home.number===n.program) : null);
+    if(owner&&/^(apps\/pet-programs\/[a-z0-9-]+\.html|https:\/\/\S+)$/.test(owner.page)){ const p=el('p','meta'); p.append(document.createTextNode('Pet Program: '));
+      const a=el('a','',owner.home?owner.home.name:owner.name); a.href=owner.page; a.target='_blank'; a.rel='noopener'; p.append(a, document.createTextNode(' (its page, with Open today’s app on it)')); side.appendChild(p); } }
   if(n.repo){ const m=el('p','meta'); const a=el('a','', 'findastra/'+n.repo); a.href='https://github.com/findastra/'+n.repo; a.target='_blank'; a.rel='noopener'; m.append(a, document.createTextNode(n.visibility?` · ${n.visibility}`:'')); side.appendChild(m); }
   side.appendChild(codeBlock(n));
   const list = n.type==='harness' ? DATA.links.filter(l=>l.from===n.id||l.to===n.id).filter((l,i,a)=>!l.everyApp||a.findIndex(x=>x.everyApp&&x.why===l.why)===i)
