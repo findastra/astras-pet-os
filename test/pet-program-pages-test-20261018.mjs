@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every module of the sketch, in its order, and every module collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = MODULES.map((m) => (['cyberhome', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'chat'].includes(m)
+    const labels = MODULES.map((m) => (['cyberhome', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -130,4 +130,25 @@ test('private pets say their data never leaves the PC, and private repos are not
     if (d.isPrivate) assert.match(html, /its data never leaves the PC/, d.repo);
     if (!d.publicRepo) assert.ok(!html.includes(`href="https://github.com/findastra/${d.repo}"`), `${d.repo} is private: no repo link`);
   }
+});
+
+test('related pets sit at the bottom: every pet it talks to, linked to its own pet program page (Astra, 2026-10-19)', () => {
+  const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    assert.ok(html.indexOf(`>${d.petSlug}-related-pets<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: related pets come just above the footer`);
+    assert.deepEqual(d.related.map((r) => r.id).sort(), d.connections.map((c) => c.id).sort(), `${d.repo}: the same pets as its connection boxes`);
+    for (const r of d.related) {
+      assert.ok(names.has(r.page), `${d.repo}: ${r.pet} links to a page that exists (${r.page})`);
+      assert.ok(html.includes(`href="${r.page}"`), `${d.repo}: ${r.pet} is a link`);
+    }
+  }
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
+  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+});
+
+test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
 });

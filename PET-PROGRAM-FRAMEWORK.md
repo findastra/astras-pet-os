@@ -124,6 +124,10 @@ go inside the matching module here.
    grant (section 11). It holds item 10 of the list below.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
     bot.
+11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
+    just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
+    boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
+    pet program spawner writes it on every page.
 
 ### Waiting on Astra
 
