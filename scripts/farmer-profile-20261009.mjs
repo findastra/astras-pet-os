@@ -85,11 +85,12 @@ export function syncProfile(readme, registry, repos, programs = null) {
     const isPriv = (r) => (online.has(r) ? online.get(r).private : pets.find((x) => x.repo === r)?.visibility === 'private');
     const out = [];
     if (p) {
-      // The home links to its own page: profile.tools home_url, else a live github.io site, else its page on The Farm.
+      // The home links to its pet program page on The Farm (Astra, 2026-10-19: "one click always points to program
+      // page (Pet Program)"), else profile.tools home_url, else a live github.io site.
       const live = /^https:\/\/[^/]+\.github\.io\//.test(reg?.interface_live_url || '') ? reg.interface_live_url : null;
       const farmPage = reg?.interface_url && !/^https?:/.test(reg.interface_url) ? `${PAGES}/${reg.interface_url}` : null;
       const name = p.assigned ? slug(p.program) : `pet-program-${p.number}`;
-      const target = t.home_url || live || farmPage;
+      const target = farmPage || t.home_url || live;
       const note = p.assigned ? `the pet program${t.home_note ? ` [${t.home_note}]` : ''}` : 'pet program, not named yet';
       // The pet's name already links to its repo, so the repo is not listed again (Astra, 2026-10-16). A home with
       // no page of its own links to the repo when they share a name (spoonfed).

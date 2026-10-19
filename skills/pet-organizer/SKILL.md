@@ -20,8 +20,9 @@ N. **[Pet](https://github.com/findastra/repo)** -- what the pet does [status]
   pet-programs.json) comes first and is its own link, to its repo. A private repo is not linked.
 - **No name twice.** The repo is not listed again beneath the pet, and the home's name is said once, as its link
   text (`the-farm -- the pet program`, not `the-farm -- The Farm, the pet program`).
-- **Home** is the first sub-bullet when `assigned` is true, linked to its page (`profile.tools.<repo>.home_url` in
-  pets.json, else a live github.io site, else its page on The Farm, else the repo when they share a name). Unnamed:
+- **Home** is the first sub-bullet when `assigned` is true, linked to its pet program page on The Farm
+  (`apps/pet-programs/<repo>-20261018.html`; Astra, 2026-10-19: "one click always points to program page"), else
+  `profile.tools.<repo>.home_url` in pets.json, else a live github.io site, else the repo when they share a name). Unnamed:
   `` `pet-program-N` -- pet program, not named yet ``. Suggested homes live in `idea` until Astra approves one.
 - **Tools** follow, from `profile.tools.<repo>.tools`. A repo that is more than the pet's own
   (`repo_note`, e.g. astras-pet-os, "Astra's PetOS home repo") keeps its own line before the tools, unless Astra

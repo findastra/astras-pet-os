@@ -82,7 +82,7 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
 /** The Farmer's last merged round for this pet (status/pets-status.json). Older keys (vrchat-ai-astra, mommys) are
  *  found through the pet's hub app name. */
 function lastRound(status, reg) {
-  const keys = [reg.repo, String(reg.interface_local_url || reg.interface_url || '').split('/').pop().replace(/-\d{8}\.html$/, '')];
+  const keys = [reg.repo, String(reg.app_url || '').split('/').pop().replace(/-\d{8}\.html$/, '')];
   for (const k of keys) if (k && status?.pets?.[k]) return { key: k, ...status.pets[k] };
   return null;
 }
@@ -145,7 +145,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
     ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
 
-  const app = reg.interface_live_url || reg.interface_url || null;
+  // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it.
+  const app = reg.interface_live_url || reg.app_url || null;
   const appHref = !app ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   const lines = moodKey(registry, reg);
@@ -159,7 +160,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
-    languages: code?.languages || [], languageNote: code?.note || null,
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
   };
 }
 
@@ -286,10 +287,16 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
     return `<figure class="mood"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div><p class="small">Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
 
-  // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool.
+  // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
+  // tools bound so far come from `clicks` in pets.json (2026-10-19: Voicemeeter Bug's repair moved to three clicks).
+  const counts = ['three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const bound = Object.entries(d.clicks).filter(([n]) => Number(n) >= 3).sort(([a], [b]) => a - b);
+  const assigned = bound.length
+    ? bound.map(([n, c]) => `<dt>${esc(counts[n - 3] || n)} clicks</dt><dd>${esc(c.what || c.tool)}${c.label ? ` <code>${esc(c.label)}</code>` : ''}</dd>`).join('\n')
+    : '<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd>';
   const clicker = panel(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder in a dialog box, like BSOD's blurb <span class="tag">not built yet</span></dd>
 <dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>
-<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd></dl>
+${assigned}</dl>
 <p class="small">One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).</p>`, { cls: 'clicker' });
 
   const relatedCard = (r) => {

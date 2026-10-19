@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseMatrix, readMatrix, rowDot, decisionDot, GREY, BLUE } from '../scripts/flash-matrix-20261018.mjs';
-import { a59ForPet, a59ForCatalog, parseProfileHomes, expectedProfileHome, programHome, applyA59Repo, applyA59Hub, setRegistryField, addReadmeLink, PAGES, pagesOf } from '../scripts/pet-program-link-20261018.mjs';
+import { a59ForPet, a59ForCatalog, parseProfileHomes, expectedProfileHome, programHome, programPage, applyA59Repo, applyA59Hub, setRegistryField, addReadmeLink, PAGES, pagesOf } from '../scripts/pet-program-link-20261018.mjs';
 import { syncProfile } from '../scripts/farmer-profile-20261009.mjs';
 
 const HUB_DIR = fileURLToPath(new URL('..', import.meta.url));
@@ -101,13 +101,30 @@ test('A59: a pipeline pet whose program answers on its own site gets interface_u
 
 test('A59: The Farm\'s card and the profile must open the same program', () => {
   const p = prog({ number: 36, icon: 'Platform Platypus', program: 'Platform Pond', stage: 'registered', repo: 'platform-platypus' });
-  const reg = { repo: 'platform-platypus', interface_url: 'apps/platform-platypus-20261017.html', interface_local_url: 'apps/platform-platypus-20261017.html', interface_live_url: 'https://findastra.github.io/platform-platypus/' };
-  const rows = a59ForPet({ prog: p, reg, repo: { exists: true, private: false, name: 'platform-platypus' }, hubTree: ['apps/platform-platypus-20261017.html'] });
+  const reg = { repo: 'platform-platypus', interface_url: 'https://findastra.github.io/platform-platypus/', interface_local_url: 'apps/platform-platypus-20261017.html', interface_live_url: 'https://findastra.github.io/platform-platypus/' };
+  const tools = { home_url: 'https://example.org/platypus/' };
+  const rows = a59ForPet({ prog: p, reg, tools, repo: { exists: true, private: false, name: 'platform-platypus' }, hubTree: ['apps/platform-platypus-20261017.html'] });
   const farm = rows.find((r) => /Farm's card/.test(r.detail));
   assert.ok(farm, 'two pages for one program');
-  assert.deepEqual([farm.fix.key, farm.fix.to], ['interface_url', 'https://findastra.github.io/platform-platypus/']);
+  assert.equal(farm.fix, undefined, 'no program page in the hub and a home Astra set: hers to choose');
   const gone = a59ForPet({ prog: p, reg: { ...reg, interface_url: 'apps/gone-20261017.html', interface_live_url: undefined }, repo: { exists: true, private: false, name: 'platform-platypus' }, hubTree: ['apps/platform-platypus-20261017.html'] });
   assert.equal(gone.find((r) => /interface_url is apps\/gone/.test(r.detail)).fix.to, 'apps/platform-platypus-20261017.html');
+});
+
+test('A59: one click always points to the pet program page; today\'s app moves to app_url (Astra, 2026-10-19)', () => {
+  const p = prog({ number: 36, icon: 'Platform Platypus', program: 'Platform Pond', stage: 'registered', repo: 'platform-platypus' });
+  const page = programPage('platform-platypus');
+  const old = { repo: 'platform-platypus', interface_url: 'https://findastra.github.io/platform-platypus/', interface_local_url: 'apps/platform-platypus-20261017.html', interface_live_url: 'https://findastra.github.io/platform-platypus/' };
+  const hubTree = ['apps/platform-platypus-20261017.html', page];
+  const rows = a59ForPet({ prog: p, reg: old, repo: { exists: true, private: false, name: 'platform-platypus' }, hubTree });
+  const url = rows.find((r) => r.fix?.key === 'interface_url'), local = rows.find((r) => r.fix?.key === 'interface_local_url');
+  assert.deepEqual([url.fix.to, url.fix.also], [page, { app_url: 'https://findastra.github.io/platform-platypus/' }], 'the old link is kept as today\'s app');
+  assert.equal(local.fix.to, page);
+  const now = { ...old, interface_url: page, interface_local_url: page, app_url: 'https://findastra.github.io/platform-platypus/' };
+  assert.deepEqual(a59ForPet({ prog: p, reg: now, repo: { exists: true, private: false, name: 'platform-platypus' }, hubTree }), [], 'a pet whose links open its program page has no finding');
+  assert.equal(programHome(now, { home_url: 'https://example.org/' }), `${PAGES}/${page}`, 'the program page wins over a home URL and a live site');
+  const missing = a59ForPet({ prog: prog({ stage: 'pipeline' }), reg: { repo: 'rgbee', pet: 'RGBee' }, repo, hubTree: [programPage('rgbee')] });
+  assert.deepEqual(missing.filter((r) => r.fix?.type === 'a59-registry').map((r) => [r.fix.key, r.fix.to]), [['interface_url', programPage('rgbee')], ['interface_local_url', programPage('rgbee')]]);
 });
 
 test('A59: the profile line\'s home link is checked against the hub, never edited by hand', () => {

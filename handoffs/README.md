@@ -10,7 +10,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | --- | --- | --- |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
-| [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open, waits on Astra: merge, and which page a pet's double-click opens |
+| [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 answered (A59's other links wait on Astra's OK); task 2 (each pet's tools on the map) waits on her OK to merge #106; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | open, waits on Astra: the open decisions in docs/linux-readiness-20261018.md |
@@ -96,7 +96,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 041 | `041-any-linux-readiness-20261018.md` | `claude/linux-readiness-20261018` (PR #95) |
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
-| 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100) |
+| 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100); task 2 on `claude/tools-on-the-map-20261018` (PR #106) |
 | 045 | `045-any-crash-watch-pets-20261018.md` | `claude/crash-watch-pets-20261018` |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `claude/clicker-rule-20261018` |
 | 047 | `047-any-panels-in-pet-repos-20261019.md` | `claude/programmer-words-20261019` |

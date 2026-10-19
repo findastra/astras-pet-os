@@ -95,6 +95,10 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
   the Officer on the desktop with a siren, red banners on every pet page and the map, flashing nodes, a phone alert.
 - Jobs: Gatekeeper Goddess authorizes, Pet Police Officer detects and contains, Log Lynx records, Forensic Ferret
   investigates, API Fairy shows keys, L4 approves.
+- **Lock the tools, review the tricks** (2026-10-18). A trick is text: it holds nothing, and it can do no more than
+  the tools it reaches. Its review lists every tool it names; a trick that starts naming a new tool is flagged. Its
+  ON/OFF holds only while the agent obeys it, so to stop one for certain, switch off its tools (known gap 14). Chart:
+  [TOOLS-AND-TRICKS.md](../../TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
 - Third-party tools and tricks come through **the Shed**, quarantined and checked like any stranger's code.
   Details: [TOOLS-AND-TRICKS.md](../../TOOLS-AND-TRICKS.md) and [PET-PROGRAM-FRAMEWORK.md](../../PET-PROGRAM-FRAMEWORK.md), sections 11 and 12.
 
