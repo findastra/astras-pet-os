@@ -1,5 +1,7 @@
-// Shared by update-readme.mjs, check-cage.mjs, build.mjs and the tests.
+// Shared by update-readme.mjs, check-pets-20261018.mjs, build.mjs and the tests.
 export const OWNER = 'findastra';
+// The one download for people who want Astra's PetOS (the release's installer zip, never the repo). Astra, 2026-10-18.
+export const INSTALLER_URL = 'https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip';
 export const START = '<!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->';
 export const END = '<!-- pets:end -->';
 export const STATUSES = ['hatching', 'growing', 'grown'];
@@ -32,7 +34,8 @@ export function buildTable(registry) {
   const rows = (registry.pets || []).map((p) => {
     const repo = `https://github.com/${OWNER}/${p.repo}`;
     const accessible = p.published !== false && p.visibility !== 'private';
-    const availability = p.published === false ? 'not on GitHub yet' : p.visibility === 'private' ? 'private repo' : `[Download ZIP](${repo}/archive/refs/heads/main.zip)`;
+    // The host is Astra's PetOS itself: it is installed with the installer, so its row never offers the repo's ZIP.
+    const availability = p.role === 'host' ? `[Installer](${INSTALLER_URL})` : p.published === false ? 'not on GitHub yet' : p.visibility === 'private' ? 'private repo' : `[Download ZIP](${repo}/archive/refs/heads/main.zip)`;
     const get = `${p.interface_url ? `[Open app](${p.interface_url}) · ` : ''}${availability}`;
     const name = accessible ? `**[${esc(p.pet)}](${repo})**` : `**${esc(p.pet)}**`;
     return `| ${name} | ${p.role} | ${p.status} | ${esc(p.job)} | ${get} |`;
@@ -71,8 +74,8 @@ export function validate(registry, readme, art) {
     for (const id of Object.keys(p.says || {})) if (id !== p.art && !(p.companions || []).includes(id)) problems.push(`${p.repo}: "says" lists ${id}, which is not one of its characters`);
   }
   const hosts = registry.pets.filter((p) => p.role === 'host');
-  if (hosts.length !== 1) problems.push(`there must be exactly one host (the Cage's own pet); found ${hosts.length}`);
-  else if (hosts[0].repo !== registry.cage) problems.push(`the host's repo must be the Cage repo "${registry.cage}"`);
+  if (hosts.length !== 1) problems.push(`there must be exactly one host (this hub's own pet, the Friendly Farmer); found ${hosts.length}`);
+  else if (hosts[0].repo !== registry.cage) problems.push(`the host's repo must be this hub, "${registry.cage}"`);
   for (const m of registry.mascots || []) { if (!m.art || !m.name) problems.push('a mascot needs "name" and "art"'); arts.add(m.art); }
   if (art) for (const id of arts) if (!art.pets[id]) problems.push(`no art drawn for "${id}" (add its prompt to scripts/generate-pets.mjs, generate it, then npm run build)`);
   if (art) for (const id of Object.keys(art.pets)) if (!arts.has(id)) problems.push(`art "${id}" is drawn but not listed in pets.json`);

@@ -140,3 +140,19 @@ test('a line to a group reaches each member, and no member hangs off its group',
     assert.ok(data.links.some((l) => l.from === program && l.to === t.id), `${t.name} is not connected to ${program}`);
   for (const t of trackers) assert.ok(data.links.some((l) => l.from === t.id && l.to === 'vrchat' && l.carries === 'tracking'), `${t.name} does not feed VRChat full-body tracking`);
 });
+
+// Astra, 2026-10-18: on a phone both panes fold and the map is flat 2D you drag and pinch, never turned.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18.
+test('on touch screens the map opens flat with no turning, and both panes fold', () => {
+  const page = read('system-map-20261012.html');
+  assert.match(page, /const TOUCH = matchMedia\('\(pointer: coarse\)'\)\.matches/);
+  assert.match(page, /if\(TOUCH\) controls\.enabled = false;/, 'the trackball must not turn the map on touch');
+  assert.match(page, /if\(TOUCH\)\{ flat=true;/, 'touch screens open on the flat map');
+  assert.match(page, /let autoSpin = !TOUCH/, 'no spin on touch');
+  assert.match(page, /id="nSpin"[^>]*|class="btn no-touch" id="nSpin"/);
+  assert.match(page, /class="dims no-touch"/, 'the 3D switch is hidden on touch');
+  assert.match(page, /id="hudMin"/, 'the key panel has its fold button');
+  assert.match(page, /\.hud\.min>:not\(\.hudtop\)\{display:none!important\}/);
+  assert.match(page, /\.side\.min>:not\(\.sidehead\)\{display:none!important\}/, 'the card folds to its name');
+  assert.match(page, /if\(TOUCH\)\{ setHudMin\(true\); hudEl\.querySelectorAll\('details\.sec\[open\]'\)/, 'keys start closed on touch');
+});

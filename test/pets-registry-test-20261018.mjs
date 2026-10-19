@@ -29,7 +29,7 @@ test('the real registry, README table and built frames all agree', () => {
   assert.deepEqual(validate(registry, read('README.md'), art), []);
 });
 
-test('exactly one host, and it is the Cage itself', () => {
+test('exactly one host, and it is this hub itself', () => {
   const hosts = registry.pets.filter((p) => p.role === 'host');
   assert.equal(hosts.length, 1);
   assert.equal(hosts[0].repo, registry.cage);
@@ -283,7 +283,7 @@ test('README markers are present and ordered', () => {
 test('no personal data, tokens or work info in the repo files', () => {
   // Handoffs, docs and skills too, and C:/Users/ as well as C:\Users\ (Astra, 2026-10-13: no personal paths anywhere).
   const md = (dir) => existsSync(new URL('../' + dir, import.meta.url)) ? readdirSync(new URL('../' + dir, import.meta.url), { recursive: true }).map((n) => String(n).replace(/\\/g, '/')).filter((n) => n.endsWith('.md')).map((n) => dir + '/' + n) : [];
-  for (const f of ['README.md', 'ROSTER.md', 'AGENTS.md', 'PET-FILES.md', 'PROTECTION-RINGS.md', 'pets.json', 'system-map.json', 'cage.html', 'cage-data.js', 'scripts/generate-pets.mjs', ...md('handoffs'), ...md('docs'), ...md('skills')]) {
+  for (const f of ['README.md', 'ROSTER.md', 'AGENTS.md', 'PET-FILES.md', 'PROTECTION-RINGS.md', 'pets.json', 'system-map.json', 'scripts/generate-pets.mjs', ...md('handoffs'), ...md('docs'), ...md('skills')]) {
     const t = read(f);
     assert.ok(!/ghp_[A-Za-z0-9]{20}/.test(t), `${f} has a GitHub token`);
     assert.ok(!/sk-[A-Za-z0-9_-]{20}/.test(t), `${f} has an API key`);

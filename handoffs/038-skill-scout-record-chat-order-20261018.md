@@ -1,4 +1,4 @@
-status: open (for Skill Scout: record the new trick at her next census)
+status: done 2026-10-18 (closed: Astra removed the chat-order trick before Skill Scout recorded it)
 for: skill-scout
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: skills/chat-order/SKILL.md, skills/merge-order/SKILL.md; in findastra/lunas-log (branch `claude/skill-scout-v0.1-20261017`): skills/skill-census/SKILL.md
@@ -19,6 +19,8 @@ based on what needs to be pushed first. pass this skill to the Skill Scout so th
   `skill-scout-20261017.mjs lint skills/chat-order/SKILL.md skills/merge-order/SKILL.md --hub .` reports both clean.
   The tool was read from her branch `claude/skill-scout-v0.1-20261017` (it is not on lunas-log's `main` yet).
 - Branch `claude/chat-order-skill-20261018` in astras-pet-os, one pull request; it waits for Astra's OK in chat.
+
+**Closed, 2026-10-18:** Astra: "the numbering rule isnt working just remove it from skills entirely". The chat-order trick is deleted and merge-order no longer numbers chat titles (branch `claude/remove-chat-numbering-20261018`). Skill Scout has nothing to record beyond the removal, which her census will see in git history.
 
 ## Task (Skill Scout)
 

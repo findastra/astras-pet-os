@@ -156,7 +156,10 @@ pictures from its folder next to the hub. Check with
 
 ## How pets move in the Cage
 
-Every pet's `kind` in `pets.json` picks a row in `cage_life.kinds`, and `cage.html` reads the
+*The Cage page that read these rules was removed (Astra, 2026-10-18). The rules stay in `pets.json` for the desktop
+pets (migration plan, Phase 7); the key keeps its old name because pets and scripts read it.*
+
+Every pet's `kind` in `pets.json` picks a row in `cage_life.kinds`, and the Cage page read the
 rules from there. Nothing about movement is hard-coded per pet.
 
 | Rule | What it does now |

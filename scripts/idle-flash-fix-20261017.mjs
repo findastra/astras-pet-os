@@ -241,7 +241,7 @@ if (hubFixes.length && (!ONLY.length || ONLY.includes(HUB)) && !results[HUB]?.pr
     git(dir, 'config', 'user.email', '88600745+findastra@users.noreply.github.com');
     const a59 = applyA59Hub(dir, hubFixes);
     log.push(...a59.log);
-    // The generated files (cage-data.js, the README table, the System Map page) follow pets.json; no art is built.
+    // The generated files (the README table, the System Map page) follow pets.json; no art is built.
     if (a59.applied.length) { execFileSync(process.execPath, ['scripts/build.mjs', '--metadata-only'], { cwd: dir, stdio: 'ignore' }); log.push('Ran `npm run build -- --metadata-only` so the generated files follow.'); }
     const status = git(dir, 'status', '--porcelain');
     results[HUB] = { log, changed: !!status, a59: a59.applied };

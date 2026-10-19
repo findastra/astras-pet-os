@@ -8,8 +8,10 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line, merge, release v0.3.0-beta, delete the two Cage releases |
+| [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
 | [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
-| [038: Skill Scout records the new chat-order trick](038-skill-scout-record-chat-order-20261018.md) | skill-scout | open: record it at the next census |
+| [038: Skill Scout records the new chat-order trick](038-skill-scout-record-chat-order-20261018.md) | skill-scout | done 2026-10-18: the trick was removed at Astra's request |
 | [036: Two PCs tonight: which jobs each one does, and the overnight Idle Flash Audit](036-any-overnight-two-pcs-20261018.md) | any | open, waits on Astra: the answer sheet (merges OK'd 2026-10-18) |
 | [035: Codex framework pull requests, and branches that conflict with main](035-codex-framework-pull-requests-20261018.md) | Codex | open: 17 Codex pull requests to bring up to date; 3 branches held back for Astra |
 | [033: Credit line "An Intelligent App, or Pet, by Astra." in every repo](033-any-intelligent-app-credit-line-20261018.md) | any | done 2026-10-18: all 29 pull requests merged |
@@ -53,7 +55,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 040.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; 038 is used on two branches, `farmer-register-workflow-whirlpool` and `skill-scout-record-chat-order`, so one of them moves; 039 is the installer card). When numbers clashed, the
+**Next free number: 043.** Checked on 2026-10-18 across every branch by Claude Opus 5.5 (036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -84,6 +86,8 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 036 | `036-any-overnight-two-pcs-20261018.md` | `claude/idle-flash-audit-20261018` |
 | 037 | kept for the desktop PC's overnight run (card 036) | `claude/idle-flash-audit-20261018` |
 | 038 | `038-skill-scout-record-chat-order-20261018.md` | `claude/chat-order-skill-20261018` |
+| 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `codex/workflow-whale-20261018` |
+| 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"

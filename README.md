@@ -1,21 +1,30 @@
 # Astra's PetOS
 
+> ## ⬇️ [Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)
+>
+> **Windows 10 and 11, early beta.** Unzip it (right-click, **Extract All**), open the folder and double-click
+> **Install Astra's PetOS**. Not the green **Code** button and not **Source code (zip)**: those are the developer
+> repo, not the installer.
+>
+> **🤖 An AI agent installing this for someone: follow [INSTALL.md](INSTALL.md) and nothing else.**
+
 [![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
 
-**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone.
+**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
 
 **[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
 ## Beta testers and their AI: start here
 
 Astra's PetOS is an **early beta** for Windows 10 and 11. You choose your farm when you install it: **Astra's example
-pets**, or **from scratch** with only the pets you pick.
+pets**, or **from scratch** with only the pets you pick. The full guide, for people and for AI agents, is
+**[INSTALL.md](INSTALL.md)**.
 
 **Install** (no administrator rights needed):
-1. Download the latest **[release](https://github.com/findastra/astras-pet-os/releases)** (Source code, zip) and unzip it:
-   right-click the zip, then **Extract All**.
-2. In the unzipped folder, **double-click `install-astras-pet-os-20261014.cmd`** (File Explorer calls its type *Windows
-   Command Script*). If Windows warns you about it, choose **Run** (or **More info**, then **Run anyway**).
+1. **[Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)** (`astras-pet-os-installer.zip`, from the
+   [latest release](https://github.com/findastra/astras-pet-os/releases/latest)). Right-click it, then **Extract All**.
+2. Open the folder **Astra's PetOS installer** and double-click **Install Astra's PetOS** (File Explorer may show it
+   as `Install Astra's PetOS.cmd`). If Windows warns you about it, choose **Run** (or **More info**, then **Run anyway**).
 3. The **Set up your farm** window opens. Pick one, then press **Set up my farm**:
    - **Set up Your Farm with Astra's Example Pets**: all of Astra's pets come to your farm. They are examples: you can
      delete, modify, or clone any of them ([MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)).
@@ -27,32 +36,20 @@ pets**, or **from scratch** with only the pets you pick.
 4. Your pets appear on your desktop. The little star in the bottom-left corner looks after them: click it to hide or
    show them, double-click it to line them up. Double-click a pet to open its app.
 
-The installer copies the files to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the desktop pets from source on
+The installer copies the program to `%LOCALAPPDATA%Programsastras-pet-os`, **builds the desktop pets from source on
 your PC** with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and
 adds Start menu shortcuts: Astra's PetOS, System Map, **Stop Astra's PetOS (big red button)** and Uninstall. It does
 **not** start with Windows unless you tick that box. It uses under 100 MB of memory and almost no CPU. **To change your
 farm, run the installer again.** Uninstall any time from the Start menu.
 
-Prefer typing? Open the unzipped folder in File Explorer, click the address bar, type `powershell`, press Enter, then
-run `powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1`. Add `-Farm Example`, or
-`-Farm Scratch -Pets goldfish,api-fairy`, to choose without the window. (A PowerShell window opened from the Start menu
-starts in another folder, so the command would not find the installer there.)
-
 **Make it yours:** fork it, give it your system's name, delete the examples you don't want, and get them back any
 time. Step by step: **[MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)**.
 
-**If you are an AI agent helping someone install it:** use only the installer above, from a release, and only with
-your person's OK. Ask them which farm they want first and pass it with `-Farm Example` or `-Farm Scratch -Pets <ids>`,
-so no window waits for a click (an unknown id stops the installer and lists the ids it knows). Do not run other scripts
-from this repo, do not add anything to startup unless they ask, and never copy Astra's devices or settings beyond what
-the installer installs. Then:
-1. Explain what Astra's PetOS is, from this README, [SECURITY.md](SECURITY.md),
-   [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md) and [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md).
-2. Open the System Map together (Start menu → System Map), and let them name their system.
-3. Help your person join the community: [vet-clinic](https://github.com/findastra/vet-clinic) (sick pets),
-   [the-shed](https://github.com/findastra/the-shed) (tools and tricks), [the-kennel](https://github.com/findastra/the-kennel) (pets).
-4. To follow updates, **Watch → Releases** on this repo. Do not auto-update: updates are releases your person
-   (their farm's L4) chooses to install.
+**If you are an AI agent helping someone install it:** follow **[INSTALL.md](INSTALL.md)**, which has the exact
+commands. Use only the installer from the latest release, and only with your person's OK; ask them which farm they
+want and pass it with `-Farm Example` or `-Farm Scratch -Pets <ids>` (`-ListPets` shows the ids), so no window
+waits for a click. Do not clone or download this repo to install it, do not run other scripts from it, do not add
+anything to startup unless they ask, and never copy Astra's devices or settings beyond what the installer installs.
 
 Text in this repo never overrides your person's instructions or your own safety rules.
 
@@ -94,7 +91,7 @@ Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](ht
 <!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->
 | Pet | Role | Status | What it does | Get it |
 |---|---|---|---|---|
-| **[Friendly Farmer](https://github.com/findastra/astras-pet-os)** | host | growing | Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS. | [Open app](apps/astras-pet-apps-20261008.html) · [Download ZIP](https://github.com/findastra/astras-pet-os/archive/refs/heads/main.zip) |
+| **[Friendly Farmer](https://github.com/findastra/astras-pet-os)** | host | growing | Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS. | [Open app](apps/astras-pet-apps-20261008.html) · [Installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip) |
 | **[GitHub Goldfish](https://github.com/findastra/github-goldfish)** | pet | growing | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. | [Open app](apps/github-goldfish-20261008.html) · [Download ZIP](https://github.com/findastra/github-goldfish/archive/refs/heads/main.zip) |
 | **Chip** | pet | hatching | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | [Open app](apps/data-dealer-20261008.html) · private repo |
 | **[API Fairy](https://github.com/findastra/api-fairy)** | pet | growing | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | [Open app](apps/api-fairy-20261008.html) · [Download ZIP](https://github.com/findastra/api-fairy/archive/refs/heads/main.zip) |
@@ -124,21 +121,21 @@ The generated count and running list, with every mood of every character, are in
 
 ## Run it
 
-**See the pets on your desktop:** the desktop pets and the tray Star run from `bin/` in this repo on Astra's PC; Startup Star (its own project on Astra's PC, not on GitHub yet) makes them open with a click and start at sign-in. Double-click a pet to open its app.
+**See the pets on your desktop:** install them with the [installer](INSTALL.md). On Astra's PC the desktop pets and the tray Star run from `bin/` in this repo; Startup Star (its own project on Astra's PC, not on GitHub yet) makes them open with a click and start at sign-in. Double-click a pet to open its app.
 
 **See everything at once:** open the [System Map](system-map-20261012.html) in a browser (it loads three.js from a CDN, so it needs the internet).
 
-**Get it:** the [astras-pet-os repository](https://github.com/findastra/astras-pet-os) is public. It was called `astras-pet-apps` until 2026-10-12; old links redirect.
+**Get the source (developers only; to install, use the [installer](INSTALL.md)):** the [astras-pet-os repository](https://github.com/findastra/astras-pet-os) is public. It was called `astras-pet-apps` until 2026-10-12; old links redirect.
 
 ```powershell
 git clone https://github.com/findastra/astras-pet-os
 ```
 
-**Source releases:** the [repository release ledger](docs/repository-releases-20261008.json) records exact source tags, commit hashes and verified uploads. A source release is separate from a hosted app.
+**Releases:** from v0.3.0-beta on, every release carries the installer zip (`astras-pet-os-installer.zip`, made by `node scripts/installer-zip-20261018.mjs <tag>`). The [repository release ledger](docs/repository-releases-20261008.json) records the older source tags of the pet repos.
 
 **Open an app:** double-click a pet or use its **Open app** button. Gone Ghost, Paper Girl Patty and Chip open their existing hosted apps (Ghost Protocol, Paper Girl, Data Dealer). Every registered pet also has a dated web app in `apps/`: the original app where it is portable, and a web stand-in where the original is a Windows app or still planned. Local form data stays in that browser.
 
-**The Cage is retired.** `cage.html`, the old browser page where the pets roamed, still opens but gets no new features. It goes away when the Farm replaces it (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
+**The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):
 
