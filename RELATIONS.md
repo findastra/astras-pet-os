@@ -71,7 +71,7 @@ flowchart LR
   pets["Every pet"]
   astra(["Astra"])
   profile["Profile README"]
-  data_dealer["Chip"]
+  data_dealer["Data Chip"]
   mail_snail["Mail Snail *"]
   role_fairy["Role Fairy *"]
   mine_mole["Mine Mole *"]
@@ -145,7 +145,7 @@ flowchart LR
 | API Fairy | Gone Ghost | `keys` | idea | An old or exposed key becomes a checklist step. |
 | RGBee * | API Fairy | `keys` | planned | Cloud light APIs (Govee and others) need keys; API Fairy keeps the notes. |
 | Claude Bot * | API Fairy | `keys` | idea | Quick chat uses an Anthropic key. |
-| Chip | API Fairy | `keys` | idea | Data Dealer uses several service keys. |
+| Data Chip | API Fairy | `keys` | idea | Data Dealer uses several service keys. |
 | GitHub Goldfish | API Fairy | `keys` | idea | The Goldfish uses a GitHub token. |
 | Friendly Farmer | Portfolio Puffer | `shipped` | idea | What the daily round saw change becomes draft portfolio updates. |
 | Claude Bot * | Discord Damsel | `status` | idea | Claude Bot's status feeds the Anthropic presence card. |
@@ -171,4 +171,4 @@ Health Hummy, Finance Finch. These pets' data never leaves the PC. Other pets do
 
 ### On their own so far
 
-Python Panther, Astra Wisp, Paper Girl Patty, Voicemeeter Bug, Platform Platypus, Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.
+Python Panther, Astra Wisp, Paper Patty, Voicemeeter Bug, Platform Platypus, Spoonfed Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.

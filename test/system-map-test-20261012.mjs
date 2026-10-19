@@ -95,6 +95,29 @@ test('R W X lives on grants with a status, never on a ring', () => {
   assert.ok(!data.nodes.find((n) => n.id === 'voicemeeter').access.on.includes('adviser'), 'a grant of all "no" shows only on its subject');
 });
 
+// Astra, 2026-10-18: the programs made by you and by others are told apart, and every card shows L1 to L4 with each
+// level's R W X. Claude Opus 5.5 (claude-opus-5-5).
+test('ring 3 is made by you, ring 5 by others, and everything-search sits with the programs made by others', () => {
+  const data = systemMapData(registry, extra, programs);
+  const ring = (id) => data.rings.find((r) => r.ring === id);
+  assert.equal(ring('3').made, 'you');
+  assert.equal(ring('5').made, 'others');
+  const tool = data.nodes.find((n) => n.id === 'everything-search-tool');
+  assert.equal(tool.ring, '5');
+  assert.ok(!tool.animal, 'a tool outside the glass is not an animal');
+  assert.equal(data.nodes.find((n) => n.id === 'repo-catcher').ring, '3', 'File Master\'s other tools stay on his ring');
+});
+
+test('every grant says which levels (L1 to L4) hold it', () => {
+  for (const g of extra.access.grants) {
+    assert.ok(Array.isArray(g.level) && g.level.every((l) => ['L1', 'L2', 'L3', 'L4'].includes(l)), `${g.id}: level`);
+  }
+  const level = (id) => extra.access.grants.find((g) => g.id === id).level;
+  assert.deepEqual(level('owner'), ['L4']);
+  assert.deepEqual(level('seat-animals'), ['L3']);
+  assert.deepEqual(level('adviser'), [], 'the adviser is outside your levels');
+});
+
 test('every gap a grant names is in the Known gaps table', () => {
   const doc = read(SYSTEM_MAP.doc);
   const rows = doc.split(/\r?\n/);

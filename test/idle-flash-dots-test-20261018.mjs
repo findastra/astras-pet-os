@@ -60,8 +60,8 @@ const prog = (over = {}) => ({ number: 22, icon: 'RGBee', program: 'Light Hive',
 const repo = { exists: true, private: false, name: 'rgbee' };
 
 test('A59: a pet whose links all agree has no finding', () => {
-  const reg = { repo: 'paper-girl', pet: 'Paper Girl Patty', interface_local_url: 'apps/paper-girl-20261008.html', interface_url: 'https://findastra.github.io/paper-girl/', interface_live_url: 'https://findastra.github.io/paper-girl/' };
-  const p = prog({ number: 11, icon: 'Paper Girl Patty', program: 'Paper Girl', stage: 'registered', repo: 'paper-girl' });
+  const reg = { repo: 'paper-girl', pet: 'Paper Patty', interface_local_url: 'apps/paper-girl-20261008.html', interface_url: 'https://findastra.github.io/paper-girl/', interface_live_url: 'https://findastra.github.io/paper-girl/' };
+  const p = prog({ number: 11, icon: 'Paper Patty', program: 'Paper Girl', stage: 'registered', repo: 'paper-girl' });
   const rows = a59ForPet({ prog: p, reg, repo: { exists: true, private: false, name: 'paper-girl' }, pet: { entry: 'paper-girl-20261008.html' },
     tree: ['paper-girl-20261008.html', 'README.md'], hubTree: ['apps/paper-girl-20261008.html'], readme: 'See [Paper Girl](https://findastra.github.io/paper-girl/).',
     profile: new Map([[11, { href: 'https://findastra.github.io/paper-girl/', name: 'paper-girl' }]]),

@@ -10013,7 +10013,7 @@
   },
   {
    "id": "spoonfed-sugarcube",
-   "name": "Sugarcube",
+   "name": "Spoonfed Sugarcube",
    "interface": "https://github.com/findastra/spoonfed",
    "idle": "desktop-art/spoonfed-sugarcube/idle-20261011.png",
    "blink": "desktop-art/spoonfed-sugarcube/blink-20261011.png"

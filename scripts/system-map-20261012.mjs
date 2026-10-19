@@ -9,6 +9,7 @@ import { allPets } from './farmer-rounds-20261009.mjs';
 
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const RWX_VALUES = ['yes', 'pr', 'ask', 'grant', 'no'];
+const LEVELS = ['L1', 'L2', 'L3', 'L4'];
 
 /** Every node and link, checked: a link to an unknown node throws instead of vanishing.
     programs is pet-programs.json's list; pet program names come only from there (AGENTS.md, one list). */
@@ -82,8 +83,9 @@ export function systemMapData(registry, extra, programs = []) {
   // Animals: the core, the Farmer, registered and pipeline pets, and the programs Astra made for them. Seeds and
   // roadmap pets, and their programs, are not animals until Astra registers them.
   const stageOf = (n) => programByNumber.get(n.program)?.stage;
+  // A tool placed outside the glass (rings.by_id, Astra 2026-10-18: everything-search) is not an animal there.
   const animalOf = (n) => {
-    if (n.type === 'tool') { const o = nodes.get(n.of); return o.ring === '2' ? ['host', 'pet', 'pipeline'].includes(o.type) : animalOf(o); }
+    if (n.type === 'tool') { if (!['0', '1', '2', '3'].includes(n.ring)) return false; const o = nodes.get(n.of); return o.ring === '2' ? ['host', 'pet', 'pipeline'].includes(o.type) : animalOf(o); }
     if (n.ring === '0' || n.ring === '1') return true;
     if (n.ring === '2') return ['host', 'pet', 'pipeline'].includes(n.type);
     if (n.ring === '3') return n.program !== undefined && programs.length ? ['registered', 'pipeline'].includes(stageOf(n)) : n.state === 'now';
@@ -154,6 +156,8 @@ export function systemMapData(registry, extra, programs = []) {
     for (const k of ['r', 'w', 'x']) if (!RWX_VALUES.includes(g[k]) || !access.values[g[k]]) throw new Error(`grant ${g.id}: ${k} is "${g[k]}"`);
     if (!access.statuses[g.status]) throw new Error(`grant ${g.id}: unknown status ${g.status}`);
     if (!g.subjects.length) throw new Error(`grant ${g.id} has no subjects`);
+    // Who holds it, in L1 to L4 (Astra, 2026-10-18); empty for the adviser and other farms, outside your levels.
+    if (!Array.isArray(g.level) || g.level.some((l) => !LEVELS.includes(l))) throw new Error(`grant ${g.id}: level must list L1 to L4`);
   }
   // A grant's own subject is not listed as something it reaches, except for "self" (a pet's own folder).
   for (const n of nodes.values()) {
@@ -198,8 +202,8 @@ export function ringsTable(extra) {
 }
 export function grantsTable(extra) {
   const { grants, statuses } = extra.access;
-  return ['| # | Who | On what | R | W | X | Status | How it holds |', '|---|---|---|---|---|---|---|---|',
-    ...grants.map((g, i) => `| ${i + 1} | ${cell(g.who)} | ${cell(g.on)} | ${CELL[g.r]} | ${CELL[g.w]} | ${CELL[g.x]} | **${statuses[g.status].name}** | ${cell(g.how)}`
+  return ['| # | Level | Who | On what | R | W | X | Status | How it holds |', '|---|---|---|---|---|---|---|---|---|',
+    ...grants.map((g, i) => `| ${i + 1} | ${g.level.length ? g.level.join(', ') : '—'} | ${cell(g.who)} | ${cell(g.on)} | ${CELL[g.r]} | ${CELL[g.w]} | ${CELL[g.x]} | **${statuses[g.status].name}** | ${cell(g.how)}`
       + (g.next ? ` **Next (planned):** ${cell(g.next)}` : '') + (g.gaps?.length ? ` Known gap${g.gaps.length > 1 ? 's' : ''} ${g.gaps.join(', ')}.` : '') + ' |')].join('\n');
 }
 const between = (md, name, body) => {

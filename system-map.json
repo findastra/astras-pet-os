@@ -383,7 +383,7 @@
       "name": "Linux Penguin",
       "type": "roadmap",
       "state": "planned",
-      "job": "Linux administration, SSH, systemd, packages.",
+      "job": "Linux administration, SSH, systemd, packages. Security role: the red team (Astra, 2026-10-18). Manages MacAttack, the Kali Linux drives on Astra’s old MacBook Pro that test this farm the way an outsider would, only with L4’s OK.",
       "layer": 4
     },
     {
@@ -1061,7 +1061,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Astra’s large data project: its dashboard and site. Chip reports its health."
+      "job": "Astra’s large data project: its dashboard and site. Data Chip reports its health."
     },
     {
       "id": "file-kingdom",
@@ -1149,7 +1149,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Girl Patty."
+      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Patty."
     },
     {
       "id": "am-i-a-ghost",
@@ -1232,7 +1232,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Sugarcube’s program."
+      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Spoonfed Sugarcube’s program."
     },
     {
       "id": "quest-pro",
@@ -1494,7 +1494,16 @@
       "state": "now",
       "layer": 1,
       "category": "Device",
-      "job": "An old MacBook Pro that is barely usable today."
+      "job": "An old MacBook Pro, now running MacAttack (Kali Linux) to test this farm (Astra, 2026-10-18)."
+    },
+    {
+      "id": "macattack",
+      "name": "MacAttack",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Operating system",
+      "job": "Kali Linux on drives in Astra’s old MacBook Pro (Astra named it, 2026-10-18): the machine that tests this farm the way an outsider would, only with her OK. Kali is made by others (OffSec). Linux Penguin manages it."
     },
     {
       "id": "smart-pin",
@@ -2042,7 +2051,7 @@
       "to": "data-dealer",
       "carries": "findings",
       "state": "architecture",
-      "why": "Works alongside Chip and Data Dealer with scoped permissions."
+      "why": "Works alongside Data Chip and Data Dealer with scoped permissions."
     },
     {
       "from": "queue-quokka",
@@ -3446,10 +3455,17 @@
     },
     {
       "from": "linux-penguin",
-      "to": "macbook-pro",
+      "to": "macattack",
       "carries": "manages",
-      "state": "idea",
-      "why": "An old MacBook can get a second life as a small Linux machine."
+      "state": "planned",
+      "why": "Linux Penguin manages MacAttack, the Kali drives that test this farm (Astra, 2026-10-18)."
+    },
+    {
+      "from": "macattack",
+      "to": "macbook-pro",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "MacAttack (Kali Linux) runs on the old MacBook Pro, never on the PC (Astra, 2026-10-18)."
     },
     {
       "from": "voicemeeter",
@@ -4122,7 +4138,7 @@
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring.",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring, except where by_id puts it elsewhere: everything-search, File Master's connector to Everything, sits with the third-party programs on ring 5 (Astra, 2026-10-18). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
     "list": [
       {
         "ring": "0",
@@ -4146,6 +4162,7 @@
         "ring": "3",
         "name": "Pet programs",
         "what": "the programs, sites and worlds Astra made, and their tools",
+        "made": "you",
         "animal": "yes, once their pet is registered"
       },
       {
@@ -4163,7 +4180,8 @@
       {
         "ring": "5",
         "name": "Third-party programs",
-        "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
+        "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also everything-search, File Master's connector to Everything (Astra, 2026-10-18)",
+        "made": "others",
         "animal": "no"
       },
       {
@@ -4205,11 +4223,12 @@
       "codex": "4",
       "kennel": "5",
       "the-shed": "5",
-      "vet-clinic": "5"
+      "vet-clinic": "5",
+      "everything-search-tool": "5"
     }
   },
   "access": {
-    "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
+    "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. level says who holds the grant, in L1 to L4 (INTELLIGENCE-LEVELS.md): L4 you, L3 an AI agent in a seat, L2 a pet program, L1 its programs and tools, which act with their pet's grants and never more; empty for the adviser and other farms, which are outside your levels. Every map card shows L1 to L4 down the left, each with the R W X it has on that thing (Astra, 2026-10-18). Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
     "values": {
       "yes": "yes",
       "pr": "only on a branch, merged after Astra's OK in chat (the assistant does the merge)",
@@ -4235,6 +4254,7 @@
       {
         "id": "owner",
         "who": "Astra (you, L4)",
+        "level": ["L4"],
         "subjects": [
           "id:astra"
         ],
@@ -4251,6 +4271,7 @@
       {
         "id": "seat-core",
         "who": "The agent in the seat (Claude Code or Codex, with a farmhand in it)",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -4274,6 +4295,7 @@
       {
         "id": "seat-animals",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -4296,6 +4318,7 @@
       {
         "id": "seat-asks",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -4311,6 +4334,7 @@
       {
         "id": "farmer-round",
         "who": "The Friendly Farmer's daily round",
+        "level": ["L2"],
         "subjects": [
           "type:host"
         ],
@@ -4331,6 +4355,7 @@
       {
         "id": "pet-own-folder",
         "who": "Each pet (its own code and its L3 agent)",
+        "level": ["L1","L2","L3"],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -4349,6 +4374,7 @@
       {
         "id": "pet-elsewhere",
         "who": "Each pet",
+        "level": ["L1","L2"],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -4369,6 +4395,7 @@
       {
         "id": "call-models",
         "who": "The agent in the seat, or a pet's L3 agent with a key",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex",
@@ -4393,6 +4420,7 @@
       {
         "id": "seat-third-party",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -4410,6 +4438,7 @@
       {
         "id": "seat-devices",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -4427,6 +4456,7 @@
       {
         "id": "adviser",
         "who": "ChatGPT (adviser)",
+        "level": [],
         "subjects": [
           "id:chatgpt"
         ],
@@ -4443,6 +4473,7 @@
       {
         "id": "community",
         "who": "Pets, tools and cures from the Kennel, the Shed or the vet-clinic",
+        "level": [],
         "subjects": [
           "id:kennel",
           "id:the-shed",
@@ -4618,7 +4649,7 @@
           {
             "language": "HTML",
             "percent": 99.1,
-            "why": "Data Dealer's dashboard pages and Chip's app."
+            "why": "Data Dealer's dashboard pages and Data Chip's app."
           },
           {
             "language": "Python",
@@ -5088,6 +5119,7 @@
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
+    "linux-penguin": "red",
     "test-tortoise": "purple",
     "rescue-retriever": "blue"
   },

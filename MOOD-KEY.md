@@ -24,7 +24,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 |---|---|---|---|
 | **Friendly Farmer** | the pet registry and the System Map | daily | a FARMER_TOKEN secret so I can see the private pet repos |
 | **GitHub Goldfish** | the findastra GitHub account | weekly, Monday | a GitHub token that can read the private repos |
-| **Chip** | Data Dealer's repo | weekly, Tuesday | your answer to a decision on the ops dashboard |
+| **Data Chip** | Data Dealer's repo | weekly, Tuesday | your answer to a decision on the ops dashboard |
 | **API Fairy** | the notes about your API keys | weekly, Wednesday | a key renewed or a note confirmed |
 | **Unity Unicorn** | your Unity and VRChat project notes | weekly, Thursday | a project opened in Unity so I can check it |
 | **Python Panther** | your Python lessons | weekly, Friday | you to do the next lesson |
@@ -32,7 +32,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Health Hummy** | my own files (never your check-ins) | weekly, Sunday | a check-in only you can make |
 | **Finance Finch** | my own files (never your entries) | weekly, Monday | an entry only you can add |
 | **Mommy's Mommies** | Mommy's classes and events | weekly, Tuesday | a date or teacher confirmed for a session |
-| **Paper Girl Patty** | the science desk and its live site | weekly, Wednesday | a look at the live site |
+| **Paper Patty** | the science desk and its live site | weekly, Wednesday | a look at the live site |
 | **File Master** | your PC's folders and projects | weekly, Thursday | the scanner run on your PC |
 | **Discord Damsel** | the OpenAI and Anthropic presence apps | weekly, Friday | Discord open with activity sharing on |
 | **Portfolio Puffer** | your updates worth sharing | weekly, Saturday | a drafted update approved or posted |
@@ -42,7 +42,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Project Parrot** | your project ideas | weekly, Wednesday | a yes or no on an idea that is due |
 | **Voicemeeter Bug** | your Voicemeeter audio | weekly, Thursday | the Bug running on your PC |
 | **Platform Platypus** | how Astra's pages look across iPhone, Android, iPad and desktop | weekly, Friday | something only you can do |
-| **Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Sugarcube draft artwork and a live restaurant provider before real recommendations |
+| **Spoonfed Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Spoonfed Sugarcube draft artwork and a live restaurant provider before real recommendations |
 | **Claude Bot** * | the Claude Bot plan and build | weekly, Sunday | a decision on the plan |
 | **RGBee** * | your RGB lights and scenes | weekly, Monday | the brand and model of each light |
 | **Mine Mole** * | the crypto mining research | weekly, Tuesday | your power price and graphics card model |

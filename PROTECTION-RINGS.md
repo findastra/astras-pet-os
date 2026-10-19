@@ -41,20 +41,27 @@ around rings 0 to 3, and Claude Code and Codex as rings around their AI models (
 | 3 | Pet programs | the programs, sites and worlds Astra made, and their tools | 🐾 yes, once their pet is registered |
 | — | **Agent harness** | the glass sphere between the animals and everything else | the line between animals and everything else |
 | 4 | Farmhands (AI models) | Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model | no |
-| 5 | Third-party programs | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic) | no |
+| 5 | Third-party programs | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic); also everything-search, File Master's connector to Everything (Astra, 2026-10-18) | no |
 | 6 | Devices | PCs, phones, headsets, trackers and other hardware | no |
 | 7 | Advisers | ChatGPT | no |
 | 8 | You (L4) | Astra, who owns the whole farm | no: the owner |
 <!-- rings:end -->
 
 Ring 3 sits inside the glass because Astra made those programs. Ring 5 sits outside because other people made those
-programs. What an agent may do on either is in the grants below, not in the ring.
+programs. What an agent may do on either is in the grants below, not in the ring. The map draws the two apart (Astra,
+2026-10-18): ring 3 pink, "made by you", like its cubes; ring 5 peach, "made by others". One tool sits with the
+programs made by others: everything-search, File Master's connector to Everything (Astra, 2026-10-18). Out there it is
+not an animal, so agents may run it and read it but never rewrite it.
 
 ## Who may do what: grants
 
 A grant is one line: **who** may **R**ead, **W**rite or e**X**ecute (run) **which things**. Every card on the
 [System Map](system-map-20261012.html) lists the grants that reach it. The grants live in `system-map.json` (`access`),
 and `npm run build` writes this table from them, so the map and this page always agree.
+
+**Level** says who holds the grant (Astra, 2026-10-18; [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)): **L4** you,
+**L3** an AI agent in a seat, **L2** a pet program, **L1** its programs and tools, which act with their pet's grants and
+never more; `—` is outside your levels. Every map card shows L1 to L4 down the left, each with the R W X it has there.
 
 `yes` · `🔒 PR` only on a branch, merged after Astra's OK in chat (the assistant does the merge; Astra, 2026-10-18) · `asks` only after the harness asks Astra ·
 `🔑 grant` only with a grant from Iron Gates that Astra approves · `–` no
@@ -66,20 +73,20 @@ Read it honestly: today most rules are **written only**. Agents work on Astra's 
 so these lines hold because agents follow AGENTS.md and the skills, and because Astra reviews what lands.
 
 <!-- access:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-| # | Who | On what | R | W | X | Status | How it holds |
-|---|---|---|---|---|---|---|---|
-| 1 | Astra (you, L4) | everything | yes | yes | yes | **Enforced** | It is your PC and your accounts. You give and take back every other grant in this list. |
-| 2 | The agent in the seat (Claude Code or Codex, with a farmhand in it) | the core and the Friendly Farmer (rings 0 and 1) | yes | 🔒 PR | yes | **Written only** | AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18). Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17). **Next (planned):** A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12). Known gaps 1, 4. |
-| 3 | The agent in the seat | registered pets and their programs (the animals on rings 2 and 3) | yes | yes | yes | **Written only** | Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs; nothing checks the branch part. **Next (planned):** Short-lived session keys from Iron Gates. Known gap 1. |
-| 4 | The agent in the seat | commands, and files outside its project folder | asks | asks | asks | **Enforced** | Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list). |
-| 5 | The Friendly Farmer's daily round | the core (rings 0 and 1) | yes | 🔒 PR | yes | **Enforced** | The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes. Known gap 11. |
-| 6 | Each pet (its own code and its L3 agent) | its own repo folder and its declared data folder | yes | yes | yes | **Written only** | farm-security, section 2. Hub scripts refuse a path outside the pet's folder (scripts/animal-guard-20261013.mjs), but a pet's own program runs as you, so it could reach further. **Next (planned):** The Police Station watches every write and every key use. |
-| 7 | Each pet | shared tools, other people's programs and devices | 🔑 grant | 🔑 grant | 🔑 grant | **Written only** | One copy of a shared tool, one owner; other pets get a grant: folders, R W X and limits (TOOLS-AND-TRICKS.md). Until Iron Gates is built, a pet asks Astra and the grant is written in both pets' connection boxes. **Next (planned):** Iron Gates issues grants and Astra approves them. |
-| 8 | The agent in the seat, or a pet's L3 agent with a key | farmhands (ring 4) | – | – | yes | **Written only** | X on a farmhand means sending it a request and reading the answer. Nobody rewrites a model, and only Astra changes her local farmhands. Only farmhands on the allowlist get keys; today they are Astra's own API keys. **Next (planned):** Short-lived keys from Iron Gates, shown in API Fairy's mushroom circle; local farmhands bound to this PC with a key. Known gap 9. |
-| 9 | The agent in the seat | third-party programs (ring 5) | yes | – | yes | **Written only** | Run them and read what they show; never rewrite a program made by others. |
-| 10 | The agent in the seat | devices (ring 6) | yes | – | yes | **Written only** | Read and operate them through their drivers and apps. |
-| 11 | ChatGPT (adviser) | anything on the farm | – | – | – | **Written only** | Its ideas reach the farm only through Astra, who carries them into a Claude Code or Codex chat. |
-| 12 | Pets, tools and cures from the Kennel, the Shed or the vet-clinic | your farm | – | – | – | **Written only** | Nothing from here runs on a farm until it is signed, checked, quarantined and adopted by that farm's owner. **Next (planned):** The Farm checks signatures and refuses anything that does not check out. Known gap 10. |
+| # | Level | Who | On what | R | W | X | Status | How it holds |
+|---|---|---|---|---|---|---|---|---|
+| 1 | L4 | Astra (you, L4) | everything | yes | yes | yes | **Enforced** | It is your PC and your accounts. You give and take back every other grant in this list. |
+| 2 | L3 | The agent in the seat (Claude Code or Codex, with a farmhand in it) | the core and the Friendly Farmer (rings 0 and 1) | yes | 🔒 PR | yes | **Written only** | AGENTS.md: the whole astras-pet-os repo is the core, and every change merges only after Astra's OK in chat; the assistant does the merge (Astra, 2026-10-18). Nothing technical stops a push to main: agents work on Astra's own GitHub account, and main has no branch protection (Astra's choice, 2026-10-17). **Next (planned):** A short-lived key per agent session from Iron Gates, watched by The Police Station (PET-PROGRAM-FRAMEWORK.md, section 12). Known gaps 1, 4. |
+| 3 | L3 | The agent in the seat | registered pets and their programs (the animals on rings 2 and 3) | yes | yes | yes | **Written only** | Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs; nothing checks the branch part. **Next (planned):** Short-lived session keys from Iron Gates. Known gap 1. |
+| 4 | L3 | The agent in the seat | commands, and files outside its project folder | asks | asks | asks | **Enforced** | Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list). |
+| 5 | L2 | The Friendly Farmer's daily round | the core (rings 0 and 1) | yes | 🔒 PR | yes | **Enforced** | The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes. Known gap 11. |
+| 6 | L1, L2, L3 | Each pet (its own code and its L3 agent) | its own repo folder and its declared data folder | yes | yes | yes | **Written only** | farm-security, section 2. Hub scripts refuse a path outside the pet's folder (scripts/animal-guard-20261013.mjs), but a pet's own program runs as you, so it could reach further. **Next (planned):** The Police Station watches every write and every key use. |
+| 7 | L1, L2 | Each pet | shared tools, other people's programs and devices | 🔑 grant | 🔑 grant | 🔑 grant | **Written only** | One copy of a shared tool, one owner; other pets get a grant: folders, R W X and limits (TOOLS-AND-TRICKS.md). Until Iron Gates is built, a pet asks Astra and the grant is written in both pets' connection boxes. **Next (planned):** Iron Gates issues grants and Astra approves them. |
+| 8 | L3 | The agent in the seat, or a pet's L3 agent with a key | farmhands (ring 4) | – | – | yes | **Written only** | X on a farmhand means sending it a request and reading the answer. Nobody rewrites a model, and only Astra changes her local farmhands. Only farmhands on the allowlist get keys; today they are Astra's own API keys. **Next (planned):** Short-lived keys from Iron Gates, shown in API Fairy's mushroom circle; local farmhands bound to this PC with a key. Known gap 9. |
+| 9 | L3 | The agent in the seat | third-party programs (ring 5) | yes | – | yes | **Written only** | Run them and read what they show; never rewrite a program made by others. |
+| 10 | L3 | The agent in the seat | devices (ring 6) | yes | – | yes | **Written only** | Read and operate them through their drivers and apps. |
+| 11 | — | ChatGPT (adviser) | anything on the farm | – | – | – | **Written only** | Its ideas reach the farm only through Astra, who carries them into a Claude Code or Codex chat. |
+| 12 | — | Pets, tools and cures from the Kennel, the Shed or the vet-clinic | your farm | – | – | – | **Written only** | Nothing from here runs on a farm until it is signed, checked, quarantined and adopted by that farm's owner. **Next (planned):** The Farm checks signatures and refuses anything that does not check out. Known gap 10. |
 <!-- access:end -->
 
 ## The boundaries: what is connected to what

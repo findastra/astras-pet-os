@@ -112,9 +112,9 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
   Prompts live in `scripts/generate-pets.mjs`; the shared `STYLE` string is never forked per pet.
   Black one-pixel outline, neon colours, and **no two pets share a palette**. Full rules in
   [PET-FILES.md](PET-FILES.md).
-- **Owner-requested exception: Chip uses the original Data Dealer drawing code.** Preserve its
+- **Owner-requested exception: Data Chip uses the original Data Dealer drawing code.** Preserve its
   32×24 LCD pixels and exact palette in `scripts/chip-original-20261008.mjs`; the build adds the
-  original yellow pocket shell. Do not replace Chip with generated art. Its native sleep and
+  original yellow pocket shell. Do not replace Data Chip with generated art. Its native sleep and
   thinking marks remain part of the original drawing, alongside the shared mood stickers.
 - **The mood symbols are composited, never generated.** `?`, `!`, `Z`, tear, sweat and bandage
   come from the one sticker set in `art-kit.mjs` so they are identical on every pet. If a
@@ -183,3 +183,4 @@ The Friendly Farmer's pet-privatizer (`scripts/pet-privatizer-20261018.mjs`, `th
 The Cage removed and the installer zip made the one download (Astra, 2026-10-18: "Get rid of it"): `cage.html`, `cage-data.js` and the Farmer dock deleted; `INSTALL.md`, the README opening with the installer link, AGENTS.md and CLAUDE.md sending installing agents there; `scripts/installer-zip-20261018.mjs` and `-ListPets`; guarded by `test/install-link-no-cage-test-20261018.mjs` (card 042), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 Installer v0.2.0-beta, "Set up your farm" (Astra, 2026-10-18): Astra's example pets or from scratch with the core pets and ticked examples, `-Farm`/`-Pets` for agents, a load check before "done", running it again changes the farm; the desktop pets run with the Farmer alone and no longer crash when Voicemeeter Bug, Paper Girl or File Master is left out (`test/farm-setup-test-20261018.mjs`, card 039), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
 A chat-order skill (numbering chat titles in merge order) was added and removed the same day, 2026-10-18, at Astra's request: chat titles are not numbered.
+System Map, Astra 2026-10-18: every card shows L1 to L4 down the left, each level with the R W X it has on that thing (a `level` on every grant in system-map.json, a Level column in PROTECTION-RINGS.md); ring 3 is drawn pink "made by you" and ring 5 peach "made by others"; everything-search, File Master's connector to Everything, sits on ring 5 (rings.by_id); Linux Penguin wears the red hat and manages MacAttack, Kali Linux on the old MacBook Pro. Pets renamed in pet-programs.json: Chip is Data Chip, Paper Girl Patty is Paper Patty, Sugarcube is Spoonfed Sugarcube (docs/naming-audit-20261018.md, round 5). By Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18.
