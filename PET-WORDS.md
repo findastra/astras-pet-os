@@ -105,16 +105,19 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **home** | product name of the pet program | The name in `pet-programs.json`, like **Unity Stable**. |
 | **L1 Programs** | application layer: dependencies plus owned code | The third-party programs it runs, and the programs and tools it makes. |
 | **L2 Pet program** | runtime: a background service (scheduler, inbox, saved state) | What the pet does by itself, and its dashboard. |
-| **L3 Agentic harness** | agent layer (an LLM in an agent harness) | An AI model in the seat, doing the pet's work with its tools and tricks. |
+| **L3 Agentic harness** | agent layer: the pet program's own agent harness | The pet's own harness: a seat any farmhand can fill, straight through its API or inside a provider harness, doing the pet's work with its tools and tricks (Astra, 2026-10-19). Not built yet: today a pet borrows Claude Code or Codex. |
 | **L4 Verified human** | human in the loop: the owner who approves (admin) | Approves every security change, permission and exception. |
 | **farmhand** | AI model (LLM) | Claude, OpenAI or a local model. Not a pet. |
-| **the seat** | active agent session | Which AI is working on a pet now, through Claude Code or Codex. "Seat: empty" when none. |
-| **agentic harness** | agent harness | The program that gives a model tools, skills, memory and permissions (Claude Code, Codex). |
+| **the seat** | active agent session | Which AI is working in a pet's harness now, and on what. Any farmhand can sit there. "Seat: empty" when none. |
+| **agentic harness** | agent harness | Two kinds, so say which: the **pet harness** (L3, each pet program's own) or a **provider harness** (made by others). [AGENTS.md](AGENTS.md), "How the agents work". |
+| **provider harness** | agent harness (agent runtime) made by others | Claude Code, Codex, OpenClaw: a program that wraps a farmhand in tools, memory, skills and permissions. Drawn as a ring around its farmhand. |
 | **native** | first-party (Astra made it), as opposed to third-party | Everything a pet program owns is a native program, a native tool or a native trick ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). |
 | **native program** | first-party application | Opened or run on its own (Startup Star, the System Map, Ghost Protocol). The only kind the System Map draws. |
 | **tool** (native tool) | first-party module or script (deterministic code) | Code the pet program runs with no AI, for one job. ON/OFF, maintenance light, version. Listed on its card, never drawn. |
 | **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | Written steps the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. Listed on its card, never drawn. |
-| **harness skill** | development skill installed in Claude Code or Codex | Belongs to the seat, not the pet; helps an AI work on the pet. |
+| **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
+| **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
+| **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
 | **your programs** | managed applications (the L1 panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |

@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #110, #111 and #104 |
+| [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #104 |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, the three pets merged; the hub merges with #105](045-any-crash-watch-pets-20261018.md) | any | done when #105 merges; pet art waits on Astra |

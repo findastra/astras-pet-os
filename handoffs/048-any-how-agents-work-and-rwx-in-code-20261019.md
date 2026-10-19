@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge this pull request; the R W X panel is built after #110, #111 and #104 merge)
+status: open (waiting on Astra: merge this pull request; the R W X panel waits on #104, whose chat fixes its conflict first)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: AGENTS.md ("How the agents work"), skills/dev-mindset, skills/new-pet-or-tool, PROTECTION-RINGS.md, system-map.json (`access`), scripts/system-map-template-20261012.html, PR #104, PR #106, PR #111
@@ -25,18 +25,20 @@ Code and Codex "the agentic harness", while L3 is each pet program's own harness
 - This card, its row and the next free number (049) in `handoffs/README.md`; card 047's row copied from PR #111 so the
   number table is complete on this branch.
 - Tests: `npm test` in the worktree (result in the pull request).
+- 2026-10-19, later: merged `main` into this branch twice (after #105, then after #109, #110, #111 and #114), keeping
+  both sides of every appended line; aligned `PET-WORDS.md` with AGENTS.md (task 1); bots are native programs of
+  Fairy Ring (#114's words). `npm test`: 171 tests, 170 pass, 1 skipped.
 - Nothing on the System Map changed: PR #104 (L1 to L4 with R W X on every card) is open with conflicts, and PR #106
   (tools on the map) is open too, so map work waits for them.
 
 ## Task
-1. **After PR #111 merges:** its new `PET-WORDS.md` rows "agentic harness" ("the program that gives a model tools ...
-   (Claude Code, Codex)") and "the seat" ("through Claude Code or Codex") follow AGENTS.md: pet harness vs provider
-   harness, any farmhand in the seat.
+1. **Done 2026-10-19** (#111 merged): `PET-WORDS.md` rows "L3 Agentic harness", "the seat" and "agentic harness"
+   follow AGENTS.md (pet harness and provider harness, any farmhand in the seat); new rows "provider harness", "bot"
+   and "bot panel"; "harness skill" belongs to the provider harness in the seat.
 2. **The R W X panel, option C (Astra, 2026-10-19).** Astra: "I think we need a W R X what it should be, then some
    kind of easy indicator of whether that is reflected in the current code." She chose option C, then: "I think this
-   actually needs to be its own panel in each pet program." Build it **after #110, #111 and #104 merge**: #110 and
-   #111 rewrite the spawner (`scripts/pet-program-pages-20261018.mjs`; #111 renames modules to panels) and #104 gives
-   every grant its levels.
+   actually needs to be its own panel in each pet program." Build it **after #104 merges**: #104 gives every grant
+   its levels (#110 and #111, which rewrote the spawner, merged 2026-10-19).
    - **Data** (`system-map.json`): each status gets its mark: enforced **In code**, written **Rule only**, planned
      **Not built**. Every enforced grant gets `evidence`, a test or script file or a setting: `owner`, a setting (her
      own accounts); `seat-asks`, a setting (Claude Code's permission modes, Codex's approvals and sandbox);
@@ -50,8 +52,9 @@ Code and Codex "the agentic harness", while L3 is each pet program's own harness
    - **The System Map card's level rows** (from #104) use the same words and marks, so the page and the map agree.
    - **PROTECTION-RINGS.md** names each proof in the grants table; its intro, `skills/farm-security` section 1 and the
      dev-mindset row "Enforced, written only, planned" say In code, Rule only and Not built.
-3. **Now that PR #106 is merged (2026-10-19):** Role Fairy's bots as tools of Fairy Ring on the map, each with planned grants: read the
-   channels Astra authorizes, post replies, change only the roles it created.
+3. **Role Fairy's bots on the map**, as **native programs** of Fairy Ring (each runs on its own; since #114 the map
+   draws only programs, and tools are listed on cards), with planned grants: read the channels Astra authorizes, post
+   replies, change only the roles it created. After role-fairy#4 merges.
 
 ## Decisions
 - **Option C** (Astra, 2026-10-19): what each level should be (R W X), then whether that is in code (In code, Rule
