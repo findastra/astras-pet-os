@@ -1,4 +1,4 @@
-status: open (waiting on Astra: start the three once from her Startup folder, or sign in again; pet art). #105 merged 2026-10-19; set to start at sign-in 2026-10-19
+status: done 2026-10-19 (Astra's call in chat): built, merged (#105) and set to start at sign-in from three Startup-folder shortcuts; left for Astra: the first start (sign in again, or double-click the three shortcuts) and pet art
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `main` (built from `claude/build-20261018`), cloned side by side in `%USERPROFILE%\Documents\Astra's PetOS`; this card's branches `claude/crash-watch-pets-20261018` (#105) and `claude/crash-watch-sign-in-20261019`

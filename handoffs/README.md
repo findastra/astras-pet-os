@@ -10,7 +10,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | --- | --- | --- |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
-| [045: Log Lynx, Packet Piranha and Forensic Ferret: built, merged (#105) and set to start at sign-in](045-any-crash-watch-pets-20261018.md) | any | open, waits on Astra: start the three once from her Startup folder; pet art |
+| [045: Log Lynx, Packet Piranha and Forensic Ferret: built, merged (#105) and set to start at sign-in](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: the first start and pet art |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 answered (A59's other links wait on Astra's OK); task 2 (each pet's tools on the map) done with #106; native programs, tools and tricks wait on her OK to merge `claude/tools-on-cards-20261019`; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: merge, and the doc's three questions |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
