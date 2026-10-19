@@ -32,6 +32,8 @@ commit), one file changed besides this card and its README row:
   merged, programs, 3rd party, tricks, tricks to write, L3 skills, the counts, and that no tool is in both lists or in
   L2). It passes, and it fails when one tool is removed from the doc. `npm test` in the worktree: 141 tests, 140 pass,
   1 skipped, 0 fail.
+- `handoffs/README.md`: card 043's row in both tables, and the next free number is now 044. After merging `main`
+  (card 042's new status), `npm test`: 141 tests, 140 pass, 1 skipped, 0 fail.
 - Nothing in findastra/unity-unicorn was changed. The hub's live checkout stayed on `main`; the work is in a worktree
   in Claude's scratchpad.
 
