@@ -1,0 +1,142 @@
+/* Every pet program page, from Astra's sketch of 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3). The page shows the
+   structure, not a finished look (Astra, 2026-10-18): thin light lines on slate, each module's label set into its top
+   border with no marks after it, the emotion bubbles labelled the same way, every module collapsible.
+   One copy for every page spawned by the Friendly Farmer's pet program spawner. Claude Opus 5.5, 2026-10-18. */
+:root {
+  --slate: #46463f; --slate-2: #3d3d37; --chalk: #f1ecd8; --chalk-dim: #c9c4b0; --line: #e6e0c9;
+  --on: #4fb35a; --off: #d9534f; --care: #6cc7e8; --fix: #e8c547; --planned: #8c8a80;
+  --link: #ffd9a0; --connection: #f2a07b;
+  --label: ui-monospace, Consolas, 'Cascadia Mono', monospace;
+  --text: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--slate); }
+body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 var(--text); }
+a { color: var(--link); }
+a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible, textarea:focus-visible, label.file:focus-within { outline: 2px solid var(--fix); outline-offset: 2px; }
+code { font: 12px var(--label); color: var(--chalk-dim); }
+.page { max-width: 1180px; margin: 0 auto; padding: 28px 16px 120px; }
+
+/* Modules: a thin bordered box with its label set into the top border. Clicking the label folds it. */
+.module { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
+.module > summary { position: absolute; top: -0.8em; left: 14px; list-style: none; cursor: pointer; background: var(--slate); padding: 0 6px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+.module > summary::-webkit-details-marker { display: none; }
+.module > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; }
+.module:not([open]) { padding: 14px 18px 0; }
+.module .module { margin-top: 26px; }
+.activity { width: 12px; height: 12px; border-radius: 50%; background: var(--planned); border: 1px solid #000; display: inline-block; flex: none; }
+
+h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
+h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }
+h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
+.version { font: 400 clamp(15px, 2vw, 20px) var(--label); color: var(--chalk-dim); white-space: nowrap; }
+.who { margin: 0 0 4px; color: var(--chalk-dim); }
+.small { font-size: 12.5px; color: var(--chalk-dim); }
+.empty { color: var(--chalk-dim); font-style: italic; margin: 4px 0; }
+.tag { font-size: 11px; border: 1px solid var(--chalk-dim); border-radius: 9px; padding: 0 6px; color: var(--chalk-dim); white-space: nowrap; }
+.label { display: block; margin-left: 50px; }
+
+/* Top: cyberhome left, title right. */
+.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 28px; align-items: start; }
+.top > .module { margin-top: 12px; }
+.title { padding-top: 6px; }
+.title .module { margin-top: 22px; }
+.habitat { position: relative; text-align: center; }
+.habitat > .lights { position: absolute; top: -12px; right: 6px; background: var(--slate); padding: 0 4px; }
+.den { aspect-ratio: 1 / 1; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
+.den img.pet { width: 80%; height: auto; image-rendering: pixelated; cursor: pointer; }
+.bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
+.small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.button { display: inline-block; font: 14px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 3px 12px; text-decoration: none; cursor: pointer; }
+.button:hover { background: var(--slate-2); }
+.button.off { color: var(--chalk-dim); border-style: dashed; cursor: default; }
+
+/* The paired lights: two buttons side by side, never stacked. */
+.lights { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
+.light { width: 16px; height: 16px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer; }
+.light.onoff { background: var(--on); }
+.light.onoff.is-off { background: var(--off); }
+.light.care { background: var(--care); }
+.light.care.is-fix { background: var(--fix); }
+.light.planned { background: var(--planned); cursor: not-allowed; opacity: .8; }
+.legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
+.key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
+.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
+
+/* Inside the intelligence-level modules. */
+.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 28px; }
+.columns .wide { grid-column: 1 / -1; }
+.items, .plain { list-style: none; margin: 0; padding: 0; }
+.items li { margin: 7px 0; }
+.plain li { margin: 5px 0; }
+.status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
+.status dt { color: var(--chalk-dim); }
+.status dd { margin: 0; }
+.connections { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.connection { border: 1px dashed var(--connection); padding: 8px 12px 10px; margin: 0; min-width: 0; }
+.connection legend { color: var(--connection); padding: 0 6px; font: 14px var(--label); }
+.connection .lights { margin-right: 4px; }
+.connection ul { margin: 2px 0; padding-left: 18px; }
+.flows { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { border-bottom: 1px solid #66655c; padding: 4px 8px; text-align: left; vertical-align: top; }
+th { font-weight: 600; color: var(--chalk-dim); }
+
+/* Session notes. */
+.notes { display: grid; gap: 8px; }
+textarea, select { width: 100%; color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); font: 15px var(--text); padding: 8px; }
+textarea { resize: vertical; }
+select { width: auto; max-width: 100%; padding: 3px 6px; }
+.note-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+label.file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+label.file { position: relative; }
+.backlog { margin-top: 12px; }
+.backlog summary { cursor: pointer; }
+.backlog li { margin: 6px 0; }
+
+/* Emotions (the sketch's 3 by 3) beside clicker training. Each bubble has its mood's name in its top border. */
+.pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
+.moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 14px; }
+.mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 10px; align-items: center; }
+.mood-bubble { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 4px 10px 8px; margin: 0; min-width: 0; font-size: 12.5px; }
+.mood-bubble legend { font: 13px var(--label); padding: 0 5px; }
+.mood-bubble::after { content: ''; position: absolute; right: -9px; top: 45%; border: 8px solid transparent; border-left-color: var(--line); border-right: 0; }
+.mood ul { margin: 2px 0; padding-left: 16px; }
+.mood q { display: block; color: var(--chalk-dim); font-style: italic; margin-top: 4px; }
+.mood img, .mood .no-art { width: 60px; height: 60px; image-rendering: pixelated; }
+.no-art { display: grid; place-items: center; text-align: center; font-size: 12px; color: var(--chalk-dim); border: 1px dashed var(--chalk-dim); aspect-ratio: 1 / 1; }
+.den .no-art { width: 70%; }
+.clicks { display: grid; grid-template-columns: max-content 1fr; gap: 14px 18px; margin: 0; }
+.clicks dd { margin: 0; }
+
+/* The unified footer, and the chat box fixed bottom right with its label in its top border. */
+.footer-grid p { margin: 4px 0; }
+.chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; background: var(--slate); border: 1px solid var(--line); padding: 18px 12px 10px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; min-width: 170px; max-width: min(320px, calc(100vw - 32px)); }
+.chat-label { position: absolute; top: -0.8em; left: 10px; background: var(--slate); padding: 0 6px; font: 13px var(--label); white-space: nowrap; }
+.chat-open { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--chalk); font: 20px var(--text); cursor: pointer; }
+.chat-panel { flex-basis: 100%; font-size: 13px; }
+.chat-panel p { margin: 6px 0 0; }
+
+/* Spawner list. */
+.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.card a { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 8px; text-decoration: none; color: var(--chalk); }
+.card a:hover { background: var(--slate-2); }
+.card .thumb, .card .no-art { width: 56px; height: 56px; image-rendering: pixelated; flex: none; }
+.card-text { display: grid; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
+
+/* Phones: everything stacks and every module still collapses. */
+@media (max-width: 760px) {
+  .top, .pair { grid-template-columns: 1fr; }
+  .top > .module { max-width: 340px; }
+  .moods { grid-template-columns: 1fr; }
+  .flows { grid-template-columns: 1fr; }
+  .page { padding-bottom: 150px; }
+  .chat { right: 10px; bottom: 10px; min-width: 210px; padding: 14px 8px 6px; }
+  .chat-open { width: 36px; height: 36px; font-size: 18px; }
+  .chat-label { font-size: 11px; }
+}
+/* Faces the page script switches between: a hidden one never shows. */
+img[hidden] { display: none !important; }
+.awake-faces { display: inline-block; }
