@@ -25,7 +25,8 @@ export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-pa
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every module of the sketch, in the sketch's order; the test checks each page has them all, in this order.
-export const MODULES = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'astras-pet-os-unified-footer', 'chat'];
+// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
+export const MODULES = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-module', 'L2-module', 'L3-module', 'L4-module', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions module in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -100,8 +101,12 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
   const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '' });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
-  const ofType = (types) => uniq(from.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
+  const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0` }));
+  // Third-party programs also count when one of the pet's tools runs or looks after them (Flash Audit A54), as
+  // BetterDiscord does for Discord Damsel's Sticker Manager.
+  const toolIds = new Set(tools.map((t) => t.id));
+  const viaTools = map.links.filter((l) => toolIds.has(l.from) && !mine.has(l.to) && !toolIds.has(l.to) && l.state !== 'architecture');
 
   // L2: tricks the hub knows of (the Farmer's own skills say "The Friendly Farmer's trick").
   const tricks = reg.role === 'host' ? skills.filter((s) => /Friendly Farmer's trick/i.test(s.description)).map((s) => ({ id: s.name, name: s.name, label: `${homeSlug}-v1.0-${s.name}-trick-v1.0`, why: s.description })) : [];
@@ -117,6 +122,18 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     if (!talks.has(other)) talks.set(other, { id: other, name: o.name, program: o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null), number: o.home?.number || null, sends: [], receives: [] });
     talks.get(other)[out ? 'sends' : 'receives'].push({ carries: l.carries, state: l.state, why: l.why || '' });
   }
+
+  // Related pets, at the bottom: the same pets as the connection boxes, each with its picture and a link to its own
+  // pet program page (Astra, 2026-10-19). Every one of them is a registered or pipeline pet, so its page exists.
+  const regs = [...(registry.pets || []), ...(registry.pipeline || [])];
+  const rank = { now: 0, planned: 1, idea: 2, suggested: 3 };
+  const related = [...talks.values()].map((t) => {
+    const r = regs.find((x) => x.repo === t.id);
+    const flows = [...t.sends, ...t.receives];
+    const state = flows.map((f) => f.state || 'now').sort((a, b) => (rank[a] ?? 9) - (rank[b] ?? 9))[0] || 'now';
+    return { id: t.id, pet: t.name, home: t.program, state, why: flows.find((f) => f.why)?.why || '',
+      page: r ? `${t.id}-${DATE}.html` : null, idle: r ? petFrames(r, { frameIndex, drafts, exists, list }).frames.idle || null : null };
+  }).sort((a, b) => (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || a.pet.localeCompare(b.pet));
 
   // L4: grants from system-map.json, as the map shows them on this pet's card.
   const grants = new Map(map.access.grants.map((g) => [g.id, g]));
@@ -138,8 +155,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
-    thirdParty: ofType(['program']), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
-    connections: [...talks.values()], grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
+    thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
+    connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
     languages: code?.languages || [], languageNote: code?.note || null,
   };
 }
@@ -273,6 +290,15 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd></dl>
 <p class="small">One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).</p>`, { cls: 'clicker' });
 
+  const relatedCard = (r) => {
+    const inner = `${img(r.idle, `${r.pet}, idle`, 'thumb')}<span class="card-text"><b>${esc(r.pet)}</b><span>${esc(r.home || 'pet program not named yet')}${tag(r.state)}</span>${r.why ? `<span>${esc(r.why)}</span>` : ''}</span>`;
+    return `<li class="card">${r.page ? `<a href="${esc(r.page)}">${inner}</a>` : `<span class="card-static">${inner}</span>`}</li>`;
+  };
+  const related = module(`${d.petSlug}-related-pets`, d.related.length
+    ? `<ul class="cards related">${d.related.map(relatedCard).join('')}</ul>
+<p class="small">Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.</p>`
+    : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets' });
+
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
   const footer = module('astras-pet-os-unified-footer', `<div class="footer-grid">
 <p><em>An Intelligent App, or Pet, by Astra.</em> MIT license. Signature: not signed yet.</p>
@@ -300,6 +326,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 ${levels}
 ${notes}
 <div class="pair">${emotions}${clicker}</div>
+${related}
 ${footer}
 </main>
 ${chat}
