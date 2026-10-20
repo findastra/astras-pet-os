@@ -39,6 +39,15 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $Version = 'v0.3.0-beta'
+
+# A locked-down computer (Astra, 2026-10-19): when its administrator does not allow what this installer needs, stop
+# before anything is copied and say how to use Astra's PetOS with nothing to install. Never work around its security.
+$lockedDown = "Use Astra's PetOS with nothing to install: open the pets in a browser and give their Markdown files to an AI your organization allows (https://github.com/findastra/astras-pet-os/tree/main/markdown-pets), or ask your IT team whether you may install it."
+if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') {
+    Write-Host "This computer's administrator runs PowerShell in $($ExecutionContext.SessionState.LanguageMode) mode, so the installer cannot run here. Nothing was installed."
+    Write-Host $lockedDown
+    exit 3
+}
 $source = Split-Path -Parent $PSScriptRoot
 $draftsList = 'desktop-art\desktop-drafts-20261018.json'
 Add-Type -AssemblyName System.Web.Extensions
@@ -179,7 +188,7 @@ try {
     # 1. Check what we need
     if (-not (Test-Path -LiteralPath (Join-Path $source 'pets.json'))) { throw "Run this from the unzipped Astra's PetOS folder (pets.json not found next to installer\)." }
     $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
-    if (-not (Test-Path -LiteralPath $csc)) { throw "The C# compiler that ships with Windows (.NET Framework 4) was not found: $csc" }
+    if (-not (Test-Path -LiteralPath $csc)) { throw "The C# compiler that ships with Windows (.NET Framework 4) was not found: $csc. Nothing was installed. $lockedDown" }
     if ($InstallDir -notmatch 'astras-pet-os$') { throw "InstallDir must end in 'astras-pet-os' so the uninstaller can find it safely." }
 
     # 2. Choose the farm: in the window, or with -Farm (and -Pets) for no window
@@ -232,8 +241,12 @@ try {
     Write-Host 'Checking that your pets load'
     $preview = Join-Path ([IO.Path]::GetTempPath()) "astras-pet-os-check-$PID.png"
     $ErrorActionPreference = 'Continue'   # so the check's own error text reaches the message below
-    $said = & (Join-Path $InstallDir 'bin\desktop-pets-check-20261011.exe') $InstallDir --preview $preview 2>&1; $code = $LASTEXITCODE
+    # A program the computer's security blocks fails to start at all, so that is caught here too (Astra, 2026-10-19).
+    try { $said = & (Join-Path $InstallDir 'bin\desktop-pets-check-20261011.exe') $InstallDir --preview $preview 2>&1; $code = $LASTEXITCODE }
+    catch { $said = $_.Exception.Message; $code = -1 }
     $ErrorActionPreference = 'Stop'
+    if ($code -ne 0 -and "$said" -match 'group policy|blocked by|Application Control|AppLocker|administrator has blocked') {
+        throw "This computer's security does not allow programs built on it, so the desktop pets cannot run here. None are running and no shortcuts were made; to remove the copied files, delete $InstallDir. $lockedDown" }
     if ($code -ne 0) { throw "Your pets did not load: $said" }
     Remove-Item -LiteralPath $preview -ErrorAction SilentlyContinue
 

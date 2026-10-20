@@ -18,6 +18,7 @@ Every pet app is a set of parts. Each part has **one** name, used everywhere: RE
 | You talking to the pet | **quick chat** | chat input box (two way) | pet app icon chat | A small box that opens from the desktop pet so you can type to it. Two way. |
 | The program's picture | **app icon** | app icon | | The small still picture on the taskbar, a shortcut or a browser tab. It is drawn from the pet but it is not the pet, and it does not move. |
 | The pet's square in its app | **pet well** | avatar container (an image slot in the layout) | pet frame | Where the pet sits inside its app. |
+| The pet as one file | **Markdown pet** | agent definition file: a portable system prompt in Markdown | | What the pet does, where it opens in a browser and the rules an AI follows to act as it. For computers that cannot install, such as a locked-down work computer: give it to an AI the computer allows. Generated into `markdown-pets/` (Astra, 2026-10-19). |
 
 So: the pet floating on the desktop is the **desktop pet** (an *icon* is the still taskbar picture), its pop-up lines are **bubbles**, the box you type into is **quick chat**, and the window it opens is just its **app**.
 

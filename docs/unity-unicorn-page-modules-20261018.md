@@ -13,6 +13,16 @@ has these panels since [PR #8](https://github.com/findastra/unity-unicorn/pull/8
 them `unity-unicorn-L1-panel` to `-L4-panel` (page 0.4.2; not merged until Astra's OK). The file keeps its name,
 because links point at it. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
 
+*Tools and tricks (Astra, 2026-10-19): [PR #114](https://github.com/findastra/astras-pet-os/pull/114) made vcc-package-manager and vrchat-avatar-upload native tricks of
+Unity Stable, because they have no code, only written steps. That answers question 3 below. This doc now has 34 tools
+on `main` (with matcap-palette and menu-map, unity-unicorn [PR #13](https://github.com/findastra/unity-unicorn/pull/13) and [PR #14](https://github.com/findastra/unity-unicorn/pull/14)) and 4 tricks to write. [unity-unicorn PR #15](https://github.com/findastra/unity-unicorn/pull/15) made the
+same move in `pet.json` and on the page (version 0.4.5, merged as `7b1fdce`). Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
+
+*Asset tools (Astra, 2026-10-18: "lets make this booth together and then publish those tools"): [unity-unicorn PR #17](https://github.com/findastra/unity-unicorn/pull/17)
+(version 0.4.6, merged as `2e631e4`) brought in unity-asset-creator, unity-assets-library and shaders-shop, and the
+unity-asset-creator trick. This doc now has 37 tools on `main`; their tool boxes on the hub came with
+[PR #119](https://github.com/findastra/astras-pet-os/pull/119) (card 049). Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
+
 Home: **Unity Stable** (`pet-programs.json`; Astra kept the name on 2026-10-18).
 
 ## `unity-unicorn-L1-panel`
@@ -29,18 +39,19 @@ merged, and its source is only in the Codex workspace on the PC). PR #1 also giv
 `tools/dubstep-gunsmith-20261012.json`, but it is a program, not a tool. The sketch also shows **Unity Unicorn Icon**;
 it is not in `pet.json` or on the page until Astra says what it is.
 
-**Your tools on `main` (34)** (`L1.tools`): each tool's kind is the one its catalog file gives. 33 have a catalog file
-in `tools/`; run-unity-tool is the 34th.
+**Your tools on `main` (37)** (`L1.tools`): each tool's kind is the one its catalog file gives. 36 have a catalog file
+in `tools/`; run-unity-tool is the 37th. The other two catalog files in `tools/` belong to the tricks to write (L2).
 
 | Kind | Tools |
 |---|---|
-| Audit (10) | button-check, cloud-collider-audit, cloud-collider-validation, cloud-physics-check, cloud-survey, masonry-structural-audit, no-windows-audit-tool, prop-decomposer, scene-yaml-inspection, world-validator |
+| Audit (11) | button-check, cloud-collider-audit, cloud-collider-validation, cloud-physics-check, cloud-survey, masonry-structural-audit, menu-map, no-windows-audit-tool, prop-decomposer, scene-yaml-inspection, world-validator |
 | Generator (9) | cloud-mesh-generator, cloud-sea-fusion, marble-carver, masonry-regeneration, neck-blender, realistic-prop-restyle, vine-bloomer, wall-texture-rebuild, world-spawn-tool |
-| Editor (4) | cloud-lounge-smoothing (its file is `cloud-puff-smoothing-20261011.json`), house-scene-builder, masonry-unity-refresh, no-windows-scene-refresh |
+| Editor (5) | cloud-lounge-smoothing (its file is `cloud-puff-smoothing-20261011.json`), house-scene-builder, masonry-unity-refresh, matcap-palette, no-windows-scene-refresh |
 | Build (3) | desktop-world-test, occlusion-bake, reflection-probe-bake |
 | Preview (3) | asset-contact-sheet, scene-preview-render, time-season-tide-preview |
 | Utility (2) | foreground-tool-recorder, run-unity-tool (the runner script, `scripts/run-unity-tool-20261011.py`; it has no catalog file) |
-| Workflow (3) | face-transfer, vcc-package-manager, vrchat-avatar-upload |
+| Workflow (3) | face-transfer, shaders-shop, unity-asset-creator |
+| Library (1) | unity-assets-library (its catalog file points at the public repo findastra/unity-assets-library; no code in unity-unicorn) |
 
 The four that came in on 2026-10-18:
 - **face-transfer** was merged in [PR #6](https://github.com/findastra/unity-unicorn/pull/6)
@@ -52,8 +63,21 @@ The four that came in on 2026-10-18:
   reference world. Astra's rule since 2026-10-18 is that new worlds start fresh from VCC's World template, so that step
   must change before the next world.
 
-**vcc-package-manager** and **vrchat-avatar-upload** appear here only, not in L2: they are catalogued as tools of kind
-Workflow. Whether they should be tricks is still waiting on Astra (question 3 below).
+Two came in on 2026-10-19: **matcap-palette** ([PR #13](https://github.com/findastra/unity-unicorn/pull/13): a page panel of matcaps on spheres and a Unity window that puts
+one on a material's matcap slot) and **menu-map** ([PR #14](https://github.com/findastra/unity-unicorn/pull/14): a Unity export of an avatar's built radial menu and the
+page panel that draws it with its parameter budget).
+
+Three more came in on 2026-10-19 with [PR #17](https://github.com/findastra/unity-unicorn/pull/17), built and first used in Liminal Doors and moved over unchanged:
+- **unity-asset-creator** (`scripts/unity-asset-creator/`): walks one world asset through a researched 12-step
+  checklist, then exports each version and opens a pull request to the library.
+- **unity-assets-library**: the public library of finished assets and their versions,
+  [findastra/unity-assets-library](https://github.com/findastra/unity-assets-library). Astra asked for it right below
+  unity-asset-creator.
+- **shaders-shop** (`scripts/shaders-shop/`): downloads shaders for worlds and tracks which shaders each world uses.
+
+**vcc-package-manager** and **vrchat-avatar-upload** are not tools any more: since [PR #114](https://github.com/findastra/astras-pet-os/pull/114) they are tricks to write
+(L2). Their catalog files stay in `tools/`, with kind `Trick to write` instead of Workflow ([unity-unicorn PR #15](https://github.com/findastra/unity-unicorn/pull/15)): the System Map
+and TOOLS-AND-TRICKS.md cite them, and the tool library can still record a real run.
 
 **Your tools not merged (21)** (`L1.tools_not_merged`; each marked "not merged" on the page):
 
@@ -64,7 +88,7 @@ Workflow. Whether they should be tricks is still waiting on Astra (question 3 be
 | [PR #3](https://github.com/findastra/unity-unicorn/pull/3) (draft, Codex) (2) | glass-animal-tool, bubble-chair-blower |
 | design only (1) | asset-ledger (decided 2026-10-14; the design, `docs/asset-ledger-20261014.md`, was merged in PR #2; no code yet) |
 
-That is 34 tools on `main` and 21 not merged. Both drafts conflict with `main`. Unity Unicorn's card
+That is 37 tools on `main` and 21 not merged. Both drafts conflict with `main`. Unity Unicorn's card
 [002](https://github.com/findastra/unity-unicorn/blob/main/handoffs/002-codex-merge-avatar-effects-and-glass-tools-20261018.md)
 asks Codex to bring them up to date, write the 10 missing catalog files and move each tool from `tools_not_merged` to
 `tools` when it is merged. PR #3 stays a draft until bubble-chair-blower molds around the seated avatar. Poppy's project
@@ -83,8 +107,15 @@ programs.
 merged in PR #7). It uses the L1 tools prop-decomposer and realistic-prop-restyle, and every download it makes is a row
 in `docs/download-ledger-20261018.json`.
 
-**Tricks to write** (`L2.tricks_to_write`), from the sketch: weekly-update-from-friendly-farmer,
-weekly-copyright-auditor. The skill book
+**unity-asset-creator-trick**
+([skills/unity-asset-creator/SKILL.md](https://github.com/findastra/unity-unicorn/blob/main/skills/unity-asset-creator/SKILL.md),
+merged in PR #17): how the seated agent walks the checklist's 12 steps through the world's agent queue, which steps need
+Astra's own words, and how it publishes. It uses the L1 tools unity-asset-creator, shaders-shop and unity-assets-library.
+It is listed with `-trick` because no item may be both a tool and a trick (unity-unicorn PR #15's test).
+
+**Tricks to write (4)** (`L2.tricks_to_write`): from the sketch, weekly-update-from-friendly-farmer and
+weekly-copyright-auditor; since [PR #114](https://github.com/findastra/astras-pet-os/pull/114), **vcc-package-manager** (the skill book's section 4, VCC packages) and
+**vrchat-avatar-upload** (section 2, uploading through the SDK), which were catalogued as Workflow tools. The skill book
 ([docs/skills-20261009.md](https://github.com/findastra/unity-unicorn/blob/main/docs/skills-20261009.md)) holds what
 the Unicorn has learned (finding the newest avatar version, uploading through the SDK, diagnosing failed builds, VCC
 packages). Each one becomes a trick once it is written as a skill file.
@@ -118,5 +149,6 @@ Planned: the L3 activity bubble, suggestions, and token use from Token Toucan.
 1. Copyright tools: are they **copyright-collector and copyright-auditor** (the sketch) or **copyright-logger and
    copyright-catcher** (the code)?
 2. What is **Unity Unicorn Icon** as a program?
-3. Should vcc-package-manager and vrchat-avatar-upload move from tools to tricks? Until you say, they stay in L1.
+3. *Answered 2026-10-19:* vcc-package-manager and vrchat-avatar-upload are native tricks, not tools ([PR #114](https://github.com/findastra/astras-pet-os/pull/114)).
+   They are tricks to write in L2; [unity-unicorn PR #15](https://github.com/findastra/unity-unicorn/pull/15) (merged as `7b1fdce`) moved them in `pet.json` and on the page.
 4. Merging PR #1 and PR #3, after Codex has done card 002.

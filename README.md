@@ -7,6 +7,9 @@
 > repo, not the installer.
 >
 > **🤖 An AI agent installing this for someone: follow [INSTALL.md](INSTALL.md) and nothing else.**
+>
+> **A work or school computer that will not let you install?** Nothing to install: open the pets in a browser and give
+> their **[Markdown pets](markdown-pets/README.md)** to an AI your organization allows.
 
 [![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
 
