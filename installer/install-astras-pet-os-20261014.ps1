@@ -9,6 +9,12 @@
            red Stop button), plus any example pets you tick.
       Core pets are the ones a farm cannot run without; today that is the Friendly Farmer (role "host" in pets.json).
       Pass -Farm Example or -Farm Scratch (with -Pets) to choose without the window; -ListPets shows the ids.
+    - Developer mode (Astra, 2026-10-19): a switch in the window, or -Developer. The same install in programming words
+      (every pet is an agent, every pet program an agent control hub, The Farm the Agent Control Hub) with nothing on
+      the desktop: no desktop pets are built or started, and each agent lives in the avatar panel (the cyberhome) of its
+      control hub page, where one click says what it does. The Start menu gets the Agent Control Hub instead of the
+      desktop pets and the Stop button. The pages read the choice from apps\words-mode-20261019.js; the words are in
+      developer-words-20261019.json. Run the installer again without it to go back to the farm.
     - Copies this release to %LOCALAPPDATA%\Programs\astras-pet-os (no administrator rights needed).
     - Builds the desktop pets program FROM SOURCE on this PC with the C# compiler that ships with Windows
       (.NET Framework 4), so there is no pre-built .exe to trust: what runs is the source you can read.
@@ -26,6 +32,9 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1 -ListPets
+
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\installer\install-astras-pet-os-20261014.ps1 -Developer -Farm Scratch -Pets goldfish
 #>
 [CmdletBinding()]
 param(
@@ -35,7 +44,11 @@ param(
     [string[]]$Pets = @(),
     [switch]$StartWithWindows,
     [switch]$NoLaunch,
-    [switch]$ListPets
+    [switch]$ListPets,
+    [switch]$Developer,
+    # For tests and screenshots: draw the "Set up your farm" window (in developer words with -Developer) to this PNG
+    # file and stop. Nothing is installed.
+    [string]$SetupWindowPicture
 )
 $ErrorActionPreference = 'Stop'
 $Version = 'v0.3.0-beta'
@@ -59,14 +72,20 @@ function Read-Json([string]$Path) { $json.DeserializeObject([IO.File]::ReadAllTe
 function Write-Json([string]$Path, $Value) { [IO.File]::WriteAllText($Path, $json.Serialize($Value), (New-Object Text.UTF8Encoding $false)) }
 function Get-Field($Entry, [string]$Key) { if ($Entry -and $Entry.ContainsKey($Key)) { $Entry[$Key] } }
 
-# Every pet this release can put on a farm: the registered pets, then the desktop draft pets.
+# Every pet this release can put on a farm: the registered pets, then the desktop draft pets. DevName is the pet's
+# name in developer mode (its agent, from developer-words-20261019.json), or its own name when it has none yet.
 function Get-FarmPets([string]$Root) {
     $registry = Read-Json (Join-Path $Root 'pets.json')
     $jobs = @{}; foreach ($p in @(Get-Field $registry 'pipeline')) { if ($p) { $jobs[[string](Get-Field $p 'repo')] = [string](Get-Field $p 'job') } }
+    $agents = @{}; $words = Join-Path $Root 'developer-words-20261019.json'
+    if (Test-Path -LiteralPath $words) { $names = Get-Field (Read-Json $words) 'names'
+        if ($names) { foreach ($k in $names.Keys) { $agents[[string]$k] = [string](Get-Field $names[$k] 'agent') } } }
     $list = New-Object System.Collections.Generic.List[object]
     foreach ($p in @(Get-Field $registry 'pets')) {
-        $list.Add([pscustomobject]@{ Id = [string](Get-Field $p 'art'); Name = [string](Get-Field $p 'pet'); Repo = [string](Get-Field $p 'repo')
-            Job = [string](Get-Field $p 'job'); Core = ([string](Get-Field $p 'role') -eq 'host'); Draft = $false })
+        $repo = [string](Get-Field $p 'repo'); $name = [string](Get-Field $p 'pet')
+        $list.Add([pscustomobject]@{ Id = [string](Get-Field $p 'art'); Name = $name; Repo = $repo
+            Job = [string](Get-Field $p 'job'); Core = ([string](Get-Field $p 'role') -eq 'host'); Draft = $false
+            DevName = $(if ($agents[$repo]) { $agents[$repo] } else { $name }) })
     }
     $drafts = Join-Path $Root $draftsList
     if (Test-Path -LiteralPath $drafts) {
@@ -74,8 +93,11 @@ function Get-FarmPets([string]$Root) {
             # Claude Bot's art is private (an exact copy of ChatGPT's BSOD), so it is never in a release.
             if ((Get-Field $d 'private') -eq $true) { continue }
             $id = [string](Get-Field $d 'id'); if (@($list | Where-Object { $_.Id -eq $id }).Count) { continue }
-            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/findastra/', ''
-            $list.Add([pscustomobject]@{ Id = $id; Name = [string](Get-Field $d 'name'); Repo = $repo; Job = [string]$jobs[$repo]; Core = $false; Draft = $true })
+            # A draft points to its repo on GitHub, or (since 2026-10-19) to its pet program page in this hub.
+            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/findastra/', '' -replace '^apps/pet-programs/(.+)-\d{8}\.html$', '$1'
+            $name = [string](Get-Field $d 'name')
+            $list.Add([pscustomobject]@{ Id = $id; Name = $name; Repo = $repo; Job = [string]$jobs[$repo]; Core = $false; Draft = $true
+                DevName = $(if ($agents[$repo]) { $agents[$repo] } else { $name }) })
         }
     }
     , $list.ToArray()
