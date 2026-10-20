@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/mail-snail-20261018.html
 - **Its app:** none yet. The pet program page shows its plan.
-- **Its code:** https://github.com/findastra/mail-snail
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Mail Snail
 

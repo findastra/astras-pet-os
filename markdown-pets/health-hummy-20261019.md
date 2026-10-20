@@ -12,7 +12,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/health-hummy-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/health-hummy-20261008.html
-- **Its code:** https://github.com/findastra/health-hummy
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Health Hummy
 

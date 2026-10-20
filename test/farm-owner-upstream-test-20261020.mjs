@@ -36,6 +36,12 @@ const DEV = 'XxdevilishxX';
 // Dev's farm as make-it-yours leaves it, plus one pet of her own and one repo the round found on her account.
 function devFarm() {
   const { registry } = makeItYours(astra, DEV);
+  // Dev's copy of the hub and two of Astra's examples are public in the fixture, so their links show: this checks
+  // accounts, not visibility (most of Astra's repos, the hub too, went private on 2026-10-20).
+  // New entries, never changed in place: they are shared with Astra's own registry, which later tests read.
+  const open = (p) => (['astras-pet-os', 'meme-fiend', 'file-master'].includes(p.repo) ? { ...p, visibility: 'public' } : p);
+  registry.pets = registry.pets.map(open);
+  registry.pipeline = registry.pipeline.map(open);
   registry.pets.push({ repo: 'dev-diary', pet: 'Fixture Ferret', role: 'pet', art: 'dev-diary', kind: 'ferret', status: 'hatching',
     published: true, visibility: 'public', job: 'A fixture pet on Dev\'s own account.', added: '2026-10-20',
     interface_url: 'apps/pet-programs/dev-diary-20261018.html', audit: { cadence: 'weekly', subject: 'my repo', needs: 'your OK' } });

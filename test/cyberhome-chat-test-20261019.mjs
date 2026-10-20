@@ -192,7 +192,9 @@ test('My Claude opens claude.ai with the message typed in, and copies it; the ch
   assert.equal(p.opened.length, 1);
   assert.ok(p.opened[0].startsWith('https://claude.ai/new?q='));
   const typed = decodeURIComponent(p.opened[0].slice('https://claude.ai/new?q='.length));
-  assert.equal(typed, 'This is about Python Jungle, Python Panther\'s pet program in Astra\'s PetOS (https://github.com/findastra/learn-python).\n\nWhy is my lesson check failing?');
+  // The repo's link goes along only while the repo is public (learn-python went private, 2026-10-20).
+  const where = panther.publicRepo ? ' (https://github.com/findastra/learn-python)' : '';
+  assert.equal(typed, `This is about Python Jungle, Python Panther's pet program in Astra's PetOS${where}.\n\nWhy is my lesson check failing?`);
   assert.deepEqual(p.copied, [typed]);
   assert.match(p.byId('chat-status').textContent, /^Opened your Claude in a new tab/);
   assert.equal(p.byId('chat-text').value, '');

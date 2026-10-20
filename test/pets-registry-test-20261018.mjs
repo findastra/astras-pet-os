@@ -257,6 +257,8 @@ test('the table only links pets that are on GitHub', () => {
   Object.assign(sample.pets.find((p) => p.repo === 'github-goldfish'), { published: false });
   // Data Chip stands in for a private pet here, whatever the Farmer's round last saw on GitHub.
   Object.assign(sample.pets.find((p) => p.repo === 'data-dealer'), { visibility: 'private' });
+  // ... and Paper Patty for a public one (most of Astra's repos went private on 2026-10-20).
+  Object.assign(sample.pets.find((p) => p.repo === 'paper-girl'), { visibility: 'public' });
   const table = buildTable(sample);
   assert.ok(!/\[GitHub Goldfish\]\(/.test(table), 'unpublished pets have no link');
   assert.match(table, /\[Paper Patty\]\(https:\/\/github\.com\/findastra\/paper-girl\)/);
