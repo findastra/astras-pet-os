@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open, waits on Astra: nine questions, then Parts 1 and 2 |
+| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open, waits on Astra: merge #157 (Parts 1 and 2, the animal guard); Parts 3 and 4 after |
 | [056: Key requests for API Fairy: the rule, skills/key-request, and the panel on her pet program page](056-any-key-requests-for-api-fairy-20261019.md) | any | open: both pull requests merged (2026-10-19); left: rebuild API Fairy, install the skill, three answers |
 | [055: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](055-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
 | [054: The cyberhome, the activity lights and the chat window; the live link to Startup Star](054-any-cyberhome-link-20261019.md) | any | open, waits on Astra: merge, then six questions (first: the live link) |

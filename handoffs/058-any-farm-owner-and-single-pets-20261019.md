@@ -1,6 +1,6 @@
-status: open (waiting on Astra: nine questions in the slide deck, then OK to build Parts 1 and 2)
+status: open (waiting on Astra: OK to merge #157, Parts 1 and 2; it changes the animal guard)
 for: any
-from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
 needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
 ---
 ## What I did
@@ -30,11 +30,40 @@ proposal before any rewrite, and for everything to be read first.
   no pull request yet.
 - The Farm's pet program page was opened in the browser pane from the scratch clone (a server on 127.0.0.1 only).
 
+**2026-10-20, Astra: "All recommended. Build Parts 1 and 2."** Every answer is recorded in the proposal's table.
+
+- **Card number:** this card was 057, but the Aquarium error-checkers card (`claude/aquarium-error-checkers-20261019`,
+  PR #136) took 057 first, so it is 058; next free 059.
+- **Merged `main`** (#126, #140, #148 to #151) into the branch: `e8316f9`.
+- **Parts 1 and 2, commit `8133789`, [pull request #157](https://github.com/findastra/astras-pet-os/pull/157)** (not on
+  `main`):
+  - `pets.json`: `"github_owner": "findastra"`; Claude Bot's entry `stays_private` (its art is a copy of BSOD, which
+    may not be public; without it the scan would have let it go public).
+  - `scripts/animal-guard-20261013.mjs`: `farmOwner`, `petOwner`, `sameAccount`, `assertOwnPet`,
+    `assertSignedInAsOwner`; per-pet accounts; malformed names refused. Existing guard tests unchanged and passing.
+  - `scripts/pet-privatizer-20261018.mjs`: `plan|apply private|public` (private by default); own pets only, signed in as
+    the owner; never the one art source private; never a `stays_private` pet public; `scanHistory` over every commit of
+    every branch before public; pets.json follows both ways; the junction fix (real paths).
+  - Tests: `test/farm-owner-test-20261020.mjs` (new, 5) and 8 more in `test/pet-privatizer-test-20261018.mjs`; the
+    junction test fails with the old check (tried).
+  - Docs: MAKE-IT-YOURS.md, the guide (`apps/beginner-guide-20261019.html`: "Tell your farm it's yours" and private or
+    public both ways, each with a message to copy), `skills/farm-security` section 2, the decision row in
+    `skills/new-pet-or-tool`, the tool's job and grant 3 in `system-map.json` (all pet pages and markdown pets rebuilt),
+    AGENTS.md credit line, the proposal's answers.
+  - `npm run build`; `npm run check` (23 pet apps); `npm test` 227 tests, 226 pass, 0 fail, 1 skipped.
+  - Live, read-only, signed in as findastra: `plan private meme-fiend paper-girl astras-pet-os` (Paper Girl's Pages
+    site listed as a loss; the hub refused) and `plan public claude-bot workflow-whirlpool meme-fiend` (Workflow
+    Whirlpool stopped on local service addresses; Claude Bot stays private). Nothing changed on GitHub.
+  - The guide at 375 px in the browser pane: no sideways scroll, both new copy buttons 44 px, no console errors
+    (screenshots timed out because the app window was hidden; checked by measurement).
+- **Found, not changed:** the public hub's own history has personal folder paths in old commits (old versions of
+  `handoffs/009-…` and `scripts/idle-flash-audit-…`, among others); the files on `main` are clean. Rewriting public
+  history is Astra's call.
+
 ## Task
 
-1. **Astra:** answer the nine questions (deck above; "all recommended" is fine). Record each answer here and in the
-   proposal.
-2. **Parts 1 and 2** (one pull request on this branch): `github_owner` in `pets.json` (farm and per pet), the animal
+1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
+2. **Parts 1 and 2:** built, PR #157, waiting on Astra's OK to merge. `github_owner` in `pets.json` (farm and per pet), the animal
    guard reads it, the signed-in check, `plan|apply private|public`, the scan before going public, the art-source
    refusal, the junction fix; tests; MAKE-IT-YOURS.md, the guide's public-or-private step, farm-security, the tool's job
    on the map; `npm run build`, `npm run check`, `npm test`. Ask Astra again before merging: the guard is a core
