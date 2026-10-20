@@ -57,7 +57,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .habitat > .lights { position: absolute; top: -12px; right: 6px; background: var(--slate); padding: 0 4px; }
 .den { aspect-ratio: 1 / 1; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
 .den img.pet { width: 80%; height: auto; image-rendering: pixelated; cursor: pointer; }
-.bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
+/* Room for three lines, so the bubble does not grow when the pet notices you: before, the first press anywhere pushed
+   every button below it down a line and a quick first click landed beside its button (click-check, 2026-10-19). */
+.bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; min-height: calc(4.5em + 18px); }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
 .button { display: inline-block; font: 14px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 3px 12px; text-decoration: none; cursor: pointer; }

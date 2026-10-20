@@ -9,7 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open: Parts 1 and 2 merged (#157); Parts 3 and 4 to build |
-| [056: Key requests for API Fairy: the rule, skills/key-request, and the panel on her pet program page](056-any-key-requests-for-api-fairy-20261019.md) | any | open: both pull requests merged (2026-10-19); left: rebuild API Fairy, install the skill, three answers |
+| [056: Key requests for API Fairy: the rule, skills/key-request, and the panel on her pet program page](056-any-key-requests-for-api-fairy-20261019.md) | any | done 2026-10-20: merged, API Fairy running as Astra, skill installed, her answers recorded |
 | [055: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](055-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
 | [054: The cyberhome, the activity lights and the chat window; the live link to Startup Star](054-any-cyberhome-link-20261019.md) | any | open, waits on Astra: merge, then six questions (first: the live link) |
 | [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
@@ -18,7 +18,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
 | [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge the R W X panel (branch claude/rwx-panel-20261019); task 3 after Role Fairy's bots are built |
-| [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
+| [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: what the cyberhome is (card 054, question 6) |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, started at sign-in, registered with draft art](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: approving the drafts |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 done with #110 except pet.json `entry` (waits on Astra) and the map card (`claude/map-card-program-page-20261019`); task 2 done with #106 and #114; tasks 3 and 4 to do |
