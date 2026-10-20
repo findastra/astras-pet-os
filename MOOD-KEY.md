@@ -25,7 +25,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Friendly Farmer** | the pet registry and the System Map | daily | a FARMER_TOKEN secret so I can see the private pet repos |
 | **GitHub Goldfish** | the findastra GitHub account | weekly, Monday | a GitHub token that can read the private repos |
 | **Data Chip** | Data Dealer's repo | weekly, Tuesday | your answer to a decision on the ops dashboard |
-| **API Fairy** | the notes about your API keys | weekly, Wednesday | a key renewed or a note confirmed |
+| **API Fairy** | Pet Program source, shared controls and declared tool behavior | weekly, Wednesday | Local source review; real runtime and desktop actions require separate verification |
 | **Unity Unicorn** | your Unity and VRChat project notes | weekly, Thursday | a project opened in Unity so I can check it |
 | **Python Panther** | your Python lessons | weekly, Friday | you to do the next lesson |
 | **Astra Wisp** | AI Astra: her mind, VRChat body and voice | weekly, Saturday | the AI Astra app started on your PC |
@@ -40,7 +40,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **VSCode Angel** | your code cleanup worklist | weekly, Monday | a finding reviewed |
 | **Gone Ghost** | your security checklist | weekly, Tuesday | a security step only you can do |
 | **Project Parrot** | your project ideas | weekly, Wednesday | a yes or no on an idea that is due |
-| **Voicemeeter Bug** | your Voicemeeter audio | weekly, Thursday | the Bug running on your PC |
+| **Voicemeeter Bug** | the app's build, fake-API recovery checks, and selected output reconnect monitoring | weekly, Thursday | a compatible installed Voicemeeter Remote API; a listening check when audible distortion persists |
 | **Platform Platypus** | how Astra's pages look across iPhone, Android, iPad and desktop | weekly, Friday | something only you can do |
 | **Log Lynx** | the farm’s logs and crash windows | weekly, Saturday | a look at a crash I caught |
 | **Packet Piranha** | the network: loss, latency, DNS and routes | weekly, Sunday | a host to trace |
@@ -59,7 +59,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Wifi Butterfly** * | my plan | weekly, Saturday | a job: what should Wifi Butterfly do |
 | **Deck Duck** * | my plan | weekly, Sunday | a job: what should Deck Duck do |
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Monday | a job: what should Mesh Moth watch |
-| **Raspberry Pi Berry** * | my plan | weekly, Tuesday | a job: what should Raspberry Pi Maker do |
+| **Raspberry Pi Berry** * | Astra's Raspberry Pi projects | weekly, Tuesday | site storage allowed for the page (custom lines: happy, worried, sad, sick, alarmed) |
 | **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Wednesday | a bot's access to its server, or your OK for a new bot |
 | **Chat Rat** * | the chats it has filed and their index | weekly, Thursday | where your Claude and OpenAI chats are saved |
 | **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Friday | native iPad verification and a verified chat adapter |

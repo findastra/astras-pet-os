@@ -6,6 +6,8 @@
 
 Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist.
 
+Its job in the registry: Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.
+
 ## Open it with nothing to install
 
 Each link opens in any web browser, on any computer, phone or tablet.
@@ -29,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **Sticker Manager** (planned, not built yet): A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet.
+- **Sticker Manager** (planned, not built yet): A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet.
 - **CLI Proxy API manager** (planned, not built yet): A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run.
 
 ### Its tricks (steps its AI follows)

@@ -6,7 +6,7 @@
 
 A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.
 
-Its job in the registry: Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.
+Its job in the registry: Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.
 
 ## Open it with nothing to install
 
