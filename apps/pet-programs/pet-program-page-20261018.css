@@ -96,7 +96,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
 
 /* Inside the intelligence-level panels. */
-.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 28px; }
+.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 18px 28px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
@@ -118,10 +118,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* a tool that works right on the page, in its own tool panel inside L1 (Astra's Window Star, 2026-10-20) */
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
 .plain li { margin: 5px 0; }
-.status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
+.status { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
-.status dd { margin: 0; }
-.connections { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.status dd { margin: 0; overflow-wrap: anywhere; }
+/* min(..., 100%): on a narrow window a card is never wider than its panel (Astra, 2026-10-20, her screenshots). */
+.connections { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 16px; }
 .connection { border: 1px dashed var(--connection); padding: 8px 12px 10px; margin: 0; min-width: 0; }
 .connection legend { color: var(--connection); padding: 0 6px; font: 14px var(--label); }
 .connection .lights { margin-right: 4px; }
@@ -148,7 +149,8 @@ label.file { position: relative; }
 .pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
 .moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 14px; }
 .mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 10px; align-items: center; }
-.mood-bubble { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 4px 10px 8px; margin: 0; min-width: 0; font-size: 12.5px; }
+/* Room inside the rounded corners, so a long first line never runs into the top corner (Astra, 2026-10-20). */
+.mood-bubble { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 4px 18px 10px 14px; margin: 0; min-width: 0; font-size: 12.5px; }
 .mood-bubble legend { font: 13px var(--label); padding: 0 5px; }
 /* The tail is part of the bubble (Astra, 2026-10-19: "make it look like an actual bubble"): drawn in outline like the
    bubble itself, its inside the page's own colour, so it reads as one shape pointing at the pet. */
@@ -185,11 +187,11 @@ label.file { position: relative; }
 .chat-panel p { margin: 6px 0 0; }
 
 /* Spawner list. */
-.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 12px; }
 .card a { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 8px; text-decoration: none; color: var(--chalk); }
 .card a:hover { background: var(--slate-2); }
 .card .thumb, .card .no-art { width: 56px; height: 56px; image-rendering: pixelated; flex: none; }
-.card-text { display: grid; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
+.card-text { display: grid; min-width: 0; overflow-wrap: anywhere; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
 
 /* Phones: everything stacks and every panel still collapses. */
 @media (max-width: 640px) {
@@ -197,12 +199,21 @@ label.file { position: relative; }
   .page { padding-top: 28px; }
 }
 @media (max-width: 760px) {
-  .top, .pair { grid-template-columns: 1fr; }
-  .top > .panel { max-width: 240px; }
-  /* On a phone the way back to the map comes first, as one compact row. */
-  .top > .system-map { order: -1; max-width: none; }
-  .system-map .map-link { grid-template-columns: 56px 1fr; justify-items: start; text-align: left; align-items: center; }
-  .system-map .small { text-align: left; }
+  .pair { grid-template-columns: 1fr; }
+  /* On a phone the cyberhome and the way back to the System Map sit side by side, the same size, with the title below
+     both (Astra, 2026-10-20: her screenshot moved the System Map box into the empty space beside the cyberhome). */
+  .top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 14px; }
+  .top > .cyberhome { grid-column: 1; grid-row: 1; }
+  .top > .system-map { grid-column: 2; grid-row: 1; }
+  .top > .title { grid-column: 1 / -1; }
+  .top > .panel { padding-left: 10px; padding-right: 10px; }
+  /* A long label wraps onto two lines in a half-width box, so the cyberhome's lights go inside the den's top corner,
+     opposite Startup Star's door, instead of on the border line. */
+  .habitat > .lights { top: 9px; left: 9px; right: auto; z-index: 2; padding: 0; background: none; }
+  /* In a half-width box a long label wraps, so it takes its own room: its first line stays on the border and the
+     box's contents start below its last line instead of under it. */
+  .top > .panel > summary { position: relative; top: auto; left: auto; width: fit-content; max-width: 100%; margin: calc(-24px - .65em) 0 10px -6px; }
+  .top > .panel:not([open]) > summary { margin-top: calc(-14px - .65em); margin-bottom: 0; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
@@ -236,7 +247,7 @@ img[hidden] { display: none !important; }
 .request-count { margin: 0 0 2px; }
 .request-problems { margin: 4px 0 0; }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
-.cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.cards.related { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
 .cards.related .card-text span + span { font-size: 12px; }
 /* The R W X panel (Astra, 2026-10-19, option C): what each level should be (R W X), then whether that is in code.
