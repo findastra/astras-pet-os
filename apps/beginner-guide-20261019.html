@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Astra's PetOS for beginners</title>
+<meta name="description" content="A guide for beginners: what Astra's PetOS is, how to install it, and how to make your own farm of pets.">
+<!--
+  A guide for beginners (the-farm-v1.0-beginner-guide-v1.0): a native program of The Farm, the Friendly Farmer's pet
+  program, like the System Map. A public page anyone can read before installing anything. Farm words first, the
+  programmer word in small text (PET-WORDS.md). Pictures come only from the hub's art/ (one art source, A58). No
+  dependencies; the script sets text with textContent only. The name waits on Astra: the framework's tutorial title is
+  "How to Take Care of Your Farm!" (PET-PROGRAM-FRAMEWORK.md, section 13). Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
+-->
+<style>
+:root {
+  --bg: #26272b; --surface: #2e2f34; --surface-2: #35363c; --line: #4a4b53;
+  --text: #ededf2; --dim: #a9abb4;
+  --lime: #b8ff3c; --cyan: #3cf2ff; --pink: #ff52d9; --violet: #b47dff;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--sans); overflow-wrap: anywhere; }
+a { color: var(--cyan); text-underline-offset: 3px; }
+a:hover { color: var(--lime); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; border-radius: 6px; }
+img { max-width: 100%; }
+.page { max-width: 760px; margin: 0 auto; padding: 24px 16px 72px; }
+.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* The programmer word, in small text after the farm word (PET-WORDS.md). */
+.dev { display: block; margin-top: 2px; font: 13px/1.45 var(--mono); color: var(--violet); }
+.dev b { font-weight: 600; color: var(--violet); }
+.dev::before { content: 'programmers say: '; color: var(--dim); }
+code { font: 0.9em var(--mono); color: var(--lime); background: #1d1e21; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+
+/* Top */
+header { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: center; }
+.kicker { margin: 0; font: 600 13px/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--pink); }
+h1 { margin: 4px 0 8px; font-size: clamp(30px, 8vw, 44px); line-height: 1.12; }
+h1 span { color: var(--lime); text-shadow: 0 0 18px rgba(184, 255, 60, 0.35); }
+.lead { margin: 0; font-size: 18px; color: var(--text); }
+.farmer { display: flex; align-items: flex-end; gap: 12px; margin-top: 14px; }
+.farmer img { width: 96px; height: 96px; flex: none; }
+.bubble { position: relative; background: var(--surface-2); border: 2px solid var(--lime); border-radius: 16px; padding: 10px 14px; font-size: 16px; }
+.bubble::before { content: ''; position: absolute; left: -10px; bottom: 18px; border: 8px solid transparent; border-right-color: var(--lime); border-left: 0; }
+.bubble small { display: block; color: var(--dim); font-size: 13px; }
+
+/* Choose your path */
+h2 { font-size: 22px; line-height: 1.3; margin: 34px 0 12px; }
+.paths { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0; margin: 0; list-style: none; }
+.paths a { display: block; min-height: 56px; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 2px solid var(--line); color: var(--text); text-decoration: none; }
+.paths a:hover { border-color: var(--cyan); }
+.paths strong { display: block; font-size: 18px; color: var(--cyan); }
+.paths li:nth-child(2) strong { color: var(--lime); }
+.paths li:nth-child(3) strong { color: var(--pink); }
+.paths span { color: var(--dim); font-size: 15px; }
+
+nav.toc ol { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; counter-reset: toc; }
+nav.toc a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: 15px; }
+nav.toc a:hover { border-color: var(--lime); }
+nav.toc li { counter-increment: toc; }
+nav.toc a::before { content: counter(toc); font: 700 13px var(--mono); color: var(--bg); background: var(--lime); border-radius: 50%; width: 22px; height: 22px; display: inline-grid; place-items: center; margin-right: 8px; flex: none; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+button { font: 600 15px var(--sans); color: var(--text); background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; min-height: 44px; padding: 8px 16px; cursor: pointer; }
+button:hover { border-color: var(--cyan); }
+
+/* The steps fold, so the page works on a phone. */
+.steps { counter-reset: step; margin-top: 18px; }
+details.step { counter-increment: step; margin: 12px 0; background: var(--surface); border: 2px solid var(--line); border-radius: 16px; scroll-margin-top: 12px; }
+details.step[open] { border-color: var(--accent, var(--cyan)); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 0 22px -8px var(--accent, var(--cyan)); }
+details.step > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 16px; font-size: 19px; font-weight: 700; }
+details.step > summary::-webkit-details-marker { display: none; }
+details.step > summary::before { content: counter(step); flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent, var(--cyan)); color: var(--bg); font: 800 17px var(--mono); }
+details.step > summary::after { content: '+'; margin-left: auto; flex: none; font: 700 26px/1 var(--mono); color: var(--accent, var(--cyan)); }
+details.step[open] > summary::after { content: '\2212'; }
+details.step > summary .sub { display: block; font-size: 14px; font-weight: 400; color: var(--dim); }
+.body { padding: 0 16px 18px; }
+.body > :first-child { margin-top: 0; }
+.body p, .body li { max-width: 68ch; }
+.body ul, .body ol { padding-left: 22px; }
+.body li { margin: 6px 0; }
+h3 { font-size: 17px; margin: 20px 0 6px; color: var(--accent, var(--cyan)); }
+.s-what { --accent: var(--cyan); }
+.s-install { --accent: var(--lime); }
+.s-locked { --accent: var(--violet); }
+.s-ai { --accent: var(--cyan); }
+.s-yours { --accent: var(--pink); }
+.s-visibility { --accent: var(--violet); }
+.s-adopt { --accent: var(--lime); }
+.s-safe { --accent: var(--pink); }
+.s-words { --accent: var(--cyan); }
+.s-farmer { --accent: var(--lime); }
+
+.download { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 60px; padding: 14px 18px; margin: 6px 0 10px; border-radius: 14px; background: var(--lime); color: #15161a; font-size: 19px; font-weight: 800; text-decoration: none; text-align: center; box-shadow: 0 0 26px -6px var(--lime); }
+.download:hover { color: #15161a; background: #d2ff7d; }
+.download small { display: block; font-weight: 500; font-size: 13px; }
+.note { border-left: 4px solid var(--accent, var(--cyan)); background: var(--surface-2); border-radius: 0 12px 12px 0; padding: 10px 14px; margin: 14px 0; }
+.note.warn { border-left-color: var(--pink); }
+.note p { margin: 4px 0; }
+.choice { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 10px 0; padding: 0; list-style: none; }
+.choice li { margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); }
+.choice strong { color: var(--accent, var(--cyan)); }
+
+.prompt { margin: 8px 0; padding: 14px; border-radius: 12px; background: #1d1e21; border: 1px dashed var(--cyan); font: 15px/1.55 var(--mono); color: var(--text); white-space: pre-wrap; }
+.copy { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.copy-status { color: var(--lime); font-size: 15px; }
+
+.body ul.pets, .body ul.choice { padding-left: 0; }
+.pets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; padding: 0; list-style: none; }
+.pets li { margin: 0; }
+.pets a { display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; padding: 10px 6px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); text-decoration: none; text-align: center; font-size: 14px; line-height: 1.3; }
+.pets a:hover { border-color: var(--lime); }
+.pets img { width: 64px; height: 64px; }
+
+dl.words { margin: 8px 0; }
+dl.words div { padding: 10px 0; border-bottom: 1px solid var(--line); }
+dl.words dt { font-weight: 700; color: var(--text); }
+dl.words dd { margin: 2px 0 0; color: var(--dim); }
+dl.words dd .dev { margin-top: 4px; }
+
+.farmer-why { display: flex; gap: 14px; align-items: flex-start; }
+.farmer-why img { width: 80px; height: 80px; flex: none; }
+
+footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--dim); font-size: 15px; }
+footer ul { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 0; margin: 8px 0 14px; list-style: none; }
+footer a { display: inline-block; min-height: 32px; padding: 4px 0; }
+footer .label { font: 12px var(--mono); color: var(--dim); }
+
+@media (min-width: 640px) {
+  .page { padding: 40px 24px 96px; }
+  header { grid-template-columns: 1fr auto; }
+  .farmer { margin-top: 0; flex-direction: column; align-items: center; }
+  .farmer img { width: 128px; height: 128px; }
+  .bubble { max-width: 240px; }
+  .bubble::before { left: 50%; top: -10px; bottom: auto; margin-left: -8px; border: 8px solid transparent; border-bottom-color: var(--lime); border-top: 0; }
+  .paths, .choice { grid-template-columns: repeat(3, 1fr); }
+  .choice { grid-template-columns: 1fr 1fr; }
+  .body { padding: 0 24px 22px; }
+  details.step > summary { padding: 14px 24px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  details.step > summary::after { transition: transform 0.15s ease; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div>
+    <p class="kicker">Astra's PetOS · a guide for beginners</p>
+    <h1>Make your own <span>farm</span> of little helper apps</h1>
+    <p class="lead">Read this first. You can read all of it before you install anything.</p>
+  </div>
+  <div class="farmer">
+    <img class="pixel" src="../art/frames/farmer/happy-20261008.png" width="128" height="128" alt="The Friendly Farmer, smiling">
+    <p class="bubble">Hi! I'm the Friendly Farmer. I look after the pets. Let's set up your farm!<small>Tap a step to open it.</small></p>
+  </div>
+</header>
+
+<h2>Where do you want to start?</h2>
+<ul class="paths">
+  <li><a href="../system-map-20261012.html"><strong>Just look around</strong><span>Open the System Map in your browser. Nothing to install, works on a phone.</span></a></li>
+  <li><a href="#install"><strong>Install it on Windows</strong><span>Get the pets on your desktop.</span></a></li>
+  <li><a href="#make-it-yours"><strong>Make your own farm</strong><span>Your own copy on GitHub, your own pets.</span></a></li>
+</ul>
+
+<h2>The steps</h2>
+<nav class="toc" aria-label="Steps">
+  <ol>
+    <li><a href="#what">What it is</a></li>
+    <li><a href="#install">Install it</a></li>
+    <li><a href="#locked-down">Work or school computer</a></li>
+    <li><a href="#ai">Ask your AI</a></li>
+    <li><a href="#make-it-yours">Make it yours</a></li>
+    <li><a href="#public-private">Public or private</a></li>
+    <li><a href="#adopt">Take one of Astra's pets</a></li>
+    <li><a href="#safe">Stay safe</a></li>
+    <li><a href="#words">Words you'll see</a></li>
+    <li><a href="#farmer">Why the Farmer</a></li>
+  </ol>
+</nav>
+<div class="controls">
+  <button type="button" id="open-all">Open every step</button>
+  <button type="button" id="close-all">Close every step</button>
+</div>
+
+<div class="steps">
+
+<details class="step s-what" id="what" open>
+  <summary><span>What is Astra's PetOS?<span class="sub">Pets, the Friendly Farmer and your farm</span></span></summary>
+  <div class="body">
+    <p>Astra's PetOS is a set of small apps that help with real things: files, music, VR, websites, API keys.</p>
+    <ul>
+      <li>Each app has a little character. We call each one a <strong>pet</strong>.
+        <span class="dev">an intelligent app: an app with an optional AI agent</span></li>
+      <li>A pet's main app is its <strong>pet program</strong>. The Friendly Farmer's is called The Farm.
+        <span class="dev">program: the one main program a pet stands for</span></li>
+      <li>The <strong>Friendly Farmer</strong> organizes the pets. He keeps the list of pets and checks on each one.
+        <span class="dev">orchestrator and package manager</span></li>
+      <li>Your own set of pets is your <strong>farm</strong>. Farms never connect to each other.
+        <span class="dev">one user's install (a tenant)</span></li>
+      <li><strong>You</strong> are the farmer of your farm. Nothing important changes without your OK.
+        <span class="dev">the owner and admin; L4, the human in the loop</span></li>
+    </ul>
+    <p>It runs on Windows 10 and 11. It is an <strong>early beta</strong>: some pets are still being built.
+      <a href="https://github.com/findastra/astras-pet-os/blob/main/INTELLIGENCE-LEVELS.md">INTELLIGENCE-LEVELS.md</a> says
+      what each one can do today.</p>
+    <p>"PetOS" is just its name. It is not a new operating system: it runs on top of Windows.
+      <span class="dev">a platform</span></p>
+  </div>
+</details>
+
+<details class="step s-install" id="install">
+  <summary><span>Install it<span class="sub">One download, about 100 MB, no administrator rights</span></span></summary>
+  <div class="body">
+    <a class="download" href="https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip">⬇ Download the installer<small>astras-pet-os-installer.zip, from the latest release</small></a>
+    <div class="note warn">
+      <p>Use only this download. Not GitHub's green <strong>Code</strong> button, and not <strong>Source code (zip)</strong>:
+        those are for developers, not the installer.</p>
+    </div>
+    <ol>
+      <li>Right-click the zip, then choose <strong>Extract All</strong>.</li>
+      <li>Open the folder <strong>Astra's PetOS installer</strong>. Double-click <strong>Install Astra's PetOS</strong>.</li>
+      <li>If Windows warns you, choose <strong>Run</strong> (or <strong>More info</strong>, then <strong>Run anyway</strong>).</li>
+      <li>The <strong>Set up your farm</strong> window opens. Pick one, then press <strong>Set up my farm</strong>:
+        <ul class="choice">
+          <li><strong>Astra's Example Pets</strong><br>All of Astra's pets come to your farm. They are examples: you can
+            delete, change or copy any of them.</li>
+          <li><strong>From Scratch</strong><br>Just the core kit: the core pets, the desktop star, the System Map and the
+            big red Stop button. Tick any of Astra's pets you want too.</li>
+        </ul>
+      </li>
+      <li>Your pets appear on your desktop.</li>
+    </ol>
+    <h3>Meet the star</h3>
+    <p>The little star in the bottom-left corner looks after your pets.</p>
+    <ul>
+      <li>Click the star: hide or show your pets.</li>
+      <li>Double-click the star: line them up.</li>
+      <li>Double-click a pet: open its pet program.</li>
+    </ul>
+    <p><span class="dev">Startup Star: a launcher and process supervisor (a system tray app)</span></p>
+    <p>The Start menu has <strong>System Map</strong>, <strong>Stop Astra's PetOS (big red button)</strong> and
+      <strong>Uninstall Astra's PetOS</strong>. It does not start with Windows unless you tick that box.</p>
+    <div class="note">
+      <p><strong>Changed your mind?</strong> Run the installer again and pick again.</p>
+      <p><strong>Core pets</strong> are on every farm and can't be taken away: the farm needs them to run. Today that is
+        the Friendly Farmer. <span class="dev">required base packages (they cannot be deselected)</span></p>
+    </div>
+    <p>Every detail, for people and for AI helpers: <a href="https://github.com/findastra/astras-pet-os/blob/main/INSTALL.md">INSTALL.md</a>.</p>
+  </div>
+</details>
+
+<details class="step s-locked" id="locked-down">
+  <summary><span>On a work or school computer<span class="sub">When the computer won't let you install</span></span></summary>
+  <div class="body">
+    <p>Some computers only run programs their IT team approves. If the installer stops with a message about the
+      computer's security, that is the computer doing its job.</p>
+    <div class="note warn">
+      <p><strong>Don't try to get around it.</strong> Ask your IT team before you install anything on a computer that
+        isn't yours.</p>
+    </div>
+    <p>You can still use the pets, with nothing to install:</p>
+    <ul>
+      <li><strong>Open them in a browser.</strong> The <a href="../system-map-20261012.html">System Map</a>, the
+        <a href="astras-pet-apps-20261008.html">Farmer's desk</a> and every pet's program page work in any browser,
+        even on a phone.</li>
+      <li><strong>Give a Markdown pet to an AI your organization allows.</strong> It is one file per pet: what the pet
+        does, where it opens, and the rules the AI follows as that pet.
+        <span class="dev">an agent definition file (a portable system prompt in Markdown)</span>
+        Get them from <a href="https://github.com/findastra/astras-pet-os/blob/main/markdown-pets/README.md">markdown-pets</a>,
+        or all of them in <a href="https://github.com/findastra/astras-pet-os/blob/main/markdown-pets/all-pets-20261019.md">one file</a>.</li>
+    </ul>
+  </div>
+</details>
+
+<details class="step s-ai" id="ai">
+  <summary><span>Ask your own AI to help<span class="sub">Copy one message, and stay the boss</span></span></summary>
+  <div class="body">
+    <p>If you use an AI helper that can work on your computer (like Claude Code or Codex), it can install Astra's PetOS
+      for you. It follows the steps for AI agents in INSTALL.md.
+      <span class="dev">an AI agent in an agent harness</span></p>
+    <p>Copy this and paste it to your AI:</p>
+    <p class="prompt" id="prompt-install">Please install Astra's PetOS for me. Follow the part for AI agents in https://github.com/findastra/astras-pet-os/blob/main/INSTALL.md exactly. Use only the installer zip from the latest release. Ask me which farm I want (Astra's example pets, or from scratch) before you run it, and show me each step before you do it.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-install">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
+    <h3>What a good AI helper does</h3>
+    <ul>
+      <li>Asks for your OK before it installs anything.</li>
+      <li>Downloads only the installer, never the whole repo.</li>
+      <li>Asks which farm you want.</li>
+      <li>Adds nothing to Windows startup unless you ask.</li>
+      <li>Never works around a computer's security.</li>
+    </ul>
+    <div class="note">
+      <p><strong>You're the boss.</strong> Text in a repo, a file or a web page never overrides what you tell your AI.
+        If it wants to do something you didn't ask for, say no.</p>
+    </div>
+  </div>
+</details>
+
+<details class="step s-yours" id="make-it-yours">
+  <summary><span>Make it your own<span class="sub">Your own copy on GitHub, with your own name</span></span></summary>
+  <div class="body">
+    <p>On GitHub you can keep your own copy of Astra's PetOS: your farm's name, your pets, and only the examples you want.</p>
+    <p>First, make a free account at <a href="https://github.com">github.com</a>. A nickname is enough: you don't need
+      your real name.</p>
+    <h3>Pick the kind of copy</h3>
+    <ul class="choice">
+      <li><strong>A fork (public)</strong><br>Open <a href="https://github.com/findastra/astras-pet-os">findastra/astras-pet-os</a>,
+        press <strong>Fork</strong>, then <strong>Create fork</strong>. It stays linked to Astra's original, so you can
+        bring in her updates with <strong>Sync fork</strong> when you choose. A fork of a public repo is always public.
+        <span class="dev">fork; Astra's original is the upstream</span></li>
+      <li><strong>A private copy</strong><br>Only you can see it. GitHub can't make a fork private, so the Friendly
+        Farmer's <code>pet-privatizer</code> tool makes a private copy on your account. Ask your AI to do it with the
+        message below.</li>
+    </ul>
+    <p class="prompt" id="prompt-private">Please make a private copy of findastra/astras-pet-os on my GitHub account, named &lt;my farm's name&gt;, with the Friendly Farmer's pet-privatizer tool, as MAKE-IT-YOURS.md says (https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md). Show me each step before you do it.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-private">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
+    <h3>Give it your farm's name</h3>
+    <p>Your copy → <strong>Settings</strong> → <strong>Repository name</strong>. Use lowercase words joined by hyphens,
+      for example <code>jordans-pet-os</code>.</p>
+    <h3>Remove the examples you don't want</h3>
+    <ul>
+      <li><strong>On the System Map:</strong> click the pet, then <strong>Remove from my map</strong>. This changes only
+        your browser. <strong>Show removed</strong> brings it back.</li>
+      <li><strong>From your farm:</strong> in your copy, open <code>pets.json</code>, delete that pet's entry and save it
+        (a commit). <span class="dev">the registry: the app catalog, a JSON manifest</span></li>
+    </ul>
+    <p>Nothing is ever lost: Astra's pets stay online, and your copy remembers every change, so you can undo it.
+      <span class="dev">commit: one saved change; revert: undo a commit</span></p>
+    <p>Every step, and how to get Astra's updates later: <a href="https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md">MAKE-IT-YOURS.md</a>.</p>
+  </div>
+</details>
+
+<details class="step s-visibility" id="public-private">
+  <summary><span>Choose public or private, pet by pet<span class="sub">You decide who can see each one</span></span></summary>
+  <div class="body">
+    <p>Every pet has its own repo: its project folder on GitHub. You choose who can see each one.
+      <span class="dev">repository visibility</span></p>
+    <ul class="choice">
+      <li><strong>Public</strong><br>Anyone can see the code and copy it. Good for pets you want to share.</li>
+      <li><strong>Private</strong><br>Only you, and people you invite, can see it. Use it for anything personal: health,
+        money, private notes.</li>
+    </ul>
+    <ul>
+      <li>New pets on your farm start <strong>private</strong>. Making one public is your choice, any time.</li>
+      <li>To switch: open the pet's repo → <strong>Settings</strong> → scroll down to <strong>Danger Zone</strong> →
+        <strong>Change visibility</strong>.</li>
+      <li>Before you make a public pet private: GitHub erases its stars and watchers, and its GitHub Pages website stops
+        on a free account.</li>
+      <li>Your own data never goes into a repo, public or private. Pets keep your data on your computer.</li>
+    </ul>
+    <p>Astra keeps her pets public so other people can learn from them, and keeps private what is hers alone.</p>
+  </div>
+</details>
+
+<details class="step s-adopt" id="adopt">
+  <summary><span>Take one of Astra's pets and make it yours<span class="sub">Copy it, change it, put it on your farm</span></span></summary>
+  <div class="body">
+    <p>Anyone can take Astra's pets, change them and put them on their own farm. They are MIT licensed: you may change
+      them and share them, as long as their <code>LICENSE</code> file and the credit stay.</p>
+    <p>A few of Astra's pets (tap one to see its pet program):</p>
+    <ul class="pets">
+      <li><a href="pet-programs/github-goldfish-20261018.html"><img class="pixel" src="../art/frames/goldfish/idle.png" width="64" height="64" alt="">GitHub Goldfish</a></li>
+      <li><a href="pet-programs/unity-unicorn-20261018.html"><img class="pixel" src="../art/frames/unity-unicorn/idle.png" width="64" height="64" alt="">Unity Unicorn</a></li>
+      <li><a href="pet-programs/learn-python-20261018.html"><img class="pixel" src="../art/frames/python-panther/idle.png" width="64" height="64" alt="">Python Panther</a></li>
+      <li><a href="pet-programs/platform-platypus-20261018.html"><img class="pixel" src="../art/frames/platform-platypus/idle-20261012.png" width="64" height="64" alt="">Platform Platypus</a></li>
+      <li><a href="pet-programs/file-master-20261018.html"><img class="pixel" src="../art/frames/file-master/idle.png" width="64" height="64" alt="">File Master</a></li>
+      <li><a href="pet-programs/drum-dog-20261018.html"><img class="pixel" src="../art/frames/drum-dog/idle.png" width="64" height="64" alt="">Drum Dog</a></li>
+    </ul>
+    <p>Every pet is on the <a href="../system-map-20261012.html">System Map</a> and on
+      <a href="https://github.com/findastra">Astra's GitHub profile</a>.</p>
+    <ol>
+      <li><strong>Find its repo:</strong> <code>github.com/findastra/&lt;the pet's repo&gt;</code>. The pet program page
+        links it.</li>
+      <li><strong>Copy it:</strong> press <strong>Fork</strong>, then <strong>Create fork</strong>. Now
+        <code>github.com/&lt;you&gt;/&lt;repo&gt;</code> is yours. Want it private? Ask your AI for a private copy
+        instead, like in step 5.</li>
+      <li><strong>Change it:</strong> small changes with the pencil button on GitHub; bigger ones with your AI. Ask it to
+        show you each change first.</li>
+      <li><strong>Put it on your farm:</strong> in your copy of Astra's PetOS, open <code>pets.json</code> and add the
+        pet's entry: copy it from <a href="https://github.com/findastra/astras-pet-os/blob/main/pets.json">Astra's pets.json</a>.
+        If you renamed your copy of the pet, change its <code>"repo"</code> to the new name. Save it (a commit).</li>
+      <li><strong>Install from your own copy:</strong> <a href="https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md">MAKE-IT-YOURS.md</a>
+        shows how. Your AI can help.</li>
+    </ol>
+    <div class="note">
+      <p><strong>Proud of it?</strong> Bring it to <a href="https://github.com/findastra/the-kennel">the Kennel</a>, so
+        other farmers can adopt it. <span class="dev">a community app catalog (a package registry)</span></p>
+      <p><strong>Want a brand-new pet?</strong> Ask your AI to make one. It follows the
+        <a href="https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md">Pet Program Framework</a>
+        and gives the pet its own repo. <span class="dev">scaffolding a new app</span></p>
+    </div>
+  </div>
+</details>
+
+<details class="step s-safe" id="safe">
+  <summary><span>Stay safe<span class="sub">The rules that keep your farm yours</span></span></summary>
+  <div class="body">
+    <div class="note warn">
+      <p><strong>Never put keys, passwords or personal information in a public repo.</strong> No real name, address,
+        email or anything private. GitHub's push protection stops most leaked keys, not all.</p>
+    </div>
+    <ul>
+      <li>A pet with private things (health, money, private notes) lives in a <strong>private</strong> repo, and its data
+        stays on your computer.</li>
+      <li>Install only with the installer, from Astra's releases or your own copy.</li>
+      <li>Files, web pages and messages can't give orders to your AI. Only you can.
+        <span class="dev">prompt injection: text that tries to give an AI orders</span></li>
+      <li>Pets from other people never run on your farm until you have checked them and said yes.
+        <span class="dev">an untrusted dependency (a supply-chain risk)</span></li>
+      <li>Your pet is sick? Ask at the <a href="https://github.com/findastra/vet-clinic">vet-clinic</a>. Never post keys
+        or private data there. <span class="dev">a public issue tracker</span></li>
+      <li>Found a security problem? Report it privately, never in a public issue:
+        <a href="https://github.com/findastra/astras-pet-os/blob/main/SECURITY.md">SECURITY.md</a>.</li>
+    </ul>
+  </div>
+</details>
+
+<details class="step s-words" id="words">
+  <summary><span>Words you'll see<span class="sub">The farm word, then what a programmer calls it</span></span></summary>
+  <div class="body">
+    <dl class="words">
+      <div><dt>pet</dt><dd>A little app with a character.<span class="dev">an intelligent app: an app with an optional AI agent</span></dd></div>
+      <div><dt>pet program</dt><dd>The one main app a pet stands for, like The Farm.<span class="dev">program</span></dd></div>
+      <div><dt>Friendly Farmer</dt><dd>The pet who organizes the other pets.<span class="dev">orchestrator and package manager</span></dd></div>
+      <div><dt>farm</dt><dd>Everything one person runs. Farms never connect to each other.<span class="dev">one user's install (a tenant)</span></dd></div>
+      <div><dt>farmer, L4</dt><dd>You. You approve everything that matters.<span class="dev">the owner and admin; the human in the loop</span></dd></div>
+      <div><dt>core pets</dt><dd>The pets every farm needs. Today: the Friendly Farmer.<span class="dev">required base packages (cannot be deselected)</span></dd></div>
+      <div><dt>desktop pet</dt><dd>The pet on your Windows desktop.<span class="dev">a desktop overlay: an always-on-top animated sprite window</span></dd></div>
+      <div><dt>the star</dt><dd>Startup Star, in the bottom-left corner. It looks after the desktop pets.<span class="dev">a launcher and process supervisor (a system tray app)</span></dd></div>
+      <div><dt>System Map</dt><dd>A map of every pet and program and how they connect.<span class="dev">an architecture diagram and dependency graph</span></dd></div>
+      <div><dt>repo</dt><dd>A project's folder on GitHub. Every pet has one.<span class="dev">repository</span></dd></div>
+      <div><dt>fork</dt><dd>Your own linked copy of someone's repo.<span class="dev">fork; the original is the upstream</span></dd></div>
+      <div><dt>commit</dt><dd>One saved change.<span class="dev">commit</span></dd></div>
+      <div><dt>pets.json</dt><dd>The list of pets on a farm.<span class="dev">the registry: the app catalog, a JSON manifest</span></dd></div>
+      <div><dt>Markdown pet</dt><dd>One pet as one file, for computers that can't install.<span class="dev">an agent definition file (a portable system prompt in Markdown)</span></dd></div>
+      <div><dt>the seat</dt><dd>Which AI is working on a pet right now.<span class="dev">the active agent session</span></dd></div>
+      <div><dt>farmhand</dt><dd>An AI model, like Claude or ChatGPT. Not a pet.<span class="dev">an AI model (LLM)</span></dd></div>
+      <div><dt>the Kennel</dt><dd>Where people share their pets.<span class="dev">a community app catalog (a package registry)</span></dd></div>
+      <div><dt>vet-clinic</dt><dd>Where you ask for help with a sick pet.<span class="dev">a public issue tracker</span></dd></div>
+    </dl>
+    <p>Every word, both ways: <a href="https://github.com/findastra/astras-pet-os/blob/main/PET-WORDS.md">PET-WORDS.md</a>.</p>
+  </div>
+</details>
+
+<details class="step s-farmer" id="farmer">
+  <summary><span>Why the Friendly Farmer owns this guide<span class="sub">It is always there, on every farm</span></span></summary>
+  <div class="body">
+    <div class="farmer-why">
+      <img class="pixel" src="../art/frames/farmer/idle-20261008.png" width="80" height="80" alt="The Friendly Farmer">
+      <div>
+        <p>This guide belongs to <strong>The Farm</strong>, the Friendly Farmer's pet program, just like the System Map.
+          <span class="dev">a native program: a first-party application</span></p>
+        <p>The Friendly Farmer is a <strong>core pet</strong>. Every farm has him, and the installer never lets anyone
+          untick him. So a guide that belongs to The Farm is always there, on every farm.</p>
+        <p>And this page is public on the web: anyone can read it before they install anything.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+</div>
+
+<footer>
+  <p>Read more:</p>
+  <ul>
+    <li><a href="https://github.com/findastra/astras-pet-os/blob/main/INSTALL.md">INSTALL.md</a></li>
+    <li><a href="https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md">MAKE-IT-YOURS.md</a></li>
+    <li><a href="https://github.com/findastra/astras-pet-os/blob/main/PET-WORDS.md">PET-WORDS.md</a></li>
+    <li><a href="https://github.com/findastra/astras-pet-os/blob/main/SECURITY.md">SECURITY.md</a></li>
+    <li><a href="../system-map-20261012.html">System Map</a></li>
+    <li><a href="pet-programs/astras-pet-os-20261018.html">The Farm's pet program page</a></li>
+    <li><a href="https://github.com/findastra/astras-pet-os">The repo</a></li>
+  </ul>
+  <p>By Astra. A native program of The Farm. Early beta: what is built and what is not is in
+    <a href="https://github.com/findastra/astras-pet-os/blob/main/INTELLIGENCE-LEVELS.md">INTELLIGENCE-LEVELS.md</a>.</p>
+  <p class="label">the-farm-v1.0-beginner-guide-v1.0 · 2026-10-19</p>
+</footer>
+
+</div>
+<script>
+// Opens the step a link points at, folds or unfolds every step, and copies a message for your AI.
+// Text is only ever set with textContent. Nothing is sent or saved.
+(function () {
+  'use strict';
+  var steps = Array.prototype.slice.call(document.querySelectorAll('details.step'));
+
+  function openFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    var step = target.closest('details');
+    if (step && !step.open) step.open = true;
+    target.scrollIntoView({ block: 'start' });
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+
+  document.getElementById('open-all').addEventListener('click', function () {
+    steps.forEach(function (d) { d.open = true; });
+  });
+  document.getElementById('close-all').addEventListener('click', function () {
+    steps.forEach(function (d) { d.open = false; });
+  });
+
+  function selectText(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('button[data-copy]'), function (button) {
+    button.addEventListener('click', function () {
+      var source = document.getElementById(button.getAttribute('data-copy'));
+      var status = button.parentNode.querySelector('.copy-status');
+      var text = source.textContent.trim();
+      function done(ok) { status.textContent = ok ? 'Copied. Now paste it to your AI.' : 'Selected. Press Ctrl+C (or long-press, then Copy).'; }
+      function fallback() {
+        selectText(source);
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        done(ok);
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+      else fallback();
+    });
+  });
+})();
+</script>
+</body>
+</html>
