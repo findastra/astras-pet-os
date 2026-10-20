@@ -1,4 +1,4 @@
-# Unity Unicorn's page, panel by panel (2026-10-18)
+# Unity Unicorn's page, tool panel by tool panel (2026-10-18)
 
 *The example for [PET-PROGRAM-FRAMEWORK.md](../PET-PROGRAM-FRAMEWORK.md), section 3: what goes in each of Unity
 Unicorn's four intelligence-level panels, so no tool is missed. Read from
@@ -13,6 +13,10 @@ has these panels since [PR #8](https://github.com/findastra/unity-unicorn/pull/8
 them `unity-unicorn-L1-panel` to `-L4-panel` (page 0.4.2; not merged until Astra's OK). The file keeps its name,
 because links point at it. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
 
+*Tool panels (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"): the hub's pages say
+`unity-unicorn-L1-tool-panel` to `-L4-tool-panel`; Unity Unicorn's own page keeps `-L1-panel` until its own pull
+request renames them (card 047, task 7).*
+
 *Tools and tricks (Astra, 2026-10-19): [PR #114](https://github.com/findastra/astras-pet-os/pull/114) made vcc-package-manager and vrchat-avatar-upload native tricks of
 Unity Stable, because they have no code, only written steps. That answers question 3 below. This doc now has 34 tools
 on `main` (with matcap-palette and menu-map, unity-unicorn [PR #13](https://github.com/findastra/unity-unicorn/pull/13) and [PR #14](https://github.com/findastra/unity-unicorn/pull/14)) and 4 tricks to write. [unity-unicorn PR #15](https://github.com/findastra/unity-unicorn/pull/15) made the
@@ -25,7 +29,7 @@ unity-asset-creator trick. This doc now has 37 tools on `main`; their tool boxes
 
 Home: **Unity Stable** (`pet-programs.json`; Astra kept the name on 2026-10-18).
 
-## `unity-unicorn-L1-panel`
+## `unity-unicorn-L1-tool-panel`
 
 **3rd party programs** (`L1.third_party`): Unity 2022.3, VRChat Creator Companion (VCC), VRChat SDK, Blender
 (marble-carver, vine-bloomer, neck-blender, prop-decomposer and realistic-prop-restyle run in it), VRCFT (face
@@ -100,7 +104,7 @@ The sketch shows two of these as **copyright-collector** and **copyright-auditor
 No tool of another pet is listed here: the Friendly Farmer's, Skill Scout's and Door Dormouse's stay in their own pet
 programs.
 
-## `unity-unicorn-L2-panel`
+## `unity-unicorn-L2-tool-panel`
 
 **Your tricks** (`L2.tricks`): **make-a-prop-look-real**
 ([skills/make-a-prop-look-real/SKILL.md](https://github.com/findastra/unity-unicorn/blob/main/skills/make-a-prop-look-real/SKILL.md),
@@ -129,7 +133,7 @@ system-map.json), Piranesi Nessi (Unity builds of Piranesi House; planned, not i
 also names Pole Puff and OSC Sealion (their worlds' Unity builds and face-tracking rigs); they are not on the page or in
 the relations yet.
 
-## `unity-unicorn-L3-panel`
+## `unity-unicorn-L3-tool-panel`
 
 **The seat:** Claude Code or Codex when a chat is working on it. The page does not show it live yet: the presence link
 is not built.
@@ -138,7 +142,7 @@ face-transfer is in L1 and L3 by name only: in L1 it is the pet's tool (script a
 Claude Code's skill of the same name, installed on the PC.
 Planned: the L3 activity bubble, suggestions, and token use from Token Toucan.
 
-## `unity-unicorn-L4-panel`
+## `unity-unicorn-L4-tool-panel`
 
 **Approvals waiting on you:** merging unity-unicorn PR #1 and PR #3, once Codex has brought them up to date.
 **Always yours:** the VRChat copyright agreement at upload (the skill book: "Always ask Astra before clicking OK").

@@ -157,7 +157,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-program-spawner-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every module of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
+      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every tool panel of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
     },
     {
       "id": "markdown-pets",
@@ -241,7 +241,7 @@
       "version": "v1.0",
       "label": "discord-tower-v1.0-sticker-manager-v1.0",
       "url": "https://github.com/findastra/findastra-discord-presence/tree/main/discord-tower/sticker-manager",
-      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
+      "job": "A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
     },
     {
       "id": "cli-proxy-api-manager",

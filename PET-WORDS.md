@@ -64,21 +64,21 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 
 | Call it | Programmer word | What it is |
 |---|---|---|
-| **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of panels. The spawner writes the basic one. |
-| **panel** | panel: a collapsible section (HTML `details`) | A bordered group with its label set into the top border. Called a **module** until 2026-10-19: to developers a module is a file of code. |
+| **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of tool panels. The spawner writes the basic one. |
+| **tool panel** | panel: a collapsible section (HTML `details`); developers read "tool panel" as a panel that holds tools | A bordered group with its label set into the top border. Called a **module**, then a **panel**, until 2026-10-19 (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"). |
 | **`<pet>-cyberhome`** | avatar panel (status widget) | Top left: where the pet sits while the page is open, with its paired lights. |
 | **`<home>-pet-program-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does. |
-| **`<pet>-L1-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **your programs** (applications the pet manages) and **your tools** (its own scripts and utilities), including tools not merged yet. |
-| **`<pet>-L2-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
-| **`<pet>-L3-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
-| **`<pet>-L4-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, grants, agent keys, items needing maintenance and the pet passport. |
+| **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **your programs** (applications the pet manages) and **your tools** (its own scripts and utilities), including tools not merged yet. |
+| **`<pet>-L2-tool-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
+| **`<pet>-L3-tool-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
+| **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, grants, agent keys, items needing maintenance and the pet passport. |
 | **tool box** | card with a title (HTML `fieldset` with a `legend`) | How one tool shows on a page, with its versioned label on the top border. |
 | **trick box** | skill card | How one trick shows: where it came from, which tools it uses, ON/OFF. |
 | **connection box** | integration card: what flows between two services | A box titled with the other pet's name: what each side sends and receives, with its own ON/OFF. |
 | **paired lights** | two toggle buttons per item | ON/OFF on the left, maintenance on the right. |
 | **ON/OFF light** | kill switch (a feature flag) | Green on, red off. Turning it back on after a security OFF needs L4. |
 | **maintenance light** | user-reported defect flag | Blue working correctly, yellow requires maintenance. Only you clear it. |
-| **activity light** | activity indicator | The light on each level panel's top border; what it means waits on Astra. |
+| **activity light** | activity indicator | The light on each level tool panel's top border; what it means waits on Astra. |
 | **status line** | status bar | Whose data, last entry, last update, who is in the seat, and the map link. |
 | **`<pet>-session-notes`** | feedback form | A text box with **submit** and **add file**; every note goes to the backlog first. |
 | **backlog** | backlog (an issue queue) | The never-lost list of notes and change requests, `<pet-program>-backlog`. |
@@ -119,7 +119,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
 | **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
 | **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
-| **your programs** | managed applications (the L1 panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
+| **your programs** | managed applications (the L1 tool panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |
 | **seed** | planned (an approved idea, no repo yet) | A pet with an approved name and no repo yet. |
