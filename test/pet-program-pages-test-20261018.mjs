@@ -127,10 +127,14 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     const pills = items.split('<li class="pill">').slice(1);
     for (const p of pills) {
       assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
-      assert.match(p, /<details class="pill-more"><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
+      assert.match(p, /<details class="pill-more"( open)?><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
+      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
+      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"'), `${d.repo}: open only to show a picture`);
     }
   }
+  const puffer = files[pagePath('portfolio-puffer')];
+  assert.match(puffer, /<details class="pill-more" open><summary[^>]*><span class="item-name">Astra&#39;s Star Window<\/span>[\s\S]*?<p class="pill-picture"><img src="https:\/\/findastra\.github\.io\/astras-star-window\/star-window\.svg"/, "Portfolio Puffer's page shows the photo star");
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
   for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);

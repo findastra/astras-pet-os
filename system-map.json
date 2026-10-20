@@ -256,6 +256,20 @@
       "job": "A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
     },
     {
+      "id": "astras-star-window",
+      "name": "Astra's Star Window",
+      "type": "tool",
+      "of": "program-14",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-astras-star-window-v1.0",
+      "url": "https://findastra.github.io/astras-star-window/star-window-editor-20261019.html",
+      "picture": "https://findastra.github.io/astras-star-window/star-window.svg",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window: one hosted picture of a fat star fading between Astra's favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). Upload a photo, drag it until it sits right in the star, Capture: one commit changes it everywhere it is shown. Its own repo is findastra/astras-star-window (PR #1); saving uses Astra's own key for that repo only, kept in her browser."
+    },
+    {
       "id": "cli-proxy-api-manager",
       "name": "CLI Proxy API manager",
       "type": "tool",
@@ -4983,6 +4997,13 @@
       "carries": "manages",
       "state": "planned",
       "why": "Fuzzboi Friend watches over the Fuzzbois website and shows its health with his mood (Astra, 2026-10-12)."
+    },
+    {
+      "from": "astras-star-window",
+      "to": "github",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
     },
     {
       "from": "fuzzboi-friend",
