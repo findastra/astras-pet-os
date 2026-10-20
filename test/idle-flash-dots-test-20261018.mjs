@@ -173,7 +173,7 @@ test('A59: the System Map draws a line from the pet to its one program', () => {
 
 test('A59: the README links to the program, added under the credit line', () => {
   const reg = { repo: 'rgbee', interface_url: 'https://findastra.github.io/rgbee/', interface_live_url: 'https://findastra.github.io/rgbee/' };
-  const rows = a59ForPet({ prog: prog(), reg, repo, readme: '# RGBee\n\n*An Intelligent App, or Pet, by Astra.*\n\nLights.\n' });
+  const rows = a59ForPet({ prog: prog(), reg, repo, readme: '# RGBee\n\n*By Astra.*\n\nLights.\n' });
   assert.deepEqual(rows.map((r) => [r.fix.type, r.fix.to, r.fix.label]), [['a59-readme', 'https://findastra.github.io/rgbee/', 'Light Hive']]);
   assert.deepEqual(a59ForPet({ prog: prog(), reg, repo, readme: '# RGBee\n\nOpen [Light Hive](https://findastra.github.io/rgbee)\n' }), []);
   assert.deepEqual(a59ForPet({ prog: prog({ stage: 'seed' }), repo, readme: '# Seed\n' }), [], 'nothing to link to yet (A09, planned)');
@@ -200,7 +200,7 @@ test('A59 repo fixes change pet.json\'s entry and the README only', () => {
   try {
     writeFileSync(join(dir, 'pet.json'), '{\n  "pet": "RGBee",\n  "entry": "gone.html",\n  "audit": { "cadence": "weekly" }\n}\n');
     writeFileSync(join(dir, 'rgbee-20261009.html'), '<title>Light Hive</title>');
-    writeFileSync(join(dir, 'README.md'), '# RGBee\n\n*An Intelligent App, or Pet, by Astra.*\n\nLights.\n');
+    writeFileSync(join(dir, 'README.md'), '# RGBee\n\n*By Astra.*\n\nLights.\n');
     const rows = [{ check: 'A59', fix: { type: 'a59-entry', where: 'repo', id: 'entry', to: 'rgbee-20261009.html' } },
       { check: 'A59', fix: { type: 'a59-readme', where: 'repo', id: 'readme', to: 'https://findastra.github.io/rgbee/', label: 'Light Hive' } },
       { check: 'A59', fix: { type: 'a59-registry', where: 'hub', id: 'registry:rgbee:interface_url' } }];
@@ -208,11 +208,11 @@ test('A59 repo fixes change pet.json\'s entry and the README only', () => {
     assert.deepEqual(applied, ['entry', 'readme']);
     assert.equal(JSON.parse(readFileSync(join(dir, 'pet.json'), 'utf8')).entry, 'rgbee-20261009.html');
     assert.equal(readFileSync(join(dir, 'pet.json'), 'utf8'), '{\n  "pet": "RGBee",\n  "entry": "rgbee-20261009.html",\n  "audit": { "cadence": "weekly" }\n}\n', 'the rest of pet.json keeps its layout');
-    assert.equal(readFileSync(join(dir, 'README.md'), 'utf8'), '# RGBee\n\n*An Intelligent App, or Pet, by Astra.*\n\n**Pet program:** [Light Hive](https://findastra.github.io/rgbee/)\n\nLights.\n');
+    assert.equal(readFileSync(join(dir, 'README.md'), 'utf8'), '# RGBee\n\n*By Astra.*\n\n**Pet program:** [Light Hive](https://findastra.github.io/rgbee/)\n\nLights.\n');
     assert.deepEqual(applyA59Repo(dir, rows).applied, [], 'a second run changes nothing');
   } finally { rmSync(dir, { recursive: true, force: true }); }
-  assert.equal(addReadmeLink('*An Intelligent App, or Pet, by Astra.*\r\n\r\n# Voicemeeter Bug\r\n\r\nA bug.\r\n', 'Audio Rescue', 'https://x.example/'),
-    '*An Intelligent App, or Pet, by Astra.*\r\n\r\n# Voicemeeter Bug\r\n\r\n**Pet program:** [Audio Rescue](https://x.example/)\r\n\r\nA bug.\r\n', 'a credit above the title: the link goes under the title, line endings kept');
+  assert.equal(addReadmeLink('*By Astra.*\r\n\r\n# Voicemeeter Bug\r\n\r\nA bug.\r\n', 'Audio Rescue', 'https://x.example/'),
+    '*By Astra.*\r\n\r\n# Voicemeeter Bug\r\n\r\n**Pet program:** [Audio Rescue](https://x.example/)\r\n\r\nA bug.\r\n', 'a credit above the title: the link goes under the title, line endings kept');
 });
 
 test('A59 hub fixes keep pets.json, pet-programs.json and system-map.json in their own layout', () => {

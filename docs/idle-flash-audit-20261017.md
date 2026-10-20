@@ -43,7 +43,7 @@ the checks themselves take about an hour.
   job and audit block. **Not** a field the pet has submitted to the Farmer (`cage.submit`): that is a decision.
 - Required files that are simply missing: `CLAUDE.md`, `AGENTS.md`, an MIT `LICENSE` (public pet repos only, never
   on an art-only repo), and `pet.json` built from a decided registry entry.
-- README: the credit line `*An Intelligent App, or Pet, by Astra.*` (Astra, 2026-10-18, card 033; the old "A pet app by Astra" line is changed to it), a **Limits** section (from `INTELLIGENCE-LEVELS.md`), and **Run it**
+- README: the credit `*By Astra.*` (Astra, 2026-10-20, card 059; a retired credit line, card 033's or the one before it, is changed to it), a **Limits** section (from `INTELLIGENCE-LEVELS.md`), and **Run it**
   for unbuilt seed repos.
 - The `pet-app` topic on a public pet repo that the registry already lists.
 - **A repo for every named pet that has none** (Astra, 2026-10-17). Same shape as the seed repos started on

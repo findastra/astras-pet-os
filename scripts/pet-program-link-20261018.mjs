@@ -269,7 +269,7 @@ export function addReadmeLink(readme, label, url) {
   const line = `**Pet program:** [${label}](${url})`;
   const eol = eolOf(readme);
   const lines = readme.split('\n');
-  const isCredit = (l) => /^\*(?:An Intelligent App, or Pet, by Astra|A pet app by Astra)\.\*/.test(l);
+  const isCredit = (l) => /^\*(?:By Astra|An Intelligent App, or Pet, by Astra|A pet app by Astra)\.\*/.test(l);
   const h1 = lines.findIndex((l) => /^#\s.+/.test(l));
   let at = h1 >= 0 ? h1 : lines.findIndex(isCredit);
   if (h1 >= 0) {
