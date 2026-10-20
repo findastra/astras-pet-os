@@ -41,7 +41,7 @@ card's commit):
   (#131) and the cyberhome card (#137) reached `main` first with those numbers, so they kept them.
 
 **Tested,** in an LF clone (`core.autocrlf=false`) in Claude's scratchpad, never in Astra's PC folders: `npm run build`,
-then `npm test`. `main` moved four times while this was open; after merging it (up to #142 and #147) into the branch and
+then `npm test`. `main` moved five times while this was open; after merging it (up to #145 and #146) into the branch and
 rebuilding: 210 tests, 209 pass, 0 fail, 1 skipped. I looked at the rebuilt page in the browser pane: the connector
 is under "Your tools" with its label, and VRChat is under "3rd party programs" as planned. Nothing on Astra's PC changed.
 I only read the-astral-plane's merged docs from `C:\ai_astra\ai_astra_main`.

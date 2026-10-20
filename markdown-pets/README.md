@@ -62,10 +62,10 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 34 | [Raspberry Pi Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
 | 35 | [Chat Rat](chat-rat-20261019.md) | Chat Stack | Saves local AI conversations and imported exports, filed by model and YYYYMMDD date, with a button that opens each folder. | no app yet |
 | 36 | [Platform Platypus](platform-platypus-20261019.md) | Mirror Pool | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [opens in a browser](https://findastra.github.io/platform-platypus/) |
-| 48 | [Log Lynx](log-den-20261019.md) | Log Den | Observability: correlates logs, traces, health and failures. | no app yet |
-| 53 | [Packet Piranha](packet-river-20261019.md) | Packet River | Network: packet loss, DNS, latency, routing. | no app yet |
+| 48 | [Log Lynx](log-den-20261019.md) | Log Den | Observability: correlates logs, traces, health and failures. | [opens in a browser](https://github.com/findastra/log-den#run-it) |
+| 53 | [Packet Piranha](packet-river-20261019.md) | Packet River | Network: packet loss, DNS, latency, routing. | [opens in a browser](https://github.com/findastra/packet-river#run-it) |
 | 58 | [Linux Penguin](linux-iceberg-20261019.md) | Linux Iceberg | Linux administration, SSH, systemd, packages. | no app yet |
-| 70 | [Forensic Ferret](evidence-locker-20261019.md) | Evidence Locker | Incident timelines and log analysis. | no app yet |
+| 70 | [Forensic Ferret](evidence-locker-20261019.md) | Evidence Locker | Incident timelines and log analysis. | [opens in a browser](https://github.com/findastra/evidence-locker#run-it) |
 | 83 | [Role Fairy](role-fairy-20261019.md) | Fairy Ring | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 
