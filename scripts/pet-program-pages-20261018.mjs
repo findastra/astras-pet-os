@@ -341,7 +341,19 @@ function keyRequestsPanel(d) {
 <p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'key-requests', light: true });
 }
 
-export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
+// By Astra. OpenAI Codex (GPT-6), 2026-10-20. No private archive state enters the hub.
+function dmArchivePanel(d) {
+  const source = d.programs.find(p => p.id === 'dm-archive-review')?.url;
+  if (!source) return '';
+  return panel(`${d.petSlug}-dm-archive-tool-panel`, `<fieldset class="tool-box"><legend>discord-tower-v1.0-dm-archive-v0.1</legend>
+<h3>DM archive review</h3><p>Check and search a conversation saved with DiscordChatExporter. Messages and media stay in the review tab on your computer.</p>
+<p class="small">Source prepared · adoption pending. No archive is loaded here. Export and deletion are separate.</p>
+<p><a class="button" id="dm-archive-open" href="${esc(source)}">Get the local viewer</a></p>
+<p class="small" id="dm-archive-open-note">Download Damsel's repository after the archive review change is merged, then open discord-damsel-archive-review-20261020.html. This public page cannot read your computer's files.</p>
+</fieldset>`, { cls: 'dm-archive' });
+}
+
+export const PET_PANELS = { 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -559,7 +571,7 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
+${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>${d.repo === 'findastra-discord-presence' ? '\n<script src="../discord-damsel-archive-launcher-20261020.js"></script>' : ''}
 </body>
 </html>
 `, pagePath(d.repo));
