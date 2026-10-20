@@ -2,7 +2,7 @@
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-12.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { systemMapData, buildSystemMap, petIcons, applyAccessDoc, applyPartsDoc, partsRows, SYSTEM_MAP } from '../scripts/system-map-20261012.mjs';
 import { redactData } from '../scripts/public-safety-20261014.mjs';
@@ -94,6 +94,25 @@ test('R W X lives on grants with a status, never on a ring', () => {
   assert.ok(!data.nodes.find((n) => n.id === 'pole-puff').access.on.includes('seat-animals'), 'a seed is not an animal, so the animals grant does not reach it');
   assert.ok(data.nodes.find((n) => n.id === 'chatgpt').access.by.includes('adviser'));
   assert.ok(!data.nodes.find((n) => n.id === 'voicemeeter').access.on.includes('adviser'), 'a grant of all "no" shows only on its subject');
+});
+
+// Astra, 2026-10-18: the programs made by you and by others are told apart, and every card shows L1 to L4 with each
+// level's R W X. Claude Opus 5.5 (claude-opus-5-5).
+test('ring 3 is made by you and ring 5 by others', () => {
+  const data = systemMapData(registry, extra, programs);
+  const ring = (id) => data.rings.find((r) => r.ring === id);
+  assert.equal(ring('3').made, 'you');
+  assert.equal(ring('5').made, 'others');
+});
+
+test('every grant says which levels (L1 to L4) hold it', () => {
+  for (const g of extra.access.grants) {
+    assert.ok(Array.isArray(g.level) && g.level.every((l) => ['L1', 'L2', 'L3', 'L4'].includes(l)), `${g.id}: level`);
+  }
+  const level = (id) => extra.access.grants.find((g) => g.id === id).level;
+  assert.deepEqual(level('owner'), ['L4']);
+  assert.deepEqual(level('seat-animals'), ['L3']);
+  assert.deepEqual(level('adviser'), [], 'the adviser is outside your levels');
 });
 
 test('every gap a grant names is in the Known gaps table', () => {
@@ -191,4 +210,42 @@ test('TOOLS-AND-TRICKS.md holds the whole registry as one table, up to date (run
     assert.ok(listed.has(n.id), `${n.id} is missing from the registry table`);
   for (const k of ['own-program', 'tool', 'trick', 'program']) assert.ok(rows.some((r) => r.kind === k), `no ${k} rows`);
   for (const p of registry.relations.private) assert.ok(!rows.some((r) => programs.find((q) => q.repo === p && q.number === r.number)), `${p} is private`);
+});
+
+// Every place that shows a pet opens its pet program page (Astra, 2026-10-19), the map card too.
+test('every pet on the map links its pet program page, and its pet program card links it too', () => {
+  const data = systemMapData(registry, extra, programs);
+  const regs = [...registry.pets, ...registry.pipeline];
+  for (const n of data.nodes.filter((x) => ['host', 'pet', 'pipeline'].includes(x.type))) {
+    assert.equal(n.page, regs.find((p) => p.repo === n.repo).interface_url, `${n.id}: the map links pets.json interface_url`);
+    assert.match(n.page, /^apps\/pet-programs\/[a-z0-9-]+\.html$/, `${n.id}: its pet program page`);
+    assert.ok(existsSync(root + n.page), `${n.id}: ${n.page} is missing`);
+  }
+  const page = read(SYSTEM_MAP.template);
+  assert.ok(page.includes("p.append(document.createTextNode('Pet Program: '))"), 'the card says Pet Program');
+  assert.ok(page.includes('m.page&&m.home&&m.home.number===n.program'), 'a pet program card links its pet\'s page');
+});
+
+// Option C (Astra, 2026-10-19): "W R X what it should be, then some kind of easy indicator of whether that is reflected
+// in the current code". Every In code (enforced) grant names its proof; the build refuses one that does not.
+test('every In code grant names its proof, and the build refuses one without', () => {
+  assert.deepEqual(Object.fromEntries(Object.entries(extra.access.statuses).map(([k, s]) => [k, s.mark])),
+    { enforced: 'In code', written: 'Rule only', planned: 'Not built' });
+  for (const g of extra.access.grants) {
+    if (g.status !== 'enforced') { assert.equal(g.evidence, undefined, `${g.id}: only an In code grant names proof`); continue; }
+    assert.ok(g.evidence?.length, `${g.id}: In code needs its proof`);
+    for (const e of g.evidence) {
+      const [kind] = Object.keys(e);
+      assert.ok(['test', 'script', 'setting'].includes(kind), `${g.id}: proof is a test, script or setting`);
+      if (kind !== 'setting') assert.ok(existsSync(root + e[kind]), `${g.id}: ${e[kind]} is in the repo`);
+    }
+  }
+  const change = (id, evidence) => { const x = structuredClone(extra); x.access.grants.find((g) => g.id === id).evidence = evidence; return x; };
+  assert.throws(() => systemMapData(registry, change('farmer-round', []), programs), /names no evidence/);
+  assert.throws(() => systemMapData(registry, change('farmer-round', [{ test: 'test/no-such-test.mjs' }]), programs), /not in the repo/);
+  assert.throws(() => systemMapData(registry, change('seat-core', [{ setting: 'a rule' }]), programs), /cannot name evidence/);
+  const page = read(SYSTEM_MAP.template);
+  assert.ok(page.includes("el('span','should','Should be')"), 'every level row on a card says what it should be');
+  assert.ok(page.includes('function proofLine(g)'), 'a card shows the proof of every In code');
+  assert.ok(read('PROTECTION-RINGS.md').includes('**Proof:** [`test/farmer-rounds-pr-test-20261017.mjs`]'), 'PROTECTION-RINGS.md names each proof (run npm run build)');
 });

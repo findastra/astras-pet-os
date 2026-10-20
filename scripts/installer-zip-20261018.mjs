@@ -22,6 +22,17 @@ export const CMD = "Install Astra's PetOS.cmd";
 export const README = 'READ ME FIRST.txt';
 export const INSTALLER = 'files\\installer\\install-astras-pet-os-20261014.ps1';
 export const folder = (tag) => `Astra's PetOS installer ${tag}`;
+export const MARKDOWN_PETS = 'https://github.com/findastra/astras-pet-os/tree/main/markdown-pets';
+/** What the .cmd says when the installer stops: on a work or school computer that is usually its security. Plain
+ *  ASCII and no parentheses inside the block, so cmd.exe reads it the same everywhere. */
+export const LOCKED_CMD = [
+  'if errorlevel 1 (',
+  '  echo.',
+  "  echo If this is a work or school computer, its security may not allow this installer. Do not try to get around it.",
+  "  echo Use Astra's PetOS with nothing to install: open the pets in a browser and give their Markdown files to an AI",
+  `  echo your organization allows: ${MARKDOWN_PETS}`,
+  ')',
+];
 const crlf = (lines) => lines.join('\r\n') + '\r\n';
 
 /** The one file to double-click. Options pass straight through to the installer. */
@@ -35,6 +46,8 @@ export function installerCmd() {
     'echo Astra\'s PetOS is starting its installer. A "Set up your farm" window will open in a moment.',
     'echo.',
     `powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0${INSTALLER}" %*`,
+    // A locked-down computer (Astra, 2026-10-19): say what to do instead, and never work around its security.
+    ...LOCKED_CMD,
     'echo.',
     'pause',
   ]);
@@ -55,6 +68,11 @@ export function readMe(tag) {
     '3. Press "Set up my farm". Your pets appear on your desktop.',
     '',
     'To change your farm later, run the installer again. Uninstall any time from the Start menu.',
+    '',
+    'IF THIS COMPUTER WILL NOT LET YOU INSTALL (a work or school computer)',
+    "Some computers only run programs their IT team approves. Do not try to get around that. Use Astra's PetOS",
+    'with nothing to install: open the pets in a browser and give their Markdown files to an AI your organization',
+    `allows. Start here: ${MARKDOWN_PETS}`,
     'You never need to open the "files" folder: it is the program the installer copies and builds.',
     '',
     'FOR AN AI AGENT INSTALLING THIS FOR SOMEONE',
@@ -66,6 +84,9 @@ export function readMe(tag) {
     `    powershell -NoProfile -ExecutionPolicy Bypass -File ".\\${INSTALLER}" -Farm Scratch -Pets goldfish,api-fairy`,
     '  An unknown pet id stops the installer and lists the ids it knows. With -Farm, no window waits for a click.',
     '- Do not add -StartWithWindows unless your person asks for it.',
+    "- On a work or school computer, first ask your person whether their IT team allows installing it. If the",
+    "  computer's security stops the installer, stop: never work around it. Use the Markdown pets instead:",
+    `  ${MARKDOWN_PETS}`,
     '- Full guide: https://github.com/findastra/astras-pet-os/blob/main/INSTALL.md',
   ]);
 }

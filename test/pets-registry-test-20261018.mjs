@@ -148,7 +148,7 @@ test('frame cleanup rejects paths outside the expected per-pet directory', () =>
   assert.throws(() => assetPaths({ pets: [{ art: 'ghost', asset_date: '../escape' }] }, 'ghost'), /asset_date/);
 });
 
-test('Chip preserves every pixel of the original Data Dealer happy drawing', () => {
+test('Data Chip preserves every pixel of the original Data Dealer happy drawing', () => {
   const pixels = originalChipPixels('happy');
   // Independently captured from the original app's drawPet canvas output.
   assert.equal(createHash('sha256').update(pixels.join(',')).digest('hex'), 'a3fc9068ce610774b758ce5b3b40260e04c40f7ea50f2dd9cf3853e8089ea5c2');
@@ -160,7 +160,7 @@ test('Chip preserves every pixel of the original Data Dealer happy drawing', () 
   for (const x of [13, 18]) assert.equal(at(x, 9), CHIP_COLOURS.ink, 'original eyes');
 });
 
-test('Chip frame embeds the original LCD at integer scale in the original yellow shell', () => {
+test('Data Chip frame embeds the original LCD at integer scale in the original yellow shell', () => {
   assert.equal(art.pets.chip.art_kind, 'original-code');
   assert.equal(art.pets.chip.source, 'scripts/chip-original-20261008.mjs');
   const img = frame('chip', 'idle'), original = originalChipPixels('happy');
@@ -255,13 +255,13 @@ test('validate catches the mistakes it exists for', () => {
 test('the table only links pets that are on GitHub', () => {
   const sample = structuredClone(registry);
   Object.assign(sample.pets.find((p) => p.repo === 'github-goldfish'), { published: false });
-  // Chip stands in for a private pet here, whatever the Farmer's round last saw on GitHub.
+  // Data Chip stands in for a private pet here, whatever the Farmer's round last saw on GitHub.
   Object.assign(sample.pets.find((p) => p.repo === 'data-dealer'), { visibility: 'private' });
   const table = buildTable(sample);
   assert.ok(!/\[GitHub Goldfish\]\(/.test(table), 'unpublished pets have no link');
-  assert.match(table, /\[Paper Girl Patty\]\(https:\/\/github\.com\/findastra\/paper-girl\)/);
+  assert.match(table, /\[Paper Patty\]\(https:\/\/github\.com\/findastra\/paper-girl\)/);
   assert.match(table, /not on GitHub yet/);
-  assert.match(table, /\*\*Chip\*\*.*private repo/);
+  assert.match(table, /\*\*Data Chip\*\*.*private repo/);
   assert.ok(!table.includes('github.com/findastra/data-dealer'), 'private repositories have no public download link');
 });
 

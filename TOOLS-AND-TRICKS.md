@@ -8,10 +8,10 @@ added 2026-10-18 (Astra: "we need to anticipate how tricks and tools will be reg
 
 - A **tool** is code. A computer runs it the same way every time, with no AI. It lives on **L1**.
 - A **trick** is instructions. **It is owned at L2 and followed at L3**: the pet keeps it (in its repo, on its page's
-  L2 panel, tracked by Skill Scout), and only an AI in the seat can carry it out. With nobody in the seat it is text
+  L2 tool panel, tracked by Skill Scout), and only an AI in the seat can carry it out. With nobody in the seat it is text
   that does nothing. That is why a pet without an agent has tools but no tricks it can use.
 - A **harness skill** is instructions too, but it belongs to **the seat** (Claude Code or Codex, installed on this PC),
-  not to any pet. It helps an AI work *on* a pet. It is shown on the pet's L3 panel.
+  not to any pet. It helps an AI work *on* a pet. It is shown on the pet's L3 tool panel.
 
 When an AI has to follow it, it is a trick or a harness skill, never a tool. A trick does the pet's own job; a harness
 skill helps whoever builds or repairs the pet ([ASTRAS_PET_OS.md](ASTRAS_PET_OS.md), section 8.6: runtime and
@@ -51,7 +51,7 @@ files).
 | Main risk | Bad or changed code, a stranger's code (supply chain), a grant that is too wide | Prompt injection, steps that drift, steps that steer an agent into misusing a tool | The same as a trick, across every pet the seat touches |
 | What actually holds | The grant, the ON/OFF switch in the core, tests; the sandbox (planned) | **Only the grants on the tools it uses.** The text holds nothing: skill instructions are not security boundaries (ASTRAS_PET_OS.md, section 8.6) | The harness's own permission questions (grant 4 in PROTECTION-RINGS.md) and the rules in AGENTS.md |
 | How security checks it | Tests, the file's hash, a code diff, its ring and grants | Skill Scout's diff (what changed, who, why), a checker agent, and a read for asks to download, reveal secrets or break a rule; the list of tools it names | The same as a trick, plus which pets it can reach |
-| On the page | A tool box: `<pet-program>-v<version>-<tool>-v<tool version>` (L1 panel) | A trick box: `<pet-program>-v<version>-<trick>-trick-v<trick version>`, with where it came from and which tools it uses (L2 panel; "running now" on the L3 panel) | Listed on the pet's L3 panel as what the seat brings |
+| On the page | A tool box: `<pet-program>-v<version>-<tool>-v<tool version>` (L1 tool panel) | A trick box: `<pet-program>-v<version>-<trick>-trick-v<trick version>`, with where it came from and which tools it uses (L2 tool panel; "running now" on the L3 tool panel) | Listed on the pet's L3 tool panel as what the seat brings |
 | Turning it off | ON/OFF on its tool box; the state lives in the core, so the tool cannot turn itself back on | ON/OFF on its trick box. This holds only while the agent obeys it ([known gap 14](PROTECTION-RINGS.md#known-gaps)); to stop a trick for certain, also switch off the tools it uses | Remove it from the seat |
 | Who keeps track | Its pet program | **Skill Scout** tracks every trick: what changed, who changed it and why | Skill Scout (it watches every `SKILL.md`, the seat's too) |
 | From a stranger (the Shed) | Quarantine, a checker agent, L4, then it runs in the sandbox (planned) | Quarantine; read as data first; never adds a tool; L4 | The same as a trick |
@@ -110,13 +110,15 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-166 rows: 9 native programs, 87 native tools, 11 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+186 rows: 10 native programs, 99 native tools, 15 native tricks, 62 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
 | 1 | Friendly Farmer | The Farm | native program | Astra’s PetOS System Map | `the-farm-v1.0-astras-pet-os-system-map-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
+| 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
@@ -159,6 +161,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-regeneration | `unity-stable-v1.0-masonry-regeneration-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-structural-audit | `unity-stable-v1.0-masonry-structural-audit-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-unity-refresh | `unity-stable-v1.0-masonry-unity-refresh-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | matcap-palette | `unity-stable-v1.0-matcap-palette-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | menu-map | `unity-stable-v1.0-menu-map-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | neck-blender | `unity-stable-v1.0-neck-blender-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | no-windows-audit-tool | `unity-stable-v1.0-no-windows-audit-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | no-windows-scene-refresh | `unity-stable-v1.0-no-windows-scene-refresh-v1.0` | Works today |
@@ -169,8 +173,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | run-unity-tool | `unity-stable-v1.0-run-unity-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | scene-preview-render | `unity-stable-v1.0-scene-preview-render-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | scene-yaml-inspection | `unity-stable-v1.0-scene-yaml-inspection-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | shaders-shop | `unity-stable-v1.0-shaders-shop-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | time-season-tide-preview | `unity-stable-v1.0-time-season-tide-preview-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | unity-assets-library | `unity-stable-v1.0-unity-assets-library-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | vine-bloomer | `unity-stable-v1.0-vine-bloomer-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | vine-spawn-with-trumpet-flowers | `unity-stable-v1.0-vine-spawn-with-trumpet-flowers-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | wall-texture-rebuild | `unity-stable-v1.0-wall-texture-rebuild-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | world-spawn-tool | `unity-stable-v1.0-world-spawn-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | world-validator | `unity-stable-v1.0-world-validator-v1.0` | Works today |
@@ -196,6 +204,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | water-bender-strapper | `unity-stable-v1.0-water-bender-strapper-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native tool | wing-strapper | `unity-stable-v1.0-wing-strapper-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | make-a-prop-look-real | `unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native trick | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-trick-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native trick | vcc-package-manager | `unity-stable-v1.0-vcc-package-manager-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | vrchat-avatar-upload | `unity-stable-v1.0-vrchat-avatar-upload-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-copyright-auditor | `unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0` | Planned |
@@ -206,7 +215,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
-| 11 | Paper Girl Patty | Paper Girl | third-party program | GitHub |  | Works today |
+| 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
 | 12 | File Master | File Kingdom | native tool | New-programs watch | `pet-program-12-v1.0-new-programs-watch-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | repo-catcher | `pet-program-12-v1.0-repo-catcher-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Planned |
@@ -256,6 +265,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 35 | Chat Rat | Chat Stack | native tool | save-missing | `chat-stack-v0.1.0-save-missing-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | ask-chat-rat | `chat-stack-v0.1.0-ask-chat-rat-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | save-chats | `chat-stack-v0.1.0-save-chats-trick-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | fit-any-screen | `mirror-pool-v1.0-fit-any-screen-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native trick | make-a-page-fit-any-screen | `mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | third-party program | Node.js |  | Works today |
+| 36 | Platform Platypus | Mirror Pool | third-party program | Web browser (WebGL) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | native program | Astra's Infinite Pole (world) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
@@ -273,11 +288,16 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 53 | Packet Piranha | Packet River | native tool | Ping sampler | `packet-river-v1.0-ping-sampler-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Reach checker | `packet-river-v1.0-reach-checker-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Route tracer | `packet-river-v1.0-route-tracer-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Linux check | `linux-iceberg-v0.1-linux-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Mac pre-wipe check | `linux-iceberg-v0.1-mac-prewipe-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | debian-family | `linux-iceberg-v0.1-debian-family-trick-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | kali-on-a-mac | `linux-iceberg-v0.1-kali-on-a-mac-trick-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | third-party program | MacAttack |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Timeline builder | `evidence-locker-v1.0-timeline-builder-v1.0` | Works today |
-| 83 | Role Fairy | Fairy Ring | native tool | PetOS Feedback Bot | `fairy-ring-v1.0-petos-feedback-bot-v1.0` | Planned |
+| 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
 <!-- registry:end -->

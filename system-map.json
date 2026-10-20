@@ -112,6 +112,18 @@
       "label": "the-farm-v1.0-astras-pet-os-system-map-v1.0"
     },
     {
+      "id": "beginner-guide",
+      "name": "How to Take Care of Your Farm!",
+      "type": "own-program",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Made by Astra",
+      "job": "A native program of The Farm (Astra, 2026-10-19): one public page that teaches a brand-new person what Astra’s PetOS is, how to install it, and how to make their own farm: public or private pets, taking any of Astra’s pets, locked-down computers, asking their own AI, staying safe (findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html). Anyone can read it before installing anything, and because the Friendly Farmer is a core pet, it is on every farm. Named by Astra (2026-10-19) with the framework’s tutorial title; the first-run walk on this map opens it (planned).",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-beginner-guide-v1.0"
+    },
+    {
       "id": "broken-tools-on-the-farm",
       "name": "broken-tools-on-the-farm",
       "type": "tool",
@@ -157,7 +169,19 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-program-spawner-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every module of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
+      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every tool panel of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
+    },
+    {
+      "id": "markdown-pets",
+      "name": "markdown-pets",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-markdown-pets-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-19: \"make it so that computers under other security protocols can download these agents ... The only files the user could give their computer was the markdown files\"): writes every registered and pipeline pet as one Markdown pet (what it does, where it opens in a browser with nothing to install, and the rules an AI follows to act as it), a farm list and one file with every pet, from the same data as the pet program pages. Files in markdown-pets/, rebuilt by npm run build (scripts/markdown-pets-20261019.mjs). It installs and runs nothing and never works around a computer's security."
     },
     {
       "id": "claude",
@@ -228,7 +252,8 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-sticker-manager-v1.0",
-      "job": "A tool of Discord Tower, in Discord Damsel's servers module (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
+      "url": "https://github.com/findastra/findastra-discord-presence/tree/main/discord-tower/sticker-manager",
+      "job": "A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
     },
     {
       "id": "cli-proxy-api-manager",
@@ -240,7 +265,56 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
+      "url": "https://github.com/findastra/findastra-discord-presence/tree/main/discord-tower/cli-proxy-api",
       "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
+    },
+    {
+      "id": "mac-prewipe-check",
+      "name": "Mac pre-wipe check",
+      "type": "tool",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-mac-prewipe-check-v1.0",
+      "job": "A tool of Linux Iceberg (Astra, 2026-10-18): a read-only report on a Mac before it is wiped for Linux: model, T2 chip, Wi-Fi card, Apple ID and Find My, folder sizes and a \"Before you wipe\" list. Never runs sudo and sends nothing. Merged (linux-iceberg PR #2)."
+    },
+    {
+      "id": "linux-check",
+      "name": "Linux check",
+      "type": "tool",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-linux-check-v1.0",
+      "job": "A tool of Linux Iceberg (Astra, 2026-10-19): a read-only look at a Linux computer: which distribution and family it is (from /etc/os-release), which of his tricks fits, updates waiting, failed services, the SSH server, disk, memory and anything listening beyond the computer. Never runs sudo. Merged (linux-iceberg PR #3); Astra's PetOS's Linux package carries it (astras-pet-os PR #109): astras-pet-os penguin."
+    },
+    {
+      "id": "kali-on-a-mac",
+      "name": "kali-on-a-mac",
+      "type": "trick",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-kali-on-a-mac-trick-v1.0",
+      "job": "A trick of Linux Iceberg (skills/kali-on-a-mac): walks the owner through checking, backing up and wiping an old Intel Mac and installing Kali, with the Mac pre-wipe check. The wipe is always the owner's act."
+    },
+    {
+      "id": "debian-family",
+      "name": "debian-family",
+      "type": "trick",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-debian-family-trick-v1.0",
+      "job": "A trick of Linux Iceberg (skills/debian-family): helps someone find their way around Debian, Ubuntu, Kali, Raspberry Pi OS, Mint or Pop!_OS and keep packages, updates and services in order, with the Linux check. One trick per distribution family, picked from /etc/os-release (Astra, 2026-10-19)."
     },
     {
       "id": "petos-feedback",
@@ -554,14 +628,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Dependency updates: packages, compatibility, rollback prep.",
-      "layer": 4
-    },
-    {
-      "id": "linux-penguin",
-      "name": "Linux Penguin",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Linux administration, SSH, systemd, packages.",
       "layer": 4
     },
     {
@@ -1231,7 +1297,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Astra’s large data project: its dashboard and site. Chip reports its health."
+      "job": "Astra’s large data project: its dashboard and site. Data Chip reports its health."
     },
     {
       "id": "file-kingdom",
@@ -1319,7 +1385,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Girl Patty."
+      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Patty."
     },
     {
       "id": "am-i-a-ghost",
@@ -1402,7 +1468,7 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Sugarcube’s program."
+      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Spoonfed Sugarcube’s program."
     },
     {
       "id": "quest-pro",
@@ -1664,7 +1730,16 @@
       "state": "now",
       "layer": 1,
       "category": "Device",
-      "job": "An old MacBook Pro that is barely usable today."
+      "job": "An old MacBook Pro, now running MacAttack (Kali Linux) to test this farm (Astra, 2026-10-18)."
+    },
+    {
+      "id": "macattack",
+      "name": "MacAttack",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Operating system",
+      "job": "Kali Linux on drives in Astra’s old MacBook Pro (Astra named it, 2026-10-18): the machine that tests this farm the way an outsider would, only with her OK. Kali is made by others (OffSec). Linux Penguin manages it."
     },
     {
       "id": "smart-pin",
@@ -1874,6 +1949,7 @@
       "name": "asset-contact-sheet",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1886,6 +1962,7 @@
       "name": "button-check",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1898,6 +1975,7 @@
       "name": "cloud-collider-audit",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1910,6 +1988,7 @@
       "name": "cloud-collider-validation",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1922,6 +2001,7 @@
       "name": "cloud-lounge-smoothing",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1934,6 +2014,7 @@
       "name": "cloud-mesh-generator",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1946,6 +2027,7 @@
       "name": "cloud-physics-check",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1958,6 +2040,7 @@
       "name": "cloud-sea-fusion",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1970,6 +2053,7 @@
       "name": "cloud-survey",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1982,6 +2066,7 @@
       "name": "desktop-world-test",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -1994,6 +2079,7 @@
       "name": "face-transfer",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2006,6 +2092,7 @@
       "name": "foreground-tool-recorder",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2018,6 +2105,7 @@
       "name": "house-scene-builder",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2030,6 +2118,7 @@
       "name": "marble-carver",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2042,6 +2131,7 @@
       "name": "masonry-regeneration",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2054,6 +2144,7 @@
       "name": "masonry-structural-audit",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2066,6 +2157,7 @@
       "name": "masonry-unity-refresh",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2078,6 +2170,7 @@
       "name": "neck-blender",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2090,6 +2183,7 @@
       "name": "no-windows-audit-tool",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2102,6 +2196,7 @@
       "name": "no-windows-scene-refresh",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2114,6 +2209,7 @@
       "name": "occlusion-bake",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2126,6 +2222,7 @@
       "name": "prop-decomposer",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2138,6 +2235,7 @@
       "name": "realistic-prop-restyle",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2150,6 +2248,7 @@
       "name": "reflection-probe-bake",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2162,6 +2261,7 @@
       "name": "run-unity-tool",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2174,6 +2274,7 @@
       "name": "scene-preview-render",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2186,6 +2287,7 @@
       "name": "scene-yaml-inspection",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2198,6 +2300,7 @@
       "name": "time-season-tide-preview",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2222,6 +2325,7 @@
       "name": "vine-bloomer",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2246,6 +2350,7 @@
       "name": "wall-texture-rebuild",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2258,6 +2363,7 @@
       "name": "world-spawn-tool",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2270,6 +2376,7 @@
       "name": "world-validator",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "now",
       "layer": 6,
       "category": "Tool",
@@ -2278,10 +2385,50 @@
       "job": "A tool of Unity Stable (Audit): Inspect supported world references, missing scripts, walkable surfaces and configured content budgets (unity-unicorn tools/world-validator-20261011.json)."
     },
     {
+      "id": "matcap-palette",
+      "name": "matcap-palette",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "avatar",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-matcap-palette-v1.0",
+      "job": "A tool of Unity Stable (Editor): Browse matcaps as round pans, like a makeup palette: Unity Unicorn's 48 drawn matcaps on its page, and every matcap texture in a Unity project in its editor window (unity-unicorn tools/matcap-palette-20261019.json)."
+    },
+    {
+      "id": "menu-map",
+      "name": "menu-map",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "avatar",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-menu-map-v1.0",
+      "job": "A tool of Unity Stable (Audit): Map an avatar's real radial menu after VRCFury and Modular Avatar build it: a Unity tool exports a disposable test build's menu, icons and synced parameters, and the page draws the menu to click through with a 256-bit parameter budget per add-on (unity-unicorn tools/menu-map-20261019.json)."
+    },
+    {
+      "id": "vine-spawn-with-trumpet-flowers",
+      "name": "vine-spawn-with-trumpet-flowers",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "world",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-vine-spawn-with-trumpet-flowers-v1.0",
+      "job": "A tool of Unity Stable (Generator): Grow vines with leaves, buds and five-lobed trumpet flowers over the objects you select in Unity, in up to 10 flower colours picked as squares from a palette; Unity Unicorn's page sends the colours to the chosen world's open editor (unity-unicorn tools/vine-spawn-with-trumpet-flowers-20261019.json)."
+    },
+    {
       "id": "sparkle-strapper",
       "name": "sparkle-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2294,6 +2441,7 @@
       "name": "fan-fitter",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2306,6 +2454,7 @@
       "name": "learn-add-ons",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2318,6 +2467,7 @@
       "name": "bending-adder",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2330,6 +2480,7 @@
       "name": "blood-bender-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2342,6 +2493,7 @@
       "name": "water-bender-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2354,6 +2506,7 @@
       "name": "sparkle-bender-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2366,6 +2519,7 @@
       "name": "wing-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2378,6 +2532,7 @@
       "name": "neck-bow-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2390,6 +2545,7 @@
       "name": "star-effects-diagnostic",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2402,6 +2558,7 @@
       "name": "golden-painter",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2414,6 +2571,7 @@
       "name": "chain-dangle-weights",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2426,6 +2584,7 @@
       "name": "rgb-painter",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2438,6 +2597,7 @@
       "name": "gunsmith-loadout",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2450,6 +2610,7 @@
       "name": "hair-weighter",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2462,6 +2623,7 @@
       "name": "spring-joint-strapper",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2474,6 +2636,7 @@
       "name": "copyright-logger",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2486,6 +2649,7 @@
       "name": "copyright-catcher",
       "type": "tool",
       "of": "unity-stable",
+      "side": "avatar",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2498,6 +2662,7 @@
       "name": "glass-animal-tool",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2510,6 +2675,7 @@
       "name": "bubble-chair-blower",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
@@ -2522,12 +2688,52 @@
       "name": "asset-ledger",
       "type": "tool",
       "of": "unity-stable",
+      "side": "world",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "unity-stable-v1.0-asset-ledger-v1.0",
       "job": "A tool of Unity Stable, design only (decided 2026-10-14; no code yet): every asset in every world or avatar gets a ledger row (source, license, credits) before it ships, and nothing ships that the ledger has not cleared (unity-unicorn docs/asset-ledger-20261014.md)."
+    },
+    {
+      "id": "unity-asset-creator",
+      "name": "unity-asset-creator",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "world",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Walk one Unity world asset through the researched 12-step checklist, from plan and provenance to colliders, lighting and the in-world review, then export each version (package, previews, checksummed manifest) and open a pull request to unity-assets-library (unity-unicorn tools/unity-asset-creator-20261019.json)."
+    },
+    {
+      "id": "unity-assets-library",
+      "name": "unity-assets-library",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "world",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-assets-library-v1.0",
+      "job": "A tool of Unity Stable (Library): The public library of finished world assets, findastra/unity-assets-library: one folder per asset and version, indexed in library.json; versions arrive only from unity-asset-creator's step 12, as pull requests Astra merges (unity-unicorn tools/unity-assets-library-20261019.json)."
+    },
+    {
+      "id": "shaders-shop",
+      "name": "shaders-shop",
+      "type": "tool",
+      "of": "unity-stable",
+      "side": "world",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-shaders-shop-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Download shaders for worlds the way Creator Companion would, after showing their files, sources and licences, track which shaders each world uses, and stock our own Unity Stable shaders (unity-unicorn tools/shaders-shop-20261019.json)."
     },
     {
       "id": "pet-finder",
@@ -2638,6 +2844,18 @@
       "job": "A trick of Unity Stable (unity-unicorn skills/make-a-prop-look-real/SKILL.md): start a prop from a real CC0 model or scan, take it apart with prop-decomposer, restyle it with realistic-prop-restyle and mount it at true size."
     },
     {
+      "id": "unity-asset-creator-trick",
+      "name": "unity-asset-creator",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-trick-v1.0",
+      "job": "A trick of Unity Stable (unity-unicorn skills/unity-asset-creator/SKILL.md): walk the checklist's 12 steps in order through the world's agent queue, ask Astra for the steps that need her (scale and facing, colliders, the review in the world), then export and publish to unity-assets-library with the tools unity-asset-creator and shaders-shop."
+    },
+    {
       "id": "weekly-update-from-friendly-farmer",
       "name": "weekly-update-from-friendly-farmer",
       "type": "trick",
@@ -2696,6 +2914,54 @@
       "version": "v1.0",
       "label": "chat-stack-v0.1.0-ask-chat-rat-trick-v1.0",
       "job": "A trick of Chat Stack (chat-rat skills/ask-chat-rat/SKILL.md): ask Chat Rat to find something in Astra's past Claude and OpenAI chats instead of searching the chats folder."
+    },
+    {
+      "id": "fit-any-screen",
+      "name": "fit-any-screen",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-fit-any-screen-v1.0",
+      "job": "A tool of Mirror Pool (Platform Platypus; Astra, 2026-10-19: \"make sure that this web page can be viewed from any device ... if you turn the device sideways, it rotates ... you can stretch it out and drag the corners\"): a script a page includes so it fills any screen. It follows rotation, window resizing and the browser's own bars, keeps clear of a notch, keeps a canvas within what a phone's browser can draw, asks for full screen without ever waiting on the answer, and keeps the screen awake. Learned from the Pocket Message Board (platform-platypus tools/fit-any-screen/fit-any-screen-20261019.js)."
+    },
+    {
+      "id": "fit-check",
+      "name": "fit-check",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-fit-check-v1.0",
+      "job": "A tool of Mirror Pool (Platform Platypus): measures a page on 19 screens (phones, iPads and computer windows; phones and iPads also on their side) in a headless Edge or Chrome pretending to be each device, loaded fresh and turned or resized live, for sideways scrolling, gaps in a full-screen page and canvases that were not redrawn. It only reads; the page is served on this PC only (platform-platypus tools/fit-check/fit-check-20261019.mjs). First run: the Pocket Message Board, 19 of 19 screens fit, 2026-10-19."
+    },
+    {
+      "id": "device-shots",
+      "name": "device-shots",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-device-shots-v1.0",
+      "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere (platform-platypus tools/device-shots/device-shots-20261019.mjs)."
+    },
+    {
+      "id": "make-a-page-fit-any-screen",
+      "name": "make-a-page-fit-any-screen",
+      "type": "trick",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0",
+      "job": "A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots."
     }
   ],
   "links": [
@@ -3040,7 +3306,7 @@
       "to": "data-dealer",
       "carries": "findings",
       "state": "architecture",
-      "why": "Works alongside Chip and Data Dealer with scoped permissions."
+      "why": "Works alongside Data Chip and Data Dealer with scoped permissions."
     },
     {
       "from": "queue-quokka",
@@ -3072,14 +3338,14 @@
     },
     {
       "from": "shell-squid",
-      "to": "linux-penguin",
+      "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
       "why": "Linux phase 1 pair."
     },
     {
       "from": "kernel-koala",
-      "to": "linux-penguin",
+      "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
       "why": "OS internals under Linux administration."
@@ -3160,6 +3426,41 @@
       "carries": "findings",
       "state": "suggested",
       "why": "Overlap to settle: both check how pages look on phones, tablets and desktop."
+    },
+    {
+      "from": "fit-check",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "fit-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "fit-check",
+      "to": "web-browser",
+      "carries": "directs",
+      "state": "now",
+      "why": "fit-check drives a headless Edge or Chrome through its DevTools pipe, pretending to be each phone, iPad and window."
+    },
+    {
+      "from": "device-shots",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "device-shots runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "device-shots",
+      "to": "web-browser",
+      "carries": "directs",
+      "state": "now",
+      "why": "device-shots drives a headless Edge or Chrome to picture the page on every screen."
+    },
+    {
+      "from": "fit-any-screen",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "fit-any-screen runs inside the page, in any browser."
     },
     {
       "from": "the-astral-plane",
@@ -4492,11 +4793,18 @@
       "why": "The Farmer will send each pet’s picture and mood to the pin."
     },
     {
-      "from": "linux-penguin",
-      "to": "macbook-pro",
+      "from": "linux-iceberg",
+      "to": "macattack",
       "carries": "manages",
-      "state": "idea",
-      "why": "An old MacBook can get a second life as a small Linux machine."
+      "state": "planned",
+      "why": "Linux Penguin manages MacAttack, the Kali drives that test this farm (Astra, 2026-10-18)."
+    },
+    {
+      "from": "macattack",
+      "to": "macbook-pro",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "MacAttack (Kali Linux) runs on the old MacBook Pro, never on the PC (Astra, 2026-10-18)."
     },
     {
       "from": "voicemeeter",
@@ -4686,6 +4994,27 @@
       "carries": "opens",
       "state": "now",
       "why": "The System Map is a tool of The Farm; The Farm’s page links it plainly."
+    },
+    {
+      "from": "farm",
+      "to": "beginner-guide",
+      "carries": "opens",
+      "state": "now",
+      "why": "How to Take Care of Your Farm!, the guide for beginners, is a native program of The Farm, opened on its own like the System Map (Astra, 2026-10-19)."
+    },
+    {
+      "from": "beginner-guide",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "One page that opens in any browser, including a phone, with nothing to install."
+    },
+    {
+      "from": "beginner-guide",
+      "to": "github",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Hosted on GitHub Pages, so anyone can read it before installing anything."
     },
     {
       "from": "am-i-a-ghost",
@@ -5169,7 +5498,7 @@
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A tool sits on its pet program's ring.",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
     "list": [
       {
         "ring": "0",
@@ -5193,6 +5522,7 @@
         "ring": "3",
         "name": "Pet programs",
         "what": "the programs, sites and worlds Astra made, and their tools",
+        "made": "you",
         "animal": "yes, once their pet is registered"
       },
       {
@@ -5211,6 +5541,7 @@
         "ring": "5",
         "name": "Third-party programs",
         "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
+        "made": "others",
         "animal": "no"
       },
       {
@@ -5258,7 +5589,7 @@
     }
   },
   "access": {
-    "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
+    "about": "Who may read (R), write (W) or run (X) each thing, and whether anything makes that true (Astra, 2026-10-17). What each level should be (R W X) and whether that is in code (In code, Rule only or Not built) is shown on every map card and in every pet program's R W X panel; every In code names its evidence, which the build checks (Astra, 2026-10-19, option C). R W X lives on grants, never on a ring. Each grant names who, on what, R W X and a status; gaps point at PROTECTION-RINGS.md, Known gaps. Selectors: * (everything), ring:N, animal:N (the animals on ring N), type:T, id:X, self (the subject's own repo and data folder). A grant whose R, W and X are all no is shown only on its subject's card. level says who holds the grant, in L1 to L4 (INTELLIGENCE-LEVELS.md): L4 you, L3 an AI agent in a seat, L2 a pet program, L1 its programs and tools, which act with their pet's grants and never more; empty for the adviser and other farms, which are outside your levels. Every map card shows L1 to L4 down the left, each with the R W X it has on that thing (Astra, 2026-10-18). Every System Map card lists the grants that reach it, and npm run build writes the same list into PROTECTION-RINGS.md.",
     "values": {
       "yes": "yes",
       "pr": "only on a branch, merged after Astra's OK in chat (the assistant does the merge)",
@@ -5269,14 +5600,17 @@
     "statuses": {
       "enforced": {
         "name": "Enforced",
-        "what": "A program, setting or test stops anything else. The grant says which."
+        "mark": "In code",
+        "what": "A test, setting or script makes it true, and the grant names that proof (its evidence)."
       },
       "written": {
         "name": "Written only",
+        "mark": "Rule only",
         "what": "A rule agents agree to follow (AGENTS.md or a skill). Nothing stops someone who breaks it."
       },
       "planned": {
         "name": "Planned",
+        "mark": "Not built",
         "what": "Designed, not built yet."
       }
     },
@@ -5284,6 +5618,7 @@
       {
         "id": "owner",
         "who": "Astra (you, L4)",
+        "level": ["L4"],
         "subjects": [
           "id:astra"
         ],
@@ -5295,11 +5630,13 @@
         "w": "yes",
         "x": "yes",
         "status": "enforced",
+        "evidence": [{ "setting": "Your own Windows account on this PC, and your own GitHub, Discord and AI accounts: only you sign in to them" }],
         "how": "It is your PC and your accounts. You give and take back every other grant in this list."
       },
       {
         "id": "seat-core",
         "who": "The agent in the seat (Claude Code or Codex, with a farmhand in it)",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -5323,6 +5660,7 @@
       {
         "id": "seat-animals",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -5345,6 +5683,7 @@
       {
         "id": "seat-asks",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -5355,11 +5694,13 @@
         "w": "ask",
         "x": "ask",
         "status": "enforced",
+        "evidence": [{ "setting": "Claude Code's permission modes, and Codex's approval and sandbox settings, on this PC" }],
         "how": "Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list)."
       },
       {
         "id": "farmer-round",
         "who": "The Friendly Farmer's daily round",
+        "level": ["L2"],
         "subjects": [
           "type:host"
         ],
@@ -5372,6 +5713,7 @@
         "w": "pr",
         "x": "yes",
         "status": "enforced",
+        "evidence": [{ "test": "test/farmer-rounds-pr-test-20261017.mjs" }],
         "how": "The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes.",
         "gaps": [
           11
@@ -5380,6 +5722,7 @@
       {
         "id": "pet-own-folder",
         "who": "Each pet (its own code and its L3 agent)",
+        "level": ["L1","L2","L3"],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -5398,6 +5741,7 @@
       {
         "id": "pet-elsewhere",
         "who": "Each pet",
+        "level": ["L1","L2"],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -5418,6 +5762,7 @@
       {
         "id": "call-models",
         "who": "The agent in the seat, or a pet's L3 agent with a key",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex",
@@ -5442,6 +5787,7 @@
       {
         "id": "seat-third-party",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -5459,6 +5805,7 @@
       {
         "id": "seat-devices",
         "who": "The agent in the seat",
+        "level": ["L3"],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -5476,6 +5823,7 @@
       {
         "id": "adviser",
         "who": "ChatGPT (adviser)",
+        "level": [],
         "subjects": [
           "id:chatgpt"
         ],
@@ -5492,6 +5840,7 @@
       {
         "id": "community",
         "who": "Pets, tools and cures from the Kennel, the Shed or the vet-clinic",
+        "level": [],
         "subjects": [
           "id:kennel",
           "id:the-shed",
@@ -5514,6 +5863,7 @@
       {
         "id": "toucan-reads-cli-proxy",
         "who": "Token Toucan",
+        "level": ["L2"],
         "subjects": [
           "id:token-toucan"
         ],
@@ -5531,6 +5881,7 @@
       {
         "id": "axolotl-reads-cli-proxy",
         "who": "Proxy Axolotl",
+        "level": ["L2"],
         "subjects": [
           "id:proxy-axolotl"
         ],
@@ -5546,8 +5897,30 @@
         "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
       },
       {
+        "id": "linux-penguin-check",
+        "who": "Linux Penguin (Linux Iceberg: linux-check, mac-prewipe-check)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:linux-iceberg"
+        ],
+        "on": "the Linux or Mac computer his check runs on: what it is, its packages, services, disk, memory and listening ports (never the contents of your files)",
+        "resources": [
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "His tools only read and print a report: no sudo, no writes, nothing sent (tests/linux-check-test-20261019.sh checks the report against stand-in commands). Nothing enforces this: they run as you. Asked for on 2026-10-19; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Linux Iceberg writes nothing."
+      },
+      {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
+        "level": ["L1","L2"],
         "subjects": [
           "id:log-den"
         ],
@@ -5568,6 +5941,7 @@
       {
         "id": "packet-piranha-probe",
         "who": "Packet Piranha (Packet River: ping-sampler, dns-checker, reach-checker, route-tracer)",
+        "level": ["L1","L2"],
         "subjects": [
           "id:packet-river"
         ],
@@ -5586,6 +5960,7 @@
       {
         "id": "forensic-ferret-read",
         "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
+        "level": ["L1","L2"],
         "subjects": [
           "id:evidence-locker"
         ],
@@ -5618,6 +5993,11 @@
         "w": "yes",
         "x": "yes",
         "status": "planned",
+        "level": [
+          "L1",
+          "L2",
+          "L3"
+        ],
         "how": "Built on 2026-10-19, not installed. Discord's role and channel permissions limit what it can see and do (four permissions; it refuses to start with Administrator or Manage permissions, tested). Its code reads and saves only the listed chats, posts only checked text (no pings, only Astra's own links) and keeps what it reads on Astra's PC. It runs as Astra, so nothing outside its own code and Discord stops it reaching further on the PC.",
         "next": "Iron Gates issues the grant, with the chat list and the daily limits as its limits; Astra approves it by merging."
       }
@@ -5777,7 +6157,7 @@
           {
             "language": "HTML",
             "percent": 99.1,
-            "why": "Data Dealer's dashboard pages and Chip's app."
+            "why": "Data Dealer's dashboard pages and Data Chip's app."
           },
           {
             "language": "Python",
@@ -6158,6 +6538,15 @@
           }
         ]
       },
+      "linux-iceberg": {
+        "languages": [
+          {
+            "language": "Shell",
+            "percent": 100,
+            "why": "His tools are bash scripts, so they run on any Linux or Mac with nothing to install. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
       "log-den": {
         "languages": [
           {
@@ -6304,6 +6693,7 @@
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
+    "linux-iceberg": "red",
     "test-tortoise": "purple",
     "rescue-retriever": "blue"
   },

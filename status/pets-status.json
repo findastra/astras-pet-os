@@ -3,19 +3,19 @@
     "github-goldfish": {
       "pet": "GitHub Goldfish",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
       "findings": [
         {
           "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
+          "msg": "My pet.json describes my job differently from pets.json in the hub. Submit the one I want (cage.submit) or copy the hub's.",
           "label": "my job wording differs from the Cage"
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "data-dealer": {
-      "pet": "Chip",
+      "pet": "Data Chip",
       "mood": "sleep",
       "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
@@ -24,60 +24,38 @@
     },
     "api-fairy": {
       "pet": "API Fairy",
-      "mood": "worried",
-      "says": "To fix: my README needs \"Limits\"",
+      "mood": "happy",
+      "says": "New work since my last check.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        }
-      ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "unity-unicorn": {
       "pet": "Unity Unicorn",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "learn-python": {
       "pet": "Python Panther",
       "mood": "worried",
-      "says": "3 to fix: my README needs \"how to run it\", …",
+      "says": "2 to fix: my README needs the credit line, …",
       "needs": [],
       "findings": [
         {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
+          "sev": "warn",
+          "msg": "README does not open with the credit line (PET-FILES.md).",
+          "label": "my README needs the credit line"
         },
         {
           "sev": "warn",
           "msg": "README has no \"how to run it\" section.",
           "label": "my README needs \"how to run it\""
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        },
-        {
-          "sev": "warn",
-          "msg": "AGENTS.md does not point at the Cage (astras-pet-apps), so I do not know how to submit changes to the Farmer.",
-          "label": "my AGENTS.md should point at the Cage"
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "vrchat-ai-astra": {
       "pet": "Astra Wisp",
@@ -106,18 +84,18 @@
     "health-hummy": {
       "pet": "Health Hummy",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
       "findings": [],
-      "checked": "2026-10-11T17:41:27.268Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "finance-finch": {
       "pet": "Finance Finch",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
       "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "mommys": {
       "pet": "Mommy's Mommies",
@@ -134,349 +112,384 @@
       "checked": "2026-10-10T05:48:42.552Z"
     },
     "paper-girl": {
-      "pet": "Paper Girl",
+      "pet": "Paper Patty",
       "mood": "worried",
-      "says": "3 to fix: my README needs the credit line, …",
+      "says": "To fix: my README needs the credit line",
       "needs": [],
       "findings": [
         {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        },
-        {
           "sev": "warn",
-          "msg": "README does not open with \"A pet app by Astra.\"",
+          "msg": "README does not open with the credit line (PET-FILES.md).",
           "label": "my README needs the credit line"
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        },
-        {
-          "sev": "warn",
-          "msg": "AGENTS.md does not point at the Cage (astras-pet-apps), so I do not know how to submit changes to the Farmer.",
-          "label": "my AGENTS.md should point at the Cage"
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "file-master": {
       "pet": "File Master",
       "mood": "worried",
-      "says": "2 to fix: my README needs the credit line, …",
+      "says": "To fix: my README needs the credit line",
       "needs": [],
       "findings": [
         {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        },
-        {
           "sev": "warn",
-          "msg": "README does not open with \"A pet app by Astra.\"",
+          "msg": "README does not open with the credit line (PET-FILES.md).",
           "label": "my README needs the credit line"
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "findastra-discord-presence": {
       "pet": "Discord Damsel",
-      "mood": "worried",
-      "says": "3 to fix: my README needs the credit line, …",
-      "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        },
-        {
-          "sev": "warn",
-          "msg": "README does not open with \"A pet app by Astra.\"",
-          "label": "my README needs the credit line"
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        },
-        {
-          "sev": "warn",
-          "msg": "AGENTS.md does not point at the Cage (astras-pet-apps), so I do not know how to submit changes to the Farmer.",
-          "label": "my AGENTS.md should point at the Cage"
-        }
+      "mood": "curious",
+      "says": "Need: merge the branches below; OK to restart the presence apps once Codex has pushed (+2…",
+      "needs": [
+        "merge the branches below; OK to restart the presence apps once Codex has pushed",
+        "install BetterDiscord and the plugin, then the first test inside Discord",
+        "merge #23 and the v8.0.34 pin, then Stop, install v8.0.34 with her console password, Start"
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "portfolio-puffer": {
       "pet": "Portfolio Puffer",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "drum-dog": {
       "pet": "Drum Dog",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
-      "checked": "2026-10-11T17:41:27.268Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "vscode-angel": {
       "pet": "VSCode Angel",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "ghost-protocol": {
-      "pet": "Ghost Protocol",
+      "pet": "Gone Ghost",
       "mood": "worried",
-      "says": "3 to fix: my README needs the credit line, …",
+      "says": "To fix: my README needs the credit line",
       "needs": [],
       "findings": [
         {
           "sev": "warn",
-          "msg": "README does not open with \"A pet app by Astra.\"",
+          "msg": "README does not open with the credit line (PET-FILES.md).",
           "label": "my README needs the credit line"
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        },
-        {
-          "sev": "warn",
-          "msg": "AGENTS.md does not point at the Cage (astras-pet-apps), so I do not know how to submit changes to the Farmer.",
-          "label": "my AGENTS.md should point at the Cage"
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "project-parrot": {
       "pet": "Project Parrot",
       "mood": "happy",
-      "says": "All good.",
+      "says": "New work since my last check.",
       "needs": [],
       "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "claude-bot": {
       "pet": "Claude Bot",
-      "mood": "happy",
-      "says": "All good.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-10T05:48:42.552Z"
     },
     "rgbee": {
       "pet": "RGBee",
-      "mood": "sick",
+      "mood": "curious",
       "says": "Need: the brand and model of each light",
       "needs": [
         "the brand and model of each light"
       ],
       "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
     "mine-mole": {
       "pet": "Mine Mole",
       "mood": "worried",
-      "says": "3 to fix: my README needs \"how to run it\", …",
+      "says": "To fix: my README needs \"how to run it\"",
       "needs": [],
       "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        },
         {
           "sev": "warn",
           "msg": "README has no \"how to run it\" section.",
           "label": "my README needs \"how to run it\""
+        }
+      ],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "mail-snail": {
+      "pet": "Mail Snail",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "patch-cat": {
+      "pet": "Patch Cat",
+      "mood": "curious",
+      "says": "Need: a job: what should Patch Cat do",
+      "needs": [
+        "a job: what should Patch Cat do"
+      ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "meme-fiend": {
+      "pet": "Meme Fiend",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "astras-gif-maker": {
+      "pet": "Gif Giraffe",
+      "mood": "curious",
+      "says": "Need: a job: what kind of GIFs should I make",
+      "needs": [
+        "a job: what kind of GIFs should I make"
+      ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "backup-beaver": {
+      "pet": "Backup Beaver",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "rift-rabbit": {
+      "pet": "Rift Rabbit",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "fuzzboi-friend": {
+      "pet": "Fuzzboi Friend",
+      "mood": "curious",
+      "says": "Need: what letters A–F mean",
+      "needs": [
+        "what letters A–F mean"
+      ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "wifi-butterfly": {
+      "pet": "Wifi Butterfly",
+      "mood": "curious",
+      "says": "Need: a job: what should Wifi Butterfly do",
+      "needs": [
+        "a job: what should Wifi Butterfly do"
+      ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "deck-duck": {
+      "pet": "Deck Duck",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "mesh-moth": {
+      "pet": "Mesh Moth",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "raspberry-berry": {
+      "pet": "Raspberry Pi Berry",
+      "mood": "happy",
+      "says": "New work since my last check.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "astras-pet-os": {
+      "pet": "Friendly Farmer",
+      "mood": "curious",
+      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)",
+      "needs": [
+        "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
+      ],
+      "findings": [
+        {
+          "sev": "warn",
+          "msg": "22 pets on GitHub wait to be registered."
+        }
+      ],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "voicemeeter-bug": {
+      "pet": "Voicemeeter Bug",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "the-astral-plane": {
+      "pet": "Astra Wisp",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "mommys-mommies": {
+      "pet": "Mommy's Mommies",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "platform-platypus": {
+      "pet": "Platform Platypus",
+      "mood": "curious",
+      "says": "Need: OK to merge this pull request; the Pocket Message Board checked on her iPad",
+      "needs": [
+        "OK to merge this pull request; the Pocket Message Board checked on her iPad"
+      ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "spoonfed": {
+      "pet": "Spoonfed Sugarcube",
+      "mood": "sick",
+      "says": "4 to fix: add pet.json, …",
+      "needs": [],
+      "findings": [
+        {
+          "sev": "error",
+          "msg": "No pet.json, so the Farmer cannot read me.",
+          "label": "add pet.json"
         },
         {
           "sev": "warn",
-          "msg": "README has no \"Limits\" section.",
-          "label": "my README needs \"Limits\""
-        },
-        {
-          "sev": "note",
-          "msg": "No CLAUDE.md.",
-          "label": "add CLAUDE.md"
+          "msg": "No README.md.",
+          "label": "add a README"
         },
         {
           "sev": "warn",
           "msg": "No LICENSE.",
           "label": "add a LICENSE"
-        }
-      ],
-      "checked": "2026-10-11T17:41:27.268Z"
-    },
-    "mail-snail": {
-      "pet": "Mail Snail",
-      "mood": "sick",
-      "says": "Need: a job: what should Mail Snail do",
-      "needs": [
-        "a job: what should Mail Snail do"
-      ],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "patch-cat": {
-      "pet": "Patch Cat",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "meme-fiend": {
-      "pet": "Meme Fiend",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "astras-gif-maker": {
-      "pet": "Gif Giraffe",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "backup-beaver": {
-      "pet": "Backup Beaver",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "rift-rabbit": {
-      "pet": "Rift Rabbit",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "fuzzboi-friend": {
-      "pet": "Fuzzboi Friend",
-      "mood": "sick",
-      "says": "Need: what letters A–F mean",
-      "needs": [
-        "what letters A–F mean"
-      ],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from the Cage. Submit the one I want (cage.submit) or copy the Cage's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
-      "checked": "2026-10-11T17:41:27.268Z"
-    },
-    "wifi-butterfly": {
-      "pet": "Wifi Butterfly",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "deck-duck": {
-      "pet": "Deck Duck",
-      "mood": "sick",
-      "says": "Need: a job: what should Deck Duck do",
-      "needs": [
-        "a job: what should Deck Duck do"
-      ],
-      "findings": [
+        },
         {
           "sev": "warn",
-          "msg": "AGENTS.md does not point at the Cage (astras-pet-apps), so I do not know how to submit changes to the Farmer.",
-          "label": "my AGENTS.md should point at the Cage"
+          "msg": "Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.",
+          "label": "add the pet-app topic"
         }
       ],
-      "checked": "2026-10-10T05:48:42.552Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
-    "mesh-moth": {
-      "pet": "Mesh Moth",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "raspberry-berry": {
-      "pet": "Raspberry Pi",
-      "mood": "sleep",
-      "says": "Not checked: the Farmer can't see my private repo yet.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-10T05:48:42.552Z"
-    },
-    "astras-pet-os": {
-      "pet": "Friendly Farmer",
-      "mood": "sick",
-      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (10 private: data-dealer, voicemeeter-bug, patch-cat, meme-fiend, astras-gif…",
+    "role-fairy": {
+      "pet": "Role Fairy",
+      "mood": "curious",
+      "says": "Need: which channels and notes ask-mommy-bot may answer from",
       "needs": [
-        "a FARMER_TOKEN secret so I can see the private pet repos (10 private: data-dealer, voicemeeter-bug, patch-cat, meme-fiend, astras-gif-maker, backup-beaver, rift-rabbit, wifi-butterfly, mesh-moth, raspberry-berry)"
+        "which channels and notes ask-mommy-bot may answer from"
       ],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "chat-rat": {
+      "pet": "Chat Rat",
+      "mood": "sick",
+      "says": "To fix: my entry file is missing",
+      "needs": [],
       "findings": [
         {
-          "sev": "warn",
-          "msg": "14 pets on GitHub wait to be registered in the Cage."
+          "sev": "error",
+          "msg": "pet.json \"entry\" points at chat-rat-20261009.html, which is not in the repo.",
+          "label": "my entry file is missing"
         }
       ],
-      "checked": "2026-10-11T17:41:27.268Z"
+      "checked": "2026-10-20T04:09:40.618Z"
     },
-    "voicemeeter-bug": {
-      "pet": "Voicemeeter Bug",
+    "workflow-whirlpool": {
+      "pet": "Workflow Whale",
       "mood": "sleep",
       "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": null
+    },
+    "log-den": {
+      "pet": "Log Lynx",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "packet-river": {
+      "pet": "Packet Piranha",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "evidence-locker": {
+      "pet": "Forensic Ferret",
+      "mood": "sleep",
+      "says": "All good.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "linux-iceberg": {
+      "pet": "Linux Penguin",
+      "mood": "worried",
+      "says": "To fix: add \"entry\" to pet.json",
+      "needs": [],
+      "findings": [
+        {
+          "sev": "warn",
+          "msg": "pet.json is missing \"entry\".",
+          "label": "add \"entry\" to pet.json"
+        }
+      ],
+      "checked": "2026-10-20T04:09:40.618Z"
     }
   },
-  "updated": "2026-10-11T17:41:27.268Z",
+  "updated": "2026-10-20T04:09:40.618Z",
   "needs_astra": [
     {
       "repo": "astras-pet-os",
       "pet": "Friendly Farmer",
-      "need": "a FARMER_TOKEN secret so I can see the private pet repos (10 private: data-dealer, voicemeeter-bug, patch-cat, meme-fiend, astras-gif-maker, backup-beaver, rift-rabbit, wifi-butterfly, mesh-moth, raspberry-berry)"
+      "need": "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
+    },
+    {
+      "repo": "findastra-discord-presence",
+      "pet": "Discord Damsel",
+      "need": "merge the branches below; OK to restart the presence apps once Codex has pushed"
+    },
+    {
+      "repo": "platform-platypus",
+      "pet": "Platform Platypus",
+      "need": "OK to merge this pull request; the Pocket Message Board checked on her iPad"
     },
     {
       "repo": "rgbee",
@@ -484,9 +497,14 @@
       "need": "the brand and model of each light"
     },
     {
-      "repo": "mail-snail",
-      "pet": "Mail Snail",
-      "need": "a job: what should Mail Snail do"
+      "repo": "patch-cat",
+      "pet": "Patch Cat",
+      "need": "a job: what should Patch Cat do"
+    },
+    {
+      "repo": "astras-gif-maker",
+      "pet": "Gif Giraffe",
+      "need": "a job: what kind of GIFs should I make"
     },
     {
       "repo": "fuzzboi-friend",
@@ -494,9 +512,14 @@
       "need": "what letters A–F mean"
     },
     {
-      "repo": "deck-duck",
-      "pet": "Deck Duck",
-      "need": "a job: what should Deck Duck do"
+      "repo": "wifi-butterfly",
+      "pet": "Wifi Butterfly",
+      "need": "a job: what should Wifi Butterfly do"
+    },
+    {
+      "repo": "role-fairy",
+      "pet": "Role Fairy",
+      "need": "which channels and notes ask-mommy-bot may answer from"
     }
   ]
 }

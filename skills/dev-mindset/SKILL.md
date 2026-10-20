@@ -22,7 +22,7 @@ Astra wants other software developers to read her build without frustration. She
 | Maker agent / checker agent | Maker-checker rule (four-eyes, two-person rule) | Was "offensive / defensive agent"; in security "offensive" means attacking. Decided 2026-10-13. |
 | Versions with `v` | Version tags (`v1.0`) | `pet-program-3-v1.0-icon-2-v1.0`: a name keeps its number, a version never hides inside it. Decided 2026-10-13. |
 | Tool box | Card or panel with a title (HTML `fieldset` with a `legend`) | Border with the versioned label on top, everything about the tool inside. |
-| Panel (`<pet>-L1-panel`) | Panel: a collapsible section of a dashboard page (HTML `details` with a `summary`) | Was "module"; to developers a module is a file of code (an `.mjs` file is one). Decided 2026-10-19. |
+| Tool panel (`<pet>-L1-tool-panel`) | Panel: a collapsible section of a dashboard page (HTML `details` with a `summary`) | Was "module", then "panel"; to developers a module is a file of code (an `.mjs` file is one). Developers read "tool panel" as a panel that holds tools: on these pages only L1 holds tools (warned 2026-10-19). Astra chose it for every panel. Decided 2026-10-19. |
 | Connection box | Integration panel (what flows between two services) | Its own border colour; titled with the other pet's icon name. |
 | Trick | Skill (`SKILL.md`), prompt, workflow (a runtime skill) | Owned by the pet at L2, followed by the agent in the seat at L3; uses only the tools the pet has. Kept by Skill Scout. See TOOLS-AND-TRICKS.md. Decided 2026-10-14; owned at L2, followed at L3 since 2026-10-18. |
 | Grant | Scope / permission grant (least privilege, capability-based access) | Folders + R W X + limits for one pet on a shared tool. Not a copy of the tool. Decided 2026-10-14. |
@@ -43,7 +43,8 @@ Astra wants other software developers to read her build without frustration. She
 | Data survives updates | Schema version, migration, export and import | |
 | Ring (the System Map's circles) | Protection ring, used as a trust zone | Where a thing lives; it grants nothing (Astra, 2026-10-17). Was "shell"; developers hear "command shell". Decided 2026-10-13. |
 | R W X | rwx permissions (read, write, execute) | Not "RWE" (2026-10-13). Lives on a grant, never on a ring (Astra, 2026-10-17). |
-| Enforced, written only, planned | Technical control, policy (administrative control), roadmap | Every grant carries one. Never call a written rule a lock. Decided 2026-10-17. |
+| Enforced, written only, planned | Technical control, policy (administrative control), roadmap | Every grant carries one. Never call a written rule a lock. Decided 2026-10-17. Shown as ✓ In code, ⚠︎ Rule only, ○ Not built, after what the grant should be; an In code names its proof (evidence) (Astra, 2026-10-19, option C). |
+| R W X panel (`<pet>-rwx-panel`) | Access review: designed permissions vs enforced controls, with evidence | Its own panel on every pet program page, after the four level panels (Astra, 2026-10-19, option C). |
 | Pet program | Program (an app, site, world, service or script) Astra made | Umbrella term; see "app vs program". |
 | Pet program icon | Mascot / character | The image files are icons; the character name is the mascot. |
 | Tool | A program, page, script or utility that belongs to a pet program | Same ring and permissions as its pet program, never more. In AI, "tool" also means a function an agent can call; keep them the same thing: a pet's tools are what its connector offers. Never drawn on the System Map: listed on its pet program's card (Astra, 2026-10-19; drawn as a hammer until then). Decided 2026-10-13. |
@@ -52,7 +53,10 @@ Astra wants other software developers to read her build without frustration. She
 | Third-party program | Third-party software | Was "root program"; "root" means superuser to developers. Decided 2026-10-13. |
 | Core pets | Required (base) packages: the part of an install that cannot be deselected | The pets every farm needs; the installer never lets anyone untick them (today the Friendly Farmer). Not "root pets": "root" means superuser. Decided 2026-10-18. |
 | Animal / animal code | Code inside the trust boundary the seated agent may change | Everything inside the harness is an animal. See `skills/farm-security`. |
-| Agentic harness / the seat | Agent harness (Claude Code, Codex) | The model is the agent that sits in the seat. |
+| Agentic harness (L3) / the seat | Agent harness, one instance per pet program; the seat is the active agent session | Each pet program's own harness: any farmhand can sit in it, straight through its API or inside a provider harness (Astra, 2026-10-19). Not built yet; today a pet borrows Claude Code or Codex. AGENTS.md, "How the agents work". |
+| Provider harness | Agent harness made by others (Claude Code, Codex, OpenClaw) | Drawn as a ring around its farmhand. Until 2026-10-19 this row called Claude Code and Codex "the agentic harness", which mixed the two kinds up. |
+| Bot (a Discord bot) | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every one; its commands are tools, its answers come from the farmhand in Fairy Ring's seat. Decided 2026-10-19. |
+| Bot panel | Admin panel for one bot | On Fairy Ring's page: that bot's commands, servers, permissions and health. Named by Astra, 2026-10-19 (`mommys-help-bot-panel`). |
 | Friendly Farmer | Orchestrator and package manager | He hatches pets (installs dependencies) and keeps `farm.lock`. |
 | Program Manager / registry (`pets.json`) | Package registry | Part of the protected core. |
 | Seed / pipeline / registered | Planned / in development / released | |
@@ -68,13 +72,14 @@ Astra wants other software developers to read her build without frustration. She
 | Home (cyberhome) | The pet program: its dashboard and runtime | One per pet. Listed first under the pet. Decided 2026-10-16. |
 | Tool | Program or script the pet program owns (deterministic code) | Runs without AI. ON/OFF, sick light, version. Can be bound to three clicks or more (Clicker Training); one click (the reminder) and two clicks (open or close the pet program) are the same for every pet (Astra, 2026-10-18). Decided 2026-10-16. |
 | Trick | Skill (`SKILL.md`), prompt or workflow | What the seated AI knows how to do; uses only that pet's tools. If an AI has to follow it, it is a trick (or a harness skill). Decided 2026-10-16. |
-| Harness skill | Development skill (`SKILL.md` installed in Claude Code or Codex) | Belongs to the seat, not a pet; helps an AI work on a pet. Shown on the pet's L3 panel. Not a security boundary, like every skill. Decided 2026-10-18. |
+| Harness skill | Development skill (`SKILL.md` installed in Claude Code or Codex) | Belongs to the seat, not a pet; helps an AI work on a pet. Shown on the pet's L3 tool panel. Not a security boundary, like every skill. Decided 2026-10-18. |
 | Your Programs | Applications or sites you built that a pet looks after (worlds, websites) | Not tools: the pet manages them; they are not part of it. Decided 2026-10-16. |
 | Native program, native tool, native trick | First-party application; first-party module or script; first-party agent skill (vs. third-party) | Native = Astra made it. A native program is opened or run on its own and is the only one of the three drawn on the System Map; tools and tricks are listed on their pet program's card. All three are in the registry table in TOOLS-AND-TRICKS.md. Decided 2026-10-19. |
 | Commons | Shared registry / issue tracker (the Kennel, the Shed, the vet-clinic) | Hold other people's submissions, not our code. Decided 2026-10-16. |
 | Third-party programs | Third-party software | Made by others; a pet runs them (R X). |
 | Farm event log | Structured event log (JSON Lines) with a versioned schema | One record per line, per pet program, on the PC; owned by Log Den (`farm-event-v1`). Not a "message bus": nothing is sent, records are read. Decided 2026-10-18. |
 | Chain of custody (Evidence Locker) | Chain of custody; a hash chain (tamper-evident log) | Shows that evidence changed; it does not prevent it. Signing (Cipher Owl) is what makes a rewrite of a whole case show. Decided 2026-10-18. |
+| Markdown pet | Agent definition file (a portable system prompt in Markdown) | One pet as one `.md` file: what it does, where it opens, and the rules an AI follows as it. For computers that cannot install. Not a security boundary: its rules hold only while the AI follows them. Decided 2026-10-19. |
 
 ## App vs program
 - A **program** is any code a computer runs: apps, services, drivers, scripts, libraries.
