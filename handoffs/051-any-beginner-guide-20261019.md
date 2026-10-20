@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge the pull request; named 2026-10-19)
+status: done when #123 merges (Astra's OK in chat, 2026-10-19: "merge #123 once its checks pass"); findings 2 and 3 stay open
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: apps/beginner-guide-20261019.html, test/beginner-guide-test-20261019.mjs, INSTALL.md, MAKE-IT-YOURS.md, PET-WORDS.md, PET-PROGRAM-FRAMEWORK.md (section 13), TOOLS-AND-TRICKS.md
@@ -44,8 +44,8 @@ hub folder stayed on `main`:
   (checked by breaking the page once, then restoring it).
 - **Checks:** `npm run build` (changed only the files above); `npm run check` OK (20 pet apps); `npm test` 188 tests,
   187 pass, 0 fail, 1 skipped (the Pets Board).
-- **Pull request [#123](https://github.com/findastra/astras-pet-os/pull/123).** `main` moved three times while it was
-  open (#122, #112, #104) and was merged in each time: every AGENTS.md credit line kept (`main`'s first), card numbers
+- **Pull request [#123](https://github.com/findastra/astras-pet-os/pull/123).** `main` moved while it was
+  open (#122, #112, #104, then #115, #118, #116, #128 and #130) and was merged in each time: every AGENTS.md credit line kept (`main`'s first), card numbers
   from `main` plus 051, the registry table and the System Map rebuilt with `npm run build`. After the last merge
   `npm test` 190 tests, 189 pass, 0 fail, 1 skipped; `npm run check` OK.
 - **Looked at in the browser pane** through a temporary `beginner-guide-temp` entry in
@@ -86,7 +86,7 @@ hub folder stayed on `main`:
 ## Task
 
 1. ~~**Astra:** the name (finding 1).~~ Answered 2026-10-19 and done (above).
-2. **Astra:** OK to merge the pull request.
+2. ~~**Astra:** OK to merge the pull request.~~ Given in chat, 2026-10-19: "OK, merge #123 once its checks pass."
 3. ~~After the name: rename as in finding 1.~~ Done.
 4. Findings 2 and 3, each as its own pull request once Astra decides. Finding 3 has its own session (pet-privatizer on other
    farmers' GitHub accounts), waiting on Astra's OK for the animal guard.

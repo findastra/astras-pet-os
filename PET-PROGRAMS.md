@@ -66,7 +66,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 55 | Browser Bat | **Browser Belfry** | [browser-belfry](https://github.com/findastra/browser-belfry) | Roadmap | Web and marketing operations: website QA and authorized browser work. *(draft)* |
 | 56 | Data Dragonfly | **Data Marsh** | [data-marsh](https://github.com/findastra/data-marsh) | Roadmap | Data engineering: data integrity, schemas, pipelines. *(draft)* |
 | 57 | Update Urchin | **Update Tidepool** | [update-tidepool](https://github.com/findastra/update-tidepool) | Roadmap | Dependency updates: packages, compatibility, rollback prep. *(draft)* |
-| 58 | Linux Penguin | **Linux Iceberg** | [linux-iceberg](https://github.com/findastra/linux-iceberg) | Roadmap | Linux administration, SSH, systemd, packages. *(draft)* |
+| 58 | Linux Penguin | **Linux Iceberg** | [linux-iceberg](https://github.com/findastra/linux-iceberg) | Pipeline | Linux administration, SSH, systemd, packages. *(draft)* |
 | 59 | Stock Fox | **Market Meadow** | [market-meadow](https://github.com/findastra/market-meadow) | Roadmap | Not decided yet: Stock Fox’s job is Astra’s to choose. *(draft)* |
 | 60 | Passport Pelican | **Passport Harbor** | [passport-harbor](https://github.com/findastra/passport-harbor) | Roadmap | Passport/ID metadata, visa research and deadlines, encrypted. *(draft)* |
 | 61 | Journal Jellyfish | **Journal Lagoon** | [journal-lagoon](https://github.com/findastra/journal-lagoon) | Roadmap | Private travel diary and itineraries. *(draft)* |

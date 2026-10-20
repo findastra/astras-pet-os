@@ -9,7 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge; then a green round |
-| [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | open, waits on Astra: merge (named 2026-10-19) |
+| [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | done when #123 merges (Astra's OK, 2026-10-19); findings 2 and 3 open |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
 | [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #104 |

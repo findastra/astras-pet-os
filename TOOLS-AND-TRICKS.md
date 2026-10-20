@@ -65,7 +65,7 @@ so its review lists every tool it names, and Skill Scout flags a trick that star
 | Pet | Tool (what it has) | Trick (what it knows) |
 |---|---|---|
 | File Master | `repo-catcher`: a PowerShell script that lists repos on the PC that were never pushed | **Weekly stale-repo sweep:** run repo-catcher, read its report, pick the repos that matter, and write a handoff card asking Astra which to push or archive |
-| Friendly Farmer (The Farm) | `astras-pet-os-system-map`: the 3D map page (a native program since 2026-10-19, because it is opened on its own) | **First-run walk:** walking a new farmer around the map one ring at a time, then opening How to Take Care of Your Farm!, the guide for beginners (a native program of The Farm; Astra, 2026-10-19) |
+| Friendly Farmer (The Farm) | `astras-pet-os-system-map`: the 3D map page (a native program since 2026-10-19, because it is opened on its own) | **How to Take Care of Your Farm!:** the first-run tutorial, walking a new farmer around the map one ring at a time |
 | Gone Ghost (Am I a Ghost?) | `name-eraser`: replaces a name with `USER` in files | **Scrub before posting:** before a vet-clinic ticket goes out, run name-eraser as a dry run, run the secret scan, show L4 the exact text, then post |
 | Unity Unicorn | `harness-strapper`: a Unity editor tool that rigs avatars | **Rig a new avatar:** import it, run harness-strapper, check the bones, then record which avatar it is rigged on in the tool box |
 | Unity Unicorn | `prop-decomposer`: a Blender script that takes a real model apart into its parts | **Make a prop look real** (`unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0`, 2026-10-18, in unity-unicorn's `skills/make-a-prop-look-real`): start from a real CC0 model, run prop-decomposer, restyle by mask, paint brands out of every map, mount at true size |
@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-171 rows: 10 native programs, 90 native tools, 12 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+175 rows: 10 native programs, 92 native tools, 14 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -279,6 +279,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 53 | Packet Piranha | Packet River | native tool | Ping sampler | `packet-river-v1.0-ping-sampler-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Reach checker | `packet-river-v1.0-reach-checker-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Route tracer | `packet-river-v1.0-route-tracer-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Linux check | `linux-iceberg-v0.1-linux-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Mac pre-wipe check | `linux-iceberg-v0.1-mac-prewipe-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | debian-family | `linux-iceberg-v0.1-debian-family-trick-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | kali-on-a-mac | `linux-iceberg-v0.1-kali-on-a-mac-trick-v1.0` | Works today |
 | 58 | Linux Penguin | Linux Iceberg | third-party program | MacAttack |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
