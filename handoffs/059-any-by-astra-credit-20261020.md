@@ -1,4 +1,4 @@
-status: open (waits on Astra: merge the hub pull request, then the 82 pet repo pull requests)
+status: open (the hub part merged with #161; waits on Astra: the 82 pet repo pull requests, then the repo descriptions)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-20
 needs: PET-FILES.md (README row), docs/flash-audit-20261014.md (A15), scripts/farmer-rounds-20261009.mjs, scripts/idle-flash-audit-20261017.mjs, scripts/idle-flash-fix-20261017.mjs, scripts/idle-flash-new-repos-20261017.mjs, scripts/idle-flash-refresh-20261018.mjs, scripts/pet-program-link-20261018.mjs, apps/github-goldfish-20261008.html, test/credit-line-readme-only-test-20261019.mjs
@@ -44,6 +44,13 @@ In the pet repos, each on branch `claude/by-astra-credit-20261020` with its own 
 Kept as written, on purpose: cards, the dated Flash Audit rounds and ledger, art prompts and provenance notes
 (`desktop-art/mine-mole/prompt-20261011.md`, `spoonfed/sugarcube-art-provenance-20261011.md`), github-goldfish's own
 old cards. No installed skill copy on the PC (`~/.claude/skills`, `~/.codex`) had the line.
+
+**Where it stands (2026-10-20, end of that chat):** the hub pull request merged with Astra's OK as #161
+(`dc496db`, after main's #152 and #160 were merged into it; 240 of 241 tests passed on the merged tree). All 82 pet
+repo pull requests are open and their branches on GitHub match what was tested; none is merged. Later the same day
+Astra made most repos private, the hub included (the hub's records follow in #167, open): that changes nothing in
+these README-only pull requests, but merge them through GitHub as before. The local clones were in
+Claude's scratchpad only; nothing is left unpushed.
 
 ## Task
 
