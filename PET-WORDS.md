@@ -217,7 +217,7 @@ New files use these names. `<date>` is Astra's America/Denver date as `YYYYMMDD`
 
 ## Keys that keep their old names
 
-Some keys are older than these words and stay as they are, because code reads them: `interface_url`, `interface_local_url` and `interface_live_url` in pets.json (the app's addresses), and `entry` and `sprite` in pet.json. Use the words above in prose and leave the keys alone.
+Some keys are older than these words and stay as they are, because code reads them: `interface_url`, `interface_local_url` and `interface_live_url` in pets.json (the app's addresses), and `entry` and `sprite` in pet.json. Use the words above in prose and leave the keys alone. Since 2026-10-19 (Astra), pets.json `interface_url` and `interface_local_url` open the pet program page and `app_url` today's app; in pet.json, `entry` is the start file (today's app) and **`homepage`** the pet program page.
 
 **One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
 Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,

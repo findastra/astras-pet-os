@@ -1,7 +1,8 @@
 // Flash Audit A59, Pet program and its link (Astra, 2026-10-18). Every pet has exactly one pet program: its numbered
 // entry in pet-programs.json, with a repo that exists. Every place that shows the pet links to that same program:
-// pet.json `entry`, `interface_url` and `interface_local_url` in pets.json, the profile line's home link, The Farm's
-// card, the System Map node and the README.
+// pet.json `homepage` (its pet program page; `entry` stays the start file in its repo, Astra 2026-10-19),
+// `interface_url` and `interface_local_url` in pets.json, the profile line's home link, The Farm's card, the System
+// Map node and the README.
 // The checks are pure: the Idle Flash Audit passes in what it read from GitHub. The fixes change documents and
 // metadata only (pet.json, README.md, pets.json, pet-programs.json, system-map.json), never code.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-18.
@@ -105,6 +106,15 @@ export function a59ForPet({ prog, reg = null, tools = null, repo, pet = null, tr
       else add('Incorrect', `pet.json entry opens ${entry}, but the hub shows ${hubPage} as ${prog.icon}'s app, and the repo has no ${hubBase}.`, 'Not changed: the pet\'s chat says which one is the app, then the other link follows.');
     }
     // No page to point at: A09 reports the missing program page.
+  }
+
+  // pet.json `homepage`: its pet program page in the hub (Astra, 2026-10-19: "Add a homepage field to each pet's
+  // pet.json for its program page, and keep entry as the start file"), the same word as package.json's homepage.
+  if (pet && pageIn) {
+    const want = `${PAGES}/${page}`;
+    if (pet.homepage !== want) add(pet.homepage ? 'Incorrect' : 'Missing',
+      pet.homepage ? `pet.json homepage is ${pet.homepage}; ${prog.icon}'s pet program page is ${want}.` : `pet.json has no homepage; ${prog.icon}'s pet program page is ${want}.`,
+      CONNECT, { type: 'a59-homepage', where: 'repo', id: 'homepage', to: want });
   }
 
   // pets.json interface_url and interface_local_url, which The Farm's card, the README, the profile and the desktop pet
@@ -282,7 +292,7 @@ export function addReadmeLink(readme, label, url) {
   return lines.join('\n');
 }
 
-/** Repo fixes in a clone of the pet's repo: pet.json entry and the README link. */
+/** Repo fixes in a clone of the pet's repo: pet.json entry and homepage, and the README link. */
 export function applyA59Repo(dir, rows, { readme = true } = {}) {
   const log = [], applied = [];
   for (const r of rows) {
@@ -294,6 +304,12 @@ export function applyA59Repo(dir, rows, { readme = true } = {}) {
         if (JSON.parse(raw).entry === f.to) continue;
         writeFileSync(`${dir}/pet.json`, setTopField(raw, 'entry', f.to));
         log.push(`pet.json: entry now opens ${f.to}, the program page (A59).`); applied.push(f.id);
+      }
+      if (f.type === 'a59-homepage' && existsSync(`${dir}/pet.json`)) {
+        const raw = readFileSync(`${dir}/pet.json`, 'utf8');
+        if (JSON.parse(raw).homepage === f.to) continue;
+        writeFileSync(`${dir}/pet.json`, setTopField(raw, 'homepage', f.to));
+        log.push(`pet.json: homepage is now ${f.to}, its pet program page (A59).`); applied.push(f.id);
       }
       if (f.type === 'a59-readme' && readme && existsSync(`${dir}/README.md`)) {
         const raw = readFileSync(`${dir}/README.md`, 'utf8');

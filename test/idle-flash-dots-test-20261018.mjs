@@ -291,3 +291,28 @@ test('round cards start every exception with its dot, say which pull request fix
     assert.ok(!data.items.some((it) => it.kind === 'Links'), 'a grey item never becomes a question');
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('A59: pet.json homepage is the pet program page; entry stays the start file (Astra, 2026-10-19)', () => {
+  const page = programPage('rgbee'), want = `${PAGES}/${page}`;
+  const pet = { pet: 'RGBee', entry: 'rgbee-20261009.html' };
+  const tree = ['rgbee-20261009.html', 'pet.json'];
+  const at = (p) => a59ForPet({ prog: prog(), reg: { repo: 'rgbee', interface_url: page, interface_local_url: page }, repo, pet: p, tree, hubTree: [page] });
+  const missing = at(pet).find((r) => r.fix?.type === 'a59-homepage');
+  assert.ok(missing, 'a pet.json with no homepage is reported');
+  assert.deepEqual([missing.status, missing.fix.where, missing.fix.to], ['Missing', 'repo', want]);
+  assert.equal(at({ ...pet, homepage: 'https://findastra.github.io/rgbee/' }).find((r) => r.fix?.type === 'a59-homepage').status, 'Incorrect');
+  assert.ok(!at({ ...pet, homepage: want }).some((r) => r.fix?.type === 'a59-homepage'), 'the right homepage is no finding');
+  assert.ok(!at({ ...pet, homepage: want }).some((r) => r.fix?.type === 'a59-entry'), 'entry stays the start file');
+  // The fix sets homepage and leaves entry alone.
+  const dir = scratch();
+  try {
+    writeFileSync(join(dir, 'pet.json'), JSON.stringify(pet, null, 2) + '\n');
+    writeFileSync(join(dir, 'rgbee-20261009.html'), '<html></html>');
+    const out = applyA59Repo(dir, [missing], { readme: false });
+    const after = JSON.parse(readFileSync(join(dir, 'pet.json'), 'utf8'));
+    assert.deepEqual([after.homepage, after.entry], [want, pet.entry]);
+    assert.deepEqual(out.applied, ['homepage']);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+  // The hub's own pet.json already has its homepage.
+  assert.equal(JSON.parse(read('pet.json')).homepage, `${PAGES}/${programPage('astras-pet-os')}`);
+});

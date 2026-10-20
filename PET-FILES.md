@@ -31,6 +31,7 @@ Public credit is always **Astra**. No keys, `.env` files or personal data in a r
   "job": "One sentence on what it does.",
   "runs_on": "Where it runs.",
   "entry": "index.html",
+  "homepage": "https://findastra.github.io/astras-pet-os/apps/pet-programs/github-goldfish-20261018.html",
   "status": "hatching",
   "cage": { "topic": "pet-app", "home": "README.md" },
   "built_with": "Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07",
@@ -38,7 +39,7 @@ Public credit is always **Astra**. No keys, `.env` files or personal data in a r
 }
 ```
 
-`status` is **hatching** (idea or first draft), **growing** (works, rough edges) or **grown** (finished and maintained). `sprite` and `entry` must be real files in the repo.
+`status` is **hatching** (idea or first draft), **growing** (works, rough edges) or **grown** (finished and maintained). `sprite` and `entry` must be real files in the repo: `entry` is the start file (today's app). **`homepage`** is the pet's pet program page in the hub, `https://findastra.github.io/astras-pet-os/apps/pet-programs/<repo>-20261018.html`, the page every place that shows the pet opens (Astra, 2026-10-19; the same word as package.json's `homepage`). Flash Audit A59 checks it and its fix sets it.
 
 ## The pet's art
 
