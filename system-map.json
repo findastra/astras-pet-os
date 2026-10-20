@@ -157,7 +157,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-privatizer-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-10-18): makes a pet’s repo private on GitHub, checks every repo of a farm at once, and makes a private copy where GitHub keeps a fork public, so a farm can be entirely private. It shows what would be lost first (stars, watchers, a Pages site) and changes GitHub only with the owner’s OK, only for animals (scripts/pet-privatizer-20261018.mjs)."
+      "job": "A tool of The Farm (Astra, 2026-10-18; both ways on any farm, 2026-10-20): makes a pet’s repo private or public on GitHub, checks every repo of a farm at once, and makes a private copy where GitHub keeps a fork public, so a farm can be entirely private. It shows what would be lost or shown first (stars, watchers, a Pages site; every commit), scans every commit for keys and personal details before a pet goes public, and changes GitHub only with the owner’s OK, only for the farm owner’s own pets (github_owner in pets.json) while signed in as that owner, never making the one art source private (scripts/pet-privatizer-20261018.mjs)."
     },
     {
       "id": "pet-program-spawner",
@@ -269,7 +269,7 @@
     },
     {
       "id": "astras-star-window",
-      "name": "Astra's Star Window",
+      "name": "Astra's Window Star",
       "type": "tool",
       "of": "program-14",
       "state": "now",
@@ -277,9 +277,10 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "iced-out-iceberg-v1.0-astras-star-window-v1.0",
-      "url": "https://findastra.github.io/astras-star-window/star-window-editor-20261019.html",
+      "url": "https://findastra.github.io/astras-star-window/",
       "picture": "https://findastra.github.io/astras-star-window/star-window.svg",
-      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window: one hosted picture of a fat star fading between Astra's favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). Upload a photo, drag it until it sits right in the star, Capture: one commit changes it everywhere it is shown. Its own repo is findastra/astras-star-window (PR #1); saving uses Astra's own key for that repo only, kept in her browser."
+      "embed": "https://findastra.github.io/astras-star-window/?embed",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
       "id": "cli-proxy-api-manager",
@@ -5766,7 +5767,7 @@
         "w": "yes",
         "x": "yes",
         "status": "written",
-        "how": "Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs; nothing checks the branch part.",
+        "how": "Only animals, and only on a claude/ or codex/ branch, never straight on main (AGENTS.md). Hub scripts check the animal part with scripts/animal-guard-20261013.mjs, on the pet’s own GitHub account (github_owner in pets.json); nothing checks the branch part.",
         "next": "Short-lived session keys from Iron Gates.",
         "gaps": [
           1

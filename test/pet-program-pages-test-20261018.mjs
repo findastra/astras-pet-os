@@ -136,7 +136,11 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
-  assert.match(puffer, /<details class="pill-more" open><summary[^>]*><span class="item-name">Astra&#39;s Star Window<\/span>[\s\S]*?<p class="pill-picture"><img src="https:\/\/findastra\.github\.io\/astras-star-window\/star-window\.svg"/, "Portfolio Puffer's page shows the photo star");
+  // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right in its own tool panel,
+  // inside the L1 tool panel, and its pill points there.
+  const l1 = puffer.slice(puffer.indexOf('>portfolio-puffer-L1-tool-panel<'), puffer.indexOf('>portfolio-puffer-L2-tool-panel<'));
+  assert.match(l1, /<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-star-window<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/, "Portfolio Puffer's L1 tool panel holds the Window Star");
+  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill points to its tool panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
   for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);

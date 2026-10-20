@@ -131,6 +131,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill-body { margin-top: 6px; font-size: 13.5px; }
 .pill-body p { margin: 4px 0; }
 .pill-picture img { display: block; width: 160px; max-width: 100%; height: auto; }
+/* a tool that works right on the page, in its own tool panel inside L1 (Astra's Window Star, 2026-10-20) */
+.tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
 .plain li { margin: 5px 0; }
 .status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
