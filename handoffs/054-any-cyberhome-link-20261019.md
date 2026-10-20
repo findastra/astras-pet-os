@@ -17,10 +17,10 @@ in a clone in Claude's scratchpad so the live hub folder stayed as it was:
   drawing of the yellow star with small rectangle eyes, so no picture file). When the page opens the star opens, the
   pet comes in, the star closes, and the bubble says it came in through the star. "Reduce motion" skips the flight.
   Pets with no art bring their no-picture box.
-- **Activity lights:** L4 is on (green, and its panel glows) while the page is in front of you and you used it in the
+- **Activity lights:** L4 is on (green, and its tool panel glows) while the page is in front of you and you used it in the
   last two minutes, dim after two quiet minutes, off while the page is hidden. L1 to L3 are grey and say "not connected
-  yet: it needs Startup Star's link". The script finds the level panels by their label, so it keeps working when the
-  level panels are renamed (`-L4-tool-panel` in #129).
+  yet: it needs Startup Star's link". The script finds the level tool panels by their label pattern
+  (`-L4-tool-panel` since #129, which merged while this was open).
 - **The chat window:** the chat button opens it at once with the cursor in the box. It asks who should answer: **My
   Claude** or **My ChatGPT** (a new tab opens claude.ai or chatgpt.com with the message and the pet program's name typed
   in; the message is copied too, in case that box is empty), **Claude Code or Codex on this PC** (not built: the message

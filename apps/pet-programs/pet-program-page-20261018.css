@@ -52,14 +52,23 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .button:hover { background: var(--slate-2); }
 .button.off { color: var(--chalk-dim); border-style: dashed; cursor: default; }
 
-/* The paired lights: two buttons side by side, never stacked. */
-.lights { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
-.light { width: 16px; height: 16px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer; }
+/* The paired lights: two buttons side by side, never stacked. They look like buttons so people click them (Astra,
+   2026-10-19): raised, a little bigger when pointed at, pressed in when clicked. Grey is not set yet. */
+.lights { display: inline-flex; gap: 7px; margin-right: 10px; vertical-align: middle; }
+.light { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .3), inset 0 2px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18);
+  transition: transform .08s ease-out; }
+.light:hover { transform: scale(1.18); }
+.light:active { transform: scale(.9); box-shadow: inset 0 2px 2px rgba(0, 0, 0, .4); }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
 .light.care { background: var(--care); }
 .light.care.is-fix { background: var(--fix); }
-.light.planned { background: var(--planned); cursor: not-allowed; opacity: .8; }
+.light.is-unset { background: var(--planned); }
+/* The bubble that says what a light now means, under the light that was clicked. */
+.light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
+  background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
+.light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
@@ -69,6 +78,20 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
+/* Every item is a pill, the same on every page (Astra, 2026-10-19): its two lights on the oval, then its name. Click
+   the name to open it in place; open, the oval becomes a rounded box. */
+.items li.pill { display: flex; align-items: flex-start; width: fit-content; max-width: 100%; margin: 9px 0; padding: 6px 16px 6px 9px;
+  border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .05); }
+.items li.pill:hover { background: rgba(255, 255, 255, .09); }
+.items li.pill:has(> details[open]) { width: auto; border-radius: 16px; }
+.pill > .lights { margin: 1px 9px 0 0; flex: none; }
+.pill-more { min-width: 0; }
+.pill-more > summary { list-style: none; cursor: pointer; }
+.pill-more > summary::-webkit-details-marker { display: none; }
+.pill-more > summary:hover .item-name, .pill-more[open] > summary .item-name { text-decoration: underline; text-underline-offset: 3px; }
+.pill-more > summary .label { margin-left: 0; overflow-wrap: anywhere; }
+.pill-body { margin-top: 6px; font-size: 13.5px; }
+.pill-body p { margin: 4px 0; }
 .plain li { margin: 5px 0; }
 .status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
@@ -182,7 +205,7 @@ img[hidden] { display: none !important; }
   to { transform: none; opacity: 1; }
 }
 
-/* Activity lights (Astra, 2026-10-19): on while that level is working right now, and the panel glows with power.
+/* Activity lights (Astra, 2026-10-19): on while that level is working right now, and its tool panel glows with power.
    Grey: not connected yet. */
 .activity[data-state="unknown"] { background: var(--planned); }
 .activity[data-state="live"] { background: var(--on); box-shadow: 0 0 6px 2px var(--on); }
