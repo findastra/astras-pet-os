@@ -227,6 +227,6 @@ test('a pet with a private repo never names it in the message', () => {
   const p = boot(d, { saved: { 'chat-with': 'claude' } });
   p.byId('chat-text').value = 'hi';
   p.byId('chat-send').click();
-  const typed = decodeURIComponent(p.opened[0].split('?q=')[1]);
-  assert.ok(!typed.includes('github.com'), d.repo);
+  const typed = decodeURIComponent(p.opened[0].slice('https://claude.ai/new?q='.length));
+  assert.equal(typed, `This is about ${d.home}, ${d.pet}'s pet program in Astra's PetOS.\n\nhi`, `${d.repo}: no repo link in the message`);
 });
