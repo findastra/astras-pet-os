@@ -1,4 +1,4 @@
-status: open
+status: open (waiting on Astra: what the cyberhome is, card 054 question 6)
 for: any (each pet's own chat for its repo; the hub items after the pull requests named below)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: PET-PROGRAM-FRAMEWORK.md (sections 1 and 3), PET-WORDS.md ("The pet program page"), skills/dev-mindset/SKILL.md
@@ -129,6 +129,23 @@ for all six, and they merged on 2026-10-19:
 - **Hub:** the note at the top of docs/unity-unicorn-page-modules-20261018.md now points at unity-unicorn#20 (this commit).
 - On Astra's PC: nothing changed. The pages were served on 127.0.0.1 from the scratchpad for Claude's browser, and headless
   Edge ran from the scratchpad.
+
+## Ownership and state (2026-10-20)
+
+- **The chat that did task 7 has ended** (Astra, 2026-10-20: "leave a note we are ending this chat"). No writer holds this
+  card or its files, and nothing of it is running.
+- **Pull requests:** none is open. Everything it opened is merged:
+  - the six pet pull requests in the task 7 table above;
+  - astras-pet-os#145, the task 7 record;
+  - astras-pet-os#154, the fix to this card after #27 merged.
+- **Tasks:**
+  - Done and merged: 1, 2, 3 (with #129), 4 and 7.
+  - Open: task 5. It waits on Astra: what the cyberhome is, the same question as card 054's question 6. After she answers,
+    whoever picks it up fixes `skills/dev-mindset` or PET-PROGRAM-FRAMEWORK.md and PET-WORDS.md to match, then sets
+    `status: done`.
+  - Optional and unclaimed: task 6.
+- **Outside this card:** the Sticker Manager's Put back test inside Discord is Astra's own (Damsel's card 005).
+- **Reviewer:** unassigned.
 
 ## Task
 
