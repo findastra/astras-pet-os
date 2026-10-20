@@ -307,3 +307,13 @@ img[hidden] { display: none !important; }
   .chat-open svg { transition: none; }
   .panel.level[data-activity="live"] { animation: none; }
 }
+
+/* Developer mode (Astra, 2026-10-19): programming words and no desktop pets. The agent already lives in its avatar
+   panel (the cyberhome), so Startup Star's door and the desktop pet's click bindings are left out; one click on the
+   agent says what it does. The words switch in the footer chooses the words in this browser. */
+[data-words="developer"] .den .star-door, [data-words="developer"] .clicker { display: none; }
+[data-words="developer"] .pair { grid-template-columns: 1fr; }
+[data-words="developer"] .den { cursor: help; }
+.words-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.words-choice { font: 13px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 2px 10px; cursor: pointer; }
+.words-choice[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }

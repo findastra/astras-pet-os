@@ -6,6 +6,14 @@ Every pet app is a set of parts. Each part has **one** name, used everywhere: RE
 
 **Programmer words (Astra, 2026-10-19).** Every table also says what a programmer calls the same thing. The farm words are the way in for beginners; the programmer words let a developer read the system without a guide, and let a beginner learn the standard words over time. Same things, two vocabularies. Why each programmer word was chosen, and the words Astra changed because they meant something else to developers, are in the glossary of [skills/dev-mindset](skills/dev-mindset/SKILL.md). The programmer column and the sections from "The pet program page" to "Process words" were added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19, from every Markdown file and registry in this repo.
 
+**Developer mode (Astra, 2026-10-19).** The installer's Developer mode switch (or `?words=developer` on any page) shows
+the pages in programming words instead of farm words, so programmers who install Astra's PetOS are not put off: every
+pet is an **agent**, every pet program a **control hub**, The Farm the **Agent Control Hub**, and no desktop pets
+run. That swap uses one short word for each farm word, the ones in
+[developer-words-20261019.json](developer-words-20261019.json), with a draft developer name for every pet program (Unity
+Unicorn is the Unity Agent, Unity Stable the Unity Agent Control Hub); [INSTALL.md](INSTALL.md#developer-mode) says what
+else changes. This page stays the place where each word is chosen: change a word here, then in that file.
+
 ## The parts you see
 
 | Part | Call it | Programmer word | Not | What it is |
