@@ -28,7 +28,7 @@ export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
-export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'system-map', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -157,6 +157,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
@@ -226,7 +227,16 @@ ${lights(`program:${d.homeSlug}`, d.home)}
 <p class="who">${esc(d.pet)}'s pet program · #${esc(d.number)} · ${esc(d.stage)}${d.status ? ` · ${esc(d.status)}` : ''}${d.isPrivate ? ' · private: its data never leaves the PC' : ''}</p>
 ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
-<a class="button" href="${esc(map)}">On the System Map</a>${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
+${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
+
+  // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
+  // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
+  // A small drawing of rings 0 to 3 with a dot on the ring the program lives on (rings: PROTECTION-RINGS.md).
+  const ringR = { 0: 0, 1: 24, 2: 40, 3: 56 }[d.ring] ?? 56;
+  const systemMap = panel(`${d.petSlug}-system-map`, `<a class="map-link" href="${esc(map)}">
+<svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
+<span>Open ${esc(d.home)} on the System Map</span></a>
+<p class="small">its node: <code>${esc(d.mapNode)}</code></p>`, { cls: 'system-map' });
 
   const L1 = panel(`${d.petSlug}-L1-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
@@ -331,7 +341,7 @@ ${assigned}</dl>
 </head>
 <body>
 <main class="page">
-<header class="top">${cyberhome}${title}</header>
+<header class="top">${cyberhome}${title}${systemMap}</header>
 ${levels}
 ${notes}
 <div class="pair">${emotions}${clicker}</div>

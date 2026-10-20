@@ -37,7 +37,19 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .label { display: block; margin-left: 50px; }
 
 /* Top: cyberhome left, title right. */
-.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 28px; align-items: start; }
+/* Cyberhome top left, title in the middle, the way back to the System Map top right (Astra, 2026-10-19; A60). */
+.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr minmax(240px, 270px); gap: 28px; align-items: start; }
+.system-map .map-link { display: grid; justify-items: center; gap: 8px; color: var(--chalk); text-align: center; text-decoration: none; }
+.system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
+.system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
+.rings { width: 100%; max-width: 150px; height: auto; }
+.rings circle { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.rings .core { fill: var(--line); }
+.rings .node { fill: var(--link); stroke: #111; }
+@media (max-width: 1000px) and (min-width: 761px) {
+  .top { grid-template-columns: minmax(200px, 280px) 1fr; }
+  .top > .system-map { grid-column: 2; margin-top: 0; }
+}
 .top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
@@ -130,6 +142,10 @@ label.file { position: relative; }
 @media (max-width: 760px) {
   .top, .pair { grid-template-columns: 1fr; }
   .top > .panel { max-width: 340px; }
+  /* On a phone the way back to the map comes first, as one compact row. */
+  .top > .system-map { order: -1; max-width: none; }
+  .system-map .map-link { grid-template-columns: 56px 1fr; justify-items: start; text-align: left; align-items: center; }
+  .system-map .small { text-align: left; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }

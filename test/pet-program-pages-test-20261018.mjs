@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome', 'system-map', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -84,6 +84,18 @@ test('one click always points to the pet program page: every pet\'s link is its 
     const today = r.interface_live_url || r.app_url;
     if (today) assert.match(html, /<a class="button" href="[^"]+">Open today's app<\/a>/, `${r.repo}: today's app is a button on its page`);
     assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open today's app`), `${r.repo}: the button never opens the page itself`);
+  }
+});
+
+test('every page links back to the System Map, top right, on its own node (Astra, 2026-10-19; Flash Audit A60)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
+    const at = (label) => header.indexOf(`>${label}<`);
+    assert.ok(at(`${d.petSlug}-system-map`) > at(`${d.petSlug}-cyberhome`), `${d.repo}: the map panel is in the header, after the cyberhome`);
+    assert.ok(at(`${d.petSlug}-system-map`) > header.indexOf('<h1>'), `${d.repo}: the map panel comes after the title, on the right`);
+    const link = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
+    assert.ok(header.slice(at(`${d.petSlug}-system-map`)).includes(`<a class="map-link" href="${link}">`), `${d.repo}: it opens the map on ${d.mapNode}`);
   }
 });
 
