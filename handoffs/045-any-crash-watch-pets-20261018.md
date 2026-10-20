@@ -1,7 +1,7 @@
-status: done when #105 merges (Astra's OK in chat, 2026-10-19: merge all four, #105 once CodeQL passes); left open: pet art (waiting on Astra)
+status: done 2026-10-19 (Astra's call in chat): built, merged (#105) and set to start at sign-in from three Startup-folder shortcuts; left for Astra: the first start (sign in again, or double-click the three shortcuts) and pet art
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
-needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `claude/build-20261018`; this card's branch `claude/crash-watch-pets-20261018`
+needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `main` (built from `claude/build-20261018`), cloned side by side in `%USERPROFILE%\Documents\Astra's PetOS`; this card's branches `claude/crash-watch-pets-20261018` (#105) and `claude/crash-watch-sign-in-20261019`
 ---
 ## Why
 
@@ -64,6 +64,36 @@ desktop pets, PID 1960, were never touched):
 - Hub, on `main` at `f4a90e5` plus this branch: `npm run build` OK; `npm test` 153 tests, 152 pass, 0 fail, 1 skipped;
   `npm run check` OK.
 
+**Started at sign-in, 2026-10-19** (Claude Opus 5.5, `claude-opus-5-5`, a side session started from the crash-watch
+chat; branch `claude/crash-watch-sign-in-20261019`). Astra chose the method in chat: "Yes: clone log-den, packet-river
+and evidence-locker into Documents\Astra's PetOS, build them there, and add the three Startup-folder shortcuts."
+- **Cloned** the three on `main`, side by side, in `%USERPROFILE%\Documents\Astra's PetOS\` (log-den `874daa1`,
+  packet-river `e00f80a`, evidence-locker `39e1f8c`). Built each there with its `build-<repo>-20261018.ps1`;
+  `bin\<repo>-check-20261018.exe --self-test --data <scratch folder>`: 38, 20 and 22 pass, 0 fail. `bin\` is ignored by
+  Git, so the working trees stay clean.
+- **Three shortcuts in Astra's Startup folder** (`shell:startup`): `Astras PetOS Log Den.lnk`,
+  `Astras PetOS Packet River.lnk` and `Astras PetOS Evidence Locker.lnk`. Each one starts
+  `%USERPROFILE%\Documents\Astra's PetOS\<repo>\bin\<repo>-20261018.exe` with no arguments, in its repo folder. This is the
+  real Startup folder: a chat's writes to Roaming AppData are not redirected (nothing under the Claude package's
+  `LocalCache\Roaming`; the Discord Presence `.vbs` files written from a chat on 2026-10-17 are there too). The path
+  uses the name `Astra's PetOS` (a junction today), so the planned folder rename keeps them working.
+- **Why this way** (Astra picked it from three): Explorer starts them as Astra when she signs in, so their records land
+  in the real `%LOCALAPPDATA%\astras-pet-os\`. No code changed; each README already suggested a Startup-folder
+  shortcut. They do not depend on Startup Star, which is never the pets' execution engine (ASTRAS_PET_OS.md) and
+  restarts often (rebuilds, live sync, its 10-minute check). To turn one off: Task Manager → Startup apps, or delete its
+  shortcut. **Not chosen:** Startup Star starting them (its source is Codex's, and a star started from a chat would start
+  them inside that app's private AppData), and an installer checkbox (they are not in the installer, and Astra's PC runs
+  them from the repo folders).
+- **Limits:** they start once per sign-in. One that quits or crashes stays off until the next sign-in or a double-click.
+  A repeating check like the star's needs a quiet `--startup` flag in each program first: today a second copy opens
+  its page in the browser (`if (!created) ... OpenPage()`). To rebuild one, quit it from its tray menu first. Live sync
+  fast-forwards the three folders but does not rebuild `bin\`.
+- **Not started by me:** a program started from a chat runs inside the Claude app's private `%LOCALAPPDATA%`. Before
+  Astra's first start, the `%LOCALAPPDATA%\astras-pet-os\` seen from a chat was the Claude app's private copy, with an
+  empty `log-den\`, so there were no real records yet.
+- `INTELLIGENCE-LEVELS.md`: the three rows link to `main`, say merged 2026-10-19 and set to start at sign-in, and lose
+  the "on a branch, not merged" error; the level 2 summary says the same.
+
 ## Task
 
 1. ~~Push and open the pull requests~~ done 2026-10-18 (above).
@@ -71,8 +101,12 @@ desktop pets, PID 1960, were never touched):
 3. **Astra:** pet art for Log Lynx, Packet Piranha and Forensic Ferret (paid; prompts not written yet). Until then the
    pages show a text face and the tray shows a small drawn icon.
 4. ~~Code languages from GitHub~~ done 2026-10-19.
-5. Later (not asked for yet): Startup Star or the installer starting the three at sign-in; the Farmer watching Log
-   Lynx's heartbeat (the relation is `planned`); Cipher Owl signing cases; a crash ticket to the vet-clinic.
+5. ~~Starting the three at sign-in~~ done 2026-10-19 on Astra's PC with Startup-folder shortcuts (above).
+   **Astra:** start them once: double-click the three `Astras PetOS …` shortcuts in `shell:startup`, or sign out and
+   in. Then three tray icons show (a purple lynx, a cyan piranha, a yellow ferret).
+6. Later (not asked for yet): the installer offering the same to beta testers; a quiet `--startup` flag so something
+   can restart a pet that quit; the Farmer watching Log Lynx's heartbeat (the relation is `planned`); Cipher Owl signing
+   cases; a crash ticket to the vet-clinic.
 
 ## Done when
 
