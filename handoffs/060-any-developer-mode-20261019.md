@@ -1,8 +1,31 @@
-status: open (waits on Astra: OK to merge; then her review of the developer names)
+status: open (paused 2026-10-20; waiting on Astra: whether the hub is public again, then a release; her review of the developer names)
 for: any
-from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19; paused 2026-10-20
 needs: installer/install-astras-pet-os-20261014.ps1, developer-words-20261019.json, scripts/developer-words-20261019.mjs, scripts/developer-words-page-20261019.js, INSTALL.md (Developer mode)
 ---
+## Ownership and state
+
+State: paused, to pick up later (Astra, 2026-10-20: "end chat and leave note we will pick up later").
+Implementer: none now; the writer that built it (Claude Opus 5.5) released every file. Writable for the next taker:
+the files in `needs` above and this card.
+Reviewer: unassigned. Next action: Astra's decisions below, then task 1 (the release).
+
+### Where it stands (2026-10-20)
+
+- **Merged:** developer mode, #155 (`4562834`, Astra's OK in chat). It is on `main`, but **in no release yet**: the
+  Latest release is still `v0.3.0-beta` (2026-10-19), so the installer download has no Developer mode switch.
+- **Blocker:** the hub repository is private since 2026-10-20 (Astra privated most repos), so the installer download,
+  the hub's Pages site and its pictures answer 404 for anyone but Astra. A release is only useful once she decides
+  whether the hub is public again: decision 1 in her private-repos deck (hub PR #167, the private-repos card or memo).
+- **Also merged the same day, on the same pages:** #163 (the header fitted, the title always on one line, no star door;
+  it carries #162) and #165 (on a phone the cyberhome and the System Map box side by side with the den and the rings
+  as matching squares, the emotion and idle bubbles as clouds with thought-bubble puffs, nothing wider than its panel,
+  the first three related pets in the System Map box up to 760px wide). Main's tree after #165 was the tested one:
+  `npm test` 254 tests, 253 pass, 0 fail, 1 skipped (the Pets Board); `npm run check` OK.
+- **Proposed, not started:** a separate Claude session to cut the release ("Release the installer with developer
+  mode": version bump, card update, installer zip, Latest). Start it only after the blocker above is decided.
+- Nothing is running for this card, and no file is half-edited: everything is on `main`.
+
 ## What I did
 
 Astra, 2026-10-19: "I need there to be another installation option that's for developers. So it's an option that
@@ -53,18 +76,28 @@ in a clone in Claude's scratchpad, so the hub folder on Astra's PC was not touch
 
 ## Task
 
-1. **Astra reviews the developer names** in `developer-words-20261019.json` (`names`) and the word list, then sets
+1. **A release with developer mode** (after Astra decides whether the hub is public again): bump `$Version` in the
+   installer and `package.json`, build `astras-pet-os-installer.zip` with `node scripts/installer-zip-20261018.mjs <tag>`,
+   publish it as the Latest release with her OK (card 042's rules), then test the downloaded zip in a scratch folder
+   with `-Developer` and without, and with `-SetupWindowPicture` in both modes.
+2. **Astra reviews the developer names** in `developer-words-20261019.json` (`names`) and the word list, then sets
    `reviewed: true`. Change a word in PET-WORDS.md first, then in that file, then `npm run build`.
-2. **Linux:** `scripts/farm-setup-20261019.mjs` and the Debian package have no developer mode yet: add a `--developer`
+3. **Linux:** `scripts/farm-setup-20261019.mjs` and the Debian package have no developer mode yet: add a `--developer`
    option that writes `apps/words-mode-20261019.js` and skips the desktop pet service.
-3. **Markdown pets:** `markdown-pets/` are only in farm words; a developer set could be generated from the same words.
-4. **New pet programs** get a developer name when they are registered: the build prints the ones without one (they keep
-   their farm names in developer mode until then).
+4. **Markdown pets:** `markdown-pets/` are only in farm words; a developer set could be generated from the same words.
+5. **New pet programs** need a developer name in `developer-words-20261019.json` when they are registered:
+   `test/developer-mode-test-20261019.mjs` fails until each has one.
 
 ## Done when
 
-Astra has merged the pull request and reviewed the names, and Linux and the Markdown pets follow (tasks 2 and 3).
+The Latest release's installer has the Developer mode switch and it works from the downloaded zip, Astra has reviewed
+the names, and Linux and the Markdown pets follow (tasks 3 and 4).
 
 ## Return
 
-Update `## What I did` with each repo, pull request and commit; set `status: done`; commit on a branch.
+Update `## Ownership and state` and `## What I did` with each repo, pull request and commit; set `status: done`;
+commit on a branch.
+
+## Receipt and review
+
+Pending: the next assistant records here which revision of this card it read, when, and what it takes on.
