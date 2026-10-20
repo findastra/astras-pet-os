@@ -48,6 +48,10 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
 - **Core pets (Astra, 2026-10-18):** the pets every farm needs, which the installer's "Set up your farm" window never
   lets anyone untick. Today that is the host, the Friendly Farmer. The desktop pets must keep running when any other
   pet is left out (`test/farm-setup-test-20261018.mjs`).
+- **A pet program is a control panel (Astra, 2026-10-19).** Its page shows how things are and gives the switches;
+  anything too big for a tool panel becomes its own website that the pet program manages, with one tool panel that
+  opens it ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3). Written in by Claude Opus 5.5
+  (`claude-opus-5-5`), 2026-10-19.
 - **Every pet program is built to [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md)** and passes its checklist:
   versioned names everywhere (`pet-program-3-v1.0-icon-2-v1.0`), tool boxes with ON/OFF and sick, connection boxes,
   the notes tool and backlog, the chat bot, links by kind, the status line and its System Map node.

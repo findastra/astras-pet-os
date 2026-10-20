@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge the two pull requests; the request list stays on her PC unless she says otherwise)
+status: open (both pull requests merged on Astra's OK in chat, 2026-10-19; left: rebuild her API Fairy, install the skill for Claude and Codex, and her three answers in the question slides)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: skills/key-request/SKILL.md, AGENTS.md (Rules), scripts/pet-program-pages-20261018.mjs (`PET_PANELS`), apps/pet-programs/pet-program-page-20261018.js, test/key-requests-test-20261019.mjs, findastra/api-fairy src/KeyRequests.cs and docs/key-requests-20261019.md
@@ -69,11 +69,18 @@ scratchpad; her PC folder was not touched), [api-fairy#8](https://github.com/fin
   folder that mirrors Documents, so the browser pane showed the page with the real list; screenshots by headless Edge
   were sent to Astra in the chat.
 
+**Merged on Astra's OK in chat** (2026-10-19: "OK, merge findastra/api-fairy#8, then findastra/astras-pet-os#148"):
+api-fairy#8 as `6fbbef4`. Then on this branch: `main` (#135, #140, #144) merged in, every side kept; the
+`key-requests` node and its link set to `now` (TOOLS-AND-TRICKS.md: "Works today"); API Fairy's row in
+INTELLIGENCE-LEVELS.md says merged; rebuilt and tested; then #148.
+
+Her three questions are in slides: https://claude.ai/artifact/2iLfNPrhiAkKe6xrQF6g7B (private to her).
+
 ## Waiting on Astra
 
-1. OK to merge [api-fairy#8](https://github.com/findastra/api-fairy/pull/8), then [#148](https://github.com/findastra/astras-pet-os/pull/148) (the map node goes `now` after it).
-2. **Where the list lives:** on her PC only (built this way, because the list shows which services she uses), or
-   public on GitHub too. Moving it later is easy; un-publishing is not.
+1. ~~OK to merge api-fairy#8, then #148.~~ Given and done (above).
+2. **Her three answers** (the slides): where the list lives (on her PC only, as built, or public on GitHub too); its
+   own key name for AI Astra's voice; which provider's key CLI Proxy API gets.
 3. Each waiting request: make the key herself on the provider's page with a spend limit, set it as a Windows user
    environment variable with that name, and API Fairy moves it to has a key.
 
@@ -83,13 +90,13 @@ scratchpad; her PC folder was not touched), [api-fairy#8](https://github.com/fin
    it first), so the running fairy watches the requests.
 2. Copy `skills/key-request/SKILL.md` into `%USERPROFILE%\.claude\skills\key-request\` and `%USERPROFILE%\.codex\skills\key-request\`
    (as with pet-app), so every new chat sees it without opening the hub.
-3. Set the `key-requests` node to `now` and run `npm run build`.
+3. ~~Set the `key-requests` node to `now` and run `npm run build`.~~ Done before #148 merged.
 4. Later: buttons on the page to mark a request given or declined (they would need API Fairy to write the file, since a
    page can't), and AI Astra's voice gets a key name of its own.
 
 ## Done when
 
-Both pull requests are merged, the running API Fairy shows the requests, and Astra has answered question 2.
+Both pull requests are merged (done), the running API Fairy shows the requests, and Astra has answered the slides.
 
 ## Return
 
