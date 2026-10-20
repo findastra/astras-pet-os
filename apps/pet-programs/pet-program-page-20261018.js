@@ -213,8 +213,8 @@
     L3: 'an agent is working in ' + config.home,
   };
   var HERE = {
-    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
-    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    live: ['you are here', 'You are here: this page is in front of you and you used it (pointer, keys or scrolling) in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes, or you are working in another window.'],
     off: ['you are away', 'This page is hidden behind another tab or window.'],
   };
   var L4 = null, L4quiet;
@@ -241,10 +241,24 @@
     clearTimeout(L4quiet);
     L4quiet = setTimeout(function () { here('idle'); }, 120000);
   }
-  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  ['pointerdown', 'keydown', 'input', 'wheel', 'scroll'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  // Reading the page counts as using it (Astra, 2026-10-19: "double check if these L4s are active when they are"):
+  // moving the pointer over it or scrolling keeps L4 on, not only clicks and keys. A moving pointer counts once a second.
+  var lastMove = 0;
+  document.addEventListener('pointermove', function () {
+    var now = Date.now();
+    if (now - lastMove < 1000 && L4 && L4.light.dataset.state === 'live') return;
+    lastMove = now;
+    present();
+  }, { passive: true });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  // Another window in front while this page still shows: you are working elsewhere, so L4 dims at once; back here, on.
+  if (window.addEventListener) {
+    window.addEventListener('blur', function () { if (!document.hidden) { clearTimeout(L4quiet); here('idle'); } });
+    window.addEventListener('focus', present);
+  }
   if (document.hidden) here('off'); else present();
 
   // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
@@ -453,4 +467,16 @@
     }
   }
   })();
+
+  // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
+  // its panel fits it (Astra's Window Star, 2026-10-20). Only Astra's own sites are listened to, and only for a height. ----
+  window.addEventListener('message', function (e) {
+    var msg = e.data;
+    if (!msg || msg.type !== 'tool-panel-height') return;
+    if (e.origin !== location.origin && e.origin !== 'https://findastra.github.io') return;
+    var frames = document.querySelectorAll('iframe.tool-frame');
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+    }
+  });
 })();

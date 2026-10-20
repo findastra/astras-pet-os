@@ -108,7 +108,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
   // `picture`: a live picture of what the item makes. Its pill starts open, so the page shows it (Astra's Star Window,
   // 2026-10-19: "I want to see the pet program too with the photostar on it").
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null });
+  // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
+  // Star, 2026-10-20: "I want everything to be on the same page").
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -205,6 +207,13 @@ function toolSections(tools) {
 const tag = (state) => (state && state !== 'now' ? ` <span class="tag">${esc(STATE[state] || state)}</span>` : '');
 const built = (state) => !state || state === 'now';
 
+// A pill shows its live picture (and starts open) unless the tool works right on the page in its own tool panel.
+const showPicture = (i) => !!i.picture && !i.embed;
+
+// A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map.
+const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.id, `<iframe class="tool-frame" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy"></iframe>
+<p class="small">${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}</p>`, { cls: 'tool-embed', id: `${t.id}-tool-panel` })).join('\n');
+
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
 // They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
 // its name, which opens in place to show what it is and, when the map has one, a link to its own page or folder.
@@ -212,10 +221,11 @@ function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const more = `${i.why ? `<p>${esc(i.why)}</p>` : '<p class="empty">No description on the System Map yet.</p>'}
-<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.picture ? `
-<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.url ? `
+<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.embed ? `
+<p><a class="button" href="#${esc(i.id)}-tool-panel">Use it below</a></p>` : i.url ? `
 <p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"${i.picture ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
@@ -314,6 +324,10 @@ export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
 // in the tray. Drawn here, so it is the same on every page and needs no picture file.
 const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
 
+// The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
+// open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
+const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
@@ -360,7 +374,7 @@ ${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <spa
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${toolSections(d.tools)}
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
-<p class="small">From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means, and a grey light is not set yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
+<p class="small">From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means, and a grey light is not set yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>${embeddedTools(d) ? `\n${embeddedTools(d)}` : ''}`, { cls: 'level', light: true });
 
   const cadence = d.audit.cadence ? `${d.audit.cadence}, by the Friendly Farmer's round` : 'not set';
   const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
@@ -454,7 +468,7 @@ ${assigned}</dl>
   // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
   const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">&gt;</button>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
 <p class="chat-ask">Who should answer?</p>
 <div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
