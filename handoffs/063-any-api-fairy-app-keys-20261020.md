@@ -1,7 +1,7 @@
 status: open (waiting on Astra: delete the star key that showed in a screenshot; yes or no on API Fairy's first-save check)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-20
-needs: handoffs/061-any-pet-chat-in-page-20261020.md, handoffs/056-any-key-requests-for-api-fairy-20261019.md, skills/key-request/SKILL.md, findastra/api-fairy `src/KeyRequests.cs`, findastra/astras-star-window `index.html`
+needs: handoffs/062-any-pet-chat-in-page-20261020.md, handoffs/056-any-key-requests-for-api-fairy-20261019.md, skills/key-request/SKILL.md, findastra/api-fairy `src/KeyRequests.cs`, findastra/astras-star-window `index.html`
 ---
 ## Task
 
@@ -12,7 +12,8 @@ this chat"); this card is that note.
 Astra's Window Star. She asked whether API Fairy detected it, and how, and if she didn't, to put a tool in there.
 
 The same chat also started the pet chat work: the chat window should answer inside the page like Data Dealer's old
-Data Chip. That has its own card, **061** (#172), with Astra's four questions. It is not repeated here.
+Data Chip. That has its own card, **062** (written in #172, carried by #173), with Astra's four questions. It is not
+repeated here.
 
 ## Ownership and state
 
@@ -61,9 +62,10 @@ on GitHub after the key was asked for. This could be a general optional request 
 Meanwhile, once her new key saves, any chat sets the request's `status` to `given` with a `status_date`
 (skills/key-request, step 5).
 
-Numbering: this card was 061 on its branch. The pet chat card (#172) was opened first with the same number, so it
-kept 061 and this one moved to 062. This branch merges #172's branch, so #172 and #173 merge cleanly in either order.
-Merging needs Astra to name the PRs: a general "merge what you can" was refused by the permission check (2026-10-20).
+Numbering: this card and the pet chat card (#172) were both written as 061. Codex's RGBee card reached `main` first
+as 061 (6b7fd23), so the pet chat card is now 062 and this one is 063. This branch (#173) carries both notes, so
+merging #173 alone lands them; #172 is then replaced and can be closed. Merging needs Astra to name the PR: a general
+"merge what you can" was refused by the permission check (2026-10-20).
 
 ## Done when
 
