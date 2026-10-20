@@ -23,8 +23,8 @@ Astra's PetOS is an **early beta** for Windows 10 and 11. You choose your farm w
 pets**, or **from scratch** with only the pets you pick. The full guide, for people and for AI agents, is
 **[INSTALL.md](INSTALL.md)**.
 
-**New to all of this?** The **[guide for beginners](https://findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html)**
-explains it step by step, on a phone too: what the pets are, installing, making your own farm, public or private pets,
+**New to all of this?** **[How to Take Care of Your Farm!](https://findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html)**,
+the guide for beginners, explains it step by step, on a phone too: what the pets are, installing, making your own farm, public or private pets,
 and staying safe. Read it before you install anything.
 
 **Install** (no administrator rights needed):

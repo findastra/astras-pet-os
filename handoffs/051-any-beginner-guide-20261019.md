@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the guide's name, and OK to merge the pull request)
+status: open (waiting on Astra: OK to merge the pull request; named 2026-10-19)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: apps/beginner-guide-20261019.html, test/beginner-guide-test-20261019.mjs, INSTALL.md, MAKE-IT-YOURS.md, PET-WORDS.md, PET-PROGRAM-FRAMEWORK.md (section 13), TOOLS-AND-TRICKS.md
@@ -58,9 +58,17 @@ hub folder stayed on `main`:
   Screenshots by headless Edge from the same server, in Claude's scratchpad (`shots/`), sent to Astra in the chat.
 - On Astra's PC nothing else changed: the live hub folder was only read and fetched.
 
+- **Named by Astra, 2026-10-19** (in chat): *Yes: name the guide "How to Take Care of Your Farm!". Keep the file name,
+  and let the map's first-run walk open this page.* Done on this branch: the page's title, heading and closing
+  section; the map node's name and job (the registry table and The Farm's page rebuilt); the README link;
+  PET-PROGRAM-FRAMEWORK.md section 13 (the first-run walk, a trick of The Farm not built yet, opens the guide);
+  PET-WORDS.md (the word now means this page); TOOLS-AND-TRICKS.md's example trick is now the "first-run walk"; the
+  lines in AGENTS.md, INTELLIGENCE-LEVELS.md and `skills/new-pet-or-tool`; the test checks the name. The file name and
+  the label `the-farm-v1.0-beginner-guide-v1.0` stay, as she said.
+
 ## Found, not changed here (each is its own decision or follow-up)
 
-1. **The name.** The framework already has Astra's tutorial title, **"How to Take Care of Your Farm!"**
+1. ~~**The name.**~~ **Answered by Astra, 2026-10-19 (above).** The framework already has Astra's tutorial title, **"How to Take Care of Your Farm!"**
    (PET-PROGRAM-FRAMEWORK.md, section 13; PET-WORDS.md: "onboarding tutorial"), but there it names the first-run walk
    around the System Map, a trick of The Farm (TOOLS-AND-TRICKS.md, "Real examples"). Proposed: give the page that
    title, and let the map's first-run walk open it. Until Astra decides, the page says "a guide for beginners", the
@@ -77,16 +85,17 @@ hub folder stayed on `main`:
 
 ## Task
 
-1. **Astra:** the name (finding 1).
+1. ~~**Astra:** the name (finding 1).~~ Answered 2026-10-19 and done (above).
 2. **Astra:** OK to merge the pull request.
-3. After the name: rename as in finding 1 and run `npm run build` and `npm test`.
-4. Findings 2 and 3, each as its own pull request once Astra decides.
-5. Later: when the Farm's first-run walk (section 13) is built, it opens this page or follows its steps, so there is
-   one tutorial, not two.
+3. ~~After the name: rename as in finding 1.~~ Done.
+4. Findings 2 and 3, each as its own pull request once Astra decides. Finding 3 has its own session (pet-privatizer on other
+   farmers' GitHub accounts), waiting on Astra's OK for the animal guard.
+5. Later: when the first-run walk on the System Map (section 13) is built, it opens this page (Astra, 2026-10-19), so
+   there is one tutorial, not two.
 
 ## Done when
 
-The pull request is merged, the page is live on GitHub Pages, and the name is decided.
+The pull request is merged and the page is live on GitHub Pages under its name.
 
 ## Return
 

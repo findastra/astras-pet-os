@@ -113,13 +113,13 @@
     },
     {
       "id": "beginner-guide",
-      "name": "Guide for beginners",
+      "name": "How to Take Care of Your Farm!",
       "type": "own-program",
       "of": "farm",
       "state": "now",
       "layer": 2,
       "category": "Made by Astra",
-      "job": "A native program of The Farm (Astra, 2026-10-19): one public page that teaches a brand-new person what Astra’s PetOS is, how to install it, and how to make their own farm: public or private pets, taking any of Astra’s pets, locked-down computers, asking their own AI, staying safe (findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html). Anyone can read it before installing anything, and because the Friendly Farmer is a core pet, it is on every farm. Its name waits on Astra.",
+      "job": "A native program of The Farm (Astra, 2026-10-19): one public page that teaches a brand-new person what Astra’s PetOS is, how to install it, and how to make their own farm: public or private pets, taking any of Astra’s pets, locked-down computers, asking their own AI, staying safe (findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html). Anyone can read it before installing anything, and because the Friendly Farmer is a core pet, it is on every farm. Named by Astra (2026-10-19) with the framework’s tutorial title; the first-run walk on this map opens it (planned).",
       "version": "v1.0",
       "label": "the-farm-v1.0-beginner-guide-v1.0"
     },
@@ -4747,7 +4747,7 @@
       "to": "beginner-guide",
       "carries": "opens",
       "state": "now",
-      "why": "The guide for beginners is a native program of The Farm, opened on its own like the System Map (Astra, 2026-10-19)."
+      "why": "How to Take Care of Your Farm!, the guide for beginners, is a native program of The Farm, opened on its own like the System Map (Astra, 2026-10-19)."
     },
     {
       "from": "beginner-guide",

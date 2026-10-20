@@ -1,5 +1,5 @@
-// The guide for beginners (Astra, 2026-10-19): one public page, a native program of The Farm, that a brand-new person
-// can read before installing anything. It works by double-click and on GitHub Pages, has no dependencies, sets text
+// How to Take Care of Your Farm!, the guide for beginners (Astra, 2026-10-19): one public page, a native program of The
+// Farm, that a brand-new person can read before installing anything. It works by double-click and on GitHub Pages, has no dependencies, sets text
 // only with textContent, takes its pictures only from the hub's art/, and every link reaches a real file or https.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
 import { test } from 'node:test';
@@ -14,11 +14,20 @@ const PAGE = 'apps/beginner-guide-20261019.html';
 const read = (p) => readFileSync(`${root}/${p}`, 'utf8');
 const html = read(PAGE);
 const REPO_FILES = 'https://github.com/findastra/astras-pet-os/blob/main/';
+const NAME = 'How to Take Care of Your Farm!'; // Astra, 2026-10-19: the framework's tutorial title
 const INSTALLER = 'https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip';
 
 const attrs = (name) => [...html.matchAll(new RegExp(`\\s${name}="([^"]*)"`, 'g'))].map((m) => m[1].replace(/&amp;/g, '&'));
 const ids = new Set(attrs('id'));
 const local = (href) => posix.normalize(posix.join('apps', href.split('#')[0].split('?')[0]));
+
+test('it carries the name Astra gave it, and keeps its plain file name', () => {
+  assert.ok(html.includes(`<title>${NAME} · Astra's PetOS</title>`), 'the page title');
+  assert.match(html, /<h1>How to Take Care of Your <span>Farm<\/span>!<\/h1>/, 'the heading');
+  assert.ok(read('README.md').includes(`**[${NAME}](https://findastra.github.io/astras-pet-os/${PAGE})**`), 'the README links it by name');
+  const words = read('PET-WORDS.md').split('\n').find((l) => l.startsWith(`| **${NAME}** |`));
+  assert.ok(words && words.includes(PAGE), 'PET-WORDS.md points the word at the page');
+});
 
 test('the page is in apps/ with a dated lowercase name, and opens on a phone', () => {
   assert.match(PAGE, /^apps\/[a-z0-9-]+-\d{8}\.html$/);
@@ -103,10 +112,11 @@ test('it is a native program of The Farm on the System Map, in the registry tabl
   assert.ok(node, 'system-map.json has the beginner-guide node');
   assert.equal(node.type, 'own-program');
   assert.equal(node.of, 'farm');
+  assert.equal(node.name, NAME);
   assert.equal(node.label, 'the-farm-v1.0-beginner-guide-v1.0');
   assert.ok(node.job.includes(PAGE.slice('apps/'.length)), 'its job names the page');
   assert.ok(map.links.some((l) => l.from === 'farm' && l.to === 'beginner-guide' && l.carries === 'opens'), 'The Farm opens it');
   assert.ok(html.includes(node.label), 'the page shows its label');
-  assert.match(read('TOOLS-AND-TRICKS.md'), /\| 1 \| Friendly Farmer \| The Farm \| native program \| Guide for beginners \| `the-farm-v1\.0-beginner-guide-v1\.0` \|/,
+  assert.match(read('TOOLS-AND-TRICKS.md'), /\| 1 \| Friendly Farmer \| The Farm \| native program \| How to Take Care of Your Farm! \| `the-farm-v1\.0-beginner-guide-v1\.0` \|/,
     'run npm run build: the registry table lists it');
 });
