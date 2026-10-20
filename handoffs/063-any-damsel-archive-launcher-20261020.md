@@ -25,7 +25,7 @@ State: READY_FOR_REVIEW. Implementer: OpenAI Codex (GPT-6), archive-panel sessio
 
 Validation before publication: the Damsel suite passed 147 tests with one sibling-check skip. The hub suite, with LF-normalized inputs, passed 262 tests, skipped one, and failed three browser/Windows installer checks. Those failures have not been established as baseline and must not be described as passing. Relevant archive, spawner, map and API Fairy checks passed. Brave was unavailable for a fresh visual check.
 
-Card 061 was claimed on main while this work was in progress, so this unpublished card uses the verified next free number 062. Remaining work: validate the installed launcher and separately finish the private conversation export, full-history/media verification, and any subsequently authorized deletion. No conversation content belongs in either public repository.
+Card 061 was claimed on main while this work was in progress, so this unpublished card initially used 062; a newly published API Fairy PR also claimed 062, so this card moved to the verified next free number 063 before publication. Remaining work: validate the installed launcher and separately finish the private conversation export, full-history/media verification, and any subsequently authorized deletion. No conversation content belongs in either public repository.
 
 ## Not done
 
@@ -38,3 +38,7 @@ Both source proposals are adopted, the launcher is checked in the real local ins
 ## Return
 
 Record adoption commits and validation, update this card and its index, and commit on a branch.
+
+## Final review receipt
+
+The separate read-only `archive_panel_review` checker received and reviewed source revision `d1093b79` on 2026-10-20 and found no merge blockers. It passed both archive tests and confirmed all generated program pages match after newline normalization. After integrating current main, all 49 archive, spawner, System Map, API Fairy and handoff-number checks passed with tracked newline styles preserved. The broader three browser/installer failures remain explicitly unverified, not baseline or passing. Subsequent changes to this delivery only record review and resolve the card number.
