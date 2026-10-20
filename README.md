@@ -1,3 +1,17 @@
+### Astra's PetOS - Free, Open-Source AI Operating System
+
+**Pet (Intelligent App)**
+
+| Intelligence Level | Layer Components | What it is |
+|:---:|---|---|
+| **L1** | **Third Party Programs, Native Programs & Tools you create** | The programs that a pet runs, plus everything you build for it |
+| **L2** | **Pet Program, Native Tricks you create** | A dashboard that manages L1 programs and tools, and manages your native L2 tricks |
+| **L3** | **Pet Program Agentic Harness + Your AI Model** | Your AI model (Claude Opus 5.5, ChatGPT-6 Astra, local model, etc.) sits in the agentic harness when called upon to become the Agent |
+| **L4** | **Human (User)** | You. The **Friendly Farmer** manages Your Farm |
+
+How they all connect: [Astra's PetOS System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
+
+Astra's PetOS home repo: [`astras-pet-os`](https://github.com/findastra/astras-pet-os)
 # Astra's PetOS
 
 > ## ⬇️ [Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)
