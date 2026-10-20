@@ -6,6 +6,8 @@
 
 Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist.
 
+Its job in the registry: Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.
+
 ## Open it with nothing to install
 
 Each link opens in any web browser, on any computer, phone or tablet.
