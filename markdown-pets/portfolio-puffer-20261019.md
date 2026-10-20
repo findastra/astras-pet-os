@@ -29,7 +29,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- None recorded yet.
+- **Astra's Star Window**: A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window: one hosted picture of a fat star fading between Astra's favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). Upload a photo, drag it until it sits right in the star, Capture: one commit changes it everywhere it is shown. Its own repo is findastra/astras-star-window (PR #1); saving uses Astra's own key for that repo only, kept in her browser.
 
 ### Its tricks (steps its AI follows)
 

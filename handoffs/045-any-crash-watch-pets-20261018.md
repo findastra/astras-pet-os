@@ -1,4 +1,4 @@
-status: done 2026-10-19 (Astra's call in chat): built, merged (#105) and set to start at sign-in from three Startup-folder shortcuts; left for Astra: the first start (sign in again, or double-click the three shortcuts) and pet art
+status: done 2026-10-19 (Astra's call in chat): built, merged (#105), started at sign-in, and registered with draft pet art; left for Astra: approving the drafts
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `main` (built from `claude/build-20261018`), cloned side by side in `%USERPROFILE%\Documents\Astra's PetOS`; this card's branches `claude/crash-watch-pets-20261018` (#105) and `claude/crash-watch-sign-in-20261019`
@@ -94,18 +94,66 @@ and evidence-locker into Documents\Astra's PetOS, build them there, and add the 
 - `INTELLIGENCE-LEVELS.md`: the three rows link to `main`, say merged 2026-10-19 and set to start at sign-in, and lose
   the "on a branch, not merged" error; the level 2 summary says the same.
 
+**Pet art and registration, 2026-10-19** (Claude Opus 5.5, `claude-opus-5-5`, the crash-watch chat; hub branch
+`claude/crash-watch-art-20261019`, and `claude/crash-watch-art-20261019` in each pet repo). Astra in chat: "Yes: write the
+three art prompts, generate their mood sheets on my OpenAI account, show me the drawings, then finish them like Python
+Panther (registered, desktop pets, icons, README pictures)."
+- **First start, before the art:** the three were started through Explorer (so as Astra's own programs, writing to the
+  real `%LOCALAPPDATA%\astras-pet-os\`; checked: nothing in the Claude package's copy). Log Lynx's Windows-log reader at
+  once found a real crash from that night (`Unity.ILPP.Trigger`, Unity 2022.3.22f1, 01:24).
+- **Prompts** in `scripts/generate-pets.mjs` (palettes no other pet uses): `log-lynx` (an electric-teal lynx with navy
+  spots and tangerine ear tufts, holding a lime logbook), `packet-piranha` (an aqua-cyan piranha with a crimson belly,
+  lemon fins and a toothy underbite), `forensic-ferret` (a golden-yellow ferret with a violet bandit mask, holding a hot
+  pink magnifying glass). **Three images generated** on Astra's OpenAI account through the image bridge:
+  `art/sheets/<art>-20261019.png`. Each checked by eye: one body in nine cells, grey background, black outline, no drawn
+  symbols. Drafts until Astra approves them.
+- **Registered:** `pets.json` moves the three from `pipeline` to `pets` (`art`, `asset_date` 20261019, kinds `cat`,
+  `fish` and `dog`, one-click `interface_url` = their pet program pages, `app_url` = their repo's Run it), and the three
+  are friends in `cage_life` (they hang out on the desktop); `pet-programs.json` stage registered; INTELLIGENCE-LEVELS.md
+  rows registered with their icons. `npm run build`: 9 frames each in `art/frames/<art>/`, the roster (23 pets), the
+  README table, the spawned pages, the System Map and the Markdown pets.
+- **Icons:** `art/icons/<repo>-20261012.png` from `scripts/make-icons-20261012.mjs` (the script also refreshed six other
+  pets' icons and added two new ones; those were left out on purpose, for their own change), and a Windows app icon each,
+  `art/app-icons/<repo>/<repo>-icon-20261019.ico` (16 to 256 px; classic bitmaps below 256 so .NET reads them), made from
+  the idle frame.
+- **The desktop pets** show every registered pet from its frames (desktop art is optional), so the three join the desktop
+  once Startup Star restarts with this `pets.json`. `scripts/desktop-pets-20261011.cs` (Codex's) is unchanged.
+- **Each pet repo** (v0.1.1): its page shows the art (the hub folder next to it, else GitHub, else a text face), the tray
+  uses the hub's app icon, the build embeds it when the hub sits next to the repo, the README has a Pictures section
+  (`docs/images/<repo>-program-page-20261019.png`, demo data, paths shown as %USERPROFILE%) and says registered with draft
+  art. Self-tests 38, 20 and 22 pass; `findSensitive` over the three repos: 0 flagged.
+
+**A quiet `--startup`, 2026-10-19** (Claude Opus 5.5, `claude-opus-5-5`, a side session of the sign-in chat; branch
+`claude/startup-flag-20261019` in each pet repo). Pushed and opened on Astra's OK in chat; each merge waits on her OK.
+- [log-den#9](https://github.com/findastra/log-den/pull/9), [packet-river#9](https://github.com/findastra/packet-river/pull/9)
+  and [evidence-locker#9](https://github.com/findastra/evidence-locker/pull/9) (v0.1.2, open): with `--startup`, a copy
+  started while one for the same data folder runs exits with 0 and opens nothing (Packet River and Evidence Locker also
+  skip rewriting the page's data). Without it a second start opens the page, as before. The single-copy name is
+  unchanged. Self-tests 43, 25 and 27 pass (five new checks each); a `--startup` copy run while a scratch folder's mutex
+  was held exited with 0 and made no page folder. No startup entry was added or changed.
+- **After they merge:** each running copy keeps 0.1.1 until Astra quits it from its tray menu,
+  `build-<repo>-20261018.ps1` runs in its folder in `Documents\Astra's PetOS`, and she starts it again from its Startup
+  shortcut. Live sync does not rebuild `bin\`.
+- **A repeat check that uses it** (Astra's decision, not built): only after that rebuild (an older build ignores the
+  flag and opens the page); one scheduled task per pet (a task's actions run one after another, and a tray program never
+  ends); as Astra with "Run only when user is logged on" (the mutex is per sign-in session and the data folder is her
+  `%LOCALAPPDATA%`), started by Windows and never from a chat; `--startup` on every start, the three shortcuts included,
+  or the task replaces them; logon, unlock and every 10 minutes with IgnoreNew, like the star's. It restarts a pet that
+  quit or crashed (the mutex ends with the process), not a hung one, and a pet quit from its tray comes back at the next
+  check.
+
 ## Task
 
 1. ~~Push and open the pull requests~~ done 2026-10-18 (above).
 2. ~~Merge~~ the three pets merged 2026-10-19; this hub pull request merges once CodeQL passes (Astra's OK).
-3. **Astra:** pet art for Log Lynx, Packet Piranha and Forensic Ferret (paid; prompts not written yet). Until then the
-   pages show a text face and the tray shows a small drawn icon.
+3. ~~Pet art~~ generated 2026-10-19 (above). **Astra:** approve the three drafts, or say which to redraw (with `--match`).
 4. ~~Code languages from GitHub~~ done 2026-10-19.
 5. ~~Starting the three at sign-in~~ done 2026-10-19 on Astra's PC with Startup-folder shortcuts (above).
    **Astra:** start them once: double-click the three `Astras PetOS …` shortcuts in `shell:startup`, or sign out and
    in. Then three tray icons show (a purple lynx, a cyan piranha, a yellow ferret).
-6. Later (not asked for yet): the installer offering the same to beta testers; a quiet `--startup` flag so something
-   can restart a pet that quit; the Farmer watching Log Lynx's heartbeat (the relation is `planned`); Cipher Owl signing
+6. Later (not asked for yet): the installer offering the same to beta testers; ~~a quiet `--startup` flag~~ in the
+   three #9 pull requests (above; merging waits on Astra); a repeat check that restarts a pet that quit (Astra's
+   decision; how, above); the Farmer watching Log Lynx's heartbeat (the relation is `planned`); Cipher Owl signing
    cases; a crash ticket to the vet-clinic.
 
 ## Done when

@@ -225,7 +225,7 @@
       "type": "model",
       "state": "now",
       "layer": 5,
-      "job": "The local model inside VRChat AI Astra (represented by Astra Wisp). Her only avenues: her own pet program (The Astral Plane) and her VRChat body (chatbox drafts today). No files, no keys, no other pets."
+      "job": "The local model inside VRChat AI Astra (represented by Astra Wisp). Her only avenues: her own pet program (The Astral Plane) and her VRChat body, the VRChat connector (the chatbox; small moves only with --allow-moves). No files, no keys, no other pets. Since the-astral-plane PR #8 (2026-10-19) it can be any OpenAI-style model server on this PC or Astra's own network, such as another laptop; none is set up yet."
     },
     {
       "id": "profile",
@@ -268,17 +268,31 @@
       "job": "A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
     },
     {
+      "id": "astras-star-window",
+      "name": "Astra's Star Window",
+      "type": "tool",
+      "of": "program-14",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-astras-star-window-v1.0",
+      "url": "https://findastra.github.io/astras-star-window/star-window-editor-20261019.html",
+      "picture": "https://findastra.github.io/astras-star-window/star-window.svg",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window: one hosted picture of a fat star fading between Astra's favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). Upload a photo, drag it until it sits right in the star, Capture: one commit changes it everywhere it is shown. Its own repo is findastra/astras-star-window (PR #1); saving uses Astra's own key for that repo only, kept in her browser."
+    },
+    {
       "id": "cli-proxy-api-manager",
       "name": "CLI Proxy API manager",
       "type": "tool",
       "of": "program-13",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
       "url": "https://github.com/findastra/findastra-discord-presence/tree/main/discord-tower/cli-proxy-api",
-      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
+      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); first run 2026-10-19, with v8.0.33 (card 006)."
     },
     {
       "id": "mac-prewipe-check",
@@ -327,6 +341,18 @@
       "version": "v1.0",
       "label": "linux-iceberg-v0.1-debian-family-trick-v1.0",
       "job": "A trick of Linux Iceberg (skills/debian-family): helps someone find their way around Debian, Ubuntu, Kali, Raspberry Pi OS, Mint or Pop!_OS and keep packages, updates and services in order, with the Linux check. One trick per distribution family, picked from /etc/os-release (Astra, 2026-10-19)."
+    },
+    {
+      "id": "petos-feedback",
+      "name": "PetOS feedback (ask-astra-bot)",
+      "type": "tool",
+      "of": "program-83",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "fairy-ring-v1.0-petos-feedback-v1.0",
+      "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
     },
     {
       "id": "crash-catcher",
@@ -796,9 +822,9 @@
       "id": "cli-proxy-api",
       "name": "CLI Proxy API",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
-      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 is in quarantine, checksum-verified, never run. Never signed in with Astra's Claude login.",
+      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 has run on this PC only since 2026-10-19 (its first run, findastra-discord-presence#23); v8.0.34 is checksum-verified and pinned (findastra-discord-presence#24); Astra installs it next (card 007). Never signed in with Astra's Claude login.",
       "category": "Desktop app"
     },
     {
@@ -1280,6 +1306,18 @@
       "job": "A tool of API Fairy Ring: every agent session key Gatekeeper Goddess issues, ours or external. Active keys float inside the mushroom circle with a list (agent, model, person, device, place, pets, grants, expiry); expired keys leave the circle for the chest, with their own list. The secret part of a key is never shown."
     },
     {
+      "id": "key-requests",
+      "name": "key-requests",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-key-requests-v1.0",
+      "job": "A tool of API Fairy Ring (Astra, 2026-10-19): every key a chat, pet or tool asks for. A request is a small file in Astra's key-requests folder on her PC (who asks, the provider and key name, what for, the spend limit, a link back), never the key. API Fairy looks for each key by name in Windows' environment variables and the .env files she watches, and her pet program page shows waiting on you, has a key, and declined or not needed. Merged in findastra/api-fairy#8 (6fbbef4); how a chat files one is skills/key-request."
+    },
+    {
       "id": "ai-astra",
       "name": "The Astral Plane",
       "program": 7,
@@ -1287,7 +1325,19 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The home of AI Astra, an embodied AI: her mind and desktop app, her VRChat body (chatbox drafts today) and her voice. Astra Wisp watches her health."
+      "job": "The home of AI Astra, an embodied AI, in three parts (Astra, 2026-10-19): the VRChat connector any agent can use (its native tool), VRChat AI Astra, our own agent (voice/: her cognitive core, a model and the connector as her body), and her model. Also her mind and desktop app. Astra Wisp watches her health."
+    },
+    {
+      "id": "vrchat-connector",
+      "name": "VRChat connector",
+      "type": "tool",
+      "of": "ai-astra",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-vrchat-connector-v1.0",
+      "job": "A tool of The Astral Plane (Astra, 2026-10-19: it \"helps people's agent connect to VR chat\"): a small body any agent can use on the PC that runs VRChat, to say, type, move, turn, jump and stop through VRChat's OSC input. In code: this PC only, eight buttons, a move held 0.1 to 3 s and always released. VRChat AI Astra uses it as her body. Merged (the-astral-plane PR #8, vrchat-embodiment/embodiment.py, 63 tests pass); never run against live VRChat yet."
     },
     {
       "id": "data-dealer-project",
@@ -3648,21 +3698,21 @@
       "from": "findastra-discord-presence",
       "to": "cli-proxy-api-manager",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "Discord Damsel's page links the CLI Proxy API controls, which run only on this PC (Astra, 2026-10-18)."
     },
     {
       "from": "cli-proxy-api-manager",
       "to": "cli-proxy-api",
       "carries": "manages",
-      "state": "planned",
+      "state": "now",
       "why": "Installs the verified release, writes a config that keeps it on this PC only, starts and stops it; refuses a Claude sign-in."
     },
     {
       "from": "cli-proxy-api",
       "to": "windows-pc",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Runs locally on the PC; only this PC can reach it."
     },
     {
@@ -3678,6 +3728,27 @@
       "carries": "findings",
       "state": "planned",
       "why": "Reads Discord Damsel's network safety check for CLI Proxy API by a read-only grant, and flags it if the proxy could be reached from beyond this PC (Astra, 2026-10-18)."
+    },
+    {
+      "from": "role-fairy",
+      "to": "petos-feedback",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Role Fairy runs every Discord bot; her page will show ask-astra-bot's panel, ask-astra-bot-panel, with this tool on it (Astra, 2026-10-19)."
+    },
+    {
+      "from": "petos-feedback",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+    },
+    {
+      "from": "petos-feedback",
+      "to": "claude",
+      "carries": "model",
+      "state": "planned",
+      "why": "Sends each remark with excerpts from Astra's PetOS's public docs to Claude Opus 5.5 through ask-astra-bot's own API key with a spend limit, never the Max plan; the model has no tools."
     },
     {
       "from": "astras-pet-os",
@@ -4486,6 +4557,20 @@
     },
     {
       "from": "ai-astra",
+      "to": "vrchat-connector",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Astral Plane runs this tool: VRChat AI Astra uses it as her body, and any agent can run it on its own PC with its own VRChat account (Astra, 2026-10-19)."
+    },
+    {
+      "from": "vrchat-connector",
+      "to": "vrchat",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Sends chatbox lines and button presses (move, turn, jump, stop) to VRChat's OSC input, on this PC only. Planned until the first live test in a private world: it has never run against live VRChat."
+    },
+    {
+      "from": "ai-astra",
       "to": "windows-pc",
       "carries": "runs-on",
       "state": "now",
@@ -4940,6 +5025,13 @@
       "why": "Fuzzboi Friend watches over the Fuzzbois website and shows its health with his mood (Astra, 2026-10-12)."
     },
     {
+      "from": "astras-star-window",
+      "to": "github",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+    },
+    {
       "from": "fuzzboi-friend",
       "to": "fuzz-factory",
       "carries": "opens",
@@ -5120,6 +5212,13 @@
       "carries": "opens",
       "state": "planned",
       "why": "api-fairy-mushroom-circle is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "key-requests",
+      "carries": "opens",
+      "state": "now",
+      "why": "key-requests is a tool of API Fairy Ring."
     },
     {
       "from": "file-kingdom",
@@ -5452,7 +5551,7 @@
       "to": "ai-astra",
       "carries": "model",
       "state": "now",
-      "why": "The model that runs AI Astra. Allowed avenues only: her own program and the VRChat chatbox."
+      "why": "The model that writes AI Astra's words. Allowed avenues only: her own program and her VRChat body through the VRChat connector (the chatbox; small moves only with --allow-moves)."
     },
     {
       "from": "farm",
@@ -5970,6 +6069,29 @@
         "status": "written",
         "how": "evidence-locker-20261018.cs reads and copies into its own cases folder only; it never changes or deletes what it investigates. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
         "next": "Iron Gates issues the grant; Cipher Owl signs each case so a rewritten case shows."
+      },
+      {
+        "id": "fairy-feedback-bot",
+        "who": "Role Fairy (Fairy Ring: ask-astra-bot's petos-feedback)",
+        "subjects": [
+          "id:role-fairy"
+        ],
+        "on": "the Discord chats Astra lists about Astra's PetOS (reads every message, replies there), Astra's PetOS's public docs on GitHub, and Claude through ask-astra-bot's own API key",
+        "resources": [
+          "ring:4",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "planned",
+        "level": [
+          "L1",
+          "L2",
+          "L3"
+        ],
+        "how": "Built on 2026-10-19, not installed. Discord's role and channel permissions limit what it can see and do (four permissions; it refuses to start with Administrator or Manage permissions, tested). Its code reads and saves only the listed chats, posts only checked text (no pings, only Astra's own links) and keeps what it reads on Astra's PC. It runs as Astra, so nothing outside its own code and Discord stops it reaching further on the PC.",
+        "next": "Iron Gates issues the grant, with the chat list and the daily limits as its limits; Astra approves it by merging."
       }
     ]
   },

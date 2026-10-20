@@ -18,6 +18,7 @@ the page layout redrawn from her sketch of 2026-10-18 by Claude Opus 5.5 (`claud
 | Pet program icon | The character (Friendly Farmer). |
 | Pet program | The one main program a pet stands for (The Farm). |
 | Native program | A program, site, world or app Astra made that is opened or run on its own (Startup Star, Ghost Protocol). The only thing a pet program owns that the System Map draws (Astra, 2026-10-19). |
+| Control panel | What a pet program page is (Astra, 2026-10-19): it shows how the pet's things are and gives you the switches. Anything too big for a tool panel becomes its own website, a native program the pet program manages (section 3). Developers say dashboard or admin console. |
 | Tool | Code a pet program owns and runs with no AI: a script, page section, editor tool or plugin. Same ring and permissions as its pet program, never more. Listed on its pet program's card, never drawn on the System Map (Astra, 2026-10-19). |
 | Trick | Written steps the pet's seated AI follows with its tools (a `SKILL.md`). Listed on its pet program's card, never drawn. Every native program, tool and trick is in the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md). |
 | Tool box | How a tool appears on a page: a bordered box with its versioned label on the top border and everything about the tool inside. |
@@ -48,6 +49,21 @@ What each one means: section 3, `<pet>-emotions`.
 
 ## 3. The page, top to bottom
 
+### A pet program is a control panel (Astra, 2026-10-19)
+
+A pet program page is a **control panel**: it shows at a glance how the pet's programs, tools and tricks are doing,
+and gives you the switches (the paired lights, short lists, buttons, a note box). It is not where big work happens.
+**When something gets too big to fit on a tool panel, it becomes its own website, which the pet program manages.**
+
+- **Too big** means it needs a screen of its own: its own tabs or menus, an editor, a gallery, a long list you scroll
+  and search, or a place you would open by itself to work in.
+- **Its own website** is a native program of the pet program: a page in the pet's repo (`<name>-<YYYYMMDD>.html`),
+  or a repo of its own when it grows that big (a new repo needs Astra's OK). It is opened on its own, so the System
+  Map draws it, and the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md) lists it.
+- **The page keeps one tool panel for it:** its paired lights, a line or two on how it is doing (counts, the last
+  change, anything that needs you) and an **Open** button. The panel manages the website; it does not hold it.
+- Small tools stay on the page: a tool box with its lights, one line on what it does, and its button.
+
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
 ![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)
@@ -76,6 +92,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
    behind it. Taken from the pet's mini-descriptor.
+3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
+   (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
+   node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's activity light (the sketch's
    "activity status") sits on its top border, beside its label. Every item inside has its paired lights.
 
@@ -183,7 +202,11 @@ place, with the four stacked level tool panels, from pets.json, pet-programs.jso
 What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
 lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
 not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
-(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **One click always points to
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **A pet's own tool panels** come
+after the four level tool panels and the R W X panel, so the sketch's order stays (the spawner's `PET_PANELS`). The first is API Fairy's
+`api-fairy-key-requests-tool-panel` (Astra, 2026-10-19): every key a chat, pet or tool asked for, in three groups (waiting on
+you, has a key, declined or not needed), each with a link back to the request; the list itself stays on Astra's PC
+([skills/key-request](skills/key-request/SKILL.md)). **One click always points to
 the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
 `interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
 and its **Open today's app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
@@ -410,8 +433,10 @@ copies a request for the user's own AI to start a seed like it on their farm.
       name as its title, sends and receives, and ON/OFF.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).
 - [ ] Backlog and the weekly run work, and backlog health shows (section 7).
-- [ ] The map link focuses its own node. Languages show in the footer.
+- [ ] The `<pet>-system-map` panel sits top right and opens the map on its own node (A60). Languages show in the footer.
 - [ ] Its tricks are in trick boxes and known to Skill Scout; any shared tool it uses has a grant from Iron Gates.
 - [ ] Every agent that operates it uses a short-lived key from Iron Gates; it reports every W to the Police Station.
 - [ ] Plain developer language throughout; no marketing.
 - [ ] Follows [PROTECTION-RINGS.md](PROTECTION-RINGS.md): it is an animal only once L4 lets it in.
+- [ ] The page is a control panel (section 3): anything too big for a tool panel is its own website the pet program
+      manages, with one tool panel that shows how it is doing and opens it.

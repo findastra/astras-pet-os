@@ -29,7 +29,7 @@ export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
-export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -106,7 +106,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 
   // L1: what the pet runs and looks after (links that leave the pet or its program), and its tools.
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null });
+  // `picture`: a live picture of what the item makes. Its pill starts open, so the page shows it (Astra's Star Window,
+  // 2026-10-19: "I want to see the pet program too with the photostar on it").
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -166,6 +168,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related,
@@ -209,9 +212,10 @@ function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const more = `${i.why ? `<p>${esc(i.why)}</p>` : '<p class="empty">No description on the System Map yet.</p>'}
-<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.url ? `
+<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.picture ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.url ? `
 <p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"${i.picture ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
@@ -268,6 +272,44 @@ function connection(c, homeSlug) {
 <p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
 }
 
+// ---------- A pet's own panels, beyond the sketch's minimum ----------
+
+// API Fairy's key requests (Astra, 2026-10-19: "show me who is requesting a key, who has a key and who doesn't have a
+// key ... if there's a request and it's not being met and I haven't given the key, then I need a link to wherever that
+// is that's requesting the key"). The real list never comes from the hub: it stays on Astra's PC, where API Fairy
+// (api-fairy-ring-v1.0-key-requests-v1.0) checks each key by name and writes it for this page. Opened anywhere else,
+// the panel shows the made-up examples below, marked as examples.
+export const KEY_REQUEST_GROUPS = [
+  ['waiting', 'waiting-on-you', 'Nothing is waiting on you.'],
+  ['has-key', 'has-a-key', 'No key handed over yet.'],
+  ['declined', 'declined-or-not-needed', 'Nothing declined.'],
+];
+export const KEY_REQUEST_SKILL = `https://github.com/${OWNER}/${HUB}/blob/main/skills/key-request/SKILL.md`;
+// Made up, so a page on GitHub shows how the panel works without naming any real service Astra uses.
+export const KEY_REQUEST_EXAMPLES = [
+  { id: 'example-1', group: 'waiting', status: 'requested', asked: '2026-10-19', example: true,
+    requester: { kind: 'chat', name: 'Example: a chat working on a pet', pet: null }, provider: 'Example Weather', key_name: 'EXAMPLE_WEATHER_API_KEY',
+    where: 'user-env', where_words: 'your user environment variables', for: 'Example only: today\'s weather on a pet program page.', spend_limit: 'the free plan',
+    link: KEY_REQUEST_SKILL, found: 'no', found_in: null, note: null },
+  { id: 'example-2', group: 'has-key', status: 'given', status_date: '2026-10-18', asked: '2026-10-16', example: true,
+    requester: { kind: 'tool', name: 'Example: a pet\'s tool', pet: null }, provider: 'Example Maps', key_name: 'EXAMPLE_MAPS_API_KEY',
+    where: 'user-env', where_words: 'your user environment variables', for: 'Example only: maps for a pet.', spend_limit: 'a monthly limit you set',
+    link: KEY_REQUEST_SKILL, found: 'yes', found_in: 'your user environment variables', note: null },
+  { id: 'example-3', group: 'declined', status: 'declined', status_date: '2026-10-17', asked: '2026-10-17', example: true,
+    requester: { kind: 'bot', name: 'Example: a bot other people use', pet: null }, provider: 'Example AI', key_name: '',
+    where: 'app', where_words: 'another program\'s own settings', for: 'Example only: wanted your own AI sign-in.', spend_limit: null,
+    link: KEY_REQUEST_SKILL, found: 'cannot-see', found_in: 'It goes inside another program\'s own settings, where I can\'t look.', note: 'Declined: a bot other people use runs on its own API key with a spend limit, never your own sign-in.' },
+];
+
+function keyRequestsPanel(d) {
+  const groups = KEY_REQUEST_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
+  return panel(`${d.petSlug}-key-requests-tool-panel`, `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
+<div class="request-groups" id="key-requests">${groups}</div>
+<p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'key-requests', light: true });
+}
+
+export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
+
 // Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
 // in the tray. Drawn here, so it is the same on every page and needs no picture file.
 const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
@@ -302,7 +344,16 @@ ${lights(`program:${d.homeSlug}`, d.home)}
 <p class="who">${esc(d.pet)}'s pet program · #${esc(d.number)} · ${esc(d.stage)}${d.status ? ` · ${esc(d.status)}` : ''}${d.isPrivate ? ' · private: its data never leaves the PC' : ''}</p>
 ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
-<a class="button" href="${esc(map)}">On the System Map</a>${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
+${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
+
+  // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
+  // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
+  // A small drawing of rings 0 to 3 with a dot on the ring the program lives on (rings: PROTECTION-RINGS.md).
+  const ringR = { 0: 0, 1: 24, 2: 40, 3: 56 }[d.ring] ?? 56;
+  const systemMap = panel(`${d.petSlug}-system-map`, `<a class="map-link" href="${esc(map)}">
+<svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
+<span>Open ${esc(d.home)} on the System Map</span></a>
+<p class="small">its node: <code>${esc(d.mapNode)}</code></p>`, { cls: 'system-map' });
 
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
@@ -342,6 +393,9 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
+
+  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is.
+  const own = PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : '';
 
   const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not set yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
@@ -421,17 +475,17 @@ ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send t
 </head>
 <body>
 <main class="page">
-<header class="top">${cyberhome}${title}</header>
+<header class="top">${cyberhome}${title}${systemMap}</header>
 ${levels}
 ${rwx}
-${notes}
+${own}${notes}
 <div class="pair">${emotions}${clicker}</div>
 ${related}
 ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-<script src="${ASSETS.js}"></script>
+${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
 </body>
 </html>
 `, pagePath(d.repo));

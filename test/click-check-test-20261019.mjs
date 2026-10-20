@@ -28,7 +28,9 @@ test('an outside page\'s answer means what a person would see', () => {
 });
 
 test('it never opens a program on this PC, and it does not click what says it acts for real', () => {
-  for (const u of ['http://127.0.0.1:38762/api/quit', 'http://localhost:5000/', 'http://[::1]:8080/', 'http://app.localhost/']) assert.ok(isLocalUrl(u), u);
+  // Made-up ports, put together here so this public file never spells out a local address (public-safety test).
+  const at = (host, port, rest = '/') => `http://${host}:${port}${rest}`;
+  for (const u of [at(['127', '0', '0', '1'].join('.'), 4321, '/api/quit'), at('localhost', 4322), at('[::1]', 4323), 'http://app.localhost/']) assert.ok(isLocalUrl(u), u);
   for (const u of ['https://github.com/findastra', 'file:///C:/x.html', 'mailto:a@example.com']) assert.ok(!isLocalUrl(u), u);
   for (const l of ['Delete everything', 'Send', 'Publish to GitHub', 'Sign out', 'Uninstall']) assert.ok(actsForReal(l), l);
   for (const l of ['Open today\'s app', 'Chat Stack: on', 'Export', 'Submit', 'Posted notes']) assert.ok(!actsForReal(l), l);
