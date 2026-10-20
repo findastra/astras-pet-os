@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge the rebuild pull request, then add three paths to line 59 of the Farmer's round workflow)
+status: open (waiting on Astra: add three paths to line 59 of the Farmer's round workflow)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -69,13 +69,13 @@ README, ROSTER, RELATIONS, MOOD-KEY and the Farmer's desk. It leaves out `apps/p
 `system-map-20261012.html`, which `build.mjs --metadata-only` also rebuilds from `pets.json`. On the runner those files
 were rebuilt, so the round's own `npm test` passed. They were never committed, so a round that changes `pets.json`
 leaves them stale on `main`. Before merging I should have tested the merged result, not only the round's run.
-- I ran `npm run build` on `main` (`893335f`) on branch `claude/round-pages-rebuild-20261019` and committed the
-  output: 41 pet program pages, 6 Markdown pets and the System Map, all generated and none edited by hand.
-  `npm test`: 208 pass, 0 fail, 1 skipped. The pull request is linked from this card's commit.
+- I rebuilt them with `npm run build` on branch `claude/round-pages-rebuild-20261019` (#142, `74d5d35`). Before Astra's
+  OK came, #134's merge rebuilt the same pages on `main` (`4f209f0`), and `main` was green again: `npm test` 209 pass,
+  0 fail. I merged `main` into #142 and rebuilt. The generated files then matched `main` exactly, so #142 carries only
+  this card. `main` was red from `171dcd7` to `4f209f0`.
 
 ## Task
-1. Astra: OK to merge the rebuild pull request (`main` is red until then).
-2. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
+1. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
    https://github.com/findastra/astras-pet-os/edit/main/.github/workflows/farmer-daily-rounds.yml , line 59. Add
    ` apps/pet-programs markdown-pets system-map-20261012.html` to the end of
    `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html`, then

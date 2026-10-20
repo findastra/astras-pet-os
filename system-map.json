@@ -317,6 +317,18 @@
       "job": "A trick of Linux Iceberg (skills/debian-family): helps someone find their way around Debian, Ubuntu, Kali, Raspberry Pi OS, Mint or Pop!_OS and keep packages, updates and services in order, with the Linux check. One trick per distribution family, picked from /etc/os-release (Astra, 2026-10-19)."
     },
     {
+      "id": "petos-feedback",
+      "name": "PetOS feedback (ask-astra-bot)",
+      "type": "tool",
+      "of": "program-83",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "fairy-ring-v1.0-petos-feedback-v1.0",
+      "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
+    },
+    {
       "id": "crash-catcher",
       "name": "Crash catcher",
       "type": "tool",
@@ -3654,6 +3666,27 @@
       "why": "Reads Discord Damsel's network safety check for CLI Proxy API by a read-only grant, and flags it if the proxy could be reached from beyond this PC (Astra, 2026-10-18)."
     },
     {
+      "from": "role-fairy",
+      "to": "petos-feedback",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Role Fairy runs every Discord bot; her page will show ask-astra-bot's panel, ask-astra-bot-panel, with this tool on it (Astra, 2026-10-19)."
+    },
+    {
+      "from": "petos-feedback",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+    },
+    {
+      "from": "petos-feedback",
+      "to": "claude",
+      "carries": "model",
+      "state": "planned",
+      "why": "Sends each remark with excerpts from Astra's PetOS's public docs to Claude Opus 5.5 through ask-astra-bot's own API key with a spend limit, never the Max plan; the model has no tools."
+    },
+    {
       "from": "astras-pet-os",
       "to": "github",
       "carries": "runs-on",
@@ -5944,6 +5977,29 @@
         "status": "written",
         "how": "evidence-locker-20261018.cs reads and copies into its own cases folder only; it never changes or deletes what it investigates. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
         "next": "Iron Gates issues the grant; Cipher Owl signs each case so a rewritten case shows."
+      },
+      {
+        "id": "fairy-feedback-bot",
+        "who": "Role Fairy (Fairy Ring: ask-astra-bot's petos-feedback)",
+        "subjects": [
+          "id:role-fairy"
+        ],
+        "on": "the Discord chats Astra lists about Astra's PetOS (reads every message, replies there), Astra's PetOS's public docs on GitHub, and Claude through ask-astra-bot's own API key",
+        "resources": [
+          "ring:4",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "planned",
+        "level": [
+          "L1",
+          "L2",
+          "L3"
+        ],
+        "how": "Built on 2026-10-19, not installed. Discord's role and channel permissions limit what it can see and do (four permissions; it refuses to start with Administrator or Manage permissions, tested). Its code reads and saves only the listed chats, posts only checked text (no pings, only Astra's own links) and keeps what it reads on Astra's PC. It runs as Astra, so nothing outside its own code and Discord stops it reaching further on the PC.",
+        "next": "Iron Gates issues the grant, with the chat list and the daily limits as its limits; Astra approves it by merging."
       }
     ]
   },
