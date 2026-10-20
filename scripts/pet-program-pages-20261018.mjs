@@ -63,13 +63,27 @@ const ymd = (iso) => (iso ? String(iso).slice(0, 10).replace(/-/g, '') : null);
 const day = (iso) => (iso ? String(iso).slice(0, 10) : null);
 const up = (p) => `../../${p}`; // from apps/pet-programs/ back to the hub's root
 
-/** Every picture of the pet, from the hub only: registered frames, then the desktop draft list, then art/drafts, then
- *  its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
+/** Every picture of the pet, from the hub only: its desktop drawing, then registered frames, then the desktop draft
+ *  list, then art/drafts, then its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
 export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) {
   const pick = (paths, source) => {
     const frames = Object.fromEntries(Object.entries(paths).filter(([, p]) => p && exists(p)));
     return frames.idle ? { frames, source } : null;
   };
+  const newest = (dir) => {
+    const files = list(dir);
+    const frames = {};
+    for (const mood of MOODS) { const f = files.filter((n) => new RegExp(`^${mood}(-\\d{8})?\\.png$`).test(n)).sort().pop(); if (f) frames[mood] = `${dir}/${f}`; }
+    return frames;
+  };
+  // The pet as it looks on the desktop comes first (Astra, 2026-10-20, crossing out the older drawing of Drum Dog on
+  // his page while his desktop pet sat beside it): its drawing in desktop-art/<art>/, the newest file of each mood, so
+  // the page and the desktop pet are one pet. A drawing the draft list marks private (Claude Bot's) is never used.
+  const privateArt = new Set((drafts?.pets || []).filter((d) => d.private).map((d) => d.id));
+  for (const folder of [reg.art, reg.repo].filter((x) => x && !privateArt.has(x))) {
+    const frames = newest(`desktop-art/${folder}`);
+    if (frames.idle) return { frames, source: 'desktop' };
+  }
   const registered = reg.art && frameIndex?.pets?.[reg.art];
   if (registered && !registered.placeholder) { const r = pick(registered.frames, 'registered'); if (r) return r; }
   const draft = (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet));
@@ -78,9 +92,7 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
     if (m) { const r = pick(Object.fromEntries(MOODS.map((mood) => [mood, `${m[1]}/${mood}${m[2] || ''}.png`])), 'draft'); if (r) return r; }
   }
   for (const folder of [reg.art, draft?.id, reg.repo, slug(reg.pet)].filter(Boolean)) {
-    const files = list(`art/drafts/${folder}`);
-    const frames = {};
-    for (const mood of MOODS) { const f = files.filter((n) => new RegExp(`^${mood}(-\\d{8})?\\.png$`).test(n)).sort().pop(); if (f) frames[mood] = `art/drafts/${folder}/${f}`; }
+    const frames = newest(`art/drafts/${folder}`);
     if (frames.idle) return { frames, source: 'draft' };
   }
   const icon = list('art/icons').filter((n) => new RegExp(`^${reg.repo}-\\d{8}\\.png$`).test(n)).sort().pop();
@@ -221,6 +233,9 @@ const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.i
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
 // They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
 // its name, which opens in place to show what it is and, when the map has one, a link to its own page or folder.
+// The stylesheet sets the name into the oval's top border, like a panel's label, and keeps the lights inside, below
+// that line (Astra, 2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator
+// lights down").
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
@@ -324,13 +339,23 @@ function keyRequestsPanel(d) {
 
 export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
 
-// Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
-// in the tray. Drawn here, so it is the same on every page and needs no picture file.
-const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
-
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
 const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// The unified footer, as it looked before it turned into a list (Astra, 2026-10-20: "It looked really good ... It was
+// listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14 (Flash Audit A51), drawn by the
+// spawner as plain page markup. Centered groups between thin rules, each after a ✦: By Astra and the date (it said
+// "Made by Astra"; the credit is "By Astra" since 2026-10-20), Find Out More with her GitHub and TikToks, Take Me Home!
+// with the Farmer's icon. The license, languages and the page's links sit above and below them.
+const footerIcon = (path) => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${path}"/></svg>`;
+const GITHUB_ICON = footerIcon('M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z');
+const TIKTOK_ICON = footerIcon('M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z');
+export const FOOTER_LINKS = [
+  ['GitHub: Astra', `https://github.com/${OWNER}`, GITHUB_ICON],
+  ['Pole TikTok: @astra_on_fire', 'https://www.tiktok.com/@astra_on_fire', TIKTOK_ICON],
+  ['VR TikTok: @findastra', 'https://www.tiktok.com/@findastra', TIKTOK_ICON],
+];
 
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
@@ -350,16 +375,21 @@ export function buildPetProgramPage(d) {
     : 'not checked by a merged round yet';
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
-  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
-  // the top corner. The page plays the arrival itself; flying in from the desktop needs Startup Star's link (not built).
+  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
+  // plays the arrival itself; flying in from the desktop needs Startup Star's link (not built). No star door in it
+  // since 2026-10-20 (Astra crossed it out).
   const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 ${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den" data-arrival="waiting">${STAR_DOOR}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
+<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
 
+  // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
+  // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
+  // stay to the right of the title, no matter how big it is"), and smaller than before (her marked-up screenshot, the
+  // same day). Nothing is listed under it: the "<pet>'s pet program · #N · stage · status" line is crossed out there. A private
+  // pet still says its data never leaves the PC, in L2's status line and the footer.
   const title = `<div class="title">
-<h1>${esc(d.home)} <span class="version" title="The pet program's version comes from its own pet.json; the hub has not recorded it yet">V? // ${esc(ymd(d.added) || DATE)}</span></h1>
-<p class="who">${esc(d.pet)}'s pet program · #${esc(d.number)} · ${esc(d.stage)}${d.status ? ` · ${esc(d.status)}` : ''}${d.isPrivate ? ' · private: its data never leaves the PC' : ''}</p>
+<h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="The pet program's version comes from its own pet.json; the hub has not recorded it yet">V? // ${esc(ymd(d.added) || DATE)}</span></h1>
 ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
 ${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
@@ -385,7 +415,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <section><h3>Your tricks</h3>${itemList(d.tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
 <section><h3>Schedule</h3><ul class="plain"><li>Self-audit: ${esc(cadence)}${d.audit.subject ? ` (${esc(d.audit.subject)})` : ''}</li><li>Weekly backlog run: not set up yet (needs an L3 seat)</li></ul></section>
 <section class="wide"><h3>Status line</h3><dl class="status">
-<dt>Data</dt><dd>yours, in this browser only</dd>
+<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; the program's own version is not recorded in the hub yet</dd>
 <dt>Seat</dt><dd>empty</dd>
@@ -459,14 +489,17 @@ ${assigned}</dl>
     : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets' });
 
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
-  const footer = panel('astras-pet-os-unified-footer', `<div class="footer-grid">
-<p>By Astra. MIT license. Signature: not signed yet.</p>
-<p><b>Languages:</b> ${esc(langs)}</p>
-<p><b>Home:</b> <a href="${esc(map)}">System Map</a> · <a href="../astras-pet-apps-20261008.html">The Farm</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a></p>
-<p><b>Source:</b> ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">findastra/${esc(d.repo)}</a>` : `findastra/${esc(d.repo)} (private)`}</p>
-<p><b>Docs:</b> <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
+  const made = day(d.added) || `${DATE.slice(0, 4)}-${DATE.slice(4, 6)}-${DATE.slice(6)}`;
+  const footer = panel('astras-pet-os-unified-footer', `<footer class="astra-footer" aria-label="By Astra: signature and links">
+<p class="footer-status">MIT license · signature: not signed yet${d.isPrivate ? ' · private: its data never leaves the PC' : ''} · ${esc(langs)}</p>
+<div class="footer-line">
+<div class="footer-group"><span class="footer-title">By Astra</span><time datetime="${esc(made)}">${esc(made)}</time></div>
+<div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
+<div class="footer-group"><span class="footer-title">Take Me Home!</span><a class="footer-home" href="../astras-pet-apps-20261008.html" title="The Farm: the Friendly Farmer" aria-label="The Farm: the Friendly Farmer"><img src="${esc(up('art/icons/astras-pet-os-20261012.png'))}" alt="" width="28" height="28"></a></div>
+</div>
+<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a> · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">findastra/${esc(d.repo)}</a>` : `findastra/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
 <p class="words-switch" data-words-switch></p>
-<p class="small">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></div>`, { cls: 'footer' });
+<p class="small footer-spawned">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></footer>`, { cls: 'footer' });
 
   // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
   // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;

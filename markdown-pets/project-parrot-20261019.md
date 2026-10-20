@@ -42,6 +42,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Project Parrot](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/project-parrot/idle-20261008.png)
+![Project Parrot](https://raw.githubusercontent.com/findastra/astras-pet-os/main/desktop-art/project-parrot/idle-20261011.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*
