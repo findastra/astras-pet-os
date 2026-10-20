@@ -5,9 +5,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { OUTPUT, MODE_FILE, SOURCE, developerWordsFile, readDeveloperWordsSources } from '../scripts/developer-words-20261019.mjs';
@@ -134,6 +134,27 @@ test('every page loads the installer\'s words, then the swap, in its <head>', ()
   for (const [path, html] of Object.entries(pages)) assert.ok(html.includes('data-words-switch'), `${path}: the words switch`);
   assert.ok(pages[INDEX].includes('data-words-switch'));
   assert.match(read('system-map-20261012.html'), /const DATA = [\s\S]{0,2000000}?\nif \(window\.PetOSWords\) window\.PetOSWords\.data\(DATA\);/, 'the map gets its new names before it is drawn');
+});
+
+// The Farmer's round rebuilds the desk every morning with its generator, so a hand edit to the desk is gone the next
+// day (run 39462765053, card 052). Build the desk in a copy and check what the generator itself writes.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-20.
+test('the Farmer\'s desk generator writes the words, then the swap, in <head>, and the words switch in the footer', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'desk-'));
+  try {
+    const registry = JSON.parse(read('pets.json')), art = JSON.parse(read('art/frames/index.json'));
+    cpSync(join(root, 'scripts'), join(dir, 'scripts'), { recursive: true });
+    for (const rel of ['pets.json', 'art/frames/index.json', art.pets[registry.pets.find((p) => p.role === 'host').art].frames.idle]) {
+      mkdirSync(dirname(join(dir, rel)), { recursive: true });
+      copyFileSync(join(root, rel), join(dir, rel));
+    }
+    execFileSync(process.execPath, [join(dir, 'scripts', 'build-interfaces-20261008.mjs'), 'astras-pet-apps'], { stdio: 'pipe' });
+    const html = readFileSync(join(dir, 'apps', 'astras-pet-apps-20261008.html'), 'utf8');
+    const head = html.slice(0, html.indexOf('</head>')), footer = html.slice(html.indexOf('<footer>'), html.indexOf('</footer>'));
+    const mode = head.indexOf('<script src="words-mode-20261019.js"></script>'), swapAt = head.indexOf('<script src="developer-words-20261019.js"></script>');
+    assert.ok(mode > 0 && swapAt > mode, 'the generated desk: words-mode, then developer-words, in <head>');
+    assert.ok(footer.includes('data-words-switch'), 'the generated desk: the words switch in its footer');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
 test('in developer mode the agent is already home and one click says what it does', () => {
