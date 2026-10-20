@@ -15,4 +15,4 @@ for(const [mood,frame] of Object.entries(sprite.frames)){
   }));
   writeFileSync(`${dir}${mood}-20261011.png`,png(w,h,rgba));
 }
-console.log('Chip: nine desktop screen-face frames.');
+console.log('Data Chip: nine desktop screen-face frames.');

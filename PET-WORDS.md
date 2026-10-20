@@ -11,7 +11,7 @@ Every pet app is a set of parts. Each part has **one** name, used everywhere: RE
 | Part | Call it | Programmer word | Not | What it is |
 |---|---|---|---|---|
 | The whole set | **pet app** | project: one repo with its app and its character | | One repo, one pet, and its app. "RGBee is a pet app." |
-| The character | **pet** | mascot (the app's character) | pixel twin | The creature itself, by name: "the Goldfish", "Chip". It lives on the Windows desktop and in its app's pet well. |
+| The character | **pet** | mascot (the app's character) | pixel twin | The creature itself, by name: "the Goldfish", "Data Chip". It lives on the Windows desktop and in its app's pet well. |
 | The full window | **app** | application (its user interface) | pet app's app, application interface, pet interface, local interface, browser companion | What opens when you double-click the pet. Either a **web app** (an HTML page) or a **Windows app** (a program). The Farmer's app is called his **desk**. |
 | The pet on your desktop | **desktop pet** | desktop overlay: an always-on-top animated sprite window | pet app icon, desktop companion | The small pet that sits on the Windows desktop above other windows. Optional: the Farmer and Claude Bot have one. |
 | The pet talking | **bubble** | toast notification (one way) | speech bubble, chat bubble | A short line that pops up over the pet for a few seconds. One way: the pet talks to you. The lines live in `says` in pets.json. |
