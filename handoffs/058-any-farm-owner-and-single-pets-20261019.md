@@ -115,7 +115,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
 
 **Part 4, 2026-10-20, by Claude Opus 5.5 (`claude-opus-5-5`), a session started from the farm-owner chat:**
 
-Branch `claude/pet-packs-20261020`, cut from `main` at `fcaf44d` in a clone in Claude's scratchpad with
+[Pull request #183](https://github.com/findastra/astras-pet-os/pull/183), commit `5c00536`, branch `claude/pet-packs-20261020`, cut from `main` at `fcaf44d` in a clone in Claude's scratchpad with
 `core.autocrlf=false`. The live hub folder on Astra's PC was not touched. Built from Astra's answers of 2026-10-20
 (all recommended): a pet pack zip first; pictures copied into the zip only; what each pet needs written in pets.json.
 
@@ -172,7 +172,7 @@ Branch `claude/pet-packs-20261020`, cut from `main` at `fcaf44d` in a clone in C
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
 3. ~~**Part 3**~~ Merged with #164 as `dcd5d81` (upstream vs farm owner, make-it-yours; Astra's OK in chat, 2026-10-20).
-4. **Part 4** (pet packs, `needs` in pets.json): built on `claude/pet-packs-20261020`. **Astra:** her OK in chat to
+4. **Part 4** (pet packs, `needs` in pets.json): built, [pull request #183](https://github.com/findastra/astras-pet-os/pull/183). **Astra:** her OK in chat to
    merge it, and three questions in slides: where packs are published, API Fairy's scan, private repos.
 5. Next, after Part 4: the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).

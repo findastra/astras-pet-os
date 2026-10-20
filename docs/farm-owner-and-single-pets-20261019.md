@@ -149,7 +149,7 @@ new farm's owner and marks the examples as Astra's, so a beginner never edits JS
   Farmer adds or removes one pet on an existing farm and records it in `farm.lock` (he is the package manager), then
   the Kennel's adoptions use the same path.
 
-**As built (2026-10-20, branch `claude/pet-packs-20261020`, waiting on Astra's OK):**
+**As built (2026-10-20, pull request #183, waiting on Astra's OK):**
 - `needs` on all 42 registered and pipeline pets, and `needs_key` at the top of pets.json. Four kinds:
   - `os`: the computer its own program runs on.
   - `pets`: other pets, by repo, each required or optional.
