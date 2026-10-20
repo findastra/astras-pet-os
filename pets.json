@@ -2,7 +2,7 @@
   "cage": "astras-pet-os",
   "owner": "Astra",
   "topic": "pet-app",
-  "updated": "2026-10-11",
+  "updated": "2026-10-19",
   "mascots": [],
   "cage_life": {
     "about": "How the pets move in the Cage. Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
@@ -607,9 +607,10 @@
       "source_commit": "a63b027fca258816996767eff5d6e3a75431a1fb",
       "audit": {
         "cadence": "weekly",
-        "subject": "the notes about your API keys",
-        "needs": "a key renewed or a note confirmed"
-      }
+        "subject": "Pet Program source, shared controls and declared tool behavior",
+        "needs": "Local source review; real runtime and desktop actions require separate verification"
+      },
+      "submitted": "2026-10-15"
     },
     {
       "repo": "unity-unicorn",
@@ -677,7 +678,8 @@
         "cadence": "weekly",
         "subject": "AI Astra: her mind, VRChat body and voice",
         "needs": "the AI Astra app started on your PC"
-      }
+      },
+      "submitted": "2026-10-17"
     },
     {
       "repo": "health-hummy",
@@ -818,7 +820,7 @@
       "kind": "human",
       "status": "hatching",
       "published": true,
-      "job": "Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist.",
+      "job": "Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.",
       "added": "2026-10-07",
       "note": "DRAFT. Blurple hennin and veil; no Discord logo.",
       "interface_local_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
@@ -831,7 +833,8 @@
         "cadence": "weekly",
         "subject": "the OpenAI and Anthropic presence apps",
         "needs": "Discord open with activity sharing on"
-      }
+      },
+      "submitted": "2026-10-14"
     },
     {
       "repo": "portfolio-puffer",
@@ -961,7 +964,7 @@
       "display_scale": 1,
       "status": "growing",
       "published": true,
-      "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output.",
+      "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.",
       "added": "2026-10-08",
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
@@ -969,8 +972,8 @@
       "app_url": "apps/voicemeeter-bug-20261008.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "your Voicemeeter audio",
-        "needs": "the Bug running on your PC"
+        "subject": "the app's build, fake-API recovery checks, and selected output reconnect monitoring",
+        "needs": "a compatible installed Voicemeeter Remote API; a listening check when audible distortion persists"
       },
       "visibility": "public",
       "clicks": {
@@ -979,7 +982,8 @@
           "label": "audio-rescue-v1.0-repair-v1.0",
           "what": "restart Voicemeeter's audio engine (the repair; it was one click until 2026-10-19)"
         }
-      }
+      },
+      "submitted": "2026-10-18"
     },
     {
       "repo": "platform-platypus",
@@ -1084,7 +1088,8 @@
         "subject": "my plan",
         "needs": "a job: what should Mail Snail do?"
       },
-      "note": "Card 007."
+      "note": "Card 007.",
+      "submitted": "2026-10-12"
     },
     {
       "repo": "patch-cat",
@@ -1236,23 +1241,37 @@
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
       "visibility": "public",
-      "status": "hatching",
+      "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
       "interface_local_url": "apps/pet-programs/raspberry-berry-20261018.html",
       "interface_url": "apps/pet-programs/raspberry-berry-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
-        "needs": "a job: what should Raspberry Pi Maker do?"
-      }
+        "subject": "Astra's Raspberry Pi projects",
+        "needs": "site storage allowed for the page"
+      },
+      "says": {
+        "raspberry-berry": [
+          "berry good",
+          "backed up and up to date"
+        ]
+      },
+      "moods": {
+        "happy": "Every running Pi is backed up and updated.",
+        "worried": "A few Pis need a backup, an update or a hostname.",
+        "sad": "I could not read a backup file.",
+        "sick": "The browser is blocking site storage, so I cannot remember the Pis.",
+        "alarmed": "More than five things to fix across the Pis."
+      },
+      "submitted": "2026-10-13"
     },
     {
       "repo": "role-fairy",
       "pet": "Role Fairy",
       "visibility": "public",
       "status": "hatching",
-      "job": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
+      "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
       "added": "2026-10-17",
       "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
       "interface_url": "apps/pet-programs/role-fairy-20261018.html",
@@ -1261,14 +1280,15 @@
         "subject": "every Discord bot: its servers, roles, permissions and health",
         "needs": "a bot's access to its server, or your OK for a new bot"
       },
-      "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered."
+      "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered.",
+      "submitted": "2026-10-19"
     },
     {
       "repo": "chat-rat",
       "pet": "Chat Rat",
       "visibility": "public",
-      "status": "hatching",
-      "job": "Files every chat Astra has with Claude or OpenAI into one shared folder, with an index every assistant can read.",
+      "status": "growing",
+      "job": "Saves local AI conversations and imported exports by recorded model and YYYYMMDD, with direct folder buttons.",
       "added": "2026-10-18",
       "interface_local_url": "apps/pet-programs/chat-rat-20261018.html",
       "interface_url": "apps/pet-programs/chat-rat-20261018.html",
@@ -1277,7 +1297,8 @@
         "subject": "the chats it has filed and their index",
         "needs": "where your Claude and OpenAI chats are saved"
       },
-      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit."
+      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit.",
+      "submitted": "2026-10-16"
     },
     {
       "repo": "workflow-whirlpool",
@@ -1310,7 +1331,8 @@
       },
       "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in log-den); no pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/log-den-20261018.html",
-      "interface_local_url": "apps/pet-programs/log-den-20261018.html"
+      "interface_local_url": "apps/pet-programs/log-den-20261018.html",
+      "submitted": "2026-10-18"
     },
     {
       "repo": "packet-river",
@@ -1326,7 +1348,8 @@
       },
       "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in packet-river); no pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/packet-river-20261018.html",
-      "interface_local_url": "apps/pet-programs/packet-river-20261018.html"
+      "interface_local_url": "apps/pet-programs/packet-river-20261018.html",
+      "submitted": "2026-10-18"
     },
     {
       "repo": "evidence-locker",
@@ -1342,7 +1365,8 @@
       },
       "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
-      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html"
+      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html",
+      "submitted": "2026-10-18"
     },
     {
       "repo": "linux-iceberg",
@@ -1358,7 +1382,8 @@
       },
       "note": "Astra, 2026-10-19: \"I want to see the Linux Penguin UI and the Linux Penguin program ... create it if you have to via the friendly farmer's instructions.\" Two read-only tools (linux-check, mac-prewipe-check) and two tricks (debian-family, kali-on-a-mac) on linux-iceberg main, carried by the Linux package (#109). Security role: the red team; he manages MacAttack. No pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/linux-iceberg-20261018.html",
-      "interface_local_url": "apps/pet-programs/linux-iceberg-20261018.html"
+      "interface_local_url": "apps/pet-programs/linux-iceberg-20261018.html",
+      "submitted": "2026-10-19"
     }
   ],
   "seeds": {
