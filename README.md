@@ -1,6 +1,6 @@
 # Astra's PetOS
 
-### Astra's PetOS - Free, Open-Source AI Operating System
+### Free, Open-Source AI Operating System
 
 **Pet (Intelligent App)**
 
