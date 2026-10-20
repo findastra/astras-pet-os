@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-191 rows: 10 native programs, 102 native tools, 15 native tricks, 64 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+192 rows: 10 native programs, 103 native tools, 15 native tricks, 64 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -118,6 +118,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
 | 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | click-check | `the-farm-v1.0-click-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
@@ -233,7 +234,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Planned |
-| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Star Window | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton Live |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Spotify |  | Idea |
