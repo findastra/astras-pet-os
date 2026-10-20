@@ -784,7 +784,7 @@
       "type": "program",
       "state": "now",
       "layer": 6,
-      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 has run on this PC only since 2026-10-19 (its first run, findastra-discord-presence#23); v8.0.34 is checksum-verified in quarantine, and its pin waits on findastra-discord-presence#24. Never signed in with Astra's Claude login.",
+      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 has run on this PC only since 2026-10-19 (its first run, findastra-discord-presence#23); v8.0.34 is checksum-verified and pinned (findastra-discord-presence#24); Astra installs it next (card 007). Never signed in with Astra's Claude login.",
       "category": "Desktop app"
     },
     {
