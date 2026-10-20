@@ -9,6 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [054: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](054-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
+| [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
 | [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge; then a green round |
 | [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | done when #123 merges (Astra's OK, 2026-10-19); findings 2 and 3 open |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
@@ -112,7 +113,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 050 | `050-any-markdown-pets-locked-down-20261019.md` | `main` (merged with #120) |
 | 051 | `051-any-beginner-guide-20261019.md` | `claude/beginner-guide-20261019` |
 | 052 | `052-any-farmer-round-credit-line-20261019.md` | `claude/farmer-round-credit-line-20261019` |
-| 053 | `053-any-mirror-pool-fit-tools-20261019.md` | `claude/mirror-pool-tools-20261019` (PR #131) |
+| 053 | `053-any-mirror-pool-fit-tools-20261019.md` | `main` (merged with #131) |
 | 054 | `054-any-astral-plane-records-20261019.md` | `claude/astral-plane-records-20261019` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
