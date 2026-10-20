@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-171 rows: 9 native programs, 92 native tools, 12 native tricks, 58 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+172 rows: 9 native programs, 92 native tools, 12 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -213,7 +213,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
-| 11 | Paper Girl Patty | Paper Girl | third-party program | GitHub |  | Works today |
+| 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
 | 12 | File Master | File Kingdom | native tool | New-programs watch | `pet-program-12-v1.0-new-programs-watch-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | repo-catcher | `pet-program-12-v1.0-repo-catcher-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Planned |
@@ -280,6 +280,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 53 | Packet Piranha | Packet River | native tool | Ping sampler | `packet-river-v1.0-ping-sampler-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Reach checker | `packet-river-v1.0-reach-checker-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Route tracer | `packet-river-v1.0-route-tracer-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | third-party program | MacAttack |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |

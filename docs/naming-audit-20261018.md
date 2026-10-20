@@ -55,6 +55,18 @@ Astra saw all 30 suggested homes in one list and kept every one ("looks good to 
 #67 White Hat Lab, #68 Port Web, #69 Cipher Hollow, #70 Evidence Locker, #71 Model Library, #72 Benchmark Rock,
 #73 Agent Colony, #74 Roam Map, #75 Cache Canyon, #76 Sync Stream. Noted for later: #59's job is not decided yet.
 
+## Round 5 (2026-10-18): three pets renamed by Astra
+| # | Pet | Decided | Was |
+|---|---|---|---|
+| 3 | **Data Chip** | Astra, in chat | Chip |
+| 11 | **Paper Patty** | Astra, in chat ("just Paper Patty") | Paper Girl Patty |
+| 20 | **Spoonfed Sugarcube** | Astra, in chat (the name on card 009) | Sugarcube |
+
+Their programs keep their names (Data Dealer, Paper Girl, Spoonfed), and so do art ids and folders (`chip`,
+`paper-girl`, `spoonfed`). Written to `pet-programs.json`, `pets.json`, the System Map, `INTELLIGENCE-LEVELS.md` and the
+docs that name the pet today; each pet's own repo gets the same change on a branch (data-dealer, paper-girl, spoonfed).
+Records from before today keep the old names. By Claude Opus 5.5 (`claude-opus-5-5`).
+
 ## Left to name now
 - **Nothing.** All 83 pets and all 83 pet programs in `pet-programs.json` have names (Flash Audit A06 and A07, in-repo
   lists).

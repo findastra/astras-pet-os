@@ -81,6 +81,12 @@ details.sec>div{display:grid;gap:8px}
 .rwx .pr::after,.rwx .grant::after,.rwx .ask::after{position:absolute;right:-3px;top:-5px;font-size:8px}
 .rwx .pr::after{content:"🔒"} .rwx .grant::after{content:"🔑"} .rwx .ask::after{content:"?";font:700 9px var(--mono);color:var(--fg)}
 .rwx .no{background:none;color:var(--muted)!important;opacity:.35}
+/* L1 to L4 at the left of every grant (Astra, 2026-10-18): who holds it. Grey, so it never reads as one of R W X. */
+.lv{font:700 10.5px/1 var(--mono);min-width:26px;padding:3px 4px;border-radius:5px;text-align:center;background:var(--raise);color:var(--fg);border:1px solid var(--raise-edge);flex:none}
+.lv.out{background:none;color:var(--muted);border-style:dashed}
+/* The two program rings, made by you and made by others (Astra, 2026-10-18). */
+.made{font-size:10.5px;border-radius:999px;padding:0 6px;margin-left:4px;border:1px solid currentColor;white-space:nowrap}
+.made.you{color:var(--own)} .made.others{color:var(--program)}
 .status{font-size:10.5px;border-radius:999px;padding:1px 7px;border:1px solid currentColor;white-space:nowrap;flex:none}
 .status.enforced{color:var(--enforced)} .status.written{color:var(--written)} .status.planned{color:var(--planned);border-style:dashed}
 .keyrow{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
@@ -110,6 +116,9 @@ details.grant summary .gwho{flex:1;min-width:0}
 details.grant[open] summary .gwho{color:var(--fg)}
 details.grant p{margin:6px 0 4px 59px;font-size:12px;line-height:1.45;color:var(--muted)}
 details.grant p b{color:var(--fg);font-weight:500}
+.lvrow.none{display:flex;gap:8px;align-items:center;font-size:12.5px;line-height:1.35;color:var(--muted);opacity:.6}
+.lvbody{display:grid;gap:6px;margin:6px 0 2px 34px;padding-left:8px;border-left:1px solid var(--line)}
+.lvbody details.grant p{margin-left:0}
 ul.conns{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 ul.conns li{border-top:1px solid var(--line);padding-top:8px;font-size:12.5px;line-height:1.45;display:grid;gap:3px}
 button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--raise-edge);text-align:left}
@@ -198,8 +207,12 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
     <div class="rings" id="ringKey"></div>
   </div></details>
 
-  <details class="sec"><summary>R W X: who may do what</summary><div>
-    <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card lists its grants; click one to see how it holds.</p>
+  <details class="sec"><summary>L1 to L4 and R W X: who may do what</summary><div>
+    <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card shows the four levels down the left, each with the R W X it has on that thing; click a level to see the grants behind it.</p>
+    <div class="keyrow"><span class="lv">L1</span>a pet's programs and tools: they act with their pet's grants, never more</div>
+    <div class="keyrow"><span class="lv">L2</span>a pet program and its runtime</div>
+    <div class="keyrow"><span class="lv">L3</span>an AI agent in a seat (Claude Code, Codex, or a pet's own agent)</div>
+    <div class="keyrow"><span class="lv">L4</span>you, the verified human who owns the farm</div>
     <div class="keyrow"><span class="rwx"><b class="r yes">R</b><b class="w yes">W</b><b class="x yes">X</b></span>read, write, run: yes</div>
     <div class="keyrow"><span class="rwx"><b class="w pr">W</b></span>only on a branch, merged after Astra's OK in chat</div>
     <div class="keyrow"><span class="rwx"><b class="r grant">R</b></span>only with a grant that Astra approves</div>
@@ -284,25 +297,28 @@ if(TOUCH) document.body.classList.add('touch');
 // around all of them. Outside the glass: the farmhands (AI models), third-party programs, devices, ChatGPT and you.
 // Claude Code and Codex are rings around their own farmhand, like a planet's ring (Astra, 2026-10-18): a request can go
 // through the ring (the agent app) or straight to the model. No seat is drawn on the glass.
-const RING_R = {'0':10, '1':20, '2':34, '3':44, 'H':52, '4':58, '5':66, '6':72, '7':76, '8':80};
+// The pets have room around them inside the glass (Astra, 2026-10-18: "extra space between the pipeline pet and the
+// next shell", so they look insulated by the harness): seeds and roadmap pets get their own lane outside the pets, and
+// the pet programs and the glass sit further out.
+const RING_R = {'0':10, '1':20, '2':32, '2b':38, '3':48, 'H':56, '4':62, '5':70, '6':76, '7':80, '8':84};
 const HARNESS_R = RING_R.H;
-// Seeds, roadmap pets and their planned programs sit just outside their ring's animals.
-const radiusOf = n => (RING_R[n.ring] ?? 60) + (n.type==='roadmap' || (n.ring==='3' && !n.animal) ? .8 : 0);
+// Seeds and roadmap pets sit on their own lane outside the pets; planned pet programs just outside their ring.
+const radiusOf = n => n.ring==='2' && ['seed','roadmap'].includes(n.type) ? RING_R['2b'] : (RING_R[n.ring] ?? 60) + (n.ring==='3' && !n.animal ? .8 : 0);
 const APP_RING = {'claude-code':'claude', codex:'openai'}; // the agent app : the farmhand it rings
 const APP_RING_R = 2.6;
 // 3D or 2D (Astra, 2026-10-18). 3D: every ring a sphere inside the next. 2D: every ring laid flat on the ground. The
 // 2D | 3D switch in the bottom bar folds one into the other; every node keeps its direction, and the camera stays on what you selected.
 let flat = false, morph = null; // opens in 3D
 const MORPH_MS = 1200;
-const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':21, '3':26, '3b':29, '4':35, '5':40, '6':48.5, '7':56};
-const DOME_R = 31, DOME_H = 11, ASTRA_FLAT_Y = DOME_H+14;
-const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 64, TOUCH_ELEV = 1.45; // on touch screens the flat map is seen from (almost) straight above
+const FLAT_R = {'0':4.6, '1':9.5, '2':15.5, '2b':23, '3':29, '3b':32, '4':39, '5':44, '6':52, '7':59};
+const DOME_R = 34.5, DOME_H = 12, ASTRA_FLAT_Y = DOME_H+14;
+const FLAT_TARGET = [0,4,0], FLAT_ELEV = .62, FLAT_FIT = 68, TOUCH_ELEV = 1.45; // on touch screens the flat map is seen from (almost) straight above
 // Pinned spots: the farmhands near the top, outside the glass; each agent app's line ends on its planet's ring.
 const PIN = {'agent-harness':new THREE.Vector3(0,HARNESS_R,0), claude:new THREE.Vector3(-25,46,25).setLength(RING_R['4']),
   openai:new THREE.Vector3(25,46,25).setLength(RING_R['4']), 'local-models':new THREE.Vector3(0,30,-48).setLength(RING_R['4'])};
 for(const [app,model] of Object.entries(APP_RING)) if(nodeById[app]&&PIN[model]) PIN[app]=PIN[model].clone().add(new THREE.Vector3(APP_RING_R,0,0));
 const ringLabel = r => r.ring==='H' ? r.name : `Ring ${r.ring} · ${r.name}`;
-const HOME_TARGET = [0,0,0], HOME_ELEV = .26, FIT_R = 80;
+const HOME_TARGET = [0,0,0], HOME_ELEV = .26, FIT_R = 84;
 const homeTarget = () => new THREE.Vector3(...(flat?FLAT_TARGET:HOME_TARGET));
 // The opening view fits the whole sphere into the space beside the key panel, at any window size.
 function homeCam(){ const {fw,fh}=openSpace(), tanV=Math.tan(camera.fov*Math.PI/360);
@@ -472,8 +488,12 @@ const harnessGlass = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,64,32), n
 scene.add(harnessGlass);
 const harnessWire = new THREE.Mesh(new THREE.SphereGeometry(HARNESS_R,24,12), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.1}));
 scene.add(harnessWire);
+// The two program rings are told apart (Astra, 2026-10-18): made by you in pink, made by others in peach, as their cubes.
+const MADE = {you:{color:css('--own'), word:'made by you'}, others:{color:css('--program'), word:'made by others'}};
+const madeOf = ring => { const r=DATA.rings.find(x=>x.ring===ring); return r&&r.made ? MADE[r.made] : null; };
 const shells = {};
-DATA.rings.filter(r=>r.ring!=='H'&&r.ring!=='0').forEach(r=>{ const sh=new THREE.Mesh(new THREE.SphereGeometry(RING_R[r.ring],48,24),new THREE.MeshBasicMaterial({color:css('--shell'),wireframe:true,transparent:true,opacity:.035})); scene.add(sh); shells[r.ring]=sh; });
+DATA.rings.filter(r=>r.ring!=='H'&&r.ring!=='0').forEach(r=>{ const m=madeOf(r.ring);
+  const sh=new THREE.Mesh(new THREE.SphereGeometry(RING_R[r.ring],48,24),new THREE.MeshBasicMaterial({color:m?m.color:css('--shell'),wireframe:true,transparent:true,opacity:m?.08:.035})); scene.add(sh); shells[r.ring]=sh; });
 // The flat look: the animals' yard under a low glass dome, each ring a circle on the ground.
 const flatDecor = new THREE.Group(); scene.add(flatDecor);
 function circle(r, color, opacity, dashed){
@@ -485,7 +505,8 @@ yard.rotation.x=-Math.PI/2; yard.position.y=-.02; flatDecor.add(yard);
 const ground = new THREE.Mesh(new THREE.RingGeometry(DOME_R,FLAT_R['7']+4,128), new THREE.MeshBasicMaterial({color:css('--shell'),transparent:true,opacity:.04,depthWrite:false,side:THREE.DoubleSide}));
 ground.rotation.x=-Math.PI/2; ground.position.y=-.02; flatDecor.add(ground);
 [yard,ground].forEach(o=>o.material.userData.base=o.material.opacity);
-const flatRings = {}; Object.entries(FLAT_R).forEach(([k,r])=>{ const inside=r<DOME_R; const outer=k==='2b'||k==='3b'; flatRings[k]=circle(r, inside?css('--host'):css('--shell'), outer?.16:inside?.26:.32, outer); });
+const flatRings = {}; Object.entries(FLAT_R).forEach(([k,r])=>{ const inside=r<DOME_R; const outer=/[bt]$/.test(k); const m=madeOf(k.replace(/[bt]$/,''));
+  flatRings[k]=circle(r, m?m.color:inside?css('--host'):css('--shell'), m?(outer?.3:.55):outer?.16:inside?.26:.32, outer); });
 const domeGlass = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,64,24,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),transparent:true,opacity:.045,side:THREE.DoubleSide,depthWrite:false}));
 domeGlass.scale.y=DOME_H/DOME_R; flatDecor.add(domeGlass);
 const domeWire = new THREE.Mesh(new THREE.SphereGeometry(DOME_R,32,8,0,Math.PI*2,0,Math.PI/2), new THREE.MeshBasicMaterial({color:css('--l5'),wireframe:true,transparent:true,opacity:.09}));
@@ -501,15 +522,16 @@ const appRings = Object.entries(APP_RING).filter(([app,model])=>nodeById[app]&&p
 // Ring names, fanned up the left side of the spheres from the inside out, always facing you.
 function tagSprite(text, color, border){
   const c=document.createElement('canvas'); c.width=720; c.height=96; const x=c.getContext('2d');
-  x.font='600 40px "IBM Plex Sans",system-ui,sans-serif'; const w=Math.min(700, x.measureText(text).width+56);
+  let px=40; do { x.font=`600 ${px}px "IBM Plex Sans",system-ui,sans-serif`; } while(x.measureText(text).width>644 && --px>22); // long names shrink to fit
+  const w=Math.min(700, x.measureText(text).width+56);
   x.fillStyle='rgba(10,20,48,.82)'; x.strokeStyle=border; x.lineWidth=3; x.beginPath(); (x.roundRect||x.rect).call(x,(720-w)/2,6,w,84,42); x.fill(); x.stroke();
   x.fillStyle=color; x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,360,50);
   const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false,depthWrite:false}));
   sp.renderOrder=10; return sp; }
 const tagSpot = (r,i) => { const e=(-50+i*11)*Math.PI/180; return new THREE.Vector3(-Math.cos(e)*.82, Math.sin(e), Math.cos(e)*.57).multiplyScalar(RING_R[r.ring]+(r.ring==='0'?3:1)); };
 const ringTags = DATA.rings.map((r,i)=>{
-  const animal=['0','1','2','3'].includes(r.ring), label=(animal?'🐾 ':'')+(r.ring==='H'?'AGENT HARNESS · THE GLASS':ringLabel(r).toUpperCase());
-  const sp=tagSprite(label, r.ring==='H'?css('--l5'):css('--fg'), r.ring==='H'?css('--l5'):animal?css('--host'):'#4a5fa8');
+  const animal=['0','1','2','3'].includes(r.ring), m=madeOf(r.ring), label=(animal?'🐾 ':'')+(r.ring==='H'?'AGENT HARNESS · THE GLASS':ringLabel(r).toUpperCase()+(m?' · '+m.word.toUpperCase():''));
+  const sp=tagSprite(label, r.ring==='H'?css('--l5'):m?m.color:css('--fg'), r.ring==='H'?css('--l5'):m?m.color:animal?css('--host'):'#4a5fa8');
   const w=Math.min(22,6+RING_R[r.ring]*.4); sp.scale.set(w,w*96/720,1); sp.position.copy(tagSpot(r,i));
   sp.userData.ring=r.ring; sp.userData.base=sp.scale.clone(); scene.add(sp); return sp; });
 const RULER_A = Math.PI/2 + .17; // just left of straight toward the camera
@@ -662,7 +684,8 @@ const el=(tag,cls,text)=>{const e=document.createElement(tag); if(cls) e.classNa
 const ringKey=document.getElementById('ringKey'), ringButtons={};
 DATA.rings.forEach(r=>{ const count=DATA.nodes.filter(n=>n.ring===r.ring).length;
   const b=el('button', r.ring==='H'?'glass':''); b.type='button'; b.setAttribute('aria-pressed','false'); b.title=r.what;
-  const name=el('span'); name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name), document.createTextNode(': '+r.what));
+  const name=el('span'); name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name));
+  if(r.made) name.append(el('span','made '+r.made, MADE[r.made].word)); name.append(document.createTextNode(': '+r.what));
   b.append(el('span','num',r.ring==='H'?'◠':r.ring), name, el('span','count',String(count)));
   b.onclick=()=>selectRing(r.ring); ringKey.appendChild(b); ringButtons[r.ring]=b; });
 const tg=document.getElementById('edgeToggles');
@@ -777,7 +800,7 @@ function apply(){
   const glassHot = (fid && nodeById[fid] && nodeById[fid].type==='harness') || ringOn==='H';
   harnessWire.material.opacity = glassHot ? .35 : .1; harnessGlass.material.opacity = glassHot ? .1 : .05;
   domeWire.material.opacity = glassHot ? .35 : .09; domeGlass.material.opacity = glassHot ? .1 : .045; domeRim.material.opacity = glassHot ? .7 : .3;
-  Object.entries(flatRings).forEach(([k,l])=>{ const r=k==='2b'?'2':k==='3b'?'3':k; l.material.opacity = ringOn ? (ringOn===r?.85:.1) : (k==='2b'||k==='3b'?.16:FLAT_R[k]<DOME_R?.26:.32); });
+  Object.entries(flatRings).forEach(([k,l])=>{ const r=k.replace(/[bt]$/,''), outer=/[bt]$/.test(k); l.material.opacity = ringOn ? (ringOn===r?.85:.1) : madeOf(r) ? (outer?.3:.55) : (outer?.16:FLAT_R[k]<DOME_R?.26:.32); });
   if(!morph) ringTags.forEach(t=>{ const d=t.userData[flat?'flat':'sphere']; if(d){ t.position.copy(d.p); t.userData.base.copy(d.base); } });
   [harnessGlass,harnessWire,domeGlass,domeWire,domeRim,...Object.values(shells),...Object.values(flatRings)].forEach(o=>o.material.userData.base=o.material.opacity);
   fadeDecor(morph?morph.e:1);
@@ -830,18 +853,37 @@ const VALUE_WORD = DATA.access.values;
 function rwxBoxes(g){ const s=el('span','rwx');
   ['r','w','x'].forEach(k=>{ const b=el('b',`${k} ${g[k]}`,k.toUpperCase()); b.title=`${{r:'Read',w:'Write',x:'Run (execute)'}[k]}: ${VALUE_WORD[g[k]]}`; s.appendChild(b); });
   return s; }
+// Who holds a grant, in L1 to L4 (Astra, 2026-10-18).
+const LEVELS = [['L1','a program or tool'],['L2','a pet program'],['L3','an AI agent in a seat'],['L4','you, the verified human']];
+const LEVEL_WORD = Object.fromEntries(LEVELS);
+function levelBox(g){ const lv=g.level||[];
+  const b=el('span', lv.length?'lv':'lv out', lv.length?lv.join('+'):'—');
+  b.title = lv.length ? 'Held by '+lv.map(l=>l+': '+LEVEL_WORD[l]).join(' and ') : 'Outside your levels: not part of your farm';
+  return b; }
 function statusChip(status){ const s=el('span','status '+status, DATA.access.statuses[status].name); s.title=DATA.access.statuses[status].what; return s; }
-function grantRow(title, g){
-  const d=el('details','grant'), s=el('summary'); s.append(rwxBoxes(g), el('span','gwho',title), statusChip(g.status)); d.appendChild(s);
+function grantRow(title, g, showLevel){
+  const d=el('details','grant'), s=el('summary'); if(showLevel) s.append(levelBox(g)); s.append(rwxBoxes(g), el('span','gwho',title), statusChip(g.status)); d.appendChild(s);
   const how=el('p'); how.append(el('b','',DATA.access.statuses[g.status].name+': '), document.createTextNode(g.how)); d.appendChild(how);
   if(g.next){ const p=el('p'); p.append(el('b','','Next (planned): '), document.createTextNode(g.next)); d.appendChild(p); }
   if(g.gaps&&g.gaps.length){ const p=el('p'), a=el('a','',`Known gap${g.gaps.length>1?'s':''} ${g.gaps.join(', ')}`); a.href='https://github.com/findastra/astras-pet-os/blob/main/PROTECTION-RINGS.md#known-gaps'; a.target='_blank'; a.rel='noopener'; p.appendChild(a); d.appendChild(p); }
   return d; }
+// Who may use a thing, one row per level, L1 at the top as on a pet program's page (Astra, 2026-10-18): each level and
+// the R W X it has on this thing. A level with several grants shows the most it may do and the weakest status (a row is
+// only as sure as its weakest rule); the row opens to the grants behind it.
+const RANK = {no:0, ask:1, grant:2, pr:3, yes:4}, SURE = {planned:0, written:1, enforced:2};
+function levelRow(lv, gs, title){
+  const sum={r:'no',w:'no',x:'no'}; gs.forEach(g=>['r','w','x'].forEach(k=>{ if(RANK[g[k]]>RANK[sum[k]]) sum[k]=g[k]; }));
+  const top=el('span','gwho', LEVEL_WORD[lv]+(gs.length?'':' · nothing here'));
+  if(!gs.length){ const d=el('div','lvrow none'); d.append(el('span','lv',lv), rwxBoxes(sum), top); return d; }
+  const d=el('details','grant lvrow'), s=el('summary');
+  s.append(el('span','lv',lv), rwxBoxes(sum), top, statusChip(gs.map(g=>g.status).sort((a,b)=>SURE[a]-SURE[b])[0])); d.appendChild(s);
+  const body=el('div','lvbody'); gs.forEach(g=>body.appendChild(grantRow(title(g), g))); d.appendChild(body);
+  return d; }
 function accessBlock(n){
   const box=el('div','access'), on=n.access.on.map(id=>GRANT[id]), by=n.access.by.map(id=>GRANT[id]);
-  box.appendChild(el('div','label','Who may use it'));
-  if(on.length) on.forEach(g=>box.appendChild(grantRow(g.resources.includes('self')?'Itself: '+g.on:g.who, g)));
-  else box.appendChild(el('div','why', n.type==='you' ? 'Nobody acts on you. You give and take back every grant.' : 'No grant reaches it.'));
+  box.appendChild(el('div','label','Who may use it: each level and its R W X'));
+  if(n.type==='you') box.appendChild(el('div','why','Nobody acts on you. You give and take back every grant.'));
+  else LEVELS.forEach(([lv])=>box.appendChild(levelRow(lv, on.filter(g=>(g.level||[]).includes(lv)), g=>g.resources.includes('self')?'Itself: '+g.on:g.who)));
   if(by.length){ box.appendChild(el('div','label','What it may use')); by.forEach(g=>box.appendChild(grantRow(g.on.charAt(0).toUpperCase()+g.on.slice(1), g))); }
   return box; }
 function ringLine(n){
@@ -925,7 +967,7 @@ function selectRing(ring){
   const a=el('p','ringline'); a.append(el('b',r.animal.startsWith('yes')?'animal':'',(r.animal.startsWith('yes')?'🐾 ':'')+'Animals: '), document.createTextNode(r.animal+'.')); side.appendChild(a);
   if(ring!=='H'){ const reach=new Set(); DATA.nodes.filter(n=>n.ring===ring).forEach(n=>n.access.on.forEach(id=>reach.add(id)));
     const box=el('div','access'); box.appendChild(el('div','label','Grants that reach this ring'));
-    if(reach.size) DATA.access.grants.filter(g=>reach.has(g.id)).forEach(g=>box.appendChild(grantRow(g.who+' → '+g.on, g)));
+    if(reach.size) DATA.access.grants.filter(g=>reach.has(g.id)).forEach(g=>box.appendChild(grantRow(g.who+' → '+g.on, g, true)));
     else box.appendChild(el('div','why','No grant reaches it.'));
     side.appendChild(box); }
   else side.appendChild(harnessNode ? (()=>{ const b=el('button','btn','The agent harness card'); b.onclick=()=>selectNode(harnessNode); return b; })() : el('span'));
