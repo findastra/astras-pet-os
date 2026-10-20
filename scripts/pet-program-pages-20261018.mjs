@@ -104,7 +104,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '' });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
-  const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0` }));
+  // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
+  // avatar tools vs world tools"); the L1 panel then shows the two sides instead of one list.
+  const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0`, side: SIDES[n.side] ? n.side : null }));
   // Third-party programs also count when one of the pet's tools runs or looks after them (Flash Audit A54), as
   // BetterDiscord does for Discord Damsel's Sticker Manager.
   const toolIds = new Set(tools.map((t) => t.id));
@@ -170,6 +172,20 @@ const lights = (key, name, { planned = false } = {}) => planned
   ? `<span class="lights" title="Not built yet: nothing to switch on or off"><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button></span>`
   : `<span class="lights"><button type="button" class="light onoff" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: on" title="ON/OFF (kill switch): green on, red off"></button><button type="button" class="light care" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: working correctly" title="Maintenance: blue working correctly, yellow requires maintenance"></button></span>`;
 
+export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
+// Your tools, or Avatar tools and World tools when the pet's tools say which side they are on (tools with no side last).
+function toolSections(tools) {
+  const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
+  if (!tools.some((t) => t.side)) return `<section><h3>Your tools</h3>${itemList(tools, 'tool', empty)}</section>`;
+  const rest = tools.filter((t) => !t.side);
+  const sides = Object.entries(SIDES).map(([side, title]) => {
+    const mine = tools.filter((t) => t.side === side);
+    return `<section class="side-${side}"><h3>${esc(title)} · ${mine.length}</h3>${itemList(mine, 'tool', 'None yet.')}</section>`;
+  });
+  if (rest.length) sides.push(`<section><h3>Your other tools</h3>${itemList(rest, 'tool', '')}</section>`);
+  return sides.join('\n');
+}
+
 const tag = (state) => (state && state !== 'now' ? ` <span class="tag">${esc(STATE[state] || state)}</span>` : '');
 const built = (state) => !state || state === 'now';
 
@@ -231,7 +247,7 @@ ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, {
   const L1 = panel(`${d.petSlug}-L1-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-<section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
+${toolSections(d.tools)}
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
 <p class="small">From the System Map. A grey pair of lights means not built yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
 
