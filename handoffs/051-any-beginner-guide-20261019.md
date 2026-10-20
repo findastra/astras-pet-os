@@ -44,6 +44,10 @@ hub folder stayed on `main`:
   (checked by breaking the page once, then restoring it).
 - **Checks:** `npm run build` (changed only the files above); `npm run check` OK (20 pet apps); `npm test` 188 tests,
   187 pass, 0 fail, 1 skipped (the Pets Board).
+- **Pull request [#123](https://github.com/findastra/astras-pet-os/pull/123).** `main` moved three times while it was
+  open (#122, #112, #104) and was merged in each time: every AGENTS.md credit line kept (`main`'s first), card numbers
+  from `main` plus 051, the registry table and the System Map rebuilt with `npm run build`. After the last merge
+  `npm test` 190 tests, 189 pass, 0 fail, 1 skipped; `npm run check` OK.
 - **Looked at in the browser pane** through a temporary `beginner-guide-temp` entry in
   `%USERPROFILE%\Documents\Astra's Pet Apps\.claude\launch.json` (port 5196, removed afterwards; the other entries,
   including another session's new `unity-stable-closet`, kept): at 375 × 812 with every step open, no sideways scroll,
