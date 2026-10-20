@@ -453,4 +453,16 @@
     }
   }
   })();
+
+  // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
+  // its panel fits it (Astra's Window Star, 2026-10-20). Only Astra's own sites are listened to, and only for a height. ----
+  window.addEventListener('message', function (e) {
+    var msg = e.data;
+    if (!msg || msg.type !== 'tool-panel-height') return;
+    if (e.origin !== location.origin && e.origin !== 'https://findastra.github.io') return;
+    var frames = document.querySelectorAll('iframe.tool-frame');
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+    }
+  });
 })();

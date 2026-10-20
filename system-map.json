@@ -269,7 +269,7 @@
     },
     {
       "id": "astras-star-window",
-      "name": "Astra's Star Window",
+      "name": "Astra's Window Star",
       "type": "tool",
       "of": "program-14",
       "state": "now",
@@ -277,9 +277,10 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "iced-out-iceberg-v1.0-astras-star-window-v1.0",
-      "url": "https://findastra.github.io/astras-star-window/star-window-editor-20261019.html",
+      "url": "https://findastra.github.io/astras-star-window/",
       "picture": "https://findastra.github.io/astras-star-window/star-window.svg",
-      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window: one hosted picture of a fat star fading between Astra's favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). Upload a photo, drag it until it sits right in the star, Capture: one commit changes it everywhere it is shown. Its own repo is findastra/astras-star-window (PR #1); saving uses Astra's own key for that repo only, kept in her browser."
+      "embed": "https://findastra.github.io/astras-star-window/?embed",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
       "id": "cli-proxy-api-manager",

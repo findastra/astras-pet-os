@@ -234,7 +234,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Planned |
-| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Star Window | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton Live |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Spotify |  | Idea |

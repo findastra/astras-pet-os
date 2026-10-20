@@ -115,6 +115,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     setTimeout: later, clearTimeout: (n) => { if (timers[n - 1]) timers[n - 1].done = true; }, setInterval: () => 0, clearInterval: () => {},
     matchMedia: () => ({ matches: reduce }), confirm: () => true, alert: () => {},
     open: (url) => { opened.push(url); return {}; }, URL, Blob,
+    location: { origin: 'https://findastra.github.io' }, addEventListener: () => {}, // a tool panel's frame says its height
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
