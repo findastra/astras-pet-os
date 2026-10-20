@@ -269,6 +269,44 @@ function connection(c, homeSlug) {
 <p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
 }
 
+// ---------- A pet's own panels, beyond the sketch's minimum ----------
+
+// API Fairy's key requests (Astra, 2026-10-19: "show me who is requesting a key, who has a key and who doesn't have a
+// key ... if there's a request and it's not being met and I haven't given the key, then I need a link to wherever that
+// is that's requesting the key"). The real list never comes from the hub: it stays on Astra's PC, where API Fairy
+// (api-fairy-ring-v1.0-key-requests-v1.0) checks each key by name and writes it for this page. Opened anywhere else,
+// the panel shows the made-up examples below, marked as examples.
+export const KEY_REQUEST_GROUPS = [
+  ['waiting', 'waiting-on-you', 'Nothing is waiting on you.'],
+  ['has-key', 'has-a-key', 'No key handed over yet.'],
+  ['declined', 'declined-or-not-needed', 'Nothing declined.'],
+];
+export const KEY_REQUEST_SKILL = `https://github.com/${OWNER}/${HUB}/blob/main/skills/key-request/SKILL.md`;
+// Made up, so a page on GitHub shows how the panel works without naming any real service Astra uses.
+export const KEY_REQUEST_EXAMPLES = [
+  { id: 'example-1', group: 'waiting', status: 'requested', asked: '2026-10-19', example: true,
+    requester: { kind: 'chat', name: 'Example: a chat working on a pet', pet: null }, provider: 'Example Weather', key_name: 'EXAMPLE_WEATHER_API_KEY',
+    where: 'user-env', where_words: 'your user environment variables', for: 'Example only: today\'s weather on a pet program page.', spend_limit: 'the free plan',
+    link: KEY_REQUEST_SKILL, found: 'no', found_in: null, note: null },
+  { id: 'example-2', group: 'has-key', status: 'given', status_date: '2026-10-18', asked: '2026-10-16', example: true,
+    requester: { kind: 'tool', name: 'Example: a pet\'s tool', pet: null }, provider: 'Example Maps', key_name: 'EXAMPLE_MAPS_API_KEY',
+    where: 'user-env', where_words: 'your user environment variables', for: 'Example only: maps for a pet.', spend_limit: 'a monthly limit you set',
+    link: KEY_REQUEST_SKILL, found: 'yes', found_in: 'your user environment variables', note: null },
+  { id: 'example-3', group: 'declined', status: 'declined', status_date: '2026-10-17', asked: '2026-10-17', example: true,
+    requester: { kind: 'bot', name: 'Example: a bot other people use', pet: null }, provider: 'Example AI', key_name: '',
+    where: 'app', where_words: 'another program\'s own settings', for: 'Example only: wanted your own AI sign-in.', spend_limit: null,
+    link: KEY_REQUEST_SKILL, found: 'cannot-see', found_in: 'It goes inside another program\'s own settings, where I can\'t look.', note: 'Declined: a bot other people use runs on its own API key with a spend limit, never your own sign-in.' },
+];
+
+function keyRequestsPanel(d) {
+  const groups = KEY_REQUEST_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
+  return panel(`${d.petSlug}-key-requests-tool-panel`, `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
+<div class="request-groups" id="key-requests">${groups}</div>
+<p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'key-requests', light: true });
+}
+
+export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
+
 // Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
 // in the tray. Drawn here, so it is the same on every page and needs no picture file.
 const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
@@ -353,6 +391,9 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
 
+  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is.
+  const own = PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : '';
+
   const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not set yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
   const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
@@ -434,14 +475,14 @@ ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send t
 <header class="top">${cyberhome}${title}${systemMap}</header>
 ${levels}
 ${rwx}
-${notes}
+${own}${notes}
 <div class="pair">${emotions}${clicker}</div>
 ${related}
 ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-<script src="${ASSETS.js}"></script>
+${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
 </body>
 </html>
 `, pagePath(d.repo));

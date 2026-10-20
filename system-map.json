@@ -1280,6 +1280,18 @@
       "job": "A tool of API Fairy Ring: every agent session key Gatekeeper Goddess issues, ours or external. Active keys float inside the mushroom circle with a list (agent, model, person, device, place, pets, grants, expiry); expired keys leave the circle for the chest, with their own list. The secret part of a key is never shown."
     },
     {
+      "id": "key-requests",
+      "name": "key-requests",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-key-requests-v1.0",
+      "job": "A tool of API Fairy Ring (Astra, 2026-10-19): every key a chat, pet or tool asks for. A request is a small file in Astra's key-requests folder on her PC (who asks, the provider and key name, what for, the spend limit, a link back), never the key. API Fairy looks for each key by name in Windows' environment variables and the .env files she watches, and her pet program page shows waiting on you, has a key, and declined or not needed. Merged in findastra/api-fairy#8 (6fbbef4); how a chat files one is skills/key-request."
+    },
+    {
       "id": "ai-astra",
       "name": "The Astral Plane",
       "program": 7,
@@ -5153,6 +5165,13 @@
       "carries": "opens",
       "state": "planned",
       "why": "api-fairy-mushroom-circle is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "key-requests",
+      "carries": "opens",
+      "state": "now",
+      "why": "key-requests is a tool of API Fairy Ring."
     },
     {
       "from": "file-kingdom",
