@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-170 rows: 9 native programs, 90 native tools, 12 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+176 rows: 9 native programs, 93 native tools, 13 native tricks, 61 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -261,6 +261,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 35 | Chat Rat | Chat Stack | native tool | save-missing | `chat-stack-v0.1.0-save-missing-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | ask-chat-rat | `chat-stack-v0.1.0-ask-chat-rat-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | save-chats | `chat-stack-v0.1.0-save-chats-trick-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.0` | Planned |
+| 36 | Platform Platypus | Mirror Pool | native tool | fit-any-screen | `mirror-pool-v1.0-fit-any-screen-v1.0` | Planned |
+| 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.0` | Planned |
+| 36 | Platform Platypus | Mirror Pool | native trick | make-a-page-fit-any-screen | `mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0` | Planned |
+| 36 | Platform Platypus | Mirror Pool | third-party program | Node.js |  | Planned |
+| 36 | Platform Platypus | Mirror Pool | third-party program | Web browser (WebGL) |  | Planned |
 | 38 | Pole Puff | Infinite Studio | native program | Astra's Infinite Pole (world) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
