@@ -228,8 +228,8 @@
     L3: 'an agent is working in ' + config.home,
   };
   var HERE = {
-    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
-    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    live: ['you are here', 'You are here: this page is in front of you and you used it (pointer, keys or scrolling) in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes, or you are working in another window.'],
     off: ['you are away', 'This page is hidden behind another tab or window.'],
   };
   var L4 = null, L4quiet;
@@ -256,10 +256,24 @@
     clearTimeout(L4quiet);
     L4quiet = setTimeout(function () { here('idle'); }, 120000);
   }
-  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  ['pointerdown', 'keydown', 'input', 'wheel', 'scroll'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  // Reading the page counts as using it (Astra, 2026-10-19: "double check if these L4s are active when they are"):
+  // moving the pointer over it or scrolling keeps L4 on, not only clicks and keys. A moving pointer counts once a second.
+  var lastMove = 0;
+  document.addEventListener('pointermove', function () {
+    var now = Date.now();
+    if (now - lastMove < 1000 && L4 && L4.light.dataset.state === 'live') return;
+    lastMove = now;
+    present();
+  }, { passive: true });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  // Another window in front while this page still shows: you are working elsewhere, so L4 dims at once; back here, on.
+  if (window.addEventListener) {
+    window.addEventListener('blur', function () { if (!document.hidden) { clearTimeout(L4quiet); here('idle'); } });
+    window.addEventListener('focus', present);
+  }
   if (document.hidden) here('off'); else present();
 
   // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps

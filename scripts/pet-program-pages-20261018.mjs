@@ -328,6 +328,10 @@ export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
 // in the tray. Drawn here, so it is the same on every page and needs no picture file.
 const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
 
+// The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
+// open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
+const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
@@ -469,7 +473,7 @@ ${assigned}</dl>
   // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
   const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">&gt;</button>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
 <p class="chat-ask">Who should answer?</p>
 <div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
