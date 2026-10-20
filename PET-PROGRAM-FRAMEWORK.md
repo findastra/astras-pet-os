@@ -18,6 +18,7 @@ the page layout redrawn from her sketch of 2026-10-18 by Claude Opus 5.5 (`claud
 | Pet program icon | The character (Friendly Farmer). |
 | Pet program | The one main program a pet stands for (The Farm). |
 | Native program | A program, site, world or app Astra made that is opened or run on its own (Startup Star, Ghost Protocol). The only thing a pet program owns that the System Map draws (Astra, 2026-10-19). |
+| Control panel | What a pet program page is (Astra, 2026-10-19): it shows how the pet's things are and gives you the switches. Anything too big for a tool panel becomes its own website, a native program the pet program manages (section 3). Developers say dashboard or admin console. |
 | Tool | Code a pet program owns and runs with no AI: a script, page section, editor tool or plugin. Same ring and permissions as its pet program, never more. Listed on its pet program's card, never drawn on the System Map (Astra, 2026-10-19). |
 | Trick | Written steps the pet's seated AI follows with its tools (a `SKILL.md`). Listed on its pet program's card, never drawn. Every native program, tool and trick is in the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md). |
 | Tool box | How a tool appears on a page: a bordered box with its versioned label on the top border and everything about the tool inside. |
@@ -47,6 +48,21 @@ Mood numbers: 1 idle, 2 awake (`blink`), 3 happy, 4 curious, 5 worried, 6 sad, 7
 What each one means: section 3, `<pet>-emotions`.
 
 ## 3. The page, top to bottom
+
+### A pet program is a control panel (Astra, 2026-10-19)
+
+A pet program page is a **control panel**: it shows at a glance how the pet's programs, tools and tricks are doing,
+and gives you the switches (the paired lights, short lists, buttons, a note box). It is not where big work happens.
+**When something gets too big to fit on a tool panel, it becomes its own website, which the pet program manages.**
+
+- **Too big** means it needs a screen of its own: its own tabs or menus, an editor, a gallery, a long list you scroll
+  and search, or a place you would open by itself to work in.
+- **Its own website** is a native program of the pet program: a page in the pet's repo (`<name>-<YYYYMMDD>.html`),
+  or a repo of its own when it grows that big (a new repo needs Astra's OK). It is opened on its own, so the System
+  Map draws it, and the registry table in [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md) lists it.
+- **The page keeps one tool panel for it:** its paired lights, a line or two on how it is doing (counts, the last
+  change, anything that needs you) and an **Open** button. The panel manages the website; it does not hold it.
+- Small tools stay on the page: a tool box with its lights, one line on what it does, and its button.
 
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
@@ -416,3 +432,5 @@ copies a request for the user's own AI to start a seed like it on their farm.
 - [ ] Every agent that operates it uses a short-lived key from Iron Gates; it reports every W to the Police Station.
 - [ ] Plain developer language throughout; no marketing.
 - [ ] Follows [PROTECTION-RINGS.md](PROTECTION-RINGS.md): it is an animal only once L4 lets it in.
+- [ ] The page is a control panel (section 3): anything too big for a tool panel is its own website the pet program
+      manages, with one tool panel that shows how it is doing and opens it.
