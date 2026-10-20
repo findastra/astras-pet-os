@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to point A59's other links at the program page (task 1); OK to merge `claude/tools-on-cards-20261019` (native programs, tools and tricks); tasks 3 and 4 to do)
+status: open (waiting on Astra: OK to merge `claude/map-card-program-page-20261019`; pet.json `entry` or a field of its own (task 1); tasks 3 and 4 to do)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), docs/images/pet-program-page-sketch-20261018.webp, scripts/pet-program-pages-20261018.mjs, test/pet-program-pages-test-20261018.mjs
@@ -91,7 +91,7 @@ Astra, 2026-10-19, after #106: "i dont want to see each pets tools on the system
 "make the tools section collapsable on each node. dont show on the system map at all, unless we are calling it a native
 program. native tool, native trick. there should be a difference between the two. make those distinctions on the
 tools/programs/tricks we have already created. make sure that the entire tool trick and program registry is a table on
-github." On branch `claude/tools-on-cards-20261019` (from `main` at `1ef9306`; not on `main` until Astra OKs it):
+github." On branch `claude/tools-on-cards-20261019` (from `main` at `1ef9306`), [PR #114](https://github.com/findastra/astras-pet-os/pull/114), **merged as `5de6f23`** (Astra's OK in chat, 2026-10-19):
 - **The map draws no tool or trick.** Each pet program's card (and its pet's card) lists its native tools and native
   tricks in two sections that fold, closed until clicked; search finds them through their pet program; a line that
   started at a tool is drawn from its pet program, marked "via" the tool. The key's hammer is gone
@@ -139,6 +139,12 @@ github." On branch `claude/tools-on-cards-20261019` (from `main` at `1ef9306`; n
    points to program page (Pet Program)"): pets.json `interface_url` and `interface_local_url` are each pet's program
    page and today's app is `app_url`; the README's **Pet Program** links, the profile round's home link, the Farmer's
    desk, the Pets Board, the desktop draft list and A59 follow it. pet.json `entry` stays the app in the pet's own repo.
+   **The map card too** (Astra, 2026-10-19: "every place that shows a pet (pets.json interface_url, pet.json entry, the
+   profile home link, the map card) opens its spawn page, with Open today's app on it"): each pet's card and its pet
+   program's card on the System Map link the program page, from pets.json `interface_url` (branch
+   `claude/map-card-program-page-20261019`). **pet.json `entry` waits on Astra:** it is the start file in the pet's own
+   repo, which the Farmer's round, Flash Audit A09 and A59 check as a file there; a field of its own (`homepage`, as in
+   package.json) can hold the program page without breaking them. Either way it is a pull request in each pet repo.
 2. ~~Put each pet's tools on the map (`system-map.json` tool nodes with `of` = its program), starting with Unity
    Unicorn from the modules doc; the pages follow on the next build.~~ Done in PR #106
    (above), merged as `346cb18` on 2026-10-19. When unity-unicorn PR #1 or #3 merges, change those tools to `now`.
