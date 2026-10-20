@@ -255,6 +255,54 @@
       "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
     },
     {
+      "id": "mac-prewipe-check",
+      "name": "Mac pre-wipe check",
+      "type": "tool",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-mac-prewipe-check-v1.0",
+      "job": "A tool of Linux Iceberg (Astra, 2026-10-18): a read-only report on a Mac before it is wiped for Linux: model, T2 chip, Wi-Fi card, Apple ID and Find My, folder sizes and a \"Before you wipe\" list. Never runs sudo and sends nothing. Merged (linux-iceberg PR #2)."
+    },
+    {
+      "id": "linux-check",
+      "name": "Linux check",
+      "type": "tool",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-linux-check-v1.0",
+      "job": "A tool of Linux Iceberg (Astra, 2026-10-19): a read-only look at a Linux computer: which distribution and family it is (from /etc/os-release), which of his tricks fits, updates waiting, failed services, the SSH server, disk, memory and anything listening beyond the computer. Never runs sudo. Merged (linux-iceberg PR #3); Astra's PetOS's Linux package carries it (astras-pet-os PR #109): astras-pet-os penguin."
+    },
+    {
+      "id": "kali-on-a-mac",
+      "name": "kali-on-a-mac",
+      "type": "trick",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-kali-on-a-mac-trick-v1.0",
+      "job": "A trick of Linux Iceberg (skills/kali-on-a-mac): walks the owner through checking, backing up and wiping an old Intel Mac and installing Kali, with the Mac pre-wipe check. The wipe is always the owner's act."
+    },
+    {
+      "id": "debian-family",
+      "name": "debian-family",
+      "type": "trick",
+      "of": "program-58",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "linux-iceberg-v0.1-debian-family-trick-v1.0",
+      "job": "A trick of Linux Iceberg (skills/debian-family): helps someone find their way around Debian, Ubuntu, Kali, Raspberry Pi OS, Mint or Pop!_OS and keep packages, updates and services in order, with the Linux check. One trick per distribution family, picked from /etc/os-release (Astra, 2026-10-19)."
+    },
+    {
       "id": "crash-catcher",
       "name": "Crash catcher",
       "type": "tool",
@@ -554,14 +602,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Dependency updates: packages, compatibility, rollback prep.",
-      "layer": 4
-    },
-    {
-      "id": "linux-penguin",
-      "name": "Linux Penguin",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Linux administration, SSH, systemd, packages. Security role: the red team (Astra, 2026-10-18). Manages MacAttack, the Kali Linux drives on Astra’s old MacBook Pro that test this farm the way an outsider would, only with L4’s OK.",
       "layer": 4
     },
     {
@@ -3129,14 +3169,14 @@
     },
     {
       "from": "shell-squid",
-      "to": "linux-penguin",
+      "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
       "why": "Linux phase 1 pair."
     },
     {
       "from": "kernel-koala",
-      "to": "linux-penguin",
+      "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
       "why": "OS internals under Linux administration."
@@ -4528,7 +4568,7 @@
       "why": "The Farmer will send each pet’s picture and mood to the pin."
     },
     {
-      "from": "linux-penguin",
+      "from": "linux-iceberg",
       "to": "macattack",
       "carries": "manages",
       "state": "planned",
@@ -5605,6 +5645,27 @@
         "next": "Iron Gates issues it and Astra approves it; both pets show it in their connection boxes."
       },
       {
+        "id": "linux-penguin-check",
+        "who": "Linux Penguin (Linux Iceberg: linux-check, mac-prewipe-check)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:linux-iceberg"
+        ],
+        "on": "the Linux or Mac computer his check runs on: what it is, its packages, services, disk, memory and listening ports (never the contents of your files)",
+        "resources": [
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "His tools only read and print a report: no sudo, no writes, nothing sent (tests/linux-check-test-20261019.sh checks the report against stand-in commands). Nothing enforces this: they run as you. Asked for on 2026-10-19; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Linux Iceberg writes nothing."
+      },
+      {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
         "level": ["L1","L2"],
@@ -6202,6 +6263,15 @@
           }
         ]
       },
+      "linux-iceberg": {
+        "languages": [
+          {
+            "language": "Shell",
+            "percent": 100,
+            "why": "His tools are bash scripts, so they run on any Linux or Mac with nothing to install. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
       "log-den": {
         "languages": [
           {
@@ -6348,7 +6418,7 @@
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
     "white-hat-weasel": "red",
-    "linux-penguin": "red",
+    "linux-iceberg": "red",
     "test-tortoise": "purple",
     "rescue-retriever": "blue"
   },
