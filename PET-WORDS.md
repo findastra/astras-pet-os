@@ -64,7 +64,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 
 | Call it | Programmer word | What it is |
 |---|---|---|
-| **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of tool panels. The spawner writes the basic one. |
+| **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of tool panels. The spawner writes the basic one. It is a control panel: anything too big for a tool panel becomes its own website that the pet program manages and opens from one tool panel (Astra, 2026-10-19). |
 | **tool panel** | panel: a collapsible section (HTML `details`); developers read "tool panel" as a panel that holds tools | A bordered group with its label set into the top border. Called a **module**, then a **panel**, until 2026-10-19 (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"). |
 | **`<pet>-cyberhome`** | avatar panel (status widget) | Top left: where the pet sits while the page is open, with its paired lights. |
 | **`<home>-pet-program-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does. |
