@@ -37,7 +37,19 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .label { display: block; margin-left: 50px; }
 
 /* Top: cyberhome left, title right. */
-.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 28px; align-items: start; }
+/* Cyberhome top left, title in the middle, the way back to the System Map top right (Astra, 2026-10-19; A60). */
+.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr minmax(240px, 270px); gap: 28px; align-items: start; }
+.system-map .map-link { display: grid; justify-items: center; gap: 8px; color: var(--chalk); text-align: center; text-decoration: none; }
+.system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
+.system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
+.rings { width: 100%; max-width: 150px; height: auto; }
+.rings circle { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.rings .core { fill: var(--line); }
+.rings .node { fill: var(--link); stroke: #111; }
+@media (max-width: 1000px) and (min-width: 761px) {
+  .top { grid-template-columns: minmax(200px, 280px) 1fr; }
+  .top > .system-map { grid-column: 2; margin-top: 0; }
+}
 .top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
@@ -52,14 +64,23 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .button:hover { background: var(--slate-2); }
 .button.off { color: var(--chalk-dim); border-style: dashed; cursor: default; }
 
-/* The paired lights: two buttons side by side, never stacked. */
-.lights { display: inline-flex; gap: 6px; margin-right: 10px; vertical-align: middle; }
-.light { width: 16px; height: 16px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer; }
+/* The paired lights: two buttons side by side, never stacked. They look like buttons so people click them (Astra,
+   2026-10-19): raised, a little bigger when pointed at, pressed in when clicked. Grey is not set yet. */
+.lights { display: inline-flex; gap: 7px; margin-right: 10px; vertical-align: middle; }
+.light { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .3), inset 0 2px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18);
+  transition: transform .08s ease-out; }
+.light:hover { transform: scale(1.18); }
+.light:active { transform: scale(.9); box-shadow: inset 0 2px 2px rgba(0, 0, 0, .4); }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
 .light.care { background: var(--care); }
 .light.care.is-fix { background: var(--fix); }
-.light.planned { background: var(--planned); cursor: not-allowed; opacity: .8; }
+.light.is-unset { background: var(--planned); }
+/* The bubble that says what a light now means, under the light that was clicked. */
+.light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
+  background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
+.light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
@@ -69,6 +90,20 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
+/* Every item is a pill, the same on every page (Astra, 2026-10-19): its two lights on the oval, then its name. Click
+   the name to open it in place; open, the oval becomes a rounded box. */
+.items li.pill { display: flex; align-items: flex-start; width: fit-content; max-width: 100%; margin: 9px 0; padding: 6px 16px 6px 9px;
+  border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .05); }
+.items li.pill:hover { background: rgba(255, 255, 255, .09); }
+.items li.pill:has(> details[open]) { width: auto; border-radius: 16px; }
+.pill > .lights { margin: 1px 9px 0 0; flex: none; }
+.pill-more { min-width: 0; }
+.pill-more > summary { list-style: none; cursor: pointer; }
+.pill-more > summary::-webkit-details-marker { display: none; }
+.pill-more > summary:hover .item-name, .pill-more[open] > summary .item-name { text-decoration: underline; text-underline-offset: 3px; }
+.pill-more > summary .label { margin-left: 0; overflow-wrap: anywhere; }
+.pill-body { margin-top: 6px; font-size: 13.5px; }
+.pill-body p { margin: 4px 0; }
 .plain li { margin: 5px 0; }
 .status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
@@ -130,6 +165,10 @@ label.file { position: relative; }
 @media (max-width: 760px) {
   .top, .pair { grid-template-columns: 1fr; }
   .top > .panel { max-width: 340px; }
+  /* On a phone the way back to the map comes first, as one compact row. */
+  .top > .system-map { order: -1; max-width: none; }
+  .system-map .map-link { grid-template-columns: 56px 1fr; justify-items: start; text-align: left; align-items: center; }
+  .system-map .small { text-align: left; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
@@ -165,3 +204,70 @@ img[hidden] { display: none !important; }
 .cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
 .cards.related .card-text span + span { font-size: 12px; }
+/* The R W X panel (Astra, 2026-10-19, option C): what each level should be (R W X), then whether that is in code.
+   Green In code, yellow Rule only, dashed grey Not built, the page's own light colours. */
+.rwx-key { display: grid; gap: 6px; font-size: 12.5px; color: var(--chalk-dim); margin: 4px 0 14px; }
+.rwx-rows { display: grid; margin: 4px 0 16px; }
+.rwx-row, .rwx-rows > .grant { border-top: 1px solid #66655c; padding: 8px 0; }
+.rwx-row > summary, .rwx-row.none, .grant > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; list-style: none; cursor: pointer; }
+.rwx-row > summary::-webkit-details-marker, .grant > summary::-webkit-details-marker { display: none; }
+.rwx-row.none { cursor: default; opacity: .65; }
+.lv { font: 600 12px/1 var(--label); min-width: 30px; padding: 5px 4px; border: 1px solid var(--line); border-radius: 4px; text-align: center; flex: none; }
+.lv.out { border-style: dashed; color: var(--chalk-dim); }
+.should { font: 12px var(--label); color: var(--chalk-dim); flex: none; }
+.rwx { display: inline-flex; gap: 4px; flex: none; }
+.rwx b { position: relative; font: 600 12px/1 var(--label); width: 22px; height: 22px; display: inline-grid; place-items: center; border: 1px solid var(--line); border-radius: 4px; background: var(--slate-2); }
+.rwx b.no { background: none; color: var(--planned); border-color: #66655c; }
+.rwx b.pr::after, .rwx b.grant::after, .rwx b.ask::after { position: absolute; right: -5px; top: -7px; font-size: 9px; }
+.rwx b.pr::after { content: "🔒"; } .rwx b.grant::after { content: "🔑"; } .rwx b.ask::after { content: "?"; font: 700 10px var(--label); color: var(--fix); }
+.gwho { flex: 1; min-width: 150px; }
+.mark { font-size: 12.5px; border: 1px solid currentColor; border-radius: 10px; padding: 1px 8px; white-space: nowrap; flex: none; }
+.mark.enforced { color: var(--on); } .mark.written { color: var(--fix); } .mark.planned { color: var(--planned); border-style: dashed; }
+.rwx-key .mark { margin-right: 6px; }
+.rwx-body { display: grid; gap: 10px; margin: 10px 0 4px 40px; padding-left: 12px; border-left: 1px solid var(--line); }
+.grant p { margin: 5px 0 0; font-size: 12.5px; color: var(--chalk-dim); }
+.grant p b { color: var(--chalk); font-weight: 600; }
+@media (max-width: 760px) { .rwx-body { margin-left: 10px; } .gwho { min-width: 100%; order: 3; } }
+/* The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
+   the top corner: the star opens, the pet comes in, the star closes again. */
+.den { position: relative; }
+.den .star-door { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; z-index: 1; transition: transform .6s ease, filter .6s ease; }
+.den[data-arrival="waiting"] .pet, .den[data-arrival="opening"] .pet { visibility: hidden; }
+.den[data-arrival="opening"] .star-door { transform: scale(2.4) rotate(72deg); filter: drop-shadow(0 0 6px #ffd23f); }
+.den[data-arrival="arriving"] .star-door { transform: scale(1.7) rotate(144deg); filter: drop-shadow(0 0 4px #ffd23f); }
+.den[data-arrival="arriving"] .pet:not([hidden]) { animation: move-in 1s ease-out both; }
+@keyframes move-in {
+  from { transform: translate(40%, -40%) scale(.12); opacity: 0; }
+  65% { transform: translate(0, -7%) scale(1.04); opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Activity lights (Astra, 2026-10-19): on while that level is working right now, and its tool panel glows with power.
+   Grey: not connected yet. */
+.activity[data-state="unknown"] { background: var(--planned); }
+.activity[data-state="live"] { background: var(--on); box-shadow: 0 0 6px 2px var(--on); }
+.activity[data-state="idle"] { background: #2f6b36; }
+.activity[data-state="off"] { background: var(--planned); }
+.panel.level[data-activity="live"] { border-color: var(--on); box-shadow: 0 0 0 1px var(--on), 0 0 16px rgba(79, 179, 90, .45); animation: power 2.4s ease-in-out infinite; }
+.panel.level[data-activity="live"] > summary .legend { color: #d4f7d8; }
+@keyframes power {
+  0%, 100% { box-shadow: 0 0 0 1px var(--on), 0 0 10px rgba(79, 179, 90, .35); }
+  50% { box-shadow: 0 0 0 1px var(--on), 0 0 20px rgba(79, 179, 90, .6); }
+}
+
+/* The chat window: it opens at once, you choose who answers. */
+.chat-panel { max-width: min(380px, calc(100vw - 48px)); max-height: calc(100vh - 110px); overflow-y: auto; }
+.chat-ask { font-weight: 600; }
+.chat-who { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.chat-who .button { font-size: 13px; }
+.chat-who .button[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
+.chat-log { list-style: none; margin: 6px 0; padding: 0; max-height: 160px; overflow-y: auto; }
+.chat-log li { margin: 4px 0; padding: 4px 8px; border: 1px solid var(--line); border-radius: 10px; overflow-wrap: anywhere; }
+.chat-panel textarea { font-size: 14px; margin-top: 2px; }
+.chat-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .den .star-door { transition: none; }
+  .den .pet { animation: none !important; }
+  .panel.level[data-activity="live"] { animation: none; }
+}

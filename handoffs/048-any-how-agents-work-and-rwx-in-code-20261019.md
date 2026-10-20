@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge this pull request; the R W X panel waits on #104, whose chat fixes its conflict first)
+status: open (waiting on Astra: merge the R W X panel pull request, branch claude/rwx-panel-20261019; then task 3)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: AGENTS.md ("How the agents work"), skills/dev-mindset, skills/new-pet-or-tool, PROTECTION-RINGS.md, system-map.json (`access`), scripts/system-map-template-20261012.html, PR #104, PR #106, PR #111
@@ -31,11 +31,21 @@ Code and Codex "the agentic harness", while L3 is each pet program's own harness
 - Nothing on the System Map changed: PR #104 (L1 to L4 with R W X on every card) is open with conflicts, and PR #106
   (tools on the map) is open too, so map work waits for them.
 
+- 2026-10-19, task 2 (branch `claude/rwx-panel-20261019`, from `main` at `c9b1a7e`, in a worktree in Claude's scratch
+  folder): `system-map.json` statuses carry their marks (In code, Rule only, Not built) and the three enforced grants
+  their evidence (`owner` and `seat-asks` settings, `farmer-round` its test); `scripts/system-map-20261012.mjs` refuses
+  an enforced grant without evidence, a missing evidence file, or evidence on a grant that is not enforced, and writes
+  each proof into PROTECTION-RINGS.md; the spawner writes `<pet>-rwx-panel` after the four level panels on all 42
+  pages, with the grant tables taken out of the L4 panel; the map card's level rows say "Should be" and show the marks
+  and each proof; PROTECTION-RINGS.md, PET-PROGRAM-FRAMEWORK.md (item 12, the L4 row, the checklist), PET-WORDS.md,
+  `skills/farm-security`, `skills/dev-mindset` and AGENTS.md say the same. Two new tests. `npm test`: 185 tests, 184
+  pass, 1 skipped. Checked in the browser pane (Fairy Ring's page at desktop and phone width, The Farm's map card).
+
 ## Task
 1. **Done 2026-10-19** (#111 merged): `PET-WORDS.md` rows "L3 Agentic harness", "the seat" and "agentic harness"
    follow AGENTS.md (pet harness and provider harness, any farmhand in the seat); new rows "provider harness", "bot"
    and "bot panel"; "harness skill" belongs to the provider harness in the seat.
-2. **The R W X panel, option C (Astra, 2026-10-19).** Astra: "I think we need a W R X what it should be, then some
+2. **Done 2026-10-19, on branch `claude/rwx-panel-20261019`** (after #104 merged). **The R W X panel, option C (Astra, 2026-10-19).** Astra: "I think we need a W R X what it should be, then some
    kind of easy indicator of whether that is reflected in the current code." She chose option C, then: "I think this
    actually needs to be its own panel in each pet program." Build it **after #104 merges**: #104 gives every grant
    its levels (#110 and #111, which rewrote the spawner, merged 2026-10-19).

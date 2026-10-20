@@ -4,12 +4,17 @@
 // system-map.json (everything that is not a pet with a repo, the rings and the grants). Run by npm run build.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-12. Rings and grants, 2026-10-17 (Astra, option A): a ring says where a
 // thing lives; who may read, write or run it is a grant with a status (enforced, written only, planned).
+// Option C (Astra, 2026-10-19): each status has its mark (In code, Rule only, Not built), and every In code grant names
+// its evidence, which this build checks.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { allPets } from './farmer-rounds-20261009.mjs';
 
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const RWX_VALUES = ['yes', 'pr', 'ask', 'grant', 'no'];
 const LEVELS = ['L1', 'L2', 'L3', 'L4'];
+const EVIDENCE = ['test', 'script', 'setting'];
+const inRepo = (path) => existsSync(fileURLToPath(new URL(`../${path}`, import.meta.url)));
 // Native tools and tricks (Astra, 2026-10-19): they belong to a pet program (`of`) and are never drawn on the map; the
 // map lists them on their pet program's card, and TOOLS-AND-TRICKS.md lists them in the registry table.
 export const PARTS = ['tool', 'trick'];
@@ -163,7 +168,18 @@ export function systemMapData(registry, extra, programs = []) {
     if (!g.subjects.length) throw new Error(`grant ${g.id} has no subjects`);
     // Who holds it, in L1 to L4 (Astra, 2026-10-18); empty for the adviser and other farms, outside your levels.
     if (!Array.isArray(g.level) || g.level.some((l) => !LEVELS.includes(l))) throw new Error(`grant ${g.id}: level must list L1 to L4`);
+    // Option C (Astra, 2026-10-19): "In code" is never claimed without proof. Only an enforced grant names evidence,
+    // each one a test or script in this repo (which must exist) or a setting.
+    const ev = g.evidence || [];
+    if (g.status === 'enforced' && !ev.length) throw new Error(`grant ${g.id} is In code (enforced) but names no evidence`);
+    if (g.status !== 'enforced' && ev.length) throw new Error(`grant ${g.id} is ${access.statuses[g.status].mark}, so it cannot name evidence`);
+    for (const e of ev) {
+      const kinds = Object.keys(e);
+      if (kinds.length !== 1 || !EVIDENCE.includes(kinds[0]) || !String(e[kinds[0]]).trim()) throw new Error(`grant ${g.id}: each evidence is one test, script or setting`);
+      if (kinds[0] !== 'setting' && !inRepo(e[kinds[0]])) throw new Error(`grant ${g.id}: its evidence ${e[kinds[0]]} is not in the repo`);
+    }
   }
+  for (const [k, st] of Object.entries(access.statuses)) if (!st.mark) throw new Error(`status ${k} has no mark (In code, Rule only, Not built)`);
   // A grant's own subject is not listed as something it reaches, except for "self" (a pet's own folder).
   for (const n of nodes.values()) {
     const holds = (g) => g.subjects.some((s) => matches(s, n));
@@ -207,9 +223,10 @@ export function ringsTable(extra) {
 }
 export function grantsTable(extra) {
   const { grants, statuses } = extra.access;
+  const proof = (g) => (g.evidence?.length ? ` **Proof:** ${g.evidence.map((e) => (e.setting ? cell(e.setting) : `[\`${e.test || e.script}\`](${e.test || e.script})`)).join('; ')}.` : '');
   return ['| # | Level | Who | On what | R | W | X | Status | How it holds |', '|---|---|---|---|---|---|---|---|---|',
-    ...grants.map((g, i) => `| ${i + 1} | ${g.level.length ? g.level.join(', ') : '—'} | ${cell(g.who)} | ${cell(g.on)} | ${CELL[g.r]} | ${CELL[g.w]} | ${CELL[g.x]} | **${statuses[g.status].name}** | ${cell(g.how)}`
-      + (g.next ? ` **Next (planned):** ${cell(g.next)}` : '') + (g.gaps?.length ? ` Known gap${g.gaps.length > 1 ? 's' : ''} ${g.gaps.join(', ')}.` : '') + ' |')].join('\n');
+    ...grants.map((g, i) => `| ${i + 1} | ${g.level.length ? g.level.join(', ') : '—'} | ${cell(g.who)} | ${cell(g.on)} | ${CELL[g.r]} | ${CELL[g.w]} | ${CELL[g.x]} | **${statuses[g.status].name}**: ${statuses[g.status].mark.toLowerCase()} | ${cell(g.how)}`
+      + proof(g) + (g.next ? ` **Next (planned):** ${cell(g.next)}` : '') + (g.gaps?.length ? ` Known gap${g.gaps.length > 1 ? 's' : ''} ${g.gaps.join(', ')}.` : '') + ' |')].join('\n');
 }
 const between = (md, name, body) => {
   const re = new RegExp(`(<!-- ${name}:start[^>]*-->)[\\s\\S]*?(<!-- ${name}:end -->)`);

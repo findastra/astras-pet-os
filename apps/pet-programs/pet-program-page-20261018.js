@@ -1,7 +1,8 @@
 // Every pet program page spawned by the Friendly Farmer (PET-PROGRAM-FRAMEWORK.md, section 3): the paired lights,
-// the live idle, awake and sad moods, the session notes that go to the backlog, export, and the chat button.
-// Saved in this browser only (section 6): nothing is sent anywhere. Text goes into the page with textContent only.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18.
+// the live idle, awake and sad moods, the session notes that go to the backlog, export, the pet moving into its
+// cyberhome, the L4 activity light and the chat window.
+// Saved in this browser only (section 6): the page sends nothing itself. Text goes into the page with textContent only.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19.
 (function () {
   'use strict';
   var config = JSON.parse(document.getElementById('pet-program-data').textContent);
@@ -21,49 +22,82 @@
   function localTime(iso) { var d = new Date(iso); return localDay(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
   function today() { return localDay().replace(/-/g, ''); }
 
-  // ---- The paired lights: left ON/OFF (green, red), right maintenance (blue, yellow). ----
+  // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).
+  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). Something
+  // not built yet starts grey: not set yet. Marks saved before 2026-10-19 (`off`, `fix`) still count. ----
   var lights = read('lights', {});
+  function power(k, planned) { var s = lights[k] || {}; return s.power || (s.off ? 'off' : (planned ? '' : 'on')); }
+  function health(k, planned) { var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : (planned ? '' : 'ok')); }
+  var SAYS = {
+    on: 'on. Click again to switch it off.',
+    off: 'off (the kill switch). Turning it back on asks you first.',
+    ok: 'working correctly. Click again if it is broken.',
+    fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
+  };
   function paint() {
-    var buttons = document.querySelectorAll('button.light[data-item]');
+    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
     for (var i = 0; i < buttons.length; i++) {
-      var b = buttons[i], s = lights[b.dataset.item] || {}, name = b.dataset.name;
+      var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
+      names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
-        b.classList.toggle('is-off', !!s.off);
-        b.setAttribute('aria-pressed', s.off ? 'false' : 'true');
-        b.setAttribute('aria-label', name + ': ' + (s.off ? 'off' : 'on'));
+        var p = power(k, planned[k]);
+        b.classList.toggle('is-off', p === 'off');
+        b.classList.toggle('is-unset', !p);
+        b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
+        b.setAttribute('aria-label', name + ': ' + (p === 'on' ? 'on' : p === 'off' ? 'off' : 'not set yet'));
       } else {
-        b.classList.toggle('is-fix', !!s.fix);
-        b.setAttribute('aria-pressed', s.fix ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (s.fix ? 'requires maintenance' : 'working correctly'));
+        var h = health(k, planned[k]);
+        b.classList.toggle('is-fix', h === 'fix');
+        b.classList.toggle('is-unset', !h);
+        b.setAttribute('aria-pressed', h === 'fix' ? 'true' : 'false');
+        b.setAttribute('aria-label', name + ': ' + (h === 'ok' ? 'working correctly' : h === 'fix' ? 'requires maintenance' : 'not checked yet'));
       }
     }
-    var names = {};
-    for (var j = 0; j < buttons.length; j++) names[buttons[j].dataset.item] = buttons[j].dataset.name;
     var fix = document.getElementById('maintenance'), off = document.getElementById('switched-off');
     if (fix) {
       fix.textContent = '';
-      var marked = Object.keys(lights).filter(function (k) { return lights[k].fix && names[k]; });
+      var marked = Object.keys(names).filter(function (k) { return health(k, planned[k]) === 'fix'; });
       if (!marked.length) fix.appendChild(el('li', 'Nothing marked yellow in this browser.', 'empty'));
       marked.forEach(function (k) { fix.appendChild(el('li', names[k] + ': requires maintenance (marked ' + (lights[k].fixed_on || 'today') + ')')); });
     }
     if (off) {
       off.textContent = '';
-      Object.keys(lights).filter(function (k) { return lights[k].off && names[k]; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
+      Object.keys(names).filter(function (k) { return power(k, planned[k]) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
+  }
+  // The bubble that says what a light now means. One for the page, placed under the light that was clicked.
+  var tip = el('div', null, 'light-bubble'), tipTimer;
+  tip.setAttribute('role', 'status');
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  function say(b, text) {
+    tip.textContent = b.dataset.name + ': ' + text;
+    tip.hidden = false;
+    var r = b.getBoundingClientRect(), width = document.documentElement.clientWidth;
+    tip.style.left = (window.scrollX + Math.max(8, Math.min(r.left - 8, width - tip.offsetWidth - 8))) + 'px';
+    tip.style.top = (window.scrollY + r.bottom + 8) + 'px';
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(function () { tip.hidden = true; }, 4000);
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('button.light[data-item]');
     if (!b) return;
-    var s = lights[b.dataset.item] || (lights[b.dataset.item] = {});
+    e.preventDefault();
+    var k = b.dataset.item, planned = !!b.dataset.planned, next;
+    var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
-      if (s.off && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
-      s.off = !s.off;
+      var p = power(k, planned);
+      if (p === 'off' && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
+      next = p === 'on' ? 'off' : 'on';
+      s.power = next; delete s.off;
     } else {
-      s.fix = !s.fix;
-      s.fixed_on = s.fix ? localDay() : undefined;
+      next = health(k, planned) === 'ok' ? 'fix' : 'ok';
+      s.health = next; delete s.fix;
+      s.fixed_on = next === 'fix' ? localDay() : undefined;
     }
     write('lights', lights);
     paint();
+    say(b, SAYS[next]);
   });
   paint();
 
@@ -101,7 +135,7 @@
   show(mood);
   if (den && has(den, 'idle')) den.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
 
-  // The awake picture in the emotions panel blinks too.
+  // The awake picture in the emotions tool panel blinks too.
   var awake = document.querySelector('.awake-faces');
   if (has(awake, 'blink')) setInterval(function () {
     face(awake, 'blink'); setTimeout(function () { face(awake, 'idle'); }, 180);
@@ -153,20 +187,152 @@
   });
   render();
 
-  // ---- The chat button: opens the panel that says the chat bot is not connected yet. ----
-  var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
-  if (chat && panel) chat.addEventListener('click', function () {
-    panel.hidden = !panel.hidden;
-    chat.setAttribute('aria-expanded', panel.hidden ? 'false' : 'true');
+  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in through Startup Star's
+  // door in the top corner. The page plays the arrival itself. Flying in from the desktop (from roaming, from the
+  // lineup, or out of the star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. The
+  // script only changes the den's state: every picture is already in the page. ----
+  var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
+  if (den && den.dataset.arrival === 'waiting') {
+    (still ? [['home', 0]] : [['opening', 250], ['arriving', 850], ['home', 1900]]).forEach(function (step) {
+      setTimeout(function () {
+        den.dataset.arrival = step[0];
+        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' came in through the star.';
+      }, step[1]);
+    });
+    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1900) + 5000);
+  }
+
+  // ---- Activity lights (Astra, 2026-10-19): the light on a level's tool panel (its top border) is on while that
+  // level is working right now, and the tool panel glows. L4 is you: on while this page is in front of you and you used it in the
+  // last two minutes, dim when you go quiet, off while the page is hidden. L1 to L3 need Startup Star's link to know
+  // what is running, so for now they say they are not connected. ----
+  var WORKING = {
+    L1: 'a program or tool of ' + config.home + ' is running',
+    L2: config.home + ' is doing something by itself, or data comes in from a pet it talks to',
+    L3: 'an agent is working in ' + config.home,
+  };
+  var HERE = {
+    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    off: ['you are away', 'This page is hidden behind another tab or window.'],
+  };
+  var L4 = null, L4quiet;
+  var levelPanels = document.querySelectorAll('details.panel.level');
+  for (var p = 0; p < levelPanels.length; p++) {
+    var legend = levelPanels[p].querySelector('.legend'), act = levelPanels[p].querySelector('.activity');
+    var level = /-(L[1-4])-[a-z-]*panel$/.exec(legend ? legend.textContent : '');
+    if (!level || !act) continue;
+    if (level[1] === 'L4') { L4 = { panel: levelPanels[p], light: act }; continue; }
+    act.dataset.state = 'unknown';
+    act.setAttribute('aria-label', 'activity: not connected yet');
+    act.title = 'Lights up while ' + WORKING[level[1]] + '. Not connected yet: it needs Startup Star\'s link, which is not built yet.';
+  }
+  function here(state) {
+    if (!L4) return;
+    L4.light.dataset.state = state;
+    L4.panel.dataset.activity = state;
+    L4.light.setAttribute('aria-label', 'activity: ' + HERE[state][0]);
+    L4.light.title = HERE[state][1];
+  }
+  function present() {
+    if (document.hidden) return;
+    here('live');
+    clearTimeout(L4quiet);
+    L4quiet = setTimeout(function () { here('idle'); }, 120000);
+  }
+  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  if (document.hidden) here('off'); else present();
+
+  // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
+  // no keys and sends nothing itself: your Claude or ChatGPT opens in a new tab with your message typed in (and copied,
+  // in case that tab's box is empty). Claude Code or Codex on this PC need Startup Star's link, so until it is built the
+  // message waits in the backlog. The chat's own left light switches it off. ----
+  var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
+  var chatText = document.getElementById('chat-text'), chatSend = document.getElementById('chat-send');
+  var chatStatus = document.getElementById('chat-status'), chatSays = document.getElementById('chat-who-says'), chatLog = document.getElementById('chat-log');
+  var whoButtons = panel ? panel.querySelectorAll('button[data-who]') : [];
+  var WHO = {
+    claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
+      says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
+    chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
+      says: 'Opens your ChatGPT (chatgpt.com) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
+    'this-pc': { name: 'this PC (waiting in the backlog)',
+      says: 'Not built yet: Claude Code or Codex on this PC answer here once Startup Star\'s link is built (it waits on Astra\'s OK). Until then your message waits in the backlog, and the L3 seat stays empty.' },
+    note: { name: 'the backlog', says: 'Your message goes to ' + STORE + ', like a session note.' },
+  };
+  var chosen = read('chat-with', null), chatLines = read('chat', []);
+  function choose(k) {
+    chosen = WHO[k] ? k : null;
+    for (var i = 0; i < whoButtons.length; i++) whoButtons[i].setAttribute('aria-pressed', whoButtons[i].dataset.who === chosen ? 'true' : 'false');
+    if (chatSays) chatSays.textContent = chosen ? WHO[chosen].says : 'Choose who answers. This page remembers it on this device.';
+  }
+  function drawChat() {
+    if (!chatLog) return;
+    chatLog.textContent = '';
+    chatLines.slice(-20).forEach(function (m) { chatLog.appendChild(el('li', localTime(m.at) + ' · to ' + m.to + ': ' + m.text)); });
+  }
+  function chatOff() { var s = lights['chat:' + config.petSlug] || {}; return s.power ? s.power === 'off' : !!s.off; }
+  function addNote(message) {
+    var stamp = today(), n = backlog.entries.filter(function (x) { return x.id.indexOf('-backlog-' + stamp + '-') > -1; }).length + 1;
+    backlog.entries.push({
+      id: config.homeSlug + '-v1.0-backlog-' + stamp + '-' + String(n).padStart(3, '0'),
+      created: new Date().toISOString(), author: 'you', kind: 'note', tool: config.petSlug + '-chat', text: message, attachments: [], status: 'new', run: null,
+    });
+    if (!write('backlog', backlog)) { backlog.entries.pop(); return false; }
+    render();
+    return true;
+  }
+  function openChat(open) {
+    panel.hidden = !open;
+    chat.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && chatText) chatText.focus();
+  }
+  if (chat && panel && chatText && chatSend) {
+    chat.addEventListener('click', function () { openChat(panel.hidden); });
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { openChat(false); chat.focus(); } });
+    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); });
+    chatText.addEventListener('input', function () { chatStatus.textContent = ''; });
+    chatSend.addEventListener('click', function () {
+      var message = chatText.value.trim();
+      if (!message) { chatStatus.textContent = 'Type a message first.'; chatText.focus(); return; }
+      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return; }
+      if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
+      var to = WHO[chosen];
+      if (to.url) {
+        var prompt = 'This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS' +
+          (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
+        try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
+        var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
+        if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
+        else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
+      } else {
+        if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return; }
+        chatStatus.textContent = 'Saved to ' + STORE + '.';
+      }
+      chatLines.push({ at: new Date().toISOString(), to: to.name, text: message });
+      chatLines = chatLines.slice(-20);
+      write('chat', chatLines);
+      chatText.value = '';
+      drawChat();
+    });
+    choose(chosen);
+    drawChat();
+  }
 
   // ---- API Fairy's key requests (only on API Fairy Ring's page; Astra, 2026-10-19). ----
   // Who asked for a key, who has one, who doesn't, each with a link back to where it asked. The real list stays on
   // Astra's PC: API Fairy writes it (names only, never a key) to one fixed file in her Documents folder, and this page
   // reads that file only when it is opened there (a double-clicked file, or a preview served on this PC). Anywhere else
   // it shows the page's made-up examples. Every word goes in with textContent; only https links become links.
+  (function () {
+  if (config.repo !== 'api-fairy') return;
   var requestBox = document.getElementById('key-requests');
-  if (requestBox) {
+  if (!requestBox) return;
+  {
     // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
     var LOCAL_REQUESTS = "../../../../Astra's PetOS Data/api-fairy-ring/key-requests-page-data.js";
     var source = document.getElementById('key-requests-source');
@@ -207,7 +373,7 @@
         var b = el('button', null, 'light ' + kind);
         b.type = 'button';
         b.dataset.item = item; b.dataset.name = name;
-        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): green on, red off' : 'Maintenance: blue working correctly, yellow requires maintenance';
+        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
         b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
         pair.appendChild(b);
       });
@@ -247,7 +413,7 @@
       if (r.note) line(li, null, r.note, 'request-note');
       return li;
     };
-    var show = function (requests, message, problems) {
+    var showRequests = function (requests, message, problems) {
       source.textContent = message;
       KEY_GROUPS.forEach(function (g) {
         var list = requestBox.querySelector('ul[data-group="' + g + '"]');
@@ -269,7 +435,7 @@
     var examples = function (why) {
       var list = [];
       try { list = JSON.parse(document.getElementById('key-request-examples').textContent); } catch (e) { list = []; }
-      show(list, why);
+      showRequests(list, why);
     };
     if (onThisPC) {
       var script = document.createElement('script');
@@ -278,7 +444,7 @@
         var d = window.apiFairyKeyRequests;
         if (!d || d.schema !== 'api-fairy-key-requests-page-v1' || !Array.isArray(d.requests)) return examples('API Fairy\'s list on this PC is not one this page can read. These are made-up examples.');
         var rows = d.requests.filter(function (r) { return r && groupOf[r.group]; });
-        show(rows, 'API Fairy\'s list on this PC: ' + rows.length + (rows.length === 1 ? ' request' : ' requests') + ', ' + (d.scanned ? 'checked by name ' : 'listed without looking for the keys ') + localTime(d.checked) + '.', d.problems);
+        showRequests(rows, 'API Fairy\'s list on this PC: ' + rows.length + (rows.length === 1 ? ' request' : ' requests') + ', ' + (d.scanned ? 'checked by name ' : 'listed without looking for the keys ') + localTime(d.checked) + '.', d.problems);
       };
       script.onerror = function () { examples('API Fairy has not written her list on this PC yet (open API Fairy, or run API Fairy.exe --key-requests). These are made-up examples.'); };
       document.head.appendChild(script);
@@ -286,4 +452,5 @@
       examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
     }
   }
+  })();
 })();

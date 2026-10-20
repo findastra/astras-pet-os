@@ -88,6 +88,8 @@ details.sec>div{display:grid;gap:8px}
 .made{font-size:10.5px;border-radius:999px;padding:0 6px;margin-left:4px;border:1px solid currentColor;white-space:nowrap}
 .made.you{color:var(--own)} .made.others{color:var(--program)}
 .status{font-size:10.5px;border-radius:999px;padding:1px 7px;border:1px solid currentColor;white-space:nowrap;flex:none}
+/* Option C (Astra, 2026-10-19): each level says what it should be (R W X), then whether that is in code. */
+.should{font:10.5px var(--mono);color:var(--muted);flex:none}
 .status.enforced{color:var(--enforced)} .status.written{color:var(--written)} .status.planned{color:var(--planned);border-style:dashed}
 .keyrow{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
 .animal{color:var(--host)}
@@ -207,8 +209,8 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
     <div class="rings" id="ringKey"></div>
   </div></details>
 
-  <details class="sec"><summary>L1 to L4 and R W X: who may do what</summary><div>
-    <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card shows the four levels down the left, each with the R W X it has on that thing; click a level to see the grants behind it.</p>
+  <details class="sec"><summary>L1 to L4: what each should be, and whether it is in code</summary><div>
+    <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card shows the four levels down the left: what each <b>should be</b> (its R W X on that thing), then whether that is <b>in code</b> (Astra, 2026-10-19). Click a level to see the grants behind it, and the proof of every In code.</p>
     <div class="keyrow"><span class="lv">L1</span>a pet's programs and tools: they act with their pet's grants, never more</div>
     <div class="keyrow"><span class="lv">L2</span>a pet program and its runtime</div>
     <div class="keyrow"><span class="lv">L3</span>an AI agent in a seat (Claude Code, Codex, or a pet's own agent)</div>
@@ -218,9 +220,9 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
     <div class="keyrow"><span class="rwx"><b class="r grant">R</b></span>only with a grant that Astra approves</div>
     <div class="keyrow"><span class="rwx"><b class="x ask">X</b></span>only after the harness asks Astra</div>
     <div class="keyrow"><span class="rwx"><b class="w no">W</b></span>no</div>
-    <div class="keyrow"><span class="status enforced">Enforced</span>a program, setting or test stops anything else</div>
-    <div class="keyrow"><span class="status written">Written only</span>a rule agents follow; nothing stops a break</div>
-    <div class="keyrow"><span class="status planned">Planned</span>designed, not built yet</div>
+    <div class="keyrow"><span class="status enforced">✓ In code</span>a test, setting or script makes it true, and names its proof</div>
+    <div class="keyrow"><span class="status written">⚠︎ Rule only</span>a rule agents follow; nothing stops a break</div>
+    <div class="keyrow"><span class="status planned">○ Not built</span>designed, not built yet</div>
     <p class="sub"><a href="https://github.com/findastra/astras-pet-os/blob/main/PROTECTION-RINGS.md#who-may-do-what-grants" target="_blank" rel="noopener" style="color:var(--pipe)">Every grant, and the known gaps</a></p>
   </div></details>
 
@@ -860,10 +862,18 @@ function levelBox(g){ const lv=g.level||[];
   const b=el('span', lv.length?'lv':'lv out', lv.length?lv.join('+'):'—');
   b.title = lv.length ? 'Held by '+lv.map(l=>l+': '+LEVEL_WORD[l]).join(' and ') : 'Outside your levels: not part of your farm';
   return b; }
-function statusChip(status){ const s=el('span','status '+status, DATA.access.statuses[status].name); s.title=DATA.access.statuses[status].what; return s; }
+const MARK = {enforced:'✓', written:'⚠︎', planned:'○'};
+function statusChip(status){ const st=DATA.access.statuses[status], s=el('span','status '+status, MARK[status]+' '+st.mark); s.title=st.name+': '+st.what; return s; }
+// The proof of an In code grant (option C): a test or script in the repo, linked, or a setting.
+function proofLine(g){ if(!g.evidence||!g.evidence.length) return null; const p=el('p'); p.appendChild(el('b','','Proof: '));
+  g.evidence.forEach((e,i)=>{ if(i) p.appendChild(document.createTextNode('; '));
+    if(e.setting) p.appendChild(document.createTextNode(e.setting));
+    else { const path=e.test||e.script, a=el('a','',path); a.href='https://github.com/findastra/astras-pet-os/blob/main/'+path; a.target='_blank'; a.rel='noopener'; p.appendChild(a); } });
+  return p; }
 function grantRow(title, g, showLevel){
   const d=el('details','grant'), s=el('summary'); if(showLevel) s.append(levelBox(g)); s.append(rwxBoxes(g), el('span','gwho',title), statusChip(g.status)); d.appendChild(s);
   const how=el('p'); how.append(el('b','',DATA.access.statuses[g.status].name+': '), document.createTextNode(g.how)); d.appendChild(how);
+  const proof=proofLine(g); if(proof) d.appendChild(proof);
   if(g.next){ const p=el('p'); p.append(el('b','','Next (planned): '), document.createTextNode(g.next)); d.appendChild(p); }
   if(g.gaps&&g.gaps.length){ const p=el('p'), a=el('a','',`Known gap${g.gaps.length>1?'s':''} ${g.gaps.join(', ')}`); a.href='https://github.com/findastra/astras-pet-os/blob/main/PROTECTION-RINGS.md#known-gaps'; a.target='_blank'; a.rel='noopener'; p.appendChild(a); d.appendChild(p); }
   return d; }
@@ -874,14 +884,14 @@ const RANK = {no:0, ask:1, grant:2, pr:3, yes:4}, SURE = {planned:0, written:1, 
 function levelRow(lv, gs, title){
   const sum={r:'no',w:'no',x:'no'}; gs.forEach(g=>['r','w','x'].forEach(k=>{ if(RANK[g[k]]>RANK[sum[k]]) sum[k]=g[k]; }));
   const top=el('span','gwho', LEVEL_WORD[lv]+(gs.length?'':' · nothing here'));
-  if(!gs.length){ const d=el('div','lvrow none'); d.append(el('span','lv',lv), rwxBoxes(sum), top); return d; }
+  if(!gs.length){ const d=el('div','lvrow none'); d.append(el('span','lv',lv), el('span','should','Should be'), rwxBoxes(sum), top); return d; }
   const d=el('details','grant lvrow'), s=el('summary');
-  s.append(el('span','lv',lv), rwxBoxes(sum), top, statusChip(gs.map(g=>g.status).sort((a,b)=>SURE[a]-SURE[b])[0])); d.appendChild(s);
+  s.append(el('span','lv',lv), el('span','should','Should be'), rwxBoxes(sum), top, statusChip(gs.map(g=>g.status).sort((a,b)=>SURE[a]-SURE[b])[0])); d.appendChild(s);
   const body=el('div','lvbody'); gs.forEach(g=>body.appendChild(grantRow(title(g), g))); d.appendChild(body);
   return d; }
 function accessBlock(n){
   const box=el('div','access'), on=n.access.on.map(id=>GRANT[id]), by=n.access.by.map(id=>GRANT[id]);
-  box.appendChild(el('div','label','Who may use it: each level and its R W X'));
+  box.appendChild(el('div','label','Who may use it: what each level should be, and whether it is in code'));
   if(n.type==='you') box.appendChild(el('div','why','Nobody acts on you. You give and take back every grant.'));
   else LEVELS.forEach(([lv])=>box.appendChild(levelRow(lv, on.filter(g=>(g.level||[]).includes(lv)), g=>g.resources.includes('self')?'Itself: '+g.on:g.who)));
   if(by.length){ box.appendChild(el('div','label','What it may use')); by.forEach(g=>box.appendChild(grantRow(g.on.charAt(0).toUpperCase()+g.on.slice(1), g))); }

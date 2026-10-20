@@ -10,7 +10,7 @@ anytime a chat asks for an API key, I need the API fairy to know."
 
 **API Fairy** (pet program **API Fairy Ring**, #4, `findastra/api-fairy`) keeps notes about keys, never the keys. A
 **key request** is one small file that tells her who needs which key, what for, and where the ask lives. Her pet program
-page (`apps/pet-programs/api-fairy-20261018.html`, the `api-fairy-key-requests-panel`) then shows Astra three groups:
+page (`apps/pet-programs/api-fairy-20261018.html`, the `api-fairy-key-requests-tool-panel`) then shows Astra three groups:
 **waiting on you**, **has a key**, and **declined or not needed**, each with a link back to you. Whether a key exists comes
 from API Fairy's own scanner (Windows environment variables and the `.env` files she watches), by name only.
 

@@ -21,7 +21,7 @@ live hub folder stayed on `main`); the pull request is linked from its commit:
   skill **`skills/key-request`**: how any chat files a request (the folder, the JSON shape, the never-list: no value, no
   shared `ANTHROPIC_API_KEY`, never the Max plan behind a shared bot), how it tells Astra with ✨, and how a request is
   marked given or declined. Credit line at the end of AGENTS.md.
-- **The panel** `api-fairy-key-requests-panel`, after her four level panels (a pet's own panels follow the sketch's
+- **The tool panel** `api-fairy-key-requests-tool-panel`, after her four level tool panels and her R W X panel (a pet's own tool panels follow the sketch's
   order: `PET_PANELS` in the spawner): three groups labelled in their borders, `waiting-on-you` (full width, yellow
   border, a ✨ link to each request), `has-a-key` and `declined-or-not-needed`; every request has the paired lights; the
   panel has its activity light and folds; one column on a phone. The shared page script reads the real list from one

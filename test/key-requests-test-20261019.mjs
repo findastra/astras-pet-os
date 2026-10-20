@@ -13,11 +13,14 @@ const pages = spawnerPages(readSpawnerSources(root));
 const page = files[pagePath('api-fairy')];
 const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
 
-test('API Fairy Ring\'s page has api-fairy-key-requests-panel after the four levels, labelled in its border, and it folds', () => {
-  const at = page.indexOf('>api-fairy-key-requests-panel<');
-  assert.ok(at > page.indexOf('>api-fairy-L4-panel<'), 'after the L4 panel');
-  assert.ok(at < page.indexOf('>api-fairy-session-notes<'), 'before the session notes');
-  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-panel<\/span><span class="activity"/);
+test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the four levels and the R W X panel, labelled in its border, and it folds', () => {
+  const at = page.indexOf('>api-fairy-key-requests-tool-panel<');
+  for (const before of ['api-fairy-L4-tool-panel', 'api-fairy-rwx-panel']) {
+    assert.ok(page.indexOf(`>${before}<`) > -1, `${before} is on the page`);
+    assert.ok(at > page.indexOf(`>${before}<`), `after ${before}`);
+  }
+  assert.ok(at > -1 && at < page.indexOf('>api-fairy-session-notes<'), 'before the session notes');
+  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-tool-panel<\/span><span class="activity"/);
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {
     assert.ok(page.includes(`<fieldset class="request-group ${id}"><legend>${label}</legend>`), `${label} has its name in its border`);

@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge the pull request; then the next morning's round opens its own)
+status: done 2026-10-19: #128 merged; round run 39368064274 green on main; round pull request #138 opened, #83 closed
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -51,6 +51,15 @@ this card's commit):
   status file. If a pet ever writes the credit sentence there, the guard stops the round again. That is a pet repo's
   text to fix, not the round's.
 - The workflow's second step is still named "Rebuild the Cage and the Farmer's desk" (a workflow edit, Astra's).
+
+**Shipped the same day.** Astra gave her OK in chat and #128 was merged as `9a0d0b1`. Then, at Astra's word in
+chat ("Yes, start the Farmer's round now from main"), I started the round by hand with `gh workflow run` on `main`
+(`502f75a`). Run [39368064274](https://github.com/findastra/astras-pet-os/actions/runs/39368064274) was green in
+every step: 38 self-audits, `npm test` 196 pass and 0 fail. It pushed `farmer/rounds-20261019` (`6ba72a6`), opened
+[#138](https://github.com/findastra/astras-pet-os/pull/138) and closed #83 as replaced. The sentence appears 0 times
+in that branch's `status/pets-status.json`, `pets.json` and Farmer's desk. #138 waits on Astra like every round.
+Its `pets.json` changes are jobs, audits, bubble lines and mood lines that pets submitted from their own repos, so
+they are data written by a pet.
 
 ## Task
 1. Astra: OK to merge the pull request (Merge order: a scheduled round that fails every day, rank 2 in
