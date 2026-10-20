@@ -142,6 +142,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **Pets Board** | status dashboard | Every pet in one chart, rebuilt from GitHub every 30 minutes. |
 | **Startup Star** | launcher and process supervisor (a system tray app) | A native program of The Farm that starts the desktop pets. Not a pet: it has no face. |
 | **pet program spawner** | scaffolding and page generator | The Farmer's native tool that writes every basic pet program page. |
+| **click-check** | link checker and UI smoke test (an automated click-through test) | The Farmer’s native tool that clicks every button and link on the pet program pages and says which go nowhere, go to a dead end or the wrong place (`npm run click-check`). |
 | **seed-suggester** | recommendation tool | Suggests pets for the programs installed on a PC, read only. |
 | **How to Take Care of Your Farm!** | onboarding tutorial (a getting-started guide) | The guide for beginners, `apps/beginner-guide-20261019.html`: a public page of The Farm on installing Astra's PetOS and making your own farm. The first-run walk on the System Map opens it (Astra, 2026-10-19). |
 

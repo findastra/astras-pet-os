@@ -173,6 +173,7 @@ npm run build -- --metadata-only  # refresh registry and docs using already-buil
 node scripts/build-interfaces-20261008.mjs  # refresh the Farmer's desk; preserve published app copies
 npm run check    # validate pets.json, the table, and that every pet has art
 npm test         # tests
+npm run click-check  # click every button and link on the pet program pages in a headless Edge or Chrome; report what is broken
 ```
 
 To deliberately rebuild another app, name it with `node scripts/build-interfaces-20261008.mjs --refresh-existing file-master` (replace the repo name as needed). Review the change and publish it under a new immutable source tag before updating the release ledger.
