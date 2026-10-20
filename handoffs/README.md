@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: merge platform-platypus#6, this pull request and findastra/findastra#7; the sign on her iPad |
+| [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
 | [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge; then a green round |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |

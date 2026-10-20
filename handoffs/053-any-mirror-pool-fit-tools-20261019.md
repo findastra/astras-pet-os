@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge this pull request, platform-platypus#6 and findastra/findastra#7)
+status: open (waiting on Astra: the Pocket Message Board on her iPad, and what "and update the" meant; the three pull requests merged with her OK in chat, 2026-10-19)
 for: any (Platform Platypus's own work is its card 001 in findastra/platform-platypus)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: TOOLS-AND-TRICKS.md, system-map.json (`program-36`), skills/new-pet-or-tool, findastra/platform-platypus tools/README.md and handoffs/001-platypus-fit-any-screen-tools-20261019.md
@@ -39,23 +39,25 @@ resizing.
 scratchpad; the live hub folder stayed on `main`):
 - `system-map.json`: three `tool` nodes and one `trick` node, `of: "program-36"`, with five links (`runs-on` Node.js,
   `directs` the web browser), so Mirror Pool's pet program page lists them in its L1 and L2 panels and TOOLS-AND-TRICKS.md
-  in its registry. All nine are `planned`, and each node's job ends "In platform-platypus pull request #6, not merged
-  yet.", because the code is only in that pull request (card 044's rule: `now` is for code on the pet's `main`).
+  in its registry. They were `planned` while the code was only in platform-platypus#6 (card 044's rule: `now` is for
+  code on the pet's `main`), and `now` once it merged.
 - `pets.json`: `led-message-board` on `profile.hidden`, with the reason in `profile.about`.
 - INTELLIGENCE-LEVELS.md: Platform Platypus's row (its tools, the sign in Sites I watch, its first trick, and the
   unmerged pull request as its error).
 - `skills/new-pet-or-tool`: the decision row. AGENTS.md: a credit line. This card and its rows in handoffs/README.md.
 - `npm run build -- --metadata-only` and the tests: results in the pull request.
 
+**Merged with Astra's OK in chat** (2026-10-19: "Yes, merge all three pull requests in that order"):
+- platform-platypus#6 as `4e3f4fe`. Then on this branch: the four nodes and five links set to `now`, the "not merged
+  yet" note taken off their jobs, Platform Platypus's INTELLIGENCE-LEVELS.md row says merged (its error cleared),
+  `main` (#123, #130) merged in, rebuilt, tests run; then this pull request, then findastra/findastra#7.
+
 **Not verified:** the sign on Astra's iPad (emulated only); the tools on macOS or Linux.
 
 ## Task
 
-1. Astra: OK to merge, in this order: platform-platypus#6 (the tools), this pull request (the map and the page), and
-   findastra/findastra#7 (the profile line).
-2. Right after platform-platypus#6 merges, before this pull request merges: set the four nodes and five links to
-   `now`, take "In platform-platypus pull request #6, not merged yet." off the four jobs, change the INTELLIGENCE-LEVELS.md
-   row (merged, no error), `npm run build -- --metadata-only`, `npm test`.
+1. ~~Astra: OK to merge the three pull requests.~~ Done (above).
+2. ~~Set the nodes to `now` after platform-platypus#6 merges.~~ Done (above).
 3. Astra: open the Pocket Message Board on her iPad (turned both ways, full screen, from the Home Screen). Platform
    Platypus's card 001 records what she saw.
 4. Astra: what did "and update the" mean at the end of her message? Do it, here or in the pet's repo.

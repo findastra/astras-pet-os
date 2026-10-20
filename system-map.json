@@ -2759,48 +2759,48 @@
       "name": "fit-any-screen",
       "type": "tool",
       "of": "program-36",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "mirror-pool-v1.0-fit-any-screen-v1.0",
-      "job": "A tool of Mirror Pool (Platform Platypus; Astra, 2026-10-19: \"make sure that this web page can be viewed from any device ... if you turn the device sideways, it rotates ... you can stretch it out and drag the corners\"): a script a page includes so it fills any screen. It follows rotation, window resizing and the browser's own bars, keeps clear of a notch, keeps a canvas within what a phone's browser can draw, asks for full screen without ever waiting on the answer, and keeps the screen awake. Learned from the Pocket Message Board (platform-platypus tools/fit-any-screen/fit-any-screen-20261019.js). In platform-platypus pull request #6, not merged yet."
+      "job": "A tool of Mirror Pool (Platform Platypus; Astra, 2026-10-19: \"make sure that this web page can be viewed from any device ... if you turn the device sideways, it rotates ... you can stretch it out and drag the corners\"): a script a page includes so it fills any screen. It follows rotation, window resizing and the browser's own bars, keeps clear of a notch, keeps a canvas within what a phone's browser can draw, asks for full screen without ever waiting on the answer, and keeps the screen awake. Learned from the Pocket Message Board (platform-platypus tools/fit-any-screen/fit-any-screen-20261019.js)."
     },
     {
       "id": "fit-check",
       "name": "fit-check",
       "type": "tool",
       "of": "program-36",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "mirror-pool-v1.0-fit-check-v1.0",
-      "job": "A tool of Mirror Pool (Platform Platypus): measures a page on 19 screens (phones, iPads and computer windows; phones and iPads also on their side) in a headless Edge or Chrome pretending to be each device, loaded fresh and turned or resized live, for sideways scrolling, gaps in a full-screen page and canvases that were not redrawn. It only reads; the page is served on this PC only (platform-platypus tools/fit-check/fit-check-20261019.mjs). First run: the Pocket Message Board, 19 of 19 screens fit, 2026-10-19. In platform-platypus pull request #6, not merged yet."
+      "job": "A tool of Mirror Pool (Platform Platypus): measures a page on 19 screens (phones, iPads and computer windows; phones and iPads also on their side) in a headless Edge or Chrome pretending to be each device, loaded fresh and turned or resized live, for sideways scrolling, gaps in a full-screen page and canvases that were not redrawn. It only reads; the page is served on this PC only (platform-platypus tools/fit-check/fit-check-20261019.mjs). First run: the Pocket Message Board, 19 of 19 screens fit, 2026-10-19."
     },
     {
       "id": "device-shots",
       "name": "device-shots",
       "type": "tool",
       "of": "program-36",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "mirror-pool-v1.0-device-shots-v1.0",
-      "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere (platform-platypus tools/device-shots/device-shots-20261019.mjs). In platform-platypus pull request #6, not merged yet."
+      "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere (platform-platypus tools/device-shots/device-shots-20261019.mjs)."
     },
     {
       "id": "make-a-page-fit-any-screen",
       "name": "make-a-page-fit-any-screen",
       "type": "trick",
       "of": "program-36",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Trick",
       "version": "v1.0",
       "label": "mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0",
-      "job": "A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots. In platform-platypus pull request #6, not merged yet."
+      "job": "A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots."
     }
   ],
   "links": [
@@ -3270,35 +3270,35 @@
       "from": "fit-check",
       "to": "nodejs",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "fit-check runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "fit-check",
       "to": "web-browser",
       "carries": "directs",
-      "state": "planned",
+      "state": "now",
       "why": "fit-check drives a headless Edge or Chrome through its DevTools pipe, pretending to be each phone, iPad and window."
     },
     {
       "from": "device-shots",
       "to": "nodejs",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "device-shots runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "device-shots",
       "to": "web-browser",
       "carries": "directs",
-      "state": "planned",
+      "state": "now",
       "why": "device-shots drives a headless Edge or Chrome to picture the page on every screen."
     },
     {
       "from": "fit-any-screen",
       "to": "web-browser",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "fit-any-screen runs inside the page, in any browser."
     },
     {
