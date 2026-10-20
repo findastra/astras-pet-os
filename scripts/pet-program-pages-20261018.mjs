@@ -28,6 +28,10 @@ export const DIR = 'apps/pet-programs';
 export const DATE = '20261018';
 export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
+// Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
+// knows its words before it is drawn (scripts/developer-words-20261019.mjs).
+export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
+const wordScripts = WORDS.map((src) => `<script src="${src}"></script>`).join('\n');
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
@@ -328,6 +332,10 @@ export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
 // in the tray. Drawn here, so it is the same on every page and needs no picture file.
 const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
 
+// The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
+// open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
+const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
@@ -336,7 +344,7 @@ export function buildPetProgramPage(d) {
   // No picture address goes through the page script: every face it shows is already in the page, and the script only
   // shows or hides them (CodeQL js/xss-through-dom, PR #100).
   const config = {
-    repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder,
+    repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder, summary: d.summary,
     lines: { idle: d.lines.idle, blink: d.lines.blink, sad: d.lines.sad },
     publicRepo: d.publicRepo,
   };
@@ -421,8 +429,8 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <div class="note-row"><label>about <select id="note-about">${aboutOptions}</select></label>
 <label class="button file">add file<input type="file" id="note-file" multiple></label>
 <button type="submit" class="button">submit</button></div>
-<p class="small" id="note-files"></p></form>
-<details class="backlog"><summary>${esc(d.homeSlug)}-backlog in this browser (<span id="backlog-count">0</span>)</summary><ol id="backlog" reversed></ol>
+<p class="small" id="note-files" data-words-keep></p></form>
+<details class="backlog"><summary>${esc(d.homeSlug)}-backlog in this browser (<span id="backlog-count">0</span>)</summary><ol id="backlog" reversed data-words-keep></ol>
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
 <p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { cls: 'session-notes' });
 
@@ -461,6 +469,7 @@ ${assigned}</dl>
 <p><b>Home:</b> <a href="${esc(map)}">System Map</a> · <a href="../astras-pet-apps-20261008.html">The Farm</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a></p>
 <p><b>Source:</b> ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}</p>
 <p><b>Docs:</b> <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
+<p class="words-switch" data-words-switch></p>
 <p class="small">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></div>`, { cls: 'footer' });
 
   // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
@@ -468,12 +477,12 @@ ${assigned}</dl>
   // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
   const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">&gt;</button>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
 <p class="chat-ask">Who should answer?</p>
 <div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
 <p class="small" id="chat-who-says">Choose who answers. This page remembers it on this device.</p>
-<ol class="chat-log" id="chat-log"></ol>
+<ol class="chat-log" id="chat-log" data-words-keep></ol>
 <label class="small" for="chat-text">message</label>
 <textarea id="chat-text" rows="3" placeholder="Ask about ${esc(d.home)}"></textarea>
 <p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
@@ -486,6 +495,7 @@ ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send t
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(d.home)} · ${esc(d.pet)}</title>
 <link rel="stylesheet" href="${ASSETS.css}">
+${wordScripts}
 </head>
 <body>
 <main class="page">
@@ -515,6 +525,7 @@ export function buildSpawnerIndex(list) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pet program spawner</title>
 <link rel="stylesheet" href="${ASSETS.css}">
+${wordScripts}
 </head>
 <body>
 <main class="page">
@@ -524,6 +535,7 @@ export function buildSpawnerIndex(list) {
 ${group('registered', 'Registered')}
 ${group('pipeline', 'Pipeline')}
 <p class="small">By Astra. Generated by <code>npm run build</code> from pets.json and pet-programs.json; do not edit by hand.</p>
+<p class="words-switch" data-words-switch></p>
 </details>
 </main>
 </body>

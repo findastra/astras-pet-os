@@ -12,7 +12,7 @@ Every pet app is its own repo under `findastra`, named in lowercase words joined
 |---|---|
 | **`pet.json`** | See below. Includes an `audit` block. |
 | **GitHub topic** | `pet-app`. Added in the repo's About box (the gear). The Cage finds pets by this topic. |
-| **`README.md`** | Title is the repo name in Title Case. The first lines include `*An Intelligent App, or Pet, by Astra.*` (Astra, 2026-10-18; it replaces "A pet app by Astra", and the checks accept the old line until every repo has switched). **This line goes only here, once, in a pet repo's own README** (Astra, 2026-10-19: "this should only be when its at a pet repo"): never in AGENTS.md or CLAUDE.md, a tool's or folder's README, a page, a code comment, a generated file or a repo that is not a pet. Those say "by Astra" when they need a credit. Has a "how to run it" section and a "limits" section that says plainly what is not done. |
+| **`README.md`** | Title is the repo name in Title Case. The first lines include the credit `*By Astra.*` (Astra, 2026-10-20: the longer credit lines are retired, card 059: the Intelligent App line of card 033, 2026-10-18 to 2026-10-20, and the pet app line before it, and every check reports a README that still has one). Anywhere else that needs a credit (AGENTS.md, a tool's or folder's README, a page footer) says "By Astra" too. Has a "how to run it" section and a "limits" section that says plainly what is not done. |
 | **`AGENTS.md` and `CLAUDE.md`** | Rules so any assistant can pick the repo up. |
 | **A pet** | Drawn in the shared style (below). What every part of a pet app is called: [PET-WORDS.md](PET-WORDS.md). |
 | **Model and version** | The assistant that built or changed it is recorded (e.g. `Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07`). |
@@ -199,7 +199,7 @@ Every pet checks itself on a schedule and reports in the same nine moods, so Ast
 4. Writes `status/pets-status.json`: each pet's mood, a one-line bubble, and what it needs from Astra. The Cage page rests each pet in that mood and shows the bubble when clicked; the Farmer's desk lists everyone who **Needs you**.
 5. Rebuilds, runs `npm test`, and opens a **pull request** as the Friendly Farmer, from the branch `farmer/rounds-YYYYMMDD`. It never pushes to `main`: Astra reads the changes and merges them (known gap 11, closed 2026-10-17). A newer round's pull request replaces an older one that is still open.
 
-**What a self-audit checks:** the pet files above (pet.json, README credit line, "how to run it" and "Limits", AGENTS.md pointing at the Cage, CLAUDE.md, LICENSE and the `pet-app` topic for public repos), plus anything only Astra can answer.
+**What a self-audit checks:** the pet files above (pet.json, the README credit "By Astra.", "how to run it" and "Limits", AGENTS.md pointing at the Cage, CLAUDE.md, LICENSE and the `pet-app` topic for public repos), plus anything only Astra can answer.
 
 **How the round chooses the mood, the same way for every pet** (Astra's sketch, 2026-10-18; most urgent first). The
 round only sees GitHub, so it never sets `alarmed`, `sad`, `idle` or `blink`: those come from the Police Station and

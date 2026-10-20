@@ -16,7 +16,7 @@ const goodSnap = (over = {}) => ({
   readable: true, private: false, topics: ['pet-app'],
   files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE', 'app.html'],
   petJson: { pet: 'P', job: 'Does a thing.', entry: 'app.html', status: 'hatching' },
-  readme: '# P\n\n*An Intelligent App, or Pet, by Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
+  readme: '# P\n\n*By Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
   agents: 'Rules. The Cage is findastra/astras-pet-apps.', cards: [], ...over,
 });
 const pet = (over = {}) => ({ repo: 'p', pet: 'P', job: 'Does a thing.', audit: { cadence: 'weekly', subject: 'my stuff', needs: 'a thing only you can do' }, ...over });
@@ -48,7 +48,7 @@ test("self-audit moods follow Astra's sketch (PET-FILES): sick, curious, worried
   assert.equal(auditPet(registry, pet(), goodSnap({ pushed: '2026-10-09T00:00:00Z' }), last).mood, 'sleep');
   const w = auditPet(registry, pet(), goodSnap({ readme: '# P\n\nhello\n' }));
   assert.equal(w.mood, 'worried');
-  assert.equal(w.says, '3 to fix: my README needs the credit line, …');
+  assert.equal(w.says, '3 to fix: my README needs "By Astra.", …');
   assert.equal(auditPet(registry, pet(), goodSnap({ petJson: null, petJsonError: 'bad' })).mood, 'sick');
   assert.equal(auditPet(registry, pet(), goodSnap({ files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE'] })).mood, 'sick', 'a missing program file is a broken pet program');
   assert.equal(auditPet(registry, pet(), { readable: false, private: true }).mood, 'sleep');
@@ -183,7 +183,7 @@ test('a whole round, against a pretend GitHub', async () => {
 // Run 39304824157 (2026-10-19): the round quoted the credit line in a finding, the guard
 // (test/credit-line-readme-only-test-20261019.mjs) caught it in status/pets-status.json and the Farmer's desk, and no
 // round pull request was opened. The round names the line instead. Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
-test('a round names the README credit line and never quotes it in what it writes (Astra, 2026-10-19)', async () => {
+test('a round names a missing "By Astra." and never quotes a retired credit line in what it writes (Astra, 2026-10-19 and 2026-10-20)', async () => {
   const r = clone();
   const status = {};
   const github = {
@@ -192,10 +192,23 @@ test('a round names the README credit line and never quotes it in what it writes
   };
   await runRound({ registry: r, status, github, token: null, ownerToken: null, now: new Date('2026-10-19T13:00:00Z'), log: () => {}, all: true });
   const goldfish = status.pets['github-goldfish'];
-  assert.equal(goldfish.says, 'To fix: my README needs the credit line');
-  assert.ok(goldfish.findings.some((x) => /credit line/.test(x.msg)), 'the finding still names the line');
+  assert.equal(goldfish.says, 'To fix: my README needs "By Astra."');
+  assert.ok(goldfish.findings.some((x) => /By Astra/.test(x.msg)), 'the finding names the credit');
   const written = JSON.stringify(status) + JSON.stringify(r);
   assert.ok(!written.includes('Intelligent App, or Pet, by Astra'), 'the credit line is quoted in what the round writes');
+});
+
+// Astra, 2026-10-20 (card 059): the credit is "By Astra."; a README that still has a retired credit line is a finding
+// that calls it old and never quotes it.
+test('a README with a retired credit line is a finding, and "By Astra." passes', () => {
+  const readme = (credit) => `# P\n\n${credit}\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n`;
+  for (const credit of ['*An Intelligent App, or Pet, by Astra.*', '*A pet app by Astra.*']) {
+    const a = auditPet(registry, pet(), goodSnap({ readme: readme(credit) }));
+    assert.equal(a.mood, 'worried', credit);
+    assert.equal(a.says, 'To fix: my README has the old credit line', credit);
+    assert.ok(!JSON.stringify(a).includes('Intelligent App, or Pet'), 'the finding never quotes the retired line');
+  }
+  assert.equal(auditPet(registry, pet(), goodSnap({ readme: readme('*By Astra.*') })).mood, 'sleep', '"By Astra." passes');
 });
 
 test('relations only name pets the Cage knows, with known kinds and states', () => {

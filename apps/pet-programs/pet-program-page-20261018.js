@@ -1,13 +1,19 @@
 // Every pet program page spawned by the Friendly Farmer (PET-PROGRAM-FRAMEWORK.md, section 3): the paired lights,
 // the live idle, awake and sad moods, the session notes that go to the backlog, export, the pet moving into its
-// cyberhome, the L4 activity light and the chat window.
+// cyberhome, the L4 activity light and the chat window. In developer mode (the installer's switch, or a page's words
+// switch) the agent is already home in its avatar panel, and one click on it says what it does.
 // Saved in this browser only (section 6): the page sends nothing itself. Text goes into the page with textContent only.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19;
+// developer mode 2026-10-19.
 (function () {
   'use strict';
   var config = JSON.parse(document.getElementById('pet-program-data').textContent);
   var KEY = 'astras-pet-os:' + config.homeSlug;
   var STORE = config.homeSlug + '-backlog';
+  // Developer mode (Astra, 2026-10-19): developer-words-20261019.js, loaded in <head>, says which words this page uses
+  // and swaps the words of what this script writes. There are no desktop pets in developer mode.
+  var words = window.PetOSWords, dev = !!(words && words.developer);
+  function T(s) { return words ? words.swap(s) : s; }
 
   function read(name, fallback) {
     try { var v = localStorage.getItem(KEY + ':' + name); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
@@ -87,7 +93,7 @@
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
       var p = power(k, planned);
-      if (p === 'off' && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
+      if (p === 'off' && !window.confirm(T('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.'))) return;
       next = p === 'on' ? 'off' : 'on';
       s.power = next; delete s.off;
     } else {
@@ -133,7 +139,11 @@
   }
   ['pointerdown', 'keydown', 'input'].forEach(function (t) { document.addEventListener(t, used, { passive: true }); });
   show(mood);
-  if (den && has(den, 'idle')) den.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
+  // One click: the current reminder. In developer mode, what the agent does, then the reminder (Astra, 2026-10-19: "you
+  // could click it and see what it does").
+  if (den && (dev || has(den, 'idle'))) den.addEventListener('click', function () {
+    if (bubble) bubble.textContent = dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.reminder;
+  });
 
   // The awake picture in the emotions tool panel blinks too.
   var awake = document.querySelector('.awake-faces');
@@ -193,7 +203,12 @@
   // script only changes the den's state: every picture is already in the page. ----
   var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
-  if (den && den.dataset.arrival === 'waiting') {
+  if (den && den.dataset.arrival === 'waiting' && dev) {
+    // Developer mode: no desktop pets and no flight. The agent lives here already; click it to see what it does.
+    den.dataset.arrival = 'home';
+    var habitat = den.parentNode;
+    if (habitat && habitat.title !== undefined) habitat.title = T('Click ' + config.pet + ' to see what it does.');
+  } else if (den && den.dataset.arrival === 'waiting') {
     (still ? [['home', 0]] : [['opening', 250], ['arriving', 850], ['home', 1900]]).forEach(function (step) {
       setTimeout(function () {
         den.dataset.arrival = step[0];
@@ -213,8 +228,8 @@
     L3: 'an agent is working in ' + config.home,
   };
   var HERE = {
-    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
-    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    live: ['you are here', 'You are here: this page is in front of you and you used it (pointer, keys or scrolling) in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes, or you are working in another window.'],
     off: ['you are away', 'This page is hidden behind another tab or window.'],
   };
   var L4 = null, L4quiet;
@@ -241,10 +256,24 @@
     clearTimeout(L4quiet);
     L4quiet = setTimeout(function () { here('idle'); }, 120000);
   }
-  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  ['pointerdown', 'keydown', 'input', 'wheel', 'scroll'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  // Reading the page counts as using it (Astra, 2026-10-19: "double check if these L4s are active when they are"):
+  // moving the pointer over it or scrolling keeps L4 on, not only clicks and keys. A moving pointer counts once a second.
+  var lastMove = 0;
+  document.addEventListener('pointermove', function () {
+    var now = Date.now();
+    if (now - lastMove < 1000 && L4 && L4.light.dataset.state === 'live') return;
+    lastMove = now;
+    present();
+  }, { passive: true });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  // Another window in front while this page still shows: you are working elsewhere, so L4 dims at once; back here, on.
+  if (window.addEventListener) {
+    window.addEventListener('blur', function () { if (!document.hidden) { clearTimeout(L4quiet); here('idle'); } });
+    window.addEventListener('focus', present);
+  }
   if (document.hidden) here('off'); else present();
 
   // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
@@ -303,7 +332,7 @@
       if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
       var to = WHO[chosen];
       if (to.url) {
-        var prompt = 'This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS' +
+        var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
           (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
         try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
         var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
