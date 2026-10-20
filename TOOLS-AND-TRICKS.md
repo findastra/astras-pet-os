@@ -110,13 +110,14 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-164 rows: 9 native programs, 86 native tools, 11 native tricks, 58 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+169 rows: 9 native programs, 90 native tools, 12 native tricks, 58 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
 | 1 | Friendly Farmer | The Farm | native program | Astra’s PetOS System Map | `the-farm-v1.0-astras-pet-os-system-map-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
@@ -169,7 +170,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | run-unity-tool | `unity-stable-v1.0-run-unity-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | scene-preview-render | `unity-stable-v1.0-scene-preview-render-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | scene-yaml-inspection | `unity-stable-v1.0-scene-yaml-inspection-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | shaders-shop | `unity-stable-v1.0-shaders-shop-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | time-season-tide-preview | `unity-stable-v1.0-time-season-tide-preview-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | unity-assets-library | `unity-stable-v1.0-unity-assets-library-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | vine-bloomer | `unity-stable-v1.0-vine-bloomer-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | wall-texture-rebuild | `unity-stable-v1.0-wall-texture-rebuild-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | world-spawn-tool | `unity-stable-v1.0-world-spawn-tool-v1.0` | Works today |
@@ -196,6 +200,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | water-bender-strapper | `unity-stable-v1.0-water-bender-strapper-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native tool | wing-strapper | `unity-stable-v1.0-wing-strapper-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | make-a-prop-look-real | `unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native trick | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-trick-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native trick | vcc-package-manager | `unity-stable-v1.0-vcc-package-manager-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | vrchat-avatar-upload | `unity-stable-v1.0-vrchat-avatar-upload-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-copyright-auditor | `unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0` | Planned |

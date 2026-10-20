@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge this pull request; the three questions at the end of the doc)
+status: open (waiting on Astra: questions 1, 2 and 4 at the end of the doc)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: docs/unity-unicorn-page-modules-20261018.md, PET-PROGRAM-FRAMEWORK.md (section 3), findastra/unity-unicorn pet.json (`intelligence_levels`)
@@ -36,6 +36,20 @@ commit), one file changed besides this card and its README row:
   (card 042's new status), `npm test`: 141 tests, 140 pass, 1 skipped, 0 fail.
 - Nothing in findastra/unity-unicorn was changed. The hub's live checkout stayed on `main`; the work is in a worktree
   in Claude's scratchpad.
+
+**2026-10-19, Claude Opus 5.5 (`claude-opus-5-5`):** this card's pull request, #98, was merged as `105ea64`.
+Question 3 is answered by PR #114 (merged as `5de6f23`): vcc-package-manager and vrchat-avatar-upload are native
+tricks of Unity Stable, not tools. On branch `claude/unity-unicorn-tricks-20261019` (not on `main`; its pull request
+is linked from the commit):
+- `docs/unity-unicorn-page-modules-20261018.md`: a dated note at the top; L1 has 34 tools on `main` (kind Workflow:
+  face-transfer only; matcap-palette and menu-map came in with unity-unicorn PRs #13 and #14); the two are tricks to
+  write in L2, 4 in all; question 3 is marked answered.
+- `INTELLIGENCE-LEVELS.md`: Unity Unicorn's row now follows unity-unicorn's `pet.json` `intelligence_levels`:
+  34 tools on `main` (face-transfer was merged in PR #6, so it is no longer "on a branch"), 21 not merged, the four
+  tricks to write; its error reads "20 tools stuck in two unmerged draft PRs".
+- findastra/unity-unicorn PR #15 (branch `claude/vcc-and-upload-tricks-20261019`, merged as `7b1fdce` on Astra's OK)
+  made the same move in `pet.json` and on the page (0.4.5). The two catalog files stay in `tools/`, with kind `Trick to write`.
+- This card's status and its row in `handoffs/README.md`. Tests are in the pull request.
 
 ## Task
 
