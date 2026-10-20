@@ -1,4 +1,4 @@
-status: open (Parts 1 and 2 merged with #157; Part 3 is pull request #164, waiting on Astra's OK; Part 4 to build)
+status: open (Parts 1 and 2 merged with #157; Part 3 merged with #164; Part 4 to build, after Astra's OK)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
 needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -66,7 +66,11 @@ proposal before any rewrite, and for everything to be read first.
 [pull request #164](https://github.com/findastra/astras-pet-os/pull/164)**, branch `claude/farm-owner-upstream-20261020`
 (commits `505a09b` the split, `fc27a66` make-it-yours and docs, `314f9ef` merge of `main` with #152, #155, #161), made in
 a clone in Claude's scratchpad with `core.autocrlf=false`. Started after #157 was merged. The live hub folder on Astra's
-PC was not touched. **Not merged: waits on Astra's OK in chat.**
+PC was not touched. **Merged to `main` as `dcd5d81` with Astra's OK in chat (2026-10-20: "OK, merge #164").**
+`main` had moved while she answered, so #163 and #165 were merged into the branch first (`4c61a44`, `92a09e3`). #163's
+new footer kept its look, with its source link on each pet's own account; its "By Astra" links (her GitHub and
+TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, and `npm test` on that exact commit gave
+264 tests, 263 passing, 0 failing, 1 skipped.
 
 - `scripts/farm-owner-20261020.mjs` (new): `upstream()` (Astra's PetOS itself: releases, installer link, pictures, guide,
   pages, docs, `findastra/astras-pet-os`), `farmOwner()` (from the guard), `ownerOf()`, `repoOf()`, `repoUrl()`. A repo's
@@ -113,7 +117,7 @@ PC was not touched. **Not merged: waits on Astra's OK in chat.**
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
-3. ~~**Part 3**~~ Built: pull request #164 (upstream vs farm owner, make-it-yours), waiting on Astra's OK in chat.
+3. ~~**Part 3**~~ Merged with #164 as `dcd5d81` (upstream vs farm owner, make-it-yours; Astra's OK in chat, 2026-10-20).
    Then **Part 4** (pet packs, `needs` in pets.json), its own pull request after Astra's OK.
 4. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 

@@ -1,7 +1,7 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
-(#157, card 058); Part 3 is pull request #164, waiting on Astra's OK; Part 4 is not built. By Claude Opus 5.5
+(#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is not built. By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -124,7 +124,7 @@ farm list, `farm-setup`, the desktop draft list and `publish-pet-tags`. Astra-on
 say so: her profile round, the Flash Audit and the one-art-source check. Plus a **make-it-yours** command that sets a
 new farm's owner and marks the examples as Astra's, so a beginner never edits JSON by hand.
 
-**As built (pull request #164, 2026-10-20):**
+**As built (pull request #164, merged 2026-10-20 as `dcd5d81`):**
 - The module is `scripts/farm-owner-20261020.mjs`. Its `ownerOf()` gives one repo's account: the pet's own
   `github_owner`, else the farm owner's. A candidate is the farm owner's. A repo the farm's pets.json does not list
   is upstream's.
