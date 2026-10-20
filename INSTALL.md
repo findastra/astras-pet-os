@@ -44,11 +44,33 @@ If the installer stops with a message about the computer's security or its admin
 
    **Core pets** are on every farm and cannot be taken away: the farm needs them to run. Today that is the
    **Friendly Farmer**, who organizes the pets.
+
+   **A developer?** Tick **Developer mode** at the top of the window first ([Developer mode](#developer-mode), below).
 4. Your pets appear on your desktop. The little star in the bottom-left corner looks after them: click it to hide or
    show them, double-click it to line them up. Double-click a pet to open its app.
 
 To change your farm, run the installer again. Uninstall any time from the Start menu (**Uninstall Astra's PetOS**).
 The Start menu also has the **System Map** and **Stop Astra's PetOS (big red button)**.
+
+## Developer mode
+
+For programmers who would rather not read farm words (Astra, 2026-10-19). Tick **Developer mode: programming words
+(agents, control hubs) and no pets on the desktop** at the top of the installer's window, or pass `-Developer`. You get
+the same Astra's PetOS with two differences:
+
+- **Programming words.** Every pet is an **agent**, every pet program a **control hub**, The Farm the **Agent
+  Control Hub**, a farm a **workspace**, tricks **skills**, moods **states**, and so on: Unity Unicorn is the **Unity
+  Agent** and Unity Stable the **Unity Agent Control Hub**. The pictures stay. The words come from
+  [developer-words-20261019.json](developer-words-20261019.json); the developer names are drafts until Astra reviews
+  them. Repository names, file names and the labels in `code` keep their spelling, since that is what is on GitHub.
+- **Nothing on your desktop.** No desktop pets are built or started, and nothing starts with Windows. Each agent lives
+  in the avatar panel of its control hub page; click it to see what it does. The Start menu has the **Agent Control
+  Hub**, the **System Map** and **Uninstall**.
+
+Every page has a **Words: Farm words | Developer words** switch at the bottom, saved in that browser, and any page
+takes `?words=developer` or `?words=farm` in its address. To switch the install itself, run the installer again with
+or without Developer mode: it removes the other mode's Start menu entries (and, going to developer mode, the desktop
+pets program).
 
 ## If you are an AI agent installing it for someone
 
@@ -84,7 +106,13 @@ rules.
    ```
 
    An unknown pet id stops the installer and lists the ids it knows. Leave out `-Pets` for the core pets alone.
-   Add `-StartWithWindows` only if your person asks for it.
+   Add `-StartWithWindows` only if your person asks for it. If your person is a developer who wants programming
+   words and nothing on the desktop, add `-Developer` ([Developer mode](#developer-mode); `-ListPets -Developer` shows
+   each pet's agent name):
+
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File $installer -Developer -Farm Example
+   ```
 5. **Never** clone or download the repo to install, run any other script from it, or copy Astra's devices or settings
    beyond what the installer installs.
 6. **Afterwards:** show your person the star in the bottom-left corner and the Start menu entries; open the System Map
@@ -100,7 +128,9 @@ It copies the program to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the d
 with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and adds the
 Start menu shortcuts. It does **not** start with Windows unless you tick that box (or pass `-StartWithWindows`). It
 writes `install-receipt.json` with the version, the farm you chose and a SHA-256 of the program it built. The desktop
-pets use under 100 MB of memory and almost no CPU.
+pets use under 100 MB of memory and almost no CPU. In developer mode it builds nothing: it copies the program, writes
+the words the pages use into `apps/words-mode-20261019.js`, and makes the Start menu shortcuts (the receipt says
+`"mode": "developer"`).
 
 **For developers only:** the source is this repo ([README.md](README.md)). The installer zip of each release is made
 with `node scripts/installer-zip-20261018.mjs <tag>`.

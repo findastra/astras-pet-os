@@ -8,6 +8,9 @@
 >
 > **🤖 An AI agent installing this for someone: follow [INSTALL.md](INSTALL.md) and nothing else.**
 >
+> **A developer?** Tick **Developer mode** in the installer: programming words (agents and control hubs, not pets and
+> farms) and nothing on your desktop ([INSTALL.md](INSTALL.md#developer-mode)).
+>
 > **A work or school computer that will not let you install?** Nothing to install: open the pets in a browser and give
 > their **[Markdown pets](markdown-pets/README.md)** to an AI your organization allows.
 

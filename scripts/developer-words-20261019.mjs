@@ -28,8 +28,10 @@ export function developerNames(words, programs, registry = {}) {
   for (const p of programs) {
     const dev = words.names?.[p.repo];
     if (!dev?.agent) { missing.push(p.repo); continue; }
-    names[p.repo] = { agent: dev.agent, hub: dev.hub || `${dev.agent} Control Hub`, pet: p.icon || pets.get(p.repo) || null,
-      also: pets.get(p.repo) && pets.get(p.repo) !== p.icon ? pets.get(p.repo) : null, home: p.assigned ? p.program : null };
+    // keep_home: the pet program is named after the project it runs (Data Dealer), so that name stays.
+    const home = p.assigned ? p.program : null;
+    names[p.repo] = { agent: dev.agent, hub: dev.keep_home && home ? home : dev.hub || `${dev.agent} Control Hub`, pet: p.icon || pets.get(p.repo) || null,
+      also: pets.get(p.repo) && pets.get(p.repo) !== p.icon ? pets.get(p.repo) : null, home: dev.keep_home ? null : home };
   }
   return { names, missing };
 }

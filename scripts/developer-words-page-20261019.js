@@ -1,6 +1,6 @@
 // Developer mode on a page (Astra, 2026-10-19: "takes away the farm nomenclature and uses the programming
 // nomenclature ... so that the legitimate programmers don't get annoyed"). Every pet is an agent, every pet program an
-// agent control hub, The Farm the Agent Control Hub. Loaded in a page's <head>, right after words-mode-20261019.js, so
+// control hub, The Farm the Agent Control Hub. Loaded in a page's <head>, right after words-mode-20261019.js, so
 // <html data-words="developer"> is set before anything is drawn and each page's own script can read it.
 //
 // Which words a page uses, first match wins:
@@ -91,7 +91,7 @@
     return obj;
   }
 
-  // ---- The words switch, wherever a page has a [data-words-switch] slot (the footer of every agent control hub). ----
+  // ---- The words switch, wherever a page has a [data-words-switch] slot (the footer of every control hub page). ----
   function drawSwitch(slot) {
     if (slot.dataset.drawn) return;
     slot.dataset.drawn = '1';

@@ -10,7 +10,7 @@
       Core pets are the ones a farm cannot run without; today that is the Friendly Farmer (role "host" in pets.json).
       Pass -Farm Example or -Farm Scratch (with -Pets) to choose without the window; -ListPets shows the ids.
     - Developer mode (Astra, 2026-10-19): a switch in the window, or -Developer. The same install in programming words
-      (every pet is an agent, every pet program an agent control hub, The Farm the Agent Control Hub) with nothing on
+      (every pet is an agent, every pet program a control hub, The Farm the Agent Control Hub) with nothing on
       the desktop: no desktop pets are built or started, and each agent lives in the avatar panel (the cyberhome) of its
       control hub page, where one click says what it does. The Start menu gets the Agent Control Hub instead of the
       desktop pets and the Stop button. The pages read the choice from apps\words-mode-20261019.js; the words are in
@@ -120,16 +120,82 @@ function Set-FarmPets([string]$Dir, [string[]]$Keep) {
     Write-Json $path $drafts
 }
 
-# The "Set up your farm" window. Returns the choice, or $null when it is closed or cancelled.
-function Show-FarmSetup([object[]]$FarmPets, [bool]$StartChecked) {
+# The window's words: the farm words, or developer mode's programming words (Astra, 2026-10-19: "so that the legitimate
+# programmers don't get annoyed when they install these packages"). {0} is a number or a pet's job.
+function Get-SetupWords([bool]$Dev) {
+    if ($Dev) {
+        return @{ Window = "Install - Astra's PetOS $Version (developer mode)"; Heading = "Install Astra's PetOS"
+            Lead = 'Programming words and nothing on your desktop: each agent lives in its control hub page. Installs for you only (no administrator rights).'
+            Example = "1.  Install with Astra's Example Agents"
+            ExampleText = "All {0} of Astra's agents, plus the core kit. They are examples: you can delete, modify, or fork any of them."
+            Scratch = '2.  Minimal Install'
+            ScratchText = "Just the core kit: the core agents, the Agent Control Hub and the System Map. Tick any of Astra's agents below to add them."
+            Column = 'Agent'; CoreGroup = 'Core agents: always installed, they cannot be removed'; ExampleGroup = "Astra's example agents"
+            Draft = 'Draft agent.'; DraftJob = 'Draft. {0}'; One = '1 agent will be installed.'; Many = '{0} agents will be installed.'; Ok = 'Install' }
+    }
+    @{ Window = "Set up your farm - Astra's PetOS $Version"; Heading = 'Set up your farm'
+        Lead = "Astra's PetOS is in beta. It installs for you only (no administrator rights) and you can uninstall it from the Start menu."
+        Example = "1.  Set up Your Farm with Astra's Example Pets"
+        ExampleText = "All {0} of Astra's pets come to your farm, plus the core kit. They are examples: you can delete, modify, or clone any of them."
+        Scratch = '2.  Set up Your Farm From Scratch'
+        ScratchText = "Just the core kit: the core pets, the desktop star, the System Map and the big red Stop button. Tick any of Astra's pets below to bring them along too."
+        Column = 'Pet'; CoreGroup = 'Core pets: on every farm, they cannot be taken away'; ExampleGroup = "Astra's example pets"
+        Draft = 'Draft pet.'; DraftJob = 'Draft. {0}'; One = '1 pet will live on your farm.'; Many = '{0} pets will live on your farm.'; Ok = 'Set up my farm' }
+}
+
+# Developer mode's word swap for the pets' jobs: the same lists and rules as the pages, read from the file the build
+# writes for them (apps\developer-words-20261019.js, from developer-words-20261019.json). Names and the exact words go
+# first, as written; then the other words in any case, keeping the case found; never inside a longer word, a file name,
+# a path or a hyphenated label. test/developer-mode-test-20261019.mjs checks it gives what the pages give.
+function Get-DevWords([string]$Root) {
+    $file = Join-Path $Root 'apps\developer-words-20261019.js'
+    if (-not (Test-Path -LiteralPath $file)) { return $null }
+    $line = @([IO.File]::ReadAllLines($file, [Text.Encoding]::UTF8) | Where-Object { $_.StartsWith('window.PetOSWordsData = ') })[0]
+    if (-not $line) { return $null }
+    $data = $json.DeserializeObject($line.Substring('window.PetOSWordsData = '.Length).TrimEnd(';'))
+    $pass = { param($Pairs, [bool]$IgnoreCase)
+        $map = New-Object 'System.Collections.Generic.Dictionary[string,string]'   # case-sensitive, unlike @{}
+        foreach ($p in $Pairs) { $k = if ($IgnoreCase) { ([string]$p[0]).ToLowerInvariant() } else { [string]$p[0] }; if (-not $map.ContainsKey($k)) { $map[$k] = [string]$p[1] } }
+        $alt = ($Pairs | ForEach-Object { [string]$_[0] } | Sort-Object { $_.Length } -Descending | ForEach-Object { [regex]::Escape($_) }) -join '|'
+        $options = if ($IgnoreCase) { [Text.RegularExpressions.RegexOptions]::IgnoreCase } else { [Text.RegularExpressions.RegexOptions]::None }
+        @{ Map = $map; IgnoreCase = $IgnoreCase
+            Re = New-Object Text.RegularExpressions.Regex("(?<![A-Za-z0-9_./\\@#-])($alt)(?![A-Za-z0-9_/\\@-]|\.[A-Za-z0-9_])", $options) } }
+    @{ Exact = (& $pass $data['exact'] $false); Words = (& $pass $data['words'] $true) }
+}
+function Format-DevCase([string]$Found, [string]$Out) {
+    if ($Found.Length -gt 1 -and $Found -ceq $Found.ToUpperInvariant() -and $Found -cmatch '[A-Z]') { return $Out.ToUpperInvariant() }
+    $parts = $Found.Split(' ')
+    if ($parts.Count -gt 1 -and @($parts | Where-Object { $_ -cnotmatch '^[A-Z]' }).Count -eq 0) {
+        return (($Out.Split(' ') | ForEach-Object { if ($_ -cmatch '^[a-z]') { $_.Substring(0, 1).ToUpperInvariant() + $_.Substring(1) } else { $_ } }) -join ' ') }
+    if ($Found -cmatch '^[A-Z]') { return $Out.Substring(0, 1).ToUpperInvariant() + $Out.Substring(1) }
+    $Out
+}
+function Convert-DevWords([string]$Text, $DevWords) {
+    if (-not $DevWords -or -not $Text) { return $Text }
+    foreach ($pass in @($DevWords.Exact, $DevWords.Words)) {
+        $sb = New-Object System.Text.StringBuilder; $at = 0
+        foreach ($m in $pass.Re.Matches($Text)) {
+            [void]$sb.Append($Text, $at, $m.Index - $at)
+            [void]$sb.Append($(if ($pass.IgnoreCase) { Format-DevCase $m.Value $pass.Map[$m.Value.ToLowerInvariant()] } else { $pass.Map[$m.Value] }))
+            $at = $m.Index + $m.Length
+        }
+        [void]$sb.Append($Text, $at, $Text.Length - $at); $Text = $sb.ToString()
+    }
+    $Text
+}
+
+# The "Set up your farm" window. Returns the choice, or $null when it is closed or cancelled. Its Developer mode switch
+# changes every word of the window at once. With $SavePicture, it draws the window to that PNG file and returns $null.
+function Show-FarmSetup([object[]]$FarmPets, [bool]$StartChecked, [bool]$DevChecked, [string]$SavePicture) {
     Add-Type -AssemblyName System.Windows.Forms, System.Drawing
     [System.Windows.Forms.Application]::EnableVisualStyles()
     $examples = @($FarmPets | Where-Object { -not $_.Core }).Count
+    $devWords = Get-DevWords $source
     $bold = New-Object System.Drawing.Font('Segoe UI', 11, [System.Drawing.FontStyle]::Bold)
     $grey = [System.Drawing.Color]::FromArgb(90, 90, 90)
     $form = New-Object System.Windows.Forms.Form -Property @{
         Text = "Set up your farm - Astra's PetOS $Version"; StartPosition = 'CenterScreen'; FormBorderStyle = 'FixedDialog'
-        MaximizeBox = $false; MinimizeBox = $false; ClientSize = New-Object System.Drawing.Size(620, 690); TopMost = $true
+        MaximizeBox = $false; MinimizeBox = $false; ClientSize = New-Object System.Drawing.Size(620, 722); TopMost = $true
         Font = New-Object System.Drawing.Font('Segoe UI', 9.5); BackColor = [System.Drawing.Color]::White }
     $picture = Join-Path $source 'desktop-art\farmer\happy-20261011.png'
     if (Test-Path -LiteralPath $picture) {
@@ -137,24 +203,28 @@ function Show-FarmSetup([object[]]$FarmPets, [bool]$StartChecked) {
         $form.Controls.Add((New-Object System.Windows.Forms.PictureBox -Property @{ Image = $farmer; SizeMode = 'Zoom'; Location = '532, 10'; Size = '72, 72' }))
         try { $form.Icon = [System.Drawing.Icon]::FromHandle($farmer.GetHicon()) } catch { }
     }
-    $form.Controls.Add((New-Object System.Windows.Forms.Label -Property @{ Text = 'Set up your farm'; Location = '16, 14'; Size = '500, 34'
-        Font = New-Object System.Drawing.Font('Segoe UI', 17, [System.Drawing.FontStyle]::Bold) }))
-    $form.Controls.Add((New-Object System.Windows.Forms.Label -Property @{ Location = '18, 50'; Size = '500, 40'; ForeColor = $grey
-        Text = "Astra's PetOS is in beta. It installs for you only (no administrator rights) and you can uninstall it from the Start menu." }))
+    $heading = New-Object System.Windows.Forms.Label -Property @{ Text = 'Set up your farm'; Location = '16, 14'; Size = '500, 34'
+        Font = New-Object System.Drawing.Font('Segoe UI', 17, [System.Drawing.FontStyle]::Bold) }
+    $lead = New-Object System.Windows.Forms.Label -Property @{ Location = '18, 50'; Size = '500, 40'; ForeColor = $grey
+        Text = "Astra's PetOS is in beta. It installs for you only (no administrator rights) and you can uninstall it from the Start menu." }
+    # Developer mode (Astra, 2026-10-19): "a switch, developer switch, to have at the installation at the beginning".
+    $dev = New-Object System.Windows.Forms.CheckBox -Property @{ Text = 'Developer mode: programming words (agents, control hubs) and no pets on the desktop'
+        Location = '18, 94'; Size = '590, 24'; Checked = $DevChecked }
+    $form.Controls.AddRange(@($heading, $lead, $dev))
 
     $example = New-Object System.Windows.Forms.RadioButton -Property @{ Text = "1.  Set up Your Farm with Astra's Example Pets"; Font = $bold
-        Location = '16, 96'; Size = '590, 26'; Checked = $true }
-    $exampleText = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 124'; Size = '560, 38'
+        Location = '16, 128'; Size = '590, 26'; Checked = $true }
+    $exampleText = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 156'; Size = '560, 38'
         Text = "All $examples of Astra's pets come to your farm, plus the core kit. They are examples: you can delete, modify, or clone any of them." }
     $scratch = New-Object System.Windows.Forms.RadioButton -Property @{ Text = '2.  Set up Your Farm From Scratch'; Font = $bold
-        Location = '16, 170'; Size = '590, 26' }
-    $scratchText = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 198'; Size = '560, 38'
+        Location = '16, 202'; Size = '590, 26' }
+    $scratchText = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 230'; Size = '560, 38'
         Text = "Just the core kit: the core pets, the desktop star, the System Map and the big red Stop button. Tick any of Astra's pets below to bring them along too." }
     $exampleText.Add_Click({ $example.Checked = $true }); $scratchText.Add_Click({ $scratch.Checked = $true })
     $form.Controls.AddRange(@($example, $exampleText, $scratch, $scratchText))
 
     $list = New-Object System.Windows.Forms.ListView -Property @{ View = 'Details'; CheckBoxes = $true; FullRowSelect = $true
-        HeaderStyle = 'Nonclickable'; ShowItemToolTips = $true; Location = '40, 242'; Size = '564, 300'; Enabled = $false }
+        HeaderStyle = 'Nonclickable'; ShowItemToolTips = $true; Location = '40, 274'; Size = '564, 300'; Enabled = $false }
     [void]$list.Columns.Add('Pet', 170); [void]$list.Columns.Add('What it does', 370)
     $coreGroup = New-Object System.Windows.Forms.ListViewGroup('Core pets: on every farm, they cannot be taken away')
     $exampleGroup = New-Object System.Windows.Forms.ListViewGroup("Astra's example pets")
@@ -168,33 +238,60 @@ function Show-FarmSetup([object[]]$FarmPets, [bool]$StartChecked) {
         [void]$list.Items.Add($item)
     }
     $form.Controls.Add($list)
-    $count = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 548'; Size = '564, 22'; ForeColor = $grey }
+    $count = New-Object System.Windows.Forms.Label -Property @{ Location = '40, 580'; Size = '564, 22'; ForeColor = $grey }
     $form.Controls.Add($count)
-    $start = New-Object System.Windows.Forms.CheckBox -Property @{ Text = 'Start my pets when Windows starts'; Location = '18, 590'
+    $start = New-Object System.Windows.Forms.CheckBox -Property @{ Text = 'Start my pets when Windows starts'; Location = '18, 622'
         Size = '400, 24'; Checked = $StartChecked }
     $form.Controls.Add($start)
-    $ok = New-Object System.Windows.Forms.Button -Property @{ Text = 'Set up my farm'; Location = '372, 638'; Size = '136, 34'; DialogResult = 'OK' }
-    $cancel = New-Object System.Windows.Forms.Button -Property @{ Text = 'Cancel'; Location = '516, 638'; Size = '88, 34'; DialogResult = 'Cancel' }
+    $ok = New-Object System.Windows.Forms.Button -Property @{ Text = 'Set up my farm'; Location = '372, 670'; Size = '136, 34'; DialogResult = 'OK' }
+    $cancel = New-Object System.Windows.Forms.Button -Property @{ Text = 'Cancel'; Location = '516, 670'; Size = '88, 34'; DialogResult = 'Cancel' }
     $form.Controls.AddRange(@($ok, $cancel)); $form.AcceptButton = $ok; $form.CancelButton = $cancel
 
     # Example: every pet ticked and the list locked. From Scratch: the list opens with only the core pets ticked, or the
     # picks made last time From Scratch was chosen. A core pet can never be unticked.
     $picks = @{}
-    $showCount = { $n = @($list.Items | Where-Object { $_.Checked }).Count
-        $count.Text = if ($n -eq 1) { '1 pet will live on your farm.' } else { "$n pets will live on your farm." } }
+    $showCount = { $n = @($list.Items | Where-Object { $_.Checked }).Count; $w = Get-SetupWords $dev.Checked
+        $count.Text = if ($n -eq 1) { $w.One } else { $w.Many -f $n } }
     $list.Add_ItemCheck({ param($s, $e) if ($s.Items[$e.Index].Tag.Core) { $e.NewValue = 'Checked' } })
     $list.Add_ItemChecked({ & $showCount })
     $scratch.Add_CheckedChanged({
         foreach ($i in $list.Items) { if ($i.Tag.Core) { continue }
             if ($scratch.Checked) { $i.Checked = [bool]$picks[$i.Tag.Id] } else { $picks[$i.Tag.Id] = $i.Checked; $i.Checked = $true } }
         $list.Enabled = $scratch.Checked; & $showCount })
+    # Developer mode: every word of the window changes at once; there are no desktop pets to start with Windows.
+    $relabel = {
+        $w = Get-SetupWords $dev.Checked
+        $form.Text = $w.Window; $heading.Text = $w.Heading; $lead.Text = $w.Lead
+        $example.Text = $w.Example; $exampleText.Text = $w.ExampleText -f $examples
+        $scratch.Text = $w.Scratch; $scratchText.Text = $w.ScratchText
+        $list.Columns[0].Text = $w.Column; $coreGroup.Header = $w.CoreGroup; $exampleGroup.Header = $w.ExampleGroup
+        $list.BeginUpdate()
+        foreach ($i in $list.Items) { $p = $i.Tag
+            $i.Text = if ($dev.Checked) { $p.DevName } else { $p.Name }
+            $job = if ($dev.Checked) { Convert-DevWords $p.Job $devWords } else { $p.Job }
+            $what = if (-not $p.Draft) { $job } elseif ($job) { $w.DraftJob -f $job } else { $w.Draft }
+            $i.SubItems[1].Text = $what; $i.ToolTipText = $what }
+        $list.EndUpdate()
+        $start.Visible = -not $dev.Checked; $ok.Text = $w.Ok
+        & $showCount }
+    $dev.Add_CheckedChanged($relabel)
     $form.Add_Shown({ $form.TopMost = $false; $form.Activate(); $ok.Focus() })
-    & $showCount
+    & $relabel
 
+    if ($SavePicture) {   # for tests and screenshots: draw the window off the screen, save it, close it
+        $form.StartPosition = 'Manual'; $form.Location = New-Object System.Drawing.Point(-4000, -4000); $form.TopMost = $false
+        $form.Show(); [System.Windows.Forms.Application]::DoEvents()
+        $shot = New-Object System.Drawing.Bitmap($form.Width, $form.Height)
+        $form.DrawToBitmap($shot, (New-Object System.Drawing.Rectangle(0, 0, $form.Width, $form.Height)))
+        $png = New-Object System.IO.MemoryStream; $shot.Save($png, [System.Drawing.Imaging.ImageFormat]::Png); $shot.Dispose()
+        [IO.File]::WriteAllBytes($SavePicture, $png.ToArray())
+        $form.Close(); $form.Dispose()
+        return $null
+    }
     $answer = $form.ShowDialog()
     $choice = if ($answer -eq [System.Windows.Forms.DialogResult]::OK) {
-        [pscustomobject]@{ Farm = $(if ($scratch.Checked) { 'Scratch' } else { 'Example' }); StartWithWindows = $start.Checked
-            Pets = @($list.Items | Where-Object { $_.Checked -and -not $_.Tag.Core } | ForEach-Object { $_.Tag.Id }) } }
+        [pscustomobject]@{ Farm = $(if ($scratch.Checked) { 'Scratch' } else { 'Example' }); StartWithWindows = ($start.Checked -and -not $dev.Checked)
+            Developer = $dev.Checked; Pets = @($list.Items | Where-Object { $_.Checked -and -not $_.Tag.Core } | ForEach-Object { $_.Tag.Id }) } }
     $form.Dispose()
     $choice
 }
@@ -207,36 +304,49 @@ function Show-Message([string]$Text, [string]$Icon = 'Information') {
 Write-Host "Astra's PetOS $Version installer"
 $windowUsed = $false
 try {
-    # 1. Check what we need
+    # 1. Check what we need (the C# compiler only for the desktop pets, so after the choice: developer mode has none)
     if (-not (Test-Path -LiteralPath (Join-Path $source 'pets.json'))) { throw "Run this from the unzipped Astra's PetOS folder (pets.json not found next to installer\)." }
     $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
-    if (-not (Test-Path -LiteralPath $csc)) { throw "The C# compiler that ships with Windows (.NET Framework 4) was not found: $csc. Nothing was installed. $lockedDown" }
     if ($InstallDir -notmatch 'astras-pet-os$') { throw "InstallDir must end in 'astras-pet-os' so the uninstaller can find it safely." }
 
-    # 2. Choose the farm: in the window, or with -Farm (and -Pets) for no window
+    # 2. Choose the farm: in the window, or with -Farm (and -Pets, and -Developer) for no window
     $farmPets = Get-FarmPets $source
-    if ($ListPets) {   # for AI agents: the ids -Pets takes; nothing is installed
-        $farmPets | ForEach-Object { [pscustomobject]@{ id = $_.Id; pet = $_.Name; kind = $(if ($_.Core) { 'core: always on the farm' } elseif ($_.Draft) { 'example (draft)' } else { 'example' }); job = $_.Job } } | Format-Table -AutoSize -Wrap | Out-String -Width 160 | Write-Host
+    if ($ListPets) {   # for AI agents: the ids -Pets takes; nothing is installed. With -Developer, each pet's agent too.
+        $devWords = if ($Developer) { Get-DevWords $source }
+        $farmPets | ForEach-Object { $row = [ordered]@{ id = $_.Id; pet = $_.Name }; if ($Developer) { $row.agent = $_.DevName }
+            $row.kind = $(if ($_.Core) { $(if ($Developer) { 'core: always installed' } else { 'core: always on the farm' }) } elseif ($_.Draft) { 'example (draft)' } else { 'example' }); $row.job = $(if ($Developer) { Convert-DevWords $_.Job $devWords } else { $_.Job })
+            [pscustomobject]$row } | Format-Table -AutoSize -Wrap | Out-String -Width 180 | Write-Host
+        return
+    }
+    if ($SetupWindowPicture) {
+        $SetupWindowPicture = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($SetupWindowPicture)
+        $null = Show-FarmSetup $farmPets $StartWithWindows.IsPresent $Developer.IsPresent $SetupWindowPicture
+        Write-Host "Saved a picture of the window to $SetupWindowPicture. Nothing was installed."
         return
     }
     if (-not $Farm) {
         Write-Host 'Choose your farm in the "Set up your farm" window.'
         $windowUsed = $true
-        $choice = Show-FarmSetup $farmPets $StartWithWindows.IsPresent
+        $choice = Show-FarmSetup $farmPets $StartWithWindows.IsPresent $Developer.IsPresent
         if (-not $choice) { Write-Host 'Cancelled. Nothing was installed.'; return }
-        $Farm = $choice.Farm; $Pets = $choice.Pets; $StartWithWindows = [bool]$choice.StartWithWindows
+        $Farm = $choice.Farm; $Pets = $choice.Pets; $StartWithWindows = [bool]$choice.StartWithWindows; $Developer = [bool]$choice.Developer
     }
+    # Developer mode (Astra, 2026-10-19): programming words and nothing on the desktop, so nothing to build or start.
+    $dev = [bool]$Developer
+    if ($dev) { $StartWithWindows = $false }
+    elseif (-not (Test-Path -LiteralPath $csc)) { throw "The C# compiler that ships with Windows (.NET Framework 4) was not found: $csc. Nothing was installed. $lockedDown" }
     $keep = @()
     if ($Farm -eq 'Scratch') {
         foreach ($name in @($Pets | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })) {
-            $match = @($farmPets | Where-Object { -not $_.Core -and ($_.Id -eq $name -or $_.Repo -eq $name -or $_.Name -eq $name) })
+            $match = @($farmPets | Where-Object { -not $_.Core -and ($_.Id -eq $name -or $_.Repo -eq $name -or $_.Name -eq $name -or $_.DevName -eq $name) })
             if (-not $match.Count) { throw "There is no example pet called '$name'. You can pick: $(($farmPets | Where-Object { -not $_.Core } | ForEach-Object { $_.Id }) -join ', ')" }
             $keep += $match[0].Id
         }
         $keep = @($keep | Select-Object -Unique)
     }
     $onFarm = @($farmPets | Where-Object { $_.Core -or $Farm -eq 'Example' -or $keep -contains $_.Id })
-    Write-Host "Farm: $(if ($Farm -eq 'Example') { "Astra's example pets" } else { 'from scratch' }) ($($onFarm.Count) pets: $(($onFarm | ForEach-Object { $_.Name }) -join ', '))"
+    if ($dev) { Write-Host "Developer mode: $(if ($Farm -eq 'Example') { "Astra's example agents" } else { 'minimal install' }) ($($onFarm.Count) agents: $(($onFarm | ForEach-Object { $_.DevName }) -join ', '))" }
+    else { Write-Host "Farm: $(if ($Farm -eq 'Example') { "Astra's example pets" } else { 'from scratch' }) ($($onFarm.Count) pets: $(($onFarm | ForEach-Object { $_.Name }) -join ', '))" }
 
     # 3. Stop this install's desktop pets if they are running, so they can be rebuilt (running the installer again)
     $exe = Join-Path $InstallDir 'bin\desktop-pets-20261008.exe'
@@ -255,57 +365,93 @@ try {
     if ($LASTEXITCODE -ge 8) { throw "Copy failed (robocopy exit $LASTEXITCODE)." }
     Get-ChildItem -LiteralPath $InstallDir -Recurse -File | Unblock-File -ErrorAction SilentlyContinue
     if ($Farm -eq 'Scratch') { Set-FarmPets $InstallDir $keep }
+    # The words every page shows: the pages read this one line (apps\developer-words-20261019.js).
+    $modeFile = Join-Path $InstallDir 'apps\words-mode-20261019.js'
+    $modeLine = "window.ASTRAS_PET_OS_WORDS = '$(if ($dev) { 'developer' } else { 'farm' })';"
+    $modeText = [IO.File]::ReadAllText($modeFile, [Text.Encoding]::UTF8)
+    if ($modeText -notmatch "window\.ASTRAS_PET_OS_WORDS = '[a-z]+';") { throw "$modeFile does not hold the words line the pages read." }
+    [IO.File]::WriteAllText($modeFile, ($modeText -replace "window\.ASTRAS_PET_OS_WORDS = '[a-z]+';", $modeLine), (New-Object Text.UTF8Encoding $false))
+    $hub = Join-Path $InstallDir 'apps\pet-programs\astras-pet-os-20261018.html'   # the Agent Control Hub: The Farm's page
 
-    # 5. Build the desktop pets program from source, on this PC, and check that the pets load
-    Write-Host 'Building the desktop pets program from source'
-    $exe = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $InstallDir 'build-desktop-pets-20261011.ps1') | Select-Object -Last 1
-    if (-not $exe -or -not (Test-Path -LiteralPath $exe)) { throw 'Building the desktop pets program failed.' }
-    Write-Host 'Checking that your pets load'
-    $preview = Join-Path ([IO.Path]::GetTempPath()) "astras-pet-os-check-$PID.png"
-    $ErrorActionPreference = 'Continue'   # so the check's own error text reaches the message below
-    # A program the computer's security blocks fails to start at all, so that is caught here too (Astra, 2026-10-19).
-    try { $said = & (Join-Path $InstallDir 'bin\desktop-pets-check-20261011.exe') $InstallDir --preview $preview 2>&1; $code = $LASTEXITCODE }
-    catch { $said = $_.Exception.Message; $code = -1 }
-    $ErrorActionPreference = 'Stop'
-    if ($code -ne 0 -and "$said" -match 'group policy|blocked by|Application Control|AppLocker|administrator has blocked') {
-        throw "This computer's security does not allow programs built on it, so the desktop pets cannot run here. None are running and no shortcuts were made; to remove the copied files, delete $InstallDir. $lockedDown" }
-    if ($code -ne 0) { throw "Your pets did not load: $said" }
-    Remove-Item -LiteralPath $preview -ErrorAction SilentlyContinue
+    if ($dev) {
+        # 5. Developer mode: no desktop pets. A desktop pets program from an earlier install is taken away, with its
+        # start-with-Windows entry, so nothing of this install runs by itself.
+        if (Test-Path -LiteralPath $exe) { & $exe $InstallDir --remove-startup 2>$null | Out-Null }
+        $bin = Join-Path $InstallDir 'bin'
+        if (Test-Path -LiteralPath $bin) { Write-Host 'Removing the desktop pets program of an earlier install'; Remove-Item -LiteralPath $bin -Recurse -Force }
+        Write-Host 'Developer mode: no desktop pets are built or started.'
+        $exe = $null
+    } else {
+        # 5. Build the desktop pets program from source, on this PC, and check that the pets load
+        Write-Host 'Building the desktop pets program from source'
+        $exe = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $InstallDir 'build-desktop-pets-20261011.ps1') | Select-Object -Last 1
+        if (-not $exe -or -not (Test-Path -LiteralPath $exe)) { throw 'Building the desktop pets program failed.' }
+        Write-Host 'Checking that your pets load'
+        $preview = Join-Path ([IO.Path]::GetTempPath()) "astras-pet-os-check-$PID.png"
+        $ErrorActionPreference = 'Continue'   # so the check's own error text reaches the message below
+        # A program the computer's security blocks fails to start at all, so that is caught here too (Astra, 2026-10-19).
+        try { $said = & (Join-Path $InstallDir 'bin\desktop-pets-check-20261011.exe') $InstallDir --preview $preview 2>&1; $code = $LASTEXITCODE }
+        catch { $said = $_.Exception.Message; $code = -1 }
+        $ErrorActionPreference = 'Stop'
+        if ($code -ne 0 -and "$said" -match 'group policy|blocked by|Application Control|AppLocker|administrator has blocked') {
+            throw "This computer's security does not allow programs built on it, so the desktop pets cannot run here. None are running and no shortcuts were made; to remove the copied files, delete $InstallDir. $lockedDown" }
+        if ($code -ne 0) { throw "Your pets did not load: $said" }
+        Remove-Item -LiteralPath $preview -ErrorAction SilentlyContinue
+    }
 
-    # 6. Start menu shortcuts
+    # 6. Start menu shortcuts, and none left over from the other mode
     New-Item -ItemType Directory -Force -Path $ShortcutDir | Out-Null
     $shell = New-Object -ComObject WScript.Shell
     function New-Shortcut([string]$Name, [string]$Target, [string]$Arguments, [string]$Description) {
         $s = $shell.CreateShortcut((Join-Path $ShortcutDir "$Name.lnk")); $s.TargetPath = $Target; $s.Arguments = $Arguments
         $s.WorkingDirectory = $InstallDir; $s.Description = $Description; $s.Save() }
+    function Remove-Shortcut([string]$Name) { Remove-Item -LiteralPath (Join-Path $ShortcutDir "$Name.lnk") -Force -ErrorAction SilentlyContinue }
     $ps = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-    New-Shortcut "Astra's PetOS" $exe "`"$InstallDir`"" 'Start the desktop pets'
+    if ($dev) {
+        New-Shortcut 'Agent Control Hub' $hub '' 'Open the Agent Control Hub: every agent and its control hub page'
+        Remove-Shortcut "Astra's PetOS"; Remove-Shortcut "Stop Astra's PetOS (big red button)"
+    } else {
+        New-Shortcut "Astra's PetOS" $exe "`"$InstallDir`"" 'Start the desktop pets'
+        Remove-Shortcut 'Agent Control Hub'
+    }
     New-Shortcut 'System Map' (Join-Path $InstallDir 'system-map-20261012.html') '' "Open the 3D System Map"
-    New-Shortcut "Stop Astra's PetOS (big red button)" $exe "`"$InstallDir`" --quit" 'Stop every desktop pet now'
+    if (-not $dev) { New-Shortcut "Stop Astra's PetOS (big red button)" $exe "`"$InstallDir`" --quit" 'Stop every desktop pet now' }
     New-Shortcut "Uninstall Astra's PetOS" $ps "-NoProfile -ExecutionPolicy Bypass -File `"$(Join-Path $InstallDir 'installer\uninstall-astras-pet-os-20261014.ps1')`" -ShortcutDir `"$ShortcutDir`"" "Remove Astra's PetOS from this PC"
 
     # 7. Start with Windows only when asked; a second install with it off takes it away again
-    if ($StartWithWindows) { & $exe $InstallDir --install-startup | Out-Null; Write-Host 'Starts with Windows: on' }
+    if ($dev) { Write-Host 'Starts with Windows: off (developer mode has nothing to start)' }
+    elseif ($StartWithWindows) { & $exe $InstallDir --install-startup | Out-Null; Write-Host 'Starts with Windows: on' }
     else { & $exe $InstallDir --remove-startup | Out-Null; Write-Host 'Starts with Windows: off (tick it in the window, or add -StartWithWindows, to turn it on)' }
 
     # 8. Install receipt (a passport stamp)
     $commit = $null; if (Test-Path -LiteralPath (Join-Path $source '.git')) { try { $commit = (& git -C $source rev-parse HEAD 2>$null) } catch { } }
     [pscustomobject]@{
         product = "Astra's PetOS"; version = $Version; installed = (Get-Date).ToString('s'); install_dir = $InstallDir
+        mode = $(if ($dev) { 'developer' } else { 'farm' })
         farm = $Farm.ToLowerInvariant(); pets = @($onFarm | ForEach-Object { $_.Id })
-        source_commit = $commit; built_from_source = $true
-        program_sha256 = (Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash
+        source_commit = $commit; built_from_source = (-not $dev)
+        program_sha256 = $(if ($exe) { (Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash } else { $null })
         source_sha256 = (Get-FileHash -LiteralPath (Join-Path $InstallDir 'scripts\desktop-pets-20261011.cs') -Algorithm SHA256).Hash
         starts_with_windows = [bool]$StartWithWindows
     } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $InstallDir 'install-receipt.json') -Encoding UTF8
 
     Write-Host "Installed. Start menu: $ShortcutDir"
-    if (-not $NoLaunch) { Start-Process -FilePath $exe -ArgumentList "`"$InstallDir`"" }
-    if ($windowUsed) {
-        $where = if ($NoLaunch) { "Start them from the Start menu: Astra's PetOS." } else { 'They are on your desktop now.' }
-        Show-Message ("Your farm is ready: $($onFarm.Count) $(if ($onFarm.Count -eq 1) { 'pet' } else { 'pets' }). $where`n`n" +
-            "The little star in the bottom-left corner looks after them: click it to hide or show your pets, double-click it to line them up. Double-click a pet to open its app.`n`n" +
-            "In the Start menu, under Astra's PetOS: the System Map, the big red Stop button and Uninstall. To change your farm, run the installer again.")
+    if ($dev) {
+        if (-not $NoLaunch) { Start-Process -FilePath $hub }
+        if ($windowUsed) {
+            $where = if ($NoLaunch) { 'Open it from the Start menu: Agent Control Hub.' } else { 'The Agent Control Hub is open in your browser.' }
+            Show-Message ("Installed in developer mode: $($onFarm.Count) $(if ($onFarm.Count -eq 1) { 'agent' } else { 'agents' }). $where`n`n" +
+                "Nothing runs on your desktop. Each agent lives in the avatar panel of its control hub page: click it to see what it does. The words switch at the bottom of a page changes the words in that browser.`n`n" +
+                "In the Start menu, under Astra's PetOS: the Agent Control Hub, the System Map and Uninstall. To change the install, or to go back to the farm words and desktop pets, run the installer again.")
+        }
+    } else {
+        if (-not $NoLaunch) { Start-Process -FilePath $exe -ArgumentList "`"$InstallDir`"" }
+        if ($windowUsed) {
+            $where = if ($NoLaunch) { "Start them from the Start menu: Astra's PetOS." } else { 'They are on your desktop now.' }
+            Show-Message ("Your farm is ready: $($onFarm.Count) $(if ($onFarm.Count -eq 1) { 'pet' } else { 'pets' }). $where`n`n" +
+                "The little star in the bottom-left corner looks after them: click it to hide or show your pets, double-click it to line them up. Double-click a pet to open its app.`n`n" +
+                "In the Start menu, under Astra's PetOS: the System Map, the big red Stop button and Uninstall. To change your farm, run the installer again.")
+        }
     }
 } catch {
     if ($windowUsed) { Show-Message "Astra's PetOS could not be installed:`n`n$($_.Exception.Message)" 'Error' }
