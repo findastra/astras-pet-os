@@ -712,7 +712,7 @@
       "assigned": true,
       "icon": "Log Lynx",
       "idea": null,
-      "stage": "pipeline",
+      "stage": "registered",
       "repo": "log-den",
       "repo_exists": true,
       "mini_descriptor": {
@@ -787,7 +787,7 @@
       "assigned": true,
       "icon": "Packet Piranha",
       "idea": null,
-      "stage": "pipeline",
+      "stage": "registered",
       "repo": "packet-river",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1042,7 +1042,7 @@
       "assigned": true,
       "icon": "Forensic Ferret",
       "idea": null,
-      "stage": "pipeline",
+      "stage": "registered",
       "repo": "evidence-locker",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1225,7 +1225,7 @@
       "stage": "seed",
       "repo": "the-threshold",
       "repo_exists": true,
-      "implementation_status": "Core-hosted browser prototype: floor planning, local notes, exports and connected concept website. Native pet, L3 harness and Unity execution bridge are pending.",
+      "implementation_status": "Core-hosted browser prototype: floor planning, local notes, exports and connected concept website. On the-threshold's GitHub Pages since 2026-10-19: the tools tracker (tools-tracker-20261019.html, the door-dormouse-L1-panel with the tool box the-threshold-v1.0-tools-tracker-v1.0), which reads Liminal Doors' tools-by-floor ledger and shows which tools made which worlds, and the public found floors page (https://findastra.github.io/the-threshold/), where visitors tick the floors they have found and the ticks stay in their browser; Liminal Doors' VRChat world description links it (written, waiting for the first upload). Native pet, L3 harness and Unity execution bridge are pending.",
       "mini_descriptor": {
         "label": "the-threshold-v1.0-mini-descriptor-v1.0",
         "text": "Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website. Browser prototype; L3 and Unity execution are not connected.",

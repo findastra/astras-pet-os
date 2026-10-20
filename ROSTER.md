@@ -2,7 +2,7 @@
 
 *The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
 
-**20 pet apps so far, drawn as 20 characters (20 app pets, 0 companions, 0 mascots). 20 of the 20 pet apps have a repo on GitHub.**
+**23 pet apps so far, drawn as 23 characters (23 app pets, 0 companions, 0 mascots). 23 of the 23 pet apps have a repo on GitHub.**
 
 Whether each of those repos carries its `pet.json` and the `pet-app` topic is not recorded here. Run `npm run check -- --online` to ask GitHub.
 
@@ -10,7 +10,7 @@ Last updated 2026-10-19. Drawings below are **drafts** unless their notes record
 
 ![Every character in every mood](art/roster.png)
 
-Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
+Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
 ## Pet apps
 
@@ -36,6 +36,9 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 18 | **Project Parrot** | pet | hatching | [project-parrot](https://github.com/findastra/project-parrot) | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | <img src="art/frames/project-parrot/idle-20261008.png" width="48" height="48" alt="project-parrot idle"> |
 | 19 | **Voicemeeter Bug** | pet | growing | [voicemeeter-bug](https://github.com/findastra/voicemeeter-bug) | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | <img src="art/frames/voicemeeter-bug/idle-20261008.png" width="48" height="48" alt="voicemeeter-bug idle"> |
 | 20 | **Platform Platypus** | pet | hatching | [platform-platypus](https://github.com/findastra/platform-platypus) | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | <img src="art/frames/platform-platypus/idle-20261012.png" width="48" height="48" alt="platform-platypus idle"> |
+| 21 | **Log Lynx** | pet | hatching | [log-den](https://github.com/findastra/log-den) | Observability: correlates logs, traces, health and failures. | <img src="art/frames/log-lynx/idle-20261019.png" width="48" height="48" alt="log-lynx idle"> |
+| 22 | **Packet Piranha** | pet | hatching | [packet-river](https://github.com/findastra/packet-river) | Network: packet loss, DNS, latency, routing. | <img src="art/frames/packet-piranha/idle-20261019.png" width="48" height="48" alt="packet-piranha idle"> |
+| 23 | **Forensic Ferret** | pet | hatching | [evidence-locker](https://github.com/findastra/evidence-locker) | Incident timelines and log analysis. | <img src="art/frames/forensic-ferret/idle-20261019.png" width="48" height="48" alt="forensic-ferret idle"> |
 
 ## Every mood
 
@@ -198,6 +201,30 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/platform-platypus/idle-20261012.png" width="56" height="56" alt="platform-platypus idle"> | <img src="art/frames/platform-platypus/blink-20261012.png" width="56" height="56" alt="platform-platypus blink"> | <img src="art/frames/platform-platypus/happy-20261012.png" width="56" height="56" alt="platform-platypus happy"> | <img src="art/frames/platform-platypus/curious-20261012.png" width="56" height="56" alt="platform-platypus curious"> | <img src="art/frames/platform-platypus/worried-20261012.png" width="56" height="56" alt="platform-platypus worried"> | <img src="art/frames/platform-platypus/sad-20261012.png" width="56" height="56" alt="platform-platypus sad"> | <img src="art/frames/platform-platypus/sick-20261012.png" width="56" height="56" alt="platform-platypus sick"> | <img src="art/frames/platform-platypus/alarmed-20261012.png" width="56" height="56" alt="platform-platypus alarmed"> | <img src="art/frames/platform-platypus/sleep-20261012.png" width="56" height="56" alt="platform-platypus sleep"> |
+
+### Log Lynx
+
+*DRAFT art, generated 2026-10-19 with Astra's OK: an electric-teal lynx with navy spots, tangerine ear tufts and a lime logbook. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.*
+
+| idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| <img src="art/frames/log-lynx/idle-20261019.png" width="56" height="56" alt="log-lynx idle"> | <img src="art/frames/log-lynx/blink-20261019.png" width="56" height="56" alt="log-lynx blink"> | <img src="art/frames/log-lynx/happy-20261019.png" width="56" height="56" alt="log-lynx happy"> | <img src="art/frames/log-lynx/curious-20261019.png" width="56" height="56" alt="log-lynx curious"> | <img src="art/frames/log-lynx/worried-20261019.png" width="56" height="56" alt="log-lynx worried"> | <img src="art/frames/log-lynx/sad-20261019.png" width="56" height="56" alt="log-lynx sad"> | <img src="art/frames/log-lynx/sick-20261019.png" width="56" height="56" alt="log-lynx sick"> | <img src="art/frames/log-lynx/alarmed-20261019.png" width="56" height="56" alt="log-lynx alarmed"> | <img src="art/frames/log-lynx/sleep-20261019.png" width="56" height="56" alt="log-lynx sleep"> |
+
+### Packet Piranha
+
+*DRAFT art, generated 2026-10-19 with Astra's OK: an aqua-cyan piranha with a crimson belly, lemon fins and a toothy underbite. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.*
+
+| idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| <img src="art/frames/packet-piranha/idle-20261019.png" width="56" height="56" alt="packet-piranha idle"> | <img src="art/frames/packet-piranha/blink-20261019.png" width="56" height="56" alt="packet-piranha blink"> | <img src="art/frames/packet-piranha/happy-20261019.png" width="56" height="56" alt="packet-piranha happy"> | <img src="art/frames/packet-piranha/curious-20261019.png" width="56" height="56" alt="packet-piranha curious"> | <img src="art/frames/packet-piranha/worried-20261019.png" width="56" height="56" alt="packet-piranha worried"> | <img src="art/frames/packet-piranha/sad-20261019.png" width="56" height="56" alt="packet-piranha sad"> | <img src="art/frames/packet-piranha/sick-20261019.png" width="56" height="56" alt="packet-piranha sick"> | <img src="art/frames/packet-piranha/alarmed-20261019.png" width="56" height="56" alt="packet-piranha alarmed"> | <img src="art/frames/packet-piranha/sleep-20261019.png" width="56" height="56" alt="packet-piranha sleep"> |
+
+### Forensic Ferret
+
+*DRAFT art, generated 2026-10-19 with Astra's OK: a golden-yellow ferret with a violet bandit mask and a hot pink magnifying glass. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.*
+
+| idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| <img src="art/frames/forensic-ferret/idle-20261019.png" width="56" height="56" alt="forensic-ferret idle"> | <img src="art/frames/forensic-ferret/blink-20261019.png" width="56" height="56" alt="forensic-ferret blink"> | <img src="art/frames/forensic-ferret/happy-20261019.png" width="56" height="56" alt="forensic-ferret happy"> | <img src="art/frames/forensic-ferret/curious-20261019.png" width="56" height="56" alt="forensic-ferret curious"> | <img src="art/frames/forensic-ferret/worried-20261019.png" width="56" height="56" alt="forensic-ferret worried"> | <img src="art/frames/forensic-ferret/sad-20261019.png" width="56" height="56" alt="forensic-ferret sad"> | <img src="art/frames/forensic-ferret/sick-20261019.png" width="56" height="56" alt="forensic-ferret sick"> | <img src="art/frames/forensic-ferret/alarmed-20261019.png" width="56" height="56" alt="forensic-ferret alarmed"> | <img src="art/frames/forensic-ferret/sleep-20261019.png" width="56" height="56" alt="forensic-ferret sleep"> |
 
 ## Candidates (not counted until Astra says yes)
 

@@ -78,9 +78,9 @@ flowchart LR
   mesh_moth["Mesh Moth *"]
   raspberry_berry["Raspberry Pi Berry *"]
   wifi_butterfly["Wifi Butterfly *"]
-  packet_river["Packet Piranha *"]
-  log_den["Log Lynx *"]
-  evidence_locker["Forensic Ferret *"]
+  packet_river["Packet Piranha"]
+  log_den["Log Lynx"]
+  evidence_locker["Forensic Ferret"]
   pets ==>|registry| astras_pet_os
   astras_pet_os ==>|status| pets
   astras_pet_os ==>|status| astra
@@ -171,10 +171,10 @@ flowchart LR
 | Mine Mole * | Finance Finch | `findings` | idea | Whether mining is worth the power is a money question for Finance Finch. Finance data stays on the PC. |
 | Mesh Moth * | Raspberry Pi Berry * | `status` | idea | The cyberdeck plan puts a LoRa HAT on the Pi: the Meshtastic node runs on the Raspberry Pi. |
 | Wifi Butterfly * | Raspberry Pi Berry * | `status` | idea | The cyberdeck plan puts a Wi-Fi HAT on the Pi. |
-| Packet Piranha * | Log Lynx * | `findings` | now | Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment. |
-| Log Lynx * | Forensic Ferret * | `findings` | now | Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later. |
-| Packet Piranha * | Forensic Ferret * | `findings` | now | The network samples around each case: fine, or what was wrong. |
-| Log Lynx * | Friendly Farmer | `status` | planned | The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8). |
+| Packet Piranha | Log Lynx | `findings` | now | Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment. |
+| Log Lynx | Forensic Ferret | `findings` | now | Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later. |
+| Packet Piranha | Forensic Ferret | `findings` | now | The network samples around each case: fine, or what was wrong. |
+| Log Lynx | Friendly Farmer | `status` | planned | The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8). |
 
 ### Private pets
 
