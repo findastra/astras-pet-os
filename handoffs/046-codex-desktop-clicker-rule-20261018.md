@@ -18,6 +18,25 @@ compoinent, and, 2 clicks opens/closes the pet program."
   `interface_url` (each pet's old app page) and never closes it; three clicks only reroll Fuzzboi Friend's body style.
   The star keeps its own clicks (one: hide or show the pets; two: line up or roam); this rule is about pets.
 
+**Voicemeeter Bug's two and three clicks** (Claude Opus 5.5, `claude-opus-5-5`, 2026-10-20). Astra, 2026-10-19: "On my
+local pet OS, the voice meter bugs still doesn't open with 1 click to his pet program. He opens a weird dialog box, so
+please fix this." The weird box was his own **Voicemeeter Bug - status and help** window: `OpenPet` sent his two
+clicks to `--status`. Astra asked this chat directly, so it did these two parts of tasks 1 and 3 here; the rest stays
+Codex's. On branch `claude/bug-program-page-20261019` (its pull request is linked from the commit), in a worktree in
+Claude's scratchpad:
+- `scripts/desktop-pets-20261011.cs`: `OpenPet` no longer special-cases the Bug, so two clicks open his pet program page
+  (`interface_url`) like every pet's; his status window stays in his own tray menu (**Status and help**). One click on
+  him does nothing (the reminder is task 2). Three clicks run his `repair` (`--repair`).
+- `PetSprite.ThreeClicks` holds the tool bound to three clicks, read from `clicks` in pets.json (Fuzzboi Friend's draft
+  gets `reroll`), and `PetClicks` waits for a possible third click only for a pet that has one (`MostClicks`). So the
+  Bug's double-click opens his page after the double-click time, as Fuzzboi's does.
+- Self-test: the classifier waits after two clicks on the Bug and counts three; on the real roster one click on the Bug
+  dispatches nothing, two open his page, three repair, and his tool is read from pets.json. It failed on a copy whose
+  two clicks still skip his page. `--self-test` PASS.
+- Also: his row in INTELLIGENCE-LEVELS.md and his app page (`apps/voicemeeter-bug-20261008.html`) say three clicks.
+- Still Codex's: task 1's close on a second double-click, task 2's reminder dialog, task 3 for tools other than these
+  two, and the self-test cases for them.
+
 ## Task (Codex)
 
 Make the desktop pets follow the rule, the same for every pet:

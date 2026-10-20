@@ -72,6 +72,7 @@ namespace AstraDesktopPets {
 
   internal sealed class PetSprite : IDisposable {
     internal string Id,Name,Role,Interface,Kind;
+    internal string ThreeClicks; // the tool bound to three clicks (`clicks` in pets.json), or null
     internal Bitmap Idle,Blink;
     internal bool DesktopArt;
     Bitmap idleInk,blinkInk,idleBands,blinkBands;
@@ -83,6 +84,7 @@ namespace AstraDesktopPets {
     internal RectangleF Hit;
     internal static PetSprite Load(Dictionary<string,object> entry,Dictionary<string,object> framesIndex) {
       var pet=new PetSprite { Id=PetFiles.Text(entry,"art"),Name=PetFiles.Text(entry,"pet"),Role=PetFiles.Text(entry,"role"),Interface=PetFiles.Text(entry,"interface_url"),Kind=PetFiles.Text(entry,"kind") };
+      object clicks,three;if(entry.TryGetValue("clicks",out clicks)&&clicks is Dictionary<string,object>&&((Dictionary<string,object>)clicks).TryGetValue("3",out three)&&three is Dictionary<string,object>)pet.ThreeClicks=PetFiles.Text((Dictionary<string,object>)three,"tool",null);
       object raw;if(!framesIndex.TryGetValue(pet.Id,out raw))throw new InvalidDataException("No frames for "+pet.Name);
       var paths=(Dictionary<string,object>)((Dictionary<string,object>)raw)["frames"];
       string idle=PetFiles.SafePath(PetFiles.Text(paths,"idle")),blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));
@@ -103,7 +105,7 @@ namespace AstraDesktopPets {
       var pet=new PetSprite { Id=PetFiles.Text(entry,"id"),Name=PetFiles.Text(entry,"name")+" (draft)",Role="pet",Interface=PetFiles.Text(entry,"interface"),DesktopArt=true };
       object variants;
       if(pet.Id=="fuzzboi-friend"&&entry.TryGetValue("variants",out variants)&&((ArrayList)variants).Count>0) {
-        pet.draftEntry=entry;pet.FuzzStyle=style;
+        pet.draftEntry=entry;pet.FuzzStyle=style;pet.ThreeClicks="reroll";
         var choices=new List<Dictionary<string,object>>();foreach(Dictionary<string,object> variant in (ArrayList)variants)if(PetFiles.Text(variant,"style","B")==style)choices.Add(variant);
         if(choices.Count==0)throw new InvalidDataException("No original Fuzzboi recipes for style "+style);
         var choice=choices[new Random(Guid.NewGuid().GetHashCode()).Next(choices.Count)];
@@ -222,6 +224,7 @@ namespace AstraDesktopPets {
   // dispatched while another eligible click is held, or before a drag is ruled out.
   internal sealed class PetClicks {
     readonly Action<string,int> action;
+    readonly Func<string,int> most;
     readonly int interval;
     readonly Size distance;
     string target,pressed;
@@ -229,7 +232,8 @@ namespace AstraDesktopPets {
     Point anchor;
     long due,down;
     bool held;
-    internal PetClicks(Action<string,int> callback,int milliseconds,Size rectangle) { action=callback;interval=milliseconds;distance=rectangle; }
+    // `maxClicks` says how many clicks an actor's gesture can have: 2, or 3 when it has a tool on three clicks.
+    internal PetClicks(Action<string,int> callback,int milliseconds,Size rectangle,Func<string,int> maxClicks) { action=callback;most=maxClicks;interval=milliseconds;distance=rectangle; }
     internal bool Pending { get { return held||count>0; } }
     internal bool PendingFor(string id) { return id==target||id==pressed; }
     internal void Press(string id,Point point,long now) {
@@ -243,7 +247,7 @@ namespace AstraDesktopPets {
       if(!held)return;held=false;
       if(dragged||String.IsNullOrEmpty(id)||id!=pressed){Cancel();return;}
       target=id;pressed=null;count++;due=down+interval;
-      if(count>=(id=="fuzzboi-friend"?3:2))Complete();else Advance(now);
+      if(count>=most(id))Complete();else Advance(now);
     }
     internal void Advance(long now) { if(!held&&count>0&&now>due)Complete(); }
     internal void Cancel() { target=pressed=null;count=0;held=false; }
@@ -448,7 +452,7 @@ namespace AstraDesktopPets {
     bool Compact { get { return !petsOut; } }
     internal PetsWindow(bool testMode,int? seed=null) {
       test=testMode;random=seed.HasValue?new Random(seed.Value):new Random();pair=new PetPair(random);
-      clicks=new PetClicks(ResolveClicks,SystemInformation.DoubleClickTime,SystemInformation.DoubleClickSize);LoadPets();
+      clicks=new PetClicks(ResolveClicks,SystemInformation.DoubleClickTime,SystemInformation.DoubleClickSize,MostClicks);LoadPets();
       if(!test)petsOut=PetFiles.PetsOutSetting();
       Text=test?"Astra's desktop pets - UI test":"Astra's desktop pets";
       FormBorderStyle=FormBorderStyle.None;ShowInTaskbar=test;TopMost=true;AutoScaleMode=AutoScaleMode.None;
@@ -644,12 +648,19 @@ namespace AstraDesktopPets {
       }
       if(id=="star") { if(count>=2){if(LinedUp){LinedUp=false;ShowPets();}else LineUp();}else SetPetsOut(!petsOut);return; }
       if(id==farmer.Id) { if(count>=2)OpenPet(farmer); }
-      else { var pet=pets.Find(p=>p.Id==id);if(pet==null)return;if(count>=2)OpenPet(pet);else if(id=="voicemeeter-bug"){testActions.Add("repair:voicemeeter-bug");if(!test)PetFiles.StartBug("--repair");} }
+      else { var pet=pets.Find(p=>p.Id==id);if(pet==null)return;
+        // Two clicks open the pet program page, for every pet (Astra, 2026-10-19: "one click always points to program
+        // page"); three clicks run the tool in `clicks` in pets.json ("yes move voicemeeter bug to 3 clicks is the fix").
+        // One click is the reminder dialog, not built yet (card 046).
+        if(count==2)OpenPet(pet);
+        else if(count>=3&&id=="voicemeeter-bug"&&pet.ThreeClicks=="repair"){testActions.Add("repair:voicemeeter-bug");if(!test)PetFiles.StartBug("--repair");} }
       WriteStatus();
     }
+    // One and two clicks are the same for every pet; a pet with a tool on three clicks waits for a possible third.
+    int MostClicks(string id) { var pet=pets.Find(p=>p.Id==id);return pet!=null&&pet.ThreeClicks!=null?3:2; }
     internal void OpenPet(PetSprite pet) {
       testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
-      if(pet.Id=="voicemeeter-bug"){PetFiles.StartBug("--status");return;}
+      // Voicemeeter Bug too: his own status window stays in his tray menu (Status and help).
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
     }
@@ -751,7 +762,17 @@ namespace AstraDesktopPets {
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      // Astra, 2026-10-19: two clicks open the Bug's pet program page, like every pet's; his repair is three clicks.
+      var bug=pets.Find(p=>p.Id=="voicemeeter-bug");
+      if(bug!=null) {
+        if(bug.ThreeClicks!="repair"||MostClicks(bug.Id)!=3||MostClicks(farmer.Id)!=2)throw new Exception("The Bug's three-click repair is not read from pets.json.");
+        if(!bug.Interface.StartsWith("apps/pet-programs/"))throw new Exception("The Bug's two clicks must open his pet program page.");
+        int before=testActions.Count;ResolveClicks(bug.Id,1);if(testActions.Count!=before)throw new Exception("One click on the Bug must not repair or open anything.");
+        ResolveClicks(bug.Id,2);if(testActions[testActions.Count-1]!="open:voicemeeter-bug")throw new Exception("Two clicks on the Bug must open his pet program page.");
+        ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
+        testActions.RemoveRange(before,testActions.Count-before);
+      }
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -830,14 +851,15 @@ namespace AstraDesktopPets {
       if(still==0||still>8000)throw new Exception("Roaming pets should rest now and then, not stand still.");
     }
     static void ClickTests() {
-      var got=new List<string>();var classifier=new PetClicks((id,n)=>got.Add(id+":"+n),500,new Size(8,8));Point point=new Point(100,100);
+      var got=new List<string>();var classifier=new PetClicks((id,n)=>got.Add(id+":"+n),500,new Size(8,8),id=>id=="fuzzboi-friend"||id=="voicemeeter-bug"?3:2);Point point=new Point(100,100);
       for(int i=0;i<2;i++){classifier.Press("fuzzboi-friend",point,-2000+i*200);classifier.Release("fuzzboi-friend",-1970+i*200,false);}if(got.Count!=0)throw new Exception("Fuzzboi double click must await a possible third click.");
       classifier.Press("fuzzboi-friend",point,-1600);classifier.Release("fuzzboi-friend",-1570,false);if(String.Join(",",got)!="fuzzboi-friend:3")throw new Exception("Fuzzboi triple-click classification failed.");got.Clear();
       for(int i=0;i<2;i++){classifier.Press("fuzzboi-friend",point,-1000+i*200);classifier.Release("fuzzboi-friend",-970+i*200,false);}classifier.Advance(-200);if(String.Join(",",got)!="fuzzboi-friend:2")throw new Exception("Fuzzboi double-click app opening failed.");got.Clear();
       classifier.Press("farmer",point,0);classifier.Release("farmer",30,false);classifier.Advance(501);if(String.Join(",",got)!="farmer:1")throw new Exception("Single click classification failed.");got.Clear();
       classifier.Press("farmer",point,1000);classifier.Release("farmer",1030,false);classifier.Press("farmer",point,1400);classifier.Advance(1600);if(got.Count!=0)throw new Exception("Held second click dispatched early.");classifier.Release("farmer",1630,false);classifier.Advance(1901);if(String.Join(",",got)!="farmer:2")throw new Exception("Double click classification failed.");got.Clear();
       for(int i=0;i<3;i++){classifier.Press("farmer",point,2000+i*200);classifier.Release("farmer",2030+i*200,false);}classifier.Advance(3000);if(String.Join(",",got)!="farmer:2,farmer:1")throw new Exception("A third click must start a new gesture, not open the desk twice.");got.Clear();
-      classifier.Press("voicemeeter-bug",point,4000);classifier.Release("voicemeeter-bug",4030,false);classifier.Press("voicemeeter-bug",point,4200);classifier.Release("voicemeeter-bug",4230,false);classifier.Advance(5000);if(String.Join(",",got)!="voicemeeter-bug:2")throw new Exception("Bug double click also repaired.");got.Clear();
+      classifier.Press("voicemeeter-bug",point,4000);classifier.Release("voicemeeter-bug",4030,false);classifier.Press("voicemeeter-bug",point,4200);classifier.Release("voicemeeter-bug",4230,false);if(got.Count!=0)throw new Exception("Bug double click must await a possible third click.");classifier.Advance(5000);if(String.Join(",",got)!="voicemeeter-bug:2")throw new Exception("Bug double click also repaired.");got.Clear();
+      for(int i=0;i<3;i++){classifier.Press("voicemeeter-bug",point,5200+i*150);classifier.Release("voicemeeter-bug",5230+i*150,false);}if(String.Join(",",got)!="voicemeeter-bug:3")throw new Exception("Bug triple-click classification failed.");got.Clear();
       classifier.Press("farmer",point,6000);classifier.Release("farmer",6030,false);classifier.Press("farmer",point,6200);classifier.Cancel();classifier.Release("farmer",6300,true);classifier.Advance(7000);if(got.Count!=0)throw new Exception("Drag did not cancel pending clicks.");
       classifier.Press("goldfish",point,8000);classifier.Release("goldfish",8030,false);classifier.Press("chip",point,8200);classifier.Release("chip",8230,false);classifier.Advance(9000);if(String.Join(",",got)!="chip:1")throw new Exception("Clicks merged across actors.");got.Clear();
       classifier.Press("farmer",point,9200);classifier.Release("farmer",9230,false);classifier.Press("goldfish",point,9300);classifier.Release("goldfish",9330,false);classifier.Advance(9900);if(String.Join(",",got)!="goldfish:1"||classifier.Pending)throw new Exception("Actor switch kept a stale gesture.");got.Clear();
