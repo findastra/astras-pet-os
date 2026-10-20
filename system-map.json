@@ -2278,6 +2278,30 @@
       "job": "A tool of Unity Stable (Audit): Inspect supported world references, missing scripts, walkable surfaces and configured content budgets (unity-unicorn tools/world-validator-20261011.json)."
     },
     {
+      "id": "matcap-palette",
+      "name": "matcap-palette",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-matcap-palette-v1.0",
+      "job": "A tool of Unity Stable (Editor): Browse matcaps as round pans, like a makeup palette: Unity Unicorn's 48 drawn matcaps on its page, and every matcap texture in a Unity project in its editor window (unity-unicorn tools/matcap-palette-20261019.json)."
+    },
+    {
+      "id": "menu-map",
+      "name": "menu-map",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-menu-map-v1.0",
+      "job": "A tool of Unity Stable (Audit): Map an avatar's real radial menu after VRCFury and Modular Avatar build it: a Unity tool exports a disposable test build's menu, icons and synced parameters, and the page draws the menu to click through with a 256-bit parameter budget per add-on (unity-unicorn tools/menu-map-20261019.json)."
+    },
+    {
       "id": "sparkle-strapper",
       "name": "sparkle-strapper",
       "type": "tool",
