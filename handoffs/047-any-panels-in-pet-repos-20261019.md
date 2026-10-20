@@ -96,6 +96,40 @@ in chat):
 - On Astra's PC: nothing changed. The programs were built and their self-tests run in the scratchpad clones; headless
   Edge ran from the scratchpad.
 
+**Task 7, tool panels in the pet repos** (Claude Opus 5.5, `claude-opus-5-5`, a session started from the one that made
+astras-pet-os#129, 2026-10-19, after #129 merged as `502f75a`). Each repo was changed in a fresh clone in Claude's
+scratchpad (`core.autocrlf=false`), on branch `claude/tool-panels-20261019`. There is one pull request per repo, and none
+is merged (Astra gives her OK per pull request in chat):
+
+| Repo | Pull request | Commit | What it renames | Tests |
+|---|---|---|---|---|
+| findastra/unity-unicorn | [#20](https://github.com/findastra/unity-unicorn/pull/20) | `63e47fa` | `unity-unicorn-L1-tool-panel` to `-L4-tool-panel` and the 12 avatar and world tool panels (page 0.5.1) | `node --test test/*.mjs` 55: 54 pass, 1 skipped (local seed); Python 50 OK |
+| findastra/findastra-discord-presence | [#27](https://github.com/findastra/findastra-discord-presence/pull/27) | `58e4536` | `discord-damsel-servers-tool-panel` (plugin `PANEL`, pet.json, her page) and `discord-damsel-L2-tool-panel` | `node --test` 125 pass, 0 fail, 0 skipped |
+| findastra/log-den | [#7](https://github.com/findastra/log-den/pull/7) | `0d569c6` | `log-lynx-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 38 pass |
+| findastra/packet-river | [#7](https://github.com/findastra/packet-river/pull/7) | `42d8fd2` | `packet-piranha-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 20 pass |
+| findastra/evidence-locker | [#7](https://github.com/findastra/evidence-locker/pull/7) | `6269bb4` | `forensic-ferret-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 22 pass |
+| findastra/workflow-whirlpool (private) | [#2](https://github.com/findastra/workflow-whirlpool/pull/2), into `codex/workflow-whale-20261018` (nothing pushed to it) | `cda1034` | nothing: its pages never call a box a panel in words | `node --test test-panels-20261019.mjs` 5 pass |
+
+- **Every page:** the fold hint says "Click the label to fold or unfold this tool panel", and so do the page's own words ("Add to the L1 tool panel", "Click a tool panel to open it", "For now this tool panel holds only…"). Each repo's panel test fails on `main`'s page. Each repo also has a credit line in AGENTS.md.
+- **Unity Unicorn:**
+  - Its avatar and world side panels were named `…-panel` too (`unity-unicorn-matcap-panel` and the rest), so they became `…-tool-panel`, the same as Damsel's servers panel, which this task names.
+  - Lights saved on the old `-panel` labels, and on the older `-module` ones, move to the new labels (the page's `RENAMED` list). This was checked in Claude's browser.
+  - Its open #16 adds three more `…-panel` labels (`avatar-assets`, `world-assets`, `made-by`). Whichever of #16 and #20 merges second renames them and adds them to `RENAMED`; the panels test fails until then. #19 changes the same page too.
+- **Discord Damsel:**
+  - The README screenshot was retaken from the plugin's test page (`?demo`, headless Edge, 760 × 860); only the label changed.
+  - Her open #26 (Sticker Manager 1.0.2) changes the same lines, so #27 keeps the plugin at 1.0.1. Merge #26 first, then `main` goes into #27 and the plugin becomes 1.0.3.
+- **Workflow Whirlpool:** its level boxes are titled "L1 · Program & tools" to "L4 · Approvals & connections", and `panel` is only their class. #2 adds a test that fails if a page's words (text, title, aria-label, alt) call a box just a panel, and the rule in AGENTS.md. Its source zip was rebuilt with `build-downloads-20261016.py`.
+- **Kept, on purpose:**
+  - code names: `.panel`, `uu-panels`, `uu-panel`, `panelBox`, `ddsm-panel`, `class Panel`, `getSettingsPanel`, `live-panel`, and pet.json's `panel` key;
+  - chat panels; BetterDiscord's "settings panel"; the Damsel companion's "control panel";
+  - the Unity scripts' own words ("Load it in Unity Unicorn's menu-map panel.");
+  - dated records (old credit lines, old README sections, cards).
+  - No pet repo has a `rwx-panel` or "bot panel"; both stay names wherever they are.
+- **Saved browser data:** nothing is lost. The crash-watch pages, Damsel's page and Workflow Whirlpool save by item, connection or tool, never by a box's name, and Unity Unicorn carries its lights over.
+- **Hub:** the note at the top of docs/unity-unicorn-page-modules-20261018.md now points at unity-unicorn#20 (this commit).
+- On Astra's PC: nothing changed. The pages were served on 127.0.0.1 from the scratchpad for Claude's browser, and headless
+  Edge ran from the scratchpad.
+
 ## Task
 
 1. **Unity Unicorn** (findastra/unity-unicorn, its own pull request): `unity-unicorn-20261008.html` labels its level
@@ -121,7 +155,8 @@ in chat):
    Astra merges it, rename the level panels the same way on each pet's own page (Unity Unicorn, Discord Damsel, Log
    Den, Packet River, Evidence Locker, Workflow Whirlpool), one pull request per repo. "Bot panel" on Fairy Ring's page
    is Astra's own name and stays. Claude warned that developers read "tool panel" as a panel holding tools (only L1
-   does); she chose it for every panel.
+   does); she chose it for every panel. **Done, waiting on Astra's OK:** unity-unicorn#20,
+   findastra-discord-presence#27 (after #26), log-den#7, packet-river#7, evidence-locker#7 and workflow-whirlpool#2 (above).
 
 ## Done when
 

@@ -14,8 +14,9 @@ them `unity-unicorn-L1-panel` to `-L4-panel` (page 0.4.2; not merged until Astra
 because links point at it. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
 
 *Tool panels (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"): the hub's pages say
-`unity-unicorn-L1-tool-panel` to `-L4-tool-panel`; Unity Unicorn's own page keeps `-L1-panel` until its own pull
-request renames them (card 047, task 7).*
+`unity-unicorn-L1-tool-panel` to `-L4-tool-panel`, and [unity-unicorn PR #20](https://github.com/findastra/unity-unicorn/pull/20)
+renames Unity Unicorn's own page the same way, with its avatar and world tool panels (page 0.5.1; not merged until
+Astra's OK; card 047, task 7).*
 
 *Tools and tricks (Astra, 2026-10-19): [PR #114](https://github.com/findastra/astras-pet-os/pull/114) made vcc-package-manager and vrchat-avatar-upload native tricks of
 Unity Stable, because they have no code, only written steps. That answers question 3 below. This doc now has 34 tools
