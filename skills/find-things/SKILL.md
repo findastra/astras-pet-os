@@ -47,6 +47,14 @@ and how fresh it was.
 Astra: "i already have betterdiscord". There was no `%APPDATA%\BetterDiscord`. Everything was not running, and its
 index was a week old. The disk search found the Codex task folder from 10/15 with four copies of the official v2.0.0
 installer (checksum matched GitHub), plus the installer's own browser cache in AppData. It found no BetterDiscord
-anywhere, including both assistants' private copies. Discord's loader file was the plain one, because Discord had
-updated itself on 10/15, and Damsel's recovery state said "Repair needed" that evening. The answer was: she has the
-installer, but BetterDiscord isn't installed, and running Install from that installer fixes it.
+anywhere, including both assistants' private copies. Discord's `resources` folder still had its own plain `app.asar`.
+The answer was: she has the installer, but BetterDiscord isn't installed.
+
+Two traps showed up once it was installed:
+
+- **The installer's window is too short.** Its Install button sits below the edge, which is probably why the earlier
+  tries never finished. Make the window taller (or scroll it) to reach the button.
+- **The loader check had moved.** Installer v2 (BetterDiscord 1.14) leaves
+  `modules\discord_desktop_core-*\discord_desktop_core\index.js` plain. Instead it renames
+  `resources\app.asar` to `betterdiscord.app.asar` and adds a `resources\app` folder. A check that only reads
+  `index.js` says "Repair needed" forever.
