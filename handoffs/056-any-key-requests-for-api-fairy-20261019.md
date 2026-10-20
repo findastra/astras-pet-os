@@ -16,7 +16,7 @@ and the desktop pet open since 2026-10-19). Her own repo's `api-fairy-20261008.h
 **Open today's app**, not built to the sketch.
 
 **This hub**, branch `claude/key-requests-20261019` (from `main` at `40e81c9`, in a worktree in Claude's scratchpad; the
-live hub folder stayed on `main`); the pull request is linked from its commit:
+live hub folder stayed on `main`), [astras-pet-os#148](https://github.com/findastra/astras-pet-os/pull/148):
 - **The rule** in AGENTS.md (Rules): "Need a key? Ask API Fairy, not the chat (Astra, 2026-10-19)", and the harness
   skill **`skills/key-request`**: how any chat files a request (the folder, the JSON shape, the never-list: no value, no
   shared `ANTHROPIC_API_KEY`, never the Max plan behind a shared bot), how it tells Astra with ✨, and how a request is
@@ -41,7 +41,7 @@ live hub folder stayed on `main`); the pull request is linked from its commit:
   pets changed. `npm test`: 202 tests, 201 pass, 0 fail, 1 skipped (the Pets Board). After `main` (#129, #133, #134, #137 to #142, #145 to #147) was merged in twice, every side kept and the generated files rebuilt: 216 tests, 215 pass, 0 fail, 1 skipped. The merge also put the panel script in a scope of its own (it had shadowed the mood code's `show`) and runs it only on API Fairy's page.
 
 **findastra/api-fairy**, branch `claude/key-requests-20261019` (from `main` at `7147871`, in a worktree in Claude's
-scratchpad; her PC folder was not touched); the pull request is linked from its commit:
+scratchpad; her PC folder was not touched), [api-fairy#8](https://github.com/findastra/api-fairy/pull/8), commit `2213bba`:
 - `src/KeyRequests.cs`: reads the request files (16 KB each, 500 at most, no links), refuses any that looks like it
   holds a key value (her own key-shape test; session ids and dated slugs are names), checks each key by name against her
   scanner (environment variables and watched `.env` files, never example files), sorts it into the three groups and
@@ -71,7 +71,7 @@ scratchpad; her PC folder was not touched); the pull request is linked from its 
 
 ## Waiting on Astra
 
-1. OK to merge findastra/api-fairy's pull request, then this one (the map node goes `now` after it).
+1. OK to merge [api-fairy#8](https://github.com/findastra/api-fairy/pull/8), then [#148](https://github.com/findastra/astras-pet-os/pull/148) (the map node goes `now` after it).
 2. **Where the list lives:** on her PC only (built this way, because the list shows which services she uses), or
    public on GitHub too. Moving it later is easy; un-publishing is not.
 3. Each waiting request: make the key herself on the provider's page with a spend limit, set it as a Windows user
