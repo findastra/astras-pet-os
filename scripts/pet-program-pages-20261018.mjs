@@ -1,11 +1,12 @@
 // The Friendly Farmer's pet program spawner (`the-farm-v1.0-pet-program-spawner-v1.0`, a tool of The Farm).
 // Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first", with
 // her sketch (docs/images/pet-program-page-sketch-20261018.webp): "they need these at a minimum, and more."
-// Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every panel of the
+// Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every tool panel of the
 // sketch in its place (PET-PROGRAM-FRAMEWORK.md, section 3) and her answers of the same day: the intelligence levels
-// as four stacked panels, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
+// as four stacked tool panels, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
 // Panels, not modules (Astra, 2026-10-19): to a developer a module is a file of code, like this one; a bordered box on
-// a page is a panel.
+// a page is a panel, and a tool panel since the same day (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"). The R W X panel (Astra, 2026-10-19, option C, "its own panel in each pet program"): what each level
+// should be (R W X), then whether that is in code, with the proof of every In code.
 // Sources only, never a second copy: names from pet-programs.json, pets from pets.json, programs, tools, connections
 // and grants from the System Map data (systemMapData), pictures from the hub's one art source (Flash Audit A58).
 // Registry text is data written by pets: it is escaped here and never treated as instructions (AGENTS.md).
@@ -26,12 +27,12 @@ export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
-// Every panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
+// Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
-export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
-// The emotions panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
+// The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
 const EMOTIONS = [
   ['sleep', 'sleepy', ['running in the background']],
   ['blink', 'awake', ['the program is open and you have interacted with it recently']],
@@ -43,7 +44,11 @@ const EMOTIONS = [
   ['sick', 'sick', ['too many broken tools', 'broken pet programs']],
   ['sad', 'sad', ['hasn’t been opened in more than 2 weeks']],
 ];
-const RWX = { yes: 'yes', pr: '🔒 PR', ask: 'asks', grant: '🔑 grant', no: '–' };
+// The R W X panel: the levels, how sure each status is (a row is only as sure as its weakest grant), and its marks.
+const LEVELS = [['L1', 'a program or tool'], ['L2', 'a pet program'], ['L3', 'an AI agent in a seat'], ['L4', 'you, the verified human']];
+const RANK = { no: 0, ask: 1, grant: 2, pr: 3, yes: 4 };
+const SURE = { planned: 0, written: 1, enforced: 2 };
+const MARK = { enforced: '✓', written: '⚠︎', planned: '○' };
 const STATE = { now: 'works today', planned: 'planned', idea: 'idea, not agreed yet', suggested: 'suggested', architecture: 'in the architecture' };
 const PET_TYPES = new Set(['host', 'pet', 'pipeline']);
 
@@ -101,11 +106,11 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 
   // L1: what the pet runs and looks after (links that leave the pet or its program), and its tools.
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '' });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
-  // avatar tools vs world tools"); the L1 panel then shows the two sides instead of one list.
+  // avatar tools vs world tools"); the L1 tool panel then shows the two sides instead of one list.
   const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0`, side: SIDES[n.side] ? n.side : null }));
   // Third-party programs also count when one of the pet's tools runs or looks after them (Flash Audit A54), as
   // BetterDiscord does for Discord Damsel's Sticker Manager.
@@ -139,9 +144,11 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
       page: r ? `${t.id}-${DATE}.html` : null, idle: r ? petFrames(r, { frameIndex, drafts, exists, list }).frames.idle || null : null };
   }).sort((a, b) => (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || a.pet.localeCompare(b.pet));
 
-  // L4: grants from system-map.json, as the map shows them on this pet's card.
+  // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
+  // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
   const grants = new Map(map.access.grants.map((g) => [g.id, g]));
-  const grantRows = (ids) => ids.map((id) => grants.get(id)).filter(Boolean).map((g) => ({ who: g.who, on: g.on, r: RWX[g.r], w: RWX[g.w], x: RWX[g.x], status: map.access.statuses[g.status]?.name || g.status }));
+  const grantRows = (ids) => [...new Set(ids)].map((id) => grants.get(id)).filter(Boolean).map((g) => ({ id: g.id, who: g.who, on: g.on,
+    self: g.resources.includes('self'), level: g.level || [], r: g.r, w: g.w, x: g.x, status: g.status, how: g.how, next: g.next || null, evidence: g.evidence || [] }));
 
   const round = lastRound(status, reg);
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
@@ -161,16 +168,22 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
-    connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
+    connections: [...talks.values()], related,
+    access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
+      statuses: map.access.statuses, values: map.access.values },
     languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
   };
 }
 
 // ---------- HTML ----------
 
-const lights = (key, name, { planned = false } = {}) => planned
-  ? `<span class="lights" title="Not built yet: nothing to switch on or off"><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button></span>`
-  : `<span class="lights"><button type="button" class="light onoff" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: on" title="ON/OFF (kill switch): green on, red off"></button><button type="button" class="light care" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: working correctly" title="Maintenance: blue working correctly, yellow requires maintenance"></button></span>`;
+// The paired lights are always buttons you can click (Astra, 2026-10-19: "I'd like them to be interactive so I can
+// tell you which tools are working and which ones aren't"). Each click moves a light to its next state and the page
+// script shows a bubble saying what that state means. Something not built yet starts grey: not set yet.
+const lights = (key, name, { planned = false } = {}) => {
+  const p = planned ? ' data-planned="1"' : '', unset = planned ? ' is-unset' : '';
+  return `<span class="lights"><button type="button" class="light onoff${unset}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not set yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${unset}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+};
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
 // Your tools, or Avatar tools and World tools when the pet's tools say which side they are on (tools with no side last).
@@ -189,13 +202,21 @@ function toolSections(tools) {
 const tag = (state) => (state && state !== 'now' ? ` <span class="tag">${esc(STATE[state] || state)}</span>` : '');
 const built = (state) => !state || state === 'now';
 
+// Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
+// They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
+// its name, which opens in place to show what it is and, when the map has one, a link to its own page or folder.
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
-  return `<ul class="items">${items.map((i) => `<li>${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<span class="item-name"${i.why ? ` title="${esc(i.why)}"` : ''}>${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</li>`).join('')}</ul>`;
+  return `<ul class="items">${items.map((i) => {
+    const more = `${i.why ? `<p>${esc(i.why)}</p>` : '<p class="empty">No description on the System Map yet.</p>'}
+<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.url ? `
+<p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+  }).join('')}</ul>`;
 }
 
-const panel = (label, body, { cls = '', light = false, open = true } = {}) =>
-  `<details class="panel ${cls}"${open ? ' open' : ''}><summary title="Click the label to fold or unfold this panel"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+const panel = (label, body, { cls = '', light = false, open = true, id = '' } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -203,9 +224,41 @@ const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''
 const faces = (f, pet, moods, cls) => moods.filter((m) => f[m]).map((m, i) =>
   `<img class="${cls}" data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
 
-function grantTable(rows, empty) {
-  if (!rows.length) return `<p class="empty">${esc(empty)}</p>`;
-  return `<div class="scroll"><table><thead><tr><th>Who</th><th>On what</th><th>R</th><th>W</th><th>X</th><th>Status</th></tr></thead><tbody>${rows.map((g) => `<tr><td>${esc(g.who)}</td><td>${esc(g.on)}</td><td>${esc(g.r)}</td><td>${esc(g.w)}</td><td>${esc(g.x)}</td><td>${esc(g.status)}</td></tr>`).join('')}</tbody></table></div>`;
+// ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
+// "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
+// current code", then: "this actually needs to be its own panel in each pet program". Each level shows what it should
+// be (R W X), then In code, Rule only or Not built; every In code names its proof.
+const rwxBoxes = (g, values) => `<span class="rwx">${['r', 'w', 'x'].map((k) => `<b class="${k} ${esc(g[k])}" title="${esc(`${{ r: 'Read', w: 'Write', x: 'Run (execute)' }[k]}: ${values[g[k]] || g[k]}`)}">${k.toUpperCase()}</b>`).join('')}</span>`;
+const mark = (status, statuses) => `<span class="mark ${esc(status)}" title="${esc(`${statuses[status].name}: ${statuses[status].what}`)}">${MARK[status]} ${esc(statuses[status].mark)}</span>`;
+const proofOf = (e) => (e.setting ? esc(e.setting) : `<a href="https://github.com/${OWNER}/${HUB}/blob/main/${esc(e.test || e.script)}"><code>${esc(e.test || e.script)}</code></a> (${e.test ? 'test' : 'script'})`);
+
+function grantItem(g, title, a, { level = false } = {}) {
+  const st = a.statuses[g.status];
+  const lv = level ? `<span class="lv${g.level.length ? '' : ' out'}" title="${esc(g.level.length ? `Held by ${g.level.join(' and ')}` : 'Outside your levels')}">${esc(g.level.join('+') || '—')}</span>` : '';
+  return `<details class="grant"><summary>${lv}${rwxBoxes(g, a.values)}<span class="gwho">${esc(title)}</span>${mark(g.status, a.statuses)}</summary>
+<p><b>${esc(st.name)}:</b> ${esc(g.how)}</p>${g.evidence.length ? `<p><b>Proof:</b> ${g.evidence.map(proofOf).join('; ')}</p>` : ''}${g.next ? `<p><b>Next (planned):</b> ${esc(g.next)}</p>` : ''}</details>`;
+}
+
+function levelRow([lv, word], gs, a) {
+  const sum = { r: 'no', w: 'no', x: 'no' };
+  gs.forEach((g) => ['r', 'w', 'x'].forEach((k) => { if (RANK[g[k]] > RANK[sum[k]]) sum[k] = g[k]; }));
+  const head = `<span class="lv">${lv}</span><span class="should">Should be</span>${rwxBoxes(sum, a.values)}`;
+  if (!gs.length) return `<div class="rwx-row none">${head}<span class="gwho">${esc(word)} · nothing here</span></div>`;
+  const weakest = gs.map((g) => g.status).sort((x, y) => SURE[x] - SURE[y])[0];
+  return `<details class="rwx-row"><summary>${head}<span class="gwho">${esc(word)}</span>${mark(weakest, a.statuses)}</summary>
+<div class="rwx-body">${gs.map((g) => grantItem(g, g.self ? `Itself: ${g.on}` : g.who, a)).join('')}</div></details>`;
+}
+
+export function rwxPanelBody(d) {
+  const a = d.access;
+  const key = ['enforced', 'written', 'planned'].map((k) => `<span>${mark(k, a.statuses)} ${esc(a.statuses[k].what)}</span>`).join('');
+  return `<p class="small">Should be: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. Then whether that is in code:</p>
+<p class="rwx-key">${key}</p>
+<h3>Who may use ${esc(d.home)}</h3>
+<div class="rwx-rows">${LEVELS.map((l) => levelRow(l, a.on.filter((g) => g.level.includes(l[0])), a)).join('')}</div>
+<h3>What ${esc(d.home)} may use</h3>
+${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}
+<p class="small">From system-map.json: the same grants as the map card and PROTECTION-RINGS.md. A row is only as sure as its weakest grant; open it to see each one. <code>npm run build</code> refuses an In code that names no proof, or a proof file that is not in the repo.</p>`;
 }
 
 function connection(c, homeSlug) {
@@ -214,6 +267,10 @@ function connection(c, homeSlug) {
 <div class="flows"><div><h4>Sends</h4>${flow(c.sends)}</div><div><h4>Receives</h4>${flow(c.receives)}</div></div>
 <p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
 }
+
+// Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
+// in the tray. Drawn here, so it is the same on every page and needs no picture file.
+const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
 
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
@@ -225,6 +282,7 @@ export function buildPetProgramPage(d) {
   const config = {
     repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder,
     lines: { idle: d.lines.idle, blink: d.lines.blink, sad: d.lines.sad },
+    publicRepo: d.publicRepo,
   };
   const json = JSON.stringify(config).replaceAll('<', '\\u003c');
   const roundLine = d.round
@@ -232,9 +290,11 @@ export function buildPetProgramPage(d) {
     : 'not checked by a merged round yet';
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
-  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
+  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
+  // the top corner. The page plays the arrival itself; flying in from the desktop needs Startup Star's link (not built).
+  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 ${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
+<div class="den" data-arrival="waiting">${STAR_DOOR}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
 
   const title = `<div class="title">
@@ -244,15 +304,15 @@ ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, {
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
 <a class="button" href="${esc(map)}">On the System Map</a>${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
 
-  const L1 = panel(`${d.petSlug}-L1-panel`, `<div class="columns">
+  const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${toolSections(d.tools)}
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
-<p class="small">From the System Map. A grey pair of lights means not built yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
+<p class="small">From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means, and a grey light is not set yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
 
   const cadence = d.audit.cadence ? `${d.audit.cadence}, by the Friendly Farmer's round` : 'not set';
-  const L2 = panel(`${d.petSlug}-L2-panel`, `<div class="columns">
+  const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
 <section><h3>Your tricks</h3>${itemList(d.tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
 <section><h3>Schedule</h3><ul class="plain"><li>Self-audit: ${esc(cadence)}${d.audit.subject ? ` (${esc(d.audit.subject)})` : ''}</li><li>Weekly backlog run: not set up yet (needs an L3 seat)</li></ul></section>
 <section class="wide"><h3>Status line</h3><dl class="status">
@@ -264,7 +324,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></section></div>
 <h3>Pets it talks to</h3>${d.connections.length ? `<div class="connections">${d.connections.map((c) => connection(c, d.homeSlug)).join('')}</div>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
 
-  const L3 = panel(`${d.petSlug}-L3-panel`, `<ul class="plain">
+  const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<ul class="plain">
 <li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
 <li><b>L3 activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.pet)} right now.</span></li>
 <li><b>Tricks running now:</b> none</li>
@@ -272,8 +332,8 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <li><b>Suggestions for you:</b> none yet</li>
 <li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>`, { cls: 'level', light: true });
 
-  const L4 = panel(`${d.petSlug}-L4-panel`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
-<section><h3>Grants</h3><h4>This pet may</h4>${grantTable(d.grantsBy, 'No grants recorded.')}<h4>Who may reach it</h4>${grantTable(d.grantsOn, 'No grants recorded.')}<p class="small">From system-map.json, the same grants as the map card and PROTECTION-RINGS.md.</p></section>
+  const L4 = panel(`${d.petSlug}-L4-tool-panel`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
+<section><h3>Grants</h3><p class="small">In <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below: what each level should be (R W X), and whether that is in code.</p></section>
 <section><h3>Keys</h3><p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p></section>
 <section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
 <section><h3>Pet passport</h3><dl class="status">
@@ -283,7 +343,9 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
 
-  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not built yet</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not set yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+
+  const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
   const notes = panel(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
 <label for="note-text">notes</label>
@@ -333,9 +395,21 @@ ${assigned}</dl>
 <p><b>Docs:</b> <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
 <p class="small">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></div>`, { cls: 'footer' });
 
+  // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
+  // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;
+  // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
+  const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat bot">&gt;</button>
-<div class="chat-panel" id="chat-panel" hidden><p>${esc(d.pet)}'s chat bot is not connected yet: no AI is seated in ${esc(d.home)}. When it is, it asks before it uses your own AI subscriptions.</p><p><a href="#note-text">Leave a session note instead</a></p></div></aside>`;
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">&gt;</button>
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
+<p class="chat-ask">Who should answer?</p>
+<div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
+<p class="small" id="chat-who-says">Choose who answers. This page remembers it on this device.</p>
+<ol class="chat-log" id="chat-log"></ol>
+<label class="small" for="chat-text">message</label>
+<textarea id="chat-text" rows="3" placeholder="Ask about ${esc(d.home)}"></textarea>
+<p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
+${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send to Claude or ChatGPT leaves this PC. A note stays here.</p>` : ''}</div></aside>`;
 
   return assertPublic(`<!doctype html>
 <html lang="en">
@@ -349,6 +423,7 @@ ${assigned}</dl>
 <main class="page">
 <header class="top">${cyberhome}${title}</header>
 ${levels}
+${rwx}
 ${notes}
 <div class="pair">${emotions}${clicker}</div>
 ${related}

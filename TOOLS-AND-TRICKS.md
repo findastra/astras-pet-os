@@ -8,10 +8,10 @@ added 2026-10-18 (Astra: "we need to anticipate how tricks and tools will be reg
 
 - A **tool** is code. A computer runs it the same way every time, with no AI. It lives on **L1**.
 - A **trick** is instructions. **It is owned at L2 and followed at L3**: the pet keeps it (in its repo, on its page's
-  L2 panel, tracked by Skill Scout), and only an AI in the seat can carry it out. With nobody in the seat it is text
+  L2 tool panel, tracked by Skill Scout), and only an AI in the seat can carry it out. With nobody in the seat it is text
   that does nothing. That is why a pet without an agent has tools but no tricks it can use.
 - A **harness skill** is instructions too, but it belongs to **the seat** (Claude Code or Codex, installed on this PC),
-  not to any pet. It helps an AI work *on* a pet. It is shown on the pet's L3 panel.
+  not to any pet. It helps an AI work *on* a pet. It is shown on the pet's L3 tool panel.
 
 When an AI has to follow it, it is a trick or a harness skill, never a tool. A trick does the pet's own job; a harness
 skill helps whoever builds or repairs the pet ([ASTRAS_PET_OS.md](ASTRAS_PET_OS.md), section 8.6: runtime and
@@ -51,7 +51,7 @@ files).
 | Main risk | Bad or changed code, a stranger's code (supply chain), a grant that is too wide | Prompt injection, steps that drift, steps that steer an agent into misusing a tool | The same as a trick, across every pet the seat touches |
 | What actually holds | The grant, the ON/OFF switch in the core, tests; the sandbox (planned) | **Only the grants on the tools it uses.** The text holds nothing: skill instructions are not security boundaries (ASTRAS_PET_OS.md, section 8.6) | The harness's own permission questions (grant 4 in PROTECTION-RINGS.md) and the rules in AGENTS.md |
 | How security checks it | Tests, the file's hash, a code diff, its ring and grants | Skill Scout's diff (what changed, who, why), a checker agent, and a read for asks to download, reveal secrets or break a rule; the list of tools it names | The same as a trick, plus which pets it can reach |
-| On the page | A tool box: `<pet-program>-v<version>-<tool>-v<tool version>` (L1 panel) | A trick box: `<pet-program>-v<version>-<trick>-trick-v<trick version>`, with where it came from and which tools it uses (L2 panel; "running now" on the L3 panel) | Listed on the pet's L3 panel as what the seat brings |
+| On the page | A tool box: `<pet-program>-v<version>-<tool>-v<tool version>` (L1 tool panel) | A trick box: `<pet-program>-v<version>-<trick>-trick-v<trick version>`, with where it came from and which tools it uses (L2 tool panel; "running now" on the L3 tool panel) | Listed on the pet's L3 tool panel as what the seat brings |
 | Turning it off | ON/OFF on its tool box; the state lives in the core, so the tool cannot turn itself back on | ON/OFF on its trick box. This holds only while the agent obeys it ([known gap 14](PROTECTION-RINGS.md#known-gaps)); to stop a trick for certain, also switch off the tools it uses | Remove it from the seat |
 | Who keeps track | Its pet program | **Skill Scout** tracks every trick: what changed, who changed it and why | Skill Scout (it watches every `SKILL.md`, the seat's too) |
 | From a stranger (the Shed) | Quarantine, a checker agent, L4, then it runs in the sandbox (planned) | Quarantine; read as data first; never adds a tool; L4 | The same as a trick |
@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-184 rows: 10 native programs, 98 native tools, 15 native tricks, 61 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+186 rows: 10 native programs, 99 native tools, 15 native tricks, 62 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -297,5 +297,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Timeline builder | `evidence-locker-v1.0-timeline-builder-v1.0` | Works today |
+| 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
+| 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
 <!-- registry:end -->
