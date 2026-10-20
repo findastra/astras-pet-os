@@ -107,7 +107,8 @@ in chat):
    **Repo part done:** findastra-discord-presence#20 (the L2 box too) and #21, merged 2026-10-19. The map text moves to task 3.
 3. **Hub, after #106 and #104 merge** (both rebuild the System Map page, so changing it now would collide):
    `system-map.json` job texts for `pet-program-spawner` and `sticker-manager` still say "module"; change them and run
-   `npm run build`.
+   `npm run build`. **Done** on branch `claude/tool-buttons-20261019` (2026-10-19): the spawner's says "every tool
+   panel", Sticker Manager's says "Discord Damsel's servers panel".
 4. **Any other pet page built to the framework:** search for `-module` and rename it the same way. **Done, waiting on
    Astra's OK:** log-den#4, packet-river#4, evidence-locker#4 and workflow-whirlpool#1 (above).
 5. **Waiting on Astra:** `skills/dev-mindset` says "Home (cyberhome)" is the pet program (2026-10-16), while
@@ -115,6 +116,12 @@ in chat):
    follows the framework. Astra says which; then fix the other.
 6. Optional: give each part in pets.json `words` a `programmer` field, so the GitHub Goldfish can read the programmer
    words too, and extend `test/pet-words-test-20261009.mjs` to keep it in step with PET-WORDS.md.
+7. **Tool panels in the pet repos** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"):
+   the hub's pages say `<pet>-L1-tool-panel` to `-L4-tool-panel` since branch `claude/tool-buttons-20261019`. After
+   Astra merges it, rename the level panels the same way on each pet's own page (Unity Unicorn, Discord Damsel, Log
+   Den, Packet River, Evidence Locker, Workflow Whirlpool), one pull request per repo. "Bot panel" on Fairy Ring's page
+   is Astra's own name and stays. Claude warned that developers read "tool panel" as a panel holding tools (only L1
+   does); she chose it for every panel.
 
 ## Done when
 
