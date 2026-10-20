@@ -2542,6 +2542,42 @@
       "job": "A tool of Unity Stable, design only (decided 2026-10-14; no code yet): every asset in every world or avatar gets a ledger row (source, license, credits) before it ships, and nothing ships that the ledger has not cleared (unity-unicorn docs/asset-ledger-20261014.md)."
     },
     {
+      "id": "unity-asset-creator",
+      "name": "unity-asset-creator",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Walk one Unity world asset through the researched 12-step checklist, from plan and provenance to colliders, lighting and the in-world review, then export each version (package, previews, checksummed manifest) and open a pull request to unity-assets-library (unity-unicorn tools/unity-asset-creator-20261019.json)."
+    },
+    {
+      "id": "unity-assets-library",
+      "name": "unity-assets-library",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-assets-library-v1.0",
+      "job": "A tool of Unity Stable (Library): The public library of finished world assets, findastra/unity-assets-library: one folder per asset and version, indexed in library.json; versions arrive only from unity-asset-creator's step 12, as pull requests Astra merges (unity-unicorn tools/unity-assets-library-20261019.json)."
+    },
+    {
+      "id": "shaders-shop",
+      "name": "shaders-shop",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-shaders-shop-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Download shaders for worlds the way Creator Companion would, after showing their files, sources and licences, track which shaders each world uses, and stock our own Unity Stable shaders (unity-unicorn tools/shaders-shop-20261019.json)."
+    },
+    {
       "id": "pet-finder",
       "name": "pet-finder",
       "type": "tool",
@@ -2648,6 +2684,18 @@
       "version": "v1.0",
       "label": "unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0",
       "job": "A trick of Unity Stable (unity-unicorn skills/make-a-prop-look-real/SKILL.md): start a prop from a real CC0 model or scan, take it apart with prop-decomposer, restyle it with realistic-prop-restyle and mount it at true size."
+    },
+    {
+      "id": "unity-asset-creator-trick",
+      "name": "unity-asset-creator",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-trick-v1.0",
+      "job": "A trick of Unity Stable (unity-unicorn skills/unity-asset-creator/SKILL.md): walk the checklist's 12 steps in order through the world's agent queue, ask Astra for the steps that need her (scale and facing, colliders, the review in the world), then export and publish to unity-assets-library with the tools unity-asset-creator and shaders-shop."
     },
     {
       "id": "weekly-update-from-friendly-farmer",
