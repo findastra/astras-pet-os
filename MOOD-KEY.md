@@ -63,5 +63,6 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Log Lynx** * | the farm’s logs and crash windows | weekly, Wednesday | a look at a crash I caught |
 | **Packet Piranha** * | the network: loss, latency, DNS and routes | weekly, Thursday | a host to trace |
 | **Forensic Ferret** * | cases and their chains of custody | weekly, Friday | what you saw at a moment with no crash record |
+| **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
 
 \* in the pipeline: on GitHub, not registered yet.

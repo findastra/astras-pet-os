@@ -64,8 +64,9 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 36 | [Platform Platypus](platform-platypus-20261019.md) | Mirror Pool | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [opens in a browser](https://findastra.github.io/platform-platypus/) |
 | 48 | [Log Lynx](log-den-20261019.md) | Log Den | Observability: correlates logs, traces, health and failures. | no app yet |
 | 53 | [Packet Piranha](packet-river-20261019.md) | Packet River | Network: packet loss, DNS, latency, routing. | no app yet |
+| 58 | [Linux Penguin](linux-iceberg-20261019.md) | Linux Iceberg | Linux administration, SSH, systemd, packages. | no app yet |
 | 70 | [Forensic Ferret](evidence-locker-20261019.md) | Evidence Locker | Incident timelines and log analysis. | no app yet |
 | 83 | [Role Fairy](role-fairy-20261019.md) | Fairy Ring | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 
-41 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.
+42 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.
