@@ -28,6 +28,7 @@ Astra wants other software developers to read her build without frustration. She
 | Grant | Scope / permission grant (least privilege, capability-based access) | Folders + R W X + limits for one pet on a shared tool. Not a copy of the tool. Decided 2026-10-14. |
 | The Shed | Plugin / extension registry | Third-party tools and tricks, like the Kennel for pets. |
 | Agent key | Short-lived session token with an audit trail | Issued per agent session by Iron Gates; records agent, model, person, device, place. |
+| Key request | Credential request (an access-request ticket for a secret; it never holds the secret) | Filed for API Fairy by any chat, pet or tool that needs a key (`skills/key-request`); the secret itself goes into a secret store (here, Windows environment variables), never into the request. Decided 2026-10-19. |
 | The Police Station | Security monitoring (a SOC with intrusion detection) | Detects and contains (switches OFF); never authorizes. |
 | Farmhand | AI model (LLM) that takes the seat | Not a pet. Claude, OpenAI, local models. Only allowlisted farmhands get keys. Decided 2026-10-14. |
 | Trust levels for farmhands | Graduated trust, allowlisting | A local model is promoted by L4 as it passes tests. |

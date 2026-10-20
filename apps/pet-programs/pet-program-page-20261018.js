@@ -159,4 +159,131 @@
     panel.hidden = !panel.hidden;
     chat.setAttribute('aria-expanded', panel.hidden ? 'false' : 'true');
   });
+
+  // ---- API Fairy's key requests (only on API Fairy Ring's page; Astra, 2026-10-19). ----
+  // Who asked for a key, who has one, who doesn't, each with a link back to where it asked. The real list stays on
+  // Astra's PC: API Fairy writes it (names only, never a key) to one fixed file in her Documents folder, and this page
+  // reads that file only when it is opened there (a double-clicked file, or a preview served on this PC). Anywhere else
+  // it shows the page's made-up examples. Every word goes in with textContent; only https links become links.
+  var requestBox = document.getElementById('key-requests');
+  if (requestBox) {
+    // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+    var LOCAL_REQUESTS = "../../../../Astra's PetOS Data/api-fairy-ring/key-requests-page-data.js";
+    var source = document.getElementById('key-requests-source');
+    var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var KEY_GROUPS = ['waiting', 'has-key', 'declined'];
+    var groupOf = { waiting: 1, 'has-key': 1, declined: 1 };
+    var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+    var linkText = function (href) {
+      var u = new URL(href), p = u.pathname.split('/').filter(Boolean);
+      if (u.hostname === 'github.com' && p.length >= 4 && p[2] === 'pull') return p[1] + ' pull request #' + p[3];
+      if (u.hostname === 'github.com' && p.length >= 4 && p[2] === 'issues') return p[1] + ' issue #' + p[3];
+      var card = p.indexOf('handoffs');
+      if (u.hostname === 'github.com' && card > -1 && p[card + 1]) return p[1] + ' card ' + p[card + 1].slice(0, 3);
+      if (u.hostname === 'github.com' && p.length >= 5 && p[2] === 'blob') return p[1] + ' ' + p.slice(4).join('/');
+      if (u.hostname === 'github.com' && p.length >= 2) return p[1] + (p.length > 2 ? ' (' + p[p.length - 1] + ')' : ' on GitHub');
+      if (/(^|\.)claude\.ai$/.test(u.hostname)) return 'the Claude chat';
+      return u.hostname;
+    };
+    var line = function (parent, label, text, cls) {
+      if (!text) return;
+      var d = el('div', null, cls || 'small');
+      if (label) d.appendChild(el('span', label + ' ', 'request-label'));
+      d.appendChild(document.createTextNode(text));
+      parent.appendChild(d);
+    };
+    var seen = function (r) {
+      if (r.found === 'yes') return 'found ' + (r.key_name || 'it') + ' in ' + (r.found_in || 'a place she watches') + '.';
+      if (r.found === 'no') return 'no key named ' + r.key_name + ' in ' + (r.where_words || 'the places she watches') + ' yet.';
+      return r.found_in || 'not checked yet.';
+    };
+    var row = function (r) {
+      var li = el('li', null, 'request' + (r.example ? ' example' : ''));
+      var head = el('div', null, 'request-head');
+      var who = r.requester || {};
+      var item = 'request:' + r.id, name = (who.name || 'someone') + ' key request';
+      var pair = el('span', null, 'lights');
+      ['onoff', 'care'].forEach(function (kind) {
+        var b = el('button', null, 'light ' + kind);
+        b.type = 'button';
+        b.dataset.item = item; b.dataset.name = name;
+        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): green on, red off' : 'Maintenance: blue working correctly, yellow requires maintenance';
+        b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
+        pair.appendChild(b);
+      });
+      head.appendChild(pair);
+      head.appendChild(el('b', who.name || 'someone'));
+      var about = [who.kind, who.pet].filter(Boolean).join(' · ');
+      if (about) head.appendChild(el('span', ' (' + about + ')', 'small'));
+      if (r.example) head.appendChild(el('span', 'EXAMPLE', 'tag example-tag'));
+      li.appendChild(head);
+      var href = https(r.link);
+      var where = el('div', null, 'request-link');
+      if (href) {
+        var a = el('a', (r.group === 'waiting' ? '✨ ' : '') + linkText(href));
+        a.href = href; a.rel = 'noopener'; a.target = '_blank';
+        where.appendChild(document.createTextNode('asked in '));
+        where.appendChild(a);
+      } else if (r.asked_in) where.appendChild(document.createTextNode((r.group === 'waiting' ? '✨ ' : '') + 'asked in ' + r.asked_in));
+      li.appendChild(where);
+      var more = (Array.isArray(r.also) ? r.also : []).map(https).filter(Boolean);
+      if (more.length) {
+        var also = el('div', 'also: ', 'small');
+        more.forEach(function (h, i) {
+          var b = el('a', linkText(h)); b.href = h; b.rel = 'noopener'; b.target = '_blank';
+          if (i) also.appendChild(document.createTextNode(' · '));
+          also.appendChild(b);
+        });
+        li.appendChild(also);
+      }
+      var key = el('div', null, 'request-key');
+      key.appendChild(el('code', r.key_name || 'no key name yet'));
+      key.appendChild(document.createTextNode(' · ' + (r.provider || 'provider not chosen') + (r.where_words ? ' · goes in ' + r.where_words : '')));
+      li.appendChild(key);
+      line(li, 'for:', r.for);
+      line(li, 'spend limit:', r.spend_limit || 'none named');
+      line(li, 'asked:', r.asked + (r.status !== 'requested' && r.status ? ' · ' + r.status + (r.status_date ? ' ' + r.status_date : '') : ''));
+      line(li, 'API Fairy:', seen(r) + (r.fairy_note ? ' ' + r.fairy_note : ''));
+      if (r.note) line(li, null, r.note, 'request-note');
+      return li;
+    };
+    var show = function (requests, message, problems) {
+      source.textContent = message;
+      KEY_GROUPS.forEach(function (g) {
+        var list = requestBox.querySelector('ul[data-group="' + g + '"]');
+        var empty = requestBox.querySelector('[data-empty="' + g + '"]');
+        var count = requestBox.querySelector('[data-count="' + g + '"]');
+        var mine = requests.filter(function (r) { return r && r.group === g; });
+        list.textContent = '';
+        mine.forEach(function (r) { list.appendChild(row(r)); });
+        empty.hidden = mine.length > 0;
+        count.textContent = mine.length ? mine.length + (mine.length === 1 ? ' request' : ' requests') : '';
+      });
+      if (problems && problems.length) {
+        var p = el('ul', null, 'plain small request-problems');
+        problems.forEach(function (t) { p.appendChild(el('li', 'Skipped ' + t)); });
+        source.appendChild(p);
+      }
+      paint();
+    };
+    var examples = function (why) {
+      var list = [];
+      try { list = JSON.parse(document.getElementById('key-request-examples').textContent); } catch (e) { list = []; }
+      show(list, why);
+    };
+    if (onThisPC) {
+      var script = document.createElement('script');
+      script.setAttribute('src', LOCAL_REQUESTS);
+      script.onload = function () {
+        var d = window.apiFairyKeyRequests;
+        if (!d || d.schema !== 'api-fairy-key-requests-page-v1' || !Array.isArray(d.requests)) return examples('API Fairy\'s list on this PC is not one this page can read. These are made-up examples.');
+        var rows = d.requests.filter(function (r) { return r && groupOf[r.group]; });
+        show(rows, 'API Fairy\'s list on this PC: ' + rows.length + (rows.length === 1 ? ' request' : ' requests') + ', ' + (d.scanned ? 'checked by name ' : 'listed without looking for the keys ') + localTime(d.checked) + '.', d.problems);
+      };
+      script.onerror = function () { examples('API Fairy has not written her list on this PC yet (open API Fairy, or run API Fairy.exe --key-requests). These are made-up examples.'); };
+      document.head.appendChild(script);
+    } else {
+      examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+    }
+  }
 })();

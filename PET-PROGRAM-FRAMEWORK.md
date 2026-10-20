@@ -162,7 +162,11 @@ place, with the four stacked level panels, from pets.json, pet-programs.json, th
 What a source does not hold yet says so on the page (no tools on the map, seat empty, version not recorded). The
 lights, the live idle, awake and sad moods, and the session notes backlog work in the browser and are saved there only,
 not enforced by the core yet. `npm run build` rewrites the pages, so they are never edited by hand
-(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **One click always points to
+(`test/pet-program-pages-test-20261018.mjs`); a pet's own page grows from this minimum. **A pet's own panels** come
+after the four level panels, so the sketch's order stays (the spawner's `PET_PANELS`). The first is API Fairy's
+`api-fairy-key-requests-panel` (Astra, 2026-10-19): every key a chat, pet or tool asked for, in three groups (waiting on
+you, has a key, declined or not needed), each with a link back to the request; the list itself stays on Astra's PC
+([skills/key-request](skills/key-request/SKILL.md)). **One click always points to
 the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
 `interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
 and its **Open today's app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
