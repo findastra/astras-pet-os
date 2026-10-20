@@ -27,6 +27,21 @@ same move in `pet.json` and on the page (version 0.4.5, merged as `7b1fdce`). Cl
 unity-asset-creator trick. This doc now has 37 tools on `main`; their tool boxes on the hub came with
 [PR #119](https://github.com/findastra/astras-pet-os/pull/119) (card 049). Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
 
+*Avatar tools and world tools (Astra, 2026-10-19: "separate the page by avatar tools vs world tools", "every single tool
+that we have built needs to go into a panel on unity unicorn"):*
+
+- *[unity-unicorn PR #18](https://github.com/findastra/unity-unicorn/pull/18) (version 0.5.0, not merged until Astra's OK)
+  puts every tool in one panel, on one of two tabs below L1 to L4:*
+  - *Avatar tools: 22;*
+  - *World tools: 63, of which 26 are still in the worlds' own repos;*
+  - *a world sparkle tools panel with 27 sparkles from the three worlds.*
+- *It adds vine-spawn-with-trumpet-flowers, so this doc counts 38 tools on `main` once #18 is merged.*
+- *`pet.json` gets `L1.sides` and `L1.tools_in_worlds`.*
+- *On the hub, each Unity Stable tool node in `system-map.json` now has a `side`. This pet program page shows Avatar tools and
+  World tools in its L1 tool panel instead of one list.*
+
+*Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.*
+
 Home: **Unity Stable** (`pet-programs.json`; Astra kept the name on 2026-10-18).
 
 ## `unity-unicorn-L1-tool-panel`
