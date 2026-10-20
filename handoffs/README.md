@@ -18,7 +18,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, merged (#105) and set to start at sign-in](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: the first start and pet art |
-| [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 done with #110 except pet.json `entry` (waits on Astra) and the map card (`claude/map-card-program-page-20261019`); task 2 done with #106 and #114; tasks 3 and 4 to do |
+| [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 done with #110 and #116 except pet.json `homepage` (`claude/pet-homepage-20261019` and a pull request in each pet repo, waiting on Astra); task 2 done with #106 and #114; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: the doc's questions 1, 2 and 4 (3 answered by #114; counts on `claude/unity-unicorn-tricks-20261019`) |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | taken 2026-10-19: decisions 1 to 4 answered; step (a) on `claude/linux-package-20261019`, waits on Astra's OK and the Kali MacBook install |
@@ -104,7 +104,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 041 | `041-any-linux-readiness-20261018.md` | `main` (PR #95); step (a) on `claude/linux-package-20261019` |
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
-| 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106) |
+| 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106; the map card with #116) |
 | 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105); the sign-in start on `claude/crash-watch-sign-in-20261019` |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `main` (merged with #107) |
 | 047 | `047-any-panels-in-pet-repos-20261019.md` | `main` (merged with #111) |
