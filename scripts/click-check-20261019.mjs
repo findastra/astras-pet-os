@@ -159,6 +159,14 @@ export function gitIgnored(root = ROOT) {
   return (rel) => rules.some((r) => r.test(rel));
 }
 
+/** The git repo a file is in (the folder holding .git), or null. */
+export function repoRootOf(file) {
+  for (let d = path.dirname(path.resolve(file)); ; d = path.dirname(d)) {
+    if (fs.existsSync(path.join(d, '.git'))) return d;
+    if (path.dirname(d) === d) return null;
+  }
+}
+
 /** Buttons that do nothing on one click on purpose, each checked by hand: matched by page and the button's path. */
 export const KNOWN = [
   { page: 'apps/ghost-protocol-20261008.html', path: '#logo-btn', why: 'an easter egg: five clicks in a row show the credits (checked 2026-10-19)' },
@@ -809,8 +817,16 @@ export function judge(raw, noise) {
   // A page that shows its views by the address's #name needs no section of that name: only a jump that changes
   // nothing else is a dead end.
   if (jump && after.hashFound === false && !dom.length && !after.storage.length) return { verdict: 'dead-end', why: `it jumps to #${jump}, which is not on the page`, effects };
+  // What the click asked for and did not get: missing (404) is a dead end; refused or limited (403, 429, 5xx) is
+  // not proof, the same as for a link.
   const failed = ev.failed.filter((f) => f.during);
-  if (failed.length) return { verdict: 'dead-end', why: `it asks for ${failed[0].url} and gets ${failed[0].text}`, effects };
+  if (failed.length) {
+    const status = /^\d+$/.test(failed[0].text) ? Number(failed[0].text) : 0;
+    const c = status ? classifyHttp({ status }) : { verdict: 'dead-end' };
+    const asked = `it asks for ${failed[0].url} and gets ${failed[0].text}`;
+    if (c.verdict !== 'dead-end') return { verdict: 'unsure', why: `${asked}: ${c.why}`, effects };
+    return { verdict: 'dead-end', why: asked, effects };
+  }
   if (effects.length) return { verdict: 'ok', why: '', effects };
   if (raw.prep?.current) return { verdict: 'ok', why: '', effects: ['it is the one already open'] };
   const sends = ev.blocked.filter((b) => b.kind === 'send');
@@ -913,11 +929,17 @@ export async function checkPage(browser, pageAbs, ctx) {
     const first = await load();
     if (!first.ok) finding({ verdict: 'throws', label: '(the page itself)', target: '', why: 'the page never finished opening', effects: [] });
     for (const x of [...new Set(first.seen.exceptions)]) finding({ verdict: 'throws', label: '(the page itself)', target: '', why: `when it opens: ${x}`, effects: [] });
-    const ignored = gitIgnored(root);
+    // A file the page loads is judged against the page's own repo: what .gitignore keeps on the PC, and anything
+    // outside the repo, is never on GitHub, so its page must do without it.
+    const pageRoot = repoRootOf(pageAbs) || root, ignored = gitIgnored(pageRoot);
+    const inRepo = (u) => { try { const r = path.relative(pageRoot, fileURLToPath(u.split('#')[0].split('?')[0])); return r && !r.startsWith('..') && !path.isAbsolute(r) ? r.split(path.sep).join('/') : null; } catch { return null; } };
     for (const f of first.seen.failed) {
-      const target = shown(f.url, root);
-      if (f.url.startsWith('file:') && !target.startsWith('…') && ignored(target.split('#')[0].split('?')[0])) {
+      const target = shown(f.url, root), own = f.url.startsWith('file:') ? inRepo(f.url) : null;
+      if (own && ignored(own)) {
         finding({ verdict: 'skipped', label: '(a file the page loads when it runs on the farm)', target, why: 'kept on this PC only (.gitignore lists it); the page does without it elsewhere', effects: [] });
+      } else if (f.url.startsWith('file:') && !own) {
+        // Outside the repo, so never on GitHub: data a page reads on Astra's PC only (API Fairy's key requests).
+        finding({ verdict: 'skipped', label: '(a file the page loads when it runs on the farm)', target, why: 'outside this repo (data kept on this PC), and not on this PC now', effects: [] });
       } else finding({ verdict: 'dead-end', label: '(a picture or file the page loads)', target, why: `it is not there (${f.text})`, effects: [] });
     }
     const loadLocal = [...new Set(first.seen.blocked.filter((b) => b.kind === 'local').map((b) => b.url))];

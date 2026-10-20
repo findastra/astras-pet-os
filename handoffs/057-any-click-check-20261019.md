@@ -66,7 +66,28 @@ card's commit):
 
 ## What the first run found
 
-See "First run" below (filled in from the run of 2026-10-19).
+The full run on this branch after `main` (#140 to #149) was merged in (2026-10-20, Edge 155, `GITHUB_TOKEN` from the
+signed-in `gh` so private repos are told from missing ones): **65 pages, 4,106 buttons and links clicked in 15 minutes;
+4,082 work.** Then two of its rows were rechecked after the tool learned they were by design (below).
+
+1. **↕️ The page moves at the first press, on 16 of the spawned pages** (real). The first press anywhere makes the pet
+   notice you; its bubble grows from one line to two, the cyberhome grows 21 px, and every button and link below it
+   moves down, so a quick first click on a small light or panel label lands beside it. **Fixed** on branch
+   `claude/click-check-fixes-20261019` (its own pull request): the bubble keeps room for three lines
+   (`apps/pet-programs/pet-program-page-20261018.css`). click-check on that branch no longer reports it.
+2. **🔒 `astras-pet-os` itself is private now** (and `portfolio-puffer` and `the-astral-plane`). Earlier the same night
+   every hub link loaded for anyone. With the hub private, for anyone but Astra the GitHub Pages site (the beginner guide,
+   the System Map), the README's installer download and every `github.com/findastra/astras-pet-os/...` link answer 404.
+   Not changed here: whether it is meant is Astra's (a visibility change is hers).
+3. Not broken, by design: API Fairy's page reads the key-request list from Documents, outside the repo (now a note);
+   the Goldfish's "Release the goldfish" asks GitHub's API, which answered 403 because the signed-out limit was used up
+   by the night's checks (now "could not tell").
+4. Every outside link loads (with the hub private, its own links are sign-in only). Workflow Whirlpool's "Private
+   source" link is sign-in only, as its label says.
+
+**Not clicked (379):** each spawned page's chat-window buttons and Gone Ghost's folded items are now opened and clicked
+in a second pass; what stays unclicked is three levels deep (a detail inside an item inside a folded section, on Gone
+Ghost's page), plus 7 buttons whose labels say they act for real (Send, Delete ...).
 
 ## Task
 
