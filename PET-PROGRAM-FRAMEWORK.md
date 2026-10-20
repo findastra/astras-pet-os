@@ -76,6 +76,9 @@ its tools and tricks in its tool panel.
 
 Dark slate stationery and light, hand-lettered text. Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
+**The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
+or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
+window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 **Every tool panel can collapse**, so the page works on a phone. The tool, notes and connection boxes from the list below
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
@@ -85,7 +88,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    Startup Star's door** in its top corner: the star opens, the pet comes in, the star closes (Astra, 2026-10-19: "It's
    not just square, it's going to be the cyber home"). The page plays this arrival itself today. Flying in from the
    desktop (from roaming, from the lineup, or out of the star when the desktop pet is hidden) needs a live link between
-   the page and Startup Star, which waits on Astra's OK (card 054). Room art people can change is planned.
+   the page and Startup Star, which waits on Astra's OK (card 054). Room art people can change is planned. **The
+   cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
+   the system map box"): one width (240px), and both as tall as the taller one.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
    the same line. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
@@ -123,7 +128,8 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    reads ("copyright-auditor: on", "copyright-auditor: working correctly").
 6. **`<pet>-session-notes`**: a notes text box with **submit** and **add file**. Every submission goes to the backlog
    (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
-7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a speech bubble that says when it shows. These
+7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a speech bubble that says when it shows (the
+   bubble's tail is drawn in outline, like the bubble, never a filled triangle: Astra, 2026-10-19). These
    meanings are the only ones (Astra, 2026-10-18): the mood key, [PET-FILES.md](PET-FILES.md) and the Farmer's rounds
    follow them. The table runs most urgent first: when several apply, the highest one shows (proposed order,
    2026-10-18).
@@ -156,7 +162,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
     and the message is copied too), Claude Code or Codex on this PC (needs Startup Star's link; until then the message
     waits in the backlog), or just a note to the backlog. The page keeps no keys, sends nothing itself and remembers
-    the choice on this device. The chat's own left light switches it off.
+    the choice on this device. The chat's own left light switches it off. Closed, it is one rounded pill with its
+   label in the top border; open, a rounded card whose window opens above the lights and the button (Astra,
+   2026-10-19: "The shape is a little awkward. Make it better").
 11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
@@ -170,8 +178,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 
 **Activity lights** (Astra, 2026-10-19: "I need to be able to see what is on and off"): the light on each level's tool
 panel, on its top border, is on while that level is working right now, and the tool panel glows. **L4 is you:** on while
-the page is in front of you and you used it in the last two minutes, dim when you go quiet, off while the page is
-hidden; the page does this itself. L1 (a program or tool running), L2 (the pet program doing something by itself, or
+the page is in front of you and you used it in the last two minutes (moving the pointer over it and scrolling count,
+not only clicks and keys: Astra, 2026-10-19, "double check if these L4s are active when they are"), dim when you go
+quiet or work in another window, off while the page is hidden; the page does this itself. L1 (a program or tool running), L2 (the pet program doing something by itself, or
 data coming in from a pet it talks to) and L3 (an agent at work in the seat) need Startup Star's link to know, so until
 it is built their lights are grey and say "not connected yet". The activity light shows what is happening; the paired
 lights are what you switch and what you report broken.

@@ -115,12 +115,14 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     setTimeout: later, clearTimeout: (n) => { if (timers[n - 1]) timers[n - 1].done = true; }, setInterval: () => 0, clearInterval: () => {},
     matchMedia: () => ({ matches: reduce }), confirm: () => true, alert: () => {},
     open: (url) => { opened.push(url); return {}; }, URL, Blob,
+    windowListeners: {}, addEventListener(type, f) { (this.windowListeners[type] ||= []).push(f); },
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
   vm.runInContext(js, sandbox);
   const read = (k) => JSON.parse(store.get(`astras-pet-os:${d.homeSlug}:${k}`) || 'null');
-  return { den, levels, who, byId, document, advance, opened, copied, read, bubble: byId('bubble') };
+  const fireWindow = (type) => { for (const f of sandbox.windowListeners[type] || []) f({}); };
+  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, bubble: byId('bubble') };
 }
 
 const panther = pages.find((d) => d.repo === 'learn-python');
@@ -155,6 +157,17 @@ test('L4 is on while you are here, dims after two quiet minutes, is off while th
   p.document.hidden = true; p.document.fire('visibilitychange'); assert.equal(l4.dataset.state, 'off');
   p.advance(200000); assert.equal(l4.dataset.state, 'off', 'a hidden page stays off');
   p.document.hidden = false; p.document.fire('visibilitychange'); assert.equal(l4.dataset.state, 'live');
+});
+
+test('reading counts as being here: moving the pointer or scrolling keeps L4 on; another window in front dims it', () => {
+  const p = boot(panther);
+  const l4 = p.levels[3].q['.activity'];
+  p.advance(120000); assert.equal(l4.dataset.state, 'idle', 'two quiet minutes');
+  p.document.fire('pointermove'); assert.equal(l4.dataset.state, 'live', 'the pointer moved over the page');
+  p.advance(120000); p.document.fire('scroll'); assert.equal(l4.dataset.state, 'live', 'scrolling');
+  p.fireWindow('blur'); assert.equal(l4.dataset.state, 'idle', 'working in another window');
+  assert.equal(p.levels[3].dataset.activity, 'idle', 'the panel stops glowing');
+  p.fireWindow('focus'); assert.equal(l4.dataset.state, 'live', 'back on this page');
 });
 
 test('the chat button opens the window at once, ready to type', () => {
