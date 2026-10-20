@@ -44,18 +44,29 @@ Astra's PetOS as you installed it, before you tell your farm it's yours (below):
 of your farm's pets.
 
 **Tell your farm it's yours (Astra, 2026-10-20).** Your copy's `pets.json` still says the farm is Astra's
-(`"github_owner": "findastra"`). In your copy:
+(`"github_owner": "findastra"`). The Friendly Farmer's **make-it-yours** command changes that for you, so you never edit
+the file by hand. In your copy's folder, with your own GitHub name:
 
-1. Set `"github_owner"` to your GitHub name, for example `"github_owner": "XxdevilishxX"`.
-2. Give each of Astra's pets you keep its own `"github_owner": "findastra"`, so it stays hers: a pet without one is
-   yours.
-3. Commit the change, in a pull request if you like to check first.
+```
+node scripts/make-it-yours-20261020.mjs XxdevilishxX --dry-run
+node scripts/make-it-yours-20261020.mjs XxdevilishxX
+```
+
+1. The first line only shows what would change. The second makes the change: your name becomes the farm's
+   `"github_owner"`, and every pet that came with Astra's PetOS gets its own `"github_owner": "findastra"`, so it stays
+   hers. The Friendly Farmer (your copy of the hub) is yours, and so is every pet you add later. Then it rebuilds your
+   pages (`npm run build`).
+2. Commit the change (`git commit -am "Make the farm mine"`), in a pull request if you like to check first.
+3. Typed your name wrong, or renamed your account? Run it again with the right name: the farm and your own pets move to
+   it, and Astra's pets stay hers.
 
 Then the Friendly Farmer's tools act on your pets, and only while you are signed in to GitHub as you (`gh auth status`
-shows who that is). They never change Astra's pets: to change one of hers, make your own copy first.
+shows who that is). They never change Astra's pets: to change one of hers, make your own copy first. Her pets' links,
+the pictures and this guide still come from Astra's PetOS (the **upstream**); your own pets link to your account.
 
-Or ask your AI: *"Make my copy of Astra's PetOS mine: in pets.json, set github_owner to my GitHub name and add
-`"github_owner": "findastra"` to each of Astra's pets I keep, as MAKE-IT-YOURS.md says. Show me the change first."*
+Or ask your AI: *"Make my copy of Astra's PetOS mine with the Friendly Farmer's make-it-yours command
+(node scripts/make-it-yours-20261020.mjs with my GitHub name, as MAKE-IT-YOURS.md says). Run it with --dry-run first and
+show me what it will change."*
 
 ## 2. Delete examples
 

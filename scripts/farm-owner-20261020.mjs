@@ -12,7 +12,7 @@
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-20.
 import { assertAccount, farmOwner, petOwner, sameAccount } from './animal-guard-20261013.mjs';
 
-export { farmOwner, petOwner, sameAccount };
+export { assertAccount, farmOwner, petOwner, sameAccount };
 
 export const INSTALLER_ASSET = 'astras-pet-os-installer.zip';
 
