@@ -115,6 +115,8 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     setTimeout: later, clearTimeout: (n) => { if (timers[n - 1]) timers[n - 1].done = true; }, setInterval: () => 0, clearInterval: () => {},
     matchMedia: () => ({ matches: reduce }), confirm: () => true, alert: () => {},
     open: (url) => { opened.push(url); return {}; }, URL, Blob,
+    location: { origin: 'https://findastra.github.io' }, // a tool panel's frame says its height
+    // Window listeners are kept, so a test can fire blur, focus or a frame's message.
     windowListeners: {}, addEventListener(type, f) { (this.windowListeners[type] ||= []).push(f); },
   };
   sandbox.window = sandbox;
