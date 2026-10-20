@@ -43,7 +43,8 @@ Astra wants other software developers to read her build without frustration. She
 | Data survives updates | Schema version, migration, export and import | |
 | Ring (the System Map's circles) | Protection ring, used as a trust zone | Where a thing lives; it grants nothing (Astra, 2026-10-17). Was "shell"; developers hear "command shell". Decided 2026-10-13. |
 | R W X | rwx permissions (read, write, execute) | Not "RWE" (2026-10-13). Lives on a grant, never on a ring (Astra, 2026-10-17). |
-| Enforced, written only, planned | Technical control, policy (administrative control), roadmap | Every grant carries one. Never call a written rule a lock. Decided 2026-10-17. |
+| Enforced, written only, planned | Technical control, policy (administrative control), roadmap | Every grant carries one. Never call a written rule a lock. Decided 2026-10-17. Shown as ✓ In code, ⚠︎ Rule only, ○ Not built, after what the grant should be; an In code names its proof (evidence) (Astra, 2026-10-19, option C). |
+| R W X panel (`<pet>-rwx-panel`) | Access review: designed permissions vs enforced controls, with evidence | Its own panel on every pet program page, after the four level panels (Astra, 2026-10-19, option C). |
 | Pet program | Program (an app, site, world, service or script) Astra made | Umbrella term; see "app vs program". |
 | Pet program icon | Mascot / character | The image files are icons; the character name is the mascot. |
 | Tool | A program, page, script or utility that belongs to a pet program | Same ring and permissions as its pet program, never more. In AI, "tool" also means a function an agent can call; keep them the same thing: a pet's tools are what its connector offers. Never drawn on the System Map: listed on its pet program's card (Astra, 2026-10-19; drawn as a hammer until then). Decided 2026-10-13. |

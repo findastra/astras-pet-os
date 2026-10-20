@@ -225,3 +225,27 @@ test('every pet on the map links its pet program page, and its pet program card 
   assert.ok(page.includes("p.append(document.createTextNode('Pet Program: '))"), 'the card says Pet Program');
   assert.ok(page.includes('m.page&&m.home&&m.home.number===n.program'), 'a pet program card links its pet\'s page');
 });
+
+// Option C (Astra, 2026-10-19): "W R X what it should be, then some kind of easy indicator of whether that is reflected
+// in the current code". Every In code (enforced) grant names its proof; the build refuses one that does not.
+test('every In code grant names its proof, and the build refuses one without', () => {
+  assert.deepEqual(Object.fromEntries(Object.entries(extra.access.statuses).map(([k, s]) => [k, s.mark])),
+    { enforced: 'In code', written: 'Rule only', planned: 'Not built' });
+  for (const g of extra.access.grants) {
+    if (g.status !== 'enforced') { assert.equal(g.evidence, undefined, `${g.id}: only an In code grant names proof`); continue; }
+    assert.ok(g.evidence?.length, `${g.id}: In code needs its proof`);
+    for (const e of g.evidence) {
+      const [kind] = Object.keys(e);
+      assert.ok(['test', 'script', 'setting'].includes(kind), `${g.id}: proof is a test, script or setting`);
+      if (kind !== 'setting') assert.ok(existsSync(root + e[kind]), `${g.id}: ${e[kind]} is in the repo`);
+    }
+  }
+  const change = (id, evidence) => { const x = structuredClone(extra); x.access.grants.find((g) => g.id === id).evidence = evidence; return x; };
+  assert.throws(() => systemMapData(registry, change('farmer-round', []), programs), /names no evidence/);
+  assert.throws(() => systemMapData(registry, change('farmer-round', [{ test: 'test/no-such-test.mjs' }]), programs), /not in the repo/);
+  assert.throws(() => systemMapData(registry, change('seat-core', [{ setting: 'a rule' }]), programs), /cannot name evidence/);
+  const page = read(SYSTEM_MAP.template);
+  assert.ok(page.includes("el('span','should','Should be')"), 'every level row on a card says what it should be');
+  assert.ok(page.includes('function proofLine(g)'), 'a card shows the proof of every In code');
+  assert.ok(read('PROTECTION-RINGS.md').includes('**Proof:** [`test/farmer-rounds-pr-test-20261017.mjs`]'), 'PROTECTION-RINGS.md names each proof (run npm run build)');
+});

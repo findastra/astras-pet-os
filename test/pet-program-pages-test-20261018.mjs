@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -190,4 +190,22 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
 test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
+});
+
+test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes<`);
+    assert.ok(L4 > -1 && start > L4 && end > start, `${d.repo}: its own panel, after the four level panels`);
+    assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 tool panel`);
+    const box = html.slice(start, end);
+    for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.ok(box.includes(`<span class="lv">${lv}</span><span class="should">Should be</span><span class="rwx">`), `${d.repo}: ${lv} says what it should be`);
+    for (const m of ['✓ In code', '⚠︎ Rule only', '○ Not built']) assert.ok(box.includes(m), `${d.repo}: the key shows ${m}`);
+    for (const g of [...d.access.on, ...d.access.by]) {
+      assert.ok(box.includes(`<span class="mark ${g.status}"`), `${d.repo}: ${g.id} shows whether it is in code`);
+      if (g.status === 'enforced') assert.ok(box.includes('<b>Proof:</b>'), `${d.repo}: ${g.id} is In code, so it shows its proof`);
+    }
+  }
+  const farm = files[pagePath('astras-pet-os')];
+  assert.ok(farm.includes('href="https://github.com/findastra/astras-pet-os/blob/main/test/farmer-rounds-pr-test-20261017.mjs"'), "The Farm's round links its proof");
 });
