@@ -38,6 +38,7 @@
     if (!heading) return;
     heading.style.fontSize = '';
     heading.classList.add('fits');
+    heading.classList.remove('clipped'); // measure uncut: a cut name always fits
     var size = parseFloat(window.getComputedStyle(heading).fontSize);
     while (heading.scrollWidth > heading.clientWidth && size > 14) { size -= 1; heading.style.fontSize = size + 'px'; }
     var name = heading.querySelector('.title-name'), clipped = heading.scrollWidth > heading.clientWidth;
