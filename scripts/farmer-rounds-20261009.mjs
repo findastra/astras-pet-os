@@ -119,9 +119,10 @@ export function auditPet(registry, pet, snap, last = null) {
   const readme = snap.readme;
   if (readme == null) f('warn', 'No README.md.', 'add a README');
   else {
-    // Findings land in status/pets-status.json and the Farmer's desk, which are generated: they name the credit line
-    // and never quote it, because it goes only in a pet repo's own README (PET-FILES.md; Astra, 2026-10-19).
-    if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with the credit line (PET-FILES.md).', 'my README needs the credit line');
+    // The credit is "By Astra." (Astra, 2026-10-20, card 059). Findings land in status/pets-status.json and the
+    // Farmer's desk, which are generated: they name a retired credit line and never quote it (PET-FILES.md).
+    if (/Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra/i.test(readme)) f('warn', 'README still has a retired credit line; the credit is "By Astra." (PET-FILES.md).', 'my README has the old credit line');
+    else if (!/\bBy Astra\b/i.test(readme.split('\n').slice(0, 10).join('\n'))) f('warn', 'README does not open with "By Astra." (PET-FILES.md).', 'my README needs "By Astra."');
     if (!/^#+ .*(run|start|install|use|get it|open)/im.test(readme)) f('warn', 'README has no "how to run it" section.', 'my README needs "how to run it"');
     if (!/^#+ .*(limit|not done)/im.test(readme)) f('warn', 'README has no "Limits" section.', 'my README needs "Limits"');
   }
