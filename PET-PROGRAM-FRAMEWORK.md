@@ -84,7 +84,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | **`<pet>-L1-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **your programs** (made by you, the pet looks after them: Piranesi House) · **your tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
    | **`<pet>-L2-panel`** | L2 Pet program: what it does by itself | **your tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
    | **`<pet>-L3-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · the **grants** you gave this pet (folders, R W X, limits, enforced or written only) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
+   | **`<pet>-L4-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
 
    Tricks and skills, divided: a **trick is owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
    panel, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
@@ -142,6 +142,12 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
     pet program spawner writes it on every page.
+12. **`<pet>-rwx-panel`** (Astra, 2026-10-19, option C: "I think this actually needs to be its own panel in each pet
+    program"), right after the four level panels: what each level **should be** (its R W X on this pet program), then
+    whether that is **in code**: ✓ In code, ⚠︎ Rule only or ○ Not built. One row per level, L1 at the top, as on the
+    System Map card; a row is only as sure as its weakest grant and opens to the grants behind it, each In code with
+    its proof. Below them, what the pet program may use. The grants come from `system-map.json` (`access`), the same as
+    the map and PROTECTION-RINGS.md. The working name waits on Astra.
 
 **Activity lights** (Astra, 2026-10-19: "I need to be able to see what is on and off"): the light on each level
 panel's top border is on while that level is working right now, and the panel glows. **L4 is you:** on while the page
@@ -163,8 +169,8 @@ what you switch and what you report broken.
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 
 **One source for the page:** each pet's `pet.json` holds an `intelligence_levels` block, with `L1` (`third_party`,
-`native`, `tools`), `L2` (`tricks`) and `L3` (`skills`); the L4 panel reads the grants from `system-map.json`
-(`access`) and the approvals from the pet's cards. The page draws its panels from them, so the page, the map and the
+`native`, `tools`), `L2` (`tricks`) and `L3` (`skills`); the R W X panel reads the grants from `system-map.json`
+(`access`) and the L4 panel the approvals from the pet's cards. The page draws its panels from them, so the page, the map and the
 audit always agree. An audit that compares the L1 tools with the tool files in the repo, so none is missed, is still
 to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) shows what each pet had on 2026-10-16.
 
@@ -396,7 +402,8 @@ copies a request for the user's own AI to start a seed like it on their farm.
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.
 - [ ] Page has every panel of Astra's 2026-10-18 sketch (section 3), in that order, with the four L1 to L4 panels
-      stacked, and every panel collapses on a phone. The paired lights are two buttons side by side before every
+      stacked, then the R W X panel (should be, then in code, with the proof of every In code), and every panel
+      collapses on a phone. The paired lights are two buttons side by side before every
       item, and every tool the pet owns is in its L1 panel. Every tool box has ON/OFF and sick; every connection box has its own border colour, the other pet's icon
       name as its title, sends and receives, and ON/OFF.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).

@@ -82,8 +82,9 @@ Every agent Astra uses, and what really limits it:
   ordinary individual use only, and since 2026-04-04 subscriptions no longer cover third-party harnesses
   ([Claude Code legal and compliance](https://code.claude.com/docs/en/legal-and-compliance)). A bot other people use
   runs on an API key with a spend limit.
-- **A harness's limits hold only where code enforces them.** Every grant on the System Map says which: `enforced`,
-  `written only` or `planned` ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
+- **A harness's limits hold only where code enforces them.** Every grant on the System Map and in every pet
+  program's R W X panel says which: In code (`enforced`, with its proof), Rule only (`written only`) or Not built
+  (`planned`) ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
 
 ## One copy of each repo, always on GitHub (Astra, 2026-10-12)
 Work was being lost between assistants because every chat kept its own copy of the repos
@@ -235,3 +236,4 @@ Mirror Pool's first tools and trick on the map (Astra, 2026-10-19: "make the pla
 Linux Penguin moves from the roadmap to the pipeline (Astra, 2026-10-19: "I want to see the Linux Penguin UI and the Linux Penguin program"): pet-programs.json #58, his pets.json entry, his two tools, two tricks and a read grant on the System Map, and his pet program page from the Farmer's spawner, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 The guide for beginners (Astra, 2026-10-19: a very beginner-friendly, mobile-friendly guide so a brand-new person, first her best friend Dev, can install Astra's PetOS and make their own farm): `apps/beginner-guide-20261019.html`, a native program of The Farm (`the-farm-v1.0-beginner-guide-v1.0`, a node in system-map.json), public on GitHub Pages, farm words first with the programmer word in small text, pictures only from `art/`, linked from the README; named by Astra "How to Take Care of Your Farm!", the framework's tutorial title, and opened by the map's first-run walk. Guarded by `test/beginner-guide-test-20261019.mjs` (card 051), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 Unity Stable's tools on two sides (Astra, 2026-10-19: "separate the page by avatar tools vs world tools"): a tool node in system-map.json may carry `side` (`avatar` or `world`), and the pet program spawner then shows Avatar tools and World tools in the L1 panel instead of Your tools (`test/tool-sides-test-20261019.mjs`); every Unity Stable tool has one, and vine-spawn-with-trumpet-flowers (unity-unicorn PR #18) is on the map. Builds on PR #124 (matcap-palette and menu-map nodes), merged into this branch. Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
+The R W X panel (Astra, 2026-10-19, option C: "W R X what it should be, then some kind of easy indicator of whether that is reflected in the current code", then "its own panel in each pet program"): every pet program page has `<pet>-rwx-panel` after the four level panels, and every System Map card the same rows: what each level should be (R W X), then In code, Rule only or Not built; every In code grant names its evidence in system-map.json, which `npm run build` checks (card 048), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
