@@ -106,7 +106,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 
   // L1: what the pet runs and looks after (links that leave the pet or its program), and its tools.
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null });
+  // `picture`: a live picture of what the item makes, shown when its pill opens (Astra's Star Window, 2026-10-19).
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -210,7 +211,8 @@ function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const more = `${i.why ? `<p>${esc(i.why)}</p>` : '<p class="empty">No description on the System Map yet.</p>'}
-<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.url ? `
+<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.picture ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.url ? `
 <p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
     return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
