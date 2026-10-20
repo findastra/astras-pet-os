@@ -54,6 +54,12 @@ lines of `pet.json`, the page and the tool-count test.
   (`pet.json`, the page, README, AGENTS.md). Whichever merges after the others needs `main` brought in and a new version
   number.
 - The hub has no tool boxes yet for matcap-palette and menu-map (unity-unicorn #13 and #14).
+  **Done 2026-10-19** on branch `claude/unity-stable-matcap-menu-map-20261019` (not on `main`; its pull request is
+  linked from the commit), Claude Opus 5.5 (`claude-opus-5-5`): tool nodes `matcap-palette` (Editor) and `menu-map`
+  (Audit) in `system-map.json` after world-validator, state `now`, labels `unity-stable-v1.0-<tool>-v1.0`, jobs from
+  the first sentence of each catalog file. Unity Stable's map card counts 58 native tools (37 today, 21 planned), the
+  same 37 as unity-unicorn `pet.json` L1 `tools`. The build rebuilt the registry table in `TOOLS-AND-TRICKS.md`
+  (171 rows), Unity Unicorn's pet program page, the System Map page and the two Markdown pet files.
 - `docs/unity-unicorn-page-modules-20261018.md` and Unity Unicorn's row in `INTELLIGENCE-LEVELS.md` don't name the three
   tools or the trick yet. Hub PR #117 (another chat) rewrites both, so I left them alone to keep the two PRs apart. Add
   them there after #117 is merged.

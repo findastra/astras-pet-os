@@ -371,8 +371,11 @@ Every agent, ours or **external**, needs a **key** to operate a pet. That is how
 ## 13. The first run: How to Take Care of Your Farm!
 
 When someone first installs Astra's PetOS, it opens straight to the **System Map**. The Friendly Farmer appears in a
-chat, the way he does at The Farm, and walks them through **How to Take Care of Your Farm!**, a tutorial (a trick of
-The Farm). Its steps are still to be written with Astra.
+chat, the way he does at The Farm, and walks them around the map one ring at a time (the first-run walk, a trick of The
+Farm, not built yet), then opens **[How to Take Care of Your Farm!](apps/beginner-guide-20261019.html)** (Astra,
+2026-10-19: the guide for beginners takes this title, and the first-run walk opens it). The guide is a native program of
+The Farm, a public page anyone can read before installing: what Astra's PetOS is, installing it, making your own farm,
+public or private pets, taking any of Astra's pets, locked-down computers, your own AI and staying safe.
 
 **Seeds for you.** With the user's OK, the Friendly Farmer's seed-suggester (a tool of The Farm) reads the names of
 the programs installed on the PC, read only and never leaving it, and suggests seeds: pets he can hatch for them, and
