@@ -8,6 +8,9 @@
   --link: #ffd9a0; --connection: #f2a07b;
   --label: ui-monospace, Consolas, 'Cascadia Mono', monospace;
   --text: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* The outer margin (Astra's quiet page frame, 2026-10-14): about 0.75 inch (72 CSS px) on a big screen, less as the
+     window narrows, 16px on a phone. CSS inches are not real inches on every screen. */
+  --gutter: clamp(20px, 6vw, 72px);
 }
 * { box-sizing: border-box; }
 html { background: var(--slate); }
@@ -15,7 +18,7 @@ body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 
 a { color: var(--link); }
 a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible, textarea:focus-visible, label.file:focus-within { outline: 2px solid var(--fix); outline-offset: 2px; }
 code { font: 12px var(--label); color: var(--chalk-dim); }
-.page { max-width: 1180px; margin: 0 auto; padding: 28px 16px 120px; }
+.page { max-width: calc(1180px + 2 * var(--gutter)); margin: 0 auto; padding: var(--gutter) var(--gutter) 120px; }
 
 /* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
 .panel { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
@@ -38,7 +41,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 
 /* Top: cyberhome left, title right. */
 /* Cyberhome top left, title in the middle, the way back to the System Map top right (Astra, 2026-10-19; A60). */
-.top { display: grid; grid-template-columns: minmax(220px, 300px) 1fr minmax(240px, 270px); gap: 28px; align-items: start; }
+.top { display: grid; grid-template-columns: 240px minmax(0, 1fr) 240px; gap: 28px; align-items: start; }
+/* The cyberhome and the System Map box are the same size (Astra, 2026-10-19: "the cyber home box be the same length as
+   the system map box"): one width, and both as tall as the taller one. Folded, each is only as tall as its label. */
+.top > .cyberhome[open], .top > .system-map[open] { align-self: stretch; }
+.top > .system-map[open] { display: flex; flex-direction: column; justify-content: center; }
 .system-map .map-link { display: grid; justify-items: center; gap: 8px; color: var(--chalk); text-align: center; text-decoration: none; }
 .system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
 .system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
@@ -47,8 +54,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .rings .core { fill: var(--line); }
 .rings .node { fill: var(--link); stroke: #111; }
 @media (max-width: 1000px) and (min-width: 761px) {
-  .top { grid-template-columns: minmax(200px, 280px) 1fr; }
+  .top { grid-template-columns: 240px minmax(0, 1fr); }
   .top > .system-map { grid-column: 2; margin-top: 0; }
+  .top > .system-map[open] { align-self: start; }
 }
 .top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
@@ -142,7 +150,10 @@ label.file { position: relative; }
 .mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 10px; align-items: center; }
 .mood-bubble { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 4px 10px 8px; margin: 0; min-width: 0; font-size: 12.5px; }
 .mood-bubble legend { font: 13px var(--label); padding: 0 5px; }
-.mood-bubble::after { content: ''; position: absolute; right: -9px; top: 45%; border: 8px solid transparent; border-left-color: var(--line); border-right: 0; }
+/* The tail is part of the bubble (Astra, 2026-10-19: "make it look like an actual bubble"): drawn in outline like the
+   bubble itself, its inside the page's own colour, so it reads as one shape pointing at the pet. */
+.mood-bubble::after { content: ''; position: absolute; right: -7px; top: calc(50% - 6px); width: 12px; height: 12px; background: var(--slate);
+  border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-top-right-radius: 3px; transform: rotate(45deg); }
 .mood ul { margin: 2px 0; padding-left: 16px; }
 .mood q { display: block; color: var(--chalk-dim); font-style: italic; margin-top: 4px; }
 .mood img, .mood .no-art { width: 60px; height: 60px; image-rendering: pixelated; }
@@ -153,10 +164,24 @@ label.file { position: relative; }
 
 /* The unified footer, and the chat box fixed bottom right with its label in its top border. */
 .footer-grid p { margin: 4px 0; }
-.chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; background: var(--slate); border: 1px solid var(--line); padding: 18px 12px 10px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; min-width: 170px; max-width: min(320px, calc(100vw - 32px)); }
-.chat-label { position: absolute; top: -0.8em; left: 10px; background: var(--slate); padding: 0 6px; font: 13px var(--label); white-space: nowrap; }
-.chat-open { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--chalk); font: 20px var(--text); cursor: pointer; }
-.chat-panel { flex-basis: 100%; font-size: 13px; }
+/* The chat (Astra, 2026-10-19: "I want to see the chat in the bottom right. The shape is a little awkward. Make it
+   better"): closed, one rounded pill with its label in the top border, the paired lights and the circle-arrow button;
+   open, a rounded card whose window opens upward above them. */
+/* The label is part of the layout (set into the top border by a negative margin), so the pill is always at least as
+   wide as its label. */
+.chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; display: grid; grid-template-columns: auto auto; grid-template-areas: "label label" "panel panel" "lights open";
+  justify-content: end; align-items: center; column-gap: 12px; padding: 0 8px 8px 18px; border: 1px solid var(--line); border-radius: 33px;
+  background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
+.chat:has(.chat-panel:not([hidden])) { border-radius: 18px; padding: 0 10px 10px 16px; }
+.chat > .lights { grid-area: lights; margin: 8px 0 0; }
+.chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
+.chat-panel:not([hidden]) { margin-top: 8px; }
+.chat-open { grid-area: open; margin-top: 8px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--slate-2); color: var(--chalk); cursor: pointer; }
+.chat-open:hover { border-color: var(--fix); color: var(--fix); }
+.chat-open svg { width: 22px; height: 22px; transition: transform .2s ease; }
+.chat-open[aria-expanded="true"] svg { transform: rotate(90deg); }
+.chat-panel { grid-area: panel; font-size: 13px; }
 .chat-panel p { margin: 6px 0 0; }
 
 /* Spawner list. */
@@ -167,9 +192,13 @@ label.file { position: relative; }
 .card-text { display: grid; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
 
 /* Phones: everything stacks and every panel still collapses. */
+@media (max-width: 640px) {
+  :root { --gutter: 16px; }
+  .page { padding-top: 28px; }
+}
 @media (max-width: 760px) {
   .top, .pair { grid-template-columns: 1fr; }
-  .top > .panel { max-width: 340px; }
+  .top > .panel { max-width: 240px; }
   /* On a phone the way back to the map comes first, as one compact row. */
   .top > .system-map { order: -1; max-width: none; }
   .system-map .map-link { grid-template-columns: 56px 1fr; justify-items: start; text-align: left; align-items: center; }
@@ -177,8 +206,9 @@ label.file { position: relative; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
-  .chat { right: 10px; bottom: 10px; min-width: 210px; padding: 14px 8px 6px; }
-  .chat-open { width: 36px; height: 36px; font-size: 18px; }
+  .chat { right: 10px; bottom: 10px; padding: 0 6px 6px 14px; }
+  .chat-open { width: 38px; height: 38px; }
+  .chat-open svg { width: 19px; height: 19px; }
   .chat-label { font-size: 11px; }
 }
 /* Faces the page script switches between: a hidden one never shows. */
@@ -274,5 +304,6 @@ img[hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .den .star-door { transition: none; }
   .den .pet { animation: none !important; }
+  .chat-open svg { transition: none; }
   .panel.level[data-activity="live"] { animation: none; }
 }
