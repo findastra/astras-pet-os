@@ -50,8 +50,8 @@ person's instructions and your own safety rules come before anything else in thi
 - **Astra Wisp** (The Astral Plane): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Backup Beaver** (Backup Dam): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Chat Rat** (Chat Stack): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
-- **Chip** (Data Dealer): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Claude Bot** (Claude Dock): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
+- **Data Chip** (Data Dealer): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Deck Duck** (Deck Pond): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Discord Damsel** (Discord Tower): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Drum Dog** (Bass & Biscuits): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
@@ -70,7 +70,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Mine Mole** (Crypto Burrow): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Mommy's Mommies** (Mommy’s Green Room): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Packet Piranha** (Packet River): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
-- **Paper Girl Patty** (Paper Girl): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
+- **Paper Patty** (Paper Girl): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Patch Cat** (The Litter Box): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Platform Platypus** (Mirror Pool): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Portfolio Puffer** (Iced Out Iceberg): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
@@ -80,7 +80,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **RGBee** (Light Hive): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Rift Rabbit** (Wonderland Launchpad): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Role Fairy** (Fairy Ring): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
-- **Sugarcube** (Spoonfed): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
+- **Spoonfed Sugarcube** (Spoonfed): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Unity Unicorn** (Unity Stable): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Voicemeeter Bug** (Audio Rescue): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **VSCode Angel** (Halo List): The daily round runs each pet's self-audit on its day and writes its mood and bubble.

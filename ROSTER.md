@@ -10,7 +10,7 @@ Last updated 2026-10-11. Drawings below are **drafts** unless their notes record
 
 ![Every character in every mood](art/roster.png)
 
-Sheet order: rows are Friendly Farmer, GitHub Goldfish, Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Girl Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
+Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
 ## Pet apps
 
@@ -18,7 +18,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Chip, API Fairy, Unity U
 |---|---|---|---|---|---|---|
 | 1 | **Friendly Farmer** | host | growing | [astras-pet-os](https://github.com/findastra/astras-pet-os) | Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS. | <img src="art/frames/farmer/idle-20261008.png" width="48" height="48" alt="farmer idle"> |
 | 2 | **GitHub Goldfish** | pet | growing | [github-goldfish](https://github.com/findastra/github-goldfish) | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. | <img src="art/frames/goldfish/idle.png" width="48" height="48" alt="goldfish idle"> |
-| 3 | **Chip** | pet | hatching | private repo | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | <img src="art/frames/chip/idle-20261008.png" width="48" height="48" alt="chip idle"> |
+| 3 | **Data Chip** | pet | hatching | private repo | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | <img src="art/frames/chip/idle-20261008.png" width="48" height="48" alt="chip idle"> |
 | 4 | **API Fairy** | pet | growing | [api-fairy](https://github.com/findastra/api-fairy) | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | <img src="art/frames/api-fairy/idle.png" width="48" height="48" alt="api-fairy idle"> |
 | 5 | **Unity Unicorn** | pet | hatching | [unity-unicorn](https://github.com/findastra/unity-unicorn) | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | <img src="art/frames/unity-unicorn/idle.png" width="48" height="48" alt="unity-unicorn idle"> |
 | 6 | **Python Panther** | pet | hatching | [learn-python](https://github.com/findastra/learn-python) | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | <img src="art/frames/python-panther/idle.png" width="48" height="48" alt="python-panther idle"> |
@@ -26,7 +26,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Chip, API Fairy, Unity U
 | 8 | **Health Hummy** | pet | hatching | [health-hummy](https://github.com/findastra/health-hummy) | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | <img src="art/frames/health-hummy/idle.png" width="48" height="48" alt="health-hummy idle"> |
 | 9 | **Finance Finch** | pet | hatching | [finance-finch](https://github.com/findastra/finance-finch) | Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed. | <img src="art/frames/finance-finch/idle.png" width="48" height="48" alt="finance-finch idle"> |
 | 10 | **Mommy's Mommies** | pet | hatching | [mommys-mommies](https://github.com/findastra/mommys-mommies) | A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned. | <img src="art/frames/mommys-mommies/idle.png" width="48" height="48" alt="mommys-mommies idle"> |
-| 11 | **Paper Girl Patty** | pet | growing | [paper-girl](https://github.com/findastra/paper-girl) | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | <img src="art/frames/paper-girl/idle.png" width="48" height="48" alt="paper-girl idle"> |
+| 11 | **Paper Patty** | pet | growing | [paper-girl](https://github.com/findastra/paper-girl) | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | <img src="art/frames/paper-girl/idle.png" width="48" height="48" alt="paper-girl idle"> |
 | 12 | **File Master** | pet | growing | [file-master](https://github.com/findastra/file-master) | Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned). | <img src="art/frames/file-master/idle.png" width="48" height="48" alt="file-master idle"> |
 | 13 | **Discord Damsel** | pet | hatching | [findastra-discord-presence](https://github.com/findastra/findastra-discord-presence) | Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist. | <img src="art/frames/discord-damsel/idle.png" width="48" height="48" alt="discord-damsel idle"> |
 | 14 | **Portfolio Puffer** | pet | hatching | [portfolio-puffer](https://github.com/findastra/portfolio-puffer) | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | <img src="art/frames/portfolio-puffer/idle.png" width="48" height="48" alt="portfolio-puffer idle"> |
@@ -55,7 +55,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Chip, API Fairy, Unity U
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/goldfish/idle.png" width="56" height="56" alt="goldfish idle"> | <img src="art/frames/goldfish/blink.png" width="56" height="56" alt="goldfish blink"> | <img src="art/frames/goldfish/happy.png" width="56" height="56" alt="goldfish happy"> | <img src="art/frames/goldfish/curious.png" width="56" height="56" alt="goldfish curious"> | <img src="art/frames/goldfish/worried.png" width="56" height="56" alt="goldfish worried"> | <img src="art/frames/goldfish/sad.png" width="56" height="56" alt="goldfish sad"> | <img src="art/frames/goldfish/sick.png" width="56" height="56" alt="goldfish sick"> | <img src="art/frames/goldfish/alarmed.png" width="56" height="56" alt="goldfish alarmed"> | <img src="art/frames/goldfish/sleep.png" width="56" height="56" alt="goldfish sleep"> |
 
-### Chip
+### Data Chip
 
 *Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.*
 
@@ -119,7 +119,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Chip, API Fairy, Unity U
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/mommys-mommies/idle.png" width="56" height="56" alt="mommys-mommies idle"> | <img src="art/frames/mommys-mommies/blink.png" width="56" height="56" alt="mommys-mommies blink"> | <img src="art/frames/mommys-mommies/happy.png" width="56" height="56" alt="mommys-mommies happy"> | <img src="art/frames/mommys-mommies/curious.png" width="56" height="56" alt="mommys-mommies curious"> | <img src="art/frames/mommys-mommies/worried.png" width="56" height="56" alt="mommys-mommies worried"> | <img src="art/frames/mommys-mommies/sad.png" width="56" height="56" alt="mommys-mommies sad"> | <img src="art/frames/mommys-mommies/sick.png" width="56" height="56" alt="mommys-mommies sick"> | <img src="art/frames/mommys-mommies/alarmed.png" width="56" height="56" alt="mommys-mommies alarmed"> | <img src="art/frames/mommys-mommies/sleep.png" width="56" height="56" alt="mommys-mommies sleep"> |
 
-### Paper Girl Patty
+### Paper Patty
 
 *DRAFT. Dark mauve and pink from the site, a folded paper hat, a rolled paper.*
 

@@ -42,7 +42,7 @@ Public credit is always **Astra**. No keys, `.env` files or personal data in a r
 
 ## The pet's art
 
-**Chip is an owner-requested exception:** its original Data Dealer `drawPet` pixels are rendered
+**Data Chip is an owner-requested exception:** its original Data Dealer `drawPet` pixels are rendered
 by `scripts/chip-original-20261008.mjs` at integer scale inside the original yellow pocket shell.
 The registry's `art_source` selects this native renderer; image generation skips it. Its exact
 LCD palette, geometry and original expression shapes are preserved. The Cage's nine moods use
@@ -169,7 +169,7 @@ rules from there. Nothing about movement is hard-coded per pet.
 | `zone: "ground"` | Everyone else walks the floor. `hops: true` (humans) bounces as they walk. |
 | `climbs: true` | The cat runs up a side wall, hangs, and leaps back off. It always climbs when chased. |
 | `flock: true` | Birds fly a loose V behind the first bird in the roster. |
-| `friends` | API Fairy, Unity Unicorn and Astra Wisp hang out; so do Paper Girl, File Master and Chip. |
+| `friends` | API Fairy, Unity Unicorn and Astra Wisp hang out; so do Paper Patty, File Master and Data Chip. |
 | `tag` | Drum Dog and Python Panther chase each other, taking turns being "it". |
 | `chases` | Birds chase bugs and the fish; the fish chases bugs. The chased one runs away. |
 
