@@ -1,4 +1,4 @@
-status: open (Parts 1 and 2 merged with #157; Parts 3 and 4 to build, each after Astra's OK)
+status: open (Parts 1 and 2 merged with #157; Part 3 is pull request #164, waiting on Astra's OK; Part 4 to build)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
 needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -62,12 +62,59 @@ proposal before any rewrite, and for everything to be read first.
   `handoffs/009-…` and `scripts/idle-flash-audit-…`, among others); the files on `main` are clean. Rewriting public
   history is Astra's call.
 
+**Part 3, 2026-10-20, by Claude Opus 5.5 (`claude-opus-5-5`), a session started from the farm-owner chat:
+[pull request #164](https://github.com/findastra/astras-pet-os/pull/164)**, branch `claude/farm-owner-upstream-20261020`
+(commits `505a09b` the split, `fc27a66` make-it-yours and docs, `314f9ef` merge of `main` with #152, #155, #161), made in
+a clone in Claude's scratchpad with `core.autocrlf=false`. Started after #157 was merged. The live hub folder on Astra's
+PC was not touched. **Not merged: waits on Astra's OK in chat.**
+
+- `scripts/farm-owner-20261020.mjs` (new): `upstream()` (Astra's PetOS itself: releases, installer link, pictures, guide,
+  pages, docs, `findastra/astras-pet-os`), `farmOwner()` (from the guard), `ownerOf()`, `repoOf()`, `repoUrl()`. A repo's
+  account is its own `github_owner`, else the farm owner's. A candidate is the farm owner's. A repo pets.json does not
+  list is upstream's. The guard now exports `assertAccount`.
+- Farm-facing scripts ask it: `lib.mjs` (README table, `INSTALLER_URL`), `roster.mjs`, `pet-programs-20261014.mjs`
+  (+ `build.mjs`), the spawner (Source, Pedigree, Repo button; its `OWNER`/`HUB`/`PAGES` are upstream's),
+  `markdown-pets`, the Farmer's round (farm owner's repos for discovery; other accounts read only for their examples),
+  `pet-finder`, the Pets Board, the Farmer's desk (`build-interfaces`), `prepare-desktop-drafts`, `farm-setup` and the
+  installer's farm list (a draft's repo on any account), `check-pets`, `publish-pet-tags` (only the farm owner's own pets,
+  tagged as the farm owner) and `click-check`.
+- Astra-only on purpose, with a comment: `farmer-profile`, `idle-flash-audit`, `-cards`, `-fix`, `-new-repos`,
+  `-refresh`, `one-art-source`, `pet-program-link` (A59) and the profile line in `relations`.
+- The Friendly Farmer's **make-it-yours** (`scripts/make-it-yours-20261020.mjs`, `the-farm-v1.0-make-it-yours-v1.0`, a
+  tool node in `system-map.json`). It sets `github_owner`, marks every pet that came with Astra's PetOS
+  `"github_owner": "findastra"` (pets, pipeline, candidates; not the host) and rebuilds; `--dry-run` shows the change.
+  Run again, it moves the farm and the owner's own pets. MAKE-IT-YOURS.md and the guide's "Tell your farm it's yours"
+  step use it; the decision row is in `skills/new-pet-or-tool`, a line in `skills/farm-security`, the AGENTS.md
+  credit line.
+- `test/farm-owner-upstream-test-20261020.mjs` (10 tests):
+  - Astra's farm byte for byte.
+  - A fixture farm for `XxdevilishxX`: her links are hers, Astra's examples keep Astra's, pictures and docs stay
+    upstream. The round, pet-finder, the farm list and click-check follow each pet's account.
+  - make-it-yours, as a function and from the command line.
+- Checked:
+  - `npm run build` after the split leaves the tree clean. Against `main`, only The Farm's page, its two Markdown
+    pets, TOOLS-AND-TRICKS.md and the map change (the new tool's row).
+  - The desk's data was compared with a baseline build: the same, plus owner fields, all `findastra`.
+  - `npm run check` (23 pet apps). `npm test` on the merged tree: 263 tests, 262 pass, 0 fail, 1 skipped.
+  - make-it-yours run for real in a throwaway clone.
+  - The guide at 375 px (no sideways scroll, 44 px copy button, no console errors), served on 127.0.0.1 from the clone
+    through a temporary entry in the session folder's `.claude/launch.json`, removed afterwards.
+- **Left for Astra:** the round workflow's comment still says "a token for the findastra account". The workflow
+  passes no account, so nothing breaks; the GitHub token here cannot push workflow files.
+- **Not built (later):**
+  - The hub's own name inside pets.json stays `astras-pet-os`, so a farm whose copy has another name links the
+    Friendly Farmer's repo as `<owner>/astras-pet-os`. GitHub forwards a renamed fork, but not a private copy made
+    under a new name.
+  - Pet program pages and Markdown pets point at upstream's public site, so a farm's own pets have no public page
+    yet (Part 4).
+  - The System Map's per-node repo links and the Linux package stay upstream.
+
 ## Task
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
-3. **Part 3** (upstream vs farm owner in about 15 scripts, a make-it-yours command), then **Part 4** (pet packs, `needs`
-   in pets.json), each its own pull request after Astra's OK. Part 3 is proposed as its own session (built after #157).
+3. ~~**Part 3**~~ Built: pull request #164 (upstream vs farm owner, make-it-yours), waiting on Astra's OK in chat.
+   Then **Part 4** (pet packs, `needs` in pets.json), its own pull request after Astra's OK.
 4. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
 ## Done when

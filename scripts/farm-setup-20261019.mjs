@@ -36,8 +36,9 @@ export function farmPets(root) {
       if (d.private === true) continue; // Claude Bot's art is private (a copy of ChatGPT's BSOD): never in a release
       const id = text(d.id);
       if (list.some((p) => p.id === id)) continue;
-      // A draft points to its repo on GitHub, or (since 2026-10-19) to its pet program page in the hub.
-      const repo = text(d.interface).replace(/^https:\/\/github\.com\/findastra\//, '').replace(/^apps\/pet-programs\/(.+)-\d{8}\.html$/, '$1');
+      // A draft points to its repo on GitHub, on any account (card 058, Part 3), or (since 2026-10-19) to its pet program
+      // page in the hub.
+      const repo = text(d.interface).replace(/^https:\/\/github\.com\/[^/]+\//, '').replace(/^apps\/pet-programs\/(.+)-\d{8}\.html$/, '$1');
       list.push({ id, name: text(d.name), repo, job: jobs.get(repo) ?? '', core: false, draft: true });
     }
   }

@@ -332,11 +332,12 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
     <p>Your copy → <strong>Settings</strong> → <strong>Repository name</strong>. Use lowercase words joined by hyphens,
       for example <code>jordans-pet-os</code>.</p>
     <h3>Tell your farm it's yours</h3>
-    <p>Your copy's <code>pets.json</code> still says the farm is Astra's. Change <code>"github_owner"</code> to your GitHub
-      name, and mark each of Astra's pets you keep with <code>"github_owner": "findastra"</code>, so they stay hers. Then
-      the Friendly Farmer's tools work on your pets and never on Astra's. Ask your AI with the message below.
-      <span class="dev">the farm owner's GitHub account</span></p>
-    <p class="prompt" id="prompt-owner">Please make my copy of Astra's PetOS mine: in its pets.json, set "github_owner" to my GitHub name, and add "github_owner": "findastra" to each of Astra's pets I keep, as MAKE-IT-YOURS.md says (https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md). Show me the change before you save it.</p>
+    <p>Your copy's <code>pets.json</code> still says the farm is Astra's. The Friendly Farmer's <strong>make-it-yours</strong>
+      command tells it you're the owner: your farm and the pets you add become yours, and every pet that came from Astra
+      stays hers. You never edit the file yourself. Then the Friendly Farmer's tools work on your pets and never on
+      Astra's. Ask your AI with the message below. <span class="dev">sets the farm owner's GitHub account
+      (<code>github_owner</code> in pets.json)</span></p>
+    <p class="prompt" id="prompt-owner">Please make my copy of Astra's PetOS mine with the Friendly Farmer's make-it-yours command (node scripts/make-it-yours-20261020.mjs with my GitHub name), as MAKE-IT-YOURS.md says (https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md). Run it with --dry-run first and show me what it will change.</p>
     <div class="copy">
       <button type="button" data-copy="prompt-owner">Copy the message</button>
       <span class="copy-status" role="status" aria-live="polite"></span>

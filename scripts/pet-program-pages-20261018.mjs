@@ -17,10 +17,13 @@ import { fileURLToPath } from 'node:url';
 import { moodKey } from './farmer-rounds-20261009.mjs';
 import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
+import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 
-export const OWNER = 'findastra';
-export const HUB = 'astras-pet-os';
-export const PAGES = `https://${OWNER}.github.io/${HUB}`;
+// Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
+// (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
+export const OWNER = upstream().owner;
+export const HUB = upstream().hub;
+export const PAGES = upstream().pages;
 export const DIR = 'apps/pet-programs';
 export const DATE = '20261018';
 export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
@@ -119,6 +122,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const petSlug = slug(reg.pet);
   const isPrivate = (registry.relations?.private || []).includes(reg.repo);
   const publicRepo = reg.visibility !== 'private';
+  const owner = ownerOf(registry, reg.repo); // its own account: an example pet stays Astra's on another farm
 
   // L1: what the pet runs and looks after (links that leave the pet or its program), and its tools.
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
@@ -185,7 +189,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
@@ -367,6 +371,7 @@ function mapRelated(d) {
 const footerIcon = (path) => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${path}"/></svg>`;
 const GITHUB_ICON = footerIcon('M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z');
 const TIKTOK_ICON = footerIcon('M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z');
+// The maker's links under "By Astra": Astra's own GitHub and TikToks, the same on every farm (upstream, card 058, Part 3).
 export const FOOTER_LINKS = [
   ['GitHub: Astra', `https://github.com/${OWNER}`, GITHUB_ICON],
   ['Pole TikTok: @astra_on_fire', 'https://www.tiktok.com/@astra_on_fire', TIKTOK_ICON],
@@ -453,7 +458,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
 <section><h3>Pet passport</h3><dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
-<dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">findastra/${esc(d.repo)}</a>` : `findastra/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
+<dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
@@ -513,7 +518,7 @@ ${assigned}</dl>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 <div class="footer-group"><span class="footer-title">Take Me Home!</span><a class="footer-home" href="../astras-pet-apps-20261008.html" title="The Farm: the Friendly Farmer" aria-label="The Farm: the Friendly Farmer"><img src="${esc(up('art/icons/astras-pet-os-20261012.png'))}" alt="" width="28" height="28"></a></div>
 </div>
-<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a> · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">findastra/${esc(d.repo)}</a>` : `findastra/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
+<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a> · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
 <p class="words-switch" data-words-switch></p>
 <p class="small footer-spawned">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></footer>`, { cls: 'footer' });
 

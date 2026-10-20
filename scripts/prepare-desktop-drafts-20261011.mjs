@@ -13,12 +13,14 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { repoUrl } from './farm-owner-20261020.mjs';
 
 const hub = fileURLToPath(new URL('..', import.meta.url));
 export const LIST = 'desktop-art/desktop-drafts-20261018.json';
 // %USERPROFILE%\Documents\Astra's PetOS, where the other repos sit next to this one (ASTRAS_PETOS for a check elsewhere).
 const petos = process.env.ASTRAS_PETOS || dirname(hub.replace(/[\\/]$/, ''));
 const names = Object.fromEntries(JSON.parse(readFileSync(join(hub, 'pet-programs.json'), 'utf8')).programs.map((p) => [p.repo, p.icon]));
+const registry = JSON.parse(readFileSync(join(hub, 'pets.json'), 'utf8'));
 
 // [desktop-art id, repo, picture date]. Names come from pet-programs.json (the one list of names). The date is the one in
 // the picture files' names; it defaults to 20261011, when most drafts were drawn.
@@ -46,8 +48,9 @@ function matchesMain(dir) {
 
 // Two clicks on a draft pet open its pet program page, like every pet's (Astra, 2026-10-19: "one click always points to
 // program page (Pet Program)"): the hub page the spawner wrote, else its repo while it has none (a seed such as Door
-// Dormouse). The desktop opens a hub-relative path from this folder.
-const programPage = (repo) => (existsSync(join(hub, `apps/pet-programs/${repo}-20261018.html`)) ? `apps/pet-programs/${repo}-20261018.html` : `https://github.com/findastra/${repo}`);
+// Dormouse). The desktop opens a hub-relative path from this folder. The repo is on its own account (repoUrl: a pet's own
+// github_owner, else the farm owner's; a draft this farm's pets.json does not list is Astra's PetOS's own; card 058, Part 3).
+const programPage = (repo) => (existsSync(join(hub, `apps/pet-programs/${repo}-20261018.html`)) ? `apps/pet-programs/${repo}-20261018.html` : repoUrl(registry, repo));
 
 export function draftList() {
   const pets = [];

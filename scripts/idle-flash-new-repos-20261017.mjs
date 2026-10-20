@@ -17,6 +17,7 @@ const DRY = process.argv.includes('--dry');
 // A farm's repos start private (Astra, 2026-10-18: "people need their farm repos to spawn on GitHub as entirely
 // private"). --public: start it public; Astra's own farm passes it, because her pets are public by her choice.
 const VIS = process.argv.includes('--public') ? '--public' : '--private';
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit makes the missing repos of Astra's own pet programs on her account. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const OWNER = 'findastra';
 const HUB = 'astras-pet-os';
 const TODAY = new Date().toISOString().slice(0, 10);

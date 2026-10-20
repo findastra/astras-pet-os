@@ -160,6 +160,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-18; both ways on any farm, 2026-10-20): makes a pet’s repo private or public on GitHub, checks every repo of a farm at once, and makes a private copy where GitHub keeps a fork public, so a farm can be entirely private. It shows what would be lost or shown first (stars, watchers, a Pages site; every commit), scans every commit for keys and personal details before a pet goes public, and changes GitHub only with the owner’s OK, only for the farm owner’s own pets (github_owner in pets.json) while signed in as that owner, never making the one art source private (scripts/pet-privatizer-20261018.mjs)."
     },
     {
+      "id": "make-it-yours",
+      "name": "make-it-yours",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-make-it-yours-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
+    },
+    {
       "id": "pet-program-spawner",
       "name": "pet-program-spawner",
       "type": "tool",

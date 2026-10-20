@@ -34,6 +34,7 @@ import net from 'node:net';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readSpawnerSources, spawnerPages, DIR as SPAWN_DIR } from './pet-program-pages-20261018.mjs';
+import { ownerOf, sameAccount, upstream } from './farm-owner-20261020.mjs';
 
 export const LABEL = 'the-farm-v1.0-click-check-v1.0';
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -204,25 +205,26 @@ export function groupFindings(pages, wanted = isProblem) {
  * pages never disagree; plus every pet's and pet program's name, to catch a link that says one pet and opens another.
  */
 export function readExpectations(root = ROOT) {
-  const byPage = new Map(), names = [];
+  const byPage = new Map(), names = [], owners = new Set([upstream().owner.toLowerCase()]);
   try {
     const src = readSpawnerSources(root);
     for (const d of spawnerPages(src)) byPage.set(`${SPAWN_DIR}/${d.repo}-20261018.html`, d);
     for (const p of src.programs) {
       if (!p.repo) continue;
+      owners.add(ownerOf(src.registry, p.repo).toLowerCase()); // the accounts this farm's pets live on (card 058, Part 3)
       for (const n of [p.icon, p.assigned ? p.program : null]) if (n && n.length > 2) names.push({ name: n, repo: p.repo });
     }
   } catch { /* not the hub, or its data does not build: only the general rules apply */ }
   names.sort((a, b) => b.name.length - a.name.length);
-  return { byPage, names };
+  return { byPage, names, owners };
 }
 
-/** The pet a link opens: its pet program page in this hub or its repo on GitHub. */
-export function petOf(dest) {
+/** The pet a link opens: its pet program page in this hub or its repo on GitHub, on an account this farm's pets live on. */
+export function petOf(dest, owners = new Set([upstream().owner.toLowerCase()])) {
   const page = new RegExp(`(?:^|/)${SPAWN_DIR.replace('/', '\\/')}\\/([a-z0-9-]+)-20261018\\.html$`).exec(dest.rel || '');
   if (page && page[1] !== 'pet-program-spawner') return page[1];
   const gh = githubParts(dest.url);
-  return gh && gh.owner === 'findastra' ? gh.repo : null;
+  return gh && owners.has(gh.owner.toLowerCase()) ? gh.repo : null;
 }
 
 /**
@@ -243,14 +245,15 @@ export function wrongPlace({ pageRel, label, dest }, exp) {
       if (!sameAddress(dest.url, want)) return `it opens ${shown(dest.url)}, but today's app in pets.json is ${shown(want)}`;
     }
     const gh = githubParts(dest.url);
-    if (gh && gh.owner === 'findastra' && !gh.kind && (/^(repo|github|source|source code|code)$/i.test(text) || text === `findastra/${d.repo}`) && gh.repo !== d.repo) {
-      return `it opens findastra/${gh.repo}, but this pet's repo is findastra/${d.repo}`;
+    // The pet's repo is on its own account (d.owner: an example pet stays Astra's on another farm).
+    if (gh && sameAccount(gh.owner, d.owner) && !gh.kind && (/^(repo|github|source|source code|code)$/i.test(text) || text === `${d.owner}/${d.repo}`) && gh.repo !== d.repo) {
+      return `it opens ${d.owner}/${gh.repo}, but this pet's repo is ${d.owner}/${d.repo}`;
     }
   }
   const lower = text.toLowerCase();
   const named = exp.names.find((n) => lower === n.name.toLowerCase() || lower.startsWith(`${n.name.toLowerCase()} `));
   if (named) {
-    const other = petOf(dest);
+    const other = petOf(dest, exp.owners);
     if (other && other !== named.repo) return `it says ${named.name} but opens ${other}'s ${dest.kind === 'file' ? 'pet program page' : 'repo'}`;
   }
   return null;

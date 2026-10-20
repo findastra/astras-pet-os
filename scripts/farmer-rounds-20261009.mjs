@@ -8,9 +8,13 @@
 // Then npm run build (metadata only) and the Farmer's desk rebuild show the result.
 //
 // The pure functions below are what the tests exercise. Nothing here writes outside this hub repo.
+//
+// Whose pets (card 058, Part 3, 2026-10-20): the round reads the farm owner's account (pets.json `github_owner`), finds
+// new pets only there, and reads an example pet that stays another account's (Astra's, on someone else's farm) from
+// that account. Claude Opus 5.5 (claude-opus-5-5), 2026-10-20.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
 
-export const OWNER = 'findastra';
 export const CAGE = 'astras-pet-os'; // renamed from astras-pet-apps by Astra, 2026-10-12
 // The nine moods, most urgent first: when several apply, the first one shows. Meanings are Astra's sketch of
 // 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3); the order is proposed. Claude Opus 5.5, 2026-10-18.
@@ -232,23 +236,23 @@ async function gh(path, token, accept = 'application/vnd.github+json') {
   return accept.includes('raw') ? r.text() : r.json();
 }
 
-/** The repo list: with a token for the account it includes private repos. */
-export async function listRepos(token, ownerToken) {
+/** The repo list of one account: with that account's own token (ownerToken) it includes private repos. */
+export async function listRepos(token, ownerToken, owner) {
   const out = [];
   for (let page = 1; page < 10; page++) {
-    const path = ownerToken ? `/user/repos?affiliation=owner&per_page=100&page=${page}` : `/users/${OWNER}/repos?type=owner&per_page=100&page=${page}`;
+    const path = ownerToken ? `/user/repos?affiliation=owner&per_page=100&page=${page}` : `/users/${owner}/repos?type=owner&per_page=100&page=${page}`;
     const batch = await gh(path, ownerToken || token);
     if (!batch || !batch.length) break;
-    out.push(...batch.filter((r) => r.owner.login === OWNER));
+    out.push(...batch.filter((r) => sameAccount(r.owner.login, owner)));
     if (batch.length < 100) break;
   }
-  return out.map((r) => ({ name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, pushed: r.pushed_at, branch: r.default_branch }));
+  return out.map((r) => ({ owner: r.owner.login, name: r.name, private: r.private, fork: r.fork, archived: r.archived, description: r.description || '', topics: r.topics || [], created: r.created_at, pushed: r.pushed_at, branch: r.default_branch }));
 }
 
 /** What the self-audit needs from one repo. */
 export async function snapshot(repo, token, full) {
-  const raw = (p) => gh(`/repos/${OWNER}/${repo.name}/contents/${p}`, token, 'application/vnd.github.raw');
-  const tree = await gh(`/repos/${OWNER}/${repo.name}/git/trees/${repo.branch || 'HEAD'}?recursive=1`, token);
+  const raw = (p) => gh(`/repos/${repo.owner}/${repo.name}/contents/${p}`, token, 'application/vnd.github.raw');
+  const tree = await gh(`/repos/${repo.owner}/${repo.name}/git/trees/${repo.branch || 'HEAD'}?recursive=1`, token);
   if (!tree) return { readable: false, private: repo.private };
   const files = tree.tree.filter((t) => t.type === 'blob').map((t) => t.path);
   const snap = { readable: true, private: repo.private, topics: repo.topics, files, pushed: repo.pushed };
@@ -273,8 +277,14 @@ export function denverDate(d = new Date()) {
 
 export async function runRound({ registry, status, token, ownerToken, validateProblems = [], now = new Date(), log = console.log, only = null, all = false, approved = [], github = { listRepos, snapshot } }) {
   const today = denverDate(now);
-  const repos = await github.listRepos(token, ownerToken);
-  const byName = new Map(repos.map((r) => [r.name, r]));
+  // The farm owner's repos, where new pets are found; then each other account an example pet stays on, read only.
+  const farm = farmOwner(registry);
+  const at = (owner, name) => `${owner.toLowerCase()}/${name}`;
+  const repos = (await github.listRepos(token, ownerToken, farm)).map((r) => ({ owner: farm, ...r }));
+  const others = new Map(allPets(registry).map((p) => ownerOf(registry, p.repo)).filter((o) => !sameAccount(o, farm)).map((o) => [o.toLowerCase(), o]));
+  const borrowed = [];
+  for (const owner of others.values()) borrowed.push(...(await github.listRepos(token, null, owner)).map((r) => ({ owner, ...r })));
+  const byName = new Map([...repos, ...borrowed].map((r) => [at(r.owner, r.name), r]));
   const report = { today, discovered: [], submissions: [], names: [], visibility: [], audited: [], unreadable: [], missing: [] };
 
   // 1. Discovery: a repo with a pet.json or the pet-app topic asks to be a pet. It waits at the gate (candidates).
@@ -292,9 +302,10 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   for (const pet of allPets(registry)) {
     if (pet.repo === registry.cage) continue;
     const entry = [...registry.pets, ...registry.pipeline].find((p) => p.repo === pet.repo);
-    const r = byName.get(pet.repo);
+    const owner = ownerOf(registry, pet.repo);
+    const r = byName.get(at(owner, pet.repo));
     if (!r) {
-      if (pet.visibility === 'private' && !ownerToken) report.unreadable.push(pet.repo);
+      if (pet.visibility === 'private' && (!ownerToken || !sameAccount(owner, farm))) report.unreadable.push(pet.repo);
       else report.missing.push(pet.repo);
       status.pets[pet.repo] = { pet: pet.pet, ...auditPet(registry, pet, { readable: false, private: pet.visibility === 'private' }), checked: status.pets[pet.repo]?.checked || null };
       continue;

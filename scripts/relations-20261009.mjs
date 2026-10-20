@@ -37,6 +37,7 @@ export function buildRelations(registry) {
   out.push('  ST --> B');
   out.push('  B --> C["ROSTER.md · Farmer\'s desk<br/>MOOD-KEY.md · RELATIONS.md"]');
   out.push('  R --> PR{{"Profile round, daily"}}');
+  // Astra-only on purpose (card 058, Part 3, 2026-10-20): the profile round writes Astra's own profile README. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
   out.push('  PR --> PF["findastra/findastra README"]');
   out.push('  R -->|"registry, pet words"| G{{"GitHub Goldfish"}}');
   out.push('  G -->|"findings as cards"| F');

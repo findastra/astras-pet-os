@@ -10,28 +10,36 @@
 //   node scripts/pet-finder-20261016.mjs                       # asks GitHub (GITHUB_TOKEN optional)
 //   node scripts/pet-finder-20261016.mjs --repos repos.json    # offline: [{ name, private, description, petJson }]
 //   node scripts/pet-finder-20261016.mjs --local "%USERPROFILE%\Documents\Astra's PetOS"
+//
+// Whose pets (card 058, Part 3, 2026-10-20): each pet is looked for on its own account (ownerOf: a pet's own
+// `github_owner`, else the farm owner's from pets.json), and only the farm owner's own repos can be new pets for it.
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-
-const OWNER = 'findastra';
+import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
 const PLACEHOLDER = /pet-program-\d+|icon-\d+/i;
 
 /**
  * @param {{ programs: object[], registry: object, repos: object[], local?: object[] }} input
- *   repos: [{ name, private, description, petJson }] (petJson is the repo's pet.json, or null)
+ *   repos: [{ owner, name, private, description, petJson }] (petJson is the repo's pet.json, or null; owner defaults to
+ *   the farm owner's account)
  *   local: [{ folder, onGitHub, pet, program, file }] pet metadata found in folders on the PC
  * @returns {{ kind: string, pet: string|null, repo: string|null, number: number|null, detail: string }[]}
  */
 export function findPets({ programs, registry, repos, local = [] }) {
   const out = [];
   const add = (kind, f) => out.push({ kind, pet: null, repo: null, number: null, ...f });
-  const online = new Map(repos.filter((r) => !r.fork && !r.archived && r.name !== OWNER).map((r) => [r.name, r]));
+  const farm = farmOwner(registry);
+  const at = (owner, name) => `${String(owner).toLowerCase()}/${name}`;
+  // A profile repo is named after its account (findastra/findastra): it is not a pet.
+  const all = repos.filter((r) => !r.fork && !r.archived).map((r) => ({ owner: farm, ...r })).filter((r) => !sameAccount(r.name, r.owner));
+  const online = new Map(all.map((r) => [at(r.owner, r.name), r]));
+  const find = (repo) => online.get(at(ownerOf(registry, repo), repo));
   const byRepo = new Map(programs.map((p) => [p.repo, p]));
   const byNumber = new Map(programs.map((p) => [p.number, p]));
   const registered = new Set([...(registry.pets || []), ...(registry.pipeline || [])].map((p) => p.repo));
 
   // 1. A repo on GitHub that is a pet (pet.json, or "pet program (#N)" in its description) but has no line.
-  for (const r of online.values()) {
+  for (const r of all.filter((x) => sameAccount(x.owner, farm))) {
     if (byRepo.has(r.name)) continue;
     const pj = r.petJson || null;
     const num = pj && Number.isInteger(pj.number) ? pj.number : Number((/pet program \(#(\d+)/i.exec(r.description || '') || [])[1]) || null;
@@ -42,7 +50,7 @@ export function findPets({ programs, registry, repos, local = [] }) {
   }
 
   for (const p of programs) {
-    const r = online.get(p.repo);
+    const r = find(p.repo);
     // 2. A listed pet whose repo is not on GitHub: it cannot show on the profile.
     if (!r) { if (!out.some((f) => f.kind === 'wrong-repo' && f.number === p.number)) add('no-repo', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon}: no ${p.repo} repo on GitHub, so it is left off the profile.` }); continue; }
     // 3. The pet's own pet.json calls it something else.
@@ -55,7 +63,7 @@ export function findPets({ programs, registry, repos, local = [] }) {
   for (const p of programs) {
     if (PLACEHOLDER.test(p.icon)) add('placeholder-name', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} has a placeholder for a pet name: "${p.icon}".` });
   }
-  const homeless = programs.filter((p) => !p.assigned && online.has(p.repo));
+  const homeless = programs.filter((p) => !p.assigned && find(p.repo));
   if (homeless.length) add('no-home', { detail: `${homeless.length} listed pets have no home yet: ${homeless.map((p) => `#${p.number} ${p.icon}${p.idea ? ` (idea: ${p.idea})` : ''}`).join(', ')}.` });
 
   // 6. Pets that live only on the PC.
@@ -90,15 +98,15 @@ async function gh(path, token) {
   return r.json();
 }
 
-async function githubRepos(token) {
+async function githubRepos(token, owners) {
   const out = [];
-  for (let page = 1; page < 10; page++) {
-    const batch = await gh(`/users/${OWNER}/repos?type=owner&per_page=100&page=${page}`, token);
+  for (const owner of owners) for (let page = 1; page < 10; page++) {
+    const batch = (await gh(`/users/${owner}/repos?type=owner&per_page=100&page=${page}`, token)) || [];
     for (const x of batch) {
-      const file = await gh(`/repos/${OWNER}/${x.name}/contents/pet.json`, token).catch(() => null);
+      const file = await gh(`/repos/${owner}/${x.name}/contents/pet.json`, token).catch(() => null);
       let petJson = null;
       try { petJson = file?.content ? JSON.parse(Buffer.from(file.content, 'base64').toString('utf8')) : null; } catch { /* broken pet.json */ }
-      out.push({ name: x.name, private: x.private, fork: x.fork, archived: x.archived, description: x.description || '', petJson });
+      out.push({ owner, name: x.name, private: x.private, fork: x.fork, archived: x.archived, description: x.description || '', petJson });
     }
     if (batch.length < 100) break;
   }
@@ -109,7 +117,9 @@ if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1].r
   const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
   const programs = JSON.parse(readFileSync(arg('--programs') || 'pet-programs.json', 'utf8')).programs;
   const registry = JSON.parse(readFileSync(arg('--registry') || 'pets.json', 'utf8'));
-  const repos = arg('--repos') ? JSON.parse(readFileSync(arg('--repos'), 'utf8')) : await githubRepos(process.env.GITHUB_TOKEN);
+  // The farm owner's account, and every account a listed pet lives on (Astra's, for the examples on another farm).
+  const owners = new Map([farmOwner(registry), ...programs.map((p) => ownerOf(registry, p.repo))].map((o) => [o.toLowerCase(), o]));
+  const repos = arg('--repos') ? JSON.parse(readFileSync(arg('--repos'), 'utf8')) : await githubRepos(process.env.GITHUB_TOKEN, [...owners.values()]);
   const localDir = arg('--local');
   const local = localDir && existsSync(localDir) ? scanLocal(localDir, new Set(repos.map((r) => r.name))) : [];
   const findings = findPets({ programs, registry, repos, local });

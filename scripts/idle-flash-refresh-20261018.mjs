@@ -25,6 +25,7 @@ const COAUTHOR = process.env.FLASH_COAUTHOR || 'Claude Opus 5.5 <noreply@anthrop
 const W = process.env.FLASH_WORK || `${tmpdir()}/idle-flash-audit`.replaceAll('\\', '/');
 mkdirSync(W, { recursive: true });
 const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit refreshes its findings on Astra's own repos, from her hub. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const levels = execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', 'repos/findastra/astras-pet-os/contents/INTELLIGENCE-LEVELS.md?ref=main'], { encoding: 'utf8', maxBuffer: 32 << 20 });
 const levelRows = {};
 for (const line of levels.split('\n')) {

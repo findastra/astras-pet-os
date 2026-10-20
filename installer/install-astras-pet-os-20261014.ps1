@@ -93,8 +93,8 @@ function Get-FarmPets([string]$Root) {
             # Claude Bot's art is private (an exact copy of ChatGPT's BSOD), so it is never in a release.
             if ((Get-Field $d 'private') -eq $true) { continue }
             $id = [string](Get-Field $d 'id'); if (@($list | Where-Object { $_.Id -eq $id }).Count) { continue }
-            # A draft points to its repo on GitHub, or (since 2026-10-19) to its pet program page in this hub.
-            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/findastra/', '' -replace '^apps/pet-programs/(.+)-\d{8}\.html$', '$1'
+            # A draft points to its repo on GitHub, on any account (card 058, Part 3), or (since 2026-10-19) to its pet program page in this hub.
+            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/[^/]+/', '' -replace '^apps/pet-programs/(.+)-\d{8}\.html$', '$1'
             $name = [string](Get-Field $d 'name')
             $list.Add([pscustomobject]@{ Id = $id; Name = $name; Repo = $repo; Job = [string]$jobs[$repo]; Core = $false; Draft = $true
                 DevName = $(if ($agents[$repo]) { $agents[$repo] } else { $name }) })

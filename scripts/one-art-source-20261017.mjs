@@ -14,6 +14,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): every pet picture lives in Astra's PetOS itself (findastra/astras-pet-os, upstream), and this check (Flash Audit A58) reads every repo on her account. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 export const OWNER = 'findastra';
 export const HUB = 'astras-pet-os';
 export const HUB_RAW = `https://raw.githubusercontent.com/${OWNER}/${HUB}/main/`;

@@ -45,6 +45,12 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
   saying so. A tool that changes GitHub acts only on the farm owner's own pets (`assertOwnPet`) and only while the
   signed-in account is that owner (`assertSignedInAsOwner`); the sign-in only has to agree, it never decides. Enforced
   by these checks in the farm's own scripts; GitHub's permissions are what stop one person changing another's repos.
+- **Upstream is not the farm owner (Astra, 2026-10-20).** Where Astra's PetOS comes from (`upstream()`: its releases,
+  pictures, guide, pages and docs) and whose pets these are (`farmOwner()`, and `ownerOf()` for one repo) are two
+  answers of `scripts/farm-owner-20261020.mjs`. A farm-facing script asks it and never writes an account; only Astra's
+  own tools (her profile round, the Flash Audit, the one-art-source check) name hers, and say so
+  (`test/farm-owner-upstream-test-20261020.mjs`). A new farm becomes its owner's with the Friendly Farmer's
+  make-it-yours, never by hand.
 - **Nobody becomes an animal by saying so.** A new repo, a `pet.json` or a `pet-app` topic only puts it at the gate
   (`candidates`). Astra moves it in with a pull request. An agent never adds an animal, marks a third-party program as
   one, or widens an animal's permissions.

@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { allPets, moodKey, ORDER } from './farmer-rounds-20261009.mjs';
+import { ownerOf } from './farm-owner-20261020.mjs';
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
 const art = JSON.parse(readFileSync('art/frames/index.json', 'utf8'));
@@ -34,7 +35,7 @@ function clientMain() {
   const field = (parent, label, name, options) => { const wrap = h('label', label, '', parent); const input = h(options ? 'select' : name === 'notes' ? 'textarea' : 'input', undefined, '', wrap); input.name = name; if (options) for (const value of options) { const o = h('option', value, '', input); o.value = value; } return input; };
   const toolbar = h('div', undefined, 'toolbar', document.querySelector('header'));
   button(toolbar, 'Export local notes', () => download(JSON.stringify({ app: cfg.repo, exported: new Date().toISOString(), ...state }, null, 2)), 'secondary');
-  link(toolbar, 'Source repository', 'https://github.com/findastra/' + cfg.repo);
+  link(toolbar, 'Source repository', 'https://github.com/' + cfg.owner + '/' + cfg.repo);
   const notesCard = () => { const box = card('Session notes', 'Keep the next useful step close to the work.'); const n = field(box, 'Notes', 'notes'); n.value = state.notes; n.onchange = () => { state.notes = n.value; save(); }; };
   const checklist = (title, items) => { const box = card(title, 'Check a step after you have verified it yourself.'); for (const [id, text] of items.entries()) { const row = h('label', undefined, 'check', box); const input = h('input', undefined, '', row); input.type = 'checkbox'; input.checked = state.checks[id] === true; h('span', text, '', row); input.onchange = () => { state.checks[id] = input.checked; save(); }; } return box; };
 
@@ -43,7 +44,7 @@ function clientMain() {
     const st = cfg.status || { pets: {}, needs_astra: [] }, nowIso = new Date().toISOString();
     const needBox = card('Needs you', st.updated ? 'From the Farmer\'s round on ' + st.updated.slice(0, 10) + '. A pet is curious when it needs your OK or your input.' : 'The Farmer has not done a round yet.');
     if (!(st.needs_astra || []).length) h('p', st.updated ? 'Nobody needs you right now.' : 'No round yet.', 'muted', needBox);
-    for (const n of st.needs_astra || []) { const row = h('p', undefined, 'need', needBox); h('strong', n.pet + ': ', '', row); h('span', n.need, '', row); row.append(' '); link(row, 'Repo', 'https://github.com/findastra/' + n.repo, 'inline'); }
+    for (const n of st.needs_astra || []) { const row = h('p', undefined, 'need', needBox); h('strong', n.pet + ': ', '', row); h('span', n.need, '', row); row.append(' '); link(row, 'Repo', 'https://github.com/' + ((cfg.owners || {})[n.repo] || cfg.owner) + '/' + n.repo, 'inline'); }
     const keyBox = card('Mood key', 'What each face means for each pet, and how each one is right now.');
     const pick = h('select', undefined, 'key-pick', h('label', 'Pet', '', keyBox));
     for (const p of cfg.everyone) { const o = h('option', p.pet + (p.stage === 'pipeline' ? ' (pipeline)' : ''), '', pick); o.value = p.repo; }
@@ -176,7 +177,9 @@ for (const config of configs) {
   const status = statusFile && existsSync(statusFile) ? JSON.parse(readFileSync(statusFile, 'utf8')) : null;
   const everyone = allPets(registry).map((p) => ({ repo: p.repo, pet: p.pet, stage: p.stage, audit: p.audit, key: moodKey(registry, p),
     frames: art.pets[p.art] ? Object.fromEntries(Object.entries(art.pets[p.art].frames).map(([m, f]) => [m, '../' + f])) : null }));
-  const data = { ...config, ...(config.type === 'manager' ? { pets: registry.pets, everyone, status, order: ORDER } : {}) };
+  // Every repo link names the pet's own GitHub account (card 058, Part 3): an example pet stays Astra's on another farm.
+  const owners = Object.fromEntries(allPets(registry).map((p) => [p.repo, ownerOf(registry, p.repo)]));
+  const data = { ...config, owner: ownerOf(registry, pet.repo), ...(config.type === 'manager' ? { pets: registry.pets, everyone, status, order: ORDER, owners } : {}) };
   const serialized = JSON.stringify(data).replaceAll('<', '\\u003c');
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Astra; OpenAI Codex GPT-6"><title>${esc(config.title)} · Astra's PetOS</title><style>${css}</style></head><body style="--accent:${config.accent}"><header><img src="${image}" alt="${esc(pet.pet)}"><p class="eyebrow">${esc(config.subtitle)}</p><h1>${esc(config.title)}</h1><p>${esc(config.lead)}</p><p id="feedback" role="status" aria-live="polite"></p></header><main></main><footer><p class="limit">${esc(config.limit)}</p><p>Made by Astra · Local companion interface · 2026-10-08 · Built with OpenAI Codex (GPT-6)</p></footer><script>window.APP_CONFIG=${serialized};(${clientMain.toString()})();</script></body></html>`;
   writeFileSync(output, html);

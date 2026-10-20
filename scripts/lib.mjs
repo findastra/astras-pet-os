@@ -1,7 +1,10 @@
 // Shared by update-readme.mjs, check-pets-20261018.mjs, build.mjs and the tests.
-export const OWNER = 'findastra';
+import { repoUrl, upstream } from './farm-owner-20261020.mjs';
+// Astra's account, where Astra's PetOS comes from (upstream). Pets link to their own account with repoUrl() from
+// scripts/farm-owner-20261020.mjs (card 058, Part 3); OWNER stays for scripts on other branches that import it.
+export const OWNER = upstream().owner;
 // The one download for people who want Astra's PetOS (the release's installer zip, never the repo). Astra, 2026-10-18.
-export const INSTALLER_URL = 'https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip';
+export const INSTALLER_URL = upstream().installer;
 export const START = '<!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->';
 export const END = '<!-- pets:end -->';
 export const STATUSES = ['hatching', 'growing', 'grown'];
@@ -36,7 +39,7 @@ const esc = (s) => s.replace(/[\\|]/g, '\\$&');
 
 export function buildTable(registry) {
   const rows = (registry.pets || []).map((p) => {
-    const repo = `https://github.com/${OWNER}/${p.repo}`;
+    const repo = repoUrl(registry, p.repo); // on the pet's own account (card 058, Part 3)
     const accessible = p.published !== false && p.visibility !== 'private';
     // The host is Astra's PetOS itself: it is installed with the installer, so its row never offers the repo's ZIP.
     const availability = p.role === 'host' ? `[Installer](${INSTALLER_URL})` : p.published === false ? 'not on GitHub yet' : p.visibility === 'private' ? 'private repo' : `[Download ZIP](${repo}/archive/refs/heads/main.zip)`;

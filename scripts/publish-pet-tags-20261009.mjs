@@ -10,12 +10,15 @@
 // Safe to re-run: an existing correct tag is left alone; a tag on any other commit stops the run.
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, readFileSync } from 'node:fs';
-import { assertAnimal } from './animal-guard-20261013.mjs';
+import { assertOwnPet } from './animal-guard-20261013.mjs';
+import { farmOwner, repoOf } from './farm-owner-20261020.mjs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const TAG = 'v0.1.1-20261009', PREVIOUS = 'v0.1.0-20261008';
-const TAGGER = ['-c', 'user.name=Astra', '-c', 'user.email=findastra@users.noreply.github.com'];
+// The farm owner tags their own pets, on their own account (pets.json `owner` and `github_owner`; card 058, Part 3).
+const registry = JSON.parse(readFileSync(new URL('../pets.json', import.meta.url), 'utf8'));
+const TAGGER = ['-c', `user.name=${registry.owner}`, '-c', `user.email=${farmOwner(registry)}@users.noreply.github.com`];
 const RELEASES = [
   ['unity-unicorn', '4b52289', 'Unity Unicorn · project desk draft'],
   ['drum-dog', 'b95703a', 'Drum Dog · music planner draft'],
@@ -32,12 +35,11 @@ const has = (cmd) => { try { run(cmd, ['--version']); return true; } catch { ret
 const gh = has('gh');
 let problems = 0;
 
-// Animal guard (2026-10-13): only pets in the registry may be tagged or released.
-const registry = JSON.parse(readFileSync(new URL('../pets.json', import.meta.url), 'utf8'));
-for (const [repo] of RELEASES) assertAnimal(registry, repo, 'tag and release');
+// Animal guard (2026-10-13): only pets in the registry may be tagged or released, and only the farm owner's own (2026-10-20).
+for (const [repo] of RELEASES) assertOwnPet(registry, repo, 'tag and release');
 
 for (const [repo, short, title] of RELEASES) {
-  const url = `https://github.com/findastra/${repo}`;
+  const url = `https://github.com/${repoOf(registry, repo)}`;
   try {
     const main = run('git', ['ls-remote', url, 'refs/heads/main']).split(/\s/)[0];
     if (!main.startsWith(short)) throw new Error(`main is ${main.slice(0, 7)}, expected ${short}; someone changed it, review before tagging`);
@@ -56,9 +58,9 @@ for (const [repo, short, title] of RELEASES) {
     let release = 'not checked (dry run)';
     if (gh) {
       let exists = true;
-      try { run('gh', ['release', 'view', TAG, '-R', `findastra/${repo}`]); } catch { exists = false; }
+      try { run('gh', ['release', 'view', TAG, '-R', repoOf(registry, repo)]); } catch { exists = false; }
       if (!exists && !dryRun) {
-        run('gh', ['release', 'create', TAG, '-R', `findastra/${repo}`, '--prerelease', '--verify-tag', '--title', `${title} · square pet frame`, '--notes',
+        run('gh', ['release', 'create', TAG, '-R', repoOf(registry, repo), '--prerelease', '--verify-tag', '--title', `${title} · square pet frame`, '--notes',
           `The pet frame in the side rail is now square at every window width. It was 176×190 on wide windows, 151×190 at laptop widths (with the pet clipped) and 70×77 on phones. Layout only: records, storage and exports are unchanged.\n\nOpen ${repo}-20261008.html from the source ZIP.\n\nSource: ${url}/tree/${TAG}\nRollback: ${PREVIOUS} is unchanged. No published tag is moved.`]);
         exists = true;
       }

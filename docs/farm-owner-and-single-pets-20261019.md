@@ -1,7 +1,7 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
-(#157, card 058); Parts 3 and 4 are not built. By Claude Opus 5.5
+(#157, card 058); Part 3 is pull request #164, waiting on Astra's OK; Part 4 is not built. By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -123,6 +123,18 @@ pet-finder, the Pets Board, the pet program spawner (its Source and Pedigree lin
 farm list, `farm-setup`, the desktop draft list and `publish-pet-tags`. Astra-only tools keep `findastra` on purpose and
 say so: her profile round, the Flash Audit and the one-art-source check. Plus a **make-it-yours** command that sets a
 new farm's owner and marks the examples as Astra's, so a beginner never edits JSON by hand.
+
+**As built (pull request #164, 2026-10-20):**
+- The module is `scripts/farm-owner-20261020.mjs`. Its `ownerOf()` gives one repo's account: the pet's own
+  `github_owner`, else the farm owner's. A candidate is the farm owner's. A repo the farm's pets.json does not list
+  is upstream's.
+- make-it-yours is `node scripts/make-it-yours-20261020.mjs <GitHub name> [--dry-run]`. The Friendly Farmer, the farm's
+  own hub copy, becomes the new owner's.
+- On Astra's farm no generated file changes, except the new tool's own row.
+- Left for later:
+  - the hub's own name inside pets.json (a copy with another name);
+  - a public page for a farm's own pets (Part 4);
+  - the System Map's per-node repo links.
 
 ### Part 4: one pet at a time (later pull requests)
 

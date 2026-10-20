@@ -1,5 +1,6 @@
 // Builds ROSTER.md (the running list) from pets.json. The count here is the count everywhere.
-import { OWNER, assetPaths } from './lib.mjs';
+import { assetPaths } from './lib.mjs';
+import { repoUrl } from './farm-owner-20261020.mjs';
 
 export function counts(registry) {
   const apps = registry.pets || [], mascots = registry.mascots || [];
@@ -24,7 +25,7 @@ export function buildRoster(registry, moods, names = {}, frames = {}) {
 
   out.push('## Pet apps', '', '| # | Pet | Role | Status | On GitHub | What it does | Art |', '|---|---|---|---|---|---|---|');
   (registry.pets || []).forEach((p, i) => {
-    const where = p.published === false ? 'not yet' : p.visibility === 'private' ? 'private repo' : `[${p.repo}](https://github.com/${OWNER}/${p.repo})`;
+    const where = p.published === false ? 'not yet' : p.visibility === 'private' ? 'private repo' : `[${p.repo}](${repoUrl(registry, p.repo)})`;
     out.push(`| ${i + 1} | **${p.pet}** | ${p.role} | ${p.status} | ${where} | ${p.job} | ${[p.art, ...(p.companions || [])].map((id) => img(id, 'idle', 48)).join(' ')} |`);
   });
   if ((registry.mascots || []).length) {
