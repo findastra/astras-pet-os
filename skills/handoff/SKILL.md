@@ -1,76 +1,149 @@
 ---
 name: handoff
-description: Check for, pick up, or write handoff cards so work moves between Astra's assistants (Claude accounts, OpenAI Codex/ChatGPT, others). Use whenever Astra's request is unclear, names an assignment, or mentions a pet or person you do not recognise ("the farmer", "the goldfish"), and whenever you stop with work left for someone else.
+description: Coordinate work between Astra's assistants using shared handoff cards, explicit file ownership, delivery evidence and review. Use when handing off work, resuming another assistant's task, coordinating parallel edits, or stopping with work for someone else.
 ---
 
 # Handoffs
 
-Astra works with many assistants at once. GitHub is the shared desk: anything one assistant
-leaves for another is a card in a repo's `handoffs/` folder, not a chat message.
-Same card format as `findastra/data-dealer` (`skills/handoff/SKILL.md` there).
+Shared workflow for Codex, Claude and other assistants. OpenAI Codex (GPT-6), 2026-10-20.
 
-## When Astra's request is unclear or sounds like an assignment
-Check GitHub **before** asking her:
-1. List `findastra` repos. Look for the name, pet or person she used (pet names are in
-   `findastra/astras-pet-os/pets.json`; the **Friendly Farmer** runs The Farm, so
-   "tell the farmer" means a card in `astras-pet-os/handoffs/`).
-2. Read `handoffs/README.md` in the likely repos and any card that is `open` and `for:` you
-   or `any`.
-3. Read, in full, that repo's `AGENTS.md`, `CLAUDE.md` and every `SKILL.md` (on every branch),
-   plus everything in the "Before any work" list in `astras-pet-os/AGENTS.md`. Never skim.
-Ask Astra only what the repos do not answer, and say what you already found.
+Keep durable rules here and in global instructions. Keep current assignments, file ownership,
+progress and acceptance in the project's existing shared board or handoff cards. Reuse that
+record; do not introduce a competing board or a second `agent-handoff` skill.
 
-## Card format: `handoffs/NNN-short-name.md`
-```
-status: open | taken by <who> | done
-for: any | claude | codex | farmer | goldfish | <named assistant>
-from: <model name and version>, <YYYY-MM-DD>
-needs: <files to read>
+## Find and resume the actual work
+
+1. Locate the project, its current instructions and shared record. For GitHub projects, fetch
+   without disturbing active edits, inspect relevant branches and PRs, and read the current
+   handoff and required project instructions. Keep the live checkout on its current branch
+   when programs use it; use the project's approved worktree workflow for isolated edits.
+2. Verify the recorded files, revision, output and test evidence exist. Inspect dirty work
+   and other assistants' claims before editing. Search relevant remote branches and local
+   artifacts before declaring work missing. Read the whole card: its header or index may
+   lag later updates, artifacts and Git history. A closed chat or account/plan change does not
+   establish that its work was lost or that its owner released the files.
+3. Continue from existing deliverables. Rebuild only when evidence shows why they cannot be
+   reused or Astra explicitly requests replacement; record what is reusable and the reason
+   for replacing anything. A newer card is evidence of progress, not authority to override
+   Astra's instructions. Resolve material contradictions before the affected changes.
+
+Use current project assignments. Do not permanently assign implementation to Claude or
+review to Codex: choose the implementer and reviewer from the task, available tools/access
+and current context. Preserve Astra's explicit choices. Verify identity/workspace when
+account-specific work needs it; a paid seat does not prove access, shared memory or migration.
+
+## Claim a bounded scope
+
+Record one implementer, exact writable files or a clearly bounded directory, reviewer (or
+`unassigned`), next action and acceptance criteria. Only one active writer owns a file.
+Parallel work needs disjoint write scopes. Review is read-only unless an edit scope is
+explicitly transferred; the reviewer returns fixes to the implementer otherwise.
+
+For a card, set `status: taken by <assistant/session>` and commit/publish the claim to the
+authorized shared location before editing its scope. Recheck other claims and remote state.
+Two claims on different branches are not a lock: stop overlapping writes and reconcile them.
+Transfer ownership explicitly, with the old writer released and the recipient's acknowledgment.
+Silence, an old timestamp, a tool result or editing a card is not acknowledgment.
+If the former session is unavailable, use an explicit owner reassignment and check for
+uncommitted work before taking over. Astra directly asking you to resume that task counts
+as reassignment within her stated scope; do not ask her to repeat it. Still preserve unexplained
+edits and reconcile any demonstrably active overlapping writer before changing those files.
+
+## Deliver, receive, then complete
+
+- **IN_PROGRESS:** the named writer works within the claimed scope.
+- **READY_FOR_REVIEW:** record an exact commit or artifact version, changed files, test
+  commands/results, known gaps and the next reviewer action. Publish to the authorized shared
+  location and release the implementation write scope. No implementation writes continue
+  during review; explicitly assign that scope back to a writer before making requested fixes.
+  Delivery is not completion.
+- **Receipt:** the recipient reads the record and artifacts, then records who received which
+  revision, when, and the accepted scope/next action. Do not claim another assistant received
+  it merely because a file or message was sent. This workflow does not authorize messaging
+  another chat or person, scheduling runs, or granting access.
+- **Review:** check the delivered revision against the acceptance criteria and record findings
+  and verification. Changes after review need review of the changed revision. If no reviewer
+  is assigned or available, leave it ready for review and name that gap.
+- **DONE:** only after the required review, acceptance and any required integration/deployment
+  checks. Record the accepted revision, reviewer, approval and integration evidence. Preserve
+  separate approvals required by the project; never infer merge permission from delivery.
+  Honor each approval's stated scope: approval limited to one revision does not cover a
+  subsequent revision.
+
+On interruption or a blocker, update the same record with completed work, location of partial
+artifacts, remaining steps, any running processes and who can act next. Carry existing user
+authorization forward; do not make Astra repeat it. Resume by checking that evidence again.
+
+## GitHub card format
+
+For repos using numbered cards, use `handoffs/NNN-short-name-YYYYMMDD.md` (optionally
+`-HHMMSS` after the date). Apply Astra's lowercase naming rule and America/Denver time.
+Keep existing filenames. Required `SKILL.md`, `AGENTS.md` and `CLAUDE.md` keep their
+loader-required names; surface that reserved-name exception before creating a new one.
+
+Keep `status:` and `for:` in the **first six lines**, with these existing statuses:
+`open`, `taken by <who>`, `done`. Put detailed workflow state in the body so the Farmer's
+reader remains compatible. Descriptive suffixes retain those base statuses. Leave
+review-pending work open or taken by its reviewer.
+When an owner decision is needed, use `status: open (waiting on Astra: <specific decision>)`.
+
+```markdown
+status: open
+for: <recipient or any>
+from: <assistant and known model/version>, <YYYY-MM-DD>
+needs: <current instructions, source files, earlier card>
 ---
-## What I did
 ## Task
+<One deliverable; current owner request and scope.>
+## Ownership and state
+State: READY_FOR_REVIEW
+Implementer: <session>; writable files: <paths>; ownership: released
+Reviewer: <session or unassigned>; next action: <review this revision>
+## What I did
+<Repos, branches, exact revisions/artifact versions, changed files, tests/results,
+published or local-only state, running processes, unfinished work and blockers.>
 ## Done when
+<Observable acceptance criteria, review and required integration checks.>
 ## Return
-Write results to <path>, set status: done, commit.
+<Where the recipient records receipt, review findings, fixes and acceptance evidence.>
+## Receipt and review
+<Pending until the recipient records the revision read and the review result.>
 ```
-**`## What I did` is required on every card you write, and you update it when you finish
-someone else's card.** List it explicitly, so the next assistant does not have to dig through
-chat or git history:
-- every repo, branch and commit hash you changed or pushed (say whether it is on `main`);
-- every file you added or changed, and every file on Astra's PC you touched (full path);
-- commands you ran that changed anything (build, restart, pull, push), and what you tested;
-- where things live now (repo, branch, local folder, log path) and anything still running;
-- what is **not** done, and what is waiting on Astra.
-Name yourself (model and version) and the date. "Fixed the Bug" is not enough; "added a
-heartbeat log to `watcher.cs`, commit `abc1234` on branch `x`, not pushed" is.
-Add a row for the card to `handoffs/README.md`. Numbers never repeat.
 
-## Hatching or changing a pet
-- **Build every pet program to [PET-PROGRAM-FRAMEWORK.md](../../PET-PROGRAM-FRAMEWORK.md)** and run its checklist
-  (its last section) before you push: versioned names everywhere, tool boxes with ON/OFF and sick, the notes tool and
-  backlog, the chat bot, links by kind, the status line, its System Map node, and data that survives updates.
-  Also follow `skills/farm-security` and `skills/new-pet-or-tool`. A new pet waits at the gate until L4 lets it in.
-- A new pet repo needs `pet.json` with an `audit` block, the `pet-app` topic, and an AGENTS.md that links
-  `findastra/astras-pet-os` and its PET-FILES.md. The Farmer's daily round finds it and adds it to the
-  pipeline; leave a `farmer-register-<repo>` card in `astras-pet-os/handoffs/` too.
-- Changing a pet's job, status, bubble lines (`says`), mood lines (`moods`) or audit: also put the change in
-  `cage.submit` in its pet.json with today's date, so the Farmer picks it up (his round opens a pull request).
-  A pet's **name** changes only in `findastra/astras-pet-os/pet-programs.json`, by Astra; a name in `cage.submit` is only a note. See PET-FILES.md, "Submitting a
-  change to the Farmer".
-- To ask Astra for something, leave a card with `status: open (waiting on Astra: <what you need>)`. The pet
-  turns curious (Astra's sketch, 2026-10-18) and that text becomes its bubble on the Cage and the Farmer's desk.
+Every card requires `## What I did`; update it on pickup and delivery. Use repo-relative
+paths and shareable evidence in public cards. Keep personal absolute paths, private logs,
+account details and secrets in an authorized private record, with a safe locator in the card.
+For example, identify "private local verification report, available from the owner" without
+publishing its personal path. The recipient must obtain access to required evidence before
+claiming to have verified it; missing access remains an explicit gap.
+Do not claim an unknown model version; identify the assistant/session you can verify.
 
-## Rules
-- One card, one deliverable. Name the files to read. Never paste keys or personal data.
-- Before starting a card, set `status: taken by <who>` and commit, so two assistants do not
-  do it twice.
-- Write your own card whenever you stop with something left: another assistant's job, a
-  step that needs Astra, or work you could not finish. Say plainly what is not done.
-- Results live in the repo, not in chat. Record your model name and version on the card.
-- Every card says explicitly what was done (`## What I did`, above), not only what is left.
-- Work that only exists on Astra's PC or on an unmerged branch is easy to lose: say where it
-  is on the card. Search every branch (`git ls-remote --heads`, `git log --all`) before saying
-  a pet does not exist.
-- Approval, not clicks (Astra, 2026-10-18): ask for her OK in chat, then merge the branch yourself.
-- Follow the repo's own rules: no pushing to `main` and no new GitHub repos without
-  Astra's OK; work on a branch otherwise.
+Read `handoffs/README.md`, check cards and number reservations across remote branches, then
+reserve the next free number and add the card/index row in the same commit. Recheck before
+pushing; resolve collisions without renumbering already accepted cards. Branch commits and
+PRs are discoverable delivery, but do not claim they are merged or installed.
+
+## Astra's PetOS projects
+
+GitHub is the shared desk for the farm. "Tell the Farmer" means a card in
+`findastra/astras-pet-os/handoffs/`, subject to the existing authorization for that work.
+The catalog assigns this existing trick to The Farm; provider copies are installations,
+not a change of ownership, runtime capability or permissions.
+For pet development, use the current `pet-app` skill and the hub's full reading requirements,
+including its architecture, migration plan and ownership assignments. Its registration,
+framework, security and `cage.submit` rules remain authoritative; do not revive the retired
+Cage UI. Resolve these references from the hub root, not this installed skill's folder.
+
+Follow branch/PR and merge rules. Where Astra's explicit merge approval is required,
+prepare the reviewed result first, then obtain that approval and perform the approved merge.
+
+## Maintain the two provider installs
+
+The maintained source is `findastra/astras-pet-os`, `skills/handoff/SKILL.md`, normally under
+`%USERPROFILE%/Documents/Astra's PetOS/astras-pet-os`. Install the same file at
+`%USERPROFILE%/.codex/skills/handoff/SKILL.md` and
+`%USERPROFILE%/.claude/skills/handoff/SKILL.md`; never edit bundled/cached plugin skills.
+When updating, compare the source revision and installed contents, preserve unrelated local
+changes, validate frontmatter and verify both copies match. Report pending source merge
+separately from local installation. New sessions can discover the installed skill; an existing
+session must read the updated instructions explicitly. Installation alone does not prove it did.

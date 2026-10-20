@@ -24,6 +24,16 @@ no "I'll read it if I need it". This applies to small tasks too.
    before doing anything else.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
+## Shared handoff ownership and review
+
+Use [skills/handoff/SKILL.md](skills/handoff/SKILL.md) for transfers, resumed work and parallel
+editing. Keep current assignments in this project's cards or existing shared board, preserving
+explicit ownership from the migration plan and Astra's instructions. Claim exact files with
+one active writer per file, verify and reuse prior work, and record recipient acknowledgment
+and review of the delivered revision before completion. `READY_FOR_REVIEW` is not `done`.
+Provider-installed copies use this same maintained skill; no separate `agent-handoff` workflow.
+OpenAI Codex (GPT-6), 2026-10-20.
+
 ## One list of names (Astra, 2026-10-16)
 Every pet name (icon) and pet program (home) name is decided in **`pet-programs.json` only**, in the same chat that decides it, on a branch Astra merges (the same day when she can). Never write a new name into pets.json, the System Map, INTELLIGENCE-LEVELS.md, a doc or a repo first: `npm test` (test/name-list-test-20261016.mjs) fails when another list disagrees, and the Farmer's profile round writes the README from the list. Tools vs tricks: a **tool** is code a pet program owns and runs without AI (ON/OFF, sick light, can be bound to a click: one, two, three or more); a **trick** is a skill its seated AI follows, using only that pet's tools: owned by the pet (L2), followed by the agent in the seat (L3). A **harness skill** belongs to the seat, not a pet. Neither is a security boundary; the grants on the tools are ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md), the chart; Astra, 2026-10-18).
 
@@ -181,7 +191,7 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
 - **Questions for Astra are a slideshow** (Astra, 2026-10-19: "I want to see them in slideshows with explanations. Everybody should be doing this."): one question per slide, with why it matters, the options and your recommendation, then ✨ next to its link in chat ([skills/questions-as-slides](skills/questions-as-slides/SKILL.md)).
 - **Merge order:** worked out fresh from GitHub's open pull requests, never kept in a file ([skills/merge-order](skills/merge-order/SKILL.md)). Chat titles are not numbered (Astra, 2026-10-18: the numbering rule was removed). When a reply has more than one merge or action for Astra, show them as one numbered chart in that order, each with what the pull request does and a direct link to where she acts (Astra, 2026-10-18).
 - **Finding things:** when a file, folder or program can't be found, search the File Master way before telling Astra it is missing: Everything, then the disk, then the places things hide (assistants' private copies, Codex task folders, pet state files). The Index Mole is not numbered yet, so it has nothing to run. Found is not the same as working ([skills/find-things](skills/find-things/SKILL.md); Astra, 2026-10-19).
-- **Handoffs:** work left for another assistant is a card in `handoffs/` ([skills/handoff/SKILL.md](skills/handoff/SKILL.md)). "Tell the Farmer" means a card here. Every card lists explicitly what you did (repos, commits, files, paths on Astra's PC, tests) under `## What I did`, not only what is left.
+- **Handoffs:** work left for another assistant is a card in `handoffs/` ([skills/handoff/SKILL.md](skills/handoff/SKILL.md)). "Tell the Farmer" means a card here. Every card lists explicitly what you did (repos, commits, repo-relative files, tests) under `## What I did`, not only what is left. Personal paths and private evidence stay in an authorized private record.
 
 ## Commands
 - `npm run build`, `npm run check` (add `-- --online` to ask GitHub), `npm test`
