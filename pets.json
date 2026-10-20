@@ -60,6 +60,11 @@
         "paper-girl",
         "file-master",
         "chip"
+      ],
+      [
+        "log-lynx",
+        "packet-piranha",
+        "forensic-ferret"
       ]
     ],
     "tag": [
@@ -1007,6 +1012,72 @@
         "needs": "something only you can do"
       },
       "visibility": "public"
+    },
+    {
+      "repo": "log-den",
+      "pet": "Log Lynx",
+      "role": "pet",
+      "art": "log-lynx",
+      "kind": "cat",
+      "asset_date": "20261019",
+      "status": "hatching",
+      "published": true,
+      "job": "Observability: correlates logs, traces, health and failures.",
+      "added": "2026-10-18",
+      "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an electric-teal lynx with navy spots, tangerine ear tufts and a lime logbook. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
+      "interface_local_url": "apps/pet-programs/log-den-20261018.html",
+      "interface_url": "apps/pet-programs/log-den-20261018.html",
+      "app_url": "https://github.com/findastra/log-den#run-it",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the farm’s logs and crash windows",
+        "needs": "a look at a crash I caught"
+      },
+      "visibility": "public"
+    },
+    {
+      "repo": "packet-river",
+      "pet": "Packet Piranha",
+      "role": "pet",
+      "art": "packet-piranha",
+      "kind": "fish",
+      "asset_date": "20261019",
+      "status": "hatching",
+      "published": true,
+      "job": "Network: packet loss, DNS, latency, routing.",
+      "added": "2026-10-18",
+      "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an aqua-cyan piranha with a crimson belly, lemon fins and a toothy underbite. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
+      "interface_local_url": "apps/pet-programs/packet-river-20261018.html",
+      "interface_url": "apps/pet-programs/packet-river-20261018.html",
+      "app_url": "https://github.com/findastra/packet-river#run-it",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the network: loss, latency, DNS and routes",
+        "needs": "a host to trace"
+      },
+      "visibility": "public"
+    },
+    {
+      "repo": "evidence-locker",
+      "pet": "Forensic Ferret",
+      "role": "pet",
+      "art": "forensic-ferret",
+      "kind": "dog",
+      "asset_date": "20261019",
+      "status": "hatching",
+      "published": true,
+      "job": "Incident timelines and log analysis.",
+      "added": "2026-10-18",
+      "note": "DRAFT art, generated 2026-10-19 with Astra's OK: a golden-yellow ferret with a violet bandit mask and a hot pink magnifying glass. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
+      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html",
+      "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
+      "app_url": "https://github.com/findastra/evidence-locker#run-it",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "cases and their chains of custody",
+        "needs": "what you saw at a moment with no crash record"
+      },
+      "visibility": "public"
     }
   ],
   "pipeline": [
@@ -1316,57 +1387,6 @@
         "needs": "native iPad verification and a verified chat adapter"
       },
       "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending."
-    },
-    {
-      "repo": "log-den",
-      "pet": "Log Lynx",
-      "visibility": "public",
-      "status": "hatching",
-      "job": "Observability: correlates logs, traces, health and failures.",
-      "added": "2026-10-18",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "the farm’s logs and crash windows",
-        "needs": "a look at a crash I caught"
-      },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in log-den); no pet art yet (generating it waits on her OK).",
-      "interface_url": "apps/pet-programs/log-den-20261018.html",
-      "interface_local_url": "apps/pet-programs/log-den-20261018.html",
-      "submitted": "2026-10-18"
-    },
-    {
-      "repo": "packet-river",
-      "pet": "Packet Piranha",
-      "visibility": "public",
-      "status": "hatching",
-      "job": "Network: packet loss, DNS, latency, routing.",
-      "added": "2026-10-18",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "the network: loss, latency, DNS and routes",
-        "needs": "a host to trace"
-      },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in packet-river); no pet art yet (generating it waits on her OK).",
-      "interface_url": "apps/pet-programs/packet-river-20261018.html",
-      "interface_local_url": "apps/pet-programs/packet-river-20261018.html",
-      "submitted": "2026-10-18"
-    },
-    {
-      "repo": "evidence-locker",
-      "pet": "Forensic Ferret",
-      "visibility": "public",
-      "status": "hatching",
-      "job": "Incident timelines and log analysis.",
-      "added": "2026-10-18",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "cases and their chains of custody",
-        "needs": "what you saw at a moment with no crash record"
-      },
-      "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK).",
-      "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
-      "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html",
-      "submitted": "2026-10-18"
     },
     {
       "repo": "linux-iceberg",

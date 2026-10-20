@@ -29,6 +29,11 @@ made by someone else that a tool uses (three.js, Google Fonts) is a third-party 
 a node in `system-map.json` (`own-program`, `tool` or `trick`, with `of`), so it reaches the map, the pages and the
 registry table.
 
+**Panel or website? (Astra, 2026-10-19)** A pet program is a control panel. A tool that fits in a tool box (its lights,
+one line, a button) stays on the page. A tool too big for a tool panel (its own tabs, an editor, a gallery, a long
+list to search) becomes its own website: a **native program** of the same pet program, managed from one tool panel
+that shows how it is doing and opens it (PET-PROGRAM-FRAMEWORK.md, section 3).
+
 ## Steps
 1. Restate the need in one line and name the standard software term for it (`skills/dev-mindset`).
 2. List the 1 to 3 pets whose jobs come closest (`pets.json`, `docs/naming-*.md`, the System Map).

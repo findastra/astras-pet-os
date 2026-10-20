@@ -11,7 +11,7 @@ Incident timelines and log analysis.
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/evidence-locker-20261018.html
-- **Its app:** none yet. The pet program page shows its plan.
+- **Its app:** https://github.com/findastra/evidence-locker#run-it
 - **Its code:** https://github.com/findastra/evidence-locker
 
 ## If you are an AI asked to be Forensic Ferret
@@ -47,6 +47,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-No picture yet.
+![Forensic Ferret](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/forensic-ferret/idle-20261019.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

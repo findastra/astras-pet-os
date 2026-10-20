@@ -1,4 +1,4 @@
-status: done 2026-10-19: #128 merged; round run 39368064274 green on main; round pull request #138 opened, #83 closed
+status: open (waiting on Astra: add three paths to line 59 of the Farmer's round workflow)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -61,14 +61,29 @@ in that branch's `status/pets-status.json`, `pets.json` and Farmer's desk. #138 
 Its `pets.json` changes are jobs, audits, bubble lines and mood lines that pets submitted from their own repos, so
 they are data written by a pet.
 
+**Then `main` went red, and it was my merge.** Astra said "ok, merge #138 and #139". I merged #138 as `171dcd7` and
+#139 as `893335f`. Afterwards, `npm test` on `main` failed 3 tests, all of them "generated files are up to date"
+checks: the pet program pages, the Markdown pets and `system-map-20261012.html`. `main` was green just before #138
+(`c4c5939`: 208 pass). The cause is in the workflow. Its `git add` line (line 59) commits `pets.json`, `status`, the
+README, ROSTER, RELATIONS, MOOD-KEY and the Farmer's desk. It leaves out `apps/pet-programs/`, `markdown-pets/` and
+`system-map-20261012.html`, which `build.mjs --metadata-only` also rebuilds from `pets.json`. On the runner those files
+were rebuilt, so the round's own `npm test` passed. They were never committed, so a round that changes `pets.json`
+leaves them stale on `main`. Before merging I should have tested the merged result, not only the round's run.
+- I rebuilt them with `npm run build` on branch `claude/round-pages-rebuild-20261019` (#142, `74d5d35`). Before Astra's
+  OK came, #134's merge rebuilt the same pages on `main` (`4f209f0`), and `main` was green again: `npm test` 209 pass,
+  0 fail. I merged `main` into #142 and rebuilt. The generated files then matched `main` exactly, so #142 carries only
+  this card. `main` was red from `171dcd7` to `4f209f0`.
+
 ## Task
-1. Astra: OK to merge the pull request (Merge order: a scheduled round that fails every day, rank 2 in
-   skills/merge-order).
-2. After the merge, the next scheduled round (06:17 Denver; GitHub often starts it hours late) should pass `npm test`,
-   open `farmer/rounds-YYYYMMDD` and close #83. Or run it at once: Actions > Friendly Farmer's daily rounds > Run workflow.
+1. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
+   https://github.com/findastra/astras-pet-os/edit/main/.github/workflows/farmer-daily-rounds.yml , line 59. Add
+   ` apps/pet-programs markdown-pets system-map-20261012.html` to the end of
+   `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html`, then
+   **Commit changes**. Until then, every round that changes `pets.json` leaves those pages stale, and `main`'s
+   `npm test` fails after its merge.
 
 ## Done when
-A round run on `main` is green and its pull request is open.
+`main` is green after a round's pull request is merged.
 
 ## Return
-Set status: done with the run id and the round's pull request number, commit.
+Set status: done with the round's pull request number and `main`'s test count after it is merged, commit.

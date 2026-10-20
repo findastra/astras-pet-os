@@ -82,6 +82,12 @@ export const PETS = [
   { id: 'voicemeeter-bug', what: 'a tiny cute compact neckless bug with a single round joined head-and-body silhouette, short antennae and little feet, no separate head stalk, no long neck, no props and no lettering', colours: 'soft silver-grey body, vivid signal-red shell details, charcoal-black antennae and feet, tiny pink cheeks' },
   // Platform Platypus: the seed sheet from generate-seeds-20261012.mjs, registered with Astra's OK on 2026-10-17. Same prompt, so a --match redo keeps this body.
   { id: 'platform-platypus', what: 'a cheerful platypus standing upright, with a wide flat duck-like bill, a flat paddle tail and webbed feet, holding a small smartphone', colours: 'deep plum-purple fur, bright banana-yellow bill and feet, neon cyan phone' },
+  // The crash-watch pets (Astra, 2026-10-19: "generate their mood sheets on my OpenAI account"): Log Lynx records, Packet
+  // Piranha measures the network, Forensic Ferret investigates. Each holds the one prop that says its job; palettes no
+  // other pet uses (the lynx is teal, never the panther's violet). Claude Opus 5.5.
+  { id: 'log-lynx', what: 'a sturdy lynx cat sitting upright with tall pointed ears ending in long ear tufts, a fluffy cheek ruff and a short bobbed tail, holding a small open logbook against its chest, no other props and no lettering', colours: 'electric teal fur with small dark navy spots, tangerine-orange ear tufts and nose, ice-white cheek ruff and belly, acid-lime logbook' },
+  { id: 'packet-piranha', what: 'a chubby round piranha fish seen face on, with a big jutting underbite showing a neat row of small white triangle teeth, a forked tail and spiky fins, cute rather than scary, no props and no lettering', colours: 'neon aqua-cyan body with a few silver scale glints, crimson-red belly and jaw, bright lemon-yellow fins and tail, white teeth' },
+  { id: 'forensic-ferret', what: 'a slim ferret standing upright on its hind legs with a long body, a dark bandit eye mask, small round ears and a long tail, holding a big round magnifying glass up beside its face, no hat, no other props and no lettering', colours: 'neon golden-yellow fur, deep violet bandit mask, paws and tail tip, hot pink magnifying glass rim, pale cyan lens' },
 ];
 
 // Role Fairy (Fairy Ring, #83), draft: generated 2026-10-18 with Astra's OK, sheet in art/seeds/role-fairy-sheet-20261018.png.
