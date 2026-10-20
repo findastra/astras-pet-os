@@ -8,11 +8,12 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
 | [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge; then a green round |
 | [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | done when #123 merges (Astra's OK, 2026-10-19); findings 2 and 3 open |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
-| [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #104 |
+| [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge the R W X panel (branch claude/rwx-panel-20261019); task 3 after Role Fairy's bots are built |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, merged (#105) and set to start at sign-in](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: the first start and pet art |
@@ -66,7 +67,7 @@ below and add its row here in the same commit**, so two chats working at once ne
 on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
 cards share a number, or when a card uses a number this table gives to another card.
 
-**Next free number: 053.** Checked on 2026-10-19 across every branch by Claude Opus 5.5 (052 is the Farmer's round credit-line card on `claude/farmer-round-credit-line-20261019`; 051 is the beginner guide card on `claude/beginner-guide-20261019`; 050 is the Markdown pets card on `claude/markdown-pets-20261019`; 049 is the Unity Stable asset tools card on `claude/unity-stable-asset-tools-20261019`; 048 is the how-the-agents-work card on `claude/how-agents-work-20261019`; 047 is the panels card on `claude/programmer-words-20261019`; 043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
+**Next free number: 054.** Checked on 2026-10-19 across every branch by Claude Opus 5.5 (053 is the Mirror Pool tools card on `claude/mirror-pool-tools-20261019`; 052 is the Farmer's round credit-line card on `claude/farmer-round-credit-line-20261019`; 051 is the beginner guide card on `claude/beginner-guide-20261019`; 050 is the Markdown pets card on `claude/markdown-pets-20261019`; 049 is the Unity Stable asset tools card on `claude/unity-stable-asset-tools-20261019`; 048 is the how-the-agents-work card on `claude/how-agents-work-20261019`; 047 is the panels card on `claude/programmer-words-20261019`; 043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card). When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -111,6 +112,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 050 | `050-any-markdown-pets-locked-down-20261019.md` | `main` (merged with #120) |
 | 051 | `051-any-beginner-guide-20261019.md` | `claude/beginner-guide-20261019` |
 | 052 | `052-any-farmer-round-credit-line-20261019.md` | `claude/farmer-round-credit-line-20261019` |
+| 053 | `053-any-mirror-pool-fit-tools-20261019.md` | `claude/mirror-pool-tools-20261019` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
