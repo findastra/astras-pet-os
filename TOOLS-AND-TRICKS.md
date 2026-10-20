@@ -227,12 +227,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
-| 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Planned |
+| 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Works today |
 | 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Planned |
 | 13 | Discord Damsel | Discord Tower | native trick | dm-cleanup | `discord-tower-v1.0-dm-cleanup-trick-v1.0` | Works today |
+| 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Planned |
-| 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton Live |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Spotify |  | Idea |
 | 16 | VSCode Angel | Halo List | third-party program | Visual Studio Community 2022 |  | Idea |
