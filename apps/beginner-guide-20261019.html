@@ -331,6 +331,16 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
     <h3>Give it your farm's name</h3>
     <p>Your copy → <strong>Settings</strong> → <strong>Repository name</strong>. Use lowercase words joined by hyphens,
       for example <code>jordans-pet-os</code>.</p>
+    <h3>Tell your farm it's yours</h3>
+    <p>Your copy's <code>pets.json</code> still says the farm is Astra's. Change <code>"github_owner"</code> to your GitHub
+      name, and mark each of Astra's pets you keep with <code>"github_owner": "findastra"</code>, so they stay hers. Then
+      the Friendly Farmer's tools work on your pets and never on Astra's. Ask your AI with the message below.
+      <span class="dev">the farm owner's GitHub account</span></p>
+    <p class="prompt" id="prompt-owner">Please make my copy of Astra's PetOS mine: in its pets.json, set "github_owner" to my GitHub name, and add "github_owner": "findastra" to each of Astra's pets I keep, as MAKE-IT-YOURS.md says (https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md). Show me the change before you save it.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-owner">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
     <h3>Remove the examples you don't want</h3>
     <ul>
       <li><strong>On the System Map:</strong> click the pet, then <strong>Remove from my map</strong>. This changes only
@@ -356,12 +366,23 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
     </ul>
     <ul>
       <li>New pets on your farm start <strong>private</strong>. Making one public is your choice, any time.</li>
-      <li>To switch: open the pet's repo → <strong>Settings</strong> → scroll down to <strong>Danger Zone</strong> →
-        <strong>Change visibility</strong>.</li>
+      <li>To switch it yourself: open the pet's repo → <strong>Settings</strong> → scroll down to
+        <strong>Danger Zone</strong> → <strong>Change visibility</strong>.</li>
       <li>Before you make a public pet private: GitHub erases its stars and watchers, and its GitHub Pages website stops
         on a free account.</li>
+      <li>Before you make a private pet public: everything in it becomes visible, old versions too. A password or key
+        saved there once is public, even if you deleted it later.</li>
       <li>Your own data never goes into a repo, public or private. Pets keep your data on your computer.</li>
     </ul>
+    <p>Or let the Friendly Farmer's <code>pet-privatizer</code> do it. It shows you first what would change, works only
+      on your own pets while you're signed in to GitHub as you, and before a pet goes public it checks every old version
+      for keys and personal details and stops if it finds any. <span class="dev">repository visibility, with a secret
+      scan of the git history</span></p>
+    <p class="prompt" id="prompt-visibility">Please use the Friendly Farmer's pet-privatizer (scripts/pet-privatizer-20261018.mjs in my copy of Astra's PetOS) to make my pet &lt;the pet's repo&gt; &lt;private or public&gt;. Run plan first and show me what it says. Run apply only after I say yes.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-visibility">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
     <p>Astra keeps her pets public so other people can learn from them, and keeps private what is hers alone.</p>
   </div>
 </details>

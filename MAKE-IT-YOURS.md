@@ -39,7 +39,23 @@ node scripts/pet-privatizer-20261018.mjs copy findastra/astras-pet-os <name> --y
 ```
 
 A copy is not linked to Astra's original the way a fork is: get updates with
-`git pull https://github.com/findastra/astras-pet-os.git main` in your copy, when you choose (step 4).
+`git pull https://github.com/findastra/astras-pet-os.git main` in your copy, when you choose (step 4). Run `copy` from
+Astra's PetOS as you installed it, before you tell your farm it's yours (below): after that, Astra's hub is no longer one
+of your farm's pets.
+
+**Tell your farm it's yours (Astra, 2026-10-20).** Your copy's `pets.json` still says the farm is Astra's
+(`"github_owner": "findastra"`). In your copy:
+
+1. Set `"github_owner"` to your GitHub name, for example `"github_owner": "XxdevilishxX"`.
+2. Give each of Astra's pets you keep its own `"github_owner": "findastra"`, so it stays hers: a pet without one is
+   yours.
+3. Commit the change, in a pull request if you like to check first.
+
+Then the Friendly Farmer's tools act on your pets, and only while you are signed in to GitHub as you (`gh auth status`
+shows who that is). They never change Astra's pets: to change one of hers, make your own copy first.
+
+Or ask your AI: *"Make my copy of Astra's PetOS mine: in pets.json, set github_owner to my GitHub name and add
+`"github_owner": "findastra"` to each of Astra's pets I keep, as MAKE-IT-YOURS.md says. Show me the change first."*
 
 ## 2. Delete examples
 
@@ -73,9 +89,18 @@ conflict, ask your AI for help or open a ticket at the [vet-clinic](https://gith
 - Ask your AI to make a pet for whatever you use: it follows the
   [Pet Program Framework](PET-PROGRAM-FRAMEWORK.md), gives the pet program its own repo (`<you>/<pet-program>`), and
   adds it to your `pets.json`. The Friendly Farmer will do this for you once his spawning tool is built.
-- **Your pets' repos start private** (Astra, 2026-10-18). Making one public is your choice, any time. To make a public
-  pet private again: `node scripts/pet-privatizer-20261018.mjs plan <repo>` shows what changes (stars and watchers are
-  erased, a Pages site stops), then `apply <repo> --yes`. `plan --all` checks every pet on your farm at once.
+- **Your pets' repos start private** (Astra, 2026-10-18). Making one public, or private again, is your choice, any
+  time (Astra, 2026-10-20), with the Friendly Farmer's `pet-privatizer` or in the repo's **Settings** → **Danger
+  Zone** → **Change visibility**:
+  - `node scripts/pet-privatizer-20261018.mjs plan private <repo>` shows what making it private changes (stars and
+    watchers are erased, a Pages site stops), then `apply private <repo> --yes`.
+  - `plan public <repo>` shows what becomes visible (every commit of every branch, issues, releases) and scans every
+    commit for keys, tokens, personal folder paths and local service addresses; `apply public <repo> --yes` stops if
+    the scan found any. Remove it from the history (and revoke any key) first.
+  - `plan private --all` or `plan public --all` checks every pet on your farm at once. `plan <repo>` alone means private.
+  - It works only on your own pets (step 1, "Tell your farm it's yours") while you are signed in as you, never makes
+    the hub that serves every farm's pictures private (Astra's `astras-pet-os`), and never makes public a pet whose
+    `pets.json` entry says `stays_private`.
 - Proud of it? Bring it to [the Kennel](https://github.com/findastra/the-kennel) so other farmers can adopt it.
 
 ## 6. Keep it safe

@@ -39,6 +39,12 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
 - **Everything inside the harness is an animal. Agents can only control animals.** Say it this way in docs and code.
 - An animal is a pet in the registry (`pets.json` `pets` or `pipeline`) plus the core. Check with
   `scripts/animal-guard-20261013.mjs` (`assertAnimal`, `assertInside`) before a script pushes, tags, releases or writes for a repo.
+- **Whose farm, whose pet (Astra, 2026-10-20).** `pets.json` `github_owner` names the farm owner's GitHub account
+  (`findastra` on Astra's farm), and a pet may name its own (an example pet that stays Astra's on someone else's farm);
+  an animal is that pet on that account. Both change only by the farm's own pull request: nobody becomes the owner by
+  saying so. A tool that changes GitHub acts only on the farm owner's own pets (`assertOwnPet`) and only while the
+  signed-in account is that owner (`assertSignedInAsOwner`); the sign-in only has to agree, it never decides. Enforced
+  by these checks in the farm's own scripts; GitHub's permissions are what stop one person changing another's repos.
 - **Nobody becomes an animal by saying so.** A new repo, a `pet.json` or a `pet-app` topic only puts it at the gate
   (`candidates`). Astra moves it in with a pull request. An agent never adds an animal, marks a third-party program as
   one, or widens an animal's permissions.
