@@ -74,7 +74,7 @@ function Get-FarmPets([string]$Root) {
             # Claude Bot's art is private (an exact copy of ChatGPT's BSOD), so it is never in a release.
             if ((Get-Field $d 'private') -eq $true) { continue }
             $id = [string](Get-Field $d 'id'); if (@($list | Where-Object { $_.Id -eq $id }).Count) { continue }
-            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/findastra/', ''
+            $repo = ([string](Get-Field $d 'interface')) -replace '^https://github\.com/[^/]+/', ''  # on any account (card 058, Part 3)
             $list.Add([pscustomobject]@{ Id = $id; Name = [string](Get-Field $d 'name'); Repo = $repo; Job = [string]$jobs[$repo]; Core = $false; Draft = $true })
         }
     }

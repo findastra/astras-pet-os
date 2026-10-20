@@ -24,14 +24,15 @@ const ADDRESS = /^(?:[A-Za-z0-9-]+\/)?[A-Za-z0-9_.-]+$/;
 /** True when `a` and `b` name the same GitHub account: GitHub ignores letter case in account names. */
 export const sameAccount = (a, b) => typeof a === 'string' && typeof b === 'string' && a !== '' && a.toLowerCase() === b.toLowerCase();
 
-function account(name, where) {
+/** Throws unless `name` is a GitHub account name; returns it. */
+export function assertAccount(name, where) {
   if (typeof name !== 'string' || !ACCOUNT.test(name)) throw new Error(`Animal guard: ${where} "${name}" is not a GitHub account name.`);
   return name;
 }
 
 /** The farm owner's GitHub account: `github_owner` in pets.json. */
 export function farmOwner(registry) {
-  return account(registry.github_owner ?? GITHUB_OWNER, 'pets.json github_owner');
+  return assertAccount(registry.github_owner ?? GITHUB_OWNER, 'pets.json github_owner');
 }
 
 /** The repos of every animal in the registry: registered and pipeline pets, plus the core itself. */
@@ -45,7 +46,7 @@ export function animalRepos(registry) {
 export function petOwner(registry, name) {
   const farm = farmOwner(registry);
   const entry = [...(registry.pets || []), ...(registry.pipeline || [])].find((p) => p.repo === name);
-  if (entry) return entry.github_owner === undefined ? farm : account(entry.github_owner, `the github_owner of ${name}`);
+  if (entry) return entry.github_owner === undefined ? farm : assertAccount(entry.github_owner, `the github_owner of ${name}`);
   return name && name === registry.cage ? farm : null;
 }
 

@@ -21,6 +21,7 @@ const PREFLIGHT = process.env.FLASH_PREFLIGHT || resolve(dirname(fileURLToPath(i
 let inspectSnapshot = () => [{ check: 'A18', status: 'Not verified', detail: `Goldfish preflight not found at ${PREFLIGHT}.` }];
 try { ({ inspectSnapshot } = await import(pathToFileURL(PREFLIGHT).href)); } catch { console.error(`Goldfish preflight not found (${PREFLIGHT}): its checks are Not verified.`); }
 
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit checks Astra's own account and repos. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const OWNER = 'findastra';
 const HUB = 'astras-pet-os';
 const OUT = process.argv[2] || 'audit-out';

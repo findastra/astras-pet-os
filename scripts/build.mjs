@@ -50,7 +50,7 @@ const names = Object.fromEntries([
 writeFileSync('ROSTER.md', buildRoster(registry, MOODS, names, data.frames));
 writeFileSync('RELATIONS.md', buildRelations(registry));
 writeFileSync('MOOD-KEY.md', buildMoodKey(registry));
-writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('pet-programs.json', 'utf8')))); // every pet program and its mini-descriptor (2026-10-14)
+writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('pet-programs.json', 'utf8')), { registry })); // every pet program and its mini-descriptor (2026-10-14)
 { const { extra, template, icons, programs } = readSystemMapSources();
   const map = buildSystemMap(redactData(registry, 'pets.json', redacted), redactData(extra, 'system-map.json', redacted), template, icons, programs);
   writeFileSync(SYSTEM_MAP.output, assertPublic(map, SYSTEM_MAP.output));
