@@ -143,6 +143,11 @@
         "retired": [
           "pet frame"
         ]
+      },
+      {
+        "say": "Markdown pet",
+        "means": "the pet as one Markdown file: what it does, where it opens in a browser and the rules an AI follows to act as it, for computers that cannot install",
+        "retired": []
       }
     ]
   },

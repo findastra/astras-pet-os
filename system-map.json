@@ -160,6 +160,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every module of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
     },
     {
+      "id": "markdown-pets",
+      "name": "markdown-pets",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-markdown-pets-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-19: \"make it so that computers under other security protocols can download these agents ... The only files the user could give their computer was the markdown files\"): writes every registered and pipeline pet as one Markdown pet (what it does, where it opens in a browser with nothing to install, and the rules an AI follows to act as it), a farm list and one file with every pet, from the same data as the pet program pages. Files in markdown-pets/, rebuilt by npm run build (scripts/markdown-pets-20261019.mjs). It installs and runs nothing and never works around a computer's security."
+    },
+    {
       "id": "claude",
       "name": "Claude (Anthropic)",
       "type": "model",
@@ -2518,6 +2530,42 @@
       "job": "A tool of Unity Stable, design only (decided 2026-10-14; no code yet): every asset in every world or avatar gets a ledger row (source, license, credits) before it ships, and nothing ships that the ledger has not cleared (unity-unicorn docs/asset-ledger-20261014.md)."
     },
     {
+      "id": "unity-asset-creator",
+      "name": "unity-asset-creator",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Walk one Unity world asset through the researched 12-step checklist, from plan and provenance to colliders, lighting and the in-world review, then export each version (package, previews, checksummed manifest) and open a pull request to unity-assets-library (unity-unicorn tools/unity-asset-creator-20261019.json)."
+    },
+    {
+      "id": "unity-assets-library",
+      "name": "unity-assets-library",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-assets-library-v1.0",
+      "job": "A tool of Unity Stable (Library): The public library of finished world assets, findastra/unity-assets-library: one folder per asset and version, indexed in library.json; versions arrive only from unity-asset-creator's step 12, as pull requests Astra merges (unity-unicorn tools/unity-assets-library-20261019.json)."
+    },
+    {
+      "id": "shaders-shop",
+      "name": "shaders-shop",
+      "type": "tool",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-shaders-shop-v1.0",
+      "job": "A tool of Unity Stable (Workflow): Download shaders for worlds the way Creator Companion would, after showing their files, sources and licences, track which shaders each world uses, and stock our own Unity Stable shaders (unity-unicorn tools/shaders-shop-20261019.json)."
+    },
+    {
       "id": "pet-finder",
       "name": "pet-finder",
       "type": "tool",
@@ -2624,6 +2672,18 @@
       "version": "v1.0",
       "label": "unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0",
       "job": "A trick of Unity Stable (unity-unicorn skills/make-a-prop-look-real/SKILL.md): start a prop from a real CC0 model or scan, take it apart with prop-decomposer, restyle it with realistic-prop-restyle and mount it at true size."
+    },
+    {
+      "id": "unity-asset-creator-trick",
+      "name": "unity-asset-creator",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-unity-asset-creator-trick-v1.0",
+      "job": "A trick of Unity Stable (unity-unicorn skills/unity-asset-creator/SKILL.md): walk the checklist's 12 steps in order through the world's agent queue, ask Astra for the steps that need her (scale and facing, colliders, the review in the world), then export and publish to unity-assets-library with the tools unity-asset-creator and shaders-shop."
     },
     {
       "id": "weekly-update-from-friendly-farmer",

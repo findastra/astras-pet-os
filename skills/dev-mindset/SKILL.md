@@ -78,6 +78,7 @@ Astra wants other software developers to read her build without frustration. She
 | Third-party programs | Third-party software | Made by others; a pet runs them (R X). |
 | Farm event log | Structured event log (JSON Lines) with a versioned schema | One record per line, per pet program, on the PC; owned by Log Den (`farm-event-v1`). Not a "message bus": nothing is sent, records are read. Decided 2026-10-18. |
 | Chain of custody (Evidence Locker) | Chain of custody; a hash chain (tamper-evident log) | Shows that evidence changed; it does not prevent it. Signing (Cipher Owl) is what makes a rewrite of a whole case show. Decided 2026-10-18. |
+| Markdown pet | Agent definition file (a portable system prompt in Markdown) | One pet as one `.md` file: what it does, where it opens, and the rules an AI follows as it. For computers that cannot install. Not a security boundary: its rules hold only while the AI follows them. Decided 2026-10-19. |
 
 ## App vs program
 - A **program** is any code a computer runs: apps, services, drivers, scripts, libraries.

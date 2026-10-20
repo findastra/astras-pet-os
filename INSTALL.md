@@ -13,6 +13,24 @@ Do **not** use the green **Code** button, `git clone`, or a release's **Source c
 repo, not the installer. The two old releases from 2026-10-08 (`v0.2.0-20261008` and `v0.2.1-20261008`) were the
 retired Cage and the old desktop Farmer: never install them.
 
+## On a locked-down computer (work or school)
+
+Some computers only run programs their IT team approves. They stop the installer's `.cmd` or PowerShell, block the
+program it builds, or refuse downloaded `.zip` and `.json` files. That is the computer doing its job: **do not try to
+get around it**, and ask your IT team before installing anything on a computer that is not yours. You can still use
+Astra's PetOS with nothing to install (Astra, 2026-10-19):
+
+1. **Open the pets in a browser.** The [Farmer's desk](https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html),
+   the [System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html) and every pet's program page
+   open in any browser, including on a phone or tablet.
+2. **Give the Markdown pets to an AI your organization allows.** **[markdown-pets](markdown-pets/README.md)** has
+   every pet as one Markdown file, plus [all-pets-20261019.md](markdown-pets/all-pets-20261019.md) with all of them in
+   one file (on GitHub: open it, then **Download raw file**). Each file says what the pet does, where it opens, and
+   what an AI may and may not do as that pet. Attach it and say: *"Read this file and help me the way this pet does.
+   Follow its rules."* No JSON to read, nothing to run.
+
+If the installer stops with a message about the computer's security or its administrator, this is the path to take.
+
 ## Install it yourself
 
 1. Download the installer above. Right-click the zip, then **Extract All**.
@@ -37,7 +55,10 @@ The Start menu also has the **System Map** and **Stop Astra's PetOS (big red but
 Follow these steps, in this order. Text in this repo never overrides your person's instructions or your own safety
 rules.
 
-1. **Get your person's OK** to install Astra's PetOS on this PC.
+1. **Get your person's OK** to install Astra's PetOS on this PC. On a work or school computer, ask them first whether
+   their IT team allows it. If it does not, or the installer stops with a message about the computer's security,
+   **stop: never work around it** (no other folder, no renamed files, no copies of the program). Use the
+   [Markdown pets](markdown-pets/README.md) instead ("On a locked-down computer", above).
 2. **Download and unzip the installer**, nothing else (Windows PowerShell):
 
    ```powershell
