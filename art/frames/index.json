@@ -375,6 +375,60 @@
     "sleep": "art/frames/platform-platypus/sleep-20261012.png"
    },
    "sheet": "art/sheets/platform-platypus-20261012.png"
+  },
+  "log-lynx": {
+   "size": [
+    256,
+    256
+   ],
+   "frames": {
+    "idle": "art/frames/log-lynx/idle-20261019.png",
+    "blink": "art/frames/log-lynx/blink-20261019.png",
+    "happy": "art/frames/log-lynx/happy-20261019.png",
+    "curious": "art/frames/log-lynx/curious-20261019.png",
+    "worried": "art/frames/log-lynx/worried-20261019.png",
+    "sad": "art/frames/log-lynx/sad-20261019.png",
+    "sick": "art/frames/log-lynx/sick-20261019.png",
+    "alarmed": "art/frames/log-lynx/alarmed-20261019.png",
+    "sleep": "art/frames/log-lynx/sleep-20261019.png"
+   },
+   "sheet": "art/sheets/log-lynx-20261019.png"
+  },
+  "packet-piranha": {
+   "size": [
+    256,
+    256
+   ],
+   "frames": {
+    "idle": "art/frames/packet-piranha/idle-20261019.png",
+    "blink": "art/frames/packet-piranha/blink-20261019.png",
+    "happy": "art/frames/packet-piranha/happy-20261019.png",
+    "curious": "art/frames/packet-piranha/curious-20261019.png",
+    "worried": "art/frames/packet-piranha/worried-20261019.png",
+    "sad": "art/frames/packet-piranha/sad-20261019.png",
+    "sick": "art/frames/packet-piranha/sick-20261019.png",
+    "alarmed": "art/frames/packet-piranha/alarmed-20261019.png",
+    "sleep": "art/frames/packet-piranha/sleep-20261019.png"
+   },
+   "sheet": "art/sheets/packet-piranha-20261019.png"
+  },
+  "forensic-ferret": {
+   "size": [
+    256,
+    256
+   ],
+   "frames": {
+    "idle": "art/frames/forensic-ferret/idle-20261019.png",
+    "blink": "art/frames/forensic-ferret/blink-20261019.png",
+    "happy": "art/frames/forensic-ferret/happy-20261019.png",
+    "curious": "art/frames/forensic-ferret/curious-20261019.png",
+    "worried": "art/frames/forensic-ferret/worried-20261019.png",
+    "sad": "art/frames/forensic-ferret/sad-20261019.png",
+    "sick": "art/frames/forensic-ferret/sick-20261019.png",
+    "alarmed": "art/frames/forensic-ferret/alarmed-20261019.png",
+    "sleep": "art/frames/forensic-ferret/sleep-20261019.png"
+   },
+   "sheet": "art/sheets/forensic-ferret-20261019.png"
   }
  }
 }

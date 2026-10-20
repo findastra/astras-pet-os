@@ -38,7 +38,7 @@ live hub folder stayed on `main`); the pull request is linked from its commit:
   its schema, links only https; the rule, the skill and the map node exist; and no request file or page data is anywhere
   in the hub.
 - `npm run build -- --metadata-only`: only API Fairy's page, the System Map page, TOOLS-AND-TRICKS.md and her Markdown
-  pets changed. `npm test`: 202 tests, 201 pass, 0 fail, 1 skipped (the Pets Board).
+  pets changed. `npm test`: 202 tests, 201 pass, 0 fail, 1 skipped (the Pets Board). After `main` (#129, #133, #134, #137 to #142, #145 to #147) was merged in twice, every side kept and the generated files rebuilt: 216 tests, 215 pass, 0 fail, 1 skipped. The merge also put the panel script in a scope of its own (it had shadowed the mood code's `show`) and runs it only on API Fairy's page.
 
 **findastra/api-fairy**, branch `claude/key-requests-20261019` (from `main` at `7147871`, in a worktree in Claude's
 scratchpad; her PC folder was not touched); the pull request is linked from its commit:
