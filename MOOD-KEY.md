@@ -42,27 +42,27 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Project Parrot** | your project ideas | weekly, Wednesday | a yes or no on an idea that is due |
 | **Voicemeeter Bug** | your Voicemeeter audio | weekly, Thursday | the Bug running on your PC |
 | **Platform Platypus** | how Astra's pages look across iPhone, Android, iPad and desktop | weekly, Friday | something only you can do |
-| **Spoonfed Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Saturday | review of Spoonfed Sugarcube draft artwork and a live restaurant provider before real recommendations |
-| **Claude Bot** * | the Claude Bot plan and build | weekly, Sunday | a decision on the plan |
-| **RGBee** * | your RGB lights and scenes | weekly, Monday | the brand and model of each light |
-| **Mine Mole** * | the crypto mining research | weekly, Tuesday | your power price and graphics card model |
-| **Mail Snail** * | my plan | weekly, Wednesday | a job: what should Mail Snail do |
-| **Patch Cat** * | my plan | weekly, Thursday | a job: what should Patch Cat do |
-| **Meme Fiend** * | your saved memes (on your PC only) | weekly, Friday | a meme folder chosen |
-| **Gif Giraffe** * | my plan | weekly, Saturday | a job: what kind of GIFs should I make |
-| **Backup Beaver** * | my plan | weekly, Sunday | a job: what should Backup Beaver back up |
-| **Rift Rabbit** * | your VR software and performance notes | weekly, Monday | your headset and PC details |
-| **Fuzzboi Friend** * | the Fuzzboi maker and its live site | weekly, Tuesday | your OK to register me in the Cage |
-| **Wifi Butterfly** * | my plan | weekly, Wednesday | a job: what should Wifi Butterfly do |
-| **Deck Duck** * | my plan | weekly, Thursday | a job: what should Deck Duck do |
-| **Mesh Moth** * | the Meshtastic node plan | weekly, Friday | a job: what should Mesh Moth watch |
-| **Raspberry Pi Berry** * | my plan | weekly, Saturday | a job: what should Raspberry Pi Maker do |
-| **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Sunday | a bot's access to its server, or your OK for a new bot |
-| **Chat Rat** * | the chats it has filed and their index | weekly, Monday | where your Claude and OpenAI chats are saved |
-| **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Tuesday | native iPad verification and a verified chat adapter |
-| **Log Lynx** * | the farm’s logs and crash windows | weekly, Wednesday | a look at a crash I caught |
-| **Packet Piranha** * | the network: loss, latency, DNS and routes | weekly, Thursday | a host to trace |
-| **Forensic Ferret** * | cases and their chains of custody | weekly, Friday | what you saw at a moment with no crash record |
+| **Log Lynx** | the farm’s logs and crash windows | weekly, Saturday | a look at a crash I caught |
+| **Packet Piranha** | the network: loss, latency, DNS and routes | weekly, Sunday | a host to trace |
+| **Forensic Ferret** | cases and their chains of custody | weekly, Monday | what you saw at a moment with no crash record |
+| **Spoonfed Sugarcube** * | Spoonfed’s restaurant discovery, saved spots, and sample-data labels | weekly, Tuesday | review of Spoonfed Sugarcube draft artwork and a live restaurant provider before real recommendations |
+| **Claude Bot** * | the Claude Bot plan and build | weekly, Wednesday | a decision on the plan |
+| **RGBee** * | your RGB lights and scenes | weekly, Thursday | the brand and model of each light |
+| **Mine Mole** * | the crypto mining research | weekly, Friday | your power price and graphics card model |
+| **Mail Snail** * | my plan | weekly, Saturday | a job: what should Mail Snail do |
+| **Patch Cat** * | my plan | weekly, Sunday | a job: what should Patch Cat do |
+| **Meme Fiend** * | your saved memes (on your PC only) | weekly, Monday | a meme folder chosen |
+| **Gif Giraffe** * | my plan | weekly, Tuesday | a job: what kind of GIFs should I make |
+| **Backup Beaver** * | my plan | weekly, Wednesday | a job: what should Backup Beaver back up |
+| **Rift Rabbit** * | your VR software and performance notes | weekly, Thursday | your headset and PC details |
+| **Fuzzboi Friend** * | the Fuzzboi maker and its live site | weekly, Friday | your OK to register me in the Cage |
+| **Wifi Butterfly** * | my plan | weekly, Saturday | a job: what should Wifi Butterfly do |
+| **Deck Duck** * | my plan | weekly, Sunday | a job: what should Deck Duck do |
+| **Mesh Moth** * | the Meshtastic node plan | weekly, Monday | a job: what should Mesh Moth watch |
+| **Raspberry Pi Berry** * | my plan | weekly, Tuesday | a job: what should Raspberry Pi Maker do |
+| **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Wednesday | a bot's access to its server, or your OK for a new bot |
+| **Chat Rat** * | the chats it has filed and their index | weekly, Thursday | where your Claude and OpenAI chats are saved |
+| **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Friday | native iPad verification and a verified chat adapter |
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
 
 \* in the pipeline: on GitHub, not registered yet.
