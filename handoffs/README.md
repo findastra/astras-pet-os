@@ -8,6 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
+| [065: Head chat ended: what finished, and what to pick up (commons bullets, description wording, social-row styles, flash-audit-prepper)](065-any-chat-rat-head-chat-end-20261020.md) | any | open: chat ended; items listed |
 | [061: RGBee room lights and the high-level Desktop Commander status panel](061-any-rgbee-and-desktop-commander-panels-20261020.md) | any | open: chat ended before implementation; scope and ownership recorded |
 | [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | open, waits on Astra: merge (#155); then her review of the developer names |
 | [059: The credit is "By Astra.": the longer credit line out of every README (82 pet repos and the hub)](059-any-by-astra-credit-20261020.md) | any | open, waits on Astra: merge the hub pull request and the 82 pet repo pull requests |
