@@ -11,7 +11,9 @@ Everybody should be doing this."
 ## When
 - Any question whose answer you need: a decision, a name, a choice between options, information only she has.
 - One deck per batch: gather every open question of the task into the same deck, instead of asking one at a time.
-- A plain go-ahead ("OK to merge #133?") can stay in chat; merges keep the numbered chart (`skills/merge-order`).
+- A plain go-ahead ("OK to merge #133?") can stay in chat (in Claude, the next-step box and its buttons); merges keep
+  the numbered chart (`skills/merge-order`). When another decision must come first, ask that one first and point her
+  to it (`skills/merge-order`, "Point her to the first decision").
 
 ## Each slide
 1. **The question**, in one line, as the title.

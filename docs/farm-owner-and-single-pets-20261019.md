@@ -1,6 +1,6 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
-**A proposal, nothing built yet.** It waits on Astra's answers (the question slides, card 057). By Claude Opus 5.5
+**A proposal, nothing built yet.** It waits on Astra's answers (the question slides, card 058). By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19, from a session started by the beginner-guide chat.
 
 ## What Astra asked

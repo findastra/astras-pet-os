@@ -169,7 +169,7 @@
     "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
-    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19).",
+    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
     "hidden": [
       "led-message-board"
     ],
@@ -190,6 +190,11 @@
       "workflow-whirlpool": {
         "home_url": "https://findastra.github.io/astras-pet-os/apps/pet-programs/workflow-whirlpool-20261018.html",
         "tools": []
+      },
+      "portfolio-puffer": {
+        "tools": [
+          "astras-star-window"
+        ]
       }
     }
   },

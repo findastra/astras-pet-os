@@ -104,6 +104,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill-more > summary .label { margin-left: 0; overflow-wrap: anywhere; }
 .pill-body { margin-top: 6px; font-size: 13.5px; }
 .pill-body p { margin: 4px 0; }
+.pill-picture img { display: block; width: 160px; max-width: 100%; height: auto; }
 .plain li { margin: 5px 0; }
 .status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
@@ -179,6 +180,27 @@ label.file { position: relative; }
 /* Faces the page script switches between: a hidden one never shows. */
 img[hidden] { display: none !important; }
 .awake-faces { display: inline-block; }
+/* API Fairy's key requests (Astra, 2026-10-19): three groups, each labelled in its top border. Waiting on you, the one
+   she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
+   a phone. */
+.request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+.request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
+.request-group legend { font: 13px var(--label); padding: 0 6px; }
+.request-group.waiting { border-color: var(--fix); grid-column: 1 / -1; }
+.request-group.waiting legend { color: var(--fix); }
+.request-group.waiting .requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 24px; }
+.request-group.waiting .request, .request-group.waiting .request:first-child { border-top: 0; border-bottom: 1px solid #66655c; }
+.requests { list-style: none; margin: 0; padding: 0; }
+.request { border-top: 1px solid #66655c; padding: 8px 0 6px; overflow-wrap: anywhere; }
+.request:first-child { border-top: 0; }
+.request-head { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; }
+.request-head .lights { margin-right: 4px; }
+.request-link, .request-key { font-size: 13.5px; margin: 2px 0; }
+.request-label { color: var(--chalk-dim); }
+.request-note { font-size: 12.5px; margin-top: 3px; padding-left: 8px; border-left: 2px solid var(--fix); }
+.example-tag { border-style: dashed; }
+.request-count { margin: 0 0 2px; }
+.request-problems { margin: 4px 0 0; }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
 .cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }

@@ -9,6 +9,8 @@ OpenAI Codex (GPT-6), 2026-10-18. Shared instructions for OpenAI Codex and Anthr
 
 ## Read the complete current rules before work
 
+Claude in the desktop app: keep the pet's program page open in the browser pane on the right for the whole task (skill `show-pet-panel`, Astra 2026-10-19).
+
 Locate the canonical `astras-pet-os` repo under `%USERPROFILE%/Documents/Astra's PetOS` and the target pet repo. Fetch their remotes without changing active work. Read **every top-level `.md` file in both repos in full**, including AGENTS.md and CLAUDE.md. Enumerate the files; do not substitute this skill, memory, a fixed filename list, excerpts or a summary. Chunk long reads until complete and account for truncated output.
 
 Also read every applicable SKILL.md, handoffs/README.md and open cards for the active provider or `any`, pet.json and docs/migration/PLAN.md. Check remote branches for newer instructions and read unique changed skill versions. Follow the current hub rules when this skill is stale. Report what was read and any unavailable files. Recheck after fetching changes.
@@ -30,6 +32,10 @@ Keep pet artwork in the hub's canonical art directories, with draft art clearly 
 Keep L1 program, L2 runtime and L3 agent status truthful. Launcher switches are not security enforcement. A guaranteed OFF requires disabling the underlying capability. These development skills belong to the provider's L3 seat; they are not Workflow Whale's runtime tools and confer no permissions.
 
 Run appropriate checks, privacy and filename audits. Update the hub registry proposal, System Map, authoritative program list, art index/draft list and profile source as applicable. Generate derived files using the repo's scripts. Keep a concrete handoff describing exact changes, evidence, pending adoption and unverified integrations. Push authorized source branches and attach created PRs. Do not claim a merged registration, installed native pet, iPad acceptance or live chat delivery without evidence.
+
+## Pet programs are control panels (Astra, 2026-10-19)
+
+A pet program is a control panel (Astra, 2026-10-19): its page shows how things are and gives you the switches. When something gets too big for a tool panel, it becomes its own website that the pet program manages, and the page keeps one tool panel that shows how it is doing and opens it. Too big means it needs a screen of its own: tabs or menus, an editor, a gallery, or a long list to search. The website is a native program of the pet program (a page in its repo, or its own repo with Astra's OK). The full rule is PET-PROGRAM-FRAMEWORK.md, section 3.
 
 ## Both providers
 
