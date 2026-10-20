@@ -59,6 +59,17 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .system-map .map-link { display: grid; justify-items: center; gap: 8px; color: var(--chalk); text-align: center; text-decoration: none; }
 .system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
 .system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
+/* The first related pets, under the map's node; the related pets panel has all of them (Astra, 2026-10-20). */
+.map-related { list-style: none; margin: 12px 0 0; padding: 0; display: flex; justify-content: center; gap: 8px; }
+.map-related li { width: 64px; }
+.map-related a, .map-related-static { display: grid; justify-items: center; gap: 2px; color: var(--chalk); text-decoration: none; text-align: center; font-size: 11px; line-height: 1.25; overflow-wrap: anywhere; hyphens: auto; }
+.map-related a:hover span, .map-related a:focus-visible span { text-decoration: underline; }
+.map-related .mini, .map-related .no-art { width: 36px; height: 36px; image-rendering: pixelated; }
+.map-related .no-art { display: grid; place-items: center; border: 1px dashed var(--line); font-size: 8px; }
+.system-map .map-related-all { margin-top: 6px; }
+/* On a computer the header ends at the buttons (#163), so the System Map box has no room for them; the related pets
+   panel further down has them all. */
+@media (min-width: 761px) { .map-related, .system-map .map-related-all { display: none; } }
 .rings { width: 100%; max-width: 150px; height: auto; }
 .rings circle { fill: none; stroke: var(--line); stroke-width: 1.5; }
 .rings .core { fill: var(--line); }
@@ -83,6 +94,17 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* Room for three lines, so the bubble does not grow when the pet notices you: before, the first press anywhere pushed
    every button below it down a line and a quick first click landed beside its button (click-check, 2026-10-19). */
 .bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; min-height: calc(4.5em + 18px); }
+/* The pet's bubble and the emotion bubbles are clouds (Astra, 2026-10-20: "make both the emotions and the idle bubble
+   actually bubble border like it looks like a cloud"): a scalloped edge from one small drawing, repeated along each
+   side, and a thought bubble's two puffs trailing to the pet, under it for the idle bubble ("make the blurb arrow on
+   top of the idle box, like the emotions have"). The colours are --slate and --line, written out for the drawing. */
+.cloud, .habitat > .bubble, .mood-bubble { border: 16px solid transparent; border-radius: 0;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M6 10A4.2 4.2 0 1 1 10 6A5 5 0 0 1 20 6A4.2 4.2 0 1 1 24 10A5 5 0 0 1 24 20A4.2 4.2 0 1 1 20 24A5 5 0 0 1 10 24A4.2 4.2 0 1 1 6 20A5 5 0 0 1 6 10Z' fill='%2346463f' stroke='%23e6e0c9' stroke-width='1.2'/%3E%3C/svg%3E") 10 fill / 16px round; }
+.habitat > .bubble { margin-top: 30px; padding: 0 2px; }
+.habitat > .bubble::before, .habitat > .bubble::after, .mood-bubble::before, .mood-bubble::after { content: ''; position: absolute; border: 1.2px solid var(--line);
+  border-radius: 50%; background: var(--slate); }
+.habitat > .bubble::after { width: 11px; height: 9px; top: -27px; left: calc(50% - 5px); }
+.habitat > .bubble::before { width: 7px; height: 6px; top: -37px; left: calc(50% + 2px); }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
 /* The header ends at the bottom of the title's buttons (Astra, 2026-10-20: a line drawn across her screenshot there).
    The cyberhome and the System Map box take the title column's height instead of setting it: size containment keeps
@@ -131,7 +153,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
 
 /* Inside the intelligence-level panels. */
-.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 28px; }
+.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 18px 28px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
@@ -160,10 +182,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* a tool that works right on the page, in its own tool panel inside L1 (Astra's Window Star, 2026-10-20) */
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
 .plain li { margin: 5px 0; }
-.status { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; }
+.status { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
 .status dt { color: var(--chalk-dim); }
-.status dd { margin: 0; }
-.connections { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.status dd { margin: 0; overflow-wrap: anywhere; }
+/* min(..., 100%): on a narrow window a card is never wider than its panel (Astra, 2026-10-20, her screenshots). */
+.connections { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 16px; }
 .connection { border: 1px dashed var(--connection); padding: 8px 12px 10px; margin: 0; min-width: 0; }
 .connection legend { color: var(--connection); padding: 0 6px; font: 14px var(--label); }
 .connection .lights { margin-right: 4px; }
@@ -188,14 +211,16 @@ label.file { position: relative; }
 
 /* Emotions (the sketch's 3 by 3) beside clicker training. Each bubble has its mood's name in its top border. */
 .pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
-.moods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 14px; }
-.mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 10px; align-items: center; }
-.mood-bubble { position: relative; border: 1px solid var(--line); border-radius: 14px; padding: 4px 10px 8px; margin: 0; min-width: 0; font-size: 12.5px; }
+/* Three to a row, as in the sketch, when there is room for a cloud and its pet; fewer on a narrow window. */
+.moods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(215px, calc((100% - 28px) / 3))), 1fr)); gap: 18px 14px; }
+.mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 30px; align-items: center; }
+/* Room inside the rounded corners, so a long first line never runs into the top corner (Astra, 2026-10-20). */
+.mood-bubble { position: relative; padding: 0 4px 0 0; margin: 0; min-width: 0; font-size: 12.5px; } /* its cloud edge: .cloud, above */
 .mood-bubble legend { font: 13px var(--label); padding: 0 5px; }
 /* The tail is part of the bubble (Astra, 2026-10-19: "make it look like an actual bubble"): drawn in outline like the
    bubble itself, its inside the page's own colour, so it reads as one shape pointing at the pet. */
-.mood-bubble::after { content: ''; position: absolute; right: -7px; top: calc(50% - 6px); width: 12px; height: 12px; background: var(--slate);
-  border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-top-right-radius: 3px; transform: rotate(45deg); }
+.mood-bubble::after { width: 10px; height: 9px; right: -27px; top: calc(50% - 4px); }
+.mood-bubble::before { width: 6px; height: 6px; right: -36px; top: calc(50% + 4px); }
 .mood ul { margin: 2px 0; padding-left: 16px; }
 .mood q { display: block; color: var(--chalk-dim); font-style: italic; margin-top: 4px; }
 .mood img, .mood .no-art { width: 60px; height: 60px; image-rendering: pixelated; }
@@ -247,11 +272,11 @@ label.file { position: relative; }
 .chat-panel p { margin: 6px 0 0; }
 
 /* Spawner list. */
-.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.cards { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 12px; }
 .card a { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 8px; text-decoration: none; color: var(--chalk); }
 .card a:hover { background: var(--slate-2); }
 .card .thumb, .card .no-art { width: 56px; height: 56px; image-rendering: pixelated; flex: none; }
-.card-text { display: grid; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
+.card-text { display: grid; min-width: 0; overflow-wrap: anywhere; } .card-text b { font-weight: 600; } .card-text span { font-size: 12.5px; color: var(--chalk-dim); }
 
 /* Phones: everything stacks and every panel still collapses. */
 @media (max-width: 640px) {
@@ -260,14 +285,27 @@ label.file { position: relative; }
 }
 @media (max-width: 760px) {
   .pair { grid-template-columns: 1fr; }
-  /* minmax(0, ...): the column is the phone's width, so the title script shrinks the name to it instead of the page
-     growing sideways around the name. */
-  .top { grid-template-columns: minmax(0, 1fr); }
-  .top > .panel { max-width: 240px; }
-  /* On a phone the way back to the map comes first, as one compact row. */
-  .top > .system-map { order: -1; max-width: none; }
-  .system-map .map-link { grid-template-columns: 56px 1fr; justify-items: start; text-align: left; align-items: center; }
-  .system-map .small { text-align: left; }
+  /* On a phone the cyberhome and the way back to the System Map sit side by side, the same size, with the title below
+     both (Astra, 2026-10-20: her screenshot moved the System Map box into the empty space beside the cyberhome). */
+  .top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 14px; }
+  .top > .cyberhome { grid-column: 1; grid-row: 1; }
+  .top > .system-map { grid-column: 2; grid-row: 1; }
+  .top > .title { grid-column: 1 / -1; margin-top: 26px; }
+  .top > .panel { padding-left: 10px; padding-right: 10px; }
+  /* Two matching squares at the top of the two boxes (Astra, 2026-10-20: "BOTH TO BE SQUARES"): the pet's den and the
+     map's rings, framed the same and the same size; the rings sit at the top, level with the den. Everything else
+     stays inside its box ("the idle blurp needs to be in the panel"): the pet's bubble under the den, the map's words
+     and the first related pets under the rings. */
+  .top > .panel[open] { padding-top: 22px; }
+  .top > .system-map[open] { justify-content: flex-start; }
+  .top > .system-map .map-link { justify-items: stretch; }
+  .top > .system-map .rings { box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1 / 1; padding: 12%; border: 1px solid var(--line); }
+  .top > .system-map .map-link > span { margin-top: 6px; }
+  /* In a half-width box a long label wraps, so it takes its own room: its first line stays on the border and the
+     box's contents start below its last line instead of under it. */
+  .top > .panel > summary { position: relative; top: auto; left: auto; width: fit-content; max-width: 100%; margin: calc(-22px - .65em) 0 10px -6px; }
+  .top > .panel > summary .legend { font-size: 11px; }
+  .top > .panel:not([open]) > summary { margin-top: calc(-14px - .65em); margin-bottom: 0; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
@@ -301,7 +339,7 @@ img[hidden] { display: none !important; }
 .request-count { margin: 0 0 2px; }
 .request-problems { margin: 4px 0 0; }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
-.cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.cards.related { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
 .cards.related .card-text span + span { font-size: 12px; }
 /* The R W X panel (Astra, 2026-10-19, option C): what each level should be (R W X), then whether that is in code.
