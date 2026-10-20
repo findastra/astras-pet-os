@@ -1,4 +1,4 @@
-status: open (waiting on Astra: add three paths to line 59 of the Farmer's round workflow)
+status: open (waiting on Astra: add three paths to line 59 of the Farmer's round workflow; any assistant: the desk generator fix, 2026-10-20)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -74,16 +74,50 @@ leaves them stale on `main`. Before merging I should have tested the merged resu
   0 fail. I merged `main` into #142 and rebuilt. The generated files then matched `main` exactly, so #142 carries only
   this card. `main` was red from `171dcd7` to `4f209f0`.
 
+**2026-10-20: today's round failed again, for a new reason. This chat is ending.** Astra said: "merge what you can and
+leave a note we are ending this chat". Nothing from this chat was left to merge: #128, #139 and #142 are merged, and
+no round pull request is open. The scheduled round,
+[run 39462765053](https://github.com/findastra/astras-pet-os/actions/runs/39462765053) (2026-10-20 17:03 UTC),
+passed "Do the rounds" and then failed at `npm test`. The credit line is no longer the problem. One test failed:
+`not ok 47 - every page loads the installer's words, then the swap, in its <head>`
+(`test/developer-mode-test-20261019.mjs`, on `apps/astras-pet-apps-20261008.html`). The cause, checked on `main`
+(`523946f`):
+- The Farmer's desk got `words-mode-20261019.js` and then `developer-words-20261019.js` in its `<head>` by hand, in
+  the developer mode commit `0764a63` (card 060).
+- Its generator, `scripts/build-interfaces-20261008.mjs`, does not write them. Running it on `main` drops both
+  scripts (the count goes from 1 to 0), and the round runs it every morning. So every round fails here until the
+  generator writes the two scripts.
+- No branch has a fix (I checked `build-interfaces-20261008.mjs` on every remote branch). Developer mode is paused
+  (card 060, PR #169), so this is open for any assistant.
+- Nothing was changed for it in this chat. No round pull request was opened today, and none is open.
+- Also on `main` since 2026-10-20 (card 059): the round's README check flags the **retired** credit line instead of
+  a missing one. Its text names the line and does not quote it, as this card asked.
+
+## Ownership and state
+State: open. Implementer: none. This chat (Claude Opus 5.5) ended on 2026-10-20 and released everything. Nothing is
+claimed, no branch is in progress and nothing is running. Reviewer: unassigned.
+
 ## Task
-1. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
+1. **Any assistant: make the desk's generator write the developer-words scripts.** In
+   `scripts/build-interfaces-20261008.mjs`, write `<script src="words-mode-20261019.js"></script>` and then
+   `<script src="developer-words-20261019.js"></script>` into the `<head>` it builds, matching the copy on `main`
+   and test 47. Then run `node scripts/build-interfaces-20261008.mjs`, check that `git status` shows no change to the
+   desk, and run `npm test` in an LF clone. Branch and pull request; Astra's OK to merge. Read card 060 first: the
+   words files are developer mode's.
+2. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
    https://github.com/findastra/astras-pet-os/edit/main/.github/workflows/farmer-daily-rounds.yml , line 59. Add
    ` apps/pet-programs markdown-pets system-map-20261012.html` to the end of
    `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html`, then
    **Commit changes**. Until then, every round that changes `pets.json` leaves those pages stale, and `main`'s
    `npm test` fails after its merge.
+3. Until task 2 is done: before merging a `farmer/rounds-*` pull request, merge it with `main` in an LF clone and run
+   `npm test` first.
 
 ## Done when
-`main` is green after a round's pull request is merged.
+A round runs green on `main`, and `main` is still green after its pull request is merged.
 
 ## Return
-Set status: done with the round's pull request number and `main`'s test count after it is merged, commit.
+Set status: done with the run id, the round's pull request number and `main`'s test count after the merge, commit.
+
+## Receipt and review
+Pending: no assistant has taken this card since this chat ended.
