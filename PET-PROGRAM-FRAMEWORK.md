@@ -316,7 +316,9 @@ Badges: **who made it** (Astra / third-party) · **where it runs** (this PC / lo
 Example: a pet program's link to the System Map is broken.
 
 1. **Detect.** Log Lynx's health checks find the broken link. The Farmer watches Log Lynx's own heartbeat, so a
-   silent Log Lynx is noticed too.
+   silent Log Lynx is noticed too. For the buttons and links on the pet program pages themselves, The Farm's
+   `click-check` (`npm run click-check`, Astra 2026-10-19) clicks every one and reports what goes nowhere, lands on a
+   dead end or goes to the wrong place, one row per cause with the file to fix.
 2. **Known fix?** If a runbook (an existing protocol) covers it, run it. No AI is needed.
 3. **New issue: maker agent.** The L3 agent opens an incident and drafts a fix on a branch, using only allowed pets
    (Platform Platypus, Wifi Butterfly, Log Lynx, …) and only for each tool's declared intended use. Those

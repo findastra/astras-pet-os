@@ -32,8 +32,9 @@ proposal before any rewrite, and for everything to be read first.
 
 **2026-10-20, Astra: "All recommended. Build Parts 1 and 2."** Every answer is recorded in the proposal's table.
 
-- **Card number:** this card was 057, but the Aquarium error-checkers card (`claude/aquarium-error-checkers-20261019`,
-  PR #136) took 057 first, so it is 058; next free 059.
+- **Card number:** this card was 057, but other branches took 057 first (the Aquarium error-checkers card, PR #136, and
+  click-check, merged with #158), so it is 058; next free 059. The developer-mode branch (#155) also used 058; this card
+  reached `main` first, so #155 renumbers.
 - **Merged `main`** (#126, #140, #148 to #151) into the branch: `e8316f9`.
 - **Parts 1 and 2, commit `8133789`, [pull request #157](https://github.com/findastra/astras-pet-os/pull/157)**, merged
   to `main` with Astra's OK in chat (2026-10-20: "OK, merge #157"), after `main`'s three README edits were merged in
