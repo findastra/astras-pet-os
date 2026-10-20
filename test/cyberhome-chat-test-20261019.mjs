@@ -1,5 +1,5 @@
 // The cyberhome, the activity lights and the chat window on every spawned pet program page (Astra, 2026-10-19):
-// the cyberhome is empty until the page opens, then the pet moves in through Startup Star's door; L4 is on while you
+// the cyberhome is empty until the page opens, then the pet moves in (no star door since 2026-10-20); L4 is on while you
 // are here; the chat button opens a window that asks who answers and hands your message to your own Claude or
 // ChatGPT. Runs the page script itself against a small pretend page. Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
 import { test } from 'node:test';
@@ -23,12 +23,12 @@ const between = (text, open, close) => {
   return end < 0 ? '' : text.slice(start + open.length, end);
 };
 
-test('every page starts with an empty cyberhome and Startup Star\'s door in its corner', () => {
+test('every page starts with an empty cyberhome, and no star door in it (Astra crossed it out, 2026-10-20)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const den = between(html, '<div class="den" data-arrival="waiting">', '</div>');
     assert.ok(den, `${d.repo}: the den starts waiting`);
-    assert.ok(den.startsWith('<svg class="star-door"'), `${d.repo}: Startup Star's door is in the den`);
+    assert.ok(!den.includes('star-door'), `${d.repo}: no star door in the den`);
     assert.match(den, /class="(no-art )?pet/, `${d.repo}: the pet (or its no-picture box) is ready to move in`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
@@ -129,13 +129,12 @@ function boot(d, { saved = {}, reduce = false } = {}) {
 
 const panther = pages.find((d) => d.repo === 'learn-python');
 
-test('the pet moves in through the star: waiting, the star opens, the pet comes in, home', () => {
+test('the pet moves in: waiting, the pet comes in from the corner, home', () => {
   const p = boot(panther);
   assert.equal(p.den.dataset.arrival, 'waiting');
-  p.advance(300); assert.equal(p.den.dataset.arrival, 'opening');
-  p.advance(600); assert.equal(p.den.dataset.arrival, 'arriving');
+  p.advance(300); assert.equal(p.den.dataset.arrival, 'arriving');
   p.advance(1100); assert.equal(p.den.dataset.arrival, 'home');
-  assert.equal(p.bubble.textContent, 'Python Panther came in through the star.');
+  assert.equal(p.bubble.textContent, 'Python Panther moved in.');
   p.advance(5000);
   assert.equal(p.bubble.textContent, panther.lines.idle, 'then the bubble says its mood again');
 });

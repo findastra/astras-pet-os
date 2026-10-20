@@ -160,6 +160,25 @@ test('pictures come only from the hub art folders (one art source, A58)', () => 
   for (const d of pages) for (const p of Object.values(d.art.frames)) assert.match(p, /^(art|desktop-art)\//, `${d.repo}: ${p}`);
 });
 
+// Astra, 2026-10-20: she crossed out Drum Dog's older drawing on his page while his desktop pet sat beside it. A pet
+// with a desktop drawing shows that drawing on its page, so the page and the desktop pet are one pet; a drawing the
+// draft list marks private (Claude Bot's) is never used.
+test('a pet with a desktop drawing shows it on its page; a private drawing never shows', () => {
+  const dog = pages.find((d) => d.repo === 'drum-dog');
+  assert.equal(dog.art.source, 'desktop');
+  assert.match(dog.art.frames.idle, /^desktop-art\/drum-dog\/idle-\d{8}\.png$/);
+  const regs = [...(src.registry.pets || []), ...(src.registry.pipeline || [])];
+  const privateIds = src.drafts.pets.filter((p) => p.private).map((p) => p.id);
+  for (const d of pages) {
+    const art = regs.find((r) => r.repo === d.repo)?.art || d.repo;
+    const drawn = src.list(`desktop-art/${art}`).some((n) => /^idle(-\d{8})?\.png$/.test(n));
+    if (drawn && !privateIds.includes(art)) assert.equal(d.art.source, 'desktop', `${d.repo} has a desktop drawing in desktop-art/${art}`);
+  }
+  for (const d of pages) for (const p of Object.values(d.art.frames)) {
+    for (const id of privateIds) assert.ok(!p.startsWith(`desktop-art/${id}/`), `${d.repo} uses ${id}'s private drawing`);
+  }
+});
+
 test('text written by pets is data: it is escaped, never markup', () => {
   const d = { ...pages.find((x) => x.repo === 'unity-unicorn') };
   d.summary = '<img src=x onerror=alert(1)>';

@@ -69,9 +69,12 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
+/* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
+.title .summary[open] { padding: 16px 16px 10px; }
+.title .summary > p { margin: 0; }
 .habitat { position: relative; text-align: center; }
-/* The cyberhome's lights sit inside the den's top corner, opposite Startup Star's door, off its border line (Astra,
-   2026-10-20: "Move those indicator lights down. They are in the way of the line"). */
+/* The cyberhome's lights sit inside the den's top corner, off its border line (Astra, 2026-10-20: "Move those
+   indicator lights down. They are in the way of the line"). */
 .habitat > .lights { position: absolute; top: 9px; left: 9px; z-index: 2; margin: 0; }
 .den { aspect-ratio: 1 / 1; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
 .den img.pet { width: 80%; height: auto; image-rendering: pixelated; cursor: pointer; }
@@ -79,6 +82,26 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    every button below it down a line and a quick first click landed beside its button (click-check, 2026-10-19). */
 .bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; min-height: calc(4.5em + 18px); }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
+/* The header ends at the bottom of the title's buttons (Astra, 2026-10-20: a line drawn across her screenshot there).
+   The cyberhome and the System Map box take the title column's height instead of setting it: size containment keeps
+   their contents from making the row taller, and container units fit the pet and the rings inside. The bubble sits
+   over the foot of the den, so it can grow without moving anything (click-check's rule, 2026-10-19). */
+@media (min-width: 761px) {
+  /* A flex column, like the map box: inside a details box, Chrome resolves the container units only then. */
+  .top > .cyberhome[open] { container-type: size; min-height: 170px; display: flex; flex-direction: column; padding: 20px 12px 12px; }
+  .top > .cyberhome[open] .habitat { height: 100cqh; }
+  .top > .cyberhome[open] .den { aspect-ratio: auto; height: 100%; display: flex; align-items: center; justify-content: center; padding: 4px 4px 44px; }
+  .top > .cyberhome[open] .den img.pet { width: auto; height: auto; max-width: 86%; max-height: 100%; }
+  .top > .cyberhome[open] .den .no-art { width: auto; height: 100%; max-height: 100%; }
+  .top > .cyberhome[open] .bubble { position: absolute; left: 7px; right: 7px; bottom: 7px; margin: 0; min-height: 0; padding: 4px 10px;
+    font-size: 12.5px; line-height: 1.35; background: rgba(61, 61, 55, .94); }
+}
+@media (min-width: 1001px) {
+  .top > .system-map[open] { container-type: size; min-height: 170px; }
+  .top > .system-map[open] .map-link { gap: 6px; }
+  .top > .system-map[open] .rings { width: auto; max-width: none; height: clamp(56px, calc(100cqh - 92px), 150px); }
+  .top > .system-map[open] .small { margin-top: 4px; }
+}
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
 .button { display: inline-block; font: 14px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 3px 12px; text-decoration: none; cursor: pointer; }
 .button:hover { background: var(--slate-2); }
@@ -306,10 +329,7 @@ img[hidden] { display: none !important; }
 /* The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
    the top corner: the star opens, the pet comes in, the star closes again. */
 .den { position: relative; }
-.den .star-door { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; z-index: 1; transition: transform .6s ease, filter .6s ease; }
-.den[data-arrival="waiting"] .pet, .den[data-arrival="opening"] .pet { visibility: hidden; }
-.den[data-arrival="opening"] .star-door { transform: scale(2.4) rotate(72deg); filter: drop-shadow(0 0 6px #ffd23f); }
-.den[data-arrival="arriving"] .star-door { transform: scale(1.7) rotate(144deg); filter: drop-shadow(0 0 4px #ffd23f); }
+.den[data-arrival="waiting"] .pet { visibility: hidden; }
 .den[data-arrival="arriving"] .pet:not([hidden]) { animation: move-in 1s ease-out both; }
 @keyframes move-in {
   from { transform: translate(40%, -40%) scale(.12); opacity: 0; }
@@ -342,7 +362,6 @@ img[hidden] { display: none !important; }
 .chat-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 @media (prefers-reduced-motion: reduce) {
-  .den .star-door { transition: none; }
   .den .pet { animation: none !important; }
   .chat-open svg { transition: none; }
   .panel.level[data-activity="live"] { animation: none; }

@@ -203,20 +203,21 @@
   });
   render();
 
-  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in through Startup Star's
-  // door in the top corner. The page plays the arrival itself. Flying in from the desktop (from roaming, from the
-  // lineup, or out of the star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. The
-  // script only changes the den's state: every picture is already in the page. ----
+  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in from the top corner.
+  // The page plays the arrival itself. Flying in from the desktop (from roaming, from the lineup, or out of Startup
+  // Star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. No star door in the den
+  // since 2026-10-20 (Astra crossed it out). The script only changes the den's state: every picture is already in the
+  // page. ----
   var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
   if (den && den.dataset.arrival === 'waiting') {
-    (still ? [['home', 0]] : [['opening', 250], ['arriving', 850], ['home', 1900]]).forEach(function (step) {
+    (still ? [['home', 0]] : [['arriving', 250], ['home', 1300]]).forEach(function (step) {
       setTimeout(function () {
         den.dataset.arrival = step[0];
-        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' came in through the star.';
+        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' moved in.';
       }, step[1]);
     });
-    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1900) + 5000);
+    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1300) + 5000);
   }
 
   // ---- Activity lights (Astra, 2026-10-19): the light on a level's tool panel (its top border) is on while that

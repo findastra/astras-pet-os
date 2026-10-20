@@ -59,13 +59,27 @@ const ymd = (iso) => (iso ? String(iso).slice(0, 10).replace(/-/g, '') : null);
 const day = (iso) => (iso ? String(iso).slice(0, 10) : null);
 const up = (p) => `../../${p}`; // from apps/pet-programs/ back to the hub's root
 
-/** Every picture of the pet, from the hub only: registered frames, then the desktop draft list, then art/drafts, then
- *  its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
+/** Every picture of the pet, from the hub only: its desktop drawing, then registered frames, then the desktop draft
+ *  list, then art/drafts, then its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
 export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) {
   const pick = (paths, source) => {
     const frames = Object.fromEntries(Object.entries(paths).filter(([, p]) => p && exists(p)));
     return frames.idle ? { frames, source } : null;
   };
+  const newest = (dir) => {
+    const files = list(dir);
+    const frames = {};
+    for (const mood of MOODS) { const f = files.filter((n) => new RegExp(`^${mood}(-\\d{8})?\\.png$`).test(n)).sort().pop(); if (f) frames[mood] = `${dir}/${f}`; }
+    return frames;
+  };
+  // The pet as it looks on the desktop comes first (Astra, 2026-10-20, crossing out the older drawing of Drum Dog on
+  // his page while his desktop pet sat beside it): its drawing in desktop-art/<art>/, the newest file of each mood, so
+  // the page and the desktop pet are one pet. A drawing the draft list marks private (Claude Bot's) is never used.
+  const privateArt = new Set((drafts?.pets || []).filter((d) => d.private).map((d) => d.id));
+  for (const folder of [reg.art, reg.repo].filter((x) => x && !privateArt.has(x))) {
+    const frames = newest(`desktop-art/${folder}`);
+    if (frames.idle) return { frames, source: 'desktop' };
+  }
   const registered = reg.art && frameIndex?.pets?.[reg.art];
   if (registered && !registered.placeholder) { const r = pick(registered.frames, 'registered'); if (r) return r; }
   const draft = (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet));
@@ -74,9 +88,7 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
     if (m) { const r = pick(Object.fromEntries(MOODS.map((mood) => [mood, `${m[1]}/${mood}${m[2] || ''}.png`])), 'draft'); if (r) return r; }
   }
   for (const folder of [reg.art, draft?.id, reg.repo, slug(reg.pet)].filter(Boolean)) {
-    const files = list(`art/drafts/${folder}`);
-    const frames = {};
-    for (const mood of MOODS) { const f = files.filter((n) => new RegExp(`^${mood}(-\\d{8})?\\.png$`).test(n)).sort().pop(); if (f) frames[mood] = `art/drafts/${folder}/${f}`; }
+    const frames = newest(`art/drafts/${folder}`);
     if (frames.idle) return { frames, source: 'draft' };
   }
   const icon = list('art/icons').filter((n) => new RegExp(`^${reg.repo}-\\d{8}\\.png$`).test(n)).sort().pop();
@@ -323,10 +335,6 @@ function keyRequestsPanel(d) {
 
 export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
 
-// Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
-// in the tray. Drawn here, so it is the same on every page and needs no picture file.
-const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
-
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
 const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -363,11 +371,12 @@ export function buildPetProgramPage(d) {
     : 'not checked by a merged round yet';
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
-  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
-  // the top corner. The page plays the arrival itself; flying in from the desktop needs Startup Star's link (not built).
+  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
+  // plays the arrival itself; flying in from the desktop needs Startup Star's link (not built). No star door in it
+  // since 2026-10-20 (Astra crossed it out).
   const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 ${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den" data-arrival="waiting">${STAR_DOOR}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
+<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page

@@ -83,15 +83,21 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
-1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The desktop pet comes to live here while the page is
-   open. Its paired lights sit inside its top corner, opposite Startup Star's door, off the border line (Astra,
-   2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page opens; then the pet moves in through
-   Startup Star's door** in its top corner: the star opens, the pet comes in, the star closes (Astra, 2026-10-19: "It's
-   not just square, it's going to be the cyber home"). The page plays this arrival itself today. Flying in from the
-   desktop (from roaming, from the lineup, or out of the star when the desktop pet is hidden) needs a live link between
-   the page and Startup Star, which waits on Astra's OK (card 054). Room art people can change is planned. **The
+1. **`<pet>-cyberhome`** (top left): the pet's habitat. The desktop pet comes to live here while the page is
+   open. Its paired lights sit inside its top corner, off the border line (Astra,
+   2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page
+   opens; then the pet moves in** from the top corner (Astra, 2026-10-19: "It's not just square, it's going to be the
+   cyber home"). **No star door in it** (Astra crossed Startup Star's door out, 2026-10-20). The page plays this
+   arrival itself today. Flying in from the desktop (from roaming, from the lineup, or out of the star when the desktop
+   pet is hidden) needs a live link between the page and Startup Star, which waits on Astra's OK (card 054). **The pet
+   looks as it does on the desktop**: the page uses its drawing in `desktop-art/<art>/` when it has one, and its
+   registered frames only when it has none (Astra crossed out Drum Dog's older drawing while his desktop pet sat beside
+   it, 2026-10-20); a private drawing (Claude Bot's) is never used. Room art people can change is planned. **The
    cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
-   the system map box"): one width (240px), and both as tall as the taller one.
+   the system map box"): one width (240px), and **the header ends at the bottom of the title's buttons** (Astra,
+   2026-10-20, a line drawn across her screenshot there): both boxes are as tall as the title column (at least 170px),
+   the pet and the System Map's rings shrink to fit, and the bubble sits over the foot of the den. On a phone they stack
+   at their own height.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
    the same line, **always to the right of the name, however long it is** (Astra, 2026-10-20). The name is smaller
    than it was (up to 34px; her marked-up screenshot of the same day) and its size varies: the page script makes it
@@ -102,7 +108,8 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
-   behind it. Taken from the pet's mini-descriptor.
+   behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty line above or below
+   (Astra, 2026-10-20: "fitted").
 3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
    (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
    node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.
