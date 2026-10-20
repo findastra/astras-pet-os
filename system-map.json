@@ -247,12 +247,12 @@
       "name": "CLI Proxy API manager",
       "type": "tool",
       "of": "program-13",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
-      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); never run."
+      "job": "A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); first run 2026-10-19, with v8.0.33 (card 006)."
     },
     {
       "id": "crash-catcher",
@@ -730,9 +730,9 @@
       "id": "cli-proxy-api",
       "name": "CLI Proxy API",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
-      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 is in quarantine, checksum-verified, never run. Never signed in with Astra's Claude login.",
+      "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 has run on this PC only since 2026-10-19 (its first run, findastra-discord-presence#23); v8.0.34 is checksum-verified in quarantine, and its pin waits on findastra-discord-presence#24. Never signed in with Astra's Claude login.",
       "category": "Desktop app"
     },
     {
@@ -3390,21 +3390,21 @@
       "from": "findastra-discord-presence",
       "to": "cli-proxy-api-manager",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "Discord Damsel's page links the CLI Proxy API controls, which run only on this PC (Astra, 2026-10-18)."
     },
     {
       "from": "cli-proxy-api-manager",
       "to": "cli-proxy-api",
       "carries": "manages",
-      "state": "planned",
+      "state": "now",
       "why": "Installs the verified release, writes a config that keeps it on this PC only, starts and stops it; refuses a Claude sign-in."
     },
     {
       "from": "cli-proxy-api",
       "to": "windows-pc",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Runs locally on the PC; only this PC can reach it."
     },
     {
