@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-175 rows: 10 native programs, 92 native tools, 14 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+177 rows: 10 native programs, 93 native tools, 14 native tricks, 60 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -211,7 +211,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | Blender |  | Idea |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
+| 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
 | 12 | File Master | File Kingdom | native tool | New-programs watch | `pet-program-12-v1.0-new-programs-watch-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | repo-catcher | `pet-program-12-v1.0-repo-catcher-v1.0` | Works today |
