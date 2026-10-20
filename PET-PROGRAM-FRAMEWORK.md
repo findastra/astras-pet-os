@@ -76,6 +76,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
    behind it. Taken from the pet's mini-descriptor.
+3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
+   (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
+   node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's activity light (the sketch's
    "activity status") sits on its top border, beside its label. Every item inside has its paired lights.
 
@@ -408,7 +411,7 @@ copies a request for the user's own AI to start a seed like it on their farm.
       name as its title, sends and receives, and ON/OFF.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).
 - [ ] Backlog and the weekly run work, and backlog health shows (section 7).
-- [ ] The map link focuses its own node. Languages show in the footer.
+- [ ] The `<pet>-system-map` panel sits top right and opens the map on its own node (A60). Languages show in the footer.
 - [ ] Its tricks are in trick boxes and known to Skill Scout; any shared tool it uses has a grant from Iron Gates.
 - [ ] Every agent that operates it uses a short-lived key from Iron Gates; it reports every W to the Police Station.
 - [ ] Plain developer language throughout; no marketing.
