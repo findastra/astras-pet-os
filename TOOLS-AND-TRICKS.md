@@ -110,12 +110,13 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-170 rows: 9 native programs, 90 native tools, 12 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+175 rows: 10 native programs, 92 native tools, 14 native tricks, 59 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
 | 1 | Friendly Farmer | The Farm | native program | Astra’s PetOS System Map | `the-farm-v1.0-astras-pet-os-system-map-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
+| 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
@@ -278,6 +279,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 53 | Packet Piranha | Packet River | native tool | Ping sampler | `packet-river-v1.0-ping-sampler-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Reach checker | `packet-river-v1.0-reach-checker-v1.0` | Works today |
 | 53 | Packet Piranha | Packet River | native tool | Route tracer | `packet-river-v1.0-route-tracer-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Linux check | `linux-iceberg-v0.1-linux-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native tool | Mac pre-wipe check | `linux-iceberg-v0.1-mac-prewipe-check-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | debian-family | `linux-iceberg-v0.1-debian-family-trick-v1.0` | Works today |
+| 58 | Linux Penguin | Linux Iceberg | native trick | kali-on-a-mac | `linux-iceberg-v0.1-kali-on-a-mac-trick-v1.0` | Works today |
 | 58 | Linux Penguin | Linux Iceberg | third-party program | MacAttack |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |

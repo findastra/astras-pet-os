@@ -180,6 +180,24 @@ test('a whole round, against a pretend GitHub', async () => {
   assert.ok(['sleep', 'curious', 'worried'].includes(status.pets['github-goldfish'].mood));
 });
 
+// Run 39304824157 (2026-10-19): the round quoted the credit line in a finding, the guard
+// (test/credit-line-readme-only-test-20261019.mjs) caught it in status/pets-status.json and the Farmer's desk, and no
+// round pull request was opened. The round names the line instead. Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
+test('a round names the README credit line and never quotes it in what it writes (Astra, 2026-10-19)', async () => {
+  const r = clone();
+  const status = {};
+  const github = {
+    listRepos: async () => allPets(r).map((p) => ({ name: p.repo, private: false, topics: ['pet-app'], description: '' })),
+    snapshot: async (repo) => goodSnap({ readme: '# P\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n', petJson: { pet: 'X', job: allPets(r).find((p) => p.repo === repo.name)?.job, entry: 'app.html', status: 'hatching' } }),
+  };
+  await runRound({ registry: r, status, github, token: null, ownerToken: null, now: new Date('2026-10-19T13:00:00Z'), log: () => {}, all: true });
+  const goldfish = status.pets['github-goldfish'];
+  assert.equal(goldfish.says, 'To fix: my README needs the credit line');
+  assert.ok(goldfish.findings.some((x) => /credit line/.test(x.msg)), 'the finding still names the line');
+  const written = JSON.stringify(status) + JSON.stringify(r);
+  assert.ok(!written.includes('Intelligent App, or Pet, by Astra'), 'the credit line is quoted in what the round writes');
+});
+
 test('relations only name pets the Cage knows, with known kinds and states', () => {
   const known = new Set([...allPets(registry).map((p) => p.repo), 'astra', 'profile', 'pets']);
   for (const l of registry.relations.links) {
