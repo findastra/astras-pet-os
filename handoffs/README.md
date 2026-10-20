@@ -9,7 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
-| [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | open, waits on Astra: OK to merge unity-unicorn #13, #14, #17, then #119 |
+| [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | merged 2026-10-19 (unity-unicorn #17 `2e631e4`, hub #119); task 4 open: the page doc and levels row |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, the three pets merged; the hub merges with #105](045-any-crash-watch-pets-20261018.md) | any | done when #105 merges; pet art waits on Astra |

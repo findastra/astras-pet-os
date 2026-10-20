@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge unity-unicorn #13, #14 and #17, then hub #119)
+status: open (task 4 only: name the three tools and the trick in the page doc and Unity Unicorn's levels row)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: findastra/unity-unicorn PR #17 (its README section "Asset creator, assets library and shaders shop", `skills/unity-asset-creator/SKILL.md`), docs/unity-unicorn-page-modules-20261018.md, system-map.json (the `unity-stable` tool and trick nodes)
@@ -59,15 +59,24 @@ lines of `pet.json`, the page and the tool-count test.
   them there after #117 is merged.
 - The library still has no licence (Astra's choice).
 
+**Merged 2026-10-19 with Astra's OK in chat** ("Merge unity-unicorn#13, unity-unicorn#14, unity-unicorn#17 and
+astras-pet-os#119, in that order"):
+- unity-unicorn #14 (`27b275d`, into #13's branch) and #13 (`b80a469`) were already merged by another chat, and so was
+  #15 (`7b1fdce`, also 0.4.5, with a test that no item is both a tool and a trick).
+- I merged `main` into #17's branch (`0c7890e`): both sides kept, #17 became **0.4.6**, and its trick is listed as
+  `unity-asset-creator-trick` (the hub's id), skill still at `skills/unity-asset-creator/SKILL.md`. Tests: 43, 42 pass,
+  1 skipped. I retargeted #17 to `main` and merged it once CodeQL passed: **`2e631e4`**.
+- Hub #119: `main` merged into its branch (`ad9d051`; card 050 kept beside 049, generated files rebuilt; 179 tests,
+  178 pass, 1 skipped). Its merge commit is on GitHub's PR page; this card was written just before it.
+
 ## Task
 
-1. Astra: say which pull requests to merge, in this order: unity-unicorn #13, #14, #17, then hub #119.
-2. Whoever merges: before merging #13, retarget #14 to `main` (`gh pr edit 14 --base main -R findastra/unity-unicorn`),
-   and before merging #14, retarget #17. Otherwise `--delete-branch` closes the stacked PR. Run unity-unicorn's tests
-   after each.
-3. Merge hub #119 after #17. Its tool boxes say "works today", which is true once the code is on
+1. ~~Astra: say which pull requests to merge~~ Done 2026-10-19 (above).
+2. ~~Retarget and merge the stacked PRs~~ Done (#17 retargeted to `main`, merged as `2e631e4`).
+3. ~~Merge hub #119 after #17.~~ Done after its checks passed. Its tool boxes say "works today", which is true once the code is on
    unity-unicorn's `main`.
-4. After hub #117 is merged: add the three tools and the trick to the page doc and Unity Unicorn's levels row.
+4. **Still open.** Hub #117 is merged (`9d1cef7`), so add the three tools and the trick to
+   `docs/unity-unicorn-page-modules-20261018.md` and Unity Unicorn's row in `INTELLIGENCE-LEVELS.md`, in a pull request.
 
 ## Done when
 
