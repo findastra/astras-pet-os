@@ -173,9 +173,16 @@ for (const rec of ledger) {
         rm = rm.replace(/^#[ \t]+pet-program-\d+[ \t]*(\r?)$/m, (m, cr) => `# ${titleRow.fix.to}${cr}`);
         log.push(`README: the title is now its program's name, ${titleRow.fix.to} (pet-programs.json).`);
       }
-      if (rec.rows.some((r) => r.fix?.type === 'credit') && !/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) {
-        rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*An Intelligent App, or Pet, by Astra.*') : `*An Intelligent App, or Pet, by Astra.*\n\n${rm}`;
-        log.push('README: added the credit line "*An Intelligent App, or Pet, by Astra.*".');
+      // The credit is "By Astra." (Astra, 2026-10-20, card 059): a retired credit line becomes it; a README with none gets it.
+      if (rec.rows.some((r) => r.fix?.type === 'credit')) {
+        const retired = /\*(?:An Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra)\.\*/gi;
+        if (retired.test(rm)) {
+          rm = rm.replace(retired, '*By Astra.*');
+          log.push('README: the retired credit line is now "*By Astra.*".');
+        } else if (!/\bBy Astra\b/i.test(rm)) {
+          rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*By Astra.*') : `*By Astra.*\n\n${rm}`;
+          log.push('README: added the credit "*By Astra.*".');
+        }
       }
       const row = levelRows[repo];
       if (rec.rows.some((r) => r.fix?.type === 'limits') && row && !/^#{2,3}\s.*(limit|not done|known)/im.test(rm)) {
