@@ -271,13 +271,13 @@
       "name": "Sticker Manager",
       "type": "tool",
       "of": "program-13",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "discord-tower-v1.0-sticker-manager-v1.0",
       "url": "https://github.com/findastra/findastra-discord-presence/tree/main/discord-tower/sticker-manager",
-      "job": "A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet."
+      "job": "A tool of Discord Tower, in Discord Damsel's servers tool panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); installed in Astra's Discord on 2026-10-19, where it read 91 servers and 1315 stickers and reset her favorites. Plugin 1.0.3 on main: #26 lets Put back restore an empty list, #27 names the tool panel. The Put back test inside Discord is still open (card 005)."
     },
     {
       "id": "astras-star-window",
@@ -826,9 +826,9 @@
       "id": "betterdiscord",
       "name": "BetterDiscord",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
-      "job": "Third-party client mod for Discord desktop that loads plugins, such as Discord Damsel's Sticker Manager. Made by others (betterdiscord.app), not through the Shed; client mods are against Discord's Terms of Service. A Discord update can remove it. Not loaded in Discord on 2026-10-18.",
+      "job": "Third-party client mod for Discord desktop that loads plugins, such as Discord Damsel's Sticker Manager. Made by others (betterdiscord.app), not through the Shed; client mods are against Discord's Terms of Service. Installed in Astra's Discord on 2026-10-19 (v1.14.3, with the official installer v2.0.0). A Discord update can remove it; v1.14.3 hooked itself into Discord 1.0.9263 when that update downloaded the same day.",
       "category": "Desktop app"
     },
     {
@@ -3690,21 +3690,21 @@
       "from": "findastra-discord-presence",
       "to": "sticker-manager",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "Discord Damsel's page links her Sticker Manager, which runs inside Discord (Astra, 2026-10-18)."
     },
     {
       "from": "sticker-manager",
       "to": "betterdiscord",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "The Sticker Manager is a BetterDiscord plugin."
     },
     {
       "from": "sticker-manager",
       "to": "discord",
       "carries": "manages",
-      "state": "planned",
+      "state": "now",
       "why": "Reads your servers and their stickers; changes only your favorite stickers, after you confirm, through Discord's own settings saver."
     },
     {
