@@ -11,6 +11,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [051: A guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | open, waits on Astra: the name, and merge |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
+| [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #104 |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, the three pets merged; the hub merges with #105](045-any-crash-watch-pets-20261018.md) | any | done when #105 merges; pet art waits on Astra |
@@ -101,12 +102,12 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106) |
-| 045 | `045-any-crash-watch-pets-20261018.md` | `claude/crash-watch-pets-20261018` |
-| 046 | `046-codex-desktop-clicker-rule-20261018.md` | `claude/clicker-rule-20261018` |
-| 047 | `047-any-panels-in-pet-repos-20261019.md` | `claude/programmer-words-20261019` |
-| 048 | `048-any-how-agents-work-and-rwx-in-code-20261019.md` | `claude/how-agents-work-20261019` |
-| 049 | `049-any-unity-stable-asset-tools-20261019.md` | `claude/unity-stable-asset-tools-20261019` (PR #119) |
-| 050 | `050-any-markdown-pets-locked-down-20261019.md` | `claude/markdown-pets-20261019` |
+| 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105) |
+| 046 | `046-codex-desktop-clicker-rule-20261018.md` | `main` (merged with #107) |
+| 047 | `047-any-panels-in-pet-repos-20261019.md` | `main` (merged with #111) |
+| 048 | `048-any-how-agents-work-and-rwx-in-code-20261019.md` | `main` (merged with #112) |
+| 049 | `049-any-unity-stable-asset-tools-20261019.md` | `main` (merged with #119) |
+| 050 | `050-any-markdown-pets-locked-down-20261019.md` | `main` (merged with #120) |
 | 051 | `051-any-beginner-guide-20261019.md` | `claude/beginner-guide-20261019` |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
