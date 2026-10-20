@@ -22,12 +22,14 @@ Astra wants other software developers to read her build without frustration. She
 | Maker agent / checker agent | Maker-checker rule (four-eyes, two-person rule) | Was "offensive / defensive agent"; in security "offensive" means attacking. Decided 2026-10-13. |
 | Versions with `v` | Version tags (`v1.0`) | `pet-program-3-v1.0-icon-2-v1.0`: a name keeps its number, a version never hides inside it. Decided 2026-10-13. |
 | Tool box | Card or panel with a title (HTML `fieldset` with a `legend`) | Border with the versioned label on top, everything about the tool inside. |
+| Pet program page as a control panel | Dashboard / admin console; a feature that outgrows it becomes its own web app that the dashboard links to and reports on | Astra, 2026-10-19: pet programs are control panels, and they manage websites when things get too big for a panel. PET-PROGRAM-FRAMEWORK.md, section 3. Decided 2026-10-19. |
 | Tool panel (`<pet>-L1-tool-panel`) | Panel: a collapsible section of a dashboard page (HTML `details` with a `summary`) | Was "module", then "panel"; to developers a module is a file of code (an `.mjs` file is one). Developers read "tool panel" as a panel that holds tools: on these pages only L1 holds tools (warned 2026-10-19). Astra chose it for every panel. Decided 2026-10-19. |
 | Connection box | Integration panel (what flows between two services) | Its own border colour; titled with the other pet's icon name. |
 | Trick | Skill (`SKILL.md`), prompt, workflow (a runtime skill) | Owned by the pet at L2, followed by the agent in the seat at L3; uses only the tools the pet has. Kept by Skill Scout. See TOOLS-AND-TRICKS.md. Decided 2026-10-14; owned at L2, followed at L3 since 2026-10-18. |
 | Grant | Scope / permission grant (least privilege, capability-based access) | Folders + R W X + limits for one pet on a shared tool. Not a copy of the tool. Decided 2026-10-14. |
 | The Shed | Plugin / extension registry | Third-party tools and tricks, like the Kennel for pets. |
 | Agent key | Short-lived session token with an audit trail | Issued per agent session by Iron Gates; records agent, model, person, device, place. |
+| Key request | Credential request (an access-request ticket for a secret; it never holds the secret) | Filed for API Fairy by any chat, pet or tool that needs a key (`skills/key-request`); the secret itself goes into a secret store (here, Windows environment variables), never into the request. Decided 2026-10-19. |
 | The Police Station | Security monitoring (a SOC with intrusion detection) | Detects and contains (switches OFF); never authorizes. |
 | Farmhand | AI model (LLM) that takes the seat | Not a pet. Claude, OpenAI, local models. Only allowlisted farmhands get keys. Decided 2026-10-14. |
 | Trust levels for farmhands | Graduated trust, allowlisting | A local model is promoted by L4 as it passes tests. |

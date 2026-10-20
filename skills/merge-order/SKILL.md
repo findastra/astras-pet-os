@@ -1,6 +1,6 @@
 ---
 name: merge-order
-description: Work out the order Astra should merge pull requests in, most important first, and show it as one numbered chart with a direct link for each action. Use whenever a chat opens, updates, merges or closes a pull request that waits on Astra, and when she asks what to merge first.
+description: Work out the order Astra should merge pull requests in, most important first, and show it as one numbered chart with a direct link for each action. Use whenever a chat opens, updates, merges or closes a pull request that waits on Astra, when she asks what to merge first, and before asking her for any go-ahead (merge, push, open a pull request), so the question points to the decision that must come first.
 ---
 
 # Merge order (Astra, 2026-10-17)
@@ -44,6 +44,31 @@ should do them (rank rules above, from the open pull requests right now), never 
 - Check each pull request's state just before the chart (`mergeable_state`): a row that has conflicts says
   **"Wait: its chat fixes the conflict first"**, never "Merge".
 
+## Point her to the first decision (Astra, 2026-10-19)
+Astra, about the buttons under a chat's question (Claude's next-step box): "use these so it directs me to the other
+decision that needs to be made first before I make it, so that I don't create a bunch of [broken] branches."
+
+Before you ask Astra for a go-ahead or a choice (merge, push, open a pull request, start something), check whether
+another decision has to come first:
+- an open pull request that yours is stacked on, or that touches the same files (rank rule 3);
+- a question waiting on her in another chat whose answer changes your branch;
+- a pull request of yours with a conflict (its chat fixes that first, section below).
+
+Then:
+1. **Something comes first:** ask about that one, not yours. The question names it and says why it is first ("First
+   merge log-den#8: it changes the same program"), and the first button takes her there: Claude's answer to the button
+   links the other chat (its `local_…` session link opens it in one click) or the pull request; Codex, or a chat with
+   no buttons, puts that link on the first line of the reply. Ask for your own decision only after that one is made.
+2. **Nothing comes first:** ask for yours, with your recommendation as the first button.
+3. **Just before you act on her answer,** fetch again. If `main` moved while she answered, rebase or merge `main` into
+   your branch and run the tests again before you push, and say so in one line.
+
+Never offer a button that makes a branch, pushes or merges ahead of a decision it depends on.
+
+Example (2026-10-19): the `--startup` branches in log-den, packet-river and evidence-locker were ready while #8 in
+each repo (the draft pet art, in the same programs) was still open. The question should have pointed to the three #8s
+first. They merged while she answered, so the branches were rebased on the new `main` and tested again before the push.
+
 ## When GitHub says "This branch has conflicts"
 - Two pull requests changed the same lines; the one merged first wins. **Astra does not fix it on GitHub** (the
   "Resolve conflicts" button can lose work). The chat that made the pull request merges `main` into its branch, keeps
@@ -55,7 +80,9 @@ should do them (rank rules above, from the open pull requests right now), never 
 1. **When your chat opens a pull request for Astra:** work out its rank from the open pull requests (rules above) and say
    it in the pull request's text. Do not write the list into any file.
 2. **In your reply,** give the numbered chart when there is more than one action for her.
-3. **After a merge or close:** if your pull request now has a conflict, fix it right away (section above) and tell Astra
+3. **Before you ask her for any go-ahead,** check what has to be decided first, and ask about that one first
+   ("Point her to the first decision").
+4. **After a merge or close:** if your pull request now has a conflict, fix it right away (section above) and tell Astra
    when it is ready.
-4. Astra can reorder the list any time; her order wins over the rules above.
-5. Never merge to move up the list: merging waits for Astra's OK in chat (AGENTS.md).
+5. Astra can reorder the list any time; her order wins over the rules above.
+6. Never merge to move up the list: merging waits for Astra's OK in chat (AGENTS.md).
