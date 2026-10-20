@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge the click-check pull request; then fixing what it found)
+status: open (merged with #158 and #159 on Astra’s OK, 2026-10-20; waiting on Astra: the three decisions in the slides, and whether astras-pet-os should be private)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/click-check-20261019.mjs, test/click-check-test-20261019.mjs, skills/new-pet-or-tool (decision row), ASTRAS_PET_OS.md (the Browser Bat line), PET-PROGRAM-FRAMEWORK.md (section 8)
@@ -72,8 +72,8 @@ signed-in `gh` so private repos are told from missing ones): **65 pages, 4,106 b
 
 1. **↕️ The page moves at the first press, on 16 of the spawned pages** (real). The first press anywhere makes the pet
    notice you; its bubble grows from one line to two, the cyberhome grows 21 px, and every button and link below it
-   moves down, so a quick first click on a small light or panel label lands beside it. **Fixed** on branch
-   `claude/click-check-fixes-20261019` (its own pull request): the bubble keeps room for three lines
+   moves down, so a quick first click on a small light or panel label lands beside it. **Fixed** with #159
+   (merged as `28bcb79`, Astra’s OK in chat, 2026-10-20): the bubble keeps room for three lines
    (`apps/pet-programs/pet-program-page-20261018.css`). click-check on that branch no longer reports it.
 2. **🔒 `astras-pet-os` itself is private now** (and `portfolio-puffer` and `the-astral-plane`). Earlier the same night
    every hub link loaded for anyone. With the hub private, for anyone but Astra the GitHub Pages site (the beginner guide,
@@ -91,7 +91,7 @@ Ghost's page), plus 7 buttons whose labels say they act for real (Send, Delete .
 
 ## Task
 
-1. Astra: OK to merge the pull request.
+1. ~~Astra: OK to merge the pull request.~~ Done: #159 (the bubble fix) and #158 merged on her OK, 2026-10-20.
 2. Fix what it found, one pull request per cause (the spawner's or each pet repo's), and run `npm run click-check` again
    on the branch to show the row is gone.
 3. Astra decides how often it runs (only when asked, on every pull request, or nightly with the Idle Flash Audit) and
