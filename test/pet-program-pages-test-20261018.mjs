@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'pet-program-quick-summary' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -87,6 +87,18 @@ test('one click always points to the pet program page: every pet\'s link is its 
   }
 });
 
+test('every page links back to the System Map, top right, on its own node (Astra, 2026-10-19; Flash Audit A60)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
+    const at = (label) => header.indexOf(`>${label}<`);
+    assert.ok(at(`${d.petSlug}-system-map`) > at(`${d.petSlug}-cyberhome`), `${d.repo}: the map panel is in the header, after the cyberhome`);
+    assert.ok(at(`${d.petSlug}-system-map`) > header.indexOf('<h1>'), `${d.repo}: the map panel comes after the title, on the right`);
+    const link = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
+    assert.ok(header.slice(at(`${d.petSlug}-system-map`)).includes(`<a class="map-link" href="${link}">`), `${d.repo}: it opens the map on ${d.mapNode}`);
+  }
+});
+
 test('the title is the pet program name from pet-programs.json', () => {
   for (const d of pages) {
     const prog = animals.find((p) => p.repo === d.repo);
@@ -100,8 +112,28 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const html = files[pagePath(d.repo)];
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
-    for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) assert.match(b, /aria-label="[^"]+: (on|working correctly|not built yet)"/);
+    for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
+      assert.match(b, /aria-label="[^"]+: (on|working correctly|not set yet|not checked yet)"/);
+      assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
+    }
   }
+});
+
+test('every program, tool and trick is a pill: its two lights on the oval, and a name that opens in place (Astra, 2026-10-19)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const items = [...html.matchAll(/<ul class="items">([\s\S]*?)<\/ul>/g)].map((m) => m[1]).join('');
+    for (const li of items.match(/<li[^>]*>/g) || []) assert.equal(li, '<li class="pill">', `${d.repo}: every item is a pill`);
+    const pills = items.split('<li class="pill">').slice(1);
+    for (const p of pills) {
+      assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
+      assert.match(p, /<details class="pill-more"><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
+      assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
+    }
+  }
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const html = files[pagePath(damsel.repo)];
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {
@@ -175,9 +207,9 @@ test('third-party programs include those a tool of the pet runs or looks after (
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const L4 = html.indexOf(`>${d.petSlug}-L4-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes<`);
+    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes<`);
     assert.ok(L4 > -1 && start > L4 && end > start, `${d.repo}: its own panel, after the four level panels`);
-    assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 panel`);
+    assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 tool panel`);
     const box = html.slice(start, end);
     for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.ok(box.includes(`<span class="lv">${lv}</span><span class="should">Should be</span><span class="rwx">`), `${d.repo}: ${lv} says what it should be`);
     for (const m of ['✓ In code', '⚠︎ Rule only', '○ Not built']) assert.ok(box.includes(m), `${d.repo}: the key shows ${m}`);

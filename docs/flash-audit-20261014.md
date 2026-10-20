@@ -79,7 +79,7 @@ After **each round**, and after substantial owner corrections within a round:
 5. Hand off the next round with exact progress and open decisions. Never count a
    Not verified check as passed merely to finish a round.
 
-All checks, A01-A59, are in one matrix in section 3, most important first. The dot at the start of each row says
+All checks, A01-A60, are in one matrix in section 3, most important first. The dot at the start of each row says
 whether it needs Astra (section 3, "Grey and blue dots").
 
 ### Idle Flash Audit (Astra, 2026-10-17)
@@ -160,7 +160,7 @@ What people see first.
 
 | ID | Check | Evidence required / exception to report |
 |---|---|---|
-| 🔵 A18 | Official tool and trick inventory | Separate implemented, owner-approved planned, and proposed tools. Record purpose, version, owner, permissions, dependencies and add-your-own decisions. List the pet's tricks the same way: its own skills (L2 panel, kept by Skill Scout), apart from the harness skills the seat brings (L3; PET-PROGRAM-FRAMEWORK.md section 3). Which tools and tricks each pet should have is Astra's. ⚪ Listing what is built, merged or only on a branch, from the code, is idle. |
+| 🔵 A18 | Official tool and trick inventory | Separate implemented, owner-approved planned, and proposed tools. Record purpose, version, owner, permissions, dependencies and add-your-own decisions. List the pet's tricks the same way: its own skills (L2 tool panel, kept by Skill Scout), apart from the harness skills the seat brings (L3; PET-PROGRAM-FRAMEWORK.md section 3). Which tools and tricks each pet should have is Astra's. ⚪ Listing what is built, merged or only on a branch, from the code, is idle. |
 | ⚪ A19 | Tool behavior | Verify inputs, outputs, errors and intended actions for each tool. Use safe fixtures for changing actions; live checks require authorized scope. Fixture checks run in a scratch copy with made-up data and no sign-in. 🔵 A live check (Astra's real data, an account, her PC) needs her there. |
 | 🔵 A21 | Tool OFF enforcement | Verify execution actually stops/prevents new work, state is controlled outside the tool, and security OFF cannot be self-reenabled. Report unsupported enforcement as a gap. Enforcement is a security change, so L4 (Astra) approves it, and checking it live needs her there. |
 | ⚪ A20 | Manual maintenance light | Every tool has a maintenance light, the right one of its pair (blue working correctly, yellow requires maintenance; Astra, 2026-10-18), distinct from ON/OFF and automatic health. Report persists to backlog/Farmer; tests cannot silently clear it. |
@@ -185,6 +185,7 @@ What people see first.
 
 | ID | Check | Evidence required / exception to report |
 |---|---|---|
+| ⚪ A60 | System Map link | Every pet program page links back to the System Map, always: a `<pet>-system-map` panel in the top right, opposite the `<pet>-cyberhome`, that opens the map on the pet program's own node (`system-map-20261012.html#node=<node id>`), and comes first on a phone. A missing, misplaced or wrong link is fixed on a branch; the spawned pages get it from the Friendly Farmer's pet program spawner (`npm run build`), a pet's own page in its repo on a branch for that pet. Added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19 (Astra: "There's always going to be a system map link back… on the right side of the top right of the page, kind of like where the cyber home is, but on the other side"). |
 | ⚪ A44 | Original yellow phone | Shared original Chip shell; current pet artwork; opens the actual pet chat without coin geometry or spinning animation. Preserve existing host handlers. |
 | ⚪ A45 | Paper and zoom | Portrait paper width; normal initial view; Ctrl+wheel from full-page fit to 100%, no zoom bar; no horizontal overflow at 390px. Real browser acceptance is separate from handler tests. |
 | ⚪ A46 | Program launch rows | Third Party Programs then Your Programs: square cloud-framed app icons with accessible names and real bounded launch routes; installer labels distinguish installation from an installed app. 🔵 Checking that a launch really opens the program on Astra's PC needs her there. |
@@ -194,7 +195,7 @@ What people see first.
 | ⚪ A41 | Clicker Training | Every program has a bordered list of real desktop click bindings. One click shows the most important emotion-linked message; two clicks show/hide the Pet Program window (background work is controlled separately); three clicks runs an explicitly assigned quick tool. Verify sequence disambiguation, drag suppression, OFF/permissions and honest unavailable states before claiming native support. 🔵 Binding more tools to clicks is Astra's choice, and the check on her desktop needs her there. |
 | ⚪ A39 | Pet-icon navigation | Every cross-pet program hyperlink is the current pet icon, with accessible name, tooltip, keyboard focus and usable hit area. Check real destination, hosted/local assets and offline behavior where applicable. Missing program route shows unavailable, not a repo substituted as the program. |
 | ⚪ A38 | Tool organization | Verify browsing by pet, subject category and nested groups, search and multi-category tags, while one canonical tool retains its identity/owner. Distinguish health category from software-health status. |
-| ⚪ A12 | Map/catalog navigation | Check icon/program links, program-to-map node link, stable identity and correct relationships in both directions. |
+| ⚪ A12 | Map/catalog navigation | Check icon/program links, program-to-map node link, stable identity and correct relationships in both directions. The link back from every pet program page to its node is A60. |
 | ⚪ A31 | Status and link labels | Check data owner, last entry, update/version, seat, map node, and links grouped by kind with origin/location/visibility labels. |
 
 ### 7. Tutorials
