@@ -49,6 +49,14 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .system-map .map-link { display: grid; justify-items: center; gap: 8px; color: var(--chalk); text-align: center; text-decoration: none; }
 .system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
 .system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
+/* The first related pets, under the map's node; the related pets panel has all of them (Astra, 2026-10-20). */
+.map-related { list-style: none; margin: 12px 0 0; padding: 0; display: flex; justify-content: center; gap: 8px; }
+.map-related li { width: 64px; }
+.map-related a, .map-related-static { display: grid; justify-items: center; gap: 2px; color: var(--chalk); text-decoration: none; text-align: center; font-size: 11px; line-height: 1.25; overflow-wrap: anywhere; }
+.map-related a:hover span, .map-related a:focus-visible span { text-decoration: underline; }
+.map-related .mini, .map-related .no-art { width: 36px; height: 36px; image-rendering: pixelated; }
+.map-related .no-art { display: grid; place-items: center; border: 1px dashed var(--line); font-size: 8px; }
+.system-map .map-related-all { margin-top: 6px; }
 .rings { width: 100%; max-width: 150px; height: auto; }
 .rings circle { fill: none; stroke: var(--line); stroke-width: 1.5; }
 .rings .core { fill: var(--line); }
@@ -68,6 +76,10 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* Room for three lines, so the bubble does not grow when the pet notices you: before, the first press anywhere pushed
    every button below it down a line and a quick first click landed beside its button (click-check, 2026-10-19). */
 .bubble { position: relative; margin: 14px 4px 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; min-height: calc(4.5em + 18px); }
+/* The pet's bubble points up at the pet, its tail drawn like the emotion bubbles' (Astra, 2026-10-20: "make the blurb
+   arrow on top of the idle box, like the emotions have"). */
+.habitat > .bubble::after { content: ''; position: absolute; top: -7px; left: calc(50% - 6px); width: 12px; height: 12px; background: var(--slate);
+  border-top: 1px solid var(--line); border-left: 1px solid var(--line); border-top-left-radius: 3px; transform: rotate(45deg); }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
 .button { display: inline-block; font: 14px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 3px 12px; text-decoration: none; cursor: pointer; }
@@ -205,14 +217,24 @@ label.file { position: relative; }
   .top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 14px; }
   .top > .cyberhome { grid-column: 1; grid-row: 1; }
   .top > .system-map { grid-column: 2; grid-row: 1; }
-  .top > .title { grid-column: 1 / -1; }
+  .top > .title { grid-column: 1 / -1; margin-top: 26px; }
   .top > .panel { padding-left: 10px; padding-right: 10px; }
+  /* Two matching squares at the top of the two boxes (Astra, 2026-10-20: "BOTH TO BE SQUARES"): the pet's den and the
+     map's rings, framed the same and the same size; the rings sit at the top, level with the den. Everything else
+     stays inside its box ("the idle blurp needs to be in the panel"): the pet's bubble under the den, the map's words
+     and the first related pets under the rings. */
+  .top > .panel[open] { padding-top: 22px; }
+  .top > .system-map[open] { justify-content: flex-start; }
+  .top > .system-map .map-link { justify-items: stretch; }
+  .top > .system-map .rings { box-sizing: border-box; width: 100%; max-width: none; aspect-ratio: 1 / 1; padding: 12%; border: 1px solid var(--line); }
+  .top > .system-map .map-link > span { margin-top: 6px; }
   /* A long label wraps onto two lines in a half-width box, so the cyberhome's lights go inside the den's top corner,
      opposite Startup Star's door, instead of on the border line. */
   .habitat > .lights { top: 9px; left: 9px; right: auto; z-index: 2; padding: 0; background: none; }
   /* In a half-width box a long label wraps, so it takes its own room: its first line stays on the border and the
      box's contents start below its last line instead of under it. */
-  .top > .panel > summary { position: relative; top: auto; left: auto; width: fit-content; max-width: 100%; margin: calc(-24px - .65em) 0 10px -6px; }
+  .top > .panel > summary { position: relative; top: auto; left: auto; width: fit-content; max-width: 100%; margin: calc(-22px - .65em) 0 10px -6px; }
+  .top > .panel > summary .legend { font-size: 11px; }
   .top > .panel:not([open]) > summary { margin-top: calc(-14px - .65em); margin-bottom: 0; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }

@@ -332,6 +332,22 @@ const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true"
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
 const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+// The first related pets in the System Map box, under its node (Astra, 2026-10-20: "reserved for other agent links,
+// relative, full list below"): up to three, each its picture and name linking to its pet program, then a link down to
+// the related pets panel with all of them.
+export const MAP_RELATED = 3;
+function mapRelated(d) {
+  if (!d.related.length) return '';
+  const link = (r) => {
+    const inner = `${img(r.idle, `${r.pet}, idle`, 'mini')}<span>${esc(r.pet)}</span>`;
+    return `<li>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
+  };
+  const more = d.related.length > MAP_RELATED ? `all ${d.related.length} related pets` : 'related pets';
+  return `
+<ul class="map-related" aria-label="${esc(`Pets ${d.pet} talks to`)}">${d.related.slice(0, MAP_RELATED).map(link).join('')}</ul>
+<p class="small map-related-all"><a href="#${esc(d.petSlug)}-related-pets">${more}, below</a></p>`;
+}
+
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
@@ -371,7 +387,7 @@ ${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <spa
   const systemMap = panel(`${d.petSlug}-system-map`, `<a class="map-link" href="${esc(map)}">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
 <span>Open ${esc(d.home)} on the System Map</span></a>
-<p class="small">its node: <code>${esc(d.mapNode)}</code></p>`, { cls: 'system-map' });
+<p class="small">its node: <code>${esc(d.mapNode)}</code></p>${mapRelated(d)}`, { cls: 'system-map' });
 
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section><h3>3rd party programs</h3>${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
@@ -456,7 +472,7 @@ ${assigned}</dl>
   const related = panel(`${d.petSlug}-related-pets`, d.related.length
     ? `<ul class="cards related">${d.related.map(relatedCard).join('')}</ul>
 <p class="small">Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.</p>`
-    : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets' });
+    : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-related-pets` });
 
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
   const footer = panel('astras-pet-os-unified-footer', `<div class="footer-grid">
