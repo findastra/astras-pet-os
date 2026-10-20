@@ -56,19 +56,60 @@ not merged (Astra gives her OK per pull request in chat):
 - **Search for task 4:** GitHub code search for `L1-module`, `L2-module` and `servers-module` finds only Unity Unicorn's `main` page, and it missed Damsel's L2 box. The index lags, so check each framework pet's repo by hand.
 - On Astra's PC: nothing changed (her pet folders are on Codex branches). Headless Edge ran from the scratchpad.
 
+**Task 4, every other framework pet page** (Claude Opus 5.5, `claude-opus-5-5`, a session started from the one above,
+2026-10-19). Every pet repo in pet-programs.json (83, plus the hub) and the three candidates with repos
+(astras-infinite-pole, piranesi-house, fuzzbois) was cloned into Claude's scratchpad with `core.autocrlf=false`, and
+every branch of each was searched for `-L1-module` to `-L4-module`, `servers-module`, `class="…module`, `.module{`,
+"this module", "framework modules" and `-module"`, then every file for the word itself. Four repos still called a page
+box a module; each has its own pull request on `claude/panels-20261019`, not merged (Astra gives her OK per pull request
+in chat):
+
+| Repo | Pull request | Commit | What it said | Tests |
+|---|---|---|---|---|
+| findastra/log-den | [#4](https://github.com/findastra/log-den/pull/4) | `4900ff3` | `log-lynx-L1-module` to `-L4-module`, `<details class="module">`, `.module` styles | `node --test` 6 pass; `--self-test` 38 pass |
+| findastra/packet-river | [#4](https://github.com/findastra/packet-river/pull/4) | `b547751` | `packet-piranha-L1-module` to `-L4-module`, the same classes | `node --test` 6 pass; `--self-test` 20 pass |
+| findastra/evidence-locker | [#4](https://github.com/findastra/evidence-locker/pull/4) | `e248fe3` | `forensic-ferret-L1-module` to `-L4-module`, the same classes | `node --test` 6 pass; `--self-test` 22 pass |
+| findastra/workflow-whirlpool (private) | [#1](https://github.com/findastra/workflow-whirlpool/pull/1), into `codex/workflow-whale-20261018`, its default and only branch | `1cfb2fa` | `class="panel module"` on its nine boxes, `.module>summary` styles | `node --test test-panels-20261019.mjs` 4 pass |
+
+- **The crash-watch pages** (Log Den, Packet River, Evidence Locker) were built on 2026-10-18 from the spawner's old
+  shape: now `<details class="panel …">`, `<pet>-L1-panel` to `-L4-panel`, `live-panel`, and "fold or unfold this
+  panel". Their version stays 0.1.0, because the C# program writes it into the page's data and did not change.
+- **Workflow Whirlpool:** `details.panel` replaces the `module` class; its visible labels never said module. Headless
+  Edge screenshots before and after are identical. Its source download zip was rebuilt with its own
+  `build-downloads-20261016.py` (filename audit passed); the iPad zip did not change. `test-host-20261016.mjs` was not
+  run: it needs the PC companion running and captures the real screen. The hosted Sites page changes only when it is
+  published again.
+- **Saved lights:** on all four pages they are saved by item or tool (`program:`, `tool:`, `connection:`,
+  `ipad-workflow-caster-off`), never by a box's name, under the same storage keys, so nothing saved is lost. Each new
+  test checks it; the crash-watch tests load the page's own script with lights saved before the rename.
+- **Each repo:** a test that fails if a page box is called a module again (it fails on the old page), a credit line in
+  AGENTS.md, and in the crash-watch repos the page test in the README and `pet.json` `updated` and `built_with`.
+- **Already panels, nothing to change:** Unity Unicorn and Discord Damsel (tasks 1 and 2, merged) and The Threshold
+  (`door-dormouse-L1-panel`, the-threshold#2). No other pet repo has a framework page that says module.
+- **Left as modules, on purpose:** real code modules (Log Den's `module` field, the faulting program file of a Windows
+  crash record; Python, TypeScript, webpack, Unity particle and face tracking modules; `"type": "module"`), and dated
+  records (old credit lines, Unity Unicorn's card 002, Damsel's cards 005 and 006).
+- **Not checked:** pages that are not on GitHub, such as The Threshold's hosted page in Codex's Sites source
+  (`the-threshold-20261016.html`, docs/page-panels-check-20261019.md in the-threshold).
+- **Seen, not changed (not this task):** the crash-watch pages still say their tools are "on main: no (branch
+  `claude/build-20261018`, not merged)", though those branches merged on 2026-10-19 (each repo's #2).
+- On Astra's PC: nothing changed. The programs were built and their self-tests run in the scratchpad clones; headless
+  Edge ran from the scratchpad.
+
 ## Task
 
 1. **Unity Unicorn** (findastra/unity-unicorn, its own pull request): `unity-unicorn-20261008.html` labels its level
    boxes `unity-unicorn-L1-module` to `-L4-module` (found by GitHub code search). Rename them to `-L1-panel` to
    `-L4-panel`, with any class names, ids and docs that say module for a page box, then update the note at the top of
-   the hub's docs/unity-unicorn-page-modules-20261018.md. **Done, waiting on Astra's OK:** unity-unicorn#11; the doc note is updated.
+   the hub's docs/unity-unicorn-page-modules-20261018.md. **Done:** unity-unicorn#11, merged 2026-10-19; the doc note is updated.
 2. **Discord Damsel** (findastra/findastra-discord-presence): the Sticker Manager sits in her `discord-damsel-servers-module`.
    Rename it to `discord-damsel-servers-panel` there, then the hub's `system-map.json` job text for `sticker-manager`.
-   **Repo part done, waiting on Astra's OK:** findastra-discord-presence#20 (the L2 box too). The map text moves to task 3.
+   **Repo part done:** findastra-discord-presence#20 (the L2 box too) and #21, merged 2026-10-19. The map text moves to task 3.
 3. **Hub, after #106 and #104 merge** (both rebuild the System Map page, so changing it now would collide):
    `system-map.json` job texts for `pet-program-spawner` and `sticker-manager` still say "module"; change them and run
    `npm run build`.
-4. **Any other pet page built to the framework:** search for `-module` and rename it the same way.
+4. **Any other pet page built to the framework:** search for `-module` and rename it the same way. **Done, waiting on
+   Astra's OK:** log-den#4, packet-river#4, evidence-locker#4 and workflow-whirlpool#1 (above).
 5. **Waiting on Astra:** `skills/dev-mindset` says "Home (cyberhome)" is the pet program (2026-10-16), while
    PET-PROGRAM-FRAMEWORK.md (2026-10-18) makes `<pet>-cyberhome` the box at the top left where the pet sits. PET-WORDS.md
    follows the framework. Astra says which; then fix the other.
