@@ -71,7 +71,8 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **`<pet>-L1-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **your programs** (applications the pet manages) and **your tools** (its own scripts and utilities), including tools not merged yet. |
 | **`<pet>-L2-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
 | **`<pet>-L3-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
-| **`<pet>-L4-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, grants, agent keys, items needing maintenance and the pet passport. |
+| **`<pet>-L4-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the pet passport. Its grants have their own panel. |
+| **`<pet>-rwx-panel`** | permissions panel: designed access vs enforced access (access review) | What each level should be (R W X), then whether that is in code: ✓ In code, ⚠︎ Rule only, ○ Not built, each In code with its proof (Astra, 2026-10-19, option C). |
 | **tool box** | card with a title (HTML `fieldset` with a `legend`) | How one tool shows on a page, with its versioned label on the top border. |
 | **trick box** | skill card | How one trick shows: where it came from, which tools it uses, ON/OFF. |
 | **connection box** | integration card: what flows between two services | A box titled with the other pet's name: what each side sends and receives, with its own ON/OFF. |
