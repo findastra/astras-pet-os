@@ -1,7 +1,7 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
-**Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are built on
-`claude/farm-owner-privatizer-20261019` (card 058); Parts 3 and 4 are not built. By Claude Opus 5.5
+**Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
+(#157, card 058); Parts 3 and 4 are not built. By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)

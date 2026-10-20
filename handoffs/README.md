@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open, waits on Astra: merge #157 (Parts 1 and 2, the animal guard); Parts 3 and 4 after |
+| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open: Parts 1 and 2 merged (#157); Parts 3 and 4 to build |
 | [056: Key requests for API Fairy: the rule, skills/key-request, and the panel on her pet program page](056-any-key-requests-for-api-fairy-20261019.md) | any | open: both pull requests merged (2026-10-19); left: rebuild API Fairy, install the skill, three answers |
 | [055: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](055-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
 | [054: The cyberhome, the activity lights and the chat window; the live link to Startup Star](054-any-cyberhome-link-20261019.md) | any | open, waits on Astra: merge, then six questions (first: the live link) |
@@ -121,7 +121,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 055 | `055-any-astral-plane-records-20261019.md` | `claude/astral-plane-records-20261019` |
 | 056 | `056-any-key-requests-for-api-fairy-20261019.md` | `claude/key-requests-20261019` |
 | 057 | `057-any-aquarium-error-checkers-20261019.md` | `claude/aquarium-error-checkers-20261019` (PR #136) |
-| 058 | `058-any-farm-owner-and-single-pets-20261019.md` | `claude/farm-owner-privatizer-20261019` |
+| 058 | `058-any-farm-owner-and-single-pets-20261019.md` | `main` (merged with #157) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
