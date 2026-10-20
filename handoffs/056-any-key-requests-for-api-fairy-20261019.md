@@ -1,4 +1,4 @@
-status: open (both pull requests merged on Astra's OK in chat, 2026-10-19; left: rebuild her API Fairy, install the skill for Claude and Codex, and her three answers in the question slides)
+status: done 2026-10-20 (merged, API Fairy rebuilt and running as Astra, the skill installed, her three answers recorded; left for other chats: the voice's own key name, buttons on the page)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: skills/key-request/SKILL.md, AGENTS.md (Rules), scripts/pet-program-pages-20261018.mjs (`PET_PANELS`), apps/pet-programs/pet-program-page-20261018.js, test/key-requests-test-20261019.mjs, findastra/api-fairy src/KeyRequests.cs and docs/key-requests-20261019.md
@@ -76,27 +76,45 @@ INTELLIGENCE-LEVELS.md says merged; rebuilt and tested; then #148.
 
 Her three questions are in slides: https://claude.ai/artifact/2iLfNPrhiAkKe6xrQF6g7B (private to her).
 
+**After the merges, on Astra's OK in chat** (2026-10-19: "rebuild API Fairy so she runs as me, and install
+skills/key-request for Claude and Codex"):
+- Her api-fairy folder fast-forwarded from `b37efa5` to `6fbbef4` (it was on `main` and clean), and her hub folder to
+  `0be792e`. API Fairy built there from `main` with the .NET Framework compiler (`build.cmd`'s flags; from a Claude
+  session `cmd /c build.cmd` answers "not recognized", so `csc` was called directly); `bin\tests.exe` there: 115 pass.
+- Started through `explorer.exe` on `Start API Fairy.cmd`, so it runs as Astra outside the Claude app's private copy of
+  AppData. Its first check rewrote the page data by name. It now lists 9 requests: a ninth arrived from another chat,
+  `ASTRAS_STAR_WINDOW_GITHUB_TOKEN` for Portfolio Puffer's astras-star-window (its pull request #1).
+- `skills/key-request/SKILL.md` copied to `%USERPROFILE%\.claude\skills\key-request\` and
+  `%USERPROFILE%\.codex\skills\key-request\` (the same SHA-256 as here).
+
+**Astra's answers** (2026-10-20, "AAA" on the slides: option A each time, every recommended answer):
+1. **The list lives only on her PC**, as built (`Documents\Astra's PetOS Data\api-fairy-ring\`); skills/key-request
+   already says so.
+2. **AI Astra's voice gets its own key name**, `ASTRAL_PLANE_ANTHROPIC_API_KEY`. Its request now names it. The voice
+   still reads `ANTHROPIC_API_KEY` until its own chat changes the code and README (findastra/the-astral-plane).
+3. **CLI Proxy API's provider is decided when she adds the key.** Its request says so, and Damsel's card 007 records it
+   in a pull request of its own.
+
 ## Waiting on Astra
 
 1. ~~OK to merge api-fairy#8, then #148.~~ Given and done (above).
-2. **Her three answers** (the slides): where the list lives (on her PC only, as built, or public on GitHub too); its
-   own key name for AI Astra's voice; which provider's key CLI Proxy API gets.
+2. ~~Her three answers.~~ Given 2026-10-20 (above).
 3. Each waiting request: make the key herself on the provider's page with a spend limit, set it as a Windows user
    environment variable with that name, and API Fairy moves it to has a key.
 
 ## Task (after the merges)
 
-1. On Astra's PC: `Start API Fairy.cmd --rebuild` in her api-fairy folder (its working copy is behind `main`: fast-forward
-   it first), so the running fairy watches the requests.
-2. Copy `skills/key-request/SKILL.md` into `%USERPROFILE%\.claude\skills\key-request\` and `%USERPROFILE%\.codex\skills\key-request\`
-   (as with pet-app), so every new chat sees it without opening the hub.
+1. ~~On Astra's PC: `Start API Fairy.cmd --rebuild` in her api-fairy folder (its working copy is behind `main`: fast-forward
+   it first), so the running fairy watches the requests.~~ Done 2026-10-19 (above).
+2. ~~Copy `skills/key-request/SKILL.md` into `%USERPROFILE%\.claude\skills\key-request\` and `%USERPROFILE%\.codex\skills\key-request\`
+   (as with pet-app), so every new chat sees it without opening the hub.~~ Done 2026-10-19.
 3. ~~Set the `key-requests` node to `now` and run `npm run build`.~~ Done before #148 merged.
 4. Later: buttons on the page to mark a request given or declined (they would need API Fairy to write the file, since a
-   page can't), and AI Astra's voice gets a key name of its own.
+   page can't), and the voice's code and README read `ASTRAL_PLANE_ANTHROPIC_API_KEY` (its own chat, in the-astral-plane).
 
 ## Done when
 
-Both pull requests are merged (done), the running API Fairy shows the requests, and Astra has answered the slides.
+Both pull requests are merged, the running API Fairy shows the requests, and Astra has answered the slides. All done.
 
 ## Return
 
