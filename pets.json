@@ -1343,6 +1343,22 @@
       "note": "Astra, 2026-10-18: \"build all of these and the infrastructure they need to monitor this crash\". Built and tested on her PC (v0.1.0, branch claude/build-20261018 in evidence-locker); no pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
       "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html"
+    },
+    {
+      "repo": "linux-iceberg",
+      "pet": "Linux Penguin",
+      "visibility": "public",
+      "status": "hatching",
+      "job": "Linux administration, SSH, systemd, packages.",
+      "added": "2026-10-19",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the Linux computers on the farm, MacAttack first",
+        "needs": "his first check on a real Linux computer (the Kali MacBook)"
+      },
+      "note": "Astra, 2026-10-19: \"I want to see the Linux Penguin UI and the Linux Penguin program ... create it if you have to via the friendly farmer's instructions.\" Two read-only tools (linux-check, mac-prewipe-check) and two tricks (debian-family, kali-on-a-mac) on linux-iceberg main, carried by the Linux package (#109). Security role: the red team; he manages MacAttack. No pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/linux-iceberg-20261018.html",
+      "interface_local_url": "apps/pet-programs/linux-iceberg-20261018.html"
     }
   ],
   "seeds": {

@@ -862,7 +862,7 @@
       "assigned": true,
       "icon": "Linux Penguin",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "linux-iceberg",
       "repo_exists": true,
       "mini_descriptor": {
