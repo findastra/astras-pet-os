@@ -8,6 +8,7 @@
     "test": "node --test test/*.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check-pets-20261018.mjs",
+    "click-check": "node scripts/click-check-20261019.mjs",
     "generate": "node scripts/generate-pets.mjs"
   },
   "engines": {

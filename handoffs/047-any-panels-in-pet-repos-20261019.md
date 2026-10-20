@@ -99,12 +99,12 @@ in chat):
 **Task 7, tool panels in the pet repos** (Claude Opus 5.5, `claude-opus-5-5`, a session started from the one that made
 astras-pet-os#129, 2026-10-19, after #129 merged as `502f75a`). Each repo was changed in a fresh clone in Claude's
 scratchpad (`core.autocrlf=false`), on branch `claude/tool-panels-20261019`. There is one pull request per repo. Astra gave her OK in chat
-for five of them, which merged on 2026-10-19; #27 waits for hers:
+for all six, and they merged on 2026-10-19:
 
 | Repo | Pull request | Commit | What it renames | Tests |
 |---|---|---|---|---|
 | findastra/unity-unicorn | [#20](https://github.com/findastra/unity-unicorn/pull/20), merged as `06ab386` | `63e47fa`, `d17b45f` (main with #16 merged in) | `unity-unicorn-L1-tool-panel` to `-L4-tool-panel` and the 15 other tool panels (page 0.5.1) | `node --test test/*.mjs` 62: 61 pass, 1 skipped (local seed); Python 50 OK |
-| findastra/findastra-discord-presence | [#27](https://github.com/findastra/findastra-discord-presence/pull/27), open | `58e4536`, `9d905eb` (main with #26 merged in; plugin 1.0.3) | `discord-damsel-servers-tool-panel` (plugin `PANEL`, pet.json, her page) and `discord-damsel-L2-tool-panel` | `node --test` 132 pass, 0 fail, 0 skipped |
+| findastra/findastra-discord-presence | [#27](https://github.com/findastra/findastra-discord-presence/pull/27), merged as `c240310` | `58e4536`, `9d905eb` (main with #26 merged in; plugin 1.0.3) | `discord-damsel-servers-tool-panel` (plugin `PANEL`, pet.json, her page) and `discord-damsel-L2-tool-panel` | `node --test` 132 pass, 0 fail, 0 skipped |
 | findastra/log-den | [#7](https://github.com/findastra/log-den/pull/7), merged as `7e30c9f` | `0d569c6` | `log-lynx-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 38 pass |
 | findastra/packet-river | [#7](https://github.com/findastra/packet-river/pull/7), merged as `8616e5a` | `42d8fd2` | `packet-piranha-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 20 pass |
 | findastra/evidence-locker | [#7](https://github.com/findastra/evidence-locker/pull/7), merged as `5793e8a` | `6269bb4` | `forensic-ferret-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 22 pass |
@@ -117,7 +117,7 @@ for five of them, which merged on 2026-10-19; #27 waits for hers:
   - #16 merged while #20 was open and added three more `…-panel` labels (`made-by`, `avatar-assets`, `world-assets`). `main` is merged into #20 (`d17b45f`), which renames them and adds them to `RENAMED`. The panels test fails if a new `…-panel` label appears. #19 changes the same page too.
 - **Discord Damsel:**
   - The README screenshot was retaken from the plugin's test page (`?demo`, headless Edge, 760 × 860); only the label changed.
-  - Her #26 (Sticker Manager 1.0.2) changed the same lines, so #27 waited for it. #26 merged first, `main` is merged into #27 (`9d905eb`), and the plugin with the tool panel label is 1.0.3 (1.0.2 plus the label). After #27 merges, Astra copies the 1.0.3 file into `%APPDATA%\BetterDiscord\plugins` herself.
+  - Her #26 (Sticker Manager 1.0.2) changed the same lines, so #27 waited for it. #26 merged first, `main` is merged into #27 (`9d905eb`), and the plugin with the tool panel label is 1.0.3 (1.0.2 plus the label). #27 merged as `c240310`; Astra copies the 1.0.3 file into `%APPDATA%\BetterDiscord\plugins` herself (Damsel's card 005).
 - **Workflow Whirlpool:** its level boxes are titled "L1 · Program & tools" to "L4 · Approvals & connections", and `panel` is only their class. #2 adds a test that fails if a page's words (text, title, aria-label, alt) call a box just a panel, and the rule in AGENTS.md. Its source zip was rebuilt with `build-downloads-20261016.py`.
 - **Kept, on purpose:**
   - code names: `.panel`, `uu-panels`, `uu-panel`, `panelBox`, `ddsm-panel`, `class Panel`, `getSettingsPanel`, `live-panel`, and pet.json's `panel` key;
@@ -156,8 +156,8 @@ for five of them, which merged on 2026-10-19; #27 waits for hers:
    Den, Packet River, Evidence Locker, Workflow Whirlpool), one pull request per repo. "Bot panel" on Fairy Ring's page
    is Astra's own name and stays. Claude warned that developers read "tool panel" as a panel holding tools (only L1
    does); she chose it for every panel. **Merged 2026-10-19 on Astra's OK:** unity-unicorn#20,
-   log-den#7, packet-river#7, evidence-locker#7 and workflow-whirlpool#2. **Waiting on Astra's OK:** findastra-discord-presence#27
-   (with #26 merged in, plugin 1.0.3) (above).
+   findastra-discord-presence#27 (with #26 merged in, plugin 1.0.3), log-den#7, packet-river#7, evidence-locker#7 and
+   workflow-whirlpool#2 (above).
 
 ## Done when
 
