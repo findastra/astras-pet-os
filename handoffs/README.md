@@ -13,7 +13,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [048: How the agents work (AGENTS.md); the R W X panel, "should be / in code", on every pet program; Role Fairy's bots on the map](048-any-how-agents-work-and-rwx-in-code-20261019.md) | any | open, waits on Astra: merge; the R W X panel (option C, its own panel) after #104 |
 | [047: Panels, not modules, in the pet repos; the cyberhome question](047-any-panels-in-pet-repos-20261019.md) | any | open, waits on Astra: merge, and what the cyberhome is |
 | [046: The desktop pets follow the clicker rule: reminder, open or close the program, tools from three](046-codex-desktop-clicker-rule-20261018.md) | Codex | open |
-| [045: Log Lynx, Packet Piranha and Forensic Ferret: built, the three pets merged; the hub merges with #105](045-any-crash-watch-pets-20261018.md) | any | done when #105 merges; pet art waits on Astra |
+| [045: Log Lynx, Packet Piranha and Forensic Ferret: built, merged (#105) and set to start at sign-in](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: the first start and pet art |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 answered (A59's other links wait on Astra's OK); task 2 (each pet's tools on the map) done with #106; native programs, tools and tricks wait on her OK to merge `claude/tools-on-cards-20261019`; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: the doc's questions 1, 2 and 4 (3 answered by #114; counts on `claude/unity-unicorn-tricks-20261019`) |
 | [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
@@ -101,7 +101,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106) |
-| 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105) |
+| 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105); the sign-in start on `claude/crash-watch-sign-in-20261019` |
 | 046 | `046-codex-desktop-clicker-rule-20261018.md` | `main` (merged with #107) |
 | 047 | `047-any-panels-in-pet-repos-20261019.md` | `main` (merged with #111) |
 | 048 | `048-any-how-agents-work-and-rwx-in-code-20261019.md` | `main` (merged with #112) |
