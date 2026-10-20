@@ -1,4 +1,4 @@
-status: open (task 4 only: name the three tools and the trick in the page doc and Unity Unicorn's levels row)
+status: done
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: findastra/unity-unicorn PR #17 (its README section "Asset creator, assets library and shaders shop", `skills/unity-asset-creator/SKILL.md`), docs/unity-unicorn-page-modules-20261018.md, system-map.json (the `unity-stable` tool and trick nodes)
@@ -67,7 +67,7 @@ astras-pet-os#119, in that order"):
   `unity-asset-creator-trick` (the hub's id), skill still at `skills/unity-asset-creator/SKILL.md`. Tests: 43, 42 pass,
   1 skipped. I retargeted #17 to `main` and merged it once CodeQL passed: **`2e631e4`**.
 - Hub #119: `main` merged into its branch (`ad9d051`; card 050 kept beside 049, generated files rebuilt; 179 tests,
-  178 pass, 1 skipped). Its merge commit is on GitHub's PR page; this card was written just before it.
+  178 pass, 1 skipped). Merged once its checks passed: **`b3c105a`**.
 
 ## Task
 
@@ -75,8 +75,9 @@ astras-pet-os#119, in that order"):
 2. ~~Retarget and merge the stacked PRs~~ Done (#17 retargeted to `main`, merged as `2e631e4`).
 3. ~~Merge hub #119 after #17.~~ Done after its checks passed. Its tool boxes say "works today", which is true once the code is on
    unity-unicorn's `main`.
-4. **Still open.** Hub #117 is merged (`9d1cef7`), so add the three tools and the trick to
-   `docs/unity-unicorn-page-modules-20261018.md` and Unity Unicorn's row in `INTELLIGENCE-LEVELS.md`, in a pull request.
+4. ~~Name them in the page doc and the levels row~~ Done in the pull request that closes this card (branch
+   `claude/unity-stable-asset-tools-doc-20261019`): `docs/unity-unicorn-page-modules-20261018.md` counts 37 tools on
+   `main` and lists unity-asset-creator-trick in L2; Unity Unicorn's row in `INTELLIGENCE-LEVELS.md` names them.
 
 ## Done when
 
@@ -85,4 +86,4 @@ unity-assets-library and shaders-shop below its other tool boxes, and the unity-
 
 ## Return
 
-Write both merge commits here, set `status: done`, commit.
+Done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a`. Claude Opus 5.5 (`claude-opus-5-5`).
