@@ -2,7 +2,7 @@
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-12.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { systemMapData, buildSystemMap, petIcons, applyAccessDoc, applyPartsDoc, partsRows, SYSTEM_MAP } from '../scripts/system-map-20261012.mjs';
 import { redactData } from '../scripts/public-safety-20261014.mjs';
@@ -210,4 +210,18 @@ test('TOOLS-AND-TRICKS.md holds the whole registry as one table, up to date (run
     assert.ok(listed.has(n.id), `${n.id} is missing from the registry table`);
   for (const k of ['own-program', 'tool', 'trick', 'program']) assert.ok(rows.some((r) => r.kind === k), `no ${k} rows`);
   for (const p of registry.relations.private) assert.ok(!rows.some((r) => programs.find((q) => q.repo === p && q.number === r.number)), `${p} is private`);
+});
+
+// Every place that shows a pet opens its pet program page (Astra, 2026-10-19), the map card too.
+test('every pet on the map links its pet program page, and its pet program card links it too', () => {
+  const data = systemMapData(registry, extra, programs);
+  const regs = [...registry.pets, ...registry.pipeline];
+  for (const n of data.nodes.filter((x) => ['host', 'pet', 'pipeline'].includes(x.type))) {
+    assert.equal(n.page, regs.find((p) => p.repo === n.repo).interface_url, `${n.id}: the map links pets.json interface_url`);
+    assert.match(n.page, /^apps\/pet-programs\/[a-z0-9-]+\.html$/, `${n.id}: its pet program page`);
+    assert.ok(existsSync(root + n.page), `${n.id}: ${n.page} is missing`);
+  }
+  const page = read(SYSTEM_MAP.template);
+  assert.ok(page.includes("p.append(document.createTextNode('Pet Program: '))"), 'the card says Pet Program');
+  assert.ok(page.includes('m.page&&m.home&&m.home.number===n.program'), 'a pet program card links its pet\'s page');
 });
