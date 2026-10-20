@@ -21,49 +21,82 @@
   function localTime(iso) { var d = new Date(iso); return localDay(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
   function today() { return localDay().replace(/-/g, ''); }
 
-  // ---- The paired lights: left ON/OFF (green, red), right maintenance (blue, yellow). ----
+  // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).
+  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). Something
+  // not built yet starts grey: not set yet. Marks saved before 2026-10-19 (`off`, `fix`) still count. ----
   var lights = read('lights', {});
+  function power(k, planned) { var s = lights[k] || {}; return s.power || (s.off ? 'off' : (planned ? '' : 'on')); }
+  function health(k, planned) { var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : (planned ? '' : 'ok')); }
+  var SAYS = {
+    on: 'on. Click again to switch it off.',
+    off: 'off (the kill switch). Turning it back on asks you first.',
+    ok: 'working correctly. Click again if it is broken.',
+    fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
+  };
   function paint() {
-    var buttons = document.querySelectorAll('button.light[data-item]');
+    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
     for (var i = 0; i < buttons.length; i++) {
-      var b = buttons[i], s = lights[b.dataset.item] || {}, name = b.dataset.name;
+      var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
+      names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
-        b.classList.toggle('is-off', !!s.off);
-        b.setAttribute('aria-pressed', s.off ? 'false' : 'true');
-        b.setAttribute('aria-label', name + ': ' + (s.off ? 'off' : 'on'));
+        var p = power(k, planned[k]);
+        b.classList.toggle('is-off', p === 'off');
+        b.classList.toggle('is-unset', !p);
+        b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
+        b.setAttribute('aria-label', name + ': ' + (p === 'on' ? 'on' : p === 'off' ? 'off' : 'not set yet'));
       } else {
-        b.classList.toggle('is-fix', !!s.fix);
-        b.setAttribute('aria-pressed', s.fix ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (s.fix ? 'requires maintenance' : 'working correctly'));
+        var h = health(k, planned[k]);
+        b.classList.toggle('is-fix', h === 'fix');
+        b.classList.toggle('is-unset', !h);
+        b.setAttribute('aria-pressed', h === 'fix' ? 'true' : 'false');
+        b.setAttribute('aria-label', name + ': ' + (h === 'ok' ? 'working correctly' : h === 'fix' ? 'requires maintenance' : 'not checked yet'));
       }
     }
-    var names = {};
-    for (var j = 0; j < buttons.length; j++) names[buttons[j].dataset.item] = buttons[j].dataset.name;
     var fix = document.getElementById('maintenance'), off = document.getElementById('switched-off');
     if (fix) {
       fix.textContent = '';
-      var marked = Object.keys(lights).filter(function (k) { return lights[k].fix && names[k]; });
+      var marked = Object.keys(names).filter(function (k) { return health(k, planned[k]) === 'fix'; });
       if (!marked.length) fix.appendChild(el('li', 'Nothing marked yellow in this browser.', 'empty'));
       marked.forEach(function (k) { fix.appendChild(el('li', names[k] + ': requires maintenance (marked ' + (lights[k].fixed_on || 'today') + ')')); });
     }
     if (off) {
       off.textContent = '';
-      Object.keys(lights).filter(function (k) { return lights[k].off && names[k]; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
+      Object.keys(names).filter(function (k) { return power(k, planned[k]) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
+  }
+  // The bubble that says what a light now means. One for the page, placed under the light that was clicked.
+  var tip = el('div', null, 'light-bubble'), tipTimer;
+  tip.setAttribute('role', 'status');
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  function say(b, text) {
+    tip.textContent = b.dataset.name + ': ' + text;
+    tip.hidden = false;
+    var r = b.getBoundingClientRect(), width = document.documentElement.clientWidth;
+    tip.style.left = (window.scrollX + Math.max(8, Math.min(r.left - 8, width - tip.offsetWidth - 8))) + 'px';
+    tip.style.top = (window.scrollY + r.bottom + 8) + 'px';
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(function () { tip.hidden = true; }, 4000);
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('button.light[data-item]');
     if (!b) return;
-    var s = lights[b.dataset.item] || (lights[b.dataset.item] = {});
+    e.preventDefault();
+    var k = b.dataset.item, planned = !!b.dataset.planned, next;
+    var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
-      if (s.off && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
-      s.off = !s.off;
+      var p = power(k, planned);
+      if (p === 'off' && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
+      next = p === 'on' ? 'off' : 'on';
+      s.power = next; delete s.off;
     } else {
-      s.fix = !s.fix;
-      s.fixed_on = s.fix ? localDay() : undefined;
+      next = health(k, planned) === 'ok' ? 'fix' : 'ok';
+      s.health = next; delete s.fix;
+      s.fixed_on = next === 'fix' ? localDay() : undefined;
     }
     write('lights', lights);
     paint();
+    say(b, SAYS[next]);
   });
   paint();
 

@@ -101,7 +101,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 
   // L1: what the pet runs and looks after (links that leave the pet or its program), and its tools.
   const from = map.links.filter((l) => mine.has(l.from) && !mine.has(l.to) && l.state !== 'architecture');
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '' });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', url: isUrl(n.url) ? n.url : null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0` }));
@@ -166,16 +166,28 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 
 // ---------- HTML ----------
 
-const lights = (key, name, { planned = false } = {}) => planned
-  ? `<span class="lights" title="Not built yet: nothing to switch on or off"><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button><button type="button" class="light planned" disabled aria-label="${esc(name)}: not built yet"></button></span>`
-  : `<span class="lights"><button type="button" class="light onoff" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: on" title="ON/OFF (kill switch): green on, red off"></button><button type="button" class="light care" data-item="${esc(key)}" data-name="${esc(name)}" aria-label="${esc(name)}: working correctly" title="Maintenance: blue working correctly, yellow requires maintenance"></button></span>`;
+// The paired lights are always buttons you can click (Astra, 2026-10-19: "I'd like them to be interactive so I can
+// tell you which tools are working and which ones aren't"). Each click moves a light to its next state and the page
+// script shows a bubble saying what that state means. Something not built yet starts grey: not set yet.
+const lights = (key, name, { planned = false } = {}) => {
+  const p = planned ? ' data-planned="1"' : '', unset = planned ? ' is-unset' : '';
+  return `<span class="lights"><button type="button" class="light onoff${unset}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not set yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${unset}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+};
 
 const tag = (state) => (state && state !== 'now' ? ` <span class="tag">${esc(STATE[state] || state)}</span>` : '');
 const built = (state) => !state || state === 'now';
 
+// Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
+// They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
+// its name, which opens in place to show what it is and, when the map has one, a link to its own page or folder.
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
-  return `<ul class="items">${items.map((i) => `<li>${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<span class="item-name"${i.why ? ` title="${esc(i.why)}"` : ''}>${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</li>`).join('')}</ul>`;
+  return `<ul class="items">${items.map((i) => {
+    const more = `${i.why ? `<p>${esc(i.why)}</p>` : '<p class="empty">No description on the System Map yet.</p>'}
+<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${i.url ? `
+<p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+  }).join('')}</ul>`;
 }
 
 const panel = (label, body, { cls = '', light = false, open = true } = {}) =>
@@ -233,7 +245,7 @@ ${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, {
 <section><h3>Your programs</h3>${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 <section><h3>Your tools</h3>${itemList(d.tools, 'tool', 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.')}</section>
 ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devices, 'device', '')}</section>` : ''}</div>
-<p class="small">From the System Map. A grey pair of lights means not built yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
+<p class="small">From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means, and a grey light is not set yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>`, { cls: 'level', light: true });
 
   const cadence = d.audit.cadence ? `${d.audit.cadence}, by the Friendly Farmer's round` : 'not set';
   const L2 = panel(`${d.petSlug}-L2-panel`, `<div class="columns">
@@ -267,7 +279,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
 
-  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not built yet</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not set yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
   const notes = panel(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
 <label for="note-text">notes</label>

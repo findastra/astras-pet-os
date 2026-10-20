@@ -100,8 +100,28 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const html = files[pagePath(d.repo)];
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
-    for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) assert.match(b, /aria-label="[^"]+: (on|working correctly|not built yet)"/);
+    for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
+      assert.match(b, /aria-label="[^"]+: (on|working correctly|not set yet|not checked yet)"/);
+      assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
+    }
   }
+});
+
+test('every program, tool and trick is a pill: its two lights on the oval, and a name that opens in place (Astra, 2026-10-19)', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const items = [...html.matchAll(/<ul class="items">([\s\S]*?)<\/ul>/g)].map((m) => m[1]).join('');
+    for (const li of items.match(/<li[^>]*>/g) || []) assert.equal(li, '<li class="pill">', `${d.repo}: every item is a pill`);
+    const pills = items.split('<li class="pill">').slice(1);
+    for (const p of pills) {
+      assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
+      assert.match(p, /<details class="pill-more"><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
+      assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
+    }
+  }
+  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const html = files[pagePath(damsel.repo)];
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {
