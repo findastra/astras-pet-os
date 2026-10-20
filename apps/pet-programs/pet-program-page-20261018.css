@@ -191,3 +191,46 @@ img[hidden] { display: none !important; }
 .grant p { margin: 5px 0 0; font-size: 12.5px; color: var(--chalk-dim); }
 .grant p b { color: var(--chalk); font-weight: 600; }
 @media (max-width: 760px) { .rwx-body { margin-left: 10px; } .gwho { min-width: 100%; order: 3; } }
+/* The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
+   the top corner: the star opens, the pet comes in, the star closes again. */
+.den { position: relative; }
+.den .star-door { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; z-index: 1; transition: transform .6s ease, filter .6s ease; }
+.den[data-arrival="waiting"] .pet, .den[data-arrival="opening"] .pet { visibility: hidden; }
+.den[data-arrival="opening"] .star-door { transform: scale(2.4) rotate(72deg); filter: drop-shadow(0 0 6px #ffd23f); }
+.den[data-arrival="arriving"] .star-door { transform: scale(1.7) rotate(144deg); filter: drop-shadow(0 0 4px #ffd23f); }
+.den[data-arrival="arriving"] .pet:not([hidden]) { animation: move-in 1s ease-out both; }
+@keyframes move-in {
+  from { transform: translate(40%, -40%) scale(.12); opacity: 0; }
+  65% { transform: translate(0, -7%) scale(1.04); opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Activity lights (Astra, 2026-10-19): on while that level is working right now, and its tool panel glows with power.
+   Grey: not connected yet. */
+.activity[data-state="unknown"] { background: var(--planned); }
+.activity[data-state="live"] { background: var(--on); box-shadow: 0 0 6px 2px var(--on); }
+.activity[data-state="idle"] { background: #2f6b36; }
+.activity[data-state="off"] { background: var(--planned); }
+.panel.level[data-activity="live"] { border-color: var(--on); box-shadow: 0 0 0 1px var(--on), 0 0 16px rgba(79, 179, 90, .45); animation: power 2.4s ease-in-out infinite; }
+.panel.level[data-activity="live"] > summary .legend { color: #d4f7d8; }
+@keyframes power {
+  0%, 100% { box-shadow: 0 0 0 1px var(--on), 0 0 10px rgba(79, 179, 90, .35); }
+  50% { box-shadow: 0 0 0 1px var(--on), 0 0 20px rgba(79, 179, 90, .6); }
+}
+
+/* The chat window: it opens at once, you choose who answers. */
+.chat-panel { max-width: min(380px, calc(100vw - 48px)); max-height: calc(100vh - 110px); overflow-y: auto; }
+.chat-ask { font-weight: 600; }
+.chat-who { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.chat-who .button { font-size: 13px; }
+.chat-who .button[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
+.chat-log { list-style: none; margin: 6px 0; padding: 0; max-height: 160px; overflow-y: auto; }
+.chat-log li { margin: 4px 0; padding: 4px 8px; border: 1px solid var(--line); border-radius: 10px; overflow-wrap: anywhere; }
+.chat-panel textarea { font-size: 14px; margin-top: 2px; }
+.chat-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .den .star-door { transition: none; }
+  .den .pet { animation: none !important; }
+  .panel.level[data-activity="live"] { animation: none; }
+}
