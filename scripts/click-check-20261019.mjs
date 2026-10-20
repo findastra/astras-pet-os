@@ -31,7 +31,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import net from 'node:net';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readSpawnerSources, spawnerPages, DIR as SPAWN_DIR } from './pet-program-pages-20261018.mjs';
 
@@ -406,7 +406,17 @@ export async function openBrowser(exe, { timeoutMs = 30000 } = {}) {
     link.kill();
     // The profile is this run's own temporary folder; the browser may still hold a file for a moment.
     for (let i = 0; i < 10; i++) {
-      try { fs.rmSync(profile, { recursive: true, force: true }); break; } catch { await sleep(300); }
+      try { fs.rmSync(profile, { recursive: true, force: true }); return; } catch { await sleep(300); }
+    }
+    // Still held: on Windows the browser the launcher handed off to never closed. Stop only the processes started
+    // with this run's own throwaway profile, then try once more.
+    if (process.platform === 'win32') {
+      const name = path.basename(profile).replace(/[^A-Za-z0-9-]/g, '');
+      spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command',
+        `Get-CimInstance Win32_Process -Filter "Name='msedge.exe' OR Name='chrome.exe'" | Where-Object { $_.CommandLine -like '*\\${name}*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }`],
+      { windowsHide: true, timeout: 20000 });
+      await sleep(500);
+      try { fs.rmSync(profile, { recursive: true, force: true }); } catch { /* left for the OS to clear */ }
     }
   }
   return { newPage, close, version };
