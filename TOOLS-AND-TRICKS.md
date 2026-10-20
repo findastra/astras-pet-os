@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-181 rows: 10 native programs, 95 native tools, 15 native tricks, 61 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+184 rows: 10 native programs, 98 native tools, 15 native tricks, 61 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -161,6 +161,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-regeneration | `unity-stable-v1.0-masonry-regeneration-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-structural-audit | `unity-stable-v1.0-masonry-structural-audit-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | masonry-unity-refresh | `unity-stable-v1.0-masonry-unity-refresh-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | matcap-palette | `unity-stable-v1.0-matcap-palette-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | menu-map | `unity-stable-v1.0-menu-map-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | neck-blender | `unity-stable-v1.0-neck-blender-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | no-windows-audit-tool | `unity-stable-v1.0-no-windows-audit-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | no-windows-scene-refresh | `unity-stable-v1.0-no-windows-scene-refresh-v1.0` | Works today |
@@ -176,6 +178,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | unity-assets-library | `unity-stable-v1.0-unity-assets-library-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | vine-bloomer | `unity-stable-v1.0-vine-bloomer-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native tool | vine-spawn-with-trumpet-flowers | `unity-stable-v1.0-vine-spawn-with-trumpet-flowers-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | wall-texture-rebuild | `unity-stable-v1.0-wall-texture-rebuild-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | world-spawn-tool | `unity-stable-v1.0-world-spawn-tool-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | world-validator | `unity-stable-v1.0-world-validator-v1.0` | Works today |
