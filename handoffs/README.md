@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | open, waits on Astra: merge (#155); then her review of the developer names |
+| [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | paused 2026-10-20: merged (#155), in no release yet; waits on Astra: hub public again, then a release; the developer names |
 | [059: The credit is "By Astra.": the longer credit line out of every README (82 pet repos and the hub)](059-any-by-astra-credit-20261020.md) | any | open, waits on Astra: merge the hub pull request and the 82 pet repo pull requests |
 | [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open: Parts 1 and 2 merged (#157); Part 3 in #164, waits on Astra's OK; Part 4 to build |
 | [057: click-check, the Farm’s tool that clicks every button and link on the pet program pages](057-any-click-check-20261019.md) | any | open: merged (#158, #159); waits on Astra: three decisions (slides) and whether the hub should be private |
@@ -126,7 +126,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 057 | `057-any-click-check-20261019.md` | `main` (merged with #158); `claude/aquarium-error-checkers-20261019` (#136) also used 057 and renumbers when it merges |
 | 058 | `058-any-farm-owner-and-single-pets-20261019.md` | `main` (merged with #157) |
 | 059 | `059-any-by-astra-credit-20261020.md` | `claude/by-astra-credit-20261020` |
-| 060 | `060-any-developer-mode-20261019.md` | `claude/developer-mode-20261019` (#155) |
+| 060 | `060-any-developer-mode-20261019.md` | `main` (merged with #155) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
