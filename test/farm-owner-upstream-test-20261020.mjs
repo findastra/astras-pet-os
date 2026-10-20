@@ -74,9 +74,10 @@ test('ownerOf: on Astra\'s farm everything is hers; on Dev\'s, her pets are hers
 const FARM_FACING = ['farmer-rounds-20261009', 'pet-finder-20261016', 'pets-board-20261018', 'pet-program-pages-20261018',
   'build-interfaces-20261008', 'farm-setup-20261019', 'prepare-desktop-drafts-20261011', 'publish-pet-tags-20261009', 'lib',
   'roster', 'check-pets-20261018', 'pet-programs-20261014', 'markdown-pets-20261019', 'click-check-20261019', 'make-it-yours-20261020'];
-// Names of Astra's own things, not an account: Discord Damsel's repo, Paper Girl's live site (her own companions) and
-// PET-PROGRAMS.md's words about Astra's profile.
-const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile'];
+// Names of Astra's own things, not an account: Discord Damsel's repo, Paper Girl's live site (her own companions),
+// PET-PROGRAMS.md's words about Astra's profile and her VR TikTok under "By Astra" on every pet program page.
+const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile',
+  "['VR TikTok: @findastra', 'https://www.tiktok.com/@findastra'"];
 const code = (text) => text.split('\n').filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l)).map((l) => NOT_AN_ACCOUNT.reduce((s, n) => s.split(n).join(''), l));
 
 test('no farm-facing script writes Astra\'s account: each asks upstream() or the farm owner', () => {

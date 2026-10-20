@@ -83,20 +83,33 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
-1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The desktop pet comes to live here while the page is
-   open. Its paired lights sit on the top edge. **It is empty until the page opens; then the pet moves in through
-   Startup Star's door** in its top corner: the star opens, the pet comes in, the star closes (Astra, 2026-10-19: "It's
-   not just square, it's going to be the cyber home"). The page plays this arrival itself today. Flying in from the
-   desktop (from roaming, from the lineup, or out of the star when the desktop pet is hidden) needs a live link between
-   the page and Startup Star, which waits on Astra's OK (card 054). Room art people can change is planned. **The
+1. **`<pet>-cyberhome`** (top left): the pet's habitat. The desktop pet comes to live here while the page is
+   open. Its paired lights sit inside its top corner, off the border line (Astra,
+   2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page
+   opens; then the pet moves in** from the top corner (Astra, 2026-10-19: "It's not just square, it's going to be the
+   cyber home"). **No star door in it** (Astra crossed Startup Star's door out, 2026-10-20). The page plays this
+   arrival itself today. Flying in from the desktop (from roaming, from the lineup, or out of the star when the desktop
+   pet is hidden) needs a live link between the page and Startup Star, which waits on Astra's OK (card 054). **The pet
+   looks as it does on the desktop**: the page uses its drawing in `desktop-art/<art>/` when it has one, and its
+   registered frames only when it has none (Astra crossed out Drum Dog's older drawing while his desktop pet sat beside
+   it, 2026-10-20); a private drawing (Claude Bot's) is never used. Room art people can change is planned. **The
    cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
-   the system map box"): one width (240px), and both as tall as the taller one.
+   the system map box"): one width (240px), and **the header ends at the bottom of the title's buttons** (Astra,
+   2026-10-20, a line drawn across her screenshot there): both boxes are as tall as the title column (at least 170px),
+   the pet and the System Map's rings shrink to fit, and the bubble sits over the foot of the den. On a phone they stack
+   at their own height.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
-   the same line. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
+   the same line, **always to the right of the name, however long it is** (Astra, 2026-10-20). The name is smaller
+   than it was (up to 34px; her marked-up screenshot of the same day) and its size varies: the page script makes it
+   smaller (down to 20px) until name and version fit on one line between the cyberhome and the System Map box; past
+   that the name wraps, still left of the version. **Nothing is listed under the title**: the "<pet>'s pet program · #N
+   · stage · status" line is gone (crossed out in the same screenshot); a private pet says its data never leaves the
+   PC in the L2 status line and the footer instead. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
-   behind it. Taken from the pet's mini-descriptor.
+   behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty line above or below
+   (Astra, 2026-10-20: "fitted").
 3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
    (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
    node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.
@@ -117,7 +130,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    security: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
 
 5. **The paired lights: two buttons, side by side, before every item**, as in the sketch: `● ● copyright-auditor`.
-   They sit left and right of each other, never stacked.
+   They sit left and right of each other, never stacked. Every item is a pill (an oval) with **its name set into the
+   oval's top border, like a panel's label, and its lights inside, below that line** (Astra, 2026-10-20: "I also want
+   the tool names to be inside of the border line too. Move those indicator lights down").
 
    | Button | Colours | Clicking it |
    |---|---|---|
@@ -156,7 +171,12 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    a trick. This replaces "three clicks: refresh the tools and the tool list".
 9. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
-   grant (section 11). It holds item 10 of the list below.
+   grant (section 11). It holds item 10 of the list below. **It is a footer, not a list** (Astra, 2026-10-20: "It
+   looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
+   (Flash Audit A51) again, centered between thin rules: the license, signature and languages; then three slightly
+   staggered groups, each after a ✦: By Astra and the date, Find Out More (her GitHub and TikToks), Take Me Home! (the
+   Farmer's icon, to The Farm); then the System Map, every pet program, the source and the docs; then the spawner's
+   note.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
     bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
     Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
