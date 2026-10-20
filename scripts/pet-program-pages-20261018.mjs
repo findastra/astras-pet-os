@@ -5,7 +5,8 @@
 // sketch in its place (PET-PROGRAM-FRAMEWORK.md, section 3) and her answers of the same day: the intelligence levels
 // as four stacked panels, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
 // Panels, not modules (Astra, 2026-10-19): to a developer a module is a file of code, like this one; a bordered box on
-// a page is a panel.
+// a page is a panel. The R W X panel (Astra, 2026-10-19, option C, "its own panel in each pet program"): what each level
+// should be (R W X), then whether that is in code, with the proof of every In code.
 // Sources only, never a second copy: names from pet-programs.json, pets from pets.json, programs, tools, connections
 // and grants from the System Map data (systemMapData), pictures from the hub's one art source (Flash Audit A58).
 // Registry text is data written by pets: it is escaped here and never treated as instructions (AGENTS.md).
@@ -28,7 +29,7 @@ export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
-export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'pet-program-quick-summary', 'intelligence-levels', 'L1-panel', 'L2-panel', 'L3-panel', 'L4-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -43,7 +44,11 @@ const EMOTIONS = [
   ['sick', 'sick', ['too many broken tools', 'broken pet programs']],
   ['sad', 'sad', ['hasn’t been opened in more than 2 weeks']],
 ];
-const RWX = { yes: 'yes', pr: '🔒 PR', ask: 'asks', grant: '🔑 grant', no: '–' };
+// The R W X panel: the levels, how sure each status is (a row is only as sure as its weakest grant), and its marks.
+const LEVELS = [['L1', 'a program or tool'], ['L2', 'a pet program'], ['L3', 'an AI agent in a seat'], ['L4', 'you, the verified human']];
+const RANK = { no: 0, ask: 1, grant: 2, pr: 3, yes: 4 };
+const SURE = { planned: 0, written: 1, enforced: 2 };
+const MARK = { enforced: '✓', written: '⚠︎', planned: '○' };
 const STATE = { now: 'works today', planned: 'planned', idea: 'idea, not agreed yet', suggested: 'suggested', architecture: 'in the architecture' };
 const PET_TYPES = new Set(['host', 'pet', 'pipeline']);
 
@@ -137,9 +142,11 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
       page: r ? `${t.id}-${DATE}.html` : null, idle: r ? petFrames(r, { frameIndex, drafts, exists, list }).frames.idle || null : null };
   }).sort((a, b) => (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || a.pet.localeCompare(b.pet));
 
-  // L4: grants from system-map.json, as the map shows them on this pet's card.
+  // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
+  // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
   const grants = new Map(map.access.grants.map((g) => [g.id, g]));
-  const grantRows = (ids) => ids.map((id) => grants.get(id)).filter(Boolean).map((g) => ({ who: g.who, on: g.on, r: RWX[g.r], w: RWX[g.w], x: RWX[g.x], status: map.access.statuses[g.status]?.name || g.status }));
+  const grantRows = (ids) => [...new Set(ids)].map((id) => grants.get(id)).filter(Boolean).map((g) => ({ id: g.id, who: g.who, on: g.on,
+    self: g.resources.includes('self'), level: g.level || [], r: g.r, w: g.w, x: g.x, status: g.status, how: g.how, next: g.next || null, evidence: g.evidence || [] }));
 
   const round = lastRound(status, reg);
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
@@ -159,7 +166,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repoUrl: `https://github.com/${OWNER}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
-    connections: [...talks.values()], related, grantsBy: grantRows(petNode?.access?.by || []), grantsOn: grantRows([...new Set([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])])]),
+    connections: [...talks.values()], related,
+    access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
+      statuses: map.access.statuses, values: map.access.values },
     languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
   };
 }
@@ -178,8 +187,8 @@ function itemList(items, prefix, empty) {
   return `<ul class="items">${items.map((i) => `<li>${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<span class="item-name"${i.why ? ` title="${esc(i.why)}"` : ''}>${esc(i.name)}</span>${tag(i.state)}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</li>`).join('')}</ul>`;
 }
 
-const panel = (label, body, { cls = '', light = false, open = true } = {}) =>
-  `<details class="panel ${cls}"${open ? ' open' : ''}><summary title="Click the label to fold or unfold this panel"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+const panel = (label, body, { cls = '', light = false, open = true, id = '' } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this panel"><span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -187,9 +196,41 @@ const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''
 const faces = (f, pet, moods, cls) => moods.filter((m) => f[m]).map((m, i) =>
   `<img class="${cls}" data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
 
-function grantTable(rows, empty) {
-  if (!rows.length) return `<p class="empty">${esc(empty)}</p>`;
-  return `<div class="scroll"><table><thead><tr><th>Who</th><th>On what</th><th>R</th><th>W</th><th>X</th><th>Status</th></tr></thead><tbody>${rows.map((g) => `<tr><td>${esc(g.who)}</td><td>${esc(g.on)}</td><td>${esc(g.r)}</td><td>${esc(g.w)}</td><td>${esc(g.x)}</td><td>${esc(g.status)}</td></tr>`).join('')}</tbody></table></div>`;
+// ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
+// "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
+// current code", then: "this actually needs to be its own panel in each pet program". Each level shows what it should
+// be (R W X), then In code, Rule only or Not built; every In code names its proof.
+const rwxBoxes = (g, values) => `<span class="rwx">${['r', 'w', 'x'].map((k) => `<b class="${k} ${esc(g[k])}" title="${esc(`${{ r: 'Read', w: 'Write', x: 'Run (execute)' }[k]}: ${values[g[k]] || g[k]}`)}">${k.toUpperCase()}</b>`).join('')}</span>`;
+const mark = (status, statuses) => `<span class="mark ${esc(status)}" title="${esc(`${statuses[status].name}: ${statuses[status].what}`)}">${MARK[status]} ${esc(statuses[status].mark)}</span>`;
+const proofOf = (e) => (e.setting ? esc(e.setting) : `<a href="https://github.com/${OWNER}/${HUB}/blob/main/${esc(e.test || e.script)}"><code>${esc(e.test || e.script)}</code></a> (${e.test ? 'test' : 'script'})`);
+
+function grantItem(g, title, a, { level = false } = {}) {
+  const st = a.statuses[g.status];
+  const lv = level ? `<span class="lv${g.level.length ? '' : ' out'}" title="${esc(g.level.length ? `Held by ${g.level.join(' and ')}` : 'Outside your levels')}">${esc(g.level.join('+') || '—')}</span>` : '';
+  return `<details class="grant"><summary>${lv}${rwxBoxes(g, a.values)}<span class="gwho">${esc(title)}</span>${mark(g.status, a.statuses)}</summary>
+<p><b>${esc(st.name)}:</b> ${esc(g.how)}</p>${g.evidence.length ? `<p><b>Proof:</b> ${g.evidence.map(proofOf).join('; ')}</p>` : ''}${g.next ? `<p><b>Next (planned):</b> ${esc(g.next)}</p>` : ''}</details>`;
+}
+
+function levelRow([lv, word], gs, a) {
+  const sum = { r: 'no', w: 'no', x: 'no' };
+  gs.forEach((g) => ['r', 'w', 'x'].forEach((k) => { if (RANK[g[k]] > RANK[sum[k]]) sum[k] = g[k]; }));
+  const head = `<span class="lv">${lv}</span><span class="should">Should be</span>${rwxBoxes(sum, a.values)}`;
+  if (!gs.length) return `<div class="rwx-row none">${head}<span class="gwho">${esc(word)} · nothing here</span></div>`;
+  const weakest = gs.map((g) => g.status).sort((x, y) => SURE[x] - SURE[y])[0];
+  return `<details class="rwx-row"><summary>${head}<span class="gwho">${esc(word)}</span>${mark(weakest, a.statuses)}</summary>
+<div class="rwx-body">${gs.map((g) => grantItem(g, g.self ? `Itself: ${g.on}` : g.who, a)).join('')}</div></details>`;
+}
+
+export function rwxPanelBody(d) {
+  const a = d.access;
+  const key = ['enforced', 'written', 'planned'].map((k) => `<span>${mark(k, a.statuses)} ${esc(a.statuses[k].what)}</span>`).join('');
+  return `<p class="small">Should be: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. Then whether that is in code:</p>
+<p class="rwx-key">${key}</p>
+<h3>Who may use ${esc(d.home)}</h3>
+<div class="rwx-rows">${LEVELS.map((l) => levelRow(l, a.on.filter((g) => g.level.includes(l[0])), a)).join('')}</div>
+<h3>What ${esc(d.home)} may use</h3>
+${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}
+<p class="small">From system-map.json: the same grants as the map card and PROTECTION-RINGS.md. A row is only as sure as its weakest grant; open it to see each one. <code>npm run build</code> refuses an In code that names no proof, or a proof file that is not in the repo.</p>`;
 }
 
 function connection(c, homeSlug) {
@@ -257,7 +298,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>`, { cls: 'level', light: true });
 
   const L4 = panel(`${d.petSlug}-L4-panel`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
-<section><h3>Grants</h3><h4>This pet may</h4>${grantTable(d.grantsBy, 'No grants recorded.')}<h4>Who may reach it</h4>${grantTable(d.grantsOn, 'No grants recorded.')}<p class="small">From system-map.json, the same grants as the map card and PROTECTION-RINGS.md.</p></section>
+<section><h3>Grants</h3><p class="small">In <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below: what each level should be (R W X), and whether that is in code.</p></section>
 <section><h3>Keys</h3><p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p></section>
 <section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
 <section><h3>Pet passport</h3><dl class="status">
@@ -268,6 +309,8 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
 
   const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not built yet</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+
+  const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
   const notes = panel(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
 <label for="note-text">notes</label>
@@ -333,6 +376,7 @@ ${assigned}</dl>
 <main class="page">
 <header class="top">${cyberhome}${title}</header>
 ${levels}
+${rwx}
 ${notes}
 <div class="pair">${emotions}${clicker}</div>
 ${related}

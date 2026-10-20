@@ -82,8 +82,9 @@ Every agent Astra uses, and what really limits it:
   ordinary individual use only, and since 2026-04-04 subscriptions no longer cover third-party harnesses
   ([Claude Code legal and compliance](https://code.claude.com/docs/en/legal-and-compliance)). A bot other people use
   runs on an API key with a spend limit.
-- **A harness's limits hold only where code enforces them.** Every grant on the System Map says which: `enforced`,
-  `written only` or `planned` ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
+- **A harness's limits hold only where code enforces them.** Every grant on the System Map and in every pet
+  program's R W X panel says which: In code (`enforced`, with its proof), Rule only (`written only`) or Not built
+  (`planned`) ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)).
 
 ## One copy of each repo, always on GitHub (Astra, 2026-10-12)
 Work was being lost between assistants because every chat kept its own copy of the repos
@@ -230,3 +231,4 @@ System Map, Astra 2026-10-18: every card shows L1 to L4 down the left, each leve
 Log Lynx, Packet Piranha and Forensic Ferret set to start at Astra's sign-in (Astra, 2026-10-19: "clone log-den, packet-river and evidence-locker into Documents\Astra's PetOS, build them there, and add the three Startup-folder shortcuts"): one shortcut each in her Startup folder, never through Startup Star; card 045, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 The Farmer's daily round repaired again (run 39304824157 stopped at `npm test`): its README self-audit names the credit line instead of quoting it, so the sentence stays out of `status/pets-status.json` and the Farmer's desk, guarded by a whole-round test in `test/rounds-test-20261009.mjs` (card 052), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
 Linux Penguin moves from the roadmap to the pipeline (Astra, 2026-10-19: "I want to see the Linux Penguin UI and the Linux Penguin program"): pet-programs.json #58, his pets.json entry, his two tools, two tricks and a read grant on the System Map, and his pet program page from the Farmer's spawner, by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.
+The R W X panel (Astra, 2026-10-19, option C: "W R X what it should be, then some kind of easy indicator of whether that is reflected in the current code", then "its own panel in each pet program"): every pet program page has `<pet>-rwx-panel` after the four level panels, and every System Map card the same rows: what each level should be (R W X), then In code, Rule only or Not built; every In code grant names its evidence in system-map.json, which `npm run build` checks (card 048), by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19.

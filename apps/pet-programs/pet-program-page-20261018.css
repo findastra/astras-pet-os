@@ -144,3 +144,27 @@ img[hidden] { display: none !important; }
 .cards.related { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
 .cards.related .card-text span + span { font-size: 12px; }
+/* The R W X panel (Astra, 2026-10-19, option C): what each level should be (R W X), then whether that is in code.
+   Green In code, yellow Rule only, dashed grey Not built, the page's own light colours. */
+.rwx-key { display: grid; gap: 6px; font-size: 12.5px; color: var(--chalk-dim); margin: 4px 0 14px; }
+.rwx-rows { display: grid; margin: 4px 0 16px; }
+.rwx-row, .rwx-rows > .grant { border-top: 1px solid #66655c; padding: 8px 0; }
+.rwx-row > summary, .rwx-row.none, .grant > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; list-style: none; cursor: pointer; }
+.rwx-row > summary::-webkit-details-marker, .grant > summary::-webkit-details-marker { display: none; }
+.rwx-row.none { cursor: default; opacity: .65; }
+.lv { font: 600 12px/1 var(--label); min-width: 30px; padding: 5px 4px; border: 1px solid var(--line); border-radius: 4px; text-align: center; flex: none; }
+.lv.out { border-style: dashed; color: var(--chalk-dim); }
+.should { font: 12px var(--label); color: var(--chalk-dim); flex: none; }
+.rwx { display: inline-flex; gap: 4px; flex: none; }
+.rwx b { position: relative; font: 600 12px/1 var(--label); width: 22px; height: 22px; display: inline-grid; place-items: center; border: 1px solid var(--line); border-radius: 4px; background: var(--slate-2); }
+.rwx b.no { background: none; color: var(--planned); border-color: #66655c; }
+.rwx b.pr::after, .rwx b.grant::after, .rwx b.ask::after { position: absolute; right: -5px; top: -7px; font-size: 9px; }
+.rwx b.pr::after { content: "🔒"; } .rwx b.grant::after { content: "🔑"; } .rwx b.ask::after { content: "?"; font: 700 10px var(--label); color: var(--fix); }
+.gwho { flex: 1; min-width: 150px; }
+.mark { font-size: 12.5px; border: 1px solid currentColor; border-radius: 10px; padding: 1px 8px; white-space: nowrap; flex: none; }
+.mark.enforced { color: var(--on); } .mark.written { color: var(--fix); } .mark.planned { color: var(--planned); border-style: dashed; }
+.rwx-key .mark { margin-right: 6px; }
+.rwx-body { display: grid; gap: 10px; margin: 10px 0 4px 40px; padding-left: 12px; border-left: 1px solid var(--line); }
+.grant p { margin: 5px 0 0; font-size: 12.5px; color: var(--chalk-dim); }
+.grant p b { color: var(--chalk); font-weight: 600; }
+@media (max-width: 760px) { .rwx-body { margin-left: 10px; } .gwho { min-width: 100%; order: 3; } }
