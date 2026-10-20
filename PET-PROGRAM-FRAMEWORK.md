@@ -93,15 +93,16 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
    the system map box"): one width (240px), and both as tall as the taller one.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
-   the same line, **always to the right of the name, however long it is** (Astra, 2026-10-20). The name's size varies:
-   the page script makes it smaller (down to 20px) until name and version fit on one line between the cyberhome and
-   the System Map box; past that the name wraps, still left of the version. **Nothing is listed under the title**
-   (no "<pet>'s pet program" line): the pet, its number, stage and status are a small line at the bottom of the quick
-   summary. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
+   the same line, **always to the right of the name, however long it is** (Astra, 2026-10-20). The name is smaller
+   than it was (up to 34px; her marked-up screenshot of the same day) and its size varies: the page script makes it
+   smaller (down to 20px) until name and version fit on one line between the cyberhome and the System Map box; past
+   that the name wraps, still left of the version. **Nothing is listed under the title**: the "<pet>'s pet program · #N
+   · stage · status" line is gone (crossed out in the same screenshot); a private pet says its data never leaves the
+   PC in the L2 status line and the footer instead. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
 3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
    three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
-   behind it. Taken from the pet's mini-descriptor. Under them, small: the pet, its number, stage and status.
+   behind it. Taken from the pet's mini-descriptor.
 3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
    (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
    node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.

@@ -105,7 +105,7 @@ test('the title is the pet program name from pet-programs.json', () => {
     assert.equal(d.home, prog.assigned ? prog.program : `pet-program-${prog.number}`);
     // name and version in one heading, the version after the name (Astra, 2026-10-20: always to its right)
     assert.match(files[pagePath(d.repo)], /<h1><span class="title-name">[^<]+<\/span> <span class="version"/);
-    assert.ok(!files[pagePath(d.repo)].includes('class="who"'), `${d.repo}: nothing listed under the title`);
+    assert.ok(!files[pagePath(d.repo)].includes('class="who"') && !files[pagePath(d.repo)].includes('pet program · #'), `${d.repo}: nothing listed under the title`);
   }
 });
 

@@ -372,12 +372,12 @@ ${lights(`program:${d.homeSlug}`, d.home)}
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
   // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
-  // stay to the right of the title, no matter how big it is"). Nothing is listed under it: the pet program's number,
-  // stage and status go at the bottom of the quick summary.
+  // stay to the right of the title, no matter how big it is"), and smaller than before (her marked-up screenshot, the
+  // same day). Nothing is listed under it: the "<pet>'s pet program · #N · stage · status" line is crossed out there. A private
+  // pet still says its data never leaves the PC, in L2's status line and the footer.
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="The pet program's version comes from its own pet.json; the hub has not recorded it yet">V? // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>
-<p class="small facts">${esc(d.pet)} · #${esc(d.number)} · ${esc(d.stage)}${d.status ? ` · ${esc(d.status)}` : ''}${d.isPrivate ? ' · private: its data never leaves the PC' : ''}</p>`, { cls: 'summary' })}
+${panel(`${d.homeSlug}-pet-program-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open today's app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}
 ${d.publicRepo ? ` <a class="button" href="${esc(d.repoUrl)}">Repo</a>` : ` <span class="button off">${esc(d.repo)} (private repo)</span>`}</p></div>`;
 
@@ -402,7 +402,7 @@ ${d.devices.length ? `<section><h3>Devices it looks after</h3>${itemList(d.devic
 <section><h3>Your tricks</h3>${itemList(d.tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
 <section><h3>Schedule</h3><ul class="plain"><li>Self-audit: ${esc(cadence)}${d.audit.subject ? ` (${esc(d.audit.subject)})` : ''}</li><li>Weekly backlog run: not set up yet (needs an L3 seat)</li></ul></section>
 <section class="wide"><h3>Status line</h3><dl class="status">
-<dt>Data</dt><dd>yours, in this browser only</dd>
+<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; the program's own version is not recorded in the hub yet</dd>
 <dt>Seat</dt><dd>empty</dd>
@@ -478,7 +478,7 @@ ${assigned}</dl>
   const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
   const made = day(d.added) || `${DATE.slice(0, 4)}-${DATE.slice(4, 6)}-${DATE.slice(6)}`;
   const footer = panel('astras-pet-os-unified-footer', `<footer class="astra-footer" aria-label="By Astra: signature and links">
-<p class="footer-status">MIT license · signature: not signed yet · ${esc(langs)}</p>
+<p class="footer-status">MIT license · signature: not signed yet${d.isPrivate ? ' · private: its data never leaves the PC' : ''} · ${esc(langs)}</p>
 <div class="footer-line">
 <div class="footer-group"><span class="footer-title">By Astra</span><time datetime="${esc(made)}">${esc(made)}</time></div>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
