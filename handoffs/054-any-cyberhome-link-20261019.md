@@ -1,8 +1,17 @@
-status: open (waiting on Astra: OK to merge; then the six questions below, first of all the link in Startup Star)
+status: open (waiting on Astra: the six questions below, first of all the live link in Startup Star)
 for: any (the desktop parts: whoever builds the desktop pets, Claude or Codex)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: PET-PROGRAM-FRAMEWORK.md (section 3, items 1 and 10, and "Activity lights"), scripts/pet-program-pages-20261018.mjs, apps/pet-programs/pet-program-page-20261018.js, scripts/desktop-pets-20261011.cs, scripts/pet-dock-tracker-20261011.cs, skills/farm-security
 ---
+## Ownership and state
+
+State: paused on 2026-10-20 at Astra's request ("end chat and leave note we will pick up later"). The no-link part is
+merged (#137); tasks 1 to 5 below are not started.
+Implementer: none. The Claude Opus 5.5 session that built #137 released it; no files are claimed.
+Reviewer: unassigned.
+Next action: Astra answers the six questions (ask them as slides, `skills/questions-as-slides`). Then whoever picks
+this up sets `status: taken by <who>` and starts with task 1, the live link, only after her OK.
+
 ## What I did
 
 Astra, 2026-10-19, looking at Python Jungle's page: the cyberhome should be **empty until the page opens, then the pet
@@ -38,6 +47,14 @@ in a clone in Claude's scratchpad so the live hub folder stayed as it was:
   errors. The claude.ai `?q=` and chatgpt.com `?q=` links are not documented by Anthropic or OpenAI and were not tried
   with Astra's accounts: the copied message is the fallback.
 - On Astra's PC: nothing changed.
+
+**Merged, and what changed after (Claude Opus 5.5, 2026-10-20):**
+- astras-pet-os#137 merged on 2026-10-19 as `c4c5939`, tested at `d0a5492`: `npm test` 209, 208 pass, 0 fail, 1 skipped;
+  CodeQL passed after the test compared the whole message instead of a `github.com` substring (`1f31aea`). Main
+  (#123, #125, #127, #129, #131, #132, #133) was merged in first; #129 renamed the level panels `-L4-tool-panel`.
+- 2026-10-20, `cfdaf0f` (Astra's marked-up screenshot of Bass & Biscuits): **no star door in the cyberhome** any more.
+  The pet moves in from the top corner and the bubble says "<pet> moved in." The L4 light and the chat window are as
+  built. In task 2 the star is Startup Star on the desktop, not a door on the page.
 
 ## Task
 
