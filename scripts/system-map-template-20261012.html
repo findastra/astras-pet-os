@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Astra's PetOS System Map</title>
+<!-- Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap (agents and control hubs). -->
+<script src="apps/words-mode-20261019.js"></script>
+<script src="apps/developer-words-20261019.js"></script>
 <meta name="description" content="3D map of Astra's PetOS: every pet, program, model and device on its ring, who may read, write or run each one, and what flows between them.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <style>
@@ -269,6 +272,8 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js" integrity="sha384-hf3oVtegKGVgPlVvpd9Lg2YX9MGMmV/Dn9iSbKOeIAvzwL2L3WLK4RWf7QNkNrfJ" crossorigin="anonymous"></script>
 <script>
 const DATA = __DATA__;
+// Developer mode: agent and control hub names in the map's own data, before anything is drawn (no-op in farm words).
+if (window.PetOSWords) window.PetOSWords.data(DATA);
 // Native tools and tricks (Astra, 2026-10-19: "dont show on the system map at all, unless we are calling it a native
 // program"): only programs are drawn. Each pet program's tools and tricks are listed on its card (and its pet's card)
 // in sections that fold; search finds them there; a line that starts or ends at one is drawn from its pet program,

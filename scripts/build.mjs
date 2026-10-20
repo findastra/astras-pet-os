@@ -10,6 +10,7 @@
 //   PROTECTION-RINGS.md          the rings and grants tables, from system-map.json (system-map-20261012.mjs)
 //   apps/pet-programs/           a pet program page for every registered and pipeline pet (pet-program-pages-20261018.mjs)
 //   markdown-pets/               every pet as one Markdown file, for computers that cannot install (markdown-pets-20261019.mjs)
+//   apps/developer-words-20261019.js  developer mode's words for every page: agents and control hubs (developer-words-20261019.mjs)
 //
 // This replaces build-art.mjs, which drew the original 32x32 pets by hand.
 // Generating new art is separate and costs money: see generate-pets.mjs.
@@ -26,6 +27,7 @@ import { buildSystemMap, readSystemMapSources, applyAccessDoc, applyPartsDoc, SY
 import { redactData, assertPublic } from './public-safety-20261014.mjs';
 import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
 import { writeMarkdownPets } from './markdown-pets-20261019.mjs';
+import { writeDeveloperWords } from './developer-words-20261019.mjs';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -61,6 +63,9 @@ writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('p
   const parts = readFileSync(SYSTEM_MAP.parts, 'utf8');
   const nextParts = assertPublic(applyPartsDoc(parts, redactData(registry, 'pets.json', []), redactData(extra, 'system-map.json', []), programs), SYSTEM_MAP.parts);
   if (nextParts !== parts) writeFileSync(SYSTEM_MAP.parts, nextParts); }
+// Developer mode's words, which every page loads (Astra, 2026-10-19: "the agent and the agent control hub").
+{ const words = writeDeveloperWords('.');
+  if (words.missing.length) console.log(`Developer mode: no developer name yet for ${words.missing.join(', ')} (developer-words-20261019.json); they keep their farm names.`); }
 // Every pet's pet program page, from the same sources as the map (the Friendly Farmer's pet program spawner, 2026-10-18).
 writePetProgramPages('.');
 // The same pets as Markdown, for locked-down computers that take only .md files (Astra, 2026-10-19).
