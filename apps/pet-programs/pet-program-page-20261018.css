@@ -33,7 +33,14 @@ h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
 h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }
 h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .version { font: 400 clamp(15px, 2vw, 20px) var(--label); color: var(--chalk-dim); white-space: nowrap; }
-.who { margin: 0 0 4px; color: var(--chalk-dim); }
+/* The title: the pet program's name and its version on one line, the version always to its right (Astra, 2026-10-20:
+   "no matter how big it is"). The page script makes the name smaller, down to 20px, until both fit between the
+   cyberhome and the System Map box; past that the name wraps, still left of the version. Nothing is listed under it. */
+.title h1 { display: flex; align-items: baseline; gap: 0 14px; }
+.title-name { min-width: 0; overflow-wrap: anywhere; }
+.title h1.fits .title-name { white-space: nowrap; flex: none; }
+.title .version { flex: none; }
+.summary .facts { margin: 8px 0 0; }
 .small { font-size: 12.5px; color: var(--chalk-dim); }
 .empty { color: var(--chalk-dim); font-style: italic; margin: 4px 0; }
 .tag { font-size: 11px; border: 1px solid var(--chalk-dim); border-radius: 9px; padding: 0 6px; color: var(--chalk-dim); white-space: nowrap; }
@@ -55,14 +62,16 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .rings .node { fill: var(--link); stroke: #111; }
 @media (max-width: 1000px) and (min-width: 761px) {
   .top { grid-template-columns: 240px minmax(0, 1fr); }
-  .top > .system-map { grid-column: 2; margin-top: 0; }
+  .top > .system-map { grid-column: 2; margin-top: 0; justify-self: end; width: 240px; }
   .top > .system-map[open] { align-self: start; }
 }
 .top > .panel { margin-top: 12px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
 .habitat { position: relative; text-align: center; }
-.habitat > .lights { position: absolute; top: -12px; right: 6px; background: var(--slate); padding: 0 4px; }
+/* The cyberhome's lights sit inside the den's top corner, opposite Startup Star's door, off its border line (Astra,
+   2026-10-20: "Move those indicator lights down. They are in the way of the line"). */
+.habitat > .lights { position: absolute; top: 9px; left: 9px; z-index: 2; margin: 0; }
 .den { aspect-ratio: 1 / 1; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
 .den img.pet { width: 80%; height: auto; image-rendering: pixelated; cursor: pointer; }
 /* Room for three lines, so the bubble does not grow when the pet notices you: before, the first press anywhere pushed
@@ -100,15 +109,22 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
-/* Every item is a pill, the same on every page (Astra, 2026-10-19): its two lights on the oval, then its name. Click
-   the name to open it in place; open, the oval becomes a rounded box. */
-.items li.pill { display: flex; align-items: flex-start; width: fit-content; max-width: 100%; margin: 9px 0; padding: 6px 16px 6px 9px;
+/* Every item is a pill, the same on every page (Astra, 2026-10-19): an oval with its two lights on it. Its name is set
+   into the oval's top border, like a panel's label, and the lights sit inside, below that line, with room around them
+   (2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator lights down").
+   Click the name to open it in place; open, the oval becomes a rounded box. */
+.items li.pill { display: flex; align-items: flex-start; width: fit-content; max-width: 100%; margin: 20px 0 10px; padding: 12px 18px 10px 12px;
   border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 255, 255, .05); }
 .items li.pill:hover { background: rgba(255, 255, 255, .09); }
 .items li.pill:has(> details[open]) { width: auto; border-radius: 16px; }
-.pill > .lights { margin: 1px 9px 0 0; flex: none; }
+.pill > .lights { margin: 0 9px 0 0; flex: none; }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
+/* The name's first line sits on the border (pulled up by the pill's top padding and half a line) and takes no room
+   below it, so a tag or label starts level with the lights. A long name wraps inside, beside the lights, never over
+   them. Only its first line has the page's colour behind it, to cut the border. */
+.pill-more > summary .item-name { display: block; width: fit-content; margin: -22px 0 3px -6px; padding: 0 6px; font: 14px/19px var(--text);
+  background: linear-gradient(var(--slate), var(--slate)) 0 0 / 100% 11px no-repeat; overflow-wrap: anywhere; }
 .pill-more > summary::-webkit-details-marker { display: none; }
 .pill-more > summary:hover .item-name, .pill-more[open] > summary .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill-more > summary .label { margin-left: 0; overflow-wrap: anywhere; }
@@ -160,8 +176,28 @@ label.file { position: relative; }
 .clicks { display: grid; grid-template-columns: max-content 1fr; gap: 14px 18px; margin: 0; }
 .clicks dd { margin: 0; }
 
-/* The unified footer, and the chat box fixed bottom right with its label in its top border. */
-.footer-grid p { margin: 4px 0; }
+/* The unified footer (Astra, 2026-10-20: "It looked really good ... It was listed like an actual aesthetic footer"):
+   Codex's footer-template of 2026-10-14 (Flash Audit A51) again. Centered and spacious between thin rules, its groups
+   slightly staggered, each after a pink ✦; no list. */
+.panel.footer { border-left: 0; border-right: 0; padding: 28px 8px 20px; }
+.astra-footer { display: grid; justify-items: center; gap: 14px; text-align: center; font-size: 13px; }
+.astra-footer p { margin: 0; max-width: 78ch; }
+.footer-status { color: var(--chalk-dim); }
+.footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 30px; }
+.footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 5px 0; }
+.footer-group:nth-child(even) { margin-top: 10px; }
+.footer-group::before { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+.footer-title { font-weight: 600; letter-spacing: .02em; }
+.footer-group time { font: 12.5px var(--label); color: var(--chalk-dim); }
+.footer-icons { display: inline-flex; gap: 4px; }
+.footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; color: var(--chalk); text-decoration: none; }
+.footer-icons a:hover, .footer-home:hover { background: rgba(255, 255, 255, .1); }
+.footer-icons svg { width: 22px; height: 22px; fill: currentColor; }
+.footer-home img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
+.footer-links { font-size: 12.5px; }
+.astra-footer .footer-spawned { font-size: 11.5px; }
+
+/* The chat box fixed bottom right with its label in its top border. */
 /* The chat (Astra, 2026-10-19: "I want to see the chat in the bottom right. The shape is a little awkward. Make it
    better"): closed, one rounded pill with its label in the top border, the paired lights and the circle-arrow button;
    open, a rounded card whose window opens upward above them. */
@@ -195,7 +231,10 @@ label.file { position: relative; }
   .page { padding-top: 28px; }
 }
 @media (max-width: 760px) {
-  .top, .pair { grid-template-columns: 1fr; }
+  .pair { grid-template-columns: 1fr; }
+  /* minmax(0, ...): the column is the phone's width, so the title script shrinks the name to it instead of the page
+     growing sideways around the name. */
+  .top { grid-template-columns: minmax(0, 1fr); }
   .top > .panel { max-width: 240px; }
   /* On a phone the way back to the map comes first, as one compact row. */
   .top > .system-map { order: -1; max-width: none; }

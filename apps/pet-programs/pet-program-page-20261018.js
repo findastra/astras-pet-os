@@ -22,6 +22,22 @@
   function localTime(iso) { var d = new Date(iso); return localDay(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
   function today() { return localDay().replace(/-/g, ''); }
 
+  // ---- The title fits on one line between the cyberhome and the System Map box, the version always to its right
+  // (Astra, 2026-10-20: "make that size of the title varying and have to fit between the two boxes"). The name gets
+  // smaller, down to 20px; past that it wraps, still left of the version. Again whenever the window changes size. ----
+  var heading = document.querySelector('.title h1');
+  function fitTitle() {
+    if (!heading) return;
+    heading.style.fontSize = '';
+    heading.classList.add('fits');
+    var size = parseFloat(window.getComputedStyle(heading).fontSize);
+    while (heading.scrollWidth > heading.clientWidth && size > 20) { size -= 1; heading.style.fontSize = size + 'px'; }
+    if (heading.scrollWidth > heading.clientWidth) heading.classList.remove('fits');
+  }
+  fitTitle();
+  window.addEventListener('resize', fitTitle);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+
   // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).
   // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). Something
   // not built yet starts grey: not set yet. Marks saved before 2026-10-19 (`off`, `fix`) still count. ----

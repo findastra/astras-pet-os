@@ -103,7 +103,9 @@ test('the title is the pet program name from pet-programs.json', () => {
   for (const d of pages) {
     const prog = animals.find((p) => p.repo === d.repo);
     assert.equal(d.home, prog.assigned ? prog.program : `pet-program-${prog.number}`);
-    assert.match(files[pagePath(d.repo)], /<h1>[^<]+<span class="version"/);
+    // name and version in one heading, the version after the name (Astra, 2026-10-20: always to its right)
+    assert.match(files[pagePath(d.repo)], /<h1><span class="title-name">[^<]+<\/span> <span class="version"/);
+    assert.ok(!files[pagePath(d.repo)].includes('class="who"'), `${d.repo}: nothing listed under the title`);
   }
 });
 
