@@ -59,8 +59,9 @@ on Linux without Microsoft.
   (2026-10-19) and it was merged as `4e5fb7d` (with #2); then #4 (the credit line, three comment lines) as `b420f14`, which the package now pins.
 - **On Astra's PC:** nothing changed. The work was in clones in Claude's scratchpad.
 - **Left:** the first install on the Kali MacBook (RED USB holds Kali 2026.2), with `lintian`; publishing on a release
-  (decision 7); Chat Rat's "open folder" on Linux; Role
-  Fairy's Node 24.17 requirement against Debian 13's Node 20; step (b) with Codex.
+  (decision 7); Role Fairy's Node 24.17 requirement against Debian 13's Node 20; step (b) with Codex. Chat Rat's
+  "open folder" on Linux is done ([chat-rat#9](https://github.com/findastra/chat-rat/pull/9), merged 2026-10-19, by
+  Claude Opus 5.5); its first real try is on the Kali MacBook.
 
 ## Task
 1. Ask Astra the open decisions at the end of `docs/linux-readiness-20261018.md`, one chart, most important first
