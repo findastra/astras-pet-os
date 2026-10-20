@@ -103,7 +103,9 @@ test('the title is the pet program name from pet-programs.json', () => {
   for (const d of pages) {
     const prog = animals.find((p) => p.repo === d.repo);
     assert.equal(d.home, prog.assigned ? prog.program : `pet-program-${prog.number}`);
-    assert.match(files[pagePath(d.repo)], /<h1>[^<]+<span class="version"/);
+    // name and version in one heading, the version after the name (Astra, 2026-10-20: always to its right)
+    assert.match(files[pagePath(d.repo)], /<h1><span class="title-name">[^<]+<\/span> <span class="version"/);
+    assert.ok(!files[pagePath(d.repo)].includes('class="who"') && !files[pagePath(d.repo)].includes('pet program · #'), `${d.repo}: nothing listed under the title`);
   }
 });
 
@@ -156,6 +158,25 @@ test('every local picture, stylesheet and script a page uses is in the hub', () 
 
 test('pictures come only from the hub art folders (one art source, A58)', () => {
   for (const d of pages) for (const p of Object.values(d.art.frames)) assert.match(p, /^(art|desktop-art)\//, `${d.repo}: ${p}`);
+});
+
+// Astra, 2026-10-20: she crossed out Drum Dog's older drawing on his page while his desktop pet sat beside it. A pet
+// with a desktop drawing shows that drawing on its page, so the page and the desktop pet are one pet; a drawing the
+// draft list marks private (Claude Bot's) is never used.
+test('a pet with a desktop drawing shows it on its page; a private drawing never shows', () => {
+  const dog = pages.find((d) => d.repo === 'drum-dog');
+  assert.equal(dog.art.source, 'desktop');
+  assert.match(dog.art.frames.idle, /^desktop-art\/drum-dog\/idle-\d{8}\.png$/);
+  const regs = [...(src.registry.pets || []), ...(src.registry.pipeline || [])];
+  const privateIds = src.drafts.pets.filter((p) => p.private).map((p) => p.id);
+  for (const d of pages) {
+    const art = regs.find((r) => r.repo === d.repo)?.art || d.repo;
+    const drawn = src.list(`desktop-art/${art}`).some((n) => /^idle(-\d{8})?\.png$/.test(n));
+    if (drawn && !privateIds.includes(art)) assert.equal(d.art.source, 'desktop', `${d.repo} has a desktop drawing in desktop-art/${art}`);
+  }
+  for (const d of pages) for (const p of Object.values(d.art.frames)) {
+    for (const id of privateIds) assert.ok(!p.startsWith(`desktop-art/${id}/`), `${d.repo} uses ${id}'s private drawing`);
+  }
 });
 
 test('text written by pets is data: it is escaped, never markup', () => {

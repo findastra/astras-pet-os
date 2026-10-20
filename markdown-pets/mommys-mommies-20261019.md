@@ -45,6 +45,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Mommy's Mommies](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/mommys-mommies/idle.png)
+![Mommy's Mommies](https://raw.githubusercontent.com/findastra/astras-pet-os/main/desktop-art/mommys-mommies/idle-20261011.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*
