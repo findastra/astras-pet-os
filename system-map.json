@@ -184,6 +184,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-19: \"make it so that computers under other security protocols can download these agents ... The only files the user could give their computer was the markdown files\"): writes every registered and pipeline pet as one Markdown pet (what it does, where it opens in a browser with nothing to install, and the rules an AI follows to act as it), a farm list and one file with every pet, from the same data as the pet program pages. Files in markdown-pets/, rebuilt by npm run build (scripts/markdown-pets-20261019.mjs). It installs and runs nothing and never works around a computer's security."
     },
     {
+      "id": "click-check",
+      "name": "click-check",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-click-check-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-19: \"a tool that tests the clickness of the buttons ... whether they don't go anywhere, whether they go to the wrong place\"): opens every pet program page and today's app in apps/ in the Edge or Chrome already on the computer, headless, with a throwaway profile, clicks every button and link, and says which go nowhere, land on a dead end, go to the wrong place by the registry, throw an error, forget what they saved, sit under something else or move when pressed, one row per cause with the file to fix (scripts/click-check-20261019.mjs; npm run click-check). It sends nothing: a click that would post, delete or call a program on this PC is stopped and reported."
+    },
+    {
       "id": "claude",
       "name": "Claude (Anthropic)",
       "type": "model",
@@ -3414,6 +3426,20 @@
       "carries": "findings",
       "state": "suggested",
       "why": "Overlap to settle: both check how pages look on phones, tablets and desktop."
+    },
+    {
+      "from": "click-check",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "click-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "click-check",
+      "to": "web-browser",
+      "carries": "directs",
+      "state": "now",
+      "why": "click-check drives a headless Edge or Chrome with a throwaway profile and clicks every button and link on the pet program pages; it sends nothing."
     },
     {
       "from": "fit-check",
