@@ -103,7 +103,7 @@ is merged (Astra gives her OK per pull request in chat):
 
 | Repo | Pull request | Commit | What it renames | Tests |
 |---|---|---|---|---|
-| findastra/unity-unicorn | [#20](https://github.com/findastra/unity-unicorn/pull/20) | `63e47fa` | `unity-unicorn-L1-tool-panel` to `-L4-tool-panel` and the 12 avatar and world tool panels (page 0.5.1) | `node --test test/*.mjs` 55: 54 pass, 1 skipped (local seed); Python 50 OK |
+| findastra/unity-unicorn | [#20](https://github.com/findastra/unity-unicorn/pull/20) | `63e47fa`, `d17b45f` (main with #16 merged in) | `unity-unicorn-L1-tool-panel` to `-L4-tool-panel` and the 15 other tool panels (page 0.5.1) | `node --test test/*.mjs` 62: 61 pass, 1 skipped (local seed); Python 50 OK |
 | findastra/findastra-discord-presence | [#27](https://github.com/findastra/findastra-discord-presence/pull/27) | `58e4536` | `discord-damsel-servers-tool-panel` (plugin `PANEL`, pet.json, her page) and `discord-damsel-L2-tool-panel` | `node --test` 125 pass, 0 fail, 0 skipped |
 | findastra/log-den | [#7](https://github.com/findastra/log-den/pull/7) | `0d569c6` | `log-lynx-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 38 pass |
 | findastra/packet-river | [#7](https://github.com/findastra/packet-river/pull/7) | `42d8fd2` | `packet-piranha-L1-tool-panel` to `-L4-tool-panel` | `node --test` 6 pass; `--self-test` 20 pass |
@@ -112,9 +112,9 @@ is merged (Astra gives her OK per pull request in chat):
 
 - **Every page:** the fold hint says "Click the label to fold or unfold this tool panel", and so do the page's own words ("Add to the L1 tool panel", "Click a tool panel to open it", "For now this tool panel holds only…"). Each repo's panel test fails on `main`'s page. Each repo also has a credit line in AGENTS.md.
 - **Unity Unicorn:**
-  - Its avatar and world side panels were named `…-panel` too (`unity-unicorn-matcap-panel` and the rest), so they became `…-tool-panel`, the same as Damsel's servers panel, which this task names.
+  - Its avatar and world side panels, and the made-by panel, were named `…-panel` too (`unity-unicorn-matcap-panel` and the rest), so they became `…-tool-panel`, the same as Damsel's servers panel, which this task names.
   - Lights saved on the old `-panel` labels, and on the older `-module` ones, move to the new labels (the page's `RENAMED` list). This was checked in Claude's browser.
-  - Its open #16 adds three more `…-panel` labels (`avatar-assets`, `world-assets`, `made-by`). Whichever of #16 and #20 merges second renames them and adds them to `RENAMED`; the panels test fails until then. #19 changes the same page too.
+  - #16 merged while #20 was open and added three more `…-panel` labels (`made-by`, `avatar-assets`, `world-assets`). `main` is merged into #20 (`d17b45f`), which renames them and adds them to `RENAMED`. The panels test fails if a new `…-panel` label appears. #19 changes the same page too.
 - **Discord Damsel:**
   - The README screenshot was retaken from the plugin's test page (`?demo`, headless Edge, 760 × 860); only the label changed.
   - Her open #26 (Sticker Manager 1.0.2) changes the same lines, so #27 keeps the plugin at 1.0.1. Merge #26 first, then `main` goes into #27 and the plugin becomes 1.0.3.
