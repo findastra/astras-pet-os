@@ -72,8 +72,11 @@ pet first and says what is missing. The package never downloads code or packages
   runs on the PC, leave her off on the Linux one. Her `package.json` asks for Node 24.17 or newer, so she does not run on
   Debian 13's Node 20 until that is lowered in her repo (after testing on Node 20) or the computer has a newer Node.
 - **Chat Rat** (`chat-rat`): his program into `~/.local/share/astras-pet-os/pets/chat-rat`. He listens on this computer
-  only. Saving and searching chats work; his "open folder" button still opens File Explorer only, a small change in
-  his repo that is not made yet.
+  only. Saving, searching and his "open folder" buttons work: on Linux they open the folder with `xdg-open`
+  ([chat-rat#9](https://github.com/findastra/chat-rat/pull/9), merged 2026-10-19). Without the service,
+  `sh start-chat-rat-20261019.sh` in his folder starts him and opens his page. As a service, the folder buttons need
+  your desktop's display settings in the service (most desktops pass them on); if they are missing, the page says so.
+  Not tried on a real Linux desktop yet.
 
 ## Where things go
 
@@ -137,7 +140,9 @@ first test is the Kali MacBook, from RED USB.
    AGENTS.md's beta-tester rule and the dev-mindset glossary ("runs on Windows") gain their Linux line.
 3. ~~Move the penguin's pin to his `main`~~: done, `b420f14` (linux-iceberg#3 and #4 merged 2026-10-19). Move it again when
    his tools or tricks change.
-4. Chat Rat's "open folder" on Linux (`xdg-open`), in his repo; Role Fairy's Node requirement, in hers.
+4. ~~Chat Rat's "open folder" on Linux (`xdg-open`), in his repo~~: done,
+   [chat-rat#9](https://github.com/findastra/chat-rat/pull/9) (merged 2026-10-19); try it on the Kali MacBook with step 1.
+   Role Fairy's Node requirement, in hers.
 5. Desktop pets on Linux (step b), with Codex, so the penguin can pop up on the desktop. Until then, the pages show
    every pet in the release, as on Windows: only the desktop pets read the farm.
 6. Known lintian note: the System Map loads three.js and Google Fonts from the internet (`privacy-breach-generic`), so
