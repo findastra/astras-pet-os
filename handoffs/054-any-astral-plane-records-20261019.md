@@ -34,13 +34,13 @@ card's commit):
   - Updated text: the `ai-astra` job (the three parts) and the `ai-astra-mind` job and its model line. Both said
     "chatbox drafts today"; they now say her body is the connector, and a model server can be on Astra's own network.
   - CRLF kept: only these lines changed.
-- `npm run build` regenerated `TOOLS-AND-TRICKS.md` (two more rows: the connector, and VRChat under The Astral Plane; 186 after merging main with #125, #127, #131 and #132),
+- `npm run build` regenerated `TOOLS-AND-TRICKS.md` (two more rows: the connector, and VRChat under The Astral Plane; 186 after merging main with #125, #127, #131, #132 and #133),
   `apps/pet-programs/the-astral-plane-20261018.html` ("Your tools": VRChat connector; VRChat "planned"),
   `markdown-pets/the-astral-plane-20261019.md`, `markdown-pets/all-pets-20261019.md` and `system-map-20261012.html`.
 - `handoffs/README.md`: this card's row, and the next free number is now 055 (053 is Mirror Pool's card on `claude/mirror-pool-tools-20261019`).
 
 **Tested,** in an LF clone (`core.autocrlf=false`) in Claude's scratchpad, never in Astra's PC folders: `npm run build`,
-then `npm test`: 193 tests, 192 pass, 0 fail, 1 skipped; after merging `main` (#125, #127, #131, #132) into the branch and rebuilding, 196 tests, 195 pass, 0 fail, 1 skipped. I looked at the rebuilt page in the browser pane: the connector
+then `npm test`: 193 tests, 192 pass, 0 fail, 1 skipped; after merging `main` (#125, #127, #131, #132, #133) into the branch and rebuilding, 198 tests, 197 pass, 0 fail, 1 skipped. I looked at the rebuilt page in the browser pane: the connector
 is under "Your tools" with its label, and VRChat is under "3rd party programs" as planned. Nothing on Astra's PC changed.
 I only read the-astral-plane's merged docs from `C:\ai_astra\ai_astra_main`.
 

@@ -11,7 +11,9 @@ Full explanation and diagrams: [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md).
 **A ring says where a thing lives. It grants nothing.** **R**ead, **W**rite, e**X**ecute live on **grants**: who may do
 what to which things. Every grant has a status: **enforced** (a program, setting or test stops anything else),
 **written only** (a rule agents agree to follow; nothing stops a break) or **planned**. Never describe a written rule
-as if it were a lock. The full list is generated into [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md#who-may-do-what-grants)
+as if it were a lock. Shown as **should be** (the R W X) then **in code**: ✓ In code, ⚠︎ Rule only, ○ Not built
+(Astra, 2026-10-19, option C); an In code grant names its proof (`evidence`: a test or script in this repo, or a setting),
+and the build refuses one without. The full list is generated into [PROTECTION-RINGS.md](../../PROTECTION-RINGS.md#who-may-do-what-grants)
 from `system-map.json` (`access`), and every System Map card shows the grants that reach it. Change a grant there,
 never only in prose.
 
