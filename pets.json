@@ -1,6 +1,7 @@
 {
   "cage": "astras-pet-os",
   "owner": "Astra",
+  "github_owner": "findastra",
   "topic": "pet-app",
   "updated": "2026-10-19",
   "mascots": [],
@@ -1105,6 +1106,7 @@
     },
     {
       "repo": "claude-bot",
+      "stays_private": "its art is an exact copy of ChatGPT’s BSOD, which may not be public (docs/pet-art-redesign-20261017.md)",
       "pet": "Claude Bot",
       "visibility": "private",
       "status": "hatching",

@@ -1,7 +1,26 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
-**A proposal, nothing built yet.** It waits on Astra's answers (the question slides, card 058). By Claude Opus 5.5
-(`claude-opus-5-5`), 2026-10-19, from a session started by the beginner-guide chat.
+**Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are built on
+`claude/farm-owner-privatizer-20261019` (card 058); Parts 3 and 4 are not built. By Claude Opus 5.5
+(`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
+
+## Astra's answers (2026-10-20, every recommendation)
+
+| # | Question | Answer |
+|---|---|---|
+| 1 | How does a farm know whose it is? | Both: `github_owner` in pets.json, and the signed-in account must agree |
+| 2 | Pets from two accounts on one farm? | Yes: each pet may name its account; without one it is the farm owner's |
+| 3 | Keep the hub from going private? | Yes: the privatizer refuses the one art source |
+| 4 | Before a pet goes public? | Scan every commit of every branch, and stop on a hit |
+| 5 | Keep the name pet-privatizer? | Keep it, with the words `private` and `public` |
+| 6 | "Download one pet" means first? | A pet pack zip first; then the Farmer adds one pet to a farm |
+| 7 | Pictures copied into a pack? | Yes, in the zip only, never committed to a repo |
+| 8 | Where each pet's needs are written? | pets.json, one place |
+| 9 | In what order? | One part at a time: Parts 1 and 2 now, then 3, then 4 |
+
+**Added while building (2026-10-20):** a pet whose entry says `stays_private` never goes public. Claude Bot's says why:
+its art is an exact copy of ChatGPT's BSOD, which may not be public (an existing decision, recorded in
+docs/pet-art-redesign-20261017.md). Without it, the scan would have let Claude Bot go public: it found nothing to stop.
 
 ## What Astra asked
 
