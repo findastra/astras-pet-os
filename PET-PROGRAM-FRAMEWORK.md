@@ -99,7 +99,11 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    behind it. Taken from the pet's mini-descriptor.
 3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
    (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
-   node (`system-map-20261012.html#node=<node id>`); on a phone it comes first, as one compact row. Flash Audit A60.
+   node (`system-map-20261012.html#node=<node id>`). Under the node, the first three related pets, each linking to its
+   pet program, then a link down to all of them in `<pet>-related-pets` (Astra, 2026-10-20: "reserved for other agent
+   links, relative, full list below"). On a phone it sits beside the cyberhome, the same size, the map's rings framed
+   as a square level with the pet's den (Astra, 2026-10-20: "BOTH TO BE SQUARES"), and the title goes below both.
+   Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's activity light (the sketch's
    "activity status") sits on its top border, beside its label. Every item inside has its paired lights.
 
@@ -128,8 +132,10 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    reads ("copyright-auditor: on", "copyright-auditor: working correctly").
 6. **`<pet>-session-notes`**: a notes text box with **submit** and **add file**. Every submission goes to the backlog
    (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
-7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a speech bubble that says when it shows (the
-   bubble's tail is drawn in outline, like the bubble, never a filled triangle: Astra, 2026-10-19). These
+7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a cloud that says when it shows, three to a row
+   as in the sketch (fewer on a narrow window). The cloud has a scalloped edge and a thought bubble's two puffs trailing
+   to the pet, in outline, never filled; the cyberhome's own bubble is the same cloud, its puffs rising to the pet
+   (Astra, 2026-10-20: "make both the emotions and the idle bubble actually bubble border like it looks like a cloud"). These
    meanings are the only ones (Astra, 2026-10-18): the mood key, [PET-FILES.md](PET-FILES.md) and the Farmer's rounds
    follow them. The table runs most urgent first: when several apply, the highest one shows (proposed order,
    2026-10-18).
