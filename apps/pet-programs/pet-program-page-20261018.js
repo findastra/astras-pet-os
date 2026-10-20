@@ -29,19 +29,24 @@
   function today() { return localDay().replace(/-/g, ''); }
 
   // ---- The title fits on one line between the cyberhome and the System Map box, the version always to its right
-  // (Astra, 2026-10-20: "make that size of the title varying and have to fit between the two boxes"). The name gets
-  // smaller, down to 20px; past that it wraps, still left of the version. Again whenever the window changes size. ----
+  // (Astra, 2026-10-20: "make that size of the title varying and have to fit between the two boxes"). It is always one
+  // line (Astra, 2026-10-20, on a phone: "ALWAYS 1 LINE"): the name gets smaller, down to 14px; past that it is cut
+  // with "…" and the whole name shows when you point at it. Again whenever the window changes size, and after the
+  // page's words are swapped (developer mode makes a name longer). ----
   var heading = document.querySelector('.title h1');
   function fitTitle() {
     if (!heading) return;
     heading.style.fontSize = '';
     heading.classList.add('fits');
     var size = parseFloat(window.getComputedStyle(heading).fontSize);
-    while (heading.scrollWidth > heading.clientWidth && size > 20) { size -= 1; heading.style.fontSize = size + 'px'; }
-    if (heading.scrollWidth > heading.clientWidth) heading.classList.remove('fits');
+    while (heading.scrollWidth > heading.clientWidth && size > 14) { size -= 1; heading.style.fontSize = size + 'px'; }
+    var name = heading.querySelector('.title-name'), clipped = heading.scrollWidth > heading.clientWidth;
+    heading.classList.toggle('clipped', clipped);
+    if (name) { if (clipped) name.title = name.textContent; else name.removeAttribute('title'); }
   }
   fitTitle();
   window.addEventListener('resize', fitTitle);
+  document.addEventListener('DOMContentLoaded', fitTitle); // after developer-words-20261019.js has swapped the words
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
 
   // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).

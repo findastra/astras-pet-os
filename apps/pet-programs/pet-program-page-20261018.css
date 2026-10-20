@@ -41,6 +41,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .title .version { font-size: clamp(13px, 1.4vw, 16px); }
 .title-name { min-width: 0; overflow-wrap: anywhere; }
 .title h1.fits .title-name { white-space: nowrap; flex: none; }
+/* Always one line (Astra, 2026-10-20: "ALWAYS 1 LINE"): a name too long even at 14px is cut with "…". */
+.title h1.fits.clipped .title-name { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
 .title .version { flex: none; }
 .small { font-size: 12.5px; color: var(--chalk-dim); }
 .empty { color: var(--chalk-dim); font-style: italic; margin: 4px 0; }
