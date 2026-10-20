@@ -10,7 +10,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | --- | --- | --- |
 | [054: The cyberhome, the activity lights and the chat window; the live link to Startup Star](054-any-cyberhome-link-20261019.md) | any | open, waits on Astra: merge, then six questions (first: the live link) |
 | [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
-| [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge; then a green round |
+| [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | done 2026-10-19: #128 merged, round run 39368064274 green, round pull request #138 |
 | [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | done when #123 merges (Astra's OK, 2026-10-19); findings 2 and 3 open |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
@@ -112,7 +112,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 049 | `049-any-unity-stable-asset-tools-20261019.md` | `main` (merged with #119) |
 | 050 | `050-any-markdown-pets-locked-down-20261019.md` | `main` (merged with #120) |
 | 051 | `051-any-beginner-guide-20261019.md` | `claude/beginner-guide-20261019` |
-| 052 | `052-any-farmer-round-credit-line-20261019.md` | `claude/farmer-round-credit-line-20261019` |
+| 052 | `052-any-farmer-round-credit-line-20261019.md` | `main` (merged with #128) |
 | 053 | `053-any-mirror-pool-fit-tools-20261019.md` | `claude/mirror-pool-tools-20261019` |
 | 054 | `054-any-cyberhome-link-20261019.md` | `claude/cyberhome-chat-20261019` |
 
