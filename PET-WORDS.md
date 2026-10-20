@@ -11,13 +11,14 @@ Every pet app is a set of parts. Each part has **one** name, used everywhere: RE
 | Part | Call it | Programmer word | Not | What it is |
 |---|---|---|---|---|
 | The whole set | **pet app** | project: one repo with its app and its character | | One repo, one pet, and its app. "RGBee is a pet app." |
-| The character | **pet** | mascot (the app's character) | pixel twin | The creature itself, by name: "the Goldfish", "Chip". It lives on the Windows desktop and in its app's pet well. |
+| The character | **pet** | mascot (the app's character) | pixel twin | The creature itself, by name: "the Goldfish", "Data Chip". It lives on the Windows desktop and in its app's pet well. |
 | The full window | **app** | application (its user interface) | pet app's app, application interface, pet interface, local interface, browser companion | What opens when you double-click the pet. Either a **web app** (an HTML page) or a **Windows app** (a program). The Farmer's app is called his **desk**. |
 | The pet on your desktop | **desktop pet** | desktop overlay: an always-on-top animated sprite window | pet app icon, desktop companion | The small pet that sits on the Windows desktop above other windows. Optional: the Farmer and Claude Bot have one. |
 | The pet talking | **bubble** | toast notification (one way) | speech bubble, chat bubble | A short line that pops up over the pet for a few seconds. One way: the pet talks to you. The lines live in `says` in pets.json. |
 | You talking to the pet | **quick chat** | chat input box (two way) | pet app icon chat | A small box that opens from the desktop pet so you can type to it. Two way. |
 | The program's picture | **app icon** | app icon | | The small still picture on the taskbar, a shortcut or a browser tab. It is drawn from the pet but it is not the pet, and it does not move. |
 | The pet's square in its app | **pet well** | avatar container (an image slot in the layout) | pet frame | Where the pet sits inside its app. |
+| The pet as one file | **Markdown pet** | agent definition file: a portable system prompt in Markdown | | What the pet does, where it opens in a browser and the rules an AI follows to act as it. For computers that cannot install, such as a locked-down work computer: give it to an AI the computer allows. Generated into `markdown-pets/` (Astra, 2026-10-19). |
 
 So: the pet floating on the desktop is the **desktop pet** (an *icon* is the still taskbar picture), its pop-up lines are **bubbles**, the box you type into is **quick chat**, and the window it opens is just its **app**.
 
@@ -105,16 +106,19 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **home** | product name of the pet program | The name in `pet-programs.json`, like **Unity Stable**. |
 | **L1 Programs** | application layer: dependencies plus owned code | The third-party programs it runs, and the programs and tools it makes. |
 | **L2 Pet program** | runtime: a background service (scheduler, inbox, saved state) | What the pet does by itself, and its dashboard. |
-| **L3 Agentic harness** | agent layer (an LLM in an agent harness) | An AI model in the seat, doing the pet's work with its tools and tricks. |
+| **L3 Agentic harness** | agent layer: the pet program's own agent harness | The pet's own harness: a seat any farmhand can fill, straight through its API or inside a provider harness, doing the pet's work with its tools and tricks (Astra, 2026-10-19). Not built yet: today a pet borrows Claude Code or Codex. |
 | **L4 Verified human** | human in the loop: the owner who approves (admin) | Approves every security change, permission and exception. |
 | **farmhand** | AI model (LLM) | Claude, OpenAI or a local model. Not a pet. |
-| **the seat** | active agent session | Which AI is working on a pet now, through Claude Code or Codex. "Seat: empty" when none. |
-| **agentic harness** | agent harness | The program that gives a model tools, skills, memory and permissions (Claude Code, Codex). |
+| **the seat** | active agent session | Which AI is working in a pet's harness now, and on what. Any farmhand can sit there. "Seat: empty" when none. |
+| **agentic harness** | agent harness | Two kinds, so say which: the **pet harness** (L3, each pet program's own) or a **provider harness** (made by others). [AGENTS.md](AGENTS.md), "How the agents work". |
+| **provider harness** | agent harness (agent runtime) made by others | Claude Code, Codex, OpenClaw: a program that wraps a farmhand in tools, memory, skills and permissions. Drawn as a ring around its farmhand. |
 | **native** | first-party (Astra made it), as opposed to third-party | Everything a pet program owns is a native program, a native tool or a native trick ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). |
 | **native program** | first-party application | Opened or run on its own (Startup Star, the System Map, Ghost Protocol). The only kind the System Map draws. |
 | **tool** (native tool) | first-party module or script (deterministic code) | Code the pet program runs with no AI, for one job. ON/OFF, maintenance light, version. Listed on its card, never drawn. |
 | **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | Written steps the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. Listed on its card, never drawn. |
-| **harness skill** | development skill installed in Claude Code or Codex | Belongs to the seat, not the pet; helps an AI work on the pet. |
+| **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
+| **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
+| **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
 | **your programs** | managed applications (the L1 panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |

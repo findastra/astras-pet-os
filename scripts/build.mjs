@@ -9,6 +9,7 @@
 //   system-map-20261012.html       the 3D map of Astra's PetOS, from pets.json, pet-programs.json and system-map.json (system-map-20261012.mjs)
 //   PROTECTION-RINGS.md          the rings and grants tables, from system-map.json (system-map-20261012.mjs)
 //   apps/pet-programs/           a pet program page for every registered and pipeline pet (pet-program-pages-20261018.mjs)
+//   markdown-pets/               every pet as one Markdown file, for computers that cannot install (markdown-pets-20261019.mjs)
 //
 // This replaces build-art.mjs, which drew the original 32x32 pets by hand.
 // Generating new art is separate and costs money: see generate-pets.mjs.
@@ -24,6 +25,7 @@ import { buildRelations, buildMoodKey } from './relations-20261009.mjs';
 import { buildSystemMap, readSystemMapSources, applyAccessDoc, applyPartsDoc, SYSTEM_MAP } from './system-map-20261012.mjs';
 import { redactData, assertPublic } from './public-safety-20261014.mjs';
 import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
+import { writeMarkdownPets } from './markdown-pets-20261019.mjs';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -61,6 +63,8 @@ writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('p
   if (nextParts !== parts) writeFileSync(SYSTEM_MAP.parts, nextParts); }
 // Every pet's pet program page, from the same sources as the map (the Friendly Farmer's pet program spawner, 2026-10-18).
 writePetProgramPages('.');
+// The same pets as Markdown, for locked-down computers that take only .md files (Astra, 2026-10-19).
+writeMarkdownPets('.');
 for (const { path, kind } of redacted) console.log(`Public safety: left out a ${kind} at ${path}; keep it on this PC (docs/local-services-20261014.md).`);
 
 const readme = readFileSync('README.md', 'utf8');

@@ -230,8 +230,8 @@ test('profile round: numbered pets in Cage order, her blurbs kept, gone repos dr
   assert.match(text.split("### Astra's Pet Apps")[1], /\*\*\[RGBee\]\([^)]*rgbee\)\*\* -- in the wrong place/, 'and keeps its blurb in the pet list');
   assert.match(text.split('### VR & VRChat')[1].split('###')[0], /detour-into-vr.* -- takes detours into VR$/m);
   assert.match(text.split('### Web & More')[1], /tool-x.* -- a small tool$/m);
-  assert.match(text, /\*\*Chip\*\*/, 'a private registered pet is listed unlinked');
-  assert.match(text, /^\d+\. \*\*Chip\*\* -- /m, 'a private pet is not linked');
+  assert.match(text, /\*\*Data Chip\*\*/, 'a private registered pet is listed unlinked');
+  assert.match(text, /^\d+\. \*\*Data Chip\*\* -- /m, 'a private pet is not linked');
   assert.doesNotMatch(text, /github\.com\/findastra\/data-dealer/, 'and its private repo is never linked');
   assert.ok(text.startsWith('<h2 align="center">Hi</h2>\n\n<p align="center">tagline</p>'), 'header untouched');
   assert.ok(changes.length > 0);

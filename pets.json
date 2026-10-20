@@ -143,6 +143,11 @@
         "retired": [
           "pet frame"
         ]
+      },
+      {
+        "say": "Markdown pet",
+        "means": "the pet as one Markdown file: what it does, where it opens in a browser and the rules an AI follows to act as it, for computers that cannot install",
+        "retired": []
       }
     ]
   },
@@ -557,7 +562,7 @@
     },
     {
       "repo": "data-dealer",
-      "pet": "Chip",
+      "pet": "Data Chip",
       "role": "pet",
       "art": "chip",
       "kind": "tech",
@@ -758,7 +763,7 @@
     },
     {
       "repo": "paper-girl",
-      "pet": "Paper Girl Patty",
+      "pet": "Paper Patty",
       "role": "pet",
       "art": "paper-girl",
       "kind": "human",
@@ -1001,7 +1006,7 @@
   "pipeline": [
     {
       "repo": "spoonfed",
-      "pet": "Sugarcube",
+      "pet": "Spoonfed Sugarcube",
       "visibility": "public",
       "published": true,
       "status": "hatching",
@@ -1012,7 +1017,7 @@
       "audit": {
         "cadence": "weekly",
         "subject": "Spoonfed’s restaurant discovery, saved spots, and sample-data labels",
-        "needs": "review of Sugarcube draft artwork and a live restaurant provider before real recommendations"
+        "needs": "review of Spoonfed Sugarcube draft artwork and a live restaurant provider before real recommendations"
       },
       "note": "Private artwork-only repository published; nine draft frames ready. Application remains a local draft. Card 009."
     },
@@ -1498,7 +1503,7 @@
     ],
     "already_in_pipeline": [
       "claude-bot (Claude Bot)",
-      "spoonfed (Spoonfed Sugarcube; its pipeline entry says Sugarcube)"
+      "spoonfed (Spoonfed Sugarcube)"
     ],
     "renames": [
       {
