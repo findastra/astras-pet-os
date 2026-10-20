@@ -65,7 +65,11 @@ go inside the matching panel here. **Panels, not modules** (Astra, 2026-10-19): 
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel.
 
 1. **`<pet>-cyberhome`** (top left, square): the pet's habitat. The desktop pet comes to live here while the page is
-   open. Its paired lights sit on the top edge.
+   open. Its paired lights sit on the top edge. **It is empty until the page opens; then the pet moves in through
+   Startup Star's door** in its top corner: the star opens, the pet comes in, the star closes (Astra, 2026-10-19: "It's
+   not just square, it's going to be the cyber home"). The page plays this arrival itself today. Flying in from the
+   desktop (from roaming, from the lineup, or out of the star when the desktop pet is hidden) needs a live link between
+   the page and Startup Star, which waits on Astra's OK (card 054). Room art people can change is planned.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
    the same line. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
@@ -129,11 +133,23 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
    grant (section 11). It holds item 10 of the list below.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
-    bot.
+    bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
+    Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
+    and the message is copied too), Claude Code or Codex on this PC (needs Startup Star's link; until then the message
+    waits in the backlog), or just a note to the backlog. The page keeps no keys, sends nothing itself and remembers
+    the choice on this device. The chat's own left light switches it off.
 11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
     pet program spawner writes it on every page.
+
+**Activity lights** (Astra, 2026-10-19: "I need to be able to see what is on and off"): the light on each level
+panel's top border is on while that level is working right now, and the panel glows. **L4 is you:** on while the page
+is in front of you and you used it in the last two minutes, dim when you go quiet, off while the page is hidden; the
+page does this itself. L1 (a program or tool running), L2 (the pet program doing something by itself, or data coming in
+from a pet it talks to) and L3 (an agent at work in the seat) need Startup Star's link to know, so until it is built
+their lights are grey and say "not connected yet". The activity light shows what is happening; the paired lights are
+what you switch and what you report broken.
 
 ### Waiting on Astra
 
@@ -143,7 +159,6 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 - **Two more light states**, proposed: **grey** for "not on this PC" (a missing third-party program is not an error,
   section 4; it must not show red) and for "not checked yet". And a mark inside each light (a line for on, a ring for
   off), because red and green look alike to many colour-blind people (WCAG 2.1, success criterion 1.4.1).
-- **What the activity light on each level's panel means.** The sketch shows L1 to L3 red and L4 blue.
 - **The order of the moods** above, and a frame with open eyes for awake.
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 

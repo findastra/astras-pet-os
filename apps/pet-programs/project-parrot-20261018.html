@@ -8,9 +8,9 @@
 </head>
 <body>
 <main class="page">
-<header class="top"><details class="panel cyberhome" open><summary title="Click the label to fold or unfold this panel"><span class="legend">project-parrot-cyberhome</span></summary><div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
+<header class="top"><details class="panel cyberhome" open><summary title="Click the label to fold or unfold this panel"><span class="legend">project-parrot-cyberhome</span></summary><div class="habitat" title="Project Parrot moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="lights"><button type="button" class="light onoff" data-item="program:idea-perch" data-name="Idea Perch" aria-label="Idea Perch: on" title="ON/OFF (kill switch): green on, red off"></button><button type="button" class="light care" data-item="program:idea-perch" data-name="Idea Perch" aria-label="Idea Perch: working correctly" title="Maintenance: blue working correctly, yellow requires maintenance"></button></span>
-<div class="den"><img class="pet" data-face="idle" src="../../art/frames/project-parrot/idle-20261008.png" alt="Project Parrot, idle" width="256" height="256"><img class="pet" data-face="blink" src="../../art/frames/project-parrot/blink-20261008.png" alt="Project Parrot, blinking" width="256" height="256" hidden><img class="pet" data-face="sad" src="../../art/frames/project-parrot/sad-20261008.png" alt="Project Parrot, sad" width="256" height="256" hidden></div>
+<div class="den" data-arrival="waiting"><svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg><img class="pet" data-face="idle" src="../../art/frames/project-parrot/idle-20261008.png" alt="Project Parrot, idle" width="256" height="256"><img class="pet" data-face="blink" src="../../art/frames/project-parrot/blink-20261008.png" alt="Project Parrot, blinking" width="256" height="256" hidden><img class="pet" data-face="sad" src="../../art/frames/project-parrot/sad-20261008.png" alt="Project Parrot, sad" width="256" height="256" hidden></div>
 <p class="bubble" id="bubble" aria-live="polite">Idle: my program is open, but you haven&#39;t used it for a while.</p></div></details><div class="title">
 <h1>Idea Perch <span class="version" title="The pet program's version comes from its own pet.json; the hub has not recorded it yet">V? // 20261008</span></h1>
 <p class="who">Project Parrot's pet program · #18 · registered · hatching</p>
@@ -77,9 +77,17 @@
 <p class="small">Spawned by the Friendly Farmer's pet program spawner (<code>the-farm-v1.0-pet-program-spawner-v1.0</code>) from pets.json, pet-programs.json and the System Map, 20261018. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></div></details>
 </main>
 <aside class="chat" aria-label="project-parrot-chat"><span class="chat-label">project-parrot-chat</span><span class="lights"><button type="button" class="light onoff" data-item="chat:project-parrot" data-name="Project Parrot&#39;s chat" aria-label="Project Parrot&#39;s chat: on" title="ON/OFF (kill switch): green on, red off"></button><button type="button" class="light care" data-item="chat:project-parrot" data-name="Project Parrot&#39;s chat" aria-label="Project Parrot&#39;s chat: working correctly" title="Maintenance: blue working correctly, yellow requires maintenance"></button></span>
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open Project Parrot's chat bot">&gt;</button>
-<div class="chat-panel" id="chat-panel" hidden><p>Project Parrot's chat bot is not connected yet: no AI is seated in Idea Perch. When it is, it asks before it uses your own AI subscriptions.</p><p><a href="#note-text">Leave a session note instead</a></p></div></aside>
-<script type="application/json" id="pet-program-data">{"repo":"project-parrot","pet":"Project Parrot","home":"Idea Perch","homeSlug":"idea-perch","petSlug":"project-parrot","reminder":"Nothing is waiting on you.","lines":{"idle":"Idle: my program is open, but you haven't used it for a while.","blink":"Awake: my program is open and you've used it recently.","sad":"Sad: you haven't opened me in more than two weeks."}}</script>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open Project Parrot's chat">&gt;</button>
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to Project Parrot" hidden>
+<p class="chat-ask">Who should answer?</p>
+<div class="chat-who" role="group" aria-label="Who should answer"><button type="button" class="button" data-who="claude" aria-pressed="false">My Claude</button><button type="button" class="button" data-who="chatgpt" aria-pressed="false">My ChatGPT</button><button type="button" class="button" data-who="this-pc" aria-pressed="false">Claude Code or Codex on this PC</button><button type="button" class="button" data-who="note" aria-pressed="false">Just leave a note</button></div>
+<p class="small" id="chat-who-says">Choose who answers. This page remembers it on this device.</p>
+<ol class="chat-log" id="chat-log"></ol>
+<label class="small" for="chat-text">message</label>
+<textarea id="chat-text" rows="3" placeholder="Ask about Idea Perch"></textarea>
+<p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
+</div></aside>
+<script type="application/json" id="pet-program-data">{"repo":"project-parrot","pet":"Project Parrot","home":"Idea Perch","homeSlug":"idea-perch","petSlug":"project-parrot","reminder":"Nothing is waiting on you.","lines":{"idle":"Idle: my program is open, but you haven't used it for a while.","blink":"Awake: my program is open and you've used it recently.","sad":"Sad: you haven't opened me in more than two weeks."},"publicRepo":true}</script>
 <script src="pet-program-page-20261018.js"></script>
 </body>
 </html>

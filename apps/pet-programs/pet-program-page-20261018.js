@@ -1,7 +1,8 @@
 // Every pet program page spawned by the Friendly Farmer (PET-PROGRAM-FRAMEWORK.md, section 3): the paired lights,
-// the live idle, awake and sad moods, the session notes that go to the backlog, export, and the chat button.
-// Saved in this browser only (section 6): nothing is sent anywhere. Text goes into the page with textContent only.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18.
+// the live idle, awake and sad moods, the session notes that go to the backlog, export, the pet moving into its
+// cyberhome, the L4 activity light and the chat window.
+// Saved in this browser only (section 6): the page sends nothing itself. Text goes into the page with textContent only.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19.
 (function () {
   'use strict';
   var config = JSON.parse(document.getElementById('pet-program-data').textContent);
@@ -153,10 +154,139 @@
   });
   render();
 
-  // ---- The chat button: opens the panel that says the chat bot is not connected yet. ----
-  var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
-  if (chat && panel) chat.addEventListener('click', function () {
-    panel.hidden = !panel.hidden;
-    chat.setAttribute('aria-expanded', panel.hidden ? 'false' : 'true');
+  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in through Startup Star's
+  // door in the top corner. The page plays the arrival itself. Flying in from the desktop (from roaming, from the
+  // lineup, or out of the star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. The
+  // script only changes the den's state: every picture is already in the page. ----
+  var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
+  if (den && den.dataset.arrival === 'waiting') {
+    (still ? [['home', 0]] : [['opening', 250], ['arriving', 850], ['home', 1900]]).forEach(function (step) {
+      setTimeout(function () {
+        den.dataset.arrival = step[0];
+        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' came in through the star.';
+      }, step[1]);
+    });
+    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1900) + 5000);
+  }
+
+  // ---- Activity lights (Astra, 2026-10-19): the light on a level panel's top border is on while that level is
+  // working right now, and the panel glows. L4 is you: on while this page is in front of you and you used it in the
+  // last two minutes, dim when you go quiet, off while the page is hidden. L1 to L3 need Startup Star's link to know
+  // what is running, so for now they say they are not connected. ----
+  var WORKING = {
+    L1: 'a program or tool of ' + config.home + ' is running',
+    L2: config.home + ' is doing something by itself, or data comes in from a pet it talks to',
+    L3: 'an agent is working in ' + config.home,
+  };
+  var HERE = {
+    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    off: ['you are away', 'This page is hidden behind another tab or window.'],
+  };
+  var L4 = null, L4quiet;
+  var levelPanels = document.querySelectorAll('details.panel.level');
+  for (var p = 0; p < levelPanels.length; p++) {
+    var legend = levelPanels[p].querySelector('.legend'), act = levelPanels[p].querySelector('.activity');
+    var level = /-(L[1-4])-[a-z-]*panel$/.exec(legend ? legend.textContent : '');
+    if (!level || !act) continue;
+    if (level[1] === 'L4') { L4 = { panel: levelPanels[p], light: act }; continue; }
+    act.dataset.state = 'unknown';
+    act.setAttribute('aria-label', 'activity: not connected yet');
+    act.title = 'Lights up while ' + WORKING[level[1]] + '. Not connected yet: it needs Startup Star\'s link, which is not built yet.';
+  }
+  function here(state) {
+    if (!L4) return;
+    L4.light.dataset.state = state;
+    L4.panel.dataset.activity = state;
+    L4.light.setAttribute('aria-label', 'activity: ' + HERE[state][0]);
+    L4.light.title = HERE[state][1];
+  }
+  function present() {
+    if (document.hidden) return;
+    here('live');
+    clearTimeout(L4quiet);
+    L4quiet = setTimeout(function () { here('idle'); }, 120000);
+  }
+  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  if (document.hidden) here('off'); else present();
+
+  // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
+  // no keys and sends nothing itself: your Claude or ChatGPT opens in a new tab with your message typed in (and copied,
+  // in case that tab's box is empty). Claude Code or Codex on this PC need Startup Star's link, so until it is built the
+  // message waits in the backlog. The chat's own left light switches it off. ----
+  var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
+  var chatText = document.getElementById('chat-text'), chatSend = document.getElementById('chat-send');
+  var chatStatus = document.getElementById('chat-status'), chatSays = document.getElementById('chat-who-says'), chatLog = document.getElementById('chat-log');
+  var whoButtons = panel ? panel.querySelectorAll('button[data-who]') : [];
+  var WHO = {
+    claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
+      says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
+    chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
+      says: 'Opens your ChatGPT (chatgpt.com) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
+    'this-pc': { name: 'this PC (waiting in the backlog)',
+      says: 'Not built yet: Claude Code or Codex on this PC answer here once Startup Star\'s link is built (it waits on Astra\'s OK). Until then your message waits in the backlog, and the L3 seat stays empty.' },
+    note: { name: 'the backlog', says: 'Your message goes to ' + STORE + ', like a session note.' },
+  };
+  var chosen = read('chat-with', null), chatLines = read('chat', []);
+  function choose(k) {
+    chosen = WHO[k] ? k : null;
+    for (var i = 0; i < whoButtons.length; i++) whoButtons[i].setAttribute('aria-pressed', whoButtons[i].dataset.who === chosen ? 'true' : 'false');
+    if (chatSays) chatSays.textContent = chosen ? WHO[chosen].says : 'Choose who answers. This page remembers it on this device.';
+  }
+  function drawChat() {
+    if (!chatLog) return;
+    chatLog.textContent = '';
+    chatLines.slice(-20).forEach(function (m) { chatLog.appendChild(el('li', localTime(m.at) + ' · to ' + m.to + ': ' + m.text)); });
+  }
+  function chatOff() { var s = lights['chat:' + config.petSlug] || {}; return s.power ? s.power === 'off' : !!s.off; }
+  function addNote(message) {
+    var stamp = today(), n = backlog.entries.filter(function (x) { return x.id.indexOf('-backlog-' + stamp + '-') > -1; }).length + 1;
+    backlog.entries.push({
+      id: config.homeSlug + '-v1.0-backlog-' + stamp + '-' + String(n).padStart(3, '0'),
+      created: new Date().toISOString(), author: 'you', kind: 'note', tool: config.petSlug + '-chat', text: message, attachments: [], status: 'new', run: null,
+    });
+    if (!write('backlog', backlog)) { backlog.entries.pop(); return false; }
+    render();
+    return true;
+  }
+  function openChat(open) {
+    panel.hidden = !open;
+    chat.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && chatText) chatText.focus();
+  }
+  if (chat && panel && chatText && chatSend) {
+    chat.addEventListener('click', function () { openChat(panel.hidden); });
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { openChat(false); chat.focus(); } });
+    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); });
+    chatText.addEventListener('input', function () { chatStatus.textContent = ''; });
+    chatSend.addEventListener('click', function () {
+      var message = chatText.value.trim();
+      if (!message) { chatStatus.textContent = 'Type a message first.'; chatText.focus(); return; }
+      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return; }
+      if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
+      var to = WHO[chosen];
+      if (to.url) {
+        var prompt = 'This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS' +
+          (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
+        try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
+        var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
+        if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
+        else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
+      } else {
+        if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return; }
+        chatStatus.textContent = 'Saved to ' + STORE + '.';
+      }
+      chatLines.push({ at: new Date().toISOString(), to: to.name, text: message });
+      chatLines = chatLines.slice(-20);
+      write('chat', chatLines);
+      chatText.value = '';
+      drawChat();
+    });
+    choose(chosen);
+    drawChat();
+  }
 })();

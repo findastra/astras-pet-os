@@ -199,6 +199,10 @@ function connection(c, homeSlug) {
 <p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
 }
 
+// Startup Star's door in the cyberhome's top corner: the yellow star with small rectangle eyes, as on the desktop and
+// in the tray. Drawn here, so it is the same on every page and needs no picture file.
+const STAR_DOOR = '<svg class="star-door" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,1.5 14.7,8.8 22.5,9.1 16.4,13.9 18.5,21.4 12,17.1 5.5,21.4 7.6,13.9 1.5,9.1 9.3,8.8" fill="#ffd23f" stroke="#111" stroke-width="1" stroke-linejoin="round"/><rect x="9.6" y="9.6" width="1.4" height="3" fill="#111"/><rect x="13" y="9.6" width="1.4" height="3" fill="#111"/><rect x="9.6" y="9.6" width="0.6" height="0.8" fill="#fff"/><rect x="13" y="9.6" width="0.6" height="0.8" fill="#fff"/></svg>';
+
 export function buildPetProgramPage(d) {
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
@@ -209,6 +213,7 @@ export function buildPetProgramPage(d) {
   const config = {
     repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder,
     lines: { idle: d.lines.idle, blink: d.lines.blink, sad: d.lines.sad },
+    publicRepo: d.publicRepo,
   };
   const json = JSON.stringify(config).replaceAll('<', '\\u003c');
   const roundLine = d.round
@@ -216,9 +221,11 @@ export function buildPetProgramPage(d) {
     : 'not checked by a merged round yet';
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
-  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="The desktop pet coming to live here while this page is open is not built yet">
+  // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in through Startup Star's door in
+  // the top corner. The page plays the arrival itself; flying in from the desktop needs Startup Star's link (not built).
+  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 ${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
+<div class="den" data-arrival="waiting">${STAR_DOOR}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div>
 <p class="bubble" id="bubble" aria-live="polite">${esc(d.lines.idle)}</p></div>`, { cls: 'cyberhome' });
 
   const title = `<div class="title">
@@ -317,9 +324,21 @@ ${assigned}</dl>
 <p><b>Docs:</b> <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
 <p class="small">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></div>`, { cls: 'footer' });
 
+  // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
+  // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;
+  // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
+  const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat bot">&gt;</button>
-<div class="chat-panel" id="chat-panel" hidden><p>${esc(d.pet)}'s chat bot is not connected yet: no AI is seated in ${esc(d.home)}. When it is, it asks before it uses your own AI subscriptions.</p><p><a href="#note-text">Leave a session note instead</a></p></div></aside>`;
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">&gt;</button>
+<div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
+<p class="chat-ask">Who should answer?</p>
+<div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
+<p class="small" id="chat-who-says">Choose who answers. This page remembers it on this device.</p>
+<ol class="chat-log" id="chat-log"></ol>
+<label class="small" for="chat-text">message</label>
+<textarea id="chat-text" rows="3" placeholder="Ask about ${esc(d.home)}"></textarea>
+<p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
+${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send to Claude or ChatGPT leaves this PC. A note stays here.</p>` : ''}</div></aside>`;
 
   return assertPublic(`<!doctype html>
 <html lang="en">
