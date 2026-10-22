@@ -11,8 +11,8 @@ Watches the public Ghost Protocol website and checks Astra’s own security agai
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/ghost-protocol-20261018.html
-- **Its app:** https://findastra.github.io/ghost-protocol/
-- **Its code:** https://github.com/findastra/ghost-protocol
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Gone Ghost
 

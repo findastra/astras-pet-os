@@ -48,7 +48,9 @@ test('a line Astra labelled with another name stays, and its repo is not added a
   assert.match(text, /^- \[`fuzzboi-factory`\]\(https:\/\/github\.com\/findastra\/fuzzbois\) -- NFT generator for hand-drawn characters$/m);
   assert.doesNotMatch(text, /\[`fuzzbois`\]/, 'fuzzbois is not listed a second time');
   const gone = syncProfile(readme, registry, [repos[0]], programs).text;
-  assert.doesNotMatch(gone, /fuzzboi-factory/, 'a line whose repo is gone from GitHub is still dropped');
+  // Her line, exactly: Fuzzboi Friend's own pet program is also called fuzzboi-factory, and a private pet stays listed
+  // (his repo went private on 2026-10-20).
+  assert.doesNotMatch(gone, /\[`fuzzboi-factory`\]\(https:\/\/github\.com\/findastra\/fuzzbois\)/, 'a line whose repo is gone from GitHub is still dropped');
 });
 
 test('a line Astra writes with a dash instead of " -- " is kept as written and its repo is not added again (2026-10-18)', () => {

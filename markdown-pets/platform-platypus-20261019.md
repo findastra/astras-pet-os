@@ -11,8 +11,8 @@ Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page o
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/platform-platypus-20261018.html
-- **Its app:** https://findastra.github.io/platform-platypus/
-- **Its code:** https://github.com/findastra/platform-platypus
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Platform Platypus
 
