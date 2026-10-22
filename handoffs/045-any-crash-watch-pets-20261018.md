@@ -3,6 +3,12 @@ for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `main` (built from `claude/build-20261018`), cloned side by side in `%USERPROFILE%\Documents\Astra's PetOS`; this card's branches `claude/crash-watch-pets-20261018` (#105) and `claude/crash-watch-sign-in-20261019`
 ---
+**2026-10-21: no tray icons any more.** Astra circled the three tray icons: "these are not supposed to be in the tray.
+only the Startup Star should ever be in the tray. please fix the recent change that directed this". This card built them
+as tray programs. From v0.2.0 (log-den, packet-river and evidence-locker `claude/no-tray-20261021`) they run in the
+background; their menus are in Startup Star's menu and nothing pops up (her answer: "Log Lynx turns alarmed"). Card 066
+has the details. Below, "tray" describes v0.1.x.
+
 ## Why
 
 At 12:49 on 2026-10-18 a .NET "Unhandled exception" window appeared on Astra's desktop and closed before anyone could
