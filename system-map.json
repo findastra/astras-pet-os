@@ -3764,6 +3764,13 @@
       "why": "outstanding-items writes the list the Pets Board shows, on this PC only."
     },
     {
+      "from": "program-2",
+      "to": "pets-board",
+      "carries": "opens",
+      "state": "now",
+      "why": "GitHub Aquarium opens its Pets Board, the full list of what waits on you on GitHub (the Open button in its outstanding-items tool panel)."
+    },
+    {
       "from": "pet-packs",
       "to": "nodejs",
       "carries": "runs-on",

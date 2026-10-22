@@ -54,7 +54,7 @@ export function splitStatus(text) {
 const petLine = (number, pet, job, status, url = null) =>
   `${number}. **${url ? `[${pet}](${url})` : pet}** -- ${[job, status ? `[${status}]` : ''].filter(Boolean).join(' ') || '[job not chosen yet]'}`;
 
-/** @returns {{ text: string, changes: string[] }} */
+/** @returns {{ text: string, changes: string[], skipped?: string }} */
 export function syncProfile(readme, registry, repos, programs = null) {
   const lines = readme.split('\n');
   const changes = [];
@@ -122,7 +122,10 @@ export function syncProfile(readme, registry, repos, programs = null) {
   sections.forEach((s, k) => { s.end = k + 1 < sections.length ? sections[k + 1].start : lines.length; });
   // Astra renamed the section "Astra's PetOS - Personal AI Agent Platform" on 2026-10-11; accept either name.
   const petSection = sections.find((s) => /pet apps|petos|pet_os/i.test(s.title));
-  if (!petSection) throw new Error('No "pet apps" or "PetOS" section in the profile README.');
+  // No pet list on the profile (Astra took it off on 2026-10-20): the round has nothing to look after, so it changes
+  // nothing at all, the other sections included, and says why (Astra, 2026-10-21, "all recommended": skip quietly).
+  // If she brings a "pet apps" or "PetOS" section back, the next round looks after it again.
+  if (!petSection) return { text: readme, changes: [], skipped: 'No pet list on the profile (no "pet apps" or "PetOS" section), so there is nothing to keep in order.' };
   const mentioned = new Set(blurbs.keys());
 
   // The pet apps list.
@@ -229,8 +232,8 @@ if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).
   const programs = existsSync(programsPath) ? JSON.parse(readFileSync(programsPath, 'utf8')).programs : null;
   const repos = arg('--repos') ? JSON.parse(readFileSync(arg('--repos'), 'utf8')) : await publicRepos(process.env.GITHUB_TOKEN);
   const before = readFileSync(readmePath, 'utf8');
-  const { text, changes } = syncProfile(before, registry, repos, programs);
+  const { text, changes, skipped } = syncProfile(before, registry, repos, programs);
   if (!process.argv.includes('--dry-run') && changes.length) writeFileSync(readmePath, text);
-  console.log(changes.length ? changes.map((c) => '- ' + c).join('\n') : 'Profile already matches GitHub.');
+  console.log(skipped || (changes.length ? changes.map((c) => '- ' + c).join('\n') : 'Profile already matches GitHub.'));
   if (process.env.GITHUB_OUTPUT) writeFileSync(process.env.GITHUB_OUTPUT, `changed=${changes.length ? 'yes' : 'no'}\nsummary=${changes.join('; ').replace(/[\r\n%]/g, ' ')}\n`, { flag: 'a' });
 }

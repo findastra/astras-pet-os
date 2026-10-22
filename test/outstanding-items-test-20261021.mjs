@@ -132,6 +132,11 @@ test('it is GitHub Aquarium\'s tool on the map, with the Pets Board as its nativ
   assert.equal(tool.of, 'program-2'); assert.equal(tool.type, 'tool'); assert.equal(tool.label, LABEL);
   assert.equal(board.of, 'program-2'); assert.equal(board.type, 'own-program'); assert.equal(board.label, 'github-aquarium-v1.0-pets-board-v1.0');
   assert.ok(map.links.some((l) => l.from === 'outstanding-items' && l.to === 'github'));
+  // A native program shows on its pet program page only through a link from the program (2026-10-21: without it the
+  // page said "Native programs · 0").
+  assert.ok(map.links.some((l) => l.from === 'program-2' && l.to === 'pets-board' && l.carries === 'opens'), 'GitHub Aquarium opens its Pets Board');
+  const page = spawnerFiles(readSpawnerSources(root))[pagePath('github-goldfish')];
+  assert.match(page, /<h3>Native programs · 1<\/h3>[\s\S]*?<span class="item-name">Pets Board<\/span>/, 'the page lists the Pets Board as a native program');
   assert.ok(systemMapData, 'the map builds from it');
   assert.match(read('package.json'), /"outstanding-items": "node scripts\/outstanding-items-20261021\.mjs"/);
 });

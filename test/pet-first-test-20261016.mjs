@@ -84,3 +84,17 @@ test('a home with its own page is linked in its sub-bullet, and the repo follows
   const old = readme.replace(/^1\. .*$/m, '1. **Friendly Farmer** · [*The Farm*](https://example.test/farm.html) -- organizes the pets\n   - [`astras-pet-os`](https://github.com/findastra/astras-pet-os) -- Astra\'s PetOS home repo');
   assert.equal(syncProfile(old, reg, repos, programs).text, text, 'the earlier home-on-the-line form converts cleanly');
 });
+
+test('no pet list on the profile: the round skips quietly and changes nothing, the other sections included (Astra, 2026-10-21)', () => {
+  const slim = `<h2 align="center">Hi</h2>
+
+### Web & More
+- [\`startup-star\`](https://github.com/findastra/startup-star) -- Startup Star: the tray tool
+- [\`a-private-world\`](https://github.com/findastra/a-private-world) -- a repo GitHub does not list to a signed-out round
+`;
+  const out = syncProfile(slim, registry, repos, programs);
+  assert.equal(out.text, slim, 'not one character changes');
+  assert.deepEqual(out.changes, []);
+  assert.match(out.skipped, /No pet list on the profile/);
+  assert.equal(syncProfile(readme, registry, repos, programs).skipped, undefined, 'with a pet list it runs as before');
+});
