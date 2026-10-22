@@ -2,7 +2,8 @@
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
 (#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is merged (#183, Astra's OK in chat,
-2026-10-21). By Claude Opus 5.5
+2026-10-21). Part 5, the farm lock, is proposed in `docs/farm-lock-20261021.md`; Astra answered its six questions on
+2026-10-21: "All recommended" (rows 13 to 18). By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -21,6 +22,12 @@
 | 10 | Where people download a pet pack? (2026-10-21) | On each pet's own repo, as a release file, only for pets whose repo is public, one pet at a time with Astra's OK |
 | 11 | API Fairy's files stop her pack: fix or allow? (2026-10-21) | Fix them in her repo, by her own chat; the scanner stays strict, with no exception in the core |
 | 12 | Packs from private repos? (2026-10-21) | Keep `--private`: packing private code is always a choice made on purpose |
+| 13 | Where the farm lock lives? (2026-10-21) | On the computer, in the farm's own folder next to the install receipt; never committed (a hub copy's `.gitignore` lists it) |
+| 14 | The farm lock's file name? (2026-10-21) | `farm-lock-20261021.json`, by Astra's file-name rule; the docs say "the farm lock" |
+| 15 | Which pet packs may come in before packs are signed? (2026-10-21) | Each file is checked against the pet's own repo on GitHub at that commit; a pack that cannot be checked comes in only with `--unchecked`, marked in the farm lock |
+| 16 | A program or core part the Farmer cannot add? (2026-10-21) | The pet still comes in, with a plain warning: the plan names what is missing and what to do, and the farm lock marks it |
+| 17 | Taking away a pet others need? (2026-10-21) | Stop and name them; `--with-dependents` takes them all away together, on purpose, after the plan lists every one |
+| 18 | Should the installer tick the pets a picked pet needs? (2026-10-21) | Yes, with the same check as the Farmer: a needed pet is ticked and locked, with "needed by" the pet that needs it |
 
 **Added while building (2026-10-20):** a pet whose entry says `stays_private` never goes public. Claude Bot's says why:
 its art is an exact copy of ChatGPT's BSOD, which may not be public (an existing decision, recorded in
@@ -185,6 +192,28 @@ new farm's owner and marks the examples as Astra's, so a beginner never edits JS
 - API Fairy is refused: her repo's tests hold fake keys, and her code holds example folder paths for a made-up user, `you`. That waits
   on Astra (slides).
 - Not built: publishing packs anywhere (the hub is private since 2026-10-20; slides), signing them, and `farm.lock`.
+
+### Part 5: the farm lock (proposed 2026-10-21, answered "All recommended" the same day; nothing built yet)
+
+The Friendly Farmer adds one pet to a farm, or takes one away, and the farm lock records exactly what the farm runs.
+The whole proposal is `docs/farm-lock-20261021.md`. In short:
+- **The catalog and the farm.** The catalog is the pets this farm may have: its release's or hub copy's pets.json,
+  which changes only by pull request. The farm is the pets on this computer now. Add and remove change only the farm.
+  A pet the catalog does not have cannot be added, from a pack either.
+- **A pet comes in** from the installer's own pets (its entry, as the installer writes it) or from a pet pack (its code,
+  next to the farm folder, checked file by file). Nothing from a pack runs by itself.
+- **Its needs are checked in this order:** required pets, all the way down; then this computer and the core; then
+  programs. The Farmer never installs a third-party program.
+- **A pet leaves** only when no pet on the farm requires it. Pets that came only for it are listed, never taken away
+  silently. Its data, its pictures and its repo on GitHub stay.
+- **Found:** the installer does not read `needs`. `-Farm Scratch -Pets evidence-locker` gives Forensic Ferret without
+  Log Lynx.
+- **Astra's six questions** (slides): where the farm lock lives, its file name (`farm.lock` breaks her file-name rule),
+  which pet packs may come in before signing, a program the Farmer cannot add, taking away a pet others need, and the
+  installer ticking needed pets. Answered 2026-10-21, "All recommended": rows 13 to 18 of the table above.
+- **Next:** build 5a (the farm lock with the installer's own pets, and the installer's part), then 5b (pet packs come
+  in), one pull request at a time, each merged only with her OK. In 5a the docs' `farm.lock` becomes "the farm lock"
+  (`farm-lock-20261021.json`).
 
 ## What it would take
 
