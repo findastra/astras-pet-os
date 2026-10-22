@@ -373,7 +373,36 @@ function keyRequestsPanel(d) {
 <p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'key-requests', light: true });
 }
 
-export const PET_PANELS = { 'api-fairy': keyRequestsPanel };
+// GitHub Aquarium's outstanding items (Astra, 2026-10-21, all recommended: findastra/github-goldfish card 006): what
+// waits on Astra on GitHub, counted by group, the first few of each, and the Open button to the Pets Board, the full
+// list (too big for a tool panel). The list names private repos, so like API Fairy's it stays on Astra's PC: the tool
+// (scripts/outstanding-items-20261021.mjs) writes it there and this panel reads it only when the page is opened there.
+export const OUTSTANDING_GROUPS = [
+  ['broken', 'broken-on-main', 'Nothing is failing on a main branch.'],
+  ['you', 'waiting-on-you', 'Nothing is waiting on you.'],
+  ['chat', 'waiting-on-a-chat', 'No chat has anything to fix.'],
+  ['close', 'close-or-keep', 'Nothing has gone stale.'],
+  ['info', 'being-checked-or-drafts', 'Nothing is being checked.'],
+];
+export const OUTSTANDING_BOARD = '../pets-board-20261021.html';
+const MERGE_ORDER_SKILL = `https://github.com/${OWNER}/${HUB}/blob/main/skills/merge-order/SKILL.md`;
+// Made up, so a page on GitHub shows how the panel works without naming any of Astra's repos.
+export const OUTSTANDING_EXAMPLES = [
+  { group: 'broken', kind: 'job', repo: 'example-pet', title: 'Example: a daily job failed on main', url: MERGE_ORDER_SKILL, does: 'Fix: a chat repairs it; merge its fix first', example: true },
+  { group: 'you', kind: 'pull request', repo: 'example-pet', number: 7, title: 'Example: a change that is ready', url: MERGE_ORDER_SKILL, does: 'Merge: say OK in a chat', example: true },
+  { group: 'chat', kind: 'pull request', repo: 'example-site', number: 3, title: 'Example: a change with a conflict', url: MERGE_ORDER_SKILL, does: 'Wait: its chat fixes the conflict first', example: true },
+  { group: 'info', kind: 'pull request', repo: 'example-site', number: 4, title: 'Example: a draft', url: MERGE_ORDER_SKILL, does: 'Nothing yet: it is a draft', example: true },
+];
+
+function outstandingPanel(d) {
+  const groups = OUTSTANDING_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group outstanding-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
+  return panel(`${d.petSlug}-outstanding-items-tool-panel`, `<p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
+<div class="request-groups outstanding" id="outstanding-items">${groups}</div>
+<p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
+<p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'outstanding-items', light: true });
+}
+
+export const PET_PANELS = { 'api-fairy': keyRequestsPanel, 'github-goldfish': outstandingPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -600,7 +629,7 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
+${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${PET_PANELS[d.repo] === outstandingPanel ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
 </body>
 </html>
 `, pagePath(d.repo));
