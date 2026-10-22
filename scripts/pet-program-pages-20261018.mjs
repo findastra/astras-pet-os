@@ -66,6 +66,17 @@ export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '
 export const slug = (s) => String(s).toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const isUrl = (u) => /^https?:\/\//.test(u || '');
 
+/** The pet whose private repo a link goes into, or whose GitHub Pages site it is: a free account has no Pages site for a
+ *  private repo, and a private repo opens only for its owner (Astra, 2026-10-20: "i privated most repos"). Null for
+ *  anything else. Only what pets.json records; the build asks GitHub nothing. */
+export function privateTarget(registry, url) {
+  const u = String(url || '');
+  const m = u.match(/^https:\/\/github\.com\/([^/]+)\/([^/#?]+)/i) || u.match(/^https:\/\/([^./]+)\.github\.io\/([^/#?]+)/i);
+  if (!m) return null;
+  const pet = [...(registry.pets || []), ...(registry.pipeline || [])].find((p) => p.repo.toLowerCase() === m[2].toLowerCase());
+  return pet && pet.visibility === 'private' && ownerOf(registry, pet.repo).toLowerCase() === m[1].toLowerCase() ? pet.repo : null;
+}
+
 /** One line on what an item does, for its pill (Astra, 2026-10-21: "summarize what each program does in here", and a
  *  tool's description on its tool). A program's `does` in system-map.json says it plainly; a tool's or trick's job is
  *  written "A tool of <program> (<kind>): <what it does> (<where it lives>)", so this keeps the middle part. */
@@ -199,9 +210,12 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
     ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
 
-  // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it.
+  // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it. An app on
+  // the hub's site opens from the hub's own copy, beside this page. An app inside a private repo, or on its Pages site,
+  // opens for nobody else, so the button says so instead of leading to "not found" (click-check, 2026-10-20).
   const app = reg.interface_live_url || reg.app_url || null;
-  const appHref = !app ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
+  const appPrivate = app && isUrl(app) && !app.startsWith(`${PAGES}/apps/`) ? privateTarget(registry, app) : null;
+  const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
@@ -210,7 +224,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null, version: versionOf(reg),
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
@@ -403,7 +417,21 @@ function outstandingPanel(d) {
 <p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'outstanding-items', light: true });
 }
 
-export const PET_PANELS = { 'api-fairy': keyRequestsPanel, 'github-goldfish': outstandingPanel };
+
+// By Astra. OpenAI Codex (GPT-6), 2026-10-20. No private archive state enters the hub.
+function dmArchivePanel(d) {
+  const source = d.programs.find(p => p.id === 'dm-archive-review')?.url;
+  if (!source) return '';
+  return panel(`${d.petSlug}-dm-archive-tool-panel`, `<fieldset class="tool-box"><legend>discord-tower-v1.0-dm-archive-v0.1</legend>
+<h3>DM archive review</h3><p>Check and search a conversation saved with DiscordChatExporter. Messages and media stay in the review tab on your computer.</p>
+<p class="small">Source prepared · adoption pending. No archive is loaded here. Export and deletion are separate.</p>
+<p><a class="button" id="dm-archive-open" href="${esc(source)}">Get the local viewer</a></p>
+<p class="small" id="dm-archive-open-note">Download Damsel's repository after the archive review change is merged, then open discord-damsel-archive-review-20261020.html. This public page cannot read your computer's files.</p>
+</fieldset>`, { cls: 'dm-archive' });
+}
+
+
+export const PET_PANELS = { 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -481,7 +509,7 @@ ${lights(`program:${d.homeSlug}`, d.home)}
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
 ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
-<p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open app</a>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}</p></div>`;
+<p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open app</a>` : d.appPrivate ? `<span class="button off" title="${esc(d.appPrivate)} is private: its GitHub Pages site is off, and the repo opens only for its owner">App is private</span>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}</p></div>`;
   // No Repo button (Astra, 2026-10-21, crossing it out on her screenshot, then "1. A" in her slides): the repo link is
   // in the footer and in L4's pet passport.
 

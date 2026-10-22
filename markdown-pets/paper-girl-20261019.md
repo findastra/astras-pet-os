@@ -11,8 +11,8 @@ Runs Paper Girl, a free science discovery desk: real research, publisher explana
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/paper-girl-20261018.html
-- **Its app:** https://findastra.github.io/paper-girl/
-- **Its code:** https://github.com/findastra/paper-girl
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Paper Patty
 

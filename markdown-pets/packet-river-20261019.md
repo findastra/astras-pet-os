@@ -11,8 +11,8 @@ Network: packet loss, DNS, latency, routing.
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/packet-river-20261018.html
-- **Its app:** https://github.com/findastra/packet-river#run-it
-- **Its code:** https://github.com/findastra/packet-river
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Packet Piranha
 

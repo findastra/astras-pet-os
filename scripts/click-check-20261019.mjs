@@ -523,7 +523,9 @@ const IN_PAGE = String.raw`(() => {
     for (let p = at; p && p !== document.body; p = p.parentElement) if (Number(getComputedStyle(p).opacity) === 0) return { state: 'hidden', folded: true };
     const box = { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height };
     const cls = (e.getAttribute('class') || '').split(/\s+/);
+    // ... or the choice already made in a set of toggle buttons (aria-pressed, like the words switch's Farm words).
     const current = (e.hasAttribute('aria-current') && e.getAttribute('aria-current') !== 'false') || e.getAttribute('aria-selected') === 'true'
+      || e.getAttribute('aria-pressed') === 'true'
       || cls.some((c) => /^(on|active|current|selected|is-active|is-current|is-selected)$/.test(c));
     // Outside the box of a parent that cuts off what overflows it: folded away (a section closed by its height).
     const clipped = (x, y) => {
@@ -1126,7 +1128,11 @@ export async function checkPage(browser, pageAbs, ctx) {
         if (d.verdict === 'ok' || d.verdict === 'sign-in' || d.verdict === 'unsure') {
           const hashAt = to.indexOf('#');
           const dest = { url: to, kind: to.startsWith('file:') ? 'file' : 'web', rel: shown(to.split('#')[0], root), hash: hashAt < 0 ? '' : to.slice(hashAt), same: sameAddress(to, url) };
-          const wrong = wrongPlace({ pageRel: rel, label: r.base.label, dest }, ctx.exp);
+          // A switch that saves a setting and then reloads its own page to show it works (developer mode's words
+          // switch in every footer, 2026-10-20); a link back to the page itself, saving nothing, is still wrong.
+          const reloads = dest.kind === 'file' && dest.same && !dest.hash && r.after?.storage?.length > 0;
+          const wrong = reloads ? null : wrongPlace({ pageRel: rel, label: r.base.label, dest }, ctx.exp);
+          if (reloads) f.effects = ['saves in this browser', 'reloads this page to show it'];
           if (wrong) { f.verdict = 'wrong-place'; f.why = wrong; }
         }
       } else if (j.verdict !== 'throws') {

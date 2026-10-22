@@ -139,6 +139,9 @@ node scripts/pet-packs-20261020.mjs build evidence-locker
 - It never packs the Friendly Farmer (install Astra's PetOS for that) or a pet whose entry says `stays_private`. A pet
   whose repo is private needs `--private`, because the zip then holds its private code: share it only with people you
   trust. It stops if the pet's files hold a key, a token, a personal folder path or a local service address.
+- **Where to get one (Astra, 2026-10-21):** a pet's pack goes on that pet's own repo, as a file of a release, and only
+  for pets whose repo is public, one pet at a time with the owner's OK. None is published yet; until then, a pack is one
+  that someone built and gave you.
 - Next (not built yet): the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
 
 Or ask your AI: *"Make a pet pack of `<the pet's repo>` with the Friendly Farmer's pet-packs tool (node
