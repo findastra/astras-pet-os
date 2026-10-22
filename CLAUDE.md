@@ -16,7 +16,7 @@ For Claude:
 - Do not push to `main` or create GitHub repos without Astra's OK. Her OK comes in chat; then merge it yourself
   (approval, not clicks; Astra, 2026-10-18).
 - The Cage is gone (Astra, 2026-10-18): never bring back `cage.html`, `cage-data.js`, the Farmer dock or browser roaming (see AGENTS.md).
-- Record your model name and version in AGENTS.md when you change something substantial (currently: Claude Opus 5.5, 2026-10-11).
+- Record each substantial change, with your model name and version, in its own new file in `changes/` (AGENTS.md, "Changes are recorded in `changes/`"), never as a new line in AGENTS.md.
 
 ## Complete top-level Markdown reading (Astra, 2026-10-18)
 

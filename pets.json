@@ -646,6 +646,11 @@
             "node": "github",
             "how": "required",
             "why": "The Goldfish audits the GitHub account."
+          },
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "outstanding-items (what waits on you on GitHub) runs with Node 20 or newer; the account audit page needs only a browser."
           }
         ]
       }

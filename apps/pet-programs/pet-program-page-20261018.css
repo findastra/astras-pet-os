@@ -338,6 +338,13 @@ img[hidden] { display: none !important; }
 .example-tag { border-style: dashed; }
 .request-count { margin: 0 0 2px; }
 .request-problems { margin: 4px 0 0; }
+/* GitHub Aquarium's outstanding items (Astra, 2026-10-21): the same groups, each labelled in its top border. Broken on
+   main and waiting on you, the two she acts on, run the full width; the others sit below them. */
+.outstanding-group.g-broken, .outstanding-group.g-you { grid-column: 1 / -1; }
+.outstanding-group.g-broken { border-color: var(--off); }
+.outstanding-group.g-broken legend { color: var(--off); }
+.outstanding-group.g-you { border-color: var(--fix); }
+.outstanding-group.g-you legend { color: var(--fix); }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
 .cards.related { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
 .card .card-static { display: flex; gap: 10px; align-items: center; border: 1px dashed var(--line); padding: 8px; }
