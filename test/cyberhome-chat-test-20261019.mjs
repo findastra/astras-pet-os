@@ -1,5 +1,5 @@
 // The cyberhome, the activity lights and the chat window on every spawned pet program page (Astra, 2026-10-19):
-// the cyberhome is empty until the page opens, then the pet moves in through Startup Star's door; L4 is on while you
+// the cyberhome is empty until the page opens, then the pet moves in (no star door since 2026-10-20); L4 is on while you
 // are here; the chat button opens a window that asks who answers and hands your message to your own Claude or
 // ChatGPT. Runs the page script itself against a small pretend page. Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
 import { test } from 'node:test';
@@ -23,12 +23,12 @@ const between = (text, open, close) => {
   return end < 0 ? '' : text.slice(start + open.length, end);
 };
 
-test('every page starts with an empty cyberhome and Startup Star\'s door in its corner', () => {
+test('every page starts with an empty cyberhome, and no star door in it (Astra crossed it out, 2026-10-20)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const den = between(html, '<div class="den" data-arrival="waiting">', '</div>');
     assert.ok(den, `${d.repo}: the den starts waiting`);
-    assert.ok(den.startsWith('<svg class="star-door"'), `${d.repo}: Startup Star's door is in the den`);
+    assert.ok(!den.includes('star-door'), `${d.repo}: no star door in the den`);
     assert.match(den, /class="(no-art )?pet/, `${d.repo}: the pet (or its no-picture box) is ready to move in`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
@@ -61,6 +61,7 @@ class El {
   }
   setAttribute(k, v) { this.attrs[k] = String(v); }
   getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; }
+  removeAttribute(k) { delete this.attrs[k]; }
   addEventListener(type, f) { (this.listeners[type] ||= []).push(f); }
   fire(type, extra = {}) { for (const f of this.listeners[type] || []) f.call(this, { target: this, preventDefault() {}, stopPropagation() {}, ...extra }); }
   click() { this.fire('click'); }
@@ -72,7 +73,7 @@ class El {
   set innerHTML(_) { throw new Error('Page text must never be rendered as HTML.'); }
 }
 
-function boot(d, { saved = {}, reduce = false } = {}) {
+function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
   const html = files[pagePath(d.repo)];
   const config = between(html, '<script type="application/json" id="pet-program-data">', '</script>');
   let now = 0;
@@ -94,6 +95,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     const p = new El('details'); p.q['.legend'] = Object.assign(new El('span'), { textContent: `${d.petSlug}-${l}-panel` }); p.q['.activity'] = new El('span'); return p;
   });
   const who = WHO.map((k) => { const b = new El('button'); b.dataset.who = k; return b; });
+  const moods = ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'].map((m) => { const f = new El('figure'); f.dataset.mood = m; return f; });
   byId('chat-panel').hidden = true;
   byId('chat-panel').qa['button[data-who]'] = who;
   const document = {
@@ -102,7 +104,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     createElement: (tag) => new El(tag),
     createTextNode: (t) => t,
     querySelector: (sel) => (sel === '.den' ? den : null),
-    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : []),
+    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : sel === '.mood[data-mood]' ? moods : sel === 'iframe.tool-frame' ? frames : []),
     addEventListener(type, f) { (this.listeners[type] ||= []).push(f); },
     fire(type) { for (const f of this.listeners[type] || []) f({ target: new El() }); },
     body: new El('body'),
@@ -115,25 +117,36 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     setTimeout: later, clearTimeout: (n) => { if (timers[n - 1]) timers[n - 1].done = true; }, setInterval: () => 0, clearInterval: () => {},
     matchMedia: () => ({ matches: reduce }), confirm: () => true, alert: () => {},
     open: (url) => { opened.push(url); return {}; }, URL, Blob,
+    location: { origin: 'https://findastra.github.io' }, // a tool panel's frame says its height
+    // Window listeners are kept, so a test can fire blur, focus or a frame's message.
+    windowListeners: {}, addEventListener(type, f) { (this.windowListeners[type] ||= []).push(f); },
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
   vm.runInContext(js, sandbox);
   const read = (k) => JSON.parse(store.get(`astras-pet-os:${d.homeSlug}:${k}`) || 'null');
-  return { den, levels, who, byId, document, advance, opened, copied, read, bubble: byId('bubble') };
+  const fireWindow = (type, e = {}) => { for (const f of sandbox.windowListeners[type] || []) f(e); };
+  const lit = () => moods.filter((f) => f.cls.has('is-now')).map((f) => f.dataset.mood);
+  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, lit };
 }
 
 const panther = pages.find((d) => d.repo === 'learn-python');
 
-test('the pet moves in through the star: waiting, the star opens, the pet comes in, home', () => {
+test('the pet moves in: waiting, the pet comes in from the corner, home', () => {
   const p = boot(panther);
   assert.equal(p.den.dataset.arrival, 'waiting');
-  p.advance(300); assert.equal(p.den.dataset.arrival, 'opening');
-  p.advance(600); assert.equal(p.den.dataset.arrival, 'arriving');
+  p.advance(300); assert.equal(p.den.dataset.arrival, 'arriving');
   p.advance(1100); assert.equal(p.den.dataset.arrival, 'home');
-  assert.equal(p.bubble.textContent, 'Python Panther came in through the star.');
-  p.advance(5000);
-  assert.equal(p.bubble.textContent, panther.lines.idle, 'then the bubble says its mood again');
+});
+
+// Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light up'".
+test('no bubble in the cyberhome: the mood lights up in the emotions tool panel, idle, then awake once you use the page', () => {
+  const p = boot(panther);
+  assert.deepEqual(p.lit(), ['idle']);
+  p.document.fire('pointerdown');
+  assert.deepEqual(p.lit(), ['blink'], 'awake lights up');
+  p.advance(120000);
+  assert.deepEqual(p.lit(), ['idle'], 'idle again after two quiet minutes');
 });
 
 test('with motion turned off, the pet is home at once', () => {
@@ -155,6 +168,17 @@ test('L4 is on while you are here, dims after two quiet minutes, is off while th
   p.document.hidden = true; p.document.fire('visibilitychange'); assert.equal(l4.dataset.state, 'off');
   p.advance(200000); assert.equal(l4.dataset.state, 'off', 'a hidden page stays off');
   p.document.hidden = false; p.document.fire('visibilitychange'); assert.equal(l4.dataset.state, 'live');
+});
+
+test('reading counts as being here: moving the pointer or scrolling keeps L4 on; another window in front dims it', () => {
+  const p = boot(panther);
+  const l4 = p.levels[3].q['.activity'];
+  p.advance(120000); assert.equal(l4.dataset.state, 'idle', 'two quiet minutes');
+  p.document.fire('pointermove'); assert.equal(l4.dataset.state, 'live', 'the pointer moved over the page');
+  p.advance(120000); p.document.fire('scroll'); assert.equal(l4.dataset.state, 'live', 'scrolling');
+  p.fireWindow('blur'); assert.equal(l4.dataset.state, 'idle', 'working in another window');
+  assert.equal(p.levels[3].dataset.activity, 'idle', 'the panel stops glowing');
+  p.fireWindow('focus'); assert.equal(l4.dataset.state, 'live', 'back on this page');
 });
 
 test('the chat button opens the window at once, ready to type', () => {
@@ -229,4 +253,20 @@ test('a pet with a private repo never names it in the message', () => {
   p.byId('chat-send').click();
   const typed = decodeURIComponent(p.opened[0].slice('https://claude.ai/new?q='.length));
   assert.equal(typed, `This is about ${d.home}, ${d.pet}'s pet program in Astra's PetOS.\n\nhi`, `${d.repo}: no repo link in the message`);
+});
+
+test('a tool panel\'s page sets its height only from the site its panel opened, on any farm (2026-10-21)', () => {
+  const frame = (src) => Object.assign(new El('iframe'), { contentWindow: {}, style: {} }, { attrs: { src } });
+  const astras = frame('https://findastra.github.io/astras-star-window/?embed'), devs = frame('https://xxdevilishxx.github.io/dev-tool/');
+  const p = boot(panther, { frames: [astras, devs] });
+  const say = (f, origin, height) => p.fireWindow('message', { data: { type: 'tool-panel-height', height }, origin, source: f.contentWindow });
+  say(astras, 'https://findastra.github.io', 500);
+  assert.equal(astras.style.height, '500px');
+  say(devs, 'https://xxdevilishxx.github.io', 640);
+  assert.equal(devs.style.height, '640px', 'another farm\'s own tool site');
+  say(devs, 'https://findastra.github.io', 900);
+  say(astras, 'https://example.com', 900);
+  assert.deepEqual([astras.style.height, devs.style.height], ['500px', '640px'], 'a message from any other site is not listened to');
+  p.fireWindow('message', { data: { type: 'tool-panel-height', height: 900 }, origin: 'https://findastra.github.io', source: {} });
+  assert.equal(astras.style.height, '500px', 'nor one from a window that is not in a tool panel');
 });

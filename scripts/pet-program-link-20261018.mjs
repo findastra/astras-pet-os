@@ -7,6 +7,7 @@
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-18.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): Flash Audit A59 checks the places that show Astra's pets (her profile README and her Pages sites). It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 export const OWNER = 'findastra';
 export const HUB = 'astras-pet-os';
 export const PAGES = `https://${OWNER}.github.io/${HUB}`;
@@ -269,7 +270,7 @@ export function addReadmeLink(readme, label, url) {
   const line = `**Pet program:** [${label}](${url})`;
   const eol = eolOf(readme);
   const lines = readme.split('\n');
-  const isCredit = (l) => /^\*(?:An Intelligent App, or Pet, by Astra|A pet app by Astra)\.\*/.test(l);
+  const isCredit = (l) => /^\*(?:By Astra|An Intelligent App, or Pet, by Astra|A pet app by Astra)\.\*/.test(l);
   const h1 = lines.findIndex((l) => /^#\s.+/.test(l));
   let at = h1 >= 0 ? h1 : lines.findIndex(isCredit);
   if (h1 >= 0) {

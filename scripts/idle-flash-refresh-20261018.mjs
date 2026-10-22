@@ -25,6 +25,7 @@ const COAUTHOR = process.env.FLASH_COAUTHOR || 'Claude Opus 5.5 <noreply@anthrop
 const W = process.env.FLASH_WORK || `${tmpdir()}/idle-flash-audit`.replaceAll('\\', '/');
 mkdirSync(W, { recursive: true });
 const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit refreshes its findings on Astra's own repos, from her hub. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const levels = execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', 'repos/findastra/astras-pet-os/contents/INTELLIGENCE-LEVELS.md?ref=main'], { encoding: 'utf8', maxBuffer: 32 << 20 });
 const levelRows = {};
 for (const line of levels.split('\n')) {
@@ -86,16 +87,17 @@ const clean = (s) => stripTags((s || '').replace(/<br\s*\/?>/gi, '; ')).replace(
 
 // ---- fix2: re-apply the Flash Audit fixes on top of each repo's current default branch ----
 const TODAY = new Date().toISOString().slice(0, 10);
-const NEWCREDIT = 'An Intelligent App, or Pet, by Astra';
+// The credit is "By Astra." everywhere (Astra, 2026-10-20, card 059); card 033's longer line of 2026-10-18 is retired,
+// so a rerun writes "By Astra." in a README too and never brings a retired line back.
+const NEWCREDIT = 'By Astra';
 const CREDIT_SKIP = (p) => /prompt|provenance|(^|\/)handoffs\/|node_modules|\.min\./i.test(p);
-// Astra, 2026-10-19: the full line only in a pet repo's own README; anywhere else the old line becomes "By Astra".
 function credit(text, html, readme = false) {
   let n = 0;
   const swap = (t) => t
     .replace(/\*A pet app by Astra\.\*/g, () => { n++; return readme ? `*${NEWCREDIT}.*` : 'By Astra.'; })
     .replace(/<em>A pet app by Astra\.<\/em>/g, () => { n++; return readme ? `<em>${NEWCREDIT}.</em>` : 'By Astra.'; })
     .replace(/\bA pet app by Astra(?=[,.])/g, () => { n++; return readme ? NEWCREDIT : 'By Astra'; })
-    .replace(/\b(is|,) a pet app by Astra\b/g, (m, w) => { n++; return readme ? `${w} an Intelligent App, or Pet, by Astra` : `${w} a pet by Astra`; });
+    .replace(/\b(is|,) a pet app by Astra\b/g, (m, w) => { n++; return `${w} a pet by Astra`; });
   if (!html) return { text: swap(text), n };
   return { text: text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg : swap(seg)).join(''), n };
 }
@@ -163,7 +165,7 @@ for (const rec of ledger) {
     const rmPath = `${dir}/README.md`;
     if (existsSync(rmPath) && !PRODUCT_README.has(repo)) {
       let rm = readFileSync(rmPath, 'utf8'); const before = rm;
-      if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) { rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, `$1\n\n*${NEWCREDIT}.*`) : `*${NEWCREDIT}.*\n\n${rm}`; log.push(`README: credit line "*${NEWCREDIT}.*".`); }
+      if (!/\bBy Astra\b|An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) { rm =/^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, `$1\n\n*${NEWCREDIT}.*`) : `*${NEWCREDIT}.*\n\n${rm}`; log.push(`README: credit line "*${NEWCREDIT}.*".`); }
       const row = levelRows[repo];
       if (row && !/^#{2,3}\s.*(limit|not done|known)/im.test(rm)) { rm = rm.replace(/\s*$/, '') + `\n\n## Limits\n\nWhat is not done, plainly. From the hub's [intelligence levels](https://github.com/findastra/astras-pet-os/blob/main/INTELLIGENCE-LEVELS.md) (checked ${TODAY}):\n\n- **Program (L1/L2):** ${clean(row.program)}\n- **Runtime (L2):** ${clean(row.runtime)}\n- **Agentic harness (L3):** ${clean(row.harness).replace(/^—\s*$/, '— not built yet')}\n`; log.push('README: Limits section from INTELLIGENCE-LEVELS.md.'); }
       if (CARD008.test(rm)) { rm = rm.replace(CARD008, "In the hub's registry as a pipeline pet ([pets.json](https://github.com/findastra/astras-pet-os/blob/main/pets.json)): it has its own repo and is not registered yet."); log.push('README: the stale card 008 line now says it is a pipeline pet.'); }
@@ -175,7 +177,7 @@ for (const rec of ledger) {
       let t; try { t = readFileSync(`${dir}/${p}`, 'utf8'); } catch { continue; }
       const r = credit(t, /\.html?$/i.test(p), p === 'README.md'); if (r.n) { writeFileSync(`${dir}/${p}`, r.text); cn += r.n; ct.push(p); }
     }
-    if (cn) log.push(`Credit line is now "${NEWCREDIT}." (card 033): ${cn} change(s) in ${ct.join(', ')}. Art prompts and provenance notes keep their wording.`);
+    if (cn) log.push(`The credit is now "${NEWCREDIT}." (card 059): ${cn} change(s) in ${ct.join(', ')}. Art prompts and provenance notes keep their wording.`);
     // 6. A59: pet.json entry and the README link to the pet program, again on top of today's base.
     const a59 = applyA59Repo(dir, rec.rows, { readme: !PRODUCT_README.has(repo) });
     log.push(...a59.log);

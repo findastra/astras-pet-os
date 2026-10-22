@@ -1,6 +1,6 @@
 # Pole Puff
 
-*An Intelligent App, or Pet, by Astra.*
+*By Astra.*
 
 Pole Puff manages [Astra's Infinite Pole](https://github.com/findastra/astras-infinite-pole), Astra's VRChat world,
 and works with Unity Unicorn on the world's Unity builds (Astra, 2026-10-12). It is a periwinkle puff that floats,

@@ -3,6 +3,12 @@ for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-18
 needs: findastra/log-den, findastra/packet-river and findastra/evidence-locker on `main` (built from `claude/build-20261018`), cloned side by side in `%USERPROFILE%\Documents\Astra's PetOS`; this card's branches `claude/crash-watch-pets-20261018` (#105) and `claude/crash-watch-sign-in-20261019`
 ---
+**2026-10-21: no tray icons any more.** Astra circled the three tray icons: "these are not supposed to be in the tray.
+only the Startup Star should ever be in the tray. please fix the recent change that directed this". This card built them
+as tray programs. From v0.2.0 (log-den, packet-river and evidence-locker `claude/no-tray-20261021`) they run in the
+background; their menus are in Startup Star's menu and nothing pops up (her answer: "Log Lynx turns alarmed"). Card 066
+has the details. Below, "tray" describes v0.1.x.
+
 ## Why
 
 At 12:49 on 2026-10-18 a .NET "Unhandled exception" window appeared on Astra's desktop and closed before anyone could
@@ -123,6 +129,27 @@ Panther (registered, desktop pets, icons, README pictures)."
   (`docs/images/<repo>-program-page-20261019.png`, demo data, paths shown as %USERPROFILE%) and says registered with draft
   art. Self-tests 38, 20 and 22 pass; `findSensitive` over the three repos: 0 flagged.
 
+**A quiet `--startup`, 2026-10-19** (Claude Opus 5.5, `claude-opus-5-5`, a side session of the sign-in chat; branch
+`claude/startup-flag-20261019` in each pet repo). Pushed and opened on Astra's OK in chat; each merge waits on her OK.
+- [log-den#9](https://github.com/findastra/log-den/pull/9), [packet-river#9](https://github.com/findastra/packet-river/pull/9)
+  and [evidence-locker#9](https://github.com/findastra/evidence-locker/pull/9) (v0.1.2, open): with `--startup`, a copy
+  started while one for the same data folder runs exits with 0 and opens nothing (Packet River and Evidence Locker also
+  skip rewriting the page's data). Without it a second start opens the page, as before. The single-copy name is
+  unchanged. Self-tests 43, 25 and 27 pass (five new checks each); a `--startup` copy run while a scratch folder's mutex
+  was held exited with 0 and made no page folder. No startup entry was added or changed.
+- **After they merge:** each running copy keeps 0.1.1 until Astra quits it from its tray menu,
+  `build-<repo>-20261018.ps1` runs in its folder in `Documents\Astra's PetOS`, and she starts it again from its Startup
+  shortcut. Live sync does not rebuild `bin\`.
+- **A repeat check that uses it** (Astra's decision, not built): only after that rebuild (an older build ignores the
+  flag and opens the page); one scheduled task per pet (a task's actions run one after another, and a tray program never
+  ends); as Astra with "Run only when user is logged on" (the mutex is per sign-in session and the data folder is her
+  `%LOCALAPPDATA%`), started by Windows and never from a chat; `--startup` on every start, the three shortcuts included,
+  or the task replaces them; logon, unlock and every 10 minutes with IgnoreNew, like the star's. It restarts a pet that
+  quit or crashed (the mutex ends with the process), not a hung one, and a pet quit from its tray comes back at the next
+  check.
+
+## Task
+
 1. ~~Push and open the pull requests~~ done 2026-10-18 (above).
 2. ~~Merge~~ the three pets merged 2026-10-19; this hub pull request merges once CodeQL passes (Astra's OK).
 3. ~~Pet art~~ generated 2026-10-19 (above). **Astra:** approve the three drafts, or say which to redraw (with `--match`).
@@ -130,8 +157,9 @@ Panther (registered, desktop pets, icons, README pictures)."
 5. ~~Starting the three at sign-in~~ done 2026-10-19 on Astra's PC with Startup-folder shortcuts (above).
    **Astra:** start them once: double-click the three `Astras PetOS …` shortcuts in `shell:startup`, or sign out and
    in. Then three tray icons show (a purple lynx, a cyan piranha, a yellow ferret).
-6. Later (not asked for yet): the installer offering the same to beta testers; a quiet `--startup` flag so something
-   can restart a pet that quit; the Farmer watching Log Lynx's heartbeat (the relation is `planned`); Cipher Owl signing
+6. Later (not asked for yet): the installer offering the same to beta testers; ~~a quiet `--startup` flag~~ in the
+   three #9 pull requests (above; merging waits on Astra); a repeat check that restarts a pet that quit (Astra's
+   decision; how, above); the Farmer watching Log Lynx's heartbeat (the relation is `planned`); Cipher Owl signing
    cases; a crash ticket to the vet-clinic.
 
 ## Done when

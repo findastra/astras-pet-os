@@ -514,7 +514,8 @@ const Goldfish = (() => {
         }
         if (readme != null) {
           const head = readme.split('\n').filter((l) => l.trim()).slice(0, 8).join('\n');
-          if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(head)) add('Document control', 'error', name, 'README.md', 'README does not open with "*An Intelligent App, or Pet, by Astra.*" (public credit line).', { fix: 'Put "*An Intelligent App, or Pet, by Astra.*" right under the title.' });
+          if (/Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra/i.test(readme)) add('Document control', 'error', name, 'README.md', 'README still has a retired credit line.', { fix: 'Replace it with "*By Astra.*" (Astra, 2026-10-20).' });
+          else if (!/\bBy Astra\b/i.test(head)) add('Document control', 'error', name, 'README.md', 'README does not open with "*By Astra.*" (public credit).', { fix: 'Put "*By Astra.*" right under the title.' });
           const hs = headings(readme).map((h) => h.text);
           if (!hs.some((h) => /run|start|install|use|get it|download|quick/i.test(h))) add('Document control', 'warn', name, 'README.md', 'README has no "how to run" section.');
           if (!hs.some((h) => /limit|not done|known|what.*(can|doesn)/i.test(h))) add('Document control', 'warn', name, 'README.md', 'README has no "limits" section (what it cannot do or has not done).');

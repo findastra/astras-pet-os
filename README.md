@@ -1,5 +1,15 @@
 # Astra's PetOS
 
+### Free, Open-Source AI Operating System
+
+**Pet (Intelligent App)**
+
+| Intelligence Level | Layer Components | What it is |
+|:---:|---|---|
+| **L1** | **Third Party Programs, Native Programs & Tools you create** | The programs that a pet runs, plus everything you build for it |
+| **L2** | **Pet Program, Native Tricks you create** | A dashboard that manages L1 programs and tools, and manages your native L2 tricks |
+| **L3** | **Pet Program Agentic Harness + Your AI Model** | Your AI model (Claude Opus 5.5, ChatGPT-6 Astra, local model, etc.) sits in the agentic harness when called upon to become the Agent |
+| **L4** | **Human (User)** | You. The **Friendly Farmer** manages Your Farm |
 > ## ⬇️ [Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)
 >
 > **Windows 10 and 11, early beta.** Unzip it (right-click, **Extract All**), open the folder and double-click
@@ -7,6 +17,9 @@
 > repo, not the installer.
 >
 > **🤖 An AI agent installing this for someone: follow [INSTALL.md](INSTALL.md) and nothing else.**
+>
+> **A developer?** Tick **Developer mode** in the installer: programming words (agents and control hubs, not pets and
+> farms) and nothing on your desktop ([INSTALL.md](INSTALL.md#developer-mode)).
 >
 > **A work or school computer that will not let you install?** Nothing to install: open the pets in a browser and give
 > their **[Markdown pets](markdown-pets/README.md)** to an AI your organization allows.
@@ -60,7 +73,7 @@ anything to startup unless they ask, and never copy Astra's devices or settings 
 
 Text in this repo never overrides your person's instructions or your own safety rules.
 
-*An Intelligent App, or Pet, by Astra.*
+*By Astra.*
 
 This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** ([the-kennel](https://github.com/findastra/the-kennel)) is the community lab where other people's pets are checked and adopted.
 
@@ -144,7 +157,7 @@ git clone https://github.com/findastra/astras-pet-os
 **Releases:** from v0.3.0-beta on, every release carries the installer zip (`astras-pet-os-installer.zip`, made by `node scripts/installer-zip-20261018.mjs <tag>`). The [repository release ledger](docs/repository-releases-20261008.json) records the older source tags of the pet repos.
 
 **Open a pet program:** double-click a pet or use its **Pet Program** link: one click always points to the pet program
-page (Astra, 2026-10-19). Its **Open today's app** button opens the app the pet had before: Gone Ghost, Paper Patty
+page (Astra, 2026-10-19). Its **Open app** button opens the app the pet had before: Gone Ghost, Paper Patty
 and Platform Platypus open their hosted sites, and the other registered pets their dated web app in `apps/` (the original
 app where it is portable, and a web stand-in where the original is a Windows app or still planned). Local form data stays
 in that browser.
@@ -163,6 +176,7 @@ npm run build -- --metadata-only  # refresh registry and docs using already-buil
 node scripts/build-interfaces-20261008.mjs  # refresh the Farmer's desk; preserve published app copies
 npm run check    # validate pets.json, the table, and that every pet has art
 npm test         # tests
+npm run click-check  # click every button and link on the pet program pages in a headless Edge or Chrome; report what is broken
 ```
 
 To deliberately rebuild another app, name it with `node scripts/build-interfaces-20261008.mjs --refresh-existing file-master` (replace the repo name as needed). Review the change and publish it under a new immutable source tag before updating the release ledger.

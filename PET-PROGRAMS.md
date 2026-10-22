@@ -3,7 +3,7 @@
 Every pet program in Astra's PetOS, numbered for good. Each **mini-descriptor** is one or two sentences on what the pet
 program actually does; it is shown in the pet's own repo, the findastra profile and the System Map. Its label follows
 the naming rules: `<pet-program>-v1.0-mini-descriptor-v1.0`. **Bold** program names are assigned; `pet-program-#`
-means not named yet. *(draft)* means Astra has not reviewed it yet: 0 of 84 reviewed.
+means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 84 reviewed.
 
 Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not edit this page; edit the JSON.
 
@@ -13,7 +13,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 2 | GitHub Goldfish | **GitHub Aquarium** | [github-goldfish](https://github.com/findastra/github-goldfish) | Registered | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. *(draft)* |
 | 3 | Data Chip | **Data Dealer** | [data-dealer](https://github.com/findastra/data-dealer) | Registered | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. *(draft)* |
 | 4 | API Fairy | **API Fairy Ring** | [api-fairy](https://github.com/findastra/api-fairy) | Registered | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. *(draft)* |
-| 5 | Unity Unicorn | **Unity Stable** | [unity-unicorn](https://github.com/findastra/unity-unicorn) | Registered | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. *(draft)* |
+| 5 | Unity Unicorn | **Unity Stable** | [unity-unicorn](https://github.com/findastra/unity-unicorn) | Registered | A local Unity and VRChat desk for organizing Unity worlds and avatars. It contains tools to develop each, a working closet by Devilish, and pages that display world information. |
 | 6 | Python Panther | **Python Jungle** | [learn-python](https://github.com/findastra/learn-python) | Registered | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. *(draft)* |
 | 7 | Astra Wisp | **The Astral Plane** | [the-astral-plane](https://github.com/findastra/the-astral-plane) | Registered | Watches the health of VRChat AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session. *(draft)* |
 | 8 | Health Hummy | **The Nectar Nest** | [health-hummy](https://github.com/findastra/health-hummy) | Registered | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. *(draft)* |

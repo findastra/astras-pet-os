@@ -72,9 +72,17 @@ namespace AstraDesktopPets {
 
   internal sealed class PetSprite : IDisposable {
     internal string Id,Name,Role,Interface,Kind;
+    internal string ThreeClicks; // the tool bound to three clicks (`clicks` in pets.json), or null
     internal Bitmap Idle,Blink;
     internal bool DesktopArt;
     Bitmap idleInk,blinkInk,idleBands,blinkBands;
+    // A pet that runs in the background shows its alarmed face while its program says it is alarmed (Astra, 2026-10-21:
+    // "Log Lynx turns alarmed; nothing pops up"). Only those pets load the frame.
+    internal string Repo;
+    internal bool Alarmed;
+    Bitmap alarmed,alarmedInk;
+    internal bool HasAlarmed { get { return alarmed!=null; } }
+    Bitmap Frame(bool blink) { return Alarmed&&alarmed!=null?alarmed:blink?Blink:Idle; }
     internal bool Rainbow { get { return Id=="rgbee"||Id=="deck-duck"; } }
     internal bool Layered { get { return Id=="ghost-protocol"||Id=="goldfish"||Id=="api-fairy"||Id=="astra-wisp"||Rainbow||Id=="wifi-butterfly"||Id=="mesh-moth"||Id=="vscode-angel"; } }
     internal string FuzzStyle;
@@ -83,6 +91,7 @@ namespace AstraDesktopPets {
     internal RectangleF Hit;
     internal static PetSprite Load(Dictionary<string,object> entry,Dictionary<string,object> framesIndex) {
       var pet=new PetSprite { Id=PetFiles.Text(entry,"art"),Name=PetFiles.Text(entry,"pet"),Role=PetFiles.Text(entry,"role"),Interface=PetFiles.Text(entry,"interface_url"),Kind=PetFiles.Text(entry,"kind") };
+      object clicks,three;if(entry.TryGetValue("clicks",out clicks)&&clicks is Dictionary<string,object>&&((Dictionary<string,object>)clicks).TryGetValue("3",out three)&&three is Dictionary<string,object>)pet.ThreeClicks=PetFiles.Text((Dictionary<string,object>)three,"tool",null);
       object raw;if(!framesIndex.TryGetValue(pet.Id,out raw))throw new InvalidDataException("No frames for "+pet.Name);
       var paths=(Dictionary<string,object>)((Dictionary<string,object>)raw)["frames"];
       string idle=PetFiles.SafePath(PetFiles.Text(paths,"idle")),blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));
@@ -93,9 +102,12 @@ namespace AstraDesktopPets {
         if(File.Exists(localIdle)){idle=localIdle;blink=localBlink;pet.DesktopArt=true;}
       }
       pet.Idle=Detached(idle);pet.Blink=Detached(blink);
+      pet.Repo=PetFiles.Text(entry,"repo",null);
+      if(BackgroundPets.Watches(pet.Repo)&&paths.ContainsKey("alarmed")) { string sharp=PetFiles.SafePath(PetFiles.Text(paths,"alarmed"));if(File.Exists(sharp))pet.alarmed=Detached(sharp); }
       if(pet.DesktopArt) { CrispTransparency(pet.Idle);CrispTransparency(pet.Blink); }
       if(pet.Id=="portfolio-puffer") { PinkBelly(pet.Idle);PinkBelly(pet.Blink); }
       pet.Crop=Rectangle.Union(AlphaBounds(pet.Idle),AlphaBounds(pet.Blink));
+      if(pet.alarmed!=null) { pet.Crop=Rectangle.Union(pet.Crop,AlphaBounds(pet.alarmed));pet.alarmedInk=BlackMask(pet.alarmed); }
       pet.PrepareEffects();pet.idleInk=BlackMask(pet.Idle);pet.blinkInk=BlackMask(pet.Blink);
       return pet;
     }
@@ -103,7 +115,7 @@ namespace AstraDesktopPets {
       var pet=new PetSprite { Id=PetFiles.Text(entry,"id"),Name=PetFiles.Text(entry,"name")+" (draft)",Role="pet",Interface=PetFiles.Text(entry,"interface"),DesktopArt=true };
       object variants;
       if(pet.Id=="fuzzboi-friend"&&entry.TryGetValue("variants",out variants)&&((ArrayList)variants).Count>0) {
-        pet.draftEntry=entry;pet.FuzzStyle=style;
+        pet.draftEntry=entry;pet.FuzzStyle=style;pet.ThreeClicks="reroll";
         var choices=new List<Dictionary<string,object>>();foreach(Dictionary<string,object> variant in (ArrayList)variants)if(PetFiles.Text(variant,"style","B")==style)choices.Add(variant);
         if(choices.Count==0)throw new InvalidDataException("No original Fuzzboi recipes for style "+style);
         var choice=choices[new Random(Guid.NewGuid().GetHashCode()).Next(choices.Count)];
@@ -177,14 +189,14 @@ namespace AstraDesktopPets {
       return result;
     }
     internal void Draw(Graphics g,bool blink,RectangleF bounds) {
-      var mask=blink?blinkInk:idleInk;
+      var mask=Alarmed&&alarmedInk!=null?alarmedInk:blink?blinkInk:idleInk;
       // Generated desktop sprites already include ink. Do not double their outline.
       // Legacy sprites receive one physical pixel, regardless of display scaling.
       float inkPixel=1;using(var transform=g.Transform)inkPixel=1/Math.Max(1,transform.Elements[0]);
       if(!DesktopArt&&!Layered)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)if(x!=0||y!=0) {
         var edge=bounds;edge.Offset(x*inkPixel,y*inkPixel);g.DrawImage(mask,edge,Crop,GraphicsUnit.Pixel);
       }
-      g.DrawImage(blink?Blink:Idle,bounds,Crop,GraphicsUnit.Pixel);
+      g.DrawImage(Frame(blink),bounds,Crop,GraphicsUnit.Pixel);
       if(Rainbow) {
         using(var colors=new ImageAttributes()) {
           colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));
@@ -198,7 +210,7 @@ namespace AstraDesktopPets {
       for(int channel=0;channel<3;channel++){matrix[channel][(channel+step)%3]=1-blend;matrix[channel][(channel+step+1)%3]=blend;}
       matrix[3][3]=matrix[4][4]=1;return new ColorMatrix(matrix);
     }
-    internal bool HasPixel(bool blink,int x,int y) { return (blink?Blink:Idle).GetPixel(x,y).A>0||(Rainbow&&(blink?blinkBands:idleBands).GetPixel(x,y).A>0); }
+    internal bool HasPixel(bool blink,int x,int y) { return Frame(blink).GetPixel(x,y).A>0||(Rainbow&&(blink?blinkBands:idleBands).GetPixel(x,y).A>0); }
     internal void ValidateEffects() {
       if(!Layered)return;int translucent=0,bands=0;
       for(int y=Crop.Top;y<Crop.Bottom;y++)for(int x=Crop.Left;x<Crop.Right;x++) {
@@ -215,13 +227,14 @@ namespace AstraDesktopPets {
       for(int y=0;y<bitmap.Height;y++)for(int x=0;x<bitmap.Width;x++)if(bitmap.GetPixel(x,y).A>0) { x0=Math.Min(x0,x);y0=Math.Min(y0,y);x1=Math.Max(x1,x);y1=Math.Max(y1,y); }
       if(x1<x0)throw new InvalidDataException("A pet frame is empty.");return Rectangle.FromLTRB(x0,y0,x1+1,y1+1);
     }
-    public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose(); }
+    public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose();if(alarmed!=null)alarmed.Dispose();if(alarmedInk!=null)alarmedInk.Dispose(); }
   }
 
   // Uses mouse-down times and Windows' configured interval/rectangle. Nothing is
   // dispatched while another eligible click is held, or before a drag is ruled out.
   internal sealed class PetClicks {
     readonly Action<string,int> action;
+    readonly Func<string,int> most;
     readonly int interval;
     readonly Size distance;
     string target,pressed;
@@ -229,7 +242,8 @@ namespace AstraDesktopPets {
     Point anchor;
     long due,down;
     bool held;
-    internal PetClicks(Action<string,int> callback,int milliseconds,Size rectangle) { action=callback;interval=milliseconds;distance=rectangle; }
+    // `maxClicks` says how many clicks an actor's gesture can have: 2, or 3 when it has a tool on three clicks.
+    internal PetClicks(Action<string,int> callback,int milliseconds,Size rectangle,Func<string,int> maxClicks) { action=callback;most=maxClicks;interval=milliseconds;distance=rectangle; }
     internal bool Pending { get { return held||count>0; } }
     internal bool PendingFor(string id) { return id==target||id==pressed; }
     internal void Press(string id,Point point,long now) {
@@ -243,7 +257,7 @@ namespace AstraDesktopPets {
       if(!held)return;held=false;
       if(dragged||String.IsNullOrEmpty(id)||id!=pressed){Cancel();return;}
       target=id;pressed=null;count++;due=down+interval;
-      if(count>=(id=="fuzzboi-friend"?3:2))Complete();else Advance(now);
+      if(count>=most(id))Complete();else Advance(now);
     }
     internal void Advance(long now) { if(!held&&count>0&&now>due)Complete(); }
     internal void Cancel() { target=pressed=null;count=0;held=false; }
@@ -402,6 +416,69 @@ namespace AstraDesktopPets {
     protected override void Dispose(bool disposing) { if(disposing){shimmer.Dispose();if(ContextMenuStrip!=null)ContextMenuStrip.Dispose();}base.Dispose(disposing); }
   }
 
+  // Pets that run in the background with no tray icon of their own (Astra, 2026-10-21: "these are not supposed to be in
+  // the tray. only the Startup Star should ever be in the tray"). Each one's menu is in the star's menu, under its name:
+  // its program writes the items to menu-20261021.json in its data folder, each one a command of that program, and the
+  // star runs the program with it. Its mood is in mood-20261021.json there (log-den's contracts/background-pet-20261021.cs).
+  internal static class BackgroundPets {
+    internal sealed class Entry { internal string Repo,Pet,Exe,Folder;internal string[] StartArgs; }
+    internal const string MenuFile="menu-20261021.json",MoodFile="mood-20261021.json";
+    static readonly string[] Watched={"log-den","packet-river","evidence-locker"};
+    // A menu file can only ask for its own program's commands: plain words, never a path, a quote or a command break.
+    internal static readonly System.Text.RegularExpressions.Regex SafeArg=new System.Text.RegularExpressions.Regex("^(--[a-z][a-z-]*|[a-z0-9][a-z0-9.:-]*)$");
+    internal static string DataRoot=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"astras-pet-os");
+    internal static bool Watches(string repo) { return repo!=null&&Array.IndexOf(Watched,repo)>=0; }
+    internal static List<Entry> All() {
+      var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
+      foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"}});
+      // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
+      list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
+      return list;
+    }
+    internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
+    internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
+    static Dictionary<string,object> Read(Entry e,string name,string schema) {
+      try {
+        string path=Path.Combine(e.Folder,name);if(!File.Exists(path))return null;
+        var file=PetFiles.Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(path));
+        return file!=null&&PetFiles.Text(file,"schema")==schema?file:null;
+      }catch(Exception){return null;}
+    }
+    // The arguments of one item, or null when any of them is not a plain command word.
+    internal static string[] Args(Dictionary<string,object> item) {
+      object raw;if(!item.TryGetValue("args",out raw)||!(raw is ArrayList))return null;
+      var args=new List<string>();foreach(object a in (ArrayList)raw){string word=a as string;if(word==null||!SafeArg.IsMatch(word))return null;args.Add(word);}
+      return args.Count>0?args.ToArray():null;
+    }
+    internal static void Fill(ToolStripMenuItem parent,Entry e,Action<Entry,string[]> run,bool running) {
+      parent.DropDownItems.Clear();
+      if(!running) {
+        parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" is not running") { Enabled=false });
+        parent.DropDownItems.Add("Start "+e.Pet,null,delegate { run(e,e.StartArgs); });
+      }
+      var file=Read(e,MenuFile,"astras-pet-os-menu-v1");object raw;
+      if(file==null||!file.TryGetValue("items",out raw)||!(raw is ArrayList)) { if(running)parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" has not written its menu yet") { Enabled=false });return; }
+      if(!running)parent.DropDownItems.Add(new ToolStripSeparator());
+      foreach(object o in (ArrayList)raw) {
+        var i=o as Dictionary<string,object>;if(i==null)continue;
+        if(i.ContainsKey("separator")) { parent.DropDownItems.Add(new ToolStripSeparator());continue; }
+        var item=new ToolStripMenuItem(PetFiles.Text(i,"text"));object check;
+        if(i.TryGetValue("checked",out check)&&check is bool) { item.Checked=(bool)check;item.ToolTipText="ON/OFF (kill switch) for this tool"; }
+        string[] args=Args(i);
+        if(args==null)item.Enabled=false;else item.Click+=delegate { run(e,args); };
+        parent.DropDownItems.Add(item);
+      }
+    }
+    // The pet's mood, while its program runs and its mood file is fresh (it writes it every minute).
+    internal static string Mood(Entry e) {
+      var file=Read(e,MoodFile,"astras-pet-os-mood-v1");if(file==null)return null;
+      DateTimeOffset updated;
+      if(!DateTimeOffset.TryParse(PetFiles.Text(file,"updated"),CultureInfo.InvariantCulture,DateTimeStyles.None,out updated)||DateTimeOffset.Now-updated>TimeSpan.FromMinutes(15))return null;
+      return Running(e)?PetFiles.Text(file,"mood"):null;
+    }
+  }
+
   // The star and the Friendly Farmer. The star shows or hides every pet at once; while the
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
@@ -432,6 +509,7 @@ namespace AstraDesktopPets {
     bool dockQueued,spaceConstrained;
     readonly ToolTip tooltip=new ToolTip { InitialDelay=350,ReshowDelay=100 };
     readonly ContextMenuStrip menu=new ContextMenuStrip();
+    readonly List<ToolStripMenuItem> background=new List<ToolStripMenuItem>();
     readonly bool test;
     PetSprite farmer,hover;
     int ticks;
@@ -448,7 +526,7 @@ namespace AstraDesktopPets {
     bool Compact { get { return !petsOut; } }
     internal PetsWindow(bool testMode,int? seed=null) {
       test=testMode;random=seed.HasValue?new Random(seed.Value):new Random();pair=new PetPair(random);
-      clicks=new PetClicks(ResolveClicks,SystemInformation.DoubleClickTime,SystemInformation.DoubleClickSize);LoadPets();
+      clicks=new PetClicks(ResolveClicks,SystemInformation.DoubleClickTime,SystemInformation.DoubleClickSize,MostClicks);LoadPets();
       if(!test)petsOut=PetFiles.PetsOutSetting();
       Text=test?"Astra's desktop pets - UI test":"Astra's desktop pets";
       FormBorderStyle=FormBorderStyle.None;ShowInTaskbar=test;TopMost=true;AutoScaleMode=AutoScaleMode.None;
@@ -459,6 +537,14 @@ namespace AstraDesktopPets {
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
       menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-apps-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
+      // The pets in the background, each with its own menu (no tray icon of their own since 2026-10-21).
+      menu.Items.Add(new ToolStripSeparator());
+      foreach(var entry in BackgroundPets.All()) {
+        var e=entry;var item=new ToolStripMenuItem(e.Pet) { Tag=e };item.DropDownItems.Add(new ToolStripMenuItem("…") { Enabled=false });
+        item.DropDownOpening+=delegate { BackgroundPets.Fill(item,e,RunBackground,test||BackgroundPets.Running(e)); };
+        background.Add(item);menu.Items.Add(item);
+      }
+      menu.Opening+=delegate { foreach(var item in background)item.Visible=test||File.Exists(((BackgroundPets.Entry)item.Tag).Exe); };
       menu.Items.Add(new ToolStripSeparator());
       var startup=new ToolStripMenuItem("Start desktop pets when I sign in") { Checked=PetFiles.StartupEnabled(),CheckOnClick=true };
       startup.Click+=delegate { if(!test)PetFiles.Startup(startup.Checked);WriteStatus(); };menu.Items.Add(startup);
@@ -468,13 +554,30 @@ namespace AstraDesktopPets {
       launcherToggle.Click+=delegate { ToggleLauncher(); };menu.Items.Insert(0,launcherToggle);
       menu.Opening+=delegate { launcherToggle.Text=launcherVisible?"Hide desktop star":"Show desktop star"; };
       ContextMenuStrip=menu;
-      timer.Tick+=delegate { if(Compact)return;ticks++;bool next=ticks%20==0;if(next!=blink){blink=next;Invalidate();}StepPair();foreach(var pet in roaming)pet.Step(blink); };
+      timer.Tick+=delegate { if(Compact)return;ticks++;bool next=ticks%20==0;if(next!=blink){blink=next;Invalidate();}StepPair();foreach(var pet in roaming)pet.Step(blink);if(ticks%25==1)RefreshMoods(); };
       clickTimer.Tick+=delegate { clicks.Advance(clickClock.ElapsedMilliseconds);if(!clicks.Pending)clickTimer.Stop(); };
       MouseDown+=Press;MouseMove+=TrackPointer;MouseUp+=Release;
       MouseLeave+=delegate { hover=null;hoverStar=false;tooltip.SetToolTip(this,null);Cursor=Cursors.Default; };
       Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();PetFiles.StartBug("--hosted");tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
       FormClosed+=delegate { if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
       RefreshStarIcon();LayoutPets();
+    }
+    // A background pet's command from its menu: its own program, started with the item's words.
+    void RunBackground(BackgroundPets.Entry e,string[] args) {
+      testActions.Add("background:"+e.Repo+":"+String.Join(" ",args));
+      if(test)return;
+      try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }
+      catch(Exception error) { MessageBox.Show(e.Pet+" could not start: "+error.Message,"Astra's desktop pets"); }
+    }
+    // Every five seconds: a background pet whose program says alarmed shows its alarmed face.
+    void RefreshMoods() {
+      if(test)return;
+      foreach(var pet in pets) {
+        if(!pet.HasAlarmed)continue;
+        var entry=BackgroundPets.Find(pet.Repo);bool alarmed=entry!=null&&BackgroundPets.Mood(entry)=="alarmed";
+        if(alarmed==pet.Alarmed)continue;
+        pet.Alarmed=alarmed;Invalidate();foreach(var window in roaming)if(window.Pet==pet)window.Invalidate();
+      }
     }
     void RefreshStarIcon() {
       int pixels;try { pixels=GetSystemMetricsForDpi(49,(uint)Math.Round(scale*96)); }catch(EntryPointNotFoundException){pixels=(int)Math.Round(16*scale);}
@@ -644,12 +747,19 @@ namespace AstraDesktopPets {
       }
       if(id=="star") { if(count>=2){if(LinedUp){LinedUp=false;ShowPets();}else LineUp();}else SetPetsOut(!petsOut);return; }
       if(id==farmer.Id) { if(count>=2)OpenPet(farmer); }
-      else { var pet=pets.Find(p=>p.Id==id);if(pet==null)return;if(count>=2)OpenPet(pet);else if(id=="voicemeeter-bug"){testActions.Add("repair:voicemeeter-bug");if(!test)PetFiles.StartBug("--repair");} }
+      else { var pet=pets.Find(p=>p.Id==id);if(pet==null)return;
+        // Two clicks open the pet program page, for every pet (Astra, 2026-10-19: "one click always points to program
+        // page"); three clicks run the tool in `clicks` in pets.json ("yes move voicemeeter bug to 3 clicks is the fix").
+        // One click is the reminder dialog, not built yet (card 046).
+        if(count==2)OpenPet(pet);
+        else if(count>=3&&id=="voicemeeter-bug"&&pet.ThreeClicks=="repair"){testActions.Add("repair:voicemeeter-bug");if(!test)PetFiles.StartBug("--repair");} }
       WriteStatus();
     }
+    // One and two clicks are the same for every pet; a pet with a tool on three clicks waits for a possible third.
+    int MostClicks(string id) { var pet=pets.Find(p=>p.Id==id);return pet!=null&&pet.ThreeClicks!=null?3:2; }
     internal void OpenPet(PetSprite pet) {
       testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
-      if(pet.Id=="voicemeeter-bug"){PetFiles.StartBug("--status");return;}
+      // Voicemeeter Bug too: his own status window stays in his tray menu (Status and help).
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
     }
@@ -733,6 +843,7 @@ namespace AstraDesktopPets {
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
       ClickTests();
+      BackgroundTests();
       CreatePetWindows(left);
       if(roaming.Count!=pets.Count+1||!roaming.Exists(p=>p.Pet==farmer))throw new Exception("Not every pet got its own window.");
       int sparklePets=0;
@@ -751,7 +862,17 @@ namespace AstraDesktopPets {
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      // Astra, 2026-10-19: two clicks open the Bug's pet program page, like every pet's; his repair is three clicks.
+      var bug=pets.Find(p=>p.Id=="voicemeeter-bug");
+      if(bug!=null) {
+        if(bug.ThreeClicks!="repair"||MostClicks(bug.Id)!=3||MostClicks(farmer.Id)!=2)throw new Exception("The Bug's three-click repair is not read from pets.json.");
+        if(!bug.Interface.StartsWith("apps/pet-programs/"))throw new Exception("The Bug's two clicks must open his pet program page.");
+        int before=testActions.Count;ResolveClicks(bug.Id,1);if(testActions.Count!=before)throw new Exception("One click on the Bug must not repair or open anything.");
+        ResolveClicks(bug.Id,2);if(testActions[testActions.Count-1]!="open:voicemeeter-bug")throw new Exception("Two clicks on the Bug must open his pet program page.");
+        ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
+        testActions.RemoveRange(before,testActions.Count-before);
+      }
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the background pets' menus (their own commands only) and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -768,6 +889,34 @@ namespace AstraDesktopPets {
         foreach(int n in down)if(n==0)throw new Exception("Pets did not spread down the whole screen.");
         foreach(int n in quadrants)if(n==0)throw new Exception("A quarter of the screen started empty.");
         for(int i=0;i<boxes.Count;i++)for(int j=i+1;j<boxes.Count;j++)if(Rectangle.Intersect(boxes[i],boxes[j]).Width*Rectangle.Intersect(boxes[i],boxes[j]).Height>boxes[i].Width*boxes[i].Height/2)throw new Exception("Two pets started on top of each other.");
+      }
+    }
+    // The background pets' menus (2026-10-21): only their own commands, and an alarmed pet's alarmed face.
+    void BackgroundTests() {
+      foreach(string word in new[]{"--open","--tool","log-den-v1.0-crash-catcher-v1.0","off","github.com","--trace"})if(!BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was refused: "+word);
+      foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
+      string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
+      try {
+        Directory.CreateDirectory(folder);
+        File.WriteAllText(Path.Combine(folder,BackgroundPets.MenuFile),"{\"schema\":\"astras-pet-os-menu-v1\",\"pet\":\"Log Lynx\",\"items\":[{\"text\":\"Open Log Den\",\"args\":[\"--open\"]},{\"separator\":true},{\"text\":\"log-den-v1.0-crash-catcher-v1.0\",\"args\":[\"--tool\",\"log-den-v1.0-crash-catcher-v1.0\",\"off\"],\"checked\":true},{\"text\":\"Run something else\",\"args\":[\"C:\\\\x.exe\"]}]}");
+        var e=new BackgroundPets.Entry{Repo="log-den",Pet="Log Lynx",Exe=Path.Combine(folder,"log-den-20261018.exe"),Folder=folder,StartArgs=new[]{"--startup"}};
+        var parent=new ToolStripMenuItem("Log Lynx");BackgroundPets.Fill(parent,e,RunBackground,true);
+        if(parent.DropDownItems.Count!=4)throw new Exception("The background pet's menu has the wrong items.");
+        var tool=(ToolStripMenuItem)parent.DropDownItems[2];if(!tool.Checked||!tool.Enabled)throw new Exception("A tool that is ON must be ticked.");
+        if(parent.DropDownItems[3].Enabled)throw new Exception("An item with a path for an argument must not run.");
+        tool.PerformClick();if(testActions[testActions.Count-1]!="background:log-den:--tool log-den-v1.0-crash-catcher-v1.0 off")throw new Exception("A tool item must run its own --tool command.");
+        BackgroundPets.Fill(parent,e,RunBackground,false);
+        if(parent.DropDownItems[0].Enabled||parent.DropDownItems[0].Text!="Log Lynx is not running")throw new Exception("A pet that is not running must say so.");
+        ((ToolStripMenuItem)parent.DropDownItems[1]).PerformClick();if(testActions[testActions.Count-1]!="background:log-den:--startup")throw new Exception("Start must use --startup.");
+      } finally { try{Directory.Delete(folder,true);}catch(Exception){} }
+      var lynx=pets.Find(p=>p.Repo=="log-den");
+      if(lynx!=null) {
+        if(!lynx.HasAlarmed)throw new Exception("Log Lynx needs its alarmed frame.");
+        if(pets.Exists(p=>p.HasAlarmed&&!BackgroundPets.Watches(p.Repo)))throw new Exception("Only background pets load an alarmed frame.");
+        lynx.Alarmed=true;bool differs=false;
+        for(int y=lynx.Crop.Top;y<lynx.Crop.Bottom&&!differs;y+=3)for(int x=lynx.Crop.Left;x<lynx.Crop.Right&&!differs;x+=3)if(lynx.HasPixel(false,x,y)!=lynx.HasPixel(true,x,y)||lynx.HasPixel(false,x,y)!=(lynx.Idle.GetPixel(x,y).A>0))differs=true;
+        lynx.Alarmed=false;
+        if(!differs)throw new Exception("An alarmed Log Lynx must look different from his idle face.");
       }
     }
     void PairTests() {
@@ -830,14 +979,15 @@ namespace AstraDesktopPets {
       if(still==0||still>8000)throw new Exception("Roaming pets should rest now and then, not stand still.");
     }
     static void ClickTests() {
-      var got=new List<string>();var classifier=new PetClicks((id,n)=>got.Add(id+":"+n),500,new Size(8,8));Point point=new Point(100,100);
+      var got=new List<string>();var classifier=new PetClicks((id,n)=>got.Add(id+":"+n),500,new Size(8,8),id=>id=="fuzzboi-friend"||id=="voicemeeter-bug"?3:2);Point point=new Point(100,100);
       for(int i=0;i<2;i++){classifier.Press("fuzzboi-friend",point,-2000+i*200);classifier.Release("fuzzboi-friend",-1970+i*200,false);}if(got.Count!=0)throw new Exception("Fuzzboi double click must await a possible third click.");
       classifier.Press("fuzzboi-friend",point,-1600);classifier.Release("fuzzboi-friend",-1570,false);if(String.Join(",",got)!="fuzzboi-friend:3")throw new Exception("Fuzzboi triple-click classification failed.");got.Clear();
       for(int i=0;i<2;i++){classifier.Press("fuzzboi-friend",point,-1000+i*200);classifier.Release("fuzzboi-friend",-970+i*200,false);}classifier.Advance(-200);if(String.Join(",",got)!="fuzzboi-friend:2")throw new Exception("Fuzzboi double-click app opening failed.");got.Clear();
       classifier.Press("farmer",point,0);classifier.Release("farmer",30,false);classifier.Advance(501);if(String.Join(",",got)!="farmer:1")throw new Exception("Single click classification failed.");got.Clear();
       classifier.Press("farmer",point,1000);classifier.Release("farmer",1030,false);classifier.Press("farmer",point,1400);classifier.Advance(1600);if(got.Count!=0)throw new Exception("Held second click dispatched early.");classifier.Release("farmer",1630,false);classifier.Advance(1901);if(String.Join(",",got)!="farmer:2")throw new Exception("Double click classification failed.");got.Clear();
       for(int i=0;i<3;i++){classifier.Press("farmer",point,2000+i*200);classifier.Release("farmer",2030+i*200,false);}classifier.Advance(3000);if(String.Join(",",got)!="farmer:2,farmer:1")throw new Exception("A third click must start a new gesture, not open the desk twice.");got.Clear();
-      classifier.Press("voicemeeter-bug",point,4000);classifier.Release("voicemeeter-bug",4030,false);classifier.Press("voicemeeter-bug",point,4200);classifier.Release("voicemeeter-bug",4230,false);classifier.Advance(5000);if(String.Join(",",got)!="voicemeeter-bug:2")throw new Exception("Bug double click also repaired.");got.Clear();
+      classifier.Press("voicemeeter-bug",point,4000);classifier.Release("voicemeeter-bug",4030,false);classifier.Press("voicemeeter-bug",point,4200);classifier.Release("voicemeeter-bug",4230,false);if(got.Count!=0)throw new Exception("Bug double click must await a possible third click.");classifier.Advance(5000);if(String.Join(",",got)!="voicemeeter-bug:2")throw new Exception("Bug double click also repaired.");got.Clear();
+      for(int i=0;i<3;i++){classifier.Press("voicemeeter-bug",point,5200+i*150);classifier.Release("voicemeeter-bug",5230+i*150,false);}if(String.Join(",",got)!="voicemeeter-bug:3")throw new Exception("Bug triple-click classification failed.");got.Clear();
       classifier.Press("farmer",point,6000);classifier.Release("farmer",6030,false);classifier.Press("farmer",point,6200);classifier.Cancel();classifier.Release("farmer",6300,true);classifier.Advance(7000);if(got.Count!=0)throw new Exception("Drag did not cancel pending clicks.");
       classifier.Press("goldfish",point,8000);classifier.Release("goldfish",8030,false);classifier.Press("chip",point,8200);classifier.Release("chip",8230,false);classifier.Advance(9000);if(String.Join(",",got)!="chip:1")throw new Exception("Clicks merged across actors.");got.Clear();
       classifier.Press("farmer",point,9200);classifier.Release("farmer",9230,false);classifier.Press("goldfish",point,9300);classifier.Release("goldfish",9330,false);classifier.Advance(9900);if(String.Join(",",got)!="goldfish:1"||classifier.Pending)throw new Exception("Actor switch kept a stale gesture.");got.Clear();

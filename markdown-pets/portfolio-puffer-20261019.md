@@ -29,7 +29,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- None recorded yet.
+- **Astra's Window Star**: A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser.
 
 ### Its tricks (steps its AI follows)
 
@@ -42,6 +42,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Portfolio Puffer](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/portfolio-puffer/idle.png)
+![Portfolio Puffer](https://raw.githubusercontent.com/findastra/astras-pet-os/main/desktop-art/portfolio-puffer/idle-20261011.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

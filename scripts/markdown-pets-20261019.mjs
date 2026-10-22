@@ -15,7 +15,8 @@
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, pagePath, PAGES, OWNER, HUB } from './pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, pagePath, PAGES } from './pet-program-pages-20261018.mjs';
+import { upstream } from './farm-owner-20261020.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 
 export const DIR = 'markdown-pets';
@@ -23,10 +24,12 @@ export const DATE = '20261019';
 export const INDEX = `${DIR}/README.md`;
 export const ALL = `${DIR}/all-pets-${DATE}.md`;
 export const TOOL_LABEL = 'the-farm-v1.0-markdown-pets-v1.0';
-export const MARKDOWN_PETS_URL = `https://github.com/${OWNER}/${HUB}/tree/main/${DIR}`; // the installer's .cmd links here
+// Pictures and these files are read from Astra's PetOS itself (upstream); each pet's code is on its own account
+// (repoUrl in the pages' data, card 058, Part 3).
+export const MARKDOWN_PETS_URL = `${upstream().tree}/${DIR}`; // the installer's .cmd links here
 export const petPath = (repo) => `${DIR}/${repo}-${DATE}.md`;
-const RAW = `https://raw.githubusercontent.com/${OWNER}/${HUB}/main`;
-const BLOB = `https://github.com/${OWNER}/${HUB}/blob/main`;
+const RAW = upstream().raw;
+const BLOB = upstream().blob;
 const STATUS = { hatching: 'hatching (an idea or a first draft)', growing: 'growing (works, with rough edges)', grown: 'grown (finished and maintained)' };
 const STATE = { now: 'works today', planned: 'planned, not built yet', idea: 'an idea, not agreed yet', suggested: 'suggested' };
 

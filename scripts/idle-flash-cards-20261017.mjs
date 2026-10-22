@@ -16,6 +16,7 @@ const names = JSON.parse(readFileSync(namesPath, 'utf8'));
 const branch = branchPath && existsSync(branchPath) ? Object.fromEntries(JSON.parse(readFileSync(branchPath, 'utf8')).map((r) => [r.number, r])) : {};
 // The run's date (FLASH_DATE, as the fixer takes it: 2026-10-18 or 20261018); today when it is not given.
 const DATE = ((d) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`)((process.env.FLASH_DATE || new Date().toISOString().slice(0, 10)).replaceAll('-', ''));
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit's round cards are about Astra's own repos. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const HUB = 'https://github.com/findastra/astras-pet-os';
 const UP = '../..';
 // The iPad answer sheet (an Artifact made by idle-flash-answers-page-20261017.mjs) for this run.

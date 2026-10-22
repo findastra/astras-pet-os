@@ -22,12 +22,14 @@ Astra wants other software developers to read her build without frustration. She
 | Maker agent / checker agent | Maker-checker rule (four-eyes, two-person rule) | Was "offensive / defensive agent"; in security "offensive" means attacking. Decided 2026-10-13. |
 | Versions with `v` | Version tags (`v1.0`) | `pet-program-3-v1.0-icon-2-v1.0`: a name keeps its number, a version never hides inside it. Decided 2026-10-13. |
 | Tool box | Card or panel with a title (HTML `fieldset` with a `legend`) | Border with the versioned label on top, everything about the tool inside. |
+| Pet program page as a control panel | Dashboard / admin console; a feature that outgrows it becomes its own web app that the dashboard links to and reports on | Astra, 2026-10-19: pet programs are control panels, and they manage websites when things get too big for a panel. PET-PROGRAM-FRAMEWORK.md, section 3. Decided 2026-10-19. |
 | Tool panel (`<pet>-L1-tool-panel`) | Panel: a collapsible section of a dashboard page (HTML `details` with a `summary`) | Was "module", then "panel"; to developers a module is a file of code (an `.mjs` file is one). Developers read "tool panel" as a panel that holds tools: on these pages only L1 holds tools (warned 2026-10-19). Astra chose it for every panel. Decided 2026-10-19. |
 | Connection box | Integration panel (what flows between two services) | Its own border colour; titled with the other pet's icon name. |
 | Trick | Skill (`SKILL.md`), prompt, workflow (a runtime skill) | Owned by the pet at L2, followed by the agent in the seat at L3; uses only the tools the pet has. Kept by Skill Scout. See TOOLS-AND-TRICKS.md. Decided 2026-10-14; owned at L2, followed at L3 since 2026-10-18. |
 | Grant | Scope / permission grant (least privilege, capability-based access) | Folders + R W X + limits for one pet on a shared tool. Not a copy of the tool. Decided 2026-10-14. |
 | The Shed | Plugin / extension registry | Third-party tools and tricks, like the Kennel for pets. |
 | Agent key | Short-lived session token with an audit trail | Issued per agent session by Iron Gates; records agent, model, person, device, place. |
+| Key request | Credential request (an access-request ticket for a secret; it never holds the secret) | Filed for API Fairy by any chat, pet or tool that needs a key (`skills/key-request`); the secret itself goes into a secret store (here, Windows environment variables), never into the request. Decided 2026-10-19. |
 | The Police Station | Security monitoring (a SOC with intrusion detection) | Detects and contains (switches OFF); never authorizes. |
 | Farmhand | AI model (LLM) that takes the seat | Not a pet. Claude, OpenAI, local models. Only allowlisted farmhands get keys. Decided 2026-10-14. |
 | Trust levels for farmhands | Graduated trust, allowlisting | A local model is promoted by L4 as it passes tests. |
@@ -61,7 +63,10 @@ Astra wants other software developers to read her build without frustration. She
 | Program Manager / registry (`pets.json`) | Package registry | Part of the protected core. |
 | Seed / pipeline / registered | Planned / in development / released | |
 | `farm.lock` | Lockfile | Exactly which pets and versions a farm runs, and where each came from. |
+| Pet pack | Release bundle (a self-contained archive of one app with its assets and a manifest of hashes) | One pet in one zip, without the whole system; made by The Farm's pet-packs tool. Not signed yet, so it proves nothing about who made it (PROVENANCE.md). Decided 2026-10-20. |
+| `needs` (in pets.json) | Dependencies: a package manifest's dependency list (required and optional), with the platform it runs on | One place for what each pet needs; the Friendly Farmer, the package manager, reads it for pet packs and, next, `farm.lock`. Decided 2026-10-20. |
 | Startup Star (desktop host) | Launcher / process supervisor | A native program of The Farm, not a pet: no face (Astra, 2026-10-19; a tool of The Farm before). |
+| click-check | Link checker and UI smoke test (a click-through test in a headless browser) | A native tool of The Farm (Astra, 2026-10-19). "Goes nowhere" is a dead control (no handler), "dead end" a broken link (404), "moves when pressed" a layout shift (CLS). It reports; fixing stays a pull request. |
 | Astra's PetOS | Platform (runs on Windows) | It is not an operating system. "PetOS" is a brand name; docs say "platform". |
 | A farm | One user's install of Astra's PetOS (a tenant) | Farms never connect to each other. |
 | Local session vs public site (Am I a Ghost? vs Ghost Protocol) | Local / staging environment vs production | Same code, two environments. |

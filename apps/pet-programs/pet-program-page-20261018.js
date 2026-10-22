@@ -1,13 +1,19 @@
 // Every pet program page spawned by the Friendly Farmer (PET-PROGRAM-FRAMEWORK.md, section 3): the paired lights,
 // the live idle, awake and sad moods, the session notes that go to the backlog, export, the pet moving into its
-// cyberhome, the L4 activity light and the chat window.
+// cyberhome, the L4 activity light and the chat window. In developer mode (the installer's switch, or a page's words
+// switch) the agent is already home in its avatar panel, and one click on it says what it does.
 // Saved in this browser only (section 6): the page sends nothing itself. Text goes into the page with textContent only.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19;
+// developer mode 2026-10-19.
 (function () {
   'use strict';
   var config = JSON.parse(document.getElementById('pet-program-data').textContent);
   var KEY = 'astras-pet-os:' + config.homeSlug;
   var STORE = config.homeSlug + '-backlog';
+  // Developer mode (Astra, 2026-10-19): developer-words-20261019.js, loaded in <head>, says which words this page uses
+  // and swaps the words of what this script writes. There are no desktop pets in developer mode.
+  var words = window.PetOSWords, dev = !!(words && words.developer);
+  function T(s) { return words ? words.swap(s) : s; }
 
   function read(name, fallback) {
     try { var v = localStorage.getItem(KEY + ':' + name); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
@@ -22,17 +28,67 @@
   function localTime(iso) { var d = new Date(iso); return localDay(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
   function today() { return localDay().replace(/-/g, ''); }
 
+  // ---- The title fits on one line between the cyberhome and the System Map box, the version to its right (Astra,
+  // 2026-10-20: "make that size of the title varying and have to fit between the two boxes"): the name gets smaller,
+  // down to 20px. Still too long, the version goes on its own line below the name (Astra, 2026-10-21: "these always
+  // stay together on one line until too collapsed, version line then goes below"), and the name, always one line
+  // ("ALWAYS 1 LINE"), gets smaller again, down to 14px; past that it is cut with "…" and the whole name shows when you
+  // point at it. Again whenever the window changes size, and after the page's words are swapped (developer mode makes
+  // a name longer). ----
+  var heading = document.querySelector('.title h1');
+  var header = document.querySelector('.top'), titleBox = document.querySelector('.top > .title');
+  function shrink(name, floor) {
+    var size = parseFloat(window.getComputedStyle(heading).fontSize);
+    function over() { return heading.scrollWidth > heading.clientWidth || (name && name.scrollWidth > name.clientWidth + 1); }
+    while (over() && size > floor) { size -= 1; heading.style.fontSize = size + 'px'; }
+    return over();
+  }
+  function fitTitle() {
+    if (!heading) return;
+    heading.style.fontSize = '';
+    heading.classList.add('fits');
+    heading.classList.remove('clipped', 'stacked'); // measure uncut and together first: a cut name always fits
+    var name = heading.querySelector('.title-name');
+    var clipped = shrink(name, 20);
+    if (clipped) { heading.classList.add('stacked'); heading.style.fontSize = ''; clipped = shrink(name, 14); }
+    heading.classList.toggle('clipped', clipped);
+    if (name) { if (clipped) name.title = name.textContent; else name.removeAttribute('title'); }
+  }
+  // ---- The cyberhome and the System Map box are squares (Astra, 2026-10-21: "should always be a square"). Beside the
+  // title, their side is the title column's height, so the header still ends at the bottom of the title's buttons
+  // (#163), between 210 and 260px (smaller, a label no longer fits on the border); the stylesheet keeps them square at
+  // every width. ----
+  function fitSquares() {
+    if (!header || !titleBox) return;
+    if (window.matchMedia && !window.matchMedia('(min-width: 1001px)').matches) { header.style.removeProperty('--square'); return; }
+    for (var i = 0, side = 0; i < 4; i++) {
+      var next = Math.round(Math.max(210, Math.min(260, titleBox.offsetHeight - 12)));
+      if (Math.abs(next - side) < 2) break;
+      side = next;
+      header.style.setProperty('--square', side + 'px');
+      fitTitle();
+    }
+  }
+  function fitHeader() { fitTitle(); fitSquares(); }
+  fitHeader();
+  window.addEventListener('resize', fitHeader);
+  document.addEventListener('DOMContentLoaded', fitHeader); // after developer-words-20261019.js has swapped the words
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
+
   // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).
-  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). Something
-  // not built yet starts grey: not set yet. Marks saved before 2026-10-19 (`off`, `fix`) still count. ----
+  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). The
+  // ON/OFF light is only ever on or off, never grey (Astra, 2026-10-21): something not built yet is off and stays off,
+  // and its maintenance light is grey, not checked yet; clicking either says why. Marks saved before 2026-10-19 (`off`,
+  // `fix`) still count. ----
   var lights = read('lights', {});
-  function power(k, planned) { var s = lights[k] || {}; return s.power || (s.off ? 'off' : (planned ? '' : 'on')); }
-  function health(k, planned) { var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : (planned ? '' : 'ok')); }
+  function power(k, planned) { if (planned) return 'off'; var s = lights[k] || {}; return s.power || (s.off ? 'off' : 'on'); }
+  function health(k, planned) { if (planned) return ''; var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : 'ok'); }
   var SAYS = {
     on: 'on. Click again to switch it off.',
     off: 'off (the kill switch). Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
+    planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
   };
   function paint() {
     var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
@@ -42,9 +98,8 @@
       if (b.classList.contains('onoff')) {
         var p = power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
-        b.classList.toggle('is-unset', !p);
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (p === 'on' ? 'on' : p === 'off' ? 'off' : 'not set yet'));
+        b.setAttribute('aria-label', name + ': ' + (planned[k] ? 'off, not built yet' : p));
       } else {
         var h = health(k, planned[k]);
         b.classList.toggle('is-fix', h === 'fix');
@@ -62,7 +117,7 @@
     }
     if (off) {
       off.textContent = '';
-      Object.keys(names).filter(function (k) { return power(k, planned[k]) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
+      Object.keys(names).filter(function (k) { return !planned[k] && power(k) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
   }
   // The bubble that says what a light now means. One for the page, placed under the light that was clicked.
@@ -70,8 +125,9 @@
   tip.setAttribute('role', 'status');
   tip.hidden = true;
   document.body.appendChild(tip);
-  function say(b, text) {
-    tip.textContent = b.dataset.name + ': ' + text;
+  function say(b, text) { sayAt(b, b.dataset.name + ': ' + text); }
+  function sayAt(b, text) {
+    tip.textContent = text;
     tip.hidden = false;
     var r = b.getBoundingClientRect(), width = document.documentElement.clientWidth;
     tip.style.left = (window.scrollX + Math.max(8, Math.min(r.left - 8, width - tip.offsetWidth - 8))) + 'px';
@@ -84,10 +140,11 @@
     if (!b) return;
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
+    if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
       var p = power(k, planned);
-      if (p === 'off' && !window.confirm('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.')) return;
+      if (p === 'off' && !window.confirm(T('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.'))) return;
       next = p === 'on' ? 'off' : 'on';
       s.power = next; delete s.off;
     } else {
@@ -102,11 +159,20 @@
   paint();
 
   // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
-  // face blinking) after you use the page, idle again after two quiet minutes. ----
+  // face blinking) after you use the page, idle again after two quiet minutes. The mood it is in lights up in the
+  // emotions tool panel (Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light
+  // up'"); the cyberhome has no bubble any more. ----
   // Every face is already in the page; the script only shows one and hides the others (no picture address passes
   // through here).
   var den = document.querySelector('.den');
-  var bubble = document.getElementById('bubble');
+  var moodFigures = document.querySelectorAll('.mood[data-mood]');
+  function lightUp(name) {
+    for (var i = 0; i < moodFigures.length; i++) {
+      var now = moodFigures[i].dataset.mood === name;
+      moodFigures[i].classList.toggle('is-now', now);
+      if (now) moodFigures[i].setAttribute('aria-current', 'true'); else moodFigures[i].removeAttribute('aria-current');
+    }
+  }
   function has(box, name) { return !!(box && box.querySelector('img[data-face="' + name + '"]')); }
   function face(box, name) {
     if (!box || !has(box, name)) return;
@@ -120,7 +186,7 @@
   function show(next) {
     mood = next;
     face(den, mood === 'sad' ? 'sad' : 'idle');
-    if (bubble) bubble.textContent = config.lines[mood === 'awake' ? 'blink' : mood] || '';
+    lightUp(mood === 'awake' ? 'blink' : mood);
     clearInterval(blinker);
     if (mood === 'awake' && has(den, 'blink')) blinker = setInterval(function () {
       face(den, 'blink'); setTimeout(function () { if (mood === 'awake') face(den, 'idle'); }, 180);
@@ -133,7 +199,11 @@
   }
   ['pointerdown', 'keydown', 'input'].forEach(function (t) { document.addEventListener(t, used, { passive: true }); });
   show(mood);
-  if (den && has(den, 'idle')) den.addEventListener('click', function () { if (bubble) bubble.textContent = config.reminder; }); // one click: the current reminder
+  // One click: the current reminder, in the same small bubble the lights use, under the pet. In developer mode, what
+  // the agent does, then the reminder (Astra, 2026-10-19: "you could click it and see what it does").
+  if (den && (dev || has(den, 'idle'))) den.addEventListener('click', function () {
+    sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
+  });
 
   // The awake picture in the emotions tool panel blinks too.
   var awake = document.querySelector('.awake-faces');
@@ -187,20 +257,21 @@
   });
   render();
 
-  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in through Startup Star's
-  // door in the top corner. The page plays the arrival itself. Flying in from the desktop (from roaming, from the
-  // lineup, or out of the star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. The
-  // script only changes the den's state: every picture is already in the page. ----
+  // ---- The cyberhome (Astra, 2026-10-19): empty until this page opens, then the pet moves in from the top corner.
+  // The page plays the arrival itself. Flying in from the desktop (from roaming, from the lineup, or out of Startup
+  // Star when the desktop pet is hidden) needs Startup Star's link, which is not built yet. No star door in the den
+  // since 2026-10-20 (Astra crossed it out). The script only changes the den's state: every picture is already in the
+  // page. ----
   var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
-  if (den && den.dataset.arrival === 'waiting') {
-    (still ? [['home', 0]] : [['opening', 250], ['arriving', 850], ['home', 1900]]).forEach(function (step) {
-      setTimeout(function () {
-        den.dataset.arrival = step[0];
-        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' came in through the star.';
-      }, step[1]);
+  if (den && den.dataset.arrival === 'waiting' && dev) {
+    // Developer mode: no desktop pets and no flight. The agent lives here already; click it to see what it does.
+    den.dataset.arrival = 'home';
+    var habitat = den.parentNode;
+    if (habitat && habitat.title !== undefined) habitat.title = T('Click ' + config.pet + ' to see what it does.');
+  } else if (den && den.dataset.arrival === 'waiting') {
+    (still ? [['home', 0]] : [['arriving', 250], ['home', 1300]]).forEach(function (step) {
+      setTimeout(function () { den.dataset.arrival = step[0]; }, step[1]);
     });
-    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1900) + 5000);
   }
 
   // ---- Activity lights (Astra, 2026-10-19): the light on a level's tool panel (its top border) is on while that
@@ -213,8 +284,8 @@
     L3: 'an agent is working in ' + config.home,
   };
   var HERE = {
-    live: ['you are here', 'You are here: this page is in front of you and you used it in the last two minutes.'],
-    idle: ['you went quiet', 'Open, but you have not used this page for two minutes.'],
+    live: ['you are here', 'You are here: this page is in front of you and you used it (pointer, keys or scrolling) in the last two minutes.'],
+    idle: ['you went quiet', 'Open, but you have not used this page for two minutes, or you are working in another window.'],
     off: ['you are away', 'This page is hidden behind another tab or window.'],
   };
   var L4 = null, L4quiet;
@@ -241,10 +312,24 @@
     clearTimeout(L4quiet);
     L4quiet = setTimeout(function () { here('idle'); }, 120000);
   }
-  ['pointerdown', 'keydown', 'input', 'wheel'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  ['pointerdown', 'keydown', 'input', 'wheel', 'scroll'].forEach(function (t) { document.addEventListener(t, present, { passive: true }); });
+  // Reading the page counts as using it (Astra, 2026-10-19: "double check if these L4s are active when they are"):
+  // moving the pointer over it or scrolling keeps L4 on, not only clicks and keys. A moving pointer counts once a second.
+  var lastMove = 0;
+  document.addEventListener('pointermove', function () {
+    var now = Date.now();
+    if (now - lastMove < 1000 && L4 && L4.light.dataset.state === 'live') return;
+    lastMove = now;
+    present();
+  }, { passive: true });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { clearTimeout(L4quiet); here('off'); } else present();
   });
+  // Another window in front while this page still shows: you are working elsewhere, so L4 dims at once; back here, on.
+  if (window.addEventListener) {
+    window.addEventListener('blur', function () { if (!document.hidden) { clearTimeout(L4quiet); here('idle'); } });
+    window.addEventListener('focus', present);
+  }
   if (document.hidden) here('off'); else present();
 
   // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
@@ -303,8 +388,8 @@
       if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
       var to = WHO[chosen];
       if (to.url) {
-        var prompt = 'This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS' +
-          (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
+        var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
+          (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
         try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
         var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
         if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
@@ -322,4 +407,148 @@
     choose(chosen);
     drawChat();
   }
+
+  // ---- API Fairy's key requests (only on API Fairy Ring's page; Astra, 2026-10-19). ----
+  // Who asked for a key, who has one, who doesn't, each with a link back to where it asked. The real list stays on
+  // Astra's PC: API Fairy writes it (names only, never a key) to one fixed file in her Documents folder, and this page
+  // reads that file only when it is opened there (a double-clicked file, or a preview served on this PC). Anywhere else
+  // it shows the page's made-up examples. Every word goes in with textContent; only https links become links.
+  (function () {
+  if (config.repo !== 'api-fairy') return;
+  var requestBox = document.getElementById('key-requests');
+  if (!requestBox) return;
+  {
+    // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+    var LOCAL_REQUESTS = "../../../../Astra's PetOS Data/api-fairy-ring/key-requests-page-data.js";
+    var source = document.getElementById('key-requests-source');
+    var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var KEY_GROUPS = ['waiting', 'has-key', 'declined'];
+    var groupOf = { waiting: 1, 'has-key': 1, declined: 1 };
+    var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+    var linkText = function (href) {
+      var u = new URL(href), p = u.pathname.split('/').filter(Boolean);
+      if (u.hostname === 'github.com' && p.length >= 4 && p[2] === 'pull') return p[1] + ' pull request #' + p[3];
+      if (u.hostname === 'github.com' && p.length >= 4 && p[2] === 'issues') return p[1] + ' issue #' + p[3];
+      var card = p.indexOf('handoffs');
+      if (u.hostname === 'github.com' && card > -1 && p[card + 1]) return p[1] + ' card ' + p[card + 1].slice(0, 3);
+      if (u.hostname === 'github.com' && p.length >= 5 && p[2] === 'blob') return p[1] + ' ' + p.slice(4).join('/');
+      if (u.hostname === 'github.com' && p.length >= 2) return p[1] + (p.length > 2 ? ' (' + p[p.length - 1] + ')' : ' on GitHub');
+      if (/(^|\.)claude\.ai$/.test(u.hostname)) return 'the Claude chat';
+      return u.hostname;
+    };
+    var line = function (parent, label, text, cls) {
+      if (!text) return;
+      var d = el('div', null, cls || 'small');
+      if (label) d.appendChild(el('span', label + ' ', 'request-label'));
+      d.appendChild(document.createTextNode(text));
+      parent.appendChild(d);
+    };
+    var seen = function (r) {
+      if (r.found === 'yes') return 'found ' + (r.key_name || 'it') + ' in ' + (r.found_in || 'a place she watches') + '.';
+      if (r.found === 'no') return 'no key named ' + r.key_name + ' in ' + (r.where_words || 'the places she watches') + ' yet.';
+      return r.found_in || 'not checked yet.';
+    };
+    var row = function (r) {
+      var li = el('li', null, 'request' + (r.example ? ' example' : ''));
+      var head = el('div', null, 'request-head');
+      var who = r.requester || {};
+      var item = 'request:' + r.id, name = (who.name || 'someone') + ' key request';
+      var pair = el('span', null, 'lights');
+      ['onoff', 'care'].forEach(function (kind) {
+        var b = el('button', null, 'light ' + kind);
+        b.type = 'button';
+        b.dataset.item = item; b.dataset.name = name;
+        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
+        b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
+        pair.appendChild(b);
+      });
+      head.appendChild(pair);
+      head.appendChild(el('b', who.name || 'someone'));
+      var about = [who.kind, who.pet].filter(Boolean).join(' · ');
+      if (about) head.appendChild(el('span', ' (' + about + ')', 'small'));
+      if (r.example) head.appendChild(el('span', 'EXAMPLE', 'tag example-tag'));
+      li.appendChild(head);
+      var href = https(r.link);
+      var where = el('div', null, 'request-link');
+      if (href) {
+        var a = el('a', (r.group === 'waiting' ? '✨ ' : '') + linkText(href));
+        a.href = href; a.rel = 'noopener'; a.target = '_blank';
+        where.appendChild(document.createTextNode('asked in '));
+        where.appendChild(a);
+      } else if (r.asked_in) where.appendChild(document.createTextNode((r.group === 'waiting' ? '✨ ' : '') + 'asked in ' + r.asked_in));
+      li.appendChild(where);
+      var more = (Array.isArray(r.also) ? r.also : []).map(https).filter(Boolean);
+      if (more.length) {
+        var also = el('div', 'also: ', 'small');
+        more.forEach(function (h, i) {
+          var b = el('a', linkText(h)); b.href = h; b.rel = 'noopener'; b.target = '_blank';
+          if (i) also.appendChild(document.createTextNode(' · '));
+          also.appendChild(b);
+        });
+        li.appendChild(also);
+      }
+      var key = el('div', null, 'request-key');
+      key.appendChild(el('code', r.key_name || 'no key name yet'));
+      key.appendChild(document.createTextNode(' · ' + (r.provider || 'provider not chosen') + (r.where_words ? ' · goes in ' + r.where_words : '')));
+      li.appendChild(key);
+      line(li, 'for:', r.for);
+      line(li, 'spend limit:', r.spend_limit || 'none named');
+      line(li, 'asked:', r.asked + (r.status !== 'requested' && r.status ? ' · ' + r.status + (r.status_date ? ' ' + r.status_date : '') : ''));
+      line(li, 'API Fairy:', seen(r) + (r.fairy_note ? ' ' + r.fairy_note : ''));
+      if (r.note) line(li, null, r.note, 'request-note');
+      return li;
+    };
+    var showRequests = function (requests, message, problems) {
+      source.textContent = message;
+      KEY_GROUPS.forEach(function (g) {
+        var list = requestBox.querySelector('ul[data-group="' + g + '"]');
+        var empty = requestBox.querySelector('[data-empty="' + g + '"]');
+        var count = requestBox.querySelector('[data-count="' + g + '"]');
+        var mine = requests.filter(function (r) { return r && r.group === g; });
+        list.textContent = '';
+        mine.forEach(function (r) { list.appendChild(row(r)); });
+        empty.hidden = mine.length > 0;
+        count.textContent = mine.length ? mine.length + (mine.length === 1 ? ' request' : ' requests') : '';
+      });
+      if (problems && problems.length) {
+        var p = el('ul', null, 'plain small request-problems');
+        problems.forEach(function (t) { p.appendChild(el('li', 'Skipped ' + t)); });
+        source.appendChild(p);
+      }
+      paint();
+    };
+    var examples = function (why) {
+      var list = [];
+      try { list = JSON.parse(document.getElementById('key-request-examples').textContent); } catch (e) { list = []; }
+      showRequests(list, why);
+    };
+    if (onThisPC) {
+      var script = document.createElement('script');
+      script.setAttribute('src', LOCAL_REQUESTS);
+      script.onload = function () {
+        var d = window.apiFairyKeyRequests;
+        if (!d || d.schema !== 'api-fairy-key-requests-page-v1' || !Array.isArray(d.requests)) return examples('API Fairy\'s list on this PC is not one this page can read. These are made-up examples.');
+        var rows = d.requests.filter(function (r) { return r && groupOf[r.group]; });
+        showRequests(rows, 'API Fairy\'s list on this PC: ' + rows.length + (rows.length === 1 ? ' request' : ' requests') + ', ' + (d.scanned ? 'checked by name ' : 'listed without looking for the keys ') + localTime(d.checked) + '.', d.problems);
+      };
+      script.onerror = function () { examples('API Fairy has not written her list on this PC yet (open API Fairy, or run API Fairy.exe --key-requests). These are made-up examples.'); };
+      document.head.appendChild(script);
+    } else {
+      examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+    }
+  }
+  })();
+
+  // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
+  // its panel fits it (Astra's Window Star, 2026-10-20). Only the tool page in that panel is listened to, from the site
+  // its panel opened (on any farm, whoever's site that is), and only for a height. ----
+  function originOf(src) { try { return new URL(src, location.href).origin; } catch (e) { return null; } }
+  window.addEventListener('message', function (e) {
+    var msg = e.data;
+    if (!msg || msg.type !== 'tool-panel-height') return;
+    var frames = document.querySelectorAll('iframe.tool-frame');
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+    }
+  });
 })();

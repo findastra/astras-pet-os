@@ -25,6 +25,7 @@ const COAUTHOR = process.env.FLASH_COAUTHOR || 'Claude Opus 5.5 <noreply@anthrop
 const W = process.env.FLASH_WORK || `${tmpdir()}/idle-flash-audit`.replaceAll('\\', '/');
 mkdirSync(W, { recursive: true });
 const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit fixes Astra's own repos, from her hub. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const levels = execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', 'repos/findastra/astras-pet-os/contents/INTELLIGENCE-LEVELS.md?ref=main'], { encoding: 'utf8', maxBuffer: 32 << 20 });
 const levelRows = {};
 for (const line of levels.split('\n')) {
@@ -173,9 +174,16 @@ for (const rec of ledger) {
         rm = rm.replace(/^#[ \t]+pet-program-\d+[ \t]*(\r?)$/m, (m, cr) => `# ${titleRow.fix.to}${cr}`);
         log.push(`README: the title is now its program's name, ${titleRow.fix.to} (pet-programs.json).`);
       }
-      if (rec.rows.some((r) => r.fix?.type === 'credit') && !/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(rm)) {
-        rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*An Intelligent App, or Pet, by Astra.*') : `*An Intelligent App, or Pet, by Astra.*\n\n${rm}`;
-        log.push('README: added the credit line "*An Intelligent App, or Pet, by Astra.*".');
+      // The credit is "By Astra." (Astra, 2026-10-20, card 059): a retired credit line becomes it; a README with none gets it.
+      if (rec.rows.some((r) => r.fix?.type === 'credit')) {
+        const retired = /\*(?:An Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra)\.\*/gi;
+        if (retired.test(rm)) {
+          rm = rm.replace(retired, '*By Astra.*');
+          log.push('README: the retired credit line is now "*By Astra.*".');
+        } else if (!/\bBy Astra\b/i.test(rm)) {
+          rm = /^#\s.+$/m.test(rm) ? rm.replace(/^(#\s.+)$/m, '$1\n\n*By Astra.*') : `*By Astra.*\n\n${rm}`;
+          log.push('README: added the credit "*By Astra.*".');
+        }
       }
       const row = levelRows[repo];
       if (rec.rows.some((r) => r.fix?.type === 'limits') && row && !/^#{2,3}\s.*(limit|not done|known)/im.test(rm)) {

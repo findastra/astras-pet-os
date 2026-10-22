@@ -21,6 +21,7 @@ const PREFLIGHT = process.env.FLASH_PREFLIGHT || resolve(dirname(fileURLToPath(i
 let inspectSnapshot = () => [{ check: 'A18', status: 'Not verified', detail: `Goldfish preflight not found at ${PREFLIGHT}.` }];
 try { ({ inspectSnapshot } = await import(pathToFileURL(PREFLIGHT).href)); } catch { console.error(`Goldfish preflight not found (${PREFLIGHT}): its checks are Not verified.`); }
 
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): the Flash Audit checks Astra's own account and repos. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const OWNER = 'findastra';
 const HUB = 'astras-pet-os';
 const OUT = process.argv[2] || 'audit-out';
@@ -249,8 +250,9 @@ for (const prog of catalog) {
       const stale = prog.assigned && /^pet-program-\d+$/.test(h1.trim());
       add('A15', 'Incorrect', `README title "${h1}" is neither the repo name in Title Case ("${want}") nor the pet or program name.`, stale ? { fix: { type: 'readme-title', to: prog.program } } : {});
     }
-    // The credit is "An Intelligent App, or Pet, by Astra." (Astra, 2026-10-18, card 033); the old line still passes while repos switch.
-    if (!/An Intelligent App, or Pet, by Astra|A pet app by Astra/i.test(readme)) add('A15', 'Missing', 'README lacks the credit line "*An Intelligent App, or Pet, by Astra.*".', { fix: { type: 'credit' } });
+    // The credit is "By Astra." (Astra, 2026-10-20, card 059); the longer credit lines are retired.
+    if (/Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra/i.test(readme)) add('A15', 'Incorrect', 'README still has a retired credit line; the credit is "*By Astra.*".', { fix: { type: 'credit' } });
+    else if (!/\bBy Astra\b/i.test(readme)) add('A15', 'Missing', 'README lacks the credit "*By Astra.*".', { fix: { type: 'credit' } });
     if (!/^#{2,3}\s.*(run|start|install|use|open|get it|download|quick)/im.test(readme)) add('A15', 'Missing', 'README has no "how to run it" section.');
     if (!/^#{2,3}\s.*(limit|not done|known|what.*(can|doesn))/im.test(readme)) add('A15', 'Missing', 'README has no Limits section.', { fix: { type: 'limits' } });
     if (!/(Claude|Codex|GPT|Opus|Sonnet|Haiku)[^\n]{0,80}20\d\d-\d\d-\d\d/.test(readme + (pet?.built_with || ''))) add('A15', 'Missing', 'No model, version and date recorded.');

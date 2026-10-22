@@ -110,7 +110,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-193 rows: 10 native programs, 105 native tools, 15 native tricks, 63 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+199 rows: 10 native programs, 110 native tools, 15 native tricks, 64 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -118,8 +118,11 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
 | 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | click-check | `the-farm-v1.0-click-check-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | make-it-yours | `the-farm-v1.0-make-it-yours-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
@@ -148,6 +151,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | showcase-checker | `github-aquarium-v1.0-showcase-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | systemic-checker | `github-aquarium-v1.0-systemic-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
+| 4 | API Fairy | API Fairy Ring | native tool | key-requests | `api-fairy-ring-v1.0-key-requests-v1.0` | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | api-fairy-mushroom-circle | `api-fairy-ring-v1.0-api-fairy-mushroom-circle-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native tool | asset-contact-sheet | `unity-stable-v1.0-asset-contact-sheet-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native tool | button-check | `unity-stable-v1.0-button-check-v1.0` | Works today |
@@ -231,12 +235,14 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
-| 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Planned |
+| 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Works today |
 | 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Planned |
 | 13 | Discord Damsel | Discord Tower | native trick | dm-cleanup | `discord-tower-v1.0-dm-cleanup-trick-v1.0` | Works today |
+| 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Planned |
-| 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Planned |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton Live |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Spotify |  | Idea |
 | 16 | VSCode Angel | Halo List | third-party program | Visual Studio Community 2022 |  | Idea |

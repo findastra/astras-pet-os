@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
+// Astra-only on purpose (card 058, Part 3, 2026-10-20): her profile round writes findastra/findastra's README. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const OWNER = 'findastra';
 // The separator is " -- "; a line Astra writes with a dash instead (" -— ", " — ", 2026-10-18) is still hers and is kept.
 const SEP = ' (?:--|-?[—–]) ';
