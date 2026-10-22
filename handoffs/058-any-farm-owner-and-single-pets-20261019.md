@@ -253,8 +253,9 @@ merged only with my OK."*
   (`core.autocrlf=false`). The live hub folder on Astra's PC was not touched.
 - **[Pull request #206](https://github.com/findastra/astras-pet-os/pull/206)**, commit `9ed2c8c` (the work), then a merge
   of `main` (`263a948`, with #196, #198, #200 and #203). On 2026-10-22 `main` was merged in again (`902ffc4`, with #205,
-  Pet ID). Only the generated System Map page conflicted: main's copy was taken and rebuilt. It is open, and merges
-  only with Astra's OK in chat.
+  Pet ID). Only the generated System Map page conflicted: main's copy was taken and rebuilt. Then once more
+  (`81c217f`, with #204 and #207 to #212). Three generated files conflicted (TOOLS-AND-TRICKS.md, The Farm's page and
+  the map page): main's copies were taken and rebuilt. It is open, and merges only with Astra's OK in chat.
 - **New:**
   - `scripts/farm-lock-20261021.mjs`: the farm lock and the needs check.
   - `scripts/farm-pets-20261021.mjs`: the Friendly Farmer's farm-pets tool, `the-farm-v1.0-farm-pets-v1.0`, with
@@ -291,8 +292,8 @@ merged only with my OK."*
     `check` passed.
   - The window was drawn with `-SetupWindowPicture -Farm Scratch -Pets evidence-locker,goldfish`, in farm and
     developer words: Log Lynx is ticked, greyed, "Needed by Forensic Ferret", and the count is 4.
-  - On the branch with `main` merged in (through #205), `npm run build` changes nothing and `npm run check` passes (23
-    pet apps). `npm test` gives 320 tests: 319 pass, 0 fail, 1 skipped.
+  - On the branch with `main` merged in (through #212), `npm run build` changes nothing and `npm run check` passes (23
+    pet apps). `npm test` gives 322 tests: 321 pass, 0 fail, 1 skipped.
   - The beginner guide at 375 px in the browser pane, served on 127.0.0.1 from the clone through a temporary entry in
     the session folder's `.claude/launch.json` (removed afterwards): no sideways scroll, the new copy button is 44 px,
     and there are no console errors.
