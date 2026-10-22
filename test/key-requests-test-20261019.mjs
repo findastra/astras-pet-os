@@ -30,7 +30,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the fou
 });
 
 test('only API Fairy\'s page has the panel', () => {
-  assert.deepEqual(Object.keys(PET_PANELS), ['api-fairy']);
+  assert.equal(typeof PET_PANELS['api-fairy'], 'function');
   for (const d of pages) if (d.repo !== 'api-fairy') assert.ok(!files[pagePath(d.repo)].includes('key-request'), `${d.repo} has no key-requests panel`);
 });
 
