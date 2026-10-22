@@ -190,8 +190,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The name's first line sits on the border, right of the lights (pulled up by the pill's top padding and half a line).
    It never runs under the dropdown arrow at the right, and it is never cut: a name too long for the border wraps, and
    the rest goes on a line inside the pill (Astra, 2026-10-22: "label being shrunk incorrectly"). Only the first line has
-   the page's colour behind it, so the border runs on straight after it (2026-10-21: a wrapped name cut a gap in it). */
-.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 34px 3px 0; padding: 0; text-indent: 46px;
+   the page's colour behind it, so the border runs on straight after it (2026-10-21: a wrapped name cut a gap in it).
+   A little room after the blue light (2026-10-22: "little more space between the tool title and the blue dot"). */
+.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 34px 3px 0; padding: 0; text-indent: 54px;
   font: 14px/19px var(--text); white-space: normal; overflow-wrap: break-word; }
 .pill > .item-name::first-line { background: linear-gradient(var(--slate) 10px, transparent 10px); }
 /* A space each side on the border; after the first one a word may move down whole rather than break. */
