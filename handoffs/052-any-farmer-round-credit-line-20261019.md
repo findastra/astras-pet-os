@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge round pull request #192, its page rebuild is on it; add three paths to line 59 of the Farmer's round workflow, task 2)
+status: open (waiting on Astra: the Farmer's FARMER_TOKEN, task 4, until then round pull requests are held (#192); add three paths to line 59 of the Farmer's round workflow, task 2)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -172,11 +172,16 @@ folders were not touched.
   empty until the Farmer can read the private repos. Nothing was changed for it here. Two separate decisions: a
   `FARMER_TOKEN` (already an API Fairy key request, card 056), and whether `runRound` in
   `scripts/farmer-rounds-20261009.mjs` should keep a pet's last status when it cannot see the repo.
+- **Astra holds the round pull requests (2026-10-21):** "Hold #192 for now; don't merge it until the Farmer can see the
+  private repos." #192 stays open and unmerged. The next scheduled round (06:17 Denver) opens a new round pull request
+  and closes #192 as replaced (the workflow's last step closes every older open `farmer/rounds-*` pull request). That
+  new one has the same blank statuses for the same reason, so it is held the same way, and so is every round pull
+  request after it, until the Farmer can see the private repos.
 
 ## Ownership and state
-State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 has its page rebuild and the latest
-`main` (head `60b1b9b`) and waits on Astra's OK to merge. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5
-(side session). Nothing else is claimed and nothing is running. Reviewer: unassigned.
+State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round pull requests are held by Astra until the
+Farmer can see the private repos (task 4); today that is #192 (head `60b1b9b`). Task 2 is Astra's. Implementer of task
+1: Claude Opus 5.5 (side session). Nothing else is claimed and nothing is running. Reviewer: unassigned.
 
 ## Task
 1. **Done: merged as `d1db66f` (#182, 2026-10-21, above).** ~~Any
@@ -193,7 +198,11 @@ State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #1
    **Commit changes**. Until then, every round leaves those pages stale (a change to the status file is enough,
    2026-10-21), and `main`'s `npm test` fails after its merge.
 3. Until task 2 is done: before merging a `farmer/rounds-*` pull request, merge it with `main` in an LF clone and run
-   `npm test` first.
+   `npm test` first. If it fails on the pet program pages, rebuild them on its branch (`npm run build`), as on #192.
+4. **Held by Astra (2026-10-21): merge no round pull request until the Farmer can see the private repos.** That needs
+   a `FARMER_TOKEN` secret (API Fairy's key request, card 056), or a change to `runRound` so a pet keeps its last
+   status when its repo cannot be seen (Astra's call). Then run a round, check its summary has self-audits and no
+   private pets under "Can't see", and ask Astra about its pull request.
 
 ## Done when
 A round runs green on `main`, and `main` is still green after its pull request is merged.
@@ -203,4 +212,5 @@ Set status: done with the run id, the round's pull request number and `main`'s t
 
 ## Receipt and review
 Task 1 taken, done and merged by Claude Opus 5.5 (side session, 2026-10-20 to 2026-10-21). Not reviewed by another
-assistant. A green round: run 39717690793. Still open: `main` green after a round's merge (#192), and task 2.
+assistant. A green round: run 39717690793. Still open: `main` green after a round's merge (round pull requests held
+by Astra, task 4), and task 2.
