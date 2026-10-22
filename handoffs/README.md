@@ -6,6 +6,10 @@ that lists explicitly what was changed, where, and what is not done.
 
 To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
+This table lists the cards numbered before 2026-10-22, as they stood that day, and is no longer updated (Astra,
+2026-10-21, card 069). A card's own first lines (`status:`, `for:`) say where it stands. Newer cards are numbered by
+their pull request and are found in this folder ("Card numbers", below).
+
 | Card | For | Status |
 | --- | --- | --- |
 | [070: The hub is public again: what works, the profile round skips quietly, today's Aquarium app](070-any-hub-public-again-20261021.md) | any | open, waits on Astra: merge this card's pull request (#200) and github-goldfish#25; #198 merged; her clicks: Pages on, paper-girl's deploy off |
@@ -76,14 +80,25 @@ Not kept in a file: a shared list here made every pull request conflict with the
 from GitHub's open pull requests when it answers, and puts its number in its title
 ([skills/merge-order](../skills/merge-order/SKILL.md)). Astra, 2026-10-18.
 
-## Card numbers on every branch
+## Card numbers
 
-A card number is used once, across `main` and every branch. **Before you write a card, take the next free number
-below and add its row here in the same commit**, so two chats working at once never pick the same one. Cards written
-on a branch keep the number below when they reach `main`. `test/handoff-numbers-test-20261017.mjs` fails when two
-cards share a number, or when a card uses a number this table gives to another card.
+**A new card's number is its pull request's number** (Astra, 2026-10-21, card 069). Open the pull request first, then
+name the card `handoffs/<that number>-<for>-<name>-YYYYMMDD.md` in its next commit: the pull request that added card
+069 was #196, so under this rule it would have been card 196. GitHub hands out the number, so two chats can never take
+the same one, and nothing in this file is edited for a new card. The card's own first lines (`status:`, `for:`) say
+where it stands.
 
-**Next free number: 071.** 070 is the hub-public card on `claude/hub-public-answers-20261021`; 069 is the shared-lines proposal on `claude/shared-lines-proposal-20261021` (#196) (Claude Opus 5.5, 2026-10-21). 064 is the shared handoff workflow card on `codex/handoff-workflow-20261020` (Codex; carried with main merged in on `claude/handoff-workflow-merged-20261022`, 2026-10-22). 063 is the Damsel archive launcher card on `codex/damsel-archive-launcher-20261020` (Codex; carried with main merged in on `claude/damsel-archive-launcher-merged-20261021`, 2026-10-21). 068 is GitHub Aquarium's error-checkers card (#136), renumbered from 057, then from 067: click-check and Kernel Grove reached `main` first (Claude Opus 5.5, 2026-10-21). 067 is the Kernel Grove card on `claude/kernel-grove-pipeline-20261021` (Claude Opus 5.5, 2026-10-21). 066 is the Unity Stable page notes and tray card on `claude/page-notes-unity-stable-20261021` (Claude Opus 5.5, 2026-10-21). Checked on 2026-10-20 across every branch by OpenAI Codex (GPT-6); 061 is the RGBee and Desktop Commander panel handoff on `codex/end-chat-handoff-20261020`. The earlier reservations remain: 060 is the developer mode card on `claude/developer-mode-20261019` (#155), renumbered from 058; 059 is the "By Astra." credit card on `claude/by-astra-credit-20261020`; 058 is the farm-owner card, merged with #157; 057 is the click-check card on `claude/click-check-20261019`; 056 is the key requests card on `claude/key-requests-20261019`; 055 is the Astral Plane records card on `claude/astral-plane-records-20261019`; 054 is the cyberhome card on `claude/cyberhome-chat-20261019`; 053 is the Mirror Pool tools card on `claude/mirror-pool-tools-20261019`; 052 is the Farmer's round credit-line card on `claude/farmer-round-credit-line-20261019`; 051 is the beginner guide card on `claude/beginner-guide-20261019`; 050 is the Markdown pets card on `claude/markdown-pets-20261019`; 049 is the Unity Stable asset tools card on `claude/unity-stable-asset-tools-20261019`; 048 is the how-the-agents-work card on `claude/how-agents-work-20261019`; 047 is the panels card on `claude/programmer-words-20261019`; 043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card. When numbers clashed, the
+**Cards numbered before 2026-10-22 keep their numbers.** The two tables in this file list them as they stood that day,
+and they are no longer updated. Where two of them share a number, the card that reaches `main` first keeps it, and the
+other takes its pull request's number. Card 064 is #178's shared handoff workflow card, so #179's merge-pass card, which
+also used 064, becomes card 179 when it merges.
+
+`test/handoff-numbers-test-20261017.mjs` fails when:
+- two cards share a number;
+- a card numbered before 2026-10-22 is missing from the table below;
+- a new card takes a number the old counter would have given.
+
+**The old counter stopped at 071** (2026-10-22). 070 is the hub-public card on `claude/hub-public-answers-20261021`; 069 is the shared-lines proposal on `claude/shared-lines-proposal-20261021` (#196) (Claude Opus 5.5, 2026-10-21). 064 is the shared handoff workflow card on `codex/handoff-workflow-20261020` (Codex; carried with main merged in on `claude/handoff-workflow-merged-20261022`, 2026-10-22). 063 is the Damsel archive launcher card on `codex/damsel-archive-launcher-20261020` (Codex; carried with main merged in on `claude/damsel-archive-launcher-merged-20261021`, 2026-10-21). 068 is GitHub Aquarium's error-checkers card (#136), renumbered from 057, then from 067: click-check and Kernel Grove reached `main` first (Claude Opus 5.5, 2026-10-21). 067 is the Kernel Grove card on `claude/kernel-grove-pipeline-20261021` (Claude Opus 5.5, 2026-10-21). 066 is the Unity Stable page notes and tray card on `claude/page-notes-unity-stable-20261021` (Claude Opus 5.5, 2026-10-21). Checked on 2026-10-20 across every branch by OpenAI Codex (GPT-6); 061 is the RGBee and Desktop Commander panel handoff on `codex/end-chat-handoff-20261020`. The earlier reservations remain: 060 is the developer mode card on `claude/developer-mode-20261019` (#155), renumbered from 058; 059 is the "By Astra." credit card on `claude/by-astra-credit-20261020`; 058 is the farm-owner card, merged with #157; 057 is the click-check card on `claude/click-check-20261019`; 056 is the key requests card on `claude/key-requests-20261019`; 055 is the Astral Plane records card on `claude/astral-plane-records-20261019`; 054 is the cyberhome card on `claude/cyberhome-chat-20261019`; 053 is the Mirror Pool tools card on `claude/mirror-pool-tools-20261019`; 052 is the Farmer's round credit-line card on `claude/farmer-round-credit-line-20261019`; 051 is the beginner guide card on `claude/beginner-guide-20261019`; 050 is the Markdown pets card on `claude/markdown-pets-20261019`; 049 is the Unity Stable asset tools card on `claude/unity-stable-asset-tools-20261019`; 048 is the how-the-agents-work card on `claude/how-agents-work-20261019`; 047 is the panels card on `claude/programmer-words-20261019`; 043 is the Unity Unicorn page-modules card; 044 is the pet program spawner card; 045 is the crash-watch card on `claude/crash-watch-pets-20261018`; 046 is the desktop clicker card on `claude/clicker-rule-20261018`; 041 is the Linux readiness card on `claude/linux-readiness-20261018`, PR #95; 036 and 037 are the desktop PC's for the overnight run, card 036; 038 is the chat-order card for Skill Scout; 031 and 032 are taken on branches; 033 is the credit-line card; 034 is the System Map card; Workflow Whale moved from 038 to 040, preserving the chat-order card on main; 039 is the installer card. When numbers clashed, the
 card that reached `main` first kept its number, then the oldest card on a branch.
 
 | No. | Card | Where it is now |
@@ -145,8 +160,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 069 | `069-any-shared-lines-proposal-20261021.md` | `claude/shared-lines-proposal-20261021` |
 | 070 | `070-any-hub-public-again-20261021.md` | `claude/hub-public-answers-20261021` |
 
-
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on
-`claude/card-008-new-placeholders` and `add-backup-beaver-candidate`. If one is ever brought to `main`, it takes the
-next free number.
+`claude/card-008-new-placeholders` and `add-backup-beaver-candidate`. If one is ever brought to `main`, it takes its
+pull request's number.

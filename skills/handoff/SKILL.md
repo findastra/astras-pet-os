@@ -77,7 +77,8 @@ authorization forward; do not make Astra repeat it. Resume by checking that evid
 ## GitHub card format
 
 For repos using numbered cards, use `handoffs/NNN-short-name-YYYYMMDD.md` (optionally
-`-HHMMSS` after the date). Apply Astra's lowercase naming rule and America/Denver time.
+`-HHMMSS` after the date), where NNN is the number of the pull request that adds the card
+(below). Apply Astra's lowercase naming rule and America/Denver time.
 Keep existing filenames. Required `SKILL.md`, `AGENTS.md` and `CLAUDE.md` keep their
 loader-required names; surface that reserved-name exception before creating a new one.
 
@@ -118,9 +119,12 @@ publishing its personal path. The recipient must obtain access to required evide
 claiming to have verified it; missing access remains an explicit gap.
 Do not claim an unknown model version; identify the assistant/session you can verify.
 
-Read `handoffs/README.md`, check cards and number reservations across remote branches, then
-reserve the next free number and add the card/index row in the same commit. Recheck before
-pushing; resolve collisions without renumbering already accepted cards. Branch commits and
+A new card's number is the number of the pull request that adds it (Astra, 2026-10-21, hub
+card 069). Open the pull request first, then name the card `handoffs/<that number>-...` in its
+next commit. GitHub hands out the number, so there is nothing to reserve and no shared list to
+edit: `handoffs/README.md` gets no row, and the card's own first lines are its status. Cards
+numbered before 2026-10-22 keep their numbers; where two of them share one, the card that
+reaches `main` first keeps it and the other takes its pull request's number. Branch commits and
 PRs are discoverable delivery, but do not claim they are merged or installed.
 
 ## Astra's PetOS projects
