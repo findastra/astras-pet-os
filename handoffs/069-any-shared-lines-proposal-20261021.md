@@ -1,4 +1,4 @@
-status: open (all four answered and merged: #199, github-goldfish#26, #207; left: move the last credit lines)
+status: done when #213 and github-goldfish#27 merge (all four answered and merged: #199, github-goldfish#26, #207)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -168,10 +168,23 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   - The tables keep the cards numbered before 2026-10-22. #204's 071 is the old counter's last; its row and counter
     line are written as #204 writes them, so #204 merges cleanly. #179's 064 becomes 179.
   - Tests: 307 of 308 pass, 1 skipped. No open pull request gets a new conflict.
-  - Right after the merge: #178 closed as carried in #207 (Astra's words above), and the hub's handoff skill installed
-    in both seats. The follow-up pull request that moves the last credit lines records the merge commit and the
-    install check.
   - #204 merged with card 071 before #207, and the card lists merged without a conflict, as planned.
+  - **Merged** as `7075983` (2026-10-22), after `main` (#204, #208) was merged in. The tree on `main` is the tested
+    tree: 308 of 309 tests pass, 1 skipped.
+  - **#178:** its three commits reached `main` unchanged, so GitHub marked it merged by itself, and there was nothing
+    left to close. A comment on #178 says it was carried in #207. Codex's branch is kept.
+  - **The handoff skill is installed in both seats**, Claude's and Codex's `skills/handoff/SKILL.md` under the user
+    folder.
+    - Before: both copies matched #178's version, apart from line endings. They are backed up in a private local
+      folder, available from the owner.
+    - After: both copies are byte-identical and have the same text as hub `main`'s `skills/handoff/SKILL.md`
+      (`0929418`), with Windows line endings as before.
+    - Chats that were already running keep the old skill until they read the new one.
+- **Follow-up, the last credit lines (Astra, 2026-10-22):** the credit lines still at the end of each AGENTS.md
+  moved word for word into the history files.
+  - Hub: four lines, to `changes/history-20261007-20261021.md`, in #213.
+  - GitHub Goldfish: three lines, to `changes/history-20261008-20261021.md`, in findastra/github-goldfish#27.
+  - Both wait on Astra's OK.
 
 ## Receipt and review
 Pending.
