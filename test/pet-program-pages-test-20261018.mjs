@@ -164,8 +164,10 @@ test('every pill says what it does; every program on the map has a plain does li
   const named = Object.fromEntries(d.thirdParty.map((i) => [i.id, i]));
   assert.equal(named.vrcft.name, 'VRCFaceTracking', '"VRCFT" crossed out');
   assert.equal(named.vrcft.desc, "Controls your avatar's face tracking.");
-  assert.equal(named['unity-editor'].name, 'Unity Hub 2022.3.22f1');
-  assert.equal(named['unity-editor'].desc, 'Organizes your Unity projects.');
+  // Unity Hub and the Unity editor are two programs (Astra, 2026-10-21, slides answer 1: A).
+  assert.equal(named['unity-hub'].name, 'Unity Hub 3.21.1');
+  assert.equal(named['unity-hub'].desc, 'Organizes your Unity projects.');
+  assert.equal(named['unity-editor'].name, 'Unity 2022.3.22f1');
   assert.equal(named.blender.state, 'now', '"idea, not agreed yet" struck');
   assert.ok(files[pagePath('unity-unicorn')].includes(`<span class="item-desc">${esc(vrchat.desc)}</span>`), 'it shows on the pill');
 });

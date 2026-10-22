@@ -439,6 +439,18 @@
     },
     
     {
+      "id": "program-watch",
+      "name": "Program watch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-program-watch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21, all recommended): which of the 3rd party programs on this map are open (Unity Hub, Unity, the Creator Companion, Blender, VRChat, VRCFaceTracking), every five seconds while the watch runs; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/kernel-grove#5, not merged; the pet program pages see it once Startup Star passes it on (card 054)."
+    },
+    {
       "id": "leftover-watch",
       "name": "Leftover watch",
       "type": "tool",
@@ -1241,14 +1253,24 @@
       "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
     },
     {
-      "id": "unity-editor",
-      "name": "Unity Hub 2022.3.22f1",
+      "id": "unity-hub",
+      "name": "Unity Hub 3.21.1",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "The Unity editor used for VRChat avatars and worlds. On the desktop (editing-streaming).",
+      "job": "Installs Unity editors and opens your Unity projects (Astra, 2026-10-21: a program of its own, apart from the editor). On the desktop (editing-streaming).",
       "does": "Organizes your Unity projects."
+    },
+    {
+      "id": "unity-editor",
+      "name": "Unity 2022.3.22f1",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "The Unity editor used for VRChat avatars and worlds (2022.3.22f1 is the version VRChat needs). On the desktop (editing-streaming).",
+      "does": "The editor you build avatars and worlds in."
     },
     {
       "id": "vrchat-creator-companion",
@@ -3266,6 +3288,62 @@
   ],
   "links": [
     {
+      "from": "program-watch",
+      "to": "unity-editor",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrchat-creator-companion",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "blender",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrchat",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrcft",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "unity-unicorn",
+      "to": "unity-hub",
+      "carries": "manages",
+      "state": "now",
+      "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in (Astra, 2026-10-21: Unity Hub and Unity are two programs)."
+    },
+    {
+      "from": "unity-hub",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed on the Desktop PC (version 3.21.1, checked 2026-10-21)."
+    },
+    {
+      "from": "program-watch",
+      "to": "unity-hub",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
       "from": "findastra-discord-presence",
       "to": "dm-archive-review",
       "carries": "opens",
@@ -3761,6 +3839,13 @@
       "carries": "opens",
       "state": "now",
       "why": "outstanding-items writes the list the Pets Board shows, on this PC only."
+    },
+    {
+      "from": "program-2",
+      "to": "pets-board",
+      "carries": "opens",
+      "state": "now",
+      "why": "GitHub Aquarium opens its Pets Board, the full list of what waits on you on GitHub (the Open button in its outstanding-items tool panel)."
     },
     {
       "from": "pet-packs",

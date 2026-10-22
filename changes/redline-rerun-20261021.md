@@ -11,6 +11,8 @@ listed in the redline register of card 071 (`handoffs/071-any-redline-rerun-2026
   still shows L4 "you are here".
 - VRCFaceTracking, Unity Hub 2022.3.22f1 and her own does lines for them and VRChat; Blender in use (no "idea" tag,
   optional in Unity Unicorn's needs); "avatar plans" back in Unity Stable's summary.
+- A 3rd party program is red, "not seen running", until something reports it (Astra: Blender showed green while closed).
+- Unity Hub 3.21.1 and Unity 2022.3.22f1 are two programs; Kernel Koala's program-watch (findastra/kernel-grove#5) is on the map as a planned tool (her slides, all recommended).
 - PET-PROGRAM-FRAMEWORK.md, PET-WORDS.md, README.md and the tests say the same.
 
 By Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21.

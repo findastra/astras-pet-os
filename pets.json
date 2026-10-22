@@ -566,7 +566,7 @@
       "asset_date": "20261008",
       "status": "growing",
       "published": true,
-      "visibility": "private",
+      "visibility": "public",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
       "version": "0.3.0-beta",
@@ -777,6 +777,11 @@
             "node": "vrchat",
             "how": "optional",
             "why": "Planned: Tracks which avatars are uploaded to which VRChat account, with Quest, opti and fallback versions (Astra)."
+          },
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in."
           },
           {
             "node": "unity-editor",
@@ -2344,7 +2349,38 @@
           }
         ],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "unity-editor",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrcft",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          }
+        ]
       }
     }
   ],

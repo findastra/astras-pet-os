@@ -87,3 +87,18 @@ kill it too. It literally needs to be like we are trying to close the window."
 - Four questions in slides (Live program lights: 4 questions): Unity as two pills; Kernel Koala's program-watch;
   red closes like the window's X; red opens the program. Order of work: the watch first, tested on her PC, then
   Startup Star's link (card 054), then the page's lights.
+
+### Her answers: "All recommended for the live program lights slides." (2026-10-21)
+
+1. **A, two pills:** Unity Hub 3.21.1 ("Organizes your Unity projects.") and Unity 2022.3.22f1 ("The editor you build
+   avatars and worlds in."). Done on this branch: a `unity-hub` node, Unity Unicorn's link and needs.
+2. **A, Kernel Koala watches:** `kernel-grove-v1.0-program-watch-v1.0`, findastra/kernel-grove#5 (not merged). On the
+   map here as a planned tool of Kernel Grove, linked to the six programs it watches; in Kernel Grove's needs.
+3. **A, red closes like the window's X, never forced:** in kernel-grove#5. Tested on her PC: Blender and the Creator
+   Companion closed; Unity Hub's X only hides it in the tray (as it does by hand), and the tool says so.
+4. **A, red opens the program from its own shortcut:** in kernel-grove#5. Unity Hub, Blender and the Creator Companion
+   opened.
+
+**Next decision (card 054, question 1):** the pages see none of this until Startup Star passes Kernel Koala's file on.
+That is the live link, and card 054 says it "never runs anything a page sends". Opening and closing programs from a
+page changes that, so it needs Astra's own OK before anyone builds it.
