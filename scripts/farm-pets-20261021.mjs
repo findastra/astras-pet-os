@@ -6,6 +6,8 @@
 //
 //   node scripts/farm-pets-20261021.mjs plan add <pet...>        what adding would do; changes nothing
 //   node scripts/farm-pets-20261021.mjs add <pet...> --yes       do it
+//   node scripts/farm-pets-20261021.mjs plan add <pet pack.zip> [--unchecked]     a pet with its code, from a pet pack
+//   node scripts/farm-pets-20261021.mjs add <pet pack.zip> --yes [--unchecked]
 //   node scripts/farm-pets-20261021.mjs plan remove <pet...> [--with-dependents] [--and-unneeded]
 //   node scripts/farm-pets-20261021.mjs remove <pet...> --yes [--with-dependents] [--and-unneeded]
 //   node scripts/farm-pets-20261021.mjs check                    is the farm what its farm lock says? changes nothing
@@ -13,22 +15,26 @@
 //   options: --farm <folder> (default: this copy of Astra's PetOS), --catalog <folder> (the farm's list of pets)
 //
 // A pet is named by its id, its repo or its name. A pet comes in from the farm's own list (its catalog): the pets of its
-// release, which an installed Windows farm keeps in farm-catalog/. Pet packs come in next (Part 5b). Its needs are
+// release, which an installed Windows farm keeps in farm-catalog/. A pet pack (Part 5b, 2026-10-22) also brings the
+// pet's code, checked file by file against the pet's own repo on GitHub (scripts/farm-pets-packs-20261022.mjs); one
+// that cannot be checked comes in only with --unchecked, and its code goes into its own folder next to the farm. Its needs are
 // checked in this order: required pets, all the way down (they come too); then this computer and the core; then
 // third-party programs, which the Farmer never installs. A need he cannot add is said plainly and marked in the farm
 // lock (answer 4). A pet that other pets on the farm require is not taken away without --with-dependents (answer 5),
 // and a pet that came only as a need is taken away only with --and-unneeded. Nothing else ever goes: a pet's data on
 // this computer, its pictures and its repo on GitHub stay. On an installed farm with desktop pets, a running Startup
 // Star is restarted so the change shows. A hub copy (git) changes its pets.json only by pull request, so there add and
-// remove refuse; check and lock work. It writes only the farm's pets.json, its draft list and its farm lock.
-// Node built-ins only. Claude Opus 5.5 (claude-opus-5-5), 2026-10-21.
+// remove refuse; check and lock work. It writes only the farm's pets.json, its draft list, its farm lock and the code
+// folders of pets that came from packs (taken away again only while every file is the one it put there).
+// Node built-ins only. Claude Opus 5.5 (claude-opus-5-5), 2026-10-21 and 2026-10-22.
 import { execFileSync, spawn } from 'node:child_process';
-import { existsSync, readFileSync, realpathSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { existsSync, readFileSync, realpathSync, rmSync } from 'node:fs';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DRAFTS_LIST, RECEIPT, farmPets, readJson, writeAtomic, writeFarmFiles } from './farm-setup-20261019.mjs';
 import { CATALOG, LOCK, SCHEMA, buildLock, chosenIds, coreParts, denverNow, entryHash, missingNeeds, requiredBy, requiredClosure,
   thisOs } from './farm-lock-20261021.mjs';
+import { checkPack, folderChanges, packCode, readPack, writeCode } from './farm-pets-packs-20261022.mjs';
 
 export const TOOL_LABEL = 'the-farm-v1.0-farm-pets-v1.0';
 export const WRITTEN_BY = 'scripts/farm-pets-20261021.mjs';
@@ -49,22 +55,22 @@ const git = (dir, args) => execFileSync('git', ['-C', dir, ...args], { encoding:
  */
 export function readFarm(dir, { catalogDir = null } = {}) {
   const at = (p) => join(dir, p);
-  let kind, info, catalog = catalogDir;
+  let kind, info, layout, catalog = catalogDir;
   const os = thisOs();
   if (existsSync(at('.git'))) {
-    kind = 'hub copy';
+    kind = 'hub copy'; layout = 'hub';
     let commit = null;
     try { commit = git(dir, ['rev-parse', 'HEAD']); } catch { /* not a git checkout after all */ }
     const version = existsSync(at('package.json')) ? `v${readJson(at('package.json')).version}` : null;
     info = { release: { version, commit }, mode: 'farm', cameFrom: 'hub copy', round: existsSync(at(ROUND)) };
     catalog ||= dir;
   } else if (existsSync(at(INSTALL_RECEIPT))) {
-    kind = 'installed';
+    kind = 'installed'; layout = 'windows';
     const r = readJson(at(INSTALL_RECEIPT));
     info = { release: { version: r.version ?? null, commit: r.source_commit ?? null }, mode: r.mode === 'developer' ? 'developer' : 'farm', cameFrom: 'installer' };
     catalog ||= at(CATALOG);
   } else if (existsSync(at(RECEIPT))) {
-    kind = 'installed';
+    kind = 'installed'; layout = 'linux';
     const r = readJson(at(RECEIPT));
     info = { release: { version: r.version ?? null, commit: null }, mode: 'farm', cameFrom: 'installer' };
     catalog ||= r.release_dir;
@@ -79,7 +85,7 @@ export function readFarm(dir, { catalogDir = null } = {}) {
   const parts = coreParts({ kind, os, mode: info.mode, round: info.round });
   const extraPath = [join(catalog, 'system-map.json'), at('system-map.json')].find((p) => existsSync(p));
   return {
-    dir, kind, catalogDir: catalog,
+    dir, kind, layout, catalogDir: catalog,
     catalog: farmPets(catalog), catalogRegistry: readJson(join(catalog, 'pets.json')),
     registry: readJson(at('pets.json')), drafts: existsSync(at(DRAFTS_LIST)) ? readJson(at(DRAFTS_LIST)) : { pets: [] },
     onFarm: farmPets(dir), lock: existsSync(at(LOCK)) ? readJson(at(LOCK)) : null,
@@ -132,6 +138,33 @@ export function planAdd(farm, names) {
   return { action: 'add', stops, changes, notes, missing, keep: [...after].filter((id) => !farm.onFarm.find((p) => p.id === id)?.core), chosen: [...chosen] };
 }
 
+/**
+ * What adding a pet pack would do (Part 5b): the pet's entry and the pets it needs, as planAdd says, and its code, after
+ * every check in checkPack. `pack` is readPack(...); `getRepo` and `unchecked` go to checkPack. Changes nothing.
+ */
+export function planAddPack(farm, pack, { getRepo, unchecked = false } = {}) {
+  const check = checkPack(farm, pack, { getRepo, unchecked });
+  if (check.stops.length) return { action: 'add', stops: check.stops, changes: [], notes: check.notes, missing: [], keep: [], chosen: [], pack: null };
+  const pet = check.pet;
+  const plan = planAdd(farm, [pet.id]);
+  const s = pack.manifest.source;
+  const at = (x) => `${x.version || 'version'} at ${String(x.commit).slice(0, 7)}`;
+  const how = check.checked ? `checked file by file against ${pack.manifest.source.repo} at ${s.commit.slice(0, 7)}` : 'NOT checked against GitHub (--unchecked)';
+  const code = check.replaces
+    ? `its code from ${pack.name} replaces ${check.replaces.pack} (${at(check.replaces)} becomes ${at(s)}), ${how}`
+    : `its code from ${pack.name} (${at(s)}) goes into ${check.folder.abs}, ${how}`;
+  const mine = plan.changes.find((c) => c.id === pet.id);
+  if (mine) mine.says = `${mine.says}; ${code}`;
+  else {
+    plan.notes = plan.notes.filter((n) => !n.startsWith(`${pet.name} is on your farm already`));
+    plan.changes.unshift({ id: pet.id, name: pet.name, repo: pet.repo, chosen: true, says: code });
+    if (!plan.chosen.includes(pet.id)) plan.chosen.push(pet.id);
+  }
+  plan.notes.unshift(...check.notes, `Nothing from a pack runs by itself: run ${pet.name}'s program from its README in ${check.folder.abs} when you choose. Its pictures and page are the farm's own (one art source).`);
+  plan.pack = { pack, check, code: packCode(pack, check) };
+  return plan;
+}
+
 /** What taking `names` away would do. Changes nothing. */
 export function planRemove(farm, names, { withDependents = false, andUnneeded = false } = {}) {
   const chosen = chosenOf(farm);
@@ -163,9 +196,21 @@ export function planRemove(farm, names, { withDependents = false, andUnneeded = 
     break;
   }
   const changes = [...removing].map(([id, says]) => { const p = farm.onFarm.find((x) => x.id === id); return { id, name: p.name, repo: p.repo, says }; });
+  // The code a pet pack brought goes too, but only while every file in its folder is the one the Farmer put there.
+  const folders = [];
+  for (const c of changes) {
+    const code = (farm.lock?.pets || []).find((p) => p.id === c.id)?.code;
+    if (code?.came_from !== 'pet-pack') continue;
+    const abs = resolve(farm.dir, code.folder);
+    const changed = folderChanges(abs, code.files || {});
+    if (!existsSync(abs)) continue;
+    folders.push({ name: c.name, abs, ok: !changed.length });
+    if (changed.length) notes.push(`${c.name}'s code in ${abs} stays: it changed since its pack came in (${changed.slice(0, 3).join('; ')}${changed.length > 3 ? `; and ${changed.length - 3} more` : ''}). Delete it yourself when you are done with it.`);
+    else c.says = `${c.says}; its code from its pet pack in ${abs} goes too`;
+  }
   if (changes.length && !stops.length) notes.push(`Nothing else goes: each pet's data on this computer, its pictures and its repo on GitHub stay.`, desktopNote(farm, changes.map((c) => c.name)));
   for (const id of removing.keys()) chosen.delete(id);
-  return { action: 'remove', stops, changes, notes, missing: [],
+  return { action: 'remove', stops, changes, notes, missing: [], folders,
     keep: farm.onFarm.filter((p) => !p.core && !removing.has(p.id)).map((p) => p.id), chosen: [...chosen] };
 }
 
@@ -202,16 +247,20 @@ export function applyPlan(farm, plan, { restart = restartStar, now = denverNow()
   if (farm.kind === 'hub copy') throw new Error(hubCopyRefusal);
   if (plan.stops.length) throw new Error(`Not done: ${plan.stops.join(' ')}`);
   writeFarmFiles(farm.catalogDir, farm.dir, plan.keep);
-  const lock = writeLock(readFarm(farm.dir, { catalogDir: farm.catalogDir }), { chosen: plan.chosen, did: { did: plan.action, pets: plan.changes.map((c) => c.repo) }, now });
+  const code = {};
+  if (plan.pack) { writeCode(plan.pack.check.folder, plan.pack.pack.code); code[plan.pack.check.pet.id] = plan.pack.code; }
+  for (const f of plan.folders || []) if (f.ok) rmSync(f.abs, { recursive: true, force: true });
+  const did = { did: plan.action, pets: plan.changes.map((c) => c.repo), ...(plan.pack ? { from: plan.pack.pack.name } : {}) };
+  const lock = writeLock(readFarm(farm.dir, { catalogDir: farm.catalogDir }), { chosen: plan.chosen, did, now, code });
   const star = plan.changes.length && farm.info.parts['startup-star'] ? restart(farm.dir) : 'none';
   return { lock, star };
 }
 
 const hubCopyRefusal = "This farm is a hub copy (git): its pets.json is the farm's registry, which changes only by pull request (MAKE-IT-YOURS.md, section 2). Add or take away pets there in a pull request, or on an installed farm.";
 
-/** Writes the farm lock for what is on `farm` now. */
-export function writeLock(farm, { chosen = null, did = { did: 'lock', pets: [] }, now = denverNow() } = {}) {
-  const code = {};
+/** Writes the farm lock for what is on `farm` now. `code` ({ id: code }) is what the plan just put on the farm. */
+export function writeLock(farm, { chosen = null, did = { did: 'lock', pets: [] }, now = denverNow(), code: given = {} } = {}) {
+  const code = { ...given };
   if (farm.kind === 'hub copy') for (const p of farm.onFarm) { const c = cloneCode(farm.dir, p.repo); if (c) code[p.id] = c; }
   const lock = buildLock({ farm: { registry: farm.registry, drafts: farm.drafts }, onFarm: farm.onFarm, chosen: chosen ?? [...chosenOf(farm)],
     info: farm.info, extra: farm.extra, previous: farm.lock, did, now, code });
@@ -245,6 +294,10 @@ export function checkFarm(farm) {
       else if (entryHash(listed) !== entryHash(entry)) out.push(`${p.name}'s entry differs from the one on the farm's list (its catalog).`);
     }
     for (const n of required(p.needs)) if (!farm.onFarm.some((x) => x.repo === n.repo)) out.push(`${p.name} needs ${n.repo}, which is not on this farm.`);
+    if (l.code?.came_from === 'pet-pack') {
+      const changed = folderChanges(resolve(farm.dir, l.code.folder), l.code.files || {});
+      if (changed.length) out.push(`${p.name}'s code in ${resolve(farm.dir, l.code.folder)} is not what its pet pack brought: ${changed.slice(0, 3).join('; ')}${changed.length > 3 ? `; and ${changed.length - 3} more` : ''}.`);
+    }
   }
   for (const id of inLock.keys()) if (!farm.onFarm.some((p) => p.id === id)) out.push(`${inLock.get(id).pet} is in the farm lock but not on the farm.`);
   return out;
@@ -277,18 +330,23 @@ function main() {
   const dir = resolve(opt('--farm') || fileURLToPath(new URL('..', import.meta.url)));
   const catalogDir = opt('--catalog');
   const flag = (name) => { const i = args.indexOf(name); if (i >= 0) args.splice(i, 1); return i >= 0; };
-  const yes = flag('--yes'), withDependents = flag('--with-dependents'), andUnneeded = flag('--and-unneeded');
+  const yes = flag('--yes'), withDependents = flag('--with-dependents'), andUnneeded = flag('--and-unneeded'), unchecked = flag('--unchecked');
   let [cmd, ...rest] = args;
   const planOnly = cmd === 'plan';
   if (planOnly) [cmd, ...rest] = rest;
   const say = (s) => console.log(s);
   if (cmd === 'add' || cmd === 'remove') {
-    if (!rest.length) throw new Error(`Name the pets to ${cmd}, by id, repo or name.`);
+    if (!rest.length) throw new Error(`Name the pets to ${cmd}, by id, repo or name, or a pet pack (.zip) to add.`);
     const farm = readFarm(dir, { catalogDir: catalogDir && resolve(catalogDir) });
     if (farm.kind === 'hub copy') throw new Error(hubCopyRefusal);
     if (!farm.lock) say(`This farm has no farm lock yet: every pet on it counts as one you chose.`);
-    const plan = cmd === 'add' ? planAdd(farm, rest) : planRemove(farm, rest, { withDependents, andUnneeded });
-    const again = [process.env.ASTRAS_PET_OS_FARM_PETS_COMMAND || 'node scripts/farm-pets-20261021.mjs', cmd, ...rest, ...(withDependents ? ['--with-dependents'] : []), ...(andUnneeded ? ['--and-unneeded'] : [])].join(' ');
+    const zips = rest.filter((r) => /\.zip$/i.test(r));
+    if (zips.length && (cmd !== 'add' || rest.length !== 1)) throw new Error('Add one pet pack at a time, on its own: add <pet pack.zip>.');
+    const plan = zips.length
+      ? planAddPack(farm, readPack(readFileSync(resolve(zips[0])), basename(zips[0])), { unchecked })
+      : cmd === 'add' ? planAdd(farm, rest) : planRemove(farm, rest, { withDependents, andUnneeded });
+    const again = [process.env.ASTRAS_PET_OS_FARM_PETS_COMMAND || 'node scripts/farm-pets-20261021.mjs', cmd, ...rest, ...(withDependents ? ['--with-dependents'] : []),
+      ...(andUnneeded ? ['--and-unneeded'] : []), ...(unchecked ? ['--unchecked'] : [])].join(' ');
     say(formatPlan(plan, planOnly || !yes ? again : null));
     if (plan.stops.length) { process.exitCode = 1; return; }
     if (planOnly || !yes || !plan.changes.length) return;

@@ -128,16 +128,18 @@ It copies the program to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the d
 with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and adds the
 Start menu shortcuts. It does **not** start with Windows unless you tick that box (or pass `-StartWithWindows`). It
 writes `install-receipt.json` with the version, the farm you chose and a SHA-256 of the program it built. The desktop
-pets use under 100 MB of memory and almost no CPU.
+pets use under 100 MB of memory and almost no CPU. In developer mode it builds nothing: it copies the program, writes
+the words the pages use into `apps/words-mode-20261019.js`, and makes the Start menu shortcuts (the receipt says
+`"mode": "developer"`).
 
 **The pets a pet needs come too (Astra, 2026-10-21).** From scratch, ticking a pet ticks every pet it requires, greyed
 out with "Needed by ..." (with `-Pets`, the installer says what came along). It keeps the release's own list of pets
 in `farm-catalog\` and writes the **farm lock**, `farm-lock-20261021.json`: exactly which pets your farm runs, where
 each came from with a SHA-256 of its entry, and what each still needs that it cannot add, such as a program to
 install yourself. Run it again and the window opens with your farm's pets ticked. To add or take away one pet later
-without the installer, use the Friendly Farmer's farm-pets tool ([MAKE-IT-YOURS.md](MAKE-IT-YOURS.md), section 2). In developer mode it builds nothing: it copies the program, writes
-the words the pages use into `apps/words-mode-20261019.js`, and makes the Start menu shortcuts (the receipt says
-`"mode": "developer"`).
+without the installer, use the Friendly Farmer's farm-pets tool ([MAKE-IT-YOURS.md](MAKE-IT-YOURS.md), section 2). It
+also adds a pet pack, with its code in its own folder next to the install, checked against GitHub first (section 6).
+Uninstalling removes those folders too, unless you changed a file in one: then that folder is kept, and named.
 
 **For developers only:** the source is this repo ([README.md](README.md)). The installer zip of each release is made
 with `node scripts/installer-zip-20261018.mjs <tag>`.

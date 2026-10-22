@@ -559,6 +559,14 @@ try {
     $onFarm = @($farmPets | Where-Object { $_.Core -or $Farm -eq 'Example' -or $keep -contains $_.Id })
     if ($dev) { Write-Host "Developer mode: $(if ($Farm -eq 'Example') { "Astra's example agents" } else { 'minimal install' }) ($($onFarm.Count) agents: $(($onFarm | ForEach-Object { $_.DevName }) -join ', '))" }
     else { Write-Host "Farm: $(if ($Farm -eq 'Example') { "Astra's example pets" } else { 'from scratch' }) ($($onFarm.Count) pets: $(($onFarm | ForEach-Object { $_.Name }) -join ', '))" }
+    # A pet that leaves the farm here keeps the code its pet pack brought, in its own folder next to it (Part 5b).
+    foreach ($p in @(Get-Field $previousLock 'pets')) {
+        $code = Get-Field $p 'code'; $id = [string](Get-Field $p 'id')
+        if ($code -and (Get-Field $code 'came_from') -eq 'pet-pack' -and -not @($onFarm | Where-Object { $_.Id -eq $id }).Count) {
+            $folder = [IO.Path]::GetFullPath((Join-Path $InstallDir (([string](Get-Field $code 'folder')) -replace '/', '\')))
+            Write-Host "$(Get-Field $p 'pet') leaves the farm, but the code its pet pack brought stays in $folder. Delete that folder yourself, or add the pet back."
+        }
+    }
 
     # 3. Stop this install's desktop pets if they are running, so they can be rebuilt (running the installer again)
     $exe = Join-Path $InstallDir 'bin\desktop-pets-20261008.exe'
