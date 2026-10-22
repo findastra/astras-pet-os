@@ -83,7 +83,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the pet passport. Its grants have their own panel. |
 | **`<pet>-rwx-panel`** | permissions panel: designed access vs enforced access (access review) | What each level should be (R W X), then whether that is in code: ✓ In code, ⚠︎ Rule only, ○ Not built, each In code with its proof (Astra, 2026-10-19, option C). |
 | **tool box** | card with a title (HTML `fieldset` with a `legend`) | How one tool shows on a page, with its versioned label on the top border. |
-| **trick box** | skill card | How one trick shows: where it came from, which tools it uses, ON/OFF. |
+| **trick box** | skill card | How one trick shows: where it came from, which programs, tools and tricks it uses, ON/OFF. |
 | **connection box** | integration card: what flows between two services | A box titled with the other pet's name: what each side sends and receives, with its own ON/OFF. |
 | **paired lights** | two toggle buttons per item | ON/OFF on the left, maintenance on the right. |
 | **ON/OFF light** | kill switch (a feature flag) | Green on, red off. Turning it back on after a security OFF needs L4. |
@@ -125,7 +125,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **native** | first-party (Astra made it), as opposed to third-party | Everything a pet program owns is a native program, a native tool or a native trick ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). |
 | **native program** | first-party application | Opened or run on its own (Startup Star, the System Map, Ghost Protocol). The only kind the System Map draws. |
 | **tool** (native tool) | first-party module or script (deterministic code) | Code the pet program runs with no AI, for one job. ON/OFF, maintenance light, version. Listed on its card, never drawn. |
-| **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | Written steps the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. Listed on its card, never drawn. |
+| **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | A way of using the pet's 3rd party programs, native programs, native tools and native tricks (Astra, 2026-10-21): written steps the pet's AI follows. Kept by Skill Scout. Listed on its card, never drawn. |
 | **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
 | **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
 | **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |

@@ -2309,6 +2309,38 @@
           }
         ]
       }
+    },
+    {
+      "repo": "kernel-grove",
+      "pet": "Kernel Koala",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Processes, memory, drivers and OS internals.",
+      "added": "2026-10-21",
+      "version": "0.1.0-20261021",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",
+        "needs": "your OK to stop a leftover or switch a sign-in item off"
+      },
+      "note": "Astra, 2026-10-21: \"what are all of these programs running on my task manager? ... Make a tool for me and decide what pet it goes on for managing task manager and monitoring unnecessary applications.\" Kernel Grove's window (process-sweep, startup-switch, service-host-explainer) and its background leftover-watch, merged 2026-10-21 (findastra/kernel-grove#3, with Astra's OK). No tray icon: its menu is in Startup Star's menu under Kernel Koala. No pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/kernel-grove-20261018.html",
+      "interface_local_url": "apps/pet-programs/kernel-grove-20261018.html",
+      "submitted": "2026-10-21",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "log-den",
+            "how": "required",
+            "why": "Log Den owns the farm event format and the background-pet contract Kernel Grove is built with."
+          }
+        ],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {

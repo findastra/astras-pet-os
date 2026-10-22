@@ -1,4 +1,4 @@
-status: open (Astra already said OK to merge, in chat, 2026-10-19: "merge it if [the checks] pass"; it only kept conflicting because main moved)
+status: open (merged as #136 on 2026-10-21 with Astra's OK in chat; tasks 2 to 4 left: 2 and 4 wait on Astra)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: system-map.json (five `*-checker` tools of `program-2`), findastra/github-goldfish README and `index.html`
@@ -25,6 +25,12 @@ the error checkers."
 - Decision row in `skills/new-pet-or-tool/SKILL.md`.
 - `npm test` 208 pass, `npm run check` OK. CodeQL passed on every push; the pull request conflicted three times only
   because other pull requests merged into `main` first (generated files: take `main`'s side, then `npm run build`).
+
+**Merged, 2026-10-21** (Claude Opus 5.5, `claude-opus-5-5`, from the outstanding-items chat): `main` merged into the
+branch four times (#167 to #189, #182 and #187), the card renumbered 057 → 067 → 068 (click-check, then Kernel Grove,
+reached `main` first), its five map nodes put back on `main`'s system-map.json (which #187 had turned to LF line
+endings), generated files rebuilt, `npm test` passed, then merged with Astra's OK in chat ("OK to merge #136 only for now. Hold
+#190."). The branch is kept: hub #190 (GitHub Aquarium's outstanding-items) was built on it and is held.
 
 ## To do
 

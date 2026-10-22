@@ -22,7 +22,7 @@
     "harness": "Agent harness (the glass and the seat)",
     "assistant": "Harness program or adviser",
     "tool": "Tool: belongs to a pet program, same ring and permissions",
-    "trick": "Trick: steps a pet's seated AI follows, using only that pet's tools"
+    "trick": "Trick: a way of using its pet's 3rd party programs, native programs, native tools and native tricks; steps its seated AI follows"
   },
   "carries": {
     "builds": "code and changes made by an assistant on a branch, from a handoff card",
@@ -386,6 +386,58 @@
       "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
     },
     {
+      "id": "process-sweep",
+      "name": "Process sweep",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-process-sweep-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "startup-switch",
+      "name": "Startup switch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-startup-switch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "service-host-explainer",
+      "name": "Service Host explainer",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): what each \"Service Host: ...\" row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "leftover-watch",
+      "name": "Leftover watch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-leftover-watch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
       "id": "crash-catcher",
       "name": "Crash catcher",
       "type": "tool",
@@ -700,15 +752,7 @@
       "job": "Bash, terminal scripting and guarded automation.",
       "layer": 4
     },
-    {
-      "id": "kernel-koala",
-      "name": "Kernel Koala",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Processes, memory, drivers and OS internals.",
-      "layer": 4
-    },
-    {
+{
       "id": "proxy-axolotl",
       "name": "Proxy Axolotl",
       "type": "roadmap",
@@ -3586,7 +3630,7 @@
       "why": "Linux phase 1 pair."
     },
     {
-      "from": "kernel-koala",
+      "from": "kernel-grove",
       "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
@@ -6237,6 +6281,52 @@
         "next": "Iron Gates issues the grant; The Police Station watches that Linux Iceberg writes nothing."
       },
       {
+        "id": "kernel-koala-look",
+        "who": "Kernel Koala (Kernel Grove: process-sweep, service-host-explainer, leftover-watch)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:kernel-grove"
+        ],
+        "on": "every running program on this PC (name, file, command line, parent, memory, CPU, listening ports), Windows' services and what starts at sign-in",
+        "resources": [
+          "ring:5",
+          "ring:6",
+          "type:pet",
+          "type:pipeline"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Kernel Grove reads through WMI, the IP Helper API and the registry, and writes only its own data folder (its farm event log, saved reports without command lines, its menu and mood files). Nothing enforces this: it runs as you. Asked for on 2026-10-21; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Kernel Grove writes only its own folder."
+      },
+      {
+        "id": "kernel-koala-stop",
+        "who": "Kernel Koala (Kernel Grove: process-sweep, startup-switch)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:kernel-grove"
+        ],
+        "on": "a running program Astra picks and confirms (Stop it), and Astra's own sign-in switches (HKCU StartupApproved), never Windows, security, AI apps, pets, programs running as administrator or itself",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "no",
+        "status": "written",
+        "how": "Only after Astra presses the button and confirms; every stop and switch goes to the farm event log. The list of what it never stops is code (kernel-grove-20261021.cs, checked by --self-test), and Windows itself refuses a normal program that tries to stop an administrator's program, but nothing outside Kernel Grove enforces the rest: it runs as you. Asked for on 2026-10-21; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches every stop and switch."
+      },
+      {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
         "level": ["L1","L2"],
@@ -6866,7 +6956,21 @@
           }
         ]
       },
-      "log-den": {
+      "kernel-grove": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 98,
+            "why": "The window and the background watch: Windows processes, services, ports and the sign-in list need native calls, so it is C#, built with the compiler that ships with Windows."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the branch on 2026-10-21 (findastra/kernel-grove#3)."
+          }
+        ]
+      },
+            "log-den": {
         "languages": [
           {
             "language": "C#",

@@ -142,8 +142,10 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
    | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
 
-   Tricks and skills, divided: a **trick is owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
-   tool panel, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
+   Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
+   and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
+   and Native Tools"), and it is **owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
+   tool panel, Skill Scout) and it uses only what the pet has; only the AI in the seat can carry it out, so it also shows as
    "running now" on the L3 tool panel. A **harness skill** belongs to the seat (L3), not to the pet, and helps an AI work on
    the pet. When an AI follows it, it is a trick or a skill, never a tool. The chart of all three, with runtime and
    security: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
@@ -437,10 +439,11 @@ the way Linux distributions take bug reports and fixes from their users. The **v
 ## 11. Tools, tricks, shared tools and the Shed
 
 Full explanation with four real examples: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md).
-- A **tool** is code the pet program owns (L1); a **trick** is a skill the pet program owns (L2) and its L3 agent
+- A **tool** is code the pet program owns (L1); a **trick** is a way of using the pet's 3rd party programs, native
+  programs, native tools and native tricks (Astra, 2026-10-21), a skill the pet program owns (L2) and its L3 agent
   follows, shown in a trick box (`<pet-program>-v<version>-<trick>-trick-v<trick version>`) with its origin, the
-  tools it uses and ON/OFF. A trick never brings permissions of its own, and its text is not a security boundary: only
-  the grants on its tools hold. A **harness skill** belongs to the seat, not the pet. **Skill Scout** keeps track of
+  programs, tools and tricks it uses and ON/OFF. A trick never brings permissions of its own, and its text is not a
+  security boundary: only the grants on what it uses hold. A **harness skill** belongs to the seat, not the pet. **Skill Scout** keeps track of
   every trick.
 - **Shared tools:** one copy, owned by one pet program; other pets get a **grant** from Iron Gates (folders, R W X,
   limits), approved by L4 and shown in both pets' connection boxes.
