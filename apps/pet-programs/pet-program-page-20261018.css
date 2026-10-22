@@ -181,12 +181,16 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
 .pill > .item-desc, .pill > .label { display: block; }
-/* The name's first line sits on the border, right of the lights (pulled up by the pill's top padding and half a line),
-   and takes no room below it. It stays on that one line, so the border runs on straight after it (Astra, 2026-10-21: a
-   wrapped name cut a gap in the border line); a name too long for the pill ends in "…" and shows whole on hover. */
-.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; width: fit-content; max-width: calc(100% - 51px); margin: -22px 0 3px 51px; padding: 0 6px;
-  font: 14px/19px var(--text); background: linear-gradient(var(--slate), var(--slate)) 0 0 / 100% 11px no-repeat;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
+/* The name's first line sits on the border, right of the lights (pulled up by the pill's top padding and half a line).
+   It never runs under the dropdown arrow at the right, and it is never cut: a name too long for the border wraps, and
+   the rest goes on a line inside the pill (Astra, 2026-10-22: "label being shrunk incorrectly"). Only the first line has
+   the page's colour behind it, so the border runs on straight after it (2026-10-21: a wrapped name cut a gap in it). */
+.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 34px 3px 0; padding: 0; text-indent: 46px;
+  font: 14px/19px var(--text); white-space: normal; overflow-wrap: break-word; }
+.pill > .item-name::first-line { background: var(--slate); }
+/* A space each side on the border; after the first one a word may move down whole rather than break. */
+.pill > .item-name::before { content: "\00a0\200b"; }
+.pill > .item-name::after { content: "\00a0"; }
 /* What it does, at most two lines on the pill; all of it once the pill is open. */
 .item-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin: 2px 0 2px; font-size: 13px; line-height: 1.4; color: var(--chalk); overflow-wrap: anywhere; }
 .pill:has(> .pill-more[open]) > .item-desc { -webkit-line-clamp: unset; }
