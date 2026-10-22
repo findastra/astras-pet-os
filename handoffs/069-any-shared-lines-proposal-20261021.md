@@ -1,4 +1,4 @@
-status: open (waiting on Astra: questions 2 to 4 on the lines every pull request edits, slides; question 1 answered A)
+status: open (all four answered A; build pull requests open; question 3 waits on Codex's #178)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -132,7 +132,14 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   closed down and I left a note on everything so there should be no more working agents on the GItHub besides what
   is open here." She said this right after the recommendation to move the model and version log out of AGENTS.md
   into one small file per change, so it counts as her answer to question 1 only. That chat passed her words on.
-- **Questions 2 to 4:** open. They are still in the deck.
+- **Questions 2 to 4: A, A, A.** Astra, 2026-10-21, in this card's chat: "All recommended for shared-lines questions
+  2 to 4 (card 069, hub #196): A, A, A."
+  - 2 A: the old credit lines move word for word into one history file in `changes/`.
+  - 3 A: a new card's number is its pull request's number, and handoffs/README.md stops listing each card.
+  - 4 A: the hub and GitHub Goldfish change now; every other repo changes with its next pull request.
+- **Build:** one hub pull request (questions 1, 2 and 4) and one in findastra/github-goldfish (questions 1 and 2).
+  Each waits on Astra's OK. Question 3 changes skills/handoff/SKILL.md, which Codex's #178 rewrites; its chat is
+  closed, so #178 needs a decision first (carried with `main` merged in on a `claude/` branch, as #195 did for #177).
 
 ## Receipt and review
 Pending.
