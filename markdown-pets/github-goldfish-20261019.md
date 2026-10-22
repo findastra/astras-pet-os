@@ -55,6 +55,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Gif Giraffe** (Astra's GIF Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Gone Ghost** (Am I a Ghost?): A secret found in a repo becomes a checklist step.
 - **Health Hummy** (The Nectar Nest): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Kernel Koala** (Kernel Grove): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Linux Penguin** (Linux Iceberg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Log Lynx** (Log Den): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Mail Snail** (Mail Shell): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.

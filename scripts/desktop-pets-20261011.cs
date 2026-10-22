@@ -432,6 +432,8 @@ namespace AstraDesktopPets {
       var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
       foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
         list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"}});
+      // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet.
+      list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -895,6 +897,8 @@ namespace AstraDesktopPets {
     void BackgroundTests() {
       foreach(string word in new[]{"--open","--tool","log-den-v1.0-crash-catcher-v1.0","off","github.com","--trace"})if(!BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was refused: "+word);
       foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
+      var koala=BackgroundPets.Find("kernel-grove");
+      if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||!koala.Exe.EndsWith("kernel-grove-20261021.exe")||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
       string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
       try {
         Directory.CreateDirectory(folder);
