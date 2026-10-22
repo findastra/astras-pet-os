@@ -224,7 +224,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-farm-pets-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-10-21: \"All recommended on the six farm lock questions\", card 058, Part 5a): adds one pet to a farm, or takes one away, and keeps the farm lock (farm-lock-20261021.json), which says exactly what the farm runs: where each pet’s entry came from with its SHA-256, which pets need which, and what each still needs that it cannot add. A pet comes in from the farm’s own list of pets with every pet it requires; a pet that others on the farm require is not taken away without --with-dependents. plan shows it first and changes nothing; --yes does it. It writes only the farm’s pets.json, draft list and farm lock, never anything on GitHub, and on a hub copy, whose pets change by pull request, it only checks and records (scripts/farm-pets-20261021.mjs)."
+      "job": "A tool of The Farm (Astra, 2026-10-21: \"All recommended on the six farm lock questions\", card 058, Part 5a): adds one pet to a farm, or takes one away, and keeps the farm lock (farm-lock-20261021.json), which says exactly what the farm runs: where each pet’s entry came from with its SHA-256, which pets need which, and what each still needs that it cannot add. A pet comes in from the farm’s own list of pets with every pet it requires; a pet that others on the farm require is not taken away without --with-dependents. plan shows it first and changes nothing; --yes does it. Since 2026-10-22 (Part 5b) it also adds a pet pack: every file is checked against the pet’s own repo on GitHub at the pack’s commit (a pack it cannot check comes in only with --unchecked), and the pet’s code goes into its own folder next to the farm, never run by itself. It writes only the farm’s pets.json, draft list, farm lock and those code folders, never anything on GitHub, and on a hub copy, whose pets change by pull request, it only checks and records (scripts/farm-pets-20261021.mjs, scripts/farm-pets-packs-20261022.mjs)."
     },
     {
       "id": "pet-packs",
@@ -3911,6 +3911,13 @@
       "carries": "runs-on",
       "state": "now",
       "why": "farm-pets runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "farm-pets",
+      "to": "github",
+      "carries": "opens",
+      "state": "now",
+      "why": "farm-pets reads a pet’s repo at a pet pack’s commit with git, through the PC’s own sign-in, to check the pack file by file; it changes nothing there."
     },
     {
       "from": "pet-packs",

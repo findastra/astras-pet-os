@@ -287,7 +287,7 @@ Copied in when this pack was built, from Astra's PetOS's one art source (\`${ups
 ## Limits
 
 - The pack is not signed yet: check each file against the SHA-256 in \`${MANIFEST}\`.
-- The Friendly Farmer cannot add a pack to a farm yet: his farm-pets tool adds the installer's own pets today, and packs are next.
+- To put this pet on a farm with its code, the Friendly Farmer's farm-pets tool adds this zip (\`node scripts/farm-pets-20261021.mjs add <this zip>\`), after checking every file against ${d.pet}'s own repo on GitHub.
 - A pack is a copy at one version. It does not update itself.
 
 The license is in \`${d.repo}/LICENSE\`.
