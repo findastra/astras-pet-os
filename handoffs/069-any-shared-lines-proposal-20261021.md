@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge #207, question 3 on Codex's carried #178; 1, 2 and 4 merged)
+status: open (all four answered and merged: #199, github-goldfish#26, #207; left: move the last credit lines)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -156,7 +156,8 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
     open pull request there gets a new conflict.
   - Left for a follow-up after the open pull requests merge: the credit lines still at the end of each AGENTS.md
     (hub: the three kept plus #190's; GitHub Goldfish: three) move into the history files.
-- **Question 3: built in #207, waiting on Astra's OK** (`claude/handoff-workflow-merged-20261022`). Astra,
+- **Question 3: #207, merged with Astra's OK in chat** (2026-10-22: "OK, merge hub #207, then close #178 as carried
+  in #207."; `claude/handoff-workflow-merged-20261022`, with `main` merged in again for #204 and #208). Astra,
   2026-10-22: "carry Codex's hub #178 forward on a claude/ branch with main merged in (like #195 did for #177), then
   build question 3 (card number = pull request number) on it."
   - Codex's #178 is carried unchanged, with `main` merged in (`7a3f1f5`). Apart from line endings, the hub's handoff
@@ -167,7 +168,10 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   - The tables keep the cards numbered before 2026-10-22. #204's 071 is the old counter's last; its row and counter
     line are written as #204 writes them, so #204 merges cleanly. #179's 064 becomes 179.
   - Tests: 307 of 308 pass, 1 skipped. No open pull request gets a new conflict.
-  - After it merges: close #178 as carried (Astra's call), and install the skill in both seats.
+  - Right after the merge: #178 closed as carried in #207 (Astra's words above), and the hub's handoff skill installed
+    in both seats. The follow-up pull request that moves the last credit lines records the merge commit and the
+    install check.
+  - #204 merged with card 071 before #207, and the card lists merged without a conflict, as planned.
 
 ## Receipt and review
 Pending.
