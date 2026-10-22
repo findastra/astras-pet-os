@@ -172,13 +172,15 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .items li.pill:hover { background: rgba(255, 255, 255, .09); }
 .items li.pill:has(> details[open]) { border-radius: 16px; }
 /* The dropdown arrow sits on the top border at the right, like the name on the left; it turns down while open. */
-.pill-more > summary { position: absolute; top: -11px; right: 18px; z-index: 1; width: 24px; height: 20px; display: grid; place-items: center;
-  padding: 0 4px; color: var(--chalk); font-size: 13px; line-height: 1;
+.pill-more > summary { position: absolute; top: -13px; right: 16px; z-index: 1; width: 30px; height: 26px; display: grid; place-items: center;
+  padding: 0 5px;
   /* The page's colour only above the border line, so no dark box shows inside the pill (Astra, 2026-10-22: "looks weird"). */
-  background: linear-gradient(var(--slate) 11px, transparent 11px); }
-.pill-more > summary::before { content: "▸"; transition: transform .15s ease; }
+  background: linear-gradient(var(--slate) 13px, transparent 13px); }
+/* A bigger, hollow triangle (Astra, 2026-10-22: "make bigger and hollow"), drawn in the line colour; yellow on hover. */
+.pill-more > summary::before { content: ""; width: 16px; height: 18px; transition: transform .15s ease;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e6e0c9' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+.pill-more > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .pill-more[open] > summary::before { transform: rotate(90deg); }
-.pill-more > summary:hover { color: var(--fix); }
 .pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0 4px; background: linear-gradient(var(--slate) 10px, transparent 10px); }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
