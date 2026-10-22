@@ -1,4 +1,4 @@
-status: open (merged as #136 on 2026-10-21 with Astra's OK in chat; task 2 answered 2026-10-21, its pull request waits on her OK; tasks 3 and 4 left: 4 waits on Astra)
+status: open (merged as #136 on 2026-10-21; tasks 2 to 4 answered by Astra, "all recommended": task 2 done in #201, tasks 3 and 4 in github-goldfish#25, waiting on merge)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: system-map.json (five `*-checker` tools of `program-2`), findastra/github-goldfish README and `index.html`
@@ -49,3 +49,7 @@ endings), generated files rebuilt, `npm test` passed, then merged with Astra's O
 3. **Not done:** github-goldfish's README "Pictures" line still calls the old app page its "program page"; point it at
    `apps/pet-programs/github-goldfish-20261018.html` (a pull request in github-goldfish).
 4. Ask Astra whether "Showcase" is the name she wants (it was proposed, not confirmed).
+
+**Answered, 2026-10-21** (Astra, on the hub-public deck: "All recommended"): task 2, replace the old app page with the
+Goldfish's current page (done in card 070's pull request); task 3, the README's picture line (github-goldfish#25);
+task 4, keep "Showcase" (confirmed in github-goldfish#25). Claude Opus 5.5 (`claude-opus-5-5`).
