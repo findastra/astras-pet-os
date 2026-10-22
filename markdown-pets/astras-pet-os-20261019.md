@@ -66,6 +66,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **GitHub Goldfish** (GitHub Aquarium): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Gone Ghost** (Am I a Ghost?): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Health Hummy** (The Nectar Nest): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
+- **Kernel Koala** (Kernel Grove): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Linux Penguin** (Linux Iceberg): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Log Lynx** (Log Den): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
 - **Mail Snail** (Mail Shell): The daily round runs each pet's self-audit on its day and writes its mood and bubble.
