@@ -102,3 +102,55 @@ kill it too. It literally needs to be like we are trying to close the window."
 **Next decision (card 054, question 1):** the pages see none of this until Startup Star passes Kernel Koala's file on.
 That is the live link, and card 054 says it "never runs anything a page sends". Opening and closing programs from a
 page changes that, so it needs Astra's own OK before anyone builds it.
+
+## The second redline set (2026-10-22)
+
+Astra's `unity-unicorn-redlines-2.zip`: 14 images, each page screenshot followed by her ink alone on black (read
+together with the ink laid over the page), then notes in chat while it was being built. Status: **done** on this
+branch, **ask** = in the slides, **art** = needs drawing, **other PR** = in another repo.
+
+| # | Where | What she marked | What the page does now | Status |
+|---|---|---|---|---|
+| 1 | image 2 | the first set again, ink only | the 31 rows above | done |
+| 2 | L2 Schedule | X: "anything to do w/ schedule is under 'tricks' ... could put a cadence indicator" | no Schedule list; the self-audit is a trick pill with a "weekly" tag; every trick can show its cadence | done |
+| 3 | L2 status line | boxed, "oo unity-unicorn-L3-update-history ??", "tool" | a tool panel with lights, `unity-unicorn-update-history` | done; name and level: ask |
+| 4 | under it | "needs more space" | more room before "Pets it talks to" | done |
+| 5 | Pets it talks to | ellipse, "awkward", "you already know 'pet talks to' should look like ... should be here, right? L3 control or L4?" | unchanged | ask |
+| 6 | its lights | "these buttons look ugly. not sure how else to say it" | unchanged | ask |
+| 7 | L3 | "unity stable program activity"; the bubble's "Unity Unicorn" circled | "Unity Stable program activity: Nobody is working on Unity Stable right now." | done |
+| 8 | L3 bubble | "this is supposed to light up when a chat bot agent is being filled or when" | needs Startup Star's link (card 054) | waits on 054 |
+| 9 | L3 tricks | "oo trick-1 runs tools 1, 2, 3 every week"; "L3 suggestions should be a weekly trick; show tricks like skills" | unchanged | ask |
+| 10 | L3 harness skills | "what is this supposed to look like? Match these skills to the skills available in the Skill Scout?" | unchanged | ask |
+| 11 | L3 | a weekly trick to check Devilish's "My Avatar Closet"; "I want to see a link to 'My Avatar Closet'"; "a perfect example of a 3rd Party Program/Native Program because it is technically both" | unchanged: its link is not known yet (unity-unicorn#27 is a draft) | ask |
+| 12 | L4 | "oo approvals-waiting-on-you", "oo grants", "oo keys (lowercase)", "oo unity-unicorn-required-maintenance", "oo pet-id" | five tool panels with lights and those labels | done |
+| 13 | L4 grants | "what is 'grants'? is this another tool? if so, grants (lowercase)" | the panel says it: permissions, what each level may read, write and run; not a tool | done |
+| 14 | R W X "Should be" | "What should these actually be? Surely our security rings don't allow every level all W, R, and X" | unchanged: each row shows the most any rule allows that level; every level has full R W X on its own folder | ask |
+| 15 | R W X, "Its own repo folder" | "Spelling/grammar error?" | "Its" is right (it belongs to the pet program) | done (no change) |
+| 16 | What Unity Stable may use | ellipse, "▷ dropdown" | a dropdown, closed | done |
+| 17 | R W X closing words | "this doesn't make any sense to me" | rewritten in plain words, behind "how this works" | done |
+| 18 | R W X + session notes | "I want both of these panels to be side by side (columns) and to follow our conventional shrinking/viewing standards" | side by side, stacked on a narrow window | done |
+| 19 | around them | "weird gap" (×4) | the empty band at the top, the empty line under the buttons and the backlog's margin taken out | done |
+| 20 | notes box corner | "make symbol larger" | a bigger drag corner (Chrome and Edge; Firefox keeps its own) | done |
+| 21 | emotions, lit mood | "go back to this style"; "formatting error w/ highlighting" | the lit mood is the same box with a green edge, no glow box | done |
+| 22 | worried | bullets and quote boxed apart: "make those different colors or separate" | a dashed line between them, the quote in its own colour (every mood) | done |
+| 23 | mood symbols | the spot by each pet's head circled: "those spaces need to be standardized across the board, among all pets. add to flash audit" | Flash Audit A61, Mood symbol spot | done (the redraw is art) |
+| 24 | worried Unity Unicorn | "unity unicorn art needs redone" | unchanged | art |
+| 25 | clicker training | "oo" on each row: "those should look/function like tools" | each number of clicks is a pill with its lights | done |
+| 26 | clicker, "-" between "three clicks" and its text | a dash circled | read as the name/description split the pills now have | done |
+| 27 | every panel's closing words | "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down" | "how this works", closed, on every panel (and API Fairy's, the Aquarium's and the photostar panel) | done |
+| 28 | related pets | "all of these should look similar to the emotional state bubbles", "rift-rabbit / I manage..." with the pet beside it | bubbles with the pet's name in the border, "I manage …", the pet beside; the whole bubble opens its page | done |
+| 29 | footer | "missing each side of this panel border" | a whole box | done |
+| 30 | footer | X over MIT license and signature | gone | done |
+| 31 | footer | the languages: "put the language bubbles below; reads all repos' codes associated with this page", then in chat "move the languages to the right of the icons" | bubbles right of the icons, from the pet's repo (other repos' languages are not measured) | done |
+| 32 | footer date | "date on top so don't need" | gone | done |
+| 33 | footer | "not aligned" | By Astra and Find Out More on one line | done |
+| 34 | Find Out More | "use same social media links as the GitHub findastra README.md ... didn't we make a tool for this? Portfolio Puffer?" | her GitHub, then Mommy's Discord, VR TikTok, Pole Dance TikTok and VRChat Instagram, as on her profile | done |
+| 35 | Take Me Home! | X | gone | done |
+| 36 | links, words switch, spawner line | X, "get rid of all of this" | gone (the spawner line is an HTML comment) | done |
+| 37 | chat | "keep these closer on all pet chats" | the lights 4px from the button | done |
+| 38 | header (image 14) | "this should sit here, even if the square borders from the other panels rise above each side" | unchanged | ask |
+| 39 | chat note | "put the photostar in the right corner of the unified border" | the photostar in the footer border's right corner, every page | done |
+| 40 | chat note | "get rid of the puffy cloud borders too" | plain rounded boxes, the name in the border | done |
+| 41 | chat note + screenshot | "dropdown arrow and tool name to open tool, applies to all 3pp, p, to, tr" | every pill's name opens it (a tool that works on the page opens its panel); an arrow on the border shows the rest | done |
+| 42 | chat note | "astras-photostar-panel is its own and the tool is listed too just separately" | its own panel after the four levels on Portfolio Puffer's page; the tool's pill stays in L1; checked live, the editor fits its panel | done |
+| 43 | chat note | photostar: transparent background, small stars closer, two neon border colours first in the photo row; then "cap the star at 5 images, move the image/color picker bar up to the star" | findastra/astras-star-window#3 | other PR |
