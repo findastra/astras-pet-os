@@ -1,4 +1,4 @@
-status: open (merged as #136 on 2026-10-21 with Astra's OK in chat; tasks 2 to 4 left: 2 and 4 wait on Astra)
+status: open (merged as #136 on 2026-10-21 with Astra's OK in chat; task 2 answered 2026-10-21, its pull request waits on her OK; tasks 3 and 4 left: 4 waits on Astra)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: system-map.json (five `*-checker` tools of `program-2`), findastra/github-goldfish README and `index.html`
@@ -41,6 +41,11 @@ endings), generated files rebuilt, `npm test` passed, then merged with Astra's O
    the audit (no Showcase, no pet roster, no private repos) and `pets.json` still links it as the Goldfish's app.
    Astra said it "probably should go away" now that the cyberhome is coming (cyberhome merged in #137, card 054). Ask
    her: replace it with the current github-goldfish page, or remove it and point to the pet program page.
+   **Answered, 2026-10-21:** replace it. Astra: "Yes: open a hub pull request that brings
+   apps/github-goldfish-20261008.html up to github-goldfish main, run the hub's tests, and wait for my OK to merge."
+   Done on branch `claude/goldfish-app-copy-20261021`: the page is now a byte-for-byte copy of github-goldfish `main`
+   (`df01a46`, with #21, #22 and #24). Its pull request waits on her OK. The row for this card in `handoffs/README.md`
+   is left as it was until #196 (card 069, which adds the row just above it) merges, so the two do not collide.
 3. **Not done:** github-goldfish's README "Pictures" line still calls the old app page its "program page"; point it at
    `apps/pet-programs/github-goldfish-20261018.html` (a pull request in github-goldfish).
 4. Ask Astra whether "Showcase" is the name she wants (it was proposed, not confirmed).
