@@ -143,6 +143,55 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .quiet { color: var(--muted); font-size: .9rem; }
 footer { margin-top: 40px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); padding-top: 14px; }
 .sr { position: absolute; left: -9999px; }
+
+/* The results in the newer pages' look (Astra, 2026-10-22: "keep the search results part sort of but use the features
+   of new like the colors and rules"): graphite with neon accents like the Pets Board and the beginner guide, thin rules,
+   each repo's name set into its border like a tool panel's label, and a Find box. The tank and the settings above keep
+   the Goldfish's own colours. */
+#results {
+  --r-bg: #26272b; --r-panel: #2e2f34; --r-line: #4a4b53; --r-text: #ededf2; --r-dim: #a9abb4;
+  --r-err: #ff52d9; --r-warn: #ffd23f; --r-note: #3cf2ff; --r-ok: #b8ff3c; --r-violet: #b47dff;
+  background: var(--r-bg); color: var(--r-text); border: 1px solid var(--r-line); border-radius: 14px;
+  padding: 4px clamp(12px, 3vw, 24px) 18px; margin-top: 24px;
+}
+:root[data-theme="light"] #results {
+  --r-bg: #f4f4f6; --r-panel: #ffffff; --r-line: #c4c5cd; --r-text: #1d1e22; --r-dim: #555761;
+  --r-err: #a3106f; --r-warn: #7a5200; --r-note: #00687c; --r-ok: #376600; --r-violet: #5b2fa8;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) #results {
+    --r-bg: #f4f4f6; --r-panel: #ffffff; --r-line: #c4c5cd; --r-text: #1d1e22; --r-dim: #555761;
+    --r-err: #a3106f; --r-warn: #7a5200; --r-note: #00687c; --r-ok: #376600; --r-violet: #5b2fa8;
+  }
+}
+#results a { color: var(--r-note); }
+#results h2 { display: flex; align-items: center; gap: 12px; color: var(--r-text); }
+#results h2::after { content: ""; flex: 1; border-top: 1px solid var(--r-line); }
+#results .tile { background: var(--r-panel); border-color: var(--r-line); }
+#results .tile b { color: var(--r-ok); }
+#results .tile span, #results .sevline, #results .cat, #results .show-intro, #results .quiet { color: var(--r-dim); }
+#results .tile.has-error b { color: var(--r-err); }
+#results .tile.has-warn b { color: var(--r-warn); }
+#results .sevline strong { color: var(--r-err); }
+#results .chip { background: transparent; color: var(--r-text); border-color: var(--r-line); }
+#results .chip[aria-pressed="true"] { background: var(--r-note); border-color: var(--r-note); color: #14151a; }
+#results .find { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 4px 0 6px; }
+#results .find input { flex: 1 1 240px; background: var(--r-panel); color: var(--r-text); border: 1px solid var(--r-line); border-radius: 8px; padding: 8px 10px; font: inherit; }
+#results .find .quiet { margin: 0; }
+#results .repo { position: relative; background: transparent; border: 1px solid var(--r-line); border-radius: 12px; margin: 26px 0 0; overflow: visible; padding-top: 8px; }
+#results .repo > header { position: absolute; top: -0.85em; left: 12px; right: 12px; background: transparent; padding: 0; justify-content: space-between; align-items: center; }
+#results .repo > header h3, #results .repo > header .cat { background: var(--r-bg); padding: 0 6px; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .9rem; }
+#results .finding { border-top: 1px solid var(--r-line); }
+#results .repo ul > .finding:first-child { border-top: 0; }
+#results .badge.error { color: var(--r-err); } #results .badge.warn { color: var(--r-warn); } #results .badge.note { color: var(--r-note); }
+#results .tag-private { color: var(--r-dim); border-color: var(--r-dim); }
+#results .evidence { background: var(--r-panel); border-color: var(--r-line); }
+#results .fix { color: var(--r-ok); }
+#results .empty { color: var(--r-ok); }
+#results .show { background: var(--r-panel); border-color: var(--r-line); }
+#results .kind, #results .parts li { background: transparent; border-color: var(--r-line); }
+#results .parts .yes { color: var(--r-ok); } #results .parts .no { color: var(--r-note); } #results .parts .no.must { color: var(--r-warn); }
+#results .show .lbl { color: var(--r-dim); }
 </style>
 </head>
 <body>
@@ -199,6 +248,7 @@ footer { margin-top: 40px; color: var(--muted); font-size: .85rem; border-top: 1
     <div class="tiles" id="tiles"></div>
     <p class="sevline" id="sevline"></p>
     <div class="filters" id="filters" role="group" aria-label="Filter by kind"></div>
+    <div class="find"><label for="find">Find</label><input id="find" type="search" placeholder="A repo, a file or a word"><p class="quiet" id="find-count" aria-live="polite"></p></div>
     <div id="repos"></div>
     <section id="showcase" aria-labelledby="showcase-title">
       <h2 id="showcase-title">Showcase: what each advertised project tells a visitor</h2>
@@ -1314,7 +1364,9 @@ if (typeof module !== 'undefined') module.exports = Goldfish;
 
   /* ===== UI ===== */
   const E = (tag, props = {}, ...kids) => { const el = document.createElement(tag); Object.assign(el, props); kids.forEach((k) => el.append(k)); return el; };
-  let findings = [], meta = null, catFilter = 'All', showNotes = true, showcase = [], kindFilter = 'All';
+  let findings = [], meta = null, catFilter = 'All', showNotes = true, showcase = [], kindFilter = 'All', findText = '';
+  // The Find box narrows the findings to those whose repo, file, kind or words contain what you typed.
+  $('find').addEventListener('input', () => { findText = $('find').value.trim().toLowerCase(); if (meta) render(); });
 
   $('user').value = store.get('goldfish.user') || 'findastra';
   $('never').value = store.get('goldfish.never') || '';
@@ -1354,13 +1406,17 @@ if (typeof module !== 'undefined') module.exports = Goldfish;
   function render() {
     const s = Goldfish.summarize(findings);
     $('results').hidden = false;
-    const tiles = $('tiles'); tiles.replaceChildren(...Goldfish.CATS.map((c) => E('div', { className: 'tile' }, E('b', { textContent: s.cat[c] }), E('span', { textContent: c }))));
+    // Each tile's number is pink when that kind has an error, yellow when its worst is a warning, green when clean.
+    const worst = (c) => (findings.some((x) => x.cat === c && x.sev === 'error') ? ' has-error' : findings.some((x) => x.cat === c && x.sev === 'warn') ? ' has-warn' : '');
+    const tiles = $('tiles'); tiles.replaceChildren(...Goldfish.CATS.map((c) => E('div', { className: 'tile' + worst(c) }, E('b', { textContent: s.cat[c] }), E('span', { textContent: c }))));
     $('sevline').replaceChildren(E('strong', { textContent: `${s.by.error} errors` }), `, ${s.by.warn} warnings, ${s.by.note} notes across ${Goldfish.describeScope(meta)}.`);
     const f = $('filters'); f.replaceChildren();
     const chip = (label, pressed, on) => { const b = E('button', { type: 'button', className: 'chip', textContent: label }); b.setAttribute('aria-pressed', pressed); b.onclick = on; return b; };
     ['All', ...Goldfish.CATS].forEach((c) => f.append(chip(c, c === catFilter, () => { catFilter = c; render(); })));
     f.append(chip('Show notes', showNotes, () => { showNotes = !showNotes; render(); }));
-    const shown = findings.filter((x) => (catFilter === 'All' || x.cat === catFilter) && (showNotes || x.sev !== 'note'));
+    const matches = (x) => !findText || [x.repo, x.where, x.cat, x.sev, x.msg, x.evidence, x.fix].filter(Boolean).join(' ').toLowerCase().includes(findText);
+    const shown = findings.filter((x) => (catFilter === 'All' || x.cat === catFilter) && (showNotes || x.sev !== 'note') && matches(x));
+    $('find-count').textContent = findText ? `${shown.length} finding${shown.length === 1 ? '' : 's'} match` : '';
     const groups = new Map(); shown.forEach((x) => { if (!groups.has(x.repo)) groups.set(x.repo, []); groups.get(x.repo).push(x); });
     const order = [...groups.keys()].sort((a, b) => (b === '(pet roster)') - (a === '(pet roster)') || (a.startsWith('(') ? -1 : 0) - (b.startsWith('(') ? -1 : 0) || groups.get(b).filter((x) => x.sev === 'error').length - groups.get(a).filter((x) => x.sev === 'error').length || a.localeCompare(b));
     const host = $('repos'); host.replaceChildren();
