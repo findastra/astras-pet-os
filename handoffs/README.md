@@ -9,7 +9,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [068: GitHub Aquarium's error checkers on the map, with Showcase next to them](068-any-aquarium-error-checkers-20261019.md) | any | open: merged as #136 (2026-10-21); tasks 2 to 4 left, 2 and 4 wait on Astra (the old Aquarium app page, the name Showcase) |
-| [067: Kernel Koala's first program: what is running, what is safe to stop, what starts at sign-in; Kernel Grove joins the pipeline](067-any-kernel-grove-process-sweep-20261021.md) | any | merged with Astra's OK (kernel-grove#3, #187); waits on: rebuild Startup Star, then Astra tries it |
+| [067: Kernel Koala's first program: what is running, what is safe to stop, what starts at sign-in; Kernel Grove joins the pipeline](067-any-kernel-grove-process-sweep-20261021.md) | any | merged with Astra's OK (kernel-grove#3, #187), Startup Star restarted; waits on Astra: kernel-grove#4, then trying it |
 | [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | done 2026-10-21 with the "what a trick is" pull request (all merged, pets restarted) |
 | [065: Head chat ended: what finished, and what to pick up (commons bullets, description wording, social-row styles, flash-audit-prepper)](065-any-chat-rat-head-chat-end-20261020.md) | any | open: chat ended; items listed |
 | [061: RGBee room lights and the high-level Desktop Commander status panel](061-any-rgbee-and-desktop-commander-panels-20261020.md) | any | open: chat ended before implementation; scope and ownership recorded |
@@ -134,7 +134,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 060 | `060-any-developer-mode-20261019.md` | `claude/developer-mode-20261019` (#155) |
 | 061 | `061-any-rgbee-and-desktop-commander-panels-20261020.md` | `codex/end-chat-handoff-20261020` |
 | 066 | `066-any-page-notes-and-tray-20261021.md` | `claude/page-notes-unity-stable-20261021` |
-| 067 | `067-any-kernel-grove-process-sweep-20261021.md` | `claude/kernel-grove-pipeline-20261021` |
+| 067 | `067-any-kernel-grove-process-sweep-20261021.md` | `main` (merged with #187) |
 | 068 | `068-any-aquarium-error-checkers-20261019.md` | `main` (merged with #136; was 057, then 067) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
