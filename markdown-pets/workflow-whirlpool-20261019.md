@@ -31,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **ipad-workflow-caster** (planned, not built yet): Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. Native project prepared; iPad execution is unverified.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

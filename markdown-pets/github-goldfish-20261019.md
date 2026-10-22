@@ -37,7 +37,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **systemic-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Systemic check. Finds patterns across the whole account: mixed apostrophes and dashes, mixed description style, some repos licensed and some not, a pet missing from the registry. Read only (github-goldfish index.html).
 - **showcase-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-19, at Astra's request): the Showcase check and panel. For every project the profile README advertises, it names its kind (VRChat world, Unity asset library, Discord project, website, pet …) and checks the README shows what that kind should: for a world, what's in it, how to visit, what's being built now and what's missing; plus the last commits and open pull requests. The homepage is the shop window, each README is what's on the shelf. Read only. In github-goldfish index.html (PR #19, merged 2026-10-19).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

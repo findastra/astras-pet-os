@@ -8,8 +8,8 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [067: GitHub Aquarium's error checkers on the map, with Showcase next to them](067-any-aquarium-error-checkers-20261019.md) | any | open: Astra's OK given 2026-10-19 ("merge it if the checks pass"); up to date with `main` again 2026-10-21 |
-| [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | open, waits on Astra: what a trick is (all six pull requests merged and the pets restarted, 2026-10-21) |
+| [067: GitHub Aquarium's error checkers on the map, with Showcase next to them](067-any-aquarium-error-checkers-20261019.md) | any | open: merged as #136 (2026-10-21); tasks 2 to 4 left, 2 and 4 wait on Astra (the old Aquarium app page, the name Showcase) |
+| [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | done 2026-10-21 with the "what a trick is" pull request (all merged, pets restarted) |
 | [065: Head chat ended: what finished, and what to pick up (commons bullets, description wording, social-row styles, flash-audit-prepper)](065-any-chat-rat-head-chat-end-20261020.md) | any | open: chat ended; items listed |
 | [061: RGBee room lights and the high-level Desktop Commander status panel](061-any-rgbee-and-desktop-commander-panels-20261020.md) | any | open: chat ended before implementation; scope and ownership recorded |
 | [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | open, waits on Astra: merge (#155); then her review of the developer names |
@@ -20,7 +20,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | [055: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](055-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
 | [054: The cyberhome, the activity lights and the chat window; the live link to Startup Star](054-any-cyberhome-link-20261019.md) | any | open, paused 2026-10-20: waits on Astra's six questions (first: the live link); #137 merged |
 | [053: Mirror Pool's first tools on the map (fit-any-screen, fit-check, device-shots); the Pocket Message Board](053-any-mirror-pool-fit-tools-20261019.md) | any | open, waits on Astra: the sign on her iPad (platform-platypus#6, #131 and findastra/findastra#7 merged 2026-10-19) |
-| [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open: any assistant, the desk generator fix (round run 39462765053 failed); Astra, one workflow line (three paths on line 59) |
+| [052: The Farmer's round names the README credit line instead of quoting it (run 39304824157)](052-any-farmer-round-credit-line-20261019.md) | any | open, waits on Astra: merge the desk generator fix (`claude/round-words-scripts-20261020`; round run 39462765053 failed); one workflow line (three paths on line 59) |
 | [051: How to Take Care of Your Farm!, a guide for beginners: install Astra's PetOS and make your own farm](051-any-beginner-guide-20261019.md) | any | done when #123 merges (Astra's OK, 2026-10-19); findings 2 and 3 open |
 | [050: Markdown pets for locked-down computers; the installer stops plainly](050-any-markdown-pets-locked-down-20261019.md) | any | open, waits on Astra: merge; then a Windows test |
 | [049: Unity Stable's asset tools published: unity-asset-creator, unity-assets-library, shaders-shop](049-any-unity-stable-asset-tools-20261019.md) | any | done 2026-10-19: unity-unicorn #17 `2e631e4`, hub #119 `b3c105a` |
@@ -133,7 +133,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 060 | `060-any-developer-mode-20261019.md` | `claude/developer-mode-20261019` (#155) |
 | 061 | `061-any-rgbee-and-desktop-commander-panels-20261020.md` | `codex/end-chat-handoff-20261020` |
 | 066 | `066-any-page-notes-and-tray-20261021.md` | `claude/page-notes-unity-stable-20261021` |
-| 067 | `067-any-aquarium-error-checkers-20261019.md` | `claude/aquarium-error-checkers-20261019` (#136; was 057) |
+| 067 | `067-any-aquarium-error-checkers-20261019.md` | `main` (merged with #136; was 057) |
 
 Old drafts on dropped branches have no number: `001`–`005` on `pets-roam-life-20261009` (the "claude mini pet"
 before it was named Claude Bot, and a new-pet lineup) and `008-farmer-register-new-placeholders.md` on

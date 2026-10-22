@@ -22,7 +22,7 @@
     "harness": "Agent harness (the glass and the seat)",
     "assistant": "Harness program or adviser",
     "tool": "Tool: belongs to a pet program, same ring and permissions",
-    "trick": "Trick: steps a pet's seated AI follows, using only that pet's tools"
+    "trick": "Trick: a way of using its pet's 3rd party programs, native programs, native tools and native tricks; steps its seated AI follows"
   },
   "carries": {
     "builds": "code and changes made by an assistant on a branch, from a handoff card",
