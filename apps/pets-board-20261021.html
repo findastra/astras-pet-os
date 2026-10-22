@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Pets Board · GitHub Aquarium</title>
+<meta name="description" content="The Pets Board: everything that waits on you on GitHub, in the order to act, and every pet in one chart.">
+<!--
+  The Pets Board (github-aquarium-v1.0-pets-board-v1.0), a native program of GitHub Aquarium: the full list that
+  GitHub Aquarium's outstanding-items tool (scripts/outstanding-items-20261021.mjs) writes, too big for a tool panel
+  (PET-PROGRAM-FRAMEWORK.md, section 3). Astra, 2026-10-21, all recommended (findastra/github-goldfish card 006).
+  The real list names private repos, so it never comes from the hub: the tool writes it on Astra's PC, to
+  Documents\Astra's PetOS Data\github-aquarium\outstanding-items-page-data.js, and this page reads that one file only
+  when it is opened there (a double-clicked file, or a preview on this PC). Anywhere else it shows made-up examples.
+  Every word goes in with textContent; only https links become links. No dependencies. Developer term: a review queue.
+  Claude Opus 5.5 (claude-opus-5-5), 2026-10-21.
+-->
+<style>
+:root {
+  --bg: #26272b; --surface: #2e2f34; --surface-2: #35363c; --line: #4a4b53;
+  --text: #ededf2; --dim: #a9abb4;
+  --lime: #b8ff3c; --cyan: #3cf2ff; --pink: #ff52d9; --violet: #b47dff; --yellow: #ffd23f;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --gutter: clamp(16px, 5vw, 72px);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 var(--sans); overflow-wrap: anywhere; }
+a { color: var(--cyan); text-underline-offset: 3px; }
+a:hover { color: var(--lime); }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; border-radius: 6px; }
+main { max-width: calc(1180px + 2 * var(--gutter)); margin: 0 auto; padding: var(--gutter); }
+h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.1; margin: 0 0 6px; }
+h2 { font-size: 20px; margin: 0; }
+.label { font: 13px var(--mono); color: var(--dim); }
+.source { margin: 14px 0; padding: 10px 14px; border-left: 3px solid var(--yellow); background: var(--surface); }
+.source.real { border-left-color: var(--lime); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0 20px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; color: var(--text); text-decoration: none; }
+.tile b { display: block; font-size: 30px; line-height: 1.1; }
+.tile span { color: var(--dim); font-size: 13px; }
+.g-broken b, .g-broken > summary h2 { color: var(--pink); }
+.g-you b, .g-you > summary h2 { color: var(--lime); }
+.g-chat b, .g-chat > summary h2 { color: var(--cyan); }
+.g-close b, .g-close > summary h2 { color: var(--yellow); }
+.g-info b, .g-info > summary h2 { color: var(--violet); }
+.search { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 8px; }
+.search input { flex: 1 1 260px; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font: inherit; }
+details.group { border: 1px solid var(--line); border-radius: 12px; margin: 14px 0; background: var(--surface); }
+details.group > summary { cursor: pointer; padding: 12px 16px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+details.group > summary .count { color: var(--dim); font-size: 14px; }
+ol.items { margin: 0; padding: 0 16px 12px 44px; }
+ol.items li { padding: 8px 0; border-top: 1px solid var(--line); }
+ol.items li:first-child { border-top: 0; }
+.item-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.kind, .tag { font: 12px var(--mono); color: var(--dim); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
+.tag.example { color: var(--yellow); border-color: var(--yellow); }
+.tag.security { color: var(--pink); border-color: var(--pink); }
+.does { font-size: 14px; margin-top: 2px; }
+.small { font-size: 13px; color: var(--dim); }
+.empty { color: var(--dim); padding: 0 16px 12px; margin: 0; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-top: 1px solid var(--line); }
+th { color: var(--dim); font-weight: 600; }
+footer { margin: 28px 0 0; padding: 14px 0; border-top: 1px solid var(--line); text-align: center; color: var(--dim); font-size: 13px; }
+code { font: 13px var(--mono); color: var(--dim); }
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="label">GitHub Aquarium · <code>github-aquarium-v1.0-pets-board-v1.0</code></p>
+<h1>Pets Board</h1>
+<p>Everything that waits on you on GitHub, in the order to act, then every pet in one chart. <span class="small">Developer term: a review queue.</span></p>
+</header>
+<p class="source" id="source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
+<nav class="tiles" id="tiles" aria-label="How many in each group"></nav>
+<div class="search"><label for="find">Find</label><input id="find" type="search" placeholder="A repo, a pet, a pull request number or a word"></div>
+<div id="groups"></div>
+<section aria-labelledby="by-pet-title">
+<h2 id="by-pet-title">By pet</h2>
+<p class="small">Every pet program in the order they were made: its mood and what it needs from the Friendly Farmer's last round, and its pull requests.</p>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>Pet</th><th>Program</th><th>Mood</th><th>Needs you</th><th>Pull requests</th></tr></thead><tbody id="pets"></tbody></table></div>
+</section>
+<footer>
+<p>To see what is new, run <code>npm run outstanding-items</code> in the hub folder (or ask any chat to run it), then reload this page. It only reads GitHub, with your own sign-in.</p>
+<p><a href="pet-programs/github-goldfish-20261018.html">GitHub Aquarium</a> · <a href="https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md">the merge order</a> · By Astra</p>
+</footer>
+</main>
+<script type="application/json" id="examples">{"schema":"github-aquarium-outstanding-items-v1","example":true,"checked":"2026-10-21T20:00:00Z","owner":"example","repos":3,"private":1,"counts":{"broken":1,"you":2,"chat":1,"close":0,"info":1},"notes":[],
+"items":[
+{"group":"broken","kind":"job","repo":"example-pet","title":"Example: a daily job failed on main","url":"https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md","since":"2026-10-21T12:00:00Z","does":"Fix: a chat repairs it; merge its fix first","note":"a scheduled job","example":true},
+{"group":"you","kind":"pull request","repo":"example-pet","number":7,"title":"Example: a change that is ready","url":"https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md","since":"2026-10-19T12:00:00Z","does":"Merge: say OK in a chat","example":true},
+{"group":"you","kind":"card","repo":"example-pet","title":"Example: a card that waits on you","url":"https://github.com/findastra/astras-pet-os/blob/main/skills/handoff/SKILL.md","since":"2026-10-20T12:00:00Z","does":"Answer or decide: the card says it waits on you","note":"a name for the new tool","example":true},
+{"group":"chat","kind":"pull request","repo":"example-site","number":3,"title":"Example: a change with a conflict","url":"https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md","since":"2026-10-18T12:00:00Z","does":"Wait: its chat fixes the conflict first","example":true},
+{"group":"info","kind":"pull request","repo":"example-site","number":4,"title":"Example: a draft","url":"https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md","since":"2026-10-20T12:00:00Z","does":"Nothing yet: it is a draft","example":true}],
+"pets":[{"number":1,"pet":"Example Pet","program":"Example Program","repo":"example-pet","page":null,"mood":"curious","says":null,"needs":["Example: a name for the new tool"],"private":false,"prs":[{"number":7,"url":"https://github.com/findastra/astras-pet-os/blob/main/skills/merge-order/SKILL.md","state":"ready"}]}]}</script>
+<script>
+(function () {
+  // From apps/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+  var LOCAL_LIST = "../../../Astra's PetOS Data/github-aquarium/outstanding-items-page-data.js";
+  var GROUPS = [['broken', 'Broken on the main branch'], ['you', 'Waiting on you'], ['chat', 'Waiting on a chat'], ['close', 'Close?'], ['info', 'Still being checked, or drafts']];
+  var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var source = document.getElementById('source');
+  var el = function (tag, text, cls) { var e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; };
+  var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+  var link = function (text, href) { var h = https(href); if (!h) return el('span', text); var a = el('a', text); a.href = h; a.rel = 'noopener'; a.target = '_blank'; return a; };
+  var day = function (iso) { return iso ? String(iso).slice(0, 10) : ''; };
+  var when = function (iso) { try { return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return day(iso); } };
+
+  function itemRow(i) {
+    var li = el('li');
+    li.dataset.find = [i.repo, i.pet, i.title, i.number ? '#' + i.number : '', i.branch, i.note, i.does].filter(Boolean).join(' ').toLowerCase();
+    var head = el('div', null, 'item-head');
+    head.appendChild(el('span', i.kind || 'item', 'kind'));
+    head.appendChild(link((i.number ? i.repo + ' #' + i.number + ' ' : i.repo + ': ') + (i.title || ''), i.url));
+    if (i.private) head.appendChild(el('span', 'private', 'tag'));
+    if (i.security) head.appendChild(el('span', 'security', 'tag security'));
+    if (i.example) head.appendChild(el('span', 'EXAMPLE', 'tag example'));
+    li.appendChild(head);
+    li.appendChild(el('div', i.does || '', 'does'));
+    var more = [i.note, i.pet ? 'pet: ' + i.pet : '', i.who && i.who !== 'Astra' ? 'branch by ' + i.who : '', i.since ? 'since ' + day(i.since) : ''].filter(Boolean).join(' · ');
+    if (more) li.appendChild(el('div', more, 'small'));
+    return li;
+  }
+
+  function show(d, message, real) {
+    source.textContent = message;
+    if (real) source.className = 'source real';
+    var tiles = document.getElementById('tiles'), groups = document.getElementById('groups'), pets = document.getElementById('pets');
+    tiles.textContent = ''; groups.textContent = ''; pets.textContent = '';
+    var items = Array.isArray(d.items) ? d.items : [];
+    GROUPS.forEach(function (g, n) {
+      var mine = items.filter(function (i) { return i && i.group === g[0]; });
+      var t = el('a', null, 'tile g-' + g[0]); t.href = '#group-' + g[0];
+      t.appendChild(el('b', String(mine.length))); t.appendChild(el('span', g[1]));
+      tiles.appendChild(t);
+      var box = el('details', null, 'group g-' + g[0]); box.id = 'group-' + g[0]; box.open = n < 3;
+      var sum = el('summary'); sum.appendChild(el('h2', g[1])); sum.appendChild(el('span', mine.length + (mine.length === 1 ? ' item' : ' items'), 'count'));
+      box.appendChild(sum);
+      if (!mine.length) box.appendChild(el('p', 'Nothing here.', 'empty'));
+      else { var ol = el('ol', null, 'items'); mine.forEach(function (i) { ol.appendChild(itemRow(i)); }); box.appendChild(ol); }
+      groups.appendChild(box);
+    });
+    (Array.isArray(d.notes) ? d.notes : []).forEach(function (n) { groups.appendChild(el('p', 'Not covered: ' + n, 'small')); });
+    (Array.isArray(d.pets) ? d.pets : []).forEach(function (p) {
+      var tr = el('tr');
+      tr.appendChild(el('td', String(p.number)));
+      tr.appendChild(el('td', p.pet));
+      var prog = el('td');
+      // A pet's own pet program page in this hub: a relative path, never a link from anywhere else.
+      if (p.page && /^apps\/pet-programs\/[a-z0-9-]+\.html$/.test(p.page)) { var a = el('a', p.program); a.href = p.page.replace(/^apps\//, ''); prog.appendChild(a); } else prog.textContent = p.program;
+      tr.appendChild(prog);
+      tr.appendChild(el('td', p.mood ? p.mood + (p.says && !/^Need/i.test(p.says) ? ': ' + p.says : '') : '—'));
+      tr.appendChild(el('td', (p.needs || []).join('; ') || '—'));
+      var prs = el('td');
+      if (p.private && !(p.prs || []).length) prs.textContent = 'private';
+      else if (!(p.prs || []).length) prs.textContent = '—';
+      else (p.prs || []).forEach(function (x, k) { if (k) prs.appendChild(document.createTextNode(', ')); prs.appendChild(link('#' + x.number, x.url)); prs.appendChild(document.createTextNode(' ' + x.state)); });
+      tr.appendChild(prs);
+      pets.appendChild(tr);
+    });
+    filter();
+  }
+
+  function filter() {
+    var q = document.getElementById('find').value.trim().toLowerCase();
+    var lis = document.querySelectorAll('#groups li');
+    for (var i = 0; i < lis.length; i++) lis[i].hidden = !!q && lis[i].dataset.find.indexOf(q) < 0;
+  }
+  document.getElementById('find').addEventListener('input', filter);
+
+  function examples(why) {
+    var d = {};
+    try { d = JSON.parse(document.getElementById('examples').textContent); } catch (e) {}
+    show(d, why, false);
+  }
+  if (onThisPC) {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_LIST);
+    script.onload = function () {
+      var d = window.githubAquariumOutstandingItems;
+      if (!d || d.schema !== 'github-aquarium-outstanding-items-v1' || !Array.isArray(d.items)) return examples('The list on this PC is not one this page can read. These are made-up examples.');
+      show(d, 'The Goldfish\'s list on this PC, checked ' + when(d.checked) + ': ' + d.repos + ' repos (' + d.private + ' private), ' + d.prs + ' open pull requests.', true);
+    };
+    script.onerror = function () { examples('The Goldfish has not written its list on this PC yet: run npm run outstanding-items in the hub folder. These are made-up examples.'); };
+    document.head.appendChild(script);
+  } else {
+    examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+  }
+})();
+</script>
+</body>
+</html>

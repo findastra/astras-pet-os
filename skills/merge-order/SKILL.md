@@ -15,6 +15,12 @@ saying **"This branch has conflicts"**. So the order is **worked out fresh** eac
 (every repo Astra uses), with the rank rules below, and shown only in the **chart** in a reply. No pull request edits a
 shared list.
 
+**Start from GitHub Aquarium's outstanding-items (Astra, 2026-10-21).** On Astra's PC, run `npm run outstanding-items -- --md`
+in the hub folder before you build a chart: it reads every repo she owns (read only, with the PC's own GitHub sign-in)
+and lists, in this rank, the jobs failing on a main branch, the pull requests ready for her OK, the cards that wait on
+her, and what each chat must fix first (conflicts, failing checks, pull requests stacked on another branch). It also
+refreshes her Pets Board and GitHub Aquarium's panel. Check the rows that matter to your question just before you ask.
+
 Rank, most important first:
 1. **Security fixes**, by the severity in the newest assessment (high before low). A fix that turns a protection on
    again comes before one that only documents it.
