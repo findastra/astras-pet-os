@@ -567,11 +567,13 @@
     return li;
   };
   var showItems = function (items, message) {
-    source.textContent = message;
+    if (source) source.textContent = message;
     GROUPS.forEach(function (g) {
       var list = box.querySelector('ul[data-group="' + g + '"]');
       var empty = box.querySelector('[data-empty="' + g + '"]');
       var count = box.querySelector('[data-count="' + g + '"]');
+      // A group the page does not draw is left alone (and a page script never stops the rest of the page).
+      if (!list || !empty || !count) return;
       var mine = items.filter(function (i) { return i && i.group === g; });
       list.textContent = '';
       mine.slice(0, FIRST).forEach(function (i) { list.appendChild(row(i)); });
