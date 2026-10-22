@@ -62,11 +62,14 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
-    assert.match(box, /<dt>one click<\/dt><dd>show the current reminder in a dialog box/, `${d.repo}: one click`);
-    assert.ok(box.includes(`<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>`), `${d.repo}: two clicks`);
+    // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22).
+    const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
+    assert.match(box, pill('one click'), `${d.repo}: one click`);
+    assert.match(box.match(pill('one click'))[1], /^Show the current reminder in a dialog box/);
+    assert.equal(box.match(pill('two clicks'))[1], esc(`Open or close ${d.home}, this page.`), `${d.repo}: two clicks`);
     const three = d.clicks['3'];
-    if (three) assert.ok(box.includes(`<dt>three clicks</dt><dd>${esc(three.what)}`), `${d.repo}: three clicks run ${three.tool}`);
-    else assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
+    if (three) assert.equal(box.match(pill('three clicks'))[1], esc(three.what || three.tool), `${d.repo}: three clicks run ${three.tool}`);
+    else assert.match(box.match(pill('three clicks'))[1], /^A tool you assign/, `${d.repo}: three clicks`);
     assert.doesNotMatch(box, /refresh tools/, `${d.repo}: three clicks no longer refresh the tools`);
   }
   // Astra, 2026-10-19: "yes move voicemeeter bug to 3 clicks is the fix".
@@ -75,16 +78,16 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
   assert.equal(bug.clicks['1'], undefined, 'one click is the reminder for every pet');
 });
 
-test('one click always points to the pet program page: every pet\'s link is its page; today\'s app is a button on it (Astra, 2026-10-19)', () => {
+test('one click always points to the pet program page: every pet\'s link is its page; the app it had is in the passport (Astra, 2026-10-19, 2026-10-21)', () => {
   const regs = [...src.registry.pets, ...src.registry.pipeline];
   for (const r of regs) {
     assert.equal(r.interface_url, pagePath(r.repo), `${r.repo}: interface_url`);
     assert.equal(r.interface_local_url, pagePath(r.repo), `${r.repo}: interface_local_url`);
     const html = files[pagePath(r.repo)];
     const today = r.interface_live_url || r.app_url;
-    // "Open app" since 2026-10-21 (Astra crossed out "today's")
-    if (today) assert.match(html, /<a class="button" href="[^"]+">Open app<\/a>|<span class="button off"[^>]*>App is private<\/span>/, `${r.repo}: today's app is a button on its page`);
-    assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open app`), `${r.repo}: the button never opens the page itself`);
+    // No button since 2026-10-21 (Astra put an X over "Open today's app"): the passport links it, or says it is private.
+    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\))<\/dd>/, `${r.repo}: the passport links the app it had`);
+    assert.ok(!html.includes(`href="${r.repo}-20261018.html">the app it had before`), `${r.repo}: the link never opens the page itself`);
   }
 });
 
@@ -102,14 +105,14 @@ test('every page links back to the System Map, top right, on its own node (Astra
 });
 
 // Astra's marked-up screenshot of Unity Stable, 2026-10-21, for every pet program.
-test('the header: no bubble in the cyberhome, the hub\'s map label, the quick summary label, Open app and no Repo button (Astra, 2026-10-21)', () => {
+test('the header: no bubble in the cyberhome, the hub\'s map label, the quick summary label, and no buttons under it (Astra, 2026-10-21)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
     assert.ok(!/class="bubble"|id="bubble"/.test(header), `${d.repo}: "get rid of this entirely"`);
     assert.ok(header.includes(`<span class="legend">${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is astras-pet-os-system-map`);
     assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary`);
-    assert.ok(!/>Repo<|\(private repo\)<\/span><\/p>/.test(header) && !header.includes("today's app"), `${d.repo}: Open app, and no Repo button`);
+    assert.ok(!/class="actions"|class="button/.test(header), `${d.repo}: an X over "Open today's app" and over "Repo"`);
     assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the Pet ID`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
@@ -148,7 +151,9 @@ test('headings count what they hold, and the pet\'s own things are native (Astra
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   assert.ok(unicorn.includes(`<h3>3rd party programs · ${d.thirdParty.length}</h3>`), '3rd party programs · #');
   assert.ok(unicorn.includes(`<h3>Native programs · ${d.programs.length}</h3>`), 'Native programs · #');
-  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length}</h3>`), 'Native tricks · #');
+  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22).
+  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0)}</h3>`), 'Native tricks · #');
+  assert.ok(!unicorn.includes('<h3>Schedule</h3>') && unicorn.includes('>self-audit</span> <span class="tag cadence"'), 'no Schedule list: the self-audit is a trick with its cadence');
   for (const p of pages) assert.ok(!/<h3>Your (programs|tools|tricks|other tools)/.test(files[pagePath(p.repo)]), `${p.repo}: native, not "your"`);
 });
 
@@ -159,7 +164,16 @@ test('every pill says what it does; every program on the map has a plain does li
   }
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   const vrchat = d.thirdParty.find((i) => i.id === 'vrchat');
-  assert.equal(vrchat.desc, 'A social virtual reality platform, where your worlds and avatars live.', "Astra's words for VRChat");
+  assert.equal(vrchat.desc, 'A social virtual reality platform.', "Astra's words for VRChat");
+  // Her words for the others on the same screenshot, and the names she corrected.
+  const named = Object.fromEntries(d.thirdParty.map((i) => [i.id, i]));
+  assert.equal(named.vrcft.name, 'VRCFaceTracking', '"VRCFT" crossed out');
+  assert.equal(named.vrcft.desc, "Controls your avatar's face tracking.");
+  // Unity Hub and the Unity editor are two programs (Astra, 2026-10-21, slides answer 1: A).
+  assert.equal(named['unity-hub'].name, 'Unity Hub 3.21.1');
+  assert.equal(named['unity-hub'].desc, 'Organizes your Unity projects.');
+  assert.equal(named['unity-editor'].name, 'Unity 2022.3.22f1');
+  assert.equal(named.blender.state, 'now', '"idea, not agreed yet" struck');
   assert.ok(files[pagePath('unity-unicorn')].includes(`<span class="item-desc">${esc(vrchat.desc)}</span>`), 'it shows on the pill');
 });
 
@@ -188,9 +202,15 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
     for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
-      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|working correctly|not checked yet)"/);
+      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|working correctly|not checked yet)"/);
       assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
     }
+  }
+  // A 3rd party program is never a guessed green (Astra, 2026-10-21: "I dont have Blender open, so I dont know why it
+  // shows green"): red, not seen running, until something on the PC reports it.
+  const unicorn = files[pagePath('unity-unicorn')];
+  for (const id of ['blender', 'unity-editor', 'vrchat-creator-companion']) {
+    assert.match(unicorn, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: red, not seen running`);
   }
 });
 
@@ -202,7 +222,9 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     const pills = items.split('<li class="pill">').slice(1);
     for (const p of pills) {
       assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
-      assert.match(p, /<details class="pill-more"( open)?><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
+      // The name opens the item itself; a dropdown arrow shows the rest (Astra, 2026-10-22: "dropdown arrow and tool name to open tool").
+      assert.match(p, /^<span class="lights">.*?<\/span>(<a class="item-name" href="[^"]+"|<span class="item-name")/, `${d.repo}: the name, after the lights`);
+      assert.match(p, /<details class="pill-more"( open)?><summary title="Show or hide more about [^"]+" aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the dropdown arrow`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
       // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
@@ -210,14 +232,18 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
-  // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right in its own tool panel,
-  // inside the L1 tool panel, and its pill points there.
-  const l1 = puffer.slice(puffer.indexOf('>portfolio-puffer-L1-tool-panel<'), puffer.indexOf('>portfolio-puffer-L2-tool-panel<'));
-  assert.match(l1, /<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-star-window<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/, "Portfolio Puffer's L1 tool panel holds the Window Star");
-  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill points to its tool panel');
+  // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
+  // 2026-10-22 its panel is its own, after the four levels ("astras-photostar-panel is its own and the tool is listed too
+  // just separately"), and its pill in L1 points there.
+  const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
+  const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
+  assert.ok(at > levelsEnd, "its own panel, after the four levels");
+  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes(">Astra&#39;s Window Star</a>"), "the tool is still listed in L1");
+  assert.match(puffer, /<a class="item-name" href="#astras-star-window-tool-panel" title="Use Astra&#39;s Window Star below">/, 'its name opens its panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
-  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="item-name" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+" title="Open ${name}">${name}</a>`), `${name}: its name links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {
@@ -286,15 +312,15 @@ test('private pets say their data never leaves the PC, and private repos are not
   }
 });
 
-test('"Open today\'s app" never leads into a private repo or its switched-off Pages site (Astra, 2026-10-20: "i privated most repos")', () => {
+test('the app link never leads into a private repo or its switched-off Pages site (Astra, 2026-10-20: "i privated most repos")', () => {
   const regs = [...src.registry.pets, ...src.registry.pipeline];
   const privateRepos = regs.filter((p) => p.visibility === 'private').map((p) => p.repo);
   for (const d of pages) {
-    const actions = files[pagePath(d.repo)].match(/<p class="actions">[\s\S]*?<\/p>/)[0];
+    const actions = files[pagePath(d.repo)].match(/<dt>App<\/dt><dd>[\s\S]*?<\/dd>/)[0];
     for (const r of privateRepos) {
       assert.ok(!new RegExp(`href="https://(github\\.com/findastra|findastra\\.github\\.io)/${r}[/"#?]`, 'i').test(actions), `${d.repo}: today's app leads into private ${r}`);
     }
-    if (d.appPrivate) assert.match(actions, /<span class="button off"[^>]*>App is private<\/span>/, `${d.repo}: the button says why`);
+    if (d.appPrivate) assert.match(actions, /its app \(private: /, `${d.repo}: the passport says why`);
   }
   // The rule itself: a private pet's repo and Pages site; never a public repo, the hub's own copy or another account.
   const reg = { github_owner: 'findastra', pets: [{ repo: 'shut', visibility: 'private' }, { repo: 'open', visibility: 'public' }], pipeline: [] };
@@ -352,7 +378,8 @@ test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-cl
   const vetLink = '/vet-clinic/issues?q=';
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.ok(html.includes('<section><h3>Pet ID</h3>'), `${d.repo}: L4 has a Pet ID`);
+    // Its own tool panel, pet-id, since 2026-10-22 (Astra drew "oo pet-id").
+    assert.ok(html.includes('<span class="legend">pet-id</span>'), `${d.repo}: L4 has a Pet ID`);
     assert.ok(!/pet passport/i.test(html), `${d.repo}: no "pet passport" (the word is Passport Pelican's)`);
     if (vet.visibility === 'private') {
       assert.ok(html.includes('<dt>Vet records</dt><dd>vet-clinic tickets (private repo)</dd>'), `${d.repo}: the private vet-clinic is plain text`);
@@ -363,4 +390,22 @@ test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-cl
   const flipped = { ...src, extra: { ...src.extra, nodes: src.extra.nodes.map((n) => (n.id === 'vet-clinic' ? { ...n, visibility: vet.visibility === 'private' ? 'public' : 'private' } : n)) } };
   const other = spawnerFiles(flipped);
   for (const d of pages) assert.equal(other[pagePath(d.repo)].includes(vetLink), vet.visibility === 'private', `${d.repo}: the link follows the vet-clinic's visibility`);
+});
+
+// Astra, 2026-10-22, "All recommended for the redlines 2 slides" (Unity Stable redlines 2: 6 questions).
+test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows, shared programs, the title lined up', () => {
+  const unicorn = files[pagePath('unity-unicorn')];
+  const talks = unicorn.slice(unicorn.indexOf('<h3 class="talks">'), unicorn.indexOf('>unity-unicorn-L3-tool-panel<'));
+  assert.match(talks, /<ul class="moods related connections"><li class="mood related-pet talk">/, '2: bubbles like the related pets');
+  assert.doesNotMatch(talks, /data-item="connection:/, '2: no lights on each pet it talks to');
+  const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-tool-panel<'), unicorn.indexOf('>unity-unicorn-L4-tool-panel<'));
+  for (const h of ['Tricks running now · 0', 'Suggestions for you · 1', 'Harness skills · 3']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
+  for (const s of ['face-transfer', 'vrchat-unity-world', 'blender-unity-assets']) assert.ok(l3.includes(`data-name="${s}"`), `3: ${s} is a pill`);
+  assert.ok(l3.includes('<span class="tag cadence" title="How often it runs">weekly</span>'), '3: the suggestions are a weekly trick');
+  assert.match(unicorn, /<h3>Shared programs · 1<\/h3>[\s\S]*?>My Avatar Closet</, '4: the closet under Shared programs');
+  assert.ok(!/<h3>3rd party programs[^<]*<\/h3>(?:(?!<h3>)[\s\S])*My Avatar Closet/.test(unicorn), '4: not also a 3rd party program');
+  for (const row of ['a program or tool · its own folder', 'a program or tool · everything else']) assert.ok(unicorn.includes(`<span class="gwho">${row}</span>`), `5: ${row}`);
+  assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /\.top \{ --square: 220px; display: grid;[^}]*align-items: end; \}/, '6: the title block lines up with the squares\' bottom');
 });

@@ -162,7 +162,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -231,7 +231,11 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
-    thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
+    // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
+    thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
+    shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
+    skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
+    devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
@@ -245,10 +249,12 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 // tell you which tools are working and which ones aren't"). Each click moves a light to its next state and the page
 // script shows a bubble saying what that state means. The ON/OFF light is only ever on or off, never grey (Astra,
 // 2026-10-21: "the on/off button should never show as gray because those are either on or off"): something not built
-// yet is off, and only its maintenance light is grey, not checked yet.
-const lights = (key, name, { planned = false } = {}) => {
-  const p = planned ? ' data-planned="1"' : '';
-  return `<span class="lights"><button type="button" class="light onoff${planned ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+// yet is off, and only its maintenance light is grey, not checked yet. A 3rd party program's ON/OFF says whether it
+// is running (Astra, 2026-10-21: "I dont have Blender open, so I dont know why it shows green. It needs to detect that
+// its on"): nothing watches it yet, so it is red, "not seen running", never a guessed green (`unseen`).
+const lights = (key, name, { planned = false, unseen = false } = {}) => {
+  const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'off, not built yet' : unseen ? 'not seen running' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -275,8 +281,8 @@ const built = (state) => !state || state === 'now';
 const showPicture = (i) => !!i.picture && !i.embed;
 
 // A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map.
-const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.id, `<iframe class="tool-frame" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy"></iframe>
-<p class="small">${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}</p>`, { cls: 'tool-embed', id: `${t.id}-tool-panel` })).join('\n');
+const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy"></iframe>
+${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}`)}`, { cls: 'tool-embed', id: `${t.id}-tool-panel`, light: true })).join('\n');
 
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
 // They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
@@ -285,25 +291,34 @@ const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.i
 // that line (Astra, 2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator
 // lights down"). The lights now sit in the border line too, left of the name (Astra, 2026-10-21, drawing them there
 // on every tool: "etc."), and the pill says in one line what the item does, without opening it (her screenshot:
-// "summarize what each program does in here", and a tool panel's "tool description").
+// "summarize what each program does in here", and a tool panel's "tool description"). The name is a link that opens
+// the item, and a dropdown arrow on the border shows or hides the rest (Astra, 2026-10-22, on a 3rd party program:
+// "dropdown arrow and tool name to open tool, applies to all 3pp, p, to, tr").
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const desc = i.desc ? `<span class="item-desc">${esc(i.desc)}</span>` : '<span class="item-desc empty">No description on the System Map yet.</span>';
     const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
-<p class="small">${esc(STATE[i.state] || STATE.now)}${i.url ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
-<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.embed ? `
-<p><a class="button" href="#${esc(i.id)}-tool-panel">Use it below</a></p>` : i.url ? `
-<p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+<p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${i.url || i.embed ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}`;
+    const href = i.embed ? `#${i.id}-tool-panel` : i.url;
+    const name = href ? `<a class="item-name" href="${esc(href)}" title="${esc(i.embed ? `Use ${i.name} below` : `Open ${i.name}`)}">${esc(i.name)}</a>`
+      : `<span class="item-name" title="Its own page is not linked on the System Map yet">${esc(i.name)}</span>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Show or hide more about ${esc(i.name)}" aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
 // A tool panel with an activity light also has its paired lights, left of its label in the border line (Astra,
 // 2026-10-21: two lights drawn before `unity-unicorn-L1-tool-panel`, and "make sure this 'on' ... is working correctly
-// for all tools and panels"). The activity light stays after the label.
-const panel = (label, body, { cls = '', light = false, open = true, id = '' } = {}) =>
-  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel">${light ? lights(`panel:${label}`, label) : ''}<span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+// for all tools and panels"). Nothing comes after the label: the same screenshot brackets the activity light after it
+// and moves it left, to the pair. What the activity light showed, the tool panel's own glow still shows.
+// `key`: where its lights are saved, when the label alone is the same on every page (`grants`, `keys`, `pet-id`).
+const panel = (label, body, { cls = '', light = false, open = true, id = '', key = '' } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel">${light ? lights(`panel:${key || label}`, label) : ''}<span class="legend">${esc(label)}</span></summary>${body}</details>`;
+
+// The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
+// 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
+const about = (html) => `<details class="about"><summary>how this works</summary><p class="small">${html}</p></details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -342,17 +357,27 @@ export function rwxPanelBody(d) {
   return `<p class="small">Should be: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. Then whether that is in code:</p>
 <p class="rwx-key">${key}</p>
 <h3>Who may use ${esc(d.home)}</h3>
-<div class="rwx-rows">${LEVELS.map((l) => levelRow(l, a.on.filter((g) => g.level.includes(l[0])), a)).join('')}</div>
-<h3>What ${esc(d.home)} may use</h3>
-${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}
-<p class="small">From system-map.json: the same grants as the map card and PROTECTION-RINGS.md. A row is only as sure as its weakest grant; open it to see each one. <code>npm run build</code> refuses an In code that names no proof, or a proof file that is not in the repo.</p>`;
+<div class="rwx-rows">${LEVELS.map((l) => {
+  // Two rows per level (Astra, 2026-10-22, answer 5: A): inside the pet program's own folder, and everything else.
+  const mine = a.on.filter((g) => g.level.includes(l[0]));
+  const own = mine.filter((g) => g.self), rest = mine.filter((g) => !g.self);
+  // A level with only one kind of rule (L4, you: everywhere) gets one row.
+  if (!own.length || !rest.length) return levelRow(l, mine, a);
+  return levelRow([l[0], `${l[1]} · its own folder`], own, a) + levelRow([l[0], `${l[1]} · everything else`], rest, a);
+}).join('')}</div>
+<details class="may-use"><summary><h3>What ${esc(d.home)} may use</h3></summary>
+${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}</details>
+${about('Each level has two rows: what it may do inside the pet program’s own folder, and everywhere else. A row shows the most that level is allowed there by any rule; open a row to see every rule behind it and its proof. The row’s mark is the least sure of those rules: one “Rule only” makes the whole row “Rule only”. These are the same rules as the System Map card and PROTECTION-RINGS.md, and the build refuses an “In code” mark that names no proof.')}`;
 }
 
-function connection(c, homeSlug) {
-  const flow = (list) => list.length ? `<ul>${list.map((f) => `<li><b>${esc(f.carries)}</b>${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</li>`).join('')}</ul>` : '<p class="empty">nothing</p>';
-  return `<fieldset class="connection"><legend>${lights(`connection:${c.id}`, `${c.name} connection`)} ${esc(c.name)}</legend>
-<div class="flows"><div><h4>Sends</h4>${flow(c.sends)}</div><div><h4>Receives</h4>${flow(c.receives)}</div></div>
-<p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
+// Each pet it talks to speaks in a bubble like the related pets, its picture beside it, no lights of its own (Astra,
+// 2026-10-22, answer 2: A; her screenshot: "awkward", "these buttons look ugly"). It says what it gets from this pet
+// program and what it sends back.
+function connection(c, d) {
+  const said = (word, list) => list.length ? list.map((f) => `<p><b>${word}</b> ${esc(f.carries)}${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</p>`).join('') : '';
+  const pic = d.related.find((r) => r.id === c.id);
+  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${img(pic?.idle || null, `${c.name}, idle`)}`;
+  return `<li class="mood related-pet talk">${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
 }
 
 // ---------- A pet's own panels, beyond the sketch's minimum ----------
@@ -388,7 +413,7 @@ function keyRequestsPanel(d) {
   const groups = KEY_REQUEST_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return panel(`${d.petSlug}-key-requests-tool-panel`, `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
 <div class="request-groups" id="key-requests">${groups}</div>
-<p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'key-requests', light: true });
+<details class="about"><summary>how this works</summary><p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'key-requests', light: true });
 }
 
 // GitHub Aquarium's outstanding items (Astra, 2026-10-21, all recommended: findastra/github-goldfish card 006): what
@@ -418,7 +443,7 @@ function outstandingPanel(d) {
   return panel(`${d.petSlug}-outstanding-items-tool-panel`, `<p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
 <div class="request-groups outstanding" id="outstanding-items">${groups}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
-<p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p>`, { cls: 'outstanding-items', light: true });
+<details class="about"><summary>how this works</summary><p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'outstanding-items', light: true });
 }
 
 
@@ -465,11 +490,19 @@ function mapRelated(d) {
 const footerIcon = (path) => `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${path}"/></svg>`;
 const GITHUB_ICON = footerIcon('M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z');
 const TIKTOK_ICON = footerIcon('M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z');
-// The maker's links under "By Astra": Astra's own GitHub and TikToks, the same on every farm (upstream, card 058, Part 3).
+const DISCORD_ICON = footerIcon('M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18.2 18.2 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18a19.8 19.8 0 0 0 6 3l1.3-2.1c-.7-.3-1.4-.6-2-1l.5-.4a14.1 14.1 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1L18 21a19.8 19.8 0 0 0 6-3c.5-5.1-.8-9.6-3.7-13.6ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z');
+const INSTAGRAM_ICON = footerIcon('M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1ZM12 6.9a5.1 5.1 0 1 0 0 10.2 5.1 5.1 0 0 0 0-10.2Zm0 8.4a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Zm5.3-9.8a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z');
+// The maker's links under "By Astra", the same on every farm (upstream, card 058, Part 3): her GitHub, then the same
+// socials as her GitHub profile README, in its order (Astra, 2026-10-22: "use same social media links as the GitHub
+// findastra README.md").
+// Astra's photostar (Iced Out Iceberg's astras-star-window), in the footer border's right corner on every page.
+export const PHOTOSTAR = { url: `https://${OWNER}.github.io/astras-star-window/`, picture: `https://${OWNER}.github.io/astras-star-window/star-window.svg` };
 export const FOOTER_LINKS = [
   ['GitHub: Astra', `https://github.com/${OWNER}`, GITHUB_ICON],
-  ['Pole TikTok: @astra_on_fire', 'https://www.tiktok.com/@astra_on_fire', TIKTOK_ICON],
+  ['Mommy’s Discord: Join MMY', 'https://discord.gg/YJUHtGGrJe', DISCORD_ICON],
   ['VR TikTok: @findastra', 'https://www.tiktok.com/@findastra', TIKTOK_ICON],
+  ['Pole Dance TikTok: @astra_on_fire', 'https://www.tiktok.com/@astra_on_fire', TIKTOK_ICON],
+  ['VRChat Instagram: @astra_on_fire', 'https://www.instagram.com/astra_on_fire', INSTAGRAM_ICON],
 ];
 
 export function buildPetProgramPage(d) {
@@ -512,10 +545,10 @@ ${lights(`program:${d.homeSlug}`, d.home)}
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
-<p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open app</a>` : d.appPrivate ? `<span class="button off" title="${esc(d.appPrivate)} is private: its GitHub Pages site is off, and the repo opens only for its owner">App is private</span>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}</p></div>`;
-  // No Repo button (Astra, 2026-10-21, crossing it out on her screenshot, then "1. A" in her slides): the repo link is
-  // in the footer and in L4's Pet ID.
+${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+  // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
+  // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
+  const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
 
   // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
   // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
@@ -530,44 +563,62 @@ ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summa
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
 ${toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${itemList(d.devices, 'device', '')}</section>` : ''}</div>
-<p class="small">From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).</p>${embeddedTools(d) ? `\n${embeddedTools(d)}` : ''}`, { cls: 'level', light: true });
+${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
-  const cadence = d.audit.cadence ? `${d.audit.cadence}, by the Friendly Farmer's round` : 'not set';
-  const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
-<section>${heading('Native tricks', d.tricks)}${itemList(d.tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
-<section><h3>Schedule</h3><ul class="plain"><li>Self-audit: ${esc(cadence)}${d.audit.subject ? ` (${esc(d.audit.subject)})` : ''}</li><li>Weekly backlog run: not set up yet (needs an L3 seat)</li></ul></section>
-<section class="wide"><h3>Status line</h3><dl class="status">
+  // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
+  // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
+  const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
+    desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
+  const tricks = [...selfAudit, ...d.tricks];
+  // The status line is its own tool panel with its lights (her screenshot: "oo unity-unicorn-L3-update-history ??").
+  const history = panel(`${d.petSlug}-update-history`, `<dl class="status">
 <dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></section></div>
-<h3>Pets it talks to</h3>${d.connections.length ? `<div class="connections">${d.connections.map((c) => connection(c, d.homeSlug)).join('')}</div>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`, { cls: 'sub', light: true });
+  const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
+${history}
+<h3 class="talks">Pets it talks to</h3>${d.connections.length ? `<ul class="moods related connections">${d.connections.map((c) => connection(c, d)).join('')}</ul>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
 
+  // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
+  // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
+  const l3Suggest = [{ id: 'weekly-suggestions', name: 'weekly-suggestions', state: 'planned', cadence: 'weekly',
+    desc: `Once a week the seated agent suggests what to do next for ${d.home}.` }];
   const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<ul class="plain">
 <li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
-<li><b>L3 activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.pet)} right now.</span></li>
-<li><b>Tricks running now:</b> none</li>
-<li><b>Harness skills:</b> none recorded in the hub yet (they belong to the seat, not to the pet)</li>
-<li><b>Suggestions for you:</b> none yet</li>
-<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>`, { cls: 'level', light: true });
+<li><b>${esc(d.home)} program activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.home)} right now.</span></li>
+<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>
+<div class="columns">
+<section>${heading('Tricks running now', [])}<p class="empty">None: no seat is connected, so nothing runs by itself.</p></section>
+<section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
+<section>${heading('Harness skills', d.skills)}${itemList(d.skills, `skill:${d.petSlug}`, 'None matched in Skill Scout’s catalog yet. They belong to the seat (Claude Code, Codex), not to the pet.')}</section>
+</div>`, { cls: 'level', light: true });
 
-  const L4 = panel(`${d.petSlug}-L4-tool-panel`, `<section><h3>Approvals waiting on you</h3>${d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>'}</section>
-<section><h3>Grants</h3><p class="small">In <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below: what each level should be (R W X), and whether that is in code.</p></section>
-<section><h3>Keys</h3><p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p></section>
-<section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
-<section><h3>Pet ID</h3><dl class="status">
+  // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
+  // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").
+  const sub = (label, body) => panel(label, body, { cls: 'sub', light: true, key: label.startsWith(d.petSlug) ? '' : `${d.petSlug}-${label}` });
+  const L4 = panel(`${d.petSlug}-L4-tool-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
+${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
+${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
+${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul>')}
+${sub('pet-id', `<dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
 <dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
+<dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl></section>`, { cls: 'level', light: true });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 
-  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is.
-  const own = PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : '';
+  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is. A tool
+  // that works right on the page is one of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel
+  // is its own and the tool is listed too just separately").
+  const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
   const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
@@ -589,41 +640,48 @@ ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${
       ? (f.idle ? `<span class="awake-faces">${faces(f, d.pet, ['idle', 'blink'], 'awake')}</span>` : img(null, `${d.pet}, ${name}`))
       : img(f[mood], `${d.pet}, ${name}`);
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
-  }).join('')}</div><p class="small">The mood ${esc(d.pet)} is in now lights up (the page knows idle, awake and sad so far). Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p>`, { cls: 'emotions' });
+  }).join('')}</div>${about(`The mood ${esc(d.pet)} is in now lights up (the page knows idle, awake and sad so far). Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.`)}`, { cls: 'emotions' });
 
   // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
   // tools bound so far come from `clicks` in pets.json (2026-10-19: Voicemeeter Bug's repair moved to three clicks).
   const counts = ['three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   const bound = Object.entries(d.clicks).filter(([n]) => Number(n) >= 3).sort(([a], [b]) => a - b);
-  const assigned = bound.length
-    ? bound.map(([n, c]) => `<dt>${esc(counts[n - 3] || n)} clicks</dt><dd>${esc(c.what || c.tool)}${c.label ? ` <code>${esc(c.label)}</code>` : ''}</dd>`).join('\n')
-    : '<dt>three clicks</dt><dd>a tool you assign <span class="tag">none assigned yet</span></dd>';
-  const clicker = panel(`${d.petSlug}-clicker-training`, `<dl class="clicks"><dt>one click</dt><dd>show the current reminder in a dialog box, like BSOD's blurb <span class="tag">not built yet</span></dd>
-<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>
-${assigned}</dl>
-<p class="small">One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).</p>`, { cls: 'clicker' });
+  // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22: "those should look/function like
+  // tools").
+  const clickItems = [
+    { id: 'one-click', name: 'one click', state: 'planned', desc: 'Show the current reminder in a dialog box, like BSOD’s blurb.' },
+    { id: 'two-clicks', name: 'two clicks', state: 'now', desc: `Open or close ${d.home}, this page.` },
+    ...(bound.length
+      ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: 'now', desc: c.what || c.tool, label: c.label || null }))
+      : [{ id: 'three-clicks', name: 'three clicks', state: 'unassigned', desc: 'A tool you assign: none assigned yet.' }]),
+  ];
+  const clicker = panel(`${d.petSlug}-clicker-training`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
+${about(`One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).`)}`, { cls: 'clicker' });
 
+  // Each related pet speaks in a cloud like the emotion bubbles, its name in the border and its picture beside it
+  // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
+  // manage ..."). The whole bubble opens that pet's program.
   const relatedCard = (r) => {
-    const inner = `${img(r.idle, `${r.pet}, idle`, 'thumb')}<span class="card-text"><b>${esc(r.pet)}</b><span>${esc(r.home || 'pet program not named yet')}${tag(r.state)}</span>${r.why ? `<span>${esc(r.why)}</span>` : ''}</span>`;
-    return `<li class="card">${r.page ? `<a href="${esc(r.page)}">${inner}</a>` : `<span class="card-static">${inner}</span>`}</li>`;
+    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
+    return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
   const related = panel(`${d.petSlug}-related-pets`, d.related.length
-    ? `<ul class="cards related">${d.related.map(relatedCard).join('')}</ul>
-<p class="small">Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.</p>`
+    ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>
+${about(`Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.`)}`
     : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-related-pets` });
 
-  const langs = d.languages.length ? d.languages.map((l) => `${l.language} ${l.percent}%`).join(', ') : (d.languageNote || 'not measured yet');
-  const made = day(d.added) || `${DATE.slice(0, 4)}-${DATE.slice(4, 6)}-${DATE.slice(6)}`;
-  const footer = panel('astras-pet-os-unified-footer', `<footer class="astra-footer" aria-label="By Astra: signature and links">
-<p class="footer-status">MIT license · signature: not signed yet${d.isPrivate ? ' · private: its data never leaves the PC' : ''} · ${esc(langs)}</p>
+  // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
+  // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
+  // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
+  // Out More on one line; the languages as bubbles below them, from the pet's repo.
+  const footer = panel('astras-pet-os-unified-footer', `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
-<div class="footer-group"><span class="footer-title">By Astra</span><time datetime="${esc(made)}">${esc(made)}</time></div>
-<div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
-<div class="footer-group"><span class="footer-title">Take Me Home!</span><a class="footer-home" href="../astras-pet-apps-20261008.html" title="The Farm: the Friendly Farmer" aria-label="The Farm: the Friendly Farmer"><img src="${esc(up('art/icons/astras-pet-os-20261012.png'))}" alt="" width="28" height="28"></a></div>
+<div class="footer-group"><span class="footer-title">By Astra</span></div>
+<div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
 </div>
-<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a> · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
-<p class="words-switch" data-words-switch></p>
-<p class="small footer-spawned">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></footer>`, { cls: 'footer' });
+<a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="56" height="56" loading="lazy"></a>
+${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
+<!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 
   // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
   // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;
@@ -654,9 +712,8 @@ ${wordScripts}
 <main class="page">
 <header class="top">${cyberhome}${title}${systemMap}</header>
 ${levels}
-${rwx}
-${own}${notes}
-<div class="pair">${emotions}${clicker}</div>
+<div class="side-by-side">${rwx}${notes}</div>
+${own}<div class="pair">${emotions}${clicker}</div>
 ${related}
 ${footer}
 </main>
