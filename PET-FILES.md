@@ -15,7 +15,7 @@ Every pet app is its own repo under `findastra`, named in lowercase words joined
 | **`README.md`** | Title is the repo name in Title Case. The first lines include the credit `*By Astra.*` (Astra, 2026-10-20: the longer credit lines are retired, card 059: the Intelligent App line of card 033, 2026-10-18 to 2026-10-20, and the pet app line before it, and every check reports a README that still has one). Anywhere else that needs a credit (AGENTS.md, a tool's or folder's README, a page footer) says "By Astra" too. Has a "how to run it" section and a "limits" section that says plainly what is not done. |
 | **`AGENTS.md` and `CLAUDE.md`** | Rules so any assistant can pick the repo up. |
 | **A pet** | Drawn in the shared style (below). What every part of a pet app is called: [PET-WORDS.md](PET-WORDS.md). |
-| **Model and version** | The assistant that built or changed it is recorded (e.g. `Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07`). |
+| **Model and version** | The assistant that built or changed it is recorded (e.g. `Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07`): the "Built with" line in AGENTS.md, then one new file per change in the repo's `changes/` folder (`changes/<topic>-YYYYMMDD.md`), never a new line at the end of AGENTS.md (Astra, 2026-10-21, card 069). |
 | **A `LICENSE`** | House default: MIT, "Copyright (c) <year> findastra". |
 
 Public credit is always **Astra**. No keys, `.env` files or personal data in a repo, and no work information. Health and finance pets keep their data on the user's PC.

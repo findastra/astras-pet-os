@@ -160,7 +160,7 @@ for (const rec of ledger) {
     }
     // 3. Missing required files.
     const addFile = (name, body) => { if (!existsSync(`${dir}/${name}`)) { writeFileSync(`${dir}/${name}`, body); return true; } return false; };
-    if (addFile('CLAUDE.md', `# Assistant handoff\n\nRead and follow [AGENTS.md](AGENTS.md) first, then the hub's rules in [findastra/astras-pet-os](https://github.com/findastra/astras-pet-os/blob/main/AGENTS.md). Public credit is Astra. Record the model and version for changes.\n\nAdded by ${MODEL}, ${TODAY}, in the Idle Flash Audit (A14).\n`)) log.push('Added CLAUDE.md.');
+    if (addFile('CLAUDE.md', `# Assistant handoff\n\nRead and follow [AGENTS.md](AGENTS.md) first, then the hub's rules in [findastra/astras-pet-os](https://github.com/findastra/astras-pet-os/blob/main/AGENTS.md). Public credit is Astra. Record each change, with the model and version, in its own new file in \`changes/\`.\n\nAdded by ${MODEL}, ${TODAY}, in the Idle Flash Audit (A14).\n`)) log.push('Added CLAUDE.md.');
     // 4. README: credit, Limits, the stale card 008 line.
     const rmPath = `${dir}/README.md`;
     if (existsSync(rmPath) && !PRODUCT_README.has(repo)) {
