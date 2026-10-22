@@ -119,7 +119,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    organizes, and the intention behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty
    line above or below (Astra, 2026-10-20: "fitted"). Under it, **Open app** (the pet's older app, `app_url`; "today's"
    crossed out, 2026-10-21) and **no Repo button** (crossed out the same day): the repo link is in the footer and in
-   L4's pet passport.
+   L4's Pet ID.
 3b. **`astras-pet-os-system-map`** (top right, opposite the cyberhome; the map is the hub's, so its label is too:
    Astra, 2026-10-21): the way back to the System Map, on every page, always (Astra, 2026-10-19: "There's always going
    to be a system map link back"). It opens the map on the pet program's own node
@@ -140,7 +140,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
    | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
    | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
+   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **Pet ID** (item 9 below). |
 
    Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
    and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
@@ -312,9 +312,11 @@ everything about that tool inside it.
 7. **Links tool box**, grouped by kind (section 5).
 8. **Backlog health tool box:** healthy / needs attention / unhealthy, with the L3 agent's diagnosis of what is
    unhealthy, the date of the next weekly run, and the schedule.
-9. **Pet Passport tool box** (`<pet-program>-v<version>-pet-passport-v<version>`): its microchip (signature), pedigree
-   (where it came from), passport stamps (installs and updates), vaccination card (security patches) and vet records
-   (vet-clinic tickets). See [PROVENANCE.md](PROVENANCE.md).
+9. **Pet ID tool box** (`<pet-program>-v<version>-pet-id-v<version>`): its microchip (signature), pedigree
+   (where it came from), stamps (installs and updates), vaccination card (security patches) and vet records
+   (vet-clinic tickets; plain text while the vet-clinic repo is private). Not a "passport": that word belongs to
+   Passport Pelican (Astra, 2026-10-21: "We are not doing passports. We are doing pet IDs"). See
+   [PROVENANCE.md](PROVENANCE.md).
 10. **Footer:** the coding languages used, from the repo; credit "by Astra" and the license; signature status.
 
 ## 4. Tools: ON/OFF and sick, enforced, not just shown
