@@ -41,7 +41,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **click-check**: A tool of The Farm (Astra, 2026-10-19: "a tool that tests the clickness of the buttons ... whether they don't go anywhere, whether they go to the wrong place"): opens every pet program page and today's app in apps/ in the Edge or Chrome already on the computer, headless, with a throwaway profile, clicks every button and link, and says which go nowhere, land on a dead end, go to the wrong place by the registry, throw an error, forget what they saved, sit under something else or move when pressed, one row per cause with the file to fix (scripts/click-check-20261019.mjs; npm run click-check). It sends nothing: a click that would post, delete or call a program on this PC is stopped and reported.
 - **pet-finder**: A tool of The Farm (2026-10-16): finds pets missing from the pet list or listed wrong, by comparing pet-programs.json, pets.json, the repos on GitHub and, with --local, the pet folders on the PC. Read only: it reports, Astra decides (scripts/pet-finder-20261016.mjs; the pet-finder and pet-organizer tricks use it).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - **handoff**: A trick of The Farm (skills/handoff/SKILL.md): check for, pick up or write handoff cards, so work moves between Astra's assistants, with what was done listed under What I did.
 - **pet-finder**: A trick of The Farm (skills/pet-finder/SKILL.md): run the pet-finder tool, fix only what the data proves, and give Astra one short list of the rest.

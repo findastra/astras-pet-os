@@ -104,7 +104,7 @@ export function buildMarkdownPet(f, { level = 1 } = {}) {
     '',
     list(f.tools, (t) => `**${text(t.name)}**${state(t.state)}: ${text(t.why) || 'no description yet'}`, 'None recorded yet.'),
     '',
-    `${h(3)} Its tricks (steps its AI follows)`,
+    `${h(3)} Its tricks (ways its AI uses its programs, tools and tricks)`,
     '',
     list(f.tricks, (t) => `**${text(t.name)}**${state(t.state)}: ${text(t.why) || 'no description yet'}`, 'None recorded yet.'),
     '',

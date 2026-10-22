@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | open, waits on Astra: what a trick is (all six pull requests merged and the pets restarted, 2026-10-21) |
+| [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | done 2026-10-21 with the "what a trick is" pull request (all merged, pets restarted) |
 | [065: Head chat ended: what finished, and what to pick up (commons bullets, description wording, social-row styles, flash-audit-prepper)](065-any-chat-rat-head-chat-end-20261020.md) | any | open: chat ended; items listed |
 | [061: RGBee room lights and the high-level Desktop Commander status panel](061-any-rgbee-and-desktop-commander-panels-20261020.md) | any | open: chat ended before implementation; scope and ownership recorded |
 | [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | open, waits on Astra: merge (#155); then her review of the developer names |

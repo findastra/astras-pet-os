@@ -32,7 +32,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - None recorded yet.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 
