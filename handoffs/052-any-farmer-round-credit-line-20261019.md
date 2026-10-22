@@ -155,24 +155,28 @@ folders were not touched.
 - **The rebuild is on #192, not merged.** Astra: "Add the page rebuild to #192 and test it, but don't merge yet." On
   `farmer/rounds-20261021`: `47e584d` merges `main` (`2b0b6ae`, #193), `1415cd3` rebuilds the 41 pages with
   `npm run build`. `npm test` there: 285 tests, 284 pass, 0 fail, 1 skipped, and running the rebuilds again changes
-  nothing. `main` has moved since (#191), so merge it in and test once more before merging #192.
+  nothing. Then `main` moved three times: `8e24f60` merges #191 and #167, `60b1b9b` merges #195. The only conflicts
+  were eight generated pages, where I took `main`'s and rebuilt (pages and desk) from the merged `pets.json` and the
+  round's status. #192's head is `60b1b9b`, on top of `main` `7906b9c`: `npm test` 288 tests, 287 pass, 0 fail, 1 skipped,
+  and the rebuilds change nothing. If `main` moves again, merge it in and test once more before merging #192.
 - **What #192 does to seven pet program pages.** Gif Giraffe, Fuzzboi Friend, Patch Cat, Platform Platypus, RGBee, Role
   Fairy and Wifi Butterfly lose their "Approvals waiting on you" item and go from curious to sleep, "Not checked yet."
-  Their needs were not answered. Their repos are private on GitHub, but `pets.json` still says public (#167, which
-  syncs visibility, is open). Without `FARMER_TOKEN` the round lists only public repos, and on 2026-10-21 only 14 of
-  Astra's repos were public: of the 42 pets, the round could see one repo, Discord Damsel's. The 4 that `pets.json`
-  marks private are reported ("Can't see"); the other 37 are filed under `missing`, which the summary never prints,
-  and each gets a blank "Not checked yet." status with only its old check date kept. That is why all 37 pages' "Last
-  check" lines changed, why 0 self-audits ran, and why only Discord Damsel and the Farmer still need Astra. Every round
-  since the repos went private on 2026-10-20 does this (runs 39462765053 and 39641690609 also said "Needs Astra: 2").
-  Nothing was changed for it here. It is three separate decisions: a `FARMER_TOKEN` (already an API Fairy key request,
-  card 056), #167, and whether
-  `runRound` in `scripts/farmer-rounds-20261009.mjs` should keep a pet's last status and report `missing` pets.
+  Their needs were not answered. Without `FARMER_TOKEN` the round lists only public repos, and on 2026-10-21 only 14
+  of Astra's repos were public: of the 42 pets, the round could see one repo, Discord Damsel's. When the round ran,
+  `pets.json` still called 37 of the others public (#167 merged after it, `8f5d39a`). Those 4 marked private were
+  reported ("Can't see"); the 37 were filed under `missing`, which the summary never prints, and each got a blank
+  "Not checked yet." status with only its old check date kept. That is why all 37 pages' "Last check" lines changed,
+  why 0 self-audits ran, and why only Discord Damsel and the Farmer still need Astra. Every round since the repos went
+  private on 2026-10-20 did this (runs 39462765053 and 39641690609 also said "Needs Astra: 2"). With #167 merged, the
+  next round will call them "Can't see" instead, but still keeps no last status and finds no needs: the pages stay
+  empty until the Farmer can read the private repos. Nothing was changed for it here. Two separate decisions: a
+  `FARMER_TOKEN` (already an API Fairy key request, card 056), and whether `runRound` in
+  `scripts/farmer-rounds-20261009.mjs` should keep a pet's last status when it cannot see the repo.
 
 ## Ownership and state
-State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 has its page rebuild (`1415cd3`)
-and waits on Astra's OK to merge. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5 (side session). Nothing
-else is claimed and nothing is running. Reviewer: unassigned.
+State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 has its page rebuild and the latest
+`main` (head `60b1b9b`) and waits on Astra's OK to merge. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5
+(side session). Nothing else is claimed and nothing is running. Reviewer: unassigned.
 
 ## Task
 1. **Done: merged as `d1db66f` (#182, 2026-10-21, above).** ~~Any
