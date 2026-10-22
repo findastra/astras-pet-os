@@ -68,3 +68,22 @@ needs, which Unity Hub installs; Unity Hub has its own version number.
 - Astra's OK to merge the pull request.
 - Two questions: 13 (the short red line under the levels border: a stray mark, or something to move?) and 28 (should
   every name be a direct link to the tool's own page instead of opening the pill?).
+
+## Astra's follow-up (2026-10-21)
+
+"Unity Hub is still showing up as not open. Also, is that the hub version or the unity version? who is reading and
+recording all programs on my computer, shouldnt you make sure that agent works first ? Also I dont have Blender open,
+so I dont know why it shows green. It needs to detect that its on, I think clicking the green button to red needs to
+kill it too. It literally needs to be like we are trying to close the window."
+
+- Checked on her PC: Unity Hub, Unity and Blender were all closed. The green was the page's default, not a reading.
+  Installed: Unity Hub 3.21.1, Unity 2022.3.22f1 (the editor; 2022.3.22f1 is not the Hub's version), VRChat Creator
+  Companion 2.4.5, Blender 5.2.2 (Store), VRChat and VRCFaceTracking (Steam).
+- Kernel Koala (kernel-grove) is the one that reads every running program: `--self-test` 67 of 67, `--json` read 355
+  programs. He knows Unity and VRChat by name, not Blender, the Creator Companion or VRCFaceTracking, and his Stop it is
+  a force-stop. Nothing passes his readings to a page yet.
+- On this branch: a 3rd party program's ON/OFF is red, "not seen running", never a guessed green; clicking it says
+  nothing reports running programs yet.
+- Four questions in slides (Live program lights: 4 questions): Unity as two pills; Kernel Koala's program-watch;
+  red closes like the window's X; red opens the program. Order of work: the watch first, tested on her PC, then
+  Startup Star's link (card 054), then the page's lights.

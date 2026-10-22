@@ -89,6 +89,8 @@
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
+    // A 3rd party program: red means not seen running. Nothing on this PC reports running programs to the page yet.
+    unseen: 'not seen running. Nothing tells this page what is open on your PC yet (Kernel Koala’s program watch is planned), so this light cannot open or close it yet.',
   };
   function paint() {
     var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
@@ -96,10 +98,10 @@
       var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
       names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
-        var p = power(k, planned[k]);
+        var p = b.dataset.unseen ? 'off' : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (planned[k] ? 'off, not built yet' : p));
+        b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? 'not seen running' : planned[k] ? 'off, not built yet' : p));
       } else {
         var h = health(k, planned[k]);
         b.classList.toggle('is-fix', h === 'fix');
@@ -140,6 +142,7 @@
     if (!b) return;
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
+    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, SAYS.unseen); return; }
     if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {

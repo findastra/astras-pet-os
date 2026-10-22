@@ -195,9 +195,15 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
     for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
-      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|working correctly|not checked yet)"/);
+      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|working correctly|not checked yet)"/);
       assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
     }
+  }
+  // A 3rd party program is never a guessed green (Astra, 2026-10-21: "I dont have Blender open, so I dont know why it
+  // shows green"): red, not seen running, until something on the PC reports it.
+  const unicorn = files[pagePath('unity-unicorn')];
+  for (const id of ['blender', 'unity-editor', 'vrchat-creator-companion']) {
+    assert.match(unicorn, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: red, not seen running`);
   }
 });
 

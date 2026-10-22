@@ -241,10 +241,12 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 // tell you which tools are working and which ones aren't"). Each click moves a light to its next state and the page
 // script shows a bubble saying what that state means. The ON/OFF light is only ever on or off, never grey (Astra,
 // 2026-10-21: "the on/off button should never show as gray because those are either on or off"): something not built
-// yet is off, and only its maintenance light is grey, not checked yet.
-const lights = (key, name, { planned = false } = {}) => {
-  const p = planned ? ' data-planned="1"' : '';
-  return `<span class="lights"><button type="button" class="light onoff${planned ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+// yet is off, and only its maintenance light is grey, not checked yet. A 3rd party program's ON/OFF says whether it
+// is running (Astra, 2026-10-21: "I dont have Blender open, so I dont know why it shows green. It needs to detect that
+// its on"): nothing watches it yet, so it is red, "not seen running", never a guessed green (`unseen`).
+const lights = (key, name, { planned = false, unseen = false } = {}) => {
+  const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'off, not built yet' : unseen ? 'not seen running' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -291,7 +293,7 @@ function itemList(items, prefix, empty) {
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${i.embed ? `
 <p><a class="button" href="#${esc(i.id)}-tool-panel">Use it below</a></p>` : i.url ? `
 <p><a class="button" href="${esc(i.url)}">Open ${esc(i.name)}</a></p>` : ''}`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state) })}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Click to open ${esc(i.name)}"><span class="item-name">${esc(i.name)}</span>${tag(i.state)}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}</summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
