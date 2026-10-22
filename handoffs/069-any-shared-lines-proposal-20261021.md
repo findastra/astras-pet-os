@@ -1,4 +1,4 @@
-status: open (all four answered A; waiting on Astra: merge #199 and github-goldfish#26; question 3 waits on Codex's #178)
+status: open (questions 1, 2 and 4 merged: #199, github-goldfish#26; question 3 waits on Codex's #178)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -137,7 +137,14 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   - 2 A: the old credit lines move word for word into one history file in `changes/`.
   - 3 A: a new card's number is its pull request's number, and handoffs/README.md stops listing each card.
   - 4 A: the hub and GitHub Goldfish change now; every other repo changes with its next pull request.
-- **Build, questions 1, 2 and 4:** both pull requests wait on Astra's OK.
+- **Build, questions 1, 2 and 4: merged** with Astra's OK in chat (2026-10-21: "OK, merge hub #199, github-goldfish
+  #26 and hub #196.").
+  - Hub #199 is on `main` as `3d549fe`. `main` was merged in twice before that (#167, #190, #191, #194, #195, then
+    #197, #201). Tested tree `aa8c65a`: `npm run build` changes nothing, and 304 of 305 tests pass, 1 skipped. The
+    tree on `main` is the tested tree. #190's line reached the end of AGENTS.md without a conflict, as planned.
+  - findastra/github-goldfish#26 is on `main` as `5185034`, after `main` (#23) was merged in. Tested tree `5af13ee`:
+    80 of 80 tests pass. The tree on `main` is the tested tree.
+  - Both branches are kept.
   - Hub #199 (`claude/changes-folder-20261021`, `1e67bab` and `2dab307`): the rule in AGENTS.md, CLAUDE.md,
     PET-FILES.md and the Idle Flash templates for new pet repos.
     - 70 credit lines and the chat-order note moved to `changes/history-20261007-20261021.md`.
@@ -147,7 +154,8 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   - findastra/github-goldfish#26 (`claude/changes-folder-20261021`, `0c6b5c5`): the same rule. 11 lines moved to
     `changes/history-20261008-20261021.md`, guard `test/changes-folder-20261021.test.mjs`. Tests: 80 of 80 pass. No
     open pull request there gets a new conflict.
-  - Left for a follow-up after the open pull requests merge: the last three credit lines in each AGENTS.md.
+  - Left for a follow-up after the open pull requests merge: the credit lines still at the end of each AGENTS.md
+    (hub: the three kept plus #190's; GitHub Goldfish: three) move into the history files.
 - **Question 3 is not built.** It changes skills/handoff/SKILL.md, and Codex's #178 rewrites that file. Apart from
   line endings, #178's version is the copy already installed for both Claude and Codex, so the hub's own copy is
   behind until #178 lands. #178 conflicts with `main` in handoffs/README.md (card 064, also used by #179), and its
