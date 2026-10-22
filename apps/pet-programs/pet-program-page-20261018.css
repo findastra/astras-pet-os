@@ -111,8 +111,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    bubble's two puffs trailing to the pet. The cyberhome's own bubble is gone (2026-10-21). The colours are --slate and
    --line, written out for the drawing. */
 .cloud, .mood-bubble { border: 1px solid var(--line); border-radius: 16px; }
-.mood-bubble::before, .mood-bubble::after { content: ''; position: absolute; border: 1.2px solid var(--line);
-  border-radius: 50%; background: var(--slate); }
+.mood-bubble::after { content: ''; position: absolute; width: 11px; height: 11px; right: -7px; top: calc(50% - 6px);
+  border: 1px solid var(--line); border-left: 0; border-bottom: 0; background: var(--slate); transform: rotate(45deg); }
 .bubble { position: relative; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
 /* Too narrow for the title between them: the two squares side by side at the top, the title below both. */
@@ -268,18 +268,17 @@ label.file { position: relative; }
 .pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
 /* Three to a row, as in the sketch, when there is room for a cloud and its pet; fewer on a narrow window. */
 .moods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(215px, calc((100% - 28px) / 3))), 1fr)); gap: 18px 14px; }
-.mood { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 60px; gap: 30px; align-items: center; }
+.mood { margin: 0; display: grid; grid-template-columns: minmax(min-content, 1fr) 60px; gap: 22px; align-items: center; }
 /* Room inside the rounded corners, so a long first line never runs into the top corner (Astra, 2026-10-20). */
-.mood-bubble { position: relative; padding: 2px 12px 8px; margin: 0; min-width: 0; font-size: 12.5px; } /* its edge: .cloud, above (no puffy cloud since 2026-10-22) */
-.mood-bubble legend { font: 13px var(--label); padding: 0 5px; }
+.mood-bubble { position: relative; padding: 2px 12px 8px; margin: 0; min-width: min-content; font-size: 12.5px; } /* its edge: .cloud, above (no puffy cloud since 2026-10-22) */
+.mood-bubble legend { font: 13px var(--label); padding: 0 5px; white-space: nowrap; }
 /* The tail is part of the bubble (Astra, 2026-10-19: "make it look like an actual bubble"): drawn in outline like the
    bubble itself, its inside the page's own colour, so it reads as one shape pointing at the pet. */
-.mood-bubble::after { width: 10px; height: 9px; right: -27px; top: calc(50% - 4px); }
-.mood-bubble::before { width: 6px; height: 6px; right: -36px; top: calc(50% + 4px); }
+
 /* The mood the pet is in now lights up (Astra, 2026-10-21: "select from 9 emotions at bottom what to 'light up'"),
    in the green of the lights; the glow follows the cloud's own edge. */
 .mood.is-now .mood-bubble { border-color: var(--on); box-shadow: 0 0 0 1px var(--on); }
-.mood.is-now .mood-bubble::before, .mood.is-now .mood-bubble::after { border-color: var(--on); }
+.mood.is-now .mood-bubble::after { border-color: var(--on); }
 .mood.is-now .mood-bubble legend { color: #d4f7d8; font-weight: 600; }
 .mood.is-now img { filter: drop-shadow(0 0 6px rgba(79, 179, 90, .8)); }
 .mood ul { margin: 2px 0; padding-left: 16px; }
@@ -310,7 +309,7 @@ label.file { position: relative; }
 .languages { list-style: none; margin: 0 0 0 8px; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 /* The photostar sits in the footer border's right corner, like a label on the line. */
 .panel.footer { position: relative; }
-.footer-star { position: absolute; top: -29px; right: 18px; display: block; padding: 0 6px; background: var(--slate); line-height: 0; }
+.footer-star { display: block; line-height: 0; margin-left: 6px; }
 .footer-star img { width: 56px; height: 56px; }
 .languages .tag { font-size: 12px; padding: 1px 9px; }
 .astra-footer .footer-spawned { font-size: 11.5px; }
