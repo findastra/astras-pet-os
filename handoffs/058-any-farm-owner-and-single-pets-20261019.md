@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge Part 4, pet packs and needs; then three questions in slides)
+status: open (waiting on Astra: three questions on pet packs in slides; Part 4 merged with #183)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
 needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -163,18 +163,23 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
     local ports. Question 2 of the slides.
   - The page script (`apps/pet-programs/pet-program-page-20261018.js`, the chat's message) still writes
     `https://github.com/findastra/<repo>`, which Part 3 missed. On another farm, a pet's chat message names Astra's
-    account.
+    account. Astra started its own session for the fix on 2026-10-21 (its own pull request).
 - **Not built:** publishing packs anywhere (question 1), signing them, and the Friendly Farmer adding a pack to a
   farm (`farm.lock`).
+- **Merged to `main` with Astra's OK in chat (2026-10-21: "OK, merge #183").**
+  - `main` had moved while she answered: #180 and #181 (two cards) were merged into the branch first.
+  - On that merged tree: `npm run build` left nothing to commit, `npm run check` passed (23 pet apps), and `npm test`
+    gave 274 tests, 273 pass, 0 fail, 1 skipped.
 
 ## Task
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
 3. ~~**Part 3**~~ Merged with #164 as `dcd5d81` (upstream vs farm owner, make-it-yours; Astra's OK in chat, 2026-10-20).
-4. **Part 4** (pet packs, `needs` in pets.json): built, [pull request #183](https://github.com/findastra/astras-pet-os/pull/183). **Astra:** her OK in chat to
-   merge it, and three questions in slides (https://claude.ai/artifact/PQWcQTj1vfZ6vfnkECmNNB, private to Astra): where packs are
-   published, API Fairy's scan, private repos. Recommended: A, A, A. None of the three changes #183.
+4. ~~**Part 4**~~ Merged with [#183](https://github.com/findastra/astras-pet-os/pull/183) (pet packs, `needs` in
+   pets.json; Astra's OK in chat, 2026-10-21). **Astra:** three questions in slides
+   (https://claude.ai/artifact/PQWcQTj1vfZ6vfnkECmNNB, private to Astra): where packs are published, API Fairy's scan,
+   private repos. Recommended: A, A, A.
 5. Next, after Part 4: the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 

@@ -1,8 +1,8 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
-(#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is built on `claude/pet-packs-20261020`, waiting on
-Astra's OK. By Claude Opus 5.5
+(#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is merged (#183, Astra's OK in chat,
+2026-10-21). By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -149,7 +149,7 @@ new farm's owner and marks the examples as Astra's, so a beginner never edits JS
   Farmer adds or removes one pet on an existing farm and records it in `farm.lock` (he is the package manager), then
   the Kennel's adoptions use the same path.
 
-**As built (2026-10-20, pull request #183, waiting on Astra's OK):**
+**As built (pull request #183, merged with Astra's OK in chat, 2026-10-21):**
 - `needs` on all 42 registered and pipeline pets, and `needs_key` at the top of pets.json. Four kinds:
   - `os`: the computer its own program runs on.
   - `pets`: other pets, by repo, each required or optional.
