@@ -1,4 +1,4 @@
-status: open (questions 1, 2 and 4 merged: #199, github-goldfish#26; question 3 waits on Codex's #178)
+status: open (all four answered and merged: #199, github-goldfish#26, #207; left: move the last credit lines)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -156,11 +156,22 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
     open pull request there gets a new conflict.
   - Left for a follow-up after the open pull requests merge: the credit lines still at the end of each AGENTS.md
     (hub: the three kept plus #190's; GitHub Goldfish: three) move into the history files.
-- **Question 3 is not built.** It changes skills/handoff/SKILL.md, and Codex's #178 rewrites that file. Apart from
-  line endings, #178's version is the copy already installed for both Claude and Codex, so the hub's own copy is
-  behind until #178 lands. #178 conflicts with `main` in handoffs/README.md (card 064, also used by #179), and its
-  chat is closed. It needs Astra's decision first: carry it forward with `main` merged in, on a `claude/` branch
-  (as #195 did for #177), then build question 3 on top.
+- **Question 3: #207, merged with Astra's OK in chat** (2026-10-22: "OK, merge hub #207, then close #178 as carried
+  in #207."; `claude/handoff-workflow-merged-20261022`, with `main` merged in again for #204 and #208). Astra,
+  2026-10-22: "carry Codex's hub #178 forward on a claude/ branch with main merged in (like #195 did for #177), then
+  build question 3 (card number = pull request number) on it."
+  - Codex's #178 is carried unchanged, with `main` merged in (`7a3f1f5`). Apart from line endings, the hub's handoff
+    skill then matches the copy installed for Claude and Codex.
+  - A new card's number is its pull request's number: the handoff skill, handoffs/README.md "Card numbers", the
+    Handoffs line in AGENTS.md, test/handoff-numbers-test-20261017.mjs and
+    `changes/card-number-is-pull-request-number-20261022.md`.
+  - The tables keep the cards numbered before 2026-10-22. #204's 071 is the old counter's last; its row and counter
+    line are written as #204 writes them, so #204 merges cleanly. #179's 064 becomes 179.
+  - Tests: 307 of 308 pass, 1 skipped. No open pull request gets a new conflict.
+  - Right after the merge: #178 closed as carried in #207 (Astra's words above), and the hub's handoff skill installed
+    in both seats. The follow-up pull request that moves the last credit lines records the merge commit and the
+    install check.
+  - #204 merged with card 071 before #207, and the card lists merged without a conflict, as planned.
 
 ## Receipt and review
 Pending.
