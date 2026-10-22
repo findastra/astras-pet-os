@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge #185 and the five tray pull requests; her word on what a trick is)
+status: open (waiting on Astra: her word on what a trick is; everything else merged and running, 2026-10-21)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), scripts/pet-program-pages-20261018.mjs, apps/pet-programs/pet-program-page-20261018.css and .js, test/pet-program-pages-test-20261018.mjs, handoffs/045-any-crash-watch-pets-20261018.md
@@ -56,8 +56,8 @@ none is a direct link. Nothing changed for it.
 2. **The tray** (her note: "these are not supposed to be in the tray. only the Startup Star should ever be in the
    tray. please fix the recent change that directed this"). The recent change was card 045, which built Log Lynx,
    Packet Piranha and Forensic Ferret as tray programs. Answers: 3 B (no pop-up: Log Lynx turns alarmed on the desktop)
-   and 4 A (Voicemeeter Bug's tray icon goes too; his menu moves into Startup Star's). **Built, five pull requests,
-   waiting on Astra, in this merge order:**
+   and 4 A (Voicemeeter Bug's tray icon goes too; his menu moves into Startup Star's). **Built as five pull requests, all merged
+   2026-10-21 (below):**
    1. findastra/astras-pet-os#186 (`claude/star-holds-pet-menus-20261021`, 7092a72): Startup Star's menu gets a submenu
       for each of the four, filled from the `menu-20261021.json` each program writes (only plain command words run);
       a pet whose `mood-20261021.json` says alarmed shows its alarmed frame; the rule in AGENTS.md and
@@ -79,6 +79,37 @@ none is a direct link. Nothing changed for it.
 3. Open hub pull requests that touch the same spawner lines: #167 (private repos: "Today's app is private" and the
    Repo button's private label) and #177 (Codex's Damsel archive panel). Whichever merges second merges `main` in.
 
+## The merges and the restart (Claude Opus 5.5, `claude-opus-5-5`, 2026-10-21)
+
+Astra, in chat: "OK, merge #185, astras-pet-os#186, log-den#11, packet-river#11, evidence-locker#11 and
+voicemeeter-bug#10 in that order", then "Force-stop the three crash-watch pets yourself, then rebuild and restart them,
+Startup Star and Voicemeeter Bug."
+
+- **Merged, in that order:** astras-pet-os#185 (2526170), astras-pet-os#186 (3676542; tested first on top of #185 in an
+  LF worktree: build changed nothing, `npm test` 283 pass), log-den#11 (771b682), packet-river#11 (ee0c3fa),
+  evidence-locker#11 (37cd0b4), voicemeeter-bug#10 (75c3975). The local clones in `Documents\Astra's PetOS` and
+  `Documents\ChatGPT\Voicemeeter Bug` were fast-forwarded.
+- **Restarted on Astra's PC, 21:13 to 21:15:** Log Den and Evidence Locker (v0.1.1) force-stopped (Packet River was
+  already gone, see below); the three built in their folders (self-tests 54, 33, 34) and started from their
+  Startup-folder shortcuts through `explorer.exe`. Startup Star stopped with its own `--quit`, built in the hub folder
+  (self-test passes) and started through a temporary shortcut and `explorer.exe` with its sign-in command (`"<hub>"
+  --startup`); it started Voicemeeter Bug `--hosted` itself. All five write to the real `%LOCALAPPDATA%` (no new files in
+  Claude's private copies). Menus and moods are there: Log Lynx **alarmed** (crashes in the Windows log she has not
+  looked at; Open Log Den in his menu clears it), Packet Piranha sleepy, Forensic Ferret happy (a case is ready).
+  The force-stopped pets' old tray icons stay until the mouse passes over them.
+- **Voicemeeter Bug's build trap:** his build script wants the hub in the folder next to his, and `Documents\ChatGPT`
+  has none. He was built with a copy of the script pointing at the hub folder (`-bugDir`, `-hubDir`), straight into
+  his own folder while he was not running; his self-test passes with the menu check.
+- **Found on the way:** Packet River (last record 20:14:17) and Voicemeeter Bug (last heartbeat 20:15:45) had stopped
+  earlier this evening without a crash window. The Windows System log shows a PC-wide hiccup then: Razer Central Service
+  stopped unexpectedly (20:15:41), and the user-mode drivers of the Meta Virtual Monitor and a HID headset crashed
+  (20:16:24 to 20:16:28). Log Den catches crash windows and log records, not a silent exit (its README says so).
+- Not checked by eye: Startup Star's submenus and Log Lynx's alarmed face on the desktop (the self-test covers both;
+  nothing in Astra's tray was clicked).
+
+Still open: item 1 above (what a trick is), and item 3 (#167 and #177 conflict with `main`; their chats fix them).
+
 ## Return
 
-Merge the hub pull request with Astra's OK, then set this card done or hand the open items on.
+Astra's word on what a trick is goes into AGENTS.md, TOOLS-AND-TRICKS.md, PET-WORDS.md and the skills; then this card is
+done.
