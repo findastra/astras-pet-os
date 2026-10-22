@@ -1,7 +1,7 @@
-status: open (Parts 1 to 4 merged, pet-pack answers recorded; next: farm.lock; waiting on Astra: the hub's old history, task 6)
+status: open (Parts 1 to 4 merged, pet-pack answers recorded; waiting on Astra: six farm lock questions (slides), then the hub's old history, task 6)
 for: any
-from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
-needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 to 2026-10-21
+needs: docs/farm-owner-and-single-pets-20261019.md, docs/farm-lock-20261021.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
 ---
 ## What I did
 
@@ -184,6 +184,47 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
      [findastra/api-fairy#10](https://github.com/findastra/api-fairy/pull/10).
   3. Packs from private repos: keep `--private`, as built.
 
+**Part 5 proposal, 2026-10-21, by Claude Opus 5.5 (`claude-opus-5-5`), a session started from the pet-packs session:**
+the farm lock. The Friendly Farmer adds one pet to a farm, or takes one away, and records exactly what the farm runs.
+This is the second half of Astra's answer 6. It is a proposal only: no code changed.
+
+- **Branch:** `claude/farm-lock-proposal-20261021`, cut from `main` at `7906b9c` in a fresh clone in Claude's scratchpad
+  with `core.autocrlf=false`. The live hub folder on Astra's PC was not touched.
+- **Read first:**
+  - this card, the proposal (Parts 1 to 4 as built, answers 1 to 12), the pet-packs tool and its manifest;
+  - `needs` and `needs_key` on all 42 pets;
+  - the installer, its uninstaller, `farm-setup` and the Linux command;
+  - INSTALL.md, MAKE-IT-YOURS.md, PROVENANCE.md, `skills/dev-mindset`, `farm-security`, `new-pet-or-tool` and
+    `handoff`;
+  - the shared session notes of Parts 1 to 4 and #184.
+
+  None of the 187 branches has farm lock work.
+- **Wrote:**
+  - `docs/farm-lock-20261021.md` (new), the proposal: what is true today; the catalog and the farm; what the farm lock
+    holds (an example of Dev's farm); where it lives; how a pet comes in, from the installer's own pets or a pet pack;
+    how its needs are checked (required pets first, then this computer and the core, then programs); how a pet leaves
+    without breaking another; `check` and `lock`; the installer; what it would take (5a, then 5b); risks.
+  - A "Part 5" section in `docs/farm-owner-and-single-pets-20261019.md`, and its header line.
+  - This card, and its row in `handoffs/README.md`.
+- **Found, not changed:**
+  - The installer does not read `needs`. Checked with `choosePets` in `scripts/farm-setup-20261019.mjs`, which the
+    installer's logic is tested to match: a farm from scratch with `evidence-locker` gives the Friendly Farmer and
+    Forensic Ferret, without Log Lynx (required).
+  - On Windows, an install keeps no full list of pets after `Set-FarmPets`, so a pet can be added later only by
+    running the installer again from the unzipped release.
+  - `farm.lock` breaks Astra's file-name rule (no date). The name is in three docs, three skills, pets.json and the
+    pet-packs tool. That is question 2, not changed.
+- **Questions for Astra:** a private slide deck of six questions, https://claude.ai/artifact/KguKpbZJCeKfL5xx5DtETo
+  (recommended: A on each):
+  1. where the farm lock lives;
+  2. its file name;
+  3. which pet packs may come in before packs are signed;
+  4. a program or core part the Farmer cannot add;
+  5. taking away a pet others need;
+  6. whether the installer ticks the pets a picked pet needs.
+
+  Her answers go into rows 13 to 18 of the proposal's answers table, and here.
+
 ## Task
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
@@ -194,7 +235,10 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
    (above, and the proposal's rows 10 to 12).
    - Publishing a pet's first pack waits on her OK for that pet.
    - API Fairy's files are her own chat's card (api-fairy#10).
-5. Next, after Part 4: the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
+5. **Part 5, the farm lock:** proposed in `docs/farm-lock-20261021.md` (2026-10-21).
+   - **Astra:** answer the six questions in the slides.
+   - Then build 5a (the farm lock with the installer's own pets, and the installer's part), then 5b (pet packs come
+     in), one pull request at a time, each merged only with her OK.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
 ## Done when

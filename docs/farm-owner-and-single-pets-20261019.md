@@ -2,7 +2,8 @@
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
 (#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is merged (#183, Astra's OK in chat,
-2026-10-21). By Claude Opus 5.5
+2026-10-21). Part 5, the farm lock, is a proposal waiting on Astra's six answers: `docs/farm-lock-20261021.md`
+(2026-10-21). By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -185,6 +186,25 @@ new farm's owner and marks the examples as Astra's, so a beginner never edits JS
 - API Fairy is refused: her repo's tests hold fake keys, and her code holds example folder paths for a made-up user, `you`. That waits
   on Astra (slides).
 - Not built: publishing packs anywhere (the hub is private since 2026-10-20; slides), signing them, and `farm.lock`.
+
+### Part 5: the farm lock (proposed 2026-10-21, nothing built)
+
+The Friendly Farmer adds one pet to a farm, or takes one away, and the farm lock records exactly what the farm runs.
+The whole proposal is `docs/farm-lock-20261021.md`. In short:
+- **The catalog and the farm.** The catalog is the pets this farm may have: its release's or hub copy's pets.json,
+  which changes only by pull request. The farm is the pets on this computer now. Add and remove change only the farm.
+  A pet the catalog does not have cannot be added, from a pack either.
+- **A pet comes in** from the installer's own pets (its entry, as the installer writes it) or from a pet pack (its code,
+  next to the farm folder, checked file by file). Nothing from a pack runs by itself.
+- **Its needs are checked in this order:** required pets, all the way down; then this computer and the core; then
+  programs. The Farmer never installs a third-party program.
+- **A pet leaves** only when no pet on the farm requires it. Pets that came only for it are listed, never taken away
+  silently. Its data, its pictures and its repo on GitHub stay.
+- **Found:** the installer does not read `needs`. `-Farm Scratch -Pets evidence-locker` gives Forensic Ferret without
+  Log Lynx.
+- **Astra's six questions** (slides): where the farm lock lives, its file name (`farm.lock` breaks her file-name rule),
+  which pet packs may come in before signing, a program the Farmer cannot add, taking away a pet others need, and the
+  installer ticking needed pets. Her answers go into rows 13 to 18 of the table above.
 
 ## What it would take
 
