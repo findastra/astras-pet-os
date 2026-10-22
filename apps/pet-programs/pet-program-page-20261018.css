@@ -61,7 +61,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    height (the page script sets it, between 210 and 260px, so a label still fits on the border), and the header ends
    at the bottom of the title's buttons (#163) unless that is shorter; 220px without the script. Folded, each box is
    only as tall as its label. */
-.top { --square: 220px; display: grid; grid-template-columns: var(--square) minmax(0, 1fr) var(--square); gap: 28px; align-items: start; }
+.top { --square: 220px; display: grid; grid-template-columns: var(--square) minmax(0, 1fr) var(--square); gap: 28px; align-items: end; }
+/* The title block's bottom lines up with the squares' bottom, and the squares rise above it on each side (Astra,
+   2026-10-22: "this should sit here, even if the square borders from the other panels rise above each side"). */
 /* A flex column: inside a details box, Chrome resolves the container units only then. Nothing is clipped at the box
    itself, so its label stays whole on the border; the den clips the pet. */
 .top > .cyberhome[open], .top > .system-map[open] { aspect-ratio: 1 / 1; container-type: size; display: flex; flex-direction: column; }
@@ -381,6 +383,7 @@ img[hidden] { display: none !important; }
 .outstanding-group.g-you legend { color: var(--fix); }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
 .moods.related { list-style: none; margin: 0; padding: 0; }
+.talk .mood-bubble p { margin: 2px 0; font-size: 12.5px; }
 .related-pet > a, .related-pet > .related-static { display: contents; color: var(--chalk); text-decoration: none; }
 .related-pet > a:hover legend, .related-pet > a:focus-visible legend { text-decoration: underline; }
 .related-pet .mood-bubble p { margin: 2px 0; }

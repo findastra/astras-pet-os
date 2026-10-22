@@ -39,6 +39,30 @@
   },
   "nodes": [
     {
+      "id": "my-avatar-closet",
+      "name": "My Avatar Closet",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Shared program",
+      "shared_with": "Devilish",
+      "job": "Devilish's avatar asset closet, shared with Astra (Astra, 2026-10-22: \"a perfect example of a 3rd Party Program/Native Program because it is technically both\"; they both work on Poppy and share the assets they make for her). Its page is in draft unity-unicorn#27; its link waits on Astra.",
+      "does": "Devilish’s closet of avatar assets, shared with you for Poppy."
+    },
+    {
+      "id": "closet-check",
+      "name": "closet-check",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-closet-check-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Unity Stable (Astra, 2026-10-22: \"an example of a Unity Unicorn 'trick' is to check weekly on Devilish 'My Avatar Closet' to update that panel connection here\"): once a week, look at My Avatar Closet for new Poppy assets and update its pill. Not written yet; needs the closet's link."
+    },
+    {
       "id": "dm-archive-review",
       "name": "DM archive review",
       "type": "own-program",
@@ -3289,6 +3313,13 @@
     }
   ],
   "links": [
+    {
+      "from": "unity-unicorn",
+      "to": "my-avatar-closet",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Unity Stable links the closet Devilish and Astra share for Poppy, and its weekly closet-check trick looks at it."
+    },
     {
       "from": "program-watch",
       "to": "unity-editor",

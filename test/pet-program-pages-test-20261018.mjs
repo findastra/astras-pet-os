@@ -391,3 +391,21 @@ test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-cl
   const other = spawnerFiles(flipped);
   for (const d of pages) assert.equal(other[pagePath(d.repo)].includes(vetLink), vet.visibility === 'private', `${d.repo}: the link follows the vet-clinic's visibility`);
 });
+
+// Astra, 2026-10-22, "All recommended for the redlines 2 slides" (Unity Stable redlines 2: 6 questions).
+test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows, shared programs, the title lined up', () => {
+  const unicorn = files[pagePath('unity-unicorn')];
+  const talks = unicorn.slice(unicorn.indexOf('<h3 class="talks">'), unicorn.indexOf('>unity-unicorn-L3-tool-panel<'));
+  assert.match(talks, /<ul class="moods related connections"><li class="mood related-pet talk">/, '2: bubbles like the related pets');
+  assert.doesNotMatch(talks, /data-item="connection:/, '2: no lights on each pet it talks to');
+  const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-tool-panel<'), unicorn.indexOf('>unity-unicorn-L4-tool-panel<'));
+  for (const h of ['Tricks running now · 0', 'Suggestions for you · 1', 'Harness skills · 3']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
+  for (const s of ['face-transfer', 'vrchat-unity-world', 'blender-unity-assets']) assert.ok(l3.includes(`data-name="${s}"`), `3: ${s} is a pill`);
+  assert.ok(l3.includes('<span class="tag cadence" title="How often it runs">weekly</span>'), '3: the suggestions are a weekly trick');
+  assert.match(unicorn, /<h3>Shared programs · 1<\/h3>[\s\S]*?>My Avatar Closet</, '4: the closet under Shared programs');
+  assert.ok(!/<h3>3rd party programs[^<]*<\/h3>(?:(?!<h3>)[\s\S])*My Avatar Closet/.test(unicorn), '4: not also a 3rd party program');
+  for (const row of ['a program or tool · its own folder', 'a program or tool · everything else']) assert.ok(unicorn.includes(`<span class="gwho">${row}</span>`), `5: ${row}`);
+  assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /\.top \{ --square: 220px; display: grid;[^}]*align-items: end; \}/, '6: the title block lines up with the squares\' bottom');
+});

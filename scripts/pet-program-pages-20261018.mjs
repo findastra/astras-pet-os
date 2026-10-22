@@ -162,7 +162,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -231,7 +231,11 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
-    thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
+    // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
+    thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
+    shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
+    skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
+    devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
@@ -353,17 +357,27 @@ export function rwxPanelBody(d) {
   return `<p class="small">Should be: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. Then whether that is in code:</p>
 <p class="rwx-key">${key}</p>
 <h3>Who may use ${esc(d.home)}</h3>
-<div class="rwx-rows">${LEVELS.map((l) => levelRow(l, a.on.filter((g) => g.level.includes(l[0])), a)).join('')}</div>
+<div class="rwx-rows">${LEVELS.map((l) => {
+  // Two rows per level (Astra, 2026-10-22, answer 5: A): inside the pet program's own folder, and everything else.
+  const mine = a.on.filter((g) => g.level.includes(l[0]));
+  const own = mine.filter((g) => g.self), rest = mine.filter((g) => !g.self);
+  // A level with only one kind of rule (L4, you: everywhere) gets one row.
+  if (!own.length || !rest.length) return levelRow(l, mine, a);
+  return levelRow([l[0], `${l[1]} · its own folder`], own, a) + levelRow([l[0], `${l[1]} · everything else`], rest, a);
+}).join('')}</div>
 <details class="may-use"><summary><h3>What ${esc(d.home)} may use</h3></summary>
 ${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}</details>
-${about('Each level row shows the most that level is allowed by any rule on this pet program; open a row to see every rule behind it and its proof. The row’s mark is the least sure of those rules: one “Rule only” makes the whole row “Rule only”. These are the same rules as the System Map card and PROTECTION-RINGS.md, and the build refuses an “In code” mark that names no proof.')}`;
+${about('Each level has two rows: what it may do inside the pet program’s own folder, and everywhere else. A row shows the most that level is allowed there by any rule; open a row to see every rule behind it and its proof. The row’s mark is the least sure of those rules: one “Rule only” makes the whole row “Rule only”. These are the same rules as the System Map card and PROTECTION-RINGS.md, and the build refuses an “In code” mark that names no proof.')}`;
 }
 
-function connection(c, homeSlug) {
-  const flow = (list) => list.length ? `<ul>${list.map((f) => `<li><b>${esc(f.carries)}</b>${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</li>`).join('')}</ul>` : '<p class="empty">nothing</p>';
-  return `<fieldset class="connection"><legend>${lights(`connection:${c.id}`, `${c.name} connection`)} ${esc(c.name)}</legend>
-<div class="flows"><div><h4>Sends</h4>${flow(c.sends)}</div><div><h4>Receives</h4>${flow(c.receives)}</div></div>
-<p class="small">${c.program ? `${esc(c.program)} · <code>${esc(slug(c.program))}-v1.0</code> · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>`;
+// Each pet it talks to speaks in a bubble like the related pets, its picture beside it, no lights of its own (Astra,
+// 2026-10-22, answer 2: A; her screenshot: "awkward", "these buttons look ugly"). It says what it gets from this pet
+// program and what it sends back.
+function connection(c, d) {
+  const said = (word, list) => list.length ? list.map((f) => `<p><b>${word}</b> ${esc(f.carries)}${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</p>`).join('') : '';
+  const pic = d.related.find((r) => r.id === c.id);
+  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${img(pic?.idle || null, `${c.name}, idle`)}`;
+  return `<li class="mood related-pet talk">${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
 }
 
 // ---------- A pet's own panels, beyond the sketch's minimum ----------
@@ -549,6 +563,7 @@ ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summa
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
 ${toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${itemList(d.devices, 'device', '')}</section>` : ''}</div>
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
@@ -569,16 +584,21 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
 <section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
 ${history}
-<h3 class="talks">Pets it talks to</h3>${d.connections.length ? `<div class="connections">${d.connections.map((c) => connection(c, d.homeSlug)).join('')}</div>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
+<h3 class="talks">Pets it talks to</h3>${d.connections.length ? `<ul class="moods related connections">${d.connections.map((c) => connection(c, d)).join('')}</ul>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
 
-  // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet.
+  // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
+  // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
+  const l3Suggest = [{ id: 'weekly-suggestions', name: 'weekly-suggestions', state: 'planned', cadence: 'weekly',
+    desc: `Once a week the seated agent suggests what to do next for ${d.home}.` }];
   const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<ul class="plain">
 <li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
 <li><b>${esc(d.home)} program activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.home)} right now.</span></li>
-<li><b>Tricks running now:</b> none</li>
-<li><b>Harness skills:</b> none recorded in the hub yet (they belong to the seat, not to the pet)</li>
-<li><b>Suggestions for you:</b> none yet</li>
-<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>`, { cls: 'level', light: true });
+<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>
+<div class="columns">
+<section>${heading('Tricks running now', [])}<p class="empty">None: no seat is connected, so nothing runs by itself.</p></section>
+<section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
+<section>${heading('Harness skills', d.skills)}${itemList(d.skills, `skill:${d.petSlug}`, 'None matched in Skill Scout’s catalog yet. They belong to the seat (Claude Code, Codex), not to the pet.')}</section>
+</div>`, { cls: 'level', light: true });
 
   // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").

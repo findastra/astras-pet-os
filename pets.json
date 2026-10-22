@@ -797,9 +797,31 @@
             "node": "blender",
             "how": "optional",
             "why": "Avatar meshes are often edited in Blender before Unity. In use (Astra struck \"idea, not agreed yet\", 2026-10-21)."
+          },
+          {
+            "node": "my-avatar-closet",
+            "how": "optional",
+            "why": "Planned: the closet Devilish and Astra share for Poppy's assets."
           }
         ]
-      }
+      },
+      "harness_skills": [
+        {
+          "name": "face-transfer",
+          "harness": "Claude Code",
+          "does": "Moves an avatar’s face tracking from one Unity project to another, and keeps a log of face tracking builds."
+        },
+        {
+          "name": "vrchat-unity-world",
+          "harness": "Claude Code",
+          "does": "Works on your VRChat worlds in Unity without breaking the editor you have open."
+        },
+        {
+          "name": "blender-unity-assets",
+          "harness": "Codex",
+          "does": "Makes Blender assets for Unity and VRChat worlds."
+        }
+      ]
     },
     {
       "repo": "learn-python",
