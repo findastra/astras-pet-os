@@ -149,7 +149,8 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **sick** | failing health check (degraded) | A broken pet program, or too many broken tools. |
 | **not on this PC** | feature detection (graceful degradation) | A program a pet looks after is not installed: no error, the pet sleeps. |
 | **System Map** (3D PFD) | architecture diagram and dependency graph (interactive) | Every pet, program, model and device on its ring, with the grants on every card. Tools and tricks are listed on their pet program's card, not drawn. |
-| **Pets Board** | status dashboard | Every pet in one chart, rebuilt from GitHub every 30 minutes. |
+| **Pets Board** | status dashboard (a review queue) | GitHub Aquarium's page of everything that waits on you on GitHub, in the order to act, then every pet in one chart. Rebuilt when outstanding-items runs; it shows the real list only on your PC. |
+| **outstanding items** | review queue (pull-request triage) | What waits on you on GitHub: pull requests ready for your OK, jobs failing on a main branch, cards that wait on you, and what each chat has to fix first. GitHub Aquarium's outstanding-items tool lists them (Astra, 2026-10-21). |
 | **Startup Star** | launcher and process supervisor (a system tray app) | A native program of The Farm that starts the desktop pets. Not a pet: it has no face. |
 | **pet program spawner** | scaffolding and page generator | The Farmer's native tool that writes every basic pet program page. |
 | **click-check** | link checker and UI smoke test (an automated click-through test) | The Farmer’s native tool that clicks every button and link on the pet program pages and says which go nowhere, go to a dead end or the wrong place (`npm run click-check`). |

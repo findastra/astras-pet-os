@@ -539,6 +539,66 @@
   }
   })();
 
+  // ---- GitHub Aquarium's outstanding items (only on its page; Astra, 2026-10-21, findastra/github-goldfish card 006). ----
+  // What waits on Astra on GitHub: how many in each group and the first few of each, with the Pets Board for the rest.
+  // The list names private repos, so it stays on Astra's PC: GitHub Aquarium's outstanding-items writes it to one fixed
+  // file in her Documents folder, and this page reads that file only when it is opened there. Anywhere else it shows
+  // the page's made-up examples. Every word goes in with textContent; only https links become links.
+  (function () {
+  if (config.repo !== 'github-goldfish') return;
+  var box = document.getElementById('outstanding-items');
+  if (!box) return;
+  // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+  var LOCAL_ITEMS = "../../../../Astra's PetOS Data/github-aquarium/outstanding-items-page-data.js";
+  var FIRST = 3;
+  var source = document.getElementById('outstanding-source');
+  var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var GROUPS = ['broken', 'you', 'chat', 'close', 'info'];
+  var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+  var row = function (i) {
+    var li = el('li', null, 'request' + (i.example ? ' example' : ''));
+    var head = el('div', null, 'request-head');
+    var text = (i.number ? i.repo + ' #' + i.number + ' ' : i.repo + ': ') + (i.title || '');
+    var href = https(i.url);
+    if (href) { var a = el('a', (i.group === 'you' ? '✨ ' : '') + text); a.href = href; a.rel = 'noopener'; a.target = '_blank'; head.appendChild(a); } else head.appendChild(el('b', text));
+    if (i.example) head.appendChild(el('span', 'EXAMPLE', 'tag example-tag'));
+    li.appendChild(head);
+    li.appendChild(el('div', i.does || '', 'small'));
+    return li;
+  };
+  var showItems = function (items, message) {
+    source.textContent = message;
+    GROUPS.forEach(function (g) {
+      var list = box.querySelector('ul[data-group="' + g + '"]');
+      var empty = box.querySelector('[data-empty="' + g + '"]');
+      var count = box.querySelector('[data-count="' + g + '"]');
+      var mine = items.filter(function (i) { return i && i.group === g; });
+      list.textContent = '';
+      mine.slice(0, FIRST).forEach(function (i) { list.appendChild(row(i)); });
+      empty.hidden = mine.length > 0;
+      count.textContent = mine.length ? mine.length + (mine.length > FIRST ? ', the first ' + FIRST + ' here, the rest on the Pets Board' : '') : '';
+    });
+  };
+  var examples = function (why) {
+    var list = [];
+    try { list = JSON.parse(document.getElementById('outstanding-examples').textContent); } catch (e) { list = []; }
+    showItems(list, why);
+  };
+  if (onThisPC) {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_ITEMS);
+    script.onload = function () {
+      var d = window.githubAquariumOutstandingItems;
+      if (!d || d.schema !== 'github-aquarium-outstanding-items-v1' || !Array.isArray(d.items)) return examples('The Goldfish\'s list on this PC is not one this page can read. These are made-up examples.');
+      showItems(d.items, 'The Goldfish\'s list on this PC, checked ' + localTime(d.checked) + ': ' + d.repos + ' repos (' + d.private + ' private), ' + d.prs + ' open pull requests.');
+    };
+    script.onerror = function () { examples('The Goldfish has not written its list on this PC yet (run npm run outstanding-items in the hub folder). These are made-up examples.'); };
+    document.head.appendChild(script);
+  } else {
+    examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+  }
+  })();
+
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
   // its panel fits it (Astra's Window Star, 2026-10-20). Only the tool page in that panel is listened to, from the site
   // its panel opened (on any farm, whoever's site that is), and only for a height. ----
