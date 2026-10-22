@@ -135,7 +135,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The paired lights: two buttons side by side, never stacked. They look like buttons so people click them (Astra,
    2026-10-19): raised, a little bigger when pointed at, pressed in when clicked. Grey is not set yet. */
 .lights { display: inline-flex; gap: 7px; margin-right: 10px; vertical-align: middle; }
-.light { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid #111; cursor: pointer;
+.light { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); cursor: pointer;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .3), inset 0 2px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18);
   transition: transform .08s ease-out; }
 .light:hover { transform: scale(1.18); }
@@ -172,13 +172,17 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .items li.pill:hover { background: rgba(255, 255, 255, .09); }
 .items li.pill:has(> details[open]) { border-radius: 16px; }
 /* The dropdown arrow sits on the top border at the right, like the name on the left; it turns down while open. */
-.pill-more > summary { position: absolute; top: -11px; right: 18px; z-index: 1; width: 24px; height: 20px; display: grid; place-items: center;
-  padding: 0 4px; color: var(--chalk); font-size: 13px; line-height: 1;
+.pill-more > summary { position: absolute; top: -13px; right: 34px; z-index: 1; width: 16px; height: 26px; display: grid; place-items: center;
+  padding: 0;
   /* The page's colour only above the border line, so no dark box shows inside the pill (Astra, 2026-10-22: "looks weird"). */
-  background: linear-gradient(var(--slate) 11px, transparent 11px); }
-.pill-more > summary::before { content: "▸"; transition: transform .15s ease; }
+  background: linear-gradient(var(--slate) 13px, transparent 13px); }
+/* A bigger, hollow triangle (Astra, 2026-10-22: "make bigger and hollow"), drawn in the line colour; yellow on hover. The
+   border runs right up to it, and it sits on the straight part, left of the corner ("connect panel border to arrow.
+   scoot to left"). */
+.pill-more > summary::before { content: ""; width: 16px; height: 18px; transition: transform .15s ease;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e6e0c9' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+.pill-more > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .pill-more[open] > summary::before { transform: rotate(90deg); }
-.pill-more > summary:hover { color: var(--fix); }
 .pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0 4px; background: linear-gradient(var(--slate) 10px, transparent 10px); }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
@@ -208,6 +212,12 @@ a.item-name:hover, a.item-name:focus-visible { text-decoration: underline; text-
 .plain li { margin: 5px 0; }
 .about { margin-top: 10px; font-size: 12.5px; color: var(--chalk-dim); }
 .about > summary { cursor: pointer; width: fit-content; }
+.about > summary, .may-use > summary, .backlog > summary { list-style: none; display: flex; align-items: center; gap: 7px; }
+.about > summary::-webkit-details-marker, .may-use > summary::-webkit-details-marker, .backlog > summary::-webkit-details-marker { display: none; }
+.about > summary::before, .may-use > summary::before, .backlog > summary::before { content: ""; flex: none; width: 13px; height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e6e0c9' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; transition: transform .15s ease; }
+.about > summary:hover::before, .may-use > summary:hover::before, .backlog > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.about[open] > summary::before, .may-use[open] > summary::before, .backlog[open] > summary::before { transform: rotate(90deg); }
 .about > p { margin: 4px 0 0 16px; }
 /* A tool panel inside a level (L2's update history, L4's parts): the same box, a little closer to the one above. */
 .panel.sub { margin-top: 26px; }
@@ -234,8 +244,8 @@ th { font-weight: 600; color: var(--chalk-dim); }
 .side-by-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 0 28px; align-items: start; }
 /* No empty band at the top of a panel ("weird gap here"). */
 .rwx-panel > p:first-of-type, .session-notes .notes { margin-top: 0; }
-.may-use > summary { cursor: pointer; list-style: revert; margin: 4px 0 6px; }
-.may-use > summary h3 { display: inline; }
+.may-use > summary { cursor: pointer; margin: 4px 0 6px; }
+.may-use > summary h3 { display: inline; margin: 0; }
 
 /* Session notes. */
 .notes { display: grid; gap: 8px; }
