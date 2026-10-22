@@ -62,11 +62,14 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
-    assert.match(box, /<dt>one click<\/dt><dd>show the current reminder in a dialog box/, `${d.repo}: one click`);
-    assert.ok(box.includes(`<dt>two clicks</dt><dd>open or close ${esc(d.home)}, this page</dd>`), `${d.repo}: two clicks`);
+    // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22).
+    const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
+    assert.match(box, pill('one click'), `${d.repo}: one click`);
+    assert.match(box.match(pill('one click'))[1], /^Show the current reminder in a dialog box/);
+    assert.equal(box.match(pill('two clicks'))[1], esc(`Open or close ${d.home}, this page.`), `${d.repo}: two clicks`);
     const three = d.clicks['3'];
-    if (three) assert.ok(box.includes(`<dt>three clicks</dt><dd>${esc(three.what)}`), `${d.repo}: three clicks run ${three.tool}`);
-    else assert.match(box, /<dt>three clicks<\/dt><dd>a tool you assign/, `${d.repo}: three clicks`);
+    if (three) assert.equal(box.match(pill('three clicks'))[1], esc(three.what || three.tool), `${d.repo}: three clicks run ${three.tool}`);
+    else assert.match(box.match(pill('three clicks'))[1], /^A tool you assign/, `${d.repo}: three clicks`);
     assert.doesNotMatch(box, /refresh tools/, `${d.repo}: three clicks no longer refresh the tools`);
   }
   // Astra, 2026-10-19: "yes move voicemeeter bug to 3 clicks is the fix".
@@ -148,7 +151,9 @@ test('headings count what they hold, and the pet\'s own things are native (Astra
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   assert.ok(unicorn.includes(`<h3>3rd party programs · ${d.thirdParty.length}</h3>`), '3rd party programs · #');
   assert.ok(unicorn.includes(`<h3>Native programs · ${d.programs.length}</h3>`), 'Native programs · #');
-  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length}</h3>`), 'Native tricks · #');
+  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22).
+  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0)}</h3>`), 'Native tricks · #');
+  assert.ok(!unicorn.includes('<h3>Schedule</h3>') && unicorn.includes('>self-audit</span> <span class="tag cadence"'), 'no Schedule list: the self-audit is a trick with its cadence');
   for (const p of pages) assert.ok(!/<h3>Your (programs|tools|tricks|other tools)/.test(files[pagePath(p.repo)]), `${p.repo}: native, not "your"`);
 });
 
@@ -217,7 +222,9 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     const pills = items.split('<li class="pill">').slice(1);
     for (const p of pills) {
       assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
-      assert.match(p, /<details class="pill-more"( open)?><summary[^>]*><span class="item-name">/, `${d.repo}: the name opens the item`);
+      // The name opens the item itself; a dropdown arrow shows the rest (Astra, 2026-10-22: "dropdown arrow and tool name to open tool").
+      assert.match(p, /^<span class="lights">.*?<\/span>(<a class="item-name" href="[^"]+"|<span class="item-name")/, `${d.repo}: the name, after the lights`);
+      assert.match(p, /<details class="pill-more"( open)?><summary title="Show or hide more about [^"]+" aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the dropdown arrow`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
       // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
@@ -225,14 +232,18 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
-  // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right in its own tool panel,
-  // inside the L1 tool panel, and its pill points there.
-  const l1 = puffer.slice(puffer.indexOf('>portfolio-puffer-L1-tool-panel<'), puffer.indexOf('>portfolio-puffer-L2-tool-panel<'));
-  assert.match(l1, /<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-star-window<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/, "Portfolio Puffer's L1 tool panel holds the Window Star");
-  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill points to its tool panel');
+  // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
+  // 2026-10-22 its panel is its own, after the four levels ("astras-photostar-panel is its own and the tool is listed too
+  // just separately"), and its pill in L1 points there.
+  const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
+  const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
+  assert.ok(at > levelsEnd, "its own panel, after the four levels");
+  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes(">Astra&#39;s Window Star</a>"), "the tool is still listed in L1");
+  assert.match(puffer, /<a class="item-name" href="#astras-star-window-tool-panel" title="Use Astra&#39;s Window Star below">/, 'its name opens its panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
-  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open ${name}</a>`), `${name} links its folder`);
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="item-name" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+" title="Open ${name}">${name}</a>`), `${name}: its name links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {

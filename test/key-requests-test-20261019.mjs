@@ -19,7 +19,8 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the fou
     assert.ok(page.indexOf(`>${before}<`) > -1, `${before} is on the page`);
     assert.ok(at > page.indexOf(`>${before}<`), `after ${before}`);
   }
-  assert.ok(at > -1 && at < page.indexOf('>api-fairy-session-notes<'), 'before the session notes');
+  // The R W X panel and the session notes sit side by side (Astra, 2026-10-22); a pet's own panels come after both.
+  assert.ok(at > page.indexOf('>api-fairy-session-notes<') && at < page.indexOf('>api-fairy-emotions<'), 'after the session notes, before the emotions');
   assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">api-fairy-key-requests-tool-panel<\/span><\/summary>/);
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {

@@ -140,9 +140,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | Tool panel | Level | What goes in it |
    |---|---|---|
    | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
-   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
+   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list) · the **status line** (item 2 of the list below), a tool panel of its own, `<pet>-update-history` · **connection boxes** for the pets it talks to (item 6 below). |
+   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **`<home> program activity`** bubble, which names the pet program (Astra, 2026-10-22) · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
+   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | Five tool panels of their own, each with its paired lights and a lowercase label (Astra, 2026-10-22): **`approvals-waiting-on-you`**, each with approve and decline · **`grants`**, what grants are (permissions: what each level may read, write and run) and a pointer to their own panel (item 12 below) · **`keys`** agents hold for it (API Fairy shows them) · **`<pet>-required-maintenance`**, items marked requires maintenance and their vet-clinic tickets · **`pet-id`**, the pet passport (item 9 below). |
 
    Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
    and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
@@ -199,15 +199,17 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
    clicks: open or close the pet program, its page above. Three clicks or more: a tool of the pet program, one per
    number of clicks, or "none assigned yet". A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), never
-   a trick. This replaces "three clicks: refresh the tools and the tool list".
+   a trick. This replaces "three clicks: refresh the tools and the tool list". Each number of clicks is a pill with its
+   paired lights, like a tool (Astra, 2026-10-22: "those should look/function like tools").
 9. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
    grant (section 11). It holds item 10 of the list below. **It is a footer, not a list** (Astra, 2026-10-20: "It
    looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
-   (Flash Audit A51) again, centered between thin rules: the license, signature and languages; then three slightly
-   staggered groups, each after a ✦: By Astra and the date, Find Out More (her GitHub and TikToks), Take Me Home! (the
-   Farmer's icon, to The Farm); then the System Map, every pet program, the source and the docs; then the spawner's
-   note.
+   (Flash Audit A51), in a whole box like every panel. Since Astra's marked-up screenshot of 2026-10-22: two groups on
+   one line, each after a ✦: By Astra, and Find Out More with her GitHub and the same socials as her GitHub profile
+   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram); then the languages of the pet's repo as
+   small bubbles. The license, signature, date (it is beside the title), Take Me Home!, the list of links, the words
+   switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
     bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
     Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
@@ -218,8 +220,15 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    2026-10-19: "The shape is a little awkward. Make it better").
 11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
-    boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
-    pet program spawner writes it on every page.
+    boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I
+    manage <its pet program>", then what it sends or receives), its picture beside it, and the whole of it opens that
+    pet program's page (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles"). The pet
+    program spawner writes it on every page.
+
+    **Every panel's closing words** (how it works, where its data comes from) fold behind an arrow, closed until opened
+    (Astra, 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
+    The R W X panel and the session notes sit side by side, and stack on a narrow window (the same day: "I want both of
+    these panels to be side by side (columns)").
 12. **`<pet>-rwx-panel`** (Astra, 2026-10-19, option C: "I think this actually needs to be its own panel in each pet
     program"), right after the four level panels: what each level **should be** (its R W X on this pet program), then
     whether that is **in code**: ✓ In code, ⚠︎ Rule only or ○ Not built. One row per level, L1 at the top, as on the

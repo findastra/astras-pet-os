@@ -17,8 +17,8 @@ const scratch = () => mkdtempSync(join(tmpdir(), 'idle-flash-dots-'));
 
 test('the matrix gives every check once, in priority order, each with a grey or blue dot', () => {
   const m = readMatrix();
-  const ids = Array.from({ length: 60 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
-  assert.deepEqual([...m.order].sort(), ids, 'A01 to A60, each once');
+  const ids = Array.from({ length: 61 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
+  assert.deepEqual([...m.order].sort(), ids, 'A01 to A61, each once');
   assert.equal(m.title.A60, 'System Map link', 'A60: every pet program page links back to the System Map (Astra, 2026-10-19)');
   assert.equal(m.dot.A60, GREY);
   for (const id of ids) assert.ok([GREY, BLUE].includes(m.dot[id]), `${id} has a dot`);
