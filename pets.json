@@ -566,7 +566,7 @@
       "asset_date": "20261008",
       "status": "growing",
       "published": true,
-      "visibility": "private",
+      "visibility": "public",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
       "version": "0.3.0-beta",
