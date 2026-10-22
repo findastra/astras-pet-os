@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge findastra/kernel-grove#3, then this hub pull request; then build and try it)
+status: open (waiting on Astra: merge findastra/kernel-grove#3, then findastra/astras-pet-os#187; then build and try it)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: findastra/kernel-grove (README.md, AGENTS.md, kernel-grove-20261021.cs), log-den's contracts/background-pet-20261021.cs, PET-PROGRAM-FRAMEWORK.md section 4 (no tray icon), handoffs/066-any-page-notes-and-tray-20261021.md
@@ -34,7 +34,7 @@ too please."
   and fixed: the Store's `python3.13.exe` was not seen as Python; programs running as administrator hid their paths
   (now read with QueryFullProcessImageName).
 
-**This hub branch** (`claude/kernel-grove-pipeline-20261021`, made in a worktree in Claude's scratchpad with
+**This hub branch** (`claude/kernel-grove-pipeline-20261021`, findastra/astras-pet-os#187, made in a worktree in Claude's scratchpad with
 `core.autocrlf=false`; the live hub folder stayed on `main`), done the way Linux Penguin moved (0a472d4):
 - pet-programs.json #63 stage pipeline; pets.json pipeline entry (private, hatching, version 0.1.0-20261021, `needs`:
   Windows and log-den; no Startup Star need, since it has no desktop pet).
@@ -59,7 +59,7 @@ Log Lynx had used about 1,400 s of CPU in 31 hours (its crash-catcher looks ever
 
 ## Still open
 
-1. **Astra:** merge findastra/kernel-grove#3, then this hub pull request (approval in chat; the assistant merges).
+1. **Astra:** merge findastra/kernel-grove#3, then findastra/astras-pet-os#187 (approval in chat; the assistant merges).
 2. **After the merges, on Astra's PC:** in `kernel-grove`, `git switch main` and pull, run
    `build-kernel-grove-20261021.ps1`, open `bin\kernel-grove-20261021.exe`. Rebuild and restart Startup Star from the
    hub folder (card 066 already asks for this after #186) so Kernel Koala's menu appears. The watch does not start at
