@@ -71,7 +71,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 60 | Passport Pelican | **Passport Harbor** | [passport-harbor](https://github.com/findastra/passport-harbor) | Roadmap | Passport/ID metadata, visa research and deadlines, encrypted. *(draft)* |
 | 61 | Journal Jellyfish | **Journal Lagoon** | [journal-lagoon](https://github.com/findastra/journal-lagoon) | Roadmap | Private travel diary and itineraries. *(draft)* |
 | 62 | Shell Squid | **Shell Trench** | [shell-trench](https://github.com/findastra/shell-trench) | Roadmap | Bash, terminal scripting and guarded automation. *(draft)* |
-| 63 | Kernel Koala | **Kernel Grove** | [kernel-grove](https://github.com/findastra/kernel-grove) | Roadmap | Processes, memory, drivers and OS internals. *(draft)* |
+| 63 | Kernel Koala | **Kernel Grove** | [kernel-grove](https://github.com/findastra/kernel-grove) | Pipeline | Processes, memory, drivers and OS internals. *(draft)* |
 | 64 | Proxy Axolotl | **Proxy Lake** | [proxy-lake](https://github.com/findastra/proxy-lake) | Roadmap | Reverse proxies, TLS and secure private remote access. *(draft)* |
 | 65 | Cluster Crab | **Cluster Shore** | [cluster-shore](https://github.com/findastra/cluster-shore) | Roadmap | Distributed services and orchestration. *(draft)* |
 | 66 | Storage Stoat | **Storage Warren** | [storage-warren](https://github.com/findastra/storage-warren) | Roadmap | NAS, ZFS, snapshots and capacity health. *(draft)* |

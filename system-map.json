@@ -386,6 +386,58 @@
       "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
     },
     {
+      "id": "process-sweep",
+      "name": "Process sweep",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-process-sweep-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "startup-switch",
+      "name": "Startup switch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-startup-switch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "service-host-explainer",
+      "name": "Service Host explainer",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): what each \"Service Host: ...\" row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
+      "id": "leftover-watch",
+      "name": "Leftover watch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-leftover-watch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    
+    {
       "id": "crash-catcher",
       "name": "Crash catcher",
       "type": "tool",
@@ -700,15 +752,7 @@
       "job": "Bash, terminal scripting and guarded automation.",
       "layer": 4
     },
-    {
-      "id": "kernel-koala",
-      "name": "Kernel Koala",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Processes, memory, drivers and OS internals.",
-      "layer": 4
-    },
-    {
+{
       "id": "proxy-axolotl",
       "name": "Proxy Axolotl",
       "type": "roadmap",
@@ -2929,6 +2973,66 @@
       "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs)."
     },
     {
+      "id": "document-control-checker",
+      "name": "document-control-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-document-control-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Document control check. Finds required files that are missing, malformed or uncontrolled: no README or LICENSE, a pet repo without pet.json, the pet-app topic or the credit line, a committed .env, stray copies such as \"... (1).txt\". Read only (github-goldfish index.html)."
+    },
+    {
+      "id": "blatant-checker",
+      "name": "blatant-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-blatant-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Blatant check. Finds plain errors a visitor can see: links to repos, files or #anchors that go nowhere, doubled words, typos, garbled characters, leftover TODOs, a token or personal folder path in public text, and any word on the never-say list. Read only (github-goldfish index.html)."
+    },
+    {
+      "id": "organizational-checker",
+      "name": "organizational-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-organizational-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Organizational check. Finds things in the wrong place or named off-pattern: default branch not main, \"Moved:\" stubs not archived, no topics, a README title that does not echo the repo name, a profile line that disagrees with the repo's description, old pet words. Read only (github-goldfish index.html)."
+    },
+    {
+      "id": "systemic-checker",
+      "name": "systemic-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-systemic-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Systemic check. Finds patterns across the whole account: mixed apostrophes and dashes, mixed description style, some repos licensed and some not, a pet missing from the registry. Read only (github-goldfish index.html)."
+    },
+    {
+      "id": "showcase-checker",
+      "name": "showcase-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-showcase-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-19, at Astra's request): the Showcase check and panel. For every project the profile README advertises, it names its kind (VRChat world, Unity asset library, Discord project, website, pet …) and checks the README shows what that kind should: for a world, what's in it, how to visit, what's being built now and what's missing; plus the last commits and open pull requests. The homepage is the shop window, each README is what's on the shelf. Read only. In github-goldfish index.html (PR #19, merged 2026-10-19)."
+    },
+    {
       "id": "mass-delete",
       "name": "mass-delete",
       "type": "tool",
@@ -3501,7 +3605,7 @@
       "why": "Linux phase 1 pair."
     },
     {
-      "from": "kernel-koala",
+      "from": "kernel-grove",
       "to": "linux-iceberg",
       "carries": "findings",
       "state": "architecture",
@@ -6131,6 +6235,52 @@
         "next": "Iron Gates issues the grant; The Police Station watches that Linux Iceberg writes nothing."
       },
       {
+        "id": "kernel-koala-look",
+        "who": "Kernel Koala (Kernel Grove: process-sweep, service-host-explainer, leftover-watch)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:kernel-grove"
+        ],
+        "on": "every running program on this PC (name, file, command line, parent, memory, CPU, listening ports), Windows' services and what starts at sign-in",
+        "resources": [
+          "ring:5",
+          "ring:6",
+          "type:pet",
+          "type:pipeline"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Kernel Grove reads through WMI, the IP Helper API and the registry, and writes only its own data folder (its farm event log, saved reports without command lines, its menu and mood files). Nothing enforces this: it runs as you. Asked for on 2026-10-21; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Kernel Grove writes only its own folder."
+      },
+      {
+        "id": "kernel-koala-stop",
+        "who": "Kernel Koala (Kernel Grove: process-sweep, startup-switch)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:kernel-grove"
+        ],
+        "on": "a running program Astra picks and confirms (Stop it), and Astra's own sign-in switches (HKCU StartupApproved), never Windows, security, AI apps, pets, programs running as administrator or itself",
+        "resources": [
+          "ring:5",
+          "ring:6"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "no",
+        "status": "written",
+        "how": "Only after Astra presses the button and confirms; every stop and switch goes to the farm event log. The list of what it never stops is code (kernel-grove-20261021.cs, checked by --self-test), and Windows itself refuses a normal program that tries to stop an administrator's program, but nothing outside Kernel Grove enforces the rest: it runs as you. Asked for on 2026-10-21; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches every stop and switch."
+      },
+      {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
         "level": ["L1","L2"],
@@ -6760,7 +6910,21 @@
           }
         ]
       },
-      "log-den": {
+      "kernel-grove": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 98,
+            "why": "The window and the background watch: Windows processes, services, ports and the sign-in list need native calls, so it is C#, built with the compiler that ships with Windows."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 2,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the branch on 2026-10-21 (findastra/kernel-grove#3)."
+          }
+        ]
+      },
+            "log-den": {
         "languages": [
           {
             "language": "C#",
