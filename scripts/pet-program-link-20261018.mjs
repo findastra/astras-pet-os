@@ -235,7 +235,10 @@ export function setTopField(raw, key, value) {
 /** Sets a field on one pets.json entry (found by its "repo" line), keeping the file's own layout. */
 export function setRegistryField(raw, repo, key, value) {
   const lines = raw.split('\n');
-  const at = lines.findIndex((l) => l.trim().replace(/\r$/, '') === `"repo": ${JSON.stringify(repo)},`);
+  // The entry's own "repo" line is the least indented one: since 2026-10-20 a pet's `needs` names other pets with the
+  // same kind of line, deeper in, and the first one found could be another pet's (#167 met it, 2026-10-21).
+  const at = lines.reduce((best, l, i) => (l.trim().replace(/\r$/, '') === `"repo": ${JSON.stringify(repo)},`
+    && (best < 0 || l.match(/^ */)[0].length < lines[best].match(/^ */)[0].length) ? i : best), -1);
   if (at < 0) throw new Error(`no pets.json entry for ${repo}`);
   const pad = lines[at].match(/^ */)[0];
   const close = lines.findIndex((l, i) => i > at && new RegExp(`^${pad.slice(2)}}`).test(l));

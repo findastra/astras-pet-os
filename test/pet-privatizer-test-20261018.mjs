@@ -36,12 +36,17 @@ test('the whole farm is every animal: registered and pipeline pets and the hub, 
   assert.equal(all.length, new Set([...registry.pets, ...registry.pipeline].map((p) => p.repo).concat(registry.cage)).size);
 });
 
-test('pets.json follows with one changed line, and only for a pet that is not private yet', () => {
+// A pet that is public today, never one named here: most of Astra's repos went private on 2026-10-20.
+const publicPet = (raw) => { const r = JSON.parse(raw); return [...r.pets, ...r.pipeline].find((p) => p.visibility === 'public' && p.role !== 'host')?.repo; };
+
+test('pets.json follows with one changed line, and only for a pet that is not private yet', (t) => {
   const raw = read('pets.json');
-  const out = markPrivate(raw, 'meme-fiend');
+  const pub = publicPet(raw);
+  if (!pub) return t.skip('no pet is public');
+  const out = markPrivate(raw, pub);
   const changed = out.split('\n').filter((l, i) => l !== raw.split('\n')[i]);
   assert.deepEqual(changed.map((l) => l.trim()), ['"visibility": "private",']);
-  assert.equal(markPrivate(out, 'meme-fiend'), out, 'a second run changes nothing');
+  assert.equal(markPrivate(out, pub), out, 'a second run changes nothing');
   assert.equal(markPrivate(raw, 'data-dealer'), raw, 'Data Dealer is private already');
   assert.equal(JSON.parse(markPrivate(raw, 'astras-pet-os')).pets.find((p) => p.role === 'host').visibility, 'private', 'the hub is the Friendly Farmer entry');
 });
@@ -90,13 +95,15 @@ test('the one art source never goes private, and another account\'s pet is copie
   assert.equal(refusal(dev, 'dev-diary', 'public'), '');
 });
 
-test('pets.json follows both ways with one changed line', () => {
+test('pets.json follows both ways with one changed line', (t) => {
   const raw = read('pets.json');
-  const priv = read('pets.json').replace(/("repo": "meme-fiend",[\s\S]*?"visibility": )"public"/, '$1"private"');
+  const pub = publicPet(raw);
+  if (!pub) return t.skip('no pet is public');
+  const priv = raw.replace(new RegExp(`("repo": "${pub}",[\\s\\S]*?"visibility": )"public"`), '$1"private"');
   assert.notEqual(priv, raw);
-  const out = markVisibility(priv, 'meme-fiend', 'public');
+  const out = markVisibility(priv, pub, 'public');
   assert.deepEqual(out.split('\n').filter((l, i) => l !== priv.split('\n')[i]).map((l) => l.trim()), ['"visibility": "public",']);
-  assert.equal(markVisibility(out, 'meme-fiend', 'public'), out, 'a second run changes nothing');
+  assert.equal(markVisibility(out, pub, 'public'), out, 'a second run changes nothing');
   assert.equal(markVisibility(raw, 'no-such-pet', 'public'), raw);
 });
 

@@ -1,4 +1,4 @@
-status: open (both pull requests merged with Astra's OK, 2026-10-21; waiting on: rebuild Startup Star, then Astra tries Kernel Grove)
+status: open (merged and Startup Star restarted, 2026-10-21; waiting on Astra: merge kernel-grove#4 (records only), then try Kernel Grove)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: findastra/kernel-grove (README.md, AGENTS.md, kernel-grove-20261021.cs), log-den's contracts/background-pet-20261021.cs, PET-PROGRAM-FRAMEWORK.md section 4 (no tray icon), handoffs/066-any-page-notes-and-tray-20261021.md
@@ -64,9 +64,15 @@ Log Lynx had used about 1,400 s of CPU in 31 hours (its crash-catcher looks ever
    #187 brought up to date with main (#188, #189) first: the map, levels row and registry note say merged.
 2. `kernel-grove` on Astra's PC is pulled to `main` and built right after the merge (`bin\kernel-grove-20261021.exe`);
    Astra has not opened it yet. The watch does not start at sign-in unless Astra asks for it.
-3. **Startup Star** was rebuilt and restarted for card 066 before this merged, so Kernel Koala's menu appears only after
-   the next rebuild and restart from the hub folder (with Astra's OK).
-4. kernel-grove's own `pet.json` still says `"merged": false` on its four tools: a one-line pull request there.
+3. Done: **Startup Star rebuilt and restarted** (Astra, in chat: "Yes, rebuild and restart Startup Star from the hub folder
+   so Kernel Koala's menu shows up"), 21:36: stopped with its own `--quit` (Voicemeeter Bug kept running, one copy),
+   built in the hub folder at 7741c97 (self-test PASS), started through a temporary shortcut and `explorer.exe` with its
+   sign-in command (`"<hub>" --startup`), so it uses the real `%LOCALAPPDATA%`; running and responding. Its `--check` run
+   from inside the Claude app read a stale status file in the app's private AppData copy, so it was not used. Not checked
+   by eye: Kernel Koala's submenu (its self-test covers it; it reads "Kernel Koala is not running" and "Start Kernel
+   Koala" until the watch is started). Kernel Koala's watch was not started.
+4. findastra/kernel-grove#4 (`claude/on-the-farm-20261021`, 4faee00): its `pet.json` tools say merged, status hatching,
+   and its README says pipeline. Records only; waits on Astra's OK.
 5. Pet art for Kernel Koala (costs money; waits on Astra's OK).
 6. Not built: drivers and OS internals (the rest of Kernel Koala's job); the core enforcing the tools' ON/OFF.
 
