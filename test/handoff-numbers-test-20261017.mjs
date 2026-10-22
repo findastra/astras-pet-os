@@ -10,7 +10,7 @@ const dir = new URL('../handoffs/', import.meta.url);
 const readme = readFileSync(new URL('README.md', dir), 'utf8');
 const cards = readdirSync(dir).filter((f) => /^\d{3,}-.+\.md$/.test(f));
 /** The old counter's next free number when it stopped, and the first pull request after the switch. */
-const OLD_NEXT = 71;
+const OLD_NEXT = 72;
 const FIRST_PR_CARD = 196;
 const num = (f) => +/^\d+/.exec(f)[0];
 
@@ -39,7 +39,7 @@ export function numberProblems(files, text) {
     if (want && want !== f) problems.push(`card ${n} belongs to ${want}, not ${f}: take your pull request's number`);
     if (!text.includes(f)) problems.push(`${f} is not listed in handoffs/README.md`);
   }
-  if (!new RegExp(`The old counter stopped at 0?${OLD_NEXT}\\b`).test(text)) problems.push('handoffs/README.md does not say where the old counter stopped');
+  if (!/A new card's number is its pull request's number/.test(text)) problems.push('handoffs/README.md does not say that a new card takes its pull request\'s number');
   return problems;
 }
 
@@ -48,11 +48,11 @@ test('every card number is used once; cards from before 2026-10-22 match the tab
 });
 
 test('the check catches a repeated number, a number given to another card and the old counter used again', () => {
-  const text = '| 017 | `017-security.md` | x |\nThe old counter stopped at 071.\n012-a.md 012-b.md 017-other.md';
+  const text = '| 017 | `017-security.md` | x |\n**A new card\'s number is its pull request\'s number**\n012-a.md 012-b.md 017-other.md';
   const p = numberProblems(['012-a.md', '012-b.md', '017-other.md'], text);
   assert.ok(p.some((x) => /card 12 is used twice/.test(x)));
   assert.ok(p.some((x) => /card 17 belongs to 017-security\.md/.test(x)));
-  assert.ok(numberProblems(['071-x.md'], text).some((x) => /pull request's number, not the old counter's/.test(x)));
+  assert.ok(numberProblems(['072-x.md'], text).some((x) => /pull request's number, not the old counter's/.test(x)));
   assert.deepEqual(numberProblems(['207-any-new-card-20261022.md', '1204-any-later-card-20270101.md'], text), [], 'a pull request number needs no row');
   assert.ok(numberProblems(['207-a.md', '207-b.md'], text).some((x) => /card 207 is used twice/.test(x)));
 });

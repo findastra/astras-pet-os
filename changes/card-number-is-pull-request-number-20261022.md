@@ -9,8 +9,8 @@ branch with main merged in (like #195 did for #177), then build question 3 (card
   Codex, line endings aside.
 - **Question 3:** a new card's number is the number of the pull request that adds it. The chat opens the pull
   request, then names the card; GitHub hands out the number, so nothing is reserved and `handoffs/README.md` gets no
-  row. Its two tables keep the cards numbered before 2026-10-22, as they stood that day; the old counter stopped at
-  071. Written in skills/handoff/SKILL.md, handoffs/README.md ("Card numbers") and the Handoffs line in AGENTS.md.
+  row. Its two tables keep the cards numbered before 2026-10-22, as they stood that day; the old counter's last card
+  is 071 (#204's), and its last line is kept as #204 wrote it, so #204 merges without a conflict. Written in skills/handoff/SKILL.md, handoffs/README.md ("Card numbers") and the Handoffs line in AGENTS.md.
 - `test/handoff-numbers-test-20261017.mjs` still fails on two cards with one number, and on an older card missing from
   the table. It now also fails on a new card that takes the old counter's next numbers, and needs no row for a card
   numbered by its pull request.
