@@ -78,15 +78,15 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
   assert.equal(bug.clicks['1'], undefined, 'one click is the reminder for every pet');
 });
 
-test('one click always points to the pet program page: every pet\'s link is its page; the app it had is in the passport (Astra, 2026-10-19, 2026-10-21)', () => {
+test('one click always points to the pet program page: every pet\'s link is its page; the app it had is in the Pet ID (Astra, 2026-10-19, 2026-10-21)', () => {
   const regs = [...src.registry.pets, ...src.registry.pipeline];
   for (const r of regs) {
     assert.equal(r.interface_url, pagePath(r.repo), `${r.repo}: interface_url`);
     assert.equal(r.interface_local_url, pagePath(r.repo), `${r.repo}: interface_local_url`);
     const html = files[pagePath(r.repo)];
     const today = r.interface_live_url || r.app_url;
-    // No button since 2026-10-21 (Astra put an X over "Open today's app"): the passport links it, or says it is private.
-    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\))<\/dd>/, `${r.repo}: the passport links the app it had`);
+    // No button since 2026-10-21 (Astra put an X over "Open today's app"): the Pet ID links it, or says it is private.
+    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\))<\/dd>/, `${r.repo}: the Pet ID links the app it had`);
     assert.ok(!html.includes(`href="${r.repo}-20261018.html">the app it had before`), `${r.repo}: the link never opens the page itself`);
   }
 });
@@ -320,7 +320,7 @@ test('the app link never leads into a private repo or its switched-off Pages sit
     for (const r of privateRepos) {
       assert.ok(!new RegExp(`href="https://(github\\.com/findastra|findastra\\.github\\.io)/${r}[/"#?]`, 'i').test(actions), `${d.repo}: today's app leads into private ${r}`);
     }
-    if (d.appPrivate) assert.match(actions, /its app \(private: /, `${d.repo}: the passport says why`);
+    if (d.appPrivate) assert.match(actions, /its app \(private: /, `${d.repo}: the Pet ID says why`);
   }
   // The rule itself: a private pet's repo and Pages site; never a public repo, the hub's own copy or another account.
   const reg = { github_owner: 'findastra', pets: [{ repo: 'shut', visibility: 'private' }, { repo: 'open', visibility: 'public' }], pipeline: [] };
