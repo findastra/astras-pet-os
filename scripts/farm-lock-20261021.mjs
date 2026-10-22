@@ -154,7 +154,7 @@ export function buildLock({ farm, onFarm, chosen, info, extra, previous = null, 
     schema: SCHEMA, written_by: info.writtenBy, updated: now,
     farm: { github_owner: farmOwner(farm.registry), kind: info.kind, release: info.release, mode: info.mode, os: info.os, core_parts: info.parts },
     pets,
-    history: [...(previous?.history || []), { at: now, did: did.did, pets: did.pets, by: info.writtenBy }],
+    history: [...(previous?.history || []), { at: now, did: did.did, pets: did.pets, ...(did.from ? { from: did.from } : {}), by: info.writtenBy }],
   };
 }
 

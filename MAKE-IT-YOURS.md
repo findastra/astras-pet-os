@@ -103,6 +103,8 @@ node scripts/farm-pets-20261021.mjs check
 - If Startup Star is running, it restarts so your desktop pets show the change.
 - In your fork (a hub copy in git) the Farmer only checks and records: its `pets.json` changes in a commit, as in the
   table above.
+- Someone gave you a pet pack? `add <the pack's zip>` brings the pet with its code, checked against GitHub first
+  (section 6).
 
 Or ask your AI: *"Add the pet `<name>` to my farm with the Friendly Farmer's farm-pets tool (node
 scripts/farm-pets-20261021.mjs in my install folder). Run plan first and show me what it needs, then add it."*
@@ -172,8 +174,28 @@ node scripts/pet-packs-20261020.mjs build evidence-locker
 - **Where to get one (Astra, 2026-10-21):** a pet's pack goes on that pet's own repo, as a file of a release, and only
   for pets whose repo is public, one pet at a time with the owner's OK. None is published yet; until then, a pack is one
   that someone built and gave you.
-- Next (not built yet): the Friendly Farmer adds a pet from a pack to a farm, checked file by file against the pet's
-  own repo on GitHub, and records it in the farm lock (section 2 shows how he adds the installer's own pets today).
+- **Put a pack's pet on your farm (Astra, 2026-10-22).** The Friendly Farmer's farm-pets tool (section 2) adds a pack
+  to your installed farm, with its code:
+
+  ```
+  node scripts/farm-pets-20261021.mjs plan add evidence-locker-pet-pack-20261022.zip
+  node scripts/farm-pets-20261021.mjs add evidence-locker-pet-pack-20261022.zip --yes
+  ```
+
+  - He checks the pack against itself first: every file must match its SHA-256 in the manifest, and nothing else may
+    be in the zip.
+  - He checks it against your farm: the pet must be on your farm's list, from the account that list names (never a
+    lookalike), for this computer, with no key or personal folder path in it.
+  - Then **he checks every file against the pet's own repo on GitHub**, at the pack's commit, with your own sign-in.
+    Code that differs is always refused.
+  - A pack he cannot check (a private repo your computer cannot read, or no internet) comes in only if you add
+    `--unchecked` on purpose. The farm lock then says it was not checked.
+  - The pet's code goes into its own folder next to your install (for Forensic Ferret,
+    `%LOCALAPPDATA%\Programs\evidence-locker`; on Linux, `~/.local/share/astras-pet-os/pets/evidence-locker`).
+    Nothing in it runs by itself: run its program from its README when you choose. Its pictures and page are your
+    farm's own.
+  - A newer pack of the same pet replaces that code, while the folder is unchanged. Taking the pet away (section 2)
+    takes its code folder too, and so does uninstalling. A folder you changed is always kept.
 
 Or ask your AI: *"Make a pet pack of `<the pet's repo>` with the Friendly Farmer's pet-packs tool (node
 scripts/pet-packs-20261020.mjs). Run plan first and show me what it needs, then build it."*
