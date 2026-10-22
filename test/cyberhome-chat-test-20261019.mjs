@@ -61,6 +61,7 @@ class El {
   }
   setAttribute(k, v) { this.attrs[k] = String(v); }
   getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; }
+  removeAttribute(k) { delete this.attrs[k]; }
   addEventListener(type, f) { (this.listeners[type] ||= []).push(f); }
   fire(type, extra = {}) { for (const f of this.listeners[type] || []) f.call(this, { target: this, preventDefault() {}, stopPropagation() {}, ...extra }); }
   click() { this.fire('click'); }
@@ -94,6 +95,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     const p = new El('details'); p.q['.legend'] = Object.assign(new El('span'), { textContent: `${d.petSlug}-${l}-panel` }); p.q['.activity'] = new El('span'); return p;
   });
   const who = WHO.map((k) => { const b = new El('button'); b.dataset.who = k; return b; });
+  const moods = ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'].map((m) => { const f = new El('figure'); f.dataset.mood = m; return f; });
   byId('chat-panel').hidden = true;
   byId('chat-panel').qa['button[data-who]'] = who;
   const document = {
@@ -102,7 +104,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     createElement: (tag) => new El(tag),
     createTextNode: (t) => t,
     querySelector: (sel) => (sel === '.den' ? den : null),
-    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : []),
+    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : sel === '.mood[data-mood]' ? moods : []),
     addEventListener(type, f) { (this.listeners[type] ||= []).push(f); },
     fire(type) { for (const f of this.listeners[type] || []) f({ target: new El() }); },
     body: new El('body'),
@@ -124,7 +126,8 @@ function boot(d, { saved = {}, reduce = false } = {}) {
   vm.runInContext(js, sandbox);
   const read = (k) => JSON.parse(store.get(`astras-pet-os:${d.homeSlug}:${k}`) || 'null');
   const fireWindow = (type) => { for (const f of sandbox.windowListeners[type] || []) f({}); };
-  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, bubble: byId('bubble') };
+  const lit = () => moods.filter((f) => f.cls.has('is-now')).map((f) => f.dataset.mood);
+  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, lit };
 }
 
 const panther = pages.find((d) => d.repo === 'learn-python');
@@ -134,9 +137,16 @@ test('the pet moves in: waiting, the pet comes in from the corner, home', () => 
   assert.equal(p.den.dataset.arrival, 'waiting');
   p.advance(300); assert.equal(p.den.dataset.arrival, 'arriving');
   p.advance(1100); assert.equal(p.den.dataset.arrival, 'home');
-  assert.equal(p.bubble.textContent, 'Python Panther moved in.');
-  p.advance(5000);
-  assert.equal(p.bubble.textContent, panther.lines.idle, 'then the bubble says its mood again');
+});
+
+// Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light up'".
+test('no bubble in the cyberhome: the mood lights up in the emotions tool panel, idle, then awake once you use the page', () => {
+  const p = boot(panther);
+  assert.deepEqual(p.lit(), ['idle']);
+  p.document.fire('pointerdown');
+  assert.deepEqual(p.lit(), ['blink'], 'awake lights up');
+  p.advance(120000);
+  assert.deepEqual(p.lit(), ['idle'], 'idle again after two quiet minutes');
 });
 
 test('with motion turned off, the pet is home at once', () => {

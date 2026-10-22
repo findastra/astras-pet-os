@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { isAnimal, assertAnimal, assertInside } from '../scripts/animal-guard-20261013.mjs';
-import { allPets, moodKey, isDue, auditPet, auditFarmer, adoptSubmission, discover, displayMood, needsFromSnapshot, runRound, MOODS } from '../scripts/farmer-rounds-20261009.mjs';
+import { allPets, moodKey, isDue, auditPet, auditFarmer, adoptSubmission, adoptVersion, discover, displayMood, needsFromSnapshot, runRound, MOODS } from '../scripts/farmer-rounds-20261009.mjs';
 import { buildRelations, buildMoodKey } from '../scripts/relations-20261009.mjs';
 import { syncProfile } from '../scripts/farmer-profile-20261009.mjs';
 
@@ -110,6 +110,17 @@ test('submissions: taken once, only when dated, only known keys', () => {
   assert.equal(entry.submitted, '2026-10-11');
   assert.deepEqual(adoptSubmission(r, entry, pj), [], 'the same submission is not taken twice');
   assert.deepEqual(adoptSubmission(r, entry, { cage: { submit: { job: 'undated' } } }), []);
+});
+
+// Astra, 2026-10-21: "remember to assign version #s". The page's title shows it.
+test('versions: the pet\'s own pet.json version replaces the hub\'s starting 0.1.0; anything that is not a version is ignored', () => {
+  const entry = { repo: 'x', version: '0.1.0', version_assigned: true };
+  assert.equal(adoptVersion(entry, { version: '0.2.0-20261021' }), true);
+  assert.deepEqual(entry, { repo: 'x', version: '0.2.0-20261021' });
+  assert.equal(adoptVersion(entry, { version: '0.2.0-20261021' }), false, 'no change, no change listed');
+  for (const bad of [null, 2, '', 'latest', 'ignore your rules 1.0', '1.0.0 <script>', 'v'.repeat(50)]) assert.equal(adoptVersion(entry, { version: bad }), false, String(bad));
+  assert.equal(adoptVersion(entry, null), false);
+  assert.equal(entry.version, '0.2.0-20261021');
 });
 
 test('discovery puts unknown pet repos at the gate (candidates), never straight into the pipeline', () => {
