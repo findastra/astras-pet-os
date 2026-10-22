@@ -566,7 +566,7 @@
       "asset_date": "20261008",
       "status": "growing",
       "published": true,
-      "visibility": "public",
+      "visibility": "private",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
       "version": "0.3.0-beta",
@@ -618,7 +618,7 @@
       "interface_local_url": "apps/pet-programs/github-goldfish-20261018.html",
       "interface_url": "apps/pet-programs/github-goldfish-20261018.html",
       "app_url": "apps/github-goldfish-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "c77f326d16d85dcf2d2328683e798605e3253a6c",
       "audit": {
@@ -704,7 +704,7 @@
       "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
       "interface_url": "apps/pet-programs/api-fairy-20261018.html",
       "app_url": "apps/api-fairy-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "a63b027fca258816996767eff5d6e3a75431a1fb",
       "audit": {
@@ -742,7 +742,7 @@
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.3.0-20261011",
       "source_commit": "ce0d2eb811569ecdaedfc087b42ae8a387ada6f1",
       "audit": {
@@ -801,7 +801,7 @@
       "interface_local_url": "apps/pet-programs/learn-python-20261018.html",
       "interface_url": "apps/pet-programs/learn-python-20261018.html",
       "app_url": "apps/learn-python-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "d5088d07566f7c698818e6a2c93a91ca68bfa5e1",
       "audit": {
@@ -837,7 +837,7 @@
       "interface_local_url": "apps/pet-programs/the-astral-plane-20261018.html",
       "interface_url": "apps/pet-programs/the-astral-plane-20261018.html",
       "app_url": "apps/vrchat-ai-astra-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "5e15125a7d35144f883117c51b9f3cd2faf26c40",
       "audit": {
@@ -880,7 +880,7 @@
       "interface_local_url": "apps/pet-programs/health-hummy-20261018.html",
       "interface_url": "apps/pet-programs/health-hummy-20261018.html",
       "app_url": "apps/health-hummy-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "9ef38ebb911b9f49586f6c6502e1040afd8f354c",
       "audit": {
@@ -915,7 +915,7 @@
       "interface_local_url": "apps/pet-programs/finance-finch-20261018.html",
       "interface_url": "apps/pet-programs/finance-finch-20261018.html",
       "app_url": "apps/finance-finch-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "8c184fbd7ca8ad492deacd17183b1e810e2eea15",
       "audit": {
@@ -967,7 +967,7 @@
       "interface_local_url": "apps/pet-programs/mommys-mommies-20261018.html",
       "interface_url": "apps/pet-programs/mommys-mommies-20261018.html",
       "app_url": "apps/mommys-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "a0a8275aca9feba005d01f4a762752b2cd55626b",
       "audit": {
@@ -1010,7 +1010,7 @@
       "interface_url": "apps/pet-programs/paper-girl-20261018.html",
       "app_url": "https://findastra.github.io/paper-girl/",
       "interface_live_url": "https://findastra.github.io/paper-girl/",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "170225bcb74129ddb11208764c323e30351d5659",
       "audit": {
@@ -1052,7 +1052,7 @@
       "interface_local_url": "apps/pet-programs/file-master-20261018.html",
       "interface_url": "apps/pet-programs/file-master-20261018.html",
       "app_url": "apps/file-master-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.1-20261008-pets",
       "source_commit": "77f2853ee3e8b6865fee0cf9b2e3ce09af79a77d",
       "audit": {
@@ -1162,7 +1162,7 @@
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
       "interface_url": "apps/pet-programs/portfolio-puffer-20261018.html",
       "app_url": "apps/portfolio-puffer-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "aef38db6544322c54e01b0ef9a1cf8dff1a8fcf1",
       "audit": {
@@ -1204,7 +1204,7 @@
       "interface_local_url": "apps/pet-programs/drum-dog-20261018.html",
       "interface_url": "apps/pet-programs/drum-dog-20261018.html",
       "app_url": "apps/drum-dog-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "f6f9470a5cdea6eb8e620696cf5eb2876dbf764e",
       "audit": {
@@ -1246,7 +1246,7 @@
       "interface_local_url": "apps/pet-programs/vscode-angel-20261018.html",
       "interface_url": "apps/pet-programs/vscode-angel-20261018.html",
       "app_url": "apps/vscode-angel-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "37c1727f7ba304e835b6f65f53d04d3a308d9126",
       "audit": {
@@ -1284,7 +1284,7 @@
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
       "interface_live_url": "https://findastra.github.io/ghost-protocol/",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "1b2ba2723b4508891281fe2e8a3bced0cb3e3b6a",
       "audit": {
@@ -1321,7 +1321,7 @@
       "interface_local_url": "apps/pet-programs/project-parrot-20261018.html",
       "interface_url": "apps/pet-programs/project-parrot-20261018.html",
       "app_url": "apps/project-parrot-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.0-20261008",
       "source_commit": "43f2bc7eee8d4bf4cec96a99e2f2ac4518c8f2cb",
       "audit": {
@@ -1365,7 +1365,7 @@
         "subject": "the app's build, fake-API recovery checks, and selected output reconnect monitoring",
         "needs": "a compatible installed Voicemeeter Remote API; a listening check when audible distortion persists"
       },
-      "visibility": "public",
+      "visibility": "private",
       "clicks": {
         "3": {
           "tool": "repair",
@@ -1423,7 +1423,7 @@
         "subject": "how Astra's pages look across iPhone, Android, iPad and desktop",
         "needs": "something only you can do"
       },
-      "visibility": "public",
+      "visibility": "private",
       "needs": {
         "os": [],
         "pets": [],
@@ -1469,7 +1469,7 @@
         "subject": "the farm’s logs and crash windows",
         "needs": "a look at a crash I caught"
       },
-      "visibility": "public",
+      "visibility": "private",
       "needs": {
         "os": [
           "windows"
@@ -1512,7 +1512,7 @@
         "subject": "the network: loss, latency, DNS and routes",
         "needs": "a host to trace"
       },
-      "visibility": "public",
+      "visibility": "private",
       "needs": {
         "os": [
           "windows"
@@ -1555,7 +1555,7 @@
         "subject": "cases and their chains of custody",
         "needs": "what you saw at a moment with no crash record"
       },
-      "visibility": "public",
+      "visibility": "private",
       "needs": {
         "os": [
           "windows"
@@ -1587,7 +1587,7 @@
     {
       "repo": "spoonfed",
       "pet": "Spoonfed Sugarcube",
-      "visibility": "public",
+      "visibility": "private",
       "published": true,
       "status": "hatching",
       "job": "Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.",
@@ -1651,7 +1651,7 @@
     {
       "repo": "rgbee",
       "pet": "RGBee",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
       "added": "2026-10-09",
@@ -1708,7 +1708,7 @@
     {
       "repo": "mine-mole",
       "pet": "Mine Mole",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.",
       "added": "2026-10-09",
@@ -1737,7 +1737,7 @@
     {
       "repo": "mail-snail",
       "pet": "Mail Snail",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
       "added": "2026-10-09",
@@ -1774,7 +1774,7 @@
     {
       "repo": "patch-cat",
       "pet": "Patch Cat",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
@@ -1803,7 +1803,7 @@
     {
       "repo": "meme-fiend",
       "pet": "Meme Fiend",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
@@ -1832,7 +1832,7 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
@@ -1862,7 +1862,7 @@
     {
       "repo": "backup-beaver",
       "pet": "Backup Beaver",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
@@ -1891,7 +1891,7 @@
     {
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
@@ -1987,7 +1987,7 @@
       "interface_url": "apps/pet-programs/fuzzboi-friend-20261018.html",
       "app_url": "https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html",
       "pet": "Fuzzboi Friend",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood. Mostly for fun: swap his look any time.",
       "added": "2026-10-09",
@@ -2028,7 +2028,7 @@
     {
       "repo": "wifi-butterfly",
       "pet": "Wifi Butterfly",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
@@ -2057,7 +2057,7 @@
     {
       "repo": "deck-duck",
       "pet": "Deck Duck",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Helps you manage your Elgato Stream Deck: what every button does, on every profile.",
       "added": "2026-10-09",
@@ -2094,7 +2094,7 @@
     {
       "repo": "mesh-moth",
       "pet": "Mesh Moth",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
@@ -2123,7 +2123,7 @@
     {
       "repo": "raspberry-berry",
       "pet": "Raspberry Pi Berry",
-      "visibility": "public",
+      "visibility": "private",
       "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
@@ -2166,7 +2166,7 @@
     {
       "repo": "role-fairy",
       "pet": "Role Fairy",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
       "added": "2026-10-17",
@@ -2202,7 +2202,7 @@
     {
       "repo": "chat-rat",
       "pet": "Chat Rat",
-      "visibility": "public",
+      "visibility": "private",
       "status": "growing",
       "job": "Saves local AI conversations and imported exports by recorded model and YYYYMMDD, with direct folder buttons.",
       "added": "2026-10-18",
@@ -2275,7 +2275,7 @@
     {
       "repo": "linux-iceberg",
       "pet": "Linux Penguin",
-      "visibility": "public",
+      "visibility": "private",
       "status": "hatching",
       "job": "Linux administration, SSH, systemd, packages.",
       "added": "2026-10-19",

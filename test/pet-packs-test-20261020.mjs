@@ -18,7 +18,14 @@ import { buildPack, needsProblems, packRefusal, planPack, repoAt, resolveNeeds, 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const TOOL = join(root, 'scripts', 'pet-packs-20261020.mjs');
 const read = (p) => readFileSync(`${root}/${p}`, 'utf8');
-const src = readSpawnerSources(root);
+// Forensic Ferret stands in for any pet. His repo went private on 2026-10-20 (#167), so these tests use their own copy of
+// the registry in which he is public; packing a private repo has its own test below.
+const src = (() => {
+  const s = readSpawnerSources(root);
+  const r = JSON.parse(JSON.stringify(s.registry));
+  for (const p of [...r.pets, ...r.pipeline]) if (p.repo === 'evidence-locker') p.visibility = 'public';
+  return { ...s, registry: r };
+})();
 const registry = src.registry;
 const extra = src.extra;
 const all = [...registry.pets, ...registry.pipeline];
@@ -215,7 +222,8 @@ test('packs are never committed, the tool is on the map, and plan runs from the 
   assert.equal(node?.type, 'tool');
   assert.equal(node.of, 'farm');
   assert.equal(node.label, TOOL_LABEL);
-  const out = execFileSync(process.execPath, [TOOL, 'plan', 'evidence-locker', 'claude-bot'], { encoding: 'utf8' });
+  // --private: Forensic Ferret's repo is private since 2026-10-20; Claude Bot stays private even then.
+  const out = execFileSync(process.execPath, [TOOL, 'plan', 'evidence-locker', 'claude-bot', '--private'], { encoding: 'utf8' });
   assert.match(out, /evidence-locker: can be packed\. Needs: Log Lynx \(log-den\)/);
   assert.match(out, /claude-bot: not packed: Claude Bot stays private/);
 });
