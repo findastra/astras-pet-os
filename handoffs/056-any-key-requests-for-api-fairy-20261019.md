@@ -1,8 +1,33 @@
-status: done 2026-10-20 (merged, API Fairy rebuilt and running as Astra, the skill installed, her three answers recorded; left for other chats: the voice's own key name, buttons on the page)
+status: open (waiting on Astra: which part of this work looked "off the rails", 2026-10-20; read "Paused" first)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: skills/key-request/SKILL.md, AGENTS.md (Rules), scripts/pet-program-pages-20261018.mjs (`PET_PANELS`), apps/pet-programs/pet-program-page-20261018.js, test/key-requests-test-20261019.mjs, findastra/api-fairy src/KeyRequests.cs and docs/key-requests-20261019.md
 ---
+## Paused 2026-10-20: "off the rails" (pick up here)
+
+Astra, 2026-10-20, looking at the question slides: "what was happening here seems off the rails", then "end chat and
+leave note we will pick up later". Nothing was changed after that.
+
+**What she was told, to pick up from.** Every merge and PC change had her OK in chat, but the work grew well past her
+ask (a panel that shows who asked for a key, who has one and who doesn't, with links):
+- 6 pull requests in 4 repos: api-fairy#8, astras-pet-os#148 and #156, findastra-discord-presence#30, and
+  the-astral-plane#10 (from a session this one proposed; Astra merged it there).
+- A data folder this chat named itself, `Documents\Astra's PetOS Data\api-fairy-ring\` on her PC, which holds the 9
+  requests (Astra never chose the name).
+- API Fairy rebuilt in her folder and started through Explorer on 2026-10-19 (still running as her, as far as known),
+  and `skills/key-request` copied into the Claude and Codex skills folders.
+- A private slide deck of three questions she has answered ("AAA"); it still asks them. Slide 2 was laid out again as
+  fixed boxes, most likely by the slide editor when it was saved; its words did not change.
+
+**Not known yet:** which part looked wrong: the size of the work, the folder name, the slides, or something on her
+screen. Ask her first; change nothing until she says. Possible follow-ups, each only on her say: rename the data folder
+(API Fairy's `KeyRequests.DataDir()`, the page script's `LOCAL_REQUESTS`, skills/key-request, the hub test and the
+9 files move together), retire or rewrite the slide deck, or undo any piece she names.
+
+## Ownership and state
+State: paused, waiting on Astra. Implementer: the Claude session that built this card (Claude Opus 5.5); writable
+files: none claimed now (ownership released). Reviewer: unassigned. Next action: ask Astra which part was off.
+
 ## What I did
 
 Astra, 2026-10-19: "a lot of chats are like, you need to give me an API key for this. You need to give me an API key
