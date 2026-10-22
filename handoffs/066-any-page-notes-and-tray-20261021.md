@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her word on what a trick is; everything else merged and running, 2026-10-21)
+status: done 2026-10-21 when the "what a trick is" pull request merges (everything else merged and running)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), scripts/pet-program-pages-20261018.mjs, apps/pet-programs/pet-program-page-20261018.css and .js, test/pet-program-pages-test-20261018.mjs, handoffs/045-any-crash-watch-pets-20261018.md
@@ -107,9 +107,19 @@ Startup Star and Voicemeeter Bug."
 - Not checked by eye: Startup Star's submenus and Log Lynx's alarmed face on the desktop (the self-test covers both;
   nothing in Astra's tray was clicked).
 
-Still open: item 1 above (what a trick is), and item 3 (#167 and #177 conflict with `main`; their chats fix them).
+## What a trick is (Claude Opus 5.5, `claude-opus-5-5`, 2026-10-21)
+
+Astra's word, in chat: a trick is "a way of using all the 3rd Party Programs, Native Programs, Native Tricks, and Native
+Tools". Written in, on branch `claude/what-a-trick-is-20261021`: AGENTS.md ("One list of names"), TOOLS-AND-TRICKS.md
+(the one-line definitions, the native-kinds table and the security chart: a trick uses only what its pet has, under the
+pet's grants, and its review lists every program, tool and trick it names), PET-WORDS.md, PET-PROGRAM-FRAMEWORK.md
+(section 3 item 4 and section 11), an amendment at the top of ASTRAS_PET_OS.md, the System Map's legend
+(`system-map.json`), the Markdown pets' heading ("Its tricks (ways its AI uses its programs, tools and tricks)"), and
+skills/new-pet-or-tool and skills/farm-security. Unchanged: a trick is still owned at L2 and followed by the AI in its
+seat (L3); her earlier "scheduled tool runs" was not written in, since her final word does not say who runs a trick.
+
+Item 3 above (#167 and #177 conflict with `main`) belongs to those pull requests' chats.
 
 ## Return
 
-Astra's word on what a trick is goes into AGENTS.md, TOOLS-AND-TRICKS.md, PET-WORDS.md and the skills; then this card is
-done.
+Done once the "what a trick is" pull request merges.
