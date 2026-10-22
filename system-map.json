@@ -39,6 +39,20 @@
   },
   "nodes": [
     {
+      "id": "dm-archive-review",
+      "name": "DM archive review",
+      "type": "own-program",
+      "of": "program-13",
+      "state": "planned",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v0.1",
+      "label": "discord-tower-v1.0-dm-archive-v0.1",
+      "url": "https://github.com/findastra/findastra-discord-presence/blob/main/discord-damsel-archive-review-20261020.html",
+      "job": "Local archive review page of Discord Tower. Built on a source branch, pending adoption: reads user-selected DiscordChatExporter JSON and downloaded media in one browser tab, checks counts and file presence, and shows original message text and timestamp strings. No credentials, uploads, Discord API access, automated export or deletion. A successful file check does not prove the complete conversation was exported.",
+      "does": "Shows a Discord conversation saved with DiscordChatExporter, and its files, in one browser tab on your PC."
+    },
+    {
       "id": "farm",
       "name": "The Farm",
       "program": 1,
@@ -3226,6 +3240,13 @@
     }
   ],
   "links": [
+    {
+      "from": "findastra-discord-presence",
+      "to": "dm-archive-review",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Damsel opens the local archive viewer from its own tool panel. Source branches must be adopted together; private exports remain outside the repositories."
+    },
     {
       "from": "openai",
       "to": "astras-pet-os",
