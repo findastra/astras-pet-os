@@ -73,9 +73,39 @@ show me what it will change."*
 | Where | How | Undo |
 |---|---|---|
 | **On the System Map** | Click it → **Remove from my map** | **Show removed** brings everything back. This only changes the map in your browser. |
-| **From your farm** | In your fork, open `pets.json`, delete that pet's entry (the block with its name), and commit. Then download your fork again and rerun the installer. | Step 3 below |
+| **From your installed farm** | The Friendly Farmer's farm-pets tool (below) | `add` brings it back |
+| **From your fork** | In your fork, open `pets.json`, delete that pet's entry (the block with its name), and commit. Then download your fork again and rerun the installer. | Step 3 below |
 
 Or ask your AI: *"Remove the example pet `<name>` from my farm's pets.json. Show me the change first, then commit it to my fork."*
+
+**Add one pet to your farm, or take one away (Astra, 2026-10-21).** The Friendly Farmer's **farm-pets** tool changes
+your installed farm one pet at a time, so you never run the whole installer again. It runs in your install folder
+(`%LOCALAPPDATA%\Programs\astras-pet-os`; on Linux, `astras-pet-os pets ...`):
+
+```
+node scripts/farm-pets-20261021.mjs plan add evidence-locker
+node scripts/farm-pets-20261021.mjs add evidence-locker --yes
+node scripts/farm-pets-20261021.mjs plan remove evidence-locker
+node scripts/farm-pets-20261021.mjs check
+```
+
+- `plan` shows what would happen and changes nothing. `--yes` does exactly that. Name a pet by its id, repo or name.
+- **A pet brings the pets it needs.** Forensic Ferret needs Log Lynx, so adding Forensic Ferret adds Log Lynx too. The
+  installer's window does the same when you tick a pet. What a pet needs is written in pets.json (`needs`).
+- **What the Farmer cannot add, he says plainly.** He never installs another company's program: "Voicemeeter Bug
+  needs Voicemeeter (required): install it yourself". The pet still comes in.
+- **A pet other pets need stays.** He will not take Log Lynx away while Forensic Ferret needs it: take Forensic Ferret
+  away first, or both together with `--with-dependents`. A pet that came only because another one needed it goes
+  with `--and-unneeded`. Each pet's data on your computer, its pictures and its repo on GitHub always stay.
+- **The farm lock**, `farm-lock-20261021.json` in your install folder, says exactly which pets your farm runs, where
+  each came from, a SHA-256 of each one's entry and which pets need which. It stays on your computer and is never
+  committed. `check` tells you whether your farm is still what the farm lock says. Developers call it a lockfile.
+- If Startup Star is running, it restarts so your desktop pets show the change.
+- In your fork (a hub copy in git) the Farmer only checks and records: its `pets.json` changes in a commit, as in the
+  table above.
+
+Or ask your AI: *"Add the pet `<name>` to my farm with the Friendly Farmer's farm-pets tool (node
+scripts/farm-pets-20261021.mjs in my install folder). Run plan first and show me what it needs, then add it."*
 
 Astra's worlds (Astra's Infinite Pole, Piranesi House) live in their own repos. They are never downloaded with your
 farm; on your map they are examples only.
@@ -142,7 +172,8 @@ node scripts/pet-packs-20261020.mjs build evidence-locker
 - **Where to get one (Astra, 2026-10-21):** a pet's pack goes on that pet's own repo, as a file of a release, and only
   for pets whose repo is public, one pet at a time with the owner's OK. None is published yet; until then, a pack is one
   that someone built and gave you.
-- Next (not built yet): the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
+- Next (not built yet): the Friendly Farmer adds a pet from a pack to a farm, checked file by file against the pet's
+  own repo on GitHub, and records it in the farm lock (section 2 shows how he adds the installer's own pets today).
 
 Or ask your AI: *"Make a pet pack of `<the pet's repo>` with the Friendly Farmer's pet-packs tool (node
 scripts/pet-packs-20261020.mjs). Run plan first and show me what it needs, then build it."*

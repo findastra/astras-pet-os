@@ -108,7 +108,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **a farm** | one user's install (a tenant) | Everything one person runs. Farms never connect to each other. |
 | **farmer** | user (the farm's owner and admin) | The person who runs a farm. On Astra's farm, Astra. |
 | **The Farm** | core platform and control plane | The Friendly Farmer's pet program (#1). Its native programs include the System Map and Startup Star. |
-| **Friendly Farmer** | orchestrator and package manager | The pet that organizes the pets, hatches new ones and keeps `farm.lock`. |
+| **Friendly Farmer** | orchestrator and package manager | The pet that organizes the pets, hatches new ones and keeps the farm lock. |
 | **the pets** | the apps (modular apps, each with an optional AI agent) | Every intelligent app together. Never "the herd". |
 | **intelligent app** | app with an optional AI agent | What a pet is. "An Intelligent App, or Pet." |
 | **pet program** | program: the one main program a pet stands for | An app, site, world, service or script, like The Farm or Unity Stable. |
@@ -138,7 +138,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **roadmap pet** | roadmap item (not started) | Approved for later in the architecture. |
 | **the gate** | approval queue (an allowlist) | Where a new repo waits in `candidates` until Astra lets it in. Nobody becomes an animal by saying so. |
 | **core pets** | required base packages (cannot be deselected) | The pets every farm needs. Today: the Friendly Farmer. |
-| **`farm.lock`** | lockfile | Exactly which pets and versions a farm runs, and where each came from. |
+| **farm lock** (`farm-lock-20261021.json`) | lockfile | Exactly which pets and versions a farm runs, and where each came from. It stays on the computer, in the farm's own folder (Astra, 2026-10-21). |
 | **needs** | dependencies (a package manifest's dependency list) | What a pet needs to work, in its own `pets.json` entry: the computer it runs on, other pets (required or optional), parts of the core only a farm has, and third-party programs (Astra, 2026-10-20: one place). |
 | **hatching a pet** | scaffolding a new app | Making a new pet from the template. Also the first `status`. |
 | **daily round** | scheduled job (cron) that opens a pull request | The Farmer's morning check of every pet: status, moods, roster. |

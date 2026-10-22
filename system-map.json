@@ -189,6 +189,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
     },
     {
+      "id": "farm-pets",
+      "name": "farm-pets",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-farm-pets-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-21: \"All recommended on the six farm lock questions\", card 058, Part 5a): adds one pet to a farm, or takes one away, and keeps the farm lock (farm-lock-20261021.json), which says exactly what the farm runs: where each pet’s entry came from with its SHA-256, which pets need which, and what each still needs that it cannot add. A pet comes in from the farm’s own list of pets with every pet it requires; a pet that others on the farm require is not taken away without --with-dependents. plan shows it first and changes nothing; --yes does it. It writes only the farm’s pets.json, draft list and farm lock, never anything on GitHub, and on a hub copy, whose pets change by pull request, it only checks and records (scripts/farm-pets-20261021.mjs)."
+    },
+    {
       "id": "pet-packs",
       "name": "pet-packs",
       "type": "tool",
@@ -3761,6 +3773,13 @@
       "carries": "opens",
       "state": "now",
       "why": "outstanding-items writes the list the Pets Board shows, on this PC only."
+    },
+    {
+      "from": "farm-pets",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "farm-pets runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "pet-packs",

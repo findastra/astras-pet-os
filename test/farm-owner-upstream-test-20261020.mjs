@@ -79,7 +79,8 @@ test('ownerOf: on Astra\'s farm everything is hers; on Dev\'s, her pets are hers
 // The scripts that act for a farm. Lines that are comments may explain the old word; code may not write the account.
 const FARM_FACING = ['farmer-rounds-20261009', 'pet-finder-20261016', 'pets-board-20261018', 'pet-program-pages-20261018',
   'build-interfaces-20261008', 'farm-setup-20261019', 'prepare-desktop-drafts-20261011', 'publish-pet-tags-20261009', 'lib',
-  'roster', 'check-pets-20261018', 'pet-programs-20261014', 'markdown-pets-20261019', 'click-check-20261019', 'make-it-yours-20261020'];
+  'roster', 'check-pets-20261018', 'pet-programs-20261014', 'markdown-pets-20261019', 'click-check-20261019', 'make-it-yours-20261020',
+  'farm-lock-20261021', 'farm-pets-20261021'];
 // Names of Astra's own things, not an account: Discord Damsel's repo, Paper Girl's live site (her own companions),
 // PET-PROGRAMS.md's words about Astra's profile and her VR TikTok under "By Astra" on every pet program page.
 const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile',

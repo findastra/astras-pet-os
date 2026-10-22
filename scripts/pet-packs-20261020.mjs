@@ -2,8 +2,9 @@
 // Astra, 2026-10-19: "people are going to want to be able to download as an individual pet and not have to download the
 // whole system. And I understand the dependencies problem there." Her answers of 2026-10-20 (all recommended, Part 4 of
 // docs/farm-owner-and-single-pets-20261019.md, card 058): a pet pack zip first, then the Friendly Farmer adds one pet to a
-// farm (farm.lock) later; pictures are copied into the zip when it is built, never committed to a pet's repo, so the hub
-// stays the one art source (PET-FILES.md); what each pet needs is written in pets.json, one place (`needs`).
+// farm (the farm lock, scripts/farm-pets-20261021.mjs; a pack comes in with Part 5b); pictures are copied into the zip
+// when it is built, never committed to a pet's repo, so the hub stays the one art source (PET-FILES.md); what each pet
+// needs is written in pets.json, one place (`needs`).
 //
 //   node scripts/pet-packs-20261020.mjs plan <repo...>          what would go in each pack and what it needs (offline)
 //   node scripts/pet-packs-20261020.mjs build <repo...> [--ref <tag|branch|commit>] [--from <a local clone>]
@@ -286,7 +287,7 @@ Copied in when this pack was built, from Astra's PetOS's one art source (\`${ups
 ## Limits
 
 - The pack is not signed yet: check each file against the SHA-256 in \`${MANIFEST}\`.
-- The Friendly Farmer cannot add a pack to a farm yet (that is next: \`farm.lock\`).
+- The Friendly Farmer cannot add a pack to a farm yet: his farm-pets tool adds the installer's own pets today, and packs are next.
 - A pack is a copy at one version. It does not update itself.
 
 The license is in \`${d.repo}/LICENSE\`.
@@ -435,7 +436,7 @@ export function buildPack(src, repo, { repoFiles, ref = null, date = DATE, root 
     source: { ...source, version }, skipped: repoFiles.skipped,
     pictures_from: { repo: upstream().repo, commit: hubCommit, note: 'Copied in when the pack was built; never committed to the pet\'s repo (one art source, PET-FILES.md).' },
     opens: `${HUB_DIR}/${part.page}`, markdown_pet: `${HUB_DIR}/${petPath(repo)}`,
-    // As pets.json writes it, with each name: what the Friendly Farmer reads when he adds this pet to a farm (farm.lock, next).
+    // As pets.json writes it, with each name: what the Friendly Farmer reads when he adds this pet to a farm (the farm lock, Part 5b).
     needs: { os: needs.os.map((o) => o.id), pets: needs.pets.map((i) => ({ repo: i.id, name: i.name, how: i.how, why: i.why })),
       core: needs.core.map((i) => ({ part: i.id, name: i.name, how: i.how, why: i.why })), programs: needs.programs.map((i) => ({ node: i.id, name: i.name, how: i.how, why: i.why })) },
     scan_notes: scan.notes.map((h) => ({ kind: h.kind, count: h.count, file: h.file })),
