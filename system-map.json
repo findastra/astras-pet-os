@@ -74,6 +74,7 @@
       "name": "The vet-clinic (community tickets)",
       "type": "infrastructure",
       "state": "planned",
+      "visibility": "private",
       "layer": 6,
       "job": "Is your pet sick? A public issue tracker on GitHub: a farmer opens a ticket (vet-clinic-ticket-NNNN) with the sick tool’s code and error, after name-eraser and the secret scan; other farmers diagnose it and may offer a cure (a code fix). One tier below Kennel-verified: every community answer carries a warning and never runs by itself; a cure goes through quarantine, a checker agent and the farm’s L4. Every ticket is logged, and cures that work for many farms become official patches (PET-PROGRAM-FRAMEWORK.md, section 10). Outside the harness, like the Kennel."
     },

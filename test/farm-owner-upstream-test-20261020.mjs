@@ -126,7 +126,7 @@ test('a fixture farm for XxdevilishxX: her pets link to her account, Astra\'s ex
   const files = spawnerFiles(src);
   const own = files[pagePath('dev-diary')], example = files[pagePath('meme-fiend')], host = files[pagePath('astras-pet-os')];
   assert.match(own, new RegExp(`<a href="https://github.com/${DEV}/dev-diary">${DEV}/dev-diary</a>`), 'Source and Pedigree');
-  assert.doesNotMatch(own, />Repo<\/a>/, 'no Repo button since 2026-10-21: the footer and the passport link the repo');
+  assert.doesNotMatch(own, />Repo<\/a>/, 'no Repo button since 2026-10-21: the footer and the Pet ID link the repo');
   assert.doesNotMatch(own, /github\.com\/findastra\/dev-diary/);
   assert.match(example, /<a href="https:\/\/github\.com\/findastra\/meme-fiend">findastra\/meme-fiend<\/a>/);
   assert.doesNotMatch(example, new RegExp(`${DEV}/meme-fiend`));

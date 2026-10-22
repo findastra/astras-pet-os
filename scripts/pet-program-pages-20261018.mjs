@@ -219,12 +219,16 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
+  // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
+  // nobody else, so the row says so instead of leading to "not found" (click-check, 2026-10-21). system-map.json's
+  // vet-clinic node carries the visibility.
+  const vetClinicPrivate = nodes.get('vet-clinic')?.visibility === 'private';
 
   return {
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null, version: versionOf(reg),
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
@@ -511,7 +515,7 @@ ${lights(`program:${d.homeSlug}`, d.home)}
 ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
 <p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open app</a>` : d.appPrivate ? `<span class="button off" title="${esc(d.appPrivate)} is private: its GitHub Pages site is off, and the repo opens only for its owner">App is private</span>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}</p></div>`;
   // No Repo button (Astra, 2026-10-21, crossing it out on her screenshot, then "1. A" in her slides): the repo link is
-  // in the footer and in L4's pet passport.
+  // in the footer and in L4's Pet ID.
 
   // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
   // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
@@ -555,12 +559,12 @@ ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${
 <section><h3>Grants</h3><p class="small">In <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below: what each level should be (R W X), and whether that is in code.</p></section>
 <section><h3>Keys</h3><p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p></section>
 <section><h3>Requires maintenance</h3><ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul></section>
-<section><h3>Pet passport</h3><dl class="status">
+<section><h3>Pet ID</h3><dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
 <dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl></section>`, { cls: 'level', light: true });
 
   // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is.
   const own = PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : '';
