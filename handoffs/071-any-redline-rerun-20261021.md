@@ -29,8 +29,8 @@ Status: **done** = in card 066 and still right; **missed** = card 066 missed or 
 | 5 | cyan | brackets round the title and version | "these always stay together on one line until too collapsed, version line then goes below" | one line, version below when too narrow | done |
 | 6 | red | `unity-stable-pet-program-quick-summary` | "pet-program" struck | `unity-stable-quick-summary` | done |
 | 7 | red | the summary | "with" and "26 dated tools, open arch audits, concise summaries and evidenced execution history" struck; "for organizing Unity worlds and" added before "avatar plans"; "It contains tools to develop each, a working closet by Devilish, and pages that display world information." added | "A local Unity and VRChat desk for organizing Unity worlds and avatar plans. It contains ..." (card 066 had dropped "plans") | missed |
-| 8 | red | "Open today's app" button | an X over the whole button | no buttons under the title; the app is linked in L4's pet passport ("App") and the footer | missed (066 only took "today's" out) |
-| 9 | red | "Repo" button | an X | no Repo button; the repo is in the passport and footer | done |
+| 8 | red | "Open today's app" button | an X over the whole button | no buttons under the title; the app is linked in L4's Pet ID ("App") and the footer | missed (066 only took "today's" out) |
+| 9 | red | "Repo" button | an X | no Repo button; the repo is in the Pet ID and footer | done |
 | 10 | red | `unity-unicorn-system-map` | "unity-unicorn" struck, "astras-pet-os" written | `astras-pet-os-system-map` | done |
 | 11 | red | "its node: unity-stable" | struck | not printed (the link still opens that node) | done |
 | 12 | red | right of the map box | "always a square" | square | done |
