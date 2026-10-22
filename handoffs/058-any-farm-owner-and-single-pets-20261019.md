@@ -308,6 +308,8 @@ next to the farm, and the uninstaller removing pack folders. One pull request, m
 
 - **Branch:** `claude/farm-lock-packs-20261022`, cut from `main` at `ea6d45b` in the same scratchpad clone. The live hub
   folder on Astra's PC was not touched.
+- **[Pull request #217](https://github.com/findastra/astras-pet-os/pull/217)**, commit `e8d5328`. It is open, and
+  merges only with Astra's OK in chat.
 - **New:**
   - `scripts/farm-pets-packs-20261022.mjs`: read a pack and check it (against itself, against the farm, against the
     pet's repo on GitHub), and write its code folder.
@@ -338,7 +340,8 @@ next to the farm, and the uninstaller removing pack folders. One pull request, m
     `--and-unneeded`.
   - The real uninstaller removed the pack folder and then the install folder.
   - Discord Damsel's repo (the one public pet repo) cannot be packed: the pack scan stops on its files.
-  - `npm run build`, `npm run check` and `npm test`: see the pull request.
+  - `npm run build` changes nothing, and `npm run check` passes (23 pet apps).
+  - `npm test` gives 332 tests: 331 pass, 0 fail, 1 skipped.
 
 ## Task
 
@@ -356,8 +359,8 @@ next to the farm, and the uninstaller removing pack folders. One pull request, m
    - ~~Proposal~~ Merged with #197 as `db2fd41` (Astra's OK in chat, 2026-10-21).
    - ~~**5a**~~ (the farm lock with the installer's own pets, and the installer's part): merged with
      [#206](https://github.com/findastra/astras-pet-os/pull/206) as `e51d215` (Astra's OK in chat, 2026-10-22).
-   - **5b** (pet packs come onto a farm): built on `claude/farm-lock-packs-20261022`; its pull request waits on Astra's
-     OK to merge.
+   - **5b** (pet packs come onto a farm): built in [#217](https://github.com/findastra/astras-pet-os/pull/217), which
+     waits on Astra's OK to merge.
    - Later, not planned yet: signed packs, and the Kennel's adoptions of pets from other farms.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
