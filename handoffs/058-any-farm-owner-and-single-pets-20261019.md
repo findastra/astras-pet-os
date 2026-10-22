@@ -190,6 +190,10 @@ This is the second half of Astra's answer 6. It is a proposal only: no code chan
 
 - **Branch:** `claude/farm-lock-proposal-20261021`, cut from `main` at `7906b9c` in a fresh clone in Claude's scratchpad
   with `core.autocrlf=false`. The live hub folder on Astra's PC was not touched.
+- **[Pull request #197](https://github.com/findastra/astras-pet-os/pull/197)**, commit `1cb5004`, open. It merges
+  only with Astra's OK in chat.
+  - `npm run build` changes nothing, and `npm run check` passes (23 pet apps).
+  - `npm test` gives 288 tests: 287 pass, 0 fail, 1 skipped.
 - **Read first:**
   - this card, the proposal (Parts 1 to 4 as built, answers 1 to 12), the pet-packs tool and its manifest;
   - `needs` and `needs_key` on all 42 pets;
