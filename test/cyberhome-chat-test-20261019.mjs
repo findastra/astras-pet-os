@@ -73,7 +73,7 @@ class El {
   set innerHTML(_) { throw new Error('Page text must never be rendered as HTML.'); }
 }
 
-function boot(d, { saved = {}, reduce = false } = {}) {
+function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
   const html = files[pagePath(d.repo)];
   const config = between(html, '<script type="application/json" id="pet-program-data">', '</script>');
   let now = 0;
@@ -104,7 +104,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
     createElement: (tag) => new El(tag),
     createTextNode: (t) => t,
     querySelector: (sel) => (sel === '.den' ? den : null),
-    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : sel === '.mood[data-mood]' ? moods : []),
+    querySelectorAll: (sel) => (sel === 'details.panel.level' ? levels : sel === '.mood[data-mood]' ? moods : sel === 'iframe.tool-frame' ? frames : []),
     addEventListener(type, f) { (this.listeners[type] ||= []).push(f); },
     fire(type) { for (const f of this.listeners[type] || []) f({ target: new El() }); },
     body: new El('body'),
@@ -125,7 +125,7 @@ function boot(d, { saved = {}, reduce = false } = {}) {
   vm.createContext(sandbox);
   vm.runInContext(js, sandbox);
   const read = (k) => JSON.parse(store.get(`astras-pet-os:${d.homeSlug}:${k}`) || 'null');
-  const fireWindow = (type) => { for (const f of sandbox.windowListeners[type] || []) f({}); };
+  const fireWindow = (type, e = {}) => { for (const f of sandbox.windowListeners[type] || []) f(e); };
   const lit = () => moods.filter((f) => f.cls.has('is-now')).map((f) => f.dataset.mood);
   return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, lit };
 }
@@ -253,4 +253,20 @@ test('a pet with a private repo never names it in the message', () => {
   p.byId('chat-send').click();
   const typed = decodeURIComponent(p.opened[0].slice('https://claude.ai/new?q='.length));
   assert.equal(typed, `This is about ${d.home}, ${d.pet}'s pet program in Astra's PetOS.\n\nhi`, `${d.repo}: no repo link in the message`);
+});
+
+test('a tool panel\'s page sets its height only from the site its panel opened, on any farm (2026-10-21)', () => {
+  const frame = (src) => Object.assign(new El('iframe'), { contentWindow: {}, style: {} }, { attrs: { src } });
+  const astras = frame('https://findastra.github.io/astras-star-window/?embed'), devs = frame('https://xxdevilishxx.github.io/dev-tool/');
+  const p = boot(panther, { frames: [astras, devs] });
+  const say = (f, origin, height) => p.fireWindow('message', { data: { type: 'tool-panel-height', height }, origin, source: f.contentWindow });
+  say(astras, 'https://findastra.github.io', 500);
+  assert.equal(astras.style.height, '500px');
+  say(devs, 'https://xxdevilishxx.github.io', 640);
+  assert.equal(devs.style.height, '640px', 'another farm\'s own tool site');
+  say(devs, 'https://findastra.github.io', 900);
+  say(astras, 'https://example.com', 900);
+  assert.deepEqual([astras.style.height, devs.style.height], ['500px', '640px'], 'a message from any other site is not listened to');
+  p.fireWindow('message', { data: { type: 'tool-panel-height', height: 900 }, origin: 'https://findastra.github.io', source: {} });
+  assert.equal(astras.style.height, '500px', 'nor one from a window that is not in a tool panel');
 });

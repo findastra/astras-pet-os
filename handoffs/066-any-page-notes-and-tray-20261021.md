@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge the hub pull request; her answer on what a trick is; the tray part is in progress)
+status: open (waiting on Astra: merge #185 and the five tray pull requests; her word on what a trick is)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: PET-PROGRAM-FRAMEWORK.md (section 3), scripts/pet-program-pages-20261018.mjs, apps/pet-programs/pet-program-page-20261018.css and .js, test/pet-program-pages-test-20261018.mjs, handoffs/045-any-crash-watch-pets-20261018.md
@@ -38,7 +38,7 @@ Claude's scratchpad; the live hub folder stayed on `main`):
 - Developer mode's words follow the new label (`-quick-summary` becomes `-summary`).
 - Docs: PET-PROGRAM-FRAMEWORK.md section 3, PET-WORDS.md, README.md ("Open app"), AGENTS.md (built-with line).
 - Checked: `npm run build`, `npm test` 281 pass, 0 fail, 1 skipped, `npm run check` OK, in an LF worktree. In the
-  browser pane (a temporary node server on 127.0.0.1:49771 serving the worktree): Unity Stable at 1440, 900 and 375px
+  browser pane (a temporary local node server serving the worktree): Unity Stable at 1440, 900 and 375px
   wide (squares 210, 240 and 165px; nothing wider than the phone screen), the idle mood lit, awake after a click, a
   planned light's bubble, the L1 panel's ON/OFF switching off without folding the panel, the pet's reminder. Test
   marks were cleared from that browser's storage afterwards.
@@ -54,9 +54,28 @@ none is a direct link. Nothing changed for it.
    on the pet's schedule (L2) or the seated AI follows it (L3)". Nothing changed in AGENTS.md, TOOLS-AND-TRICKS.md,
    PET-WORDS.md or the skills yet.
 2. **The tray** (her note: "these are not supposed to be in the tray. only the Startup Star should ever be in the
-   tray. please fix the recent change that directed this"). The recent change is card 045, which built Log Lynx, Packet
-   Piranha and Forensic Ferret as tray programs. Answers: 3 B (no pop-up: Log Lynx turns alarmed on the desktop) and
-   4 A (Voicemeeter Bug's tray icon goes too; his menu moves into Startup Star's). In progress in this chat.
+   tray. please fix the recent change that directed this"). The recent change was card 045, which built Log Lynx,
+   Packet Piranha and Forensic Ferret as tray programs. Answers: 3 B (no pop-up: Log Lynx turns alarmed on the desktop)
+   and 4 A (Voicemeeter Bug's tray icon goes too; his menu moves into Startup Star's). **Built, five pull requests,
+   waiting on Astra, in this merge order:**
+   1. findastra/astras-pet-os#186 (`claude/star-holds-pet-menus-20261021`, 7092a72): Startup Star's menu gets a submenu
+      for each of the four, filled from the `menu-20261021.json` each program writes (only plain command words run);
+      a pet whose `mood-20261021.json` says alarmed shows its alarmed frame; the rule in AGENTS.md and
+      PET-PROGRAM-FRAMEWORK.md section 4; card 045's note. Self-test and `npm test` (275) pass.
+   2. findastra/log-den#11 (`claude/no-tray-20261021`, 71d6f91): v0.2.0, no tray icon or balloon, the shared
+      `contracts/background-pet-20261021.cs`, `--tool` and `--quit`, an unseen crash makes Log Lynx alarmed until Log
+      Den is opened. Self-test 54, page test 6.
+   3. findastra/packet-river#11 (4513238) and 4. findastra/evidence-locker#11 (b703744): the same, built against
+      log-den's contract (Evidence Locker adds `--investigate`). Self-tests 33 and 34.
+   5. findastra/voicemeeter-bug#10 (d09c962): no tray icon or balloon; his menu file with his own commands; `--set`,
+      `--log`, `--show`; a Settings event. Self-test passes; not run live (his running copy was left alone).
+   Each was run on a throwaway data folder where it could be (Log Den fully: menu file, `--tool`, `--open`, `--quit`).
+   A first try, a `--menu` that popped the pet's own menu up, failed: Windows does not let a background program bring
+   its menu to the front, so it closed at once; the menu file replaced it.
+   **After the merges, on Astra's PC:** pull each repo, then Quit each crash-watch pet from its tray menu one last time
+   (v0.1.1 knows no `--quit`), build it, start it from its Startup-folder shortcut; rebuild and restart Startup Star
+   from the hub folder; quit, rebuild and restart Voicemeeter Bug in `Documents\ChatGPT\Voicemeeter Bug` (Startup Star
+   starts him `--hosted`). Until then the old tray icons stay.
 3. Open hub pull requests that touch the same spawner lines: #167 (private repos: "Today's app is private" and the
    Repo button's private label) and #177 (Codex's Damsel archive panel). Whichever merges second merges `main` in.
 
