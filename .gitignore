@@ -24,3 +24,9 @@ apps/*-local-services-*.js
 
 # Pet packs built by scripts/pet-packs-20261020.mjs: zips with pictures copied in, never committed (one art source).
 pet-packs/
+
+# A farm's own record of what it runs (scripts/farm-lock-20261021.mjs, Astra's answer 1, 2026-10-21): it lives on the
+# computer, in the farm's own folder, and is never committed. An installed farm keeps its release's list of pets in
+# farm-catalog/.
+farm-lock-20261021.json
+farm-catalog/

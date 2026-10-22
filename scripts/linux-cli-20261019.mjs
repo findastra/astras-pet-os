@@ -121,6 +121,8 @@ async function setup(options) {
   const choice = choosePets(farmPets(ROOT), { farm, pets });
   const linux = process.platform === 'linux' ? { linux: { name: osRelease().PRETTY_NAME || '', id: osRelease().ID || '' } } : {};
   writeFarm(ROOT, FARM_DIR, choice, { version: VERSION, extra: linux });
+  const name = (repo) => choice.onFarm.find((p) => p.repo === repo)?.name || repo;
+  for (const [id, by] of Object.entries(choice.neededBy)) say(`${choice.onFarm.find((p) => p.id === id).name} comes along: ${by.map(name).join(' and ')} ${by.length === 1 ? 'needs' : 'need'} it.`);
   const n = choice.onFarm.length;
   say(`Your farm is ready: ${n} ${n === 1 ? 'pet' : 'pets'} (${choice.onFarm.map((p) => p.name).join(', ')}).`);
   say(`It is in ${FARM_DIR}. Run setup again any time to change it.`);
@@ -237,6 +239,8 @@ function help() {
   say('  astras-pet-os setup            set up your farm: Astra\'s example pets, or from scratch');
   say('      --farm example | --farm scratch [--pets goldfish,api-fairy]   (no questions asked)');
   say('  astras-pet-os list-pets        the pets you can put on your farm');
+  say('  astras-pet-os pets plan add <pet>       the Friendly Farmer adds one pet, with the pets it needs; then: pets add <pet> --yes');
+  say('  astras-pet-os pets plan remove <pet>    ...or takes one away; also: pets check, pets lock (your farm lock)');
   say('  astras-pet-os map              open the System Map');
   say('  astras-pet-os desk             open the Friendly Farmer\'s desk');
   say('  astras-pet-os penguin          Linux Penguin\'s check of this computer (read only)');
@@ -250,7 +254,16 @@ function help() {
   say(penguinSays());
 }
 
+/** The Friendly Farmer's farm-pets tool on this farm (scripts/farm-pets-20261021.mjs): its own words and options. */
+function farmPetsTool(args) {
+  if (!existsSync(join(FARM_DIR, RECEIPT))) return fail('Your farm is not set up yet: astras-pet-os setup');
+  const r = spawnSync(process.execPath, [join(ROOT, 'scripts', 'farm-pets-20261021.mjs'), ...args, '--farm', FARM_DIR, '--catalog', ROOT],
+    { stdio: 'inherit', env: { ...process.env, ASTRAS_PET_OS_FARM_PETS_COMMAND: 'astras-pet-os pets' } });
+  process.exitCode = r.status ?? 1;
+}
+
 export async function main(argv) {
+  if (argv[0] === 'pets') return farmPetsTool(argv.slice(1));
   const { values, positionals } = parseArgs({
     args: argv, allowPositionals: true, strict: true,
     options: { farm: { type: 'string' }, pets: { type: 'string', multiple: true }, help: { type: 'boolean', short: 'h' } },

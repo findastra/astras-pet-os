@@ -215,6 +215,16 @@ The whole proposal is `docs/farm-lock-20261021.md`. In short:
   in), one pull request at a time, each merged only with her OK. In 5a the docs' `farm.lock` becomes "the farm lock"
   (`farm-lock-20261021.json`).
 
+**As built, Part 5a (2026-10-21, Astra: "Build Part 5a here"):**
+- `scripts/farm-lock-20261021.mjs` holds the farm lock and the needs check. `scripts/farm-pets-20261021.mjs` is the
+  Friendly Farmer's farm-pets tool (`the-farm-v1.0-farm-pets-v1.0`): `plan add`, `add --yes`, `plan remove`,
+  `remove --yes`, `check` and `lock`.
+- The installer and the Linux setup tick the pets a picked pet needs. The installer keeps its list of pets in
+  `farm-catalog\` and writes the first farm lock. Its PowerShell twin is tested to give what Node gives.
+- One change from the proposal: a pet whose own program runs on another computer comes in with a warning, because no
+  code comes onto the farm in 5a. When a pet pack brings code (5b), it stops.
+- Details are in `docs/farm-lock-20261021.md`, "As built: Part 5a".
+
 ## What it would take
 
 | Part | What changes | Size | Depends on |

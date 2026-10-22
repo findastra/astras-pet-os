@@ -62,7 +62,7 @@ The whole `astras-pet-os` repo is the core: every change to it merges only with 
 - Teams and person-to-person features wait until a professional security engineer maintains the design.
 - Sharing a farm online ("flexing") is one-way publishing to GitHub Pages: never private pets, never personal data.
 - A pet from someone else (the sick cow) never runs on a farm until it is signed, checked, quarantined (read-only)
-  and adopted by that farm's owner. The Friendly Farmer records every installed pet and version in `farm.lock`.
+  and adopted by that farm's owner. The Friendly Farmer records every installed pet and version in the farm lock (`farm-lock-20261021.json`).
 
 ## 4. Models
 - Local models are self-hosted on Astra's local network. They can take the seat and work alongside Claude, but
