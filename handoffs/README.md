@@ -8,7 +8,7 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 
 | Card | For | Status |
 | --- | --- | --- |
-| [069: The lines every pull request edits: where the credit goes, the card counter (proposal and four questions)](069-any-shared-lines-proposal-20261021.md) | any | open, waits on Astra: four questions (slides); no rule changes until she answers |
+| [069: The lines every pull request edits: where the credit goes, the card counter (proposal and four questions)](069-any-shared-lines-proposal-20261021.md) | any | open, waits on Astra: questions 2 to 4 (slides); question 1 answered: A, one file per change |
 | [068: GitHub Aquarium's error checkers on the map, with Showcase next to them](068-any-aquarium-error-checkers-20261019.md) | any | open: merged as #136 (2026-10-21); tasks 2 to 4 left, 2 and 4 wait on Astra (the old Aquarium app page, the name Showcase) |
 | [067: Kernel Koala's first program: what is running, what is safe to stop, what starts at sign-in; Kernel Grove joins the pipeline](067-any-kernel-grove-process-sweep-20261021.md) | any | merged with Astra's OK (kernel-grove#3, #187), Startup Star restarted; waits on Astra: kernel-grove#4, then trying it |
 | [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | done 2026-10-21 with the "what a trick is" pull request (all merged, pets restarted) |

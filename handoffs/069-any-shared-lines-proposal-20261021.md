@@ -1,4 +1,4 @@
-status: open (waiting on Astra: four questions on the lines every pull request edits, slides)
+status: open (waiting on Astra: questions 2 to 4 on the lines every pull request edits, slides; question 1 answered A)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -76,12 +76,24 @@ lines, its "Built with" line included.
   or pet.json). The text that new repos get (`scripts/idle-flash-new-repos-20261017.mjs`,
   `scripts/idle-flash-fix-20261017.mjs`, `scripts/idle-flash-refresh-20261018.mjs`: "Record the model and version
   when an assistant changes it.") says where. A test fails when a dated credit line is added to AGENTS.md.
-- **Q2 A:** one commit moves the 73 lines into `changes/history-20261007-20261021.md` unchanged (the "Built with"
-  line stays). Open pull requests
-  that already appended a line (#61, #143) move it into their own file in `changes/` the next time they merge `main`.
+- **Q2 A:** one small pull request, merged between others, moves 70 of the lines into
+  `changes/history-20261007-20261021.md` unchanged, and leaves the "Built with" line and the last three credit lines
+  where they are. Open pull requests that appended a line (#61, #143, #190) keep it, so they get no new
+  conflict. After they merge, one small follow-up moves those last lines too.
 - **Q3 A:** handoffs/README.md keeps cards 001 to 068 as they are and stops growing; skills/handoff/SKILL.md ("Read
   handoffs/README.md ... reserve the next free number") and test/handoff-numbers-test-20261017.mjs change to match.
 - **Q4 A:** the hub's rule tells the next assistant in each pet repo to switch that repo's line when it changes it.
+
+## Collision check (2026-10-21, hub `main` `7906b9c`)
+Both changes were tried on a throwaway local commit, and each of the 17 open hub pull requests was replayed against it
+with `git merge-tree`. Nothing was pushed.
+- **Question 1's rule edit** (AGENTS.md line 131 and CLAUDE.md line 19 point to `changes/`): no open pull request
+  gets a new conflict. #178 changes CLAUDE.md line 14 and AGENTS.md lines 27 and 184, which do not touch these lines.
+- **Question 2's move** (70 lines out, the last three left at the end): no open pull request gets a new conflict.
+  #190's line at the end still merges cleanly. #61, #143 and #178 conflict exactly as they do against `main` today.
+- **Branches pushed in the last hours** that touch AGENTS.md, CLAUDE.md, handoffs/README.md or skills/handoff:
+  #190 (end of AGENTS.md), #194 (card 052's row; merges cleanly with this card's pull request) and this card.
+  Astra, 2026-10-21: no ChatGPT or Codex agent is working on GitHub any more.
 
 ## What comes first
 - Hub #178 (`codex/handoff-workflow-20261020`, Codex) changes skills/handoff/SKILL.md, which question 3 changes too.
@@ -101,6 +113,8 @@ lines, its "Built with" line included.
   were not touched.
 - Made the deck: 10 slides, four questions, private.
 - This card and its rows in handoffs/README.md (next free number 070), on `claude/shared-lines-proposal-20261021`.
+- Second commit: Astra's answer to question 1, the collision check above, and question 2's move made collision-free
+  (the deck shows question 1 as answered).
 - **Seen, not changed:** the hub's skills/handoff/SKILL.md on `main` is older than the copy installed in both seats
   (Codex's version on #178's branch). Merge commits also collide on `skills/new-pet-or-tool/SKILL.md` (14 times,
   the decision rows) and INTELLIGENCE-LEVELS.md (12): the same append-at-the-end pattern, smaller.
@@ -113,7 +127,12 @@ GitHub Goldfish) are open with her answers in their text.
 Write Astra's answers, with her words and the date, under "Answers", in a pull request that changes only this card.
 
 ## Answers
-Pending.
+- **Question 1: A**, one small new file per change. Astra, 2026-10-21, in the chat that asked for this card:
+  "I am okay with it. Keep in mind the other chats that are working right now. ChatGPT conversations are already
+  closed down and I left a note on everything so there should be no more working agents on the GItHub besides what
+  is open here." She said this right after the recommendation to move the model and version log out of AGENTS.md
+  into one small file per change, so it counts as her answer to question 1 only. That chat passed her words on.
+- **Questions 2 to 4:** open. They are still in the deck.
 
 ## Receipt and review
 Pending.
