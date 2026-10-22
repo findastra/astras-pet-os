@@ -76,8 +76,8 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of tool panels. The spawner writes the basic one. It is a control panel: anything too big for a tool panel becomes its own website that the pet program manages and opens from one tool panel (Astra, 2026-10-19). |
 | **tool panel** | panel: a collapsible section (HTML `details`); developers read "tool panel" as a panel that holds tools | A bordered group with its label set into the top border. Called a **module**, then a **panel**, until 2026-10-19 (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"). |
 | **`<pet>-cyberhome`** | avatar panel (status widget) | Top left: where the pet sits while the page is open, with its paired lights. |
-| **`<home>-pet-program-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does. |
-| **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **your programs** (applications the pet manages) and **your tools** (its own scripts and utilities), including tools not merged yet. |
+| **`<home>-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does ("pet-program" left the label on 2026-10-21). |
+| **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **native programs** (applications the pet manages) and **native tools** (its own scripts and utilities), including tools not merged yet. |
 | **`<pet>-L2-tool-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
 | **`<pet>-L3-tool-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
 | **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the pet passport. Its grants have their own panel. |
@@ -233,7 +233,7 @@ Some keys are older than these words and stay as they are, because code reads th
 **One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
 Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,
 which the README, the profile, the Farmer's desk, the Pets Board and the desktop pet all open. **`app_url`** holds today's
-app (the older page or site), opened by the **Open today's app** button on the program page. `interface_live_url` stays the
+app (the older page or site), opened by the **Open app** button on the program page ("today's" left the button on 2026-10-21). `interface_live_url` stays the
 pet's own live site. A link to the program page is labelled **Pet Program**. `clicks` lists the tools bound to three clicks
 or more (PET-PROGRAM-FRAMEWORK.md, section 3, item 8).
 
