@@ -322,6 +322,13 @@ everything about that tool inside it.
   (the asleep mood, 9) and sends nothing. It never raises errors, alarms or tickets for software that was never
   installed. Developers call this feature detection, or graceful degradation.
 
+- **No tray icon of its own** (Astra, 2026-10-21: "only the Startup Star should ever be in the tray"). A pet program
+  that runs in the background puts its menu in Startup Star's menu, under the pet's name: it writes the items to
+  `menu-20261021.json` in its data folder, each one a command of its own program (the tools' ON/OFF as
+  `--tool <label> on|off`), and Startup Star runs the program with it. Nothing pops up; its mood goes to
+  `mood-20261021.json`, and an alarmed pet shows its alarmed face on the desktop. The shared code is log-den's
+  `contracts/background-pet-20261021.cs` (card 066).
+
 - The ON/OFF state lives in the core (the Farm), not in the tool's own storage, so a compromised tool cannot turn
   itself back on. The runtime checks it before the tool runs; the checkbox on the page only asks the core.
 - Anyone on the farm may turn a tool **OFF**. Turning it back **ON** after a security OFF needs L4 approval and is logged.
