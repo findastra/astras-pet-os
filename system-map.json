@@ -3133,6 +3133,18 @@
       "does": "Everything that waits on you on GitHub, in the order to act, and every pet in one chart."
     },
     {
+      "id": "red-jobs",
+      "name": "red-jobs",
+      "type": "trick",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-red-jobs-trick-v1.0",
+      "job": "A trick of GitHub Aquarium (github-goldfish skills/red-jobs/SKILL.md; Astra, 2026-10-22, sharing paper-girl’s Actions page: \"add a skill to the goldfish that corresponds to this\"): read a GitHub Actions job that fails on a main branch, name its cause from the causes seen so far (a private repo’s Pages, a private checkout, a changed input, a failing test, a workflow file), and hand Astra the one next step with its link: her own click, a chat’s fix or a slide deck. Read only; it never switches a workflow, reruns a job or changes a repo. Uses only outstanding-items."
+    },
+    {
       "id": "mass-delete",
       "name": "mass-delete",
       "type": "tool",
