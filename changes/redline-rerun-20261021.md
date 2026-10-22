@@ -9,7 +9,7 @@ listed in the redline register of card 071 (`handoffs/071-any-redline-rerun-2026
   had before is linked in L4's pet passport ("App") and the footer.
 - No activity light after a level tool panel's label (her cyan bracket moves it left, to the pair); the panel's glow
   still shows L4 "you are here".
-- VRCFaceTracking, Unity Hub 2022.3.22f1 and her own does lines for them and VRChat; Blender in use (no "idea" tag,
+- VRCFaceTracking and her own does lines for it, Unity Hub and VRChat; Blender in use (no "idea" tag,
   optional in Unity Unicorn's needs); "avatar plans" back in Unity Stable's summary.
 - A 3rd party program is red, "not seen running", until something reports it (Astra: Blender showed green while closed).
 - Unity Hub 3.21.1 and Unity 2022.3.22f1 are two programs; Kernel Koala's program-watch (findastra/kernel-grove#5) is on the map as a planned tool (her slides, all recommended).
