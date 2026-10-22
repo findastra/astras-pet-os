@@ -395,7 +395,8 @@ export const OUTSTANDING_EXAMPLES = [
 ];
 
 function outstandingPanel(d) {
-  const groups = OUTSTANDING_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group outstanding-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
+  // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
+  const groups = OUTSTANDING_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group outstanding-group g-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return panel(`${d.petSlug}-outstanding-items-tool-panel`, `<p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
 <div class="request-groups outstanding" id="outstanding-items">${groups}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
