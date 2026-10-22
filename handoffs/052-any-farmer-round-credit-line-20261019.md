@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to add the page rebuild to round pull request #192, then to merge it; add three paths to line 59 of the Farmer's round workflow, task 2)
+status: open (waiting on Astra: OK to merge round pull request #192, its page rebuild is on it; add three paths to line 59 of the Farmer's round workflow, task 2)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -152,11 +152,27 @@ folders were not touched.
   gives 285 tests, 284 pass, 0 fail.
 - So the first half of "Done when" is met (run 39717690793). The second half waits on #192: either a rebuild commit on
   its branch before it merges (Astra's OK), or Astra's line-59 edit and a new round.
+- **The rebuild is on #192, not merged.** Astra: "Add the page rebuild to #192 and test it, but don't merge yet." On
+  `farmer/rounds-20261021`: `47e584d` merges `main` (`2b0b6ae`, #193), `1415cd3` rebuilds the 41 pages with
+  `npm run build`. `npm test` there: 285 tests, 284 pass, 0 fail, 1 skipped, and running the rebuilds again changes
+  nothing. `main` has moved since (#191), so merge it in and test once more before merging #192.
+- **What #192 does to seven pet program pages.** Gif Giraffe, Fuzzboi Friend, Patch Cat, Platform Platypus, RGBee, Role
+  Fairy and Wifi Butterfly lose their "Approvals waiting on you" item and go from curious to sleep, "Not checked yet."
+  Their needs were not answered. Their repos are private on GitHub, but `pets.json` still says public (#167, which
+  syncs visibility, is open). Without `FARMER_TOKEN` the round lists only public repos, and on 2026-10-21 only 14 of
+  Astra's repos were public: of the 42 pets, the round could see one repo, Discord Damsel's. The 4 that `pets.json`
+  marks private are reported ("Can't see"); the other 37 are filed under `missing`, which the summary never prints,
+  and each gets a blank "Not checked yet." status with only its old check date kept. That is why all 37 pages' "Last
+  check" lines changed, why 0 self-audits ran, and why only Discord Damsel and the Farmer still need Astra. Every round
+  since the repos went private on 2026-10-20 does this (runs 39462765053 and 39641690609 also said "Needs Astra: 2").
+  Nothing was changed for it here. It is three separate decisions: a `FARMER_TOKEN` (already an API Fairy key request,
+  card 056), #167, and whether
+  `runRound` in `scripts/farmer-rounds-20261009.mjs` should keep a pet's last status and report `missing` pets.
 
 ## Ownership and state
-State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 waits on Astra: her OK to add the
-page rebuild to its branch, then to merge it. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5 (side
-session). Nothing else is claimed and nothing is running. Reviewer: unassigned.
+State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 has its page rebuild (`1415cd3`)
+and waits on Astra's OK to merge. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5 (side session). Nothing
+else is claimed and nothing is running. Reviewer: unassigned.
 
 ## Task
 1. **Done: merged as `d1db66f` (#182, 2026-10-21, above).** ~~Any
