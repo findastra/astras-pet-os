@@ -162,6 +162,6 @@ Slides: Unity Stable redlines 2: 6 questions. Built on this branch:
 1. **A:** `unity-unicorn-update-history` stays in L2 (as built).
 2. **A:** the pets it talks to are bubbles in L2, like the related pets ("I get …", "I send …", the pet beside it), with no lights on each.
 3. **A:** L3 has pills: Tricks running now (none: no seat), Suggestions for you (`weekly-suggestions`, a weekly trick), and Harness skills, matched by name in Skill Scout's catalog of 2026-10-17 (face-transfer and vrchat-unity-world for Claude Code, blender-unity-assets for Codex; `harness_skills` in Unity Unicorn's pets.json entry).
-4. **A:** a Shared programs heading, holding My Avatar Closet (Devilish's, planned, `shared_with` on its map node), and the weekly `closet-check` trick. **Still open:** the closet's link. Her answer ended at "The closet's link is:" with nothing after it.
+4. **A:** a Shared programs heading, holding My Avatar Closet (Devilish's, planned, `shared_with` on its map node), and the weekly `closet-check` trick. Its link: Astra, 2026-10-22, "devilish hosts it on her GitHub": https://xxdevilishxx.github.io/Vr-Asset-Closet/ (XxdevilishxX/Vr-Asset-Closet, GitHub Pages, checked live).
 5. **A:** two R W X rows per level, its own folder and everything else; a level with one kind of rule (L4) keeps one row.
 6. **A:** the title block's bottom lines up with the squares', and the squares rise above it.
