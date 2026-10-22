@@ -18,6 +18,7 @@ import { moodKey } from './farmer-rounds-20261009.mjs';
 import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
+import { socialRowBody } from './social-row-preview-20261022.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -460,7 +461,14 @@ function dmArchivePanel(d) {
 }
 
 
-export const PET_PANELS = { 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
+// Portfolio Puffer's social row (Astra, 2026-10-22: "can we see all these on the portfolio puffer pet program?"): the six
+// styles of the "Profile Social Row" canvas for the links at the top of her GitHub profile, the live one marked.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-22. Styles and links: scripts/social-row-preview-20261022.mjs.
+function socialRowPanel(d) {
+  return panel(`${d.petSlug}-social-row-tool-panel`, socialRowBody(), { cls: 'social-row' });
+}
+
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
