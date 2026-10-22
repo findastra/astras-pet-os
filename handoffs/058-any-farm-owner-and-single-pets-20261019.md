@@ -180,7 +180,8 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
      pet at a time with her OK. Nothing is published yet.
   2. API Fairy's scan hits: her own chat fixes her files. The fake keys are put together while the tests run, the
      example paths use `%USERPROFILE%`, and the two local ports leave her page. The scanner stays strict, with no
-     exception in the core. This is a card in findastra/api-fairy.
+     exception in the core. Her card: `docs/handoff-any-pet-pack-scan-20261021.md`,
+     [findastra/api-fairy#10](https://github.com/findastra/api-fairy/pull/10).
   3. Packs from private repos: keep `--private`, as built.
 
 ## Task
@@ -192,7 +193,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
    pets.json; Astra's OK in chat, 2026-10-21). ~~Three questions in slides~~ Answered 2026-10-21: all recommended
    (above, and the proposal's rows 10 to 12).
    - Publishing a pet's first pack waits on her OK for that pet.
-   - API Fairy's files are her own chat's card.
+   - API Fairy's files are her own chat's card (api-fairy#10).
 5. Next, after Part 4: the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
