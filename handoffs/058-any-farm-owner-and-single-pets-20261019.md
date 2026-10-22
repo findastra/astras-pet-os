@@ -164,6 +164,10 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   - The page script (`apps/pet-programs/pet-program-page-20261018.js`, the chat's message) still writes
     `https://github.com/findastra/<repo>`, which Part 3 missed. On another farm, a pet's chat message names Astra's
     account. Astra started its own session for the fix on 2026-10-21 (its own pull request).
+    - Fixed in [#184](https://github.com/findastra/astras-pet-os/pull/184) (open, waits on Astra's OK in chat). Each
+      page's config carries the pet's own repo (`repoUrl`, from `ownerOf`; none when the repo is private), and the page
+      script names no account, its tool-frame height check included. Guarded by
+      `test/farm-owner-upstream-test-20261020.mjs` and `test/cyberhome-chat-test-20261019.mjs`.
 - **Not built:** publishing packs anywhere (question 1), signing them, and the Friendly Farmer adding a pack to a
   farm (`farm.lock`).
 - **Merged to `main` with Astra's OK in chat (2026-10-21: "OK, merge #183").**

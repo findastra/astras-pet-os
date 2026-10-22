@@ -2,7 +2,7 @@
 // card 058). upstream() is Astra's PetOS itself, farmOwner() whose pets these are, and every farm-facing script asks
 // them instead of writing findastra. On Astra's farm every generated file is exactly what it was; on a fixture farm for
 // Dev (XxdevilishxX), made with make-it-yours, her own pets link to her account and Astra's examples keep hers.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-10-20.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-20; the pet program page script and its chat's message, 2026-10-21.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -144,6 +144,29 @@ test('a fixture farm for XxdevilishxX: her pets link to her account, Astra\'s ex
 
   const board = buildBoard({ programs, registry: dev, status: null, repos: {}, sites: {}, now: 'now', iconFor: () => null });
   assert.ok(board.includes(`[Fixture Ferret](https://github.com/${DEV}/dev-diary)`) && board.includes('(https://github.com/findastra/meme-fiend)'));
+});
+
+// The page script is the same file on every farm, so it may not write an account: the chat's message takes the pet's
+// repo from the page's own config, which the spawner writes from ownerOf.
+const configOf = (html) => JSON.parse(html.split('<script type="application/json" id="pet-program-data">')[1].split('</script>')[0]);
+
+test('the pet program page script names no account; each page\'s config carries its pet\'s own repo for the chat', () => {
+  const hits = code(read('apps/pet-programs/pet-program-page-20261018.js')).filter((l) => /findastra|github\.com\/|github\.io/i.test(l));
+  assert.deepEqual(hits, [], 'apps/pet-programs/pet-program-page-20261018.js writes a GitHub account or site');
+  const { registry: dev, programs } = devFarm();
+  for (const farm of [{}, { registry: dev, programs }]) {
+    const src = { ...readSpawnerSources(root), ...farm };
+    const files = spawnerFiles(src), pages = spawnerPages(src);
+    assert.ok(pages.some((d) => !d.publicRepo), 'a private pet is among them');
+    for (const d of pages) {
+      assert.equal(configOf(files[pagePath(d.repo)]).repoUrl, d.publicRepo ? repoUrl(src.registry, d.repo) : null, `${farmOwner(src.registry)}: ${d.repo}`);
+    }
+    if (farm.registry) {
+      assert.equal(configOf(files[pagePath('dev-diary')]).repoUrl, `https://github.com/${DEV}/dev-diary`, 'her own pet');
+      assert.equal(configOf(files[pagePath('astras-pet-os')]).repoUrl, `https://github.com/${DEV}/astras-pet-os`, 'her copy of the hub');
+      assert.equal(configOf(files[pagePath('meme-fiend')]).repoUrl, 'https://github.com/findastra/meme-fiend', 'an example stays Astra\'s');
+    }
+  }
 });
 
 test('a fixture farm: the round finds new pets only on Dev\'s account and reads Astra\'s examples from Astra\'s', async () => {
