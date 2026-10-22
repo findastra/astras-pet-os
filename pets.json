@@ -779,6 +779,11 @@
             "why": "Planned: Tracks which avatars are uploaded to which VRChat account, with Quest, opti and fallback versions (Astra)."
           },
           {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in."
+          },
+          {
             "node": "unity-editor",
             "how": "required",
             "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
@@ -787,9 +792,36 @@
             "node": "vrchat-creator-companion",
             "how": "required",
             "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "Avatar meshes are often edited in Blender before Unity. In use (Astra struck \"idea, not agreed yet\", 2026-10-21)."
+          },
+          {
+            "node": "my-avatar-closet",
+            "how": "optional",
+            "why": "Planned: the closet Devilish and Astra share for Poppy's assets."
           }
         ]
-      }
+      },
+      "harness_skills": [
+        {
+          "name": "face-transfer",
+          "harness": "Claude Code",
+          "does": "Moves an avatar’s face tracking from one Unity project to another, and keeps a log of face tracking builds."
+        },
+        {
+          "name": "vrchat-unity-world",
+          "harness": "Claude Code",
+          "does": "Works on your VRChat worlds in Unity without breaking the editor you have open."
+        },
+        {
+          "name": "blender-unity-assets",
+          "harness": "Codex",
+          "does": "Makes Blender assets for Unity and VRChat worlds."
+        }
+      ]
     },
     {
       "repo": "learn-python",
@@ -2339,7 +2371,38 @@
           }
         ],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "unity-editor",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          },
+          {
+            "node": "vrcft",
+            "how": "optional",
+            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
+          }
+        ]
       }
     }
   ],

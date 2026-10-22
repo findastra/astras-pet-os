@@ -39,6 +39,31 @@
   },
   "nodes": [
     {
+      "id": "my-avatar-closet",
+      "name": "My Avatar Closet",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Shared program",
+      "shared_with": "Devilish",
+      "url": "https://xxdevilishxx.github.io/Vr-Asset-Closet/",
+      "job": "Devilish's avatar asset closet, shared with Astra (Astra, 2026-10-22: \"a perfect example of a 3rd Party Program/Native Program because it is technically both\"; they both work on Poppy and share the assets they make for her). Devilish hosts it on her GitHub (XxdevilishxX/Vr-Asset-Closet, on GitHub Pages; Astra, 2026-10-22).",
+      "does": "Devilish’s closet of avatar assets, shared with you for Poppy."
+    },
+    {
+      "id": "closet-check",
+      "name": "closet-check",
+      "type": "trick",
+      "of": "unity-stable",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "unity-stable-v1.0-closet-check-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Unity Stable (Astra, 2026-10-22: \"an example of a Unity Unicorn 'trick' is to check weekly on Devilish 'My Avatar Closet' to update that panel connection here\"): once a week, look at My Avatar Closet for new Poppy assets and update its pill. Not written yet."
+    },
+    {
       "id": "dm-archive-review",
       "name": "DM archive review",
       "type": "own-program",
@@ -325,6 +350,7 @@
       "url": "https://findastra.github.io/astras-star-window/",
       "picture": "https://findastra.github.io/astras-star-window/star-window.svg",
       "embed": "https://findastra.github.io/astras-star-window/?embed",
+      "panel": "astras-photostar-panel",
       "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
@@ -439,6 +465,18 @@
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): what each \"Service Host: ...\" row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
     
+    {
+      "id": "program-watch",
+      "name": "Program watch",
+      "type": "tool",
+      "of": "program-63",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "kernel-grove-v1.0-program-watch-v1.0",
+      "job": "A tool of Kernel Grove (Astra, 2026-10-21, all recommended): which of the 3rd party programs on this map are open (Unity Hub, Unity, the Creator Companion, Blender, VRChat, VRCFaceTracking), every five seconds while the watch runs; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/kernel-grove#5, not merged; the pet program pages see it once Startup Star passes it on (card 054)."
+    },
     {
       "id": "leftover-watch",
       "name": "Leftover watch",
@@ -632,11 +670,11 @@
     },
     {
       "id": "vrcft",
-      "name": "VRCFT (VRCFaceTracking)",
+      "name": "VRCFaceTracking",
       "type": "program",
       "state": "now",
       "job": "Face-tracking software. OSC Sealion will manage it; Unity Unicorn will use it to personalize an avatar's face-tracking rig.",
-      "does": "Reads face and eye tracking from your headset or face tracker and moves your avatar's face in VRChat.",
+      "does": "Controls your avatar's face tracking.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -942,7 +980,7 @@
       "state": "now",
       "layer": 6,
       "job": "Cloud service: your worlds and avatars live here.",
-      "does": "A social virtual reality platform, where your worlds and avatars live.",
+      "does": "A social virtual reality platform.",
       "category": "Cloud service"
     },
     {
@@ -1242,14 +1280,24 @@
       "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
     },
     {
-      "id": "unity-editor",
-      "name": "Unity 2022.3.22f1 and Unity Hub",
+      "id": "unity-hub",
+      "name": "Unity Hub 3.21.1",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "The Unity editor used for VRChat avatars and worlds. On the desktop (editing-streaming).",
-      "does": "Unity is the game engine you build avatars and worlds in (VRChat uses 2022.3.22f1); Unity Hub installs Unity and organizes your Unity projects."
+      "job": "Installs Unity editors and opens your Unity projects (Astra, 2026-10-21: a program of its own, apart from the editor). On the desktop (editing-streaming).",
+      "does": "Organizes your Unity projects."
+    },
+    {
+      "id": "unity-editor",
+      "name": "Unity 2022.3.22f1",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "The Unity editor used for VRChat avatars and worlds (2022.3.22f1 is the version VRChat needs). On the desktop (editing-streaming).",
+      "does": "The editor you build avatars and worlds in."
     },
     {
       "id": "vrchat-creator-companion",
@@ -3267,6 +3315,69 @@
   ],
   "links": [
     {
+      "from": "unity-unicorn",
+      "to": "my-avatar-closet",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Unity Stable links the closet Devilish and Astra share for Poppy, and its weekly closet-check trick looks at it."
+    },
+    {
+      "from": "program-watch",
+      "to": "unity-editor",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrchat-creator-companion",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "blender",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrchat",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vrcft",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
+      "from": "unity-unicorn",
+      "to": "unity-hub",
+      "carries": "manages",
+      "state": "now",
+      "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in (Astra, 2026-10-21: Unity Hub and Unity are two programs)."
+    },
+    {
+      "from": "unity-hub",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed on the Desktop PC (version 3.21.1, checked 2026-10-21)."
+    },
+    {
+      "from": "program-watch",
+      "to": "unity-hub",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+    },
+    {
       "from": "findastra-discord-presence",
       "to": "dm-archive-review",
       "carries": "opens",
@@ -4460,7 +4571,7 @@
       "from": "unity-unicorn",
       "to": "blender",
       "carries": "manages",
-      "state": "idea",
+      "state": "now",
       "why": "Avatar meshes are often edited in Blender before Unity."
     },
     {

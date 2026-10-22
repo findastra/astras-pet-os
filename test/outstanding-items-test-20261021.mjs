@@ -136,7 +136,7 @@ test('it is GitHub Aquarium\'s tool on the map, with the Pets Board as its nativ
   // page said "Native programs · 0").
   assert.ok(map.links.some((l) => l.from === 'program-2' && l.to === 'pets-board' && l.carries === 'opens'), 'GitHub Aquarium opens its Pets Board');
   const page = spawnerFiles(readSpawnerSources(root))[pagePath('github-goldfish')];
-  assert.match(page, /<h3>Native programs · 1<\/h3>[\s\S]*?<span class="item-name">Pets Board<\/span>/, 'the page lists the Pets Board as a native program');
+  assert.match(page, /<h3>Native programs · 1<\/h3>[\s\S]*?class="item-name"[^>]*>Pets Board<\/(a|span)>/, 'the page lists the Pets Board as a native program');
   assert.ok(systemMapData, 'the map builds from it');
   assert.match(read('package.json'), /"outstanding-items": "node scripts\/outstanding-items-20261021\.mjs"/);
 });
@@ -145,7 +145,7 @@ test('GitHub Aquarium\'s page has the panel after the four levels and the R W X 
   const files = spawnerFiles(readSpawnerSources(root));
   const page = files[pagePath('github-goldfish')];
   const at = page.indexOf('>github-goldfish-outstanding-items-tool-panel<');
-  assert.ok(at > page.indexOf('>github-goldfish-rwx-panel<') && at < page.indexOf('>github-goldfish-session-notes<'));
+  assert.ok(at > page.indexOf('>github-goldfish-session-notes<') && at < page.indexOf('>github-goldfish-emotions<'), 'after the R W X panel and the session notes, side by side since 2026-10-22');
   for (const [id, label] of OUTSTANDING_GROUPS) assert.ok(page.includes(`<fieldset class="request-group outstanding-group g-${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
   assert.doesNotMatch(page, /class="[^"]*\boutstanding-group (?:broken|you|chat|close|info)\b/, 'no bare group class: `chat` is the chat pill\'s');
   assert.ok(page.includes(`href="${OUTSTANDING_BOARD}"`), 'the Open button goes to the Pets Board');

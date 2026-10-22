@@ -112,7 +112,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-207 rows: 12 native programs, 115 native tools, 15 native tricks, 65 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+217 rows: 12 native programs, 116 native tools, 16 native tricks, 73 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -219,14 +219,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native tool | wing-strapper | `unity-stable-v1.0-wing-strapper-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | make-a-prop-look-real | `unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0` | Works today |
 | 5 | Unity Unicorn | Unity Stable | native trick | unity-asset-creator | `unity-stable-v1.0-unity-asset-creator-trick-v1.0` | Works today |
+| 5 | Unity Unicorn | Unity Stable | native trick | closet-check | `unity-stable-v1.0-closet-check-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | vcc-package-manager | `unity-stable-v1.0-vcc-package-manager-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | vrchat-avatar-upload | `unity-stable-v1.0-vrchat-avatar-upload-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-copyright-auditor | `unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-update-from-friendly-farmer | `unity-stable-v1.0-weekly-update-from-friendly-farmer-trick-v1.0` | Planned |
-| 5 | Unity Unicorn | Unity Stable | third-party program | Unity 2022.3.22f1 and Unity Hub |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | Blender |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | Unity 2022.3.22f1 |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | Unity Hub 3.21.1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat Creator Companion |  | Works today |
-| 5 | Unity Unicorn | Unity Stable | third-party program | Blender |  | Idea |
-| 5 | Unity Unicorn | Unity Stable | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
+| 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
+| 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
@@ -294,7 +297,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
 | 41 | OSC Sealion | OSC Sonar | third-party program | OSCGoesBrrr |  | Planned |
-| 41 | OSC Sealion | OSC Sonar | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
+| 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
 | 42 | Piranesi Nessi | Nessi's Ocean | third-party program | VRChat |  | Planned |
 | 48 | Log Lynx | Log Den | native tool | Crash catcher | `log-den-v1.0-crash-catcher-v1.0` | Works today |
@@ -316,6 +319,13 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Process sweep | `kernel-grove-v1.0-process-sweep-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
+| 63 | Kernel Koala | Kernel Grove | native tool | Program watch | `kernel-grove-v1.0-program-watch-v1.0` | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | Blender |  | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | Unity 2022.3.22f1 |  | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | Unity Hub 3.21.1 |  | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | VRCFaceTracking |  | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | VRChat |  | Planned |
+| 63 | Kernel Koala | Kernel Grove | third-party program | VRChat Creator Companion |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |
