@@ -1,4 +1,4 @@
-status: open (Parts 1 to 4 merged; Part 5a, the farm lock, built and waiting on Astra's OK to merge; then 5b; waiting on Astra: the hub's old history, task 6)
+status: open (Parts 1 to 4 and 5a merged; Part 5b, pet packs onto a farm, built and waiting on Astra's OK to merge; waiting on Astra: the hub's old history, task 6)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 to 2026-10-21
 needs: docs/farm-owner-and-single-pets-20261019.md, docs/farm-lock-20261021.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -255,7 +255,9 @@ merged only with my OK."*
   of `main` (`263a948`, with #196, #198, #200 and #203). On 2026-10-22 `main` was merged in again (`902ffc4`, with #205,
   Pet ID). Only the generated System Map page conflicted: main's copy was taken and rebuilt. Then once more
   (`81c217f`, with #204 and #207 to #212). Three generated files conflicted (TOOLS-AND-TRICKS.md, The Farm's page and
-  the map page): main's copies were taken and rebuilt. It is open, and merges only with Astra's OK in chat.
+  the map page): main's copies were taken and rebuilt. **Merged to `main` as `e51d215` with Astra's OK in chat
+  (2026-10-22: "OK, merge #206").** Main had not moved since the tested merge, CodeQL passed, and the merge commit's
+  tree is the tested tree.
 - **New:**
   - `scripts/farm-lock-20261021.mjs`: the farm lock and the needs check.
   - `scripts/farm-pets-20261021.mjs`: the Friendly Farmer's farm-pets tool, `the-farm-v1.0-farm-pets-v1.0`, with
@@ -300,6 +302,44 @@ merged only with my OK."*
 - **Not built:** pet packs coming in (5b: checked against GitHub, `--unchecked`, the pet's code next to the farm, the
   uninstaller removing pack folders).
 
+**Part 5b, 2026-10-22, by Claude Opus 5.5 (`claude-opus-5-5`), same session.** Astra: *"Start Part 5b here: pet packs
+come onto a farm, checked file by file against the pet's own repo on GitHub, with --unchecked on purpose, the pet's code
+next to the farm, and the uninstaller removing pack folders. One pull request, merged only with my OK."*
+
+- **Branch:** `claude/farm-lock-packs-20261022`, cut from `main` at `ea6d45b` in the same scratchpad clone. The live hub
+  folder on Astra's PC was not touched.
+- **New:**
+  - `scripts/farm-pets-packs-20261022.mjs`: read a pack and check it (against itself, against the farm, against the
+    pet's repo on GitHub), and write its code folder.
+  - `test/farm-lock-packs-test-20261022.mjs`: 10 tests, the uninstaller's among them.
+  - `changes/farm-lock-packs-20261022.md`.
+- **Changed:**
+  - `scripts/farm-pets-20261021.mjs`:
+    - `plan add <pack.zip>` and `add <pack.zip> --yes`, with `--unchecked`;
+    - the farm's layout (Windows install, Linux, hub copy);
+    - removal takes an unchanged pack folder too, and `check` compares each pack folder with the farm lock.
+  - `scripts/farm-lock-20261021.mjs`: a history line names the pack it came from.
+  - The uninstaller removes unchanged pack folders the farm lock lists. It follows no links, accepts only `../<repo>`
+    or `../pets/<repo>`, and keeps and names a changed folder.
+  - The installer, run again, says where a leaving pet's pack code stays.
+  - The pet-packs README's "Limits" points to farm-pets.
+  - `system-map.json`: the farm-pets node's job, and a link to GitHub (rebuilt pages).
+  - Docs: MAKE-IT-YOURS.md sections 2 and 6, INSTALL.md (also a fix: 5a's paragraph had split the developer-mode
+    sentences off), PROVENANCE.md, the guide, `skills/new-pet-or-tool`, "As built: Part 5b" in
+    `docs/farm-lock-20261021.md`, and the proposal.
+  - `FARM_FACING` in `test/farm-owner-upstream-test-20261020.mjs`.
+- **One change from the proposal:** the pack's pictures, page and Markdown pet are not copied onto the farm. The release
+  already has them for every pet on the farm's list, so there is one art source.
+- **Checked:**
+  - Forensic Ferret's real pack was built from GitHub with `--private`. It was added to a throwaway installed farm, and
+    every file matched `findastra/evidence-locker` at `37cd0b4`. The code landed next to the farm, with Log Lynx's
+    entry.
+  - `check` passed and caught a hand edit. The edited folder was kept on removal, and the unchanged one was removed with
+    `--and-unneeded`.
+  - The real uninstaller removed the pack folder and then the install folder.
+  - Discord Damsel's repo (the one public pet repo) cannot be packed: the pack scan stops on its files.
+  - `npm run build`, `npm run check` and `npm test`: see the pull request.
+
 ## Task
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
@@ -314,9 +354,11 @@ merged only with my OK."*
    - ~~**Astra:** answer the six questions in the slides~~ Answered 2026-10-21: all recommended (above, and the
      proposal's rows 13 to 18).
    - ~~Proposal~~ Merged with #197 as `db2fd41` (Astra's OK in chat, 2026-10-21).
-   - **5a** (the farm lock with the installer's own pets, and the installer's part): built in
-     [#206](https://github.com/findastra/astras-pet-os/pull/206), which waits on Astra's OK to merge.
-   - Next: 5b (pet packs come in), its own pull request, merged only with her OK.
+   - ~~**5a**~~ (the farm lock with the installer's own pets, and the installer's part): merged with
+     [#206](https://github.com/findastra/astras-pet-os/pull/206) as `e51d215` (Astra's OK in chat, 2026-10-22).
+   - **5b** (pet packs come onto a farm): built on `claude/farm-lock-packs-20261022`; its pull request waits on Astra's
+     OK to merge.
+   - Later, not planned yet: signed packs, and the Kennel's adoptions of pets from other farms.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
 ## Done when

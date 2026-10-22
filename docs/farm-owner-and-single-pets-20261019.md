@@ -223,7 +223,17 @@ The whole proposal is `docs/farm-lock-20261021.md`. In short:
   `farm-catalog\` and writes the first farm lock. Its PowerShell twin is tested to give what Node gives.
 - One change from the proposal: a pet whose own program runs on another computer comes in with a warning, because no
   code comes onto the farm in 5a. When a pet pack brings code (5b), it stops.
-- Details are in `docs/farm-lock-20261021.md`, "As built: Part 5a".
+- Details are in `docs/farm-lock-20261021.md`, "As built: Part 5a". Merged with #206 as `e51d215` (Astra's OK in chat,
+  2026-10-22).
+
+**As built, Part 5b (2026-10-22, Astra: "Start Part 5b here"):**
+- `add <pet pack.zip>` brings a pet with its code. The pack is checked against itself, against the farm, and file by
+  file against the pet's own repo on GitHub at its commit. Code that differs is always refused, and a pack that cannot
+  be checked comes in only with `--unchecked`.
+- The code goes into its own folder next to the farm, and the farm lock lists every file. Taking the pet away and
+  uninstalling remove that folder while it is unchanged.
+- The pack's pictures and page are not copied onto the farm: the release already has them (one art source).
+- Details are in `docs/farm-lock-20261021.md`, "As built: Part 5b".
 
 ## What it would take
 
