@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, privateTarget } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -83,7 +83,7 @@ test('one click always points to the pet program page: every pet\'s link is its 
     const html = files[pagePath(r.repo)];
     const today = r.interface_live_url || r.app_url;
     // "Open app" since 2026-10-21 (Astra crossed out "today's")
-    if (today) assert.match(html, /<a class="button" href="[^"]+">Open app<\/a>/, `${r.repo}: today's app is a button on its page`);
+    if (today) assert.match(html, /<a class="button" href="[^"]+">Open app<\/a>|<span class="button off"[^>]*>App is private<\/span>/, `${r.repo}: today's app is a button on its page`);
     assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open app`), `${r.repo}: the button never opens the page itself`);
   }
 });
@@ -284,6 +284,25 @@ test('private pets say their data never leaves the PC, and private repos are not
     if (d.isPrivate) assert.match(html, /its data never leaves the PC/, d.repo);
     if (!d.publicRepo) assert.ok(!html.includes(`href="https://github.com/findastra/${d.repo}"`), `${d.repo} is private: no repo link`);
   }
+});
+
+test('"Open today\'s app" never leads into a private repo or its switched-off Pages site (Astra, 2026-10-20: "i privated most repos")', () => {
+  const regs = [...src.registry.pets, ...src.registry.pipeline];
+  const privateRepos = regs.filter((p) => p.visibility === 'private').map((p) => p.repo);
+  for (const d of pages) {
+    const actions = files[pagePath(d.repo)].match(/<p class="actions">[\s\S]*?<\/p>/)[0];
+    for (const r of privateRepos) {
+      assert.ok(!new RegExp(`href="https://(github\\.com/findastra|findastra\\.github\\.io)/${r}[/"#?]`, 'i').test(actions), `${d.repo}: today's app leads into private ${r}`);
+    }
+    if (d.appPrivate) assert.match(actions, /<span class="button off"[^>]*>App is private<\/span>/, `${d.repo}: the button says why`);
+  }
+  // The rule itself: a private pet's repo and Pages site; never a public repo, the hub's own copy or another account.
+  const reg = { github_owner: 'findastra', pets: [{ repo: 'shut', visibility: 'private' }, { repo: 'open', visibility: 'public' }], pipeline: [] };
+  assert.equal(privateTarget(reg, 'https://findastra.github.io/shut/'), 'shut');
+  assert.equal(privateTarget(reg, 'https://github.com/findastra/shut#run-it'), 'shut');
+  assert.equal(privateTarget(reg, 'https://findastra.github.io/open/'), null);
+  assert.equal(privateTarget(reg, 'https://someone-else.github.io/shut/'), null);
+  assert.equal(privateTarget(reg, 'apps/shut-20261008.html'), null);
 });
 
 test('related pets sit at the bottom: every pet it talks to, linked to its own pet program page (Astra, 2026-10-19)', () => {

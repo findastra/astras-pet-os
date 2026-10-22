@@ -1,4 +1,4 @@
-status: open (waiting on Astra: three questions on pet packs in slides; Part 4 merged with #183)
+status: open (Parts 1 to 4 merged, pet-pack answers recorded; next: farm.lock; waiting on Astra: the hub's old history, task 6)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
 needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -164,7 +164,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   - The page script (`apps/pet-programs/pet-program-page-20261018.js`, the chat's message) still writes
     `https://github.com/findastra/<repo>`, which Part 3 missed. On another farm, a pet's chat message names Astra's
     account. Astra started its own session for the fix on 2026-10-21 (its own pull request).
-    - Fixed in [#184](https://github.com/findastra/astras-pet-os/pull/184) (open, waits on Astra's OK in chat). Each
+    - Fixed in [#184](https://github.com/findastra/astras-pet-os/pull/184), merged as `f2eb3bb` with Astra's OK. Each
       page's config carries the pet's own repo (`repoUrl`, from `ownerOf`; none when the repo is private), and the page
       script names no account, its tool-frame height check included. Guarded by
       `test/farm-owner-upstream-test-20261020.mjs` and `test/cyberhome-chat-test-20261019.mjs`.
@@ -174,6 +174,15 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   - `main` had moved while she answered: #180 and #181 (two cards) were merged into the branch first.
   - On that merged tree: `npm run build` left nothing to commit, `npm run check` passed (23 pet apps), and `npm test`
     gave 274 tests, 273 pass, 0 fail, 1 skipped.
+- **Astra's answers to the three pet-pack questions (2026-10-21: "all recommended")**, recorded in the proposal's
+  table (rows 10 to 12) and MAKE-IT-YOURS.md section 6:
+  1. Where people download a pack: on each pet's own repo, as a release file, only for pets whose repo is public, one
+     pet at a time with her OK. Nothing is published yet.
+  2. API Fairy's scan hits: her own chat fixes her files. The fake keys are put together while the tests run, the
+     example paths use `%USERPROFILE%`, and the two local ports leave her page. The scanner stays strict, with no
+     exception in the core. Her card: `docs/handoff-any-pet-pack-scan-20261021.md`,
+     [findastra/api-fairy#10](https://github.com/findastra/api-fairy/pull/10).
+  3. Packs from private repos: keep `--private`, as built.
 
 ## Task
 
@@ -181,9 +190,10 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
 3. ~~**Part 3**~~ Merged with #164 as `dcd5d81` (upstream vs farm owner, make-it-yours; Astra's OK in chat, 2026-10-20).
 4. ~~**Part 4**~~ Merged with [#183](https://github.com/findastra/astras-pet-os/pull/183) (pet packs, `needs` in
-   pets.json; Astra's OK in chat, 2026-10-21). **Astra:** three questions in slides
-   (https://claude.ai/artifact/PQWcQTj1vfZ6vfnkECmNNB, private to Astra): where packs are published, API Fairy's scan,
-   private repos. Recommended: A, A, A.
+   pets.json; Astra's OK in chat, 2026-10-21). ~~Three questions in slides~~ Answered 2026-10-21: all recommended
+   (above, and the proposal's rows 10 to 12).
+   - Publishing a pet's first pack waits on her OK for that pet.
+   - API Fairy's files are her own chat's card (api-fairy#10).
 5. Next, after Part 4: the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 

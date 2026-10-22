@@ -178,6 +178,7 @@ test('in a real browser: one of every kind of button gets the right verdict', { 
 <button onclick="window.open('other.html')">Pop up</button>
 <details><summary>Panel</summary><button onclick="this.textContent='inside clicked'">Inside panel</button></details>
 <button>Delete everything</button>
+<span role="group" aria-label="Words"><button aria-pressed="true">Chosen</button><button aria-pressed="false" onclick="localStorage.setItem('words','other'); location.reload()">Switch and reload</button></span>
 <p id="out"></p>
 <h2 id="section">Section</h2>
 <script>
@@ -192,6 +193,8 @@ k.addEventListener('click', () => { localStorage.setItem('k', '1'); k.setAttribu
       'Works': 'ok', 'Dead button': 'nowhere', 'Hash only': 'nowhere', 'Missing file': 'dead-end', 'Other page': 'ok', 'This page': 'wrong-place',
       'Throws': 'throws', 'Keeps': 'ok', 'Forgets': 'forgets', 'Covered': 'covered', 'Save form': 'unsure', 'Jump': 'ok', 'Jump nowhere': 'dead-end',
       'Local service': 'service-off', 'Pop up': 'ok', 'Panel': 'ok', 'Inside panel': 'ok', 'Delete everything': 'skipped',
+      // a switch like developer mode's words switch (2026-10-20): the choice already made, and one that saves and reloads
+      'Chosen': 'ok', 'Switch and reload': 'ok',
     });
     const form = report.pages[0].findings.find((f) => f.label === 'Save form');
     assert.match(form.why, /sends POST to example\.invalid; the tester never sends anything/);

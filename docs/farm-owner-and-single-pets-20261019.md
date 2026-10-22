@@ -18,6 +18,9 @@
 | 7 | Pictures copied into a pack? | Yes, in the zip only, never committed to a repo |
 | 8 | Where each pet's needs are written? | pets.json, one place |
 | 9 | In what order? | One part at a time: Parts 1 and 2 now, then 3, then 4 |
+| 10 | Where people download a pet pack? (2026-10-21) | On each pet's own repo, as a release file, only for pets whose repo is public, one pet at a time with Astra's OK |
+| 11 | API Fairy's files stop her pack: fix or allow? (2026-10-21) | Fix them in her repo, by her own chat; the scanner stays strict, with no exception in the core |
+| 12 | Packs from private repos? (2026-10-21) | Keep `--private`: packing private code is always a choice made on purpose |
 
 **Added while building (2026-10-20):** a pet whose entry says `stays_private` never goes public. Claude Bot's says why:
 its art is an exact copy of ChatGPT's BSOD, which may not be public (an existing decision, recorded in

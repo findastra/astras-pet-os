@@ -9,14 +9,14 @@ To start: "Take the next open card for <you | any> in findastra/astras-pet-os."
 | Card | For | Status |
 | --- | --- | --- |
 | [068: GitHub Aquarium's error checkers on the map, with Showcase next to them](068-any-aquarium-error-checkers-20261019.md) | any | open: merged as #136 (2026-10-21); tasks 2 to 4 left, 2 and 4 wait on Astra (the old Aquarium app page, the name Showcase) |
-| [067: Kernel Koala's first program: what is running, what is safe to stop, what starts at sign-in; Kernel Grove joins the pipeline](067-any-kernel-grove-process-sweep-20261021.md) | any | merged with Astra's OK (kernel-grove#3, #187); waits on: rebuild Startup Star, then Astra tries it |
+| [067: Kernel Koala's first program: what is running, what is safe to stop, what starts at sign-in; Kernel Grove joins the pipeline](067-any-kernel-grove-process-sweep-20261021.md) | any | merged with Astra's OK (kernel-grove#3, #187), Startup Star restarted; waits on Astra: kernel-grove#4, then trying it |
 | [066: Unity Stable's marked-up screenshot: squares, labels, versions, lights before names, what every program does; the tray](066-any-page-notes-and-tray-20261021.md) | any | done 2026-10-21 with the "what a trick is" pull request (all merged, pets restarted) |
 | [065: Head chat ended: what finished, and what to pick up (commons bullets, description wording, social-row styles, flash-audit-prepper)](065-any-chat-rat-head-chat-end-20261020.md) | any | open: chat ended; items listed |
 | [063: Damsel archive launcher](063-any-damsel-archive-launcher-20261020.md) | any | open: ending chat; source review and installed workflow verification |
 | [061: RGBee room lights and the high-level Desktop Commander status panel](061-any-rgbee-and-desktop-commander-panels-20261020.md) | any | open: chat ended before implementation; scope and ownership recorded |
 | [060: Developer mode: the installer's switch, programming words on every page, no desktop pets](060-any-developer-mode-20261019.md) | any | open, waits on Astra: merge (#155); then her review of the developer names |
 | [059: The credit is "By Astra.": the longer credit line out of every README (82 pet repos and the hub)](059-any-by-astra-credit-20261020.md) | any | open, waits on Astra: merge the hub pull request and the 82 pet repo pull requests |
-| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open, waits on Astra: three questions on pet packs (slides); Parts 1 to 4 merged (#157, #164, #183) |
+| [058: Every farm's own pets: whose they are, public or private both ways, one pet at a time (proposal and nine questions)](058-any-farm-owner-and-single-pets-20261019.md) | any | open: Parts 1 to 4 merged, pet-pack answers recorded (2026-10-21); next farm.lock; waits on Astra: the hub's old history |
 | [057: click-check, the Farm’s tool that clicks every button and link on the pet program pages](057-any-click-check-20261019.md) | any | open: merged (#158, #159); waits on Astra: three decisions (slides) and whether the hub should be private |
 | [056: Key requests for API Fairy: the rule, skills/key-request, and the panel on her pet program page](056-any-key-requests-for-api-fairy-20261019.md) | any | done 2026-10-20: merged, API Fairy running as Astra, skill installed, her answers recorded |
 | [055: The Astral Plane's records match the-astral-plane #8: the VRChat connector (L1, a native tool on the map) and VRChat AI Astra (L3)](055-any-astral-plane-records-20261019.md) | any | open, waits on Astra: merge; then the first live test in VRChat |
@@ -136,7 +136,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 061 | `061-any-rgbee-and-desktop-commander-panels-20261020.md` | `codex/end-chat-handoff-20261020` |
 | 063 | `063-any-damsel-archive-launcher-20261020.md` | `codex/damsel-archive-launcher-20261020` |
 | 066 | `066-any-page-notes-and-tray-20261021.md` | `claude/page-notes-unity-stable-20261021` |
-| 067 | `067-any-kernel-grove-process-sweep-20261021.md` | `claude/kernel-grove-pipeline-20261021` |
+| 067 | `067-any-kernel-grove-process-sweep-20261021.md` | `main` (merged with #187) |
 | 068 | `068-any-aquarium-error-checkers-20261019.md` | `main` (merged with #136; was 057, then 067) |
 
 
