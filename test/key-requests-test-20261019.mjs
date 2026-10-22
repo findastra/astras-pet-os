@@ -51,8 +51,10 @@ test('the examples on the public page are made up and marked as examples', () =>
 
 test('the page reads the real list only from one fixed file on Astra\'s PC, and only when it is opened there', () => {
   assert.match(js, /var LOCAL_REQUESTS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/api-fairy-ring\/key-requests-page-data\.js";/);
-  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 1, 'one script element, for the local list only');
-  assert.match(js, /script\.setAttribute\('src', LOCAL_REQUESTS\)/, 'its address is the fixed constant, never from data');
+  // Two script elements in the page script: this list and GitHub Aquarium's outstanding items, each from its own fixed
+  // constant, each only on its own pet's page and only on this PC.
+  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 2, 'one script element per local list');
+  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)\)/g)].map((m) => m[1]), ['LOCAL_REQUESTS', 'LOCAL_ITEMS'], 'each address is a fixed constant, never from data');
   assert.match(js, /var onThisPC = location\.protocol === 'file:' \|\| \/\^\(localhost\|127\\\.0\\\.0\\\.1\|\\\[::1\\\]\)\$\/\.test\(location\.hostname\);/);
   assert.match(js, /if \(onThisPC\) \{\s*var script = document\.createElement\('script'\);/, 'loaded only on this PC');
   assert.match(js, /d\.schema !== 'api-fairy-key-requests-page-v1'/, 'the list is checked before it is shown');
