@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge findastra/kernel-grove#3, then findastra/astras-pet-os#187; then build and try it)
+status: open (both pull requests merged with Astra's OK, 2026-10-21; waiting on: rebuild Startup Star, then Astra tries Kernel Grove)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-21
 needs: findastra/kernel-grove (README.md, AGENTS.md, kernel-grove-20261021.cs), log-den's contracts/background-pet-20261021.cs, PET-PROGRAM-FRAMEWORK.md section 4 (no tray icon), handoffs/066-any-page-notes-and-tray-20261021.md
@@ -13,8 +13,9 @@ too please."
 **The pet:** Kernel Koala (Kernel Grove, #63, "Processes, memory, drivers and OS internals"). Decision row in
 `skills/new-pet-or-tool`. Log Lynx only records crashes, File Master only files, Startup Star only starts the farm's pets.
 
-**findastra/kernel-grove#3** (`claude/process-sweep-20261021`, 02e8da2, not merged; the repo is private). Local copy:
-`%USERPROFILE%\Documents\Astra's Pet Apps\kernel-grove` (cloned 2026-10-21; it was not on the PC), left on that branch.
+**findastra/kernel-grove#3** (`claude/process-sweep-20261021`, 02e8da2; merged with Astra's OK in chat, 2026-10-21,
+9de73c0; the repo is private). Local copy: `%USERPROFILE%\Documents\Astra's Pet Apps\kernel-grove` (cloned
+2026-10-21; it was not on the PC).
 - `kernel-grove-20261021.cs` and `build-kernel-grove-20261021.ps1`: a native Windows window, built with the C# compiler
   that ships with Windows, compiling log-den's two contracts from `..\log-den\contracts`. Tabs: At a glance (numbered
   suggestions), Running now (every program grouped by app, coloured keep / your choice / safe to stop, with Stop it),
@@ -59,13 +60,15 @@ Log Lynx had used about 1,400 s of CPU in 31 hours (its crash-catcher looks ever
 
 ## Still open
 
-1. **Astra:** merge findastra/kernel-grove#3, then findastra/astras-pet-os#187 (approval in chat; the assistant merges).
-2. **After the merges, on Astra's PC:** in `kernel-grove`, `git switch main` and pull, run
-   `build-kernel-grove-20261021.ps1`, open `bin\kernel-grove-20261021.exe`. Rebuild and restart Startup Star from the
-   hub folder (card 066 already asks for this after #186) so Kernel Koala's menu appears. The watch does not start at
-   sign-in unless Astra asks for it.
-3. Pet art for Kernel Koala (costs money; waits on Astra's OK).
-4. Not built: drivers and OS internals (the rest of Kernel Koala's job); the core enforcing the tools' ON/OFF.
+1. Done: Astra's OK in chat, 2026-10-21 ("OK, merge findastra/kernel-grove#3 first, then findastra/astras-pet-os#187");
+   #187 brought up to date with main (#188, #189) first: the map, levels row and registry note say merged.
+2. `kernel-grove` on Astra's PC is pulled to `main` and built right after the merge (`bin\kernel-grove-20261021.exe`);
+   Astra has not opened it yet. The watch does not start at sign-in unless Astra asks for it.
+3. **Startup Star** was rebuilt and restarted for card 066 before this merged, so Kernel Koala's menu appears only after
+   the next rebuild and restart from the hub folder (with Astra's OK).
+4. kernel-grove's own `pet.json` still says `"merged": false` on its four tools: a one-line pull request there.
+5. Pet art for Kernel Koala (costs money; waits on Astra's OK).
+6. Not built: drivers and OS internals (the rest of Kernel Koala's job); the core enforcing the tools' ON/OFF.
 
 ## Return
 

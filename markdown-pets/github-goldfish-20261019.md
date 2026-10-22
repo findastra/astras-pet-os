@@ -32,7 +32,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **flash-audit**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-14): the Flash Audit, the checklist every pet is onboarded and reviewed with, and the read-only Idle Flash Audit that runs it over every pet program and writes an evidence ledger. Its code is in the hub, not in Goldfish’s repo yet (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs).
 - **project-image-generator**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

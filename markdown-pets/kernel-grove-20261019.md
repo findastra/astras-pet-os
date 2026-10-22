@@ -29,12 +29,12 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **Process sweep**: A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. On findastra/kernel-grove#3, not merged.
-- **Startup switch**: A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). On findastra/kernel-grove#3, not merged.
-- **Service Host explainer**: A tool of Kernel Grove (Astra, 2026-10-21): what each "Service Host: ..." row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. On findastra/kernel-grove#3, not merged.
-- **Leftover watch**: A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. On findastra/kernel-grove#3, not merged.
+- **Process sweep**: A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. Merged 2026-10-21 (findastra/kernel-grove#3).
+- **Startup switch**: A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). Merged 2026-10-21 (findastra/kernel-grove#3).
+- **Service Host explainer**: A tool of Kernel Grove (Astra, 2026-10-21): what each "Service Host: ..." row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3).
+- **Leftover watch**: A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 
