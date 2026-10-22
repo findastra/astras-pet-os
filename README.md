@@ -157,7 +157,7 @@ git clone https://github.com/findastra/astras-pet-os
 **Releases:** from v0.3.0-beta on, every release carries the installer zip (`astras-pet-os-installer.zip`, made by `node scripts/installer-zip-20261018.mjs <tag>`). The [repository release ledger](docs/repository-releases-20261008.json) records the older source tags of the pet repos.
 
 **Open a pet program:** double-click a pet or use its **Pet Program** link: one click always points to the pet program
-page (Astra, 2026-10-19). Its pet passport (L4) links the app the pet had before: Gone Ghost, Paper Patty
+page (Astra, 2026-10-19). Its Pet ID (L4) links the app the pet had before: Gone Ghost, Paper Patty
 and Platform Platypus open their hosted sites, and the other registered pets their dated web app in `apps/` (the original
 app where it is portable, and a web stand-in where the original is a Windows app or still planned). Local form data stays
 in that browser.

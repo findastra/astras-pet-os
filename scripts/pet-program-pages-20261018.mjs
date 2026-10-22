@@ -219,12 +219,16 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
+  // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
+  // nobody else, so the row says so instead of leading to "not found" (click-check, 2026-10-21). system-map.json's
+  // vet-clinic node carries the visibility.
+  const vetClinicPrivate = nodes.get('vet-clinic')?.visibility === 'private';
 
   return {
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null, version: versionOf(reg),
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     thirdParty: ofType(['program'], [...from, ...viaTools]), programs: ofType(['own-program']), devices: ofType(['host-machine']), tools, tricks,
@@ -529,7 +533,7 @@ ${lights(`program:${d.homeSlug}`, d.home)}
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
 ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
-  // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's pet passport.
+  // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
 
   // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
@@ -589,7 +593,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl>`)}`, { cls: 'level', light: true });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 
   // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is. A tool
   // that works right on the page is one of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel

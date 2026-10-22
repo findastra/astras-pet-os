@@ -80,7 +80,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **native programs** (applications the pet manages) and **native tools** (its own scripts and utilities), including tools not merged yet. |
 | **`<pet>-L2-tool-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
 | **`<pet>-L3-tool-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
-| **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the pet passport. Its grants have their own panel. |
+| **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the Pet ID. Its grants have their own panel. |
 | **`<pet>-rwx-panel`** | permissions panel: designed access vs enforced access (access review) | What each level should be (R W X), then whether that is in code: ✓ In code, ⚠︎ Rule only, ○ Not built, each In code with its proof (Astra, 2026-10-19, option C). |
 | **tool box** | card with a title (HTML `fieldset` with a `legend`) | How one tool shows on a page, with its versioned label on the top border. |
 | **trick box** | skill card | How one trick shows: where it came from, which programs, tools and tricks it uses, ON/OFF. |
@@ -98,7 +98,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **`<pet>-related-pets`** | related services ("see also") | Every pet it talks to, linked to that pet's page. |
 | **unified footer** | shared footer component | `astras-pet-os-unified-footer`: one footer every page uses. |
 | **`<pet>-chat`** | chat widget (chatbot launcher) | The button bottom right that opens the pet's chat bot. |
-| **pet passport** | provenance record | **Microchip** = signature, **pedigree** = lineage (repo and forks), **stamps** = install and update history, **vaccination card** = security patch history, **vet records** = vet-clinic tickets ([PROVENANCE.md](PROVENANCE.md)). |
+| **Pet ID** | provenance record | **Microchip** = signature, **pedigree** = lineage (repo and forks), **stamps** = install and update history, **vaccination card** = security patch history, **vet records** = vet-clinic tickets ([PROVENANCE.md](PROVENANCE.md)). Never "pet passport": passport is Passport Pelican's word (Astra, 2026-10-21). |
 
 ## System words
 
@@ -234,7 +234,7 @@ Some keys are older than these words and stay as they are, because code reads th
 **One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
 Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,
 which the README, the profile, the Farmer's desk, the Pets Board and the desktop pet all open. **`app_url`** holds today's
-app (the older page or site), linked from the program page's pet passport (L4) and footer (the button left on 2026-10-21). `interface_live_url` stays the
+app (the older page or site), linked from the program page's Pet ID (L4) and footer (the button left on 2026-10-21). `interface_live_url` stays the
 pet's own live site. A link to the program page is labelled **Pet Program**. `clicks` lists the tools bound to three clicks
 or more (PET-PROGRAM-FRAMEWORK.md, section 3, item 8).
 

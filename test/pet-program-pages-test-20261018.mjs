@@ -113,7 +113,7 @@ test('the header: no bubble in the cyberhome, the hub\'s map label, the quick su
     assert.ok(header.includes(`<span class="legend">${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is astras-pet-os-system-map`);
     assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary`);
     assert.ok(!/class="actions"|class="button/.test(header), `${d.repo}: an X over "Open today's app" and over "Repo"`);
-    assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the passport`);
+    assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the Pet ID`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.match(css, /\.top > \.cyberhome\[open\], \.top > \.system-map\[open\] \{ aspect-ratio: 1 \/ 1;/, 'the cyberhome and the System Map box are always squares');
@@ -368,4 +368,26 @@ test('the R W X panel: each level says what it should be, then whether that is i
   }
   const farm = files[pagePath('astras-pet-os')];
   assert.ok(farm.includes('href="https://github.com/findastra/astras-pet-os/blob/main/test/farmer-rounds-pr-test-20261017.mjs"'), "The Farm's round links its proof");
+});
+
+// Astra, 2026-10-21: "We are not doing passports. We are doing pet IDs ... Passport Pelican is the reason we are not
+// reusing passport." And the vet-clinic is a private repo, so its tickets are not a link nobody else can open.
+test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-clinic only while that repo is public', () => {
+  const vet = src.extra.nodes.find((n) => n.id === 'vet-clinic');
+  assert.ok(vet, 'system-map.json has the vet-clinic node');
+  const vetLink = '/vet-clinic/issues?q=';
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    // Its own tool panel, pet-id, since 2026-10-22 (Astra drew "oo pet-id").
+    assert.ok(html.includes('<span class="legend">pet-id</span>'), `${d.repo}: L4 has a Pet ID`);
+    assert.ok(!/pet passport/i.test(html), `${d.repo}: no "pet passport" (the word is Passport Pelican's)`);
+    if (vet.visibility === 'private') {
+      assert.ok(html.includes('<dt>Vet records</dt><dd>vet-clinic tickets (private repo)</dd>'), `${d.repo}: the private vet-clinic is plain text`);
+      assert.ok(!html.includes(vetLink), `${d.repo}: no link into the private vet-clinic`);
+    } else assert.ok(html.includes(vetLink), `${d.repo}: the public vet-clinic's tickets are linked`);
+  }
+  // The same pages with the vet-clinic made public: the link comes back, decided by the record, not by a name.
+  const flipped = { ...src, extra: { ...src.extra, nodes: src.extra.nodes.map((n) => (n.id === 'vet-clinic' ? { ...n, visibility: vet.visibility === 'private' ? 'public' : 'private' } : n)) } };
+  const other = spawnerFiles(flipped);
+  for (const d of pages) assert.equal(other[pagePath(d.repo)].includes(vetLink), vet.visibility === 'private', `${d.repo}: the link follows the vet-clinic's visibility`);
 });

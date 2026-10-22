@@ -423,7 +423,7 @@ try {
     elseif ($StartWithWindows) { & $exe $InstallDir --install-startup | Out-Null; Write-Host 'Starts with Windows: on' }
     else { & $exe $InstallDir --remove-startup | Out-Null; Write-Host 'Starts with Windows: off (tick it in the window, or add -StartWithWindows, to turn it on)' }
 
-    # 8. Install receipt (a passport stamp)
+    # 8. Install receipt (a Pet ID stamp)
     $commit = $null; if (Test-Path -LiteralPath (Join-Path $source '.git')) { try { $commit = (& git -C $source rev-parse HEAD 2>$null) } catch { } }
     [pscustomobject]@{
         product = "Astra's PetOS"; version = $Version; installed = (Get-Date).ToString('s'); install_dir = $InstallDir

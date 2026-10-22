@@ -6,7 +6,7 @@ listed in the redline register of card 071 (`handoffs/071-any-redline-rerun-2026
 
 - Pills three to a row, then two, then one; a name stays on one line in the pill's border (her second screenshot).
 - No buttons under the title: the X over "Open today's app" (card 066 had only taken "today's" out). The app the pet
-  had before is linked in L4's pet passport ("App") and the footer.
+  had before is linked in L4's Pet ID ("App") and the footer.
 - No activity light after a level tool panel's label (her cyan bracket moves it left, to the pair); the panel's glow
   still shows L4 "you are here".
 - VRCFaceTracking and her own does lines for it, Unity Hub and VRChat; Blender in use (no "idea" tag,
