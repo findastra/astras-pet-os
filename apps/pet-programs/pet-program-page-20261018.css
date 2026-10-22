@@ -173,11 +173,13 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .items li.pill:has(> details[open]) { border-radius: 16px; }
 /* The dropdown arrow sits on the top border at the right, like the name on the left; it turns down while open. */
 .pill-more > summary { position: absolute; top: -11px; right: 18px; z-index: 1; width: 24px; height: 20px; display: grid; place-items: center;
-  padding: 0 4px; background: var(--slate); color: var(--chalk); font-size: 13px; line-height: 1; }
+  padding: 0 4px; color: var(--chalk); font-size: 13px; line-height: 1;
+  /* The page's colour only above the border line, so no dark box shows inside the pill (Astra, 2026-10-22: "looks weird"). */
+  background: linear-gradient(var(--slate) 11px, transparent 11px); }
 .pill-more > summary::before { content: "▸"; transition: transform .15s ease; }
 .pill-more[open] > summary::before { transform: rotate(90deg); }
 .pill-more > summary:hover { color: var(--fix); }
-.pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0 4px; background: var(--slate); }
+.pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0 4px; background: linear-gradient(var(--slate) 10px, transparent 10px); }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
 .pill > .item-desc, .pill > .label { display: block; }
@@ -187,7 +189,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    the page's colour behind it, so the border runs on straight after it (2026-10-21: a wrapped name cut a gap in it). */
 .pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 34px 3px 0; padding: 0; text-indent: 46px;
   font: 14px/19px var(--text); white-space: normal; overflow-wrap: break-word; }
-.pill > .item-name::first-line { background: var(--slate); }
+.pill > .item-name::first-line { background: linear-gradient(var(--slate) 10px, transparent 10px); }
 /* A space each side on the border; after the first one a word may move down whole rather than break. */
 .pill > .item-name::before { content: "\00a0\200b"; }
 .pill > .item-name::after { content: "\00a0"; }
