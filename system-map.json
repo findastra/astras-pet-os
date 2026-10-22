@@ -450,7 +450,6 @@
       "label": "kernel-grove-v1.0-process-sweep-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "startup-switch",
       "name": "Startup switch",
@@ -463,7 +462,6 @@
       "label": "kernel-grove-v1.0-startup-switch-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "service-host-explainer",
       "name": "Service Host explainer",
@@ -476,7 +474,6 @@
       "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): what each \"Service Host: ...\" row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "program-watch",
       "name": "Program watch",
@@ -501,7 +498,6 @@
       "label": "kernel-grove-v1.0-leftover-watch-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "crash-catcher",
       "name": "Crash catcher",
@@ -817,7 +813,7 @@
       "job": "Bash, terminal scripting and guarded automation.",
       "layer": 4
     },
-{
+    {
       "id": "proxy-axolotl",
       "name": "Proxy Axolotl",
       "type": "roadmap",
@@ -1717,8 +1713,10 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Makes GIFs in the browser. Gif Giraffe’s program.",
-      "does": "Makes GIFs in the browser."
+      "job": "Makes GIFs in the browser. Gif Giraffe’s program. Its page (astras-gif-maker-20261022.html in findastra/astras-gif-maker, 2026-10-22) takes frames you add, blends across the loop, draws a pastel-rainbow sparkle overlay, and downloads the GIF or sends it to a Discord webhook; nothing you add leaves the page. Gif Giraffe’s pet program page keeps one tool panel that opens it (PET-PROGRAM-FRAMEWORK.md, section 3). Never run in a browser end to end yet.",
+      "does": "Makes GIFs in the browser: frames, seamless blending and a pastel sparkle overlay.",
+      "label": "astras-gif-maker-v0.1.0-astras-gif-maker-v1.0",
+      "version": "v0.1.0"
     },
     {
       "id": "spoonfed-app",
@@ -6159,7 +6157,9 @@
       {
         "id": "owner",
         "who": "Astra (you, L4)",
-        "level": ["L4"],
+        "level": [
+          "L4"
+        ],
         "subjects": [
           "id:astra"
         ],
@@ -6171,13 +6171,19 @@
         "w": "yes",
         "x": "yes",
         "status": "enforced",
-        "evidence": [{ "setting": "Your own Windows account on this PC, and your own GitHub, Discord and AI accounts: only you sign in to them" }],
+        "evidence": [
+          {
+            "setting": "Your own Windows account on this PC, and your own GitHub, Discord and AI accounts: only you sign in to them"
+          }
+        ],
         "how": "It is your PC and your accounts. You give and take back every other grant in this list."
       },
       {
         "id": "seat-core",
         "who": "The agent in the seat (Claude Code or Codex, with a farmhand in it)",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6201,7 +6207,9 @@
       {
         "id": "seat-animals",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6224,7 +6232,9 @@
       {
         "id": "seat-asks",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6235,13 +6245,19 @@
         "w": "ask",
         "x": "ask",
         "status": "enforced",
-        "evidence": [{ "setting": "Claude Code's permission modes, and Codex's approval and sandbox settings, on this PC" }],
+        "evidence": [
+          {
+            "setting": "Claude Code's permission modes, and Codex's approval and sandbox settings, on this PC"
+          }
+        ],
         "how": "Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list)."
       },
       {
         "id": "farmer-round",
         "who": "The Friendly Farmer's daily round",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "type:host"
         ],
@@ -6254,7 +6270,11 @@
         "w": "pr",
         "x": "yes",
         "status": "enforced",
-        "evidence": [{ "test": "test/farmer-rounds-pr-test-20261017.mjs" }],
+        "evidence": [
+          {
+            "test": "test/farmer-rounds-pr-test-20261017.mjs"
+          }
+        ],
         "how": "The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes.",
         "gaps": [
           11
@@ -6263,7 +6283,11 @@
       {
         "id": "pet-own-folder",
         "who": "Each pet (its own code and its L3 agent)",
-        "level": ["L1","L2","L3"],
+        "level": [
+          "L1",
+          "L2",
+          "L3"
+        ],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -6282,7 +6306,10 @@
       {
         "id": "pet-elsewhere",
         "who": "Each pet",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -6303,7 +6330,9 @@
       {
         "id": "call-models",
         "who": "The agent in the seat, or a pet's L3 agent with a key",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex",
@@ -6328,7 +6357,9 @@
       {
         "id": "seat-third-party",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6346,7 +6377,9 @@
       {
         "id": "seat-devices",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6404,7 +6437,9 @@
       {
         "id": "toucan-reads-cli-proxy",
         "who": "Token Toucan",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "id:token-toucan"
         ],
@@ -6422,7 +6457,9 @@
       {
         "id": "axolotl-reads-cli-proxy",
         "who": "Proxy Axolotl",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "id:proxy-axolotl"
         ],
@@ -6507,7 +6544,10 @@
       {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:log-den"
         ],
@@ -6528,7 +6568,10 @@
       {
         "id": "packet-piranha-probe",
         "who": "Packet Piranha (Packet River: ping-sampler, dns-checker, reach-checker, route-tracer)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:packet-river"
         ],
@@ -6547,7 +6590,10 @@
       {
         "id": "forensic-ferret-read",
         "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:evidence-locker"
         ],
@@ -7148,7 +7194,7 @@
           }
         ]
       },
-            "log-den": {
+      "log-den": {
         "languages": [
           {
             "language": "C#",
