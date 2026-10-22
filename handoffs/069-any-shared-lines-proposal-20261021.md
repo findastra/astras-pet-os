@@ -1,4 +1,4 @@
-status: open (all four answered A; build pull requests open; question 3 waits on Codex's #178)
+status: open (all four answered A; waiting on Astra: merge #199 and github-goldfish#26; question 3 waits on Codex's #178)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
 needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
@@ -137,9 +137,22 @@ Write Astra's answers, with her words and the date, under "Answers", in a pull r
   - 2 A: the old credit lines move word for word into one history file in `changes/`.
   - 3 A: a new card's number is its pull request's number, and handoffs/README.md stops listing each card.
   - 4 A: the hub and GitHub Goldfish change now; every other repo changes with its next pull request.
-- **Build:** one hub pull request (questions 1, 2 and 4) and one in findastra/github-goldfish (questions 1 and 2).
-  Each waits on Astra's OK. Question 3 changes skills/handoff/SKILL.md, which Codex's #178 rewrites; its chat is
-  closed, so #178 needs a decision first (carried with `main` merged in on a `claude/` branch, as #195 did for #177).
+- **Build, questions 1, 2 and 4:** both pull requests wait on Astra's OK.
+  - Hub #199 (`claude/changes-folder-20261021`, `1e67bab` and `2dab307`): the rule in AGENTS.md, CLAUDE.md,
+    PET-FILES.md and the Idle Flash templates for new pet repos.
+    - 70 credit lines and the chat-order note moved to `changes/history-20261007-20261021.md`.
+    - `changes/one-file-per-change-20261021.md` records the change.
+    - The guard is `test/changes-folder-test-20261021.mjs`.
+    - Tests: 292 of 293 pass, 1 skipped. No open hub pull request gets a new conflict.
+  - findastra/github-goldfish#26 (`claude/changes-folder-20261021`, `0c6b5c5`): the same rule. 11 lines moved to
+    `changes/history-20261008-20261021.md`, guard `test/changes-folder-20261021.test.mjs`. Tests: 80 of 80 pass. No
+    open pull request there gets a new conflict.
+  - Left for a follow-up after the open pull requests merge: the last three credit lines in each AGENTS.md.
+- **Question 3 is not built.** It changes skills/handoff/SKILL.md, and Codex's #178 rewrites that file. Apart from
+  line endings, #178's version is the copy already installed for both Claude and Codex, so the hub's own copy is
+  behind until #178 lands. #178 conflicts with `main` in handoffs/README.md (card 064, also used by #179), and its
+  chat is closed. It needs Astra's decision first: carry it forward with `main` merged in, on a `claude/` branch
+  (as #195 did for #177), then build question 3 on top.
 
 ## Receipt and review
 Pending.
