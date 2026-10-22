@@ -1,0 +1,119 @@
+status: open (waiting on Astra: four questions on the lines every pull request edits, slides)
+for: any
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-21
+needs: AGENTS.md and CLAUDE.md (the record line), handoffs/README.md, skills/handoff/SKILL.md, test/handoff-numbers-test-20261017.mjs, findastra/github-goldfish AGENTS.md
+---
+## Task
+Astra asked on 2026-10-21 why pushing to GitHub keeps going wrong. The answer: many assistants write in parallel,
+one person approves, pull requests wait, and almost every pull request edits the same few shared lines. Propose a
+change to that convention, as a slide deck with one question per slide. Her OK on every merge stays; the goal is
+fewer collisions per OK. **No rule and no repo's AGENTS.md changes until she answers.**
+
+Deck (private): ✨ https://claude.ai/artifact/9259EozZsryoa1sBNzU6gq
+
+## Ownership and state
+State: waiting on Astra's answers.
+Implementer: the Claude session that wrote this card; writable files: this card and its rows in handoffs/README.md;
+ownership: released when this pull request merges.
+Reviewer: unassigned. Next action: Astra answers the four questions; then one build pull request in the hub and one
+in findastra/github-goldfish, each with its own OK.
+
+## The problem: three shared spots
+1. **The credit lines at the end of AGENTS.md.** AGENTS.md line 131 and CLAUDE.md line 19 say to record the model
+   and version in AGENTS.md; every pet repo's AGENTS.md says the same. So every pull request appends a dated
+   paragraph to the end of the same file, and any two open pull requests in one repo collide on those last lines.
+   The hub's AGENTS.md has 74 dated credit lines (line 6, lines 131 to 138, 197 to 225 and 230 to 274 on `7906b9c`):
+   about 60% of its text, in the file every assistant must read in full before any work.
+2. **The handoff card counter.** Every new card takes the "Next free number" in handoffs/README.md and adds a row to
+   both of its tables, so every card pull request edits the same three spots.
+3. **Generated files** (the System Map page, the pet program pages): rebuilt by `npm run build` in every pull request
+   that touches pets.json, system-map.json or the spawner. Counted below; not part of these questions.
+
+The same thing was fixed once already: the merge-order list left a file on 2026-10-18 because "a shared list here
+made every pull request conflict with the others" (handoffs/README.md, "Merge order").
+
+## Evidence, 2026-10-15 to 2026-10-21
+Method: every commit on every branch whose message says it merges `main` into a branch, replayed with
+`git merge-tree --write-tree` to list the files that conflicted; each AGENTS.md conflict checked for whether it sits in
+the dated credit lines. Open pull requests: each head replayed against `main` at `7906b9c` the same way. Counting
+scripts kept locally, not in a repo; the method above reproduces them. All the conflicts fell on 2026-10-17 to
+2026-10-21.
+
+**Hub (findastra/astras-pet-os):** 153 pull requests merged, 174 opened.
+
+| What | Count |
+|---|---|
+| Times an assistant merged `main` into a branch | 182 |
+| ... and it had conflicts | 153 |
+| Conflicts in AGENTS.md's credit lines (63 of the 64 AGENTS.md conflicts) | 63 |
+| Conflicts in handoffs/README.md (31 of them on the "Next free number" line) | 53 |
+| Conflicts in generated files (System Map page 77, pet program pages 24) | 88 |
+| Conflicts **only** in the credit lines or the card list, nothing about the work | 45 |
+| Conflicts only in the credit lines, the card list or generated files | 98 |
+
+**Open now (hub `main` `7906b9c`):** 14 of 16 open pull requests conflict. 8 of the 14 conflict only in
+handoffs/README.md or AGENTS.md's credit lines: #103, #143, #169, #172, #173, #176, #178, #179. Open pull requests
+reuse card numbers already taken: 031 (#61), 061 (#172), 063 (#173; 063 also reached `main` with #195 tonight) and
+064 (#178 and #179).
+
+**GitHub Goldfish (findastra/github-goldfish):** 3 merges of `main` into a branch, 1 with a conflict: `c1d7c58`, for
+#22. Its only conflict was the last lines of AGENTS.md: #22's "Private repos in project-image-generator" paragraph
+against #10's "Social row tool" and #24's "The hub's rules, caught up". Its AGENTS.md has 14 dated credit lines in 65
+lines, its "Built with" line included.
+
+## The four questions (deck above)
+| # | Question | Recommended |
+|---|---|---|
+| 1 | Where does each change's credit go from now on? A: one small new file per change, `changes/<topic>-YYYYMMDD.md` (changelog fragments). B: only in the commit message and the pull request. C: keep appending; the assistant merges `main` into the branch right before every merge | **A** |
+| 2 | What happens to the credit lines already there (73 in the hub's AGENTS.md, 13 in GitHub Goldfish's, besides each "Built with" line)? A: moved word for word into one history file in `changes/`. B: left where they are; nothing new is added | **A** |
+| 3 | Should the hub's handoff cards stop sharing one counter? A: a new card's number is its pull request's number, and the README stops listing each card. B: keep the counter, `npm run build` writes the list. C: as now | **A** |
+| 4 | Which repos, and when? A: the hub and GitHub Goldfish now; every other repo with its next pull request. B: every repo now, one pull request each. C: the hub only | **A** |
+
+## What a yes changes (not done; for the build pull requests)
+- **Q1 A:** AGENTS.md line 131 and CLAUDE.md line 19 point to `changes/`; a short `changes/README.md` says what one
+  file holds (what changed, Astra's words and date, the model and version, the card); the "Built with" line at the top
+  stays (the Goldfish's model check, `index.html` line 750, looks for a model name in AGENTS.md, CLAUDE.md, README.md
+  or pet.json). The text that new repos get (`scripts/idle-flash-new-repos-20261017.mjs`,
+  `scripts/idle-flash-fix-20261017.mjs`, `scripts/idle-flash-refresh-20261018.mjs`: "Record the model and version
+  when an assistant changes it.") says where. A test fails when a dated credit line is added to AGENTS.md.
+- **Q2 A:** one commit moves the 73 lines into `changes/history-20261007-20261021.md` unchanged (the "Built with"
+  line stays). Open pull requests
+  that already appended a line (#61, #143) move it into their own file in `changes/` the next time they merge `main`.
+- **Q3 A:** handoffs/README.md keeps cards 001 to 068 as they are and stops growing; skills/handoff/SKILL.md ("Read
+  handoffs/README.md ... reserve the next free number") and test/handoff-numbers-test-20261017.mjs change to match.
+- **Q4 A:** the hub's rule tells the next assistant in each pet repo to switch that repo's line when it changes it.
+
+## What comes first
+- Hub #178 (`codex/handoff-workflow-20261020`, Codex) changes skills/handoff/SKILL.md, which question 3 changes too.
+  It merges first, or its chat folds question 3's answer in.
+- Merging this card's own pull request collides with the other card pull requests on handoffs/README.md, the very
+  thing question 3 is about.
+
+## What I did
+- Read on hub `main` (`7741c97`, then `7906b9c`): AGENTS.md, CLAUDE.md, handoffs/README.md and its open-card table,
+  skills/handoff, skills/merge-order, skills/questions-as-slides, skills/dev-mindset, skills/pet-app,
+  docs/migration/PLAN.md ("Who edits what": AGENTS.md and handoffs/ are shared, "never rewrite another assistant's
+  lines"). In findastra/github-goldfish (`b8d24e7`): AGENTS.md, handoffs/README.md, the engine's model check.
+- **Not read in full:** ASTRAS_PET_OS.md, PET-FILES.md (only its "Model and version" row), PET-WORDS.md,
+  INTELLIGENCE-LEVELS.md, PROTECTION-RINGS.md, TOOLS-AND-TRICKS.md, PET-PROGRAM-FRAMEWORK.md, MAKE-IT-YOURS.md, the
+  other skills and the individual open cards. This card changes no rule, so nothing in them was changed.
+- Counted the evidence above, read-only, in fresh scratchpad clones with `core.autocrlf=false`. Astra's PC folders
+  were not touched.
+- Made the deck: 10 slides, four questions, private.
+- This card and its rows in handoffs/README.md (next free number 070), on `claude/shared-lines-proposal-20261021`.
+- **Seen, not changed:** the hub's skills/handoff/SKILL.md on `main` is older than the copy installed in both seats
+  (Codex's version on #178's branch). Merge commits also collide on `skills/new-pet-or-tool/SKILL.md` (14 times,
+  the decision rows) and INTELLIGENCE-LEVELS.md (12): the same append-at-the-end pattern, smaller.
+
+## Done when
+Astra has answered the four questions; her answers are under "Answers" below; the build pull requests (hub and
+GitHub Goldfish) are open with her answers in their text.
+
+## Return
+Write Astra's answers, with her words and the date, under "Answers", in a pull request that changes only this card.
+
+## Answers
+Pending.
+
+## Receipt and review
+Pending.
