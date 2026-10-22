@@ -318,7 +318,7 @@ const panel = (label, body, { cls = '', light = false, open = true, id = '', key
 
 // The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
-const about = (html) => `<details class="about"><summary>how this works</summary><p class="small">${html}</p></details>`;
+const about = (html) => `<details class="about"><summary>More details</summary><p class="small">${html}</p></details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -413,7 +413,7 @@ function keyRequestsPanel(d) {
   const groups = KEY_REQUEST_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return panel(`${d.petSlug}-key-requests-tool-panel`, `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
 <div class="request-groups" id="key-requests">${groups}</div>
-<details class="about"><summary>how this works</summary><p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'key-requests', light: true });
+<details class="about"><summary>More details</summary><p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'key-requests', light: true });
 }
 
 // GitHub Aquarium's outstanding items (Astra, 2026-10-21, all recommended: findastra/github-goldfish card 006): what
@@ -443,7 +443,7 @@ function outstandingPanel(d) {
   return panel(`${d.petSlug}-outstanding-items-tool-panel`, `<p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
 <div class="request-groups outstanding" id="outstanding-items">${groups}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
-<details class="about"><summary>how this works</summary><p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'outstanding-items', light: true });
+<details class="about"><summary>More details</summary><p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'outstanding-items', light: true });
 }
 
 
@@ -678,8 +678,8 @@ ${about(`Every pet ${esc(d.pet)} talks to or is planned to, from the relations i
 <div class="footer-line">
 <div class="footer-group"><span class="footer-title">By Astra</span></div>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
-</div>
 <a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="56" height="56" loading="lazy"></a>
+</div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 
