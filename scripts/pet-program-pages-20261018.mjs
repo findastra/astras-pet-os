@@ -384,11 +384,12 @@ export function buildPetProgramPage(d) {
   const map = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
   const reminder = d.needs[0] ? `Waiting on you: ${d.needs[0]}` : 'Nothing is waiting on you.';
   // No picture address goes through the page script: every face it shows is already in the page, and the script only
-  // shows or hides them (CodeQL js/xss-through-dom, PR #100).
+  // shows or hides them (CodeQL js/xss-through-dom, PR #100). `repoUrl` is the pet's repo on its own account (ownerOf,
+  // card 058), for the chat's message, and only when the repo is public: the script never writes an account itself.
   const config = {
     repo: d.repo, pet: d.pet, home: d.home, homeSlug: d.homeSlug, petSlug: d.petSlug, reminder, summary: d.summary,
     lines: { idle: d.lines.idle, blink: d.lines.blink, sad: d.lines.sad },
-    publicRepo: d.publicRepo,
+    repoUrl: d.publicRepo ? d.repoUrl : null,
   };
   const json = JSON.stringify(config).replaceAll('<', '\\u003c');
   const roundLine = d.round

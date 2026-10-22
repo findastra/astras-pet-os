@@ -356,7 +356,7 @@
       var to = WHO[chosen];
       if (to.url) {
         var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
-          (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
+          (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
         try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
         var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
         if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
@@ -507,14 +507,15 @@
   })();
 
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
-  // its panel fits it (Astra's Window Star, 2026-10-20). Only Astra's own sites are listened to, and only for a height. ----
+  // its panel fits it (Astra's Window Star, 2026-10-20). Only the tool page in that panel is listened to, from the site
+  // its panel opened (on any farm, whoever's site that is), and only for a height. ----
+  function originOf(src) { try { return new URL(src, location.href).origin; } catch (e) { return null; } }
   window.addEventListener('message', function (e) {
     var msg = e.data;
     if (!msg || msg.type !== 'tool-panel-height') return;
-    if (e.origin !== location.origin && e.origin !== 'https://findastra.github.io') return;
     var frames = document.querySelectorAll('iframe.tool-frame');
     for (var i = 0; i < frames.length; i++) {
-      if (frames[i].contentWindow === e.source) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
     }
   });
 })();
