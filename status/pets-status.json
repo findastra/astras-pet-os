@@ -2,16 +2,10 @@
   "pets": {
     "github-goldfish": {
       "pet": "GitHub Goldfish",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from pets.json in the hub. Submit the one I want (cage.submit) or copy the hub's.",
-          "label": "my job wording differs from the Cage"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "data-dealer": {
@@ -24,37 +18,26 @@
     },
     "api-fairy": {
       "pet": "API Fairy",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "unity-unicorn": {
       "pet": "Unity Unicorn",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "learn-python": {
       "pet": "Python Panther",
-      "mood": "worried",
-      "says": "2 to fix: my README needs the credit line, …",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        },
-        {
-          "sev": "warn",
-          "msg": "README has no \"how to run it\" section.",
-          "label": "my README needs \"how to run it\""
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "vrchat-ai-astra": {
@@ -83,16 +66,16 @@
     },
     "health-hummy": {
       "pet": "Health Hummy",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "finance-finch": {
       "pet": "Finance Finch",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -113,30 +96,18 @@
     },
     "paper-girl": {
       "pet": "Paper Patty",
-      "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "file-master": {
       "pet": "File Master",
-      "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "findastra-discord-presence": {
@@ -153,46 +124,40 @@
     },
     "portfolio-puffer": {
       "pet": "Portfolio Puffer",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "drum-dog": {
       "pet": "Drum Dog",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "vscode-angel": {
       "pet": "VSCode Angel",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "ghost-protocol": {
       "pet": "Gone Ghost",
-      "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "project-parrot": {
       "pet": "Project Parrot",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -207,120 +172,104 @@
     },
     "rgbee": {
       "pet": "RGBee",
-      "mood": "curious",
-      "says": "Need: the brand and model of each light",
-      "needs": [
-        "the brand and model of each light"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "mine-mole": {
       "pet": "Mine Mole",
-      "mood": "worried",
-      "says": "To fix: my README needs \"how to run it\"",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README has no \"how to run it\" section.",
-          "label": "my README needs \"how to run it\""
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "mail-snail": {
       "pet": "Mail Snail",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "patch-cat": {
       "pet": "Patch Cat",
-      "mood": "curious",
-      "says": "Need: a job: what should Patch Cat do",
-      "needs": [
-        "a job: what should Patch Cat do"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "meme-fiend": {
       "pet": "Meme Fiend",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "astras-gif-maker": {
       "pet": "Gif Giraffe",
-      "mood": "curious",
-      "says": "Need: a job: what kind of GIFs should I make",
-      "needs": [
-        "a job: what kind of GIFs should I make"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "backup-beaver": {
       "pet": "Backup Beaver",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "rift-rabbit": {
       "pet": "Rift Rabbit",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "fuzzboi-friend": {
       "pet": "Fuzzboi Friend",
-      "mood": "curious",
-      "says": "Need: what letters A–F mean",
-      "needs": [
-        "what letters A–F mean"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "wifi-butterfly": {
       "pet": "Wifi Butterfly",
-      "mood": "curious",
-      "says": "Need: a job: what should Wifi Butterfly do",
-      "needs": [
-        "a job: what should Wifi Butterfly do"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "deck-duck": {
       "pet": "Deck Duck",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "mesh-moth": {
       "pet": "Mesh Moth",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "raspberry-berry": {
       "pet": "Raspberry Pi Berry",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -328,22 +277,170 @@
     "astras-pet-os": {
       "pet": "Friendly Farmer",
       "mood": "curious",
-      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)",
+      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (4 private: data-dealer, claude-bot, workflow-whirlpool, kernel-grove)",
       "needs": [
-        "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
+        "a FARMER_TOKEN secret so I can see the private pet repos (4 private: data-dealer, claude-bot, workflow-whirlpool, kernel-grove)"
       ],
       "findings": [
         {
           "sev": "warn",
-          "msg": "22 pets on GitHub wait to be registered."
+          "msg": "20 pets on GitHub wait to be registered."
+        },
+        {
+          "sev": "warn",
+          "msg": "github-goldfish is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "api-fairy is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "unity-unicorn is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "learn-python is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "the-astral-plane is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "health-hummy is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "finance-finch is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "mommys-mommies is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "paper-girl is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "file-master is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "portfolio-puffer is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "drum-dog is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "vscode-angel is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "ghost-protocol is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "project-parrot is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "voicemeeter-bug is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "platform-platypus is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "log-den is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "packet-river is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "evidence-locker is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "spoonfed is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "rgbee is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "mine-mole is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "mail-snail is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "patch-cat is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "meme-fiend is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "astras-gif-maker is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "backup-beaver is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "rift-rabbit is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "fuzzboi-friend is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "wifi-butterfly is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "deck-duck is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "mesh-moth is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "raspberry-berry is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "role-fairy is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "chat-rat is in the registry but not on GitHub."
+        },
+        {
+          "sev": "warn",
+          "msg": "linux-iceberg is in the registry but not on GitHub."
         }
       ],
-      "checked": "2026-10-20T04:09:40.618Z"
+      "checked": "2026-10-22T03:35:47.048Z"
     },
     "voicemeeter-bug": {
       "pet": "Voicemeeter Bug",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -351,7 +448,7 @@
     "the-astral-plane": {
       "pet": "Astra Wisp",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -359,72 +456,41 @@
     "mommys-mommies": {
       "pet": "Mommy's Mommies",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "platform-platypus": {
       "pet": "Platform Platypus",
-      "mood": "curious",
-      "says": "Need: OK to merge this pull request; the Pocket Message Board checked on her iPad",
-      "needs": [
-        "OK to merge this pull request; the Pocket Message Board checked on her iPad"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "spoonfed": {
       "pet": "Spoonfed Sugarcube",
-      "mood": "sick",
-      "says": "4 to fix: add pet.json, …",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "error",
-          "msg": "No pet.json, so the Farmer cannot read me.",
-          "label": "add pet.json"
-        },
-        {
-          "sev": "warn",
-          "msg": "No README.md.",
-          "label": "add a README"
-        },
-        {
-          "sev": "warn",
-          "msg": "No LICENSE.",
-          "label": "add a LICENSE"
-        },
-        {
-          "sev": "warn",
-          "msg": "Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.",
-          "label": "add the pet-app topic"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "role-fairy": {
       "pet": "Role Fairy",
-      "mood": "curious",
-      "says": "Need: which channels and notes ask-mommy-bot may answer from",
-      "needs": [
-        "which channels and notes ask-mommy-bot may answer from"
-      ],
+      "mood": "sleep",
+      "says": "Not checked yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "chat-rat": {
       "pet": "Chat Rat",
-      "mood": "sick",
-      "says": "To fix: my entry file is missing",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "error",
-          "msg": "pet.json \"entry\" points at chat-rat-20261009.html, which is not in the repo.",
-          "label": "my entry file is missing"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "workflow-whirlpool": {
@@ -438,7 +504,7 @@
     "log-den": {
       "pet": "Log Lynx",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -446,7 +512,7 @@
     "packet-river": {
       "pet": "Packet Piranha",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -454,72 +520,39 @@
     "evidence-locker": {
       "pet": "Forensic Ferret",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "linux-iceberg": {
       "pet": "Linux Penguin",
-      "mood": "worried",
-      "says": "To fix: add \"entry\" to pet.json",
+      "mood": "sleep",
+      "says": "Not checked yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "pet.json is missing \"entry\".",
-          "label": "add \"entry\" to pet.json"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "kernel-grove": {
+      "pet": "Kernel Koala",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
     }
   },
-  "updated": "2026-10-20T04:09:40.618Z",
+  "updated": "2026-10-22T03:35:47.048Z",
   "needs_astra": [
     {
       "repo": "astras-pet-os",
       "pet": "Friendly Farmer",
-      "need": "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
+      "need": "a FARMER_TOKEN secret so I can see the private pet repos (4 private: data-dealer, claude-bot, workflow-whirlpool, kernel-grove)"
     },
     {
       "repo": "findastra-discord-presence",
       "pet": "Discord Damsel",
       "need": "merge the branches below; OK to restart the presence apps once Codex has pushed"
-    },
-    {
-      "repo": "platform-platypus",
-      "pet": "Platform Platypus",
-      "need": "OK to merge this pull request; the Pocket Message Board checked on her iPad"
-    },
-    {
-      "repo": "rgbee",
-      "pet": "RGBee",
-      "need": "the brand and model of each light"
-    },
-    {
-      "repo": "patch-cat",
-      "pet": "Patch Cat",
-      "need": "a job: what should Patch Cat do"
-    },
-    {
-      "repo": "astras-gif-maker",
-      "pet": "Gif Giraffe",
-      "need": "a job: what kind of GIFs should I make"
-    },
-    {
-      "repo": "fuzzboi-friend",
-      "pet": "Fuzzboi Friend",
-      "need": "what letters A–F mean"
-    },
-    {
-      "repo": "wifi-butterfly",
-      "pet": "Wifi Butterfly",
-      "need": "a job: what should Wifi Butterfly do"
-    },
-    {
-      "repo": "role-fairy",
-      "pet": "Role Fairy",
-      "need": "which channels and notes ask-mommy-bot may answer from"
     }
   ]
 }
