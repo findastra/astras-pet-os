@@ -205,6 +205,20 @@ export function adoptSubmission(registry, entry, petJson, notes = []) {
   return changes;
 }
 
+/**
+ * The pet program's version, from the pet's own pet.json (Astra, 2026-10-21: "remember to assign version #s"); its
+ * page shows it beside the title. A pet whose pet.json has none keeps the hub's starting version, 0.1.0
+ * (`version_assigned`). Only a plain version string is taken: it is data written by a pet. Returns true on a change.
+ */
+export function adoptVersion(entry, petJson) {
+  const v = petJson && petJson.version;
+  if (typeof v !== 'string' || v.length > 40 || !/^v?\d+\.\d+(\.\d+)?([-+][0-9A-Za-z.-]+)?$/.test(v)) return false;
+  if (entry.version === v && !entry.version_assigned) return false;
+  entry.version = v;
+  delete entry.version_assigned;
+  return true;
+}
+
 /** Pet repos on GitHub that this hub does not list yet become pipeline entries. */
 export function discover(registry, repos, today, approved = []) {
   // approved: the repos of seed and roadmap pets Astra already approved (pet-programs.json, in the core). They are known
@@ -317,6 +331,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
     const due = all || (only ? only.includes(pet.repo) : isDue(registry, pet, status.pets[pet.repo], today));
     let snap = await github.snapshot(r, ownerToken || token, due);
     const changes = adoptSubmission(registry, entry, snap.petJson, report.names);
+    if (adoptVersion(entry, snap.petJson)) changes.push(`version ${entry.version}`);
     if (changes.length) report.submissions.push({ repo: pet.repo, changes });
     if (due || changes.length) {
       if (!due) snap = await github.snapshot(r, ownerToken || token, true); // a submission is checked straight away

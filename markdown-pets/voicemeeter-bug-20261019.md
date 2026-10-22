@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/voicemeeter-bug-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/voicemeeter-bug-20261008.html
-- **Its code:** https://github.com/findastra/voicemeeter-bug
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Voicemeeter Bug
 
@@ -33,7 +33,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Keep Voicemeeter open**: A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

@@ -1,6 +1,9 @@
 # ASTRAS_PET_OS — FINAL MASTER HANDOFF v5.2
 
 > **Amendments by Astra since v5.2** (these override the text below):
+> - 2026-10-21: **What a trick is.** "A way of using all the 3rd Party Programs, Native Programs, Native Tricks, and
+>   Native Tools" of its pet: a trick may use any of them, other tricks included, under the pet's grants. Still owned at
+>   L2 and followed at L3 ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)).
 > - 2026-10-19: **Clicking every button on the farm's pages is The Farm's job, not Browser Bat's.** The Friendly Farmer's native tool `click-check` (`the-farm-v1.0-click-check-v1.0`, `npm run click-check`) clicks every button and link on the pet program pages and today's apps and says which go nowhere, land on a dead end or go to the wrong place, one row per cause with the file to fix. The Farm makes those pages, so it checks them; Browser Bat keeps the sites outside the farm (the Browser Bat line below says so).
 > - 2026-10-19: **Native programs, native tools, native tricks** ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). Everything a pet program owns is a native program (opened or run on its own), a native tool (code run with no AI) or a native trick (steps its AI follows). **Only programs are drawn on the System Map**; tools and tricks are listed on their pet program's card, in sections that fold, and every one is a row of the registry table in TOOLS-AND-TRICKS.md. Startup Star and the System Map are native programs of The Farm (this replaces "tool" for them in the 2026-10-13 and 2026-10-14 amendments below).
 > - 2026-10-18: **The Cage is gone, not just retired.** `cage.html`, `cage-data.js` and the old desktop Farmer (the Farmer dock) are removed, with their 2026-10-08 releases retired. **The installer zip on each release is the one download** ([INSTALL.md](INSTALL.md)): the installer exists, and beta testers and their AI install with it (this replaces "Beta: there is no installer yet", 2026-10-14).

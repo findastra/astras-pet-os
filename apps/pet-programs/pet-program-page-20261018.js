@@ -28,39 +28,67 @@
   function localTime(iso) { var d = new Date(iso); return localDay(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
   function today() { return localDay().replace(/-/g, ''); }
 
-  // ---- The title fits on one line between the cyberhome and the System Map box, the version always to its right
-  // (Astra, 2026-10-20: "make that size of the title varying and have to fit between the two boxes"). It is always one
-  // line (Astra, 2026-10-20, on a phone: "ALWAYS 1 LINE"): the name gets smaller, down to 14px; past that it is cut
-  // with "…" and the whole name shows when you point at it. Again whenever the window changes size, and after the
-  // page's words are swapped (developer mode makes a name longer). ----
+  // ---- The title fits on one line between the cyberhome and the System Map box, the version to its right (Astra,
+  // 2026-10-20: "make that size of the title varying and have to fit between the two boxes"): the name gets smaller,
+  // down to 20px. Still too long, the version goes on its own line below the name (Astra, 2026-10-21: "these always
+  // stay together on one line until too collapsed, version line then goes below"), and the name, always one line
+  // ("ALWAYS 1 LINE"), gets smaller again, down to 14px; past that it is cut with "…" and the whole name shows when you
+  // point at it. Again whenever the window changes size, and after the page's words are swapped (developer mode makes
+  // a name longer). ----
   var heading = document.querySelector('.title h1');
+  var header = document.querySelector('.top'), titleBox = document.querySelector('.top > .title');
+  function shrink(name, floor) {
+    var size = parseFloat(window.getComputedStyle(heading).fontSize);
+    function over() { return heading.scrollWidth > heading.clientWidth || (name && name.scrollWidth > name.clientWidth + 1); }
+    while (over() && size > floor) { size -= 1; heading.style.fontSize = size + 'px'; }
+    return over();
+  }
   function fitTitle() {
     if (!heading) return;
     heading.style.fontSize = '';
     heading.classList.add('fits');
-    heading.classList.remove('clipped'); // measure uncut: a cut name always fits
-    var size = parseFloat(window.getComputedStyle(heading).fontSize);
-    while (heading.scrollWidth > heading.clientWidth && size > 14) { size -= 1; heading.style.fontSize = size + 'px'; }
-    var name = heading.querySelector('.title-name'), clipped = heading.scrollWidth > heading.clientWidth;
+    heading.classList.remove('clipped', 'stacked'); // measure uncut and together first: a cut name always fits
+    var name = heading.querySelector('.title-name');
+    var clipped = shrink(name, 20);
+    if (clipped) { heading.classList.add('stacked'); heading.style.fontSize = ''; clipped = shrink(name, 14); }
     heading.classList.toggle('clipped', clipped);
     if (name) { if (clipped) name.title = name.textContent; else name.removeAttribute('title'); }
   }
-  fitTitle();
-  window.addEventListener('resize', fitTitle);
-  document.addEventListener('DOMContentLoaded', fitTitle); // after developer-words-20261019.js has swapped the words
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+  // ---- The cyberhome and the System Map box are squares (Astra, 2026-10-21: "should always be a square"). Beside the
+  // title, their side is the title column's height, so the header still ends at the bottom of the title's buttons
+  // (#163), between 210 and 260px (smaller, a label no longer fits on the border); the stylesheet keeps them square at
+  // every width. ----
+  function fitSquares() {
+    if (!header || !titleBox) return;
+    if (window.matchMedia && !window.matchMedia('(min-width: 1001px)').matches) { header.style.removeProperty('--square'); return; }
+    for (var i = 0, side = 0; i < 4; i++) {
+      var next = Math.round(Math.max(210, Math.min(260, titleBox.offsetHeight - 12)));
+      if (Math.abs(next - side) < 2) break;
+      side = next;
+      header.style.setProperty('--square', side + 'px');
+      fitTitle();
+    }
+  }
+  function fitHeader() { fitTitle(); fitSquares(); }
+  fitHeader();
+  window.addEventListener('resize', fitHeader);
+  document.addEventListener('DOMContentLoaded', fitHeader); // after developer-words-20261019.js has swapped the words
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
 
   // ---- The paired lights: left ON/OFF (green, red), right working correctly or requires maintenance (blue, yellow).
-  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). Something
-  // not built yet starts grey: not set yet. Marks saved before 2026-10-19 (`off`, `fix`) still count. ----
+  // Each click moves a light to its next state, and a bubble says what that state means (Astra, 2026-10-19). The
+  // ON/OFF light is only ever on or off, never grey (Astra, 2026-10-21): something not built yet is off and stays off,
+  // and its maintenance light is grey, not checked yet; clicking either says why. Marks saved before 2026-10-19 (`off`,
+  // `fix`) still count. ----
   var lights = read('lights', {});
-  function power(k, planned) { var s = lights[k] || {}; return s.power || (s.off ? 'off' : (planned ? '' : 'on')); }
-  function health(k, planned) { var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : (planned ? '' : 'ok')); }
+  function power(k, planned) { if (planned) return 'off'; var s = lights[k] || {}; return s.power || (s.off ? 'off' : 'on'); }
+  function health(k, planned) { if (planned) return ''; var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : 'ok'); }
   var SAYS = {
     on: 'on. Click again to switch it off.',
     off: 'off (the kill switch). Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
+    planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
   };
   function paint() {
     var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
@@ -70,9 +98,8 @@
       if (b.classList.contains('onoff')) {
         var p = power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
-        b.classList.toggle('is-unset', !p);
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (p === 'on' ? 'on' : p === 'off' ? 'off' : 'not set yet'));
+        b.setAttribute('aria-label', name + ': ' + (planned[k] ? 'off, not built yet' : p));
       } else {
         var h = health(k, planned[k]);
         b.classList.toggle('is-fix', h === 'fix');
@@ -90,7 +117,7 @@
     }
     if (off) {
       off.textContent = '';
-      Object.keys(names).filter(function (k) { return power(k, planned[k]) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
+      Object.keys(names).filter(function (k) { return !planned[k] && power(k) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
   }
   // The bubble that says what a light now means. One for the page, placed under the light that was clicked.
@@ -98,8 +125,9 @@
   tip.setAttribute('role', 'status');
   tip.hidden = true;
   document.body.appendChild(tip);
-  function say(b, text) {
-    tip.textContent = b.dataset.name + ': ' + text;
+  function say(b, text) { sayAt(b, b.dataset.name + ': ' + text); }
+  function sayAt(b, text) {
+    tip.textContent = text;
     tip.hidden = false;
     var r = b.getBoundingClientRect(), width = document.documentElement.clientWidth;
     tip.style.left = (window.scrollX + Math.max(8, Math.min(r.left - 8, width - tip.offsetWidth - 8))) + 'px';
@@ -112,6 +140,7 @@
     if (!b) return;
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
+    if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
       var p = power(k, planned);
@@ -130,11 +159,20 @@
   paint();
 
   // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
-  // face blinking) after you use the page, idle again after two quiet minutes. ----
+  // face blinking) after you use the page, idle again after two quiet minutes. The mood it is in lights up in the
+  // emotions tool panel (Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light
+  // up'"); the cyberhome has no bubble any more. ----
   // Every face is already in the page; the script only shows one and hides the others (no picture address passes
   // through here).
   var den = document.querySelector('.den');
-  var bubble = document.getElementById('bubble');
+  var moodFigures = document.querySelectorAll('.mood[data-mood]');
+  function lightUp(name) {
+    for (var i = 0; i < moodFigures.length; i++) {
+      var now = moodFigures[i].dataset.mood === name;
+      moodFigures[i].classList.toggle('is-now', now);
+      if (now) moodFigures[i].setAttribute('aria-current', 'true'); else moodFigures[i].removeAttribute('aria-current');
+    }
+  }
   function has(box, name) { return !!(box && box.querySelector('img[data-face="' + name + '"]')); }
   function face(box, name) {
     if (!box || !has(box, name)) return;
@@ -148,7 +186,7 @@
   function show(next) {
     mood = next;
     face(den, mood === 'sad' ? 'sad' : 'idle');
-    if (bubble) bubble.textContent = config.lines[mood === 'awake' ? 'blink' : mood] || '';
+    lightUp(mood === 'awake' ? 'blink' : mood);
     clearInterval(blinker);
     if (mood === 'awake' && has(den, 'blink')) blinker = setInterval(function () {
       face(den, 'blink'); setTimeout(function () { if (mood === 'awake') face(den, 'idle'); }, 180);
@@ -161,10 +199,10 @@
   }
   ['pointerdown', 'keydown', 'input'].forEach(function (t) { document.addEventListener(t, used, { passive: true }); });
   show(mood);
-  // One click: the current reminder. In developer mode, what the agent does, then the reminder (Astra, 2026-10-19: "you
-  // could click it and see what it does").
+  // One click: the current reminder, in the same small bubble the lights use, under the pet. In developer mode, what
+  // the agent does, then the reminder (Astra, 2026-10-19: "you could click it and see what it does").
   if (den && (dev || has(den, 'idle'))) den.addEventListener('click', function () {
-    if (bubble) bubble.textContent = dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.reminder;
+    sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
   });
 
   // The awake picture in the emotions tool panel blinks too.
@@ -225,7 +263,6 @@
   // since 2026-10-20 (Astra crossed it out). The script only changes the den's state: every picture is already in the
   // page. ----
   var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-  function moodLine() { return config.lines[mood === 'awake' ? 'blink' : mood] || ''; }
   if (den && den.dataset.arrival === 'waiting' && dev) {
     // Developer mode: no desktop pets and no flight. The agent lives here already; click it to see what it does.
     den.dataset.arrival = 'home';
@@ -233,12 +270,8 @@
     if (habitat && habitat.title !== undefined) habitat.title = T('Click ' + config.pet + ' to see what it does.');
   } else if (den && den.dataset.arrival === 'waiting') {
     (still ? [['home', 0]] : [['arriving', 250], ['home', 1300]]).forEach(function (step) {
-      setTimeout(function () {
-        den.dataset.arrival = step[0];
-        if (step[0] === 'home' && bubble && mood !== 'awake') bubble.textContent = config.pet + ' moved in.';
-      }, step[1]);
+      setTimeout(function () { den.dataset.arrival = step[0]; }, step[1]);
     });
-    setTimeout(function () { if (bubble && mood !== 'awake') bubble.textContent = moodLine(); }, (still ? 0 : 1300) + 5000);
   }
 
   // ---- Activity lights (Astra, 2026-10-19): the light on a level's tool panel (its top border) is on while that
@@ -356,7 +389,7 @@
       var to = WHO[chosen];
       if (to.url) {
         var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
-          (config.publicRepo ? ' (https://github.com/findastra/' + config.repo + ')' : '') + '.\n\n' + message;
+          (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
         try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
         var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
         if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
@@ -506,15 +539,78 @@
   }
   })();
 
+  // ---- GitHub Aquarium's outstanding items (only on its page; Astra, 2026-10-21, findastra/github-goldfish card 006). ----
+  // What waits on Astra on GitHub: how many in each group and the first few of each, with the Pets Board for the rest.
+  // The list names private repos, so it stays on Astra's PC: GitHub Aquarium's outstanding-items writes it to one fixed
+  // file in her Documents folder, and this page reads that file only when it is opened there. Anywhere else it shows
+  // the page's made-up examples. Every word goes in with textContent; only https links become links.
+  (function () {
+  if (config.repo !== 'github-goldfish') return;
+  var box = document.getElementById('outstanding-items');
+  if (!box) return;
+  // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+  var LOCAL_ITEMS = "../../../../Astra's PetOS Data/github-aquarium/outstanding-items-page-data.js";
+  var FIRST = 3;
+  var source = document.getElementById('outstanding-source');
+  var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var GROUPS = ['broken', 'you', 'chat', 'close', 'info'];
+  var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+  var row = function (i) {
+    var li = el('li', null, 'request' + (i.example ? ' example' : ''));
+    var head = el('div', null, 'request-head');
+    var text = (i.number ? i.repo + ' #' + i.number + ' ' : i.repo + ': ') + (i.title || '');
+    var href = https(i.url);
+    if (href) { var a = el('a', (i.group === 'you' ? '✨ ' : '') + text); a.href = href; a.rel = 'noopener'; a.target = '_blank'; head.appendChild(a); } else head.appendChild(el('b', text));
+    if (i.example) head.appendChild(el('span', 'EXAMPLE', 'tag example-tag'));
+    li.appendChild(head);
+    li.appendChild(el('div', i.does || '', 'small'));
+    return li;
+  };
+  var showItems = function (items, message) {
+    if (source) source.textContent = message;
+    GROUPS.forEach(function (g) {
+      var list = box.querySelector('ul[data-group="' + g + '"]');
+      var empty = box.querySelector('[data-empty="' + g + '"]');
+      var count = box.querySelector('[data-count="' + g + '"]');
+      // A group the page does not draw is left alone (and a page script never stops the rest of the page).
+      if (!list || !empty || !count) return;
+      var mine = items.filter(function (i) { return i && i.group === g; });
+      list.textContent = '';
+      mine.slice(0, FIRST).forEach(function (i) { list.appendChild(row(i)); });
+      empty.hidden = mine.length > 0;
+      count.textContent = mine.length ? mine.length + (mine.length > FIRST ? ', the first ' + FIRST + ' here, the rest on the Pets Board' : '') : '';
+    });
+  };
+  var examples = function (why) {
+    var list = [];
+    try { list = JSON.parse(document.getElementById('outstanding-examples').textContent); } catch (e) { list = []; }
+    showItems(list, why);
+  };
+  if (onThisPC) {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_ITEMS);
+    script.onload = function () {
+      var d = window.githubAquariumOutstandingItems;
+      if (!d || d.schema !== 'github-aquarium-outstanding-items-v1' || !Array.isArray(d.items)) return examples('The Goldfish\'s list on this PC is not one this page can read. These are made-up examples.');
+      showItems(d.items, 'The Goldfish\'s list on this PC, checked ' + localTime(d.checked) + ': ' + d.repos + ' repos (' + d.private + ' private), ' + d.prs + ' open pull requests.');
+    };
+    script.onerror = function () { examples('The Goldfish has not written its list on this PC yet (run npm run outstanding-items in the hub folder). These are made-up examples.'); };
+    document.head.appendChild(script);
+  } else {
+    examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+  }
+  })();
+
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
-  // its panel fits it (Astra's Window Star, 2026-10-20). Only Astra's own sites are listened to, and only for a height. ----
+  // its panel fits it (Astra's Window Star, 2026-10-20). Only the tool page in that panel is listened to, from the site
+  // its panel opened (on any farm, whoever's site that is), and only for a height. ----
+  function originOf(src) { try { return new URL(src, location.href).origin; } catch (e) { return null; } }
   window.addEventListener('message', function (e) {
     var msg = e.data;
     if (!msg || msg.type !== 'tool-panel-height') return;
-    if (e.origin !== location.origin && e.origin !== 'https://findastra.github.io') return;
     var frames = document.querySelectorAll('iframe.tool-frame');
     for (var i = 0; i < frames.length; i++) {
-      if (frames[i].contentWindow === e.source) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
     }
   });
 })();

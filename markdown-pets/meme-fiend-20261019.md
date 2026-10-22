@@ -12,7 +12,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/meme-fiend-20261018.html
 - **Its app:** none yet. The pet program page shows its plan.
-- **Its code:** https://github.com/findastra/meme-fiend
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Meme Fiend
 
@@ -31,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - None recorded yet.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

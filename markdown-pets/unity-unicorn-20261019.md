@@ -4,7 +4,9 @@
 
 ## What it does
 
-A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
+A local Unity and VRChat desk for organizing Unity worlds and avatars. It contains tools to develop each, a working closet by Devilish, and pages that display world information.
+
+Its job in the registry: A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
 
 ## Open it with nothing to install
 
@@ -12,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/unity-unicorn-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/unity-unicorn-20261008.html
-- **Its code:** https://github.com/findastra/unity-unicorn
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Unity Unicorn
 
@@ -89,7 +91,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **unity-assets-library**: A tool of Unity Stable (Library): The public library of finished world assets, findastra/unity-assets-library: one folder per asset and version, indexed in library.json; versions arrive only from unity-asset-creator's step 12, as pull requests Astra merges (unity-unicorn tools/unity-assets-library-20261019.json).
 - **shaders-shop**: A tool of Unity Stable (Workflow): Download shaders for worlds the way Creator Companion would, after showing their files, sources and licences, track which shaders each world uses, and stock our own Unity Stable shaders (unity-unicorn tools/shaders-shop-20261019.json).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - **vcc-package-manager** (planned, not built yet): A trick of Unity Stable, not written as a skill file yet (no code: a catalog entry and the skill book): Review and manage a Unity project through VRChat Creator Companion and its package workflow (unity-unicorn tools/vcc-package-manager-20261011.json).
 - **vrchat-avatar-upload** (planned, not built yet): A trick of Unity Stable, not written as a skill file yet (no code: a catalog entry and the skill book): Follow the established avatar preparation and SDK upload workflow for the intended account (unity-unicorn tools/vrchat-avatar-upload-20261011.json).

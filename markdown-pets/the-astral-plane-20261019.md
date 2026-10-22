@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/the-astral-plane-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/vrchat-ai-astra-20261008.html
-- **Its code:** https://github.com/findastra/the-astral-plane
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Astra Wisp
 
@@ -33,7 +33,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **VRChat connector**: A tool of The Astral Plane (Astra, 2026-10-19: it "helps people's agent connect to VR chat"): a small body any agent can use on the PC that runs VRChat, to say, type, move, turn, jump and stop through VRChat's OSC input. In code: this PC only, eight buttons, a move held 0.1 to 3 s and always released. VRChat AI Astra uses it as her body. Merged (the-astral-plane PR #8, vrchat-embodiment/embodiment.py, 63 tests pass); never run against live VRChat yet.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

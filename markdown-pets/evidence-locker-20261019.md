@@ -11,8 +11,8 @@ Incident timelines and log analysis.
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/evidence-locker-20261018.html
-- **Its app:** https://github.com/findastra/evidence-locker#run-it
-- **Its code:** https://github.com/findastra/evidence-locker
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Forensic Ferret
 
@@ -34,7 +34,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Custody log**: A tool of Evidence Locker (Astra, 2026-10-18): A hash-chained chain of custody per case; --verify re-checks every item and entry. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started.
 - **Timeline builder**: A tool of Evidence Locker (Astra, 2026-10-18): One timeline and a plain report.md per case. Merged (evidence-locker PR #2); runs on this PC when Forensic Ferret is started.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

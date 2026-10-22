@@ -11,8 +11,8 @@ Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows it
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/fuzzboi-friend-20261018.html
-- **Its app:** https://findastra.github.io/fuzzboi-friend/fuzzboi-friend-20261009.html
-- **Its code:** https://github.com/findastra/fuzzboi-friend
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Fuzzboi Friend
 
@@ -31,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - None recorded yet.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

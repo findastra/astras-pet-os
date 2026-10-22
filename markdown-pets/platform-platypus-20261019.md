@@ -11,8 +11,8 @@ Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page o
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/platform-platypus-20261018.html
-- **Its app:** https://findastra.github.io/platform-platypus/
-- **Its code:** https://github.com/findastra/platform-platypus
+- **Its app:** none yet. The pet program page shows its plan.
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Platform Platypus
 
@@ -33,7 +33,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **fit-check**: A tool of Mirror Pool (Platform Platypus): measures a page on 19 screens (phones, iPads and computer windows; phones and iPads also on their side) in a headless Edge or Chrome pretending to be each device, loaded fresh and turned or resized live, for sideways scrolling, gaps in a full-screen page and canvases that were not redrawn. It only reads; the page is served on this PC only (platform-platypus tools/fit-check/fit-check-20261019.mjs). First run: the Pocket Message Board, 19 of 19 screens fit, 2026-10-19.
 - **device-shots**: A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere (platform-platypus tools/device-shots/device-shots-20261019.mjs).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - **make-a-page-fit-any-screen**: A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots.
 

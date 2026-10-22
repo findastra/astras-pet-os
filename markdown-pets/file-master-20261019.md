@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/file-master-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/file-master-20261008.html
-- **Its code:** https://github.com/findastra/file-master
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be File Master
 
@@ -36,7 +36,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **everything-search** (planned, not built yet): A shared tool of File Master’s pet program: its connector to Everything (third-party search). One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search.
 - **mass-delete** (planned, not built yet): A shared tool of File Kingdom (2026-10-16): removes many things at once, only inside the asking pet’s own folder. It never hard-deletes: it plans, waits for Astra, then moves the items to _to_delete with an undo manifest; other pets use it only with a grant. Its rules are in code (scripts/mass-delete-guard-20261016.mjs in the hub); the tool itself is not built.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

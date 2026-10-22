@@ -94,49 +94,71 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    registered frames only when it has none (Astra crossed out Drum Dog's older drawing while his desktop pet sat beside
    it, 2026-10-20); a private drawing (Claude Bot's) is never used. Room art people can change is planned. **The
    cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
-   the system map box"): one width (240px), and **the header ends at the bottom of the title's buttons** (Astra,
-   2026-10-20, a line drawn across her screenshot there): both boxes are as tall as the title column (at least 170px),
-   the pet and the System Map's rings shrink to fit, and the bubble sits over the foot of the den. On a phone they stack
-   at their own height.
+   the system map box"). **Both are always squares** (Astra, 2026-10-21: "should always be a square ... they can push
+   together or stack, but when this happens the title goes below them both"): beside the title, their side is the
+   title column's height, so **the header ends at the bottom of the title's buttons** (Astra, 2026-10-20), between 210
+   and 260px so a label still fits on the border; too narrow for that, the two squares sit side by side at the top and
+   the title goes below both; narrower still, they stack. The pet and the System Map's rings shrink to fit. **No
+   bubble in it** (Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light up'"):
+   the mood the pet is in lights up in `<pet>-emotions` instead, and one click on the pet shows the current reminder in
+   a small bubble under it.
 2. **Title** (to the right of the cyberhome): the **home (pet program) name**, large, then `V<semver> // <YYYYMMDD>` on
    the same line, **always to the right of the name, however long it is** (Astra, 2026-10-20). The name is smaller
    than it was (up to 34px; her marked-up screenshot of the same day) and its size varies: the page script makes it
    smaller (down to 20px) until name and version fit on one line between the cyberhome and the System Map box; past
-   that the name wraps, still left of the version. **Nothing is listed under the title**: the "<pet>'s pet program · #N
+   that **the version goes on its own line below the name** (Astra, 2026-10-21: "these always stay together on one line
+   until too collapsed, version line then goes below"), and the name, always one line, gets smaller again (down to
+   14px, then "…"). **The version is real** (Astra, 2026-10-21: "remember to assign version #s"): `v<major.minor.patch>`
+   from the pet's own `pet.json` `version`, copied into pets.json by the Farmer's round (`adoptVersion`); a pet whose
+   pet.json has none starts at **v0.1.0**, assigned by the hub (`version_assigned`). **Nothing is listed under the title**: the "<pet>'s pet program · #N
    · stage · status" line is gone (crossed out in the same screenshot); a private pet says its data never leaves the
    PC in the L2 status line and the footer instead. The name comes only from `pet-programs.json` (AGENTS.md, "One list of names"): the sketch's title
    reads "The Unity Den", and Astra kept the home's name, **Unity Stable** (2026-10-18).
-3. **`<home>-pet-program-quick-summary`** (box under the title, `unity-stable-pet-program-quick-summary`): one to
-   three plain sentences: what the home is, who runs it (you and the pet), what it organizes, and the intention
-   behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty line above or below
-   (Astra, 2026-10-20: "fitted").
-3b. **`<pet>-system-map`** (top right, opposite the cyberhome): the way back to the System Map, on every page, always
-   (Astra, 2026-10-19: "There's always going to be a system map link back"). It opens the map on the pet program's own
-   node (`system-map-20261012.html#node=<node id>`). Under the node, the first three related pets, each linking to its
-   pet program, then a link down to all of them in `<pet>-related-pets` (Astra, 2026-10-20: "reserved for other agent
-   links, relative, full list below"), on a phone or a narrow window, where the box has the room; on a computer the header ends at the buttons). On a phone it sits beside the cyberhome, the same size, the map's rings framed
-   as a square level with the pet's den (Astra, 2026-10-20: "BOTH TO BE SQUARES"), and the title goes below both.
-   Flash Audit A60.
-4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's activity light (the sketch's
-   "activity status") sits on its top border, beside its label. Every item inside has its paired lights.
+3. **`<home>-quick-summary`** (box under the title, `unity-stable-quick-summary`; "pet-program" crossed out of the
+   label by Astra, 2026-10-21): one to three plain sentences: what the home is, who runs it (you and the pet), what it
+   organizes, and the intention behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty
+   line above or below (Astra, 2026-10-20: "fitted"). Under it, **Open app** (the pet's older app, `app_url`; "today's"
+   crossed out, 2026-10-21) and **no Repo button** (crossed out the same day): the repo link is in the footer and in
+   L4's Pet ID.
+3b. **`astras-pet-os-system-map`** (top right, opposite the cyberhome; the map is the hub's, so its label is too:
+   Astra, 2026-10-21): the way back to the System Map, on every page, always (Astra, 2026-10-19: "There's always going
+   to be a system map link back"). It opens the map on the pet program's own node
+   (`system-map-20261012.html#node=<node id>`); the node's id is not printed under it (crossed out, 2026-10-21). Always a
+   square, like the cyberhome. The first three related pets show under the node only when the square has room for
+   them (300px or more); `<pet>-related-pets` has all of them (Astra, 2026-10-20: "reserved for other agent links,
+   relative, full list below"). Flash Audit A60.
+4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's **paired lights sit left of
+   its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and its activity
+   light (the sketch's "activity status") after the label. Every item inside has its paired lights. **Every heading
+   says how many it holds, and the pet's own things are native** (Astra, 2026-10-21: "3rd party programs · #";
+   "3rd Party Programs = L1, Native Programs = L1, Native Tools = L1, Native Tricks = L2"): `3rd party programs · 5`,
+   `Native programs · 1`, `Native tools · N` (or `Avatar tools · 22` and `World tools · 37` when the tools have sides),
+   `Native tricks · N` in L2.
 
    | Tool panel | Level | What goes in it |
    |---|---|---|
-   | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **your programs** (made by you, the pet looks after them: Piranesi House) · **your tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **your tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
+   | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
+   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
    | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **pet passport** (item 9 below). |
+   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **Pet ID** (item 9 below). |
 
-   Tricks and skills, divided: a **trick is owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
-   tool panel, Skill Scout) and it only uses the pet's tools; only the AI in the seat can carry it out, so it also shows as
+   Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
+   and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
+   and Native Tools"), and it is **owned at L2 and followed at L3**. The pet keeps it (its repo, this L2
+   tool panel, Skill Scout) and it uses only what the pet has; only the AI in the seat can carry it out, so it also shows as
    "running now" on the L3 tool panel. A **harness skill** belongs to the seat (L3), not to the pet, and helps an AI work on
    the pet. When an AI follows it, it is a trick or a skill, never a tool. The chart of all three, with runtime and
    security: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it).
 
 5. **The paired lights: two buttons, side by side, before every item**, as in the sketch: `● ● copyright-auditor`.
-   They sit left and right of each other, never stacked. Every item is a pill (an oval) with **its name set into the
-   oval's top border, like a panel's label, and its lights inside, below that line** (Astra, 2026-10-20: "I also want
-   the tool names to be inside of the border line too. Move those indicator lights down").
+   They sit left and right of each other, never stacked. Every item is a pill (an oval) with **its lights and its name
+   set into the pill's top border, the lights left of the name** (Astra, 2026-10-20: "I also want the tool names to be
+   inside of the border line too"; 2026-10-21, drawing the lights there on every tool: "etc."), and inside it **one
+   line on what it does**, without opening it (Astra, 2026-10-21: "summarize what each program does in here"): a
+   program's `does` in system-map.json (every program on the map has one, checked 2026-10-21), a tool's or trick's job
+   without its "A tool of …" start. Opening it shows what the pet does with it and its link. **The ON/OFF light is
+   only ever green or red, never grey** (Astra, 2026-10-21: "those are either on or off"): something not built yet is
+   off and stays off, and only its maintenance light is grey, "not checked yet"; clicking either says why.
 
    | Button | Colours | Clicking it |
    |---|---|---|
@@ -149,8 +171,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
 7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a cloud that says when it shows, three to a row
    as in the sketch (fewer on a narrow window). The cloud has a scalloped edge and a thought bubble's two puffs trailing
-   to the pet, in outline, never filled; the cyberhome's own bubble is the same cloud, its puffs rising to the pet
-   (Astra, 2026-10-20: "make both the emotions and the idle bubble actually bubble border like it looks like a cloud"). These
+   to the pet, in outline, never filled (Astra, 2026-10-20: "make both the emotions and the idle bubble actually bubble
+   border like it looks like a cloud"). **The mood the pet is in now lights up** (Astra, 2026-10-21: "select from 9
+   emotions at bottom what to 'light up'"; the cyberhome's bubble is gone): the page knows idle, awake and sad so far. These
    meanings are the only ones (Astra, 2026-10-18): the mood key, [PET-FILES.md](PET-FILES.md) and the Farmer's rounds
    follow them. The table runs most urgent first: when several apply, the highest one shows (proposed order,
    2026-10-18).
@@ -216,9 +239,10 @@ lights are what you switch and what you report broken.
 - **A place for links by kind** (section 5), **backlog health** (item 8 below) and **the alarm's red banner** (section
   12). Proposed: links in the unified footer, backlog health inside session-notes, the banner across the top of the
   page while an alarm is on.
-- **Two more light states**, proposed: **grey** for "not on this PC" (a missing third-party program is not an error,
-  section 4; it must not show red) and for "not checked yet". And a mark inside each light (a line for on, a ring for
-  off), because red and green look alike to many colour-blind people (WCAG 2.1, success criterion 1.4.1).
+- **A mark inside each light** (a line for on, a ring for off), because red and green look alike to many colour-blind
+  people (WCAG 2.1, success criterion 1.4.1). Grey is decided for the maintenance light only, "not checked yet"; the
+  ON/OFF light is never grey (Astra, 2026-10-21), so a third-party program missing from a PC needs another way to say
+  so (proposed before: grey, which no longer fits).
 - **The order of the moods** above, and a frame with open eyes for awake.
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 
@@ -244,7 +268,7 @@ you, has a key, declined or not needed), each with a link back to the request; t
 ([skills/key-request](skills/key-request/SKILL.md)). **One click always points to
 the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
 `interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
-and its **Open today's app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
+and its **Open app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
 
 ### Older detail (still required inside the boxes above)
 
@@ -288,9 +312,11 @@ everything about that tool inside it.
 7. **Links tool box**, grouped by kind (section 5).
 8. **Backlog health tool box:** healthy / needs attention / unhealthy, with the L3 agent's diagnosis of what is
    unhealthy, the date of the next weekly run, and the schedule.
-9. **Pet Passport tool box** (`<pet-program>-v<version>-pet-passport-v<version>`): its microchip (signature), pedigree
-   (where it came from), passport stamps (installs and updates), vaccination card (security patches) and vet records
-   (vet-clinic tickets). See [PROVENANCE.md](PROVENANCE.md).
+9. **Pet ID tool box** (`<pet-program>-v<version>-pet-id-v<version>`): its microchip (signature), pedigree
+   (where it came from), stamps (installs and updates), vaccination card (security patches) and vet records
+   (vet-clinic tickets; plain text while the vet-clinic repo is private). Not a "passport": that word belongs to
+   Passport Pelican (Astra, 2026-10-21: "We are not doing passports. We are doing pet IDs"). See
+   [PROVENANCE.md](PROVENANCE.md).
 10. **Footer:** the coding languages used, from the repo; credit "by Astra" and the license; signature status.
 
 ## 4. Tools: ON/OFF and sick, enforced, not just shown
@@ -299,6 +325,13 @@ everything about that tool inside it.
   this PC. If they are not (a friend without VR software running Rift Rabbit, say), the pet shows **"not on this PC"**
   (the asleep mood, 9) and sends nothing. It never raises errors, alarms or tickets for software that was never
   installed. Developers call this feature detection, or graceful degradation.
+
+- **No tray icon of its own** (Astra, 2026-10-21: "only the Startup Star should ever be in the tray"). A pet program
+  that runs in the background puts its menu in Startup Star's menu, under the pet's name: it writes the items to
+  `menu-20261021.json` in its data folder, each one a command of its own program (the tools' ON/OFF as
+  `--tool <label> on|off`), and Startup Star runs the program with it. Nothing pops up; its mood goes to
+  `mood-20261021.json`, and an alarmed pet shows its alarmed face on the desktop. The shared code is log-den's
+  `contracts/background-pet-20261021.cs` (card 066).
 
 - The ON/OFF state lives in the core (the Farm), not in the tool's own storage, so a compromised tool cannot turn
   itself back on. The runtime checks it before the tool runs; the checkbox on the page only asks the core.
@@ -408,10 +441,11 @@ the way Linux distributions take bug reports and fixes from their users. The **v
 ## 11. Tools, tricks, shared tools and the Shed
 
 Full explanation with four real examples: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md).
-- A **tool** is code the pet program owns (L1); a **trick** is a skill the pet program owns (L2) and its L3 agent
+- A **tool** is code the pet program owns (L1); a **trick** is a way of using the pet's 3rd party programs, native
+  programs, native tools and native tricks (Astra, 2026-10-21), a skill the pet program owns (L2) and its L3 agent
   follows, shown in a trick box (`<pet-program>-v<version>-<trick>-trick-v<trick version>`) with its origin, the
-  tools it uses and ON/OFF. A trick never brings permissions of its own, and its text is not a security boundary: only
-  the grants on its tools hold. A **harness skill** belongs to the seat, not the pet. **Skill Scout** keeps track of
+  programs, tools and tricks it uses and ON/OFF. A trick never brings permissions of its own, and its text is not a
+  security boundary: only the grants on what it uses hold. A **harness skill** belongs to the seat, not the pet. **Skill Scout** keeps track of
   every trick.
 - **Shared tools:** one copy, owned by one pet program; other pets get a **grant** from Iron Gates (folders, R W X,
   limits), approved by L4 and shown in both pets' connection boxes.

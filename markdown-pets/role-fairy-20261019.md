@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/role-fairy-20261018.html
 - **Its app:** none yet. The pet program page shows its plan.
-- **Its code:** https://github.com/findastra/role-fairy
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Role Fairy
 
@@ -33,7 +33,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **PetOS feedback (ask-astra-bot)** (planned, not built yet): A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

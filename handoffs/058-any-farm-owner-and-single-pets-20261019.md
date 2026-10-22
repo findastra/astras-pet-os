@@ -1,7 +1,7 @@
-status: open (Parts 1 and 2 merged with #157; Part 3 merged with #164; Part 4 to build, after Astra's OK)
+status: open (Parts 1 to 4 merged; farm lock answers recorded 2026-10-21, next: build Part 5a; waiting on Astra: the hub's old history, task 6)
 for: any
-from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 and 2026-10-20
-needs: docs/farm-owner-and-single-pets-20261019.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 to 2026-10-21
+needs: docs/farm-owner-and-single-pets-20261019.md, docs/farm-lock-20261021.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
 ---
 ## What I did
 
@@ -113,13 +113,152 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
     yet (Part 4).
   - The System Map's per-node repo links and the Linux package stay upstream.
 
+**Part 4, 2026-10-20, by Claude Opus 5.5 (`claude-opus-5-5`), a session started from the farm-owner chat:**
+
+[Pull request #183](https://github.com/findastra/astras-pet-os/pull/183), commit `5c00536`, branch `claude/pet-packs-20261020`, cut from `main` at `fcaf44d` in a clone in Claude's scratchpad with
+`core.autocrlf=false`. The live hub folder on Astra's PC was not touched. Built from Astra's answers of 2026-10-20
+(all recommended): a pet pack zip first; pictures copied into the zip only; what each pet needs written in pets.json.
+
+- **Read first:** every top-level Markdown file in the hub, every skill, `handoffs/README.md`, this card, the proposal
+  and the migration plan. Every branch was checked for skill or pet-pack work. None has pet-pack work. #136 also adds a
+  row to `skills/new-pet-or-tool`.
+- **Read too:** the private-repos notes. 90 of 104 repos went private on 2026-10-20, the hub too, and #167 (open) syncs
+  pets.json. A pack copies its pictures, so it needs no public hub. Its links to the System Map and other pets' pages
+  answer only once the hub is public again. The pack's README says so whenever pets.json says the hub is private.
+- `pets.json`:
+  - `needs` on all 42 registered and pipeline pets: `os`, `pets`, `core`, `programs`, each item with `how` (required
+    or optional) and `why`.
+  - `needs_key`, which says how to write them.
+  - `pet pack` in `words`.
+  - Written from the relations, system-map.json and each pet's own pet.json (`runs_on`, which is how Packet Piranha and
+    Forensic Ferret were found to need Log Lynx).
+  - Startup Star is on every pet with a desktop pet: all registered pets but the host, and the pipeline pets on the
+    desktop draft list. It is required only for Claude Bot, which is a desktop pet.
+- `scripts/pet-packs-20261020.mjs` (new): the Friendly Farmer's pet-packs tool, `plan` and `build`, Node built-ins
+  only (the zip writer and reader too). It asks `ownerOf()`/`repoUrl()` for every repo and never names an account.
+- `system-map.json`: the tool node `pet-packs` (of The Farm) and its links to Node.js and GitHub. Rebuilt: The Farm's
+  page, its two Markdown pets, TOOLS-AND-TRICKS.md and the map.
+- `.gitignore`: `pet-packs/`, so a pack (and its copied pictures) is never committed.
+- `test/pet-packs-test-20261020.mjs` (new, 10 tests):
+  - the needs, and two that fail when the needs drift from the map or the desktop pets (tried by breaking pets.json);
+  - the zip round trip and its CRC;
+  - which pets may be packed;
+  - a whole pack built from a throwaway git repo: every link it writes lands in the zip, every SHA-256 matches;
+  - the scan stop;
+  - a fixture farm for `XxdevilishxX`: her copy links her account, Astra's example keeps Astra's.
+- Docs: MAKE-IT-YOURS.md section 6 (sections 6 and 7 renumbered), the guide's "Take one of Astra's pets" step (a message
+  to copy) and its words, PET-FILES.md ("A pet pack carries a copy, in the zip only"), PET-WORDS.md (`pet pack`,
+  `needs`), `skills/dev-mindset` (two rows), the decision row in `skills/new-pet-or-tool`, the Farmer's row in
+  INTELLIGENCE-LEVELS.md, the AGENTS.md line, and the proposal's "As built".
+- **Checked:**
+  - `npm run build`, `npm run check` (23 pet apps), `npm test`: 274 tests, 273 pass, 0 fail, 1 skipped.
+  - Real packs from GitHub for Forensic Ferret, Voicemeeter Bug and Mine Mole, in the scratchpad only. Windows'
+    Expand-Archive and Info-ZIP both open them, and every SHA-256 matches.
+  - The unzipped packs, served on 127.0.0.1 through a temporary entry in the session folder's `.claude/launch.json`
+    (removed afterwards): the opener goes to the page, every file loads from the pack (all 200, no console errors),
+    and Voicemeeter Bug's "Open today's app" opens the app inside the pack.
+- **Found, not changed:**
+  - API Fairy cannot be packed. Her `tests/Tests.cs` holds fake keys and tokens. Her `src/Snapshot.cs` holds example
+    folder paths for a made-up user: every one names the user `you`, checked with the names masked. Her web page in her repo names two
+    local ports. Question 2 of the slides.
+  - The page script (`apps/pet-programs/pet-program-page-20261018.js`, the chat's message) still writes
+    `https://github.com/findastra/<repo>`, which Part 3 missed. On another farm, a pet's chat message names Astra's
+    account. Astra started its own session for the fix on 2026-10-21 (its own pull request).
+    - Fixed in [#184](https://github.com/findastra/astras-pet-os/pull/184), merged as `f2eb3bb` with Astra's OK. Each
+      page's config carries the pet's own repo (`repoUrl`, from `ownerOf`; none when the repo is private), and the page
+      script names no account, its tool-frame height check included. Guarded by
+      `test/farm-owner-upstream-test-20261020.mjs` and `test/cyberhome-chat-test-20261019.mjs`.
+- **Not built:** publishing packs anywhere (question 1), signing them, and the Friendly Farmer adding a pack to a
+  farm (`farm.lock`).
+- **Merged to `main` with Astra's OK in chat (2026-10-21: "OK, merge #183").**
+  - `main` had moved while she answered: #180 and #181 (two cards) were merged into the branch first.
+  - On that merged tree: `npm run build` left nothing to commit, `npm run check` passed (23 pet apps), and `npm test`
+    gave 274 tests, 273 pass, 0 fail, 1 skipped.
+- **Astra's answers to the three pet-pack questions (2026-10-21: "all recommended")**, recorded in the proposal's
+  table (rows 10 to 12) and MAKE-IT-YOURS.md section 6:
+  1. Where people download a pack: on each pet's own repo, as a release file, only for pets whose repo is public, one
+     pet at a time with her OK. Nothing is published yet.
+  2. API Fairy's scan hits: her own chat fixes her files. The fake keys are put together while the tests run, the
+     example paths use `%USERPROFILE%`, and the two local ports leave her page. The scanner stays strict, with no
+     exception in the core. Her card: `docs/handoff-any-pet-pack-scan-20261021.md`,
+     [findastra/api-fairy#10](https://github.com/findastra/api-fairy/pull/10).
+  3. Packs from private repos: keep `--private`, as built.
+
+**Part 5 proposal, 2026-10-21, by Claude Opus 5.5 (`claude-opus-5-5`), a session started from the pet-packs session:**
+the farm lock. The Friendly Farmer adds one pet to a farm, or takes one away, and records exactly what the farm runs.
+This is the second half of Astra's answer 6. It is a proposal only: no code changed.
+
+- **Branch:** `claude/farm-lock-proposal-20261021`, cut from `main` at `7906b9c` in a fresh clone in Claude's scratchpad
+  with `core.autocrlf=false`. The live hub folder on Astra's PC was not touched.
+- **[Pull request #197](https://github.com/findastra/astras-pet-os/pull/197)**, commit `1cb5004`, open. It merges
+  only with Astra's OK in chat.
+  - `npm run build` changes nothing, and `npm run check` passes (23 pet apps).
+  - `npm test` gives 288 tests: 287 pass, 0 fail, 1 skipped.
+- **Read first:**
+  - this card, the proposal (Parts 1 to 4 as built, answers 1 to 12), the pet-packs tool and its manifest;
+  - `needs` and `needs_key` on all 42 pets;
+  - the installer, its uninstaller, `farm-setup` and the Linux command;
+  - INSTALL.md, MAKE-IT-YOURS.md, PROVENANCE.md, `skills/dev-mindset`, `farm-security`, `new-pet-or-tool` and
+    `handoff`;
+  - the shared session notes of Parts 1 to 4 and #184.
+
+  None of the 187 branches has farm lock work.
+- **Wrote:**
+  - `docs/farm-lock-20261021.md` (new), the proposal: what is true today; the catalog and the farm; what the farm lock
+    holds (an example of Dev's farm); where it lives; how a pet comes in, from the installer's own pets or a pet pack;
+    how its needs are checked (required pets first, then this computer and the core, then programs); how a pet leaves
+    without breaking another; `check` and `lock`; the installer; what it would take (5a, then 5b); risks.
+  - A "Part 5" section in `docs/farm-owner-and-single-pets-20261019.md`, and its header line.
+  - This card, and its row in `handoffs/README.md`.
+- **Found, not changed:**
+  - The installer does not read `needs`. Checked with `choosePets` in `scripts/farm-setup-20261019.mjs`, which the
+    installer's logic is tested to match: a farm from scratch with `evidence-locker` gives the Friendly Farmer and
+    Forensic Ferret, without Log Lynx (required).
+  - On Windows, an install keeps no full list of pets after `Set-FarmPets`, so a pet can be added later only by
+    running the installer again from the unzipped release.
+  - `farm.lock` breaks Astra's file-name rule (no date). The name is in three docs, three skills, pets.json and the
+    pet-packs tool. That is question 2, not changed.
+- **Questions for Astra:** a private slide deck of six questions, https://claude.ai/artifact/KguKpbZJCeKfL5xx5DtETo
+  (recommended: A on each):
+  1. where the farm lock lives;
+  2. its file name;
+  3. which pet packs may come in before packs are signed;
+  4. a program or core part the Farmer cannot add;
+  5. taking away a pet others need;
+  6. whether the installer ticks the pets a picked pet needs.
+
+  Her answers go into rows 13 to 18 of the proposal's answers table, and here.
+- **Astra's answers to the six farm lock questions (2026-10-21: "All recommended on the six farm lock questions")**,
+  recorded in the proposal's table (rows 13 to 18) and in `docs/farm-lock-20261021.md`:
+  1. The farm lock lives on the computer, in the farm's own folder next to the install receipt. It is never committed:
+     a hub copy's `.gitignore` lists it.
+  2. Its file name is `farm-lock-20261021.json`, by her file-name rule. In 5a, the docs' `farm.lock` becomes "the farm
+     lock" (three docs, three skills, pets.json, the pet-packs tool and one test).
+  3. Before packs are signed, each file of a pack is checked against the pet's own repo on GitHub at that commit. A pack
+     that cannot be checked comes in only with `--unchecked`, marked in the farm lock.
+  4. A pet that needs a program or core part the Farmer cannot add still comes in, with a plain warning. The plan names
+     what is missing and what to do, and the farm lock marks it.
+  5. A pet that other pets on the farm require is not taken away. The Farmer stops and names them, and
+     `--with-dependents` takes them all away together, on purpose, after the plan lists every one.
+  6. The installer ticks the pets a picked pet needs, with the same check as the Farmer: ticked and locked, "needed by"
+     that pet.
+
 ## Task
 
 1. ~~Astra: answer the nine questions~~ Answered 2026-10-20: all recommended (proposal, "Astra's answers").
 2. ~~Parts 1 and 2~~ Merged with #157 (Astra's OK in chat, 2026-10-20).
 3. ~~**Part 3**~~ Merged with #164 as `dcd5d81` (upstream vs farm owner, make-it-yours; Astra's OK in chat, 2026-10-20).
-   Then **Part 4** (pet packs, `needs` in pets.json), its own pull request after Astra's OK.
-4. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
+4. ~~**Part 4**~~ Merged with [#183](https://github.com/findastra/astras-pet-os/pull/183) (pet packs, `needs` in
+   pets.json; Astra's OK in chat, 2026-10-21). ~~Three questions in slides~~ Answered 2026-10-21: all recommended
+   (above, and the proposal's rows 10 to 12).
+   - Publishing a pet's first pack waits on her OK for that pet.
+   - API Fairy's files are her own chat's card (api-fairy#10).
+5. **Part 5, the farm lock:** proposed in `docs/farm-lock-20261021.md` (2026-10-21).
+   - ~~**Astra:** answer the six questions in the slides~~ Answered 2026-10-21: all recommended (above, and the
+     proposal's rows 13 to 18).
+   - Next: build 5a (the farm lock with the installer's own pets, and the installer's part), then 5b (pet packs come
+     in), one pull request at a time, each merged only with her OK.
+6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
 ## Done when
 

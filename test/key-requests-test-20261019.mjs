@@ -20,7 +20,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the fou
     assert.ok(at > page.indexOf(`>${before}<`), `after ${before}`);
   }
   assert.ok(at > -1 && at < page.indexOf('>api-fairy-session-notes<'), 'before the session notes');
-  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-tool-panel<\/span><span class="activity"/);
+  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">api-fairy-key-requests-tool-panel<\/span><span class="activity"/);
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {
     assert.ok(page.includes(`<fieldset class="request-group ${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
@@ -30,7 +30,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the fou
 });
 
 test('only API Fairy\'s page has the panel', () => {
-  assert.deepEqual(Object.keys(PET_PANELS), ['api-fairy']);
+  assert.equal(typeof PET_PANELS['api-fairy'], 'function');
   for (const d of pages) if (d.repo !== 'api-fairy') assert.ok(!files[pagePath(d.repo)].includes('key-request'), `${d.repo} has no key-requests panel`);
 });
 
@@ -51,8 +51,10 @@ test('the examples on the public page are made up and marked as examples', () =>
 
 test('the page reads the real list only from one fixed file on Astra\'s PC, and only when it is opened there', () => {
   assert.match(js, /var LOCAL_REQUESTS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/api-fairy-ring\/key-requests-page-data\.js";/);
-  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 1, 'one script element, for the local list only');
-  assert.match(js, /script\.setAttribute\('src', LOCAL_REQUESTS\)/, 'its address is the fixed constant, never from data');
+  // Two script elements in the page script: this list and GitHub Aquarium's outstanding items, each from its own fixed
+  // constant, each only on its own pet's page and only on this PC.
+  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 2, 'one script element per local list');
+  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)\)/g)].map((m) => m[1]), ['LOCAL_REQUESTS', 'LOCAL_ITEMS'], 'each address is a fixed constant, never from data');
   assert.match(js, /var onThisPC = location\.protocol === 'file:' \|\| \/\^\(localhost\|127\\\.0\\\.0\\\.1\|\\\[::1\\\]\)\$\/\.test\(location\.hostname\);/);
   assert.match(js, /if \(onThisPC\) \{\s*var script = document\.createElement\('script'\);/, 'loaded only on this PC');
   assert.match(js, /d\.schema !== 'api-fairy-key-requests-page-v1'/, 'the list is checked before it is shown');
