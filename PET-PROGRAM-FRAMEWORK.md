@@ -117,9 +117,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 3. **`<home>-quick-summary`** (box under the title, `unity-stable-quick-summary`; "pet-program" crossed out of the
    label by Astra, 2026-10-21): one to three plain sentences: what the home is, who runs it (you and the pet), what it
    organizes, and the intention behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty
-   line above or below (Astra, 2026-10-20: "fitted"). Under it, **Open app** (the pet's older app, `app_url`; "today's"
-   crossed out, 2026-10-21) and **no Repo button** (crossed out the same day): the repo link is in the footer and in
-   L4's Pet ID.
+   line above or below (Astra, 2026-10-20: "fitted"). **No buttons under it**
+   (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo"): the pet's older app (`app_url`) and its repo are
+   linked in L4's Pet ID and in the footer.
 3b. **`astras-pet-os-system-map`** (top right, opposite the cyberhome; the map is the hub's, so its label is too:
    Astra, 2026-10-21): the way back to the System Map, on every page, always (Astra, 2026-10-19: "There's always going
    to be a system map link back"). It opens the map on the pet program's own node
@@ -128,8 +128,10 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    them (300px or more); `<pet>-related-pets` has all of them (Astra, 2026-10-20: "reserved for other agent links,
    relative, full list below"). Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's **paired lights sit left of
-   its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and its activity
-   light (the sketch's "activity status") after the label. Every item inside has its paired lights. **Every heading
+   its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and nothing after the
+   label (the same screenshot moves the activity light after it left, to the pair). Inside, the sections stack and
+   **the pills go three to a row, then two, then one** as the window narrows (Astra, 2026-10-21: "these need to be
+   stacking in rows of 3, then 2,1 on collapse"); a name stays on one line in the pill's border. Every item inside has its paired lights. **Every heading
    says how many it holds, and the pet's own things are native** (Astra, 2026-10-21: "3rd party programs · #";
    "3rd Party Programs = L1, Native Programs = L1, Native Tools = L1, Native Tricks = L2"): `3rd party programs · 5`,
    `Native programs · 1`, `Native tools · N` (or `Avatar tools · 22` and `World tools · 37` when the tools have sides),
@@ -138,9 +140,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | Tool panel | Level | What goes in it |
    |---|---|---|
    | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) · its **schedule** (self-audit, weekly backlog run: last and next) · the **status line** (item 2 of the list below) · **connection boxes** for the pets it talks to (item 6 below). |
-   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **L3 activity bubble** · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | **approvals waiting on you**, each with approve and decline · a pointer to the **grants**, which have their own panel (item 12 below) · the **keys** agents hold for it (API Fairy shows them) · items marked **requires maintenance** and their vet-clinic tickets · the **Pet ID** (item 9 below). |
+   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list) · the **status line** (item 2 of the list below), a tool panel of its own, `<pet>-update-history` · **connection boxes** for the pets it talks to (item 6 below). |
+   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **`<home> program activity`** bubble, which names the pet program (Astra, 2026-10-22) · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
+   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | Five tool panels of their own, each with its paired lights and a lowercase label (Astra, 2026-10-22): **`approvals-waiting-on-you`**, each with approve and decline · **`grants`**, what grants are (permissions: what each level may read, write and run) and a pointer to their own panel (item 12 below) · **`keys`** agents hold for it (API Fairy shows them) · **`<pet>-required-maintenance`**, items marked requires maintenance and their vet-clinic tickets · **`pet-id`**, the Pet ID (item 9 below). |
 
    Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
    and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
@@ -197,15 +199,17 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
    clicks: open or close the pet program, its page above. Three clicks or more: a tool of the pet program, one per
    number of clicks, or "none assigned yet". A click runs a **tool** (code, no AI; AGENTS.md, "Tools vs tricks"), never
-   a trick. This replaces "three clicks: refresh the tools and the tool list".
+   a trick. This replaces "three clicks: refresh the tools and the tool list". Each number of clicks is a pill with its
+   paired lights, like a tool (Astra, 2026-10-22: "those should look/function like tools").
 9. **`astras-pet-os-unified-footer`** (bottom, wide): one shared footer for every pet program, also used on pages
    outside them; each pet program customizes its own. It is a tool, so it has one owner and other pages use it by
    grant (section 11). It holds item 10 of the list below. **It is a footer, not a list** (Astra, 2026-10-20: "It
    looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
-   (Flash Audit A51) again, centered between thin rules: the license, signature and languages; then three slightly
-   staggered groups, each after a ✦: By Astra and the date, Find Out More (her GitHub and TikToks), Take Me Home! (the
-   Farmer's icon, to The Farm); then the System Map, every pet program, the source and the docs; then the spawner's
-   note.
+   (Flash Audit A51), in a whole box like every panel. Since Astra's marked-up screenshot of 2026-10-22: two groups on
+   one line, each after a ✦: By Astra, and Find Out More with her GitHub and the same socials as her GitHub profile
+   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram); then the languages of the pet's repo as
+   small bubbles. The license, signature, date (it is beside the title), Take Me Home!, the list of links, the words
+   switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
 10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
     bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
     Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
@@ -216,8 +220,15 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    2026-10-19: "The shape is a little awkward. Make it better").
 11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
-    boxes and the System Map, each with its picture, its pet program's name and a link to that pet program's page. The
-    pet program spawner writes it on every page.
+    boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I
+    manage <its pet program>", then what it sends or receives), its picture beside it, and the whole of it opens that
+    pet program's page (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles"). The pet
+    program spawner writes it on every page.
+
+    **Every panel's closing words** (how it works, where its data comes from) fold behind an arrow, closed until opened
+    (Astra, 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
+    The R W X panel and the session notes sit side by side, and stack on a narrow window (the same day: "I want both of
+    these panels to be side by side (columns)").
 12. **`<pet>-rwx-panel`** (Astra, 2026-10-19, option C: "I think this actually needs to be its own panel in each pet
     program"), right after the four level panels: what each level **should be** (its R W X on this pet program), then
     whether that is **in code**: ✓ In code, ⚠︎ Rule only or ○ Not built. One row per level, L1 at the top, as on the
@@ -225,14 +236,14 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     its proof. Below them, what the pet program may use. The grants come from `system-map.json` (`access`), the same as
     the map and PROTECTION-RINGS.md. The working name waits on Astra.
 
-**Activity lights** (Astra, 2026-10-19: "I need to be able to see what is on and off"): the light on each level's tool
-panel, on its top border, is on while that level is working right now, and the tool panel glows. **L4 is you:** on while
+**Activity** (Astra, 2026-10-19: "I need to be able to see what is on and off"): a level's tool panel glows while that
+level is working right now (its separate activity light left on 2026-10-21, moved to the pair). **L4 is you:** on while
 the page is in front of you and you used it in the last two minutes (moving the pointer over it and scrolling count,
 not only clicks and keys: Astra, 2026-10-19, "double check if these L4s are active when they are"), dim when you go
 quiet or work in another window, off while the page is hidden; the page does this itself. L1 (a program or tool running), L2 (the pet program doing something by itself, or
 data coming in from a pet it talks to) and L3 (an agent at work in the seat) need Startup Star's link to know, so until
-it is built their lights are grey and say "not connected yet". The activity light shows what is happening; the paired
-lights are what you switch and what you report broken.
+it is built they do not glow. The glow shows what is happening; the paired lights are what you switch and what you
+report broken.
 
 ### Waiting on Astra
 
@@ -268,7 +279,7 @@ you, has a key, declined or not needed), each with a link back to the request; t
 ([skills/key-request](skills/key-request/SKILL.md)). **One click always points to
 the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
 `interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
-and its **Open app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
+and L4's Pet ID links the older app (`app_url`). Flash Audit A59 checks that every place agrees.
 
 ### Older detail (still required inside the boxes above)
 

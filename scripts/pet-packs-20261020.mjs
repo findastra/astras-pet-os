@@ -232,7 +232,7 @@ export function packReadme(f) {
     `**Its pet program page**, ${home}, with its pictures: every tool panel, the lights and the session notes. What you change there is saved in that browser only.`,
     `**Its Markdown pet** (\`${md}\`): give it to an AI and say *"Read this file and help me the way this pet does. Follow its rules."*`,
     `**Its own code** in \`${d.repo}/\`${os ? `, which runs on ${os}` : ''}. Its README says how to run it.`,
-    ...(f.app ? [`**Today's app** (\`${HUB_DIR}/${f.app}\`), from the page's **Open app** button.`] : []),
+    ...(f.app ? [`**Today's app** (\`${HUB_DIR}/${f.app}\`), linked in the page's Pet ID (L4).`] : []),
   ];
   const farm = [
     ...(desktop ? [`**Its desktop pet** (${desktop.how}): ${desktop.why} A pack has no desktop pets: [install Astra's PetOS](${upstream().blob}/INSTALL.md) for them.`] : []),

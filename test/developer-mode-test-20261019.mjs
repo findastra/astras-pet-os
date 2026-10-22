@@ -131,7 +131,9 @@ test('every page loads the installer\'s words, then the swap, in its <head>', ()
     const mode = head.indexOf(`<script src="${up}words-mode-20261019.js"></script>`), swapAt = head.indexOf(`<script src="${up}developer-words-20261019.js"></script>`);
     assert.ok(mode > 0 && swapAt > mode, `${path}: words-mode, then developer-words, in <head>`);
   }
-  for (const [path, html] of Object.entries(pages)) assert.ok(html.includes('data-words-switch'), `${path}: the words switch`);
+  // A pet program page has no words switch in its footer since 2026-10-22 (Astra crossed it out); the installer's
+  // setting still chooses its words, and the spawner's list page keeps the switch.
+  for (const [path, html] of Object.entries(pages)) if (path !== INDEX) assert.ok(!html.includes('data-words-switch'), `${path}: no words switch in a pet program's footer`);
   assert.ok(pages[INDEX].includes('data-words-switch'));
   assert.match(read('system-map-20261012.html'), /const DATA = [\s\S]{0,2000000}?\nif \(window\.PetOSWords\) window\.PetOSWords\.data\(DATA\);/, 'the map gets its new names before it is drawn');
 });

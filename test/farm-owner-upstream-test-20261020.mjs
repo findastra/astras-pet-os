@@ -131,10 +131,8 @@ test('a fixture farm for XxdevilishxX: her pets link to her account, Astra\'s ex
   assert.match(example, /<a href="https:\/\/github\.com\/findastra\/meme-fiend">findastra\/meme-fiend<\/a>/);
   assert.doesNotMatch(example, new RegExp(`${DEV}/meme-fiend`));
   assert.match(host, new RegExp(`<a href="https://github.com/${DEV}/astras-pet-os">${DEV}/astras-pet-os</a>`), 'her copy of the hub');
-  for (const page of [own, example]) {
-    assert.match(page, /href="https:\/\/github\.com\/findastra\/astras-pet-os\/blob\/main\/PET-PROGRAM-FRAMEWORK\.md"/, 'the docs are upstream\'s');
-    assert.doesNotMatch(page, new RegExp(`${DEV}/astras-pet-os/blob`));
-  }
+  // The footer's list of docs is gone (Astra crossed it out, 2026-10-22); no page points at docs in her copy of the hub.
+  for (const page of [own, example]) assert.doesNotMatch(page, new RegExp(`${DEV}/astras-pet-os/blob`));
   const md = markdownPetFiles(src);
   assert.match(md[petPath('dev-diary')], new RegExp(`Its code:\\*\\* https://github.com/${DEV}/dev-diary`));
   assert.match(md[petPath('meme-fiend')], /Its code:\*\* https:\/\/github\.com\/findastra\/meme-fiend/);
