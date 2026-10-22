@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge the desk generator fix, task 1; add three paths to line 59 of the Farmer's round workflow, task 2)
+status: open (waiting on Astra: OK to add the page rebuild to round pull request #192, then to merge it; add three paths to line 59 of the Farmer's round workflow, task 2)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19
 needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/credit-line-readme-only-test-20261019.mjs, PET-FILES.md (README row), .github/workflows/farmer-daily-rounds.yml
@@ -130,13 +130,36 @@ folders were not touched.
   not. So tomorrow's round pull request will leave those pages stale on `main` when it is merged, until Astra's
   line-59 edit; task 3 still applies.
 
+**2026-10-21 (Denver): task 1 merged, and a round run by hand is green.** Claude Opus 5.5, the same side session.
+- Astra said "ok, merge #182". `main` moved twice while I was merging (#183 to #189); each time I merged it in (the
+  only conflict was the last lines of AGENTS.md, and I kept both sides), rebuilt and tested. Then #182 was merged as
+  `d1db66f`. On `main` after the merge: `npm test` 285 tests, 284 pass, 0 fail, 1 skipped. Running
+  `node scripts/build.mjs --metadata-only` and the desk generator left `git status` clean.
+- The scheduled round of 2026-10-21, [run 39641690609](https://github.com/findastra/astras-pet-os/actions/runs/39641690609),
+  ran on `5c5bc50`, before the fix, and failed on the same test 47.
+- Astra said "Yes, start the Farmer's round now from main." I started it with `gh workflow run` on `main` (`7741c97`).
+  [Run 39717690793](https://github.com/findastra/astras-pet-os/actions/runs/39717690793) was green in every step. The
+  runner's `npm test`: 285 tests, 279 pass, 0 fail, 6 skipped (the Windows-only tests skip on Linux). Its summary:
+  0 self-audits; data-dealer, claude-bot, workflow-whirlpool and kernel-grove unseen (private, no `FARMER_TOKEN`);
+  Needs Astra: 2. It pushed `farmer/rounds-20261021` (`4d5a8ba`) and opened
+  [#192](https://github.com/findastra/astras-pet-os/pull/192): `ROSTER.md`, the desk, `pets.json` (only its date) and
+  `status/pets-status.json`. The desk in #192 still has both words scripts and the words switch.
+- **#192 is not safe to merge as it is.** Merged with `main` (`7741c97`) in an LF clone, `npm test` fails 2 tests,
+  both "generated files are up to date" (`the pages on disk are exactly what the spawner writes` and `on Astra's farm
+  every generated file is exactly what it was`). The cause is 41 pet program pages that line 59 does not stage, as
+  above. The round only changed their "Last check" line, from the new status file, so a round that changes only the
+  status still makes them stale; `pets.json` does not have to change. With `npm run build` run on top, the same merge
+  gives 285 tests, 284 pass, 0 fail.
+- So the first half of "Done when" is met (run 39717690793). The second half waits on #192: either a rebuild commit on
+  its branch before it merges (Astra's OK), or Astra's line-59 edit and a new round.
+
 ## Ownership and state
-State: open. Task 1 is on `claude/round-words-scripts-20261020` and waits on Astra's OK to merge. Implementer of task 1:
-Claude Opus 5.5 (side session, 2026-10-20). Task 2 is Astra's. Nothing else is claimed and nothing is running.
-Reviewer: unassigned.
+State: open. Task 1 is done: merged as `d1db66f` (#182, 2026-10-21). Round PR #192 waits on Astra: her OK to add the
+page rebuild to its branch, then to merge it. Task 2 is Astra's. Implementer of task 1: Claude Opus 5.5 (side
+session). Nothing else is claimed and nothing is running. Reviewer: unassigned.
 
 ## Task
-1. **Done on `claude/round-words-scripts-20261020`, waits on Astra's OK to merge (2026-10-20, above).** ~~Any
+1. **Done: merged as `d1db66f` (#182, 2026-10-21, above).** ~~Any
    assistant: make the desk's generator write the developer-words scripts.~~ In
    `scripts/build-interfaces-20261008.mjs`, write `<script src="words-mode-20261019.js"></script>` and then
    `<script src="developer-words-20261019.js"></script>` into the `<head>` it builds, matching the copy on `main`
@@ -147,8 +170,8 @@ Reviewer: unassigned.
    https://github.com/findastra/astras-pet-os/edit/main/.github/workflows/farmer-daily-rounds.yml , line 59. Add
    ` apps/pet-programs markdown-pets system-map-20261012.html` to the end of
    `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html`, then
-   **Commit changes**. Until then, every round that changes `pets.json` leaves those pages stale, and `main`'s
-   `npm test` fails after its merge.
+   **Commit changes**. Until then, every round leaves those pages stale (a change to the status file is enough,
+   2026-10-21), and `main`'s `npm test` fails after its merge.
 3. Until task 2 is done: before merging a `farmer/rounds-*` pull request, merge it with `main` in an LF clone and run
    `npm test` first.
 
@@ -159,5 +182,5 @@ A round runs green on `main`, and `main` is still green after its pull request i
 Set status: done with the run id, the round's pull request number and `main`'s test count after the merge, commit.
 
 ## Receipt and review
-Task 1 taken and done on a branch by Claude Opus 5.5 (side session, 2026-10-20). Not reviewed by another assistant.
-Task 2 and the "Done when" (a green round, and `main` green after its merge) are still open.
+Task 1 taken, done and merged by Claude Opus 5.5 (side session, 2026-10-20 to 2026-10-21). Not reviewed by another
+assistant. A green round: run 39717690793. Still open: `main` green after a round's merge (#192), and task 2.
