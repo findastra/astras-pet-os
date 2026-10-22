@@ -90,7 +90,7 @@ test('names on GitHub and in files keep their spelling: repos, file names, paths
 
 test('panel labels: unity-unicorn-L1-tool-panel becomes unity-agent-L1-panel, and the activity lights still find it', () => {
   const pairs = [['unity-unicorn-L1-tool-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome', 'unity-agent-avatar-panel'],
-    ['unity-stable-pet-program-quick-summary', 'unity-agent-control-hub-summary'], ['friendly-farmer-related-pets', 'orchestrator-agent-related-agents'],
+    ['unity-stable-quick-summary', 'unity-agent-control-hub-summary'], ['friendly-farmer-related-pets', 'orchestrator-agent-related-agents'],
     ['astras-pet-os-unified-footer', 'astras-pet-os-unified-footer']];
   for (const [farm, dev] of pairs) assert.equal(W._legend(farm), dev);
   for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.match(W._legend(`unity-unicorn-${lv}-tool-panel`), /-(L[1-4])-[a-z-]*panel$/);
@@ -160,7 +160,7 @@ test('the Farmer\'s desk generator writes the words, then the swap, in <head>, a
 test('in developer mode the agent is already home and one click says what it does', () => {
   const js = read('apps/pet-programs/pet-program-page-20261018.js');
   assert.match(js, /den\.dataset\.arrival === 'waiting' && dev\) \{[\s\S]{0,200}den\.dataset\.arrival = 'home';/);
-  assert.match(js, /bubble\.textContent = dev \? T\(config\.pet \+ ': ' \+ \(config\.summary/);
+  assert.match(js, /sayAt\(den, dev \? T\(config\.pet \+ ': ' \+ \(config\.summary/);
   const css = read('apps/pet-programs/pet-program-page-20261018.css');
   assert.ok(css.includes('[data-words="developer"] .den .star-door, [data-words="developer"] .clicker { display: none; }'));
 });

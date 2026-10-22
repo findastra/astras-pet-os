@@ -4,7 +4,9 @@
 
 ## What it does
 
-A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
+A local Unity and VRChat desk for organizing Unity worlds and avatars. It contains tools to develop each, a working closet by Devilish, and pages that display world information.
+
+Its job in the registry: A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
 
 ## Open it with nothing to install
 

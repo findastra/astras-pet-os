@@ -114,7 +114,37 @@ conflict, ask your AI for help or open a ticket at the [vet-clinic](https://gith
     `pets.json` entry says `stays_private`.
 - Proud of it? Bring it to [the Kennel](https://github.com/findastra/the-kennel) so other farmers can adopt it.
 
-## 6. Keep it safe
+## 6. Just one pet: a pet pack
+
+Want one of Astra's pets (or your own) without the whole system? A **pet pack** is one pet in one zip (Astra,
+2026-10-20): its repo at one version, its pictures, its pet program page, its Markdown pet, and a README that says
+plainly what works on its own and what needs a farm. Unzip it and double-click `open-pet-program-20261020.html`:
+nothing is installed. Developers call it a release bundle.
+
+The Friendly Farmer's **pet-packs** tool makes one, in your copy of Astra's PetOS:
+
+```
+node scripts/pet-packs-20261020.mjs plan evidence-locker
+node scripts/pet-packs-20261020.mjs build evidence-locker
+```
+
+- `plan` shows what the pet needs and what would go in, and changes nothing. `build` writes
+  `pet-packs/<repo>-pet-pack-<date>.zip`. It reads the pet's repo from GitHub with your own sign-in (or a clone you
+  name with `--from`), at its newest version or one you pick with `--ref` (a tag, a branch or a commit).
+- **What a pet needs** is written once, in its `pets.json` entry as `needs` (`needs_key` says how): the computer it runs
+  on, other pets (required or optional), parts of the core only a farm has (Startup Star runs every desktop pet), and
+  third-party programs. Forensic Ferret needs Log Lynx; Voicemeeter Bug needs Voicemeeter. `npm test` checks every one.
+- **The pictures are copied into the zip** when it is built, and never into the pet's repo: they stay in one place, the
+  hub (PET-FILES.md, "Where the pictures live").
+- It never packs the Friendly Farmer (install Astra's PetOS for that) or a pet whose entry says `stays_private`. A pet
+  whose repo is private needs `--private`, because the zip then holds its private code: share it only with people you
+  trust. It stops if the pet's files hold a key, a token, a personal folder path or a local service address.
+- Next (not built yet): the Friendly Farmer adds one pet from a pack to a farm and records it in `farm.lock`.
+
+Or ask your AI: *"Make a pet pack of `<the pet's repo>` with the Friendly Farmer's pet-packs tool (node
+scripts/pet-packs-20261020.mjs). Run plan first and show me what it needs, then build it."*
+
+## 7. Keep it safe
 
 - **A fork of a public repo is public**, and GitHub cannot make it private: for a private farm, make a private copy
   (step 1). Never put keys, passwords or personal information in a public repo. Your pets keep your

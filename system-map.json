@@ -94,6 +94,7 @@
       "type": "own-program",
       "state": "now",
       "job": "A native program of The Farm (no face, not a pet). The Windows tray Star and the desktop pets that roam your real desktop. Reads pets.json and the art index (scripts/desktop-pets-20261011.cs). Hiding it never stops a pet working.",
+      "does": "Your desktop pets: they roam your real desktop, and the star in the tray starts and hides them.",
       "layer": 2,
       "of": "farm",
       "version": "v1.0",
@@ -108,6 +109,7 @@
       "layer": 2,
       "category": "Made by Astra",
       "job": "A native program of The Farm: this 3D map of every pet, program, model and device, in protection rings, with what flows between them (findastra.github.io/astras-pet-os/system-map-20261012.html). Built by npm run build from system-map.json and pets.json.",
+      "does": "The 3D map of every pet, program, model and device, in protection rings, with what flows between them.",
       "version": "v1.0",
       "label": "the-farm-v1.0-astras-pet-os-system-map-v1.0"
     },
@@ -120,6 +122,7 @@
       "layer": 2,
       "category": "Made by Astra",
       "job": "A native program of The Farm (Astra, 2026-10-19): one public page that teaches a brand-new person what Astra’s PetOS is, how to install it, and how to make their own farm: public or private pets, taking any of Astra’s pets, locked-down computers, asking their own AI, staying safe (findastra.github.io/astras-pet-os/apps/beginner-guide-20261019.html). Anyone can read it before installing anything, and because the Friendly Farmer is a core pet, it is on every farm. Named by Astra (2026-10-19) with the framework’s tutorial title; the first-run walk on this map opens it (planned).",
+      "does": "The beginner's guide: what Astra's PetOS is, how to install it and how to make your own farm.",
       "version": "v1.0",
       "label": "the-farm-v1.0-beginner-guide-v1.0"
     },
@@ -170,6 +173,18 @@
       "version": "v1.0",
       "label": "the-farm-v1.0-make-it-yours-v1.0",
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
+    },
+    {
+      "id": "pet-packs",
+      "name": "pet-packs",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-packs-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-20: \"download one pet without the whole system\", card 058, Part 4): one zip per pet, a pet pack, with its repo at a version, its pictures copied in from the one art source (never committed to its repo), a pet program page that works on its own, its Markdown pet and a README that says plainly what works alone and what needs a farm, from `needs` in pets.json. It reads the pet’s repo with git and writes only its pet-packs folder; it refuses the host, a pet that stays private, a private repo without --private, and a repo whose files hold a key or a personal folder path (scripts/pet-packs-20261020.mjs)."
     },
     {
       "id": "pet-program-spawner",
@@ -245,6 +260,7 @@
       "type": "own-program",
       "state": "now",
       "job": "findastra/findastra: the profile README the Farmer's profile round keeps matched to the repos.",
+      "does": "Your GitHub profile page (findastra/findastra), kept matched to the repos.",
       "layer": 6,
       "category": "Website"
     },
@@ -254,6 +270,7 @@
       "type": "own-program",
       "state": "now",
       "job": "Windows app that shows Codex activity on Astra's Discord profile. One of Discord Damsel's programs.",
+      "does": "Shows what Codex is working on in your Discord profile.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -263,6 +280,7 @@
       "type": "own-program",
       "state": "now",
       "job": "Windows app that shows Claude activity on Astra's Discord profile. One of Discord Damsel's programs.",
+      "does": "Shows what Claude is working on in your Discord profile.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -541,6 +559,7 @@
       "type": "program",
       "state": "now",
       "job": "Audio mixer software on Astra's PC. Voicemeeter Bug restarts its audio engine when audio needs repair.",
+      "does": "A virtual audio mixer: it routes every sound on the PC between apps, microphones and outputs.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -550,6 +569,7 @@
       "type": "program",
       "state": "now",
       "job": "Face-tracking software. OSC Sealion will manage it; Unity Unicorn will use it to personalize an avatar's face-tracking rig.",
+      "does": "Reads face and eye tracking from your headset or face tracker and moves your avatar's face in VRChat.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -559,6 +579,7 @@
       "type": "program",
       "state": "now",
       "job": "VRChat OSC software. OSC Sealion will manage it.",
+      "does": "Connects touch zones on VRChat avatars to haptic devices, over VRChat's OSC.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -568,6 +589,7 @@
       "type": "own-program",
       "state": "now",
       "job": "Astra's VRChat world (findastra/astras-infinite-pole). Pole Puff manages it.",
+      "does": "Your VRChat world, Astra's Infinite Pole.",
       "layer": 6,
       "category": "VRChat world"
     },
@@ -577,6 +599,7 @@
       "type": "own-program",
       "state": "now",
       "job": "Astra's Piranesi-inspired VRChat world (findastra/piranesi-house). Piranesi Nessi manages it.",
+      "does": "Your Piranesi-inspired VRChat world.",
       "layer": 6,
       "category": "VRChat world"
     },
@@ -820,6 +843,7 @@
       "state": "now",
       "layer": 6,
       "job": "Cloud service. Your profile shows AI activity through the presence apps; Discord Damsel manages your Discord apps and cleanup.",
+      "does": "Chat, voice and video app for your servers, friends and communities.",
       "category": "Cloud service"
     },
     {
@@ -829,6 +853,7 @@
       "state": "planned",
       "layer": 6,
       "job": "Third-party client mod for Discord desktop that loads plugins, such as Discord Damsel's Sticker Manager. Made by others (betterdiscord.app), not through the Shed; client mods are against Discord's Terms of Service. A Discord update can remove it. Not loaded in Discord on 2026-10-18.",
+      "does": "A client mod for Discord's desktop app that loads plugins and themes; client mods are against Discord's terms of service.",
       "category": "Desktop app"
     },
     {
@@ -838,6 +863,7 @@
       "state": "now",
       "layer": 6,
       "job": "Third-party local API proxy by router-for-me (MIT): gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes requests to the accounts or API keys added to it; its console is the Management Center page it serves. Looked after by Discord Damsel (Astra, 2026-10-18). v8.0.33 has run on this PC only since 2026-10-19 (its first run, findastra-discord-presence#23); v8.0.34 is checksum-verified and pinned (findastra-discord-presence#24); Astra installs it next (card 007). Never signed in with Astra's Claude login.",
+      "does": "A local proxy that gives programs on this PC OpenAI-, Claude- and Gemini-style addresses and passes their requests to the accounts or keys added to it.",
       "category": "Desktop app"
     },
     {
@@ -847,6 +873,7 @@
       "state": "now",
       "layer": 6,
       "job": "Cloud service: every pet repo, handoff card and the Farmer's daily round (GitHub Actions) live here.",
+      "does": "Hosts the code: every repo, pull request and handoff card, and runs the Farmer's daily round.",
       "category": "Cloud service"
     },
     {
@@ -856,6 +883,7 @@
       "state": "now",
       "layer": 6,
       "job": "Cloud service: your worlds and avatars live here.",
+      "does": "A social virtual reality platform, where your worlds and avatars live.",
       "category": "Cloud service"
     },
     {
@@ -961,7 +989,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "MSI’s control app: PC lighting (Mystic Light) and system settings. Installed (Store app)."
+      "job": "MSI’s control app: PC lighting (Mystic Light) and system settings. Installed (Store app).",
+      "does": "MSI's control app for the PC's lighting (Mystic Light) and system settings."
     },
     {
       "id": "corsair-icue",
@@ -970,7 +999,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Corsair lighting and device control. Installed."
+      "job": "Corsair lighting and device control. Installed.",
+      "does": "Controls Corsair devices and their lighting."
     },
     {
       "id": "razer-synapse",
@@ -979,7 +1009,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Razer lighting and device control. Installed."
+      "job": "Razer lighting and device control. Installed.",
+      "does": "Controls Razer devices and their lighting."
     },
     {
       "id": "logitech-g-hub",
@@ -988,7 +1019,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Logitech lighting and device control. Installed."
+      "job": "Logitech lighting and device control. Installed.",
+      "does": "Controls Logitech G devices and their lighting."
     },
     {
       "id": "everything-search",
@@ -997,7 +1029,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Instant file-name search for the whole PC. Installed."
+      "job": "Instant file-name search for the whole PC. Installed.",
+      "does": "Finds any file on the PC by its name, instantly."
     },
     {
       "id": "spacesniffer",
@@ -1006,7 +1039,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows what is filling the disks, as a map of boxes. Installed."
+      "job": "Shows what is filling the disks, as a map of boxes. Installed.",
+      "does": "Shows what fills each disk, as a map of boxes."
     },
     {
       "id": "steamvr",
@@ -1015,7 +1049,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Valve’s VR runtime. On the desktop (vr-gaming)."
+      "job": "Valve’s VR runtime. On the desktop (vr-gaming).",
+      "does": "Valve's VR runtime: it runs PC VR headsets, controllers and trackers."
     },
     {
       "id": "meta-horizon-link",
@@ -1024,7 +1059,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Meta’s PC link for Quest headsets. On the desktop (vr-gaming)."
+      "job": "Meta’s PC link for Quest headsets. On the desktop (vr-gaming).",
+      "does": "Connects a Quest headset to the PC, by cable or Air Link, to play PC VR."
     },
     {
       "id": "virtual-desktop",
@@ -1033,7 +1069,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Streams the PC to the headset wirelessly. On the desktop (vr-gaming)."
+      "job": "Streams the PC to the headset wirelessly. On the desktop (vr-gaming).",
+      "does": "Streams the PC to a Quest headset over Wi-Fi, to play PC VR wirelessly."
     },
     {
       "id": "ovr-advanced-settings",
@@ -1042,7 +1079,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "SteamVR overlay for play space, audio and performance settings. On the desktop (vr-gaming)."
+      "job": "SteamVR overlay for play space, audio and performance settings. On the desktop (vr-gaming).",
+      "does": "A SteamVR dashboard overlay for play space, audio and performance settings."
     },
     {
       "id": "ovr-toolkit",
@@ -1051,7 +1089,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Desktop and window overlays inside VR. On the desktop (vr-gaming)."
+      "job": "Desktop and window overlays inside VR. On the desktop (vr-gaming).",
+      "does": "Shows your desktop and windows inside VR."
     },
     {
       "id": "ovr-dynamic-resolution",
@@ -1060,7 +1099,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Adjusts VR render resolution to keep frame rate. On the desktop (vr-gaming)."
+      "job": "Adjusts VR render resolution to keep frame rate. On the desktop (vr-gaming).",
+      "does": "Raises or lowers SteamVR's render resolution on the fly to keep the frame rate smooth."
     },
     {
       "id": "ovr-smooth-tracking",
@@ -1069,7 +1109,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Smooths tracker and controller movement. On the desktop (vr-gaming)."
+      "job": "Smooths tracker and controller movement. On the desktop (vr-gaming).",
+      "does": "Reduces tracker and controller jitter by changing SteamVR's motion prediction."
     },
     {
       "id": "ovr-pager",
@@ -1078,7 +1119,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows phone and desktop notifications in VR. On the desktop (vr-gaming)."
+      "job": "A walkie-talkie for quick voice messages to friends or a group, end-to-end encrypted, in VR or on the desktop. On the desktop (vr-gaming).",
+      "does": "A walkie-talkie for quick, end-to-end encrypted voice messages to friends or a group, in VR or on the desktop."
     },
     {
       "id": "space-calibrator",
@@ -1087,7 +1129,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Lines up trackers from different tracking systems. On the desktop (vr-gaming)."
+      "job": "Lines up trackers from different tracking systems. On the desktop (vr-gaming).",
+      "does": "Lines up devices from two tracking systems, such as a Quest headset with SteamVR trackers."
     },
     {
       "id": "base-station-fov",
@@ -1096,7 +1139,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows base station coverage for tracking setup. On the desktop (vr-gaming)."
+      "job": "Shows base station coverage for tracking setup. On the desktop (vr-gaming).",
+      "does": "Shows in VR what each base station can see, so you can place them for good tracking."
     },
     {
       "id": "double-hip-tracker",
@@ -1105,7 +1149,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Hip tracking helper. On the desktop (vr-gaming)."
+      "job": "Hip tracking helper. On the desktop (vr-gaming).",
+      "does": "Lets VRChat use two hip trackers and switches to the other when one loses tracking."
     },
     {
       "id": "bs-manager",
@@ -1114,7 +1159,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Beat Saber version and mod manager. On the desktop (vr-gaming)."
+      "job": "Beat Saber version and mod manager. On the desktop (vr-gaming).",
+      "does": "Manages Beat Saber versions, mods and maps."
     },
     {
       "id": "magic-chatbox",
@@ -1123,7 +1169,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Writes status text into the VRChat chatbox. On the desktop (vr-gaming)."
+      "job": "Writes status text into the VRChat chatbox. On the desktop (vr-gaming).",
+      "does": "Writes status text, like the song playing or the time, into your VRChat chatbox."
     },
     {
       "id": "vr-pole-overlay",
@@ -1132,7 +1179,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows a real pole’s position in VR. On the desktop (vr-gaming)."
+      "job": "Shows a real pole’s position in VR. On the desktop (vr-gaming).",
+      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
     },
     {
       "id": "unity-editor",
@@ -1141,7 +1189,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "The Unity editor used for VRChat avatars and worlds. On the desktop (editing-streaming)."
+      "job": "The Unity editor used for VRChat avatars and worlds. On the desktop (editing-streaming).",
+      "does": "Unity is the game engine you build avatars and worlds in (VRChat uses 2022.3.22f1); Unity Hub installs Unity and organizes your Unity projects."
     },
     {
       "id": "vrchat-creator-companion",
@@ -1150,7 +1199,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Sets up VRChat SDK projects and packages. On the desktop (editing-streaming)."
+      "job": "Sets up VRChat SDK projects and packages. On the desktop (editing-streaming).",
+      "does": "VRChat's own app that makes Unity projects for VRChat and installs and updates their packages, such as the VRChat SDK."
     },
     {
       "id": "blender",
@@ -1159,7 +1209,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "3D modelling (Store app). Installed."
+      "job": "3D modelling (Store app). Installed.",
+      "does": "A free 3D program for modelling, rigging and editing meshes, such as avatar bodies and clothes."
     },
     {
       "id": "ableton-live",
@@ -1168,7 +1219,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Music production. Drum Dog plans an Ableton Live connection. Not found on the Desktop PC in the 2026-10-12 scan (no install, no Ableton folders); may be on another computer."
+      "job": "Music production. Drum Dog plans an Ableton Live connection. Not found on the Desktop PC in the 2026-10-12 scan (no install, no Ableton folders); may be on another computer.",
+      "does": "Music production software for making, recording and performing music."
     },
     {
       "id": "spotify",
@@ -1177,7 +1229,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Music streaming (Store app). Installed."
+      "job": "Music streaming (Store app). Installed.",
+      "does": "Music streaming."
     },
     {
       "id": "stream-deck",
@@ -1186,7 +1239,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Not installed on the Desktop PC in the 2026-10-12 scan."
+      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Not installed on the Desktop PC in the 2026-10-12 scan.",
+      "does": "The software for Elgato's Stream Deck, a panel of buttons that each run an action."
     },
     {
       "id": "obs-studio",
@@ -1195,7 +1249,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Streaming and recording. On the desktop (editing-streaming)."
+      "job": "Streaming and recording. On the desktop (editing-streaming).",
+      "does": "Records the screen and streams it live."
     },
     {
       "id": "tiktok-live-studio",
@@ -1204,7 +1259,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "TikTok’s streaming app. On the desktop (editing-streaming)."
+      "job": "TikTok’s streaming app. On the desktop (editing-streaming).",
+      "does": "TikTok's app for going live from the PC."
     },
     {
       "id": "tikfinity",
@@ -1213,7 +1269,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "TikTok LIVE interactions and alerts. On the desktop (editing-streaming)."
+      "job": "TikTok LIVE interactions and alerts. On the desktop (editing-streaming).",
+      "does": "Adds alerts, overlays and viewer interactions to TikTok LIVE streams."
     },
     {
       "id": "capcut",
@@ -1222,7 +1279,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Video editing. On the desktop (editing-streaming)."
+      "job": "Video editing. On the desktop (editing-streaming).",
+      "does": "Video editing."
     },
     {
       "id": "canva",
@@ -1231,7 +1289,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Graphic design. On the desktop (editing-streaming)."
+      "job": "Graphic design. On the desktop (editing-streaming).",
+      "does": "Graphic design for images, posts and videos."
     },
     {
       "id": "sharex",
@@ -1240,7 +1299,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Screenshots, screen recordings and GIFs. On the desktop (editing-streaming) and starts at sign-in."
+      "job": "Screenshots, screen recordings and GIFs. On the desktop (editing-streaming) and starts at sign-in.",
+      "does": "Takes screenshots, screen recordings and GIFs."
     },
     {
       "id": "steam",
@@ -1249,7 +1309,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Game library and store; also runs SteamVR. On the desktop (pc-gaming and vr-gaming)."
+      "job": "Game library and store; also runs SteamVR. On the desktop (pc-gaming and vr-gaming).",
+      "does": "Valve's game store and library; it also installs and runs SteamVR."
     },
     {
       "id": "epic-games",
@@ -1258,7 +1319,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Game library and store. On the desktop (pc-gaming)."
+      "job": "Game library and store. On the desktop (pc-gaming).",
+      "does": "Epic's game store and library."
     },
     {
       "id": "overwolf",
@@ -1267,7 +1329,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "In-game overlays and apps. On the desktop (pc-gaming)."
+      "job": "In-game overlays and apps. On the desktop (pc-gaming).",
+      "does": "A platform for in-game overlay apps."
     },
     {
       "id": "wallpaper-engine",
@@ -1276,7 +1339,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Animated desktop wallpapers. On the desktop (pc-gaming)."
+      "job": "Animated desktop wallpapers. On the desktop (pc-gaming).",
+      "does": "Animated and interactive desktop wallpapers."
     },
     {
       "id": "visual-studio",
@@ -1285,7 +1349,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Microsoft’s IDE. Installed."
+      "job": "Microsoft’s IDE. Installed.",
+      "does": "Microsoft's free editor for writing, building and debugging code, such as C# and C++."
     },
     {
       "id": "malwarebytes",
@@ -1294,7 +1359,8 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Malware scanning. Installed."
+      "job": "Malware scanning. Installed.",
+      "does": "Scans for and removes malware."
     },
     {
       "id": "key-ring",
@@ -1304,7 +1370,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "API Fairy’s pet program (Astra, 2026-10-14): the key scanner and dashboard. Its api-fairy-mushroom-circle shows every agent key: active keys float in the circle, expired keys go into the chest."
+      "job": "API Fairy’s pet program (Astra, 2026-10-14): the key scanner and dashboard. Its api-fairy-mushroom-circle shows every agent key: active keys float in the circle, expired keys go into the chest.",
+      "does": "API Fairy's key scanner and dashboard: every agent key, active or expired."
     },
     {
       "id": "api-fairy-mushroom-circle",
@@ -1338,7 +1405,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The home of AI Astra, an embodied AI, in three parts (Astra, 2026-10-19): the VRChat connector any agent can use (its native tool), VRChat AI Astra, our own agent (voice/: her cognitive core, a model and the connector as her body), and her model. Also her mind and desktop app. Astra Wisp watches her health."
+      "job": "The home of AI Astra, an embodied AI, in three parts (Astra, 2026-10-19): the VRChat connector any agent can use (its native tool), VRChat AI Astra, our own agent (voice/: her cognitive core, a model and the connector as her body), and her model. Also her mind and desktop app. Astra Wisp watches her health.",
+      "does": "AI Astra's home: the VRChat connector any agent can use, her own agent and her model."
     },
     {
       "id": "vrchat-connector",
@@ -1360,7 +1428,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Astra’s large data project: its dashboard and site. Data Chip reports its health."
+      "job": "Astra’s large data project: its dashboard and site. Data Chip reports its health.",
+      "does": "Your large data project: its dashboard and site."
     },
     {
       "id": "file-kingdom",
@@ -1370,7 +1439,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "File Master’s scanner, plan and undo tools."
+      "job": "File Master’s scanner, plan and undo tools.",
+      "does": "File Master's scanner, plans and undo log for tidying the PC's files."
     },
     {
       "id": "new-programs-watch",
@@ -1428,7 +1498,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Unity Unicorn’s tool library and editor tools for avatars and worlds."
+      "job": "Unity Unicorn’s tool library and editor tools for avatars and worlds.",
+      "does": "A local Unity and VRChat desk for organizing Unity worlds and avatars."
     },
     {
       "id": "audio-rescue",
@@ -1438,7 +1509,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Voicemeeter Bug’s Windows app: asks Voicemeeter to restart its audio engine when a device reconnects."
+      "job": "Voicemeeter Bug’s Windows app: asks Voicemeeter to restart its audio engine when a device reconnects.",
+      "does": "Restarts Voicemeeter's audio engine when a sound device reconnects."
     },
     {
       "id": "paper-girl-site",
@@ -1448,7 +1520,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Patty."
+      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Patty.",
+      "does": "A free science discovery website."
     },
     {
       "id": "am-i-a-ghost",
@@ -1458,7 +1531,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Gone Ghost’s pet program (Astra, 2026-10-13): the private controls that change Ghost Protocol, and an exact local copy of the public site that runs only on the PC (a local environment; Ghost Protocol is production). His privacy tools live here too: the internet scrub and name-eraser, whose name lists never leave the PC."
+      "job": "Gone Ghost’s pet program (Astra, 2026-10-13): the private controls that change Ghost Protocol, and an exact local copy of the public site that runs only on the PC (a local environment; Ghost Protocol is production). His privacy tools live here too: the internet scrub and name-eraser, whose name lists never leave the PC.",
+      "does": "Gone Ghost's private controls for Ghost Protocol, with a copy of the site that runs only on the PC."
     },
     {
       "id": "the-police-station",
@@ -1468,7 +1542,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Pet Police Officer’s pet program: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach (findastra/the-police-station)."
+      "job": "Pet Police Officer’s pet program: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach (findastra/the-police-station).",
+      "does": "Watches every write and every agent key use, and switches things off when something looks like a break-in."
     },
     {
       "id": "the-recovery-room",
@@ -1478,7 +1553,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Rescue Retriever’s pet program (Astra, 2026-10-14): after a shutdown, rebuilds the farm from the verified release, restores clean backups from before the incident, and restarts everything in the safe order. Runs isolated: from a read-only known-good copy, under its own account, with no farmhand in its seat."
+      "job": "Rescue Retriever’s pet program (Astra, 2026-10-14): after a shutdown, rebuilds the farm from the verified release, restores clean backups from before the incident, and restarts everything in the safe order. Runs isolated: from a read-only known-good copy, under its own account, with no farmhand in its seat.",
+      "does": "After a shutdown, rebuilds the farm from the verified release and restores clean backups."
     },
     {
       "id": "name-eraser",
@@ -1511,7 +1587,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The public, hosted side (production) of Gone Ghost’s pet program Am I a Ghost?: the cybersecurity website at findastra.github.io/ghost-protocol."
+      "job": "The public, hosted side (production) of Gone Ghost’s pet program Am I a Ghost?: the cybersecurity website at findastra.github.io/ghost-protocol.",
+      "does": "The public cybersecurity website."
     },
     {
       "id": "gif-maker",
@@ -1521,7 +1598,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Makes GIFs in the browser. Gif Giraffe’s program."
+      "job": "Makes GIFs in the browser. Gif Giraffe’s program.",
+      "does": "Makes GIFs in the browser."
     },
     {
       "id": "spoonfed-app",
@@ -1531,7 +1609,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Spoonfed Sugarcube’s program."
+      "job": "Restaurant-discovery app for iOS, Android and web (on a rescue branch until merged). Spoonfed Sugarcube’s program.",
+      "does": "A restaurant-discovery app for iOS, Android and the web."
     },
     {
       "id": "quest-pro",
@@ -1802,7 +1881,8 @@
       "state": "now",
       "layer": 6,
       "category": "Operating system",
-      "job": "Kali Linux on drives in Astra’s old MacBook Pro (Astra named it, 2026-10-18): the machine that tests this farm the way an outsider would, only with her OK. Kali is made by others (OffSec). Linux Penguin manages it."
+      "job": "Kali Linux on drives in Astra’s old MacBook Pro (Astra named it, 2026-10-18): the machine that tests this farm the way an outsider would, only with her OK. Kali is made by others (OffSec). Linux Penguin manages it.",
+      "does": "Kali Linux on drives in your old MacBook Pro: it tests this farm the way an outsider would, only with your OK."
     },
     {
       "id": "smart-pin",
@@ -1874,7 +1954,8 @@
       "state": "now",
       "layer": 6,
       "category": "Network service",
-      "job": "Your internet provider: every cloud service, AI model and GitHub sits beyond it. Third-party."
+      "job": "Your internet provider: every cloud service, AI model and GitHub sits beyond it. Third-party.",
+      "does": "Your home internet connection: every cloud service, AI model and GitHub is reached through it."
     },
     {
       "id": "cell-carrier",
@@ -1883,7 +1964,8 @@
       "state": "now",
       "layer": 6,
       "category": "Network service",
-      "job": "Your phones’ mobile network (cellular data), separate from home Wi-Fi. Third-party."
+      "job": "Your phones’ mobile network (cellular data), separate from home Wi-Fi. Third-party.",
+      "does": "Your phones' mobile network, separate from home Wi-Fi."
     },
     {
       "id": "lora-mesh",
@@ -1892,7 +1974,8 @@
       "state": "planned",
       "layer": 6,
       "category": "Network service",
-      "job": "Long-range, low-power radio mesh for the cyberdeck’s Raspberry Pi (Mesh Moth’s job). Works with no internet at all."
+      "job": "Long-range, low-power radio mesh for the cyberdeck’s Raspberry Pi (Mesh Moth’s job). Works with no internet at all.",
+      "does": "Long-range, low-power radio messages between devices, with no internet at all."
     },
     {
       "id": "steam-streaming-audio",
@@ -1901,7 +1984,8 @@
       "state": "now",
       "layer": 6,
       "category": "Virtual audio",
-      "job": "Steam Remote Play’s virtual sound card (Steam Streaming Speakers and Microphone): Voicemeeter output A2 and input 3."
+      "job": "Steam Remote Play’s virtual sound card (Steam Streaming Speakers and Microphone): Voicemeeter output A2 and input 3.",
+      "does": "Steam Remote Play's virtual speakers and microphone."
     },
     {
       "id": "virtual-desktop-audio",
@@ -1910,7 +1994,8 @@
       "state": "now",
       "layer": 6,
       "category": "Virtual audio",
-      "job": "Virtual Desktop’s sound card: the Quest’s microphone comes into Voicemeeter on input 2, and PC sound can play in the headset."
+      "job": "Virtual Desktop’s sound card: the Quest’s microphone comes into Voicemeeter on input 2, and PC sound can play in the headset.",
+      "does": "Virtual Desktop's virtual sound card: the headset's microphone and sound."
     },
     {
       "id": "meta-link-audio",
@@ -1919,7 +2004,8 @@
       "state": "now",
       "layer": 6,
       "category": "Virtual audio",
-      "job": "Meta Horizon Link’s sound card: the Quest’s headphones and microphone while on Link."
+      "job": "Meta Horizon Link’s sound card: the Quest’s headphones and microphone while on Link.",
+      "does": "Meta Horizon Link's virtual sound card: the Quest's headphones and microphone on Link."
     },
     {
       "id": "voicemeeter-cables",
@@ -1928,7 +2014,8 @@
       "state": "now",
       "layer": 6,
       "category": "Virtual audio",
-      "job": "Voicemeeter Potato’s own virtual inputs (Voicemeeter Input, AUX, VAIO3) and outputs (B1 to B3) that apps can send to and record from."
+      "job": "Voicemeeter Potato’s own virtual inputs (Voicemeeter Input, AUX, VAIO3) and outputs (B1 to B3) that apps can send to and record from.",
+      "does": "Voicemeeter's own virtual inputs and outputs, which apps send sound to and record from."
     },
     {
       "id": "fuzzbois-site",
@@ -1937,7 +2024,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The website that generates the Fuzzboi art: a six-digit hex code picks the look (findastra.github.io/fuzzbois). Fuzzboi Friend watches over it."
+      "job": "The website that generates the Fuzzboi art: a six-digit hex code picks the look (findastra.github.io/fuzzbois). Fuzzboi Friend watches over it.",
+      "does": "The website that draws a Fuzzboi from a six-digit hex code."
     },
     {
       "id": "fuzz-factory",
@@ -1947,7 +2035,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Fuzzboi Friend’s own page (findastra.github.io/fuzzboi-friend): make your own Fuzzboi."
+      "job": "Fuzzboi Friend’s own page (findastra.github.io/fuzzboi-friend): make your own Fuzzboi.",
+      "does": "Fuzzboi Friend's page, where you make your own Fuzzboi."
     },
     {
       "id": "dubstep-gunsmith",
@@ -1957,7 +2046,8 @@
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet."
+      "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet.",
+      "does": "A catalog site for your avatar gun effects and loadouts."
     },
     {
       "id": "threejs",
@@ -1966,7 +2056,8 @@
       "state": "now",
       "layer": 6,
       "category": "Dependency",
-      "job": "Third-party 3D library the System Map draws with, loaded from cdnjs, with its TrackballControls add-on from jsDelivr. Loaded without an integrity hash yet (PROTECTION-RINGS.md, gap 6)."
+      "job": "Third-party 3D library the System Map draws with, loaded from cdnjs, with its TrackballControls add-on from jsDelivr. Loaded without an integrity hash yet (PROTECTION-RINGS.md, gap 6).",
+      "does": "A JavaScript library that draws 3D in a web page; the System Map uses it."
     },
     {
       "id": "google-fonts",
@@ -1975,7 +2066,8 @@
       "state": "now",
       "layer": 6,
       "category": "Dependency",
-      "job": "Third-party font service: Bricolage Grotesque and IBM Plex for the System Map."
+      "job": "Third-party font service: Bricolage Grotesque and IBM Plex for the System Map.",
+      "does": "Free web fonts; the System Map's typefaces come from it."
     },
     {
       "id": "web-browser",
@@ -1984,7 +2076,8 @@
       "state": "now",
       "layer": 6,
       "category": "Dependency",
-      "job": "The third-party program that runs the System Map and every pet page; WebGL draws the 3D."
+      "job": "The third-party program that runs the System Map and every pet page; WebGL draws the 3D.",
+      "does": "Shows web pages; WebGL draws their 3D, like the System Map's."
     },
     {
       "id": "nodejs",
@@ -1993,7 +2086,8 @@
       "state": "now",
       "layer": 6,
       "category": "Dependency",
-      "job": "Third-party runtime that runs npm run build and the tests."
+      "job": "Third-party runtime that runs npm run build and the tests.",
+      "does": "Runs JavaScript outside the browser: the hub's build and tests."
     },
     {
       "id": "ipad-workflow-caster",
@@ -3496,6 +3590,20 @@
       "carries": "runs-on",
       "state": "now",
       "why": "click-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "pet-packs",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-packs runs with Node 20 or newer, its built-in modules only (the zip too)."
+    },
+    {
+      "from": "pet-packs",
+      "to": "github",
+      "carries": "opens",
+      "state": "now",
+      "why": "pet-packs reads each pet’s repo at a version with git, through the PC’s own sign-in, and changes nothing there."
     },
     {
       "from": "click-check",
