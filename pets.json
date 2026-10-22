@@ -154,6 +154,11 @@
         "say": "Markdown pet",
         "means": "the pet as one Markdown file: what it does, where it opens in a browser and the rules an AI follows to act as it, for computers that cannot install",
         "retired": []
+      },
+      {
+        "say": "pet pack",
+        "means": "one pet in one zip, without the whole system: its repo at one version, its pictures, its pet program page and its Markdown pet",
+        "retired": []
       }
     ]
   },
@@ -528,6 +533,29 @@
       ]
     }
   },
+  "needs_key": {
+    "about": "What each pet needs to work, in its own entry as `needs` (Astra, 2026-10-20: one place, pets.json, checked by npm test). A pet pack (scripts/pet-packs-20261020.mjs) reads it to say plainly what works alone and what needs a farm; later the Friendly Farmer reads it to add one pet to a farm (farm.lock). Four kinds, each a list: `os` (the computer its own program runs on; its pet program page and Markdown pet open in any browser anyway), `pets` (other pets, by repo), `core` (parts of the core that only a farm has) and `programs` (third-party programs, by their node id in system-map.json). Each item of pets, core and programs says `how` and `why`. Only what works today or is planned: ideas nobody agreed to are not needs.",
+    "how": {
+      "required": "Its own program does not do its job without it.",
+      "optional": "It works without it; one of its tools, a planned connection or its desktop pet needs it."
+    },
+    "os": {
+      "windows": "Windows 10 or 11.",
+      "linux": "A Linux computer.",
+      "macos": "A Mac.",
+      "ipados": "An iPad."
+    },
+    "core": {
+      "startup-star": {
+        "name": "Startup Star",
+        "what": "A native program of The Farm: it builds and runs the desktop pets and the tray star. A pet pack brings no desktop pet; installing Astra's PetOS does."
+      },
+      "daily-round": {
+        "name": "The Friendly Farmer's daily round",
+        "what": "It runs in the farm's own hub (GitHub Actions): self-audits and moods, and the audits that run inside it."
+      }
+    }
+  },
   "pets": [
     {
       "repo": "astras-pet-os",
@@ -541,6 +569,7 @@
       "visibility": "private",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
+      "version": "0.3.0-beta",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
       "interface_local_url": "apps/pet-programs/astras-pet-os-20261018.html",
       "interface_url": "apps/pet-programs/astras-pet-os-20261018.html",
@@ -549,6 +578,30 @@
         "cadence": "daily",
         "subject": "the pet registry and the System Map",
         "needs": "a FARMER_TOKEN secret so I can see the private pet repos"
+      },
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "click-check runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "web-browser",
+            "how": "required",
+            "why": "click-check drives a headless Edge or Chrome with a throwaway profile and clicks every button and link on the pet program pages; it sends nothing."
+          },
+          {
+            "node": "github",
+            "how": "required",
+            "why": "The daily round runs on GitHub Actions and reads every repo."
+          }
+        ]
       }
     },
     {
@@ -561,6 +614,7 @@
       "published": true,
       "job": "Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors.",
       "added": "2026-10-07",
+      "version": "0.2.0-20261008",
       "interface_local_url": "apps/pet-programs/github-goldfish-20261018.html",
       "interface_url": "apps/pet-programs/github-goldfish-20261018.html",
       "app_url": "apps/github-goldfish-20261008.html",
@@ -571,6 +625,29 @@
         "cadence": "weekly",
         "subject": "the findastra GitHub account",
         "needs": "a GitHub token that can read the private repos"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "daily-round",
+            "how": "required",
+            "why": "Its audits run inside the Friendly Farmer's daily round: its audit code lives in the hub, not in its own repo yet."
+          },
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; GitHub Goldfish works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "github",
+            "how": "required",
+            "why": "The Goldfish audits the GitHub account."
+          }
+        ]
       }
     },
     {
@@ -586,6 +663,7 @@
       "visibility": "private",
       "job": "Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.",
       "added": "2026-10-07",
+      "version": "0.1.0-20261008-pets",
       "note": "Original Data Dealer drawing code, preserved at integer scale inside its yellow pocket launcher. Uses the exact original LCD palette and pixel geometry. The original app repository is private.",
       "interface_local_url": "apps/pet-programs/data-dealer-20261018.html",
       "interface_url": "apps/pet-programs/data-dealer-20261018.html",
@@ -597,6 +675,18 @@
         "cadence": "weekly",
         "subject": "Data Dealer's repo",
         "needs": "your answer to a decision on the ops dashboard"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Data Chip works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -609,6 +699,7 @@
       "published": true,
       "job": "Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop.",
       "added": "2026-10-07",
+      "version": "0.1.0-20261008",
       "note": "Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).",
       "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
       "interface_url": "apps/pet-programs/api-fairy-20261018.html",
@@ -621,7 +712,21 @@
         "subject": "Pet Program source, shared controls and declared tool behavior",
         "needs": "Local source review; real runtime and desktop actions require separate verification"
       },
-      "submitted": "2026-10-15"
+      "submitted": "2026-10-15",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; API Fairy works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "unity-unicorn",
@@ -633,6 +738,7 @@
       "published": true,
       "job": "A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.",
       "added": "2026-10-07",
+      "version": "0.5.1-20261019",
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
@@ -643,6 +749,41 @@
         "cadence": "weekly",
         "subject": "your Unity and VRChat project notes",
         "needs": "a project opened in Unity so I can check it"
+      },
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Unity Unicorn works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "vrcft",
+            "how": "optional",
+            "why": "Planned: Unity Unicorn will personalize an avatar's face-tracking rig in conjunction with VRCFT (Astra, 2026-10-12)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: Tracks which avatars are uploaded to which VRChat account, with Quest, opti and fallback versions (Astra)."
+          },
+          {
+            "node": "unity-editor",
+            "how": "required",
+            "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "required",
+            "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
+          }
+        ]
       }
     },
     {
@@ -655,6 +796,7 @@
       "published": true,
       "job": "A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.",
       "added": "2026-10-07",
+      "version": "0.1.0-20261008-pets",
       "note": "A panther, not a snake. Python blue and yellow on dark fur.",
       "interface_local_url": "apps/pet-programs/learn-python-20261018.html",
       "interface_url": "apps/pet-programs/learn-python-20261018.html",
@@ -666,6 +808,18 @@
         "cadence": "weekly",
         "subject": "your Python lessons",
         "needs": "you to do the next lesson"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Python Panther works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -678,6 +832,7 @@
       "published": true,
       "job": "Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.",
       "added": "2026-10-07",
+      "version": "0.1.0-20261008-pets",
       "note": "DRAFT. The name Wisp is a placeholder.",
       "interface_local_url": "apps/pet-programs/the-astral-plane-20261018.html",
       "interface_url": "apps/pet-programs/the-astral-plane-20261018.html",
@@ -690,7 +845,25 @@
         "subject": "AI Astra: her mind, VRChat body and voice",
         "needs": "the AI Astra app started on your PC"
       },
-      "submitted": "2026-10-17"
+      "submitted": "2026-10-17",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Astra Wisp works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: Sends chatbox lines and button presses (move, turn, jump, stop) to VRChat's OSC input, on this PC only. Planned until the first live test in a private world: it has never run against live VRChat."
+          }
+        ]
+      }
     },
     {
       "repo": "health-hummy",
@@ -702,6 +875,7 @@
       "published": true,
       "job": "Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed.",
       "added": "2026-10-07",
+      "version": "0.1.1-20261009",
       "note": "DRAFT as a hummingbird (a guess from the name).",
       "interface_local_url": "apps/pet-programs/health-hummy-20261018.html",
       "interface_url": "apps/pet-programs/health-hummy-20261018.html",
@@ -713,6 +887,18 @@
         "cadence": "weekly",
         "subject": "my own files (never your check-ins)",
         "needs": "a check-in only you can make"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Health Hummy works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -725,6 +911,7 @@
       "published": true,
       "job": "Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed.",
       "added": "2026-10-07",
+      "version": "0.1.1-20261009",
       "interface_local_url": "apps/pet-programs/finance-finch-20261018.html",
       "interface_url": "apps/pet-programs/finance-finch-20261018.html",
       "app_url": "apps/finance-finch-20261008.html",
@@ -735,6 +922,18 @@
         "cadence": "weekly",
         "subject": "my own files (never your entries)",
         "needs": "an entry only you can add"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Finance Finch works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -747,6 +946,7 @@
       "published": true,
       "job": "A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned.",
       "added": "2026-10-07",
+      "version": "0.1.1-20261009",
       "note": "DRAFT, drawn from the twin mascots on the Mommy's website (blonde hair and green eyes; dark brunette hair, white horns and blue eyes). Their lines come from that page.",
       "says": {
         "mommys-mommies": [
@@ -774,6 +974,24 @@
         "cadence": "weekly",
         "subject": "Mommy's classes and events",
         "needs": "a date or teacher confirmed for a session"
+      },
+      "needs": {
+        "os": [],
+        "pets": [
+          {
+            "repo": "findastra-discord-presence",
+            "how": "optional",
+            "why": "Planned: Mommy's Mommies' Discord connection goes through Discord Damsel."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Mommy's Mommies works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -786,6 +1004,7 @@
       "published": true,
       "job": "Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.",
       "added": "2026-10-07",
+      "version": "0.1.0-20261008-pets",
       "note": "DRAFT. Dark mauve and pink from the site, a folded paper hat, a rolled paper.",
       "interface_local_url": "apps/pet-programs/paper-girl-20261018.html",
       "interface_url": "apps/pet-programs/paper-girl-20261018.html",
@@ -798,6 +1017,24 @@
         "cadence": "weekly",
         "subject": "the science desk and its live site",
         "needs": "a look at the live site"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Paper Patty works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "github",
+            "how": "optional",
+            "why": "Published on GitHub Pages."
+          }
+        ]
       }
     },
     {
@@ -810,6 +1047,7 @@
       "published": true,
       "job": "Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned).",
       "added": "2026-10-07",
+      "version": "0.1.1-20261008-pets",
       "note": "DRAFT as a manila folder.",
       "interface_local_url": "apps/pet-programs/file-master-20261018.html",
       "interface_url": "apps/pet-programs/file-master-20261018.html",
@@ -821,6 +1059,31 @@
         "cadence": "weekly",
         "subject": "your PC's folders and projects",
         "needs": "the scanner run on your PC"
+      },
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; File Master works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "everything-search",
+            "how": "optional",
+            "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+          },
+          {
+            "node": "spacesniffer",
+            "how": "optional",
+            "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+          }
+        ]
       }
     },
     {
@@ -833,6 +1096,7 @@
       "published": true,
       "job": "Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.",
       "added": "2026-10-07",
+      "version": "0.1.1-20261008-pets",
       "note": "DRAFT. Blurple hennin and veil; no Discord logo.",
       "interface_local_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
       "interface_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
@@ -845,7 +1109,43 @@
         "subject": "the OpenAI and Anthropic presence apps",
         "needs": "Discord open with activity sharing on"
       },
-      "submitted": "2026-10-14"
+      "submitted": "2026-10-14",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "role-fairy",
+            "how": "optional",
+            "why": "Planned: Discord Damsel shows how Role Fairy’s bots are."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Discord Damsel works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "discord",
+            "how": "required",
+            "why": "Planned: Discord Damsel's server and DM cleanup and future Discord tools (Astra, 2026-10-11)."
+          },
+          {
+            "node": "betterdiscord",
+            "how": "optional",
+            "why": "Planned: The Sticker Manager is a BetterDiscord plugin."
+          },
+          {
+            "node": "cli-proxy-api",
+            "how": "optional",
+            "why": "Installs the verified release, writes a config that keeps it on this PC only, starts and stops it; refuses a Claude sign-in."
+          }
+        ]
+      }
     },
     {
       "repo": "portfolio-puffer",
@@ -857,6 +1157,7 @@
       "published": true,
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
+      "version": "0.1.1-20261009",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
       "interface_url": "apps/pet-programs/portfolio-puffer-20261018.html",
@@ -868,6 +1169,24 @@
         "cadence": "weekly",
         "subject": "your updates worth sharing",
         "needs": "a drafted update approved or posted"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Portfolio Puffer works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "github",
+            "how": "optional",
+            "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+          }
+        ]
       }
     },
     {
@@ -880,6 +1199,7 @@
       "published": true,
       "job": "Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned.",
       "added": "2026-10-08",
+      "version": "0.1.1-20261009",
       "note": "DRAFT. A local music-project notebook is available. It does not connect to Ableton Live or acquire samples.",
       "interface_local_url": "apps/pet-programs/drum-dog-20261018.html",
       "interface_url": "apps/pet-programs/drum-dog-20261018.html",
@@ -891,6 +1211,24 @@
         "cadence": "weekly",
         "subject": "your track ideas and samples",
         "needs": "a sample permission confirmed"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Drum Dog works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "ableton-live",
+            "how": "optional",
+            "why": "Planned: Drum Dog’s job: Ableton Live connections are planned."
+          }
+        ]
       }
     },
     {
@@ -903,6 +1241,7 @@
       "published": true,
       "job": "Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned.",
       "added": "2026-10-08",
+      "version": "0.1.1-20261009",
       "note": "DRAFT. The job is taken from the session where Astra named it; confirm the scope with her.",
       "interface_local_url": "apps/pet-programs/vscode-angel-20261018.html",
       "interface_url": "apps/pet-programs/vscode-angel-20261018.html",
@@ -914,6 +1253,18 @@
         "cadence": "weekly",
         "subject": "your code cleanup worklist",
         "needs": "a finding reviewed"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; VSCode Angel works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -927,6 +1278,7 @@
       "published": true,
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
+      "version": "0.1.0-20261008-pets",
       "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
@@ -939,6 +1291,18 @@
         "cadence": "weekly",
         "subject": "your security checklist",
         "needs": "a security step only you can do"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Gone Ghost works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -952,6 +1316,7 @@
       "published": true,
       "job": "Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.",
       "added": "2026-10-08",
+      "version": "0.1.1-20261009",
       "note": "DRAFT. Officially named Project Parrot, replacing Project Pal. The local desk stores manually entered ideas and due dates. OneNote scanning and background reminder integration remain unconnected.",
       "interface_local_url": "apps/pet-programs/project-parrot-20261018.html",
       "interface_url": "apps/pet-programs/project-parrot-20261018.html",
@@ -963,6 +1328,18 @@
         "cadence": "weekly",
         "subject": "your project ideas",
         "needs": "a yes or no on an idea that is due"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Project Parrot works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -977,6 +1354,8 @@
       "published": true,
       "job": "Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.",
       "added": "2026-10-08",
+      "version": "0.1.0",
+      "version_assigned": true,
       "note": "DRAFT. A compact neckless grey bug with red and black details, shown at the standard pet height. Made with OpenAI Codex (GPT-6) on 2026-10-08. Audio repair runs in the separate local Windows app; browser moods do not measure audio health. Source in the private repo findastra/voicemeeter-bug since 2026-10-11.",
       "interface_local_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
       "interface_url": "apps/pet-programs/voicemeeter-bug-20261018.html",
@@ -994,7 +1373,32 @@
           "what": "restart Voicemeeter's audio engine (the repair; it was one click until 2026-10-19)"
         }
       },
-      "submitted": "2026-10-18"
+      "submitted": "2026-10-18",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Voicemeeter Bug works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "voicemeeter",
+            "how": "required",
+            "why": "Restarts Voicemeeter's audio engine when audio needs repair."
+          },
+          {
+            "node": "steam-streaming-audio",
+            "how": "optional",
+            "why": "Voicemeeter Bug watches output A2."
+          }
+        ]
+      }
     },
     {
       "repo": "platform-platypus",
@@ -1007,6 +1411,8 @@
       "published": true,
       "job": "Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.",
       "added": "2026-10-13",
+      "version": "0.1.0",
+      "version_assigned": true,
       "note": "DRAFT art until Astra approves it: a purple platypus with a yellow bill and a cyan phone, the seed sheet generated 2026-10-12 (art/seeds/platform-platypus-sheet-20261012.png). Registered with that sheet on Astra's OK, 2026-10-17, by Claude Opus 5.5. Kind 'penguin' only borrows a plain ground walk; a platypus-specific kind is the Farmer's call.",
       "interface_local_url": "apps/pet-programs/platform-platypus-20261018.html",
       "interface_url": "apps/pet-programs/platform-platypus-20261018.html",
@@ -1017,7 +1423,30 @@
         "subject": "how Astra's pages look across iPhone, Android, iPad and desktop",
         "needs": "something only you can do"
       },
-      "visibility": "private"
+      "visibility": "private",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Platform Platypus works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "fit-check runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "web-browser",
+            "how": "required",
+            "why": "fit-check drives a headless Edge or Chrome through its DevTools pipe, pretending to be each phone, iPad and window."
+          }
+        ]
+      }
     },
     {
       "repo": "log-den",
@@ -1030,6 +1459,7 @@
       "published": true,
       "job": "Observability: correlates logs, traces, health and failures.",
       "added": "2026-10-18",
+      "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an electric-teal lynx with navy spots, tangerine ear tufts and a lime logbook. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
       "interface_local_url": "apps/pet-programs/log-den-20261018.html",
       "interface_url": "apps/pet-programs/log-den-20261018.html",
@@ -1039,7 +1469,27 @@
         "subject": "the farm’s logs and crash windows",
         "needs": "a look at a crash I caught"
       },
-      "visibility": "private"
+      "visibility": "private",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "packet-river",
+            "how": "optional",
+            "why": "Network samples next to each crash, so a crash can be checked against the network at that moment."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Log Lynx works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "packet-river",
@@ -1052,6 +1502,7 @@
       "published": true,
       "job": "Network: packet loss, DNS, latency, routing.",
       "added": "2026-10-18",
+      "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: an aqua-cyan piranha with a crimson belly, lemon fins and a toothy underbite. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
       "interface_local_url": "apps/pet-programs/packet-river-20261018.html",
       "interface_url": "apps/pet-programs/packet-river-20261018.html",
@@ -1061,7 +1512,27 @@
         "subject": "the network: loss, latency, DNS and routes",
         "needs": "a host to trace"
       },
-      "visibility": "private"
+      "visibility": "private",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "log-den",
+            "how": "required",
+            "why": "It is built against Log Den's farm event log (findastra/log-den cloned next to it), and every network sample it takes is a farm event in that format."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Packet Piranha works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "evidence-locker",
@@ -1074,6 +1545,7 @@
       "published": true,
       "job": "Incident timelines and log analysis.",
       "added": "2026-10-18",
+      "version": "0.1.2-20261019",
       "note": "DRAFT art, generated 2026-10-19 with Astra's OK: a golden-yellow ferret with a violet bandit mask and a hot pink magnifying glass. A Windows tray program (built on the PC, started at sign-in from a Startup-folder shortcut); its page shows live records only on Astra's PC.",
       "interface_local_url": "apps/pet-programs/evidence-locker-20261018.html",
       "interface_url": "apps/pet-programs/evidence-locker-20261018.html",
@@ -1083,7 +1555,32 @@
         "subject": "cases and their chains of custody",
         "needs": "what you saw at a moment with no crash record"
       },
-      "visibility": "private"
+      "visibility": "private",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "log-den",
+            "how": "required",
+            "why": "It is built against Log Den's farm event log (findastra/log-den cloned next to it), and its cases start from the crashes Log Lynx catches."
+          },
+          {
+            "repo": "packet-river",
+            "how": "optional",
+            "why": "The network samples around each case: fine, or what was wrong."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Forensic Ferret works without it."
+          }
+        ],
+        "programs": []
+      }
     }
   ],
   "pipeline": [
@@ -1095,6 +1592,8 @@
       "status": "hatching",
       "job": "Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.",
       "added": "2026-10-11",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/spoonfed-20261018.html",
       "interface_url": "apps/pet-programs/spoonfed-20261018.html",
       "audit": {
@@ -1102,7 +1601,19 @@
         "subject": "Spoonfed’s restaurant discovery, saved spots, and sample-data labels",
         "needs": "review of Spoonfed Sugarcube draft artwork and a live restaurant provider before real recommendations"
       },
-      "note": "Private artwork-only repository published; nine draft frames ready. Application remains a local draft. Card 009."
+      "note": "Private artwork-only repository published; nine draft frames ready. Application remains a local draft. Card 009.",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Spoonfed Sugarcube works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "claude-bot",
@@ -1112,6 +1623,8 @@
       "status": "hatching",
       "job": "Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/claude-bot-20261018.html",
       "interface_url": "apps/pet-programs/claude-bot-20261018.html",
       "audit": {
@@ -1119,7 +1632,21 @@
         "subject": "the Claude Bot plan and build",
         "needs": "a decision on the plan"
       },
-      "note": "Cards 001-003."
+      "note": "Cards 001-003.",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "required",
+            "why": "Claude Bot is a desktop pet: Claude’s twin of ChatGPT’s BSOD. Its pictures stay in its private repo."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "rgbee",
@@ -1128,6 +1655,8 @@
       "status": "hatching",
       "job": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/rgbee-20261018.html",
       "interface_url": "apps/pet-programs/rgbee-20261018.html",
       "audit": {
@@ -1135,7 +1664,46 @@
         "subject": "your RGB lights and scenes",
         "needs": "the brand and model of each light"
       },
-      "note": "Card 004. Art waits on Astra."
+      "note": "Card 004. Art waits on Astra.",
+      "needs": {
+        "os": [],
+        "pets": [
+          {
+            "repo": "api-fairy",
+            "how": "optional",
+            "why": "Planned: cloud light APIs need keys, and API Fairy keeps the notes about them."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; RGBee works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "msi-center",
+            "how": "optional",
+            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          },
+          {
+            "node": "corsair-icue",
+            "how": "optional",
+            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          },
+          {
+            "node": "razer-synapse",
+            "how": "optional",
+            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          },
+          {
+            "node": "logitech-g-hub",
+            "how": "optional",
+            "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          }
+        ]
+      }
     },
     {
       "repo": "mine-mole",
@@ -1144,12 +1712,26 @@
       "status": "hatching",
       "job": "Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/mine-mole-20261018.html",
       "interface_url": "apps/pet-programs/mine-mole-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the crypto mining research",
         "needs": "your power price and graphics card model"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Mine Mole works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1159,6 +1741,8 @@
       "status": "hatching",
       "job": "Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch. Bill details stay on her PC; it connects to no mail account yet.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/mail-snail-20261018.html",
       "interface_url": "apps/pet-programs/mail-snail-20261018.html",
       "audit": {
@@ -1167,7 +1751,25 @@
         "needs": "a job: what should Mail Snail do?"
       },
       "note": "Card 007.",
-      "submitted": "2026-10-12"
+      "submitted": "2026-10-12",
+      "needs": {
+        "os": [],
+        "pets": [
+          {
+            "repo": "finance-finch",
+            "how": "optional",
+            "why": "Planned: bills found in the mail go to Finance Finch. Finance data stays on the PC."
+          }
+        ],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Mail Snail works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "patch-cat",
@@ -1176,12 +1778,26 @@
       "status": "hatching",
       "job": "Placeholder. The job is not decided yet.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/patch-cat-20261018.html",
       "interface_url": "apps/pet-programs/patch-cat-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
         "needs": "a job: what should Patch Cat do?"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Patch Cat works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1191,12 +1807,26 @@
       "status": "hatching",
       "job": "Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet). Your memes stay on your PC.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/meme-fiend-20261018.html",
       "interface_url": "apps/pet-programs/meme-fiend-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your saved memes (on your PC only)",
         "needs": "a meme folder chosen"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Meme Fiend works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1206,6 +1836,8 @@
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/astras-gif-maker-20261018.html",
       "interface_url": "apps/pet-programs/astras-gif-maker-20261018.html",
       "audit": {
@@ -1213,7 +1845,19 @@
         "subject": "my plan",
         "needs": "a job: what kind of GIFs should I make?"
       },
-      "note": "Was a candidate; now a pet repo."
+      "note": "Was a candidate; now a pet repo.",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Gif Giraffe works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "backup-beaver",
@@ -1222,12 +1866,26 @@
       "status": "hatching",
       "job": "Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/backup-beaver-20261018.html",
       "interface_url": "apps/pet-programs/backup-beaver-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
         "needs": "a job: what should Backup Beaver back up?"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Backup Beaver works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1237,12 +1895,89 @@
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "interface_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "your VR software and performance notes",
         "needs": "your headset and PC details"
+      },
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Rift Rabbit works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "steamvr",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "meta-horizon-link",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "virtual-desktop",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "ovr-advanced-settings",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "ovr-toolkit",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "ovr-dynamic-resolution",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "ovr-smooth-tracking",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "ovr-pager",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "space-calibrator",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "base-station-fov",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "double-hip-tracker",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "bs-manager",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          }
+        ]
       }
     },
     {
@@ -1256,6 +1991,8 @@
       "status": "hatching",
       "job": "Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood. Mostly for fun: swap his look any time.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "audit": {
         "cadence": "weekly",
         "subject": "the Fuzzboi maker and its live site",
@@ -1268,6 +2005,24 @@
           "label": "fuzzboi-factory-v1.0-reroll-v1.0",
           "what": "change his body style to the next one"
         }
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Fuzzboi Friend works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "github",
+            "how": "optional",
+            "why": "Published on GitHub Pages."
+          }
+        ]
       }
     },
     {
@@ -1277,12 +2032,26 @@
       "status": "hatching",
       "job": "Placeholder: a monarch butterfly pet. What it does is not decided yet.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/wifi-butterfly-20261018.html",
       "interface_url": "apps/pet-programs/wifi-butterfly-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
         "needs": "a job: what should Wifi Butterfly do?"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Wifi Butterfly works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1292,12 +2061,34 @@
       "status": "hatching",
       "job": "Helps you manage your Elgato Stream Deck: what every button does, on every profile.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/deck-duck-20261018.html",
       "interface_url": "apps/pet-programs/deck-duck-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "my plan",
         "needs": "a job: what should Deck Duck do?"
+      },
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Deck Duck works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "stream-deck",
+            "how": "optional",
+            "why": "Planned: Deck Duck is the Elgato Stream Deck pet."
+          }
+        ]
       }
     },
     {
@@ -1307,12 +2098,26 @@
       "status": "hatching",
       "job": "Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/mesh-moth-20261018.html",
       "interface_url": "apps/pet-programs/mesh-moth-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "the Meshtastic node plan",
         "needs": "a job: what should Mesh Moth watch?"
+      },
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Mesh Moth works without it."
+          }
+        ],
+        "programs": []
       }
     },
     {
@@ -1322,6 +2127,8 @@
       "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "added": "2026-10-09",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/raspberry-berry-20261018.html",
       "interface_url": "apps/pet-programs/raspberry-berry-20261018.html",
       "audit": {
@@ -1342,7 +2149,19 @@
         "sick": "The browser is blocking site storage, so I cannot remember the Pis.",
         "alarmed": "More than five things to fix across the Pis."
       },
-      "submitted": "2026-10-13"
+      "submitted": "2026-10-13",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Raspberry Pi Berry works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "role-fairy",
@@ -1351,6 +2170,8 @@
       "status": "hatching",
       "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
       "added": "2026-10-17",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
       "interface_url": "apps/pet-programs/role-fairy-20261018.html",
       "audit": {
@@ -1359,7 +2180,24 @@
         "needs": "a bot's access to its server, or your OK for a new bot"
       },
       "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered.",
-      "submitted": "2026-10-19"
+      "submitted": "2026-10-19",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "discord",
+            "how": "required",
+            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+          },
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "Fairy Ring’s bots run on Node 24.17 or newer (its pet.json)."
+          }
+        ]
+      }
     },
     {
       "repo": "chat-rat",
@@ -1368,6 +2206,8 @@
       "status": "growing",
       "job": "Saves local AI conversations and imported exports by recorded model and YYYYMMDD, with direct folder buttons.",
       "added": "2026-10-18",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/chat-rat-20261018.html",
       "interface_url": "apps/pet-programs/chat-rat-20261018.html",
       "audit": {
@@ -1376,7 +2216,27 @@
         "needs": "where your Claude and OpenAI chats are saved"
       },
       "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit.",
-      "submitted": "2026-10-16"
+      "submitted": "2026-10-16",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Chat Rat works without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
+          }
+        ]
+      }
     },
     {
       "repo": "workflow-whirlpool",
@@ -1385,6 +2245,8 @@
       "status": "hatching",
       "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
       "added": "2026-10-18",
+      "version": "0.1.0",
+      "version_assigned": true,
       "interface_local_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "interface_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "app_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
@@ -1393,7 +2255,22 @@
         "subject": "pairing, capture privacy, feedback delivery and device acceptance",
         "needs": "native iPad verification and a verified chat adapter"
       },
-      "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending."
+      "note": "Proposed pipeline enrollment; draft existing art. Core approval and native desktop activation pending.",
+      "needs": {
+        "os": [
+          "windows",
+          "ipados"
+        ],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs it on a farm; Workflow Whale works without it."
+          }
+        ],
+        "programs": []
+      }
     },
     {
       "repo": "linux-iceberg",
@@ -1402,6 +2279,7 @@
       "status": "hatching",
       "job": "Linux administration, SSH, systemd, packages.",
       "added": "2026-10-19",
+      "version": "v0.1",
       "audit": {
         "cadence": "weekly",
         "subject": "the Linux computers on the farm, MacAttack first",
@@ -1410,7 +2288,54 @@
       "note": "Astra, 2026-10-19: \"I want to see the Linux Penguin UI and the Linux Penguin program ... create it if you have to via the friendly farmer's instructions.\" Two read-only tools (linux-check, mac-prewipe-check) and two tricks (debian-family, kali-on-a-mac) on linux-iceberg main, carried by the Linux package (#109). Security role: the red team; he manages MacAttack. No pet art yet (generating it waits on her OK).",
       "interface_url": "apps/pet-programs/linux-iceberg-20261018.html",
       "interface_local_url": "apps/pet-programs/linux-iceberg-20261018.html",
-      "submitted": "2026-10-19"
+      "submitted": "2026-10-19",
+      "needs": {
+        "os": [
+          "linux",
+          "macos"
+        ],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "macattack",
+            "how": "optional",
+            "why": "Planned: Linux Penguin manages MacAttack, the Kali drives that test this farm (Astra, 2026-10-18)."
+          }
+        ]
+      }
+    },
+    {
+      "repo": "kernel-grove",
+      "pet": "Kernel Koala",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Processes, memory, drivers and OS internals.",
+      "added": "2026-10-21",
+      "version": "0.1.0-20261021",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",
+        "needs": "your OK to stop a leftover or switch a sign-in item off"
+      },
+      "note": "Astra, 2026-10-21: \"what are all of these programs running on my task manager? ... Make a tool for me and decide what pet it goes on for managing task manager and monitoring unnecessary applications.\" Kernel Grove's window (process-sweep, startup-switch, service-host-explainer) and its background leftover-watch, merged 2026-10-21 (findastra/kernel-grove#3, with Astra's OK). No tray icon: its menu is in Startup Star's menu under Kernel Koala. No pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/kernel-grove-20261018.html",
+      "interface_local_url": "apps/pet-programs/kernel-grove-20261018.html",
+      "submitted": "2026-10-21",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "log-den",
+            "how": "required",
+            "why": "Log Den owns the farm event format and the background-pet contract Kernel Grove is built with."
+          }
+        ],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {

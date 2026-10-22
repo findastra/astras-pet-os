@@ -157,6 +157,11 @@ export function petFor(registry, config) {
   return pet;
 }
 const esc = (text) => text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Developer mode (card 060): the desk loads the installer's words, then the swap, in its <head>, and has the words switch
+// in its footer, like every pet program page (test/developer-mode-test-20261019.mjs). The round rebuilds the desk every
+// morning, so the generator writes them, never a hand edit. Claude Opus 5.5, 2026-10-20.
+const WORDS = '<script src="words-mode-20261019.js"></script><script src="developer-words-20261019.js"></script>';
+const WORDS_SWITCH = '<p class="words-switch" data-words-switch></p>';
 if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).href) {
 const args = process.argv.slice(2);
 const refreshExisting = args.includes('--refresh-existing');
@@ -181,7 +186,7 @@ for (const config of configs) {
   const owners = Object.fromEntries(allPets(registry).map((p) => [p.repo, ownerOf(registry, p.repo)]));
   const data = { ...config, owner: ownerOf(registry, pet.repo), ...(config.type === 'manager' ? { pets: registry.pets, everyone, status, order: ORDER, owners } : {}) };
   const serialized = JSON.stringify(data).replaceAll('<', '\\u003c');
-  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Astra; OpenAI Codex GPT-6"><title>${esc(config.title)} · Astra's PetOS</title><style>${css}</style></head><body style="--accent:${config.accent}"><header><img src="${image}" alt="${esc(pet.pet)}"><p class="eyebrow">${esc(config.subtitle)}</p><h1>${esc(config.title)}</h1><p>${esc(config.lead)}</p><p id="feedback" role="status" aria-live="polite"></p></header><main></main><footer><p class="limit">${esc(config.limit)}</p><p>Made by Astra · Local companion interface · 2026-10-08 · Built with OpenAI Codex (GPT-6)</p></footer><script>window.APP_CONFIG=${serialized};(${clientMain.toString()})();</script></body></html>`;
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Astra; OpenAI Codex GPT-6"><title>${esc(config.title)} · Astra's PetOS</title>${config.type === 'manager' ? WORDS : ''}<style>${css}</style></head><body style="--accent:${config.accent}"><header><img src="${image}" alt="${esc(pet.pet)}"><p class="eyebrow">${esc(config.subtitle)}</p><h1>${esc(config.title)}</h1><p>${esc(config.lead)}</p><p id="feedback" role="status" aria-live="polite"></p></header><main></main><footer><p class="limit">${esc(config.limit)}</p><p>Made by Astra · Local companion interface · 2026-10-08 · Built with OpenAI Codex (GPT-6)</p>${config.type === 'manager' ? WORDS_SWITCH : ''}</footer><script>window.APP_CONFIG=${serialized};(${clientMain.toString()})();</script></body></html>`;
   writeFileSync(output, html);
   built++;
 }

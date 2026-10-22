@@ -35,7 +35,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Route tracer**: A tool of Packet River (Astra, 2026-10-18): The hops to a host: on request, and once when the internet is lost while the router answers. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started.
 - **Link watcher**: A tool of Packet River (Astra, 2026-10-18): The adapter in use, its speed and router, and every change or drop. Merged (packet-river PR #2); runs on this PC when Packet Piranha is started.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

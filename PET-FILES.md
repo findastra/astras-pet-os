@@ -154,6 +154,13 @@ private repo. His draft-list entry is marked `"private": true` and names only th
 pictures from its folder next to the hub. Check with
 `node scripts/one-art-source-20261017.mjs` ([docs/one-art-source-20261017.md](docs/one-art-source-20261017.md)).
 
+**A pet pack carries a copy, in the zip only** (Astra, 2026-10-20, card 058). The Friendly Farmer's pet-packs tool
+(`scripts/pet-packs-20261020.mjs`, [MAKE-IT-YOURS.md](MAKE-IT-YOURS.md), section 6) copies one pet's pictures into its
+zip when the zip is built, at the hub's own paths (`astras-pet-os/art/…`, `astras-pet-os/desktop-art/…`), so the pack
+works with no hub and its own programs find them. The copy lives only in that zip: never in the pet's repo or any
+other, and `pet-packs/` is in `.gitignore`. A picture is still changed once, here. Claude Bot's private drawing is never
+packed.
+
 ## How pets move in the Cage
 
 *The Cage page that read these rules was removed (Astra, 2026-10-18). The rules stay in `pets.json` for the desktop

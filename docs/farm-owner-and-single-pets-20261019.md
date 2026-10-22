@@ -1,7 +1,8 @@
 # Every farm's own pets: whose they are, public or private, one pet at a time
 
 **Decided by Astra, 2026-10-20: "All recommended. Build Parts 1 and 2."** Parts 1 and 2 are merged
-(#157, card 058); Part 3 is pull request #164, waiting on Astra's OK; Part 4 is not built. By Claude Opus 5.5
+(#157, card 058); Part 3 is merged (#164, `dcd5d81`); Part 4 is merged (#183, Astra's OK in chat,
+2026-10-21). By Claude Opus 5.5
 (`claude-opus-5-5`), 2026-10-19 and 2026-10-20, from a session started by the beginner-guide chat.
 
 ## Astra's answers (2026-10-20, every recommendation)
@@ -124,7 +125,7 @@ farm list, `farm-setup`, the desktop draft list and `publish-pet-tags`. Astra-on
 say so: her profile round, the Flash Audit and the one-art-source check. Plus a **make-it-yours** command that sets a
 new farm's owner and marks the examples as Astra's, so a beginner never edits JSON by hand.
 
-**As built (pull request #164, 2026-10-20):**
+**As built (pull request #164, merged 2026-10-20 as `dcd5d81`):**
 - The module is `scripts/farm-owner-20261020.mjs`. Its `ownerOf()` gives one repo's account: the pet's own
   `github_owner`, else the farm owner's. A candidate is the farm owner's. A repo the farm's pets.json does not list
   is upstream's.
@@ -147,6 +148,40 @@ new farm's owner and marks the examples as Astra's, so a beginner never edits JS
 - **The installer, one pet:** `-Farm Scratch -Pets <id>` already installs the core with one pet. Next, the Friendly
   Farmer adds or removes one pet on an existing farm and records it in `farm.lock` (he is the package manager), then
   the Kennel's adoptions use the same path.
+
+**As built (pull request #183, merged with Astra's OK in chat, 2026-10-21):**
+- `needs` on all 42 registered and pipeline pets, and `needs_key` at the top of pets.json. Four kinds:
+  - `os`: the computer its own program runs on.
+  - `pets`: other pets, by repo, each required or optional.
+  - `core`: parts only a farm has. `startup-star` is on every pet with a desktop pet; `daily-round` is on GitHub
+    Goldfish, whose audits run inside it.
+  - `programs`: third-party programs, by their System Map node.
+  - Each item has `how` and `why`. Ideas nobody agreed to are not needs.
+  - Written from the relations, system-map.json and each pet's own pet.json. Forensic Ferret and Packet Piranha need
+    Log Lynx: they are built against Log Den's farm event log.
+- `npm test` checks every needed pet, os, core part and program, and every `how`. It also checks two things stay in
+  step: every program a pet runs or plans to run on the map is in its needs, and Startup Star is listed exactly for the
+  pets that have a desktop pet.
+- `os` is a fourth kind, beyond Astra's three. Without it a pack could not say "runs on Windows 10 or 11" for the
+  Windows programs.
+- The Friendly Farmer's pet-packs tool, `scripts/pet-packs-20261020.mjs` (`the-farm-v1.0-pet-packs-v1.0`):
+  - `plan` works offline. `build` reads the pet's repo with git, raw bytes as committed, at `--ref` or the default
+    branch, or from a clone named with `--from`.
+  - It writes `pet-packs/<repo>-pet-pack-<date>.zip` with Node's own zlib. The same files always give the same zip.
+  - The page is the spawner's own page. Every relative link that is not in the zip goes to the public site.
+  - The pictures sit at the hub's own paths under `astras-pet-os/`, so the pet's Windows programs find them as on a
+    farm.
+  - Every file is listed with its SHA-256, the commit and the needs in `pet-pack-20261020.json`, the start of
+    `farm.lock`.
+  - Never the host, never a `stays_private` pet, a private repo only with `--private`. It stops on a key, token,
+    personal folder path or local service address in the pet's files.
+- Checked on real pets: Forensic Ferret, Voicemeeter Bug and Mine Mole packed from GitHub.
+  - Windows' own Expand-Archive and Info-ZIP both open the zips, and every SHA-256 matches.
+  - Opened from the unzipped folder in a browser, every file loaded from the pack (all 200, no console errors), and
+    today's app opened from the page.
+- API Fairy is refused: her repo's tests hold fake keys, and her code holds example folder paths for a made-up user, `you`. That waits
+  on Astra (slides).
+- Not built: publishing packs anywhere (the hub is private since 2026-10-20; slides), signing them, and `farm.lock`.
 
 ## What it would take
 

@@ -32,7 +32,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **name-eraser** (planned, not built yet): A tool of Am I a Ghost? (Gone Ghost): replaces a name with another (USER by default) in files inside the Farm. Dry run first, then Astra approves the plan, with an undo log. Anywhere else on the PC needs a scope from Iron Gates. Its name list stays on the PC.
 - **Internet scrub** (planned, not built yet): A tool of Am I a Ghost? (Gone Ghost): finds a person’s details on websites and data brokers and walks through removing them. Its list of what to remove stays on the PC.
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 

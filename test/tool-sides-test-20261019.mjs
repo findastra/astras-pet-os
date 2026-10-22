@@ -26,7 +26,7 @@ test('Unity Unicorn\'s page shows Avatar tools and World tools, and every tool o
   const avatar = stableTools.filter((n) => n.side === 'avatar').length, world = stableTools.filter((n) => n.side === 'world').length;
   assert.ok(html.includes(`<h3>Avatar tools · ${avatar}</h3>`), 'avatar heading');
   assert.ok(html.includes(`<h3>World tools · ${world}</h3>`), 'world heading');
-  assert.ok(!html.includes('<h3>Your tools</h3>'));
+  assert.ok(!html.includes('<h3>Native tools'));
   const avatarAt = html.indexOf('class="side-avatar"'), worldAt = html.indexOf('class="side-world"');
   const l1 = html.slice(0, html.indexOf('-L2-tool-panel'));   // tricks (L2) may share a tool's name, like unity-asset-creator
   for (const n of stableTools) {
@@ -38,10 +38,10 @@ test('Unity Unicorn\'s page shows Avatar tools and World tools, and every tool o
   }
 });
 
-test('a pet whose tools have no side keeps one Your tools list', () => {
+test('a pet whose tools have no side keeps one Native tools list', () => {
   const d = pages.find((p) => p.repo === 'findastra-discord-presence');
   assert.ok(d.tools.length > 0 && d.tools.every((t) => !t.side));
   const html = buildPetProgramPage(d);
-  assert.ok(html.includes('<h3>Your tools</h3>'));
+  assert.ok(html.includes(`<h3>Native tools · ${d.tools.length}</h3>`));
   assert.ok(!html.includes('Avatar tools ·'));
 });
