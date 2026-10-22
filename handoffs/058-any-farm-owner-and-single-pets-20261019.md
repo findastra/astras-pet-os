@@ -1,4 +1,4 @@
-status: open (Parts 1 to 4 merged, pet-pack answers recorded; waiting on Astra: six farm lock questions (slides), then the hub's old history, task 6)
+status: open (Parts 1 to 4 merged; farm lock answers recorded 2026-10-21, next: build Part 5a; waiting on Astra: the hub's old history, task 6)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-19 to 2026-10-21
 needs: docs/farm-owner-and-single-pets-20261019.md, docs/farm-lock-20261021.md, scripts/animal-guard-20261013.mjs, scripts/pet-privatizer-20261018.mjs, test/pet-privatizer-test-20261018.mjs, skills/farm-security/SKILL.md, MAKE-IT-YOURS.md, apps/beginner-guide-20261019.html, handoffs/051-any-beginner-guide-20261019.md (finding 3)
@@ -228,6 +228,20 @@ This is the second half of Astra's answer 6. It is a proposal only: no code chan
   6. whether the installer ticks the pets a picked pet needs.
 
   Her answers go into rows 13 to 18 of the proposal's answers table, and here.
+- **Astra's answers to the six farm lock questions (2026-10-21: "All recommended on the six farm lock questions")**,
+  recorded in the proposal's table (rows 13 to 18) and in `docs/farm-lock-20261021.md`:
+  1. The farm lock lives on the computer, in the farm's own folder next to the install receipt. It is never committed:
+     a hub copy's `.gitignore` lists it.
+  2. Its file name is `farm-lock-20261021.json`, by her file-name rule. In 5a, the docs' `farm.lock` becomes "the farm
+     lock" (three docs, three skills, pets.json, the pet-packs tool and one test).
+  3. Before packs are signed, each file of a pack is checked against the pet's own repo on GitHub at that commit. A pack
+     that cannot be checked comes in only with `--unchecked`, marked in the farm lock.
+  4. A pet that needs a program or core part the Farmer cannot add still comes in, with a plain warning. The plan names
+     what is missing and what to do, and the farm lock marks it.
+  5. A pet that other pets on the farm require is not taken away. The Farmer stops and names them, and
+     `--with-dependents` takes them all away together, on purpose, after the plan lists every one.
+  6. The installer ticks the pets a picked pet needs, with the same check as the Farmer: ticked and locked, "needed by"
+     that pet.
 
 ## Task
 
@@ -240,8 +254,9 @@ This is the second half of Astra's answer 6. It is a proposal only: no code chan
    - Publishing a pet's first pack waits on her OK for that pet.
    - API Fairy's files are her own chat's card (api-fairy#10).
 5. **Part 5, the farm lock:** proposed in `docs/farm-lock-20261021.md` (2026-10-21).
-   - **Astra:** answer the six questions in the slides.
-   - Then build 5a (the farm lock with the installer's own pets, and the installer's part), then 5b (pet packs come
+   - ~~**Astra:** answer the six questions in the slides~~ Answered 2026-10-21: all recommended (above, and the
+     proposal's rows 13 to 18).
+   - Next: build 5a (the farm lock with the installer's own pets, and the installer's part), then 5b (pet packs come
      in), one pull request at a time, each merged only with her OK.
 6. **Astra:** whether to rewrite the hub's public history to remove the old personal folder paths (found above).
 
