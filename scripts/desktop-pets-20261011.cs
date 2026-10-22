@@ -76,6 +76,13 @@ namespace AstraDesktopPets {
     internal Bitmap Idle,Blink;
     internal bool DesktopArt;
     Bitmap idleInk,blinkInk,idleBands,blinkBands;
+    // A pet that runs in the background shows its alarmed face while its program says it is alarmed (Astra, 2026-10-21:
+    // "Log Lynx turns alarmed; nothing pops up"). Only those pets load the frame.
+    internal string Repo;
+    internal bool Alarmed;
+    Bitmap alarmed,alarmedInk;
+    internal bool HasAlarmed { get { return alarmed!=null; } }
+    Bitmap Frame(bool blink) { return Alarmed&&alarmed!=null?alarmed:blink?Blink:Idle; }
     internal bool Rainbow { get { return Id=="rgbee"||Id=="deck-duck"; } }
     internal bool Layered { get { return Id=="ghost-protocol"||Id=="goldfish"||Id=="api-fairy"||Id=="astra-wisp"||Rainbow||Id=="wifi-butterfly"||Id=="mesh-moth"||Id=="vscode-angel"; } }
     internal string FuzzStyle;
@@ -95,9 +102,12 @@ namespace AstraDesktopPets {
         if(File.Exists(localIdle)){idle=localIdle;blink=localBlink;pet.DesktopArt=true;}
       }
       pet.Idle=Detached(idle);pet.Blink=Detached(blink);
+      pet.Repo=PetFiles.Text(entry,"repo",null);
+      if(BackgroundPets.Watches(pet.Repo)&&paths.ContainsKey("alarmed")) { string sharp=PetFiles.SafePath(PetFiles.Text(paths,"alarmed"));if(File.Exists(sharp))pet.alarmed=Detached(sharp); }
       if(pet.DesktopArt) { CrispTransparency(pet.Idle);CrispTransparency(pet.Blink); }
       if(pet.Id=="portfolio-puffer") { PinkBelly(pet.Idle);PinkBelly(pet.Blink); }
       pet.Crop=Rectangle.Union(AlphaBounds(pet.Idle),AlphaBounds(pet.Blink));
+      if(pet.alarmed!=null) { pet.Crop=Rectangle.Union(pet.Crop,AlphaBounds(pet.alarmed));pet.alarmedInk=BlackMask(pet.alarmed); }
       pet.PrepareEffects();pet.idleInk=BlackMask(pet.Idle);pet.blinkInk=BlackMask(pet.Blink);
       return pet;
     }
@@ -179,14 +189,14 @@ namespace AstraDesktopPets {
       return result;
     }
     internal void Draw(Graphics g,bool blink,RectangleF bounds) {
-      var mask=blink?blinkInk:idleInk;
+      var mask=Alarmed&&alarmedInk!=null?alarmedInk:blink?blinkInk:idleInk;
       // Generated desktop sprites already include ink. Do not double their outline.
       // Legacy sprites receive one physical pixel, regardless of display scaling.
       float inkPixel=1;using(var transform=g.Transform)inkPixel=1/Math.Max(1,transform.Elements[0]);
       if(!DesktopArt&&!Layered)for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++)if(x!=0||y!=0) {
         var edge=bounds;edge.Offset(x*inkPixel,y*inkPixel);g.DrawImage(mask,edge,Crop,GraphicsUnit.Pixel);
       }
-      g.DrawImage(blink?Blink:Idle,bounds,Crop,GraphicsUnit.Pixel);
+      g.DrawImage(Frame(blink),bounds,Crop,GraphicsUnit.Pixel);
       if(Rainbow) {
         using(var colors=new ImageAttributes()) {
           colors.SetColorMatrix(RgbCycle(Environment.TickCount & Int32.MaxValue));
@@ -200,7 +210,7 @@ namespace AstraDesktopPets {
       for(int channel=0;channel<3;channel++){matrix[channel][(channel+step)%3]=1-blend;matrix[channel][(channel+step+1)%3]=blend;}
       matrix[3][3]=matrix[4][4]=1;return new ColorMatrix(matrix);
     }
-    internal bool HasPixel(bool blink,int x,int y) { return (blink?Blink:Idle).GetPixel(x,y).A>0||(Rainbow&&(blink?blinkBands:idleBands).GetPixel(x,y).A>0); }
+    internal bool HasPixel(bool blink,int x,int y) { return Frame(blink).GetPixel(x,y).A>0||(Rainbow&&(blink?blinkBands:idleBands).GetPixel(x,y).A>0); }
     internal void ValidateEffects() {
       if(!Layered)return;int translucent=0,bands=0;
       for(int y=Crop.Top;y<Crop.Bottom;y++)for(int x=Crop.Left;x<Crop.Right;x++) {
@@ -217,7 +227,7 @@ namespace AstraDesktopPets {
       for(int y=0;y<bitmap.Height;y++)for(int x=0;x<bitmap.Width;x++)if(bitmap.GetPixel(x,y).A>0) { x0=Math.Min(x0,x);y0=Math.Min(y0,y);x1=Math.Max(x1,x);y1=Math.Max(y1,y); }
       if(x1<x0)throw new InvalidDataException("A pet frame is empty.");return Rectangle.FromLTRB(x0,y0,x1+1,y1+1);
     }
-    public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose(); }
+    public void Dispose() { if(Idle!=null)Idle.Dispose();if(Blink!=null)Blink.Dispose();if(idleInk!=null)idleInk.Dispose();if(blinkInk!=null)blinkInk.Dispose();if(idleBands!=null)idleBands.Dispose();if(blinkBands!=null)blinkBands.Dispose();if(alarmed!=null)alarmed.Dispose();if(alarmedInk!=null)alarmedInk.Dispose(); }
   }
 
   // Uses mouse-down times and Windows' configured interval/rectangle. Nothing is
@@ -406,6 +416,71 @@ namespace AstraDesktopPets {
     protected override void Dispose(bool disposing) { if(disposing){shimmer.Dispose();if(ContextMenuStrip!=null)ContextMenuStrip.Dispose();}base.Dispose(disposing); }
   }
 
+  // Pets that run in the background with no tray icon of their own (Astra, 2026-10-21: "these are not supposed to be in
+  // the tray. only the Startup Star should ever be in the tray"). Each one's menu is in the star's menu, under its name:
+  // its program writes the items to menu-20261021.json in its data folder, each one a command of that program, and the
+  // star runs the program with it. Its mood is in mood-20261021.json there (log-den's contracts/background-pet-20261021.cs).
+  internal static class BackgroundPets {
+    internal sealed class Entry { internal string Repo,Pet,Exe,Folder;internal string[] StartArgs; }
+    internal const string MenuFile="menu-20261021.json",MoodFile="mood-20261021.json";
+    static readonly string[] Watched={"log-den","packet-river","evidence-locker"};
+    // A menu file can only ask for its own program's commands: plain words, never a path, a quote or a command break.
+    internal static readonly System.Text.RegularExpressions.Regex SafeArg=new System.Text.RegularExpressions.Regex("^(--[a-z][a-z-]*|[a-z0-9][a-z0-9.:-]*)$");
+    internal static string DataRoot=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"astras-pet-os");
+    internal static bool Watches(string repo) { return repo!=null&&Array.IndexOf(Watched,repo)>=0; }
+    internal static List<Entry> All() {
+      var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
+      foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"}});
+      // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet.
+      list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
+      // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
+      list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
+      return list;
+    }
+    internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
+    internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
+    static Dictionary<string,object> Read(Entry e,string name,string schema) {
+      try {
+        string path=Path.Combine(e.Folder,name);if(!File.Exists(path))return null;
+        var file=PetFiles.Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(path));
+        return file!=null&&PetFiles.Text(file,"schema")==schema?file:null;
+      }catch(Exception){return null;}
+    }
+    // The arguments of one item, or null when any of them is not a plain command word.
+    internal static string[] Args(Dictionary<string,object> item) {
+      object raw;if(!item.TryGetValue("args",out raw)||!(raw is ArrayList))return null;
+      var args=new List<string>();foreach(object a in (ArrayList)raw){string word=a as string;if(word==null||!SafeArg.IsMatch(word))return null;args.Add(word);}
+      return args.Count>0?args.ToArray():null;
+    }
+    internal static void Fill(ToolStripMenuItem parent,Entry e,Action<Entry,string[]> run,bool running) {
+      parent.DropDownItems.Clear();
+      if(!running) {
+        parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" is not running") { Enabled=false });
+        parent.DropDownItems.Add("Start "+e.Pet,null,delegate { run(e,e.StartArgs); });
+      }
+      var file=Read(e,MenuFile,"astras-pet-os-menu-v1");object raw;
+      if(file==null||!file.TryGetValue("items",out raw)||!(raw is ArrayList)) { if(running)parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" has not written its menu yet") { Enabled=false });return; }
+      if(!running)parent.DropDownItems.Add(new ToolStripSeparator());
+      foreach(object o in (ArrayList)raw) {
+        var i=o as Dictionary<string,object>;if(i==null)continue;
+        if(i.ContainsKey("separator")) { parent.DropDownItems.Add(new ToolStripSeparator());continue; }
+        var item=new ToolStripMenuItem(PetFiles.Text(i,"text"));object check;
+        if(i.TryGetValue("checked",out check)&&check is bool) { item.Checked=(bool)check;item.ToolTipText="ON/OFF (kill switch) for this tool"; }
+        string[] args=Args(i);
+        if(args==null)item.Enabled=false;else item.Click+=delegate { run(e,args); };
+        parent.DropDownItems.Add(item);
+      }
+    }
+    // The pet's mood, while its program runs and its mood file is fresh (it writes it every minute).
+    internal static string Mood(Entry e) {
+      var file=Read(e,MoodFile,"astras-pet-os-mood-v1");if(file==null)return null;
+      DateTimeOffset updated;
+      if(!DateTimeOffset.TryParse(PetFiles.Text(file,"updated"),CultureInfo.InvariantCulture,DateTimeStyles.None,out updated)||DateTimeOffset.Now-updated>TimeSpan.FromMinutes(15))return null;
+      return Running(e)?PetFiles.Text(file,"mood"):null;
+    }
+  }
+
   // The star and the Friendly Farmer. The star shows or hides every pet at once; while the
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
@@ -436,6 +511,7 @@ namespace AstraDesktopPets {
     bool dockQueued,spaceConstrained;
     readonly ToolTip tooltip=new ToolTip { InitialDelay=350,ReshowDelay=100 };
     readonly ContextMenuStrip menu=new ContextMenuStrip();
+    readonly List<ToolStripMenuItem> background=new List<ToolStripMenuItem>();
     readonly bool test;
     PetSprite farmer,hover;
     int ticks;
@@ -463,6 +539,14 @@ namespace AstraDesktopPets {
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
       menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-apps-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
+      // The pets in the background, each with its own menu (no tray icon of their own since 2026-10-21).
+      menu.Items.Add(new ToolStripSeparator());
+      foreach(var entry in BackgroundPets.All()) {
+        var e=entry;var item=new ToolStripMenuItem(e.Pet) { Tag=e };item.DropDownItems.Add(new ToolStripMenuItem("…") { Enabled=false });
+        item.DropDownOpening+=delegate { BackgroundPets.Fill(item,e,RunBackground,test||BackgroundPets.Running(e)); };
+        background.Add(item);menu.Items.Add(item);
+      }
+      menu.Opening+=delegate { foreach(var item in background)item.Visible=test||File.Exists(((BackgroundPets.Entry)item.Tag).Exe); };
       menu.Items.Add(new ToolStripSeparator());
       var startup=new ToolStripMenuItem("Start desktop pets when I sign in") { Checked=PetFiles.StartupEnabled(),CheckOnClick=true };
       startup.Click+=delegate { if(!test)PetFiles.Startup(startup.Checked);WriteStatus(); };menu.Items.Add(startup);
@@ -472,13 +556,30 @@ namespace AstraDesktopPets {
       launcherToggle.Click+=delegate { ToggleLauncher(); };menu.Items.Insert(0,launcherToggle);
       menu.Opening+=delegate { launcherToggle.Text=launcherVisible?"Hide desktop star":"Show desktop star"; };
       ContextMenuStrip=menu;
-      timer.Tick+=delegate { if(Compact)return;ticks++;bool next=ticks%20==0;if(next!=blink){blink=next;Invalidate();}StepPair();foreach(var pet in roaming)pet.Step(blink); };
+      timer.Tick+=delegate { if(Compact)return;ticks++;bool next=ticks%20==0;if(next!=blink){blink=next;Invalidate();}StepPair();foreach(var pet in roaming)pet.Step(blink);if(ticks%25==1)RefreshMoods(); };
       clickTimer.Tick+=delegate { clicks.Advance(clickClock.ElapsedMilliseconds);if(!clicks.Pending)clickTimer.Stop(); };
       MouseDown+=Press;MouseMove+=TrackPointer;MouseUp+=Release;
       MouseLeave+=delegate { hover=null;hoverStar=false;tooltip.SetToolTip(this,null);Cursor=Cursors.Default; };
       Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();PetFiles.StartBug("--hosted");tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
       FormClosed+=delegate { if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
       RefreshStarIcon();LayoutPets();
+    }
+    // A background pet's command from its menu: its own program, started with the item's words.
+    void RunBackground(BackgroundPets.Entry e,string[] args) {
+      testActions.Add("background:"+e.Repo+":"+String.Join(" ",args));
+      if(test)return;
+      try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }
+      catch(Exception error) { MessageBox.Show(e.Pet+" could not start: "+error.Message,"Astra's desktop pets"); }
+    }
+    // Every five seconds: a background pet whose program says alarmed shows its alarmed face.
+    void RefreshMoods() {
+      if(test)return;
+      foreach(var pet in pets) {
+        if(!pet.HasAlarmed)continue;
+        var entry=BackgroundPets.Find(pet.Repo);bool alarmed=entry!=null&&BackgroundPets.Mood(entry)=="alarmed";
+        if(alarmed==pet.Alarmed)continue;
+        pet.Alarmed=alarmed;Invalidate();foreach(var window in roaming)if(window.Pet==pet)window.Invalidate();
+      }
     }
     void RefreshStarIcon() {
       int pixels;try { pixels=GetSystemMetricsForDpi(49,(uint)Math.Round(scale*96)); }catch(EntryPointNotFoundException){pixels=(int)Math.Round(16*scale);}
@@ -744,6 +845,7 @@ namespace AstraDesktopPets {
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
       ClickTests();
+      BackgroundTests();
       CreatePetWindows(left);
       if(roaming.Count!=pets.Count+1||!roaming.Exists(p=>p.Pet==farmer))throw new Exception("Not every pet got its own window.");
       int sparklePets=0;
@@ -772,7 +874,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing and star show/hide.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the background pets' menus (their own commands only) and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -789,6 +891,36 @@ namespace AstraDesktopPets {
         foreach(int n in down)if(n==0)throw new Exception("Pets did not spread down the whole screen.");
         foreach(int n in quadrants)if(n==0)throw new Exception("A quarter of the screen started empty.");
         for(int i=0;i<boxes.Count;i++)for(int j=i+1;j<boxes.Count;j++)if(Rectangle.Intersect(boxes[i],boxes[j]).Width*Rectangle.Intersect(boxes[i],boxes[j]).Height>boxes[i].Width*boxes[i].Height/2)throw new Exception("Two pets started on top of each other.");
+      }
+    }
+    // The background pets' menus (2026-10-21): only their own commands, and an alarmed pet's alarmed face.
+    void BackgroundTests() {
+      foreach(string word in new[]{"--open","--tool","log-den-v1.0-crash-catcher-v1.0","off","github.com","--trace"})if(!BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was refused: "+word);
+      foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
+      var koala=BackgroundPets.Find("kernel-grove");
+      if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||!koala.Exe.EndsWith("kernel-grove-20261021.exe")||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
+      string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
+      try {
+        Directory.CreateDirectory(folder);
+        File.WriteAllText(Path.Combine(folder,BackgroundPets.MenuFile),"{\"schema\":\"astras-pet-os-menu-v1\",\"pet\":\"Log Lynx\",\"items\":[{\"text\":\"Open Log Den\",\"args\":[\"--open\"]},{\"separator\":true},{\"text\":\"log-den-v1.0-crash-catcher-v1.0\",\"args\":[\"--tool\",\"log-den-v1.0-crash-catcher-v1.0\",\"off\"],\"checked\":true},{\"text\":\"Run something else\",\"args\":[\"C:\\\\x.exe\"]}]}");
+        var e=new BackgroundPets.Entry{Repo="log-den",Pet="Log Lynx",Exe=Path.Combine(folder,"log-den-20261018.exe"),Folder=folder,StartArgs=new[]{"--startup"}};
+        var parent=new ToolStripMenuItem("Log Lynx");BackgroundPets.Fill(parent,e,RunBackground,true);
+        if(parent.DropDownItems.Count!=4)throw new Exception("The background pet's menu has the wrong items.");
+        var tool=(ToolStripMenuItem)parent.DropDownItems[2];if(!tool.Checked||!tool.Enabled)throw new Exception("A tool that is ON must be ticked.");
+        if(parent.DropDownItems[3].Enabled)throw new Exception("An item with a path for an argument must not run.");
+        tool.PerformClick();if(testActions[testActions.Count-1]!="background:log-den:--tool log-den-v1.0-crash-catcher-v1.0 off")throw new Exception("A tool item must run its own --tool command.");
+        BackgroundPets.Fill(parent,e,RunBackground,false);
+        if(parent.DropDownItems[0].Enabled||parent.DropDownItems[0].Text!="Log Lynx is not running")throw new Exception("A pet that is not running must say so.");
+        ((ToolStripMenuItem)parent.DropDownItems[1]).PerformClick();if(testActions[testActions.Count-1]!="background:log-den:--startup")throw new Exception("Start must use --startup.");
+      } finally { try{Directory.Delete(folder,true);}catch(Exception){} }
+      var lynx=pets.Find(p=>p.Repo=="log-den");
+      if(lynx!=null) {
+        if(!lynx.HasAlarmed)throw new Exception("Log Lynx needs its alarmed frame.");
+        if(pets.Exists(p=>p.HasAlarmed&&!BackgroundPets.Watches(p.Repo)))throw new Exception("Only background pets load an alarmed frame.");
+        lynx.Alarmed=true;bool differs=false;
+        for(int y=lynx.Crop.Top;y<lynx.Crop.Bottom&&!differs;y+=3)for(int x=lynx.Crop.Left;x<lynx.Crop.Right&&!differs;x+=3)if(lynx.HasPixel(false,x,y)!=lynx.HasPixel(true,x,y)||lynx.HasPixel(false,x,y)!=(lynx.Idle.GetPixel(x,y).A>0))differs=true;
+        lynx.Alarmed=false;
+        if(!differs)throw new Exception("An alarmed Log Lynx must look different from his idle face.");
       }
     }
     void PairTests() {

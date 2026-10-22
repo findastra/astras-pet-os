@@ -27,6 +27,7 @@ else changes. This page stays the place where each word is chosen: change a word
 | The program's picture | **app icon** | app icon | | The small still picture on the taskbar, a shortcut or a browser tab. It is drawn from the pet but it is not the pet, and it does not move. |
 | The pet's square in its app | **pet well** | avatar container (an image slot in the layout) | pet frame | Where the pet sits inside its app. |
 | The pet as one file | **Markdown pet** | agent definition file: a portable system prompt in Markdown | | What the pet does, where it opens in a browser and the rules an AI follows to act as it. For computers that cannot install, such as a locked-down work computer: give it to an AI the computer allows. Generated into `markdown-pets/` (Astra, 2026-10-19). |
+| The pet as one download | **pet pack** | release bundle: one app as a self-contained archive with its assets and a manifest | | One pet in one zip, without the whole system: its repo at one version, its pictures (copied in, never committed), its pet program page that works on its own, its Markdown pet, and a README on what works alone and what needs a farm. Made by the Friendly Farmer's pet-packs tool (Astra, 2026-10-20). |
 
 So: the pet floating on the desktop is the **desktop pet** (an *icon* is the still taskbar picture), its pop-up lines are **bubbles**, the box you type into is **quick chat**, and the window it opens is just its **app**.
 
@@ -75,14 +76,14 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **pet program page** | dashboard page (the app's control panel) | One page per pet program, made of tool panels. The spawner writes the basic one. It is a control panel: anything too big for a tool panel becomes its own website that the pet program manages and opens from one tool panel (Astra, 2026-10-19). |
 | **tool panel** | panel: a collapsible section (HTML `details`); developers read "tool panel" as a panel that holds tools | A bordered group with its label set into the top border. Called a **module**, then a **panel**, until 2026-10-19 (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel"). |
 | **`<pet>-cyberhome`** | avatar panel (status widget) | Top left: where the pet sits while the page is open, with its paired lights. |
-| **`<home>-pet-program-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does. |
-| **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **your programs** (applications the pet manages) and **your tools** (its own scripts and utilities), including tools not merged yet. |
+| **`<home>-quick-summary`** | summary panel (description) | One to three sentences on what the pet program is and does ("pet-program" left the label on 2026-10-21). |
+| **`<pet>-L1-tool-panel`** | tools panel: dependencies and owned code | **3rd party programs** (external dependencies), **native programs** (applications the pet manages) and **native tools** (its own scripts and utilities), including tools not merged yet. |
 | **`<pet>-L2-tool-panel`** | runtime panel: skills, schedule, status, integrations | The pet's tricks, its schedule, the status line and its connection boxes. |
 | **`<pet>-L3-tool-panel`** | agent panel: the active AI session | The seat, the L3 activity bubble, tricks running now, harness skills, suggestions and token use. |
 | **`<pet>-L4-tool-panel`** | admin panel: approvals (human in the loop) | Approvals waiting on you, agent keys, items needing maintenance and the pet passport. Its grants have their own panel. |
 | **`<pet>-rwx-panel`** | permissions panel: designed access vs enforced access (access review) | What each level should be (R W X), then whether that is in code: ✓ In code, ⚠︎ Rule only, ○ Not built, each In code with its proof (Astra, 2026-10-19, option C). |
 | **tool box** | card with a title (HTML `fieldset` with a `legend`) | How one tool shows on a page, with its versioned label on the top border. |
-| **trick box** | skill card | How one trick shows: where it came from, which tools it uses, ON/OFF. |
+| **trick box** | skill card | How one trick shows: where it came from, which programs, tools and tricks it uses, ON/OFF. |
 | **connection box** | integration card: what flows between two services | A box titled with the other pet's name: what each side sends and receives, with its own ON/OFF. |
 | **paired lights** | two toggle buttons per item | ON/OFF on the left, maintenance on the right. |
 | **ON/OFF light** | kill switch (a feature flag) | Green on, red off. Turning it back on after a security OFF needs L4. |
@@ -124,7 +125,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **native** | first-party (Astra made it), as opposed to third-party | Everything a pet program owns is a native program, a native tool or a native trick ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). |
 | **native program** | first-party application | Opened or run on its own (Startup Star, the System Map, Ghost Protocol). The only kind the System Map draws. |
 | **tool** (native tool) | first-party module or script (deterministic code) | Code the pet program runs with no AI, for one job. ON/OFF, maintenance light, version. Listed on its card, never drawn. |
-| **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | Written steps the pet's AI follows, using only the pet's own tools. Kept by Skill Scout. Listed on its card, never drawn. |
+| **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | A way of using the pet's 3rd party programs, native programs, native tools and native tricks (Astra, 2026-10-21): written steps the pet's AI follows. Kept by Skill Scout. Listed on its card, never drawn. |
 | **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
 | **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
 | **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
@@ -138,6 +139,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **the gate** | approval queue (an allowlist) | Where a new repo waits in `candidates` until Astra lets it in. Nobody becomes an animal by saying so. |
 | **core pets** | required base packages (cannot be deselected) | The pets every farm needs. Today: the Friendly Farmer. |
 | **`farm.lock`** | lockfile | Exactly which pets and versions a farm runs, and where each came from. |
+| **needs** | dependencies (a package manifest's dependency list) | What a pet needs to work, in its own `pets.json` entry: the computer it runs on, other pets (required or optional), parts of the core only a farm has, and third-party programs (Astra, 2026-10-20: one place). |
 | **hatching a pet** | scaffolding a new app | Making a new pet from the template. Also the first `status`. |
 | **daily round** | scheduled job (cron) that opens a pull request | The Farmer's morning check of every pet: status, moods, roster. |
 | **profile round** | scheduled job that regenerates the profile README | Rewrites the pet list on Astra's GitHub profile from `pet-programs.json`. |
@@ -231,7 +233,7 @@ Some keys are older than these words and stay as they are, because code reads th
 **One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
 Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,
 which the README, the profile, the Farmer's desk, the Pets Board and the desktop pet all open. **`app_url`** holds today's
-app (the older page or site), opened by the **Open today's app** button on the program page. `interface_live_url` stays the
+app (the older page or site), opened by the **Open app** button on the program page ("today's" left the button on 2026-10-21). `interface_live_url` stays the
 pet's own live site. A link to the program page is labelled **Pet Program**. `clicks` lists the tools bound to three clicks
 or more (PET-PROGRAM-FRAMEWORK.md, section 3, item 8).
 

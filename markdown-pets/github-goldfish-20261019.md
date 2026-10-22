@@ -31,8 +31,13 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **flash-audit**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-14): the Flash Audit, the checklist every pet is onboarded and reviewed with, and the read-only Idle Flash Audit that runs it over every pet program and writes an evidence ledger. Its code is in the hub, not in Goldfish’s repo yet (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs).
 - **project-image-generator**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs).
+- **document-control-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Document control check. Finds required files that are missing, malformed or uncontrolled: no README or LICENSE, a pet repo without pet.json, the pet-app topic or the credit line, a committed .env, stray copies such as "... (1).txt". Read only (github-goldfish index.html).
+- **blatant-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Blatant check. Finds plain errors a visitor can see: links to repos, files or #anchors that go nowhere, doubled words, typos, garbled characters, leftover TODOs, a token or personal folder path in public text, and any word on the never-say list. Read only (github-goldfish index.html).
+- **organizational-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Organizational check. Finds things in the wrong place or named off-pattern: default branch not main, "Moved:" stubs not archived, no topics, a README title that does not echo the repo name, a profile line that disagrees with the repo's description, old pet words. Read only (github-goldfish index.html).
+- **systemic-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Systemic check. Finds patterns across the whole account: mixed apostrophes and dashes, mixed description style, some repos licensed and some not, a pet missing from the registry. Read only (github-goldfish index.html).
+- **showcase-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-19, at Astra's request): the Showcase check and panel. For every project the profile README advertises, it names its kind (VRChat world, Unity asset library, Discord project, website, pet …) and checks the README shows what that kind should: for a world, what's in it, how to visit, what's being built now and what's missing; plus the last commits and open pull requests. The homepage is the shop window, each README is what's on the shelf. Read only. In github-goldfish index.html (PR #19, merged 2026-10-19).
 
-### Its tricks (steps its AI follows)
+### Its tricks (ways its AI uses its programs, tools and tricks)
 
 - None recorded yet.
 
@@ -55,6 +60,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Gif Giraffe** (Astra's GIF Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Gone Ghost** (Am I a Ghost?): A secret found in a repo becomes a checklist step.
 - **Health Hummy** (The Nectar Nest): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Kernel Koala** (Kernel Grove): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Linux Penguin** (Linux Iceberg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Log Lynx** (Log Den): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Mail Snail** (Mail Shell): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.

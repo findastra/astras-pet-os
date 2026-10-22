@@ -64,5 +64,6 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Chat Rat** * | the chats it has filed and their index | weekly, Thursday | where your Claude and OpenAI chats are saved |
 | **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Friday | native iPad verification and a verified chat adapter |
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
+| **Kernel Koala** * | what runs on the PC: leftovers, memory and what starts at sign-in | weekly, Sunday | your OK to stop a leftover or switch a sign-in item off |
 
 \* in the pipeline: on GitHub, not registered yet.

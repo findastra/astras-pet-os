@@ -63,6 +63,8 @@ Astra wants other software developers to read her build without frustration. She
 | Program Manager / registry (`pets.json`) | Package registry | Part of the protected core. |
 | Seed / pipeline / registered | Planned / in development / released | |
 | `farm.lock` | Lockfile | Exactly which pets and versions a farm runs, and where each came from. |
+| Pet pack | Release bundle (a self-contained archive of one app with its assets and a manifest of hashes) | One pet in one zip, without the whole system; made by The Farm's pet-packs tool. Not signed yet, so it proves nothing about who made it (PROVENANCE.md). Decided 2026-10-20. |
+| `needs` (in pets.json) | Dependencies: a package manifest's dependency list (required and optional), with the platform it runs on | One place for what each pet needs; the Friendly Farmer, the package manager, reads it for pet packs and, next, `farm.lock`. Decided 2026-10-20. |
 | Startup Star (desktop host) | Launcher / process supervisor | A native program of The Farm, not a pet: no face (Astra, 2026-10-19; a tool of The Farm before). |
 | click-check | Link checker and UI smoke test (a click-through test in a headless browser) | A native tool of The Farm (Astra, 2026-10-19). "Goes nowhere" is a dead control (no handler), "dead end" a broken link (404), "moves when pressed" a layout shift (CLS). It reports; fixing stays a pull request. |
 | Astra's PetOS | Platform (runs on Windows) | It is not an operating system. "PetOS" is a brand name; docs say "platform". |

@@ -418,6 +418,19 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
       <li><strong>Install from your own copy:</strong> <a href="https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md">MAKE-IT-YOURS.md</a>
         shows how. Your AI can help.</li>
     </ol>
+    <h3>Just one pet, without the whole farm</h3>
+    <p>A <strong>pet pack</strong> is one pet in one zip: its code at one version, its pictures, its pet program page and
+      its Markdown pet, with a README that says plainly what works on its own and what needs a farm. Unzip it and
+      double-click <code>open-pet-program</code>: nothing is installed. <span class="dev">a release bundle: one app with
+      its assets and a manifest</span></p>
+    <p>Some pets need another pet or a program to do their job: Forensic Ferret needs Log Lynx, and Voicemeeter Bug needs
+      Voicemeeter. The pack's README lists them, and so does <code>needs</code> in <code>pets.json</code>.
+      <span class="dev">dependencies, declared in the registry</span></p>
+    <p class="prompt" id="prompt-pack">Please make a pet pack of &lt;the pet's repo&gt; with the Friendly Farmer's pet-packs tool (node scripts/pet-packs-20261020.mjs in my copy of Astra's PetOS), as MAKE-IT-YOURS.md says. Run plan first and show me what the pet needs, then build it.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-pack">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
+    </div>
     <div class="note">
       <p><strong>Proud of it?</strong> Bring it to <a href="https://github.com/findastra/the-kennel">the Kennel</a>, so
         other farmers can adopt it. <span class="dev">a community app catalog (a package registry)</span></p>
@@ -469,6 +482,7 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
       <div><dt>commit</dt><dd>One saved change.<span class="dev">commit</span></dd></div>
       <div><dt>pets.json</dt><dd>The list of pets on a farm.<span class="dev">the registry: the app catalog, a JSON manifest</span></dd></div>
       <div><dt>Markdown pet</dt><dd>One pet as one file, for computers that can't install.<span class="dev">an agent definition file (a portable system prompt in Markdown)</span></dd></div>
+      <div><dt>pet pack</dt><dd>One pet in one zip, without the whole farm.<span class="dev">a release bundle: one app with its assets and a manifest</span></dd></div>
       <div><dt>the seat</dt><dd>Which AI is working on a pet right now.<span class="dev">the active agent session</span></dd></div>
       <div><dt>farmhand</dt><dd>An AI model, like Claude or ChatGPT. Not a pet.<span class="dev">an AI model (LLM)</span></dd></div>
       <div><dt>the Kennel</dt><dd>Where people share their pets.<span class="dev">a community app catalog (a package registry)</span></dd></div>

@@ -5,9 +5,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { OUTPUT, MODE_FILE, SOURCE, developerWordsFile, readDeveloperWordsSources } from '../scripts/developer-words-20261019.mjs';
@@ -90,7 +90,7 @@ test('names on GitHub and in files keep their spelling: repos, file names, paths
 
 test('panel labels: unity-unicorn-L1-tool-panel becomes unity-agent-L1-panel, and the activity lights still find it', () => {
   const pairs = [['unity-unicorn-L1-tool-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome', 'unity-agent-avatar-panel'],
-    ['unity-stable-pet-program-quick-summary', 'unity-agent-control-hub-summary'], ['friendly-farmer-related-pets', 'orchestrator-agent-related-agents'],
+    ['unity-stable-quick-summary', 'unity-agent-control-hub-summary'], ['friendly-farmer-related-pets', 'orchestrator-agent-related-agents'],
     ['astras-pet-os-unified-footer', 'astras-pet-os-unified-footer']];
   for (const [farm, dev] of pairs) assert.equal(W._legend(farm), dev);
   for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.match(W._legend(`unity-unicorn-${lv}-tool-panel`), /-(L[1-4])-[a-z-]*panel$/);
@@ -136,10 +136,31 @@ test('every page loads the installer\'s words, then the swap, in its <head>', ()
   assert.match(read('system-map-20261012.html'), /const DATA = [\s\S]{0,2000000}?\nif \(window\.PetOSWords\) window\.PetOSWords\.data\(DATA\);/, 'the map gets its new names before it is drawn');
 });
 
+// The Farmer's round rebuilds the desk every morning with its generator, so a hand edit to the desk is gone the next
+// day (run 39462765053, card 052). Build the desk in a copy and check what the generator itself writes.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-20.
+test('the Farmer\'s desk generator writes the words, then the swap, in <head>, and the words switch in the footer', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'desk-'));
+  try {
+    const registry = JSON.parse(read('pets.json')), art = JSON.parse(read('art/frames/index.json'));
+    cpSync(join(root, 'scripts'), join(dir, 'scripts'), { recursive: true });
+    for (const rel of ['pets.json', 'art/frames/index.json', art.pets[registry.pets.find((p) => p.role === 'host').art].frames.idle]) {
+      mkdirSync(dirname(join(dir, rel)), { recursive: true });
+      copyFileSync(join(root, rel), join(dir, rel));
+    }
+    execFileSync(process.execPath, [join(dir, 'scripts', 'build-interfaces-20261008.mjs'), 'astras-pet-apps'], { stdio: 'pipe' });
+    const html = readFileSync(join(dir, 'apps', 'astras-pet-apps-20261008.html'), 'utf8');
+    const head = html.slice(0, html.indexOf('</head>')), footer = html.slice(html.indexOf('<footer>'), html.indexOf('</footer>'));
+    const mode = head.indexOf('<script src="words-mode-20261019.js"></script>'), swapAt = head.indexOf('<script src="developer-words-20261019.js"></script>');
+    assert.ok(mode > 0 && swapAt > mode, 'the generated desk: words-mode, then developer-words, in <head>');
+    assert.ok(footer.includes('data-words-switch'), 'the generated desk: the words switch in its footer');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('in developer mode the agent is already home and one click says what it does', () => {
   const js = read('apps/pet-programs/pet-program-page-20261018.js');
   assert.match(js, /den\.dataset\.arrival === 'waiting' && dev\) \{[\s\S]{0,200}den\.dataset\.arrival = 'home';/);
-  assert.match(js, /bubble\.textContent = dev \? T\(config\.pet \+ ': ' \+ \(config\.summary/);
+  assert.match(js, /sayAt\(den, dev \? T\(config\.pet \+ ': ' \+ \(config\.summary/);
   const css = read('apps/pet-programs/pet-program-page-20261018.css');
   assert.ok(css.includes('[data-words="developer"] .den .star-door, [data-words="developer"] .clicker { display: none; }'));
 });
