@@ -27,6 +27,7 @@ else changes. This page stays the place where each word is chosen: change a word
 | The program's picture | **app icon** | app icon | | The small still picture on the taskbar, a shortcut or a browser tab. It is drawn from the pet but it is not the pet, and it does not move. |
 | The pet's square in its app | **pet well** | avatar container (an image slot in the layout) | pet frame | Where the pet sits inside its app. |
 | The pet as one file | **Markdown pet** | agent definition file: a portable system prompt in Markdown | | What the pet does, where it opens in a browser and the rules an AI follows to act as it. For computers that cannot install, such as a locked-down work computer: give it to an AI the computer allows. Generated into `markdown-pets/` (Astra, 2026-10-19). |
+| The pet as one download | **pet pack** | release bundle: one app as a self-contained archive with its assets and a manifest | | One pet in one zip, without the whole system: its repo at one version, its pictures (copied in, never committed), its pet program page that works on its own, its Markdown pet, and a README on what works alone and what needs a farm. Made by the Friendly Farmer's pet-packs tool (Astra, 2026-10-20). |
 
 So: the pet floating on the desktop is the **desktop pet** (an *icon* is the still taskbar picture), its pop-up lines are **bubbles**, the box you type into is **quick chat**, and the window it opens is just its **app**.
 
@@ -138,6 +139,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **the gate** | approval queue (an allowlist) | Where a new repo waits in `candidates` until Astra lets it in. Nobody becomes an animal by saying so. |
 | **core pets** | required base packages (cannot be deselected) | The pets every farm needs. Today: the Friendly Farmer. |
 | **`farm.lock`** | lockfile | Exactly which pets and versions a farm runs, and where each came from. |
+| **needs** | dependencies (a package manifest's dependency list) | What a pet needs to work, in its own `pets.json` entry: the computer it runs on, other pets (required or optional), parts of the core only a farm has, and third-party programs (Astra, 2026-10-20: one place). |
 | **hatching a pet** | scaffolding a new app | Making a new pet from the template. Also the first `status`. |
 | **daily round** | scheduled job (cron) that opens a pull request | The Farmer's morning check of every pet: status, moods, roster. |
 | **profile round** | scheduled job that regenerates the profile README | Rewrites the pet list on Astra's GitHub profile from `pet-programs.json`. |

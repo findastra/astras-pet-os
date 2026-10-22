@@ -172,6 +172,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
     },
     {
+      "id": "pet-packs",
+      "name": "pet-packs",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-packs-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-10-20: \"download one pet without the whole system\", card 058, Part 4): one zip per pet, a pet pack, with its repo at a version, its pictures copied in from the one art source (never committed to its repo), a pet program page that works on its own, its Markdown pet and a README that says plainly what works alone and what needs a farm, from `needs` in pets.json. It reads the pet’s repo with git and writes only its pet-packs folder; it refuses the host, a pet that stays private, a private repo without --private, and a repo whose files hold a key or a personal folder path (scripts/pet-packs-20261020.mjs)."
+    },
+    {
       "id": "pet-program-spawner",
       "name": "pet-program-spawner",
       "type": "tool",
@@ -3496,6 +3508,20 @@
       "carries": "runs-on",
       "state": "now",
       "why": "click-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "pet-packs",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-packs runs with Node 20 or newer, its built-in modules only (the zip too)."
+    },
+    {
+      "from": "pet-packs",
+      "to": "github",
+      "carries": "opens",
+      "state": "now",
+      "why": "pet-packs reads each pet’s repo at a version with git, through the PC’s own sign-in, and changes nothing there."
     },
     {
       "from": "click-check",
