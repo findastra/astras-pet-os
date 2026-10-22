@@ -27,8 +27,9 @@ the error checkers."
   because other pull requests merged into `main` first (generated files: take `main`'s side, then `npm run build`).
 
 **Merged, 2026-10-21** (Claude Opus 5.5, `claude-opus-5-5`, from the outstanding-items chat): `main` merged into the
-branch three times (#167 to #189 and #182), the card renumbered 057 → 067 (click-check reached `main` with 057),
-generated files rebuilt, `npm test` passed, then merged with Astra's OK in chat ("OK to merge #136 only for now. Hold
+branch four times (#167 to #189, #182 and #187), the card renumbered 057 → 067 → 068 (click-check, then Kernel Grove,
+reached `main` first), its five map nodes put back on `main`'s system-map.json (which #187 had turned to LF line
+endings), generated files rebuilt, `npm test` passed, then merged with Astra's OK in chat ("OK to merge #136 only for now. Hold
 #190."). The branch is kept: hub #190 (GitHub Aquarium's outstanding-items) was built on it and is held.
 
 ## To do
