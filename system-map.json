@@ -631,11 +631,11 @@
     },
     {
       "id": "vrcft",
-      "name": "VRCFT (VRCFaceTracking)",
+      "name": "VRCFaceTracking",
       "type": "program",
       "state": "now",
       "job": "Face-tracking software. OSC Sealion will manage it; Unity Unicorn will use it to personalize an avatar's face-tracking rig.",
-      "does": "Reads face and eye tracking from your headset or face tracker and moves your avatar's face in VRChat.",
+      "does": "Controls your avatar's face tracking.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -941,7 +941,7 @@
       "state": "now",
       "layer": 6,
       "job": "Cloud service: your worlds and avatars live here.",
-      "does": "A social virtual reality platform, where your worlds and avatars live.",
+      "does": "A social virtual reality platform.",
       "category": "Cloud service"
     },
     {
@@ -1242,13 +1242,13 @@
     },
     {
       "id": "unity-editor",
-      "name": "Unity 2022.3.22f1 and Unity Hub",
+      "name": "Unity Hub 2022.3.22f1",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
       "job": "The Unity editor used for VRChat avatars and worlds. On the desktop (editing-streaming).",
-      "does": "Unity is the game engine you build avatars and worlds in (VRChat uses 2022.3.22f1); Unity Hub installs Unity and organizes your Unity projects."
+      "does": "Organizes your Unity projects."
     },
     {
       "id": "vrchat-creator-companion",
@@ -4452,7 +4452,7 @@
       "from": "unity-unicorn",
       "to": "blender",
       "carries": "manages",
-      "state": "idea",
+      "state": "now",
       "why": "Avatar meshes are often edited in Blender before Unity."
     },
     {

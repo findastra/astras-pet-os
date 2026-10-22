@@ -787,6 +787,11 @@
             "node": "vrchat-creator-companion",
             "how": "required",
             "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "Avatar meshes are often edited in Blender before Unity. In use (Astra struck \"idea, not agreed yet\", 2026-10-21)."
           }
         ]
       }

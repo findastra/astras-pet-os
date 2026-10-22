@@ -30,7 +30,6 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel > summary > .lights .light { width: 15px; height: 15px; }
 .panel:not([open]) { padding: 14px 18px 0; }
 .panel .panel { margin-top: 26px; }
-.activity { width: 12px; height: 12px; border-radius: 50%; background: var(--planned); border: 1px solid #000; display: inline-block; flex: none; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
 h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }
@@ -154,28 +153,32 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
 
 /* Inside the intelligence-level panels. */
-.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr)); gap: 18px 28px; }
+/* The sections stack, each across the whole tool panel, and the pills in them go three to a row, then two, then one as
+   the window narrows (Astra, 2026-10-21: "these need to be stacking in rows of 3, then 2,1 on collapse"). */
+.columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px 28px; }
 .columns .wide { grid-column: 1 / -1; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
+.items:has(> li.pill) { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(250px, calc((100% - 56px) / 3))), 1fr)); gap: 0 28px; align-items: start; }
 /* Every item is a pill, the same on every page (Astra, 2026-10-19): an oval with its two lights on it. Its name is set
    into the oval's top border, like a panel's label, and the lights sit inside, below that line, with room around them
    (2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator lights down").
    Click the name to open it in place; open, the oval becomes a rounded box. Since 2026-10-21 the lights sit in the
    top border too, left of the name ("● ● face-transfer", drawn on her screenshot), and one line under the name says
    what it does. The corners are a fixed curve, so the border is straight where the lights and the name sit on it. */
-.items li.pill { position: relative; width: fit-content; max-width: 100%; margin: 22px 0 10px; padding: 12px 20px 10px;
+.items li.pill { position: relative; min-width: 0; margin: 22px 0 10px; padding: 12px 20px 10px;
   border: 1px solid var(--line); border-radius: 28px; background: rgba(255, 255, 255, .05); }
 .items li.pill:hover { background: rgba(255, 255, 255, .09); }
-.items li.pill:has(> details[open]) { width: auto; border-radius: 16px; }
+.items li.pill:has(> details[open]) { border-radius: 16px; }
 .pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0 4px; background: var(--slate); }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
 /* The name's first line sits on the border, right of the lights (pulled up by the pill's top padding and half a line),
-   and takes no room below it. A long name wraps inside. Only its first line has the page's colour behind it, to cut
-   the border. */
-.pill-more > summary .item-name { display: block; width: fit-content; margin: -22px 0 3px 51px; padding: 0 6px; font: 14px/19px var(--text);
-  background: linear-gradient(var(--slate), var(--slate)) 0 0 / 100% 11px no-repeat; overflow-wrap: anywhere; }
+   and takes no room below it. It stays on that one line, so the border runs on straight after it (Astra, 2026-10-21: a
+   wrapped name cut a gap in the border line); a name too long for the pill ends in "…" and shows whole on hover. */
+.pill-more > summary .item-name { display: block; width: fit-content; max-width: calc(100% - 51px); margin: -22px 0 3px 51px; padding: 0 6px;
+  font: 14px/19px var(--text); background: linear-gradient(var(--slate), var(--slate)) 0 0 / 100% 11px no-repeat;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
 /* What it does, at most two lines on the pill; all of it once the pill is open. */
 .item-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin: 2px 0 2px; font-size: 13px; line-height: 1.4; color: var(--chalk); overflow-wrap: anywhere; }
 .pill-more[open] .item-desc { -webkit-line-clamp: unset; }
@@ -386,10 +389,6 @@ img[hidden] { display: none !important; }
 
 /* Activity lights (Astra, 2026-10-19): on while that level is working right now, and its tool panel glows with power.
    Grey: not connected yet. */
-.activity[data-state="unknown"] { background: var(--planned); }
-.activity[data-state="live"] { background: var(--on); box-shadow: 0 0 6px 2px var(--on); }
-.activity[data-state="idle"] { background: #2f6b36; }
-.activity[data-state="off"] { background: var(--planned); }
 .panel.level[data-activity="live"] { border-color: var(--on); box-shadow: 0 0 0 1px var(--on), 0 0 16px rgba(79, 179, 90, .45); animation: power 2.4s ease-in-out infinite; }
 .panel.level[data-activity="live"] > summary .legend { color: #d4f7d8; }
 @keyframes power {

@@ -75,16 +75,16 @@ test('clicker training: one and two clicks are the same for every pet, tools fro
   assert.equal(bug.clicks['1'], undefined, 'one click is the reminder for every pet');
 });
 
-test('one click always points to the pet program page: every pet\'s link is its page; today\'s app is a button on it (Astra, 2026-10-19)', () => {
+test('one click always points to the pet program page: every pet\'s link is its page; the app it had is in the passport (Astra, 2026-10-19, 2026-10-21)', () => {
   const regs = [...src.registry.pets, ...src.registry.pipeline];
   for (const r of regs) {
     assert.equal(r.interface_url, pagePath(r.repo), `${r.repo}: interface_url`);
     assert.equal(r.interface_local_url, pagePath(r.repo), `${r.repo}: interface_local_url`);
     const html = files[pagePath(r.repo)];
     const today = r.interface_live_url || r.app_url;
-    // "Open app" since 2026-10-21 (Astra crossed out "today's")
-    if (today) assert.match(html, /<a class="button" href="[^"]+">Open app<\/a>|<span class="button off"[^>]*>App is private<\/span>/, `${r.repo}: today's app is a button on its page`);
-    assert.ok(!html.includes(`href="${r.repo}-20261018.html">Open app`), `${r.repo}: the button never opens the page itself`);
+    // No button since 2026-10-21 (Astra put an X over "Open today's app"): the passport links it, or says it is private.
+    if (today) assert.match(html, /<dt>App<\/dt><dd>(<a href="[^"]+">the app it had before<\/a>|its app \(private: [^)]+\))<\/dd>/, `${r.repo}: the passport links the app it had`);
+    assert.ok(!html.includes(`href="${r.repo}-20261018.html">the app it had before`), `${r.repo}: the link never opens the page itself`);
   }
 });
 
@@ -102,14 +102,14 @@ test('every page links back to the System Map, top right, on its own node (Astra
 });
 
 // Astra's marked-up screenshot of Unity Stable, 2026-10-21, for every pet program.
-test('the header: no bubble in the cyberhome, the hub\'s map label, the quick summary label, Open app and no Repo button (Astra, 2026-10-21)', () => {
+test('the header: no bubble in the cyberhome, the hub\'s map label, the quick summary label, and no buttons under it (Astra, 2026-10-21)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
     assert.ok(!/class="bubble"|id="bubble"/.test(header), `${d.repo}: "get rid of this entirely"`);
     assert.ok(header.includes(`<span class="legend">${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is astras-pet-os-system-map`);
     assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary`);
-    assert.ok(!/>Repo<|\(private repo\)<\/span><\/p>/.test(header) && !header.includes("today's app"), `${d.repo}: Open app, and no Repo button`);
+    assert.ok(!/class="actions"|class="button/.test(header), `${d.repo}: an X over "Open today's app" and over "Repo"`);
     assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the passport`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
@@ -159,7 +159,14 @@ test('every pill says what it does; every program on the map has a plain does li
   }
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   const vrchat = d.thirdParty.find((i) => i.id === 'vrchat');
-  assert.equal(vrchat.desc, 'A social virtual reality platform, where your worlds and avatars live.', "Astra's words for VRChat");
+  assert.equal(vrchat.desc, 'A social virtual reality platform.', "Astra's words for VRChat");
+  // Her words for the others on the same screenshot, and the names she corrected.
+  const named = Object.fromEntries(d.thirdParty.map((i) => [i.id, i]));
+  assert.equal(named.vrcft.name, 'VRCFaceTracking', '"VRCFT" crossed out');
+  assert.equal(named.vrcft.desc, "Controls your avatar's face tracking.");
+  assert.equal(named['unity-editor'].name, 'Unity Hub 2022.3.22f1');
+  assert.equal(named['unity-editor'].desc, 'Organizes your Unity projects.');
+  assert.equal(named.blender.state, 'now', '"idea, not agreed yet" struck');
   assert.ok(files[pagePath('unity-unicorn')].includes(`<span class="item-desc">${esc(vrchat.desc)}</span>`), 'it shows on the pill');
 });
 
@@ -286,15 +293,15 @@ test('private pets say their data never leaves the PC, and private repos are not
   }
 });
 
-test('"Open today\'s app" never leads into a private repo or its switched-off Pages site (Astra, 2026-10-20: "i privated most repos")', () => {
+test('the app link never leads into a private repo or its switched-off Pages site (Astra, 2026-10-20: "i privated most repos")', () => {
   const regs = [...src.registry.pets, ...src.registry.pipeline];
   const privateRepos = regs.filter((p) => p.visibility === 'private').map((p) => p.repo);
   for (const d of pages) {
-    const actions = files[pagePath(d.repo)].match(/<p class="actions">[\s\S]*?<\/p>/)[0];
+    const actions = files[pagePath(d.repo)].match(/<dt>App<\/dt><dd>[\s\S]*?<\/dd>/)[0];
     for (const r of privateRepos) {
       assert.ok(!new RegExp(`href="https://(github\\.com/findastra|findastra\\.github\\.io)/${r}[/"#?]`, 'i').test(actions), `${d.repo}: today's app leads into private ${r}`);
     }
-    if (d.appPrivate) assert.match(actions, /<span class="button off"[^>]*>App is private<\/span>/, `${d.repo}: the button says why`);
+    if (d.appPrivate) assert.match(actions, /its app \(private: /, `${d.repo}: the passport says why`);
   }
   // The rule itself: a private pet's repo and Pages site; never a public repo, the hub's own copy or another account.
   const reg = { github_owner: 'findastra', pets: [{ repo: 'shut', visibility: 'private' }, { repo: 'open', visibility: 'public' }], pipeline: [] };

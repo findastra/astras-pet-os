@@ -88,7 +88,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **paired lights** | two toggle buttons per item | ON/OFF on the left, maintenance on the right. |
 | **ON/OFF light** | kill switch (a feature flag) | Green on, red off. Turning it back on after a security OFF needs L4. |
 | **maintenance light** | user-reported defect flag | Blue working correctly, yellow requires maintenance. Only you clear it. |
-| **activity light** | activity indicator | The light on each level tool panel's top border; what it means waits on Astra. |
+| **activity glow** | activity indicator | A level tool panel glows while that level is working; L4 glows while you are on the page. |
 | **status line** | status bar | Whose data, last entry, last update, who is in the seat, and the map link. |
 | **`<pet>-session-notes`** | feedback form | A text box with **submit** and **add file**; every note goes to the backlog first. |
 | **backlog** | backlog (an issue queue) | The never-lost list of notes and change requests, `<pet-program>-backlog`. |
@@ -234,7 +234,7 @@ Some keys are older than these words and stay as they are, because code reads th
 **One click always points to the pet program page** (Astra, 2026-10-19: "one click always points to program page (Pet
 Program)"). So `interface_url` and `interface_local_url` hold the pet's program page, `apps/pet-programs/<repo>-20261018.html`,
 which the README, the profile, the Farmer's desk, the Pets Board and the desktop pet all open. **`app_url`** holds today's
-app (the older page or site), opened by the **Open app** button on the program page ("today's" left the button on 2026-10-21). `interface_live_url` stays the
+app (the older page or site), linked from the program page's pet passport (L4) and footer (the button left on 2026-10-21). `interface_live_url` stays the
 pet's own live site. A link to the program page is labelled **Pet Program**. `clicks` lists the tools bound to three clicks
 or more (PET-PROGRAM-FRAMEWORK.md, section 3, item 8).
 

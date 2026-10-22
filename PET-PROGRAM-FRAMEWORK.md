@@ -117,9 +117,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 3. **`<home>-quick-summary`** (box under the title, `unity-stable-quick-summary`; "pet-program" crossed out of the
    label by Astra, 2026-10-21): one to three plain sentences: what the home is, who runs it (you and the pet), what it
    organizes, and the intention behind it. Taken from the pet's mini-descriptor. Its box fits the text, with no empty
-   line above or below (Astra, 2026-10-20: "fitted"). Under it, **Open app** (the pet's older app, `app_url`; "today's"
-   crossed out, 2026-10-21) and **no Repo button** (crossed out the same day): the repo link is in the footer and in
-   L4's pet passport.
+   line above or below (Astra, 2026-10-20: "fitted"). **No buttons under it**
+   (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo"): the pet's older app (`app_url`) and its repo are
+   linked in L4's pet passport and in the footer.
 3b. **`astras-pet-os-system-map`** (top right, opposite the cyberhome; the map is the hub's, so its label is too:
    Astra, 2026-10-21): the way back to the System Map, on every page, always (Astra, 2026-10-19: "There's always going
    to be a system map link back"). It opens the map on the pet program's own node
@@ -128,8 +128,10 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    them (300px or more); `<pet>-related-pets` has all of them (Astra, 2026-10-20: "reserved for other agent links,
    relative, full list below"). Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's **paired lights sit left of
-   its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and its activity
-   light (the sketch's "activity status") after the label. Every item inside has its paired lights. **Every heading
+   its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and nothing after the
+   label (the same screenshot moves the activity light after it left, to the pair). Inside, the sections stack and
+   **the pills go three to a row, then two, then one** as the window narrows (Astra, 2026-10-21: "these need to be
+   stacking in rows of 3, then 2,1 on collapse"); a name stays on one line in the pill's border. Every item inside has its paired lights. **Every heading
    says how many it holds, and the pet's own things are native** (Astra, 2026-10-21: "3rd party programs · #";
    "3rd Party Programs = L1, Native Programs = L1, Native Tools = L1, Native Tricks = L2"): `3rd party programs · 5`,
    `Native programs · 1`, `Native tools · N` (or `Avatar tools · 22` and `World tools · 37` when the tools have sides),
@@ -225,14 +227,14 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     its proof. Below them, what the pet program may use. The grants come from `system-map.json` (`access`), the same as
     the map and PROTECTION-RINGS.md. The working name waits on Astra.
 
-**Activity lights** (Astra, 2026-10-19: "I need to be able to see what is on and off"): the light on each level's tool
-panel, on its top border, is on while that level is working right now, and the tool panel glows. **L4 is you:** on while
+**Activity** (Astra, 2026-10-19: "I need to be able to see what is on and off"): a level's tool panel glows while that
+level is working right now (its separate activity light left on 2026-10-21, moved to the pair). **L4 is you:** on while
 the page is in front of you and you used it in the last two minutes (moving the pointer over it and scrolling count,
 not only clicks and keys: Astra, 2026-10-19, "double check if these L4s are active when they are"), dim when you go
 quiet or work in another window, off while the page is hidden; the page does this itself. L1 (a program or tool running), L2 (the pet program doing something by itself, or
 data coming in from a pet it talks to) and L3 (an agent at work in the seat) need Startup Star's link to know, so until
-it is built their lights are grey and say "not connected yet". The activity light shows what is happening; the paired
-lights are what you switch and what you report broken.
+it is built they do not glow. The glow shows what is happening; the paired lights are what you switch and what you
+report broken.
 
 ### Waiting on Astra
 
@@ -268,7 +270,7 @@ you, has a key, declined or not needed), each with a link back to the request; t
 ([skills/key-request](skills/key-request/SKILL.md)). **One click always points to
 the program page** (Astra, 2026-10-19: "one click always points to program page (Pet Program)"): pets.json
 `interface_url` is this page, so the README, the profile, the Farmer's desk, the Pets Board and the desktop pet open it,
-and its **Open app** button opens the older app (`app_url`). Flash Audit A59 checks that every place agrees.
+and L4's pet passport links the older app (`app_url`). Flash Audit A59 checks that every place agrees.
 
 ### Older detail (still required inside the boxes above)
 

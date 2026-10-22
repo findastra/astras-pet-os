@@ -297,9 +297,10 @@ function itemList(items, prefix, empty) {
 
 // A tool panel with an activity light also has its paired lights, left of its label in the border line (Astra,
 // 2026-10-21: two lights drawn before `unity-unicorn-L1-tool-panel`, and "make sure this 'on' ... is working correctly
-// for all tools and panels"). The activity light stays after the label.
+// for all tools and panels"). Nothing comes after the label: the same screenshot brackets the activity light after it
+// and moves it left, to the pair. What the activity light showed, the tool panel's own glow still shows.
 const panel = (label, body, { cls = '', light = false, open = true, id = '' } = {}) =>
-  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel">${light ? lights(`panel:${label}`, label) : ''}<span class="legend">${esc(label)}</span>${light ? '<span class="activity" title="Activity light. What it means is waiting on Astra (PET-PROGRAM-FRAMEWORK.md, section 3)" aria-label="activity: not decided yet"></span>' : ''}</summary>${body}</details>`;
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel">${light ? lights(`panel:${label}`, label) : ''}<span class="legend">${esc(label)}</span></summary>${body}</details>`;
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -508,10 +509,10 @@ ${lights(`program:${d.homeSlug}`, d.home)}
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}
-<p class="actions">${d.appHref ? `<a class="button" href="${esc(d.appHref)}">Open app</a>` : d.appPrivate ? `<span class="button off" title="${esc(d.appPrivate)} is private: its GitHub Pages site is off, and the repo opens only for its owner">App is private</span>` : '<span class="button off" title="No app is wired up in the hub yet">No app wired up yet</span>'}</p></div>`;
-  // No Repo button (Astra, 2026-10-21, crossing it out on her screenshot, then "1. A" in her slides): the repo link is
-  // in the footer and in L4's pet passport.
+${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+  // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
+  // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's pet passport.
+  const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
 
   // The way back to the System Map, top right, opposite the cyberhome (Astra, 2026-10-19: "There's always going to be
   // a system map link back"; Flash Audit A60). It opens the map on this pet program's own node.
@@ -558,6 +559,7 @@ ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${
 <section><h3>Pet passport</h3><dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
 <dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
+<dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd><a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a></dd></dl></section>`, { cls: 'level', light: true });
@@ -617,7 +619,7 @@ ${assigned}</dl>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 <div class="footer-group"><span class="footer-title">Take Me Home!</span><a class="footer-home" href="../astras-pet-apps-20261008.html" title="The Farm: the Friendly Farmer" aria-label="The Farm: the Friendly Farmer"><img src="${esc(up('art/icons/astras-pet-os-20261012.png'))}" alt="" width="28" height="28"></a></div>
 </div>
-<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a> · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
+<p class="footer-links"><a href="${esc(map)}">System Map</a> · <a href="pet-program-spawner-${DATE}.html">every pet program</a>${d.appHref ? ` · <a href="${esc(d.appHref)}">its app</a>` : ''} · ${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`} · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a> · <a href="https://github.com/${OWNER}/${HUB}/blob/main/PROTECTION-RINGS.md">PROTECTION-RINGS.md</a></p>
 <p class="words-switch" data-words-switch></p>
 <p class="small footer-spawned">Spawned by the Friendly Farmer's pet program spawner (<code>${TOOL_LABEL}</code>) from pets.json, pet-programs.json and the System Map, ${esc(DATE)}. <code>npm run build</code> rewrites this page; do not edit it by hand.</p></footer>`, { cls: 'footer' });
 

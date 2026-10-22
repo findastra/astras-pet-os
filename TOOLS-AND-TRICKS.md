@@ -223,10 +223,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | native trick | vrchat-avatar-upload | `unity-stable-v1.0-vrchat-avatar-upload-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-copyright-auditor | `unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0` | Planned |
 | 5 | Unity Unicorn | Unity Stable | native trick | weekly-update-from-friendly-farmer | `unity-stable-v1.0-weekly-update-from-friendly-farmer-trick-v1.0` | Planned |
-| 5 | Unity Unicorn | Unity Stable | third-party program | Unity 2022.3.22f1 and Unity Hub |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | Blender |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | Unity Hub 2022.3.22f1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat Creator Companion |  | Works today |
-| 5 | Unity Unicorn | Unity Stable | third-party program | Blender |  | Idea |
-| 5 | Unity Unicorn | Unity Stable | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
+| 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
@@ -294,7 +294,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
 | 41 | OSC Sealion | OSC Sonar | third-party program | OSCGoesBrrr |  | Planned |
-| 41 | OSC Sealion | OSC Sonar | third-party program | VRCFT (VRCFaceTracking) |  | Planned |
+| 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
 | 42 | Piranesi Nessi | Nessi's Ocean | third-party program | VRChat |  | Planned |
 | 48 | Log Lynx | Log Den | native tool | Crash catcher | `log-den-v1.0-crash-catcher-v1.0` | Works today |

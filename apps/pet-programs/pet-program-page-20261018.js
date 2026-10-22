@@ -274,15 +274,10 @@
     });
   }
 
-  // ---- Activity lights (Astra, 2026-10-19): the light on a level's tool panel (its top border) is on while that
-  // level is working right now, and the tool panel glows. L4 is you: on while this page is in front of you and you used it in the
-  // last two minutes, dim when you go quiet, off while the page is hidden. L1 to L3 need Startup Star's link to know
-  // what is running, so for now they say they are not connected. ----
-  var WORKING = {
-    L1: 'a program or tool of ' + config.home + ' is running',
-    L2: config.home + ' is doing something by itself, or data comes in from a pet it talks to',
-    L3: 'an agent is working in ' + config.home,
-  };
+  // ---- Activity (Astra, 2026-10-19): a level's tool panel glows while that level is working right now. L4 is you:
+  // it glows while this page is in front of you and you used it in the last two minutes, dims when you go quiet and
+  // stops while the page is hidden. L1 to L3 need Startup Star's link to know what is running (not built yet). The
+  // separate activity light after each label is gone (Astra, 2026-10-21, moving it left to the pair); the glow stays. ----
   var HERE = {
     live: ['you are here', 'You are here: this page is in front of you and you used it (pointer, keys or scrolling) in the last two minutes.'],
     idle: ['you went quiet', 'Open, but you have not used this page for two minutes, or you are working in another window.'],
@@ -291,20 +286,13 @@
   var L4 = null, L4quiet;
   var levelPanels = document.querySelectorAll('details.panel.level');
   for (var p = 0; p < levelPanels.length; p++) {
-    var legend = levelPanels[p].querySelector('.legend'), act = levelPanels[p].querySelector('.activity');
-    var level = /-(L[1-4])-[a-z-]*panel$/.exec(legend ? legend.textContent : '');
-    if (!level || !act) continue;
-    if (level[1] === 'L4') { L4 = { panel: levelPanels[p], light: act }; continue; }
-    act.dataset.state = 'unknown';
-    act.setAttribute('aria-label', 'activity: not connected yet');
-    act.title = 'Lights up while ' + WORKING[level[1]] + '. Not connected yet: it needs Startup Star\'s link, which is not built yet.';
+    var legend = levelPanels[p].querySelector('.legend');
+    if (/-L4-[a-z-]*panel$/.test(legend ? legend.textContent : '')) L4 = { panel: levelPanels[p], legend: legend };
   }
   function here(state) {
     if (!L4) return;
-    L4.light.dataset.state = state;
     L4.panel.dataset.activity = state;
-    L4.light.setAttribute('aria-label', 'activity: ' + HERE[state][0]);
-    L4.light.title = HERE[state][1];
+    L4.legend.title = HERE[state][1];
   }
   function present() {
     if (document.hidden) return;
@@ -318,7 +306,7 @@
   var lastMove = 0;
   document.addEventListener('pointermove', function () {
     var now = Date.now();
-    if (now - lastMove < 1000 && L4 && L4.light.dataset.state === 'live') return;
+    if (now - lastMove < 1000 && L4 && L4.panel.dataset.activity === 'live') return;
     lastMove = now;
     present();
   }, { passive: true });
