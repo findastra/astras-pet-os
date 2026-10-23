@@ -498,6 +498,7 @@ namespace AstraDesktopPets {
     internal bool LinedUp;
     readonly System.Windows.Forms.Timer timer=new System.Windows.Forms.Timer { Interval=200 };
     readonly System.Windows.Forms.Timer clickTimer=new System.Windows.Forms.Timer { Interval=20 };
+    readonly System.Windows.Forms.Timer repaintTimer=new System.Windows.Forms.Timer { Interval=5000 };
     readonly Stopwatch clickClock=Stopwatch.StartNew();
     readonly PetClicks clicks;
     readonly Random random;
@@ -557,11 +558,17 @@ namespace AstraDesktopPets {
       menu.Opening+=delegate { launcherToggle.Text=launcherVisible?"Hide desktop star":"Show desktop star"; };
       ContextMenuStrip=menu;
       timer.Tick+=delegate { if(Compact)return;ticks++;bool next=ticks%20==0;if(next!=blink){blink=next;Invalidate();}StepPair();foreach(var pet in roaming)pet.Step(blink);if(ticks%25==1)RefreshMoods(); };
+      // The star is see-through by its magenta colour key. After a lock, sleep or screen change Windows can drop that
+      // drawing and leave a plain block until something repaints it, and the small star never repainted on its own
+      // (Astra, 2026-10-23: "appearing in the bottom right-hand corner as a block and not the star"). Repaint on those
+      // events, redraw the tray star too, and repaint the desktop star every five seconds as a backstop.
+      repaintTimer.Tick+=delegate { Invalidate(); };
+      if(!test){SystemEvents.SessionSwitch+=SystemRepaint;SystemEvents.DisplaySettingsChanged+=SystemRepaint;SystemEvents.PowerModeChanged+=SystemRepaint;}
       clickTimer.Tick+=delegate { clicks.Advance(clickClock.ElapsedMilliseconds);if(!clicks.Pending)clickTimer.Stop(); };
       MouseDown+=Press;MouseMove+=TrackPointer;MouseUp+=Release;
       MouseLeave+=delegate { hover=null;hoverStar=false;tooltip.SetToolTip(this,null);Cursor=Cursors.Default; };
-      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();PetFiles.StartBug("--hosted");tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
-      FormClosed+=delegate { if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
+      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();repaintTimer.Start();PetFiles.StartBug("--hosted");tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
+      FormClosed+=delegate { if(!test){SystemEvents.SessionSwitch-=SystemRepaint;SystemEvents.DisplaySettingsChanged-=SystemRepaint;SystemEvents.PowerModeChanged-=SystemRepaint;}repaintTimer.Stop();if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
       RefreshStarIcon();LayoutPets();
     }
     // A background pet's command from its menu: its own program, started with the item's words.
@@ -581,10 +588,16 @@ namespace AstraDesktopPets {
         pet.Alarmed=alarmed;Invalidate();foreach(var window in roaming)if(window.Pet==pet)window.Invalidate();
       }
     }
-    void RefreshStarIcon() {
+    // Windows events (unlock, wake, screen change) arrive off the window's thread.
+    void SystemRepaint(object sender,EventArgs e) { try { if(IsHandleCreated&&!IsDisposed)BeginInvoke((MethodInvoker)Repaint); }catch(InvalidOperationException){} }
+    internal void Repaint() {
+      RefreshStarIcon(true);Invalidate();foreach(var pet in roaming)if(pet.Visible)pet.Invalidate();
+      testActions.Add("repaint");
+    }
+    void RefreshStarIcon(bool redraw=false) {
       int pixels;try { pixels=GetSystemMetricsForDpi(49,(uint)Math.Round(scale*96)); }catch(EntryPointNotFoundException){pixels=(int)Math.Round(16*scale);}
       pixels=Math.Max(16,pixels);
-      if(starBitmap!=null&&starBitmap.Width==pixels)return;
+      if(!redraw&&starBitmap!=null&&starBitmap.Width==pixels)return;
       var bitmap=new Bitmap(pixels,pixels,PixelFormat.Format32bppArgb);
       using(var g=Graphics.FromImage(bitmap)) { g.Clear(Color.Transparent);g.ScaleTransform(pixels/40f,pixels/40f);DrawStar(g); }
       var oldBitmap=starBitmap;var oldIcon=trayIcon;starBitmap=bitmap;
@@ -844,6 +857,7 @@ namespace AstraDesktopPets {
       rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","../x"}},"idle.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft named a folder that is not a repo.");
       bool initialPets=petsOut;ToggleLauncher();if(launcherVisible||petsOut!=initialPets)throw new Exception("Tray hide changed pet visibility state.");
       ToggleLauncher();if(!launcherVisible||petsOut!=initialPets)throw new Exception("Tray show changed pet visibility state.");
+      var oldIcon=trayIcon;int oldPixels=starBitmap.Width;Repaint();if(trayIcon==oldIcon||starBitmap.Width!=oldPixels)throw new Exception("Repaint after a lock or sleep did not redraw the tray star at the same size.");
       ClickTests();
       BackgroundTests();
       CreatePetWindows(left);
@@ -874,7 +888,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the background pets' menus (their own commands only) and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the star redrawn after a lock or sleep, the background pets' menus (their own commands only) and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -997,7 +1011,7 @@ namespace AstraDesktopPets {
       classifier.Press("farmer",point,9200);classifier.Release("farmer",9230,false);classifier.Press("goldfish",point,9300);classifier.Release("goldfish",9330,false);classifier.Advance(9900);if(String.Join(",",got)!="goldfish:1"||classifier.Pending)throw new Exception("Actor switch kept a stale gesture.");got.Clear();
       classifier.Press("farmer",point,10000);classifier.Release("farmer",10030,false);classifier.Press("farmer",new Point(200,100),10200);classifier.Release("farmer",10230,false);classifier.Advance(11000);if(String.Join(",",got)!="farmer:1,farmer:1")throw new Exception("Double click rectangle ignored.");
     }
-    protected override void Dispose(bool disposing) { if(disposing){if(tray!=null){tray.Visible=false;tray.Dispose();}if(starBitmap!=null)starBitmap.Dispose();if(trayIcon!=null)trayIcon.Dispose();if(tracker!=null)tracker.Dispose();ClosePetWindows();clickTimer.Dispose();timer.Dispose();tooltip.Dispose();menu.Dispose();foreach(var pet in pets)pet.Dispose();if(farmer!=null)farmer.Dispose();}base.Dispose(disposing); }
+    protected override void Dispose(bool disposing) { if(disposing){if(tray!=null){tray.Visible=false;tray.Dispose();}if(starBitmap!=null)starBitmap.Dispose();if(trayIcon!=null)trayIcon.Dispose();if(tracker!=null)tracker.Dispose();ClosePetWindows();clickTimer.Dispose();timer.Dispose();repaintTimer.Dispose();tooltip.Dispose();menu.Dispose();foreach(var pet in pets)pet.Dispose();if(farmer!=null)farmer.Dispose();}base.Dispose(disposing); }
   }
 
   internal sealed class CommandListener : IDisposable {
