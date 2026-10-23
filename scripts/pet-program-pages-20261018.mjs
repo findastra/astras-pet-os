@@ -468,7 +468,26 @@ function socialRowPanel(d) {
   return panel(`${d.petSlug}-social-row-tool-panel`, socialRowBody(), { cls: 'social-row' });
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
+
+// Gif Giraffe's native program (Astra, 2026-10-22: "Make sure the gif maker can be its own panel on the Giff
+// Giraffe"). A GIF maker needs a screen of its own -- a frame list to reorder, a live preview, a palette, export --
+// so by PET-PROGRAM-FRAMEWORK.md section 3 it is too big for a tool panel: it is a native program this pet program
+// manages, and the page keeps one tool panel that says how it is doing and opens it.
+// Claude Opus 5 (claude-opus-5), 2026-10-22.
+// astras-gif-maker is a private repo, so there is nothing to link: a private repo is never linked
+// (test/pet-program-pages-test-20261018.mjs) and a path outside the hub is not a hub file (A-235).
+// The panel names the file instead, and gets its Open button when Astra makes the repo public.
+export const GIF_MAKER_PROGRAM = 'astras-gif-maker/astras-gif-maker-20261022.html';
+function gifMakerPanel(d) {
+  return panel(`${d.petSlug}-gif-maker-tool-panel`, `<fieldset class="tool-box"><legend>astras-gif-maker-v0.1.0-astras-gif-maker-v1.0</legend>
+<h3>Astra\u2019s GIF Maker</h3>
+<p>Makes a GIF in the browser from frames you add: seamless blending across the loop, a pastel sparkle overlay, then download it or send it to Discord. Nothing you add leaves the page.</p>
+<p class="small">Native program \u00b7 v0.1.0 \u00b7 20261022 \u00b7 never run in a browser end to end yet.</p>
+<p class="small">Open <code>${esc(GIF_MAKER_PROGRAM)}</code> in a browser, in the pet\u2019s folder next to the hub on this PC.</p>
+</fieldset>${about(`Too big for a tool panel (PET-PROGRAM-FRAMEWORK.md, section 3), so the GIF maker is a native program of this pet program, with its own page in the pet's repo. This panel manages it; it does not hold it. The repo is private, so the button opens the pet's folder next to the hub on this PC (<code>astras-gif-maker/astras-gif-maker-20261022.html</code>) and works only there. Gif Giraffe still needs a job from Astra: what kind of GIFs should it make?`)}`, { cls: 'gif-maker', light: true });
+}
+
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel, 'astras-gif-maker': gifMakerPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
