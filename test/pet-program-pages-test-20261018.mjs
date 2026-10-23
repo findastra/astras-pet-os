@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'chat'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'chat'].includes(m)
       ? `${d.petSlug}-${m}` : m === 'quick-summary' ? `${d.homeSlug}-${m}` : m === 'system-map' ? SYSTEM_MAP_LABEL : m));
     let at = -1;
     for (const label of labels) {
@@ -335,9 +335,11 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.ok(html.indexOf(`>${d.petSlug}-related-pets<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: related pets come just above the footer`);
-    assert.deepEqual(d.related.map((r) => r.id).sort(), d.connections.map((c) => c.id).sort(), `${d.repo}: the same pets as its connection boxes`);
-    for (const r of d.related) {
+    assert.ok(html.indexOf(`>${d.petSlug}-plays-with<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: plays-with comes just above the footer`);
+    // Plays-with (Astra, 2026-10-23) holds every pet of its connection boxes, and the seeds and roadmap pets it links to.
+    const ids = new Set(d.related.map((r) => r.id));
+    for (const c of d.connections) assert.ok(ids.has(c.id), `${d.repo}: ${c.name} from its connection boxes plays with it`);
+    for (const r of d.related.filter((x) => x.page)) {
       assert.ok(names.has(r.page), `${d.repo}: ${r.pet} links to a page that exists (${r.page})`);
       assert.ok(html.includes(`href="${r.page}"`), `${d.repo}: ${r.pet} is a link`);
     }
@@ -345,6 +347,12 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
   assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+  // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
+  const rabbit = pages.find((d) => d.repo === 'rift-rabbit');
+  assert.ok(rabbit.related.some((r) => r.id === 'osc-sealion'), 'Rift Rabbit plays with OSC Sealion, a seed');
+  assert.ok(!rabbit.related.some((r) => r.id === 'gatekeeper-goddess'), 'not with the every-pet links that are only architecture');
+  const rank = { now: 0, planned: 1, idea: 2, suggested: 3, architecture: 4 };
+  for (const d of pages) for (let i = 1; i < d.related.length; i++) if (!(d.plays_with || []).length) assert.ok(rank[d.related[i - 1].state] <= rank[d.related[i].state], `${d.repo}: most used first`);
 });
 
 test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {

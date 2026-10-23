@@ -41,6 +41,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): A secret found in a repo becomes a checklist step.
 - **API Fairy** (API Fairy Ring) (an idea, not agreed yet): An old or exposed key becomes a checklist step.
+- **Gatekeeper Goddess** (Iron Gates) (architecture): Security actions need permission review.
 
 ## Picture
 

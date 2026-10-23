@@ -39,7 +39,10 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Photo Dodo** (Photo Roost) (planned, not built yet): Backup Beaver knows where the last backup is, so Photo Dodo can say which pictures are safe.
+- **Video Vulture** (Video Vault) (planned, not built yet): Backup Beaver knows where the last backup is, so Video Vulture can say which videos are safe.
 - **File Master** (File Kingdom) (an idea, not agreed yet): What File Master finds unprotected is what Backup Beaver should copy.
+- **Storage Stoat** (Storage Warren) (suggested): Backups land on the storage Storage Stoat watches.
 
 ## Picture
 

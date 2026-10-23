@@ -37,11 +37,12 @@ const wordScripts = WORDS.map((src) => `<script src="${src}"></script>`).join('\
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
-// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
+// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer;
+// since 2026-10-23 it is `<pet>-plays-with`, most used first.
 // The quick summary is `<home>-quick-summary` and the map box `astras-pet-os-system-map`, the map being the hub's
 // (Astra, 2026-10-21, crossing out "pet-program" and writing "astras-pet-os" over "unity-unicorn" on her screenshot).
 export const SYSTEM_MAP_LABEL = 'astras-pet-os-system-map';
-export const PANELS = ['cyberhome', 'quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -63,6 +64,8 @@ const SURE = { planned: 0, written: 1, enforced: 2 };
 const MARK = { enforced: '✓', written: '⚠︎', planned: '○' };
 const STATE = { now: 'works today', planned: 'planned', idea: 'idea, not agreed yet', suggested: 'suggested', architecture: 'in the architecture' };
 const PET_TYPES = new Set(['host', 'pet', 'pipeline']);
+// Plays-with also shows the pets not hatched yet (Astra, 2026-10-23: "those need to show OSC Sealion", a seed).
+const PLAY_TYPES = new Set([...PET_TYPES, 'seed', 'roadmap']);
 
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const slug = (s) => String(s).toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -190,17 +193,37 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     talks.get(other)[out ? 'sends' : 'receives'].push({ carries: l.carries, state: l.state, why: l.why || '' });
   }
 
-  // Related pets, at the bottom: the same pets as the connection boxes, each with its picture and a link to its own
-  // pet program page (Astra, 2026-10-19). Every one of them is a registered or pipeline pet, so its page exists.
+  // <pet>-plays-with, at the bottom (Astra, 2026-10-23: "related pets needs to be rift-rabbit-plays-with and those need
+  // to show OSC Sealion, etc. and in order of most used to least used. All pet programs need this panel format"): every
+  // pet linked to this one on the System Map, seeds and roadmap pets too, but not the every-pet links that are only
+  // architecture so far (everyApp; the Friendly Farmer's and the Goldfish's work today, so they stay).
+  // How much they are used is not measured yet, so the most used come first by the map: links that work today, then
+  // planned, then ideas and suggestions; within each, the pet it shares the most links with. A pet's `plays_with` in
+  // pets.json (repo or map ids, most used first) puts those first, in Astra's order.
   const regs = [...(registry.pets || []), ...(registry.pipeline || [])];
-  const rank = { now: 0, planned: 1, idea: 2, suggested: 3 };
-  const related = [...talks.values()].map((t) => {
-    const r = regs.find((x) => x.repo === t.id);
-    const flows = [...t.sends, ...t.receives];
-    const state = flows.map((f) => f.state || 'now').sort((a, b) => (rank[a] ?? 9) - (rank[b] ?? 9))[0] || 'now';
-    return { id: t.id, pet: t.name, home: t.program, state, why: flows.find((f) => f.why)?.why || '',
-      page: r ? `${t.id}-${DATE}.html` : null, idle: r ? petFrames(r, { frameIndex, drafts, exists, list }).frames.idle || null : null };
-  }).sort((a, b) => (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || a.pet.localeCompare(b.pet));
+  const rank = { now: 0, planned: 1, idea: 2, suggested: 3, architecture: 4 };
+  const plays = new Map();
+  for (const l of map.links) {
+    if (l.everyApp && l.state === 'architecture') continue;
+    const out = mine.has(l.from), other = out ? l.to : l.from;
+    if (!(out || mine.has(l.to)) || mine.has(other)) continue;
+    const o = nodes.get(other);
+    if (!o || !PLAY_TYPES.has(o.type)) continue;
+    const p = plays.get(other) || { id: other, o, links: 0, state: null, why: '' };
+    p.links += 1;
+    const state = l.state || 'now';
+    if (p.state === null || (rank[state] ?? 9) < (rank[p.state] ?? 9)) p.state = state;
+    if (!p.why && l.why) p.why = l.why;
+    plays.set(other, p);
+  }
+  const chosen = (reg.plays_with || []).filter((id) => plays.has(id));
+  const order = (id) => { const i = chosen.indexOf(id); return i < 0 ? chosen.length : i; };
+  const related = [...plays.values()].map(({ id, o, links, state, why }) => {
+    const r = regs.find((x) => x.repo === id);
+    const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
+    return { id, pet: o.name, home, state, why, links,
+      page: r ? `${id}-${DATE}.html` : null, idle: petFrames(r || { repo: id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
+  }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
   // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
@@ -238,7 +261,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
     skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
     devices: ofType(['host-machine']), tools, tricks,
-    connections: [...talks.values()], related,
+    connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
     languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
@@ -495,10 +518,10 @@ function mapRelated(d) {
     const inner = `${img(r.idle, `${r.pet}, idle`, 'mini')}<span>${esc(r.pet)}</span>`;
     return `<li>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
   };
-  const more = d.related.length > MAP_RELATED ? `all ${d.related.length} related pets` : 'related pets';
+  const more = d.related.length > MAP_RELATED ? `plays with all ${d.related.length}` : 'plays with';
   return `
 <ul class="map-related" aria-label="${esc(`Pets ${d.pet} talks to`)}">${d.related.slice(0, MAP_RELATED).map(link).join('')}</ul>
-<p class="small map-related-all"><a href="#${esc(d.petSlug)}-related-pets">${more}, below</a></p>`;
+<p class="small map-related-all"><a href="#${esc(d.petSlug)}-plays-with">${more}, below</a></p>`;
 }
 
 // The unified footer, as it looked before it turned into a list (Astra, 2026-10-20: "It looked really good ... It was
@@ -684,10 +707,10 @@ ${about(`One and two clicks are the same for every pet. From three clicks on, ea
     const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
-  const related = panel(`${d.petSlug}-related-pets`, d.related.length
+  const related = panel(`${d.petSlug}-plays-with`, d.related.length
     ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>
-${about(`Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.`)}`
-    : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-related-pets` });
+${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, most used first. Use is not measured yet, so the order is the map's: links that work today, then planned, then ideas; within each, the pet they share the most with. A <code>plays_with</code> list in pets.json sets the order instead. Click one to open its pet program.`)}`
+    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-plays-with` });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date

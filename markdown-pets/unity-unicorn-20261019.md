@@ -105,7 +105,12 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Door Dormouse** (The Threshold) (planned, not built yet): The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists.
+- **OSC Sealion** (OSC Sonar) (planned, not built yet): Unity Unicorn manages an app that transfers faces and face-tracking data and will personalize a face-tracking rig on an avatar in conjunction with VRCFT, which OSC Sealion manages. Astra, 2026-10-12.
+- **Piranesi Nessi** (Nessi's Ocean) (planned, not built yet): Piranesi House is a Unity world built with Unity Unicorn's world tools (marble-carver, vine-bloomer): Nessi's world needs become Unity Unicorn build work, and the tools ship the changes. Astra, 2026-10-12.
+- **Pole Puff** (Infinite Studio) (planned, not built yet): Astra's Infinite Pole is a Unity world: what Pole Puff finds the world needs becomes Unity Unicorn build work, and Unity Unicorn's world tools ship the changes. Astra, 2026-10-12.
 - **Rift Rabbit** (Wonderland Launchpad) (an idea, not agreed yet): VR performance notes feed world build tasks.
+- **Skill Scout** (Luna's Log) (suggested): Unity Unicorn learns and sorts the skills it uses; Skill Scout's job is undecided but its name fits.
 
 ## Picture
 

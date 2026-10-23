@@ -22,12 +22,14 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 
 /* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
 .panel { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
-.panel > summary { position: absolute; top: -0.8em; left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+/* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
+   alignment issues", on rift-rabbit-update-history sitting above its line). */
+.panel > summary { position: absolute; top: 0; transform: translateY(-50%); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
 .panel > summary::-webkit-details-marker { display: none; }
 /* Only the label cuts the border, a space each side; its lights sit on the line with nothing behind them (2026-10-22). */
 .panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--slate); padding: 0 6px; }
 /* A tool panel's paired lights sit left of its label, in the border line (Astra, 2026-10-21). */
-.panel > summary > .lights { margin: 0; gap: 5px; }
+.panel > summary > .lights { margin: 0; }
 .panel:not([open]) { padding: 14px 18px 0; }
 .panel .panel { margin-top: 26px; }
 
@@ -183,7 +185,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .items li.pill:has(> .pill-more > summary:focus-visible) { outline: 2px solid var(--fix); outline-offset: 2px; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 /* The lights sit on the border with nothing behind them: the line runs into each one and between them. */
-.pill > .lights { position: absolute; top: calc(var(--light-size) / -2 - 1px); left: 20px; z-index: 1; margin: 0; padding: 0; background: none; }
+.pill > .lights { position: absolute; top: calc(var(--light-size) / -2 - 0.5px); left: 20px; z-index: 1; margin: 0; padding: 0; background: none; }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
 .pill > .item-desc, .pill > .label { display: block; }
@@ -356,7 +358,8 @@ label.file { position: relative; }
   .system-map .map-link { font-size: 12.5px; }
   /* In a half-width box a long label wraps upward: its last line stays on the border and the square keeps all its room
      (2026-10-21: the label used to take room inside, which pushed the pet's frame out of its square). */
-  .top > .panel > summary { top: auto; bottom: calc(100% - .7em); left: 6px; max-width: calc(100% - 12px); }
+  /* A label that wraps here keeps its last line on the border, centred like a one-line label (half of 11px x 1.3). */
+  .top > .panel > summary { left: 6px; max-width: calc(100% - 12px); transform: translateY(calc(-100% + 7.15px)); }
   .top > .panel > summary .legend { font-size: 11px; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
