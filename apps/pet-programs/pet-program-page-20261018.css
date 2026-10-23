@@ -375,6 +375,22 @@ img[hidden] { display: none !important; }
 /* API Fairy's key requests (Astra, 2026-10-19): three groups, each labelled in its top border. Waiting on you, the one
    she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
    a phone. */
+/* Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): a box per headset, its four ways of tracking side by side,
+   one column on a phone. The try rated best glows; square corners like every box. */
+.launch-headset { border: 1px solid var(--line); padding: 4px 14px 14px; margin: 0 0 18px; min-width: 0; }
+.launch-headset > legend { font: 15px var(--label); padding: 0 6px; }
+.launch-switches { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; margin: 4px 0 14px; font-size: 14px; }
+.launch-switch select, .launch-try select, .launch-try textarea { font: 13px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 0; }
+.launch-fixed { color: var(--care); }
+.launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.launch-mode { border: 1px solid #66655c; padding: 4px 12px 8px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.launch-mode legend { font: 13px var(--label); padding: 0 6px; }
+.launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
+.launch-mode[data-rating="bad"] { border-color: var(--off); }
+.launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
+.launch-warn { color: var(--fix); }
+.launch-try { display: grid; gap: 6px; }
+.launch-try textarea { width: 100%; box-sizing: border-box; }
 .request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }

@@ -19,6 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -468,7 +469,15 @@ function socialRowPanel(d) {
   return panel(`${d.petSlug}-social-row-tool-panel`, socialRowBody(), { cls: 'social-row' });
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
+// Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
+// notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
+// Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
+function vrchatLaunchPanel(d) {
+  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody()}</div>
+${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
+}
+
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel, 'rift-rabbit': vrchatLaunchPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
