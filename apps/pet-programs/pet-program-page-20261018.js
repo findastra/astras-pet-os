@@ -592,6 +592,16 @@
   }
   })();
 
+  // ---- Clicking a pill opens or closes it, like Halo List's (Astra, 2026-10-23: "just clicking the bubble opens it").
+  // Its lights, links, buttons and fields keep their own clicks, and selecting text in it does not close it. ----
+  document.addEventListener('click', function (e) {
+    var pill = e.target.closest && e.target.closest('li.pill');
+    if (!pill || e.target.closest('button, a, input, select, textarea, label, summary')) return;
+    if (pill.querySelector('.pill-body').contains(e.target) && String(window.getSelection())) return;
+    var more = pill.querySelector(':scope > .pill-more');
+    if (more) more.open = !more.open;
+  });
+
   // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes
   // on each try are saved in this browser; the page shows what a launch would start and which try went best. ----
   (function () {

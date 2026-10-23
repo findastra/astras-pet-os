@@ -222,9 +222,9 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
     const pills = items.split('<li class="pill">').slice(1);
     for (const p of pills) {
       assert.match(p, /^<span class="lights">/, `${d.repo}: the lights come first, on the oval`);
-      // The name opens the item itself; a dropdown arrow shows the rest (Astra, 2026-10-22: "dropdown arrow and tool name to open tool").
-      assert.match(p, /^<span class="lights">.*?<\/span>(<a class="item-name" href="[^"]+"|<span class="item-name")/, `${d.repo}: the name, after the lights`);
-      assert.match(p, /<details class="pill-more"( open)?><summary title="Show or hide more about [^"]+" aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the dropdown arrow`);
+      // Clicking the pill opens it, name included; no dropdown arrow (Astra, 2026-10-23: "just clicking the bubble opens it").
+      assert.match(p, /^<span class="lights">.*?<\/span><span class="item-name">/, `${d.repo}: the name, after the lights`);
+      assert.match(p, /<details class="pill-more"( open)?><summary aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the pill opens`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
       // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
@@ -239,11 +239,11 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
   assert.ok(at > levelsEnd, "its own panel, after the four levels");
   assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
-  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes(">Astra&#39;s Window Star</a>"), "the tool is still listed in L1");
-  assert.match(puffer, /<a class="item-name" href="#astras-star-window-tool-panel" title="Use Astra&#39;s Window Star below">/, 'its name opens its panel');
+  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
+  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
-  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<a class="item-name" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+" title="Open ${name}">${name}</a>`), `${name}: its name links its folder`);
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {

@@ -293,20 +293,22 @@ ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="$
 // that line (Astra, 2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator
 // lights down"). The lights now sit in the border line too, left of the name (Astra, 2026-10-21, drawing them there
 // on every tool: "etc."), and the pill says in one line what the item does, without opening it (her screenshot:
-// "summarize what each program does in here", and a tool panel's "tool description"). The name is a link that opens
-// the item, and a dropdown arrow on the border shows or hides the rest (Astra, 2026-10-22, on a 3rd party program:
-// "dropdown arrow and tool name to open tool, applies to all 3pp, p, to, tr").
+// "summarize what each program does in here", and a tool panel's "tool description"). Since 2026-10-23 there is no
+// dropdown arrow: clicking the pill shows or hides the rest, and an Open it button inside goes to the item itself.
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const desc = i.desc ? `<span class="item-desc">${esc(i.desc)}</span>` : '<span class="item-desc empty">No description on the System Map yet.</span>';
-    const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
-<p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${i.url || i.embed ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
-<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}`;
+    // Clicking anywhere on the pill opens it, name included, like Halo List's (Astra, 2026-10-23: "Get rid of the arrow
+    // drop down. I like how Halo List has it for the info expansion, just clicking the bubble opens it"), so its own
+    // page or panel is a button inside.
     const href = i.embed ? `#${i.id}-tool-panel` : i.url;
-    const name = href ? `<a class="item-name" href="${esc(href)}" title="${esc(i.embed ? `Use ${i.name} below` : `Open ${i.name}`)}">${esc(i.name)}</a>`
-      : `<span class="item-name" title="Its own page is not linked on the System Map yet">${esc(i.name)}</span>`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Show or hide more about ${esc(i.name)}" aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
+    const open = href ? `\n<p><a class="button" href="${esc(href)}">${esc(i.embed ? 'Use it below' : 'Open it')}</a></p>` : '';
+    const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
+<p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${open}`;
+    const name = `<span class="item-name">${esc(i.name)}</span>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
