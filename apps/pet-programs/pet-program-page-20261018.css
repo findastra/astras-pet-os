@@ -77,7 +77,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* A flex column: inside a details box, Chrome resolves the container units only then. Nothing is clipped at the box
    itself, so its label stays whole on the border; the den clips the pet. */
 .top > .cyberhome[open], .top > .system-map[open] { aspect-ratio: 1 / 1; container-type: size; display: flex; flex-direction: column; }
-.top > .system-map[open] { justify-content: center; }
+.top > .system-map[open] { justify-content: flex-start; }
 /* Their labels keep to one line on the border: a little smaller and closer to the corner than other panels'. */
 .top > .panel > summary { left: 10px; max-width: calc(100% - 20px); }
 .top > .panel > summary .legend { font-size: 11px; white-space: nowrap; }
@@ -95,7 +95,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .system-map .map-related-all { margin-top: 6px; }
 .map-related, .system-map .map-related-all { display: none; }
 @container (min-height: 300px) { .map-related { display: flex; } .system-map .map-related-all { display: block; } }
-.rings { width: auto; max-width: 100%; height: clamp(40px, calc(100cqh - 64px), 150px); }
+.rings { width: auto; max-width: 100%; height: clamp(40px, calc(100cqh - 112px), 150px); }
 .rings circle { fill: none; stroke: var(--line); stroke-width: 1.5; }
 .rings .core { fill: var(--line); }
 .rings .node { fill: var(--link); stroke: #111; }
@@ -109,10 +109,12 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .cyberhome[open] { padding: var(--pad); }
 .habitat { position: relative; text-align: center; display: flex; flex-direction: column; }
 /* The details box's own content slot is not a flex item, so the habitat takes the square's inside by container units. */
-.top > .cyberhome[open] .habitat { height: 100cqh; }
+.top > .cyberhome[open] .habitat, .top > .system-map[open] .habitat { height: 100cqh; }
+/* The map panel's tool box, like the cyberhome's den (Astra, 2026-10-23). */
+.map-box { flex: 1; min-height: 0; border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 44px 6px 6px; }
 /* The cyberhome's lights sit inside the den's top corner, off its border line (Astra, 2026-10-20: "Move those
    indicator lights down. They are in the way of the line"). */
-/* <pet>-cyberhome-render, the tool inside the cyberhome (Astra, 2026-10-23): drawn like every tool, a small pill inside
+/* <pet>-cyberhome, the tool inside the cyberhome (Astra, 2026-10-23): drawn like every tool, a small pill inside
    its box with its lights and its name, never on a border ("we got rid of the lights in panel borders ... it should
    only be on a tool"). */
 .habitat > .render-label { position: absolute; top: 8px; left: 8px; z-index: 2; display: flex; align-items: center; gap: 7px; max-width: calc(100% - 16px);

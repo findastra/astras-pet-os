@@ -139,9 +139,12 @@ test('lights: the ON/OFF light is never grey, and only tools have lights, never 
     // "panels cant have lights. only tools can"
     assert.ok(!html.includes('data-item="panel:'), `${d.repo}: no panel has lights`);
     assert.ok(!/<summary[^>]*><span class="lights">/.test(html), `${d.repo}: no lights in a panel's label`);
-    // The cyberhome's box is the tool <pet>-cyberhome-render, its lights left of its name in its border.
-    const render = `${d.petSlug}-cyberhome-render`;
-    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${render}"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights`);
+    // The cyberhome's box is the tool <pet>-cyberhome, a pill with its lights; not built yet, so off, never green.
+    const render = `${d.petSlug}-cyberhome`;
+    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
+    // The map panel's tool, <pet>-system-map: its lights live (the link exists).
+    const mapTool = `${d.petSlug}-system-map`;
+    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
   }
   const rabbit = files[pagePath('rift-rabbit')];
   assert.match(rabbit, /<div class="den" data-arrival="waiting" style="--pet-height: 73\.6px">/, 'Rift Rabbit stands as tall as on the desktop');

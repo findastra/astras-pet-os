@@ -12,7 +12,7 @@ benchmark-rock and move program-watch there with the VR changes."
   Kernel Grove's needs no longer list those programs (findastra/kernel-grove#7 takes program-watch out).
 - "panels cant have lights. only tools can": no panel label has lights. Each panel label has a small arrow that shows
   it folds, like Halo List's.
-- The box inside the cyberhome is the tool `<pet>-cyberhome-render`, with its lights left of its name in its border.
+- The box inside the cyberhome is the tool `<pet>-cyberhome`: a pill with its lights, off until it is built.
   The pet stands as tall as on the desktop (`scripts/pet-size-20261023.mjs`, from Startup Star's sizes).
 - The two squares are `<pet>-cyberhome-panel` and `<pet>-system-map-panel`, and they start level with the title.
 - Pills follow Halo List's format: small raised lights inside on the left, then the name and tags, as wide as that.

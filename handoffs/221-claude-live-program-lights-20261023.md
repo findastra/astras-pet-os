@@ -46,7 +46,7 @@ merged. The Rift Rabbit chat writes none of their files before then.
   Self-test: 20 of 20.
 - **findastra/kernel-grove#7** takes program-watch out of Kernel Grove. Self-test: 67 of 67. kernel-grove#6 is closed.
 - **This PR** reads Benchmark Rock's file and moves program-watch to program-72 on the System Map. It also has Astra's
-  page changes from the same evening: no lights on panels, `<pet>-cyberhome-render`, the pet at desktop size,
+  page changes from the same evening: no lights on panels, the `<pet>-cyberhome` tool pill, the pet at desktop size,
   `<pet>-cyberhome-panel` and `<pet>-system-map-panel` level with the title, Halo List pills with small lights, and the
   dark pink colors. `npm test`: 331 pass. Record: `changes/live-program-lights-20261023.md`.
 - **Running on her PC:** Inference Iguana's watch from benchmark-rock#3's build, started with `--startup`. Kernel

@@ -580,13 +580,14 @@ export function buildPetProgramPage(d) {
   // since 2026-10-20 (Astra crossed it out). No bubble in it since 2026-10-21 (Astra: "get rid of this entirely; select
   // from 9 emotions at bottom what to 'light up'"): the mood it showed lights up in the emotions tool panel instead.
   // The cyberhome is always a square, and so is the System Map box.
-  // The box inside the cyberhome is a tool, `<pet>-cyberhome-render`, the little art cyberhome that will be drawn up
-  // later: its lights sit left of its name in its border, like every tool's (Astra, 2026-10-23: "the tool inside the
-  // rift-rabbit-cyberhome (panel) is the rift-rabbit-cyberhome-render ... similar to how other tools work in other
-  // panels"). The pet stands as tall as on the desktop.
-  const render = `${d.petSlug}-cyberhome-render`;
+  // The box inside the cyberhome is a tool, `<pet>-cyberhome`, the little art cyberhome that will be drawn up later,
+  // drawn like every tool: a pill with its lights and its name (Astra, 2026-10-23: "the tool inside the
+  // rift-rabbit-cyberhome (panel) is ... similar to how other tools work in other panels", then "rift-rabbit-cyberhome is
+  // the correct tool name, and we dont have one so idk why its green"). It is not built, so it is off, never a guessed
+  // green. The pet stands as tall as on the desktop.
+  const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
-<span class="render-label">${lights(`tool:${render}`, render)}<span class="render-name">${esc(render)}</span></span>
+<span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
 <div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
@@ -612,9 +613,15 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   const ringR = { 0: 0, 1: 24, 2: 40, 3: 56 }[d.ring] ?? 56;
   // Its label is the hub's (the map is Astra's PetOS's), and its node's id is no longer printed under the link (Astra,
   // 2026-10-21, crossing out "its node: unity-stable"; the link still opens that node).
-  const systemMap = panel(`${d.petSlug}-${SYSTEM_MAP_LABEL}`, `<a class="map-link" href="${esc(map)}">
+  // The box inside the map panel is a tool too, `<pet>-system-map`, a pill with its lights like the cyberhome's (Astra,
+  // 2026-10-23: "you are still missing the indicator light buttons on the system map panel tool"): ON/OFF says the link
+  // is open, the maintenance light that the map's information on this pet is wrong or broken.
+  const mapTool = `${d.petSlug}-system-map`;
+  const systemMap = panel(`${d.petSlug}-${SYSTEM_MAP_LABEL}`, `<div class="habitat map-home">
+<span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
+<div class="map-box"><a class="map-link" href="${esc(map)}">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-<span>Open ${esc(d.home)} on the System Map</span></a>${mapRelated(d)}`, { cls: 'system-map' });
+<span>Open ${esc(d.home)} on the System Map</span></a>${mapRelated(d)}</div></div>`, { cls: 'system-map' });
 
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
