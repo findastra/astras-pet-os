@@ -123,16 +123,24 @@ async function gh(path, token) {
   return r.json();
 }
 
-/** Every text file of every repo that names the hub, read for --links (one request per file: minutes, not seconds). */
-async function fetchTexts(trees, token) {
+/** Every text file of every repo that names the hub, read for --links. A file's bytes never change under its git hash,
+ *  so `cache` ({ sha: text, or '' when it never names the hub }) keeps what earlier runs read: the first run reads a few
+ *  thousand files (most of an hour's GitHub allowance), a daily run only the files that changed since. */
+export async function fetchTexts(trees, token, cache = {}, get = gh) {
+  let read = 0;
   for (const [repo, t] of Object.entries(trees)) {
     t.texts = {};
     for (const f of t.files.filter(isLinkFile)) {
-      const b = await gh(`/repos/${OWNER}/${repo}/git/blobs/${f.sha}`, token);
-      const text = b?.content ? Buffer.from(b.content, 'base64').toString('utf8') : '';
-      if (text.includes(HUB)) t.texts[f.path] = text;
+      if (!(f.sha in cache)) {
+        const b = await get(`/repos/${OWNER}/${repo}/git/blobs/${f.sha}`, token);
+        const text = b?.content ? Buffer.from(b.content, 'base64').toString('utf8') : '';
+        cache[f.sha] = text.includes(HUB) ? text : '';
+        read++;
+      }
+      if (cache[f.sha]) t.texts[f.path] = cache[f.sha];
     }
   }
+  return read;
 }
 
 async function fetchTrees(branch, token) {
@@ -175,16 +183,28 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   let token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
   if (!token && !treesFile) try { token = execFileSync('gh', ['auth', 'token'], { encoding: 'utf8' }).trim(); } catch { token = undefined; }
   const trees = treesFile ? readJson(treesFile) : await fetchTrees(arg('--branch'), token);
-  if (process.argv.includes('--links') && !treesFile) await fetchTexts(trees, token);
+  // With --save, the files read are remembered beside the result (on this PC only: it holds private repos' text).
+  const saveTo = process.argv.includes('--save') ? (arg('--save') && !arg('--save').startsWith('--') ? arg('--save') : savePath()) : null;
+  if (process.argv.includes('--links') && !treesFile) {
+    const cacheFile = saveTo && join(dirname(saveTo), 'one-art-source-text-cache.json');
+    let cache = {}; try { if (cacheFile) cache = readJson(cacheFile); } catch { cache = {}; }
+    const read = await fetchTexts(trees, token, cache);
+    if (cacheFile) {
+      // Keep only files some repo still has, so the cache never grows past today's repos.
+      const live = new Set(Object.values(trees).flatMap((t) => t.files.map((f) => f.sha)));
+      mkdirSync(dirname(cacheFile), { recursive: true });
+      writeFileSync(cacheFile, JSON.stringify(Object.fromEntries(Object.entries(cache).filter(([sha]) => live.has(sha)))));
+    }
+    console.error(`Links: read ${read} text file(s) from GitHub; the rest were remembered.`);
+  }
   // The draft list lives in this hub since 2026-10-18; an older one in %LOCALAPPDATA% is checked only if the hub has none.
   const hubList = fileURLToPath(new URL('../desktop-art/desktop-drafts-20261018.json', import.meta.url));
   const draftsFile = arg('--drafts') || (existsSync(hubList) ? hubList : process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
   const drafts = draftsFile && existsSync(draftsFile) ? readJson(draftsFile) : null;
   const result = audit(trees, drafts);
-  if (process.argv.includes('--save')) {
-    const to = arg('--save') && !arg('--save').startsWith('--') ? arg('--save') : savePath();
-    mkdirSync(dirname(to), { recursive: true });
-    writeFileSync(to, JSON.stringify({ checked: new Date().toISOString(), links: process.argv.includes('--links'), repos: Object.keys(trees).length, ...result }, null, 1) + '\n');
+  if (saveTo) {
+    mkdirSync(dirname(saveTo), { recursive: true });
+    writeFileSync(saveTo, JSON.stringify({ checked: new Date().toISOString(), links: process.argv.includes('--links'), repos: Object.keys(trees).length, ...result }, null, 1) + '\n');
   }
   if (process.argv.includes('--json')) console.log(JSON.stringify(result, null, 1));
   else {

@@ -8,7 +8,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { datedLinks, fixLinks, latestPath, latestPlan, planFor, HUB_RAW, LATEST } from '../scripts/one-picture-home-20261024.mjs';
-import { audit, classify, describe, isLinkFile, HUB_RECORDS } from '../scripts/one-art-source-20261017.mjs';
+import { audit, classify, describe, fetchTexts, isLinkFile, HUB_RECORDS } from '../scripts/one-art-source-20261017.mjs';
 import { analyze, artItems } from '../scripts/outstanding-items-20261021.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -81,6 +81,19 @@ test('the checker fails on a private hub and on a dated link, and says so in pla
   assert.match(describe(r.findings[2]), /README\.md links a dated picture: .*rgbee-20261012\.png \(should be .*latest\/icons\/rgbee\.png\)/);
   hub.private = false; hub.texts = {};
   assert.equal(audit({ 'astras-pet-os': hub, rgbee: { files: [] } }, null).verdict, 'Correct');
+});
+
+test('--links reads each text file once: a file already read under its git hash comes from the cache', async () => {
+  const trees = { rgbee: { files: [{ path: 'README.md', sha: 'r1' }, { path: 'pet.json', sha: 'p1' }, { path: 'icon.png', sha: 'i1' }] } };
+  const asked = [];
+  const get = async (path) => { asked.push(path); return { content: Buffer.from(path.endsWith('/r1') ? `<img src="${HUB_RAW}art/icons/rgbee-20261012.png">` : '{}').toString('base64') }; };
+  const cache = {};
+  assert.equal(await fetchTexts(trees, null, cache, get), 2);
+  assert.deepEqual(Object.keys(trees.rgbee.texts), ['README.md']);
+  assert.equal(cache.p1, '');
+  assert.equal(await fetchTexts(trees, null, cache, get), 0);
+  assert.equal(asked.length, 2);
+  assert.deepEqual(Object.keys(trees.rgbee.texts), ['README.md']);
 });
 
 test("Fuzzbois' project art under its new name and Spoonfed's app logo are not pet pictures; a copy still is", () => {
