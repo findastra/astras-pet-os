@@ -31,15 +31,18 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
   --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(255, 255, 255, .08); }
 .panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; }
 /* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
-   alignment issues", on rift-rabbit-update-history sitting above its line). */
-.panel > summary { position: absolute; top: 0; transform: translateY(-50%); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+   alignment issues", on rift-rabbit-update-history sitting above its line). A label that wraps grows upward, its last
+   line on the border, so it never runs into the panel's words (Astra, 2026-10-23: "still an awkward lack of space
+   between panel title and next body text"): half of 13px x 1.3 is 8.45px. */
+.panel > summary { position: absolute; top: 0; transform: translateY(calc(-100% + 8.45px)); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
 .panel > summary::-webkit-details-marker { display: none; }
 /* Only the label cuts the border, a space each side; its lights sit on the line with nothing behind them (2026-10-22). */
 .panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--slate); padding: 0 6px; }
 /* No lights on a panel, only on tools (Astra, 2026-10-23). A small arrow after the label shows the panel folds, like
-   Halo List's: right while folded, down while open. */
-.panel > summary .legend::after { content: "\25B8"; display: inline-block; margin-left: 8px; font-size: 10px; color: var(--chalk-dim); transition: transform .15s ease; }
-.panel[open] > summary .legend::after { transform: rotate(90deg); }
+   Halo List's: right while folded, down while open. No-break spaces join it to the last word, so it never wraps onto a
+   line of its own. */
+.panel > summary .legend::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
+.panel[open] > summary .legend::after { content: "\00A0\00A0\25BE"; }
 .panel > summary:hover .legend::after { color: var(--fix); }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
 /* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
@@ -117,6 +120,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .panel { margin-top: 6px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
+/* On a phone its label wraps upward onto two lines, so it gets room under the version. */
+@media (max-width: 760px) { .title .panel { margin-top: 34px; } }
 /* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
 .title .summary[open] { padding: var(--pad); }
 .title .summary > p { margin: 0; }
