@@ -532,3 +532,18 @@ img[hidden] { display: none !important; }
 .words-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .words-choice { font: 13px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 2px 10px; cursor: pointer; }
 .words-choice[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
+/* On a phone the footer squishes together into one small cluster (Astra, 2026-10-23: "unified footer needs to squish
+   together cutely"): tighter gaps, smaller icons, the languages and the photostar beside each other. */
+@media (max-width: 760px) {
+  .astra-footer { gap: 4px; }
+  .footer-line { gap: 2px 10px; }
+  .footer-group { gap: 4px; }
+  .footer-group::before { margin-right: 2px; }
+  .footer-icons { gap: 0; }
+  .footer-icons a { width: 28px; height: 28px; }
+  .footer-icons svg { width: 19px; height: 19px; }
+  .languages { margin: 0; }
+  .languages .tag { font-size: 11px; padding: 0 7px; }
+  .footer-star { margin-left: 0; }
+  .footer-star img { width: 36px; height: 36px; }
+}

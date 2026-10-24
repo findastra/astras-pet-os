@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'chat-panel'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'].includes(m)
       ? `${d.petSlug}-${m}` : ['quick-summary-panel', 'editorial-status-panel'].includes(m) ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -61,7 +61,7 @@ test('labels sit in the top border with nothing after them, and every emotion bu
 test('clicker training: one and two clicks are the same for every pet, tools from three clicks on (Astra, 2026-10-18)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training-panel<`), html.indexOf('>astras-unified-footer-panel<'));
+    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training-panel<`), html.indexOf(`>${d.petSlug}-unified-footer-panel<`));
     // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22).
     const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
     assert.match(box, pill('one click'), `${d.repo}: one click`);
@@ -348,7 +348,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.ok(html.indexOf(`>${d.petSlug}-friends-list-panel<`) < html.indexOf('>astras-unified-footer-panel<'), `${d.repo}: plays-with comes just above the footer`);
+    assert.ok(html.indexOf(`>${d.petSlug}-friends-list-panel<`) < html.indexOf(`>${d.petSlug}-unified-footer-panel<`), `${d.repo}: plays-with comes just above the footer`);
     // Plays-with (Astra, 2026-10-23) holds every pet of its connection boxes, and the seeds and roadmap pets it links to.
     const ids = new Set(d.related.map((r) => r.id));
     for (const c of d.connections) assert.ok(ids.has(c.id), `${d.repo}: ${c.name} from its connection boxes plays with it`);
