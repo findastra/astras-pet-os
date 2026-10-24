@@ -45,7 +45,7 @@ const decode = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&qu
 function texts(html) {
   // Any case, and again until none is left, so nothing script- or style-shaped survives (CodeQL, 2026-10-24).
   let body = html, before;
-  do { before = body; body = body.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ''); } while (body !== before);
+  do { before = body; body = body.replace(/<script\b[\s\S]*?<\/script[^>]*>|<style\b[\s\S]*?<\/style[^>]*>/gi, ''); } while (body !== before);
   const out = body.split(/<[^>]+>/).map((t) => decode(t).trim()).filter(Boolean);
   for (const m of body.matchAll(/\s(?:title|alt|placeholder|aria-label)="([^"]*)"/g)) out.push(decode(m[1]));
   return out;
