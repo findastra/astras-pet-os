@@ -21,8 +21,8 @@ I'll send the head tracker sticker and the Double Hip / Double Chest pairs next.
 3. VRChat ignores the trackers her notes list for the Double Hip / Double Chest choice. In modes x.1 to x.3 it also
    ignores the head tracker. **Open:** which sticker the head tracker is (H?), and whether "Double Hip only" means
    W + M or M + [ ] (her notes say both).
-4. The launcher sets Double Hip Tracker's Enable Hip / Enable Chest for her choice, and its pairs. **Open:** the right
-   pairs. Today Double Hip Tracker has Chest = [ ] + M and Hip = W + C, but her notes say Hip = W + M, Chest = C + [ ].
+4. The launcher sets DoubleHip DoubleChest Tracker's Enable Hip / Enable Chest for her choice, and its pairs. **Open:** the right
+   pairs. Today DoubleHip DoubleChest Tracker has Chest = [ ] + M and Hip = W + C, but her notes say Hip = W + M, Chest = C + [ ].
 5. It lives in Benchmark Rock (Inference Iguana), on 127.0.0.1 only, with a secret code, and knows only the fixed modes.
 6. Space Override and Space Sync later. Their modes say "not installed".
 
@@ -30,7 +30,7 @@ I'll send the head tracker sticker and the Double Hip / Double Chest pairs next.
 
 Implementer: this chat (the Rift Rabbit launcher side session). Writable files: benchmark-rock#8's
 `vr-launch-20261024.cs` and its records, and this PR's `vrchat-launcher-20261024.js`, the launch panel spawner, its CSS
-lines and tests. Program-watch's and device-watch's code stays as it is, apart from Double Hip Tracker's path.
+lines and tests. Program-watch's and device-watch's code stays as it is, apart from DoubleHip DoubleChest Tracker's path.
 
 ## What I did
 
@@ -49,7 +49,7 @@ lines and tests. Program-watch's and device-watch's code stays as it is, apart f
 - **Checked live:** Rift Rabbit's page, served from 127.0.0.1, enabled modes x.0 and x.1 and marked x.2 and x.3 "not
   installed". Launch mode 1.0 and 1.1 opened Virtual Desktop and waited at the headset step. Stop (real click) stopped
   it.
-- **Not checked yet:** SteamVR onward, Double Hip Tracker's settings on the real file, and Start VRChat with
+- **Not checked yet:** SteamVR onward, DoubleHip DoubleChest Tracker's settings on the real file, and Start VRChat with
   `--ignore-trackers`. These need her in the headset.
 
 ## Done when

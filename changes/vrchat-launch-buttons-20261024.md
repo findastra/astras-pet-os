@@ -33,5 +33,12 @@ Later the same day:
   device, and Voicemeeter plays to it. While the switch is on, "Woojer vest (Voicemeeter)" is in each mode's Then open
   list, and the launch makes sure Voicemeeter is open and reminds her to turn the vest on. Whether the vest is
   connected is not checked. The System Map has Rift Rabbit look after the vest, and has vr-launch open Voicemeeter.
+- "DoubleHip DoubleChest Tracker" is the program's name everywhere in the panel and the launcher (Astra: "the one
+  softrware to be named DoubleHip DoubleChest Tracker and make sure the pet program refelcts that").
+- An Object Track VR menu next to it: Off, Small Hoop, Large Hoop, Dance Pole (Astra: "Also will eventually have
+  Object Track VR, for tracking the Small Hoop, Large Hoop, and Dance Pole ... its also a choice between the 4 objects
+  being tracked, like the DoubleHip DoubleChest Tracker drop down"). She counts four objects, and the fourth is hers to
+  name. The program is not out yet, so the launch step says it is not installed and opens nothing. Object Track VR is on
+  the System Map as a planned program that Rift Rabbit looks after.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-24.

@@ -112,7 +112,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-239 rows: 12 native programs, 120 native tools, 17 native tricks, 90 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+240 rows: 12 native programs, 120 native tools, 17 native tricks, 91 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -275,6 +275,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | BS Manager |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Double Hip Tracker |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Meta Horizon Link |  | Planned |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Object Track VR |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Advanced Settings |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Dynamic Resolution |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Pager |  | Planned |

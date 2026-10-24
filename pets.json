@@ -2018,6 +2018,11 @@
             "node": "bs-manager",
             "how": "optional",
             "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "object-track-vr",
+            "how": "optional",
+            "why": "Planned: the launch panel chooses which object it tracks (Small Hoop, Large Hoop or Dance Pole; Astra, 2026-10-24). Not out yet."
           }
         ]
       }

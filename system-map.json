@@ -727,6 +727,16 @@
       "category": "Desktop app"
     },
     {
+      "id": "object-track-vr",
+      "name": "Object Track VR",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Tracks a real object in VR with a tracker on it (Astra, 2026-10-24: \"Also will eventually have Object Track VR, for tracking the Small Hoop, Large Hoop, and Dance Pole\"). Rift Rabbit's launch panel chooses the object. Not out yet, so not installed.",
+      "does": "Puts a real object, tracked by a tracker on it, into VRChat."
+    },
+    {
       "id": "oscgoesbrrr",
       "name": "OSCGoesBrrr",
       "type": "program",
@@ -3397,6 +3407,13 @@
       "carries": "opens",
       "state": "planned",
       "why": "Opened when the launch's Woojer vest switch is on: the vest plays what Voicemeeter sends it (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "object-track-vr",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The launch panel's Object Track VR choice: Small Hoop, Large Hoop or Dance Pole (Astra, 2026-10-24). Not out yet."
     },
     {
       "from": "rift-rabbit",

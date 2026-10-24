@@ -114,7 +114,7 @@
       var hs = b.closest('[data-launch-headset]'), card = b.closest('[data-launch-mode]');
       function pick(k) { var i = hs.querySelector('[data-launch-switch="' + k + '"]'); return !i ? null : i.type === 'checkbox' ? i.checked : i.value; }
       b.disabled = true;
-      ask('/launch', { headset: hs.getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode'), streamer: pick('streamer'), double: pick('double-hip') || '', osc: !!pick('oscgoesbrrr'), woojer: !!pick('woojer') })
+      ask('/launch', { headset: hs.getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode'), streamer: pick('streamer'), double: pick('double-hip') || '', object: pick('object-track') || '',osc: !!pick('oscgoesbrrr'), woojer: !!pick('woojer') })
         .then(function (res) { show(res, card); }, lost);
     });
   });
