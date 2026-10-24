@@ -8,6 +8,9 @@ $petsSource = Join-Path $PSScriptRoot 'scripts\desktop-pets-20261011.cs'
 $petsTracker = Join-Path $PSScriptRoot 'scripts\pet-dock-tracker-20261011.cs'
 $petsManifest = Join-Path $PSScriptRoot 'scripts\desktop-pets-20261011.manifest'
 $petsArgs = @('/nologo','/platform:x64','/optimize+','/reference:System.dll','/reference:System.Core.dll','/reference:System.Drawing.dll','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll',('/win32manifest:' + $petsManifest))
+# Startup Star's own star, shown in Windows' Startup apps list (Astra, 2026-10-23); drawn by the program's --write-star-icon.
+$petsIcon = Join-Path $PSScriptRoot 'art\app-icons\startup-star\startup-star-icon-20261023.ico'
+if (Test-Path $petsIcon) { $petsArgs += ('/win32icon:' + $petsIcon) }
 $petsWpf = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\WPF'
 $petsArgs += @(('/reference:' + (Join-Path $petsWpf 'UIAutomationClient.dll')), ('/reference:' + (Join-Path $petsWpf 'UIAutomationTypes.dll')), ('/reference:' + (Join-Path $petsWpf 'WindowsBase.dll')))
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'bin') | Out-Null

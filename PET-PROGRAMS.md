@@ -80,7 +80,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 69 | Cipher Owl | **Cipher Hollow** | [cipher-hollow](https://github.com/findastra/cipher-hollow) | Roadmap | Encryption, keys, certificates and crypto education. *(draft)* |
 | 70 | Forensic Ferret | **Evidence Locker** | [evidence-locker](https://github.com/findastra/evidence-locker) | Registered | Incident timelines and log analysis. *(draft)* |
 | 71 | Llama Librarian | **Model Library** | [model-library](https://github.com/findastra/model-library) | Roadmap | Local model inventory, downloads and compatibility. *(draft)* |
-| 72 | Inference Iguana | **Benchmark Rock** | [benchmark-rock](https://github.com/findastra/benchmark-rock) | Roadmap | Inference benchmarks, GPU/VRAM, latency. *(draft)* |
+| 72 | Inference Iguana | **Benchmark Rock** | [benchmark-rock](https://github.com/findastra/benchmark-rock) | Roadmap | Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory. *(draft)* |
 | 73 | Agent Ant | **Agent Colony** | [agent-colony](https://github.com/findastra/agent-colony) | Roadmap | Agent experiments and tool-use evaluation. *(draft)* |
 | 74 | Roaming Raven | **Roam Map** | [roam-map](https://github.com/findastra/roam-map) | Roadmap | Travel connectivity, VPN/tailnet and remote access. *(draft)* |
 | 75 | Cache Coyote | **Cache Canyon** | [cache-canyon](https://github.com/findastra/cache-canyon) | Roadmap | Offline-first documents, caches and queued actions. *(draft)* |

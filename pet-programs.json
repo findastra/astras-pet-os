@@ -1077,7 +1077,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-72-v1.0-mini-descriptor-v1.0",
-        "text": "Inference benchmarks, GPU/VRAM, latency.",
+        "text": "Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.",
         "reviewed": false
       }
     },

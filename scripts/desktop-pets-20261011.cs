@@ -10,11 +10,19 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Microsoft.Win32;
+
+// Windows names a sign-in program by its file description, not its file name (Astra, 2026-10-23: the Startup apps list
+// said "desktop-pets-20261008"; it "should be 'Startup Star' with native star logo"). The logo is built in by
+// build-desktop-pets-20261011.ps1 from art/app-icons/startup-star/, drawn by --write-star-icon.
+[assembly: AssemblyTitle("Startup Star")]
+[assembly: AssemblyProduct("Astra's PetOS")]
+[assembly: AssemblyCompany("Astra")]
 
 namespace AstraDesktopPets {
   internal static class PetFiles {
@@ -439,6 +447,10 @@ namespace AstraDesktopPets {
       return list;
     }
     internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
+    // The star starts the crash watchers itself, so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
+    // log-den, packet-river and evidence-locker "should not be here at all"; they were Startup-folder shortcuts). The Bug is
+    // started as before; Kernel Koala's watch starts only when Astra asks.
+    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)); }
     internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
     static Dictionary<string,object> Read(Entry e,string name,string schema) {
       try {
@@ -567,7 +579,7 @@ namespace AstraDesktopPets {
       clickTimer.Tick+=delegate { clicks.Advance(clickClock.ElapsedMilliseconds);if(!clicks.Pending)clickTimer.Stop(); };
       MouseDown+=Press;MouseMove+=TrackPointer;MouseUp+=Release;
       MouseLeave+=delegate { hover=null;hoverStar=false;tooltip.SetToolTip(this,null);Cursor=Cursors.Default; };
-      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();repaintTimer.Start();PetFiles.StartBug("--hosted");tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
+      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();repaintTimer.Start();PetFiles.StartBug("--hosted");StartBackgroundPets();tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
       FormClosed+=delegate { if(!test){SystemEvents.SessionSwitch-=SystemRepaint;SystemEvents.DisplaySettingsChanged-=SystemRepaint;SystemEvents.PowerModeChanged-=SystemRepaint;}repaintTimer.Stop();if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
       RefreshStarIcon();LayoutPets();
     }
@@ -577,6 +589,16 @@ namespace AstraDesktopPets {
       if(test)return;
       try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }
       catch(Exception error) { MessageBox.Show(e.Pet+" could not start: "+error.Message,"Astra's desktop pets"); }
+    }
+    // When the star starts: each crash watcher that is installed and not running yet, quietly (--startup: a second copy
+    // exits and opens nothing). No pop-up when one cannot start; its menu then says it is not running.
+    void StartBackgroundPets() {
+      foreach(var e in BackgroundPets.AtSignIn()) {
+        if(!test&&(!File.Exists(e.Exe)||BackgroundPets.Running(e)))continue;
+        testActions.Add("sign-in:"+e.Repo+":"+String.Join(" ",e.StartArgs));
+        if(test)continue;
+        try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",e.StartArgs)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }catch(Exception){}
+      }
     }
     // Every five seconds: a background pet whose program says alarmed shows its alarmed face.
     void RefreshMoods() {
@@ -607,7 +629,7 @@ namespace AstraDesktopPets {
     }
     void CreateTray() {
       RefreshStarIcon();
-      tray=new NotifyIcon { Icon=trayIcon,Text="Astra's Pet Apps - click to hide/show desktop star",ContextMenuStrip=menu,Visible=true };
+      tray=new NotifyIcon { Icon=trayIcon,Text="Startup Star - click to hide/show desktop star",ContextMenuStrip=menu,Visible=true };
       tray.MouseClick+=delegate(object sender,MouseEventArgs e) { if(e.Button==MouseButtons.Left)ToggleLauncher(); };
     }
     internal void ToggleLauncher() {
@@ -808,6 +830,26 @@ namespace AstraDesktopPets {
       using(var glint=new SolidBrush(Color.White)) { g.FillRectangle(glint,14,17,1,1);g.FillRectangle(glint,23,17,1,1); }
       g.Restore(saved);
     }
+    // The star as a Windows .ico (32-bit pictures with a mask, one per size), for the program's own icon.
+    internal static void WriteStarIcon(string path) {
+      int[] sizes={16,20,24,32,40,48,64,128};var images=new List<byte[]>();
+      foreach(int n in sizes)using(var bitmap=new Bitmap(n,n,PixelFormat.Format32bppArgb)) {
+        using(var g=Graphics.FromImage(bitmap)) { g.Clear(Color.Transparent);g.ScaleTransform(n/40f,n/40f);DrawStar(g); }
+        using(var data=new MemoryStream())using(var w=new BinaryWriter(data)) {
+          int maskRow=((n+31)/32)*4;
+          w.Write(40);w.Write(n);w.Write(n*2);w.Write((short)1);w.Write((short)32);w.Write(0);w.Write(n*n*4+maskRow*n);w.Write(0);w.Write(0);w.Write(0);w.Write(0);
+          for(int y=n-1;y>=0;y--)for(int x=0;x<n;x++) { Color c=bitmap.GetPixel(x,y);w.Write(c.B);w.Write(c.G);w.Write(c.R);w.Write(c.A); }
+          for(int y=n-1;y>=0;y--) { var row=new byte[maskRow];for(int x=0;x<n;x++)if(bitmap.GetPixel(x,y).A==0)row[x/8]|=(byte)(0x80>>(x%8));w.Write(row); }
+          w.Flush();images.Add(data.ToArray());
+        }
+      }
+      Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));
+      using(var w=new BinaryWriter(File.Create(path))) {
+        w.Write((short)0);w.Write((short)1);w.Write((short)sizes.Length);int offset=6+16*sizes.Length;
+        for(int i=0;i<sizes.Length;i++) { w.Write((byte)sizes[i]);w.Write((byte)sizes[i]);w.Write((byte)0);w.Write((byte)0);w.Write((short)1);w.Write((short)32);w.Write(images[i].Length);w.Write(offset);offset+=images[i].Length; }
+        foreach(var image in images)w.Write(image);
+      }
+    }
     // A 1280x720 desktop in miniature: the star and Farmer in the corner, every pet out at once.
     internal void Preview(string path) {
       scale=1;RefreshStarIcon();petsOut=true;LayoutPets();
@@ -888,7 +930,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the star redrawn after a lock or sleep, the background pets' menus (their own commands only) and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -913,6 +955,9 @@ namespace AstraDesktopPets {
       foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
       var koala=BackgroundPets.Find("kernel-grove");
       if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||!koala.Exe.EndsWith("kernel-grove-20261021.exe")||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
+      int signIn=testActions.Count;StartBackgroundPets();
+      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup")throw new Exception("The star must start the three crash watchers quietly, and only them.");
+      testActions.RemoveRange(signIn,testActions.Count-signIn);
       string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
       try {
         Directory.CreateDirectory(folder);
@@ -1032,6 +1077,7 @@ namespace AstraDesktopPets {
         PetFiles.Root=Path.GetFullPath(args[0]).TrimEnd(Path.DirectorySeparatorChar);string mode=args.Length>1?args[1]:"";bool test=mode=="--test-ui";string suffix=test?"-test":"";
         if(mode=="--install-startup"){PetFiles.Startup(true);Console.WriteLine("Desktop pets login startup enabled.");return 0;}
         if(mode=="--remove-startup"){PetFiles.Startup(false);Console.WriteLine("Desktop pets login startup removed.");return 0;}
+        if(mode=="--write-star-icon"&&args.Length>2){PetsWindow.WriteStarIcon(args[2]);Console.WriteLine(args[2]);return 0;}
         if(mode=="--line-up")return PetFiles.Signal("line-up")?0:1;
         if(mode=="--toggle-star")return PetFiles.Signal("toggle-star")?0:1;
         if(mode=="--quit"||mode=="--quit-test")return PetFiles.Signal("quit",mode=="--quit-test"?"-test":"")?0:1;
