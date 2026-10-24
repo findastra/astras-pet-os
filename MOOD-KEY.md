@@ -65,5 +65,6 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Friday | native iPad verification and a verified chat adapter |
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
 | **Kernel Koala** * | what runs on the PC: leftovers, memory and what starts at sign-in | weekly, Sunday | your OK to stop a leftover or switch a sign-in item off |
+| **Inference Iguana** * | the graphics cards: their memory, how busy they are and what is using them | weekly, Monday | a look at a program that keeps the graphics card busy with no window, or at what fills its memory |
 
 \* in the pipeline: on GitHub, not registered yet.

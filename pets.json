@@ -2404,6 +2404,43 @@
           }
         ]
       }
+    },
+    {
+      "repo": "benchmark-rock",
+      "pet": "Inference Iguana",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.",
+      "added": "2026-10-23",
+      "version": "0.1.0-20261023",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the graphics cards: their memory, how busy they are and what is using them",
+        "needs": "a look at a program that keeps the graphics card busy with no window, or at what fills its memory"
+      },
+      "note": "Astra, 2026-10-23: \"Give the graphics card watch to Inference Iguana (Benchmark Rock); Kernel Koala keeps processes and memory.\" (hub #223), then \"Create the Inference Iguana, Benchmark rock\". Benchmark Rock's window (gpu-watch: each graphics card, its memory, how busy it is and every program using it) and its background busy-watch, on findastra/benchmark-rock#4 (not merged). Read-only: stopping a program stays Kernel Koala's. No tray icon: its menu is in Startup Star's menu under Inference Iguana. Inference benchmarks and latency are planned. No pet art yet (generating it waits on her OK).",
+      "interface_url": "apps/pet-programs/benchmark-rock-20261018.html",
+      "interface_local_url": "apps/pet-programs/benchmark-rock-20261018.html",
+      "submitted": "2026-10-23",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [
+          {
+            "repo": "log-den",
+            "how": "required",
+            "why": "Log Den owns the farm event format and the background-pet contract Benchmark Rock is built with."
+          },
+          {
+            "repo": "kernel-grove",
+            "how": "optional",
+            "why": "Kernel Grove's Stop it is where a program that holds the graphics card is stopped; Benchmark Rock only looks and opens it."
+          }
+        ],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {

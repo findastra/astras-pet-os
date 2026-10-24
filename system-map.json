@@ -439,6 +439,30 @@
       "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
     },
     {
+      "id": "gpu-watch",
+      "name": "GPU watch",
+      "type": "tool",
+      "of": "program-72",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "benchmark-rock-v1.0-gpu-watch-v1.0",
+      "job": "A tool of Benchmark Rock (Astra, 2026-10-23, hub #223, the graphics card watch is Inference Iguana's): each graphics card (its name, its own memory, how much of it is in use, how busy it is and on which engine) and every program using it, with its graphics memory, what it borrows from the PC and how busy it keeps the card; live every three seconds while the window is open. Read-only: it opens Kernel Grove for stopping a program. On findastra/benchmark-rock#4, not merged."
+    },
+    {
+      "id": "busy-watch",
+      "name": "Busy watch",
+      "type": "tool",
+      "of": "program-72",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "benchmark-rock-v1.0-busy-watch-v1.0",
+      "job": "A tool of Benchmark Rock (Astra, 2026-10-23): in the background, one look every two minutes: curious when a card's own memory is 90% full, or when a program with no window keeps a card 80% busy for ten minutes (the hung Blender render of 2026-10-23). No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Inference Iguana. Never stops anything. On findastra/benchmark-rock#4, not merged."
+    },
+    {
       "id": "process-sweep",
       "name": "Process sweep",
       "type": "tool",
@@ -871,14 +895,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Local model inventory, downloads and compatibility.",
-      "layer": 4
-    },
-    {
-      "id": "inference-iguana",
-      "name": "Inference Iguana",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Inference benchmarks, GPU/VRAM, latency.",
       "layer": 4
     },
     {
@@ -3794,7 +3810,7 @@
       "why": "OS internals under Linux administration."
     },
     {
-      "from": "inference-iguana",
+      "from": "benchmark-rock",
       "to": "llama-librarian",
       "carries": "findings",
       "state": "architecture",
@@ -3802,7 +3818,7 @@
     },
     {
       "from": "agent-ant",
-      "to": "inference-iguana",
+      "to": "benchmark-rock",
       "carries": "findings",
       "state": "architecture",
       "why": "Agent evaluations on local inference."
@@ -6483,6 +6499,30 @@
         "next": "Iron Gates issues the grant; The Police Station watches that Kernel Grove writes only its own folder."
       },
       {
+        "id": "inference-iguana-look",
+        "who": "Inference Iguana (Benchmark Rock: gpu-watch, busy-watch)",
+        "level": [
+          "L1",
+          "L2"
+        ],
+        "subjects": [
+          "id:benchmark-rock"
+        ],
+        "on": "every graphics card on this PC (name, memory, how busy each engine is) and every program using one (its name, file description, graphics memory, whether it has a window)",
+        "resources": [
+          "ring:5",
+          "ring:6",
+          "type:pet",
+          "type:pipeline"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "no",
+        "status": "written",
+        "how": "Benchmark Rock reads Windows' GPU performance counters and DXGI, and writes only its own data folder (its farm event log, saved reports with names and numbers only, its menu and mood files); it never stops or changes a program, a driver or a card setting. Nothing enforces this: it runs as you. Asked for on 2026-10-23; Astra approves it by merging.",
+        "next": "Iron Gates issues the grant; The Police Station watches that Benchmark Rock writes only its own folder."
+      },
+      {
         "id": "kernel-koala-stop",
         "who": "Kernel Koala (Kernel Grove: process-sweep, startup-switch)",
         "level": [
@@ -7131,6 +7171,20 @@
             "language": "Shell",
             "percent": 100,
             "why": "His tools are bash scripts, so they run on any Linux or Mac with nothing to install. Measured from GitHub on 2026-10-19."
+          }
+        ]
+      },
+      "benchmark-rock": {
+        "languages": [
+          {
+            "language": "C#",
+            "percent": 97.7,
+            "why": "The window and the background watch: Windows' GPU counters and DXGI need native calls, so it is C#, built with the compiler that ships with Windows."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 2.3,
+            "why": "Builds it with the C# compiler that ships with Windows. Measured from the branch on 2026-10-23 (findastra/benchmark-rock#4)."
           }
         ]
       },

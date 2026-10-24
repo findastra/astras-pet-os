@@ -442,6 +442,8 @@ namespace AstraDesktopPets {
         list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"}});
       // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet.
       list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
+      // Inference Iguana's busy-watch (Astra, 2026-10-23: the graphics card watch is hers); no desktop pet yet.
+      list.Add(new Entry{Repo="benchmark-rock",Pet="Inference Iguana",Exe=Path.Combine(parent,"benchmark-rock","bin","benchmark-rock-20261023.exe"),Folder=Path.Combine(DataRoot,"benchmark-rock"),StartArgs=new[]{"--startup"}});
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -449,7 +451,7 @@ namespace AstraDesktopPets {
     internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
     // The star starts the crash watchers itself, so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
     // log-den, packet-river and evidence-locker "should not be here at all"; they were Startup-folder shortcuts). The Bug is
-    // started as before; Kernel Koala's watch starts only when Astra asks.
+    // started as before; Kernel Koala's and Inference Iguana's watches start only when Astra asks.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)); }
     internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
     static Dictionary<string,object> Read(Entry e,string name,string schema) {
@@ -955,6 +957,8 @@ namespace AstraDesktopPets {
       foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
       var koala=BackgroundPets.Find("kernel-grove");
       if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||!koala.Exe.EndsWith("kernel-grove-20261021.exe")||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
+      var iguana=BackgroundPets.Find("benchmark-rock");
+      if(iguana==null||iguana.Pet!="Inference Iguana"||iguana.StartArgs[0]!="--startup"||!iguana.Exe.EndsWith("benchmark-rock-20261023.exe")||BackgroundPets.Watches("benchmark-rock"))throw new Exception("Inference Iguana's watch must be in the star's menu, started quietly, with no alarmed face.");
       int signIn=testActions.Count;StartBackgroundPets();
       if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup")throw new Exception("The star must start the three crash watchers quietly, and only them.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);

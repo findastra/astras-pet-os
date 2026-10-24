@@ -112,7 +112,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-219 rows: 12 native programs, 117 native tools, 17 native tricks, 73 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+221 rows: 12 native programs, 119 native tools, 17 native tricks, 73 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -332,6 +332,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Timeline builder | `evidence-locker-v1.0-timeline-builder-v1.0` | Works today |
+| 72 | Inference Iguana | Benchmark Rock | native tool | Busy watch | `benchmark-rock-v1.0-busy-watch-v1.0` | Works today |
+| 72 | Inference Iguana | Benchmark Rock | native tool | GPU watch | `benchmark-rock-v1.0-gpu-watch-v1.0` | Works today |
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
