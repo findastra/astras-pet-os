@@ -31,6 +31,11 @@ export function assetPaths(registry, id) {
       if (!/^[a-z]+$/.test(mood)) throw new Error(`Invalid mood: ${mood}`);
       return `art/frames/${id}/${mood}${suffix}.png`;
     },
+    // The same drawing with no mood sticker, for the desktop pets (build-frames.mjs PLAIN).
+    plainFrame: (mood) => {
+      if (!/^[a-z]+$/.test(mood)) throw new Error(`Invalid mood: ${mood}`);
+      return `art/frames/${id}/plain-${mood}${suffix}.png`;
+    },
   };
 }
 

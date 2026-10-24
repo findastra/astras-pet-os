@@ -105,7 +105,11 @@ namespace AstraDesktopPets {
       object clicks,three;if(entry.TryGetValue("clicks",out clicks)&&clicks is Dictionary<string,object>&&((Dictionary<string,object>)clicks).TryGetValue("3",out three)&&three is Dictionary<string,object>)pet.ThreeClicks=PetFiles.Text((Dictionary<string,object>)three,"tool",null);
       object raw;if(!framesIndex.TryGetValue(pet.Id,out raw))throw new InvalidDataException("No frames for "+pet.Name);
       var paths=(Dictionary<string,object>)((Dictionary<string,object>)raw)["frames"];
-      string idle=PetFiles.SafePath(PetFiles.Text(paths,"idle")),blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));
+      // The drawing without its mood sticker (build-frames.mjs PLAIN, 2026-10-24): every mood carries one since hub
+      // #237, and a sticker counted as the pet's height, shrank it and lifted the girls' tops out of their shared crop.
+      object plain;var still=((Dictionary<string,object>)raw).TryGetValue("plain",out plain)&&plain is Dictionary<string,object>?(Dictionary<string,object>)plain:paths;
+      string idle=PetFiles.SafePath(PetFiles.Text(still,"idle",PetFiles.Text(paths,"idle"))),blink=PetFiles.SafePath(PetFiles.Text(still,"blink",PetFiles.Text(paths,"blink")));
+      if(!File.Exists(idle)||!File.Exists(blink)){idle=PetFiles.SafePath(PetFiles.Text(paths,"idle"));blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));}
       // Desktop-only drafts: the shared registry and website art keep their own assets.
       if(pet.Id=="health-hummy"||pet.Id=="farmer"||pet.Id=="discord-damsel"||pet.Id=="drum-dog"||pet.Id=="mommys-mommies"||pet.Id=="finance-finch"||pet.Id=="python-panther"||pet.Id=="paper-girl"||pet.Id=="chip"||pet.Id=="file-master"||pet.Id=="astra-wisp"||pet.Id=="project-parrot"||pet.Id=="portfolio-puffer"||pet.Id=="vscode-angel"||pet.Id=="voicemeeter-bug") {
         string localIdle=PetFiles.SafePath("desktop-art/"+pet.Id+"/idle-20261011.png"),localBlink=PetFiles.SafePath("desktop-art/"+pet.Id+"/blink-20261011.png");
