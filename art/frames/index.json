@@ -28,6 +28,10 @@
     "alarmed": "art/frames/farmer/alarmed-20261008.png",
     "sleep": "art/frames/farmer/sleep-20261008.png"
    },
+   "plain": {
+    "idle": "art/frames/farmer/plain-idle-20261008.png",
+    "blink": "art/frames/farmer/plain-blink-20261008.png"
+   },
    "sheet": "art/sheets/farmer-20261008.png"
   },
   "goldfish": {
@@ -46,6 +50,10 @@
     "alarmed": "art/frames/goldfish/alarmed.png",
     "sleep": "art/frames/goldfish/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/goldfish/plain-idle.png",
+    "blink": "art/frames/goldfish/plain-blink.png"
+   },
    "sheet": "art/sheets/goldfish.png"
   },
   "chip": {
@@ -63,6 +71,10 @@
     "sick": "art/frames/chip/sick-20261008.png",
     "alarmed": "art/frames/chip/alarmed-20261008.png",
     "sleep": "art/frames/chip/sleep-20261008.png"
+   },
+   "plain": {
+    "idle": "art/frames/chip/plain-idle-20261008.png",
+    "blink": "art/frames/chip/plain-blink-20261008.png"
    },
    "source": "scripts/chip-original-20261008.mjs",
    "art_kind": "original-code"
@@ -83,6 +95,10 @@
     "alarmed": "art/frames/api-fairy/alarmed.png",
     "sleep": "art/frames/api-fairy/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/api-fairy/plain-idle.png",
+    "blink": "art/frames/api-fairy/plain-blink.png"
+   },
    "sheet": "art/sheets/api-fairy.png"
   },
   "unity-unicorn": {
@@ -100,6 +116,10 @@
     "sick": "art/frames/unity-unicorn/sick.png",
     "alarmed": "art/frames/unity-unicorn/alarmed.png",
     "sleep": "art/frames/unity-unicorn/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/unity-unicorn/plain-idle.png",
+    "blink": "art/frames/unity-unicorn/plain-blink.png"
    },
    "sheet": "art/sheets/unity-unicorn.png"
   },
@@ -119,6 +139,10 @@
     "alarmed": "art/frames/python-panther/alarmed.png",
     "sleep": "art/frames/python-panther/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/python-panther/plain-idle.png",
+    "blink": "art/frames/python-panther/plain-blink.png"
+   },
    "sheet": "art/sheets/python-panther.png"
   },
   "astra-wisp": {
@@ -136,6 +160,10 @@
     "sick": "art/frames/astra-wisp/sick.png",
     "alarmed": "art/frames/astra-wisp/alarmed.png",
     "sleep": "art/frames/astra-wisp/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/astra-wisp/plain-idle.png",
+    "blink": "art/frames/astra-wisp/plain-blink.png"
    },
    "sheet": "art/sheets/astra-wisp.png"
   },
@@ -155,6 +183,10 @@
     "alarmed": "art/frames/health-hummy/alarmed.png",
     "sleep": "art/frames/health-hummy/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/health-hummy/plain-idle.png",
+    "blink": "art/frames/health-hummy/plain-blink.png"
+   },
    "sheet": "art/sheets/health-hummy.png"
   },
   "finance-finch": {
@@ -172,6 +204,10 @@
     "sick": "art/frames/finance-finch/sick.png",
     "alarmed": "art/frames/finance-finch/alarmed.png",
     "sleep": "art/frames/finance-finch/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/finance-finch/plain-idle.png",
+    "blink": "art/frames/finance-finch/plain-blink.png"
    },
    "sheet": "art/sheets/finance-finch.png"
   },
@@ -191,6 +227,10 @@
     "alarmed": "art/frames/mommys-mommies/alarmed.png",
     "sleep": "art/frames/mommys-mommies/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/mommys-mommies/plain-idle.png",
+    "blink": "art/frames/mommys-mommies/plain-blink.png"
+   },
    "sheet": "art/sheets/mommys-mommies.png"
   },
   "paper-girl": {
@@ -208,6 +248,10 @@
     "sick": "art/frames/paper-girl/sick.png",
     "alarmed": "art/frames/paper-girl/alarmed.png",
     "sleep": "art/frames/paper-girl/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/paper-girl/plain-idle.png",
+    "blink": "art/frames/paper-girl/plain-blink.png"
    },
    "sheet": "art/sheets/paper-girl.png"
   },
@@ -227,6 +271,10 @@
     "alarmed": "art/frames/file-master/alarmed.png",
     "sleep": "art/frames/file-master/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/file-master/plain-idle.png",
+    "blink": "art/frames/file-master/plain-blink.png"
+   },
    "sheet": "art/sheets/file-master.png"
   },
   "discord-damsel": {
@@ -245,6 +293,10 @@
     "alarmed": "art/frames/discord-damsel/alarmed.png",
     "sleep": "art/frames/discord-damsel/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/discord-damsel/plain-idle.png",
+    "blink": "art/frames/discord-damsel/plain-blink.png"
+   },
    "sheet": "art/sheets/discord-damsel.png"
   },
   "portfolio-puffer": {
@@ -262,6 +314,10 @@
     "sick": "art/frames/portfolio-puffer/sick.png",
     "alarmed": "art/frames/portfolio-puffer/alarmed.png",
     "sleep": "art/frames/portfolio-puffer/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/portfolio-puffer/plain-idle.png",
+    "blink": "art/frames/portfolio-puffer/plain-blink.png"
    },
    "sheet": "art/sheets/portfolio-puffer.png",
    "wears": [
@@ -284,6 +340,10 @@
     "alarmed": "art/frames/drum-dog/alarmed.png",
     "sleep": "art/frames/drum-dog/sleep.png"
    },
+   "plain": {
+    "idle": "art/frames/drum-dog/plain-idle.png",
+    "blink": "art/frames/drum-dog/plain-blink.png"
+   },
    "sheet": "art/sheets/drum-dog.png"
   },
   "vscode-angel": {
@@ -301,6 +361,10 @@
     "sick": "art/frames/vscode-angel/sick.png",
     "alarmed": "art/frames/vscode-angel/alarmed.png",
     "sleep": "art/frames/vscode-angel/sleep.png"
+   },
+   "plain": {
+    "idle": "art/frames/vscode-angel/plain-idle.png",
+    "blink": "art/frames/vscode-angel/plain-blink.png"
    },
    "sheet": "art/sheets/vscode-angel.png"
   },
@@ -320,6 +384,10 @@
     "alarmed": "art/frames/ghost-protocol/alarmed-20261008.png",
     "sleep": "art/frames/ghost-protocol/sleep-20261008.png"
    },
+   "plain": {
+    "idle": "art/frames/ghost-protocol/plain-idle-20261008.png",
+    "blink": "art/frames/ghost-protocol/plain-blink-20261008.png"
+   },
    "sheet": "art/sheets/ghost-protocol-20261008.png"
   },
   "project-parrot": {
@@ -337,6 +405,10 @@
     "sick": "art/frames/project-parrot/sick-20261008.png",
     "alarmed": "art/frames/project-parrot/alarmed-20261008.png",
     "sleep": "art/frames/project-parrot/sleep-20261008.png"
+   },
+   "plain": {
+    "idle": "art/frames/project-parrot/plain-idle-20261008.png",
+    "blink": "art/frames/project-parrot/plain-blink-20261008.png"
    },
    "sheet": "art/sheets/project-parrot-20261008.png"
   },
@@ -356,6 +428,10 @@
     "alarmed": "art/frames/voicemeeter-bug/alarmed-20261008.png",
     "sleep": "art/frames/voicemeeter-bug/sleep-20261008.png"
    },
+   "plain": {
+    "idle": "art/frames/voicemeeter-bug/plain-idle-20261008.png",
+    "blink": "art/frames/voicemeeter-bug/plain-blink-20261008.png"
+   },
    "sheet": "art/sheets/voicemeeter-bug-20261008.png"
   },
   "platform-platypus": {
@@ -373,6 +449,10 @@
     "sick": "art/frames/platform-platypus/sick-20261012.png",
     "alarmed": "art/frames/platform-platypus/alarmed-20261012.png",
     "sleep": "art/frames/platform-platypus/sleep-20261012.png"
+   },
+   "plain": {
+    "idle": "art/frames/platform-platypus/plain-idle-20261012.png",
+    "blink": "art/frames/platform-platypus/plain-blink-20261012.png"
    },
    "sheet": "art/sheets/platform-platypus-20261012.png"
   },
@@ -392,6 +472,10 @@
     "alarmed": "art/frames/log-lynx/alarmed-20261019.png",
     "sleep": "art/frames/log-lynx/sleep-20261019.png"
    },
+   "plain": {
+    "idle": "art/frames/log-lynx/plain-idle-20261019.png",
+    "blink": "art/frames/log-lynx/plain-blink-20261019.png"
+   },
    "sheet": "art/sheets/log-lynx-20261019.png"
   },
   "packet-piranha": {
@@ -410,6 +494,10 @@
     "alarmed": "art/frames/packet-piranha/alarmed-20261019.png",
     "sleep": "art/frames/packet-piranha/sleep-20261019.png"
    },
+   "plain": {
+    "idle": "art/frames/packet-piranha/plain-idle-20261019.png",
+    "blink": "art/frames/packet-piranha/plain-blink-20261019.png"
+   },
    "sheet": "art/sheets/packet-piranha-20261019.png"
   },
   "forensic-ferret": {
@@ -427,6 +515,10 @@
     "sick": "art/frames/forensic-ferret/sick-20261019.png",
     "alarmed": "art/frames/forensic-ferret/alarmed-20261019.png",
     "sleep": "art/frames/forensic-ferret/sleep-20261019.png"
+   },
+   "plain": {
+    "idle": "art/frames/forensic-ferret/plain-idle-20261019.png",
+    "blink": "art/frames/forensic-ferret/plain-blink-20261019.png"
    },
    "sheet": "art/sheets/forensic-ferret-20261019.png"
   }
