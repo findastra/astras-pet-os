@@ -1,6 +1,10 @@
 # ASTRAS_PET_OS — FINAL MASTER HANDOFF v5.2
 
 > **Amendments by Astra since v5.2** (these override the text below):
+> - 2026-10-24: **Who does the work decides the kind.** A person opens it: native program. Code runs it with no AI
+>   deciding: native tool. An AI reads written steps and makes choices: native trick. L1 holds what runs, L2 the pet
+>   program and its tricks, L3 only L3 talking with L4 about the pet program, L4 you and your records (the Pet ID). A
+>   script with written steps is both, a tool in L1 and a trick in L2 ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)).
 > - 2026-10-21: **What a trick is.** "A way of using all the 3rd Party Programs, Native Programs, Native Tricks, and
 >   Native Tools" of its pet: a trick may use any of them, other tricks included, under the pet's grants. Still owned at
 >   L2 and followed at L3 ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)).
