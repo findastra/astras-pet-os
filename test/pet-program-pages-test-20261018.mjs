@@ -31,15 +31,15 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'chat'].includes(m)
-      ? `${d.petSlug}-${m}` : m === 'quick-summary' ? `${d.homeSlug}-${m}` : m === 'system-map' ? SYSTEM_MAP_LABEL : m));
+    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'chat-panel'].includes(m)
+      ? `${d.petSlug}-${m}` : m === 'quick-summary-panel' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
       const i = html.indexOf(`>${label}<`) > -1 ? html.indexOf(`>${label}<`) : html.indexOf(`"${label}"`);
       assert.ok(i > at, `${d.repo}: ${label} is missing or out of the sketch's order`);
       at = i;
     }
-    assert.ok(html.indexOf('<h1>') > html.indexOf(`>${d.petSlug}-cyberhome<`), `${d.repo}: the title sits beside the cyberhome`);
+    assert.ok(html.indexOf('<h1>') > html.indexOf(`>${d.petSlug}-cyberhome-panel<`), `${d.repo}: the title sits beside the cyberhome`);
     const panels = (html.match(/<details class="panel/g) || []).length;
     assert.ok(panels >= PANELS.length - 1, `${d.repo}: every panel is a <details> that collapses (${panels})`);
     assert.doesNotMatch(html, /-module<|class="module/, `${d.repo}: panels, not modules (Astra, 2026-10-19)`);
@@ -61,7 +61,7 @@ test('labels sit in the top border with nothing after them, and every emotion bu
 test('clicker training: one and two clicks are the same for every pet, tools from three clicks on (Astra, 2026-10-18)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
+    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training-panel<`), html.indexOf('>astras-unified-footer-panel<'));
     // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22).
     const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
     assert.match(box, pill('one click'), `${d.repo}: one click`);
@@ -96,10 +96,10 @@ test('every page links back to the System Map, top right, on its own node (Astra
     const html = files[pagePath(d.repo)];
     const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
     const at = (label) => header.indexOf(`>${label}<`);
-    assert.ok(at(SYSTEM_MAP_LABEL) > at(`${d.petSlug}-cyberhome`), `${d.repo}: the map panel is in the header, after the cyberhome`);
-    assert.ok(at(SYSTEM_MAP_LABEL) > header.indexOf('<h1>'), `${d.repo}: the map panel comes after the title, on the right`);
+    assert.ok(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`) > at(`${d.petSlug}-cyberhome-panel`), `${d.repo}: the map panel is in the header, after the cyberhome`);
+    assert.ok(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`) > header.indexOf('<h1>'), `${d.repo}: the map panel comes after the title, on the right`);
     const link = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
-    assert.ok(header.slice(at(SYSTEM_MAP_LABEL)).includes(`<a class="map-link" href="${link}">`), `${d.repo}: it opens the map on ${d.mapNode}`);
+    assert.ok(header.slice(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`)).includes(`<a class="map-link" href="${link}">`), `${d.repo}: it opens the map on ${d.mapNode}`);
     assert.ok(!header.includes('its node:'), `${d.repo}: the node's id is not printed under the link (Astra, 2026-10-21)`);
   }
 });
@@ -110,8 +110,8 @@ test('the header: no bubble in the cyberhome, the hub\'s map label, the quick su
     const html = files[pagePath(d.repo)];
     const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
     assert.ok(!/class="bubble"|id="bubble"/.test(header), `${d.repo}: "get rid of this entirely"`);
-    assert.ok(header.includes(`<span class="legend">${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is astras-pet-os-system-map`);
-    assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary`);
+    assert.ok(header.includes(`<span class="legend">${d.petSlug}-${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is <pet>-system-map-panel`);
+    assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary-panel</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary-panel`);
     assert.ok(!/class="actions"|class="button/.test(header), `${d.repo}: an X over "Open today's app" and over "Repo"`);
     assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the Pet ID`);
   }
@@ -132,16 +132,22 @@ test('the version beside the title is the pet\'s own, or the starting 0.1.0 the 
   }
 });
 
-test('lights: the ON/OFF light is never grey, and every level tool panel has its pair left of its label (Astra, 2026-10-21)', () => {
+test('lights: the ON/OFF light is never grey, and only tools have lights, never a panel (Astra, 2026-10-23)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     assert.ok(!/class="light onoff[^"]*is-unset/.test(html), `${d.repo}: "those are either on or off"`);
-    for (const lv of ['L1', 'L2', 'L3', 'L4']) {
-      const label = `${d.petSlug}-${lv}-tool-panel`;
-      assert.ok(html.includes(`<span class="lights"><button type="button" class="light onoff" data-item="panel:${label}"`), `${d.repo}: ${label} has its ON/OFF light`);
-      assert.match(html, new RegExp(`data-item="panel:${label}"[^>]*></button></span><span class="legend">${label}</span>`), `${d.repo}: the lights come before ${label}`);
-    }
+    // "panels cant have lights. only tools can"
+    assert.ok(!html.includes('data-item="panel:'), `${d.repo}: no panel has lights`);
+    assert.ok(!/<summary[^>]*><span class="lights">/.test(html), `${d.repo}: no lights in a panel's label`);
+    // The cyberhome's box is the tool <pet>-cyberhome, a pill with its lights; not built yet, so off, never green.
+    const render = `${d.petSlug}-cyberhome`;
+    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
+    // The map panel's tool, <pet>-system-map: its lights live (the link exists).
+    const mapTool = `${d.petSlug}-system-map`;
+    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
   }
+  const rabbit = files[pagePath('rift-rabbit')];
+  assert.match(rabbit, /<div class="den" data-arrival="waiting" style="--pet-height: 73\.6px">/, 'Rift Rabbit stands as tall as on the desktop');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /function power\(k, planned\) \{ if \(planned\) return 'off';/, 'something not built yet is off, never grey');
 });
@@ -212,6 +218,12 @@ test('the paired lights are two buttons side by side, each with a name a screen 
   for (const id of ['blender', 'unity-editor', 'vrchat-creator-companion']) {
     assert.match(unicorn, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: red, not seen running`);
   }
+  // Even when the pet's own link to it is only planned, a 3rd party program's light says whether it is open (Astra,
+  // 2026-10-23: "most of my vrchat programs are launched right now and I am not seeing the green lights").
+  const rabbit = files[pagePath('rift-rabbit')];
+  for (const id of ['steamvr', 'virtual-desktop', 'space-calibrator']) {
+    assert.match(rabbit, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: watched, not "not built yet"`);
+  }
 });
 
 test('every program, tool and trick is a pill: its two lights on the oval, and a name that opens in place (Astra, 2026-10-19)', () => {
@@ -238,7 +250,7 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
   const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
   assert.ok(at > levelsEnd, "its own panel, after the four levels");
-  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
   assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
@@ -335,7 +347,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.ok(html.indexOf(`>${d.petSlug}-plays-with<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: plays-with comes just above the footer`);
+    assert.ok(html.indexOf(`>${d.petSlug}-friends-list-panel<`) < html.indexOf('>astras-unified-footer-panel<'), `${d.repo}: plays-with comes just above the footer`);
     // Plays-with (Astra, 2026-10-23) holds every pet of its connection boxes, and the seeds and roadmap pets it links to.
     const ids = new Set(d.related.map((r) => r.id));
     for (const c of d.connections) assert.ok(ids.has(c.id), `${d.repo}: ${c.name} from its connection boxes plays with it`);
@@ -363,7 +375,7 @@ test('third-party programs include those a tool of the pet runs or looks after (
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes<`);
+    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes-panel<`);
     assert.ok(L4 > -1 && start > L4 && end > start, `${d.repo}: its own panel, after the four level panels`);
     assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 tool panel`);
     const box = html.slice(start, end);
@@ -415,5 +427,5 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   for (const row of ['a program or tool · its own folder', 'a program or tool · everything else']) assert.ok(unicorn.includes(`<span class="gwho">${row}</span>`), `5: ${row}`);
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
-  assert.match(css, /\.top \{ --square: 220px; display: grid;[^}]*align-items: end; \}/, '6: the title block lines up with the squares\' bottom');
+  assert.match(css, /\.top \{ --square: 220px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
 });

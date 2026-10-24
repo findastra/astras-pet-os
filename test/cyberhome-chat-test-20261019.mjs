@@ -26,7 +26,7 @@ const between = (text, open, close) => {
 test('every page starts with an empty cyberhome, and no star door in it (Astra crossed it out, 2026-10-20)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const den = between(html, '<div class="den" data-arrival="waiting">', '</div>');
+    const den = between(html, '<div class="den" data-arrival="waiting"', '</div>');
     assert.ok(den, `${d.repo}: the den starts waiting`);
     assert.ok(!den.includes('star-door'), `${d.repo}: no star door in the den`);
     assert.match(den, /class="(no-art )?pet/, `${d.repo}: the pet (or its no-picture box) is ready to move in`);

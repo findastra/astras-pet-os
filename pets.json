@@ -2371,38 +2371,7 @@
           }
         ],
         "core": [],
-        "programs": [
-          {
-            "node": "unity-hub",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "unity-editor",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrchat-creator-companion",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "blender",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrchat",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrcft",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          }
-        ]
+        "programs": []
       }
     },
     {
@@ -2439,7 +2408,118 @@
           }
         ],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-editor",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "vrcft",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "steam",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "steamvr",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "meta-horizon-link",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "virtual-desktop",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "space-calibrator",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "ovr-advanced-settings",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "ovr-toolkit",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "ovr-dynamic-resolution",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "ovr-smooth-tracking",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "ovr-pager",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "double-hip-tracker",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "base-station-fov",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "oscgoesbrrr",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "magic-chatbox",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "vr-pole-overlay",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "bs-manager",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          }
+        ]
       }
     }
   ],

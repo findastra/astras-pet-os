@@ -505,13 +505,13 @@
       "id": "program-watch",
       "name": "Program watch",
       "type": "tool",
-      "of": "program-63",
+      "of": "program-72",
       "state": "planned",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "kernel-grove-v1.0-program-watch-v1.0",
-      "job": "A tool of Kernel Grove (Astra, 2026-10-21, all recommended): which of the 3rd party programs on this map are open (Unity Hub, Unity, the Creator Companion, Blender, VRChat, VRCFaceTracking), every five seconds while the watch runs; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/kernel-grove#5, not merged; the pet program pages see it once Startup Star passes it on (card 054)."
+      "label": "benchmark-rock-v1.0-program-watch-v1.0",
+      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/benchmark-rock#3, not merged."
     },
     {
       "id": "leftover-watch",
@@ -3366,35 +3366,147 @@
       "to": "unity-editor",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "program-watch",
       "to": "vrchat-creator-companion",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "program-watch",
       "to": "blender",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "program-watch",
       "to": "vrchat",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "program-watch",
       "to": "vrcft",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "steam",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "steamvr",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "meta-horizon-link",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "virtual-desktop",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "space-calibrator",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ovr-advanced-settings",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ovr-toolkit",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ovr-dynamic-resolution",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ovr-smooth-tracking",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ovr-pager",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "double-hip-tracker",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "base-station-fov",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "oscgoesbrrr",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "magic-chatbox",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "vr-pole-overlay",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "bs-manager",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit's VR sessions (Astra, 2026-10-23), closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "unity-unicorn",
@@ -3415,7 +3527,7 @@
       "to": "unity-hub",
       "carries": "manages",
       "state": "planned",
-      "why": "Open or closed, closed the way its window's X does (kernel-grove#5, not merged)."
+      "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
       "from": "findastra-discord-presence",
