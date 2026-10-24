@@ -100,12 +100,13 @@
   ],
   "panels": [
     ["-cyberhome-panel", "-avatar-panel"],
-    ["-quick-summary", "-summary"],
+    ["-quick-summary-panel", "-summary-panel"],
     ["-tool-panel", "-panel"],
     ["-related-pets", "-related-agents"],
-    ["-clicker-training", "-click-bindings"],
+    ["-clicker-training-panel", "-click-bindings-panel"],
+    ["-friends-list-panel", "-related-agents-panel"],
     ["-emotions", "-status-states"],
-    ["-session-notes", "-feedback"]
+    ["-session-notes-panel", "-feedback-panel"]
   ],
   "names": {
     "astras-pet-os": { "agent": "Orchestrator Agent", "hub": "Agent Control Hub" },

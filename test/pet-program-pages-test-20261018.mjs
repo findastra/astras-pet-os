@@ -31,8 +31,8 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'chat'].includes(m)
-      ? `${d.petSlug}-${m}` : m === 'quick-summary' ? `${d.homeSlug}-${m}` : m));
+    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'chat-panel'].includes(m)
+      ? `${d.petSlug}-${m}` : m === 'quick-summary-panel' ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
       const i = html.indexOf(`>${label}<`) > -1 ? html.indexOf(`>${label}<`) : html.indexOf(`"${label}"`);
@@ -61,7 +61,7 @@ test('labels sit in the top border with nothing after them, and every emotion bu
 test('clicker training: one and two clicks are the same for every pet, tools from three clicks on (Astra, 2026-10-18)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training<`), html.indexOf('>astras-pet-os-unified-footer<'));
+    const box = html.slice(html.indexOf(`>${d.petSlug}-clicker-training-panel<`), html.indexOf('>astras-unified-footer-panel<'));
     // Each number of clicks is a pill with its lights, like a tool (Astra, 2026-10-22).
     const pill = (name) => new RegExp(`<li class="pill"><span class="lights">.*?data-item="click:${d.petSlug}:[^"]+" data-name="${name}".*?class="item-name"[^>]*>${name}</(?:a|span)>.*?<span class="item-desc">([^<]*)</span>`);
     assert.match(box, pill('one click'), `${d.repo}: one click`);
@@ -111,7 +111,7 @@ test('the header: no bubble in the cyberhome, the hub\'s map label, the quick su
     const header = html.slice(html.indexOf('<header class="top">'), html.indexOf('</header>'));
     assert.ok(!/class="bubble"|id="bubble"/.test(header), `${d.repo}: "get rid of this entirely"`);
     assert.ok(header.includes(`<span class="legend">${d.petSlug}-${SYSTEM_MAP_LABEL}</span>`), `${d.repo}: the map box is <pet>-system-map-panel`);
-    assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary`);
+    assert.ok(header.includes(`<span class="legend">${d.homeSlug}-quick-summary-panel</span>`) && !header.includes('-pet-program-quick-summary'), `${d.repo}: <home>-quick-summary-panel`);
     assert.ok(!/class="actions"|class="button/.test(header), `${d.repo}: an X over "Open today's app" and over "Repo"`);
     assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the Pet ID`);
   }
@@ -344,7 +344,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.ok(html.indexOf(`>${d.petSlug}-plays-with<`) < html.indexOf('>astras-pet-os-unified-footer<'), `${d.repo}: plays-with comes just above the footer`);
+    assert.ok(html.indexOf(`>${d.petSlug}-friends-list-panel<`) < html.indexOf('>astras-unified-footer-panel<'), `${d.repo}: plays-with comes just above the footer`);
     // Plays-with (Astra, 2026-10-23) holds every pet of its connection boxes, and the seeds and roadmap pets it links to.
     const ids = new Set(d.related.map((r) => r.id));
     for (const c of d.connections) assert.ok(ids.has(c.id), `${d.repo}: ${c.name} from its connection boxes plays with it`);
@@ -372,7 +372,7 @@ test('third-party programs include those a tool of the pet runs or looks after (
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes<`);
+    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes-panel<`);
     assert.ok(L4 > -1 && start > L4 && end > start, `${d.repo}: its own panel, after the four level panels`);
     assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 tool panel`);
     const box = html.slice(start, end);

@@ -145,7 +145,7 @@ test('GitHub Aquarium\'s page has the panel after the four levels and the R W X 
   const files = spawnerFiles(readSpawnerSources(root));
   const page = files[pagePath('github-goldfish')];
   const at = page.indexOf('>github-goldfish-outstanding-items-tool-panel<');
-  assert.ok(at > page.indexOf('>github-goldfish-session-notes<') && at < page.indexOf('>github-goldfish-emotions<'), 'after the R W X panel and the session notes, side by side since 2026-10-22');
+  assert.ok(at > page.indexOf('>github-goldfish-session-notes-panel<') && at < page.indexOf('>github-goldfish-emotions<'), 'after the R W X panel and the session notes, side by side since 2026-10-22');
   for (const [id, label] of OUTSTANDING_GROUPS) assert.ok(page.includes(`<fieldset class="request-group outstanding-group g-${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
   assert.doesNotMatch(page, /class="[^"]*\boutstanding-group (?:broken|you|chat|close|info)\b/, 'no bare group class: `chat` is the chat pill\'s');
   assert.ok(page.includes(`href="${OUTSTANDING_BOARD}"`), 'the Open button goes to the Pets Board');

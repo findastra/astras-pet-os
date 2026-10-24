@@ -40,11 +40,11 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer;
 // since 2026-10-23 it is `<pet>-plays-with`, most used first.
-// The quick summary is `<home>-quick-summary`. The two squares beside the title are `<pet>-cyberhome-panel` and
+// The quick summary is `<home>-quick-summary-panel` (Astra, 2026-10-23: "wonderland-launchpad-quick-summary-panel"). The two squares beside the title are `<pet>-cyberhome-panel` and
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
-export const PANELS = ['cyberhome-panel', 'quick-summary', 'system-map-panel', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'astras-unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -530,7 +530,7 @@ function mapRelated(d) {
   const more = d.related.length > MAP_RELATED ? `plays with all ${d.related.length}` : 'plays with';
   return `
 <ul class="map-related" aria-label="${esc(`Pets ${d.pet} talks to`)}">${d.related.slice(0, MAP_RELATED).map(link).join('')}</ul>
-<p class="small map-related-all"><a href="#${esc(d.petSlug)}-plays-with">${more}, below</a></p>`;
+<p class="small map-related-all"><a href="#${esc(d.petSlug)}-friends-list-panel">${more}, below</a></p>`;
 }
 
 // The unified footer, as it looked before it turned into a list (Astra, 2026-10-20: "It looked really good ... It was
@@ -601,7 +601,7 @@ export function buildPetProgramPage(d) {
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -676,11 +676,11 @@ ${sub('pet-id', `<dl class="status">
   // is its own and the tool is listed too just separately").
   const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
-  const levels = panel(`${d.petSlug}-intelligence-levels`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
   const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
-  const notes = panel(`${d.petSlug}-session-notes`, `<form id="notes" class="notes">
+  const notes = panel(`${d.petSlug}-session-notes-panel`, `<form id="notes" class="notes">
 <label for="note-text">notes</label>
 <textarea id="note-text" rows="3" placeholder="A note, a bug or a change you want. It goes to the backlog straight away."></textarea>
 <div class="note-row"><label>about <select id="note-about">${aboutOptions}</select></label>
@@ -711,7 +711,7 @@ ${sub('pet-id', `<dl class="status">
       ? bound.map(([n, c]) => ({ id: `${counts[n - 3] || n}-clicks`, name: `${counts[n - 3] || n} clicks`, state: 'now', desc: c.what || c.tool, label: c.label || null }))
       : [{ id: 'three-clicks', name: 'three clicks', state: 'unassigned', desc: 'A tool you assign: none assigned yet.' }]),
   ];
-  const clicker = panel(`${d.petSlug}-clicker-training`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
+  const clicker = panel(`${d.petSlug}-clicker-training-panel`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
 ${about(`One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).`)}`, { cls: 'clicker' });
 
   // Each related pet speaks in a cloud like the emotion bubbles, its name in the border and its picture beside it
@@ -721,16 +721,16 @@ ${about(`One and two clicks are the same for every pet. From three clicks on, ea
     const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
-  const related = panel(`${d.petSlug}-plays-with`, d.related.length
+  const related = panel(`${d.petSlug}-friends-list-panel`, d.related.length
     ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>
 ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, most used first. Use is not measured yet, so the order is the map's: links that work today, then planned, then ideas; within each, the pet they share the most with. A <code>plays_with</code> list in pets.json sets the order instead. Click one to open its pet program.`)}`
-    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-plays-with` });
+    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel` });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
   // Out More on one line; the languages as bubbles below them, from the pet's repo.
-  const footer = panel('astras-pet-os-unified-footer', `<footer class="astra-footer" aria-label="By Astra and her links">
+  const footer = panel('astras-unified-footer-panel', `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group"><span class="footer-title">By Astra</span></div>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
@@ -743,8 +743,11 @@ ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : 
   // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;
   // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
   const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
-  const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat"><span class="chat-label">${esc(d.petSlug)}-chat</span>${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button>
+  // The box is `<pet>-chat-panel`, square like every panel and with no lights; the chat in it is a tool, `<pet>-chat`,
+  // drawn like one: its lights, its name and its open button (Astra, 2026-10-23).
+  const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat-panel"><span class="chat-label">${esc(d.petSlug)}-chat-panel</span>
+<div class="chat-tool">${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}<span class="chat-name">${esc(d.petSlug)}-chat</span>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button></div>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
 <p class="chat-ask">Who should answer?</p>
 <div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>

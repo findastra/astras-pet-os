@@ -312,17 +312,22 @@ label.file { position: relative; }
    open, a rounded card whose window opens upward above them. */
 /* The label is part of the layout (set into the top border by a negative margin), so the pill is always at least as
    wide as its label. */
-.chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; display: grid; grid-template-columns: auto auto; grid-template-areas: "label label" "panel panel" "lights open";
-  justify-content: end; align-items: center; column-gap: 4px; padding: 0 8px 8px 14px; border: 1px solid var(--line); border-radius: 33px;
+/* Since 2026-10-23 a square panel, `<pet>-chat-panel`, like the rest, with the chat inside it drawn as a tool: its
+   lights, its name and its open button in a pill. */
+.chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; display: grid; grid-template-columns: auto; grid-template-areas: "label" "panel" "tool";
+  justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
-.chat:has(.chat-panel:not([hidden])) { border-radius: 18px; padding: 0 10px 10px 16px; }
-.chat > .lights { grid-area: lights; margin: 8px 0 0; }
+.chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
+.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 5px 4px 12px;
+  border: 1px solid var(--line-dim); border-radius: 20px; background: rgba(255, 255, 255, .04); }
+.chat-tool > .lights { margin: 0; }
+.chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
-.chat-open { grid-area: open; margin-top: 8px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
+.chat-open { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
   background: var(--slate-2); color: var(--chalk); cursor: pointer; }
 .chat-open:hover { border-color: var(--fix); color: var(--fix); }
-.chat-open svg { width: 22px; height: 22px; transition: transform .2s ease; }
+.chat-open svg { width: 16px; height: 16px; transition: transform .2s ease; }
 .chat-open[aria-expanded="true"] svg { transform: rotate(90deg); }
 .chat-panel { grid-area: panel; font-size: 13px; }
 .chat-panel p { margin: 6px 0 0; }
@@ -354,9 +359,9 @@ label.file { position: relative; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
-  .chat { right: 10px; bottom: 10px; padding: 0 6px 6px 14px; }
-  .chat-open { width: 38px; height: 38px; }
-  .chat-open svg { width: 19px; height: 19px; }
+  .chat { right: 10px; bottom: 10px; padding: 0 8px 8px; }
+  .chat-open { width: 28px; height: 28px; }
+  .chat-open svg { width: 15px; height: 15px; }
   .chat-label { font-size: 11px; }
 }
 /* Faces the page script switches between: a hidden one never shows. */
