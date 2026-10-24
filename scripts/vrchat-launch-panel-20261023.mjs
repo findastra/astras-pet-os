@@ -1,8 +1,10 @@
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23: "a panel that is vrchat-launch-panel which has these distinct
 // modules (they are configurations on how to launch VRChat)", to "try out all the different trackings and see what one
 // works the best for me"). Two headsets, each with the same four ways of lining up the head and the Lighthouse devices,
-// and switches for what else runs. The page only shows the plan and keeps Astra's notes on each try in this browser;
-// it starts nothing (a web page cannot open programs on the PC).
+// and switches for what else runs. The page shows the plan and keeps Astra's notes on each try in this browser. A web
+// page cannot open programs, so the Launch buttons ask Rift Rabbit's own launcher on her PC
+// (`wonderland-launchpad-v1.0-vr-launch-v1.0`, findastra/rift-rabbit, 127.0.0.1 only; Astra, 2026-10-24: "Launching is
+// done by Rift Rabbit"); they stay off anywhere else.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-23. Program names are the System Map's; the three drivers are
 // pushrax/OpenVR-SpaceCalibrator, Nyabsi/OpenVR-SpaceOverride and shinyflvre/OpenVR-SpaceSync.
 
@@ -14,8 +16,14 @@ export const STREAMERS = [
   ['meta-horizon-link', 'Meta Horizon Link (cable or Air Link)'],
 ];
 
-// Double Hip Tracker's three uses, plus off (the empty value).
+// DoubleHip DoubleChest Tracker's three uses, plus off (the empty value).
 export const DOUBLE = [['', 'Off'], ['hip', 'Double Hip'], ['chest', 'Double Chest'], ['both', 'Both']];
+
+// Object Track VR's objects, plus off (Astra, 2026-10-24: "Also will eventually have Object Track VR, for tracking the
+// Small Hoop, Large Hoop, and Dance Pole ... its also a choice between the 4 objects being tracked, like the DoubleHip
+// DoubleChest Tracker drop down"). She counts 4; the fourth is hers to name. The program is not out yet (Steam: coming
+// soon), so a launch only says so.
+export const OBJECTS = [['', 'Off'], ['small-hoop', 'Small Hoop'], ['large-hoop', 'Large Hoop'], ['dance-pole', 'Dance Pole']];
 
 export const HEADSETS = [
   { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', device: 'Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
@@ -92,7 +100,7 @@ export function launchOrder(headset, mode) {
     { name: headset.device },
     { streamer: true, name: STREAMERS[0][1], after: ` on the ${headset.device}` },
     { name: 'SteamVR', note: 'which opens', opens: [...(headset.face ? [{ name: 'VRCFaceTracking' }] : []), { name: 'OVR Advanced Settings' }, { name: 'OVR Dynamic Resolution' }, ...mode.runs.map((r) => ({ name: r }))] },
-    { name: 'Then open', opens: [{ name: 'Double Hip / Double Chest Tracker', extra: 'double-hip' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }] },
+    { name: 'Then open', opens: [{ name: 'DoubleHip DoubleChest Tracker', extra: 'double-hip' }, { name: 'Object Track VR', extra: 'object-track' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }, { name: 'Woojer vest (Voicemeeter)', extra: 'woojer' }] },
     { wait: 'Wait until all of those are connected and the trackers look smooth.' },
     { name: 'VRChat' },
   ];
@@ -108,8 +116,11 @@ ${h.face
     ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
     : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
+${/* The haptic vest (Astra, 2026-10-24: "We also need an option for Woojer vest (similar to OSCGoesBrrr)"). It has
+   no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${sw('woojer', 'Woojer vest', false)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
-   together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch">Double Hip / Double Chest Tracker <select data-launch-switch="double-hip">${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
+   together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch">DoubleHip DoubleChest Tracker <select data-launch-switch="double-hip">${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
+<label class="launch-switch" title="Not out yet: a launch only says so">Object Track VR <select data-launch-switch="object-track">${OBJECTS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 </div>`;
 }
@@ -123,13 +134,14 @@ function step(s) {
 }
 
 // Each way is a mode, numbered from .0, the native one first (Astra, 2026-10-24: "call them modes. Mode 1.0 Native
-// VRChat Tracking, etc."), and it lists every program it starts, one per line in order, the streamer by the name
+// VRChat Tracking, etc."; later the same day: "Get rid of the "Mode" so go back to numbering with . ("2.0 Native VRChat
+// Tracking" and "Launch 2.0""), and it lists every program it starts, one per line in order, the streamer by the name
 // chosen above and the switches' programs while they are on ("we need to show other programs that are starting per
 // mode").
 function modeCard(h, m, i) {
   const n = `${h.n}.${i}`;
   const untested = (m.untested || []).map((s) => STREAMERS.find(([id]) => id === s)?.[1]).filter(Boolean);
-  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">Mode ${esc(n)} ${esc(m.name)}</button></legend>
+  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">${esc(n)} ${esc(m.name)}</button></legend>
 <p class="launch-tracker">${esc(m.tracker)}</p>
 <ul class="small launch-points">${m.points.map((p) => `<li>${esc(p)}</li>`).join('')}${untested.length ? `<li class="launch-warn" hidden>Not confirmed with ${esc(untested.join(', '))} yet.</li>` : ''}</ul>
 <p class="small launch-label"><b>Starts, in order:</b></p>
@@ -138,7 +150,8 @@ function modeCard(h, m, i) {
 <div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
 <label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
 <span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode ${esc(n)}</button></p>
+<p><button type="button" class="button off" disabled data-launch-go title="Works on Astra's PC while Rift Rabbit's launcher runs">Launch ${esc(n)}</button></p>
+<div class="launch-run" data-launch-run hidden></div>
 </fieldset>`;
 }
 
