@@ -175,7 +175,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -242,6 +242,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const round = lastRound(status, reg);
   const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
     ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
+  // What L3 asks you (L3 control panel): an update the update audit found waits for L4's yes (Astra, 2026-10-24: "have L3
+  // ask me if L4 wants to approve update"); nothing is installed until then.
+  const asks = Object.entries(reg.checks || {}).filter(([, c]) => c.result === 'update').map(([k, c]) =>
+    `Approve the update of ${nodes.get(k.replace(/^[a-z-]+:/, ''))?.name || k}${c.latest ? ` to ${c.latest}` : ''}? ${c.note || ''}`.trim());
 
   // Today's app (app_url, 2026-10-19): interface_url now opens this page itself, so the button never uses it. An app on
   // the hub's site opens from the hub's own copy, beside this page. An app inside a private repo, or on its Pages site,
@@ -265,7 +269,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
-    art, petHeight, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
+    art, petHeight, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
     shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
@@ -274,7 +278,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
-    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, editorial: reg.editorial || null,
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, editorial: reg.editorial || null, checks: reg.checks || {},
   };
 }
 
@@ -289,9 +293,26 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 // its on"): it is drawn red, "not seen running", never a guessed green (`unseen`), and the page turns it green when
 // Inference Iguana's program-watch says it is open (Astra, 2026-10-23: "most of my vrchat programs are launched right now
 // and I am not seeing the green lights"), even while the pet's own link to it is only planned.
+// The second light shows what a check found (Astra, 2026-10-24: "they need to all be checked if they work or not by
+// you"): the pet's `checks` in pets.json, keyed like the lights (`third-party:steamvr`, `device:vive-tracker-09`,
+// `tool:rift-rabbit-system-map`), each { result: works | issues | update | missing, note, on }. buildPetProgramPage sets
+// CHECKS for the page it is drawing; the page script turns them into blue, yellow, orange or grey.
+let CHECKS = {};
+const checkAttrs = (key) => {
+  const c = CHECKS[key];
+  if (!c || !c.result) return '';
+  const note = [c.note, c.on ? `(checked ${c.on})` : ''].filter(Boolean).join(' ');
+  return ` data-check="${esc(c.result)}"${note ? ` data-check-note="${esc(note)}"` : ''}`;
+};
+const careOf = (key, planned, unseen) => {
+  const r = CHECKS[key]?.result;
+  return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
+    : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
+};
 const lights = (key, name, { planned = false, unseen = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned || (unseen && key.startsWith('third-party:')) ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned || (unseen && key.startsWith('third-party:')) ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+  const [careClass, careSays] = careOf(key, planned, unseen);
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -299,9 +320,24 @@ export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
 // · #", and "3rd Party Programs = L1, Native Programs = L1, Native Tools = L1, Native Tricks = L2").
 const heading = (title, items) => `<h3>${esc(title)} · ${items.length}</h3>`;
 // Native tools, or Avatar tools and World tools when the pet's tools say which side they are on (tools with no side last).
-function toolSections(tools) {
+// The devices in groups, each its own list, so a group never breaks across another's columns (Astra, 2026-10-24: "can
+// you group the trackers, base stations, headsets, etc. so they dont break across columns?"): headsets first, then each
+// group by its System Map parent (Valve Index controllers, the Vive Trackers, the base stations), in the map's order.
+function deviceGroups(devices) {
+  const groups = new Map(), names = {};
+  for (const dv of devices) {
+    const key = dv.group || (/quest|headset|hmd/i.test(`${dv.id} ${dv.name}`) ? 'headsets' : 'other');
+    if (!groups.has(key)) groups.set(key, []);
+    if (dv.groupName) names[key] = dv.groupName;
+    groups.get(key).push(dv);
+  }
+  const order = [...groups.keys()].sort((a, b) => (a === 'headsets' ? -1 : b === 'headsets' ? 1 : a === 'other' ? 1 : b === 'other' ? -1 : 0));
+  return order.map((key) => `<h4 class="device-group">${esc(key === 'headsets' ? 'Headsets' : key === 'other' ? 'Other devices' : names[key] || key)} · ${groups.get(key).length}</h4>${itemList(groups.get(key), 'device', '')}`).join('');
+}
+
+function toolSections(tools, extra = '', extraCount = 0) {
   const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
-  if (!tools.some((t) => t.side)) return `<section>${heading('Native tools', tools)}${itemList(tools, 'tool', empty)}</section>`;
+  if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${tools.length || !extra ? itemList(tools, 'tool', empty) : ''}${extra}</section>`;
   const rest = tools.filter((t) => !t.side);
   const sides = Object.entries(SIDES).map(([side, title]) => {
     const mine = tools.filter((t) => t.side === side);
@@ -517,12 +553,14 @@ function socialRowPanel(d) {
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
-function vrchatLaunchPanel(d) {
-  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
-${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
+// Rift Rabbit's VRChat setups, the pet program's own ways of using its L1 programs, are a native tool in its L1 control
+// panel: the launcher runs them and no AI decides (Astra, 2026-10-24, "Program, Tool or Trick" deck, answer 2).
+function vrchatSetups() {
+  return `<div class="vrchat-setups"><div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
+${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only.`)}</div>`;
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel, 'rift-rabbit': vrchatLaunchPanel };
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -568,6 +606,7 @@ export const FOOTER_LINKS = [
 ];
 
 export function buildPetProgramPage(d) {
+  CHECKS = d.checks || {};
   const f = d.art.frames;
   const idleAlt = `${d.pet}, idle`;
   const map = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
@@ -649,8 +688,8 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${toolSections(d.tools)}
-${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${itemList(d.devices, 'device', '')}</section>` : ''}</div>
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : toolSections(d.tools)}
+${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
@@ -658,47 +697,44 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
   const tricks = [...selfAudit, ...d.tricks];
-  // The update history is a tool, a pill with its lights like every other, that opens to show the details (Astra,
-  // 2026-10-24: "the rabbit update history needs to either be a tool or a section"; before, a panel inside the panel).
-  const historyName = `${d.petSlug}-update-history`;
-  const history = `<ul class="items"><li class="pill">${lights(`tool:${historyName}`, historyName)}<span class="item-name">${esc(historyName)}</span><span class="item-desc">When ${esc(d.home)} was last updated and checked, and where its data lives.</span><details class="pill-more"><summary aria-label="More about ${esc(historyName)}"></summary><div class="pill-body"><dl class="status">
-<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
-<dt>Last entry</dt><dd id="last-entry">none yet</dd>
-<dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
-<dt>Seat</dt><dd>empty</dd>
-<dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></div></details></li></ul>`;
+  // Update history is part of the Pet ID in L4, your record of the pet program (Astra, 2026-10-24, "Program, Tool or
+  // Trick" deck, answer 4); L2 holds the pet program's tricks.
   const L2 = panel(`${d.petSlug}-L2-control-panel`, `<div class="columns">
-<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
-<section><h3>Update history · 1</h3>${history}</section></div>`, { cls: 'level', light: true });
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
   const l3Suggest = [{ id: 'weekly-suggestions', name: 'weekly-suggestions', state: 'planned', cadence: 'weekly',
     desc: `Once a week the seated agent suggests what to do next for ${d.home}.` }];
-  // The seat, the program activity and the token use are sections like the rest, a heading and a line under it (Astra,
-  // 2026-10-24: "this one also is confusing, make it fit vibe of others").
+  // L3 is L3 talking with L4 about this pet program, nothing else (Astra, 2026-10-24: "L3 control panel should be about
+  // L3 to L4 discussions, regarding the pet program only"): what L3 asks you (an update the update audit found waits for
+  // your yes here), its suggestions, and who is seated to talk. The seat's own activity, tokens and skills are not here.
   const L3 = panel(`${d.petSlug}-L3-control-panel`, `<div class="columns">
-<section>${heading('Seat', [])}<p class="empty">Empty: no farmhand is seated in ${esc(d.home)} (L3 is not connected).</p></section>
-<section>${heading(`${d.home} program activity`, [])}<p class="empty">Nobody is working on ${esc(d.home)} right now.</p></section>
-<section><h3>Token use</h3><p class="empty">Not measured yet: Token Toucan is planned.</p></section>
-<section>${heading('Tricks running now', [])}<p class="empty">None: no seat is connected, so nothing runs by itself.</p></section>
+<section>${heading('L3 asks you', d.asks)}${d.asks.length ? `<ul class="plain asks">${d.asks.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>` : `<p class="empty">Nothing to ask you about ${esc(d.home)} right now.</p>`}</section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
-<section>${heading('Harness skills', d.skills)}${itemList(d.skills, `skill:${d.petSlug}`, 'None matched in Skill Scout’s catalog yet. They belong to the seat (Claude Code, Codex), not to the pet.')}</section>
+<section>${heading('Seat', [])}<p class="empty">Empty: no farmhand is seated in ${esc(d.home)} (L3 is not connected).</p></section>
 </div>`, { cls: 'level', light: true });
 
   // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").
   const sub = (label, body) => panel(label, body, { cls: 'sub', light: true, key: label.startsWith(d.petSlug) ? '' : `${d.petSlug}-${label}` });
+  // The Pet ID's Stamps: the update history (Astra, 2026-10-24: update history belongs in the Pet ID, answer 4).
+  const petStamps = `<dl class="status stamps">
+<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
+<dt>Last entry</dt><dd id="last-entry">none yet</dd>
+<dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
+<dt>Seat</dt><dd>empty</dd>
+<dt>Last check</dt><dd>${roundLine}</dd>
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
   const L4 = panel(`${d.petSlug}-L4-control-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
-${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul>')}
+${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing yellow or orange.</li></ul><ul class="plain" id="switched-off"></ul>')}
 ${sub('pet-id', `<dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
 <dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
 <dt>App</dt><dd>${appLink}</dd>
-<dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
+<dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 
@@ -709,7 +745,7 @@ ${sub('pet-id', `<dl class="status">
   // too just separately").
   const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
-  const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>checked, works <span class="key fix"></span>report issues <span class="key update"></span>update waiting for your OK <span class="key planned"></span>not created</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
   const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
