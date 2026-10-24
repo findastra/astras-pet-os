@@ -61,13 +61,10 @@
   function fitSquares() {
     if (!header || !titleBox) return;
     if (window.matchMedia && !window.matchMedia('(min-width: 1001px)').matches) { header.style.removeProperty('--square'); return; }
-    for (var i = 0, side = 0; i < 4; i++) {
-      var next = Math.round(Math.max(210, Math.min(260, titleBox.offsetHeight - 12)));
-      if (Math.abs(next - side) < 2) break;
-      side = next;
-      header.style.setProperty('--square', side + 'px');
-      fitTitle();
-    }
+    // Since 2026-10-23 they fit their tool and picture snugly (Astra: "make their squares fit them snugly"): the
+    // stylesheet's --square, not the title column's height.
+    header.style.removeProperty('--square');
+    fitTitle();
   }
   function fitHeader() { fitTitle(); fitSquares(); }
   fitHeader();
@@ -99,7 +96,10 @@
   // Which 3rd party programs are open (Astra, 2026-10-23): Inference Iguana's program-watch writes them every five seconds
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
-  var running = {}, runningSeen = null;
+  var running = {}, runningSeen = null, updates = {};
+  // A 3rd party program's second light: does it need an update? true, false, or not known (Astra, 2026-10-23).
+  function isProgram(b) { return /^third-party:/.test(b.dataset.item || '') && !!b.dataset.unseen; }
+  function update(b) { var u = updates[(b.dataset.item || '').replace(/^third-party:/, '')]; return u === true ? 'fix' : u === false ? 'ok' : ''; }
   function seen(b) { return !!running[(b.dataset.item || '').replace(/^(third-party|device):/, '')]; }
   function isDevice(b) { return /^device:/.test(b.dataset.item || ''); }
   function paint() {
@@ -113,11 +113,11 @@
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
         b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
       } else {
-        var h = health(k, planned[k]);
+        var h = isProgram(b) ? update(b) : health(k, planned[k]);
         b.classList.toggle('is-fix', h === 'fix');
         b.classList.toggle('is-unset', !h);
         b.setAttribute('aria-pressed', h === 'fix' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (h === 'ok' ? 'working correctly' : h === 'fix' ? 'requires maintenance' : 'not checked yet'));
+        b.setAttribute('aria-label', name + ': ' + (isProgram(b) ? (h === 'ok' ? 'up to date' : h === 'fix' ? 'needs an update' : 'update not checked') : h === 'ok' ? 'working correctly' : h === 'fix' ? 'requires maintenance' : 'not checked yet'));
       }
     }
     var fix = document.getElementById('maintenance'), off = document.getElementById('switched-off');
@@ -163,6 +163,7 @@
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
     if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
+    if (isProgram(b) && b.classList.contains('care')) { var u = update(b); say(b, u === 'fix' ? 'needs an update: Steam has a newer version waiting. Update it in Steam.' : u === 'ok' ? 'up to date: Steam has nothing newer.' : 'update not checked: only programs from Steam can be checked so far, and only while Inference Iguana keeps watch.'); return; }
     if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
@@ -197,6 +198,9 @@
         if (d && d.schema === 'benchmark-rock-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
           d.programs.forEach(function (p) { if (p && p.running && typeof p.id === 'string') now[p.id] = true; });
           (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) { if (v && v.on === true && typeof v.id === 'string') now[v.id] = true; });
+          var ups = {};
+          d.programs.forEach(function (p) { if (p && typeof p.id === 'string' && (p.update === true || p.update === false)) ups[p.id] = p.update; });
+          updates = ups;
           runningSeen = d.time;
         }
         running = now;

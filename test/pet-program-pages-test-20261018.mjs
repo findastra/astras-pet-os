@@ -99,7 +99,7 @@ test('every page links back to the System Map, top right, on its own node (Astra
     assert.ok(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`) > at(`${d.petSlug}-cyberhome-panel`), `${d.repo}: the map panel is in the header, after the cyberhome`);
     assert.ok(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`) > header.indexOf('<h1>'), `${d.repo}: the map panel comes after the title, on the right`);
     const link = `../../system-map-20261012.html#node=${encodeURIComponent(d.mapNode)}`;
-    assert.ok(header.slice(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`)).includes(`<a class="map-link" href="${link}">`), `${d.repo}: it opens the map on ${d.mapNode}`);
+    assert.ok(header.slice(at(`${d.petSlug}-${SYSTEM_MAP_LABEL}`)).includes(`<a class="map-link" href="${link}" title="Open ${esc(d.home)} on the System Map"`), `${d.repo}: it opens the map on ${d.mapNode}`);
     assert.ok(!header.includes('its node:'), `${d.repo}: the node's id is not printed under the link (Astra, 2026-10-21)`);
   }
 });
@@ -427,5 +427,5 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   for (const row of ['a program or tool · its own folder', 'a program or tool · everything else']) assert.ok(unicorn.includes(`<span class="gwho">${row}</span>`), `5: ${row}`);
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
-  assert.match(css, /\.top \{ --square: 220px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
+  assert.match(css, /\.top \{ --square: 180px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
 });
