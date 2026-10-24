@@ -652,27 +652,30 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
   const tricks = [...selfAudit, ...d.tricks];
-  // The status line is its own tool panel with its lights (her screenshot: "oo unity-unicorn-L3-update-history ??").
-  const history = panel(`${d.petSlug}-update-history`, `<dl class="status">
+  // The update history is a tool, a pill with its lights like every other, that opens to show the details (Astra,
+  // 2026-10-24: "the rabbit update history needs to either be a tool or a section"; before, a panel inside the panel).
+  const historyName = `${d.petSlug}-update-history`;
+  const history = `<ul class="items"><li class="pill">${lights(`tool:${historyName}`, historyName)}<span class="item-name">${esc(historyName)}</span><span class="item-desc">When ${esc(d.home)} was last updated and checked, and where its data lives.</span><details class="pill-more"><summary aria-label="More about ${esc(historyName)}"></summary><div class="pill-body"><dl class="status">
 <dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`, { cls: 'sub', light: true });
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></div></details></li></ul>`;
   const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
-<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
-${history}`, { cls: 'level', light: true });
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
+<section><h3>Update history · 1</h3>${history}</section></div>`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
   const l3Suggest = [{ id: 'weekly-suggestions', name: 'weekly-suggestions', state: 'planned', cadence: 'weekly',
     desc: `Once a week the seated agent suggests what to do next for ${d.home}.` }];
-  const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<ul class="plain">
-<li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
-<li><b>${esc(d.home)} program activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.home)} right now.</span></li>
-<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>
-<div class="columns">
+  // The seat, the program activity and the token use are sections like the rest, a heading and a line under it (Astra,
+  // 2026-10-24: "this one also is confusing, make it fit vibe of others").
+  const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<div class="columns">
+<section>${heading('Seat', [])}<p class="empty">Empty: no farmhand is seated in ${esc(d.home)} (L3 is not connected).</p></section>
+<section>${heading(`${d.home} program activity`, [])}<p class="empty">Nobody is working on ${esc(d.home)} right now.</p></section>
+<section><h3>Token use</h3><p class="empty">Not measured yet: Token Toucan is planned.</p></section>
 <section>${heading('Tricks running now', [])}<p class="empty">None: no seat is connected, so nothing runs by itself.</p></section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
 <section>${heading('Harness skills', d.skills)}${itemList(d.skills, `skill:${d.petSlug}`, 'None matched in Skill Scout’s catalog yet. They belong to the seat (Claude Code, Codex), not to the pet.')}</section>
