@@ -128,8 +128,8 @@
     if (!d || d.schema !== 'rift-rabbit-vr-launch-v1' || d.on !== true || !/^http:\/\/127\.0\.0\.1:\d{2,5}\/$/.test(d.url) || !/^[0-9a-f]{32,}$/i.test(d.code)) return;
     launcher = { url: d.url.slice(0, -1), code: d.code, installed: d.installed || {} };
     paintButtons();
-    // A launch already running (the page was reloaded) shows again in its card.
-    ask('/status').then(function (res) { if (res && res.run) show(res); }, lost);
+    // A launch still running (the page was reloaded) shows again in its card; a finished or stopped one does not.
+    ask('/status').then(function (res) { if (res && live(res.run)) show(res); }, lost);
   };
   script.onerror = function () { script.remove(); };
   document.head.appendChild(script);

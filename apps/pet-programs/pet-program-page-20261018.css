@@ -470,6 +470,9 @@ img[hidden] { display: none !important; }
    round corners and the tool background; its four ways, its menus and its Launch buttons are parts of that tool and
    round too (Astra, 2026-10-24: "I want to see this panel as a tool, so please give it round borders ... those should
    also have round borders as they are not panels, they are a sub part of a tool"). */
+/* The setups sit under the Native tools pills, as far below them as the pill rows and the two headset boxes are apart
+   (18px: a pill's 9px bottom margin plus this). Astra, 2026-10-24: "awkward space". */
+.vrchat-setups { margin-top: 9px; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
 /* Its name inside the border on the first row, its lights left of it, like every tool (Astra, 2026-10-24). The first
    light sits at the centre of the 18px corner, as on every tool: 18 - 5.5 - 1 = 11.5px in, its row centred 18px down. */
