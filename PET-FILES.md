@@ -134,17 +134,21 @@ Every pet uses the same nine meanings, so Astra can read any pet's face without 
 Every picture of every pet lives **only in this hub**, so a picture is changed once, here, and no program's code is
 touched. Never copy a pet picture into another repo.
 
-| Pictures | Folder |
-| --- | --- |
-| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` |
-| Web frames and sheets of draft pets (the build never touches them) | `art/drafts/<pet>/` |
-| Icons | `art/icons/<repo>-20261012.png` |
-| App icons built into Windows programs | `art/app-icons/<repo>/` |
-| Desktop pets, registered and draft, with their `desktop-pet-20261011.json` | `desktop-art/<pet>/` |
-| Fuzzboi Friend's 32 original layers and desktop recipes | `desktop-art/fuzzboi-friend/` |
+| Pictures | Folder | Address that never changes (link this one) |
+| --- | --- | --- |
+| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` | `art/frames/<pet>/<mood>.png` |
+| Moods of desktop-art pets with the shared mood stickers (built) | `art/moods/<folder>/` | `art/moods/<folder>/<mood>.png` |
+| Web frames and sheets of draft pets (the build never touches them) | `art/drafts/<pet>/` | `art/latest/drafts/<pet>/<mood>.png` |
+| Icons | `art/icons/<repo>-20261012.png` | `art/latest/icons/<repo>.png` |
+| App icons built into Windows programs | `art/app-icons/<repo>/` | `art/latest/app-icons/<repo>/<name without date>` |
+| Desktop pets, registered and draft, with their `desktop-pet-20261011.json` | `desktop-art/<pet>/` | `art/latest/desktop-art/<pet>/<mood>.png` |
+| Fuzzboi Friend's 32 original layers and desktop recipes | `desktop-art/fuzzboi-friend/` | `art/latest/desktop-art/fuzzboi-friend/layers/…` |
 
-Pages and READMEs load `https://raw.githubusercontent.com/findastra/astras-pet-os/main/<path>`; a page that must
-work by double-click falls back to `../astras-pet-os/<path>`, the hub folder next to it on Astra's PC. The desktop
+Pages and READMEs load `https://raw.githubusercontent.com/findastra/astras-pet-os/main/<address>`; a page that must
+work by double-click falls back to `../astras-pet-os/<address>`, the hub folder next to it on Astra's PC. **Link the
+address that never changes**, never a dated file name (Astra, 2026-10-24): a new drawing is added to its folder with a
+new date, `npm run build` points `art/latest/` at it (`scripts/one-picture-home-20261024.mjs`; every stable path and its
+drawing are in `art/latest/index.json`), and every link shows it within 5 minutes. Never hand-edit `art/latest/`. The desktop
 pets app reads only this folder, including its draft list, `desktop-art/desktop-drafts-20261018.json` (written by
 `scripts/prepare-desktop-drafts-20261011.mjs`, paths relative to the hub). The list lives in the hub, not in
 `%LOCALAPPDATA%`, because a program started inside the Claude or Codex app reads and writes that app's private copy of

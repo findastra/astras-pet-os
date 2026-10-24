@@ -10,9 +10,19 @@
 //   node scripts/one-art-source-20261017.mjs --trees trees.json               offline: { repo: { private, ref, files: [{ path, sha }] } }
 //   node scripts/one-art-source-20261017.mjs --drafts <desktop-drafts.json>   check another draft list (default: this hub's)
 //   add --json for machine-readable output
-import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+//
+// One home for every pet picture (Astra, 2026-10-24, all recommended; docs/one-art-source-20261017.md, "Addresses that
+// never change"): the hub must stay public, since every hosted picture stops loading while it is private; and with
+// --links every text file in every repo is read for links to a dated hub picture that should name art/latest instead
+// (scripts/one-picture-home-20261024.mjs). --save writes the result where GitHub Aquarium's outstanding items read it,
+// on this PC only (it names private repos): Documents\Astra's PetOS Data\one-art-source\one-art-source-check.json.
+//   node scripts/one-art-source-20261017.mjs --links --save          the daily check Startup Star runs
+import { execFileSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { datedLinks, latestPlan } from './one-picture-home-20261024.mjs';
 
 // Astra-only on purpose (card 058, Part 3, 2026-10-20): every pet picture lives in Astra's PetOS itself (findastra/astras-pet-os, upstream), and this check (Flash Audit A58) reads every repo on her account. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 export const OWNER = 'findastra';
@@ -59,20 +69,43 @@ export function checkDrafts(list) {
   return problems;
 }
 
+// Where --save puts the result, under Documents like the outstanding items (AppData is a private copy for each app).
+export const SAVE_PATH = ["Astra's PetOS Data", 'one-art-source', 'one-art-source-check.json'];
+export const savePath = () => join(homedir(), 'Documents', ...SAVE_PATH);
+// Text files that may link a picture: pages, scripts, Markdown, JSON.
+const TEXT = /\.(md|json|html?|js|mjs|cjs|css|cs|ps1|py|ts|tsx|vue|ya?ml)$/i;
+export const HUB_RECORDS = /^(changes|handoffs|docs)\//;
+export const isLinkFile =(f) => TEXT.test(f.path) && !/(^|\/)(node_modules|vendor|dist)\/|package-lock\.json$/.test(f.path) && !(f.size > 400000);
+
+/** Links to dated hub pictures in one repo's text files ({ path: text }), as findings. */
+export function linkFindings(repo, texts, plan) {
+  const found = [];
+  for (const [path, text] of Object.entries(texts)) for (const l of datedLinks(text, plan)) found.push({ repo, path, kind: 'dated-link', hub: l.from, to: l.to });
+  return found;
+}
+
 export function audit(trees, drafts) {
   const hub = trees[HUB];
   if (!hub) throw new Error(`No tree for ${HUB}`);
+  const plan = latestPlan(hub.files.map((f) => f.path));
   const hubBySha = new Map();
   // Pet pictures only: the hub's screenshots and System Map renders (docs/) may be shown elsewhere.
   for (const f of hub.files) if (IMG.test(f.path) && /^(art|desktop-art)\//.test(f.path)) { if (!hubBySha.has(f.sha)) hubBySha.set(f.sha, []); hubBySha.get(f.sha).push(f.path); }
   const findings = [], exceptions = [];
   for (const [repo, t] of Object.entries(trees)) {
-    if (repo === HUB || !t.files) continue;
-    const found = classify(repo, t.files, hubBySha);
-    if (!found.length) continue;
-    if (EXCEPTIONS.some((e) => e.repo === repo)) exceptions.push({ repo, count: found.length });
-    else findings.push(...found);
+    if (!t.files) continue;
+    // The hub's own pages and notes link pictures too: they must name art/latest like everyone else.
+    if (repo !== HUB) {
+      const found = classify(repo, t.files, hubBySha);
+      if (found.length && EXCEPTIONS.some((e) => e.repo === repo)) exceptions.push({ repo, count: found.length });
+      else findings.push(...found);
+    }
+    // The hub's records (changes/, handoffs/, docs/) say what a page showed on their day; they keep their dated links.
+    const texts = repo === HUB ? Object.fromEntries(Object.entries(t.texts || {}).filter(([p]) => !HUB_RECORDS.test(p))) : t.texts;
+    if (texts) findings.push(...linkFindings(repo, texts, plan));
   }
+  // Raw addresses and the hub's site answer 404 while the hub is private (2026-10-20 to 2026-10-21): it stays public.
+  if (hub.private === true) findings.unshift({ repo: HUB, path: '', kind: 'hub-private', hub: null });
   const draftProblems = drafts ? checkDrafts(drafts) : null;
   const ok = findings.length === 0 && (!draftProblems || draftProblems.length === 0);
   return { verdict: ok ? 'Correct' : 'Incorrect', findings, exceptions, draftProblems };
@@ -83,6 +116,18 @@ async function gh(path, token) {
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`GitHub ${r.status} for ${path}`);
   return r.json();
+}
+
+/** Every text file of every repo that names the hub, read for --links (one request per file: minutes, not seconds). */
+async function fetchTexts(trees, token) {
+  for (const [repo, t] of Object.entries(trees)) {
+    t.texts = {};
+    for (const f of t.files.filter(isLinkFile)) {
+      const b = await gh(`/repos/${OWNER}/${repo}/git/blobs/${f.sha}`, token);
+      const text = b?.content ? Buffer.from(b.content, 'base64').toString('utf8') : '';
+      if (text.includes(HUB)) t.texts[f.path] = text;
+    }
+  }
 }
 
 async function fetchTrees(branch, token) {
@@ -104,9 +149,16 @@ async function fetchTrees(branch, token) {
     if (branch) { t = await gh(`/repos/${OWNER}/${r.name}/git/trees/${encodeURIComponent(branch)}?recursive=1`, token); if (t) ref = branch; }
     if (!t) t = await gh(`/repos/${OWNER}/${r.name}/git/trees/${encodeURIComponent(r.default_branch)}?recursive=1`, token);
     if (!t) continue;
-    trees[r.name] = { private: r.private, ref, truncated: t.truncated, files: t.tree.filter((e) => e.type === 'blob').map((e) => ({ path: e.path, sha: e.sha })) };
+    trees[r.name] = { private: r.private, ref, truncated: t.truncated, files: t.tree.filter((e) => e.type === 'blob').map((e) => ({ path: e.path, sha: e.sha, size: e.size })) };
   }
   return trees;
+}
+
+/** One finding in plain words, for the console and the outstanding items. */
+export function describe(f) {
+  if (f.kind === 'hub-private') return `${HUB} is private: no hosted picture loads until it is public again`;
+  if (f.kind === 'dated-link') return `${f.path} links a dated picture: ${f.hub.split('/').slice(-3).join('/')} (should be ${f.to.split('/').slice(-3).join('/')})`;
+  return `${f.kind === 'copy' ? 'copy of hub ' + f.hub : 'pet art outside the hub'}: ${f.path}`;
 }
 
 function arg(name) { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null; }
@@ -114,12 +166,21 @@ function arg(name) { const i = process.argv.indexOf(name); return i > 0 ? proces
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const readJson = (file) => JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, ''));   // PowerShell writes a BOM
   const treesFile = arg('--trees');
-  const trees = treesFile ? readJson(treesFile) : await fetchTrees(arg('--branch'), process.env.GITHUB_TOKEN);
+  // The daily check on Astra's PC has no GITHUB_TOKEN: it uses the GitHub CLI's own sign-in, as the outstanding items do.
+  let token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  if (!token && !treesFile) try { token = execFileSync('gh', ['auth', 'token'], { encoding: 'utf8' }).trim(); } catch { token = undefined; }
+  const trees = treesFile ? readJson(treesFile) : await fetchTrees(arg('--branch'), token);
+  if (process.argv.includes('--links') && !treesFile) await fetchTexts(trees, token);
   // The draft list lives in this hub since 2026-10-18; an older one in %LOCALAPPDATA% is checked only if the hub has none.
   const hubList = fileURLToPath(new URL('../desktop-art/desktop-drafts-20261018.json', import.meta.url));
   const draftsFile = arg('--drafts') || (existsSync(hubList) ? hubList : process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
   const drafts = draftsFile && existsSync(draftsFile) ? readJson(draftsFile) : null;
   const result = audit(trees, drafts);
+  if (process.argv.includes('--save')) {
+    const to = arg('--save') && !arg('--save').startsWith('--') ? arg('--save') : savePath();
+    mkdirSync(dirname(to), { recursive: true });
+    writeFileSync(to, JSON.stringify({ checked: new Date().toISOString(), links: process.argv.includes('--links'), repos: Object.keys(trees).length, ...result }, null, 1) + '\n');
+  }
   if (process.argv.includes('--json')) console.log(JSON.stringify(result, null, 1));
   else {
     console.log(`A58 One art source: ${result.verdict}`);
@@ -128,7 +189,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     for (const f of result.findings) (by[f.repo] ||= []).push(f);
     for (const [repo, list] of Object.entries(by)) {
       console.log(`\n${repo} (${trees[repo].ref}): ${list.length}`);
-      for (const f of list.slice(0, 12)) console.log(`  ${f.kind === 'copy' ? 'copy of hub ' + f.hub : 'pet art outside the hub'}: ${f.path}`);
+      for (const f of list.slice(0, 12)) console.log(`  ${describe(f)}`);
       if (list.length > 12) console.log(`  ... and ${list.length - 12} more`);
     }
     for (const e of result.exceptions) console.log(`\nException, written down: ${e.repo} keeps ${e.count} pictures. ${EXCEPTIONS.find((x) => x.repo === e.repo).why}`);

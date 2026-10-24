@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { readSpawnerSources, spawnerPages, pagePath, PAGES } from './pet-program-pages-20261018.mjs';
 import { upstream } from './farm-owner-20261020.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
+import { latestPath } from './one-picture-home-20261024.mjs';
 
 export const DIR = 'markdown-pets';
 export const DATE = '20261019';
@@ -52,7 +53,8 @@ export function petFacts(d) {
     file: `${d.repo}-${DATE}.md`,
     programPage: `${PAGES}/${pagePath(d.repo)}`,
     app: appLink(d),
-    picture: d.art?.frames?.idle ? `${RAW}/${d.art.frames.idle}` : null,
+    // The address that never changes (art/latest, 2026-10-24), so a new drawing shows without a rebuild.
+    picture: d.art?.frames?.idle ? `${RAW}/${latestPath(d.art.frames.idle) || d.art.frames.idle}` : null,
     privateData: d.isPrivate,
     repoLink: d.publicRepo ? d.repoUrl : null,
   };
