@@ -334,25 +334,28 @@ label.file { position: relative; }
 /* The unified footer (Astra, 2026-10-20: "It looked really good ... It was listed like an actual aesthetic footer"):
    Codex's footer-template of 2026-10-14 (Flash Audit A51) again. Centered and spacious between thin rules, its groups
    slightly staggered, each after a pink ✦; no list. */
-.panel.footer { padding: var(--pad); }
+/* Snug above and below its one row (Astra, 2026-10-24: "there still is an awkward space before and after these items"). */
+.panel.footer { padding: 10px var(--pad); }
 .astra-footer { display: grid; justify-items: center; gap: 14px; text-align: center; font-size: 13px; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
-.footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 30px; }
+.footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; }
 .footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 0; }
 .footer-group::before { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
 .footer-title { font-weight: 600; letter-spacing: .02em; }
 .footer-group time { font: 12.5px var(--label); color: var(--chalk-dim); }
 .footer-icons { display: inline-flex; gap: 4px; }
-.footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; color: var(--chalk); text-decoration: none; }
+.footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 10px; color: var(--chalk); text-decoration: none; }
 .footer-icons a:hover, .footer-home:hover { background: rgba(255, 255, 255, .1); }
-.footer-icons svg { width: 22px; height: 22px; fill: currentColor; }
+/* The links are the photostar's size, and the photostar the pets' drawn size (Astra, 2026-10-24: "photostar size to
+   shrink a little to match pet icon sizes, also make the icon hyperlinks the same size as photostar"). */
+.footer-icons svg { width: 38px; height: 38px; fill: currentColor; }
 .footer-home img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
 .languages { list-style: none; margin: 0 0 0 8px; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 /* The photostar sits in the footer border's right corner, like a label on the line. */
 .panel.footer { position: relative; }
-.footer-star { display: block; line-height: 0; margin-left: 6px; }
-.footer-star img { width: 56px; height: 56px; }
+.footer-star { display: block; line-height: 0; }
+.footer-star img { width: 48px; height: 48px; }
 .languages .tag { font-size: 12px; padding: 1px 9px; }
 .astra-footer .footer-spawned { font-size: 11.5px; }
 
@@ -566,13 +569,13 @@ img[hidden] { display: none !important; }
   .footer-line > .footer-group:nth-child(2)::before { content: none; }
   .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: more; }
   .footer-line > .footer-group:nth-child(2) > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 6px; }
-  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
-  .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
-  .footer-icons svg { width: 32px; height: 32px; }
+  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 48px)); gap: 4px; width: 100%; justify-content: center; }
+  .footer-icons a { width: 100%; max-width: 48px; height: auto; aspect-ratio: 1; }
+  .footer-icons svg { width: 38px; height: 38px; }
   .languages { grid-area: langs; margin: 0; }
   .languages .tag { font-size: 11px; padding: 0 7px; }
   .footer-star { grid-area: star; margin: 0; }
-  .footer-star img { width: 56px; height: 56px; }
+  .footer-star img { width: 48px; height: 48px; }
 }
 /* Room on the right for the phone's scroll bar (Astra, 2026-10-23: "need more room for the scroll bar on the right"). */
 @media (max-width: 760px) {

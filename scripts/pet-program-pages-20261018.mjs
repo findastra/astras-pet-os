@@ -755,7 +755,7 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
 <div class="footer-line">
 <div class="footer-group"><span class="footer-title">By Astra</span></div>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
-<a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="56" height="56" loading="lazy"></a>
+<a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="48" height="48" loading="lazy"></a>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
