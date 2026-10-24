@@ -535,25 +535,25 @@ img[hidden] { display: none !important; }
 .words-choice { font: 13px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 2px 10px; cursor: pointer; }
 .words-choice[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
 /* On a phone the footer piles together (Astra, 2026-10-23: "unified footer needs to squish together cutely"; "links like
-   icons in footer should be same size as pets, make them pile together in 3 rows"): the words on the left, the five
-   links and the photostar as pet-sized tiles, two across and three down, on the right. */
+   icons in footer should be same size as pets"; "no borders. put the By Astra and Find Out More on the top, can you get
+   all of them in a row, put the photo star between the by astra and find out more"): By Astra, the photostar and Find
+   Out More across the top, the five links as pet-sized pictures in one row under them, the languages last. */
 @media (max-width: 760px) {
-  .footer-line { display: grid; grid-template-columns: minmax(0, 1fr) 56px 56px; gap: 6px; align-items: center; justify-items: start; text-align: left; }
-  .footer-line > .footer-group:first-child { grid-area: 1 / 1; justify-content: start; }
+  .footer-line { display: grid; grid-template-columns: auto auto auto; grid-template-areas: "by star more" "icons icons icons" "langs langs langs";
+    justify-content: center; justify-items: center; align-items: center; gap: 6px 10px; }
+  .footer-line > .footer-group:first-child { grid-area: by; }
   .footer-line > .footer-group:nth-child(2) { display: contents; }
   .footer-line > .footer-group:nth-child(2)::before { content: none; }
-  .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: 2 / 1; }
+  .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: more; }
   .footer-line > .footer-group:nth-child(2) > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 6px; }
-  .footer-icons { display: contents; }
-  .footer-icons a { width: 56px; height: 56px; border: 1px solid var(--line-dim); border-radius: 12px; }
-  .footer-icons svg { width: 30px; height: 30px; }
-  .footer-icons a:nth-child(1) { grid-area: 1 / 2; } .footer-icons a:nth-child(2) { grid-area: 1 / 3; }
-  .footer-icons a:nth-child(3) { grid-area: 2 / 2; } .footer-icons a:nth-child(4) { grid-area: 2 / 3; }
-  .footer-icons a:nth-child(5) { grid-area: 3 / 2; }
-  .languages { grid-area: 3 / 1; margin: 0; justify-content: start; }
+  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
+  .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
+  .footer-icons svg { width: 32px; height: 32px; }
+  .languages { grid-area: langs; margin: 0; }
   .languages .tag { font-size: 11px; padding: 0 7px; }
-  .footer-star { grid-area: 3 / 3; margin: 0; }
+  .footer-star { grid-area: star; margin: 0; }
   .footer-star img { width: 56px; height: 56px; }
+}
 }
 /* Room on the right for the phone's scroll bar (Astra, 2026-10-23: "need more room for the scroll bar on the right"). */
 @media (max-width: 760px) {
