@@ -155,7 +155,14 @@ export const STICKERS = {
   zzz:   { rows: ['####', '..#.', '.#..', '####'], pal: { '#': '#9fb4ff' } },
   zz:    { rows: ['###', '.#.', '###'], pal: { '#': '#9fb4ff' } },
   bang:  { rows: ['##', '##', '##', '##', '..', '##'], pal: { '#': '#ff5a5f' } },
-  ask:   { rows: ['.##.', '#..#', '..#.', '.#..', '....', '.#..'], pal: { '#': '#ffd166' } },
+  ask:   { rows: ['.##.', '#..#', '..#.', '.#..', '....', '.#..'], pal: { '#': '#c9a7ff' } },   // light purple (Astra, 2026-10-24)
+  // The rest of the nine mood symbols (Astra, 2026-10-24, anime style): a song note for happy, three dots for idle, two
+  // yellow twinkles for awake, three blue wavy lines for sick, a plain gray cloud for sad.
+  note:  { rows: ['..###', '..#.#', '..#.#', '..#..', '###..', '###..'], pal: { '#': '#ff8fc8' } },
+  dots:  { rows: ['#.#.#'], pal: { '#': '#f6dbe9' } },
+  twinkle: { rows: ['.y....', 'yyy...', '.y..y.', '...yyy', '....y.'], pal: { y: '#ffe14d' } },
+  waves: { rows: ['b..b..b.', '.b..b..b', 'b..b..b.', '.b..b..b', 'b..b..b.'], pal: { b: '#6fb7ff' } },
+  cloud: { rows: ['..##...', '.####.#', '#######', '.#####.'], pal: { '#': '#a7a3b3' } },
   heart: { rows: ['.r.r.', 'rrrrr', '.rrr.', '..r..'], pal: { r: '#ff5d8f' } },
   spark: { rows: ['.y.', 'yyy', '.y.'], pal: { y: '#fff0a0' } },
   plaster: { rows: ['.t.', 'ttt', '.t.'], pal: { t: '#f3d3a2' } },

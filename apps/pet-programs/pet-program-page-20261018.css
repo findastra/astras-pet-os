@@ -49,7 +49,7 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
    neon color and much shorter"). */
 /* It starts at the page's gutter, like the sides, and sits as far above the header as the header sits above the next
    panel, 30px border to border (Astra, 2026-10-24: "1 and 2 seem different sizes ... 3 and 4 should be same distance"). */
-.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 24px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
+.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 37px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
 .panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
 .panel.editorial p + p { margin-top: 4px; }
@@ -121,6 +121,10 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .rings .node { fill: var(--link); stroke: #111; }
 .top > .panel { margin-top: 6px; }
 .title { padding-top: 6px; }
+/* Beside the squares the title starts level with their labels, like the other panels' tops (Astra, 2026-10-24: "the
+   title needs to be up higher starting with the other panels"); the status panel sits 22px above those labels, as the
+   header sits above the next panel's label ("still need more space between the first panel and the next"). */
+.top.title-between > .title { padding-top: 0; margin-top: -15px; }
 .title .panel { margin-top: 22px; }
 /* In a narrow title column (a phone, or between the squares on a small window) its label wraps upward onto two lines,
    so it gets room under the version. */

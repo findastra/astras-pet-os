@@ -88,12 +88,12 @@ test('names on GitHub and in files keep their spelling: repos, file names, paths
   assert.equal(swap('unity-stable-backlog in this browser'), 'unity-agent-control-hub-backlog in this browser');
 });
 
-test('panel labels: unity-unicorn-L1-tool-panel becomes unity-agent-L1-panel, and the activity lights still find it', () => {
-  const pairs = [['unity-unicorn-L1-tool-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome-panel', 'unity-agent-avatar-panel'],
+test('panel labels: unity-unicorn-L1-control-panel becomes unity-agent-L1-panel, and the activity lights still find it', () => {
+  const pairs = [['unity-unicorn-L1-control-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome-panel', 'unity-agent-avatar-panel'],
     ['unity-stable-quick-summary-panel', 'unity-agent-control-hub-summary-panel'], ['friendly-farmer-friends-list-panel', 'orchestrator-agent-related-agents-panel'],
     ['friendly-farmer-unified-footer-panel', 'orchestrator-agent-unified-footer-panel']];
   for (const [farm, dev] of pairs) assert.equal(W._legend(farm), dev);
-  for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.match(W._legend(`unity-unicorn-${lv}-tool-panel`), /-(L[1-4])-[a-z-]*panel$/);
+  for (const lv of ['L1', 'L2', 'L3', 'L4']) assert.match(W._legend(`unity-unicorn-${lv}-control-panel`), /-(L[1-4])-[a-z-]*panel$/);
 });
 
 test('a developer word never brings a farm word back: the swap gives the same text twice', () => {

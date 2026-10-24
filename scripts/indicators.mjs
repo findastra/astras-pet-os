@@ -14,17 +14,57 @@ import { STICKERS, png } from './art-kit.mjs';
 import { MOODS } from './sheet-to-sprites.mjs';
 
 /* Which sticker each mood carries, and which corner it sits in.
-   "sleep", "curious" and "alarmed" are the three Astra named; the rest follow the same idea
-   so all nine moods read the same way on every pet. "idle", "blink" and "happy" carry none:
-   a calm pet should not have a badge floating next to it. */
+   Since 2026-10-24 every one of the nine moods has its own, all in the same spot, top right by the head, so a mood
+   reads the same on every pet (Astra: "we need 9 distinct bubble things for above the icon that stay the same across
+   all pets", anime style; "dont give the thing its own bubble"): the earlier six kept where they read well (Z, ?, the
+   sweat drop, !), sad a gray cloud instead of a tear that looked like the sweat drop, sick three blue wavy lines. */
 export const INDICATORS = {
+  idle: { sticker: 'dots', corner: 'tr' },
+  blink: { sticker: 'twinkle', corner: 'tr' },
+  happy: { sticker: 'note', corner: 'tr' },
   curious: { sticker: 'ask', corner: 'tr' },
-  worried: { sticker: 'sweat', corner: 'tl' },
-  sad: { sticker: 'tear', corner: 'tl' },
-  sick: { sticker: 'plaster', corner: 'tr' },
+  worried: { sticker: 'sweat', corner: 'tr' },
+  sad: { sticker: 'cloud', corner: 'tr' },
+  sick: { sticker: 'waves', corner: 'tr' },
   alarmed: { sticker: 'bang', corner: 'tr' },
   sleep: { sticker: 'zzz', corner: 'tr' },
 };
+
+/**
+ * The same stamp on a full-colour picture (desktop-art, RGBA), for pets drawn outside the sheet pipeline. Same place
+ * and size rules as addIndicators below; returns a new RGBA buffer and leaves the source untouched.
+ */
+export function stampRgba(rgba, W, H, mood, { scale = 0 } = {}) {
+  const spec = INDICATORS[mood];
+  const out = Buffer.from(rgba);
+  if (!spec) return out;
+  const s = scale || Math.max(1, Math.round(H / 32));
+  let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    if (rgba[(y * W + x) * 4 + 3] < 32) continue;
+    if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y;
+  }
+  if (x1 < 0) { x0 = 0; y0 = 0; x1 = W - 1; y1 = H - 1; }
+  const art = STICKERS[spec.sticker];
+  const sw = art.rows[0].length * s, sh = art.rows.length * s;
+  const bite = Math.round(sw * 0.35);
+  let ox = spec.corner === 'tl' ? x0 - sw + bite : x1 + 1 - bite;
+  let oy = y0 - Math.round(sh * 0.55);
+  ox = Math.max(s, Math.min(W - sw - s, ox));
+  oy = Math.max(s, Math.min(H - sh - s, oy));
+  art.rows.forEach((row, ry) => [...row].forEach((ch, rx) => {
+    const hex = art.pal[ch];
+    if (!hex) return;
+    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    for (let dy = 0; dy < s; dy++) for (let dx = 0; dx < s; dx++) {
+      const px = ox + rx * s + dx, py = oy + ry * s + dy;
+      if (px < 0 || py < 0 || px >= W || py >= H) continue;
+      const i = (py * W + px) * 4;
+      out[i] = r; out[i + 1] = g; out[i + 2] = b; out[i + 3] = 255;
+    }
+  }));
+  return out;
+}
 
 /** Tight box of drawn pixels in a frame. */
 function frameBounds(frame, W, H) {
@@ -87,8 +127,9 @@ export function addIndicators(sprite, { scale = 0 } = {}) {
     const bite = Math.round(sw * 0.35);
     let ox = spec.corner === 'tl' ? box.x0 - sw + bite : box.x1 + 1 - bite;
     let oy = box.y0 - Math.round(sh * 0.55);
-    ox = Math.max(0, Math.min(W - sw, ox));
-    oy = Math.max(0, Math.min(H - sh, oy));
+    // One cell clear of every edge, so no sticker touches the frame's border (the 2026-10-08 rule).
+    ox = Math.max(s, Math.min(W - sw - s, ox));
+    oy = Math.max(s, Math.min(H - sh - s, oy));
 
     art.rows.forEach((row, ry) => [...row].forEach((ch, rx) => {
       const hex = art.pal[ch];

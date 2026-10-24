@@ -44,6 +44,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Voicemeeter Bug](https://raw.githubusercontent.com/findastra/astras-pet-os/main/desktop-art/voicemeeter-bug/idle-20261011.png)
+![Voicemeeter Bug](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/moods/voicemeeter-bug/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

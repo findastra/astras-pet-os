@@ -17,7 +17,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel first, before
   const at = page.indexOf('>api-fairy-key-requests-tool-panel<');
   // A pet's own panels come first, under the header (Astra, 2026-10-24: "all of the non typical panels we make for
   // these pet programs need to go at the top if applicable").
-  for (const after of ['api-fairy-intelligence-levels-panel', 'api-fairy-L4-tool-panel', 'api-fairy-rwx-panel']) {
+  for (const after of ['api-fairy-intelligence-levels-panel', 'api-fairy-L4-control-panel', 'api-fairy-rwx-panel']) {
     assert.ok(page.indexOf(`>${after}<`) > -1, `${after} is on the page`);
     assert.ok(at > -1 && at < page.indexOf(`>${after}<`), `before ${after}`);
   }
