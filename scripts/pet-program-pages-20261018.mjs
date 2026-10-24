@@ -44,7 +44,7 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
-export const PANELS = ['cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'astras-unified-footer-panel', 'chat-panel'];
+export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'astras-unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -573,6 +573,13 @@ export function buildPetProgramPage(d) {
   const roundLine = d.round
     ? `${esc(day(d.round.checked) || day(d.statusUpdated) || 'date not recorded')}: “${esc(d.round.says || 'no line')}”`
     : 'not checked by a merged round yet';
+  // <home>-editorial-status-panel, first on the page, like Halo List's header alert (Astra, 2026-10-23: "you need that
+  // wonderland-launchpad-editorial-status-panel"): where the program stands, from the page's own data. How much of
+  // what it owns works today, what waits on Astra and the last check.
+  const owned = [...d.programs, ...d.tools, ...d.tricks];
+  const working = owned.filter((i) => built(i.state)).length;
+  const waiting = d.needs.length ? `Waiting on you: ${d.needs.map(esc).join('; ')}.` : 'Nothing waits on you from the Friendly Farmer’s last round.';
+  const editorial = panel(`${d.homeSlug}-editorial-status-panel`, `<p>${esc(d.home)} is a ${esc(d.stage || 'planned')} pet program${d.status ? ` (${esc(d.status)})` : ''}. ${owned.length ? `${working} of its ${owned.length} own programs, tools and tricks work today; the rest are planned or ideas.` : 'It has no programs, tools or tricks of its own yet.'} ${waiting} Last check: ${roundLine}.</p>`, { cls: 'editorial' });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -776,6 +783,7 @@ ${wordScripts}
 </head>
 <body>
 <main class="page">
+${editorial}
 <header class="top">${cyberhome}${title}${systemMap}</header>
 ${levels}
 <div class="side-by-side">${rwx}${notes}</div>
