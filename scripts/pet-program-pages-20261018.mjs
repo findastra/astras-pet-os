@@ -285,7 +285,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 // and I am not seeing the green lights"), even while the pet's own link to it is only planned.
 const lights = (key, name, { planned = false, unseen = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${planned || (unseen && key.startsWith('third-party:')) ? ' is-unset' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${planned || (unseen && key.startsWith('third-party:')) ? 'not checked yet' : 'working correctly'}" title="Working correctly or requires maintenance: click to mark"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -626,9 +626,12 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   const mapTool = `${d.petSlug}-system-map`;
   const systemMap = panel(`${d.petSlug}-${SYSTEM_MAP_LABEL}`, `<div class="habitat map-home">
 <span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
-<div class="map-box"><a class="map-link" href="${esc(map)}">
+<div class="map-box"><a class="map-link" href="${esc(map)}" title="Open ${esc(d.home)} on the System Map" aria-label="Open ${esc(d.home)} on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-<span>Open ${esc(d.home)} on the System Map</span></a>${mapRelated(d)}</div></div>`, { cls: 'system-map' });
+</a></div></div>`, { cls: 'system-map' });
+  // No words in the two squares, only their tools and the pictures (Astra, 2026-10-23: "get rid of all text in the
+  // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
+  // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
   const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
