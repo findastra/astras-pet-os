@@ -31,6 +31,9 @@ export const DIR = 'apps/pet-programs';
 export const DATE = '20261018';
 export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
+// Rift Rabbit's Launch buttons (2026-10-24): the only page script that sends anything, and only to Rift Rabbit's own
+// launcher on this PC, so it is its own file and only Rift Rabbit's page loads it (wherever its VRChat setups are drawn).
+export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -557,7 +560,7 @@ function socialRowPanel(d) {
 // panel: the launcher runs them and no AI decides (Astra, 2026-10-24, "Program, Tool or Trick" deck, answer 2).
 function vrchatSetups() {
   return `<div class="vrchat-setups"><div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
-${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only.`)}</div>`;
+${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Rift Rabbit's launcher on this PC (<code>wonderland-launchpad-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the launcher runs, and show each step as it goes.`)}</div>`;
 }
 
 export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
@@ -851,7 +854,8 @@ ${footer}
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${PET_PANELS[d.repo] === outstandingPanel ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
-</body>
+${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
+` : ''}</body>
 </html>
 `, pagePath(d.repo));
 }

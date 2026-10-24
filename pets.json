@@ -2226,6 +2226,46 @@
             "node": "vr-pole-overlay",
             "how": "optional",
             "why": "Planned: Rift Rabbit preps and tracks VR software and performance; VR Pole Overlay is VR software in the vr-gaming desktop folder, switched on and off from its page (Astra, 2026-10-24)."
+          },
+          {
+            "node": "object-track-vr",
+            "how": "optional",
+            "why": "Planned: the launch panel chooses which object it tracks (Small Hoop, Large Hoop or Dance Pole; Astra, 2026-10-24). Not out yet."
+          },
+          {
+            "node": "space-override",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher switches its SteamVR add-on on and opens its overlay in mode x.2 (installed 2026-10-24)."
+          },
+          {
+            "node": "space-sync",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher switches its SteamVR add-on on and opens its overlay in mode x.3 (installed 2026-10-24)."
+          },
+          {
+            "node": "voicemeeter",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher opens it when the Woojer vest switch is on: the vest plays what Voicemeeter sends it (Astra, 2026-10-24)."
+          },
+          {
+            "node": "steam",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
+          },
+          {
+            "node": "vrcft",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
+          },
+          {
+            "node": "oscgoesbrrr",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
           }
         ]
       }
