@@ -31,6 +31,9 @@ export const DIR = 'apps/pet-programs';
 export const DATE = '20261018';
 export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
+// Rift Rabbit's Launch buttons (2026-10-24): the only page script that sends anything, and only to Inference Iguana's
+// watch on this PC, so it is its own file and only Rift Rabbit's page loads it.
+export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -519,7 +522,7 @@ function socialRowPanel(d) {
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
 function vrchatLaunchPanel(d) {
   return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
-${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
+${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Inference Iguana's watch on this PC (<code>benchmark-rock-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the watch runs, and show each step as it goes.`)}`, { cls: 'vrchat-launch', light: true });
 }
 
 export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel, 'rift-rabbit': vrchatLaunchPanel };
@@ -815,7 +818,8 @@ ${footer}
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${PET_PANELS[d.repo] === outstandingPanel ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
-</body>
+${PET_PANELS[d.repo] === vrchatLaunchPanel ? `<script src="${LAUNCHER_JS}"></script>
+` : ''}</body>
 </html>
 `, pagePath(d.repo));
 }

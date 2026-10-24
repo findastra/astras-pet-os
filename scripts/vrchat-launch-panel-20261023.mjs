@@ -1,8 +1,9 @@
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23: "a panel that is vrchat-launch-panel which has these distinct
 // modules (they are configurations on how to launch VRChat)", to "try out all the different trackings and see what one
 // works the best for me"). Two headsets, each with the same four ways of lining up the head and the Lighthouse devices,
-// and switches for what else runs. The page only shows the plan and keeps Astra's notes on each try in this browser;
-// it starts nothing (a web page cannot open programs on the PC).
+// and switches for what else runs. The page shows the plan and keeps Astra's notes on each try in this browser. A web
+// page cannot open programs, so the Launch buttons ask Inference Iguana's watch on her PC (Benchmark Rock's
+// `benchmark-rock-v1.0-vr-launch-v1.0`, 127.0.0.1 only, Astra's answers of 2026-10-24); they stay off anywhere else.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-23. Program names are the System Map's; the three drivers are
 // pushrax/OpenVR-SpaceCalibrator, Nyabsi/OpenVR-SpaceOverride and shinyflvre/OpenVR-SpaceSync.
 
@@ -138,7 +139,8 @@ function modeCard(h, m, i) {
 <div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
 <label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
 <span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode ${esc(n)}</button></p>
+<p><button type="button" class="button off" disabled data-launch-go title="Works on Astra's PC while Inference Iguana keeps watch">Launch mode ${esc(n)}</button></p>
+<div class="launch-run" data-launch-run hidden></div>
 </fieldset>`;
 }
 

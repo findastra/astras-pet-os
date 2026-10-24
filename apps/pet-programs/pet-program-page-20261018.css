@@ -515,6 +515,22 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-warn { color: var(--fix); }
 .launch-try { display: grid; gap: 6px; }
 .launch-try textarea { width: 100%; box-sizing: border-box; }
+/* A launch in progress, in its mode's card (2026-10-24): each step with its mark, then what Start VRChat waits for. */
+.launch-run { border-top: 1px solid var(--line-dim); margin-top: 8px; padding-top: 6px; }
+.launch-steps { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 3px; }
+.launch-mark { display: inline-block; width: 1.2em; font-family: var(--label); }
+.launch-steps [data-state="done"] .launch-mark { color: var(--on); }
+.launch-steps [data-state="failed"] .launch-mark, .launch-steps [data-state="failed"] .launch-step-note { color: var(--off); }
+.launch-steps [data-state="now"] { color: var(--link); }
+.launch-steps [data-state="you"] { color: var(--fix); }
+.launch-steps [data-state="skipped"] { color: var(--chalk-dim); }
+.launch-step-note { color: var(--chalk-dim); }
+.launch-checks { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.launch-checks li::before { content: "\25CF\00A0"; color: var(--off); }
+.launch-checks li[data-on="yes"]::before { color: var(--on); }
+.launch-said { margin: 4px 0; }
+.launch-run-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
+.vrchat-launch .button:disabled { opacity: .45; cursor: not-allowed; }   /* a Launch button that is off looks off */
 .request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }

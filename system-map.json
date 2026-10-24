@@ -514,6 +514,18 @@
       "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/benchmark-rock#3, not merged."
     },
     {
+      "id": "vr-launch",
+      "name": "VR launch",
+      "type": "tool",
+      "of": "program-72",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "benchmark-rock-v1.0-vr-launch-v1.0",
+      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-24: \"Maybe i need to turn off all of the launch dependencies so this can be the main control hub\"; her answers: \"All recommended\"): the PC side of the Launch buttons on Rift Rabbit's VRChat launch panel. It opens each program of a mode in her order through explorer.exe, waits for the headset, lights what Start VRChat waits for, and starts VRChat with her ignored trackers. It listens on 127.0.0.1 only, with a code kept in Documents. In findastra/benchmark-rock#8, not merged."
+    },
+    {
       "id": "leftover-watch",
       "name": "Leftover watch",
       "type": "tool",
@@ -3371,6 +3383,97 @@
       "carries": "opens",
       "state": "planned",
       "why": "Unity Stable links the closet Devilish and Astra share for Poppy, and its weekly closet-check trick looks at it."
+    },
+    {
+      "from": "program-29",
+      "to": "vr-launch",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Rift Rabbit's Launch buttons ask it to start a mode, on this PC only (benchmark-rock#8 and its hub pull request, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "virtual-desktop",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "meta-horizon-link",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "steam",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "steamvr",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "vrcft",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-advanced-settings",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-dynamic-resolution",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "space-calibrator",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in modes x.1, closed the way its X does in the others (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "double-hip-tracker",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened after its Enable Hip / Enable Chest are set for her choice (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-smooth-tracking",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "oscgoesbrrr",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "vrchat",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Started last, through a Steam shortcut with her ignored trackers (benchmark-rock#8, not merged)."
     },
     {
       "from": "program-watch",
