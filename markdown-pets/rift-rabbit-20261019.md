@@ -33,7 +33,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- None recorded yet.
+- **update-audit**: A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: "no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.
 
 ### Pets it works with
 

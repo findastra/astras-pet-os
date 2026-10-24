@@ -1269,13 +1269,27 @@
     },
     {
       "id": "double-hip-tracker",
-      "name": "Double Hip Tracker",
+      "name": "DoubleHip DoubleChest Tracker",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Hip tracking helper. On the desktop (vr-gaming).",
-      "does": "Lets VRChat use two hip trackers and switches to the other when one loses tracking."
+      "job": "Hip and chest tracking helper by vr_hai (Patreon), version 1.3.0 in Documents\\DoubleHip DoubleChest. On the desktop (vr-gaming) as DoubleHip DoubleChest Tracker (Astra, 2026-10-24).",
+      "does": "Lets VRChat use two hip trackers, two chest trackers, or both, and switches to the other of a pair when one loses tracking."
+    },
+    {
+      "id": "update-audit",
+      "name": "update-audit",
+      "type": "trick",
+      "of": "program-29",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v0.1-update-audit-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: \"no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update\"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.",
+      "does": "Checks the VR programs from GitHub against their newest release and asks you before any update."
     },
     {
       "id": "bs-manager",
@@ -1304,8 +1318,9 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows a real pole’s position in VR. On the desktop (vr-gaming).",
-      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
+      "job": "Shows a real pole’s position in VR, calibrated with a controller. By lukis101, open source (github.com/lukis101/VRPoleOverlay); version 1.0.0 in C:\\Program Files\\VRPoleOverlay. On the desktop (vr-gaming).",
+      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room.",
+      "url": "https://github.com/lukis101/VRPoleOverlay"
     },
     {
       "id": "unity-hub",
@@ -4785,6 +4800,13 @@
       "carries": "manages",
       "state": "idea",
       "why": "Pole Puff looks after the pole world; VR Pole Overlay shows the real pole in VR."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "vr-pole-overlay",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Rift Rabbit preps and tracks VR software and performance; VR Pole Overlay is VR software in the vr-gaming desktop folder, switched on and off from its page (Astra, 2026-10-24)."
     },
     {
       "from": "astras-gif-maker",

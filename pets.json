@@ -1931,6 +1931,229 @@
         "by": "Claude Opus 5.5",
         "on": "2026-10-23"
       },
+      "checks": {
+        "third-party:steamvr": {
+          "result": "works",
+          "note": "Installed through Steam (build 25998080), fully installed with no update waiting.",
+          "on": "2026-10-24"
+        },
+        "third-party:ovr-advanced-settings": {
+          "result": "works",
+          "note": "Installed through Steam (build 25175482), fully installed with no update waiting.",
+          "on": "2026-10-24"
+        },
+        "third-party:ovr-toolkit": {
+          "result": "works",
+          "note": "Installed through Steam (build 25682991), fully installed with no update waiting.",
+          "on": "2026-10-24"
+        },
+        "third-party:ovr-dynamic-resolution": {
+          "result": "works",
+          "note": "Installed through Steam (build 23627770), fully installed with no update waiting.",
+          "on": "2026-10-24"
+        },
+        "third-party:space-calibrator": {
+          "result": "works",
+          "note": "Installed through Steam (Hyblocker’s Space Calibrator, build 18827756) and registered as a SteamVR driver; no update waiting.",
+          "on": "2026-10-24"
+        },
+        "third-party:virtual-desktop": {
+          "result": "works",
+          "note": "Installed on the PC at C:\\Program Files\\Virtual Desktop Streamer, version 1.34.22; its SteamVR driver is registered.",
+          "on": "2026-10-24"
+        },
+        "third-party:meta-horizon-link": {
+          "result": "works",
+          "note": "Installed on the PC at C:\\Program Files\\Meta Horizon, version 1.115.0.",
+          "on": "2026-10-24"
+        },
+        "third-party:ovr-smooth-tracking": {
+          "result": "works",
+          "note": "Installed on the PC at C:\\Program Files\\OpenVR-SmoothTracking, version 1.0.0.1 (from BOOTH, not GitHub: updates are checked by hand).",
+          "on": "2026-10-24"
+        },
+        "third-party:ovr-pager": {
+          "result": "works",
+          "note": "Installed on the PC at C:\\Program Files\\OVRPager, version 1.0.0.",
+          "on": "2026-10-24"
+        },
+        "third-party:base-station-fov": {
+          "result": "works",
+          "note": "Installed on the PC at C:\\Program Files\\Base Station FOV Viewer, version 2019.1.8.",
+          "on": "2026-10-24"
+        },
+        "third-party:bs-manager": {
+          "result": "works",
+          "note": "Installed on the PC at your user Programs folder, version 1.6.0.",
+          "on": "2026-10-24"
+        },
+        "third-party:double-hip-tracker": {
+          "result": "works",
+          "note": "Installed on the PC at Documents\\DoubleHip DoubleChest\\DoubleHipTracker-V1.3.0, version V1.3.0 (vr_hai’s Patreon, closed source: updates are checked by hand); set to hip and chest with four tracker serials.",
+          "on": "2026-10-24"
+        },
+        "device:quest-pro": {
+          "result": "works",
+          "note": "SteamVR connected it (serial 1PASH5D1P17365) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:quest-3": {
+          "result": "issues",
+          "note": "Not seen in SteamVR’s last two logs (only the Quest Pro was). Its serial is not on the map yet.",
+          "on": "2026-10-24"
+        },
+        "device:index-controller-left": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-E255FEDA) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:index-controller-right": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-AE0DDD68) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-01": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-F3DF780D) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-02": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-B2105741) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-03": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-91D63DB2) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-04": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-6BA0C57A) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-05": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-28D88802) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-06": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-F8590C98) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-07": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-E0ED8ACE) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-08": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-6963FCE5) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-09": {
+          "result": "works",
+          "note": "SteamVR connected it (serial LHR-467E1FA2) on 2026-10-23.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-10": {
+          "result": "issues",
+          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-11": {
+          "result": "issues",
+          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-12": {
+          "result": "issues",
+          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
+          "on": "2026-10-24"
+        },
+        "device:vive-tracker-13": {
+          "result": "issues",
+          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
+          "on": "2026-10-24"
+        },
+        "device:base-station-1": {
+          "result": "issues",
+          "note": "SteamVR saw three base stations on 2026-10-23 (LHB-466BDC43, LHB-8474F9F9, LHB-EE55164F), but the map does not say which is which, and one of the four was not seen.",
+          "on": "2026-10-24"
+        },
+        "device:base-station-2": {
+          "result": "issues",
+          "note": "SteamVR saw three base stations on 2026-10-23 (LHB-466BDC43, LHB-8474F9F9, LHB-EE55164F), but the map does not say which is which, and one of the four was not seen.",
+          "on": "2026-10-24"
+        },
+        "device:base-station-3": {
+          "result": "issues",
+          "note": "SteamVR saw three base stations on 2026-10-23 (LHB-466BDC43, LHB-8474F9F9, LHB-EE55164F), but the map does not say which is which, and one of the four was not seen.",
+          "on": "2026-10-24"
+        },
+        "device:base-station-4": {
+          "result": "issues",
+          "note": "SteamVR saw three base stations on 2026-10-23 (LHB-466BDC43, LHB-8474F9F9, LHB-EE55164F), but the map does not say which is which, and one of the four was not seen.",
+          "on": "2026-10-24"
+        },
+        "tool:rift-rabbit-system-map": {
+          "result": "works",
+          "note": "Its link opens the System Map on Rift Rabbit’s own node.",
+          "on": "2026-10-24"
+        },
+        "tool:rift-rabbit-update-history": {
+          "result": "works",
+          "note": "It shows the page’s data, version, seat and last check.",
+          "on": "2026-10-24"
+        },
+        "tool:vrchat-launch-quest-pro": {
+          "result": "issues",
+          "note": "The switches and notes work; its Launch buttons do not start anything yet (the launcher is in hub #239, not merged).",
+          "on": "2026-10-24"
+        },
+        "tool:vrchat-launch-quest-3": {
+          "result": "issues",
+          "note": "The switches and notes work; its Launch buttons do not start anything yet (the launcher is in hub #239, not merged).",
+          "on": "2026-10-24"
+        },
+        "chat:rift-rabbit": {
+          "result": "issues",
+          "note": "The chat window opens, but no one answers in it yet.",
+          "on": "2026-10-24"
+        },
+        "click:rift-rabbit:two-clicks": {
+          "result": "works",
+          "note": "Two clicks on the desktop pet open this page (the desktop app’s self-test covers it).",
+          "on": "2026-10-24"
+        },
+        "trick:self-audit": {
+          "result": "works",
+          "note": "The Friendly Farmer’s round last checked Rift Rabbit on 2026-10-20.",
+          "on": "2026-10-24"
+        },
+        "third-party:vr-pole-overlay": {
+          "result": "update",
+          "note": "Installed 1.0.0; the newest release on GitHub (github.com/lukis101/VRPoleOverlay) is 1.2.0 (2026-02-01). Nothing is updated until you approve it in L4.",
+          "on": "2026-10-24",
+          "latest": "1.2.0"
+        },
+        "third-party:space-override": {
+          "result": "missing",
+          "note": "Not installed on this PC. Its newest release on GitHub (github.com/Nyabsi/OpenVR-SpaceOverride) is v10.0.0.",
+          "on": "2026-10-24"
+        },
+        "third-party:space-sync": {
+          "result": "missing",
+          "note": "Not installed on this PC. Its newest release on GitHub (github.com/shinyflvre/OpenVR-SpaceSync) is v2.5.0.",
+          "on": "2026-10-24"
+        },
+        "trick:update-audit": {
+          "result": "works",
+          "note": "Ran on this PC: VR Pole Overlay has an update waiting; Space Override and Space Sync are not installed.",
+          "on": "2026-10-24"
+        }
+      },
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
       "visibility": "private",
@@ -2018,6 +2241,11 @@
             "node": "bs-manager",
             "how": "optional",
             "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "vr-pole-overlay",
+            "how": "optional",
+            "why": "Planned: Rift Rabbit preps and tracks VR software and performance; VR Pole Overlay is VR software in the vr-gaming desktop folder, switched on and off from its page (Astra, 2026-10-24)."
           }
         ]
       }

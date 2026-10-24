@@ -95,7 +95,24 @@
   // `fix`) still count. ----
   var lights = read('lights', {});
   function power(k, planned) { if (planned) return 'off'; var s = lights[k] || {}; return s.power || (s.off ? 'off' : 'on'); }
-  function health(k, planned) { if (planned) return ''; var s = lights[k] || {}; return s.health || (s.fix ? 'fix' : 'ok'); }
+  // The second light (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work
+  // or not by you"; "yellow is 'report issues'"; an update found by the update audit is orange until L4 approves it):
+  //   none   grey    not created: not built yet, or the check found it is not on this PC
+  //   fix    yellow  report issues: you reported one (click), the check found one, or it has not been checked yet
+  //   update orange  an update is waiting for your approval (Steam, or the update audit on GitHub)
+  //   ok     blue    checked, and it works
+  // A check is the hub's record (pets.json `checks`): data-check on the light, with its note and date.
+  function care(b) {
+    var k = b.dataset.item, s = lights[k] || {}, c = b.dataset.check || '';
+    if (c === 'missing' || (!c && b.dataset.planned && !b.dataset.unseen)) return 'none';
+    if (s.health === 'fix' || s.fix) return 'fix';
+    if (isProgram(b) && update(b) === 'fix') return 'update';
+    if (c === 'update') return 'update';
+    if (c === 'issues') return 'fix';
+    if (c === 'works' || (isProgram(b) && update(b) === 'ok')) return 'ok';
+    return 'fix';
+  }
+  function reported(k) { var s = lights[k] || {}; return s.health === 'fix' || !!s.fix; }
   var SAYS = {
     on: 'on. Click again to switch it off.',
     off: 'off (the kill switch). Turning it back on asks you first.',
@@ -118,8 +135,9 @@
   function update(b) { var u = updates[(b.dataset.item || '').replace(/^third-party:/, '')]; return u === true ? 'fix' : u === false ? 'ok' : ''; }
   function seen(b) { return !!running[(b.dataset.item || '').replace(/^(third-party|device):/, '')]; }
   function isDevice(b) { return /^device:/.test(b.dataset.item || ''); }
+  var CARE = { none: 'not created', fix: 'report issues', update: 'update waiting for your approval', ok: 'checked, works' };
   function paint() {
-    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
+    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {}, issues = [], waiting = [];
     for (var i = 0; i < buttons.length; i++) {
       var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
       names[k] = name; planned[k] = !!b.dataset.planned;
@@ -129,19 +147,21 @@
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
         b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
       } else {
-        var h = isProgram(b) ? update(b) : health(k, planned[k]);
+        var h = care(b);
         b.classList.toggle('is-fix', h === 'fix');
-        b.classList.toggle('is-unset', !h);
+        b.classList.toggle('is-update', h === 'update');
+        b.classList.toggle('is-unset', h === 'none');
         b.setAttribute('aria-pressed', h === 'fix' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (isProgram(b) ? (h === 'ok' ? 'up to date' : h === 'fix' ? 'needs an update' : 'update not checked') : h === 'ok' ? 'working correctly' : h === 'fix' ? 'requires maintenance' : 'not checked yet'));
+        b.setAttribute('aria-label', name + ': ' + CARE[h]);
+        if (h === 'fix') issues.push(b); else if (h === 'update') waiting.push(b);
       }
     }
     var fix = document.getElementById('maintenance'), off = document.getElementById('switched-off');
     if (fix) {
       fix.textContent = '';
-      var marked = Object.keys(names).filter(function (k) { return health(k, planned[k]) === 'fix'; });
-      if (!marked.length) fix.appendChild(el('li', 'Nothing marked yellow in this browser.', 'empty'));
-      marked.forEach(function (k) { fix.appendChild(el('li', names[k] + ': requires maintenance (marked ' + (lights[k].fixed_on || 'today') + ')')); });
+      if (!issues.length && !waiting.length) fix.appendChild(el('li', 'Nothing yellow or orange.', 'empty'));
+      issues.forEach(function (b) { fix.appendChild(el('li', b.dataset.name + ': ' + (reported(b.dataset.item) ? 'you reported an issue (' + (lights[b.dataset.item].fixed_on || 'today') + ')' : b.dataset.check === 'issues' ? 'issue found: ' + (b.dataset.checkNote || '') : 'not checked yet'))); });
+      waiting.forEach(function (b) { fix.appendChild(el('li', b.dataset.name + ': update waiting for your approval' + (b.dataset.checkNote ? ' (' + b.dataset.checkNote + ')' : ''))); });
     }
     if (off) {
       off.textContent = '';
@@ -179,19 +199,26 @@
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
     if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
-    if (isProgram(b) && b.classList.contains('care')) { var u = update(b); say(b, u === 'fix' ? 'needs an update: Steam has a newer version waiting. Update it in Steam.' : u === 'ok' ? 'up to date: Steam has nothing newer.' : 'update not checked: only programs from Steam can be checked so far, and only while Inference Iguana keeps watch.'); return; }
+    if (b.classList.contains('care')) {
+      // The second light: what the check found, and a click reports an issue or takes your report back.
+      var h = care(b), note = b.dataset.checkNote ? ' ' + b.dataset.checkNote : '';
+      if (h === 'none') { say(b, 'not created yet.' + note); return; }
+      var r = lights[k] || (lights[k] = {});
+      if (reported(k)) { delete r.health; delete r.fix; delete r.fixed_on; } else { r.health = 'fix'; r.fixed_on = localDay(); }
+      write('lights', lights);
+      paint();
+      var now = care(b);
+      say(b, reported(k) ? 'report issues: you reported one. It is listed in L4; click again to take it back.'
+        : now === 'update' ? (isProgram(b) && update(b) === 'fix' ? 'update waiting for your approval: Steam has a newer version.' : 'update waiting for your approval.' + note) + ' L3 asks you in L4 before anything is updated.'
+        : now === 'ok' ? 'checked, works.' + note : now === 'fix' && b.dataset.check === 'issues' ? 'report issues: the check found one.' + note : 'report issues: not checked yet.');
+      return;
+    }
     if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
-    if (b.classList.contains('onoff')) {
-      var p = power(k, planned);
-      if (p === 'off' && !window.confirm(T('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.'))) return;
-      next = p === 'on' ? 'off' : 'on';
-      s.power = next; delete s.off;
-    } else {
-      next = health(k, planned) === 'ok' ? 'fix' : 'ok';
-      s.health = next; delete s.fix;
-      s.fixed_on = next === 'fix' ? localDay() : undefined;
-    }
+    var p = power(k, planned);
+    if (p === 'off' && !window.confirm(T('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.'))) return;
+    next = p === 'on' ? 'off' : 'on';
+    s.power = next; delete s.off;
     write('lights', lights);
     paint();
     say(b, SAYS[next]);
