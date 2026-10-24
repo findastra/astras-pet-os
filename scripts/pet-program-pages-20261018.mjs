@@ -335,9 +335,9 @@ function deviceGroups(devices) {
   return order.map((key) => `<h4 class="device-group">${esc(key === 'headsets' ? 'Headsets' : key === 'other' ? 'Other devices' : names[key] || key)} · ${groups.get(key).length}</h4>${itemList(groups.get(key), 'device', '')}`).join('');
 }
 
-function toolSections(tools) {
+function toolSections(tools, extra = '', extraCount = 0) {
   const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
-  if (!tools.some((t) => t.side)) return `<section>${heading('Native tools', tools)}${itemList(tools, 'tool', empty)}</section>`;
+  if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${tools.length || !extra ? itemList(tools, 'tool', empty) : ''}${extra}</section>`;
   const rest = tools.filter((t) => !t.side);
   const sides = Object.entries(SIDES).map(([side, title]) => {
     const mine = tools.filter((t) => t.side === side);
@@ -553,8 +553,8 @@ function socialRowPanel(d) {
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
-// Rift Rabbit's VRChat setups, the pet program's own ways of using its L1 programs, are its tricks in its L2 control
-// panel (Astra, 2026-10-24: "get rid of the launch panel ... L2 control panel"; "the VRChat Setups are actually tricks").
+// Rift Rabbit's VRChat setups, the pet program's own ways of using its L1 programs, are a native tool in its L1 control
+// panel: the launcher runs them and no AI decides (Astra, 2026-10-24, "Program, Tool or Trick" deck, answer 2).
 function vrchatSetups() {
   return `<div class="vrchat-setups"><div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
 ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only.`)}</div>`;
@@ -688,7 +688,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${toolSections(d.tools)}
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
@@ -697,21 +697,10 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
   const tricks = [...selfAudit, ...d.tricks];
-  // The update history is a section, a heading and its details: it is not a trick (no AI reads it and follows steps)
-  // and not a tool (Astra, 2026-10-24: "if update history is a trick then do it, if not make it a section").
-  const history = `<dl class="status">
-<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
-<dt>Last entry</dt><dd id="last-entry">none yet</dd>
-<dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
-<dt>Seat</dt><dd>empty</dd>
-<dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
-  // Rift Rabbit's VRChat setups are its tricks: ways of using its programs (Astra, 2026-10-24: "I think the VRChat Setups
-  // are actually tricks, so just put them in that section").
-  const setups = d.repo === 'rift-rabbit' ? 2 : 0;
+  // Update history is part of the Pet ID in L4, your record of the pet program (Astra, 2026-10-24, "Program, Tool or
+  // Trick" deck, answer 4); L2 holds the pet program's tricks.
   const L2 = panel(`${d.petSlug}-L2-control-panel`, `<div class="columns">
-<section><h3>Native tricks · ${tricks.length + setups}</h3>${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}${setups ? vrchatSetups() : ''}</section>
-<section><h3>Update history</h3>${history}</section></div>`, { cls: 'level', light: true });
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
@@ -729,6 +718,14 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").
   const sub = (label, body) => panel(label, body, { cls: 'sub', light: true, key: label.startsWith(d.petSlug) ? '' : `${d.petSlug}-${label}` });
+  // The Pet ID's Stamps: the update history (Astra, 2026-10-24: update history belongs in the Pet ID, answer 4).
+  const petStamps = `<dl class="status stamps">
+<dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
+<dt>Last entry</dt><dd id="last-entry">none yet</dd>
+<dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
+<dt>Seat</dt><dd>empty</dd>
+<dt>Last check</dt><dd>${roundLine}</dd>
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
   const L4 = panel(`${d.petSlug}-L4-control-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
@@ -737,7 +734,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>Microchip</dt><dd>not signed yet</dd>
 <dt>Pedigree</dt><dd>${d.publicRepo ? `<a href="${esc(d.repoUrl)}">${esc(d.owner)}/${esc(d.repo)}</a>` : `${esc(d.owner)}/${esc(d.repo)} (private)`}${d.added ? `, added ${esc(d.added)}` : ''}</dd>
 <dt>App</dt><dd>${appLink}</dd>
-<dt>Stamps</dt><dd>installs and updates not recorded yet</dd>
+<dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 

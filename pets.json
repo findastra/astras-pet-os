@@ -2082,11 +2082,6 @@
           "note": "Its link opens the System Map on Rift Rabbit’s own node.",
           "on": "2026-10-24"
         },
-        "tool:rift-rabbit-update-history": {
-          "result": "works",
-          "note": "It shows the page’s data, version, seat and last check.",
-          "on": "2026-10-24"
-        },
         "tool:vrchat-launch-quest-pro": {
           "result": "issues",
           "note": "The switches and notes work; its Launch buttons do not start anything yet (the launcher is in hub #239, not merged).",
@@ -2131,6 +2126,11 @@
         "trick:update-audit": {
           "result": "works",
           "note": "Ran on this PC: VR Pole Overlay has an update waiting; Space Override and Space Sync are not installed.",
+          "on": "2026-10-24"
+        },
+        "tool:update-audit-tool": {
+          "result": "works",
+          "note": "Ran on this PC on 2026-10-24 and read every program it lists.",
           "on": "2026-10-24"
         }
       },

@@ -39,6 +39,14 @@ Startup Star and the System Map are native programs of The Farm (each is opened 
 vrchat-avatar-upload are native tricks of Unity Stable (no code, only written steps; planned until written as skill
 files).
 
+**Who does the work decides the kind** (Astra, 2026-10-24, "Program, Tool or Trick" deck, all four answers as
+recommended): a person opens it, a program; code runs it, a tool; an AI reads written steps and makes choices, a trick.
+Where it goes: L1 holds what runs (3rd party programs, native programs, native tools, devices), L2 the pet program and
+its tricks, L3 what the seated AI asks or suggests to you about this pet program, L4 you and your records (the Pet ID).
+Applied the same day: Rift Rabbit's VRChat setups are a native tool in L1 (the launcher runs them; no AI decides); the
+update audit is both a native tool in L1 (its script) and a native trick in L2 (the weekly steps that use it), its
+questions shown in L3; update history is part of the Pet ID in L4.
+
 ## The chart: what runs, and how security sees it
 
 | | **Tool** (L1) | **Trick** (owned at L2, followed at L3) | **Harness skill** (the seat, L3) |
@@ -112,7 +120,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-239 rows: 12 native programs, 119 native tools, 18 native tricks, 90 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+240 rows: 12 native programs, 120 native tools, 18 native tricks, 90 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -271,6 +279,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |
+| 29 | Rift Rabbit | Wonderland Launchpad | native tool | update-audit | `wonderland-launchpad-v0.1-update-audit-v1.0` | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | native trick | update-audit | `wonderland-launchpad-v0.1-update-audit-trick-v1.0` | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Base Station FOV Viewer |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | BS Manager |  | Planned |
