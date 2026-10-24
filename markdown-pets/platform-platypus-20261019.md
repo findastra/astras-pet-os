@@ -45,6 +45,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Platform Platypus](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/platform-platypus/idle-20261012.png)
+![Platform Platypus](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/frames/platform-platypus/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

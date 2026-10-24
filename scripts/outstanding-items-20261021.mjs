@@ -27,6 +27,7 @@ import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { farmOwner, repoOf } from './farm-owner-20261020.mjs';
+import { savePath as artCheckPath } from './one-art-source-20261017.mjs';
 
 export const LABEL = 'github-aquarium-v1.0-outstanding-items-v1.0';
 export const SCHEMA = 'github-aquarium-outstanding-items-v1';
@@ -112,9 +113,29 @@ const words = (name) => name.replace(/\.md$/, '').replace(/-\d{8}$/, '').replace
  * aheadBy }], cards: [{ name, text }], cardsReadme, jobs: [{ name, event, conclusion, status, url, createdAt }] }] }
  * pets: [{ repo, pet, program, number }] puts a pet's name beside its repo.
  */
-export function analyze(data, { now = Date.now(), pets = [] } = {}) {
+/** The daily picture check's findings (scripts/one-art-source-20261017.mjs --links --save, Astra 2026-10-24): one row
+ *  per repo. A private hub breaks every hosted picture, so it is "broken"; copies and dated links wait on a chat. */
+export function artItems(check, { now = Date.now(), owner = 'findastra' } = {}) {
+  if (!check?.findings) return [];
+  const items = [], byRepo = {};
+  const page = `https://github.com/${owner}/astras-pet-os/blob/main/docs/one-art-source-20261017.md`;
+  for (const f of check.findings) {
+    if (f.kind === 'hub-private') { items.push({ repo: f.repo, owner, private: true, pet: null, kind: 'pictures', group: 'broken', rank: 2, title: `${f.repo} is private: no hosted pet picture loads`, url: `https://github.com/${owner}/${f.repo}/settings`, since: check.checked, does: 'Make it public again: every pet picture is served from it' }); continue; }
+    (byRepo[f.repo] ||= []).push(f);
+  }
+  for (const [repo, list] of Object.entries(byRepo)) {
+    const copies = list.filter((f) => f.kind !== 'dated-link').length, links = list.length - copies;
+    const what = [copies && `${copies} picture${copies === 1 ? '' : 's'} kept outside the hub`, links && `${links} link${links === 1 ? '' : 's'} to a dated picture`].filter(Boolean).join(', ');
+    items.push({ repo, owner, private: null, pet: null, kind: 'pictures', group: 'chat', rank: 4, title: `${repo}: ${what}`, url: page, since: check.checked,
+      does: 'A chat moves them to the one picture home (art/latest)', note: list[0].path });
+  }
+  if (check.checked && age(check.checked, now) >= 2) items.push({ repo: 'astras-pet-os', owner, private: false, pet: null, kind: 'pictures', group: 'chat', rank: 4, title: `The daily picture check last ran ${day(check.checked)}`, url: page, since: check.checked, does: 'Check that Startup Star\'s live sync is running' });
+  return items;
+}
+
+export function analyze(data, { now = Date.now(), pets = [], art = null } = {}) {
   const petOf = Object.fromEntries(pets.map((p) => [p.repo, p]));
-  const items = [];
+  const items = artItems(art, { now, owner: data.owner });
   for (const r of data.repos || []) {
     const base = r.defaultBranch || 'main';
     const repoUrl = `https://github.com/${r.owner}/${r.name}`;
@@ -339,7 +360,9 @@ if (isMain()) {
     if (typeof opt('--save') === 'string') writeFileSync(opt('--save'), JSON.stringify(data));
   }
   const pets = programs.map((p) => ({ repo: p.repo, pet: p.icon, program: p.program, number: p.number }));
-  const result = analyze(data, { pets });
+  // The daily picture check Startup Star saves on this PC (none yet: nothing to add).
+  let art = null; try { art = JSON.parse(readFileSync(artCheckPath(), 'utf8')); } catch {}
+  const result = analyze(data, { pets, art });
   const shown = data.repos.filter((r) => !r.hidden);
   const meta = { owner: data.owner, checked: data.checked, repoCount: shown.length, privateCount: shown.filter((r) => r.private).length, notes: data.notes || [],
     checkedWords: new Date(data.checked).toLocaleString('en-US', { timeZone: 'America/Denver', dateStyle: 'medium', timeStyle: 'short' }) + ' Denver' };

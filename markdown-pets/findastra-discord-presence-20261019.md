@@ -49,6 +49,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Discord Damsel](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/moods/discord-damsel/idle.png)
+![Discord Damsel](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/discord-damsel/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*
