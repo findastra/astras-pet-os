@@ -448,7 +448,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-gpu-watch-v1.0",
-      "job": "A tool of Benchmark Rock (Astra, 2026-10-23, hub #223, the graphics card watch is Inference Iguana's): each graphics card (its name, its own memory, how much of it is in use, how busy it is and on which engine) and every program using it, with its graphics memory, what it borrows from the PC and how busy it keeps the card; live every three seconds while the window is open. Read-only: it opens Kernel Grove for stopping a program. On findastra/benchmark-rock#4, not merged."
+      "job": "A tool of Benchmark Rock (Astra, 2026-10-23, hub #223, the graphics card watch is Inference Iguana's): each graphics card (its name, its own memory, how much of it is in use, how busy it is and on which engine) and every program using it, with its graphics memory, what it borrows from the PC and how busy it keeps the card; live every three seconds while the window is open. Read-only: it opens Kernel Grove for stopping a program. Merged 2026-10-23 (findastra/benchmark-rock#4)."
     },
     {
       "id": "busy-watch",
@@ -460,7 +460,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-busy-watch-v1.0",
-      "job": "A tool of Benchmark Rock (Astra, 2026-10-23): in the background, one look every two minutes: curious when a card's own memory is 90% full, or when a program with no window keeps a card 80% busy for ten minutes (the hung Blender render of 2026-10-23). No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Inference Iguana. Never stops anything. On findastra/benchmark-rock#4, not merged."
+      "job": "A tool of Benchmark Rock (Astra, 2026-10-23): in the background, one look every two minutes: curious when a card's own memory is 90% full, or when a program with no window keeps a card 80% busy for ten minutes (the hung Blender render of 2026-10-23). No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Inference Iguana. Never stops anything. Merged 2026-10-23 (findastra/benchmark-rock#4)."
     },
     {
       "id": "process-sweep",
