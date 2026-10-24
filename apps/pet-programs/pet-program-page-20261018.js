@@ -258,10 +258,9 @@
     mood = next;
     face(den, mood === 'sad' ? 'sad' : 'idle');
     lightUp(mood === 'awake' ? 'blink' : mood);
+    // No blinking: the pet stays still (Astra, 2026-10-24: "make the animation of the rabbit moving go away on the pet
+    // program, just want to see it static").
     clearInterval(blinker);
-    if (mood === 'awake' && has(den, 'blink')) blinker = setInterval(function () {
-      face(den, 'blink'); setTimeout(function () { if (mood === 'awake') face(den, 'idle'); }, 180);
-    }, 4000);
   }
   function used() {
     if (mood !== 'awake') show('awake');
@@ -276,11 +275,7 @@
     sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
   });
 
-  // The awake picture in the emotions tool panel blinks too.
-  var awake = document.querySelector('.awake-faces');
-  if (has(awake, 'blink')) setInterval(function () {
-    face(awake, 'blink'); setTimeout(function () { face(awake, 'idle'); }, 180);
-  }, 3500);
+  // The awake picture in the emotions tool panel stays still too (2026-10-24: "just want to see it static").
 
   // ---- Session notes: every submission goes to the backlog first (section 7). ----
   var backlog = read('backlog', { schema: 'pet-program-backlog-v1', store: STORE, entries: [] });
@@ -675,6 +670,16 @@
   (function () {
   var box = document.getElementById('vrchat-launch');
   if (!box) return;
+  // Each headset tool and each of its ways folds down to its name when its name is clicked (Astra, 2026-10-24: "these
+  // also need to be collapsable").
+  box.addEventListener('click', function (e) {
+    // Face tracking's box cannot be unticked or ticked: it is drawn in the page's pink, not greyed out (2026-10-24).
+    if (e.target.matches && e.target.matches('[data-launch-locked]')) { e.preventDefault(); return; }
+    var b = e.target.closest && e.target.closest('.launch-fold');
+    if (!b) return;
+    var folded = b.closest('.launch-mode, .launch-headset').classList.toggle('is-folded');
+    b.setAttribute('aria-expanded', String(!folded));
+  });
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
@@ -686,17 +691,21 @@
     function refresh() {
       var sw = {};
       Array.prototype.forEach.call(switches, function (input) { sw[input.getAttribute('data-launch-switch')] = value(input); });
-      var extra = (sw.oscgoesbrrr ? ' + OSCGoesBrrr' : '') + (sw['double-hip'] ? ' + Double Hip Tracker' : '');
+      // Each mode's start list names the chosen streamer and shows a switch's program while it is on.
+      var picker = hs.querySelector('select[data-launch-switch="streamer"]');
+      var streamerName = picker && picker.selectedOptions[0] ? picker.selectedOptions[0].textContent : '';
       var best = null;
       Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
-        card.querySelector('.launch-extra').textContent = extra;
+        Array.prototype.forEach.call(card.querySelectorAll('[data-launch-extra]'), function (li) { li.hidden = !sw[li.getAttribute('data-launch-extra')]; });
+        Array.prototype.forEach.call(card.querySelectorAll('[data-launch-streamer]'), function (li) { if (streamerName) li.textContent = streamerName; });
         var warn = card.querySelector('.launch-warn');
         if (warn) warn.hidden = (card.getAttribute('data-untested') || '').split(' ').indexOf(sw.streamer) < 0;
         var t = s.tries[card.getAttribute('data-launch-mode')];
         card.setAttribute('data-rating', (t && t.rating) || '');
         if (t && RANK[t.rating] && (!best || RANK[t.rating] > RANK[best.rating])) best = { rating: t.rating, name: card.querySelector('legend').textContent };
       });
-      hs.querySelector('[data-launch-best]').textContent = best ? 'Best so far: ' + best.name + ' (' + best.rating + ').' : 'No tries rated yet.';
+      var bestLine = hs.querySelector('[data-launch-best]'); // the blurb line is gone (2026-10-24); kept only if a page has one
+      if (bestLine) bestLine.textContent = best ? 'Best so far: ' + best.name + ' (' + best.rating + ').' : 'No tries rated yet.';
     }
     Array.prototype.forEach.call(switches, function (input) {
       var k = input.getAttribute('data-launch-switch');
