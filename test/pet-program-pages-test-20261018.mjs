@@ -116,7 +116,8 @@ test('the header: no bubble in the cyberhome, the hub\'s map label, the quick su
     assert.ok(html.includes(`${esc(d.owner)}/${esc(d.repo)}`), `${d.repo}: the repo is still named in the footer and the Pet ID`);
   }
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
-  assert.match(css, /\.top > \.cyberhome\[open\], \.top > \.system-map\[open\] \{ aspect-ratio: 1 \/ 1;/, 'the cyberhome and the System Map box are always squares');
+  // Snug around their tool and picture since 2026-10-23 ("too much space still"), no longer forced squares.
+  assert.match(css, /\.top > \.cyberhome\[open\], \.top > \.system-map\[open\] \{ display: flex; flex-direction: column; \}/, 'the cyberhome and the System Map box fit their tool and picture');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /classList\.add\('stacked'\)/, 'too narrow, the version goes on its own line below the name');
 });
@@ -415,9 +416,8 @@ test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-cl
 // Astra, 2026-10-22, "All recommended for the redlines 2 slides" (Unity Stable redlines 2: 6 questions).
 test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows, shared programs, the title lined up', () => {
   const unicorn = files[pagePath('unity-unicorn')];
-  const talks = unicorn.slice(unicorn.indexOf('<h3 class="talks">'), unicorn.indexOf('>unity-unicorn-L3-tool-panel<'));
-  assert.match(talks, /<ul class="moods related connections"><li class="mood related-pet talk">/, '2: bubbles like the related pets');
-  assert.doesNotMatch(talks, /data-item="connection:/, '2: no lights on each pet it talks to');
+  // 2: "pets it talks to needs to go away. if anything that information lives in rift-rabbit-friends-list-panel" (2026-10-23).
+  assert.ok(!unicorn.includes('<h3 class="talks">'), '2: no "Pets it talks to" in L2; the friends list has them');
   const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-tool-panel<'), unicorn.indexOf('>unity-unicorn-L4-tool-panel<'));
   for (const h of ['Tricks running now · 0', 'Suggestions for you · 1', 'Harness skills · 3']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
   for (const s of ['face-transfer', 'vrchat-unity-world', 'blender-unity-assets']) assert.ok(l3.includes(`data-name="${s}"`), `3: ${s} is a pill`);
