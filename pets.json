@@ -2371,38 +2371,7 @@
           }
         ],
         "core": [],
-        "programs": [
-          {
-            "node": "unity-hub",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "unity-editor",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrchat-creator-companion",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "blender",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrchat",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          },
-          {
-            "node": "vrcft",
-            "how": "optional",
-            "why": "Planned: program-watch shows whether it is open, and closes it the way its window's X does (kernel-grove#5)."
-          }
-        ]
+        "programs": []
       }
     }
   ],

@@ -21,7 +21,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the fou
   }
   // The R W X panel and the session notes sit side by side (Astra, 2026-10-22); a pet's own panels come after both.
   assert.ok(at > page.indexOf('>api-fairy-session-notes<') && at < page.indexOf('>api-fairy-emotions<'), 'after the session notes, before the emotions');
-  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="lights">.*?<\/span><span class="legend">api-fairy-key-requests-tool-panel<\/span><\/summary>/);
+  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-tool-panel<\/span><\/summary>/);
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {
     assert.ok(page.includes(`<fieldset class="request-group ${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
@@ -52,12 +52,12 @@ test('the examples on the public page are made up and marked as examples', () =>
 
 test('the page reads the real list only from one fixed file on Astra\'s PC, and only when it is opened there', () => {
   assert.match(js, /var LOCAL_REQUESTS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/api-fairy-ring\/key-requests-page-data\.js";/);
-  // Three script elements in the page script: this list, GitHub Aquarium's outstanding items and Kernel Koala's open
-  // programs (2026-10-23, read again every five seconds, so its address carries the time), each from its own fixed
-  // constant and only on this PC.
+  // Three script elements in the page script: this list, GitHub Aquarium's outstanding items and Inference Iguana's
+  // open programs (2026-10-23, read again every five seconds, so its address carries the time), each from its own
+  // fixed constant and only on this PC.
   assert.equal((js.match(/createElement\('script'\)/g) || []).length, 3, 'one script element per local list');
   assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS'], 'each address is a fixed constant, never from data');
-  assert.match(js, /var LOCAL_PROGRAMS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/kernel-grove\/programs-page-data\.js";/);
+  assert.match(js, /var LOCAL_PROGRAMS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/benchmark-rock\/programs-page-data\.js";/);
   assert.match(js, /var onThisPC = location\.protocol === 'file:' \|\| \/\^\(localhost\|127\\\.0\\\.0\\\.1\|\\\[::1\\\]\)\$\/\.test\(location\.hostname\);/);
   assert.match(js, /if \(onThisPC\) \{\s*var script = document\.createElement\('script'\);/, 'loaded only on this PC');
   assert.match(js, /d\.schema !== 'api-fairy-key-requests-page-v1'/, 'the list is checked before it is shown');

@@ -1,4 +1,4 @@
-status: taken by Claude (Rift Rabbit chat), waiting on the Inference Iguana tool move to merge
+status: open (waiting on Astra: OK to merge benchmark-rock#3, kernel-grove#7, then #221)
 for: claude
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-23
 needs: findastra/kernel-grove#6, this card's pull request #221, the Inference Iguana chat's tool move
@@ -35,6 +35,24 @@ merged. The Rift Rabbit chat writes none of their files before then.
 - **Running on her PC:** Kernel Koala's watch, from kernel-grove#6's build in the PC copy's `bin`, started with
   `--startup`. It locks that program file, so a rebuild needs `--quit` first. The PC copy of kernel-grove is back on
   `main` and clean.
+
+### Update, 2026-10-23 (later)
+
+- Hub #223, the move that merged, only gave Inference Iguana the graphics card watch. Astra then asked: "Build
+  Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes."
+- **findastra/benchmark-rock#3** (`claude/program-watch-20261023`) is Benchmark Rock's first program, program-watch
+  (`benchmark-rock-v1.0-program-watch-v1.0`), with the VR rows. Its file for the pages is `programs-page-data.js` in the
+  `benchmark-rock` folder of `Astra's PetOS Data` (`window.benchmarkRockPrograms`, schema `benchmark-rock-programs-v1`).
+  Self-test: 20 of 20.
+- **findastra/kernel-grove#7** takes program-watch out of Kernel Grove. Self-test: 67 of 67. kernel-grove#6 is closed.
+- **This PR** reads Benchmark Rock's file and moves program-watch to program-72 on the System Map. It also has Astra's
+  page changes from the same evening: no lights on panels, `<pet>-cyberhome-render`, the pet at desktop size,
+  `<pet>-cyberhome-panel` and `<pet>-system-map-panel` level with the title, Halo List pills with small lights, and the
+  dark pink colors. `npm test`: 331 pass. Record: `changes/live-program-lights-20261023.md`.
+- **Running on her PC:** Inference Iguana's watch from benchmark-rock#3's build, started with `--startup`. Kernel
+  Koala's watch, which this chat had started, is stopped.
+- **Not done:** Startup Star listing Inference Iguana in its menu and starting its watch. That's in
+  `scripts/desktop-pets-20261011.cs`, which the Startup Star chat is changing.
 
 ## Done when
 

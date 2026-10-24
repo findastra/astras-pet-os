@@ -19,6 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { drawnBox, pictureHeight } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
@@ -39,10 +40,11 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
 // related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer;
 // since 2026-10-23 it is `<pet>-plays-with`, most used first.
-// The quick summary is `<home>-quick-summary` and the map box `astras-pet-os-system-map`, the map being the hub's
-// (Astra, 2026-10-21, crossing out "pet-program" and writing "astras-pet-os" over "unity-unicorn" on her screenshot).
-export const SYSTEM_MAP_LABEL = 'astras-pet-os-system-map';
-export const PANELS = ['cyberhome', 'quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'astras-pet-os-unified-footer', 'chat'];
+// The quick summary is `<home>-quick-summary`. The two squares beside the title are `<pet>-cyberhome-panel` and
+// `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
+// before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
+export const SYSTEM_MAP_LABEL = 'system-map-panel';
+export const PANELS = ['cyberhome-panel', 'quick-summary', 'system-map-panel', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -148,7 +150,7 @@ function lastRound(status, reg) {
 }
 
 /** Everything one page needs, worked out from the sources. */
-export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list }) {
+export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, measure = () => null }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
   const petNode = nodes.get(reg.repo);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
@@ -242,6 +244,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const appPrivate = app && isUrl(app) && !app.startsWith(`${PAGES}/apps/`) ? privateTarget(registry, app) : null;
   const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
+  // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"): scripts/pet-size-20261023.mjs.
+  const petHeight = art.frames.idle ? pictureHeight(reg.repo, measure(art.frames.idle)) : null;
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
   // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
@@ -255,7 +259,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
-    art, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
+    art, petHeight, lines, audit: reg.audit || {}, round, needs, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
     shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
@@ -277,7 +281,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
 // yet is off, and only its maintenance light is grey, not checked yet. A 3rd party program's ON/OFF says whether it
 // is running (Astra, 2026-10-21: "I dont have Blender open, so I dont know why it shows green. It needs to detect that
 // its on"): it is drawn red, "not seen running", never a guessed green (`unseen`), and the page turns it green when
-// Kernel Koala's program-watch says it is open (Astra, 2026-10-23: "most of my vrchat programs are launched right now
+// Inference Iguana's program-watch says it is open (Astra, 2026-10-23: "most of my vrchat programs are launched right now
 // and I am not seeing the green lights"), even while the pet's own link to it is only planned.
 const lights = (key, name, { planned = false, unseen = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
@@ -342,8 +346,11 @@ function itemList(items, prefix, empty) {
 // for all tools and panels"). Nothing comes after the label: the same screenshot brackets the activity light after it
 // and moves it left, to the pair. What the activity light showed, the tool panel's own glow still shows.
 // `key`: where its lights are saved, when the label alone is the same on every page (`grants`, `keys`, `pet-id`).
-const panel = (label, body, { cls = '', light = false, open = true, id = '', key = '' } = {}) =>
-  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel">${light ? lights(`panel:${key || label}`, label) : ''}<span class="legend">${esc(label)}</span></summary>${body}</details>`;
+// Since 2026-10-23 no panel has lights: only tools do (Astra: "panels cant have lights. only tools can"). A panel's
+// label has a small arrow after it that shows it folds, like Halo List's ("see how these are collapsable and the dots
+// are not on them"). `light` and `key` are still accepted from older callers and do nothing.
+const panel = (label, body, { cls = '', open = true, id = '' } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel"><span class="legend">${esc(label)}</span></summary>${body}</details>`;
 
 // The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
@@ -573,9 +580,14 @@ export function buildPetProgramPage(d) {
   // since 2026-10-20 (Astra crossed it out). No bubble in it since 2026-10-21 (Astra: "get rid of this entirely; select
   // from 9 emotions at bottom what to 'light up'"): the mood it showed lights up in the emotions tool panel instead.
   // The cyberhome is always a square, and so is the System Map box.
-  const cyberhome = panel(`${d.petSlug}-cyberhome`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
-${lights(`program:${d.homeSlug}`, d.home)}
-<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
+  // The box inside the cyberhome is a tool, `<pet>-cyberhome-render`, the little art cyberhome that will be drawn up
+  // later: its lights sit left of its name in its border, like every tool's (Astra, 2026-10-23: "the tool inside the
+  // rift-rabbit-cyberhome (panel) is the rift-rabbit-cyberhome-render ... similar to how other tools work in other
+  // panels"). The pet stands as tall as on the desktop.
+  const render = `${d.petSlug}-cyberhome-render`;
+  const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
+<span class="render-label">${lights(`tool:${render}`, render)}<span class="render-name">${esc(render)}</span></span>
+<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
   // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
@@ -600,7 +612,7 @@ ${panel(`${d.homeSlug}-quick-summary`, `<p>${esc(d.summary)}</p>`, { cls: 'summa
   const ringR = { 0: 0, 1: 24, 2: 40, 3: 56 }[d.ring] ?? 56;
   // Its label is the hub's (the map is Astra's PetOS's), and its node's id is no longer printed under the link (Astra,
   // 2026-10-21, crossing out "its node: unity-stable"; the link still opens that node).
-  const systemMap = panel(SYSTEM_MAP_LABEL, `<a class="map-link" href="${esc(map)}">
+  const systemMap = panel(`${d.petSlug}-${SYSTEM_MAP_LABEL}`, `<a class="map-link" href="${esc(map)}">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
 <span>Open ${esc(d.home)} on the System Map</span></a>${mapRelated(d)}`, { cls: 'system-map' });
 
@@ -806,6 +818,7 @@ export function readSpawnerSources(root = '.') {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
     status: opt('status/pets-status.json', null),
+    measure: (p) => { try { return drawnBox(`${root}/${p}`); } catch (e) { return null; } },
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
 }

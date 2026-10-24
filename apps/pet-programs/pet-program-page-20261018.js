@@ -89,11 +89,11 @@
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
-    // A 3rd party program: green while Kernel Koala's program-watch sees it open on this PC, red otherwise.
-    unseen: 'not seen running. Kernel Koala’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
-    running: 'open now: Kernel Koala’s program-watch saw it running. This light does not close it yet.',
+    // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise.
+    unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
+    running: 'open now: Inference Iguana’s program-watch saw it running. This light does not close it yet.',
   };
-  // Which 3rd party programs are open (Astra, 2026-10-23): Kernel Koala's program-watch writes them every five seconds
+  // Which 3rd party programs are open (Astra, 2026-10-23): Inference Iguana's program-watch writes them every five seconds
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
   var running = {}, runningSeen = null;
@@ -167,20 +167,20 @@
   });
   paint();
 
-  // Kernel Koala's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
+  // Inference Iguana's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
   // means the watch stopped, so nothing counts as open.
   (function () {
     if (!document.querySelector('button.light[data-unseen]')) return;
     if (!(location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))) return;
     // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
-    var LOCAL_PROGRAMS = "../../../../Astra's PetOS Data/kernel-grove/programs-page-data.js";
+    var LOCAL_PROGRAMS = "../../../../Astra's PetOS Data/benchmark-rock/programs-page-data.js";
     function load() {
       var script = document.createElement('script');
       script.setAttribute('src', LOCAL_PROGRAMS + '?t=' + Date.now());
       script.onload = function () {
         script.remove();
-        var d = window.kernelGrovePrograms, now = {};
-        if (d && d.schema === 'kernel-grove-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
+        var d = window.benchmarkRockPrograms, now = {};
+        if (d && d.schema === 'benchmark-rock-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
           d.programs.forEach(function (p) { if (p && p.running && typeof p.id === 'string') now[p.id] = true; });
           runningSeen = d.time;
         }

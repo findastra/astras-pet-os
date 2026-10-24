@@ -99,7 +99,7 @@
     ["seed", "planned agent"]
   ],
   "panels": [
-    ["-cyberhome", "-avatar-panel"],
+    ["-cyberhome-panel", "-avatar-panel"],
     ["-quick-summary", "-summary"],
     ["-tool-panel", "-panel"],
     ["-related-pets", "-related-agents"],

@@ -89,7 +89,7 @@ test('names on GitHub and in files keep their spelling: repos, file names, paths
 });
 
 test('panel labels: unity-unicorn-L1-tool-panel becomes unity-agent-L1-panel, and the activity lights still find it', () => {
-  const pairs = [['unity-unicorn-L1-tool-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome', 'unity-agent-avatar-panel'],
+  const pairs = [['unity-unicorn-L1-tool-panel', 'unity-agent-L1-panel'], ['unity-unicorn-cyberhome-panel', 'unity-agent-avatar-panel'],
     ['unity-stable-quick-summary', 'unity-agent-control-hub-summary'], ['friendly-farmer-plays-with', 'orchestrator-agent-plays-with'],
     ['astras-pet-os-unified-footer', 'astras-pet-os-unified-footer']];
   for (const [farm, dev] of pairs) assert.equal(W._legend(farm), dev);
