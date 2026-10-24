@@ -212,6 +212,12 @@ test('the paired lights are two buttons side by side, each with a name a screen 
   for (const id of ['blender', 'unity-editor', 'vrchat-creator-companion']) {
     assert.match(unicorn, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: red, not seen running`);
   }
+  // Even when the pet's own link to it is only planned, a 3rd party program's light says whether it is open (Astra,
+  // 2026-10-23: "most of my vrchat programs are launched right now and I am not seeing the green lights").
+  const rabbit = files[pagePath('rift-rabbit')];
+  for (const id of ['steamvr', 'virtual-desktop', 'space-calibrator']) {
+    assert.match(rabbit, new RegExp(`<button type="button" class="light onoff is-off" data-item="third-party:${id}"[^>]* data-unseen="1" aria-label="[^"]+: not seen running"`), `${id}: watched, not "not built yet"`);
+  }
 });
 
 test('every program, tool and trick is a pill: its two lights on the oval, and a name that opens in place (Astra, 2026-10-19)', () => {

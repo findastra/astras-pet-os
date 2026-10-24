@@ -89,19 +89,25 @@
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
-    // A 3rd party program: red means not seen running. Nothing on this PC reports running programs to the page yet.
-    unseen: 'not seen running. Nothing tells this page what is open on your PC yet (Kernel Koala’s program watch is planned), so this light cannot open or close it yet.',
+    // A 3rd party program: green while Kernel Koala's program-watch sees it open on this PC, red otherwise.
+    unseen: 'not seen running. Kernel Koala’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
+    running: 'open now: Kernel Koala’s program-watch saw it running. This light does not close it yet.',
   };
+  // Which 3rd party programs are open (Astra, 2026-10-23): Kernel Koala's program-watch writes them every five seconds
+  // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
+  // System Map's, as in `third-party:<id>`.
+  var running = {}, runningSeen = null;
+  function seen(b) { return !!running[(b.dataset.item || '').replace(/^third-party:/, '')]; }
   function paint() {
     var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
     for (var i = 0; i < buttons.length; i++) {
       var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
       names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
-        var p = b.dataset.unseen ? 'off' : power(k, planned[k]);
+        var p = b.dataset.unseen ? (seen(b) ? 'on' : 'off') : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? 'not seen running' : planned[k] ? 'off, not built yet' : p));
+        b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
       } else {
         var h = health(k, planned[k]);
         b.classList.toggle('is-fix', h === 'fix');
@@ -142,7 +148,7 @@
     if (!b) return;
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
-    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, SAYS.unseen); return; }
+    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
     if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
@@ -160,6 +166,33 @@
     say(b, SAYS[next]);
   });
   paint();
+
+  // Kernel Koala's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
+  // means the watch stopped, so nothing counts as open.
+  (function () {
+    if (!document.querySelector('button.light[data-unseen]')) return;
+    if (!(location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))) return;
+    // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+    var LOCAL_PROGRAMS = "../../../../Astra's PetOS Data/kernel-grove/programs-page-data.js";
+    function load() {
+      var script = document.createElement('script');
+      script.setAttribute('src', LOCAL_PROGRAMS + '?t=' + Date.now());
+      script.onload = function () {
+        script.remove();
+        var d = window.kernelGrovePrograms, now = {};
+        if (d && d.schema === 'kernel-grove-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
+          d.programs.forEach(function (p) { if (p && p.running && typeof p.id === 'string') now[p.id] = true; });
+          runningSeen = d.time;
+        }
+        running = now;
+        paint();
+      };
+      script.onerror = function () { script.remove(); running = {}; paint(); };
+      document.head.appendChild(script);
+    }
+    load();
+    setInterval(function () { if (!document.hidden) load(); }, 5000);
+  })();
 
   // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
   // face blinking) after you use the page, idle again after two quiet minutes. The mood it is in lights up in the
