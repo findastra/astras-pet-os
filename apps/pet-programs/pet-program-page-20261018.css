@@ -112,14 +112,14 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .cyberhome[open] .habitat { height: 100cqh; }
 /* The cyberhome's lights sit inside the den's top corner, off its border line (Astra, 2026-10-20: "Move those
    indicator lights down. They are in the way of the line"). */
-/* <pet>-cyberhome-render, the tool inside the cyberhome (Astra, 2026-10-23): its lights, then its name, set into its
-   top border like a tool's. */
-/* Its first line sits on the border; a name too long for the box wraps down inside it, never up over the panel's own
-   label. */
-.habitat > .render-label { position: absolute; top: -9px; left: 8px; z-index: 2; display: flex; align-items: flex-start; gap: 6px; max-width: calc(100% - 16px); }
-.habitat > .render-label .lights { margin: 3.5px 0 0; }
-.render-name { font: 11px/18px var(--label); color: var(--chalk); background: var(--slate); padding: 0 5px; overflow-wrap: anywhere; min-width: 0; text-align: left; }
-.den { flex: 1; min-height: 0; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 14px 4px 4px; }
+/* <pet>-cyberhome-render, the tool inside the cyberhome (Astra, 2026-10-23): drawn like every tool, a small pill inside
+   its box with its lights and its name, never on a border ("we got rid of the lights in panel borders ... it should
+   only be on a tool"). */
+.habitat > .render-label { position: absolute; top: 8px; left: 8px; z-index: 2; display: flex; align-items: center; gap: 7px; max-width: calc(100% - 16px);
+  padding: 3px 10px 3px 8px; border: 1px solid var(--line-dim); border-radius: 14px; background: var(--slate-2); }
+.habitat > .render-label .lights { margin: 0; }
+.render-name { font: 10.5px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; min-width: 0; text-align: left; }
+.den { flex: 1; min-height: 0; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 44px 4px 4px; }
 /* The pet as tall as on the desktop: the page builder works out --pet-height from its drawing. */
 .den img.pet { width: auto; height: var(--pet-height, auto); max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
 .den .no-art { width: auto; height: 80%; max-height: 100%; }

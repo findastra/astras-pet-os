@@ -131,6 +131,16 @@
       off.textContent = '';
       Object.keys(names).filter(function (k) { return !planned[k] && power(k) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
+    // A level tool panel glows like L4 while something in it is in use: a program open or a device on (Astra,
+    // 2026-10-23: "the L1 control panel is not lighting up even though we are using tools and programs in there").
+    // L4's glow is yours (the page in use) and stays the activity script's.
+    var levels = document.querySelectorAll('details.panel.level');
+    for (var lv = 0; lv < levels.length; lv++) {
+      var lg = levels[lv].querySelector(':scope > summary .legend');
+      if (lg && /-L4-[a-z-]*panel$/.test(lg.textContent)) continue;
+      var inUse = levels[lv].querySelector('button.light.onoff[data-unseen]:not(.is-off)');
+      if (inUse) levels[lv].dataset.activity = 'live'; else delete levels[lv].dataset.activity;
+    }
   }
   // The bubble that says what a light now means. One for the page, placed under the light that was clicked.
   var tip = el('div', null, 'light-bubble'), tipTimer;
