@@ -226,8 +226,12 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill > :not(.lights) { grid-column: 2; }
 .pill > .item-name { color: var(--chalk); font: 15px/1.35 var(--text); overflow-wrap: anywhere; }
 /* One size: a closed pill is one line, its name, since its state shows only when it is opened (Astra, 2026-10-23:
-   "they look one line too big"). A pill with a cadence tag takes a second line; pills in a row stay one height. */
-.items li.pill { align-content: start; }
+   "they look one line too big"; "still too much space below"). A pill with a cadence tag takes a second line; pills in
+   a row stay one height. Closed, its hidden "more" shares the name's row, so no empty row or gap sits under the name,
+   and the bottom padding matches the top: a 32px pill with the name and the lights on its centre line. */
+.items li.pill { align-content: start; padding-bottom: 5px; }
+.items li.pill:has(> .pill-more[open]) { padding-bottom: 9px; }
+.pill > .item-name, .pill > .pill-more:not([open]) { grid-row: 1; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
