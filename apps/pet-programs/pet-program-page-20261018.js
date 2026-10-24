@@ -696,7 +696,13 @@
       var streamerName = picker && picker.selectedOptions[0] ? picker.selectedOptions[0].textContent : '';
       var best = null;
       Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
-        Array.prototype.forEach.call(card.querySelectorAll('[data-launch-extra]'), function (li) { li.hidden = !sw[li.getAttribute('data-launch-extra')]; });
+        Array.prototype.forEach.call(card.querySelectorAll('[data-launch-extra]'), function (li) {
+          var k = li.getAttribute('data-launch-extra');
+          li.hidden = !sw[k];
+          // A program with a choice (Double Hip, Double Chest or both) says which, after its name.
+          var pick = hs.querySelector('select[data-launch-switch="' + k + '"]');
+          if (pick && sw[k] && pick.selectedOptions[0]) li.textContent = li.getAttribute('data-launch-base') + ' (' + pick.selectedOptions[0].textContent + ')';
+        });
         Array.prototype.forEach.call(card.querySelectorAll('[data-launch-streamer]'), function (li) { if (streamerName) li.textContent = streamerName; });
         var warn = card.querySelector('.launch-warn');
         if (warn) warn.hidden = (card.getAttribute('data-untested') || '').split(' ').indexOf(sw.streamer) < 0;
@@ -709,7 +715,8 @@
     }
     Array.prototype.forEach.call(switches, function (input) {
       var k = input.getAttribute('data-launch-switch');
-      if (k in s.switches) { if (input.type === 'checkbox') input.checked = !!s.switches[k]; else input.value = s.switches[k]; }
+      // Double Hip was a tick box before 2026-10-24: a saved tick means Double Hip, no tick means off.
+      if (k in s.switches) { if (input.type === 'checkbox') input.checked = !!s.switches[k]; else input.value = s.switches[k] === true ? 'hip' : s.switches[k] === false ? '' : s.switches[k]; }
       input.addEventListener('change', function () { s.switches[k] = value(input); save(); refresh(); });
     });
     Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {

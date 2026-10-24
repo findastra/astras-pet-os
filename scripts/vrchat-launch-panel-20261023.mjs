@@ -14,6 +14,9 @@ export const STREAMERS = [
   ['meta-horizon-link', 'Meta Horizon Link (cable or Air Link)'],
 ];
 
+// Double Hip Tracker's three uses, plus off (the empty value).
+export const DOUBLE = [['', 'Off'], ['hip', 'Double Hip'], ['chest', 'Double Chest'], ['both', 'Both']];
+
 export const HEADSETS = [
   { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', device: 'Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
   { id: 'quest-3', n: 2, name: 'VRChat on Quest 3', device: 'Quest 3', face: false, about: 'No face tracking.' },
@@ -105,7 +108,8 @@ ${h.face
     ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
     : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
-${sw('double-hip', 'Double Hip / Double Chest Tracker', false)}
+${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
+   together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch">Double Hip / Double Chest Tracker <select data-launch-switch="double-hip">${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 </div>`;
 }
@@ -114,7 +118,7 @@ ${sw('double-hip', 'Double Hip / Double Chest Tracker', false)}
 function step(s) {
   if (s.wait) return `<li class="launch-wait">${esc(s.wait)}</li>`;
   const name = s.streamer ? `<span data-launch-streamer>${esc(s.name)}</span>${esc(s.after || '')}` : esc(s.name);
-  const opens = s.opens ? `${s.note ? `, ${esc(s.note)}:` : ':'}<ul>${s.opens.map((o) => `<li${o.extra ? ` data-launch-extra="${esc(o.extra)}" hidden` : ''}>${esc(o.name)}</li>`).join('')}</ul>` : '';
+  const opens = s.opens ? `${s.note ? `, ${esc(s.note)}:` : ':'}<ul>${s.opens.map((o) => `<li${o.extra ? ` data-launch-extra="${esc(o.extra)}" data-launch-base="${esc(o.name)}" hidden` : ''}>${esc(o.name)}</li>`).join('')}</ul>` : '';
   return `<li>${name}${opens}</li>`;
 }
 
