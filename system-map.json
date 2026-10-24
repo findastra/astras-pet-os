@@ -1813,12 +1813,12 @@
     },
     {
       "id": "vr-trackers",
-      "name": "13 HTC Vive Trackers 3.0",
+      "name": "9 HTC Vive Trackers 3.0",
       "type": "host-machine",
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "Thirteen HTC Vive Tracker 3.0 body trackers, tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
+      "job": "Nine HTC Vive Tracker 3.0 body trackers (#10 to #13 never existed: Astra, 2026-10-24), tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
     },
     {
       "id": "vive-tracker-01",
@@ -1829,7 +1829,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F3DF780D",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-02",
@@ -1840,7 +1840,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-B2105741",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-03",
@@ -1851,7 +1851,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-91D63DB2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-04",
@@ -1862,7 +1862,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6BA0C57A",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-05",
@@ -1873,7 +1873,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-28D88802",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-06",
@@ -1884,7 +1884,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F8590C98",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-07",
@@ -1895,7 +1895,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-E0ED8ACE",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-08",
@@ -1906,7 +1906,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6963FCE5",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-09",
@@ -1917,47 +1917,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-467E1FA2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
-    },
-    {
-      "id": "vive-tracker-10",
-      "name": "Vive Tracker 3.0 #10",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-11",
-      "name": "Vive Tracker 3.0 #11",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-12",
-      "name": "Vive Tracker 3.0 #12",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-13",
-      "name": "Vive Tracker 3.0 #13",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "base-stations",

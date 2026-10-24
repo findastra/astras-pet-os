@@ -155,7 +155,7 @@ test('a line to a group reaches each member, and no member hangs off its group',
     if (ends.length === 1) assert.fail(`${l.from} -> ${l.to} ends on a group instead of its members`);
   }
   const trackers = data.nodes.filter((n) => n.in === 'vr-trackers');
-  assert.equal(trackers.length, 13);
+  assert.equal(trackers.length, 9); // #10 to #13 never existed (Astra, 2026-10-24)
   for (const t of trackers) for (const program of ['steamvr', 'space-calibrator', 'double-hip-tracker'])
     assert.ok(data.links.some((l) => l.from === program && l.to === t.id), `${t.name} is not connected to ${program}`);
   for (const t of trackers) assert.ok(data.links.some((l) => l.from === t.id && l.to === 'vrchat' && l.carries === 'tracking'), `${t.name} does not feed VRChat full-body tracking`);

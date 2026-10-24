@@ -2057,26 +2057,6 @@
           "note": "SteamVR connected it (serial LHR-467E1FA2) on 2026-10-23.",
           "on": "2026-10-24"
         },
-        "device:vive-tracker-10": {
-          "result": "issues",
-          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
-          "on": "2026-10-24"
-        },
-        "device:vive-tracker-11": {
-          "result": "issues",
-          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
-          "on": "2026-10-24"
-        },
-        "device:vive-tracker-12": {
-          "result": "issues",
-          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
-          "on": "2026-10-24"
-        },
-        "device:vive-tracker-13": {
-          "result": "issues",
-          "note": "Its serial is not known yet, so it cannot be checked. Tell me its sticker and serial.",
-          "on": "2026-10-24"
-        },
         "device:base-station-1": {
           "result": "issues",
           "note": "SteamVR saw three base stations on 2026-10-23 (LHB-466BDC43, LHB-8474F9F9, LHB-EE55164F), but the map does not say which is which, and one of the four was not seen.",
