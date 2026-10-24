@@ -564,10 +564,8 @@ img[hidden] { display: none !important; }
   .footer-star { grid-area: star; margin: 0; }
   .footer-star img { width: 56px; height: 56px; }
 }
-}
 /* Room on the right for the phone's scroll bar (Astra, 2026-10-23: "need more room for the scroll bar on the right"). */
 @media (max-width: 760px) {
   .page { padding-right: 28px; }
   .chat { right: 22px; }
-}
 }
