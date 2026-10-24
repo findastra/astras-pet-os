@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge findastra/benchmark-rock#4, then this pull request, #224)
+status: open (benchmark-rock#4 and #224 merged with Astra's OK, 2026-10-23; #3 and #221 to be rebuilt on top; then the local build and Startup Star)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-23
 needs: findastra/benchmark-rock (README.md, AGENTS.md, benchmark-rock-20261023.cs), log-den's contracts/background-pet-20261021.cs, handoffs/067-any-kernel-grove-process-sweep-20261021.md, PET-PROGRAM-FRAMEWORK.md section 4 (no tray icon)
@@ -32,11 +32,23 @@ data folder (mood `sleep`, menu items, three farm events). Hub `npm test`: 332 t
 from-scratch installer test, failing on main too), 1 skipped. Startup Star built in the worktree: `--self-test` PASS.
 Benchmark Rock's pet program page looked at in the browser pane: both tools, no console errors.
 
+## Merge order (Astra, 2026-10-23)
+
+Another chat built Benchmark Rock the same evening: findastra/benchmark-rock#3 (program-watch moved from Kernel Grove,
+with the VR programs) creates the same two files, `benchmark-rock-20261023.cs` and `build-benchmark-rock-20261023.ps1`,
+and hub #221 (live program lights) changes `system-map.json` and `pets.json` around Inference Iguana. Astra, in chat:
+"Merge findastra/benchmark-rock PR #4 and findastra/astras-pet-os PR #224 first, and leave #3 and #221 for the other
+chat to rebuild on top of mine." So **#3 and #221 are rebuilt on top of main** by the chat that owns them:
+program-watch becomes a third tool of the one Benchmark Rock program (`Rock.Tools`, its own self-test checks, its
+`--programs`, `--close-program` and `--open-program` commands next to `--report`), and #221 moves program-watch to
+program-72 next to `gpu-watch` and `busy-watch`. The pipeline node's id is `benchmark-rock`.
+
 ## What is left
 
-1. Astra: merge benchmark-rock#4, then #224 (each with her OK in chat).
-2. After both merge: clone benchmark-rock into `Documents\Astra's Pet Apps` next to kernel-grove and log-den, build it,
+1. Done when this card merged: benchmark-rock#4, then #224 (Astra's OK in chat, 2026-10-23).
+2. The other chat: rebuild benchmark-rock#3 and hub #221 on top of them (above).
+3. After both merge: clone benchmark-rock into `Documents\Astra's Pet Apps` next to kernel-grove and log-den, build it,
    and rebuild and restart Startup Star (read its current cards first) so Inference Iguana's menu shows.
-3. Astra tries the window herself. Not done yet.
-4. Pet art for Inference Iguana (costs money: waits on her OK).
-5. Planned: inference benchmarks and latency, once Llama Librarian's Model Library has a local model to run.
+4. Astra tries the window herself. Not done yet.
+5. Pet art for Inference Iguana (costs money: waits on her OK).
+6. Planned: inference benchmarks and latency, once Llama Librarian's Model Library has a local model to run.
