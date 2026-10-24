@@ -392,7 +392,16 @@ label.file { position: relative; }
   .chat { right: 10px; bottom: 10px; padding: 0 8px 8px; }
   .chat-open { width: 28px; height: 28px; }
   .chat-open svg { width: 15px; height: 15px; }
-  .chat-label { font-size: 11px; }
+  .chat-label { font-size: 10px; }
+  /* On a phone the chat covers less: its tool keeps its lights and its button, its name is in the label above (Astra,
+     2026-10-23: "change", to "make the chat box smaller so it covers less, and keep the tool names to two lines"). */
+  .chat-name { display: none; }
+  .chat-tool { gap: 6px; padding: 1px 2px 1px 10.5px; }
+  .chat-panel:not([hidden]) ~ .chat-tool .chat-name { display: none; }
+  /* The two square tools' names stay on two lines. */
+  .render-name { font-size: 9.5px; }
+  .habitat > .render-label { gap: 5px; padding-right: 8px; }
+  .habitat > .render-label .lights { gap: 5px; }
 }
 /* Faces the page script switches between: a hidden one never shows. */
 img[hidden] { display: none !important; }
