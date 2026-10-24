@@ -656,8 +656,7 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`, { cls: 'sub', light: true });
   const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
 <section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
-${history}
-<h3 class="talks">Pets it talks to</h3>${d.connections.length ? `<ul class="moods related connections">${d.connections.map((c) => connection(c, d)).join('')}</ul>` : '<p class="empty">No links to other pets yet.</p>'}`, { cls: 'level', light: true });
+${history}`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).

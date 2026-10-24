@@ -84,7 +84,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    start at the same height as the title and the just move left or right"; before, 2026-10-22, their bottoms lined up). */
 /* A flex column: inside a details box, Chrome resolves the container units only then. Nothing is clipped at the box
    itself, so its label stays whole on the border; the den clips the pet. */
-.top > .cyberhome[open], .top > .system-map[open] { aspect-ratio: 1 / 1; container-type: size; display: flex; flex-direction: column; }
+/* Snug around the tool and the picture (Astra, 2026-10-23: "too much space still"): the tool, one pad, the picture in a
+   60px slot, the panel's own pad. */
+.top > .cyberhome[open], .top > .system-map[open] { display: flex; flex-direction: column; }
 .top > .system-map[open] { justify-content: flex-start; }
 /* Their labels keep to one line on the border: a little smaller and closer to the corner than other panels'. */
 .top > .panel > summary { left: 10px; max-width: calc(100% - 20px); transform: translateY(calc(-100% + 7.15px)); }
@@ -120,9 +122,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The details box's own content slot is not a flex item, so the habitat takes the square's inside by container units. */
 /* No inner border: the tool and the picture sit right in the panel (Astra, 2026-10-23: "get rid of the extra border
    within both the cyberhome and the system map panels"). */
-.top > .cyberhome[open] .habitat, .top > .system-map[open] .habitat { height: 100cqh; }
+
 /* The map panel's tool box, like the cyberhome's den (Astra, 2026-10-23). */
-.map-box { flex: 1; min-height: 0; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
+.map-box { flex: none; height: 60px; margin-top: var(--pad); min-height: 0; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
 /* The cyberhome's lights sit inside the den's top corner, off its border line (Astra, 2026-10-20: "Move those
    indicator lights down. They are in the way of the line"). */
 /* <pet>-cyberhome, the tool inside the cyberhome (Astra, 2026-10-23): drawn like every tool, a small pill inside
@@ -131,10 +133,10 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The tool sits at the top of its square and the picture in the middle of the room left below it, the same space above
    and below (Astra, 2026-10-23: "awkward spacing"). */
 .habitat > .render-label { position: static; flex: none; align-self: center; z-index: 2; display: flex; align-items: center; gap: 7px; max-width: 100%;
-  padding: 3px 10px 3px 8px; border: 1px solid var(--line-dim); border-radius: 14px; background: var(--tool-bg); }
+  min-height: 32px; padding: 2px 12px 2px 9.5px; border: 1px solid var(--line-dim); border-radius: 16px; background: var(--tool-bg); }
 .habitat > .render-label .lights { margin: 0; }
 .render-name { font: 10.5px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; min-width: 0; text-align: left; }
-.den { flex: 1; min-height: 0; border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
+.den { flex: none; height: 60px; margin-top: var(--pad); min-height: 0; border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
 /* The pet as tall as on the desktop: the page builder works out --pet-height from its drawing. */
 .den img.pet { width: auto; height: var(--pet-height, auto); max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
 .den .no-art { width: auto; height: 80%; max-height: 100%; }
@@ -202,16 +204,20 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    summary stays for the keyboard, drawn as nothing; focused, the pill shows the outline. */
 /* Every pill fills its column, so they are all one size (Astra, 2026-10-23: "make these the same size"). */
 .items li.pill { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); justify-items: start; column-gap: 10px; row-gap: 4px;
-  justify-self: stretch; width: auto; max-width: 100%; min-width: 0; margin: 9px 0; padding: 12px 16px 8px 12px;
-  border: 1px solid var(--line-dim); border-radius: 20px; background: var(--tool-bg); cursor: pointer; }
+  justify-self: stretch; width: auto; max-width: 100%; min-width: 0; margin: 9px 0; padding: 5px 16px 9px 9.5px;
+  border: 1px solid var(--line-dim); border-radius: 16px; background: var(--tool-bg); cursor: pointer; }
 .items li.pill:hover { border-color: var(--line); background: var(--tool-bg-hover); }
 .items li.pill:has(> .pill-more[open]) { border-radius: 16px; border-color: var(--care); }
 /* The lights sit in the name's row, centred on it (Astra, 2026-10-23: "need the circles to be centerlined with the text"). */
-.pill > .lights { grid-column: 1; grid-row: 1; align-self: center; margin: 0; gap: 7px; }
+/* Each tool's first light sits at the center of its rounded corner, so the border curves around it evenly (Astra,
+   2026-10-23: "this button should sit rounded perfectly inside the tool border"): an 11px light, 1px border, so a
+   16px corner wants its left padding 16 - 5.5 - 1 = 9.5px and its first row centred 16px down (2026-10-23: "move the
+   indicator light buttons closer to the border ... we need to save room"). */
+.pill > .lights { grid-column: 1; grid-row: 1; align-self: start; margin: 4.6px 0 0; gap: 7px; }   /* on the name's first line */
 .pill > :not(.lights) { grid-column: 2; }
 .pill > .item-name { color: var(--chalk); font: 15px/1.35 var(--text); overflow-wrap: anywhere; }
 /* One size: the name on its own line, its tags on the next, and every closed pill two lines tall. */
-.items li.pill { min-height: 70px; align-content: center; }
+.items li.pill { min-height: 60px; align-content: start; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
@@ -313,7 +319,7 @@ label.file { position: relative; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
 .footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 30px; }
-.footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 5px 0; }
+.footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 0; }
 .footer-group::before { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
 .footer-title { font-weight: 600; letter-spacing: .02em; }
 .footer-group time { font: 12.5px var(--label); color: var(--chalk-dim); }
@@ -342,8 +348,8 @@ label.file { position: relative; }
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
-.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 5px 4px 12px;
-  border: 1px solid var(--line-dim); border-radius: 20px; background: var(--tool-bg); }
+.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 1px 3px 1px 10.5px;
+  border: 1px solid var(--line-dim); border-radius: 17px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
@@ -436,7 +442,9 @@ img[hidden] { display: none !important; }
 .outstanding-group.g-you { border-color: var(--fix); }
 .outstanding-group.g-you legend { color: var(--fix); }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
-.moods.related { list-style: none; margin: 0; padding: 0; }
+.moods.related { list-style: none; margin: 0; padding: 0; align-items: start; }
+/* No dashed line between "I manage ..." and the quote (Astra, 2026-10-23, crossing it out). */
+.related-pet q { border-top: 0; padding-top: 0; }
 .talk .mood-bubble p { margin: 2px 0; font-size: 12.5px; }
 .related-pet > a, .related-pet > .related-static { display: contents; color: var(--chalk); text-decoration: none; }
 .related-pet > a:hover legend, .related-pet > a:focus-visible legend { text-decoration: underline; }
