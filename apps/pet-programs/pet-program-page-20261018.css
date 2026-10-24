@@ -47,7 +47,9 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
 /* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
    neon color and much shorter"). */
-.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 18px 0 30px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
+/* It starts at the page's gutter, like the sides, and sits as far above the header as the header sits above the next
+   panel, 30px border to border (Astra, 2026-10-24: "1 and 2 seem different sizes ... 3 and 4 should be same distance"). */
+.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 24px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
 .panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
 .panel.editorial p + p { margin-top: 4px; }
@@ -126,6 +128,13 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
 .title .summary[open] { padding: var(--pad); }
 .title .summary > p { margin: 0; }
+/* The two squares and the quick summary end on one line, always (Astra, 2026-10-24: "these should end at the same spot
+   always"): the header's row stretches them all to the tallest, and the summary grows to fill the title column. A
+   folded box stays only as tall as its label. */
+.top.title-between { align-items: stretch; }
+.top.title-between > .title { display: flex; flex-direction: column; }
+.top.title-between > .title > .panel[open] { flex: 1; }
+.top.title-between > .panel:not([open]) { align-self: start; }
 /* The pet fills its square: the den is the square's inside, and the pet and the rings shrink to fit it. */
 .top > .cyberhome[open] { padding: var(--pad); }
 .habitat { position: relative; text-align: center; display: flex; flex-direction: column; }
