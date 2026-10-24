@@ -336,22 +336,26 @@ label.file { position: relative; }
    slightly staggered, each after a pink ✦; no list. */
 /* Snug above and below its one row (Astra, 2026-10-24: "there still is an awkward space before and after these items"). */
 .panel.footer { padding: 10px var(--pad); }
-.astra-footer { display: grid; justify-items: center; gap: 14px; text-align: center; font-size: 13px; }
+.astra-footer { display: grid; justify-items: center; gap: 8px; text-align: center; font-size: 13px; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
 .footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; }
 .footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 0; }
-.footer-group::before { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+.footer-group::before, .footer-sparkle { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+/* By Astra, ✦, the photostar, ✦, Find Out More, the links (Astra, 2026-10-24): no ✦ before By Astra. */
+.footer-by::before { content: none; }
+.footer-sparkle { margin: 0 -8px 0 0; }
 .footer-title { font-weight: 600; letter-spacing: .02em; }
 .footer-group time { font: 12.5px var(--label); color: var(--chalk-dim); }
 .footer-icons { display: inline-flex; gap: 4px; }
-.footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 10px; color: var(--chalk); text-decoration: none; }
+.footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; color: var(--chalk); text-decoration: none; }
 .footer-icons a:hover, .footer-home:hover { background: rgba(255, 255, 255, .1); }
-/* The links are the photostar's size, and the photostar the pets' drawn size (Astra, 2026-10-24: "photostar size to
-   shrink a little to match pet icon sizes, also make the icon hyperlinks the same size as photostar"). */
-.footer-icons svg { width: 38px; height: 38px; fill: currentColor; }
+/* The photostar is the pets' drawn size (Astra, 2026-10-24: "photostar size to shrink a little to match pet icon
+   sizes"); the links went back to their own size ("ok go back to the size before of those icons"). */
+.footer-icons svg { width: 22px; height: 22px; fill: currentColor; }
 .footer-home img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
-.languages { list-style: none; margin: 0 0 0 8px; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+/* The languages ("the codes") are their own line below the links (Astra, 2026-10-24). */
+.languages { list-style: none; margin: 0; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 /* The photostar sits in the footer border's right corner, like a label on the line. */
 .panel.footer { position: relative; }
 .footer-star { display: block; line-height: 0; }
@@ -562,17 +566,18 @@ img[hidden] { display: none !important; }
    all of them in a row, put the photo star between the by astra and find out more"): By Astra, the photostar and Find
    Out More across the top, the five links as pet-sized pictures in one row under them, the languages last. */
 @media (max-width: 760px) {
-  .footer-line { display: grid; grid-template-columns: auto auto auto; grid-template-areas: "by star more" "icons icons icons" "langs langs langs";
+  /* The same order as on a computer (2026-10-24): By Astra ✦ photostar ✦ Find Out More, the links on the row below. */
+  .footer-line { display: grid; grid-template-columns: repeat(4, auto); grid-template-areas: "by spark star more" "icons icons icons icons";
     justify-content: center; justify-items: center; align-items: center; gap: 6px 10px; }
-  .footer-line > .footer-group:first-child { grid-area: by; }
-  .footer-line > .footer-group:nth-child(2) { display: contents; }
-  .footer-line > .footer-group:nth-child(2)::before { content: none; }
-  .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: more; }
-  .footer-line > .footer-group:nth-child(2) > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 6px; }
-  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 48px)); gap: 4px; width: 100%; justify-content: center; }
-  .footer-icons a { width: 100%; max-width: 48px; height: auto; aspect-ratio: 1; }
-  .footer-icons svg { width: 38px; height: 38px; }
-  .languages { grid-area: langs; margin: 0; }
+  .footer-by { grid-area: by; }
+  .footer-sparkle { grid-area: spark; margin: 0; }
+  .footer-more { display: contents; }
+  .footer-more::before { content: none; }
+  .footer-more > .footer-title { grid-area: more; }
+  .footer-more > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 10px; }
+  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
+  .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
+  .footer-icons svg { width: 32px; height: 32px; }
   .languages .tag { font-size: 11px; padding: 0 7px; }
   .footer-star { grid-area: star; margin: 0; }
   .footer-star img { width: 48px; height: 48px; }
