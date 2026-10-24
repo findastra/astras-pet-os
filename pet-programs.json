@@ -1262,6 +1262,21 @@
         "text": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
         "reviewed": false
       }
+    },
+    {
+      "number": 85,
+      "program": "The Control Room",
+      "assigned": true,
+      "icon": "Reactor Raccoon",
+      "idea": "The Cooling Tower (the VRChat world it looks after)",
+      "stage": "seed",
+      "repo": "the-control-room",
+      "repo_exists": false,
+      "mini_descriptor": {
+        "label": "the-control-room-v1.0-mini-descriptor-v1.0",
+        "text": "Reactor Raccoon’s world caretaker for The Cooling Tower: its plan, tools list, photo portfolio and Mini Model, and its use of shared Unity Unicorn tools. Repo, runtime and art are planned.",
+        "reviewed": false
+      }
     }
   ]
 }

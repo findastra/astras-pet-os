@@ -194,6 +194,7 @@
     "threat-observatory": { "agent": "Threat Intelligence Agent" },
     "the-threshold": { "agent": "Liminal Doors Agent" },
     "role-fairy": { "agent": "Discord Bot Agent" },
-    "workflow-whirlpool": { "agent": "Screen Markup Agent" }
+    "workflow-whirlpool": { "agent": "Screen Markup Agent" },
+    "the-control-room": { "agent": "Cooling Tower Agent" }
   }
 }
