@@ -509,7 +509,7 @@ function socialRowPanel(d) {
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
 function vrchatLaunchPanel(d) {
-  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody()}</div>
+  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
 ${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
 }
 

@@ -90,10 +90,13 @@ ${untested.length ? `<p class="small launch-warn" hidden>Not confirmed with ${es
 </fieldset>`;
 }
 
-export function vrchatLaunchBody() {
-  return HEADSETS.map((h) => `<fieldset class="launch-headset" data-launch-headset="${esc(h.id)}"><legend>${esc(h.n)}. ${esc(h.name)}</legend>
+// Each headset box is a tool, so its name sits inside its round border on the first row, with its paired lights left
+// of it like every tool's (Astra, 2026-10-24: "title needs to be down inside and with indicator light buttons, its a
+// tool"). `lights(key, name)` is the page spawner's.
+export function vrchatLaunchBody(lights = () => '') {
+  return HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<span class="launch-name">${esc(h.n)}. ${esc(h.name)}</span></div>
 <p class="small">${esc(h.about)} <span class="launch-best" data-launch-best></span></p>
 ${switchRow(h)}
 <div class="launch-modes">${MODES.map((m, i) => modeCard(h, m, i)).join('\n')}</div>
-</fieldset>`).join('\n');
+</div>`).join('\n');
 }
