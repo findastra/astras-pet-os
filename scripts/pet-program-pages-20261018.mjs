@@ -512,7 +512,7 @@ function socialRowPanel(d) {
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
 function vrchatLaunchPanel(d) {
-  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody()}</div>
+  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
 ${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
 }
 
@@ -693,9 +693,11 @@ ${sub('pet-id', `<dl class="status">
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 
-  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is. A tool
-  // that works right on the page is one of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel
-  // is its own and the tool is listed too just separately").
+  // A pet's own panels come first, under the header and before the four levels (Astra, 2026-10-24:
+  // "rift-rabbit-launch-panel should be the first panel before the intelligence levels. all of the non typical panels
+  // we make for these pet programs need to go at the top if applicable"). A tool that works right on the page is one
+  // of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel is its own and the tool is listed
+  // too just separately").
   const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
   const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
@@ -751,13 +753,16 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
-  // Out More on one line; the languages as bubbles below them, from the pet's repo.
+  // Out More on one line. Since 2026-10-24 (Astra: "make sure there is no sparkle before By Astra ... the codes go below
+  // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line,
+  // and the languages as bubbles on their own line below, from the pet's repo.
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
-<div class="footer-group"><span class="footer-title">By Astra</span></div>
-<div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
-<a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="56" height="56" loading="lazy"></a>
+<div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
+<span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="48" height="48" loading="lazy"></a>
+<div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
+<ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 
@@ -793,9 +798,9 @@ ${wordScripts}
 <main class="page">
 ${editorial}
 <header class="top">${cyberhome}${title}${systemMap}</header>
-${levels}
+${own}${levels}
 <div class="side-by-side">${rwx}${notes}</div>
-${own}<div class="pair">${emotions}${clicker}</div>
+<div class="pair">${emotions}${clicker}</div>
 ${related}
 ${footer}
 </main>

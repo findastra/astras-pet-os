@@ -20,6 +20,111 @@
 <div class="map-box"><a class="map-link" href="../../system-map-20261012.html#node=program-29" title="Open Wonderland Launchpad on the System Map" aria-label="Open Wonderland Launchpad on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with Wonderland Launchpad on ring 3"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="116" cy="60" r="7"/></svg>
 </a></div></div></details></header>
+<details class="panel vrchat-launch" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-vrchat-launch-panel</span></summary><div id="vrchat-launch"><div class="launch-headset" data-launch-headset="quest-pro"><div class="launch-head"><span class="lights"><button type="button" class="light onoff" data-item="tool:vrchat-launch-quest-pro" data-name="1. VRChat on Quest Pro" aria-label="1. VRChat on Quest Pro: on" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care" data-item="tool:vrchat-launch-quest-pro" data-name="1. VRChat on Quest Pro" aria-label="1. VRChat on Quest Pro: working correctly" title="Working correctly or requires maintenance: click to mark"></button></span><button type="button" class="launch-fold launch-name" aria-expanded="true">1. VRChat on Quest Pro</button></div>
+<div class="launch-switches">
+<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>
+<label class="launch-switch"><input type="checkbox" data-launch-switch="oscgoesbrrr" checked> OSCGoesBrrr</label>
+<label class="launch-switch"><input type="checkbox" data-launch-switch="double-hip"> Double Hip / Double Chest (Double Hip Tracker)</label>
+<label class="launch-switch">Streamer <select data-launch-switch="streamer"><option value="virtual-desktop">Virtual Desktop</option><option value="steam-link">Steam Link</option><option value="meta-horizon-link">Meta Horizon Link (cable or Air Link)</option></select></label>
+</div>
+<div class="launch-modes"><fieldset class="launch-mode" data-launch-mode="native"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 1.0 Native VRChat Tracking</button></legend>
+<p class="launch-tracker">No head tracker</p>
+<ul class="small launch-points"><li>The headset tracks itself; nothing corrects it.</li><li>The baseline to compare the others with.</li><li>Lighthouse trackers only line up if they were calibrated once.</li><li>With no head tracker, nothing pulls them back when the headset drifts.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>VRCFaceTracking</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 1.0</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-calibrator"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 1.1 Space Calibrator</button></legend>
+<p class="launch-tracker">Head tracker, 2 positions for the head: the mounted tracker and the headset</p>
+<ul class="small launch-points"><li>The headset keeps its own position.</li><li>Continuous calibration keeps re-measuring the gap between it and the tracker.</li><li>What you use today.</li><li>The two systems stay separate, so the gap it chases can grow during a long session.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>VRCFaceTracking</li><li>Space Calibrator</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Override, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 1.1</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-override" data-untested="meta-horizon-link"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 1.2 Space Override</button></legend>
+<p class="launch-tracker">Head tracker, 1 position for the head: the mounted tracker</p>
+<ul class="small launch-points"><li>After one calibration, the head position is built from the tracker.</li><li>Everything is on the Lighthouses, so nothing can drift apart.</li><li>A head tracker that loses the base stations moves your view.</li><li>It falls back to the headset if the tracker dies.</li><li>Controllers can jump and settle; full-body in VRChat can look odd.</li><li class="launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>VRCFaceTracking</li><li>Space Override</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 1.2</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-sync" data-untested="meta-horizon-link"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 1.3 Space Sync</button></legend>
+<p class="launch-tracker">Head tracker, 1 position for the head: the headset in charge</p>
+<ul class="small launch-points"><li>The headset keeps its own position.</li><li>The tracker measures the gap and moves the Lighthouse devices to follow it.</li><li>A beta fork of Space Override, tested mostly on one setup.</li><li>Trackers can sway on fast head turns until the head is still.</li><li class="launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>VRCFaceTracking</li><li>Space Sync (Follow SLAM HMD mode)</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 1.3</button></p>
+</fieldset></div>
+</div>
+<div class="launch-headset" data-launch-headset="quest-3"><div class="launch-head"><span class="lights"><button type="button" class="light onoff" data-item="tool:vrchat-launch-quest-3" data-name="2. VRChat on Quest 3" aria-label="2. VRChat on Quest 3: on" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care" data-item="tool:vrchat-launch-quest-3" data-name="2. VRChat on Quest 3" aria-label="2. VRChat on Quest 3: working correctly" title="Working correctly or requires maintenance: click to mark"></button></span><button type="button" class="launch-fold launch-name" aria-expanded="true">2. VRChat on Quest 3</button></div>
+<div class="launch-switches">
+<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>
+<label class="launch-switch"><input type="checkbox" data-launch-switch="oscgoesbrrr" checked> OSCGoesBrrr</label>
+<label class="launch-switch"><input type="checkbox" data-launch-switch="double-hip"> Double Hip / Double Chest (Double Hip Tracker)</label>
+<label class="launch-switch">Streamer <select data-launch-switch="streamer"><option value="virtual-desktop">Virtual Desktop</option><option value="steam-link">Steam Link</option><option value="meta-horizon-link">Meta Horizon Link (cable or Air Link)</option></select></label>
+</div>
+<div class="launch-modes"><fieldset class="launch-mode" data-launch-mode="native"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 2.0 Native VRChat Tracking</button></legend>
+<p class="launch-tracker">No head tracker</p>
+<ul class="small launch-points"><li>The headset tracks itself; nothing corrects it.</li><li>The baseline to compare the others with.</li><li>Lighthouse trackers only line up if they were calibrated once.</li><li>With no head tracker, nothing pulls them back when the headset drifts.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 2.0</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-calibrator"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 2.1 Space Calibrator</button></legend>
+<p class="launch-tracker">Head tracker, 2 positions for the head: the mounted tracker and the headset</p>
+<ul class="small launch-points"><li>The headset keeps its own position.</li><li>Continuous calibration keeps re-measuring the gap between it and the tracker.</li><li>What you use today.</li><li>The two systems stay separate, so the gap it chases can grow during a long session.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>Space Calibrator</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Override, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 2.1</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-override" data-untested="meta-horizon-link"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 2.2 Space Override</button></legend>
+<p class="launch-tracker">Head tracker, 1 position for the head: the mounted tracker</p>
+<ul class="small launch-points"><li>After one calibration, the head position is built from the tracker.</li><li>Everything is on the Lighthouses, so nothing can drift apart.</li><li>A head tracker that loses the base stations moves your view.</li><li>It falls back to the headset if the tracker dies.</li><li>Controllers can jump and settle; full-body in VRChat can look odd.</li><li class="launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>Space Override</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Sync</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 2.2</button></p>
+</fieldset>
+<fieldset class="launch-mode" data-launch-mode="space-sync" data-untested="meta-horizon-link"><legend><button type="button" class="launch-fold" aria-expanded="true">Mode 2.3 Space Sync</button></legend>
+<p class="launch-tracker">Head tracker, 1 position for the head: the headset in charge</p>
+<ul class="small launch-points"><li>The headset keeps its own position.</li><li>The tracker measures the gap and moves the Lighthouse devices to follow it.</li><li>A beta fork of Space Override, tested mostly on one setup.</li><li>Trackers can sway on fast head turns until the head is still.</li><li class="launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</li></ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order"><li>SteamVR</li><li data-launch-streamer>Virtual Desktop</li><li>Space Sync (Follow SLAM HMD mode)</li><li>VRChat</li><li data-launch-extra="oscgoesbrrr" hidden>OSCGoesBrrr</li><li data-launch-extra="double-hip" hidden>Double Hip Tracker</li></ol>
+<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating><option value="">Not tried yet</option><option value="bad">Bad</option><option value="ok">OK</option><option value="good">Good</option><option value="best">Best so far</option></select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
+<span class="small launch-tried" data-launch-tried></span></div>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode 2.3</button></p>
+</fieldset></div>
+</div></div>
+<details class="about"><summary>More details</summary><p class="small">vrchat-launch-panel (<code>wonderland-launchpad-v1.0-vrchat-launch-panel-v0.1</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.</p></details></details>
 <details class="panel levels" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-intelligence-levels-panel</span></summary><p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p><details class="panel level" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-L1-tool-panel</span></summary><div class="columns">
 <section><h3>3rd party programs · 12</h3><ul class="items"><li class="pill"><span class="lights"><button type="button" class="light onoff is-off" data-item="third-party:steamvr" data-name="SteamVR" data-planned="1" data-unseen="1" aria-label="SteamVR: not seen running" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care is-unset" data-item="third-party:steamvr" data-name="SteamVR" data-planned="1" data-unseen="1" aria-label="SteamVR: not checked yet" title="Working correctly or requires maintenance: click to mark"></button></span><span class="item-name">SteamVR</span><span class="item-desc">Valve&#39;s VR runtime: it runs PC VR headsets, controllers and trackers.</span><details class="pill-more"><summary aria-label="More about SteamVR"></summary><div class="pill-body"><p>Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder.</p>
 <p class="small">planned · its own page is not linked on the System Map yet</p></div></details></li><li class="pill"><span class="lights"><button type="button" class="light onoff is-off" data-item="third-party:meta-horizon-link" data-name="Meta Horizon Link" data-planned="1" data-unseen="1" aria-label="Meta Horizon Link: not seen running" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care is-unset" data-item="third-party:meta-horizon-link" data-name="Meta Horizon Link" data-planned="1" data-unseen="1" aria-label="Meta Horizon Link: not checked yet" title="Working correctly or requires maintenance: click to mark"></button></span><span class="item-name">Meta Horizon Link</span><span class="item-desc">Connects a Quest headset to the PC, by cable or Air Link, to play PC VR.</span><details class="pill-more"><summary aria-label="More about Meta Horizon Link"></summary><div class="pill-body"><p>Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder.</p>
@@ -127,121 +232,6 @@
 <details class="backlog"><summary>wonderland-launchpad-backlog in this browser (<span id="backlog-count">0</span>)</summary><ol id="backlog" reversed data-words-keep></ol>
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
 <p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details></details></div>
-<details class="panel vrchat-launch" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-vrchat-launch-panel</span></summary><div id="vrchat-launch"><fieldset class="launch-headset" data-launch-headset="quest-pro"><legend>1. VRChat on Quest Pro</legend>
-<p class="small">Face and eye tracking through VRCFaceTracking. <span class="launch-best" data-launch-best></span></p>
-<div class="launch-switches">
-<span class="launch-fixed">Face tracking: VRCFaceTracking on</span>
-<label class="launch-switch"><input type="checkbox" data-launch-switch="oscgoesbrrr" checked> OSCGoesBrrr</label>
-<label class="launch-switch"><input type="checkbox" data-launch-switch="double-hip"> Double Hip / Double Chest (Double Hip Tracker)</label>
-<label class="launch-switch">streamer <select data-launch-switch="streamer"><option value="virtual-desktop">Virtual Desktop</option><option value="steam-link">Steam Link</option><option value="meta-horizon-link">Meta Horizon Link (cable or Air Link)</option></select></label>
-</div>
-<div class="launch-modes"><fieldset class="launch-mode" data-launch-mode="native"><legend>1.1 Native VRChat tracking</legend>
-<p class="launch-tracker">no head tracker</p>
-<p class="small">The headset tracks itself; nothing corrects it.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → VRCFaceTracking → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override, Space Sync</p>
-
-<p class="small">The baseline to compare the others with. Lighthouse trackers only line up if they were calibrated once; with no head tracker nothing pulls them back when the headset drifts.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 1.1</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-calibrator"><legend>1.2 Space Calibrator</legend>
-<p class="launch-tracker">head tracker, 2 positions for the head: the mounted tracker and the headset</p>
-<p class="small">The headset keeps its own position; continuous calibration keeps re-measuring the gap between it and the tracker.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → VRCFaceTracking → Space Calibrator → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Override, Space Sync</p>
-
-<p class="small">What you use today. The two systems stay separate, so the gap it chases can grow during a long session.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 1.2</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-override" data-untested="meta-horizon-link"><legend>1.3 Space Override</legend>
-<p class="launch-tracker">head tracker, 1 position for the head: the mounted tracker</p>
-<p class="small">After one calibration the head position is built from the tracker; everything is on the Lighthouses.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → VRCFaceTracking → Space Override → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Sync</p>
-<p class="small launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</p>
-<p class="small">Nothing can drift apart, but a head tracker that loses the base stations moves your view. It has a fallback to the headset if the tracker dies. Controllers can jump and settle; full-body in VRChat can look odd.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 1.3</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-sync" data-untested="meta-horizon-link"><legend>1.4 Space Sync</legend>
-<p class="launch-tracker">head tracker, 1 position for the head: the headset in charge</p>
-<p class="small">The headset keeps its own position; the tracker measures the gap and moves the Lighthouse devices to follow it.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → VRCFaceTracking → Space Sync (Follow SLAM HMD mode) → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override</p>
-<p class="small launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</p>
-<p class="small">A beta fork of Space Override, tested mostly on one setup. Trackers can sway on fast head turns until the head is still.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 1.4</button></p>
-</fieldset></div>
-</fieldset>
-<fieldset class="launch-headset" data-launch-headset="quest-3"><legend>2. VRChat on Quest 3</legend>
-<p class="small">No face tracking. <span class="launch-best" data-launch-best></span></p>
-<div class="launch-switches">
-<span class="launch-fixed">Face tracking: none</span>
-<label class="launch-switch"><input type="checkbox" data-launch-switch="oscgoesbrrr" checked> OSCGoesBrrr</label>
-<label class="launch-switch"><input type="checkbox" data-launch-switch="double-hip"> Double Hip / Double Chest (Double Hip Tracker)</label>
-<label class="launch-switch">streamer <select data-launch-switch="streamer"><option value="virtual-desktop">Virtual Desktop</option><option value="steam-link">Steam Link</option><option value="meta-horizon-link">Meta Horizon Link (cable or Air Link)</option></select></label>
-</div>
-<div class="launch-modes"><fieldset class="launch-mode" data-launch-mode="native"><legend>2.1 Native VRChat tracking</legend>
-<p class="launch-tracker">no head tracker</p>
-<p class="small">The headset tracks itself; nothing corrects it.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override, Space Sync</p>
-
-<p class="small">The baseline to compare the others with. Lighthouse trackers only line up if they were calibrated once; with no head tracker nothing pulls them back when the headset drifts.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 2.1</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-calibrator"><legend>2.2 Space Calibrator</legend>
-<p class="launch-tracker">head tracker, 2 positions for the head: the mounted tracker and the headset</p>
-<p class="small">The headset keeps its own position; continuous calibration keeps re-measuring the gap between it and the tracker.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → Space Calibrator → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Override, Space Sync</p>
-
-<p class="small">What you use today. The two systems stay separate, so the gap it chases can grow during a long session.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 2.2</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-override" data-untested="meta-horizon-link"><legend>2.3 Space Override</legend>
-<p class="launch-tracker">head tracker, 1 position for the head: the mounted tracker</p>
-<p class="small">After one calibration the head position is built from the tracker; everything is on the Lighthouses.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → Space Override → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Sync</p>
-<p class="small launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</p>
-<p class="small">Nothing can drift apart, but a head tracker that loses the base stations moves your view. It has a fallback to the headset if the tracker dies. Controllers can jump and settle; full-body in VRChat can look odd.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 2.3</button></p>
-</fieldset>
-<fieldset class="launch-mode" data-launch-mode="space-sync" data-untested="meta-horizon-link"><legend>2.4 Space Sync</legend>
-<p class="launch-tracker">head tracker, 1 position for the head: the headset in charge</p>
-<p class="small">The headset keeps its own position; the tracker measures the gap and moves the Lighthouse devices to follow it.</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">SteamVR → the streamer → Space Sync (Follow SLAM HMD mode) → VRChat</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> Space Calibrator continuous calibration, Space Override</p>
-<p class="small launch-warn" hidden>Not confirmed with Meta Horizon Link (cable or Air Link) yet.</p>
-<p class="small">A beta fork of Space Override, tested mostly on one setup. Trackers can sway on fast head turns until the head is still.</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating><option value="">not tried yet</option><option value="bad">bad</option><option value="ok">ok</option><option value="good">good</option><option value="best">best so far</option></select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
-<span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch 2.4</button></p>
-</fieldset></div>
-</fieldset></div>
-<details class="about"><summary>More details</summary><p class="small">vrchat-launch-panel (<code>wonderland-launchpad-v1.0-vrchat-launch-panel-v0.1</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.</p></details></details>
 <div class="pair"><details class="panel emotions" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-emotions</span></summary><div class="moods"><figure class="mood" data-mood="sleep"><fieldset class="mood-bubble"><legend>sleepy</legend><ul><li>running in the background</li></ul><q>Sleepy: I&#39;m running in the background. Your VR software and performance notes needs nothing from you.</q></fieldset><img src="../../desktop-art/rift-rabbit/sleep-20261011.png" alt="Rift Rabbit, sleepy" width="256" height="256"></figure><figure class="mood" data-mood="blink"><fieldset class="mood-bubble"><legend>awake</legend><ul><li>the program is open and you have interacted with it recently</li></ul><q>Awake: my program is open and you&#39;ve used it recently.</q></fieldset><span class="awake-faces"><img class="awake" data-face="idle" src="../../desktop-art/rift-rabbit/idle-20261011.png" alt="Rift Rabbit, idle" width="256" height="256"><img class="awake" data-face="blink" src="../../desktop-art/rift-rabbit/blink-20261011.png" alt="Rift Rabbit, blinking" width="256" height="256" hidden></span></figure><figure class="mood" data-mood="idle"><fieldset class="mood-bubble"><legend>idle</legend><ul><li>the program is open and you haven’t interacted with it recently</li></ul><q>Idle: my program is open, but you haven&#39;t used it for a while.</q></fieldset><img src="../../desktop-art/rift-rabbit/idle-20261011.png" alt="Rift Rabbit, idle" width="256" height="256"></figure><figure class="mood" data-mood="curious"><fieldset class="mood-bubble"><legend>curious</legend><ul><li>an L3 agent requires L4 authorization or input</li></ul><q>Curious: I need your OK or your input: your headset and PC details.</q></fieldset><img src="../../desktop-art/rift-rabbit/curious-20261011.png" alt="Rift Rabbit, curious" width="256" height="256"></figure><figure class="mood" data-mood="happy"><fieldset class="mood-bubble"><legend>happy</legend><ul><li>just pushed new information</li><li>has an L3 suggestion for a workflow</li><li>ideas or work ready</li></ul><q>Happy: something new is ready: fresh work on your VR software and performance notes, a suggestion or an idea.</q></fieldset><img src="../../desktop-art/rift-rabbit/happy-20261011.png" alt="Rift Rabbit, happy" width="256" height="256"></figure><figure class="mood" data-mood="worried"><fieldset class="mood-bubble"><legend>worried</legend><ul><li>missed runtimes</li><li>missed checks</li><li>failed audits</li><li>token overusage</li></ul><q>Worried: something slipped with your VR software and performance notes: a missed run, a missed check, a failed audit or too many tokens.</q></fieldset><img src="../../desktop-art/rift-rabbit/worried-20261011.png" alt="Rift Rabbit, worried" width="256" height="256"></figure><figure class="mood" data-mood="alarmed"><fieldset class="mood-bubble"><legend>alarmed</legend><ul><li>a connected source reports an active alarm</li><li>a potential or active security breach</li></ul><q>Alarmed: a connected source reports an alarm, or there may be a security breach.</q></fieldset><img src="../../desktop-art/rift-rabbit/alarmed-20261011.png" alt="Rift Rabbit, alarmed" width="256" height="256"></figure><figure class="mood" data-mood="sick"><fieldset class="mood-bubble"><legend>sick</legend><ul><li>too many broken tools</li><li>broken pet programs</li></ul><q>Sick: too many of my tools are broken, or my program is.</q></fieldset><img src="../../desktop-art/rift-rabbit/sick-20261011.png" alt="Rift Rabbit, sick" width="256" height="256"></figure><figure class="mood" data-mood="sad"><fieldset class="mood-bubble"><legend>sad</legend><ul><li>hasn’t been opened in more than 2 weeks</li></ul><q>Sad: you haven&#39;t opened me in more than two weeks.</q></fieldset><img src="../../desktop-art/rift-rabbit/sad-20261011.png" alt="Rift Rabbit, sad" width="256" height="256"></figure></div><details class="about"><summary>More details</summary><p class="small">The mood Rift Rabbit is in now lights up (the page knows idle, awake and sad so far). Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.</p></details></details><details class="panel clicker" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-clicker-training-panel</span></summary><ul class="items"><li class="pill"><span class="lights"><button type="button" class="light onoff is-off" data-item="click:rift-rabbit:one-click" data-name="one click" data-planned="1" aria-label="one click: off, not built yet" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care is-unset" data-item="click:rift-rabbit:one-click" data-name="one click" data-planned="1" aria-label="one click: not checked yet" title="Working correctly or requires maintenance: click to mark"></button></span><span class="item-name">one click</span><span class="item-desc">Show the current reminder in a dialog box, like BSOD’s blurb.</span><details class="pill-more"><summary aria-label="More about one click"></summary><div class="pill-body">
 <p class="small">planned · its own page is not linked on the System Map yet</p></div></details></li><li class="pill"><span class="lights"><button type="button" class="light onoff" data-item="click:rift-rabbit:two-clicks" data-name="two clicks" aria-label="two clicks: on" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care" data-item="click:rift-rabbit:two-clicks" data-name="two clicks" aria-label="two clicks: working correctly" title="Working correctly or requires maintenance: click to mark"></button></span><span class="item-name">two clicks</span><span class="item-desc">Open or close Wonderland Launchpad, this page.</span><details class="pill-more"><summary aria-label="More about two clicks"></summary><div class="pill-body">
 <p class="small">works today · its own page is not linked on the System Map yet</p></div></details></li><li class="pill"><span class="lights"><button type="button" class="light onoff is-off" data-item="click:rift-rabbit:three-clicks" data-name="three clicks" data-planned="1" aria-label="three clicks: off, not built yet" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care is-unset" data-item="click:rift-rabbit:three-clicks" data-name="three clicks" data-planned="1" aria-label="three clicks: not checked yet" title="Working correctly or requires maintenance: click to mark"></button></span><span class="item-name">three clicks</span><span class="item-desc">A tool you assign: none assigned yet.</span><details class="pill-more"><summary aria-label="More about three clicks"></summary><div class="pill-body">
@@ -251,10 +241,11 @@
 <details class="about"><summary>More details</summary><p class="small">Every pet Rift Rabbit plays with on the System Map, hatched or not, most used first. Use is not measured yet, so the order is the map's: links that work today, then planned, then ideas; within each, the pet they share the most with. A <code>plays_with</code> list in pets.json sets the order instead. Click one to open its pet program.</p></details></details>
 <details class="panel footer" open><summary title="Click the label to fold or unfold this tool panel"><span class="legend">rift-rabbit-unified-footer-panel</span></summary><footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
-<div class="footer-group"><span class="footer-title">By Astra</span></div>
-<div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons"><a href="https://github.com/findastra" title="GitHub: Astra" aria-label="GitHub: Astra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a><a href="https://discord.gg/YJUHtGGrJe" title="Mommy’s Discord: Join MMY" aria-label="Mommy’s Discord: Join MMY"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18.2 18.2 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18a19.8 19.8 0 0 0 6 3l1.3-2.1c-.7-.3-1.4-.6-2-1l.5-.4a14.1 14.1 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1L18 21a19.8 19.8 0 0 0 6-3c.5-5.1-.8-9.6-3.7-13.6ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg></a><a href="https://www.tiktok.com/@findastra" title="VR TikTok: @findastra" aria-label="VR TikTok: @findastra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z"/></svg></a><a href="https://www.tiktok.com/@astra_on_fire" title="Pole Dance TikTok: @astra_on_fire" aria-label="Pole Dance TikTok: @astra_on_fire"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z"/></svg></a><a href="https://www.instagram.com/astra_on_fire" title="VRChat Instagram: @astra_on_fire" aria-label="VRChat Instagram: @astra_on_fire"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1ZM12 6.9a5.1 5.1 0 1 0 0 10.2 5.1 5.1 0 0 0 0-10.2Zm0 8.4a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Zm5.3-9.8a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"/></svg></a></span><ul class="languages" aria-label="Languages in findastra/rift-rabbit"><li class="tag">HTML 100%</li></ul></div>
-<a class="footer-star" href="https://findastra.github.io/astras-star-window/" title="Astra's photostar" aria-label="Astra's photostar"><img src="https://findastra.github.io/astras-star-window/star-window.svg" alt="" width="56" height="56" loading="lazy"></a>
+<div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
+<span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="https://findastra.github.io/astras-star-window/" title="Astra's photostar" aria-label="Astra's photostar"><img src="https://findastra.github.io/astras-star-window/star-window.svg" alt="" width="48" height="48" loading="lazy"></a>
+<div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons"><a href="https://github.com/findastra" title="GitHub: Astra" aria-label="GitHub: Astra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a><a href="https://discord.gg/YJUHtGGrJe" title="Mommy’s Discord: Join MMY" aria-label="Mommy’s Discord: Join MMY"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18.2 18.2 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18a19.8 19.8 0 0 0 6 3l1.3-2.1c-.7-.3-1.4-.6-2-1l.5-.4a14.1 14.1 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1L18 21a19.8 19.8 0 0 0 6-3c.5-5.1-.8-9.6-3.7-13.6ZM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg></a><a href="https://www.tiktok.com/@findastra" title="VR TikTok: @findastra" aria-label="VR TikTok: @findastra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z"/></svg></a><a href="https://www.tiktok.com/@astra_on_fire" title="Pole Dance TikTok: @astra_on_fire" aria-label="Pole Dance TikTok: @astra_on_fire"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 2c.4 2.7 1.9 4.3 4.5 4.5v3.4a9 9 0 0 1-4.5-1.4v7.4a6.3 6.3 0 1 1-5.5-6.3v3.5a2.9 2.9 0 1 0 2 2.8V2Z"/></svg></a><a href="https://www.instagram.com/astra_on_fire" title="VRChat Instagram: @astra_on_fire" aria-label="VRChat Instagram: @astra_on_fire"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1ZM12 6.9a5.1 5.1 0 1 0 0 10.2 5.1 5.1 0 0 0 0-10.2Zm0 8.4a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Zm5.3-9.8a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"/></svg></a></span></div>
 </div>
+<ul class="languages" aria-label="Languages in findastra/rift-rabbit"><li class="tag">HTML 100%</li></ul>
 </footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (the-farm-v1.0-pet-program-spawner-v1.0) from pets.json, pet-programs.json and the System Map, 20261018. npm run build rewrites this page; do not edit it by hand. --></details>
 </main>

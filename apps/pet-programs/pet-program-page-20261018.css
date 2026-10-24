@@ -47,7 +47,9 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
 /* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
    neon color and much shorter"). */
-.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 18px 0 30px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
+/* It starts at the page's gutter, like the sides, and sits as far above the header as the header sits above the next
+   panel, 30px border to border (Astra, 2026-10-24: "1 and 2 seem different sizes ... 3 and 4 should be same distance"). */
+.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 24px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
 .panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
 .panel.editorial p + p { margin-top: 4px; }
@@ -126,6 +128,13 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
 .title .summary[open] { padding: var(--pad); }
 .title .summary > p { margin: 0; }
+/* The two squares and the quick summary end on one line, always (Astra, 2026-10-24: "these should end at the same spot
+   always"): the header's row stretches them all to the tallest, and the summary grows to fill the title column. A
+   folded box stays only as tall as its label. */
+.top.title-between { align-items: stretch; }
+.top.title-between > .title { display: flex; flex-direction: column; }
+.top.title-between > .title > .panel[open] { flex: 1; }
+.top.title-between > .panel:not([open]) { align-self: start; }
 /* The pet fills its square: the den is the square's inside, and the pet and the rings shrink to fit it. */
 .top > .cyberhome[open] { padding: var(--pad); }
 .habitat { position: relative; text-align: center; display: flex; flex-direction: column; }
@@ -302,7 +311,7 @@ th { font-weight: 600; color: var(--chalk-dim); }
 textarea, select { width: 100%; color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); font: 15px var(--text); padding: 8px; }
 textarea { resize: vertical; }
 textarea::-webkit-scrollbar { width: 22px; height: 22px; }
-textarea::-webkit-resizer { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M20 6 6 20M20 12l-8 8M20 17l-3 3' stroke='%23e6e0c9' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center; }
+textarea::-webkit-resizer { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M20 6 6 20M20 12l-8 8M20 17l-3 3' stroke='%23c94f93' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center; }   /* the grip in the line's pink (Astra, 2026-10-24) */
 select { width: auto; max-width: 100%; padding: 3px 6px; }
 .note-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 label.file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
@@ -339,25 +348,32 @@ label.file { position: relative; }
 /* The unified footer (Astra, 2026-10-20: "It looked really good ... It was listed like an actual aesthetic footer"):
    Codex's footer-template of 2026-10-14 (Flash Audit A51) again. Centered and spacious between thin rules, its groups
    slightly staggered, each after a pink ✦; no list. */
-.panel.footer { padding: var(--pad); }
-.astra-footer { display: grid; justify-items: center; gap: 14px; text-align: center; font-size: 13px; }
+/* Snug above and below its one row (Astra, 2026-10-24: "there still is an awkward space before and after these items"). */
+.panel.footer { padding: 10px var(--pad); }
+.astra-footer { display: grid; justify-items: center; gap: 8px; text-align: center; font-size: 13px; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
-.footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 30px; }
+.footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; }
 .footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 0; }
-.footer-group::before { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+.footer-group::before, .footer-sparkle { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+/* By Astra, ✦, the photostar, ✦, Find Out More, the links (Astra, 2026-10-24): no ✦ before By Astra. */
+.footer-by::before { content: none; }
+.footer-sparkle { margin: 0 -8px 0 0; }
 .footer-title { font-weight: 600; letter-spacing: .02em; }
 .footer-group time { font: 12.5px var(--label); color: var(--chalk-dim); }
 .footer-icons { display: inline-flex; gap: 4px; }
 .footer-icons a, .footer-home { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; color: var(--chalk); text-decoration: none; }
 .footer-icons a:hover, .footer-home:hover { background: rgba(255, 255, 255, .1); }
+/* The photostar is the pets' drawn size (Astra, 2026-10-24: "photostar size to shrink a little to match pet icon
+   sizes"); the links went back to their own size ("ok go back to the size before of those icons"). */
 .footer-icons svg { width: 22px; height: 22px; fill: currentColor; }
 .footer-home img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
-.languages { list-style: none; margin: 0 0 0 8px; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+/* The languages ("the codes") are their own line below the links (Astra, 2026-10-24). */
+.languages { list-style: none; margin: 0; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 /* The photostar sits in the footer border's right corner, like a label on the line. */
 .panel.footer { position: relative; }
-.footer-star { display: block; line-height: 0; margin-left: 6px; }
-.footer-star img { width: 56px; height: 56px; }
+.footer-star { display: block; line-height: 0; }
+.footer-star img { width: 48px; height: 48px; }
 .languages .tag { font-size: 12px; padding: 1px 9px; }
 .astra-footer .footer-spawned { font-size: 11.5px; }
 
@@ -373,7 +389,9 @@ label.file { position: relative; }
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
-.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 4px 4px 11.5px;
+/* As much room right of the open button as left of the first light, 11.5px each (Astra, 2026-10-24: "there needs to
+   be as much room on the right side as the left between item and tool border"). */
+.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 11.5px;
   border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
@@ -435,18 +453,51 @@ img[hidden] { display: none !important; }
    she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
    a phone. */
 /* Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): a box per headset, its four ways of tracking side by side,
-   one column on a phone. The try rated best glows; square corners like every box. */
-.launch-headset { border: 1px solid var(--line); padding: 4px 14px 14px; margin: 0 0 18px; min-width: 0; }
-.launch-headset > legend { font: 15px var(--label); padding: 0 6px; }
+   one column on a phone. The try rated best glows. Each headset box is a tool, not a panel, so it is drawn like one:
+   round corners and the tool background; its four ways, its menus and its Launch buttons are parts of that tool and
+   round too (Astra, 2026-10-24: "I want to see this panel as a tool, so please give it round borders ... those should
+   also have round borders as they are not panels, they are a sub part of a tool"). */
+.launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
+/* Its name inside the border on the first row, its lights left of it, like every tool (Astra, 2026-10-24). The first
+   light sits at the centre of the 18px corner, as on every tool: 18 - 5.5 - 1 = 11.5px in, its row centred 18px down. */
+.launch-head { display: flex; align-items: center; gap: 0; margin: 0 0 6px -4.5px; min-height: 20px; }
+.launch-head .lights { margin-right: 10px; }
+.launch-name { font: 600 15px var(--label); color: var(--chalk); }
 .launch-switches { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; margin: 4px 0 14px; font-size: 14px; }
-.launch-switch select, .launch-try select, .launch-try textarea { font: 13px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 0; }
-.launch-fixed { color: var(--care); }
+.launch-switch select, .launch-try select, .launch-try textarea { font: 13px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 6px; }
+/* The notes box keeps square corners (Astra, 2026-10-24: "this also should be square corners not rounded edges"). */
+.launch-try textarea { border-radius: 0; }
+/* Face tracking looks like the other switches, a box that cannot be unticked (Astra, 2026-10-24). */
+.launch-fixed { cursor: not-allowed; }
+.launch-fixed input { cursor: not-allowed; }
+.launch-fold.launch-name { font: 600 15px var(--label); }
+/* Checkboxes in the page's own pink, not the browser's blue (Astra, 2026-10-24: "make the check boxes the right color
+   themes"). */
+input[type="checkbox"] { accent-color: var(--line); }
 .launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-.launch-mode { border: 1px solid var(--line-dim); padding: 4px 12px 8px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.launch-mode { border: 1px solid var(--line-dim); border-radius: 14px; padding: 4px 12px 10px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.launch-mode .button { border-radius: 14px; }
+/* Each headset tool and each way folds to its name, with the panels' arrow: down while open, right while folded
+   (Astra, 2026-10-24: "these also need to be collapsable"). */
+.launch-fold { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.launch-fold::after { content: "\00A0\00A0\25BE"; font-size: 10px; color: var(--chalk-dim); }
+.is-folded .launch-fold::after { content: "\00A0\00A0\25B8"; }
+.launch-fold:hover::after { color: var(--fix); }
+.launch-fold:focus-visible { outline: 2px solid var(--fix); outline-offset: 2px; }
+.launch-headset.is-folded > :not(.launch-head), .launch-mode.is-folded > :not(legend) { display: none; }
+.launch-headset.is-folded { padding-bottom: 7px; }
+.launch-headset.is-folded > .launch-head { margin-bottom: 0; }
 .launch-mode legend { font: 13px var(--label); padding: 0 6px; }
 .launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
 .launch-mode[data-rating="bad"] { border-color: var(--off); }
 .launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
+/* How it works and what to expect, as bullets right under the yellow line (Astra, 2026-10-24). */
+.launch-points { margin: 6px 0 10px; padding-left: 18px; display: grid; gap: 3px; }
+.launch-points li::marker { color: #d994c6; }
+/* What a mode starts, one program per line, in order (Astra, 2026-10-24). */
+.launch-label { margin: 8px 0 2px; }
+.launch-order { margin: 0 0 8px; padding-left: 22px; display: grid; gap: 2px; }
+.launch-order li::marker { color: #d994c6; font-family: var(--label); }
 .launch-warn { color: var(--fix); }
 .launch-try { display: grid; gap: 6px; }
 .launch-try textarea { width: 100%; box-sizing: border-box; }
@@ -513,12 +564,9 @@ img[hidden] { display: none !important; }
    the top corner: the star opens, the pet comes in, the star closes again. */
 .den { position: relative; }
 .den[data-arrival="waiting"] .pet { visibility: hidden; }
-.den[data-arrival="arriving"] .pet:not([hidden]) { animation: move-in 1s ease-out both; }
-@keyframes move-in {
-  from { transform: translate(40%, -40%) scale(.12); opacity: 0; }
-  65% { transform: translate(0, -7%) scale(1.04); opacity: 1; }
-  to { transform: none; opacity: 1; }
-}
+/* It arrives without moving in: the pet is shown still (Astra, 2026-10-24: "make the animation of the rabbit moving go
+   away on the pet program, just want to see it static"). */
+.den[data-arrival="arriving"] .pet:not([hidden]) { animation: none; }
 
 /* Activity lights (Astra, 2026-10-19): on while that level is working right now, and its tool panel glows with power.
    Grey: not connected yet. */
@@ -560,20 +608,21 @@ img[hidden] { display: none !important; }
    all of them in a row, put the photo star between the by astra and find out more"): By Astra, the photostar and Find
    Out More across the top, the five links as pet-sized pictures in one row under them, the languages last. */
 @media (max-width: 760px) {
-  .footer-line { display: grid; grid-template-columns: auto auto auto; grid-template-areas: "by star more" "icons icons icons" "langs langs langs";
+  /* The same order as on a computer (2026-10-24): By Astra ✦ photostar ✦ Find Out More, the links on the row below. */
+  .footer-line { display: grid; grid-template-columns: repeat(4, auto); grid-template-areas: "by spark star more" "icons icons icons icons";
     justify-content: center; justify-items: center; align-items: center; gap: 6px 10px; }
-  .footer-line > .footer-group:first-child { grid-area: by; }
-  .footer-line > .footer-group:nth-child(2) { display: contents; }
-  .footer-line > .footer-group:nth-child(2)::before { content: none; }
-  .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: more; }
-  .footer-line > .footer-group:nth-child(2) > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 6px; }
+  .footer-by { grid-area: by; }
+  .footer-sparkle { grid-area: spark; margin: 0; }
+  .footer-more { display: contents; }
+  .footer-more::before { content: none; }
+  .footer-more > .footer-title { grid-area: more; }
+  .footer-more > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 10px; }
   .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
   .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
   .footer-icons svg { width: 32px; height: 32px; }
-  .languages { grid-area: langs; margin: 0; }
   .languages .tag { font-size: 11px; padding: 0 7px; }
   .footer-star { grid-area: star; margin: 0; }
-  .footer-star img { width: 56px; height: 56px; }
+  .footer-star img { width: 48px; height: 48px; }
 }
 /* Room on the right for the phone's scroll bar (Astra, 2026-10-23: "need more room for the scroll bar on the right"). */
 @media (max-width: 760px) {

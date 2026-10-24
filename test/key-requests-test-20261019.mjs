@@ -13,14 +13,15 @@ const pages = spawnerPages(readSpawnerSources(root));
 const page = files[pagePath('api-fairy')];
 const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
 
-test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel after the four levels and the R W X panel, labelled in its border, and it folds', () => {
+test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel first, before the four levels, labelled in its border, and it folds', () => {
   const at = page.indexOf('>api-fairy-key-requests-tool-panel<');
-  for (const before of ['api-fairy-L4-tool-panel', 'api-fairy-rwx-panel']) {
-    assert.ok(page.indexOf(`>${before}<`) > -1, `${before} is on the page`);
-    assert.ok(at > page.indexOf(`>${before}<`), `after ${before}`);
+  // A pet's own panels come first, under the header (Astra, 2026-10-24: "all of the non typical panels we make for
+  // these pet programs need to go at the top if applicable").
+  for (const after of ['api-fairy-intelligence-levels-panel', 'api-fairy-L4-tool-panel', 'api-fairy-rwx-panel']) {
+    assert.ok(page.indexOf(`>${after}<`) > -1, `${after} is on the page`);
+    assert.ok(at > -1 && at < page.indexOf(`>${after}<`), `before ${after}`);
   }
-  // The R W X panel and the session notes sit side by side (Astra, 2026-10-22); a pet's own panels come after both.
-  assert.ok(at > page.indexOf('>api-fairy-session-notes-panel<') && at < page.indexOf('>api-fairy-emotions<'), 'after the session notes, before the emotions');
+  assert.ok(at > page.indexOf('</header>'), 'under the header');
   assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-tool-panel<\/span><\/summary>/);
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {

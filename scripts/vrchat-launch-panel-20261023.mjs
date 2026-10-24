@@ -19,42 +19,62 @@ export const HEADSETS = [
   { id: 'quest-3', n: 2, name: 'VRChat on Quest 3', face: false, about: 'No face tracking.' },
 ];
 
-// `head`: what tells SteamVR where the head is. `untested`: streamers its author has not confirmed.
+// `tracker`: what tells SteamVR where the head is, the yellow line under the name. `points`: how it works and what to
+// expect, one bullet each, under that line (Astra, 2026-10-24: "1 and 2 need to be combined into bullet points below
+// the yellow title, make sure all of these tool sub panels follow that format. Also watch your capitalization, make
+// consistent": names in Title Case, every line starting with a capital). `untested`: streamers not confirmed.
 export const MODES = [
   {
-    id: 'native', name: 'Native VRChat tracking', tracker: 'no head tracker',
-    head: 'The headset tracks itself; nothing corrects it.',
+    id: 'native', name: 'Native VRChat Tracking', tracker: 'No head tracker',
+    points: [
+      'The headset tracks itself; nothing corrects it.',
+      'The baseline to compare the others with.',
+      'Lighthouse trackers only line up if they were calibrated once.',
+      'With no head tracker, nothing pulls them back when the headset drifts.',
+    ],
     runs: [],
     off: ['Space Calibrator continuous calibration', 'Space Override', 'Space Sync'],
-    note: 'The baseline to compare the others with. Lighthouse trackers only line up if they were calibrated once; with no head tracker nothing pulls them back when the headset drifts.',
   },
   {
-    id: 'space-calibrator', name: 'Space Calibrator', tracker: 'head tracker, 2 positions for the head: the mounted tracker and the headset',
-    head: 'The headset keeps its own position; continuous calibration keeps re-measuring the gap between it and the tracker.',
+    id: 'space-calibrator', name: 'Space Calibrator', tracker: 'Head tracker, 2 positions for the head: the mounted tracker and the headset',
+    points: [
+      'The headset keeps its own position.',
+      'Continuous calibration keeps re-measuring the gap between it and the tracker.',
+      'What you use today.',
+      'The two systems stay separate, so the gap it chases can grow during a long session.',
+    ],
     runs: ['Space Calibrator'],
     off: ['Space Override', 'Space Sync'],
-    note: 'What you use today. The two systems stay separate, so the gap it chases can grow during a long session.',
   },
   {
-    id: 'space-override', name: 'Space Override', tracker: 'head tracker, 1 position for the head: the mounted tracker',
-    head: 'After one calibration the head position is built from the tracker; everything is on the Lighthouses.',
+    id: 'space-override', name: 'Space Override', tracker: 'Head tracker, 1 position for the head: the mounted tracker',
+    points: [
+      'After one calibration, the head position is built from the tracker.',
+      'Everything is on the Lighthouses, so nothing can drift apart.',
+      'A head tracker that loses the base stations moves your view.',
+      'It falls back to the headset if the tracker dies.',
+      'Controllers can jump and settle; full-body in VRChat can look odd.',
+    ],
     runs: ['Space Override'],
     off: ['Space Calibrator continuous calibration', 'Space Sync'],
     untested: ['meta-horizon-link'],
-    note: 'Nothing can drift apart, but a head tracker that loses the base stations moves your view. It has a fallback to the headset if the tracker dies. Controllers can jump and settle; full-body in VRChat can look odd.',
   },
   {
-    id: 'space-sync', name: 'Space Sync', tracker: 'head tracker, 1 position for the head: the headset in charge',
-    head: 'The headset keeps its own position; the tracker measures the gap and moves the Lighthouse devices to follow it.',
+    id: 'space-sync', name: 'Space Sync', tracker: 'Head tracker, 1 position for the head: the headset in charge',
+    points: [
+      'The headset keeps its own position.',
+      'The tracker measures the gap and moves the Lighthouse devices to follow it.',
+      'A beta fork of Space Override, tested mostly on one setup.',
+      'Trackers can sway on fast head turns until the head is still.',
+    ],
     runs: ['Space Sync (Follow SLAM HMD mode)'],
     off: ['Space Calibrator continuous calibration', 'Space Override'],
     untested: ['meta-horizon-link'],
-    note: 'A beta fork of Space Override, tested mostly on one setup. Trackers can sway on fast head turns until the head is still.',
   },
 ];
 
 // How each try went, kept in this browser.
-export const RATINGS = [['', 'not tried yet'], ['bad', 'bad'], ['ok', 'ok'], ['good', 'good'], ['best', 'best so far']];
+export const RATINGS = [['', 'Not tried yet'], ['bad', 'Bad'], ['ok', 'OK'], ['good', 'Good'], ['best', 'Best so far']];
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
@@ -66,34 +86,48 @@ export function launchOrder(headset, mode) {
 function switchRow(h) {
   const sw = (key, label, on) => `<label class="launch-switch"><input type="checkbox" data-launch-switch="${esc(key)}"${on ? ' checked' : ''}> ${esc(label)}</label>`;
   return `<div class="launch-switches">
-${h.face ? '<span class="launch-fixed">Face tracking: VRCFaceTracking on</span>' : '<span class="launch-fixed">Face tracking: none</span>'}
+${h.face
+    // Face tracking is a box like the others, but one that cannot be unticked: always on with the Quest Pro, never on
+    // the Quest 3 (Astra, 2026-10-24: "these need to look similar but the only caveat is the first one cant turn off
+    // its always on ... maybe box you cant uncheck").
+    ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
+    : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
 ${sw('double-hip', 'Double Hip / Double Chest (Double Hip Tracker)', false)}
-<label class="launch-switch">streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
+<label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 </div>`;
 }
 
+// The programs the switches add, after VRChat, shown only while their switch is on.
+const EXTRAS = [['oscgoesbrrr', 'OSCGoesBrrr'], ['double-hip', 'Double Hip Tracker']];
+
+// Each way is a mode, numbered from .0, the native one first (Astra, 2026-10-24: "call them modes. Mode 1.0 Native
+// VRChat Tracking, etc."), and it lists every program it starts, one per line in order, the streamer by the name
+// chosen above and the switches' programs while they are on ("we need to show other programs that are starting per
+// mode").
 function modeCard(h, m, i) {
-  const n = `${h.n}.${i + 1}`;
+  const n = `${h.n}.${i}`;
   const untested = (m.untested || []).map((s) => STREAMERS.find(([id]) => id === s)?.[1]).filter(Boolean);
-  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend>${esc(n)} ${esc(m.name)}</legend>
+  const step = (p) => (p === 'the streamer' ? `<li data-launch-streamer>${esc(STREAMERS[0][1])}</li>` : `<li>${esc(p)}</li>`);
+  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">Mode ${esc(n)} ${esc(m.name)}</button></legend>
 <p class="launch-tracker">${esc(m.tracker)}</p>
-<p class="small">${esc(m.head)}</p>
-<p class="small"><b>Starts:</b> <span class="launch-order">${launchOrder(h, m).map(esc).join(' → ')}</span><span class="launch-extra"></span></p>
-<p class="small"><b>Turn off:</b> ${m.off.map(esc).join(', ') || 'nothing'}</p>
-${untested.length ? `<p class="small launch-warn" hidden>Not confirmed with ${esc(untested.join(', '))} yet.</p>` : ''}
-<p class="small">${esc(m.note)}</p>
-<div class="launch-try"><label class="small">how it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
-<label class="small launch-note-label">notes <textarea rows="2" data-launch-note placeholder="drift after how long, jumps, swaps, lag"></textarea></label>
+<ul class="small launch-points">${m.points.map((p) => `<li>${esc(p)}</li>`).join('')}${untested.length ? `<li class="launch-warn" hidden>Not confirmed with ${esc(untested.join(', '))} yet.</li>` : ''}</ul>
+<p class="small launch-label"><b>Starts, in order:</b></p>
+<ol class="small launch-order">${launchOrder(h, m).map(step).join('')}${EXTRAS.map(([key, name]) => `<li data-launch-extra="${esc(key)}" hidden>${esc(name)}</li>`).join('')}</ol>
+<p class="small"><b>Turn off:</b> ${m.off.map(esc).join(', ') || 'Nothing'}</p>
+<div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
+<label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
 <span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch ${esc(n)}</button></p>
+<p><button type="button" class="button off" disabled title="Not built yet: a web page cannot start programs on the PC">Launch mode ${esc(n)}</button></p>
 </fieldset>`;
 }
 
-export function vrchatLaunchBody() {
-  return HEADSETS.map((h) => `<fieldset class="launch-headset" data-launch-headset="${esc(h.id)}"><legend>${esc(h.n)}. ${esc(h.name)}</legend>
-<p class="small">${esc(h.about)} <span class="launch-best" data-launch-best></span></p>
+// Each headset box is a tool, so its name sits inside its round border on the first row, with its paired lights left
+// of it like every tool's (Astra, 2026-10-24: "title needs to be down inside and with indicator light buttons, its a
+// tool"). `lights(key, name)` is the page spawner's.
+export function vrchatLaunchBody(lights = () => '') {
+  return HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
 ${switchRow(h)}
 <div class="launch-modes">${MODES.map((m, i) => modeCard(h, m, i)).join('\n')}</div>
-</fieldset>`).join('\n');
+</div>`).join('\n');
 }

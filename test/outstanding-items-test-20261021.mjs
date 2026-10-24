@@ -141,11 +141,12 @@ test('it is GitHub Aquarium\'s tool on the map, with the Pets Board as its nativ
   assert.match(read('package.json'), /"outstanding-items": "node scripts\/outstanding-items-20261021\.mjs"/);
 });
 
-test('GitHub Aquarium\'s page has the panel after the four levels and the R W X panel; no other page does', () => {
+test('GitHub Aquarium\'s page has the panel first, before the four levels; no other page does', () => {
   const files = spawnerFiles(readSpawnerSources(root));
   const page = files[pagePath('github-goldfish')];
   const at = page.indexOf('>github-goldfish-outstanding-items-tool-panel<');
-  assert.ok(at > page.indexOf('>github-goldfish-session-notes-panel<') && at < page.indexOf('>github-goldfish-emotions<'), 'after the R W X panel and the session notes, side by side since 2026-10-22');
+  // A pet's own panels come first, under the header (Astra, 2026-10-24).
+  assert.ok(at > page.indexOf('</header>') && at < page.indexOf('>github-goldfish-intelligence-levels-panel<'), 'under the header, before the four levels');
   for (const [id, label] of OUTSTANDING_GROUPS) assert.ok(page.includes(`<fieldset class="request-group outstanding-group g-${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
   assert.doesNotMatch(page, /class="[^"]*\boutstanding-group (?:broken|you|chat|close|info)\b/, 'no bare group class: `chat` is the chat pill\'s');
   assert.ok(page.includes(`href="${OUTSTANDING_BOARD}"`), 'the Open button goes to the Pets Board');
