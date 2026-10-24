@@ -317,7 +317,7 @@ private (2026-10-20 to 2026-10-21) no hosted picture loaded at all.
 One rule: `art/latest/` + the picture's folder and name without its date; the newest date wins. `art/latest/index.json`
 lists every stable path and the drawing it shows now (981 pictures on 2026-10-24). Links to undated pictures in
 `art/frames/` and `art/moods/` keep working and are never flagged. git stores each picture once, so the copies cost the
-repo nothing (about 75 MB on disk in a checkout). Offline, a page falls back to `../astras-pet-os/<the same address>`. To change a picture: add the new
+repo nothing (about 90 MB on disk in a checkout). Offline, a page falls back to `../astras-pet-os/<the same address>`. To change a picture: add the new
 drawing with a new date, run `npm run build`, merge. Every link shows it within 5 minutes; nothing else is edited.
 
 **Tools.**

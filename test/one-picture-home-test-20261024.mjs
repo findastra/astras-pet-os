@@ -8,7 +8,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { datedLinks, fixLinks, latestPath, latestPlan, planFor, HUB_RAW, LATEST } from '../scripts/one-picture-home-20261024.mjs';
-import { audit, describe, isLinkFile, HUB_RECORDS } from '../scripts/one-art-source-20261017.mjs';
+import { audit, classify, describe, isLinkFile, HUB_RECORDS } from '../scripts/one-art-source-20261017.mjs';
 import { analyze, artItems } from '../scripts/outstanding-items-20261021.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -81,6 +81,12 @@ test('the checker fails on a private hub and on a dated link, and says so in pla
   assert.match(describe(r.findings[2]), /README\.md links a dated picture: .*rgbee-20261012\.png \(should be .*latest\/icons\/rgbee\.png\)/);
   hub.private = false; hub.texts = {};
   assert.equal(audit({ 'astras-pet-os': hub, rgbee: { files: [] } }, null).verdict, 'Correct');
+});
+
+test("Fuzzbois' project art under its new name and Spoonfed's app logo are not pet pictures; a copy still is", () => {
+  const hubSha = new Map([['c3', ['desktop-art/fuzzboi-friend/layers/eyes.png']]]);
+  assert.deepEqual(classify('fuzzboi-factory', [{ path: 'art/fuzzboi-456900-original.png', sha: 'f1' }, { path: 'site/layers/eyes.png', sha: 'c3' }], hubSha).map((f) => [f.path, f.kind]), [['site/layers/eyes.png', 'copy']]);
+  assert.deepEqual(classify('spoonfed', [{ path: 'assets/icon.png', sha: 's1' }, { path: 'desktop-art/spoonfed-sugarcube/idle-20261011.png', sha: 's2' }], new Map()).map((f) => f.path), ['desktop-art/spoonfed-sugarcube/idle-20261011.png']);
 });
 
 test("the daily check's findings show in GitHub Aquarium's outstanding items, one row per repo", () => {

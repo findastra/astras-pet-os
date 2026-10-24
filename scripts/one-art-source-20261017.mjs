@@ -35,7 +35,11 @@ const APP_ICON = /(^|\/)(icon(-\d{8})?|[\w-]+-icon-\d{8}|fairy)\.(png|ico)$/;
 // Pictures that are not pictures of a pet: program screenshots (A55), worlds, avatars, site art.
 const NOT_PET = /^(Assets|docs|socials|public|diagrams|3d|legacy)\/|\/public\/|^art\/(projects|worlds|avatars|lettering|banner|procreate-export)\//;
 // The Fuzzbois art project is its own program; only its 32 layers are Fuzzboi Friend's pictures (now in the hub).
-const PROJECT_ART = { fuzzbois: (path) => !path.startsWith('site/layers/') };
+// The repo is fuzzboi-factory since 2026-10-17 (hub #36); its README picture is the project's own art.
+// Spoonfed is an Expo phone app: its spoon logo in assets/ is the app's brand icon, which its build reads from the app
+// folder, not a picture of Spoonfed Sugarcube (2026-10-24).
+const fuzzArt = (path) => !path.startsWith('site/layers/');
+const PROJECT_ART = { fuzzbois: fuzzArt, 'fuzzboi-factory': fuzzArt, spoonfed: (path) => path.startsWith('assets/') };
 
 /** Written exceptions (Flash Audit A58). */
 export const EXCEPTIONS = [
@@ -51,7 +55,7 @@ export function classify(repo, files, hubBySha) {
     const name = f.path.split('/').pop();
     if (hub) { found.push({ repo, path: f.path, kind: 'copy', hub: hub[0] }); continue; }
     if (NOT_PET.test(f.path) || PROJECT_ART[repo]?.(f.path)) continue;
-    if (repo === 'fuzzbois' || PET_DIR.test(f.path) || MOOD.test(name) || APP_ICON.test(f.path)) found.push({ repo, path: f.path, kind: 'pet-art-outside-hub', hub: null });
+    if (PROJECT_ART[repo] === fuzzArt || PET_DIR.test(f.path) || MOOD.test(name) || APP_ICON.test(f.path)) found.push({ repo, path: f.path, kind: 'pet-art-outside-hub', hub: null });
   }
   return found;
 }
