@@ -66,7 +66,23 @@
     header.style.removeProperty('--square');
     fitTitle();
   }
-  function fitHeader() { fitTitle(); fitSquares(); }
+  // ---- The title stays between the two squares while its name fits there at full size, and moves below them only
+  // when it outgrows that room (Astra, 2026-10-23: "at this point, the title could go between. only when it outgrows
+  // should it move down"). Wide windows always have the room. ----
+  function placeTitle() {
+    if (!header || !heading) return;
+    header.classList.add('title-between');
+    if (!window.matchMedia || !window.matchMedia('(max-width: 1000px)').matches) return;
+    heading.style.fontSize = '';
+    heading.classList.add('fits');
+    heading.classList.remove('clipped');
+    heading.classList.add('stacked'); // the version may go under the name; the name itself must fit at full size
+    var name = heading.querySelector('.title-name');
+    var fits = heading.scrollWidth <= heading.clientWidth && (!name || name.scrollWidth <= name.clientWidth + 1);
+    heading.classList.remove('stacked');
+    if (!fits) header.classList.remove('title-between');
+  }
+  function fitHeader() { placeTitle(); fitTitle(); fitSquares(); }
   fitHeader();
   window.addEventListener('resize', fitHeader);
   document.addEventListener('DOMContentLoaded', fitHeader); // after developer-words-20261019.js has swapped the words
