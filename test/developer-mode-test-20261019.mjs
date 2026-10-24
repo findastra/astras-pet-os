@@ -43,7 +43,9 @@ const data = (() => { const g = {}; g.window = g; vm.createContext(g); vm.runInC
 // Text people read on a page: everything between tags outside scripts and styles, and the read attributes.
 const decode = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 function texts(html) {
-  const body = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '');
+  // Any case, and again until none is left, so nothing script- or style-shaped survives (CodeQL, 2026-10-24).
+  let body = html, before;
+  do { before = body; body = body.replace(/<script\b[\s\S]*?<\/script\s*>|<style\b[\s\S]*?<\/style\s*>/gi, ''); } while (body !== before);
   const out = body.split(/<[^>]+>/).map((t) => decode(t).trim()).filter(Boolean);
   for (const m of body.matchAll(/\s(?:title|alt|placeholder|aria-label)="([^"]*)"/g)) out.push(decode(m[1]));
   return out;
