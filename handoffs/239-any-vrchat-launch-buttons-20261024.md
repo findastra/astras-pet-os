@@ -16,8 +16,11 @@ Six questions went to her as slides (https://claude.ai/artifact/RAU6UFwvy4UDttcA
 Later the same day: "[H] is head tracker, correct", "Launching is done by Rift Rabbit... not sure why you keep
 bringing up benchmark rock", and "Install both space sync and space override now".
 
-1. The launcher owns VRCFaceTracking, OVR Advanced Settings, OVR Dynamic Resolution and Space Calibrator. Their
-   auto-start in SteamVR is off. So is the auto-start of the Space Override and Space Sync overlays.
+1. At first, the launcher owned VRCFaceTracking, OVR Advanced Settings, OVR Dynamic Resolution and Space Calibrator,
+   with their auto-start in SteamVR off. Later: "The launch modes arent working. lets make sure we fix the steam auto
+   launch settings (fix for me) and make sure that we can at least launch 1.1 since that is what I currently use". So
+   their auto-start is back on, restored from the backup, and a launch finds them already open. The Space Override and
+   Space Sync overlays do not auto-start.
 2. The launcher checks, and she says go: Start VRChat turns on when everything is on.
 3. VRChat ignores the trackers her notes list for the Double Hip / Double Chest choice. In modes x.1 to x.3 it also
    ignores [H] (LHR-6963FCE5, now in the settings file). **Open:** whether "Double Hip only" means W + M or M + [ ]
@@ -48,8 +51,12 @@ program lights stay Inference Iguana's (Benchmark Rock's program-watch and devic
 - **findastra/benchmark-rock#8** no longer has the launcher. It is only program-watch's row for DoubleHip DoubleChest
   Tracker (its real place and name), for the lights.
 - **On her PC:**
-  - SteamVR's auto-start is off for the four programs and the two new overlays. The two new add-ons are off in
-    `steamvr.vrsettings`. The originals are in `Documents\Astra's PetOS Data\rift-rabbit\steamvr-autolaunch-backup-20261024`.
+  - SteamVR auto-starts her four programs again, as before today. The two new overlays don't auto-start, and the two
+    new add-ons are off in `steamvr.vrsettings`. The originals are in
+    `Documents\Astra's PetOS Data\rift-rabbit\steamvr-autolaunch-backup-20261024`.
+  - Her page doesn't launch yet because #239 isn't merged into her PC copy of the hub. Its Launch buttons are still
+    main's "Not built yet" ones. From #239's page, Launch 1.1 checked the add-ons, found Virtual Desktop open and
+    waited at "Put on the Quest Pro". Stop worked.
   - Space Override and Space Sync were installed from their GitHub releases, and their checksums match GitHub's. Space
     Sync's installer removes Space Override ("so there aren't two drivers"), so Space Override was installed again
     after it. Their SteamVR driver names differ (`spaceoverride`, `spacesync`).

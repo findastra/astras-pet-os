@@ -20,10 +20,11 @@ Tracker's pairs are still to come.
   Rabbit's page loads it. The shared page script still sends nothing (its test is unchanged).
 - All four modes per headset can launch: Space Override (v10) and Space Sync (2.5.0) were installed from their GitHub
   releases. Each one's add-on is off in SteamVR until its own mode. A Launch button that is off looks off.
-- On her PC: SteamVR no longer auto-starts VRCFaceTracking, OVR Advanced Settings, OVR Dynamic Resolution, Space
-  Calibrator, or the Space Override and Space Sync overlays (her answer: the launcher owns them). The original files
-  are kept in `Documents\Astra's PetOS Data\rift-rabbit\steamvr-autolaunch-backup-20261024`. The same switches in
-  SteamVR's Settings › Startup / Shutdown › Choose Startup Overlay Apps turn them back on.
+- On her PC: SteamVR auto-starts VRCFaceTracking, OVR Advanced Settings, OVR Dynamic Resolution and Space Calibrator
+  again, as before (Astra, later the same day: "lets make sure we fix the steam auto launch settings (fix for me)"),
+  restored from `Documents\Astra's PetOS Data\rift-rabbit\steamvr-autolaunch-backup-20261024`. A launch finds them
+  already open, and closes Space Calibrator the way its X does in the modes without it. The new Space Override and
+  Space Sync overlays do not auto-start.
 - The System Map gives Rift Rabbit (program-29) the tool `vr-launch`, which opens the programs a launch can start, and
   adds Space Override and Space Sync as programs Rift Rabbit looks after. Rift Rabbit's needs list them all.
 - No "Mode" (Astra: "Get rid of the "Mode" so go back to numbering with . ("2.0 Native VRChat Tracking" and "Launch
