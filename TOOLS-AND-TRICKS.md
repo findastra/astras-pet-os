@@ -39,14 +39,6 @@ Startup Star and the System Map are native programs of The Farm (each is opened 
 vrchat-avatar-upload are native tricks of Unity Stable (no code, only written steps; planned until written as skill
 files).
 
-**Who does the work decides the kind** (Astra, 2026-10-24, "Program, Tool or Trick" deck, all four answers as
-recommended): a person opens it, a program; code runs it, a tool; an AI reads written steps and makes choices, a trick.
-Where it goes: L1 holds what runs (3rd party programs, native programs, native tools, devices), L2 the pet program and
-its tricks, L3 what the seated AI asks or suggests to you about this pet program, L4 you and your records (the Pet ID).
-Applied the same day: Rift Rabbit's VRChat setups are a native tool in L1 (the launcher runs them; no AI decides); the
-update audit is both a native tool in L1 (its script) and a native trick in L2 (the weekly steps that use it), its
-questions shown in L3; update history is part of the Pet ID in L4.
-
 ## The chart: what runs, and how security sees it
 
 | | **Tool** (L1) | **Trick** (owned at L2, followed at L3) | **Harness skill** (the seat, L3) |
