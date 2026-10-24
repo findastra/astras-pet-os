@@ -32,7 +32,7 @@ export const DATE = '20261018';
 export const INDEX = `${DIR}/pet-program-spawner-${DATE}.html`;
 export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-page-${DATE}.js` };
 // Rift Rabbit's Launch buttons (2026-10-24): the only page script that sends anything, and only to Inference Iguana's
-// watch on this PC, so it is its own file and only Rift Rabbit's page loads it.
+// watch on this PC, so it is its own file and only Rift Rabbit's page loads it (wherever its VRChat setups are drawn).
 export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
@@ -818,7 +818,7 @@ ${footer}
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${PET_PANELS[d.repo] === outstandingPanel ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
-${PET_PANELS[d.repo] === vrchatLaunchPanel ? `<script src="${LAUNCHER_JS}"></script>
+${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
 `, pagePath(d.repo));

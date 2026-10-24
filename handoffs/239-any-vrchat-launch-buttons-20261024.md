@@ -60,6 +60,16 @@ lines and tests. Program-watch's and device-watch's code stays as it is, apart f
 3. After her OK: benchmark-rock#8 merges first, then #239. The PC copy of benchmark-rock is rebuilt (`--quit` first),
    and the watch is started from the PC copy again, so Startup Star's sign-in start runs the launcher.
 
+## Merging with #240
+
+Hub #240 (`claude/lights-checked-20261024`) draws Rift Rabbit's VRChat setups inside L1's "Native tools" (`vrchatSetups()`).
+It also removes the separate `rift-rabbit-vrchat-launch-panel` (Astra's "Program, Tool or Trick" answers, 2026-10-24,
+"all reccd"). Whichever PR merges second keeps the setups in L1 Native tools and does not bring the panel back.
+
+- #239's text change in `vrchatLaunchPanel()`'s about line goes away with that panel.
+- The launcher script is loaded by `d.repo === 'rift-rabbit'`, not by the panel, so it still loads.
+- `vrchatSetups()` keeps `<div id="vrchat-launch">`, which `vrchat-launcher-20261024.js` looks for.
+
 ## Return
 
 Record receipt and review in this card's `## Receipt and review`, on this PR's branch.
