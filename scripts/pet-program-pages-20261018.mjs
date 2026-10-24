@@ -690,9 +690,11 @@ ${sub('pet-id', `<dl class="status">
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
 
-  // A pet's own panels come after the four levels and the R W X panel, so the sketch's order stays as it is. A tool
-  // that works right on the page is one of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel
-  // is its own and the tool is listed too just separately").
+  // A pet's own panels come first, under the header and before the four levels (Astra, 2026-10-24:
+  // "rift-rabbit-launch-panel should be the first panel before the intelligence levels. all of the non typical panels
+  // we make for these pet programs need to go at the top if applicable"). A tool that works right on the page is one
+  // of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel is its own and the tool is listed
+  // too just separately").
   const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
   const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>working correctly <span class="key fix"></span>requires maintenance <span class="key planned"></span>not checked yet (click it)</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
@@ -790,9 +792,9 @@ ${wordScripts}
 <main class="page">
 ${editorial}
 <header class="top">${cyberhome}${title}${systemMap}</header>
-${levels}
+${own}${levels}
 <div class="side-by-side">${rwx}${notes}</div>
-${own}<div class="pair">${emotions}${clicker}</div>
+<div class="pair">${emotions}${clicker}</div>
 ${related}
 ${footer}
 </main>

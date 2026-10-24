@@ -246,11 +246,12 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   }
   const puffer = files[pagePath('portfolio-puffer')];
   // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
-  // 2026-10-22 its panel is its own, after the four levels ("astras-photostar-panel is its own and the tool is listed too
-  // just separately"), and its pill in L1 points there.
+  // 2026-10-22 its panel is its own ("astras-photostar-panel is its own and the tool is listed too just separately"),
+  // and its pill in L1 points there. Since 2026-10-24 a pet's own panels come first, before the four levels.
+  const levelsStart = puffer.indexOf(">portfolio-puffer-intelligence-levels-panel<");
   const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
   const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
-  assert.ok(at > levelsEnd, "its own panel, after the four levels");
+  assert.ok(at > -1 && at < levelsStart, "its own panel, before the four levels");
   assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
   assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
