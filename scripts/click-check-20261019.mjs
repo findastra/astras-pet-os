@@ -508,17 +508,31 @@ const IN_PAGE = String.raw`(() => {
       if (p.tagName === 'DETAILS' && !p.open) p.open = true;
     }
     if (e.disabled || e.getAttribute('aria-disabled') === 'true') return { state: 'disabled' };
-    e.scrollIntoView({ block: 'center', inline: 'center' });
-    const cs = getComputedStyle(e), r = e.getBoundingClientRect();
+    cc.reveal(e);
+    const cs = getComputedStyle(e), r = cc.box(e);
     // A checkbox drawn by its label (the box itself made invisible) is clicked where a person clicks: on the label.
     const own = e.labels && e.labels.length && (r.width <= 2 || r.height <= 2 || Number(cs.opacity) === 0 || cs.clip !== 'auto' || cs.clipPath !== 'none') ? e.labels[0] : null;
     if (own) return cc.aim(e, own);
     if (e.closest('[hidden]') || cs.display === 'none' || cs.visibility === 'hidden' || r.width < 1 || r.height < 1) return { state: 'hidden' };
     return cc.aim(e, e);
   };
+  // A link drawn with display: contents (a friends-list bubble, 2026-10-23) has no box of its own: its box is what it
+  // holds, and scrolling to it means scrolling to that.
+  cc.box = (el) => {
+    if (getComputedStyle(el).display !== 'contents') return el.getBoundingClientRect();
+    const kids = [...el.children].map(cc.box).filter((q) => q.width || q.height);
+    if (!kids.length) return el.getBoundingClientRect();
+    const left = Math.min(...kids.map((q) => q.left)), top = Math.min(...kids.map((q) => q.top));
+    const right = Math.max(...kids.map((q) => q.right)), bottom = Math.max(...kids.map((q) => q.bottom));
+    return { left, top, right, bottom, width: right - left, height: bottom - top, x: left, y: top };
+  };
+  cc.reveal = (el) => {
+    const first = getComputedStyle(el).display === 'contents' && el.firstElementChild ? el.firstElementChild : el;
+    first.scrollIntoView({ block: 'center', inline: 'center' });
+  };
   cc.aim = (e, at) => {
-    at.scrollIntoView({ block: 'center', inline: 'center' });
-    const r = at.getBoundingClientRect();
+    cc.reveal(at);
+    const r = cc.box(at);
     if (r.width < 1 || r.height < 1) return { state: 'hidden' };
     for (let p = at; p && p !== document.body; p = p.parentElement) if (Number(getComputedStyle(p).opacity) === 0) return { state: 'hidden', folded: true };
     const box = { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height };
@@ -540,7 +554,9 @@ const IN_PAGE = String.raw`(() => {
     };
     // A link that wraps onto two lines has a box per line: aim at the lines, not the gap between them.
     const pts = [];
-    for (const q of [...at.getClientRects()].filter((q) => q.width >= 1 && q.height >= 1)) {
+    // A link drawn with display: contents (a friends-list bubble) has no box of its own: aim at what it holds.
+    const rects = (el) => { const own = [...el.getClientRects()]; return own.length || getComputedStyle(el).display !== 'contents' ? own : [...el.children].flatMap(rects); };
+    for (const q of rects(at).filter((q) => q.width >= 1 && q.height >= 1)) {
       pts.push([q.left + q.width / 2, q.top + q.height / 2], [q.left + Math.min(4, q.width / 2), q.top + Math.min(4, q.height / 2)], [q.right - Math.min(4, q.width / 2), q.bottom - Math.min(4, q.height / 2)]);
     }
     let seen = null, inView = 0, folded = 0;
@@ -550,6 +566,10 @@ const IN_PAGE = String.raw`(() => {
       if (clipped(x, y)) { folded++; continue; }
       const t = document.elementFromPoint(x, y);
       if (t && (t === at || at.contains(t) || t === e || e.contains(t))) return { state: 'ok', x, y, box, before: cc.stateOf(e), current };
+      // A pill opens when it is clicked anywhere (Astra, 2026-10-23: "just clicking the bubble opens it"), so its own
+      // hidden summary is reached through the pill, not covered by it.
+      const pill = t && t.closest && t.closest('li.pill');
+      if (pill && pill.contains(at)) return { state: 'ok', x, y, box, before: cc.stateOf(e), current };
       seen = seen || t;
     }
     if (inView && folded === inView) return { state: 'hidden', folded: true };
