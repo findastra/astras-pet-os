@@ -25,7 +25,10 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 /* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
 /* One padding for every panel, the same on all four sides, square corners (Astra, 2026-10-23: "panel spacing should be
    unified always too and square"). */
-:root { --pad: 20px; }
+:root { --pad: 20px;
+  /* One background for every tool: pills, the cyberhome and System Map tools, the chat (Astra, 2026-10-23: "the
+     'tool' background color needs to be unified"). */
+  --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(255, 255, 255, .08); }
 .panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; }
 /* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
    alignment issues", on rift-rabbit-update-history sitting above its line). */
@@ -38,6 +41,10 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel > summary .legend::after { content: "\25B8"; display: inline-block; margin-left: 8px; font-size: 10px; color: var(--chalk-dim); transition: transform .15s ease; }
 .panel[open] > summary .legend::after { transform: rotate(90deg); }
 .panel > summary:hover .legend::after { color: var(--fix); }
+/* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
+.panel.editorial { border: 1px dashed #ff8fd0; color: #ffc4e6; margin-top: 18px; }
+.panel.editorial > summary .legend { color: #ff8fd0; }
+.panel.editorial p { margin: 0; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
 
@@ -118,7 +125,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    its box with its lights and its name, never on a border ("we got rid of the lights in panel borders ... it should
    only be on a tool"). */
 .habitat > .render-label { position: absolute; top: 8px; left: 8px; z-index: 2; display: flex; align-items: center; gap: 7px; max-width: calc(100% - 16px);
-  padding: 3px 10px 3px 8px; border: 1px solid var(--line-dim); border-radius: 14px; background: var(--slate-2); }
+  padding: 3px 10px 3px 8px; border: 1px solid var(--line-dim); border-radius: 14px; background: var(--tool-bg); }
 .habitat > .render-label .lights { margin: 0; }
 .render-name { font: 10.5px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; min-width: 0; text-align: left; }
 .den { flex: 1; min-height: 0; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 44px 4px 4px; }
@@ -189,8 +196,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* Every pill fills its column, so they are all one size (Astra, 2026-10-23: "make these the same size"). */
 .items li.pill { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); justify-items: start; column-gap: 9px; row-gap: 2px;
   justify-self: stretch; width: auto; max-width: 100%; min-width: 0; margin: 9px 0; padding: 8px 16px 8px 12px;
-  border: 1px solid var(--line-dim); border-radius: 20px; background: rgba(255, 255, 255, .04); cursor: pointer; }
-.items li.pill:hover { border-color: var(--line); background: rgba(255, 255, 255, .07); }
+  border: 1px solid var(--line-dim); border-radius: 20px; background: var(--tool-bg); cursor: pointer; }
+.items li.pill:hover { border-color: var(--line); background: var(--tool-bg-hover); }
 .items li.pill:has(> .pill-more[open]) { border-radius: 16px; border-color: var(--care); }
 /* The lights sit in the name's row, centred on it (Astra, 2026-10-23: "need the circles to be centerlined with the text"). */
 .pill > .lights { grid-column: 1; grid-row: 1; align-self: center; margin: 0; gap: 7px; }
@@ -329,13 +336,13 @@ label.file { position: relative; }
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
 .chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 5px 4px 12px;
-  border: 1px solid var(--line-dim); border-radius: 20px; background: rgba(255, 255, 255, .04); }
+  border: 1px solid var(--line-dim); border-radius: 20px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
 .chat-open { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
-  background: var(--slate-2); color: var(--chalk); cursor: pointer; }
+  background: transparent; color: var(--chalk); cursor: pointer; }
 .chat-open:hover { border-color: var(--fix); color: var(--fix); }
 .chat-open svg { width: 16px; height: 16px; transition: transform .2s ease; }
 .chat-open[aria-expanded="true"] svg { transform: rotate(90deg); }

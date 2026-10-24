@@ -32,7 +32,7 @@ test('every page has every panel of the sketch, in its order, and every panel co
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'chat-panel'].includes(m)
-      ? `${d.petSlug}-${m}` : m === 'quick-summary-panel' ? `${d.homeSlug}-${m}` : m));
+      ? `${d.petSlug}-${m}` : ['quick-summary-panel', 'editorial-status-panel'].includes(m) ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
       const i = html.indexOf(`>${label}<`) > -1 ? html.indexOf(`>${label}<`) : html.indexOf(`"${label}"`);
