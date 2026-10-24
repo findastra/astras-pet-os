@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-237 rows: 12 native programs, 119 native tools, 17 native tricks, 89 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+240 rows: 12 native programs, 120 native tools, 18 native tricks, 90 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -286,9 +286,11 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |
+| 29 | Rift Rabbit | Wonderland Launchpad | native tool | update-audit | `wonderland-launchpad-v0.1-update-audit-v1.0` | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | native trick | update-audit | `wonderland-launchpad-v0.1-update-audit-trick-v1.0` | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Base Station FOV Viewer |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | BS Manager |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Double Hip Tracker |  | Planned |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | DoubleHip DoubleChest Tracker |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Meta Horizon Link |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Advanced Settings |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Dynamic Resolution |  | Planned |
@@ -298,6 +300,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Calibrator |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | SteamVR |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Virtual Desktop |  | Planned |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VR Pole Overlay |  | Planned |
 | 30 | Fuzzboi Friend | Fuzzboi Factory | native program | Fuzzbois |  | Works today |
 | 30 | Fuzzboi Friend | Fuzzboi Factory | third-party program | GitHub |  | Works today |
 | 32 | Deck Duck | Deck Pond | third-party program | Elgato Stream Deck |  | Planned |
@@ -346,7 +349,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Base Station FOV Viewer |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Blender |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | BS Manager |  | Planned |
-| 72 | Inference Iguana | Benchmark Rock | third-party program | Double Hip Tracker |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | DoubleHip DoubleChest Tracker |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Magic Chatbox |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Meta Horizon Link |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OSCGoesBrrr |  | Planned |
