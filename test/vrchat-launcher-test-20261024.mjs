@@ -20,7 +20,7 @@ test('only Rift Rabbit\'s page loads the launcher script, after the page script'
 });
 
 test('every mode has a Launch button, off until the watch on this PC answers, and a place for its steps', () => {
-  const buttons = rabbit.match(/<button type="button" class="button off" disabled data-launch-go[^>]*>Launch mode \d\.\d<\/button>/g) || [];
+  const buttons = rabbit.match(/<button type="button" class="button off" disabled data-launch-go[^>]*>Launch \d\.\d<\/button>/g) || [];
   assert.equal(buttons.length, 8, 'two headsets, four modes each');
   assert.equal((rabbit.match(/data-launch-run hidden/g) || []).length, 8);
 });

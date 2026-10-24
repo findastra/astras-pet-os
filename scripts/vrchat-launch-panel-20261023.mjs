@@ -124,13 +124,14 @@ function step(s) {
 }
 
 // Each way is a mode, numbered from .0, the native one first (Astra, 2026-10-24: "call them modes. Mode 1.0 Native
-// VRChat Tracking, etc."), and it lists every program it starts, one per line in order, the streamer by the name
+// VRChat Tracking, etc."; later the same day: "Get rid of the "Mode" so go back to numbering with . ("2.0 Native VRChat
+// Tracking" and "Launch 2.0""), and it lists every program it starts, one per line in order, the streamer by the name
 // chosen above and the switches' programs while they are on ("we need to show other programs that are starting per
 // mode").
 function modeCard(h, m, i) {
   const n = `${h.n}.${i}`;
   const untested = (m.untested || []).map((s) => STREAMERS.find(([id]) => id === s)?.[1]).filter(Boolean);
-  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">Mode ${esc(n)} ${esc(m.name)}</button></legend>
+  return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">${esc(n)} ${esc(m.name)}</button></legend>
 <p class="launch-tracker">${esc(m.tracker)}</p>
 <ul class="small launch-points">${m.points.map((p) => `<li>${esc(p)}</li>`).join('')}${untested.length ? `<li class="launch-warn" hidden>Not confirmed with ${esc(untested.join(', '))} yet.</li>` : ''}</ul>
 <p class="small launch-label"><b>Starts, in order:</b></p>
@@ -139,7 +140,7 @@ function modeCard(h, m, i) {
 <div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
 <label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
 <span class="small launch-tried" data-launch-tried></span></div>
-<p><button type="button" class="button off" disabled data-launch-go title="Works on Astra's PC while Inference Iguana keeps watch">Launch mode ${esc(n)}</button></p>
+<p><button type="button" class="button off" disabled data-launch-go title="Works on Astra's PC while Inference Iguana keeps watch">Launch ${esc(n)}</button></p>
 <div class="launch-run" data-launch-run hidden></div>
 </fieldset>`;
 }
