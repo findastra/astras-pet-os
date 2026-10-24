@@ -31,7 +31,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
 test('every page has every panel of the sketch, in its order, and every panel collapses', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'].includes(m)
+    const labels = PANELS.map((m) => (['cyberhome-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'].includes(m)
       ? `${d.petSlug}-${m}` : ['quick-summary-panel', 'editorial-status-panel'].includes(m) ? `${d.homeSlug}-${m}` : m));
     let at = -1;
     for (const label of labels) {
@@ -253,7 +253,7 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
   assert.ok(at > -1 && at < levelsStart, "its own panel, before the four levels");
   assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
-  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-tool-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
+  assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-control-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
   assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
   const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
   const html = files[pagePath(damsel.repo)];
@@ -280,7 +280,9 @@ test('pictures come only from the hub art folders (one art source, A58)', () => 
 test('a pet with a desktop drawing shows it on its page; a private drawing never shows', () => {
   const dog = pages.find((d) => d.repo === 'drum-dog');
   assert.equal(dog.art.source, 'desktop');
-  assert.match(dog.art.frames.idle, /^desktop-art\/drum-dog\/idle-\d{8}\.png$/);
+  assert.match(dog.art.plain.idle, /^desktop-art\/drum-dog\/idle-\d{8}\.png$/);
+  // The page shows that drawing with its mood sticker stamped on (2026-10-24).
+  assert.equal(dog.art.frames.idle, 'art/moods/drum-dog/idle.png');
   const regs = [...(src.registry.pets || []), ...(src.registry.pipeline || [])];
   const privateIds = src.drafts.pets.filter((p) => p.private).map((p) => p.id);
   for (const d of pages) {
@@ -377,7 +379,7 @@ test('third-party programs include those a tool of the pet runs or looks after (
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const L4 = html.indexOf(`>${d.petSlug}-L4-tool-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes-panel<`);
+    const L4 = html.indexOf(`>${d.petSlug}-L4-control-panel<`), start = html.indexOf(`>${d.petSlug}-rwx-panel<`), end = html.indexOf(`>${d.petSlug}-session-notes-panel<`);
     assert.ok(L4 > -1 && start > L4 && end > start, `${d.repo}: its own panel, after the four level panels`);
     assert.doesNotMatch(html.slice(L4, start), /<table>/, `${d.repo}: the grant tables moved out of the L4 tool panel`);
     const box = html.slice(start, end);
@@ -419,7 +421,7 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   const unicorn = files[pagePath('unity-unicorn')];
   // 2: "pets it talks to needs to go away. if anything that information lives in rift-rabbit-friends-list-panel" (2026-10-23).
   assert.ok(!unicorn.includes('<h3 class="talks">'), '2: no "Pets it talks to" in L2; the friends list has them');
-  const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-tool-panel<'), unicorn.indexOf('>unity-unicorn-L4-tool-panel<'));
+  const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-control-panel<'), unicorn.indexOf('>unity-unicorn-L4-control-panel<'));
   for (const h of ['Tricks running now · 0', 'Suggestions for you · 1', 'Harness skills · 3']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
   for (const s of ['face-transfer', 'vrchat-unity-world', 'blender-unity-assets']) assert.ok(l3.includes(`data-name="${s}"`), `3: ${s} is a pill`);
   assert.ok(l3.includes('<span class="tag cadence" title="How often it runs">weekly</span>'), '3: the suggestions are a weekly trick');

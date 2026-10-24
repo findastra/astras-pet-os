@@ -28,7 +28,7 @@ test('Unity Unicorn\'s page shows Avatar tools and World tools, and every tool o
   assert.ok(html.includes(`<h3>World tools · ${world}</h3>`), 'world heading');
   assert.ok(!html.includes('<h3>Native tools'));
   const avatarAt = html.indexOf('class="side-avatar"'), worldAt = html.indexOf('class="side-world"');
-  const l1 = html.slice(0, html.indexOf('-L2-tool-panel'));   // tricks (L2) may share a tool's name, like unity-asset-creator
+  const l1 = html.slice(0, html.indexOf('-L2-control-panel'));   // tricks (L2) may share a tool's name, like unity-asset-creator
   for (const n of stableTools) {
     // planned tools have grey lights with no data-item, so look for the name the list shows
     const hits = [...l1.matchAll(new RegExp(`class="item-name"[^>]*>${n.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</span>`, 'g'))];

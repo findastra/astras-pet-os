@@ -2,6 +2,7 @@
 //
 //   art/frames/<id>/<mood>.png   each pet's nine moods, 256px, transparent  (build-frames.mjs)
 //   art/frames/index.json        what was built, and which pets are still placeholders
+//   art/moods/<folder>/<mood>.png  each desktop-art pet's moods with the shared mood stickers (build-mood-stickers-20261024.mjs)
 //   ROSTER.md                    the running list of who lives here
 //   README.md                    the pet table between the pets:start / pets:end markers
 //   art/roster.png               every pet in every mood on one labelled sheet
@@ -19,6 +20,7 @@ import { buildPetProgramsPage } from './pet-programs-20261014.mjs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { buildFrames } from './build-frames.mjs';
+import { buildMoodStickers } from './build-mood-stickers-20261024.mjs';
 import { buildRoster } from './roster.mjs';
 import { applyTable } from './lib.mjs';
 import { MOODS } from './sheet-to-sprites.mjs';
@@ -35,6 +37,8 @@ const metadataOnly = process.argv.includes('--metadata-only');
 const { index, missing } = metadataOnly
   ? { index: JSON.parse(readFileSync('art/frames/index.json', 'utf8')), missing: [] }
   : buildFrames({ log: () => {} });
+// The desktop-art pets' moods with the same shared mood stickers, for the pet program pages (2026-10-24).
+if (!metadataOnly) buildMoodStickers('.');
 const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
 
 const data = {

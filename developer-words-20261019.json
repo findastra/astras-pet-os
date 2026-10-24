@@ -102,9 +102,11 @@
     ["-cyberhome-panel", "-avatar-panel"],
     ["-quick-summary-panel", "-summary-panel"],
     ["-tool-panel", "-panel"],
+    ["-control-panel", "-panel"],
     ["-related-pets", "-related-agents"],
     ["-clicker-training-panel", "-click-bindings-panel"],
     ["-friends-list-panel", "-related-agents-panel"],
+    ["-emotions-panel", "-status-states-panel"],
     ["-emotions", "-status-states"],
     ["-session-notes-panel", "-feedback-panel"]
   ],

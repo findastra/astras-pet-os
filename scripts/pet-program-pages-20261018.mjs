@@ -44,7 +44,7 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
-export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
+export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -123,7 +123,13 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
   const privateArt = new Set((drafts?.pets || []).filter((d) => d.private).map((d) => d.id));
   for (const folder of [reg.art, reg.repo].filter((x) => x && !privateArt.has(x))) {
     const frames = newest(`desktop-art/${folder}`);
-    if (frames.idle) return { frames, source: 'desktop' };
+    // The same drawing with its mood sticker stamped on, when the build has made it (build-mood-stickers-20261024.mjs;
+    // Astra, 2026-10-24: the nine mood symbols "stay the same across all pets").
+    // `plain` keeps the drawing itself, which the pet's height is measured from.
+    const plain = { ...frames };
+    const stamped = list(`art/moods/${folder}`);
+    for (const mood of Object.keys(frames)) if (stamped.includes(`${mood}.png`)) frames[mood] = `art/moods/${folder}/${mood}.png`;
+    if (frames.idle) return { frames, plain, source: 'desktop' };
   }
   const registered = reg.art && frameIndex?.pets?.[reg.art];
   if (registered && !registered.placeholder) { const r = pick(registered.frames, 'registered'); if (r) return r; }
@@ -245,7 +251,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
   // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"): scripts/pet-size-20261023.mjs.
-  const petHeight = art.frames.idle ? pictureHeight(reg.repo, measure(art.frames.idle)) : null;
+  const petHeight = art.frames.idle ? pictureHeight(reg.repo, measure((art.plain || art.frames).idle)) : null;
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
   // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
@@ -347,7 +353,7 @@ function itemList(items, prefix, empty) {
 }
 
 // A tool panel with an activity light also has its paired lights, left of its label in the border line (Astra,
-// 2026-10-21: two lights drawn before `unity-unicorn-L1-tool-panel`, and "make sure this 'on' ... is working correctly
+// 2026-10-21: two lights drawn before `unity-unicorn-L1-control-panel`, and "make sure this 'on' ... is working correctly
 // for all tools and panels"). Nothing comes after the label: the same screenshot brackets the activity light after it
 // and moves it left, to the pair. What the activity light showed, the tool panel's own glow still shows.
 // `key`: where its lights are saved, when the label alone is the same on every page (`grants`, `keys`, `pet-id`).
@@ -639,7 +645,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
-  const L1 = panel(`${d.petSlug}-L1-tool-panel`, `<div class="columns">
+  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
@@ -652,27 +658,30 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
   const tricks = [...selfAudit, ...d.tricks];
-  // The status line is its own tool panel with its lights (her screenshot: "oo unity-unicorn-L3-update-history ??").
-  const history = panel(`${d.petSlug}-update-history`, `<dl class="status">
+  // The update history is a tool, a pill with its lights like every other, that opens to show the details (Astra,
+  // 2026-10-24: "the rabbit update history needs to either be a tool or a section"; before, a panel inside the panel).
+  const historyName = `${d.petSlug}-update-history`;
+  const history = `<ul class="items"><li class="pill">${lights(`tool:${historyName}`, historyName)}<span class="item-name">${esc(historyName)}</span><span class="item-desc">When ${esc(d.home)} was last updated and checked, and where its data lives.</span><details class="pill-more"><summary aria-label="More about ${esc(historyName)}"></summary><div class="pill-body"><dl class="status">
 <dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`, { cls: 'sub', light: true });
-  const L2 = panel(`${d.petSlug}-L2-tool-panel`, `<div class="columns">
-<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
-${history}`, { cls: 'level', light: true });
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></div></details></li></ul>`;
+  const L2 = panel(`${d.petSlug}-L2-control-panel`, `<div class="columns">
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
+<section><h3>Update history · 1</h3>${history}</section></div>`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
   const l3Suggest = [{ id: 'weekly-suggestions', name: 'weekly-suggestions', state: 'planned', cadence: 'weekly',
     desc: `Once a week the seated agent suggests what to do next for ${d.home}.` }];
-  const L3 = panel(`${d.petSlug}-L3-tool-panel`, `<ul class="plain">
-<li><b>Seat:</b> empty. No farmhand is seated in ${esc(d.home)} (L3 is not connected).</li>
-<li><b>${esc(d.home)} program activity:</b> <span class="bubble small-bubble">Nobody is working on ${esc(d.home)} right now.</span></li>
-<li><b>Token use:</b> not measured yet (Token Toucan is planned)</li></ul>
-<div class="columns">
+  // The seat, the program activity and the token use are sections like the rest, a heading and a line under it (Astra,
+  // 2026-10-24: "this one also is confusing, make it fit vibe of others").
+  const L3 = panel(`${d.petSlug}-L3-control-panel`, `<div class="columns">
+<section>${heading('Seat', [])}<p class="empty">Empty: no farmhand is seated in ${esc(d.home)} (L3 is not connected).</p></section>
+<section>${heading(`${d.home} program activity`, [])}<p class="empty">Nobody is working on ${esc(d.home)} right now.</p></section>
+<section><h3>Token use</h3><p class="empty">Not measured yet: Token Toucan is planned.</p></section>
 <section>${heading('Tricks running now', [])}<p class="empty">None: no seat is connected, so nothing runs by itself.</p></section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
 <section>${heading('Harness skills', d.skills)}${itemList(d.skills, `skill:${d.petSlug}`, 'None matched in Skill Scout’s catalog yet. They belong to the seat (Claude Code, Codex), not to the pet.')}</section>
@@ -681,7 +690,7 @@ ${history}`, { cls: 'level', light: true });
   // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").
   const sub = (label, body) => panel(label, body, { cls: 'sub', light: true, key: label.startsWith(d.petSlug) ? '' : `${d.petSlug}-${label}` });
-  const L4 = panel(`${d.petSlug}-L4-tool-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
+  const L4 = panel(`${d.petSlug}-L4-control-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
 ${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing marked yellow in this browser.</li></ul><ul class="plain" id="switched-off"></ul>')}
@@ -715,7 +724,7 @@ ${sub('pet-id', `<dl class="status">
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
 <p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { cls: 'session-notes' });
 
-  const emotions = panel(`${d.petSlug}-emotions`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
+  const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const picture = mood === 'blink'
       ? (f.idle ? `<span class="awake-faces">${faces(f, d.pet, ['idle', 'blink'], 'awake')}</span>` : img(null, `${d.pet}, ${name}`))
       : img(f[mood], `${d.pet}, ${name}`);
@@ -754,15 +763,14 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
   // Out More on one line. Since 2026-10-24 (Astra: "make sure there is no sparkle before By Astra ... the codes go below
-  // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line,
-  // and the languages as bubbles on their own line below, from the pet's repo.
+  // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line.
+  // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer").
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
 <span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="48" height="48" loading="lazy"></a>
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
-<ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 

@@ -43,6 +43,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Health Hummy](https://raw.githubusercontent.com/findastra/astras-pet-os/main/desktop-art/health-hummy/idle-20261011.png)
+![Health Hummy](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/moods/health-hummy/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*
