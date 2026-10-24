@@ -147,8 +147,8 @@ The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Far
   "Where the pictures live"). Other repos, pages and the desktop pets link to it and never keep a copy. Claude Bot's
   private BSOD copy is the one exception. Check with `node scripts/one-art-source-20261017.mjs` (Flash Audit A58).
 - **Link pictures at addresses that never change (Astra, 2026-10-24).** Every hosted picture is
-  `https://raw.githubusercontent.com/findastra/astras-pet-os/main/` + `art/latest/…` (icons, app icons, drafts,
-  desktop art: the dated name without its date), `art/frames/…` or `art/moods/…`. Never link a dated file name: the
+  `https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/` + the picture's folder and name
+  without its date (`icons/<repo>.png`, `frames/<pet>/idle.png`, `desktop-art/<pet>/idle.png`, ...). Never link a dated file name: the
   build points `art/latest` at the newest drawing. `node scripts/one-picture-home-20261024.mjs --fix <file>` rewrites
   old links; never hand-edit `art/latest/`. This hub stays public while it holds the pictures
   (docs/one-art-source-20261017.md, "Addresses that never change").

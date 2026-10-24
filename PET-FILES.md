@@ -136,8 +136,8 @@ touched. Never copy a pet picture into another repo.
 
 | Pictures | Folder | Address that never changes (link this one) |
 | --- | --- | --- |
-| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` | `art/frames/<pet>/<mood>.png` |
-| Moods of desktop-art pets with the shared mood stickers (built) | `art/moods/<folder>/` | `art/moods/<folder>/<mood>.png` |
+| Web frames of registered pets (built from `art/sheets/`) | `art/frames/<pet>/` | `art/latest/frames/<pet>/<mood>.png` |
+| Moods of desktop-art pets with the shared mood stickers (built) | `art/moods/<folder>/` | `art/latest/moods/<folder>/<mood>.png` |
 | Web frames and sheets of draft pets (the build never touches them) | `art/drafts/<pet>/` | `art/latest/drafts/<pet>/<mood>.png` |
 | Icons | `art/icons/<repo>-20261012.png` | `art/latest/icons/<repo>.png` |
 | App icons built into Windows programs | `art/app-icons/<repo>/` | `art/latest/app-icons/<repo>/<name without date>` |

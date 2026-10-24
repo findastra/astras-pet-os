@@ -307,16 +307,17 @@ private (2026-10-20 to 2026-10-21) no hosted picture loaded at all.
 
 | Pictures | Address | Made from |
 | --- | --- | --- |
-| Web frames of registered pets | `art/frames/<pet>/<mood>.png` | `art/sheets/` (already stable) |
-| Moods of desktop-art pets, with stickers | `art/moods/<folder>/<mood>.png` | `desktop-art/` (already stable) |
+| Web frames of registered pets | `art/latest/frames/<pet>/<mood>.png` | `art/frames/<pet>/` (nine pets' frames are dated, like `idle-20261008.png`) |
+| Moods of desktop-art pets, with stickers | `art/latest/moods/<folder>/<mood>.png` | `art/moods/<folder>/` |
 | Icons | `art/latest/icons/<repo>.png` | `art/icons/<repo>-YYYYMMDD.png` |
 | App icons | `art/latest/app-icons/<repo>/<name>` | `art/app-icons/<repo>/<name>-YYYYMMDD.<ext>` |
 | Draft pets' frames and sheets | `art/latest/drafts/<pet>/<name>.png` | `art/drafts/<pet>/<name>-YYYYMMDD.png` |
 | Desktop art | `art/latest/desktop-art/<pet>/<name>.png` | `desktop-art/<pet>/<name>-YYYYMMDD.png` |
 
-`art/latest/` is the same path without the date; the newest date wins. `art/latest/index.json` lists every stable path
-and the drawing it shows now. git stores each picture once, so the copies cost the repo nothing (about 70 MB on disk in
-a checkout). Offline, a page falls back to `../astras-pet-os/<the same address>`. To change a picture: add the new
+One rule: `art/latest/` + the picture's folder and name without its date; the newest date wins. `art/latest/index.json`
+lists every stable path and the drawing it shows now (981 pictures on 2026-10-24). Links to undated pictures in
+`art/frames/` and `art/moods/` keep working and are never flagged. git stores each picture once, so the copies cost the
+repo nothing (about 75 MB on disk in a checkout). Offline, a page falls back to `../astras-pet-os/<the same address>`. To change a picture: add the new
 drawing with a new date, run `npm run build`, merge. Every link shows it within 5 minutes; nothing else is edited.
 
 **Tools.**

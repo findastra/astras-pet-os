@@ -74,7 +74,7 @@ export const SAVE_PATH = ["Astra's PetOS Data", 'one-art-source', 'one-art-sourc
 export const savePath = () => join(homedir(), 'Documents', ...SAVE_PATH);
 // Text files that may link a picture: pages, scripts, Markdown, JSON.
 const TEXT = /\.(md|json|html?|js|mjs|cjs|css|cs|ps1|py|ts|tsx|vue|ya?ml)$/i;
-export const HUB_RECORDS = /^(changes|handoffs|docs)\//;
+export const HUB_RECORDS = /^(changes|handoffs|docs|test)\//;
 export const isLinkFile =(f) => TEXT.test(f.path) && !/(^|\/)(node_modules|vendor|dist)\/|package-lock\.json$/.test(f.path) && !(f.size > 400000);
 
 /** Links to dated hub pictures in one repo's text files ({ path: text }), as findings. */
@@ -100,7 +100,8 @@ export function audit(trees, drafts) {
       if (found.length && EXCEPTIONS.some((e) => e.repo === repo)) exceptions.push({ repo, count: found.length });
       else findings.push(...found);
     }
-    // The hub's records (changes/, handoffs/, docs/) say what a page showed on their day; they keep their dated links.
+    // The hub's records (changes/, handoffs/, docs/) say what a page showed on their day, and its tests hold examples:
+    // they keep their dated links.
     const texts = repo === HUB ? Object.fromEntries(Object.entries(t.texts || {}).filter(([p]) => !HUB_RECORDS.test(p))) : t.texts;
     if (texts) findings.push(...linkFindings(repo, texts, plan));
   }

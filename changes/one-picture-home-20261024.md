@@ -5,8 +5,8 @@ update them. So that I dont have to keep doing them individually, and getting ca
 the six questions all recommended.
 
 - Every picture has an address that never changes:
-  `https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/…` (icons, app icons, draft frames,
-  desktop art), plus the already stable `art/frames/…` and `art/moods/…`. `npm run build` keeps `art/latest/` on the
+  `https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/…` (frames, moods, icons, app icons,
+  draft frames and desktop art, each name without its date). `npm run build` keeps `art/latest/` on the
   newest drawing, so a new drawing shows everywhere within 5 minutes, with nothing else edited.
 - The one-art-source check also fails when the hub is private or a repo links a dated picture, and its daily result
   shows in GitHub Aquarium's outstanding items.

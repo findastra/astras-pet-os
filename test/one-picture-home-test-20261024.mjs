@@ -13,13 +13,15 @@ import { analyze, artItems } from '../scripts/outstanding-items-20261021.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 
-test('a stable name is the same path under art/latest without its date; frames and moods are already stable', () => {
+test('a stable name is the same path under art/latest without its date, for every picture folder', () => {
   assert.equal(latestPath('art/icons/chat-rat-20261012.png'), 'art/latest/icons/chat-rat.png');
   assert.equal(latestPath('desktop-art/rgbee/idle-20261011.png'), 'art/latest/desktop-art/rgbee/idle.png');
   assert.equal(latestPath('art/app-icons/chat-rat/icon-20261009.ico'), 'art/latest/app-icons/chat-rat/icon.ico');
   assert.equal(latestPath('desktop-art/fuzzboi-friend/layers/eyes.png'), 'art/latest/desktop-art/fuzzboi-friend/layers/eyes.png');
-  assert.equal(latestPath('art/frames/drum-dog/idle.png'), null);
-  assert.equal(latestPath('art/moods/rgbee/happy.png'), null);
+  assert.equal(latestPath('art/frames/farmer/idle-20261008.png'), 'art/latest/frames/farmer/idle.png');
+  assert.equal(latestPath('art/frames/drum-dog/idle.png'), 'art/latest/frames/drum-dog/idle.png');
+  assert.equal(latestPath('art/moods/rgbee/happy.png'), 'art/latest/moods/rgbee/happy.png');
+  assert.equal(latestPath('art/sheets/rgbee.png'), null);
   assert.equal(latestPath('desktop-art/chat-rat/desktop-pet-20261011.json'), null);
 });
 

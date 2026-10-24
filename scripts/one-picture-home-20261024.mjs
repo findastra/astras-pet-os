@@ -4,12 +4,13 @@
 //
 // The hub stays the one home (Flash Audit A58). Every picture is served from GitHub raw at a STABLE path:
 //
-//   https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/icons/<repo>.png
-//   .../art/latest/app-icons/<repo>/<name>.<ext>     .../art/latest/drafts/<pet>/<mood>.png
-//   .../art/latest/desktop-art/<pet>/<name>.png      .../art/frames/<pet>/<mood>.png     .../art/moods/<folder>/<mood>.png
+//   https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/<folder>/<name without its date>
+//   e.g. art/latest/icons/<repo>.png, art/latest/frames/<pet>/<mood>.png, art/latest/moods/<folder>/<mood>.png,
+//   art/latest/app-icons/<repo>/<name>, art/latest/drafts/<pet>/<mood>.png, art/latest/desktop-art/<pet>/<name>.png
 //
-// art/latest/ is made by `npm run build` from the dated drawings (art/icons, art/app-icons, art/drafts, desktop-art):
-// each name loses its -YYYYMMDD, and the newest date wins. A new drawing is added here with a new date as always; the
+// art/latest/ is made by `npm run build` from every picture folder (art/frames, art/moods, art/icons, art/app-icons,
+// art/drafts, desktop-art): each name loses its -YYYYMMDD, and the newest date wins. (Nine pets' frames are dated too,
+// like art/frames/farmer/idle-20261008.png, so frames and moods are in it as well.) A new drawing is added here with a new date as always; the
 // build moves art/latest to it, and every page, repo and program that links art/latest shows it within 5 minutes.
 // art/latest/ holds the same bytes as its sources, so git stores each picture once. Only the build writes it; nobody
 // names those files by hand (Astra's OK, 2026-10-24, the one exception to the date in every file name).
@@ -24,8 +25,8 @@ import { fileURLToPath } from 'node:url';
 
 export const LATEST = 'art/latest';
 export const HUB_RAW = 'https://raw.githubusercontent.com/findastra/astras-pet-os/main/';
-/** The dated drawings art/latest is made from. */
-export const SOURCES = ['art/icons', 'art/app-icons', 'art/drafts', 'desktop-art'];
+/** The picture folders art/latest is made from. */
+export const SOURCES = ['art/frames', 'art/moods', 'art/icons', 'art/app-icons', 'art/drafts', 'desktop-art'];
 const IMG = /\.(png|webp|gif|jpe?g|svg|ico)$/i;
 const DATED = /^(.*?)-(\d{8})(\.[A-Za-z0-9]+)$/;
 
@@ -96,12 +97,14 @@ export function buildLatestArt(root = '.') {
 }
 
 // A link to a hub picture: the raw address, the hub's site, jsDelivr, or the offline fallback next to a pet repo.
-const LINK = /(https:\/\/raw\.githubusercontent\.com\/findastra\/astras-pet-os\/main\/|https:\/\/findastra\.github\.io\/astras-pet-os\/|https:\/\/cdn\.jsdelivr\.net\/gh\/findastra\/astras-pet-os@main\/|(?:\.\.\/)+astras-pet-os\/)((?:art\/(?:icons|app-icons|drafts)|desktop-art)\/[A-Za-z0-9._\/-]+\.(?:png|webp|gif|jpe?g|svg|ico))/g;
+const LINK = /(https:\/\/raw\.githubusercontent\.com\/findastra\/astras-pet-os\/main\/|https:\/\/findastra\.github\.io\/astras-pet-os\/|https:\/\/cdn\.jsdelivr\.net\/gh\/findastra\/astras-pet-os@main\/|(?:\.\.\/)+astras-pet-os\/)((?:art\/(?:frames|moods|icons|app-icons|drafts)|desktop-art)\/[A-Za-z0-9._\/-]+\.(?:png|webp|gif|jpe?g|svg|ico))/g;
 
-/** Every link in `text` to a dated hub picture that has a stable path: [{ from, to }]. */
+/** Every link in `text` to a dated hub picture that has a stable path: [{ from, to }]. A link to an undated picture
+ *  (art/frames/drum-dog/idle.png) already never changes, so it is left as it is. */
 export function datedLinks(text, plan) {
   const found = [];
   for (const m of text.matchAll(LINK)) {
+    if (!DATED.test(m[2].split('/').pop())) continue;
     // A link to an older drawing moves to the stable path too: that path always shows the newest one.
     const stable = latestPath(m[2]);
     if (stable && stable in plan) found.push({ from: m[1] + m[2], to: m[1] + stable });
