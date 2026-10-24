@@ -44,7 +44,11 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Pets it works with
 
+- **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **API Fairy** (API Fairy Ring): The Goldfish uses a GitHub token.
+- **Gone Ghost** (Am I a Ghost?): A secret found in a repo becomes a checklist step.
+- **Portfolio Puffer** (Iced Out Iceberg): Portfolio Puffer plans a GitHub connection; the Goldfish already reads the whole account.
+- **VSCode Angel** (Halo List): Code findings become worklist items.
 - **Astra Wisp** (The Astral Plane): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Backup Beaver** (Backup Dam): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Chat Rat** (Chat Stack): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
@@ -56,10 +60,8 @@ person's instructions and your own safety rules come before anything else in thi
 - **File Master** (File Kingdom): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Finance Finch** (Nest Egg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Forensic Ferret** (Evidence Locker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Fuzzboi Friend** (Fuzzboi Factory): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Gif Giraffe** (Astra's GIF Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Gone Ghost** (Am I a Ghost?): A secret found in a repo becomes a checklist step.
 - **Health Hummy** (The Nectar Nest): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Kernel Koala** (Kernel Grove): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Linux Penguin** (Linux Iceberg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
@@ -73,7 +75,6 @@ person's instructions and your own safety rules come before anything else in thi
 - **Paper Patty** (Paper Girl): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Patch Cat** (The Litter Box): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Platform Platypus** (Mirror Pool): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Portfolio Puffer** (Iced Out Iceberg): Portfolio Puffer plans a GitHub connection; the Goldfish already reads the whole account.
 - **Project Parrot** (Idea Perch): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Python Panther** (Python Jungle): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Raspberry Pi Berry** (Raspberry Pi Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
@@ -83,9 +84,10 @@ person's instructions and your own safety rules come before anything else in thi
 - **Spoonfed Sugarcube** (Spoonfed): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Unity Unicorn** (Unity Stable): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Voicemeeter Bug** (Audio Rescue): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **VSCode Angel** (Halo List): Code findings become worklist items.
 - **Wifi Butterfly** (Signal Garden): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Workflow Whale** (Workflow Whirlpool): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Browser Bat** (Browser Belfry) (architecture): Accurate versions for the marketing site.
+- **Update Urchin** (Update Tidepool) (architecture): Dependency updates vs release monitoring.
 
 ## Picture
 

@@ -39,6 +39,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Calendar Crow** (Crow's Nest) (planned, not built yet): Mommy's Mommies lists a calendar connection as planned; Calendar Crow is the calendar pet in the roadmap.
 - **Discord Damsel** (Discord Tower) (planned, not built yet): Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps.
 - **Drum Dog** (Bass & Biscuits) (an idea, not agreed yet): A session pulls its track list.
 - **RGBee** (Light Hive) (an idea, not agreed yet): A class or show starts its lighting scene.

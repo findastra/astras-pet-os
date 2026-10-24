@@ -22,13 +22,14 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 
 /* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
 .panel { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
-.panel > summary { position: absolute; top: -0.8em; left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+/* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
+   alignment issues", on rift-rabbit-update-history sitting above its line). */
+.panel > summary { position: absolute; top: 0; transform: translateY(-50%); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
 .panel > summary::-webkit-details-marker { display: none; }
 /* Only the label cuts the border, a space each side; its lights sit on the line with nothing behind them (2026-10-22). */
 .panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--slate); padding: 0 6px; }
 /* A tool panel's paired lights sit left of its label, in the border line (Astra, 2026-10-21). */
-.panel > summary > .lights { margin: 0; gap: 5px; }
-.panel > summary > .lights .light { width: 15px; height: 15px; }
+.panel > summary > .lights { margin: 0; }
 .panel:not([open]) { padding: 14px 18px 0; }
 .panel .panel { margin-top: 26px; }
 
@@ -136,8 +137,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* The paired lights: two buttons side by side, never stacked. They look like buttons so people click them (Astra,
    2026-10-19): raised, a little bigger when pointed at, pressed in when clicked. Grey is not set yet. */
 .lights { display: inline-flex; gap: 7px; margin-right: 10px; vertical-align: middle; }
-.light { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); cursor: pointer;
-  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .3), inset 0 2px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18);
+/* One size for every light on the page, the key's too: the small one (Astra, 2026-10-23: "these need to all be the
+   same", then "use the smaller sized circles"). */
+:root { --light-size: 11px; }
+.light { width: var(--light-size); height: var(--light-size); padding: 0; border-radius: 50%; border: 1px solid var(--line); cursor: pointer;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18);
   transition: transform .08s ease-out; }
 .light:hover { transform: scale(1.18); }
 .light:active { transform: scale(.9); box-shadow: inset 0 2px 2px rgba(0, 0, 0, .4); }
@@ -151,7 +155,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
   background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
 .light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
-.key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
+.key { display: inline-block; width: var(--light-size); height: var(--light-size); border-radius: 50%; border: 1px solid var(--line); margin-right: 2px; vertical-align: -1px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .35), 0 0 0 1px rgba(255, 255, 255, .18); }
 .key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
 
 /* Inside the intelligence-level panels. */
@@ -172,21 +177,15 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
   border: 1px solid var(--line); border-radius: 28px; background: rgba(255, 255, 255, .05); }
 .items li.pill:hover { background: rgba(255, 255, 255, .09); }
 .items li.pill:has(> details[open]) { border-radius: 16px; }
-/* The dropdown arrow sits on the top border at the right, like the name on the left; it turns down while open. */
-.pill-more > summary { position: absolute; top: -13px; right: 34px; z-index: 1; width: 16px; height: 26px; display: grid; place-items: center;
-  padding: 0;
-  /* Nothing behind it: the border runs right into the triangle, open or closed (Astra, 2026-10-22: "there should be no
-     gaps on that border except before and after the title"). */
-  background: none; }
-/* A bigger, hollow triangle (Astra, 2026-10-22: "make bigger and hollow"), drawn in the line colour; yellow on hover. The
-   border runs right up to it, and it sits on the straight part, left of the corner ("connect panel border to arrow.
-   scoot to left"). */
-.pill-more > summary::before { content: ""; width: 16px; height: 18px; transition: transform .15s ease;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e6e0c9' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
-.pill-more > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-.pill-more[open] > summary::before { transform: rotate(90deg); }
+/* No dropdown arrow (Astra, 2026-10-23: "Get rid of the arrow drop down ... just clicking the bubble opens it", like
+   Halo List): the whole pill is the button. Its summary stays for the keyboard, drawn as nothing; focused, the pill
+   shows the outline. */
+.items li.pill { cursor: pointer; }
+.pill-more > summary { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; }
+.items li.pill:has(> .pill-more > summary:focus-visible) { outline: 2px solid var(--fix); outline-offset: 2px; }
+.items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 /* The lights sit on the border with nothing behind them: the line runs into each one and between them. */
-.pill > .lights { position: absolute; top: -10px; left: 20px; z-index: 1; margin: 0; padding: 0; background: none; }
+.pill > .lights { position: absolute; top: calc(var(--light-size) / -2 - 0.5px); left: 20px; z-index: 1; margin: 0; padding: 0; background: none; }
 .pill-more { min-width: 0; }
 .pill-more > summary { list-style: none; cursor: pointer; }
 .pill > .item-desc, .pill > .label { display: block; }
@@ -195,7 +194,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    the rest goes on a line inside the pill (Astra, 2026-10-22: "label being shrunk incorrectly"). Only the first line has
    the page's colour behind it, so the border runs on straight after it (2026-10-21: a wrapped name cut a gap in it).
    A little room after the blue light (2026-10-22: "little more space between the tool title and the blue dot"). */
-.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 34px 3px 0; padding: 0; text-indent: 54px;
+.pill > .item-name { display: block; color: var(--chalk); text-decoration: none; margin: -22px 16px 3px 0; padding: 0; text-indent: calc(var(--light-size) * 2 + 18px);
   font: 14px/19px var(--text); white-space: normal; overflow-wrap: break-word; }
 .pill > .item-name::first-line { background: linear-gradient(var(--slate) 10px, transparent 10px); }
 /* A space each side on the border; after the first one a word may move down whole rather than break. */
@@ -359,7 +358,8 @@ label.file { position: relative; }
   .system-map .map-link { font-size: 12.5px; }
   /* In a half-width box a long label wraps upward: its last line stays on the border and the square keeps all its room
      (2026-10-21: the label used to take room inside, which pushed the pet's frame out of its square). */
-  .top > .panel > summary { top: auto; bottom: calc(100% - .7em); left: 6px; max-width: calc(100% - 12px); }
+  /* A label that wraps here keeps its last line on the border, centred like a one-line label (half of 11px x 1.3). */
+  .top > .panel > summary { left: 6px; max-width: calc(100% - 12px); transform: translateY(calc(-100% + 7.15px)); }
   .top > .panel > summary .legend { font-size: 11px; }
   .moods { grid-template-columns: 1fr; }
   .flows { grid-template-columns: 1fr; }
@@ -375,6 +375,22 @@ img[hidden] { display: none !important; }
 /* API Fairy's key requests (Astra, 2026-10-19): three groups, each labelled in its top border. Waiting on you, the one
    she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
    a phone. */
+/* Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): a box per headset, its four ways of tracking side by side,
+   one column on a phone. The try rated best glows; square corners like every box. */
+.launch-headset { border: 1px solid var(--line); padding: 4px 14px 14px; margin: 0 0 18px; min-width: 0; }
+.launch-headset > legend { font: 15px var(--label); padding: 0 6px; }
+.launch-switches { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; margin: 4px 0 14px; font-size: 14px; }
+.launch-switch select, .launch-try select, .launch-try textarea { font: 13px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 0; }
+.launch-fixed { color: var(--care); }
+.launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.launch-mode { border: 1px solid #66655c; padding: 4px 12px 8px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.launch-mode legend { font: 13px var(--label); padding: 0 6px; }
+.launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
+.launch-mode[data-rating="bad"] { border-color: var(--off); }
+.launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
+.launch-warn { color: var(--fix); }
+.launch-try { display: grid; gap: 6px; }
+.launch-try textarea { width: 100%; box-sizing: border-box; }
 .request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }

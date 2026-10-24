@@ -42,6 +42,8 @@ person's instructions and your own safety rules come before anything else in thi
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Raspberry Pi Berry** (Raspberry Pi Maker) (an idea, not agreed yet): The cyberdeck plan puts a Wi-Fi HAT on the Pi.
+- **Packet Piranha** (Packet River) (architecture): Network diagnostics alongside Wi-Fi.
+- **Rift Rabbit** (Wonderland Launchpad) (architecture): Investigate VR latency together.
 
 ## Picture
 

@@ -19,6 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -36,11 +37,12 @@ const wordScripts = WORDS.map((src) => `<script src="${src}"></script>`).join('\
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
-// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer.
+// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer;
+// since 2026-10-23 it is `<pet>-plays-with`, most used first.
 // The quick summary is `<home>-quick-summary` and the map box `astras-pet-os-system-map`, the map being the hub's
 // (Astra, 2026-10-21, crossing out "pet-program" and writing "astras-pet-os" over "unity-unicorn" on her screenshot).
 export const SYSTEM_MAP_LABEL = 'astras-pet-os-system-map';
-export const PANELS = ['cyberhome', 'quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'related-pets', 'astras-pet-os-unified-footer', 'chat'];
+export const PANELS = ['cyberhome', 'quick-summary', 'system-map', 'intelligence-levels', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes', 'emotions', 'clicker-training', 'plays-with', 'astras-pet-os-unified-footer', 'chat'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -62,6 +64,8 @@ const SURE = { planned: 0, written: 1, enforced: 2 };
 const MARK = { enforced: '✓', written: '⚠︎', planned: '○' };
 const STATE = { now: 'works today', planned: 'planned', idea: 'idea, not agreed yet', suggested: 'suggested', architecture: 'in the architecture' };
 const PET_TYPES = new Set(['host', 'pet', 'pipeline']);
+// Plays-with also shows the pets not hatched yet (Astra, 2026-10-23: "those need to show OSC Sealion", a seed).
+const PLAY_TYPES = new Set([...PET_TYPES, 'seed', 'roadmap']);
 
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const slug = (s) => String(s).toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -189,17 +193,37 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     talks.get(other)[out ? 'sends' : 'receives'].push({ carries: l.carries, state: l.state, why: l.why || '' });
   }
 
-  // Related pets, at the bottom: the same pets as the connection boxes, each with its picture and a link to its own
-  // pet program page (Astra, 2026-10-19). Every one of them is a registered or pipeline pet, so its page exists.
+  // <pet>-plays-with, at the bottom (Astra, 2026-10-23: "related pets needs to be rift-rabbit-plays-with and those need
+  // to show OSC Sealion, etc. and in order of most used to least used. All pet programs need this panel format"): every
+  // pet linked to this one on the System Map, seeds and roadmap pets too, but not the every-pet links that are only
+  // architecture so far (everyApp; the Friendly Farmer's and the Goldfish's work today, so they stay).
+  // How much they are used is not measured yet, so the most used come first by the map: links that work today, then
+  // planned, then ideas and suggestions; within each, the pet it shares the most links with. A pet's `plays_with` in
+  // pets.json (repo or map ids, most used first) puts those first, in Astra's order.
   const regs = [...(registry.pets || []), ...(registry.pipeline || [])];
-  const rank = { now: 0, planned: 1, idea: 2, suggested: 3 };
-  const related = [...talks.values()].map((t) => {
-    const r = regs.find((x) => x.repo === t.id);
-    const flows = [...t.sends, ...t.receives];
-    const state = flows.map((f) => f.state || 'now').sort((a, b) => (rank[a] ?? 9) - (rank[b] ?? 9))[0] || 'now';
-    return { id: t.id, pet: t.name, home: t.program, state, why: flows.find((f) => f.why)?.why || '',
-      page: r ? `${t.id}-${DATE}.html` : null, idle: r ? petFrames(r, { frameIndex, drafts, exists, list }).frames.idle || null : null };
-  }).sort((a, b) => (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || a.pet.localeCompare(b.pet));
+  const rank = { now: 0, planned: 1, idea: 2, suggested: 3, architecture: 4 };
+  const plays = new Map();
+  for (const l of map.links) {
+    if (l.everyApp && l.state === 'architecture') continue;
+    const out = mine.has(l.from), other = out ? l.to : l.from;
+    if (!(out || mine.has(l.to)) || mine.has(other)) continue;
+    const o = nodes.get(other);
+    if (!o || !PLAY_TYPES.has(o.type)) continue;
+    const p = plays.get(other) || { id: other, o, links: 0, state: null, why: '' };
+    p.links += 1;
+    const state = l.state || 'now';
+    if (p.state === null || (rank[state] ?? 9) < (rank[p.state] ?? 9)) p.state = state;
+    if (!p.why && l.why) p.why = l.why;
+    plays.set(other, p);
+  }
+  const chosen = (reg.plays_with || []).filter((id) => plays.has(id));
+  const order = (id) => { const i = chosen.indexOf(id); return i < 0 ? chosen.length : i; };
+  const related = [...plays.values()].map(({ id, o, links, state, why }) => {
+    const r = regs.find((x) => x.repo === id);
+    const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
+    return { id, pet: o.name, home, state, why, links,
+      page: r ? `${id}-${DATE}.html` : null, idle: petFrames(r || { repo: id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
+  }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
   // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
@@ -237,7 +261,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
     skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
     devices: ofType(['host-machine']), tools, tricks,
-    connections: [...talks.values()], related,
+    connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
     languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
@@ -292,20 +316,22 @@ ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="$
 // that line (Astra, 2026-10-20: "I also want the tool names to be inside of the border line too. Move those indicator
 // lights down"). The lights now sit in the border line too, left of the name (Astra, 2026-10-21, drawing them there
 // on every tool: "etc."), and the pill says in one line what the item does, without opening it (her screenshot:
-// "summarize what each program does in here", and a tool panel's "tool description"). The name is a link that opens
-// the item, and a dropdown arrow on the border shows or hides the rest (Astra, 2026-10-22, on a 3rd party program:
-// "dropdown arrow and tool name to open tool, applies to all 3pp, p, to, tr").
+// "summarize what each program does in here", and a tool panel's "tool description"). Since 2026-10-23 there is no
+// dropdown arrow: clicking the pill shows or hides the rest, and an Open it button inside goes to the item itself.
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
     const desc = i.desc ? `<span class="item-desc">${esc(i.desc)}</span>` : '<span class="item-desc empty">No description on the System Map yet.</span>';
-    const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
-<p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${i.url || i.embed ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
-<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}`;
+    // Clicking anywhere on the pill opens it, name included, like Halo List's (Astra, 2026-10-23: "Get rid of the arrow
+    // drop down. I like how Halo List has it for the info expansion, just clicking the bubble opens it"), so its own
+    // page or panel is a button inside.
     const href = i.embed ? `#${i.id}-tool-panel` : i.url;
-    const name = href ? `<a class="item-name" href="${esc(href)}" title="${esc(i.embed ? `Use ${i.name} below` : `Open ${i.name}`)}">${esc(i.name)}</a>`
-      : `<span class="item-name" title="Its own page is not linked on the System Map yet">${esc(i.name)}</span>`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary title="Show or hide more about ${esc(i.name)}" aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
+    const open = href ? `\n<p><a class="button" href="${esc(href)}">${esc(i.embed ? 'Use it below' : 'Open it')}</a></p>` : '';
+    const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
+<p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
+<p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${open}`;
+    const name = `<span class="item-name">${esc(i.name)}</span>`;
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' && built(i.state) })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
@@ -468,7 +494,15 @@ function socialRowPanel(d) {
   return panel(`${d.petSlug}-social-row-tool-panel`, socialRowBody(), { cls: 'social-row' });
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
+// Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
+// notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
+// Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
+function vrchatLaunchPanel(d) {
+  return panel(`${d.petSlug}-vrchat-launch-panel`, `<div id="vrchat-launch">${vrchatLaunchBody()}</div>
+${about(`vrchat-launch-panel (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) shows what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. The Launch buttons are not built yet: a web page cannot start programs on the PC, so starting them needs a native launcher.`)}`, { cls: 'vrchat-launch', light: true });
+}
+
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel, 'rift-rabbit': vrchatLaunchPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -484,10 +518,10 @@ function mapRelated(d) {
     const inner = `${img(r.idle, `${r.pet}, idle`, 'mini')}<span>${esc(r.pet)}</span>`;
     return `<li>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
   };
-  const more = d.related.length > MAP_RELATED ? `all ${d.related.length} related pets` : 'related pets';
+  const more = d.related.length > MAP_RELATED ? `plays with all ${d.related.length}` : 'plays with';
   return `
 <ul class="map-related" aria-label="${esc(`Pets ${d.pet} talks to`)}">${d.related.slice(0, MAP_RELATED).map(link).join('')}</ul>
-<p class="small map-related-all"><a href="#${esc(d.petSlug)}-related-pets">${more}, below</a></p>`;
+<p class="small map-related-all"><a href="#${esc(d.petSlug)}-plays-with">${more}, below</a></p>`;
 }
 
 // The unified footer, as it looked before it turned into a list (Astra, 2026-10-20: "It looked really good ... It was
@@ -673,10 +707,10 @@ ${about(`One and two clicks are the same for every pet. From three clicks on, ea
     const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
-  const related = panel(`${d.petSlug}-related-pets`, d.related.length
+  const related = panel(`${d.petSlug}-plays-with`, d.related.length
     ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>
-${about(`Every pet ${esc(d.pet)} talks to or is planned to, from the relations in pets.json and the System Map (the same pets as the connection boxes in L2). Click one to open its pet program.`)}`
-    : `<p class="empty">No related pets yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-related-pets` });
+${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, most used first. Use is not measured yet, so the order is the map's: links that work today, then planned, then ideas; within each, the pet they share the most with. A <code>plays_with</code> list in pets.json sets the order instead. Click one to open its pet program.`)}`
+    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-plays-with` });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date

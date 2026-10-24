@@ -41,10 +41,12 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Pets it works with
 
-- **Forensic Ferret** (Evidence Locker): The network samples around each case: fine, or what was wrong.
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Forensic Ferret** (Evidence Locker): The network samples around each case: fine, or what was wrong.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Log Lynx** (Log Den): Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment.
+- **Mesh Moth** (Mesh Lantern) (architecture): Network diagnostics alongside the LoRa mesh.
+- **Wifi Butterfly** (Signal Garden) (architecture): Network diagnostics alongside Wi-Fi.
 
 ## Picture
 

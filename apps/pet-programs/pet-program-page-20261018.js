@@ -592,6 +592,67 @@
   }
   })();
 
+  // ---- Clicking a pill opens or closes it, like Halo List's (Astra, 2026-10-23: "just clicking the bubble opens it").
+  // Its lights, links, buttons and fields keep their own clicks, and selecting text in it does not close it. ----
+  document.addEventListener('click', function (e) {
+    var pill = e.target.closest && e.target.closest('li.pill');
+    if (!pill || e.target.closest('button, a, input, select, textarea, label, summary')) return;
+    if (pill.querySelector('.pill-body').contains(e.target) && String(window.getSelection())) return;
+    var more = pill.querySelector(':scope > .pill-more');
+    if (more) more.open = !more.open;
+  });
+
+  // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes
+  // on each try are saved in this browser; the page shows what a launch would start and which try went best. ----
+  (function () {
+  var box = document.getElementById('vrchat-launch');
+  if (!box) return;
+  var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
+  var saved = read('vrchat-launch', {});
+  function save() { write('vrchat-launch', saved); }
+  Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
+    var id = hs.getAttribute('data-launch-headset');
+    var s = saved[id] = saved[id] || { switches: {}, tries: {} };
+    var switches = hs.querySelectorAll('[data-launch-switch]');
+    function value(input) { return input.type === 'checkbox' ? input.checked : input.value; }
+    function refresh() {
+      var sw = {};
+      Array.prototype.forEach.call(switches, function (input) { sw[input.getAttribute('data-launch-switch')] = value(input); });
+      var extra = (sw.oscgoesbrrr ? ' + OSCGoesBrrr' : '') + (sw['double-hip'] ? ' + Double Hip Tracker' : '');
+      var best = null;
+      Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
+        card.querySelector('.launch-extra').textContent = extra;
+        var warn = card.querySelector('.launch-warn');
+        if (warn) warn.hidden = (card.getAttribute('data-untested') || '').split(' ').indexOf(sw.streamer) < 0;
+        var t = s.tries[card.getAttribute('data-launch-mode')];
+        card.setAttribute('data-rating', (t && t.rating) || '');
+        if (t && RANK[t.rating] && (!best || RANK[t.rating] > RANK[best.rating])) best = { rating: t.rating, name: card.querySelector('legend').textContent };
+      });
+      hs.querySelector('[data-launch-best]').textContent = best ? 'Best so far: ' + best.name + ' (' + best.rating + ').' : 'No tries rated yet.';
+    }
+    Array.prototype.forEach.call(switches, function (input) {
+      var k = input.getAttribute('data-launch-switch');
+      if (k in s.switches) { if (input.type === 'checkbox') input.checked = !!s.switches[k]; else input.value = s.switches[k]; }
+      input.addEventListener('change', function () { s.switches[k] = value(input); save(); refresh(); });
+    });
+    Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
+      var m = card.getAttribute('data-launch-mode');
+      var rating = card.querySelector('[data-launch-rating]'), note = card.querySelector('[data-launch-note]'), tried = card.querySelector('[data-launch-tried]');
+      var t = s.tries[m] || {};
+      rating.value = t.rating || ''; note.value = t.note || '';
+      tried.textContent = t.day ? 'last changed ' + t.day : '';
+      function keep() {
+        s.tries[m] = { rating: rating.value, note: note.value, day: localDay() };
+        tried.textContent = 'last changed ' + s.tries[m].day;
+        save(); refresh();
+      }
+      rating.addEventListener('change', keep);
+      note.addEventListener('change', keep);
+    });
+    refresh();
+  });
+  })();
+
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
   // its panel fits it (Astra's Window Star, 2026-10-20). Only the tool page in that panel is listened to, from the site
   // its panel opened (on any farm, whoever's site that is), and only for a height. ----
