@@ -15,8 +15,8 @@ export const STREAMERS = [
 ];
 
 export const HEADSETS = [
-  { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
-  { id: 'quest-3', n: 2, name: 'VRChat on Quest 3', face: false, about: 'No face tracking.' },
+  { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', device: 'Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
+  { id: 'quest-3', n: 2, name: 'VRChat on Quest 3', device: 'Quest 3', face: false, about: 'No face tracking.' },
 ];
 
 // `tracker`: what tells SteamVR where the head is, the yellow line under the name. `points`: how it works and what to
@@ -78,9 +78,21 @@ export const RATINGS = [['', 'Not tried yet'], ['bad', 'Bad'], ['ok', 'OK'], ['g
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-// The programs a launch starts, in order. Switches add theirs on the page.
+// The steps of a launch, in Astra's order (2026-10-24: "It's usually Virtual Desktop, Quest Pro, Virtual Desktop on
+// Quest Pro, SteamVR (which opens a lot of others, VRCFaceTracking, OVR Advanced Settings, OVR Dynamic Resolution),
+// then I open DoubleHip DoubleChest Tracker, OVRSmoothTracking, OSCGoesBrrr ... once all of those are connected and the
+// trackers look smoother I will open VRChat"). A step is { name } or { name, opens: [...] } or { wait }; `streamer`
+// marks the streamer's name, filled in from the switch on the page; `extra` marks a program a switch adds.
 export function launchOrder(headset, mode) {
-  return ['SteamVR', 'the streamer', ...(headset.face ? ['VRCFaceTracking'] : []), ...mode.runs, 'VRChat'];
+  return [
+    { streamer: true, name: STREAMERS[0][1] },
+    { name: headset.device },
+    { streamer: true, name: STREAMERS[0][1], after: ` on the ${headset.device}` },
+    { name: 'SteamVR', note: 'which opens', opens: [...(headset.face ? [{ name: 'VRCFaceTracking' }] : []), { name: 'OVR Advanced Settings' }, { name: 'OVR Dynamic Resolution' }, ...mode.runs.map((r) => ({ name: r }))] },
+    { name: 'Then open', opens: [{ name: 'Double Hip / Double Chest Tracker', extra: 'double-hip' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }] },
+    { wait: 'Wait until all of those are connected and the trackers look smooth.' },
+    { name: 'VRChat' },
+  ];
 }
 
 function switchRow(h) {
@@ -93,13 +105,18 @@ ${h.face
     ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
     : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
-${sw('double-hip', 'Double Hip / Double Chest (Double Hip Tracker)', false)}
+${sw('double-hip', 'Double Hip / Double Chest Tracker', false)}
 <label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 </div>`;
 }
 
-// The programs the switches add, after VRChat, shown only while their switch is on.
-const EXTRAS = [['oscgoesbrrr', 'OSCGoesBrrr'], ['double-hip', 'Double Hip Tracker']];
+// One step of the start list; a program a switch adds shows only while its switch is on.
+function step(s) {
+  if (s.wait) return `<li class="launch-wait">${esc(s.wait)}</li>`;
+  const name = s.streamer ? `<span data-launch-streamer>${esc(s.name)}</span>${esc(s.after || '')}` : esc(s.name);
+  const opens = s.opens ? `${s.note ? `, ${esc(s.note)}:` : ':'}<ul>${s.opens.map((o) => `<li${o.extra ? ` data-launch-extra="${esc(o.extra)}" hidden` : ''}>${esc(o.name)}</li>`).join('')}</ul>` : '';
+  return `<li>${name}${opens}</li>`;
+}
 
 // Each way is a mode, numbered from .0, the native one first (Astra, 2026-10-24: "call them modes. Mode 1.0 Native
 // VRChat Tracking, etc."), and it lists every program it starts, one per line in order, the streamer by the name
@@ -108,12 +125,11 @@ const EXTRAS = [['oscgoesbrrr', 'OSCGoesBrrr'], ['double-hip', 'Double Hip Track
 function modeCard(h, m, i) {
   const n = `${h.n}.${i}`;
   const untested = (m.untested || []).map((s) => STREAMERS.find(([id]) => id === s)?.[1]).filter(Boolean);
-  const step = (p) => (p === 'the streamer' ? `<li data-launch-streamer>${esc(STREAMERS[0][1])}</li>` : `<li>${esc(p)}</li>`);
   return `<fieldset class="launch-mode" data-launch-mode="${esc(m.id)}"${untested.length ? ` data-untested="${esc(m.untested.join(' '))}"` : ''}><legend><button type="button" class="launch-fold" aria-expanded="true">Mode ${esc(n)} ${esc(m.name)}</button></legend>
 <p class="launch-tracker">${esc(m.tracker)}</p>
 <ul class="small launch-points">${m.points.map((p) => `<li>${esc(p)}</li>`).join('')}${untested.length ? `<li class="launch-warn" hidden>Not confirmed with ${esc(untested.join(', '))} yet.</li>` : ''}</ul>
 <p class="small launch-label"><b>Starts, in order:</b></p>
-<ol class="small launch-order">${launchOrder(h, m).map(step).join('')}${EXTRAS.map(([key, name]) => `<li data-launch-extra="${esc(key)}" hidden>${esc(name)}</li>`).join('')}</ol>
+<ol class="small launch-order">${launchOrder(h, m).map(step).join('')}</ol>
 <p class="small"><b>Turn off:</b> ${m.off.map(esc).join(', ') || 'Nothing'}</p>
 <div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
 <label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
