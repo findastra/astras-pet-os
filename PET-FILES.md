@@ -150,7 +150,11 @@ address that never changes**, never a dated file name (Astra, 2026-10-24): a new
 new date, `npm run build` points `art/latest/` at it (`scripts/one-picture-home-20261024.mjs`; every stable path and its
 drawing are in `art/latest/index.json`), and every link shows it within 5 minutes. Never hand-edit `art/latest/`. The desktop
 pets app reads only this folder, including its draft list, `desktop-art/desktop-drafts-20261018.json` (written by
-`scripts/prepare-desktop-drafts-20261011.mjs`, paths relative to the hub). The list lives in the hub, not in
+`scripts/prepare-desktop-drafts-20261011.mjs`, paths relative to the hub), with one exception (Astra, 2026-10-24): while
+this folder is held back (another branch, uncommitted changes or unpushed work), Startup Star's live sync says so in
+`Documents\Astra's PetOS Data\pictures\pictures-copy-status-20261024.json`, and the star reads `pets.json`, `art/` and
+`desktop-art/` from the pictures-only copy next to that file, which the sync keeps exactly like GitHub's main. It trusts
+the status for 10 minutes; without a fresh one it reads this folder again. The list lives in the hub, not in
 `%LOCALAPPDATA%`, because a program started inside the Claude or Codex app reads and writes that app's private copy of
 `%LOCALAPPDATA%`. Windows programs read their frames and `.ico` from `..\astras-pet-os\` when they are built.
 **The one exception** is Claude Bot: his exact copy of ChatGPT's BSOD may not be public, so it lives only in his
