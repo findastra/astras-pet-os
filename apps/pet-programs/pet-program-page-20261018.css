@@ -23,7 +23,10 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .page { max-width: calc(1180px + 2 * var(--gutter)); margin: 0 auto; padding: var(--gutter) var(--gutter) 120px; }
 
 /* Panels: a thin bordered box with its label set into the top border. Clicking the label folds it. */
-.panel { position: relative; border: 1px solid var(--line); padding: 24px 18px 16px; margin: 30px 0 0; }
+/* One padding for every panel, the same on all four sides, square corners (Astra, 2026-10-23: "panel spacing should be
+   unified always too and square"). */
+:root { --pad: 20px; }
+.panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; }
 /* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
    alignment issues", on rift-rabbit-update-history sitting above its line). */
 .panel > summary { position: absolute; top: 0; transform: translateY(-50%); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
@@ -35,7 +38,7 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel > summary .legend::after { content: "\25B8"; display: inline-block; margin-left: 8px; font-size: 10px; color: var(--chalk-dim); transition: transform .15s ease; }
 .panel[open] > summary .legend::after { transform: rotate(90deg); }
 .panel > summary:hover .legend::after { color: var(--fix); }
-.panel:not([open]) { padding: 14px 18px 0; }
+.panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
@@ -77,7 +80,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .system-map[open] { justify-content: center; }
 /* Their labels keep to one line on the border: a little smaller and closer to the corner than other panels'. */
 .top > .panel > summary { left: 10px; max-width: calc(100% - 20px); }
-.top > .panel > summary .legend { font-size: 12px; }
+.top > .panel > summary .legend { font-size: 11px; white-space: nowrap; }
 .system-map .map-link { display: grid; justify-items: center; gap: 6px; color: var(--chalk); text-align: center; text-decoration: none; font-size: 13.5px; line-height: 1.35; }
 .system-map .map-link:hover span, .system-map .map-link:focus-visible span { text-decoration: underline; }
 .system-map .small { text-align: center; margin: 8px 0 0; overflow-wrap: anywhere; }
@@ -100,10 +103,10 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
 /* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
-.title .summary[open] { padding: 16px 16px 10px; }
+.title .summary[open] { padding: var(--pad); }
 .title .summary > p { margin: 0; }
 /* The pet fills its square: the den is the square's inside, and the pet and the rings shrink to fit it. */
-.top > .cyberhome[open] { padding: 20px 12px 12px; }
+.top > .cyberhome[open] { padding: var(--pad); }
 .habitat { position: relative; text-align: center; display: flex; flex-direction: column; }
 /* The details box's own content slot is not a flex item, so the habitat takes the square's inside by container units. */
 .top > .cyberhome[open] .habitat { height: 100cqh; }
@@ -115,7 +118,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    label. */
 .habitat > .render-label { position: absolute; top: -9px; left: 8px; z-index: 2; display: flex; align-items: flex-start; gap: 6px; max-width: calc(100% - 16px); }
 .habitat > .render-label .lights { margin: 3.5px 0 0; }
-.render-name { font: 11px/18px var(--label); color: var(--chalk); background: var(--slate); padding: 0 5px; overflow-wrap: anywhere; min-width: 0; }
+.render-name { font: 11px/18px var(--label); color: var(--chalk); background: var(--slate); padding: 0 5px; overflow-wrap: anywhere; min-width: 0; text-align: left; }
 .den { flex: 1; min-height: 0; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 14px 4px 4px; }
 /* The pet as tall as on the desktop: the page builder works out --pet-height from its drawing. */
 .den img.pet { width: auto; height: var(--pet-height, auto); max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
@@ -181,15 +184,20 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    on the left, then its name and its tags on one line; the pill is as wide as that, rounder while closed. Clicking it
    opens it in place, with what it does, its label and the rest (2026-10-23: "just clicking the bubble opens it"). Its
    summary stays for the keyboard, drawn as nothing; focused, the pill shows the outline. */
-.items li.pill { position: relative; display: flex; flex-wrap: wrap; align-items: center; column-gap: 6px; row-gap: 2px;
-  justify-self: start; width: fit-content; max-width: 100%; min-width: 0; margin: 9px 0; padding: 8px 16px 8px 48px;
+/* Every pill fills its column, so they are all one size (Astra, 2026-10-23: "make these the same size"). */
+.items li.pill { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); justify-items: start; column-gap: 9px; row-gap: 2px;
+  justify-self: stretch; width: auto; max-width: 100%; min-width: 0; margin: 9px 0; padding: 8px 16px 8px 12px;
   border: 1px solid var(--line-dim); border-radius: 20px; background: rgba(255, 255, 255, .04); cursor: pointer; }
 .items li.pill:hover { border-color: var(--line); background: rgba(255, 255, 255, .07); }
-.items li.pill:has(> .pill-more[open]) { width: auto; justify-self: stretch; border-radius: 16px; border-color: var(--care); }
-.pill > .lights { position: absolute; left: 10px; top: 12.5px; margin: 0; gap: 7px; }
+.items li.pill:has(> .pill-more[open]) { border-radius: 16px; border-color: var(--care); }
+/* The lights sit in the name's row, centred on it (Astra, 2026-10-23: "need the circles to be centerlined with the text"). */
+.pill > .lights { grid-column: 1; grid-row: 1; align-self: center; margin: 0; gap: 7px; }
+.pill > :not(.lights) { grid-column: 2; }
 .pill > .item-name { color: var(--chalk); font: 15px/1.35 var(--text); overflow-wrap: anywhere; }
+/* One size: the name on its own line, its tags on the next, and every closed pill two lines tall. */
+.items li.pill { min-height: 64px; align-content: center; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
-.pill > .item-desc, .pill > .label, .pill > .pill-more { flex: 1 0 100%; min-width: 0; }
+.pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
 .pill-more > summary { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; list-style: none; }
 .pill-more > summary::-webkit-details-marker { display: none; }
@@ -284,7 +292,7 @@ label.file { position: relative; }
 /* The unified footer (Astra, 2026-10-20: "It looked really good ... It was listed like an actual aesthetic footer"):
    Codex's footer-template of 2026-10-14 (Flash Audit A51) again. Centered and spacious between thin rules, its groups
    slightly staggered, each after a pink ✦; no list. */
-.panel.footer { padding: 28px 8px 20px; }
+.panel.footer { padding: var(--pad); }
 .astra-footer { display: grid; justify-items: center; gap: 14px; text-align: center; font-size: 13px; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
@@ -348,8 +356,8 @@ label.file { position: relative; }
   .pair { grid-template-columns: 1fr; }
   /* On a phone the two squares are half the width each (Astra, 2026-10-20: "BOTH TO BE SQUARES"; 2026-10-21: the boxes
      themselves are the squares). */
-  .top > .panel { padding-left: 10px; padding-right: 10px; }
-  .top > .panel[open] { padding-top: 22px; }
+  :root { --pad: 14px; }
+
   .system-map .map-link { font-size: 12.5px; }
   /* In a half-width box a long label wraps upward: its last line stays on the border and the square keeps all its room
      (2026-10-21: the label used to take room inside, which pushed the pet's frame out of its square). */
