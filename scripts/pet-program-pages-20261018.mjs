@@ -553,11 +553,11 @@ function socialRowPanel(d) {
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
 // Headsets and modes: scripts/vrchat-launch-panel-20261023.mjs.
-// Rift Rabbit's VRChat setups, the pet program's own ways of using its L1 programs, are tools in its L2 control panel
-// (Astra, 2026-10-24: "get rid of the launch panel, instead move the tools inside it to the L2 control panel").
+// Rift Rabbit's VRChat setups, the pet program's own ways of using its L1 programs, are its tricks in its L2 control
+// panel (Astra, 2026-10-24: "get rid of the launch panel ... L2 control panel"; "the VRChat Setups are actually tricks").
 function vrchatSetups() {
-  return `<section class="vrchat-setups"><h3>VRChat setups · 2</h3><div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
-${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only.`)}</section>`;
+  return `<div class="vrchat-setups"><div id="vrchat-launch">${vrchatLaunchBody(lights)}</div>
+${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only.`)}</div>`;
 }
 
 export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
@@ -697,19 +697,21 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
   const tricks = [...selfAudit, ...d.tricks];
-  // The update history is a tool, a pill with its lights like every other, that opens to show the details (Astra,
-  // 2026-10-24: "the rabbit update history needs to either be a tool or a section"; before, a panel inside the panel).
-  const historyName = `${d.petSlug}-update-history`;
-  const history = `<ul class="items"><li class="pill">${lights(`tool:${historyName}`, historyName)}<span class="item-name">${esc(historyName)}</span><span class="item-desc">When ${esc(d.home)} was last updated and checked, and where its data lives.</span><details class="pill-more"><summary aria-label="More about ${esc(historyName)}"></summary><div class="pill-body"><dl class="status">
+  // The update history is a section, a heading and its details: it is not a trick (no AI reads it and follows steps)
+  // and not a tool (Astra, 2026-10-24: "if update history is a trick then do it, if not make it a section").
+  const history = `<dl class="status">
 <dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
 <dt>Last entry</dt><dd id="last-entry">none yet</dd>
 <dt>Updated</dt><dd>page spawned ${esc(DATE)}; ${d.version.core ? `version ${esc(d.version.full)}${d.version.assigned ? ' (the starting version, assigned by the hub)' : ` (from ${esc(d.repo)}'s pet.json)`}` : 'the program\'s own version is not recorded in the hub yet'}</dd>
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
-<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl></div></details></li></ul>`;
+<dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
+  // Rift Rabbit's VRChat setups are its tricks: ways of using its programs (Astra, 2026-10-24: "I think the VRChat Setups
+  // are actually tricks, so just put them in that section").
+  const setups = d.repo === 'rift-rabbit' ? 2 : 0;
   const L2 = panel(`${d.petSlug}-L2-control-panel`, `<div class="columns">
-<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section>
-<section><h3>Update history · 1</h3>${history}</section></div>${d.repo === 'rift-rabbit' ? vrchatSetups() : ''}`, { cls: 'level', light: true });
+<section><h3>Native tricks · ${tricks.length + setups}</h3>${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}${setups ? vrchatSetups() : ''}</section>
+<section><h3>Update history</h3>${history}</section></div>`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
