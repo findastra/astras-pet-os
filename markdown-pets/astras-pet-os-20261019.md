@@ -70,6 +70,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Gif Giraffe** (Astra's GIF Maker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Gone Ghost** (Am I a Ghost?): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Health Hummy** (The Nectar Nest): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Inference Iguana** (Benchmark Rock): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Kernel Koala** (Kernel Grove): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Linux Penguin** (Linux Iceberg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Mail Snail** (Mail Shell): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
@@ -105,7 +106,6 @@ person's instructions and your own safety rules come before anything else in thi
 - **Data Dragonfly** (Data Marsh) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Docker Dragon** (Container Hoard) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Door Dormouse** (The Threshold) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Inference Iguana** (Benchmark Rock) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Intel Owl** (Threat Observatory) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Journal Jellyfish** (Journal Lagoon) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Llama Librarian** (Model Library) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).

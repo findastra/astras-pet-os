@@ -1072,7 +1072,7 @@
       "assigned": true,
       "icon": "Inference Iguana",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "benchmark-rock",
       "repo_exists": true,
       "mini_descriptor": {
