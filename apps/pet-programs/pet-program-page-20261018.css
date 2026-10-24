@@ -209,7 +209,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .items, .plain { list-style: none; margin: 0; padding: 0; }
 .items li { margin: 7px 0; }
 /* Two columns as soon as two 200px pills fit (Astra, 2026-10-23: "these tools could also be stacking in 2 columns right now"). */
-.items:has(> li.pill) { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(240px, calc((100% - 56px) / 3))), 1fr)); gap: 0 28px; align-items: stretch; }   /* pills in a row are one height; 240px keeps a name like "OVR Dynamic Resolution" on one line (Astra, 2026-10-23: "some of the tools still are including an extra space") */
+.items:has(> li.pill) { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(240px, calc((100% - 56px) / 3))), 1fr)); gap: 0 28px; align-items: start; }   /* every closed pill is one line, so they match; an opened one no longer stretches its row-mates (Astra, 2026-10-24); 240px keeps a name like "OVR Dynamic Resolution" on one line (Astra, 2026-10-23: "some of the tools still are including an extra space") */
 /* Every item is a pill, the same on every page (Astra, 2026-10-19): Halo List's (2026-10-23). Its two lights inside
    on the left, then its name and its tags on one line; the pill is as wide as that, rounder while closed. Clicking it
    opens it in place, with what it does, its label and the rest (2026-10-23: "just clicking the bubble opens it"). Its
@@ -237,6 +237,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill > .item-name, .pill > .pill-more:not([open]) { grid-row: 1; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
+/* A device's serial, first when it is opened (Astra, 2026-10-24: "I need the first thing I see to be the tracker
+   serial #"). */
+.item-serial { margin: 6px 0 0; font-size: 14px; color: var(--chalk); }
+.item-serial code { font: 600 15px var(--label); color: #3ff0ff; letter-spacing: .03em; }
+.pill:not(:has(> .pill-more[open])) > .item-serial { display: none; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
 /* How often it runs shows once it is opened too, like its state, so every closed tool is one line (Astra, 2026-10-23:
    "some of the tools still are including an extra space"). */
