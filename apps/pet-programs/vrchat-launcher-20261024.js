@@ -1,0 +1,136 @@
+// The Launch buttons on Rift Rabbit's VRChat launch panel (Astra, 2026-10-24: "Maybe i need to turn off all of the
+// launch dependencies so this can be the main control hub"). Only Rift Rabbit's page loads this script. A web page
+// cannot start programs, so it asks Inference Iguana's watch on this PC (Benchmark Rock's
+// benchmark-rock-v1.0-vr-launch-v1.0, which listens on 127.0.0.1 only). Where it listens and its code are in one fixed
+// file in Documents, beside the program lights' file, so only the page opened from this PC can read them; anywhere
+// else the buttons stay off and nothing is sent. Each step of a launch shows in its mode's card while it runs. Text
+// goes into the page with textContent only.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-10-24.
+(function () {
+  'use strict';
+  var box = document.getElementById('vrchat-launch');
+  if (!box) return;
+  if (!(location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))) return;
+  // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
+  var LOCAL_LAUNCH = "../../../../Astra's PetOS Data/benchmark-rock/vr-launch-page-data.js";
+  var MARK = { waiting: '○', now: '◔', you: '☛', done: '✓', skipped: '–', failed: '✗' };
+  var launcher = null, run = null, timer = null;
+  var gos = box.querySelectorAll('[data-launch-go]');
+  Array.prototype.forEach.call(gos, function (b) { b.setAttribute('data-label', b.textContent); });
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function live(r) { return !!r && (r.state === 'running' || r.state === 'ready'); }
+
+  // A mode can launch while the watch answers, its SteamVR driver is installed, and no other launch is running.
+  function paintButtons(problem) {
+    Array.prototype.forEach.call(gos, function (b) {
+      var m = b.closest('[data-launch-mode]').getAttribute('data-launch-mode');
+      var installed = !!(launcher && launcher.installed && launcher.installed[m]);
+      b.disabled = !launcher || !installed || live(run);
+      b.classList.toggle('off', b.disabled);
+      b.textContent = launcher && !installed ? b.getAttribute('data-label') + ': not installed' : b.getAttribute('data-label');
+      b.title = problem || (!launcher ? "Works on Astra's PC while Inference Iguana keeps watch" : !installed ? 'Its SteamVR driver is not installed yet' : live(run) ? 'A launch is running' : 'Start this mode’s programs in order');
+    });
+  }
+
+  function ask(path, extra) {
+    var body = { code: launcher.code };
+    for (var k in extra || {}) body[k] = extra[k];
+    // text/plain keeps it a simple request: the watch checks the code and where the page was opened from.
+    return fetch(launcher.url + path, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(body), cache: 'no-store' })
+      .then(function (r) { return r.json(); });
+  }
+
+  function cardOf(r) {
+    var hs = r && box.querySelector('[data-launch-headset="' + r.headset + '"]');
+    return hs && hs.querySelector('[data-launch-mode="' + r.mode + '"]');
+  }
+
+  function draw(card, r, said) {
+    var area = card.querySelector('[data-launch-run]');
+    // Drawn again only when something changed, so a button is never swapped out from under a click.
+    var drawn = JSON.stringify([r, said || null]);
+    if (!area.hidden && area.getAttribute('data-drawn') === drawn) return;
+    area.setAttribute('data-drawn', drawn);
+    area.hidden = false;
+    area.textContent = '';
+    if (r) {
+      var ol = el('ol', 'small launch-steps');
+      r.steps.forEach(function (s) {
+        var li = el('li');
+        li.setAttribute('data-state', s.state);
+        li.appendChild(el('span', 'launch-mark', MARK[s.state] || ''));
+        li.appendChild(document.createTextNode(' ' + s.name));
+        if (s.note) li.appendChild(el('span', 'launch-step-note', ' ' + s.note));
+        ol.appendChild(li);
+      });
+      area.appendChild(ol);
+      // What Start VRChat waits for: a light for each device and program.
+      if (r.checks && r.checks.length && live(r)) {
+        var checks = el('ul', 'small launch-checks');
+        r.checks.forEach(function (c) { var li = el('li', null, c.name); li.setAttribute('data-on', c.on ? 'yes' : 'no'); checks.appendChild(li); });
+        area.appendChild(checks);
+      }
+    }
+    var line = said || (r && r.said);
+    if (line) area.appendChild(el('p', 'small launch-said', line));
+    if (!live(r)) return;
+    var row = el('p', 'launch-run-buttons');
+    var waitingOnYou = r.steps.some(function (s) { return (s.id === 'headset' || s.id === 'streamer-on-headset') && s.state === 'you'; });
+    if (waitingOnYou) row.appendChild(button('Next', 'next', true, 'The headset is connected; start SteamVR now'));
+    if (r.steps.some(function (s) { return s.id === 'wait' && s.state !== 'waiting'; })) row.appendChild(button('Start VRChat', 'vrchat', r.state === 'ready', r.state === 'ready' ? 'Everything is on' : 'Waiting until everything is on'));
+    row.appendChild(button('Stop', 'stop', true, 'Stop the launch; programs that are open stay open'));
+    area.appendChild(row);
+  }
+
+  function button(text, path, on, title) {
+    var b = el('button', 'button' + (on ? '' : ' off'), text);
+    b.type = 'button'; b.disabled = !on; b.title = title;
+    b.addEventListener('click', function () { b.disabled = true; ask('/' + path).then(show, lost); });
+    return b;
+  }
+
+  // Draw what the watch said, and ask again every second while the launch runs.
+  function show(res, card) {
+    if (res && res.run) run = res.run;
+    var target = cardOf(res && res.run) || card;
+    if (target) draw(target, res && res.run, res && res.ok === false ? res.said : null);
+    paintButtons();
+    clearTimeout(timer);
+    if (live(run)) timer = setTimeout(function () { ask('/status').then(show, lost); }, 1000);
+  }
+
+  function lost() {
+    clearTimeout(timer);
+    var card = cardOf(run);
+    run = null; launcher = null;
+    paintButtons("Inference Iguana's watch is not answering");
+    if (card) card.querySelector('[data-launch-run]').removeAttribute('data-drawn');
+    if (card) card.querySelector('[data-launch-run]').appendChild(el('p', 'small launch-said', "Inference Iguana's watch is not answering. Start her watch from Startup Star's menu, then reload this page."));
+  }
+
+  Array.prototype.forEach.call(gos, function (b) {
+    b.addEventListener('click', function () {
+      var hs = b.closest('[data-launch-headset]'), card = b.closest('[data-launch-mode]');
+      function pick(k) { var i = hs.querySelector('[data-launch-switch="' + k + '"]'); return !i ? null : i.type === 'checkbox' ? i.checked : i.value; }
+      b.disabled = true;
+      ask('/launch', { headset: hs.getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode'), streamer: pick('streamer'), double: pick('double-hip') || '', object: pick('object-track') || '',osc: !!pick('oscgoesbrrr'), woojer: !!pick('woojer') })
+        .then(function (res) { show(res, card); }, lost);
+    });
+  });
+
+  var script = document.createElement('script');
+  script.setAttribute('src', LOCAL_LAUNCH + '?t=' + Date.now());
+  script.onload = function () {
+    script.remove();
+    var d = window.benchmarkRockLaunch;
+    // Only this PC's address, and only a code that looks like one.
+    if (!d || d.schema !== 'benchmark-rock-vr-launch-v1' || d.on !== true || !/^http:\/\/127\.0\.0\.1:\d{2,5}\/$/.test(d.url) || !/^[0-9a-f]{32,}$/i.test(d.code)) return;
+    launcher = { url: d.url.slice(0, -1), code: d.code, installed: d.installed || {} };
+    paintButtons();
+    // A launch already running (the page was reloaded) shows again in its card.
+    ask('/status').then(function (res) { if (res && res.run) show(res); }, lost);
+  };
+  script.onerror = function () { script.remove(); };
+  document.head.appendChild(script);
+})();

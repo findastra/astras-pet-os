@@ -2018,6 +2018,11 @@
             "node": "bs-manager",
             "how": "optional",
             "why": "Planned: Rift Rabbit preps and tracks VR software and performance; this is the VR software in the vr-gaming desktop folder."
+          },
+          {
+            "node": "object-track-vr",
+            "how": "optional",
+            "why": "Planned: the launch panel chooses which object it tracks (Small Hoop, Large Hoop or Dance Pole; Astra, 2026-10-24). Not out yet."
           }
         ]
       }
@@ -2523,6 +2528,11 @@
             "node": "unity-hub",
             "how": "optional",
             "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "voicemeeter",
+            "how": "optional",
+            "why": "vr-launch opens it when Rift Rabbit’s Woojer vest switch is on: the vest plays what Voicemeeter sends it (Astra, 2026-10-24)."
           }
         ]
       }
