@@ -42,11 +42,13 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel[open] > summary .legend::after { transform: rotate(90deg); }
 .panel > summary:hover .legend::after { color: var(--fix); }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
-.panel.editorial { border: 1px dashed #ff8fd0; color: #ffc4e6; margin: 18px 0 30px; }
-.panel.editorial > summary .legend { color: #ff8fd0; }
+/* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
+   neon color and much shorter"). */
+.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 18px 0 30px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
+.panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
-.panel.editorial p + p { margin-top: 8px; }
-.panel.editorial .editorial-by { color: #d994c6; }
+.panel.editorial p + p { margin-top: 4px; }
+.panel.editorial .editorial-by { color: #7fe7f0; font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
 
