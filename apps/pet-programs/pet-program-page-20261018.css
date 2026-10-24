@@ -31,20 +31,27 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
   --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(255, 255, 255, .08); }
 .panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; }
 /* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
-   alignment issues", on rift-rabbit-update-history sitting above its line). */
-.panel > summary { position: absolute; top: 0; transform: translateY(-50%); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
+   alignment issues", on rift-rabbit-update-history sitting above its line). A label that wraps grows upward, its last
+   line on the border, so it never runs into the panel's words (Astra, 2026-10-23: "still an awkward lack of space
+   between panel title and next body text"): half of 13px x 1.3 is 8.45px. */
+.panel > summary { position: absolute; top: 0; transform: translateY(calc(-100% + 8.45px)); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
 .panel > summary::-webkit-details-marker { display: none; }
 /* Only the label cuts the border, a space each side; its lights sit on the line with nothing behind them (2026-10-22). */
 .panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--slate); padding: 0 6px; }
 /* No lights on a panel, only on tools (Astra, 2026-10-23). A small arrow after the label shows the panel folds, like
-   Halo List's: right while folded, down while open. */
-.panel > summary .legend::after { content: "\25B8"; display: inline-block; margin-left: 8px; font-size: 10px; color: var(--chalk-dim); transition: transform .15s ease; }
-.panel[open] > summary .legend::after { transform: rotate(90deg); }
+   Halo List's: right while folded, down while open. No-break spaces join it to the last word, so it never wraps onto a
+   line of its own. */
+.panel > summary .legend::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
+.panel[open] > summary .legend::after { content: "\00A0\00A0\25BE"; }
 .panel > summary:hover .legend::after { color: var(--fix); }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
-.panel.editorial { border: 1px dashed #ff8fd0; color: #ffc4e6; margin: 18px 0 30px; }
-.panel.editorial > summary .legend { color: #ff8fd0; }
+/* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
+   neon color and much shorter"). */
+.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 18px 0 30px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
+.panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
+.panel.editorial p + p { margin-top: 4px; }
+.panel.editorial .editorial-by { color: #7fe7f0; font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
 
@@ -113,6 +120,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .top > .panel { margin-top: 6px; }
 .title { padding-top: 6px; }
 .title .panel { margin-top: 22px; }
+/* On a phone its label wraps upward onto two lines, so it gets room under the version. */
+@media (max-width: 760px) { .title .panel { margin-top: 34px; } }
 /* The quick summary's box fits its text, with no empty line above or below it (Astra, 2026-10-20: "fitted"). */
 .title .summary[open] { padding: var(--pad); }
 .title .summary > p { margin: 0; }
@@ -216,8 +225,13 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill > .lights { grid-column: 1; grid-row: 1; align-self: start; margin: 4.6px 0 0; gap: 7px; }   /* on the name's first line */
 .pill > :not(.lights) { grid-column: 2; }
 .pill > .item-name { color: var(--chalk); font: 15px/1.35 var(--text); overflow-wrap: anywhere; }
-/* One size: the name on its own line, its tags on the next, and every closed pill two lines tall. */
-.items li.pill { min-height: 60px; align-content: start; }
+/* One size: a closed pill is one line, its name, since its state shows only when it is opened (Astra, 2026-10-23:
+   "they look one line too big"; "still too much space below"). A pill with a cadence tag takes a second line; pills in
+   a row stay one height. Closed, its hidden "more" shares the name's row, so no empty row or gap sits under the name,
+   and the bottom padding matches the top: a 32px pill with the name and the lights on its centre line. */
+.items li.pill { align-content: start; padding-bottom: 5px; }
+.items li.pill:has(> .pill-more[open]) { padding-bottom: 9px; }
+.pill > .item-name, .pill > .pill-more:not([open]) { grid-row: 1; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
@@ -348,13 +362,13 @@ label.file { position: relative; }
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
-.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 1px 3px 1px 10.5px;
-  border: 1px solid var(--line-dim); border-radius: 17px; background: var(--tool-bg); }
+.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 4px 4px 11.5px;
+  border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
-.chat-open { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
+.chat-open { width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
   background: transparent; color: var(--chalk); cursor: pointer; }
 .chat-open:hover { border-color: var(--fix); color: var(--fix); }
 .chat-open svg { width: 16px; height: 16px; transition: transform .2s ease; }
@@ -390,13 +404,13 @@ label.file { position: relative; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
   .chat { right: 10px; bottom: 10px; padding: 0 8px 8px; }
-  .chat-open { width: 28px; height: 28px; }
+  .chat-open { width: 26px; height: 26px; }
   .chat-open svg { width: 15px; height: 15px; }
   .chat-label { font-size: 10px; }
   /* On a phone the chat covers less: its tool keeps its lights and its button, its name is in the label above (Astra,
      2026-10-23: "change", to "make the chat box smaller so it covers less, and keep the tool names to two lines"). */
   .chat-name { display: none; }
-  .chat-tool { gap: 6px; padding: 1px 2px 1px 10.5px; }
+  .chat-tool { gap: 6px; }
   .chat-panel:not([hidden]) ~ .chat-tool .chat-name { display: none; }
   /* The two square tools' names stay on two lines. */
   .render-name { font-size: 9.5px; }
@@ -530,3 +544,28 @@ img[hidden] { display: none !important; }
 .words-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .words-choice { font: 13px var(--text); color: var(--chalk); background: transparent; border: 1px solid var(--line); padding: 2px 10px; cursor: pointer; }
 .words-choice[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
+/* On a phone the footer piles together (Astra, 2026-10-23: "unified footer needs to squish together cutely"; "links like
+   icons in footer should be same size as pets"; "no borders. put the By Astra and Find Out More on the top, can you get
+   all of them in a row, put the photo star between the by astra and find out more"): By Astra, the photostar and Find
+   Out More across the top, the five links as pet-sized pictures in one row under them, the languages last. */
+@media (max-width: 760px) {
+  .footer-line { display: grid; grid-template-columns: auto auto auto; grid-template-areas: "by star more" "icons icons icons" "langs langs langs";
+    justify-content: center; justify-items: center; align-items: center; gap: 6px 10px; }
+  .footer-line > .footer-group:first-child { grid-area: by; }
+  .footer-line > .footer-group:nth-child(2) { display: contents; }
+  .footer-line > .footer-group:nth-child(2)::before { content: none; }
+  .footer-line > .footer-group:nth-child(2) > .footer-title { grid-area: more; }
+  .footer-line > .footer-group:nth-child(2) > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 6px; }
+  .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
+  .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
+  .footer-icons svg { width: 32px; height: 32px; }
+  .languages { grid-area: langs; margin: 0; }
+  .languages .tag { font-size: 11px; padding: 0 7px; }
+  .footer-star { grid-area: star; margin: 0; }
+  .footer-star img { width: 56px; height: 56px; }
+}
+/* Room on the right for the phone's scroll bar (Astra, 2026-10-23: "need more room for the scroll bar on the right"). */
+@media (max-width: 760px) {
+  .page { padding-right: 28px; }
+  .chat { right: 22px; }
+}

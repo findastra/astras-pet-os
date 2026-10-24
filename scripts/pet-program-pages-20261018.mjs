@@ -44,7 +44,7 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
-export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'astras-unified-footer-panel', 'chat-panel'];
+export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-tool-panel', 'L2-tool-panel', 'L3-tool-panel', 'L4-tool-panel', 'rwx-panel', 'session-notes-panel', 'emotions', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -268,7 +268,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     connections: [...talks.values()], related, plays_with: chosen,
     access: { on: grantRows([...(petNode?.access?.on || []), ...(homeNode?.access?.on || [])]), by: grantRows(petNode?.access?.by || []),
       statuses: map.access.statuses, values: map.access.values },
-    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {},
+    languages: code?.languages || [], languageNote: code?.note || null, clicks: reg.clicks || {}, editorial: reg.editorial || null,
   };
 }
 
@@ -337,7 +337,9 @@ function itemList(items, prefix, empty) {
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${open}`;
     const name = `<span class="item-name">${esc(i.name)}</span>`;
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device' })}${name}${tag(i.state)}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
+    // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
+    // "planned" should only show up upon expansion").
+    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device' })}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
@@ -574,12 +576,13 @@ export function buildPetProgramPage(d) {
     ? `${esc(day(d.round.checked) || day(d.statusUpdated) || 'date not recorded')}: “${esc(d.round.says || 'no line')}”`
     : 'not checked by a merged round yet';
   // <home>-editorial-status-panel, first on the page, like Halo List's header alert (Astra, 2026-10-23: "you need that
-  // wonderland-launchpad-editorial-status-panel"): where the program stands, from the page's own data. How much of
-  // what it owns works today, what waits on Astra and the last check.
-  const owned = [...d.programs, ...d.tools, ...d.tricks];
-  const working = owned.filter((i) => built(i.state)).length;
-  const waiting = d.needs.length ? `Waiting on you: ${d.needs.map(esc).join('; ')}.` : 'Nothing waits on you from the Friendly Farmer’s last round.';
-  const editorial = panel(`${d.homeSlug}-editorial-status-panel`, `<p>${esc(d.home)} is a ${esc(d.stage || 'planned')} pet program${d.status ? ` (${esc(d.status)})` : ''}. ${owned.length ? `${working} of its ${owned.length} own programs, tools and tricks work today; the rest are planned or ideas.` : 'It has no programs, tools or tricks of its own yet.'} ${waiting} Last check: ${roundLine}.</p>`, { cls: 'editorial' });
+  // wonderland-launchpad-editorial-status-panel"). It is L3's note to Astra (L4) on how this site is coming along
+  // ("that is just for the L3 to communicate with L4 and on progress to this site"): the pet's `editorial` in pets.json,
+  // { says, by, on }, written by the AI working in its seat. Nothing is made up when there is no note.
+  const note = d.editorial;
+  const editorial = panel(`${d.homeSlug}-editorial-status-panel`, note && note.says
+    ? `<p>${esc(note.says)}</p><p class="small editorial-by">L3 to you${note.by ? `, ${esc(note.by)}` : ''}${note.on ? `, ${esc(note.on)}` : ''}</p>`
+    : '<p class="empty">No note from L3 yet. The AI working on this pet program writes here how the site is coming along.</p>', { cls: 'editorial' });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -746,7 +749,7 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
   // Out More on one line; the languages as bubbles below them, from the pet's repo.
-  const footer = panel('astras-unified-footer-panel', `<footer class="astra-footer" aria-label="By Astra and her links">
+  const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group"><span class="footer-title">By Astra</span></div>
 <div class="footer-group"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span><ul class="languages" aria-label="${esc(`Languages in ${d.owner}/${d.repo}`)}">${d.languages.length ? d.languages.map((l) => `<li class="tag">${esc(l.language)} ${esc(l.percent)}%</li>`).join('') : `<li class="tag">${esc(d.languageNote || 'languages not measured yet')}</li>`}</ul></div>
