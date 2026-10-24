@@ -1,7 +1,9 @@
 # One art source: the plan, 2026-10-17
 
 By Claude Opus 5.5 (`claude-opus-5-5`) for Astra. **Approved by Astra on 2026-10-18**, all four decisions as
-recommended, and built the same day: see [What was done](#what-was-done-2026-10-18) at the end. Nothing is merged yet.
+recommended, and built the same day: see [What was done](#what-was-done-2026-10-18) at the end. All 36 pull requests
+merged on 2026-10-18. **2026-10-24:** copies came back and links still named dated files, so every picture now also has
+an address that never changes: see [Addresses that never change](#addresses-that-never-change-2026-10-24).
 
 ## What Astra asked
 
@@ -276,3 +278,55 @@ draft pets read from outside the hub.
   hub only.
 - Platform Platypus's `index.html` names `icon-180.png` and `art/icons/astras-pet-os-20261012.png`, which its repo does
   not have. That is a broken link, not a copy, so it is left for that pet's chat.
+
+## Addresses that never change (2026-10-24)
+
+Astra, 2026-10-24: "All of these pet icons should have their own hosted spot online somewhere, where anything can
+update them. So that I dont have to keep doing them individually, and getting caught versions behind." Her answers to
+the six questions (deck "One home for pet pictures"): **all recommended**.
+
+**What was wrong (checked 2026-10-24).** All 36 pull requests above merged, but the checker found 102 pictures back in
+six repos (findastra.github.io 61, the-astral-plane 19, vscode-angel 19, lunas-log, spoonfed and fuzzboi-factory one
+each), from a picture round on 2026-10-18 that changed them while those pull requests were open. Nothing ran the
+checker, so nobody saw. Every one of the 419 links to hub pictures in 34 repos named the newest drawing, but by its
+dated name (`idle-20261009.png`): each new drawing meant editing every link, repo by repo. And while the hub was
+private (2026-10-20 to 2026-10-21) no hosted picture loaded at all.
+
+**The six answers.**
+
+| # | Question | Answer |
+| --- | --- | --- |
+| 1 | Where the pictures live | This hub, which stays public while it holds them; the checker fails when it is private |
+| 2 | Which web address | GitHub raw, `https://raw.githubusercontent.com/findastra/astras-pet-os/main/`, which every repo already uses |
+| 3 | Names that never change | `art/latest/`, made by `npm run build`; the one exception to the date in every file name, for files only the build writes |
+| 4 | The copies in six repos | Removed, one pull request per repo |
+| 5 | Where the checker runs | The hub's tests for the hub, and a daily check of every repo on Astra's PC, shown in GitHub Aquarium's outstanding items |
+| 6 | The desktop pets' copy on the PC | A pictures-only copy that Startup Star's live sync keeps exactly like GitHub, read while the hub folder is held back |
+
+**The address scheme.** `https://raw.githubusercontent.com/findastra/astras-pet-os/main/` plus:
+
+| Pictures | Address | Made from |
+| --- | --- | --- |
+| Web frames of registered pets | `art/latest/frames/<pet>/<mood>.png` | `art/frames/<pet>/` (nine pets' frames are dated, like `idle-20261008.png`) |
+| Moods of desktop-art pets, with stickers | `art/latest/moods/<folder>/<mood>.png` | `art/moods/<folder>/` |
+| Icons | `art/latest/icons/<repo>.png` | `art/icons/<repo>-YYYYMMDD.png` |
+| App icons | `art/latest/app-icons/<repo>/<name>` | `art/app-icons/<repo>/<name>-YYYYMMDD.<ext>` |
+| Draft pets' frames and sheets | `art/latest/drafts/<pet>/<name>.png` | `art/drafts/<pet>/<name>-YYYYMMDD.png` |
+| Desktop art | `art/latest/desktop-art/<pet>/<name>.png` | `desktop-art/<pet>/<name>-YYYYMMDD.png` |
+
+One rule: `art/latest/` + the picture's folder and name without its date; the newest date wins. `art/latest/index.json`
+lists every stable path and the drawing it shows now (981 pictures on 2026-10-24). Links to undated pictures in
+`art/frames/` and `art/moods/` keep working and are never flagged. git stores each picture once, so the copies cost the
+repo nothing (about 75 MB on disk in a checkout). Offline, a page falls back to `../astras-pet-os/<the same address>`. To change a picture: add the new
+drawing with a new date, run `npm run build`, merge. Every link shows it within 5 minutes; nothing else is edited.
+
+**Tools.**
+- `scripts/one-picture-home-20261024.mjs`: makes `art/latest/` (called by `npm run build`), and
+  `--fix <file>...` / `--check <file>...` rewrite or list a file's dated picture links.
+- `scripts/one-art-source-20261017.mjs` now also fails on a private hub and, with `--links`, on any repo's link to a
+  dated picture (the hub's records in `changes/`, `handoffs/` and `docs/` keep theirs). `--save` writes the result to
+  `Documents\Astra's PetOS Data\one-art-source\one-art-source-check.json` on Astra's PC only, since it names private
+  repos; `npm run outstanding-items` shows it (a private hub as broken; copies and dated links as waiting on a chat; a
+  check older than two days as a reminder).
+- `test/one-picture-home-test-20261024.mjs`: `art/latest/` matches its drawings byte for byte, and no hub page or
+  note outside the records links a dated picture.
