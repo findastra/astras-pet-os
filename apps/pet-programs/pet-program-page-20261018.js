@@ -92,12 +92,16 @@
     // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise.
     unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
     running: 'open now: Inference Iguana’s program-watch saw it running. This light does not close it yet.',
+    // A VR device (2026-10-23): green while SteamVR has it on, from Inference Iguana's device-watch.
+    deviceOn: 'on: SteamVR has it connected (Inference Iguana’s device-watch reads SteamVR’s log).',
+    deviceOff: 'off: SteamVR does not have it connected right now, or SteamVR is not running.',
   };
   // Which 3rd party programs are open (Astra, 2026-10-23): Inference Iguana's program-watch writes them every five seconds
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
   var running = {}, runningSeen = null;
-  function seen(b) { return !!running[(b.dataset.item || '').replace(/^third-party:/, '')]; }
+  function seen(b) { return !!running[(b.dataset.item || '').replace(/^(third-party|device):/, '')]; }
+  function isDevice(b) { return /^device:/.test(b.dataset.item || ''); }
   function paint() {
     var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {};
     for (var i = 0; i < buttons.length; i++) {
@@ -148,7 +152,7 @@
     if (!b) return;
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
-    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
+    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
     if (planned) { say(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     if (b.classList.contains('onoff')) {
@@ -182,6 +186,7 @@
         var d = window.benchmarkRockPrograms, now = {};
         if (d && d.schema === 'benchmark-rock-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
           d.programs.forEach(function (p) { if (p && p.running && typeof p.id === 'string') now[p.id] = true; });
+          (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) { if (v && v.on === true && typeof v.id === 'string') now[v.id] = true; });
           runningSeen = d.time;
         }
         running = now;

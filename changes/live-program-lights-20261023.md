@@ -20,3 +20,9 @@ benchmark-rock and move program-watch there with the VR changes."
 - Colors are dark raspberry pink with raspberry-purple pink lines.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-23.
+
+Later the same evening: "You cant see that my Quest Pro is on. make sure the light is working. also the trackers are
+on too." The "Devices it looks after" lights follow Inference Iguana's device-watch (benchmark-rock#3,
+`benchmark-rock-v1.0-device-watch-v1.0`). It reads SteamVR's own log of the session and writes the devices into the
+same file, so each device is green while SteamVR has it connected. Pills are one size, their lights centred on the
+name, and every panel has the same padding.
