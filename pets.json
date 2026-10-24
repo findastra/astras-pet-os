@@ -2523,6 +2523,11 @@
             "node": "unity-hub",
             "how": "optional",
             "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "voicemeeter",
+            "how": "optional",
+            "why": "vr-launch opens it when Rift Rabbit’s Woojer vest switch is on: the vest plays what Voicemeeter sends it (Astra, 2026-10-24)."
           }
         ]
       }

@@ -3393,6 +3393,20 @@
     },
     {
       "from": "vr-launch",
+      "to": "voicemeeter",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened when the launch's Woojer vest switch is on: the vest plays what Voicemeeter sends it (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "woojer-vest",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The VRChat launch panel's Woojer vest switch (Astra, 2026-10-24: \"We also need an option for Woojer vest (similar to OSCGoesBrrr)\"). It has no program of its own: a Bluetooth audio device that Voicemeeter plays to."
+    },
+    {
+      "from": "vr-launch",
       "to": "virtual-desktop",
       "carries": "opens",
       "state": "planned",
@@ -6140,7 +6154,7 @@
       "carries": "network",
       "medium": "bluetooth",
       "state": "suggested",
-      "why": "Bluetooth, or a 3.5 mm audio cable. To confirm."
+      "why": "Bluetooth: Windows pairs it as \"Woojer Vest S3\", an audio device (her screenshots, 2026-01-31). A 3.5 mm audio cable works too."
     },
     {
       "from": "speaker-bar",

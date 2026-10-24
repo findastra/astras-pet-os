@@ -93,7 +93,7 @@ export function launchOrder(headset, mode) {
     { name: headset.device },
     { streamer: true, name: STREAMERS[0][1], after: ` on the ${headset.device}` },
     { name: 'SteamVR', note: 'which opens', opens: [...(headset.face ? [{ name: 'VRCFaceTracking' }] : []), { name: 'OVR Advanced Settings' }, { name: 'OVR Dynamic Resolution' }, ...mode.runs.map((r) => ({ name: r }))] },
-    { name: 'Then open', opens: [{ name: 'Double Hip / Double Chest Tracker', extra: 'double-hip' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }] },
+    { name: 'Then open', opens: [{ name: 'Double Hip / Double Chest Tracker', extra: 'double-hip' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }, { name: 'Woojer vest (Voicemeeter)', extra: 'woojer' }] },
     { wait: 'Wait until all of those are connected and the trackers look smooth.' },
     { name: 'VRChat' },
   ];
@@ -109,6 +109,8 @@ ${h.face
     ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
     : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
+${/* The haptic vest (Astra, 2026-10-24: "We also need an option for Woojer vest (similar to OSCGoesBrrr)"). It has
+   no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${sw('woojer', 'Woojer vest', false)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
    together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch">Double Hip / Double Chest Tracker <select data-launch-switch="double-hip">${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>

@@ -24,4 +24,14 @@ Tracker's pairs are still to come.
 - The System Map gives Benchmark Rock (program-72) the tool `vr-launch`. Rift Rabbit (program-29) directs it, and it
   opens the 12 programs a launch can start.
 
+Later the same day:
+
+- No "Mode" (Astra: "Get rid of the "Mode" so go back to numbering with . ("2.0 Native VRChat Tracking" and "Launch
+  2.0""). The cards read "1.0 Native VRChat Tracking", and the buttons "Launch 1.0".
+- A Woojer vest switch next to OSCGoesBrrr (Astra: "We also need an option for Woojer vest (similar to
+  OSCGoesBrrr)"). The vest has no program of its own on her PC. Windows pairs it as "Woojer Vest S3", a Bluetooth audio
+  device, and Voicemeeter plays to it. While the switch is on, "Woojer vest (Voicemeeter)" is in each mode's Then open
+  list, and the launch makes sure Voicemeeter is open and reminds her to turn the vest on. Whether the vest is
+  connected is not checked. The System Map has Rift Rabbit look after the vest, and has vr-launch open Voicemeeter.
+
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-24.

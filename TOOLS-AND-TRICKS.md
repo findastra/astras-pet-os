@@ -112,7 +112,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-238 rows: 12 native programs, 120 native tools, 17 native tricks, 89 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+239 rows: 12 native programs, 120 native tools, 17 native tricks, 90 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -347,6 +347,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity 2022.3.22f1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity Hub 3.21.1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Virtual Desktop |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Voicemeeter |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VR Pole Overlay |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRCFaceTracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
