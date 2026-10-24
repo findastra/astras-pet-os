@@ -169,7 +169,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -327,7 +327,10 @@ ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="$
 function itemList(items, prefix, empty) {
   if (!items.length) return `<p class="empty">${esc(empty)}</p>`;
   return `<ul class="items">${items.map((i) => {
-    const desc = i.desc ? `<span class="item-desc">${esc(i.desc)}</span>` : '<span class="item-desc empty">No description on the System Map yet.</span>';
+    // A device's serial number is the first thing it shows when opened (Astra, 2026-10-24: "I need the first thing I
+    // see to be the tracker serial #"): the System Map node's `serial`.
+    const serial = i.serial ? `<span class="item-serial">Serial <code>${esc(i.serial)}</code></span>` : '';
+    const desc = serial + (i.desc ? `<span class="item-desc">${esc(i.desc)}</span>` : '<span class="item-desc empty">No description on the System Map yet.</span>');
     // Clicking anywhere on the pill opens it, name included, like Halo List's (Astra, 2026-10-23: "Get rid of the arrow
     // drop down. I like how Halo List has it for the info expansion, just clicking the bubble opens it"), so its own
     // page or panel is a button inside.
