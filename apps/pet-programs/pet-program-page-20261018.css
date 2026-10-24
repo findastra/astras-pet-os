@@ -389,9 +389,10 @@ label.file { position: relative; }
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
-/* As much room right of the open button as left of the first light, 11.5px each (Astra, 2026-10-24: "there needs to
+/* Centred in its panel (Astra, 2026-10-24: "center the rift-rabbit-chat (tool) inside its tool panel"). As much room
+   right of the open button as left of the first light, 11.5px each (2026-10-24: "there needs to
    be as much room on the right side as the left between item and tool border"). */
-.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 11.5px;
+.chat-tool { grid-area: tool; justify-self: center; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 11.5px;
   border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
