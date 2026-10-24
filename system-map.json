@@ -1269,13 +1269,40 @@
     },
     {
       "id": "double-hip-tracker",
-      "name": "Double Hip Tracker",
+      "name": "DoubleHip DoubleChest Tracker",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Hip tracking helper. On the desktop (vr-gaming).",
-      "does": "Lets VRChat use two hip trackers and switches to the other when one loses tracking."
+      "job": "Hip and chest tracking helper by vr_hai (Patreon), version 1.3.0 in Documents\\DoubleHip DoubleChest. On the desktop (vr-gaming) as DoubleHip DoubleChest Tracker (Astra, 2026-10-24).",
+      "does": "Lets VRChat use two hip trackers, two chest trackers, or both, and switches to the other of a pair when one loses tracking."
+    },
+    {
+      "id": "update-audit-tool",
+      "name": "update-audit",
+      "type": "tool",
+      "of": "program-29",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v0.1-update-audit-v1.0",
+      "job": "A tool of Wonderland Launchpad (scripts/update-audit-20261024.mjs; Astra, 2026-10-24, \"Program, Tool or Trick\" deck, answer 3: the script is the tool, the weekly steps are the trick): reads each GitHub-released VR program's installed version on the PC and GitHub's newest release, and records works, update (orange), missing or issues in pets.json. It only reads: it never downloads or installs anything.",
+      "does": "Compares the VR programs from GitHub with their newest release, without changing anything."
+    },
+    {
+      "id": "update-audit",
+      "name": "update-audit",
+      "type": "trick",
+      "of": "program-29",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v0.1-update-audit-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: \"no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update\"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.",
+      "does": "Checks the VR programs from GitHub against their newest release and asks you before any update."
     },
     {
       "id": "bs-manager",
@@ -1304,8 +1331,9 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows a real pole’s position in VR. On the desktop (vr-gaming).",
-      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
+      "job": "Shows a real pole’s position in VR, calibrated with a controller. By lukis101, open source (github.com/lukis101/VRPoleOverlay); version 1.0.0 in C:\\Program Files\\VRPoleOverlay. On the desktop (vr-gaming).",
+      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room.",
+      "url": "https://github.com/lukis101/VRPoleOverlay"
     },
     {
       "id": "unity-hub",
@@ -1798,12 +1826,12 @@
     },
     {
       "id": "vr-trackers",
-      "name": "13 HTC Vive Trackers 3.0",
+      "name": "9 HTC Vive Trackers 3.0",
       "type": "host-machine",
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "Thirteen HTC Vive Tracker 3.0 body trackers, tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
+      "job": "Nine HTC Vive Tracker 3.0 body trackers (#10 to #13 never existed: Astra, 2026-10-24), tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
     },
     {
       "id": "vive-tracker-01",
@@ -1814,7 +1842,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F3DF780D",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-02",
@@ -1825,7 +1853,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-B2105741",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-03",
@@ -1836,7 +1864,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-91D63DB2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-04",
@@ -1847,7 +1875,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6BA0C57A",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-05",
@@ -1858,7 +1886,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-28D88802",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-06",
@@ -1869,7 +1897,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F8590C98",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-07",
@@ -1880,7 +1908,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-E0ED8ACE",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-08",
@@ -1891,7 +1919,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6963FCE5",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-09",
@@ -1902,47 +1930,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-467E1FA2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
-    },
-    {
-      "id": "vive-tracker-10",
-      "name": "Vive Tracker 3.0 #10",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-11",
-      "name": "Vive Tracker 3.0 #11",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-12",
-      "name": "Vive Tracker 3.0 #12",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-13",
-      "name": "Vive Tracker 3.0 #13",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "base-stations",
@@ -4785,6 +4773,13 @@
       "carries": "manages",
       "state": "idea",
       "why": "Pole Puff looks after the pole world; VR Pole Overlay shows the real pole in VR."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "vr-pole-overlay",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Rift Rabbit preps and tracks VR software and performance; VR Pole Overlay is VR software in the vr-gaming desktop folder, switched on and off from its page (Astra, 2026-10-24)."
     },
     {
       "from": "astras-gif-maker",
