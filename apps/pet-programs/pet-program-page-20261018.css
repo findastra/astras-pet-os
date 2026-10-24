@@ -45,6 +45,8 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel.editorial { border: 1px dashed #ff8fd0; color: #ffc4e6; margin: 18px 0 30px; }
 .panel.editorial > summary .legend { color: #ff8fd0; }
 .panel.editorial p { margin: 0; }
+.panel.editorial p + p { margin-top: 8px; }
+.panel.editorial .editorial-by { color: #d994c6; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
 
@@ -348,13 +350,13 @@ label.file { position: relative; }
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
   background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
-.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 1px 3px 1px 10.5px;
-  border: 1px solid var(--line-dim); border-radius: 17px; background: var(--tool-bg); }
+.chat-tool { grid-area: tool; justify-self: end; display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 4px 4px 11.5px;
+  border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
-.chat-open { width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
+.chat-open { width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
   background: transparent; color: var(--chalk); cursor: pointer; }
 .chat-open:hover { border-color: var(--fix); color: var(--fix); }
 .chat-open svg { width: 16px; height: 16px; transition: transform .2s ease; }
@@ -390,13 +392,13 @@ label.file { position: relative; }
   .flows { grid-template-columns: 1fr; }
   .page { padding-bottom: 150px; }
   .chat { right: 10px; bottom: 10px; padding: 0 8px 8px; }
-  .chat-open { width: 28px; height: 28px; }
+  .chat-open { width: 26px; height: 26px; }
   .chat-open svg { width: 15px; height: 15px; }
   .chat-label { font-size: 10px; }
   /* On a phone the chat covers less: its tool keeps its lights and its button, its name is in the label above (Astra,
      2026-10-23: "change", to "make the chat box smaller so it covers less, and keep the tool names to two lines"). */
   .chat-name { display: none; }
-  .chat-tool { gap: 6px; padding: 1px 2px 1px 10.5px; }
+  .chat-tool { gap: 6px; }
   .chat-panel:not([hidden]) ~ .chat-tool .chat-name { display: none; }
   /* The two square tools' names stay on two lines. */
   .render-name { font-size: 9.5px; }
