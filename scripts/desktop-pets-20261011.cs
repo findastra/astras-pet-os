@@ -1,6 +1,6 @@
 // Astra's desktop pets. OpenAI Codex (GPT-6), 2026-10-08; free-roaming redesign by Claude Opus 5.5, 2026-10-09.
-// The star shows or hides every pet at once. Each pet roams the screen in its own compact
-// window. No hooks, global input polling, or desktop-sized windows.
+// The star shows or hides every pet at once; "Show on Computer Screen" in the Farmer's menu ticks each pet on or off.
+// Each pet roams the screen in its own compact window. No hooks, global input polling, or desktop-sized windows.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,6 +72,9 @@ namespace AstraDesktopPets {
     internal static bool StartupEnabled() { using(var key=Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))return key!=null&&String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal); }
     internal static void Startup(bool enabled) { using(var key=Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) { if(enabled)key.SetValue(RunName,StartupCommand,RegistryValueKind.String);else if(String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal))key.DeleteValue(RunName,false); } }
     internal static bool PetsOutSetting() { using(var key=Registry.CurrentUser.OpenSubKey(SettingsKey)) { object value=key==null?null:key.GetValue("PetsOut");return !(value is int)||(int)value!=0; } }
+    // The pets unticked under "Show on Computer Screen" (Astra, 2026-10-24), by id, so they stay off after a restart.
+    internal static HashSet<string> HiddenPetsSetting() { using(var key=Registry.CurrentUser.OpenSubKey(SettingsKey)) { string value=key==null?null:key.GetValue("HiddenPets") as string;return new HashSet<string>(String.IsNullOrEmpty(value)?new string[0]:value.Split(new[]{','},StringSplitOptions.RemoveEmptyEntries),StringComparer.Ordinal); } }
+    internal static void SaveHiddenPets(IEnumerable<string> ids) { var sorted=new List<string>(ids);sorted.Sort(StringComparer.Ordinal);using(var key=Registry.CurrentUser.CreateSubKey(SettingsKey))key.SetValue("HiddenPets",String.Join(",",sorted.ToArray()),RegistryValueKind.String); }
     internal static bool Signal(string action,string suffix="") { try { using(var handle=EventWaitHandle.OpenExisting(Identity+suffix+"-"+action))handle.Set();return true; } catch(WaitHandleCannotBeOpenedException) { return false; } }
     internal static void WriteStatus(object value,bool test=false) { Directory.CreateDirectory(Path.GetDirectoryName(StateFile));File.WriteAllText(test?TestStateFile:StateFile,Json.Serialize(value)); }
     internal static void Open(string relative) { string file=SafePath(relative);if(File.Exists(file))Process.Start(new ProcessStartInfo(file) { UseShellExecute=true }); }
@@ -102,7 +105,11 @@ namespace AstraDesktopPets {
       object clicks,three;if(entry.TryGetValue("clicks",out clicks)&&clicks is Dictionary<string,object>&&((Dictionary<string,object>)clicks).TryGetValue("3",out three)&&three is Dictionary<string,object>)pet.ThreeClicks=PetFiles.Text((Dictionary<string,object>)three,"tool",null);
       object raw;if(!framesIndex.TryGetValue(pet.Id,out raw))throw new InvalidDataException("No frames for "+pet.Name);
       var paths=(Dictionary<string,object>)((Dictionary<string,object>)raw)["frames"];
-      string idle=PetFiles.SafePath(PetFiles.Text(paths,"idle")),blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));
+      // The drawing without its mood sticker (build-frames.mjs PLAIN, 2026-10-24): every mood carries one since hub
+      // #237, and a sticker counted as the pet's height, shrank it and lifted the girls' tops out of their shared crop.
+      object plain;var still=((Dictionary<string,object>)raw).TryGetValue("plain",out plain)&&plain is Dictionary<string,object>?(Dictionary<string,object>)plain:paths;
+      string idle=PetFiles.SafePath(PetFiles.Text(still,"idle",PetFiles.Text(paths,"idle"))),blink=PetFiles.SafePath(PetFiles.Text(still,"blink",PetFiles.Text(paths,"blink")));
+      if(!File.Exists(idle)||!File.Exists(blink)){idle=PetFiles.SafePath(PetFiles.Text(paths,"idle"));blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));}
       // Desktop-only drafts: the shared registry and website art keep their own assets.
       if(pet.Id=="health-hummy"||pet.Id=="farmer"||pet.Id=="discord-damsel"||pet.Id=="drum-dog"||pet.Id=="mommys-mommies"||pet.Id=="finance-finch"||pet.Id=="python-panther"||pet.Id=="paper-girl"||pet.Id=="chip"||pet.Id=="file-master"||pet.Id=="astra-wisp"||pet.Id=="project-parrot"||pet.Id=="portfolio-puffer"||pet.Id=="vscode-angel"||pet.Id=="voicemeeter-bug") {
         string localIdle=PetFiles.SafePath("desktop-art/"+pet.Id+"/idle-20261011.png"),localBlink=PetFiles.SafePath("desktop-art/"+pet.Id+"/blink-20261011.png");
@@ -371,7 +378,9 @@ namespace AstraDesktopPets {
       MouseDown+=delegate(object s,MouseEventArgs e) { if(e.Button!=MouseButtons.Left)return;dragging=true;dragged=false;dragMouse=Cursor.Position;dragWindow=Location;Capture=true;host.PetPress(Pet.Id,Cursor.Position); };
       MouseMove+=delegate { if(!dragging)return;Point delta=new Point(Cursor.Position.X-dragMouse.X,Cursor.Position.Y-dragMouse.Y);if(PetsWindow.IsDrag(delta)){dragged=true;host.CancelClicks();}if(dragged)Location=PetsWindow.Clamp(new Point(dragWindow.X+delta.X,dragWindow.Y+delta.Y),Size,Screen.FromPoint(Cursor.Position).WorkingArea); };
       MouseUp+=delegate(object s,MouseEventArgs e) { if(e.Button!=MouseButtons.Left||!dragging)return;dragging=false;Capture=false;if(dragged)host.PairDragEnded(Pet.Id);host.PetRelease(ClientRectangle.Contains(e.Location)?Pet.Id:null,dragged); };
-      var menu=new ContextMenuStrip();menu.Opening+=delegate{host.CancelClicks();};menu.Items.Add("Open "+pet.Name,null,delegate{host.OpenPet(Pet);});menu.Items.Add("Hide the pets",null,delegate{host.SetPetsOut(false);});ContextMenuStrip=menu;
+      var menu=new ContextMenuStrip();menu.Opening+=delegate{host.CancelClicks();};menu.Items.Add("Open "+pet.Name,null,delegate{host.OpenPet(Pet);});menu.Items.Add("Hide the pets",null,delegate{host.SetPetsOut(false);});
+      if(host.IsFarmer(pet))menu.Items.Add(host.ShowOnScreenMenu());
+      ContextMenuStrip=menu;
     }
     protected override bool ShowWithoutActivation { get { return true; } }
     protected override CreateParams CreateParams { get { var cp=base.CreateParams;cp.ExStyle|=0x08000080;if(Pet!=null&&Pet.Layered)cp.ExStyle|=0x00080000;return cp; } }
@@ -509,6 +518,7 @@ namespace AstraDesktopPets {
     readonly List<PetSprite> pets=new List<PetSprite>();
     readonly List<string> draftErrors=new List<string>();
     readonly List<PetWindow> roaming=new List<PetWindow>();
+    readonly HashSet<string> hiddenPets=new HashSet<string>(StringComparer.Ordinal);
     internal bool LinedUp;
     readonly System.Windows.Forms.Timer timer=new System.Windows.Forms.Timer { Interval=200 };
     readonly System.Windows.Forms.Timer clickTimer=new System.Windows.Forms.Timer { Interval=20 };
@@ -544,12 +554,13 @@ namespace AstraDesktopPets {
     internal PetsWindow(bool testMode,int? seed=null) {
       test=testMode;random=seed.HasValue?new Random(seed.Value):new Random();pair=new PetPair(random);
       clicks=new PetClicks(ResolveClicks,SystemInformation.DoubleClickTime,SystemInformation.DoubleClickSize,MostClicks);LoadPets();
-      if(!test)petsOut=PetFiles.PetsOutSetting();
+      if(!test){petsOut=PetFiles.PetsOutSetting();hiddenPets.UnionWith(PetFiles.HiddenPetsSetting());}
       Text=test?"Astra's desktop pets - UI test":"Astra's desktop pets";
       FormBorderStyle=FormBorderStyle.None;ShowInTaskbar=test;TopMost=true;AutoScaleMode=AutoScaleMode.None;
       BackColor=Color.Magenta;TransparencyKey=Color.Magenta;StartPosition=FormStartPosition.Manual;
       SetStyle(ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer|ControlStyles.UserPaint,true);
       var toggle=new ToolStripMenuItem("Hide the pets");toggle.Click+=delegate { SetPetsOut(!petsOut); };menu.Items.Add(toggle);
+      menu.Items.Add(ShowOnScreenMenu());
       menu.Items.Add("Open Farmer's desk",null,delegate { OpenPet(farmer); });
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
@@ -702,7 +713,8 @@ namespace AstraDesktopPets {
       return points;
     }
     int PairGap { get { return Math.Max(4,(int)Math.Round(6*scale)); } }
-    internal bool IsPaired(string id) { return id=="paper-girl"||id=="file-master"; }
+    // The friends walk together only while both are on the screen; one left on alone roams like everyone else.
+    internal bool IsPaired(string id) { return (id=="paper-girl"||id=="file-master")&&!hiddenPets.Contains("paper-girl")&&!hiddenPets.Contains("file-master"); }
     internal void PairDragEnded(string id) { if(!IsPaired(id))return;pairLeader=id;pairRejoining=true; }
     void StepPair() {
       var leader=roaming.Find(p=>p.Pet.Id==pairLeader);var follower=roaming.Find(p=>IsPaired(p.Pet.Id)&&p.Pet.Id!=pairLeader);
@@ -727,7 +739,7 @@ namespace AstraDesktopPets {
     void ArrangeFloor(Rectangle area) {
       LinedUp=true;int gap=PairGap,bottom=area.Bottom;
       foreach(bool flying in new bool[]{false,true}) {
-        var group=roaming.FindAll(p=>Flies(p.Pet)==flying);int index=0;
+        var group=roaming.FindAll(p=>Flies(p.Pet)==flying&&OnScreen(p.Pet));int index=0;
         var paper=group.Find(p=>p.Pet.Id=="paper-girl");var files=group.Find(p=>p.Pet.Id=="file-master");
         if(paper!=null&&files!=null){group.Remove(paper);group.Insert(group.IndexOf(files)+1,paper);}
         while(index<group.Count) {
@@ -756,7 +768,44 @@ namespace AstraDesktopPets {
     void SyncVisible() {
       if(Compact){timer.Stop();foreach(var pet in roaming)pet.Hide();return;}
       if(started)timer.Start();
-      foreach(var pet in roaming)if(started&&!pet.Visible){pet.Location=Clamp(pet.Location,pet.Size,Screen.FromRectangle(pet.Bounds).WorkingArea);pet.Show();}
+      foreach(var pet in roaming) {
+        if(!OnScreen(pet.Pet)){if(pet.Visible)pet.Hide();continue;}
+        if(started&&!pet.Visible){pet.Location=Clamp(pet.Location,pet.Size,Screen.FromRectangle(pet.Bounds).WorkingArea);pet.Show();}
+      }
+    }
+    // "Show on Computer Screen" (Astra, 2026-10-24: "a check mark on the Friendly Farmer ... so you can choose what pets
+    // you want to have the farmer show or unshow"): a tick for every pet, in the Farmer's menu and the star's. An unticked
+    // pet stays off the screen while the others roam, until it is ticked again. The Farmer is a core pet and always shows.
+    internal bool IsFarmer(PetSprite pet) { return pet==farmer; }
+    internal bool OnScreen(PetSprite pet) { return pet==farmer||!hiddenPets.Contains(pet.Id); }
+    internal void SetOnScreen(string id,bool show) {
+      if(id==farmer.Id||!pets.Exists(p=>p.Id==id))return;
+      if(show?!hiddenPets.Remove(id):!hiddenPets.Add(id))return;
+      testActions.Add((show?"on-screen:":"off-screen:")+id);
+      if(!test)PetFiles.SaveHiddenPets(hiddenPets);
+      if(LinedUp)ArrangeFloor(Screen.FromRectangle(Bounds).WorkingArea);
+      SyncVisible();WriteStatus();
+    }
+    internal ToolStripMenuItem ShowOnScreenMenu() {
+      var parent=new ToolStripMenuItem("Show on Computer Screen");parent.DropDownItems.Add(new ToolStripMenuItem("…") { Enabled=false });
+      parent.DropDownOpening+=delegate { FillShowOnScreen(parent); };
+      // The list stays open after a tick, so several pets can be ticked or unticked in one go.
+      parent.DropDown.Closing+=delegate(object sender,ToolStripDropDownClosingEventArgs e) { if(e.CloseReason==ToolStripDropDownCloseReason.ItemClicked)e.Cancel=true; };
+      return parent;
+    }
+    internal void FillShowOnScreen(ToolStripMenuItem parent) {
+      parent.DropDownItems.Clear();
+      var ticks=new List<ToolStripMenuItem>();
+      var all=new ToolStripMenuItem("Show every pet") { Enabled=hiddenPets.Count>0 };
+      all.Click+=delegate { foreach(var item in ticks){item.Checked=true;SetOnScreen((string)item.Tag,true);}all.Enabled=false; };
+      parent.DropDownItems.Add(all);parent.DropDownItems.Add(new ToolStripSeparator());
+      parent.DropDownItems.Add(new ToolStripMenuItem(farmer.Name+" (always here)") { Checked=true,Enabled=false });
+      var sorted=new List<PetSprite>(pets);sorted.Sort((a,b)=>String.Compare(a.Name,b.Name,StringComparison.CurrentCultureIgnoreCase));
+      foreach(var pet in sorted) {
+        var item=new ToolStripMenuItem(pet.Name) { Tag=pet.Id,Checked=OnScreen(pet),CheckOnClick=true };
+        item.Click+=delegate { SetOnScreen((string)item.Tag,item.Checked);all.Enabled=hiddenPets.Count>0; };
+        ticks.Add(item);parent.DropDownItems.Add(item);
+      }
     }
     internal void ShowPets() { launcherVisible=true;SetPetsOut(true);if(!Visible)Show();if(!dockBounds.HasValue)ClampToScreen();Invalidate();WriteStatus(); }
     PetSprite At(Point point) { return null; }
@@ -875,11 +924,12 @@ namespace AstraDesktopPets {
     }
     // A farm can leave any pet out (set up from scratch, or a pet deleted), so a missing pet reports 0, never a crash.
     float PetHit(string id,bool width) { var pet=pets.Find(p=>p.Id==id);return pet==null?0:width?pet.Hit.Width:pet.Hit.Height; }
+    string[] HiddenIds() { var ids=new List<string>(hiddenPets);ids.Sort(StringComparer.Ordinal);return ids.ToArray(); }
     internal void WriteStatus(bool running=true) {
       if(test&&!started)return;
       int needed=(int)Math.Ceiling(LogicalWidth*scale);Rectangle area=Screen.FromRectangle(dockBounds??Bounds).WorkingArea;
       int sparkleCount=0;foreach(var pet in roaming)sparkleCount+=pet.SparkleCount;
-      PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=PetHit("voicemeeter-bug",false),normal_height=NormalHeight,paper_girl_height=PetHit("paper-girl",false),paper_girl_width=PetHit("paper-girl",true),file_master_height=PetHit("file-master",false),file_master_width=PetHit("file-master",true),pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),draft_errors=draftErrors.ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
+      PetFiles.WriteStatus(new { running,test_mode=test,process_id=Process.GetCurrentProcess().Id,window_title=Text,visible=running&&Visible,desktop_star_visible=running&&launcherVisible,tray_visible=running&&tray!=null&&tray.Visible,star_icon_pixels=starBitmap.Width,desktop_star_pixels=starBitmap.Width,pets_out=petsOut,lined_up=LinedUp,compact=Compact,roaming_pet_count=roaming.Count,roaming_pet_visible_count=roaming.FindAll(p=>p.Visible).Count,pending_clicks=clicks.Pending,last_action=testActions.Count>0?testActions[testActions.Count-1]:null,actions=test?testActions.ToArray():null,pet_count=pets.Count+1,hidden_pets=HiddenIds(),farmer_roaming=roaming.Exists(p=>p.Pet==farmer),dock_sample_interval_ms=16,bug_present=pets.Exists(p=>p.Id=="voicemeeter-bug"),bug_height=PetHit("voicemeeter-bug",false),normal_height=NormalHeight,paper_girl_height=PetHit("paper-girl",false),paper_girl_width=PetHit("paper-girl",true),file_master_height=PetHit("file-master",false),file_master_width=PetHit("file-master",true),pet_pair=PairStatus(),desktop_art_pets=roaming.FindAll(p=>p.Pet.DesktopArt).ConvertAll(p=>p.Pet.Id).ToArray(),sparkle_pet_ids=roaming.FindAll(p=>p.HasSparkles).ConvertAll(p=>p.Pet.Id).ToArray(),draft_errors=draftErrors.ToArray(),sparkle_count=sparkleCount,sparkle_lifetime_ms=0,sparkle_padding=0,sparkles_allowed=false,translucent_pet_ids=pets.FindAll(p=>p.Layered).ConvertAll(p=>p.Id).ToArray(),fuzzboi_variant=pets.Find(p=>p.Id=="fuzzboi-friend")==null?null:pets.Find(p=>p.Id=="fuzzboi-friend").Name,animation_interval_ms=timer.Interval,animation_running=running&&timer.Enabled,startup_enabled=PetFiles.StartupEnabled(),dpi_scale=scale,width=Width,height=Height,docked=dockBounds.HasValue,dock_has_room=!spaceConstrained,dock_required_width_px=needed,dock_available_width_px=area.Right-expandedLocation.X,dock_star_left_must_be_at_or_before_px=area.Right-needed,on_screen=Screen.FromRectangle(Bounds).WorkingArea.IntersectsWith(Bounds),updated_utc=DateTime.UtcNow.ToString("o")},test);
     }
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
@@ -916,6 +966,7 @@ namespace AstraDesktopPets {
       if(sparklePets!=0)throw new Exception("No pets should have sparkle trails.");
       ArrangeFloor(left);foreach(var pet in roaming){if(!left.Contains(pet.Bounds))throw new Exception("Lineup left screen.");foreach(var other in roaming)if(pet!=other&&pet.Bounds.IntersectsWith(other.Bounds))throw new Exception("Lineup overlaps.");}foreach(var flyer in roaming.FindAll(p=>Flies(p.Pet)))foreach(var ground in roaming.FindAll(p=>!Flies(p.Pet)))if(flyer.Bottom>ground.Top)throw new Exception("Flying row must be above ground pets.");LinedUp=false;ResolveClicks("star",2);if(!LinedUp||!petsOut)throw new Exception("Star double click did not line up pets.");ResolveClicks("star",2);if(LinedUp||!petsOut)throw new Exception("Second star double click did not resume roaming.");ScatterTests(left);ScatterTests(new Rectangle(0,0,2560,1392));RoamTests(new Rectangle(0,0,1920,1032));
       PairTests();
+      ShowOnScreenTests(left);
       SetPetsOut(false);if(petsOut||!Compact)throw new Exception("The star did not hide the pets.");
       SetPetsOut(true);if(!petsOut||Compact)throw new Exception("The star did not show the pets.");
       var fuzz=pets.Find(p=>p.Id=="fuzzboi-friend");if(fuzz!=null)foreach(string expected in new[]{"C","A","B"}){ResolveClicks(fuzz.Id,3);if(fuzz.FuzzStyle!=expected)throw new Exception("Fuzzboi body did not change to "+expected);}
@@ -932,7 +983,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -1033,6 +1084,35 @@ namespace AstraDesktopPets {
       Size original=paper.Size;try { paper.Height+=13;Scatter(new Rectangle(-1920,-300,1920,1080));if(paper.Bottom!=files.Bottom||paper.Top<-300||files.Top<-300)throw new Exception("Unequal-size paired scatter failed."); }finally { paper.Size=original; }
       LinedUp=false;Scatter(new Rectangle(-1920,-300,1920,1080));if(pairLeader!="file-master"||paper.Bottom!=files.Bottom||paper.Left-files.Right!=PairGap)throw new Exception("The pair must scatter together, with File Master leading.");
     }
+    // "Show on Computer Screen" (2026-10-24): a tick per pet in the Farmer's menu; unticked pets stay off, the Farmer never.
+    void ShowOnScreenTests(Rectangle area) {
+      var farmerWindow=roaming.Find(p=>p.Pet==farmer);var farmerMenu=farmerWindow.ContextMenuStrip.Items;
+      var parent=farmerMenu[farmerMenu.Count-1] as ToolStripMenuItem;
+      if(parent==null||parent.Text!="Show on Computer Screen")throw new Exception("The Farmer's menu needs Show on Computer Screen.");
+      if(menu.Items[2].Text!="Show on Computer Screen")throw new Exception("The star's menu needs Show on Computer Screen under Hide the pets.");
+      foreach(var other in roaming)if(other!=farmerWindow&&other.ContextMenuStrip.Items.Count!=2)throw new Exception("Only the Farmer's own menu has the pet list.");
+      FillShowOnScreen(parent);
+      if(parent.DropDownItems.Count!=pets.Count+3)throw new Exception("Show on Computer Screen must list every pet once, and the Farmer.");
+      var farmerTick=(ToolStripMenuItem)parent.DropDownItems[2];if(!farmerTick.Checked||farmerTick.Enabled)throw new Exception("The Farmer must always be ticked and never untickable.");
+      if(parent.DropDownItems[0].Enabled)throw new Exception("Show every pet must wait until a pet is unticked.");
+      var lone=pets.Find(p=>!IsPaired(p.Id));var tick=FindTick(parent,lone.Id);
+      if(!tick.Checked)throw new Exception("Every pet starts ticked.");
+      tick.PerformClick();
+      if(tick.Checked||OnScreen(lone)||testActions[testActions.Count-1]!="off-screen:"+lone.Id||!parent.DropDownItems[0].Enabled)throw new Exception("Unticking a pet must take it off the screen.");
+      SetOnScreen(farmer.Id,false);if(!OnScreen(farmer))throw new Exception("The Farmer must stay on the screen.");
+      var loneWindow=roaming.Find(p=>p.Pet==lone);Point away=new Point(area.Left-5000,area.Top-5000);loneWindow.Location=away;
+      ArrangeFloor(area);if(loneWindow.Location!=away)throw new Exception("A pet off the screen must not take a place in the lineup.");
+      foreach(var pet in roaming)if(pet!=loneWindow&&!area.Contains(pet.Bounds))throw new Exception("Lineup without one pet left the screen.");
+      FillShowOnScreen(parent);if(FindTick(parent,lone.Id).Checked)throw new Exception("An unticked pet must stay unticked when the menu opens again.");
+      FindTick(parent,lone.Id).PerformClick();if(!OnScreen(lone)||testActions[testActions.Count-1]!="on-screen:"+lone.Id)throw new Exception("Ticking a pet must put it back on the screen.");
+      if(pets.Exists(p=>p.Id=="paper-girl")&&pets.Exists(p=>p.Id=="file-master")) {
+        SetOnScreen("paper-girl",false);if(IsPaired("file-master"))throw new Exception("File Master must roam alone while Paper Girl is off the screen.");
+        SetOnScreen("file-master",false);FillShowOnScreen(parent);((ToolStripMenuItem)parent.DropDownItems[0]).PerformClick();
+        if(hiddenPets.Count!=0||!IsPaired("file-master")||!FindTick(parent,"paper-girl").Checked)throw new Exception("Show every pet must put them all back, the friends together.");
+      }
+      LinedUp=false;
+    }
+    static ToolStripMenuItem FindTick(ToolStripMenuItem parent,string id) { foreach(ToolStripItem item in parent.DropDownItems)if(item is ToolStripMenuItem&&(item.Tag as string)==id)return (ToolStripMenuItem)item;throw new Exception("No tick for "+id); }
     void RoamTests(Rectangle area) {
       var walker=new Roamer(new Random(7));Point at=new Point(area.Left+area.Width/2,area.Top+area.Height/2);Size size=new Size(70,70);
       int minX=at.X,maxX=at.X,minY=at.Y,maxY=at.Y,still=0;

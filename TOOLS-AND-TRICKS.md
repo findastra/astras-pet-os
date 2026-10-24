@@ -39,6 +39,21 @@ Startup Star and the System Map are native programs of The Farm (each is opened 
 vrchat-avatar-upload are native tricks of Unity Stable (no code, only written steps; planned until written as skill
 files).
 
+**Who does the work decides the kind** (Astra, 2026-10-24, "Program, Tool or Trick" deck, all four answers as
+recommended): a person opens it, a native program; code runs it with no AI deciding, a native tool; an AI reads written
+steps and makes choices, a native trick. Size or purpose never changes the kind. Where each goes on a pet program page:
+
+| Level | Holds |
+|---|---|
+| L1 control panel | What runs: 3rd party programs, native programs, native tools, devices |
+| L2 control panel | The pet program and its native tricks |
+| L3 control panel | Only L3 talking with L4 about this pet program: what L3 asks you, its suggestions, who is seated |
+| L4 control panel | You and your records: approvals, grants, keys, maintenance, the Pet ID (with the update history under Stamps) |
+
+Something with both a script and written steps is both: the script is a native tool in L1, the steps a native trick in
+L2 that uses it, and what the AI then asks you shows in L3 (Rift Rabbit's update-audit, 2026-10-24). Saved setups that
+code runs when you press a button are a native tool, not a trick (Rift Rabbit's VRChat setups: the launcher runs them).
+
 ## The chart: what runs, and how security sees it
 
 | | **Tool** (L1) | **Trick** (owned at L2, followed at L3) | **Harness skill** (the seat, L3) |

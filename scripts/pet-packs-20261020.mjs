@@ -206,7 +206,7 @@ export function petPictures(reg, { drafts, exists, list }) {
   const ids = [...new Set([reg.art, reg.repo, draft?.id].filter(Boolean))].filter((id) => !privateArt.has(id));
   const mood = (n) => new RegExp(`^(?:${MOODS.join('|')})(?:-\\d{8})?\\.png$`).test(n);
   for (const id of ids) {
-    for (const n of list(`art/frames/${id}`)) if (mood(n)) out.add(`art/frames/${id}/${n}`);
+    for (const n of list(`art/frames/${id}`)) if (mood(n.replace(/^plain-/, ''))) out.add(`art/frames/${id}/${n}`); // plain-: the desktop's sticker-free copies
     for (const n of list(`desktop-art/${id}`)) if (/\.(?:png|json)$/.test(n)) out.add(`desktop-art/${id}/${n}`);
     for (const n of list(`art/drafts/${id}`)) if (mood(n)) out.add(`art/drafts/${id}/${n}`);
   }

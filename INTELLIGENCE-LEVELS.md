@@ -13,6 +13,7 @@ tools a pet runs (L1) are listed in its code and links.
 | L1 | **Programs** | The third-party programs it runs (SteamVR, Voicemeeter, Unity), plus the programs and tools it creates. | Rings 3 and 5 |
 | L2 | **Pet program** | The pet's dashboard, and its runtime: it runs on its own without you opening it (scheduler, inbox, saved state, health), and keeps working when the Farm, the Farmer or Startup Star is closed. | Ring 3 |
 | L3 | **Agentic harness** | An AI model sits in the pet program's harness and becomes its agent: model adapter (Claude, GPT or local), the pet's tricks (owned at L2, followed here) and the seat's harness skills, tools, memory, permissions, task executor. Decides what to do next. | The harness and its seat |
+| L3 on a page | **L3 control panel** | On a pet program page, L3 shows only L3 talking with L4 about that pet program: what L3 asks you, its suggestions, who is seated (Astra, 2026-10-24). The seat's own tokens, activity and harness skills are not on the pet's page. | — |
 | L4 | **Verified human** | The verified human who owns the entire secure ecosystem (on Astra's farm, Astra; on another user's farm, that user). Approves every security change, every permission and every exception to a default, such as an L3 agent running more often than weekly. Not something a pet builds: every pet answers to L4. | 1 You (ring 8) |
 
 Every pet program is built to [PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md).

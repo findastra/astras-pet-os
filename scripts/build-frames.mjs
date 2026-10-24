@@ -57,6 +57,13 @@ export const WEARS = { 'portfolio-puffer': ['glasses'] };
    (docs/girls-same-size-20261017.md), so their frames keep the sheet's own sizes. */
 export const NATIVE = { 'api-fairy': 1, 'discord-damsel': 1 };
 
+/* The moods the desktop pets draw, also written without their sticker as plain-<mood>.png. Since 2026-10-24 all nine
+   moods carry one (indicators.mjs); idle and blink had none before, and the desktop pets size each pet by its drawn
+   pixels, so a sticker made every pet smaller, put dots and twinkles by every head, and lifted the girls' tops above
+   their shared crop. The stickers are for the pet program pages; the desktop shows the plain drawing until Astra
+   decides otherwise. */
+export const PLAIN = ['idle', 'blink'];
+
 /** One frame of { pal, rows } to a transparent PNG. */
 function framePng(frame, W, H) {
   const rgba = Buffer.alloc(W * H * 4); // all zero: fully transparent
@@ -130,7 +137,7 @@ export function buildFrames({ size = 256, colours = 24, only = [], log = console
       if (!existsSync(sheet)) { missing.push(id); continue; }
     }
 
-    let sprite, placeholder = false;
+    let sprite, plain, placeholder = false;
     try {
       if (originalArt) {
         sprite = chipOriginalSprite({ size });
@@ -143,6 +150,7 @@ export function buildFrames({ size = 256, colours = 24, only = [], log = console
         placeholder = true;
       }
       for (const name of WEARS[id] || []) sprite = ACCESSORIES[name](sprite);
+      plain = sprite;
       sprite = addIndicators(sprite);
     } catch (e) {
       log(`${id}: ${e.message}`);
@@ -160,10 +168,16 @@ export function buildFrames({ size = 256, colours = 24, only = [], log = console
       writeFileSync(paths.frame(mood), buf);
       petBytes += buf.length;
     }
+    for (const mood of PLAIN) {
+      const buf = framePng(plain.frames[mood], W, H);
+      writeFileSync(paths.plainFrame(mood), buf);
+      petBytes += buf.length;
+    }
     bytes += petBytes;
     index.pets[id] = {
       size: [W, H],
       frames: Object.fromEntries(MOODS.map((m) => [m, paths.frame(m)])),
+      plain: Object.fromEntries(PLAIN.map((m) => [m, paths.plainFrame(m)])),
       ...(originalArt ? { source: 'scripts/chip-original-20261008.mjs', art_kind: 'original-code' } : existsSync(sheet) ? { sheet } : {}),
       ...(placeholder ? { placeholder: 'Enlarged from an old 64px conversion because its sheet is missing. Regenerate it.' } : {}),
       ...(WEARS[id] ? { wears: WEARS[id] } : {}),
