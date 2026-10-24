@@ -225,8 +225,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill > .lights { grid-column: 1; grid-row: 1; align-self: start; margin: 4.6px 0 0; gap: 7px; }   /* on the name's first line */
 .pill > :not(.lights) { grid-column: 2; }
 .pill > .item-name { color: var(--chalk); font: 15px/1.35 var(--text); overflow-wrap: anywhere; }
-/* One size: the name on its own line, its tags on the next, and every closed pill two lines tall. */
-.items li.pill { min-height: 60px; align-content: start; }
+/* One size: a closed pill is one line, its name, since its state shows only when it is opened (Astra, 2026-10-23:
+   "they look one line too big"). A pill with a cadence tag takes a second line; pills in a row stay one height. */
+.items li.pill { align-content: start; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
