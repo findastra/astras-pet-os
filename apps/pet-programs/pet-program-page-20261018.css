@@ -350,6 +350,8 @@ label.file { position: relative; }
    slightly staggered, each after a pink ✦; no list. */
 /* Snug above and below its one row (Astra, 2026-10-24: "there still is an awkward space before and after these items"). */
 .panel.footer { padding: 10px var(--pad); }
+/* Folded, it is as thin as every other folded panel (Astra, 2026-10-24: "the last one looks too thick"). */
+.panel.footer:not([open]) { padding: 14px var(--pad) 0; }
 .astra-footer { display: grid; justify-items: center; gap: 8px; text-align: center; font-size: 13px; }
 .astra-footer p { margin: 0; max-width: 78ch; }
 .footer-status { color: var(--chalk-dim); }
@@ -398,10 +400,13 @@ label.file { position: relative; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
 .chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
-.chat-open { width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid var(--line);
+/* The open button is the arrow alone, no circle: click it and it turns down as the chat drops open (Astra, 2026-10-24:
+   "no circle just a icon that you can click that icon, and it rotates for the dropdown"). */
+.chat-open { width: 26px; height: 26px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 4px;
   background: transparent; color: var(--chalk); cursor: pointer; }
-.chat-open:hover { border-color: var(--fix); color: var(--fix); }
-.chat-open svg { width: 16px; height: 16px; transition: transform .2s ease; }
+.chat-open:hover { color: var(--fix); }
+.chat-open:focus-visible { outline: 2px solid var(--fix); outline-offset: 1px; }
+.chat-open svg { width: 20px; height: 20px; transition: transform .2s ease; }
 .chat-open[aria-expanded="true"] svg { transform: rotate(90deg); }
 .chat-panel { grid-area: panel; font-size: 13px; }
 .chat-panel p { margin: 6px 0 0; }
@@ -435,7 +440,7 @@ label.file { position: relative; }
   .page { padding-bottom: 150px; }
   .chat { right: 10px; bottom: 10px; padding: 0 8px 8px; }
   .chat-open { width: 26px; height: 26px; }
-  .chat-open svg { width: 15px; height: 15px; }
+  .chat-open svg { width: 19px; height: 19px; }
   .chat-label { font-size: 10px; }
   /* On a phone the chat covers less: its tool keeps its lights and its button, its name is in the label above (Astra,
      2026-10-23: "change", to "make the chat box smaller so it covers less, and keep the tool names to two lines"). */
