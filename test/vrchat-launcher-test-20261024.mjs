@@ -60,4 +60,10 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
   assert.ok(rabbit.includes('27 locations tracking can occur, devices may vary'));
   assert.doesNotMatch(rabbit, /--ignore-trackers|data-trk-/, 'no Steam line and no old drawing');
   assert.match(js, /ask\('\/spots'/, 'changes go to the launcher');
+  // Her later notes (2026-10-25): a woman, chest and sternum rings like the waist's, a picker on the spot itself, a short list.
+  assert.equal((rabbit.match(/class="strap-ring/g) || []).length, 3, 'chest, sternum and waist rings');
+  assert.ok(rabbit.includes('strap-hair'));
+  assert.equal((rabbit.match(/data-strap-pop hidden/g) || []).length, 1, 'one picker that opens on the spot clicked');
+  assert.match(rabbit, /<div class="strap-store" hidden>/);
+  assert.ok(rabbit.includes('data-strap-worn'));
 });
