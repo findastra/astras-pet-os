@@ -402,8 +402,8 @@ test('L4 has a Pet ID, never a pet passport, and its vet records link the vet-cl
   const vetLink = '/vet-clinic/issues?q=';
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    // Its own tool panel, pet-id, since 2026-10-22 (Astra drew "oo pet-id").
-    assert.ok(html.includes('<span class="legend">pet-id</span>'), `${d.repo}: L4 has a Pet ID`);
+    // Its own tool, pet-id, since 2026-10-22 (Astra drew "oo pet-id"); a round tool box since 2026-10-24.
+    assert.ok(html.includes('<button type="button" class="toolbox-fold toolbox-name" aria-expanded="false">pet-id</button>'), `${d.repo}: L4 has a Pet ID`);
     assert.ok(!/pet passport/i.test(html), `${d.repo}: no "pet passport" (the word is Passport Pelican's)`);
     if (vet.visibility === 'private') {
       assert.ok(html.includes('<dt>Vet records</dt><dd>vet-clinic tickets (private repo)</dd>'), `${d.repo}: the private vet-clinic is plain text`);

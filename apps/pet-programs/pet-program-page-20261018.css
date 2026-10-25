@@ -283,7 +283,27 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .about > summary:hover::before, .may-use > summary:hover::before, .backlog > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .about[open] > summary::before, .may-use[open] > summary::before, .backlog[open] > summary::before { transform: rotate(90deg); }
 .about > p { margin: 4px 0 0 16px; }
-/* A tool panel inside a level (L2's update history, L4's parts): the same box, a little closer to the one above. */
+/* A tool with parts of its own inside a control panel (L4's parts, the session notes): drawn like the VRChat setups'
+   headset boxes, round with the tool background, its lights and name inside on the first row, folding to that row
+   (Astra, 2026-10-24: "control panels have tools and toolsets in side them"). Its menus and buttons are round like a
+   tool's; a writing box keeps square corners (her "square corners not rounded edges"). */
+.toolboxes { display: grid; gap: 18px; margin-top: 4px; }
+.toolbox { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; min-width: 0; }
+.toolbox.is-folded { padding-bottom: 7px; }
+.toolbox.is-folded > .toolbox-body { display: none; }
+.toolbox-head { display: flex; align-items: center; margin: 0 0 8px -4.5px; min-height: 20px; }
+.toolbox.is-folded > .toolbox-head { margin-bottom: 0; }
+.toolbox-head .lights { margin-right: 10px; }
+.toolbox-name { font: 600 15px var(--label); color: var(--chalk); overflow-wrap: anywhere; }
+.toolbox-fold { background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.toolbox-fold::after { content: "\00A0\00A0\25BE"; font-size: 10px; color: var(--chalk-dim); }
+.toolbox.is-folded .toolbox-fold::after { content: "\00A0\00A0\25B8"; }
+.toolbox-fold:hover::after { color: var(--fix); }
+.toolbox-body > :first-child { margin-top: 0; }
+.toolbox-body > :last-child { margin-bottom: 0; }
+.toolbox .button { border-radius: 14px; }
+.toolbox select { border-radius: 8px; }
+/* A tool panel inside a level (L2's update history): the same box, a little closer to the one above. */
 .panel.sub { margin-top: 26px; }
 .level > .panel.sub:first-of-type { margin-top: 18px; }
 /* Room between the update history and the pets it talks to (her "needs more space"). */
