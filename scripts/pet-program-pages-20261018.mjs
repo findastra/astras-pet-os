@@ -350,6 +350,13 @@ function toolSections(tools, extra = '', extraCount = 0) {
   return sides.join('\n');
 }
 
+// A tool with parts of its own (a toolset) inside a control panel: a round box with the tool background, its lights
+// and its name inside on the first row, like the VRChat setups' headset boxes, and it folds to that row (Astra,
+// 2026-10-24: "control panels have tools and toolsets in side them"; panels keep square corners, tools are round).
+const toolBox = (key, name, body, { open = true, fold = true } = {}) => `<div class="toolbox${open ? '' : ' is-folded'}"><div class="toolbox-head">${lights(`tool:${key}`, name)}${fold
+  ? `<button type="button" class="toolbox-fold toolbox-name" aria-expanded="${open}">${esc(name)}</button>` : `<span class="toolbox-name">${esc(name)}</span>`}</div>
+<div class="toolbox-body">${body}</div></div>`;
+
 const tag = (state) => (state && state !== 'now' ? ` <span class="tag">${esc(STATE[state] || state)}</span>` : '');
 const built = (state) => !state || state === 'now';
 
@@ -381,13 +388,18 @@ function itemList(items, prefix, empty) {
     // page or panel is a button inside.
     const href = i.embed ? `#${i.id}-tool-panel` : i.url;
     const open = href ? `\n<p><a class="button" href="${esc(href)}">${esc(i.embed ? 'Use it below' : 'Open it')}</a></p>` : '';
-    const more = `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
+    const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${open}`;
     const name = `<span class="item-name">${esc(i.name)}</span>`;
+    // Something waiting for your OK (what L3 asks you) has one light, the legend's orange "update waiting for your OK",
+    // and no switch: it is a question, not a tool you turn on or off.
+    const pillLights = i.waiting
+      ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device' });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
-    return `<li class="pill">${lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device' })}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
+    return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
   }).join('')}</ul>`;
 }
 
@@ -712,15 +724,27 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
   // L3 is L3 talking with L4 about this pet program, nothing else (Astra, 2026-10-24: "L3 control panel should be about
   // L3 to L4 discussions, regarding the pet program only"): what L3 asks you (an update the update audit found waits for
   // your yes here), its suggestions, and who is seated to talk. The seat's own activity, tokens and skills are not here.
+  // Each part is a section of pills, like L1's (Astra, 2026-10-24: "L3 looks sloppy. give it sections that match"):
+  // each question a pill with the orange "waiting for your OK" light, its question as the name and the rest when
+  // opened, and the seat a pill that is off until a farmhand is seated.
+  const asks = d.asks.map((a, i) => {
+    const q = a.indexOf('?');
+    return { id: `ask-${i + 1}`, name: q > 0 ? a.slice(0, q + 1) : a, desc: q > 0 ? a.slice(q + 1).trim() : 'Waiting for your OK.', state: 'now', waiting: true,
+      more: 'Answer it in L4, under approvals-waiting-on-you.' };
+  });
+  const seat = [{ id: 'seat', name: 'seat', state: 'planned', desc: `Empty: no farmhand is seated in ${d.home} (L3 is not connected).`,
+    more: 'A farmhand is an AI agent seated here to talk with you about this pet program.' }];
   const L3 = panel(`${d.petSlug}-L3-control-panel`, `<div class="columns">
-<section>${heading('L3 asks you', d.asks)}${d.asks.length ? `<ul class="plain asks">${d.asks.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>` : `<p class="empty">Nothing to ask you about ${esc(d.home)} right now.</p>`}</section>
+<section>${heading('L3 asks you', d.asks)}${itemList(asks, `l3-ask:${d.petSlug}`, `Nothing to ask you about ${d.home} right now.`)}</section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
-<section>${heading('Seat', [])}<p class="empty">Empty: no farmhand is seated in ${esc(d.home)} (L3 is not connected).</p></section>
+<section>${heading('Seat', [])}${itemList(seat, `l3:${d.petSlug}`, '')}</section>
 </div>`, { cls: 'level', light: true });
 
-  // L4's parts are tool panels of their own, each with its lights and a lowercase label (Astra, 2026-10-22, drawing
-  // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id").
-  const sub = (label, body) => panel(label, body, { cls: 'sub', light: true, key: label.startsWith(d.petSlug) ? '' : `${d.petSlug}-${label}` });
+  // L4's parts are tools of their own, each with its lights and a lowercase name (Astra, 2026-10-22, drawing
+  // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id"):
+  // round tool boxes that fold to their name, not square panels inside the panel (2026-10-24: "these L3 and L4 control
+  // panels need work, to match the rest of the UI theming").
+  const sub = (label, body) => toolBox(label.startsWith(d.petSlug) ? label : `${d.petSlug}-${label}`, label, body, { open: false });
   // The Pet ID's Stamps: the update history (Astra, 2026-10-24: update history belongs in the Pet ID, answer 4).
   const petStamps = `<dl class="status stamps">
 <dt>Data</dt><dd>yours, in this browser only${d.isPrivate ? '. Private: its data never leaves the PC' : ''}</dd>
@@ -729,7 +753,7 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
-  const L4 = panel(`${d.petSlug}-L4-control-panel`, `${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
+  const L4 = panel(`${d.petSlug}-L4-control-panel`, `<div class="toolboxes">${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
 ${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing yellow or orange.</li></ul><ul class="plain" id="switched-off"></ul>')}
@@ -739,7 +763,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}`, { cls: 'level', light: true });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>`, { cls: 'level', light: true });
 
   // A pet's own panels come first, under the header and before the four levels (Astra, 2026-10-24:
   // "rift-rabbit-launch-panel should be the first panel before the intelligence levels. all of the non typical panels
@@ -752,16 +776,18 @@ ${sub('pet-id', `<dl class="status">
 
   const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
-  const notes = panel(`${d.petSlug}-session-notes-panel`, `<form id="notes" class="notes">
-<label for="note-text">notes</label>
-<textarea id="note-text" rows="3" placeholder="A note, a bug or a change you want. It goes to the backlog straight away."></textarea>
+  // The notes are a tool in the panel, drawn like the others (Astra, 2026-10-24: "this one looks sloppy too, make it
+  // match the other panel UI themology"): a round box with its lights and name; its menu and buttons round like a
+  // tool's; the writing box keeps square corners (2026-10-24: "this also should be square corners").
+  const notes = panel(`${d.petSlug}-session-notes-panel`, toolBox(`${d.homeSlug}-notes`, 'notes', `<form id="notes" class="notes">
+<textarea id="note-text" rows="3" aria-label="notes" placeholder="A note, a bug or a change you want. It goes to the backlog straight away."></textarea>
 <div class="note-row"><label>about <select id="note-about">${aboutOptions}</select></label>
 <label class="button file">add file<input type="file" id="note-file" multiple></label>
 <button type="submit" class="button">submit</button></div>
 <p class="small" id="note-files" data-words-keep></p></form>
 <details class="backlog"><summary>${esc(d.homeSlug)}-backlog in this browser (<span id="backlog-count">0</span>)</summary><ol id="backlog" reversed data-words-keep></ol>
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
-<p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { cls: 'session-notes' });
+<p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { fold: false }), { cls: 'session-notes' });
 
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const picture = mood === 'blink'

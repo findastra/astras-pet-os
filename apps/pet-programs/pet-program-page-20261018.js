@@ -682,6 +682,14 @@
   }
   })();
 
+  // ---- A tool box (L4's parts) folds to its name when its name is clicked, like the VRChat setups (2026-10-24). ----
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.toolbox-fold');
+    if (!b) return;
+    var folded = b.closest('.toolbox').classList.toggle('is-folded');
+    b.setAttribute('aria-expanded', String(!folded));
+  });
+
   // ---- Clicking a pill opens or closes it, like Halo List's (Astra, 2026-10-23: "just clicking the bubble opens it").
   // Its lights, links, buttons and fields keep their own clicks, and selecting text in it does not close it. ----
   document.addEventListener('click', function (e) {
