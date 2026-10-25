@@ -47,7 +47,7 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
-export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
+export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'clicker-training-panel', 'emotions-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
@@ -872,8 +872,8 @@ ${wordScripts}
 ${editorial}
 <header class="top">${cyberhome}${title}${systemMap}</header>
 ${own}${levels}
-<div class="side-by-side">${rwx}${notes}</div>
-<div class="pair">${emotions}${clicker}</div>
+<div class="side-by-side">${rwx}<div class="notes-column">${notes}${clicker}</div></div>
+${emotions}
 ${related}
 ${footer}
 </main>
