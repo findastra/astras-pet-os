@@ -109,7 +109,7 @@ function groups(rec, rows) {
 }
 function sentence(g) {
   const r = g.rows[0];
-  if (g.check === 'A57') return `Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\\Projects) in ${g.rows.map((x) => '`' + x.detail.split(':')[0] + '`').filter((v, i, a) => a.indexOf(v) === i).join(', ')}.`;
+  if (g.check === 'A57') return `Retired names (the old hub names, findastra-pet-apps, Documents\\Projects) in ${g.rows.map((x) => '`' + x.detail.split(':')[0] + '`').filter((v, i, a) => a.indexOf(v) === i).join(', ')}.`;
   if (g.check === 'A31' && g.rows.length > 1) return `${g.rows.length} links point at the old hub name or a missing file: ${g.rows.map((x) => (x.detail.match(/link (\S+):/) || [])[1]).filter(Boolean).map((u) => `<${u}>`).slice(0, 4).join(', ')}.`;
   if (['A41', 'A44', 'A45', 'A52'].includes(g.check) && r.status === 'On a branch') return r.detail.replace(/ It exists on unmerged branch .*$/, '');
   return g.rows.map((x) => x.detail).join(' ');

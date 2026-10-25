@@ -9,7 +9,7 @@ Astra asked (2026-10-17, 20:45) whether Startup Star was opening her current pet
 (the folder shortcut, the Start menu shortcut, the `findastra-desktop-pets` Run key) opens the right program,
 `astras-pet-os\bin\desktop-pets-20261008.exe` (your 2026-10-15 19:17 build). The pets it shows were the problem:
 
-- The hub's PC working copy (`%USERPROFILE%\Documents\Astra's Pet Apps\astras-pet-os`) was still checked out on
+- The hub's PC working copy (`%USERPROFILE%\Documents\Astra's PetOS\astras-pet-os`) was still checked out on
   `codex/world-caretakers-20261016` (`4c949e8`). PR #26 merged that branch into `codex/findastra-readme-auditor-20261015`
   (PR #23, still open), not into `main`. So the folder was 24 commits ahead of `main` and 44 behind it.
 - The star reads `pets.json`, `art/frames/` and `desktop-art/` from that folder. Live sync only fast-forwards a folder
@@ -23,7 +23,7 @@ With Astra's OK, on her PC, 2026-10-17 about 21:00:
 - **Switched the hub folder to `main`:** `git switch main`, then `git merge --ff-only origin/main`. It is on `main` at
   `4a86d0e`, level with `origin/main`, so live sync now follows `main` every 30 s.
 - **Restarted the star:** `bin\desktop-pets-20261008.exe "<hub>" --quit`, then started it again with the hub path.
-  `%LOCALAPPDATA%\astras-pet-apps\desktop-pets-status-20261008.json` reports it running with the tray star visible and
+  `%LOCALAPPDATA%\astras-pet-os\desktop-pets-status-20261008.json` reports it running with the tray star visible and
   36 desktop pets: 19 registered (Platform Platypus is new), 16 local drafts and the Farmer.
 - **Not changed:** `bin\` (git-ignored, so the switch left the exe alone; nothing was rebuilt), `scripts/desktop-pets-20261011.cs`
   or any other desktop file, the local draft list, startup settings, and the other worktrees of this repo.

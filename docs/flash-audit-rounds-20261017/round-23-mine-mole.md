@@ -35,14 +35,14 @@
 
 - **A14 Required files** — Required files: CLAUDE.md, LICENSE
 - **A15 README and credit** — README has no Limits section.
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `pet.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Researching: whether mining crypto on Astra's own PC is worth the power, and, if it is, watching the miner's hashrate, heat and earnings."
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 5 replacement(s) in AGENTS.md, README.md, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 5 replacement(s) in AGENTS.md, README.md, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - Added CLAUDE.md (pointer to AGENTS.md and the hub rules).
 - Added LICENSE (MIT, the house default for public pet repos).

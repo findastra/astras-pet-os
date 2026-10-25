@@ -13,7 +13,7 @@ Its job in the registry: Organizes the pets (intelligent apps). His daily rounds
 Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/astras-pet-os-20261018.html
-- **Its app:** https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html
+- **Its app:** https://findastra.github.io/astras-pet-os/apps/astras-pet-os-20261008.html
 - **Its code:** https://github.com/findastra/astras-pet-os
 
 ## If you are an AI asked to be Friendly Farmer

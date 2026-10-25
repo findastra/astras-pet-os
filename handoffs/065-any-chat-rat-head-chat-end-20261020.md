@@ -17,7 +17,7 @@ needs: AGENTS.md, skills/pet-organizer, docs/flash-audit-20261014.md, github-gol
 2. **Description wording** from Goldfish's roster findings, also lost: #1 and #3 end mid-thought; #47-#57 start with a category; plans in #10, #14-16, #22, #26, #42 belong in [brackets]; #5 "26 dated tools" → "25+". Pet #77 still needs a real name (Astra's call).
 3. **Social row tool:** styles 1-4 and 6 (all gradients; canvas "Profile Social Row" on claude.ai holds the designs Astra loves), and the on/off switch on GitHub Aquarium that rewrites the README block.
 4. **Flash-audit-prepper:** checklist of A01-A53 on The Farm; ticked checks start the audit in the L3 chat (Astra's AI); results logged back on The Farm. Waiting on Astra's go.
-5. **PC scripts Astra has not reported running:** `Documents\Astra's Pet Apps\match-shortcut-icons-20261017.ps1` and `rename-fuzzbois-20261017.ps1`.
+5. **PC scripts Astra has not reported running:** `Documents\Astra's PetOS\match-shortcut-icons-20261017.ps1` and `rename-fuzzbois-20261017.ps1`.
 6. **Profile Web & More** still links `fuzzboi-factory` to `github.com/findastra/fuzzbois` (redirects); the round fixes it once it lists the renamed repo.
 7. Chat Rat #2 (missed-* tools) waits on Codex's Chat Rat #1, its base.
 8. Desktop rat docking into Chat Rat's cyberhome (the original Codex task) still needs the PC.

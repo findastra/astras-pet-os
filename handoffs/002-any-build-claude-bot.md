@@ -17,4 +17,4 @@ and the README "Limits" section says plainly what does not work yet.
 
 ## Return
 Branch plus PR in `claude-bot`, set this card to `status: done`, and update the pet's
-status in `astras-pet-apps/pets.json` (hatching to growing) only when it actually works.
+status in `astras-pet-os/pets.json` (hatching to growing) only when it actually works.

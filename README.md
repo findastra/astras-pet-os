@@ -102,7 +102,7 @@ Click anything for its card: who may read, write or run it, and whether each rul
 
 ![The Farmer's Desk program page: the Needs you list from the Friendly Farmer's round, and the mood key](docs/images/astras-pet-os-farmers-desk-20261017.png)
 
-The Farmer's Desk ([program page](https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html)): what needs Astra after the Friendly Farmer's round, and the mood key.
+The Farmer's Desk ([program page](https://findastra.github.io/astras-pet-os/apps/astras-pet-os-20261008.html)): what needs Astra after the Friendly Farmer's round, and the mood key.
 
 Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](https://github.com/findastra/github-goldfish#project-image-generator); added with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 
@@ -148,7 +148,7 @@ The generated count and running list, with every mood of every character, are in
 
 **See everything at once:** open the [System Map](system-map-20261012.html) in a browser (it loads three.js from a CDN, so it needs the internet).
 
-**Get the source (developers only; to install, use the [installer](INSTALL.md)):** the [astras-pet-os repository](https://github.com/findastra/astras-pet-os) is public. It was called `astras-pet-apps` until 2026-10-12; old links redirect.
+**Get the source (developers only; to install, use the [installer](INSTALL.md)):** the [astras-pet-os repository](https://github.com/findastra/astras-pet-os) is public. It was renamed on 2026-10-12; old links redirect.
 
 ```powershell
 git clone https://github.com/findastra/astras-pet-os

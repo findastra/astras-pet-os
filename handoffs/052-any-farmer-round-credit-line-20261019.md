@@ -9,7 +9,7 @@ needs: scripts/farmer-rounds-20261009.mjs, test/rounds-test-20261009.mjs, test/c
 [39304824157](https://github.com/findastra/astras-pet-os/actions/runs/39304824157) (scheduled, 2026-10-19 18:42 UTC),
 ran all 37 self-audits, then stopped at `npm test`: only `test/credit-line-readme-only-test-20261019.mjs` failed (hub
 #113, Astra 2026-10-19: the credit line goes only in a pet repo's own README). It flagged `status/pets-status.json` lines
-49, 122, 136 and 186 and `apps/astras-pet-apps-20261008.html:1`. The source was one line of the round's self-audit,
+49, 122, 136 and 186 and `apps/astras-pet-os-20261008.html:1`. The source was one line of the round's self-audit,
 `auditPet` in `scripts/farmer-rounds-20261009.mjs`: when a pet's README does not open with the credit line, the finding's
 message quoted the whole sentence. Findings are written into `status/pets-status.json`, and the Farmer's desk
 (`scripts/build-interfaces-20261008.mjs`) embeds that whole file on its first line. Four pets got the finding, hence
@@ -80,7 +80,7 @@ no round pull request is open. The scheduled round,
 [run 39462765053](https://github.com/findastra/astras-pet-os/actions/runs/39462765053) (2026-10-20 17:03 UTC),
 passed "Do the rounds" and then failed at `npm test`. The credit line is no longer the problem. One test failed:
 `not ok 47 - every page loads the installer's words, then the swap, in its <head>`
-(`test/developer-mode-test-20261019.mjs`, on `apps/astras-pet-apps-20261008.html`). The cause, checked on `main`
+(`test/developer-mode-test-20261019.mjs`, on `apps/astras-pet-os-20261008.html`). The cause, checked on `main`
 (`523946f`):
 - The Farmer's desk got `words-mode-20261019.js` and then `developer-words-20261019.js` in its `<head>` by hand, in
   the developer mode commit `0764a63` (card 060).
@@ -109,7 +109,7 @@ folders were not touched.
   the footer). It fails on `main`'s generator (`AssertionError: the generated desk: words-mode, then developer-words, in
   <head>`) and passes on the fix, so the next hand edit to the desk fails at pull-request time instead of in the
   morning round.
-- `apps/astras-pet-apps-20261008.html`: rebuilt with the generator. Running it again changes nothing. Compared with
+- `apps/astras-pet-os-20261008.html`: rebuilt with the generator. Running it again changes nothing. Compared with
   `main`'s copy, the words and the switch are kept, and the desk catches up with two things the generator already
   wrote but nobody had rebuilt the desk for: the farm-owner links (`cfg.owner` and `cfg.owners`, every one `findastra`
   on Astra's farm; card 058, Part 3, #164) and Log Lynx, Packet Piranha and Forensic Ferret as registered pets (#146).
@@ -194,7 +194,7 @@ Farmer can see the private repos (task 4); today that is #192 (head `60b1b9b`). 
 2. **Astra, the workflow line** (this PC's GitHub login cannot change workflow files):
    https://github.com/findastra/astras-pet-os/edit/main/.github/workflows/farmer-daily-rounds.yml , line 59. Add
    ` apps/pet-programs markdown-pets system-map-20261012.html` to the end of
-   `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html`, then
+   `git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-os-20261008.html`, then
    **Commit changes**. Until then, every round leaves those pages stale (a change to the status file is enough,
    2026-10-21), and `main`'s `npm test` fails after its merge.
 3. Until task 2 is done: before merging a `farmer/rounds-*` pull request, merge it with `main` in an LF clone and run

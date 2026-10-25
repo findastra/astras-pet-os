@@ -63,8 +63,8 @@ spot where the image is hosted every time. where is this?"
 2. Each pet's own repo: `desktop-art/<pet>/`, `art/` or `pet-art/`, `draft-art/`, icon files.
 3. The portfolio (`findastra.github.io`): `art/icons/`, `art/pets/`.
 4. Astra's PC: the desktop pets app reads the hub's folder for registered pets, and for 16 draft pets
-   `%LOCALAPPDATA%\astras-pet-apps\desktop-drafts-20261011.json`, which points into the pet repos' working copies.
-5. Folder icons: `%LOCALAPPDATA%\astras-pet-apps\folder-icons\` (made from `art/icons/`).
+   `%LOCALAPPDATA%\astras-pet-os\desktop-drafts-20261011.json`, which points into the pet repos' working copies.
+5. Folder icons: `%LOCALAPPDATA%\astras-pet-os\folder-icons\` (made from `art/icons/`).
 
 On 2026-10-17 the copies were byte-identical mirrors of the hub's files (the web art of several pets is still an older
 design than their desktop art). **The one place should be this hub's `art/` and `desktop-art/` folders**, published

@@ -31,7 +31,7 @@ namespace AstraDesktopPets {
     internal const string SettingsKey = "Software\\Findastra\\DesktopPets";
     internal static readonly JavaScriptSerializer Json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
     internal static string Root;
-    internal static string StateFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "astras-pet-apps", "desktop-pets-status-20261008.json"); } }
+    internal static string StateFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "astras-pet-os", "desktop-pets-status-20261008.json"); } }
     internal static string TestStateFile { get { return Path.Combine(Path.GetDirectoryName(StateFile),"desktop-pets-test-status-20261008.json"); } }
     // The draft list lives in this hub, next to the pictures (Flash Audit A58, one art source), so every star reads the same
     // list: a program started inside the Claude or Codex app sees that app's private copy of %LOCALAPPDATA% (2026-10-18).
@@ -584,7 +584,7 @@ namespace AstraDesktopPets {
       menu.Items.Add("Open Farmer's desk",null,delegate { OpenPet(farmer); });
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
-      menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-apps-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
+      menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-os-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
       // The pets in the background, each with its own menu (no tray icon of their own since 2026-10-21).
       menu.Items.Add(new ToolStripSeparator());
       foreach(var entry in BackgroundPets.All()) {

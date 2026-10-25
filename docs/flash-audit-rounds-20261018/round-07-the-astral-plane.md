@@ -18,7 +18,7 @@
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
 3. 🔵 **A56 Saved in its own folder** — Incorrect. vrchat-embodiment/HANDOFF-CLAUDE.md: 2× a dated chat folder (e.g. "Documents\ChatGPT\"). vrchat-embodiment/docs/meep-inventory.md: 1× a dated chat folder (e.g. "Documents\ChatGPT\"). vrchat-embodiment/docs/poppy-inventory.md: 1× a dated chat folder (e.g. "Documents\ChatGPT\").  
    *Next:* A stray PC path in code or docs; moving files goes through a File Master plan.
-4. ⚪ **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `vrchat-ai-astra-20261008.html`.  
+4. ⚪ **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `vrchat-ai-astra-20261008.html`.  
    *Next:* A line that tells history, a file name, or a name inside the page's script (a storage key), so it was kept; anything else here is for the pet's chat.
 5. ⚪ **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.

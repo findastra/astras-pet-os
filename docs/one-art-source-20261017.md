@@ -80,9 +80,9 @@ folder; the A58 tool below makes the same list on demand.
 
 **Astra's PC.** The desktop pets app (`astras-pet-os\bin\desktop-pets-20261008.exe`, started with the hub folder)
 reads `art/frames/` and `desktop-art/` for 15 registered pets from a list compiled into the program, and
-`%LOCALAPPDATA%\astras-pet-apps\desktop-drafts-20261011.json` for 16 draft pets. That list points into 14 pet working
+`%LOCALAPPDATA%\astras-pet-os\desktop-drafts-20261011.json` for 16 draft pets. That list points into 14 pet working
 copies (which sit on Codex branches, so the desktop shows whatever is checked out there) and into
-`%LOCALAPPDATA%\astras-pet-apps\drafts-20261011\` (clones of astras-gif-maker, fuzzboi-friend and fuzzbois).
+`%LOCALAPPDATA%\astras-pet-os\drafts-20261011\` (clones of astras-gif-maker, fuzzboi-friend and fuzzbois).
 
 **Not pet pictures (they stay where they are):** program-page screenshots (`docs/images/*-program-page-*.png`,
 Flash Audit A55), Discord presence images (`galaxy*`, tray icons), Unity Unicorn's avatar photos, world textures
@@ -130,7 +130,7 @@ offline fallback. Merge after the hub.
 `prepare-desktop-drafts-20261011.mjs` (writes the draft list with hub paths; Claude Bot keeps his private path),
 rebuild the star with `build-desktop-pets-20261011.ps1` (the program changed) and restart it. The old
 `drafts-20261011\` clones are then unused; they are left in place for Astra to delete (agents never delete).
-Folder icons in `%LOCALAPPDATA%\astras-pet-apps\folder-icons\` are a build output made from `art/icons/`
+Folder icons in `%LOCALAPPDATA%\astras-pet-os\folder-icons\` are a build output made from `art/icons/`
 (Windows needs a local `.ico`), like `art/frames/` is made from `art/sheets/`; `set-folder-icons-20261017.ps1`
 reads only the hub.
 

@@ -23,7 +23,7 @@
 > - 2026-10-13: **Protection rings** ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)). Everything inside the harness is an animal, and agents can only control animals; nobody becomes an animal without L4. Changes follow the maker-checker rule: a maker agent proposes, a read-only checker agent verifies, L4 approves.
 > - 2026-10-13: **The Farm is the Friendly Farmer's pet program** (pet-program-1) and the core. It is a platform that runs on Windows, not an operating system (this replaces "the native OS" below). **Every other program a pet program owns is a tool** of it, with the same ring and permissions; Startup Star and the System Map are tools of The Farm.
 > - 2026-10-13: **Names carry versions with a `v`:** `pet-program-3-v1.0-icon-2-v1.0`. Pet program names come from [docs/naming-20261013.md](docs/naming-20261013.md); unassigned ones are `pet-program-#`. New names: Am I a Ghost? (Gone Ghost), Iron Gates (Gatekeeper Goddess), Raspberry Pi Maker (Raspberry Pi Berry).
-> - 2026-10-12: **Astra renamed the development repo to `astras-pet-os`** (it was `astras-pet-apps`; old links redirect). The Cage is retired: it is no longer the Farmer's job.
+> - 2026-10-12: **Astra renamed the development repo to `astras-pet-os`** (old links redirect). The Cage is retired: it is no longer the Farmer's job.
 > - 2026-10-12: **The pets are intelligent apps.** When talking about all of them together, just say **the pets** (never "the herd"). **The Friendly Farmer organizes the pets.** **The Farm is the native OS** of Astra's PetOS, the first-party home where the pets live and run; the Farm website is its face. **The Kennel is the community lab**, where other people's pets are built, tried, reviewed and adopted. Each pet grows through three levels of intelligence: program, runtime, agentic harness ([INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)). The 3D diagram is **Astra's PetOS System Map**, also called the 3D PFD.
 > - 2026-10-12: **The project's title is "Astra's PetOS".** In files, folders, code and identifiers it is written **`ASTRAS_PET_OS`** (ASTRAS with the S, an underscore before PET and before OS), never `ASTRA_PET_OS`, `ASTRA_PETOS` or `PetOS` on its own. This document lives at the top of the repo as `ASTRAS_PET_OS.md` (moved from `docs/architecture/` on 2026-10-12). Where the text below says to display `ASTRAS_PET_OS` as the product name, show "Astra's PetOS" to people instead.
 > - 2026-10-12: **Tools are not pets.** A tool does a job but has no face, mood or intelligence levels. **Startup Star** (the tray Star and desktop host) is the Friendly Farmer's tool.
@@ -200,7 +200,7 @@ Validation milestones: real end-to-end demo; 10–20 external users who install 
 
 ## Baseline technical architecture (retained)
 
-# ASTRA'S PET APPS — FINAL CLAUDE HANDOFF
+# Astra's PetOS — FINAL CLAUDE HANDOFF
 ## Friendly Farmer, The Farm, Program Manager, and Distributed Pet Agents
 **Version:** 5.0 FINAL | **Date:** October 11, 2026
 **Repository:** https://github.com/findastra/astras-pet-os

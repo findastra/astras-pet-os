@@ -18,7 +18,7 @@
    *Next:* The catalog still names the old repo; GitHub redirects it. The hub catalog fix follows the GitHub name.
 3. **A56 Saved in its own folder** — Incorrect. vrchat-embodiment/HANDOFF-CLAUDE.md: 2× a dated chat folder (e.g. "Documents\ChatGPT\"). vrchat-embodiment/docs/meep-inventory.md: 1× a dated chat folder (e.g. "Documents\ChatGPT\"). vrchat-embodiment/docs/poppy-inventory.md: 1× a dated chat folder (e.g. "Documents\ChatGPT\").  
    *Next:* A stray PC path in code or docs; moving files goes through a File Master plan.
-4. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `vrchat-ai-astra-20261008.html`.  
+4. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `vrchat-ai-astra-20261008.html`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 5. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
@@ -43,13 +43,13 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 6 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, pet.json, vrchat-ai-astra-20261008.html (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 6 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, pet.json, vrchat-ai-astra-20261008.html (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-17. That submission needs the Farmer and Astra.
 - pet.json: audit block copied from the registry.
 - 2026-10-18 refresh: Brought up to date with main (6 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Not changed: the pet submitted its own job on 2026-10-17; that waits on the Farmer and Astra. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in README.md. Art prompts and provenance notes keep their wording.

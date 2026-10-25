@@ -161,7 +161,7 @@ minutes may not decode "animals", "farmhands" or "the Police Station".
 Checked again on `main` at `b904931`, across all 44 branches and PRs #22 to #36, by Claude Opus 5.5.
 
 - **Finding 2 is switched off by a crash, for now.** The Farmer's daily round has failed every day since the
-  2026-10-12 rename: `scripts/build-interfaces-20261008.mjs` still looks for the host as `astras-pet-apps`. The round
+  2026-10-12 rename: `scripts/build-interfaces-20261008.mjs` still looks for the host as `astras-pet-os`. The round
   still reads pet submissions first (on 2026-10-16: jobs, a status, bubble lines and moods from three pets), then dies
   before its commit. **Fix the crash only together with finding 2**, or unreviewed writes to `main` start again.
 - **Finding 2 now also breaks the one-list rule** (AGENTS.md, 2026-10-16: names live only in `pet-programs.json`). A

@@ -183,7 +183,7 @@ test('the .deb: one package for every machine, every file checked, nothing that 
     for (const e of deb.files) assert.ok(e.path === './' || e.path.startsWith('./usr/'), e.path);
     assert.equal(files.get(`./usr/bin/${PACKAGE}`).mode, 0o755);
     for (const [, to] of PLACED) assert.ok(files.has(to), to);
-    for (const page of ['system-map-20261012.html', 'apps/astras-pet-apps-20261008.html', 'pets.json', 'scripts/linux-cli-20261019.mjs', 'scripts/farm-setup-20261019.mjs'])
+    for (const page of ['system-map-20261012.html', 'apps/astras-pet-os-20261008.html', 'pets.json', 'scripts/linux-cli-20261019.mjs', 'scripts/farm-setup-20261019.mjs'])
       assert.ok(files.has(`./usr/share/${PACKAGE}/${page}`), page);
     const kept = execFileSync('git', ['ls-files'], { cwd: root, encoding: 'utf8' }).split('\n').filter((f) => NOT_SHIPPED.some((re) => re.test(f)));
     for (const f of ['installer/install-astras-pet-os-20261014.ps1', '.gitignore', 'LICENSE', 'linux/astras-pet-os-20261019.sh'])

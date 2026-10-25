@@ -30,7 +30,7 @@ lives on Astra's PC at `%USERPROFILE%\Documents\ChatGPT\Voicemeeter Bug\`.
 **On Astra's PC (Codex did these with full access, at my request):**
 - Launched `voicemeeter-bug-20261008.exe` standalone at about 00:52. The desktop pets took it over in
   hosted mode when they restarted.
-- In `%USERPROFILE%\Documents\Projects\findastra-pet-apps` (branch `codex/astras-pet-apps`,
+- In `%USERPROFILE%\Documents\Projects\findastra-pet-apps` (branch `codex/astras-pet-os`,
   tracks `origin/main`, was clean): ran `git pull --ff-only` to `973798f`, reopened
   `cage.html`, and restarted `bin\desktop-pets-20261008.exe`.
 

@@ -11,7 +11,7 @@ Evidence: [AUDIT.md](AUDIT.md), [GAP-ANALYSIS.md](GAP-ANALYSIS.md).
 - Ask Astra first for: new GitHub repos, publishing anything, accounts or paid services
   (including a private-network service such as Tailscale), installing software, transferring
   repos, deleting or force-pushing, and paid art generation.
-- `astras-pet-os` (renamed from `astras-pet-apps` by Astra on 2026-10-12) stays the development repo. It is not renamed or replaced until Astra
+- `astras-pet-os` (renamed by Astra on 2026-10-12) stays the development repo. It is not renamed or replaced until Astra
   decides how to split it.
 - Existing pet code, names and art are kept. Nothing is deleted because a list was incomplete.
 - Status shown anywhere must be true: unknown and stale are shown as unknown and stale.

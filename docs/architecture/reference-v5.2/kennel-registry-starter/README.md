@@ -1,5 +1,5 @@
 # Astra Pet Registry
-Community submission catalog for Astra's Pet Apps. This is a starter repository, not yet published to GitHub.
+Community submission catalog for Astra's PetOS. This is a starter repository, not yet published to GitHub.
 
 ## Submit a pet
 Use the **Submit a Pet** GitHub issue form. Maintainers review the repository, license, manifest, releases, compatibility, permissions, and security before listing it in `catalog/`.

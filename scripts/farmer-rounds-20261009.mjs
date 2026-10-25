@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
 
-export const CAGE = 'astras-pet-os'; // renamed from astras-pet-apps by Astra, 2026-10-12
+export const CAGE = 'astras-pet-os'; // renamed by Astra, 2026-10-12
 // The nine moods, most urgent first: when several apply, the first one shows. Meanings are Astra's sketch of
 // 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3); the order is proposed. Claude Opus 5.5, 2026-10-18.
 export const ORDER = ['alarmed', 'sick', 'curious', 'worried', 'happy', 'sad', 'idle', 'blink', 'sleep'];

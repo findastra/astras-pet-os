@@ -14,7 +14,7 @@
 
 1. ⚪ **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (Everything, SpaceSniffer) but the page has no Third Party Programs row.  
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
-2. ⚪ **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `agent/file-master.md`, `file-master-20261008.html`.  
+2. ⚪ **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `agent/file-master.md`, `file-master-20261008.html`.  
    *Next:* A line that tells history, a file name, or a name inside the page's script (a storage key), so it was kept; anything else here is for the pet's chat.
 3. ⚪ **A55 Pictures** — Missing. README shows 1 picture(s).  
    *Next:* Needs real pictures of the program working (you take some: card 026).

@@ -7,7 +7,7 @@ needs: docs/idle-flash-audit-20261017.md, docs/flash-audit-rounds-20261017/READM
 
 Astra, 2026-10-17 03:24, before bed: "do the flash audit and prep all the links etc. and fix blatant errors that
 don't require my decision, all night long … get the flash audit cards better prepped for me … try to get rid of
-Astra's Pet Apps and turn it all into Astra's PetOS (I don't like the hyperlink patch method)." Then, about 04:00:
+Astra's PetOS and turn it all into Astra's PetOS (I don't like the hyperlink patch method)." Then, about 04:00:
 "make sure you start a repo for every pet that exists … generate them via the Idle Flash Audit … also write down how
 to do an idle flash audit."
 
@@ -23,7 +23,7 @@ Answer sheet for the iPad (private to Astra; every tap saves where the next assi
 
 **Fixed, each on branch `claude/flash-audit-fixes-20261017` with one pull request per repo (78 PRs, none merged).**
 The list of links is in the round cards' index.
-- Retired names in documents: `Astra's Pet Apps` -> `Astra's PetOS`, `astras-pet-apps` / `findastra-pet-apps` ->
+- Retired names in documents: the old hub names / `findastra-pet-apps` ->
   `astras-pet-os`, `Documents\Projects` -> `Documents\Astra's PetOS`. Never in code, inside `<script>`, in file names
   or on history lines.
 - `pet.json` caught up with the registry and `pet-programs.json` (job, audit block; pet name for Patty and Gone
@@ -37,8 +37,8 @@ The list of links is in the round cards' index.
 
 **In this repo.**
 - Hub PR #49 (`claude/petos-name-20261017`): Astra's PetOS in the hub's own names; `build-interfaces` crashed on main
-  (it looked the Farmer up as `astras-pet-apps`), fixed, and the Farmer's desk rebuilt. Kept on purpose: the desk's
-  file name, browser storage keys, `%LOCALAPPDATA%\astras-pet-apps`, compiled C# text (they need the desktop rebuild).
+  (it looked the Farmer up as `astras-pet-os`), fixed, and the Farmer's desk rebuilt. Kept on purpose: the desk's
+  file name, browser storage keys, `%LOCALAPPDATA%\astras-pet-os`, compiled C# text (they need the desktop rebuild).
 - Hub PR #51, this branch (`claude/idle-flash-audit-20261017`): the how-to ([idle-flash-audit-20261017.md](../docs/idle-flash-audit-20261017.md)),
   the tools (`scripts/idle-flash-*-20261017.mjs`), the round cards and evidence ledger, `repo_exists` corrected for
   43 programs in `pet-programs.json`, and two additions to the Flash Audit: **A57 Current names only** (tier 2, after
@@ -57,10 +57,10 @@ put everything back (the PetOS junction, live sync). Most likely the Claude app 
 opened there. To finish, with the Claude app and Codex closed, in PowerShell:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Documents\Astra's Pet Apps\file-master\reports\2026-10-17_rename-astras-petos\rename-petos-folder-20261017.ps1" -Apply
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Documents\Astra's PetOS\file-master\reports\2026-10-17_rename-astras-petos\rename-petos-folder-20261017.ps1" -Apply
 ```
 
-It renames the real folder, leaves a hidden `Astra's Pet Apps` junction so chats opened in the old folder still open
+It renames the real folder, leaves a hidden junction under the old name so chats opened in the old folder still open
 (delete it once those are closed), repoints the Run key, the startup launcher and shortcuts, repairs git worktrees,
 copies Claude's memory to the new path and restarts live sync. Malwarebytes' allow-list entry for `api-fairy\bin`
 is Astra's to update.
@@ -79,7 +79,7 @@ A53 on the PC: `.claude` and `workflow-whirlpool` have no folder icon; Startup S
 (by design).
 
 Other sessions: Skill Scout (hub PR #50, card 027) finished while I worked; nothing of theirs was touched. Working
-copies in `Documents\Astra's Pet Apps` were not edited (fresh clones in the temp folder only), except the File Master
+copies in `Documents\Astra's PetOS` were not edited (fresh clones in the temp folder only), except the File Master
 plan note and the rename script added to its git-ignored `reports` folder.
 
 **Done, checked overnight 2026-10-18 by Claude Opus 5.5 (`claude-opus-5-5`):** all 78 fix pull requests on `claude/flash-audit-fixes-20261017` are merged; Astra answered the sheet and hub PR #75 applied the answers (seed repos renamed, jobs, Spoonfed public, Data Dealer's public route, Role Fairy); the Codex branches and conflicts that remain are card 035.

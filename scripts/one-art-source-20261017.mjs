@@ -199,7 +199,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   // The draft list lives in this hub since 2026-10-18; an older one in %LOCALAPPDATA% is checked only if the hub has none.
   const hubList = fileURLToPath(new URL('../desktop-art/desktop-drafts-20261018.json', import.meta.url));
-  const draftsFile = arg('--drafts') || (existsSync(hubList) ? hubList : process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-apps', 'desktop-drafts-20261011.json'));
+  const draftsFile = arg('--drafts') || (existsSync(hubList) ? hubList : process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'astras-pet-os', 'desktop-drafts-20261011.json'));
   const drafts = draftsFile && existsSync(draftsFile) ? readJson(draftsFile) : null;
   const result = audit(trees, drafts);
   if (saveTo) {

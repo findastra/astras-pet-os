@@ -17,7 +17,7 @@ needs: PET-FILES.md, AGENTS.md, skills/handoff/SKILL.md
   flagged while its repo switches over.
 - Changed platform-platypus's README and `index.html` on its branch `claude/intelligent-app-credit-20261018`.
 - `npm run check` passed (20 pet apps), and `npm test` passed (101 tests).
-- Not touched: `status/pets-status.json` and the findings embedded in `apps/astras-pet-apps-20261008.html`
+- Not touched: `status/pets-status.json` and the findings embedded in `apps/astras-pet-os-20261008.html`
   (the Farmer's next round rewrites both), and the history in older handoff cards.
 
 **Done, checked overnight 2026-10-18 by Claude Opus 5.5 (`claude-opus-5-5`):** all 29 pull requests in the table below are merged (2026-10-18, 10:21 to 10:27 UTC).

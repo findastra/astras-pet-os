@@ -18,7 +18,7 @@
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
 3. **A56 Saved in its own folder** — Incorrect. openai-discord-presence/src/detector.js: 1× a dated chat folder (e.g. "Documents\Codex\").  
    *Next:* A stray PC path in code or docs; moving files goes through a File Master plan.
-4. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `findastra-discord-presence-20261008.html`, `openai-discord-presence/DEVELOPMENT.md`, `openai-discord-presence/src/presence.js`, `openai-discord-presence/test/project-name-test-20261011.js`.  
+4. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `findastra-discord-presence-20261008.html`, `openai-discord-presence/DEVELOPMENT.md`, `openai-discord-presence/src/presence.js`, `openai-discord-presence/test/project-name-test-20261011.js`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 5. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
@@ -38,14 +38,14 @@
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
 - **A15 README and credit** — README has no Limits section.
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Manages the Discord presence apps (OpenAI and Anthropic) and other Discord apps."
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 9 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, findastra-discord-presence-20261008.html, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 9 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, findastra-discord-presence-20261008.html, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.

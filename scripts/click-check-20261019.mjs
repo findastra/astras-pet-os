@@ -138,7 +138,7 @@ export function sourceFor(rel) {
   if (rel.startsWith(`${SPAWN_DIR}/`)) {
     return 'scripts/pet-program-pages-20261018.mjs or its data (pets.json, pet-programs.json, system-map.json); its script and style are apps/pet-programs/pet-program-page-20261018.js and .css; then npm run build';
   }
-  if (rel === 'apps/astras-pet-apps-20261008.html') return 'scripts/build-interfaces-20261008.mjs (the Farmer\'s desk), then npm run build';
+  if (rel === 'apps/astras-pet-os-20261008.html') return 'scripts/build-interfaces-20261008.mjs (the Farmer\'s desk), then npm run build';
   if (rel.startsWith('system-map-')) return 'scripts/system-map-template-20261012.html or system-map.json, then npm run build';
   const m = /^apps\/(.+)-\d{8}\.html$/.exec(rel);
   if (m && !/^beginner-guide$/.test(m[1])) return `the app in the pet's own repo (this page is a copy of it), then copy it here again; for the six desks scripts/build-interfaces-20261008.mjs builds, --refresh-existing <repo>`;

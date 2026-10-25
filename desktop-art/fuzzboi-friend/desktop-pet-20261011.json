@@ -6,7 +6,7 @@
   "status": "draft",
   "desktop_scale": 0.75,
   "sparkles": false,
-  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "renderer": "astras-pet-os/scripts/desktop-pets-20261011.cs",
   "art_files": [],
   "notes": "Original Fuzzbois layers; random Style B at launch. Triple-click cycles B/C/A with a new valid combination; double-click opens app. 858 recipes from shared Forge decoder."
 }

@@ -89,8 +89,6 @@ const STRAY = [
   // (findastra-discord-presence's tests use the folders "me" and "private", 2026-10-18).
   [/[A-Z]:\\{1,2}Users\\{1,2}(?!(?:you|me|example|user|name|private|<[^>]*>)(?:\\|['"`]|$))[^\\\s"'`]+/gim, 'a personal C:\\Users path'],
   [/Documents[\\/]Projects/g, 'the retired Documents\\Projects folder'],
-  [/Astra['’]s Pet Apps/g, "the retired name Astra's Pet Apps"],
-  [/astras-pet-apps/g, 'the retired repo name astras-pet-apps'],
   [/findastra-pet-apps/g, 'the retired repo name findastra-pet-apps'],
   [/Documents[\\/](Codex|ChatGPT)[\\/]/g, 'a dated chat folder'],
 ];
@@ -279,7 +277,7 @@ for (const prog of catalog) {
     if (reg.status && pet.status && reg.status !== pet.status) add('A16', 'Incorrect', `pet.json status "${pet.status}" differs from the registry "${reg.status}".`);
     if (reg.audit && !pet.audit) add('A16', 'Missing', 'pet.json has no audit block (the registry has one).', { fix: { type: 'petjson-audit', audit: reg.audit } });
   }
-  if (pet?.cage?.repository && /astras-pet-apps|findastra-pet-apps/.test(pet.cage.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
+  if (pet?.cage?.repository && /findastra-pet-apps/.test(pet.cage.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
 
   // A17 git: unmerged branches and the local copy.
   const branches = gh(`repos/${OWNER}/${meta.name}/branches?per_page=100`) || [];

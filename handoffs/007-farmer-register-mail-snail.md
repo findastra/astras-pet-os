@@ -1,5 +1,5 @@
 status: open (step 2 waits on Astra's OK for the art)
-for: farmer (any assistant working on astras-pet-apps)
+for: farmer (any assistant working on astras-pet-os)
 from: Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09
 needs: PET-FILES.md "Adding a pet to the Cage", PET-WORDS.md, pets.json, findastra/mail-snail
 ---
