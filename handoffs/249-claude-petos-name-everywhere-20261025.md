@@ -10,8 +10,25 @@ approved all 9 rows of the File Master plan (on the desktop, MSI MS-7E57).
 
 - Row 5 and 6 for the hub: this PR (#249). Every mention of the old folder and repo name rewritten, the Farmer's desk
   page and notes key renamed (notes move over once), Startup Star's status file in `%LOCALAPPDATA%\astras-pet-os`.
-- The same rewrite as one PR per pet repo (listed below as they open), branched from each repo's `main` in a
-  scratchpad clone. Local working copies on Codex branches were not touched.
+- The same rewrite as one PR per repo, branched from each repo's default branch in a scratchpad clone (all 108
+  repos were searched; 28 had the old name). Local working copies on Codex branches were not touched.
+- Repo descriptions of backup-beaver and project-parrot now say Astra's PetOS (row 8).
+
+## The PRs (each needs Astra's OK; same branch name `claude/petos-name-everywhere-20261025` everywhere)
+
+Code that reads the same data folder, merge together: astras-pet-os #249, startup-star #8, log-den #13,
+kernel-grove #8, lunas-log #7. Pages with the Farmer's desk notes key or its link: api-fairy #11, file-master #11,
+the-astral-plane #14, paper-girl #8, learn-python #7, findastra-discord-presence #37, platform-platypus #9,
+the-threshold #6, packet-river #13, evidence-locker #13, findastra.github.io #13. Text only: github-goldfish #30,
+mine-mole #9, fuzzboi-friend #7, rift-rabbit #9, claude-bot #5, chat-rat #12, rgbee #9, wifi-butterfly #8,
+data-dealer #13, backup-beaver #7, raspberry-berry #8, mommys-mommies #11, fuzzboi-factory #4.
+
+Two workflow files need Astra (the token has no workflow scope): this hub's `farmer-daily-rounds.yml` (the desk's page
+name) and `findastra/findastra` `.github/workflows/farmer-profile-round.yml` (comment and `repository:` name). After
+`gh auth refresh -h github.com -s workflow` (Astra runs it), Claude can push both.
+
+Six lines keep the earlier notes key on purpose (the one-time move, hub + 5 pages); remove them after Astra has
+opened each page once.
 
 ## Left to do, in order
 
