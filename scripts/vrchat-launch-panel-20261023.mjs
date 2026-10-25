@@ -155,11 +155,66 @@ function modeCard(h, m, i) {
 </fieldset>`;
 }
 
+// Where each tracker is worn (Astra, 2026-10-25, "the body spots guess is right"), by its sticker and serial (the System
+// Map's). `pair`: the Double choice that joins it with its partner (her DoubleHip DoubleChest Tracker: Hip [W] + [C],
+// Chest [ ] + [M]), A first. `head`: the tracker on the headset in modes x.1 to x.3. `back`: worn on the back, drawn
+// dashed beside its front partner. `x`, `y`: the marker on the drawing; `side`: which side its label is on.
+export const TRACKERS = [
+  { sticker: '[H]', serial: 'LHR-6963FCE5', spot: 'Head tracker', head: true, x: 220, y: 28, side: 'left' },
+  { sticker: '[ ]', serial: 'LHR-28D88802', spot: 'Front chest', pair: 'chest', x: 208, y: 142, side: 'left' },
+  { sticker: '[M]', serial: 'LHR-91D63DB2', spot: 'Back chest', pair: 'chest', back: true, x: 232, y: 142, side: 'right' },
+  { sticker: '[W]', serial: 'LHR-467E1FA2', spot: 'Front waist', pair: 'hip', x: 208, y: 224, side: 'left' },
+  { sticker: '[C]', serial: 'LHR-6BA0C57A', spot: 'Back waist', pair: 'hip', back: true, x: 232, y: 224, side: 'right' },
+  { sticker: '[R]', serial: 'LHR-F8590C98', spot: 'Right knee', x: 178, y: 348, side: 'left' },
+  { sticker: '[L]', serial: 'LHR-B2105741', spot: 'Left knee', x: 262, y: 348, side: 'right' },
+  { sticker: '[RF]', serial: 'LHR-F3DF780D', spot: 'Right foot', x: 170, y: 430, side: 'left' },
+  { sticker: '[LF]', serial: 'LHR-E0ED8ACE', spot: 'Left foot', x: 270, y: 430, side: 'right' },
+];
+
+// What each tracker is doing in the launch the drawing shows; the page script sets them.
+export const TRACKER_STATES = [
+  ['used', 'VRChat tracks it'],
+  ['joined', 'Joined by DoubleHip DoubleChest Tracker (VRChat ignores it)'],
+  ['head', 'Lines up the Lighthouse space (VRChat ignores it)'],
+  ['off', 'Not used in this mode'],
+];
+
+// One drawing of her body for the launch she is looking at (Astra, 2026-10-25: "I just want to see the diagram change,
+// based on what selections are made. One diagram, and the headset changes too"). Facing you, so her right is on the
+// left; back trackers are dashed beside their front partner. It shows the mode last clicked and that headset's switches,
+// and the --ignore-trackers list the launcher writes into VRChat's launch options in Steam.
+function trackerDiagram() {
+  const label = (t) => {
+    const lx = t.side === 'left' ? 150 : 290, anchor = t.side === 'left' ? 'end' : 'start';
+    return `<path class="trk-leader" d="M ${lx + (t.side === 'left' ? 4 : -4)} ${t.y} L ${t.x + (t.side === 'left' ? -9 : 9)} ${t.y}"/>
+<text x="${lx}" y="${t.y - 2}" text-anchor="${anchor}">${esc(t.sticker)} ${esc(t.spot)}<tspan class="trk-state" x="${lx}" dy="15" data-trk-state></tspan></text>`;
+  };
+  const marker = (t) => `<g class="trk${t.back ? ' trk-back' : ''}" data-trk="${esc(t.sticker)}" data-serial="${esc(t.serial)}"${t.pair ? ` data-trk-pair="${esc(t.pair)}"` : ''}${t.head ? ' data-trk-head' : ''}><title>${esc(t.sticker)} ${esc(t.spot)}, ${esc(t.serial)}</title>
+<circle cx="${t.x}" cy="${t.y}" r="8"/>
+${label(t)}</g>`;
+  const join = (pair, y) => `<rect class="trk-join" data-trk-join="${pair}" x="192" y="${y - 15}" width="56" height="30" rx="15"/>`;
+  const hand = (x, name) => `<g class="trk-hand"><rect x="${x - 7}" y="250" width="14" height="22" rx="5"/><text x="${x}" y="292" text-anchor="middle">${esc(name)}</text></g>`;
+  return `<div class="trk-diagram" data-trk-diagram data-headset="quest-pro" data-woojer="off">
+<p class="trk-showing"><b data-trk-showing>1.1 Space Calibrator on the Quest Pro</b> <span class="small">· click a mode below to see its trackers</span></p>
+<svg viewBox="0 0 440 466" role="img" aria-labelledby="trk-title"><title id="trk-title">Where each tracker is worn and what it does in this launch</title>
+<g class="trk-body"><circle cx="220" cy="58" r="24"/><path d="M220 82 V94 M168 100 Q220 92 272 100 L262 232 Q220 242 178 232 Z M178 232 L170 262 Q220 274 270 262 L262 232 M168 104 L140 180 L124 250 M272 104 L300 180 L316 250 M184 266 L176 350 L170 430 L152 440 M256 266 L264 350 L270 430 L288 440"/></g>
+<path class="trk-vest" d="M176 104 L264 104 L258 202 L182 202 Z"/><text class="trk-vest" x="290" y="184">Woojer vest</text>
+<g class="trk-hs trk-hs-quest-pro"><rect x="194" y="48" width="52" height="16" rx="7"/><path class="trk-leader" d="M 286 56 L 250 56"/><text x="290" y="54">Quest Pro<tspan class="trk-state" x="290" dy="15">face and eye tracking</tspan></text></g>
+<g class="trk-hs trk-hs-quest-3"><rect x="190" y="44" width="60" height="24" rx="10"/><circle cx="204" cy="56" r="2.5"/><circle cx="236" cy="56" r="2.5"/><path class="trk-leader" d="M 286 56 L 254 56"/><text x="290" y="54">Quest 3<tspan class="trk-state" x="290" dy="15">no face tracking</tspan></text></g>
+${join('chest', 142)}${join('hip', 224)}
+${hand(124, 'Index R')}${hand(316, 'Index L')}
+${TRACKERS.map(marker).join('\n')}
+</svg>
+<ul class="small trk-key">${TRACKER_STATES.map(([id, text]) => `<li data-state="${id}">${esc(text)}</li>`).join('')}</ul>
+<p class="small trk-steam">VRChat’s launch options in Steam: <code data-trk-steam></code></p>
+</div>`;
+}
+
 // Each headset box is a tool, so its name sits inside its round border on the first row, with its paired lights left
 // of it like every tool's (Astra, 2026-10-24: "title needs to be down inside and with indicator light buttons, its a
-// tool"). `lights(key, name)` is the page spawner's.
+// tool"). `lights(key, name)` is the page spawner's. The tracker drawing comes first, above both.
 export function vrchatLaunchBody(lights = () => '') {
-  return HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
+  return trackerDiagram() + '\n' + HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}" data-launch-device="${esc(h.device)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
 ${switchRow(h)}
 <div class="launch-modes">${MODES.map((m, i) => modeCard(h, m, i)).join('\n')}</div>
 </div>`).join('\n');

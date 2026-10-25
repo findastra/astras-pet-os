@@ -38,3 +38,19 @@ test('the launcher script puts text in with textContent only and runs no code fr
   assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(|new Function/);
   assert.deepEqual(findSensitive(js), []);
 });
+
+// The tracker drawing (Astra, 2026-10-25: "One diagram, and the headset changes too"): one drawing above both headsets,
+// every tracker on it once with its serial, the Double pairs as her DoubleHip DoubleChest Tracker has them, and both
+// headsets drawn so the page can show the one picked.
+test('one tracker drawing, with each tracker once and the Double pairs from her DoubleHip DoubleChest Tracker', async () => {
+  const { TRACKERS } = await import('../scripts/vrchat-launch-panel-20261023.mjs');
+  assert.equal((rabbit.match(/data-trk-diagram/g) || []).length, 1);
+  assert.ok(rabbit.indexOf('data-trk-diagram') < rabbit.indexOf('data-launch-headset='), 'above the headset boxes');
+  for (const t of TRACKERS) assert.equal((rabbit.match(new RegExp(`data-serial="${t.serial}"`, 'g')) || []).length, 1, t.serial);
+  const pair = (p) => TRACKERS.filter((t) => t.pair === p).map((t) => t.sticker).join(' ');
+  assert.equal(pair('hip'), '[W] [C]');
+  assert.equal(pair('chest'), '[ ] [M]');
+  assert.deepEqual(TRACKERS.filter((t) => t.head).map((t) => t.serial), ['LHR-6963FCE5']);
+  assert.ok(rabbit.includes('trk-hs-quest-pro') && rabbit.includes('trk-hs-quest-3'));
+  assert.ok(rabbit.includes('data-launch-device="Quest Pro"') && rabbit.includes('data-launch-device="Quest 3"'));
+});

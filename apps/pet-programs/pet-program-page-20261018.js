@@ -718,6 +718,51 @@
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
+  // The tracker drawing follows the mode last clicked and its headset's switches (Astra, 2026-10-25: "I just want to see
+  // the diagram change, based on what selections are made. One diagram, and the headset changes too"). Before any click
+  // it shows 1.1, the one she uses. The ignore list is built as Rift Rabbit's launcher builds it: the Double choice's
+  // pairs, then the head tracker in every mode but Native.
+  var diagram = box.querySelector('[data-trk-diagram]');
+  var WORDS = { used: 'VRChat tracks it', joined: 'joined by DoubleHip', head: 'lines up the Lighthouses', off: 'not used in this mode' };
+  function paintTrackers() {
+    if (!diagram) return;
+    var p = saved.picked || {};
+    var hs = box.querySelector('[data-launch-headset="' + p.headset + '"]') || box.querySelector('[data-launch-headset]');
+    var card = hs.querySelector('[data-launch-mode="' + p.mode + '"]') || hs.querySelector('[data-launch-mode="space-calibrator"]');
+    var mode = card.getAttribute('data-launch-mode');
+    function pick(k) { var i = hs.querySelector('[data-launch-switch="' + k + '"]'); return !i ? '' : i.type === 'checkbox' ? i.checked : i.value; }
+    var dbl = pick('double-hip') || '';
+    function joins(pair) { return dbl === pair || dbl === 'both'; }
+    diagram.setAttribute('data-headset', hs.getAttribute('data-launch-headset'));
+    diagram.setAttribute('data-woojer', pick('woojer') ? 'on' : 'off');
+    var ignore = [];
+    ['hip', 'chest'].forEach(function (pair) {
+      if (joins(pair)) Array.prototype.forEach.call(diagram.querySelectorAll('[data-trk-pair="' + pair + '"]'), function (g) { ignore.push(g.getAttribute('data-serial')); });
+      diagram.querySelector('[data-trk-join="' + pair + '"]').setAttribute('data-on', joins(pair) ? 'yes' : 'no');
+    });
+    Array.prototype.forEach.call(diagram.querySelectorAll('[data-trk]'), function (g) {
+      var pair = g.getAttribute('data-trk-pair');
+      var state = g.hasAttribute('data-trk-head') ? (mode === 'native' ? 'off' : 'head') : pair && joins(pair) ? 'joined' : 'used';
+      if (state === 'head') ignore.push(g.getAttribute('data-serial'));
+      g.setAttribute('data-state', state);
+      g.querySelector('[data-trk-state]').textContent = WORDS[state];
+    });
+    diagram.querySelector('[data-trk-showing]').textContent = card.querySelector('legend').textContent + ' on the ' + hs.getAttribute('data-launch-device');
+    diagram.querySelector('[data-trk-steam]').textContent = ignore.length ? '--ignore-trackers=' + ignore.join(',') : '(empty)';
+    Array.prototype.forEach.call(box.querySelectorAll('[data-launch-mode]'), function (c) { c.classList.toggle('is-picked', c === card); });
+  }
+  box.addEventListener('click', function (e) {
+    var card = e.target.closest && e.target.closest('[data-launch-mode]');
+    if (!card) return;
+    saved.picked = { headset: card.closest('[data-launch-headset]').getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode') };
+    save(); paintTrackers();
+  });
+  box.addEventListener('change', function (e) {
+    var hs = e.target.closest && e.target.closest('[data-launch-headset]');
+    if (!hs || !e.target.hasAttribute('data-launch-switch')) return;
+    saved.picked = { headset: hs.getAttribute('data-launch-headset'), mode: (saved.picked || {}).mode };
+    save(); paintTrackers();
+  });
   Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
     var id = hs.getAttribute('data-launch-headset');
     var s = saved[id] = saved[id] || { switches: {}, tries: {} };
@@ -770,6 +815,7 @@
     });
     refresh();
   });
+  paintTrackers();
   })();
 
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so
