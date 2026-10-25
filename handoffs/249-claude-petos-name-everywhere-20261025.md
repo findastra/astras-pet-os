@@ -11,7 +11,7 @@ approved all 9 rows of the File Master plan (on the desktop, MSI MS-7E57).
 - Row 5 and 6 for the hub: this PR (#249). Every mention of the old folder and repo name rewritten, the Farmer's desk
   page and notes key renamed (notes move over once), Startup Star's status file in `%LOCALAPPDATA%\astras-pet-os`.
 - The same rewrite as one PR per repo, branched from each repo's default branch in a scratchpad clone (all 108
-  repos were searched; 28 had the old name). Local working copies on Codex branches were not touched.
+  repos were searched; 30 had the old name: 29 PRs here, and findastra's workflow file below). Local working copies on Codex branches were not touched.
 - Repo descriptions of backup-beaver and project-parrot now say Astra's PetOS (row 8).
 
 ## The PRs (each needs Astra's OK; same branch name `claude/petos-name-everywhere-20261025` everywhere)
