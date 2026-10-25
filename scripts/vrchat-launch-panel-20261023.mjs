@@ -150,71 +150,111 @@ function modeCard(h, m, i) {
 <div class="launch-try"><label class="small">How it went <select data-launch-rating>${RATINGS.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>
 <label class="small launch-note-label">Notes <textarea rows="2" data-launch-note placeholder="Drift after how long, jumps, swaps, lag"></textarea></label>
 <span class="small launch-tried" data-launch-tried></span></div>
+<p class="small launch-needs" data-launch-needs hidden></p>
 <p><button type="button" class="button off" disabled data-launch-go title="Works on Astra's PC while Rift Rabbit's launcher runs">Launch ${esc(n)}</button></p>
 <div class="launch-run" data-launch-run hidden></div>
 </fieldset>`;
 }
 
-// Where each tracker is worn (Astra, 2026-10-25, "the body spots guess is right"), by its sticker and serial (the System
-// Map's). `pair`: the Double choice that joins it with its partner (her DoubleHip DoubleChest Tracker: Hip [W] + [C],
-// Chest [ ] + [M]), A first. `head`: the tracker on the headset in modes x.1 to x.3. `back`: worn on the back, drawn
-// dashed beside its front partner. `x`, `y`: the marker on the drawing; `side`: which side its label is on.
-export const TRACKERS = [
-  { sticker: '[H]', serial: 'LHR-6963FCE5', spot: 'Head tracker', head: true, x: 220, y: 28, side: 'left' },
-  { sticker: '[ ]', serial: 'LHR-28D88802', spot: 'Front chest', pair: 'chest', x: 208, y: 142, side: 'left' },
-  { sticker: '[M]', serial: 'LHR-91D63DB2', spot: 'Back chest', pair: 'chest', back: true, x: 232, y: 142, side: 'right' },
-  { sticker: '[W]', serial: 'LHR-467E1FA2', spot: 'Front waist', pair: 'hip', x: 208, y: 224, side: 'left' },
-  { sticker: '[C]', serial: 'LHR-6BA0C57A', spot: 'Back waist', pair: 'hip', back: true, x: 232, y: 224, side: 'right' },
-  { sticker: '[R]', serial: 'LHR-F8590C98', spot: 'Right knee', x: 178, y: 348, side: 'left' },
-  { sticker: '[L]', serial: 'LHR-B2105741', spot: 'Left knee', x: 262, y: 348, side: 'right' },
-  { sticker: '[RF]', serial: 'LHR-F3DF780D', spot: 'Right foot', x: 170, y: 430, side: 'left' },
-  { sticker: '[LF]', serial: 'LHR-E0ED8ACE', spot: 'Left foot', x: 270, y: 430, side: 'right' },
+// tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots where tracking can happen, and which device is on
+// each. "Should be so we can select which device is tracking which spot, then your launch options become available
+// below"; "I only want to see this diagram once but it's not a launch tool". Her answers: named tracker-strapper; kept
+// in Rift Rabbit's launcher settings on her PC (the page there changes them; anywhere else it shows today's spots);
+// launch options wait for their spots; the headset on Face picks which launches show; the pole and hoops stand next to
+// her, to scale. Numbers, names and codes are hers. Facing you, so her right is on the left.
+// `x`, `y`: the spot on the drawing (2.4 px a centimetre: 5′7″ with slightly long arms and torso, her build); `kind`:
+// what may go on it.
+export const SPOTS = [
+  { code: 'RF', n: 1, name: 'Right Foot', x: 308, y: 694 }, { code: 'LF', n: 2, name: 'Left Foot', x: 412, y: 694 },
+  { code: 'RA', n: 3, name: 'Right Ankle', x: 322, y: 670 }, { code: 'LA', n: 4, name: 'Left Ankle', x: 398, y: 670 },
+  { code: 'RK', n: 5, name: 'Right Knee', x: 326, y: 594 }, { code: 'LK', n: 6, name: 'Left Knee', x: 394, y: 594 },
+  { code: 'FW', n: 7, name: 'Front Waist', x: 360, y: 489 }, { code: 'BW', n: 8, name: 'Back Waist', x: 360, y: 459, back: true },
+  { code: 'RS', n: 9, name: 'Right Side', x: 302, y: 474 }, { code: 'LS', n: 10, name: 'Left Side', x: 418, y: 474 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 327, y: 486 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 393, y: 486 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 327, y: 462, back: true }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 393, y: 462, back: true },
+  { code: 'FS', n: 15, name: 'Front Sternum', x: 360, y: 434 }, { code: 'BS', n: 16, name: 'Back Sternum', x: 360, y: 416, back: true },
+  { code: 'FC', n: 17, name: 'Front Chest', x: 360, y: 398 }, { code: 'BC', n: 18, name: 'Back Chest', x: 360, y: 380, back: true },
+  { code: 'RE', n: 19, name: 'Right Elbow', x: 280, y: 446 }, { code: 'LE', n: 20, name: 'Left Elbow', x: 440, y: 446 },
+  { code: 'RH', n: 21, name: 'Right Hand', x: 266, y: 536, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', x: 454, y: 536, kind: 'left-hand' },
+  { code: 'F', n: 23, name: 'Face', x: 360, y: 322, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', x: 360, y: 291 },
+  { code: 'DP', n: 25, name: 'Dance Pole', x: 600, y: 62, object: 'dance-pole' },
+  { code: 'BDH', n: 26, name: 'Big Dance Hoop', x: 215, y: 475, object: 'large-hoop' },
+  { code: 'LDH', n: 27, name: 'Little Dance Hoop', x: 158, y: 292, object: 'small-hoop' },
 ];
 
-// What each tracker is doing in the launch the drawing shows; the page script sets them.
-export const TRACKER_STATES = [
+// Double Hip's pair is any two of the eight waist spots, usually Front and Back Waist (Astra, 2026-10-25: "the double hip
+// can be made from any of the 8 on the waist, but typical is FW, BW"); Double Chest's any two of the four chest spots.
+export const PAIR_SPOTS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FS', 'BS', 'FC', 'BC'] };
+
+// Her devices, by the launcher's ids (findastra/rift-rabbit, its device table). Trackers by their number, sticker and
+// serial ("HTC Vive 3.0 #1: (serial #)").
+export const DEVICES = {
+  headset: [['quest-pro', 'Meta Quest Pro'], ['quest-3', 'Meta Quest 3']],
+  'right-hand': [['index-controller-right', 'Valve Index Knuckles (right)'], ['hand-tracking', 'The headset’s hand tracking']],
+  'left-hand': [['index-controller-left', 'Valve Index Knuckles (left)'], ['hand-tracking', 'The headset’s hand tracking']],
+  tracker: [
+    ['vive-tracker-01', 'HTC Vive 3.0 #1 [RF] · LHR-F3DF780D'], ['vive-tracker-02', 'HTC Vive 3.0 #2 [L] · LHR-B2105741'],
+    ['vive-tracker-03', 'HTC Vive 3.0 #3 [M] · LHR-91D63DB2'], ['vive-tracker-04', 'HTC Vive 3.0 #4 [C] · LHR-6BA0C57A'],
+    ['vive-tracker-05', 'HTC Vive 3.0 #5 [ ] · LHR-28D88802'], ['vive-tracker-06', 'HTC Vive 3.0 #6 [R] · LHR-F8590C98'],
+    ['vive-tracker-07', 'HTC Vive 3.0 #7 [LF] · LHR-E0ED8ACE'], ['vive-tracker-08', 'HTC Vive 3.0 #8 [H] · LHR-6963FCE5'],
+    ['vive-tracker-09', 'HTC Vive 3.0 #9 [W] · LHR-467E1FA2'],
+  ],
+};
+
+// Today's spots (Astra, 2026-10-25: "the body spots guess is right"), the same as the launcher's first settings.
+export const WORN = {
+  F: 'quest-pro', H: 'vive-tracker-08', FC: 'vive-tracker-05', BC: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04',
+  RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left',
+};
+export const PAIRS = { hip: ['FW', 'BW'], chest: ['FC', 'BC'] };
+
+// What a spot's colour says (the key she kept from the first drawing).
+export const SPOT_STATES = [
   ['used', 'VRChat tracks it'],
-  ['joined', 'Joined by DoubleHip DoubleChest Tracker (VRChat ignores it)'],
-  ['head', 'Lines up the Lighthouse space (VRChat ignores it)'],
-  ['off', 'Not used in this mode'],
+  ['joined', 'Double Hip or Double Chest pair: joined by DoubleHip DoubleChest Tracker when that Double is on (VRChat ignores it)'],
+  ['head', 'Lines up the Lighthouse space in x.1 to x.3 (VRChat ignores it)'],
+  ['off', 'No device on this spot'],
 ];
 
-// One drawing of her body for the launch she is looking at (Astra, 2026-10-25: "I just want to see the diagram change,
-// based on what selections are made. One diagram, and the headset changes too"). Facing you, so her right is on the
-// left; back trackers are dashed beside their front partner. It shows the mode last clicked and that headset's switches,
-// and the --ignore-trackers list the launcher writes into VRChat's launch options in Steam.
-function trackerDiagram() {
-  const label = (t) => {
-    const lx = t.side === 'left' ? 150 : 290, anchor = t.side === 'left' ? 'end' : 'start';
-    return `<path class="trk-leader" d="M ${lx + (t.side === 'left' ? 4 : -4)} ${t.y} L ${t.x + (t.side === 'left' ? -9 : 9)} ${t.y}"/>
-<text x="${lx}" y="${t.y - 2}" text-anchor="${anchor}">${esc(t.sticker)} ${esc(t.spot)}<tspan class="trk-state" x="${lx}" dy="15" data-trk-state></tspan></text>`;
+const spotName = (s) => `${s.n} ${s.name} [${s.code}]`;
+
+function strapperDrawing() {
+  const spot = (s) => `<g class="strap-spot${s.back ? ' strap-back' : ''}" data-strap-dot="${esc(s.code)}" tabindex="0" role="button" aria-label="${esc(spotName(s))}"><title>${esc(spotName(s))}</title><circle cx="${s.x}" cy="${s.y}" r="8.5"/><text x="${s.x}" y="${s.y + 3.2}" text-anchor="middle">${s.n}</text></g>`;
+  return `<svg class="strap-drawing" viewBox="0 0 640 716" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, facing you, with the dance pole and two dance hoops to scale, and her 27 tracking spots</title>
+<path class="strap-floor" d="M8 704 H632"/>
+<g class="strap-body"><ellipse cx="360" cy="322" rx="22" ry="28"/><path d="M360 350 V366 M296 368 L424 368 L404 466 L412 512 L308 512 L316 466 Z M296 368 L280 446 L268 530 M424 368 L440 446 L452 530 M330 512 L326 594 L322 680 L304 698 M390 512 L394 594 L398 680 L416 698"/><ellipse class="strap-band" cx="360" cy="322" rx="34" ry="9"/><ellipse class="strap-ring" cx="360" cy="474" rx="58" ry="15"/></g>
+<g class="strap-props"><circle cx="120" cy="330" r="54"/><circle cx="130" cy="560" r="120"/><path d="M600 52 V700"/></g>
+${SPOTS.map(spot).join('\n')}
+</svg>`;
+}
+
+function strapperList() {
+  const options = (s) => {
+    const kind = s.kind || 'tracker';
+    return `<option value="">Nothing</option>${DEVICES[kind].map(([id, name]) => `<option value="${esc(id)}"${WORN[s.code] === id ? ' selected' : ''}>${esc(name)}</option>`).join('')}`;
   };
-  const marker = (t) => `<g class="trk${t.back ? ' trk-back' : ''}" data-trk="${esc(t.sticker)}" data-serial="${esc(t.serial)}"${t.pair ? ` data-trk-pair="${esc(t.pair)}"` : ''}${t.head ? ' data-trk-head' : ''}><title>${esc(t.sticker)} ${esc(t.spot)}, ${esc(t.serial)}</title>
-<circle cx="${t.x}" cy="${t.y}" r="8"/>
-${label(t)}</g>`;
-  const join = (pair, y) => `<rect class="trk-join" data-trk-join="${pair}" x="192" y="${y - 15}" width="56" height="30" rx="15"/>`;
-  const hand = (x, name) => `<g class="trk-hand"><rect x="${x - 7}" y="250" width="14" height="22" rx="5"/><text x="${x}" y="292" text-anchor="middle">${esc(name)}</text></g>`;
-  return `<div class="trk-diagram" data-trk-diagram data-headset="quest-pro" data-woojer="off">
-<p class="trk-showing"><b data-trk-showing>1.1 Space Calibrator on the Quest Pro</b> <span class="small">· click a mode below to see its trackers</span></p>
-<svg viewBox="0 0 440 466" role="img" aria-labelledby="trk-title"><title id="trk-title">Where each tracker is worn and what it does in this launch</title>
-<g class="trk-body"><circle cx="220" cy="58" r="24"/><path d="M220 82 V94 M168 100 Q220 92 272 100 L262 232 Q220 242 178 232 Z M178 232 L170 262 Q220 274 270 262 L262 232 M168 104 L140 180 L124 250 M272 104 L300 180 L316 250 M184 266 L176 350 L170 430 L152 440 M256 266 L264 350 L270 430 L288 440"/></g>
-<path class="trk-vest" d="M176 104 L264 104 L258 202 L182 202 Z"/><text class="trk-vest" x="290" y="184">Woojer vest</text>
-<g class="trk-hs trk-hs-quest-pro"><rect x="194" y="48" width="52" height="16" rx="7"/><path class="trk-leader" d="M 286 56 L 250 56"/><text x="290" y="54">Quest Pro<tspan class="trk-state" x="290" dy="15">face and eye tracking</tspan></text></g>
-<g class="trk-hs trk-hs-quest-3"><rect x="190" y="44" width="60" height="24" rx="10"/><circle cx="204" cy="56" r="2.5"/><circle cx="236" cy="56" r="2.5"/><path class="trk-leader" d="M 286 56 L 254 56"/><text x="290" y="54">Quest 3<tspan class="trk-state" x="290" dy="15">no face tracking</tspan></text></g>
-${join('chest', 142)}${join('hip', 224)}
-${hand(124, 'Index R')}${hand(316, 'Index L')}
-${TRACKERS.map(marker).join('\n')}
-</svg>
-<ul class="small trk-key">${TRACKER_STATES.map(([id, text]) => `<li data-state="${id}">${esc(text)}</li>`).join('')}</ul>
-<p class="small trk-steam">VRChat’s launch options in Steam: <code data-trk-steam></code></p>
+  const row = (s) => `<label class="strap-row" data-strap-row="${esc(s.code)}"><span class="strap-name"><b>${s.n}</b> ${esc(s.name)} <span class="strap-code">[${esc(s.code)}]</span></span><select data-strap-spot="${esc(s.code)}" disabled>${options(s)}</select></label>`;
+  const pair = (p, label) => `<label class="strap-row strap-pair">${esc(label)} <span class="strap-pair-picks">${[0, 1].map((i) => `<select data-strap-pair="${p}" data-strap-i="${i}" disabled>${PAIR_SPOTS[p].map((code) => { const s = SPOTS.find((x) => x.code === code); return `<option value="${esc(code)}"${PAIRS[p][i] === code ? ' selected' : ''}>${esc(spotName(s))}</option>`; }).join('')}</select>`).join(' + ')}</span></label>`;
+  return `<div class="strap-list">${SPOTS.map(row).join('\n')}</div>
+<div class="strap-pairs">${pair('hip', 'Double Hip pair')}
+${pair('chest', 'Double Chest pair')}</div>`;
+}
+
+export function trackerStrapper(lights = () => '') {
+  return `<div class="launch-headset strapper" data-strapper><div class="launch-head">${lights('tool:tracker-strapper', 'rift-rabbit-tracker-strapper')}<button type="button" class="launch-fold launch-name" aria-expanded="true">rift-rabbit-tracker-strapper</button></div>
+${strapperDrawing()}
+<ul class="small strap-key">${SPOT_STATES.map(([id, text]) => `<li data-state="${id}">${esc(text)}</li>`).join('')}</ul>
+${strapperList()}
+<p class="small strap-said" data-strap-said>Change these on the page opened on your PC while Rift Rabbit’s launcher runs; here they show today’s spots.</p>
+<p class="strap-footer">27 locations tracking can occur, devices may vary</p>
 </div>`;
 }
 
 // Each headset box is a tool, so its name sits inside its round border on the first row, with its paired lights left
 // of it like every tool's (Astra, 2026-10-24: "title needs to be down inside and with indicator light buttons, its a
-// tool"). `lights(key, name)` is the page spawner's. The tracker drawing comes first, above both.
+// tool"). `lights(key, name)` is the page spawner's. tracker-strapper comes first: the launches below follow it.
 export function vrchatLaunchBody(lights = () => '') {
-  return trackerDiagram() + '\n' + HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}" data-launch-device="${esc(h.device)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
+  return trackerStrapper(lights) + '\n' + HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
 ${switchRow(h)}
 <div class="launch-modes">${MODES.map((m, i) => modeCard(h, m, i)).join('\n')}</div>
 </div>`).join('\n');

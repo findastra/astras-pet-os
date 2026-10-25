@@ -2092,6 +2092,11 @@
           "note": "The switches and notes work. Launch asks Rift Rabbit's own launcher on this PC (findastra/rift-rabbit#8 and hub #239, merged 2026-10-24). Launch 2.0 reached the headset step; SteamVR onward is not tried in the headset yet.",
           "on": "2026-10-24"
         },
+        "tool:tracker-strapper": {
+          "result": "works",
+          "note": "Her 27 spots, today's devices and pairs, and the launches following them (headset on Face, head tracker for x.1 to x.3, Double pairs, Object Track VR objects) checked in the browser. Saving through Rift Rabbit's launcher is checked by its self-test (findastra/rift-rabbit#10), not yet on her PC.",
+          "on": "2026-10-25"
+        },
         "chat:rift-rabbit": {
           "result": "issues",
           "note": "The chat window opens, but no one answers in it yet.",

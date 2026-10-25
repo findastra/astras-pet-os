@@ -718,51 +718,57 @@
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
-  // The tracker drawing follows the mode last clicked and its headset's switches (Astra, 2026-10-25: "I just want to see
-  // the diagram change, based on what selections are made. One diagram, and the headset changes too"). Before any click
-  // it shows 1.1, the one she uses. The ignore list is built as Rift Rabbit's launcher builds it: the Double choice's
-  // pairs, then the head tracker in every mode but Native.
-  var diagram = box.querySelector('[data-trk-diagram]');
-  var WORDS = { used: 'VRChat tracks it', joined: 'joined by DoubleHip', head: 'lines up the Lighthouses', off: 'not used in this mode' };
-  function paintTrackers() {
-    if (!diagram) return;
-    var p = saved.picked || {};
-    var hs = box.querySelector('[data-launch-headset="' + p.headset + '"]') || box.querySelector('[data-launch-headset]');
-    var card = hs.querySelector('[data-launch-mode="' + p.mode + '"]') || hs.querySelector('[data-launch-mode="space-calibrator"]');
-    var mode = card.getAttribute('data-launch-mode');
-    function pick(k) { var i = hs.querySelector('[data-launch-switch="' + k + '"]'); return !i ? '' : i.type === 'checkbox' ? i.checked : i.value; }
-    var dbl = pick('double-hip') || '';
-    function joins(pair) { return dbl === pair || dbl === 'both'; }
-    diagram.setAttribute('data-headset', hs.getAttribute('data-launch-headset'));
-    diagram.setAttribute('data-woojer', pick('woojer') ? 'on' : 'off');
-    var ignore = [];
-    ['hip', 'chest'].forEach(function (pair) {
-      if (joins(pair)) Array.prototype.forEach.call(diagram.querySelectorAll('[data-trk-pair="' + pair + '"]'), function (g) { ignore.push(g.getAttribute('data-serial')); });
-      diagram.querySelector('[data-trk-join="' + pair + '"]').setAttribute('data-on', joins(pair) ? 'yes' : 'no');
+  // tracker-strapper (Astra, 2026-10-25): which device is on each of her 27 spots, and the launch options below follow it
+  // ("then your launch options become available below"). The headset on 23 Face shows only that headset's launches;
+  // modes x.1 to x.3 wait for a tracker on 24 Head; Double Hip and Double Chest for both spots of their pair; each Object
+  // Track VR object for the tracker on it. Rift Rabbit's launcher keeps the spots on her PC (vrchat-launcher-20261024.js
+  // fills them in there and sends changes); anywhere else they show today's spots.
+  var strapper = box.querySelector('[data-strapper]');
+  var OBJECT_SPOT = { 'dance-pole': 'DP', 'large-hoop': 'BDH', 'small-hoop': 'LDH' };
+  function spotName(code) { var row = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name'); return row ? row.textContent.replace(/\s+/g, ' ').trim() : code; }
+  function strap() {
+    if (!strapper) return;
+    var worn = {}, pairs = { hip: [], chest: [] };
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) worn[sel.getAttribute('data-strap-spot')] = sel.value; });
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
+    function tracker(code) { return /^vive-tracker-/.test(worn[code] || ''); }
+    var full = { hip: pairs.hip.every(tracker), chest: pairs.chest.every(tracker) };
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) {
+      var code = g.getAttribute('data-strap-dot');
+      var inPair = (full.hip && pairs.hip.indexOf(code) >= 0) || (full.chest && pairs.chest.indexOf(code) >= 0);
+      g.setAttribute('data-state', !worn[code] ? 'off' : code === 'H' ? 'head' : inPair ? 'joined' : 'used');
     });
-    Array.prototype.forEach.call(diagram.querySelectorAll('[data-trk]'), function (g) {
-      var pair = g.getAttribute('data-trk-pair');
-      var state = g.hasAttribute('data-trk-head') ? (mode === 'native' ? 'off' : 'head') : pair && joins(pair) ? 'joined' : 'used';
-      if (state === 'head') ignore.push(g.getAttribute('data-serial'));
-      g.setAttribute('data-state', state);
-      g.querySelector('[data-trk-state]').textContent = WORDS[state];
+    var face = worn.F || '';
+    var needs = [];
+    if (!tracker('H')) needs.push(spotName('H'));
+    Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
+      hs.hidden = !!face && hs.getAttribute('data-launch-headset') !== face;
+      Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
+        var line = card.querySelector('[data-launch-needs]');
+        var need = card.getAttribute('data-launch-mode') !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
+        line.textContent = need; line.hidden = !need;
+        card.classList.toggle('is-blocked', !!need);
+      });
+      // A choice whose spots have no devices is greyed out; a saved choice that cannot be made goes back to Off.
+      function gate(key, ok) {
+        var sel = hs.querySelector('select[data-launch-switch="' + key + '"]');
+        if (!sel) return;
+        Array.prototype.forEach.call(sel.options, function (o) { o.disabled = !!o.value && !ok(o.value); });
+        if (sel.selectedOptions[0] && sel.selectedOptions[0].disabled) { sel.value = ''; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+      }
+      gate('double-hip', function (v) { return (v !== 'hip' && v !== 'both' || full.hip) && (v !== 'chest' && v !== 'both' || full.chest); });
+      gate('object-track', function (v) { return tracker(OBJECT_SPOT[v]); });
     });
-    diagram.querySelector('[data-trk-showing]').textContent = card.querySelector('legend').textContent + ' on the ' + hs.getAttribute('data-launch-device');
-    diagram.querySelector('[data-trk-steam]').textContent = ignore.length ? '--ignore-trackers=' + ignore.join(',') : '(empty)';
-    Array.prototype.forEach.call(box.querySelectorAll('[data-launch-mode]'), function (c) { c.classList.toggle('is-picked', c === card); });
+    box.dispatchEvent(new CustomEvent('strapper-change'));
   }
-  box.addEventListener('click', function (e) {
-    var card = e.target.closest && e.target.closest('[data-launch-mode]');
-    if (!card) return;
-    saved.picked = { headset: card.closest('[data-launch-headset]').getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode') };
-    save(); paintTrackers();
-  });
-  box.addEventListener('change', function (e) {
-    var hs = e.target.closest && e.target.closest('[data-launch-headset]');
-    if (!hs || !e.target.hasAttribute('data-launch-switch')) return;
-    saved.picked = { headset: hs.getAttribute('data-launch-headset'), mode: (saved.picked || {}).mode };
-    save(); paintTrackers();
-  });
+  if (strapper) {
+    strapper.addEventListener('change', strap);
+    box.addEventListener('strapper-load', strap);
+    // A spot on the drawing opens its row in the list.
+    function goTo(g) { var sel = strapper.querySelector('[data-strap-spot="' + g.getAttribute('data-strap-dot') + '"]'); if (sel) { sel.scrollIntoView({ block: 'center', behavior: 'smooth' }); sel.focus({ preventScroll: true }); } }
+    strapper.addEventListener('click', function (e) { var g = e.target.closest && e.target.closest('[data-strap-dot]'); if (g) goTo(g); });
+    strapper.addEventListener('keydown', function (e) { var g = e.target.closest && e.target.closest('[data-strap-dot]'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); goTo(g); } });
+  }
   Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
     var id = hs.getAttribute('data-launch-headset');
     var s = saved[id] = saved[id] || { switches: {}, tries: {} };
@@ -815,7 +821,7 @@
     });
     refresh();
   });
-  paintTrackers();
+  strap();
   })();
 
   // ---- A tool that works right on the page (an <iframe class="tool-frame"> in its tool panel) says how tall it is, so

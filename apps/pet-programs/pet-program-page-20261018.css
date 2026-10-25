@@ -493,42 +493,42 @@ img[hidden] { display: none !important; }
 /* The setups sit under the Native tools pills, as far below them as the pill rows and the two headset boxes are apart
    (18px: a pill's 9px bottom margin plus this). Astra, 2026-10-24: "awkward space". */
 .vrchat-setups { margin-top: 9px; }
-/* The tracker drawing above the headset boxes (Astra, 2026-10-25: "One diagram, and the headset changes too"), a part
-   of the setups tool, so round like the boxes. Each tracker's colour says what it does in the launch shown. */
-.trk-diagram { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 10px 16px 12px; margin: 0 0 18px; min-width: 0; }
-.trk-showing { margin: 0 0 6px; font-size: 14px; }
-.trk-showing b { font: 600 15px var(--label); color: var(--chalk); }
-.trk-diagram svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; }
-.trk-diagram text { font: 13px var(--text); fill: var(--chalk); }
-.trk-diagram .trk-state { font-size: 11.5px; fill: var(--chalk-dim); }
-.trk-body, .trk-hand rect, .trk-hs rect { fill: none; stroke: var(--chalk-dim); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.trk-hs circle { fill: var(--chalk-dim); }
-.trk-diagram:not([data-headset="quest-pro"]) .trk-hs-quest-pro, .trk-diagram:not([data-headset="quest-3"]) .trk-hs-quest-3 { display: none; }
-.trk-hand text { font-size: 12px; fill: var(--chalk-dim); }
-.trk-leader { fill: none; stroke: var(--line-dim); stroke-width: 1; }
-.trk-vest { fill: none; stroke: var(--care); stroke-width: 1.5; stroke-dasharray: 2 4; }
-text.trk-vest { stroke: none; fill: var(--care); font-size: 12px; }
-.trk-diagram[data-woojer="off"] .trk-vest { display: none; }
-.trk-join { fill: none; stroke: #d994c6; stroke-width: 2; }
-.trk-join[data-on="no"] { display: none; }
-.trk circle { stroke-width: 2.5; fill: var(--slate-2); stroke: var(--care); }
-.trk-back circle { stroke-dasharray: 3 3; }
-.trk[data-state="used"] circle { stroke: var(--care); fill: var(--care); }
-.trk-back[data-state="used"] circle { fill: var(--slate-2); }
-.trk[data-state="joined"] circle { stroke: #d994c6; fill: #d994c6; }
-.trk-back[data-state="joined"] circle { fill: var(--slate-2); }
-.trk[data-state="head"] circle { stroke: var(--fix); fill: var(--fix); }
-.trk[data-state="off"] circle { stroke: var(--planned); fill: none; }
-.trk[data-state="off"] text { fill: var(--planned); }
-.trk-key { list-style: none; margin: 8px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
-.trk-key li::before { content: "\25CF\00A0"; }
-.trk-key [data-state="used"]::before { color: var(--care); }
-.trk-key [data-state="joined"]::before { color: #d994c6; }
-.trk-key [data-state="head"]::before { color: var(--fix); }
-.trk-key [data-state="off"]::before { color: var(--planned); }
-.trk-steam { margin: 4px 0 0; }
-.trk-steam code { display: block; word-break: break-all; }
-.launch-mode.is-picked { border-color: var(--link); }
+/* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. Each spot's
+   colour says what is on it; the list under the drawing picks the device. */
+.strap-drawing { display: block; width: 100%; max-width: 560px; height: auto; margin: 4px auto 0; }
+.strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
+.strap-body ellipse, .strap-body path { fill: none; stroke: #a99be8; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.strap-body .strap-band, .strap-body .strap-ring { stroke-width: 2; }
+.strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
+.strap-spot { cursor: pointer; }
+.strap-spot circle { stroke-width: 2; stroke: #47d16a; fill: var(--slate-2); }
+.strap-spot text { font: 700 8.5px var(--text); fill: var(--fix); pointer-events: none; }
+.strap-back circle { stroke-dasharray: 2.5 2; }
+.strap-spot[data-state="used"] circle { fill: var(--care); }
+.strap-spot[data-state="joined"] circle { fill: #d994c6; }
+.strap-spot[data-state="head"] circle { fill: var(--fix); }
+.strap-spot:not([data-state="off"]) text { fill: var(--slate-2); }
+.strap-spot[data-state="off"] circle { stroke: var(--planned); }
+.strap-spot[data-state="off"] text { fill: var(--chalk-dim); }
+.strap-spot:focus-visible circle, .strap-spot:hover circle { stroke: var(--chalk); stroke-width: 3; }
+.strap-key { list-style: none; margin: 8px 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.strap-key li::before { content: "\25CF\00A0"; }
+.strap-key [data-state="used"]::before { color: var(--care); }
+.strap-key [data-state="joined"]::before { color: #d994c6; }
+.strap-key [data-state="head"]::before { color: var(--fix); }
+.strap-key [data-state="off"]::before { color: var(--planned); }
+.strap-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px 18px; }
+.strap-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 8px; font-size: 13px; min-width: 0; }
+.strap-name b { font-family: var(--label); color: var(--fix); }
+.strap-code { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
+.strap-row select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; max-width: 100%; }
+.strap-row select:disabled { opacity: .85; }
+.strap-pairs { display: grid; gap: 6px; margin: 10px 0 0; }
+.strap-pair-picks { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
+.strap-footer { margin: 6px 0 0; text-align: center; font: 600 14px var(--label); color: #47d16a; }
+.launch-mode.is-blocked { opacity: .7; }
+.launch-needs { color: var(--fix); margin: 6px 0 0; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
 /* Its name inside the border on the first row, its lights left of it, like every tool (Astra, 2026-10-24). The first
    light sits at the centre of the 18px corner, as on every tool: 18 - 5.5 - 1 = 11.5px in, its row centred 18px down. */

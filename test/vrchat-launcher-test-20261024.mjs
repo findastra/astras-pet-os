@@ -39,18 +39,25 @@ test('the launcher script puts text in with textContent only and runs no code fr
   assert.deepEqual(findSensitive(js), []);
 });
 
-// The tracker drawing (Astra, 2026-10-25: "One diagram, and the headset changes too"): one drawing above both headsets,
-// every tracker on it once with its serial, the Double pairs as her DoubleHip DoubleChest Tracker has them, and both
-// headsets drawn so the page can show the one picked.
-test('one tracker drawing, with each tracker once and the Double pairs from her DoubleHip DoubleChest Tracker', async () => {
-  const { TRACKERS } = await import('../scripts/vrchat-launch-panel-20261023.mjs');
-  assert.equal((rabbit.match(/data-trk-diagram/g) || []).length, 1);
-  assert.ok(rabbit.indexOf('data-trk-diagram') < rabbit.indexOf('data-launch-headset='), 'above the headset boxes');
-  for (const t of TRACKERS) assert.equal((rabbit.match(new RegExp(`data-serial="${t.serial}"`, 'g')) || []).length, 1, t.serial);
-  const pair = (p) => TRACKERS.filter((t) => t.pair === p).map((t) => t.sticker).join(' ');
-  assert.equal(pair('hip'), '[W] [C]');
-  assert.equal(pair('chest'), '[ ] [M]');
-  assert.deepEqual(TRACKERS.filter((t) => t.head).map((t) => t.serial), ['LHR-6963FCE5']);
-  assert.ok(rabbit.includes('trk-hs-quest-pro') && rabbit.includes('trk-hs-quest-3'));
-  assert.ok(rabbit.includes('data-launch-device="Quest Pro"') && rabbit.includes('data-launch-device="Quest 3"'));
+// tracker-strapper (Astra, 2026-10-25, her drawing): her 27 spots once each, in her numbers, before the launches; every
+// device id is one Rift Rabbit's launcher knows; today's spots and pairs match the launcher's first settings; the pickers
+// stay off until the launcher on this PC answers.
+test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s spots, pickers off until the launcher answers', async () => {
+  const { SPOTS, DEVICES, WORN, PAIRS, PAIR_SPOTS } = await import('../scripts/vrchat-launch-panel-20261023.mjs');
+  assert.deepEqual(SPOTS.map((s) => s.n), Array.from({ length: 27 }, (_, i) => i + 1));
+  assert.equal(new Set(SPOTS.map((s) => s.code)).size, 27);
+  assert.equal((rabbit.match(/data-strapper/g) || []).length, 1);
+  assert.ok(rabbit.indexOf('data-strapper') < rabbit.indexOf('data-launch-headset='), 'above the headset boxes');
+  for (const s of SPOTS) {
+    assert.equal((rabbit.match(new RegExp(`data-strap-dot="${s.code}"`, 'g')) || []).length, 1, s.code);
+    assert.match(rabbit, new RegExp(`<select data-strap-spot="${s.code}" disabled>`));
+  }
+  const ids = Object.values(DEVICES).flat().map(([id]) => id);
+  assert.ok(ids.every((id) => /^(quest-pro|quest-3|index-controller-(left|right)|hand-tracking|vive-tracker-0[1-9])$/.test(id)));
+  assert.deepEqual(WORN, { F: 'quest-pro', H: 'vive-tracker-08', FC: 'vive-tracker-05', BC: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04', RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left' });
+  assert.deepEqual(PAIRS, { hip: ['FW', 'BW'], chest: ['FC', 'BC'] });
+  assert.equal(PAIR_SPOTS.hip.length, 8, 'any two of the eight waist spots');
+  assert.ok(rabbit.includes('27 locations tracking can occur, devices may vary'));
+  assert.doesNotMatch(rabbit, /--ignore-trackers|data-trk-/, 'no Steam line and no old drawing');
+  assert.match(js, /ask\('\/spots'/, 'changes go to the launcher');
 });

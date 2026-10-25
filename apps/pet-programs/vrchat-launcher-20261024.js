@@ -26,10 +26,13 @@
     Array.prototype.forEach.call(gos, function (b) {
       var m = b.closest('[data-launch-mode]').getAttribute('data-launch-mode');
       var installed = !!(launcher && launcher.installed && launcher.installed[m]);
-      b.disabled = !launcher || !installed || live(run);
+      // tracker-strapper says what a mode still needs on its spots (the page script fills data-launch-needs).
+      var needs = b.closest('[data-launch-mode]').querySelector('[data-launch-needs]');
+      var blocked = needs && !needs.hidden ? needs.textContent : '';
+      b.disabled = !launcher || !installed || live(run) || !!blocked;
       b.classList.toggle('off', b.disabled);
       b.textContent = launcher && !installed ? b.getAttribute('data-label') + ': not installed' : b.getAttribute('data-label');
-      b.title = problem || (!launcher ? "Works on Astra's PC while Rift Rabbit's launcher runs" : !installed ? 'Its SteamVR driver is not installed yet' : live(run) ? 'A launch is running' : 'Start this mode’s programs in order');
+      b.title = problem || (!launcher ? "Works on Astra's PC while Rift Rabbit's launcher runs" : !installed ? 'Its SteamVR driver is not installed yet' : blocked || (live(run) ? 'A launch is running' : 'Start this mode’s programs in order'));
     });
   }
 
@@ -119,6 +122,43 @@
     });
   });
 
+  // tracker-strapper's spots live in the launcher's settings on this PC: shown from its page file, changed through it.
+  var strapper = box.querySelector('[data-strapper]');
+  var said = strapper && strapper.querySelector('[data-strap-said]');
+  function showSpots(d) {
+    if (!strapper || !d || !d.spots) return;
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
+      var v = d.spots[sel.getAttribute('data-strap-spot')] || '';
+      sel.value = Array.prototype.some.call(sel.options, function (o) { return o.value === v; }) ? v : '';
+    });
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) {
+      var p = d[sel.getAttribute('data-strap-pair')];
+      if (p && p[+sel.getAttribute('data-strap-i')]) sel.value = p[+sel.getAttribute('data-strap-i')];
+    });
+    box.dispatchEvent(new CustomEvent('strapper-load'));
+  }
+  function sendSpots() {
+    var spots = {}, pairs = { hip: [], chest: [] };
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) spots[sel.getAttribute('data-strap-spot')] = sel.value; });
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
+    said.textContent = 'Saving…';
+    ask('/spots', { spots: spots, hip: pairs.hip, chest: pairs.chest }).then(function (res) {
+      // The launcher's answer is what it kept: a change it refused goes back.
+      showSpots(res);
+      said.textContent = res && res.ok ? 'Saved on this PC. Launches use these spots.' : (res && res.said) || 'Not saved.';
+    }, lost);
+  }
+  if (strapper) {
+    strapper.addEventListener('change', function (e) {
+      if (!launcher || !e.target.matches('[data-strap-spot], [data-strap-pair]')) return;
+      // One tracker on one spot: putting it on a new spot takes it off the old one.
+      if (e.target.matches('[data-strap-spot]') && /^vive-tracker-/.test(e.target.value))
+        Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel !== e.target && sel.value === e.target.value) sel.value = ''; });
+      sendSpots();
+    });
+  }
+  box.addEventListener('strapper-change', function () { paintButtons(); });
+
   var script = document.createElement('script');
   script.setAttribute('src', LOCAL_LAUNCH + '?t=' + Date.now());
   script.onload = function () {
@@ -127,6 +167,11 @@
     // Only this PC's address, and only a code that looks like one.
     if (!d || d.schema !== 'rift-rabbit-vr-launch-v1' || d.on !== true || !/^http:\/\/127\.0\.0\.1:\d{2,5}\/$/.test(d.url) || !/^[0-9a-f]{32,}$/i.test(d.code)) return;
     launcher = { url: d.url.slice(0, -1), code: d.code, installed: d.installed || {} };
+    if (strapper) {
+      Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot], [data-strap-pair]'), function (sel) { sel.disabled = false; });
+      said.textContent = 'Kept in Rift Rabbit’s launcher on this PC. A change saves at once.';
+      showSpots(d);
+    }
     paintButtons();
     // A launch still running (the page was reloaded) shows again in its card; a finished or stopped one does not.
     ask('/status').then(function (res) { if (res && live(res.run)) show(res); }, lost);
