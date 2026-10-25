@@ -2932,6 +2932,21 @@
             "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
           }
         ]
+      },
+      {
+        "pet": "Reactor Raccoon",
+        "repo": null,
+        "job": "Looks after The Cooling Tower.",
+        "for": "the-cooling-tower",
+        "program": "The Control Room",
+        "note": "Chosen by Astra on 2026-10-24: Reactor Raccoon, wearing PPE (hard hat, safety vest) and carrying a clipboard, looks after The Cooling Tower, her VRChat rave world inside a nuclear plant cooling tower (repo findastra/the-cooling-tower). Program named The Control Room by Astra on 2026-10-24.",
+        "works_with": [
+          {
+            "pet": "unity-unicorn",
+            "why": "The Cooling Tower is a Unity world built with Unity Unicorn tools (the planned Pipe, Rail and Water Spawners, Light Show Generator and CAD Converter): the raccoon’s world needs become Unity Unicorn build work. Astra, 2026-10-24.",
+            "becomes": "relations links (findings to unity-unicorn, shipped back) once this seed has a repo"
+          }
+        ]
       }
     ],
     "already_in_pipeline": [

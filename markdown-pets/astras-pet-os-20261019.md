@@ -118,6 +118,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Port Spider** (Port Web) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Procreate Panda** (Bamboo Studio) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Proxy Axolotl** (Proxy Lake) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
+- **Reactor Raccoon** (The Control Room) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Rescue Retriever** (The Recovery Room) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Roaming Raven** (Roam Map) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Server Salamander** (Server Hearth) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
