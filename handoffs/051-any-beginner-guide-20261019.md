@@ -49,7 +49,7 @@ hub folder stayed on `main`:
   from `main` plus 051, the registry table and the System Map rebuilt with `npm run build`. After the last merge
   `npm test` 190 tests, 189 pass, 0 fail, 1 skipped; `npm run check` OK.
 - **Looked at in the browser pane** through a temporary `beginner-guide-temp` entry in
-  `%USERPROFILE%\Documents\Astra's Pet Apps\.claude\launch.json` (port 5196, removed afterwards; the other entries,
+  `%USERPROFILE%\Documents\Astra's PetOS\.claude\launch.json` (port 5196, removed afterwards; the other entries,
   including another session's new `unity-stable-closet`, kept): at 375 × 812 with every step open, no sideways scroll,
   every picture loads, no tap target under 32 px outside running text (buttons, step headers and step links are 44 px
   or more), no console errors; a step link opens its step;

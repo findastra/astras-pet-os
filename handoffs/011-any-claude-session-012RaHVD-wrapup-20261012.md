@@ -4,7 +4,7 @@ from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-12 (account closing; session ht
 needs: AGENTS.md, CLAUDE.md, skills/handoff/SKILL.md, ASTRAS_PET_OS.md, docs/migration/PLAN.md, PET-FILES.md, branch `claude/movement-by-kind-merge-wip-20261009`
 ---
 ## What this chat was for
-Started 2026-10-09 on `findastra/astras-pet-apps`: (1) update the README summary after the
+Started 2026-10-09 on `findastra/astras-pet-os`: (1) update the README summary after the
 "pets move by kind" commit `ba2259a`; (2) "make sure the version I am running live on my PC is
 this one" (Astra chose: merge GitHub's movement-by-kind with the PC's uncommitted roam-free
 work, port it to the desktop pets, rebuild and restart); (3) on 2026-10-11, put two
@@ -17,7 +17,7 @@ screenshots (her desktop full of pets, and the tray star) near the top of the RE
 - **Branch `claude/movement-by-kind-merge-wip-20261009`, commit `e8759fc`** (not on `main`,
   unfinished, untested, never built): merge of `ba2259a` into a snapshot of Astra's PC working
   copy as of 2026-10-09 00:45 (then `Documents\Projects\findastra-pet-apps`, branch
-  `codex/astras-pet-apps` at `437bf7e` plus uncommitted roam-free work). Contents:
+  `codex/astras-pet-os` at `437bf7e` plus uncommitted roam-free work). Contents:
   `cage_life` renamed `pet_life`; Voicemeeter Bug `kind: "bug"`; movement ported into
   `pets.html` without enclosure modes; movement tests ported into
   `test/pets-controls-test-20261008.mjs`; PET-FILES.md "How pets move" section; a half-done
@@ -59,13 +59,13 @@ screenshots (her desktop full of pets, and the tray star) near the top of the RE
 - No scheduled tasks, artifacts, connectors or memory writes were created.
 - The Claude desktop app's link to Astra's PC (folder access to
   `Documents\Projects\findastra-pet-apps`) — per session, re-grant if needed.
-- GitHub access to `findastra/astras-pet-apps` through the session (push to branches).
+- GitHub access to `findastra/astras-pet-os` through the session (push to branches).
 
 ## Things Astra said here that were not yet in a repo
 - 2026-10-09: wanted the PC running "this one" = GitHub's movement by kind **plus** the PC's
   roam-free work (chose "Merge both" over browser-only or replacing the PC copy).
 - 2026-10-11: wants her desktop screenshot and the tray screenshot "at the top somewhere" on
-  the astras-pet-apps page — on hold until she updates them.
+  the astras-pet-os page — on hold until she updates them.
 
 ## Done when
 Decisions 1–3 answered and acted on, and this card set to `status: done`.

@@ -12,7 +12,7 @@ needs: skills/farm-security/SKILL.md section 5 (the portfolio exception), findas
   `drafts/`, `art/`, data files; 92 files, 3 MB) is on branch `claude/rescue-portfolio-20261017`, commit `44df106`,
   pushed as found. Privacy scan before the push: no surname, email, personal path or key. Astra merged it
   (findastra/findastra.github.io#1) on 2026-10-17.
-- The PC folder `%USERPROFILE%\Documents\Astra's Pet Apps\findastra.github.io` is now that git repo, checked out on the
+- The PC folder `%USERPROFILE%\Documents\Astra's PetOS\findastra.github.io` is now that git repo, checked out on the
   rescue branch. Its files were last changed about 01:11 on 2026-10-17, so another chat may still be working in it:
   pull before editing.
 - `profile-data.js` `positions` (one entry per employer, each with its own page under `work/`) is still empty.

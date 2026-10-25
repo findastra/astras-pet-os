@@ -102,7 +102,7 @@ test('a developer word never brings a farm word back: the swap gives the same te
   const outputs = [...data.exact, ...data.words].map((p) => p[1]).concat(Object.values(data.names).flatMap((n) => [n.agent, n.hub]));
   for (const t of outputs) assert.equal(swap(t), t, `"${t}" would be swapped again`);
   const seen = [];
-  for (const html of [...Object.values(pages), read('apps/astras-pet-apps-20261008.html'), read('system-map-20261012.html')]) seen.push(...texts(html));
+  for (const html of [...Object.values(pages), read('apps/astras-pet-os-20261008.html'), read('system-map-20261012.html')]) seen.push(...texts(html));
   const map = read('system-map-20261012.html');
   seen.push(...strings(JSON.parse(map.slice(map.indexOf('const DATA = ') + 13, map.indexOf(';\n', map.indexOf('const DATA = '))))));
   seen.push(...programs.map((p) => p.mini_descriptor?.text || ''));
@@ -126,7 +126,7 @@ test('which words a page shows: the address, then this browser\'s switch over th
 
 test('every page loads the installer\'s words, then the swap, in its <head>', () => {
   const heads = Object.entries(pages).map(([path, html]) => [path, html, '../']);
-  heads.push(['apps/astras-pet-apps-20261008.html', read('apps/astras-pet-apps-20261008.html'), '']);
+  heads.push(['apps/astras-pet-os-20261008.html', read('apps/astras-pet-os-20261008.html'), '']);
   heads.push(['system-map-20261012.html', read('system-map-20261012.html'), 'apps/']);
   for (const [path, html, up] of heads) {
     const head = html.slice(0, html.indexOf('</head>'));
@@ -152,8 +152,8 @@ test('the Farmer\'s desk generator writes the words, then the swap, in <head>, a
       mkdirSync(dirname(join(dir, rel)), { recursive: true });
       copyFileSync(join(root, rel), join(dir, rel));
     }
-    execFileSync(process.execPath, [join(dir, 'scripts', 'build-interfaces-20261008.mjs'), 'astras-pet-apps'], { stdio: 'pipe' });
-    const html = readFileSync(join(dir, 'apps', 'astras-pet-apps-20261008.html'), 'utf8');
+    execFileSync(process.execPath, [join(dir, 'scripts', 'build-interfaces-20261008.mjs'), 'astras-pet-os'], { stdio: 'pipe' });
+    const html = readFileSync(join(dir, 'apps', 'astras-pet-os-20261008.html'), 'utf8');
     const head = html.slice(0, html.indexOf('</head>')), footer = html.slice(html.indexOf('<footer>'), html.indexOf('</footer>'));
     const mode = head.indexOf('<script src="words-mode-20261019.js"></script>'), swapAt = head.indexOf('<script src="developer-words-20261019.js"></script>');
     assert.ok(mode > 0 && swapAt > mode, 'the generated desk: words-mode, then developer-words, in <head>');

@@ -18,7 +18,7 @@ const DATA = join(process.env.XDG_DATA_HOME || join(homedir(), '.local', 'share'
 const CONFIG = join(process.env.XDG_CONFIG_HOME || join(homedir(), '.config'), 'astras-pet-os');
 export const FARM_DIR = join(DATA, 'farm');
 const PETS_DIR = join(DATA, 'pets');
-const PAGES = { map: 'system-map-20261012.html', desk: 'apps/astras-pet-apps-20261008.html' };
+const PAGES = { map: 'system-map-20261012.html', desk: 'apps/astras-pet-os-20261008.html' };
 const PENGUIN = process.env.ASTRAS_PET_OS_PENGUIN_DIR || join(ROOT, 'pets', 'linux-iceberg');
 const UNIT = (pet) => `astras-pet-os-pet@${pet}.service`;
 

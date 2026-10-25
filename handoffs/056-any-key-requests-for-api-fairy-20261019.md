@@ -90,7 +90,7 @@ scratchpad; her PC folder was not touched), [api-fairy#8](https://github.com/fin
   Farm's art generator (given). Found by searching every repo's open handoff cards and the open pull requests.
 - Ran the scratch build once: `"API Fairy.exe" --key-requests` wrote `key-requests-page-data.js` there. Result: 7
   waiting on you, 1 has a key (`OPENAI_API_KEY` found by name), 0 declined.
-- A temporary `api-fairy-ring-page` entry in `Astra's Pet Apps\.claude\launch.json` (removed after) served a scratch
+- A temporary `api-fairy-ring-page` entry in `Astra's PetOS\.claude\launch.json` (removed after) served a scratch
   folder that mirrors Documents, so the browser pane showed the page with the real list; screenshots by headless Edge
   were sent to Astra in the chat.
 

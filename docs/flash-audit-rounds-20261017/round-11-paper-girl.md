@@ -12,7 +12,7 @@
 
 ### Exceptions
 
-1. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `paper-girl-20261008.html`.  
+1. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `paper-girl-20261008.html`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 2. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
@@ -35,14 +35,14 @@
 
 - **A06 Pet name** — Pet name differs from the catalog ("Patty"): pet.json says "Paper Girl".
 - **A15 README and credit** — README has no Limits section.
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "A free science discovery desk: real research, publisher explanations, fresh articles. The repo exists; it still needs pet.json and the pet-a"
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 7 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, paper-girl-20261008.html, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 7 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, paper-girl-20261008.html, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: pet "Paper Girl" -> "Patty" (pet-programs.json); job now matches the registry; audit block copied from the registry.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 3 in AGENTS.md, paper-girl-20261008.html. pet.json: audit block from the registry. README: Limits section from INTELLIGENCE-LEVELS.md. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.

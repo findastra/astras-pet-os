@@ -20,7 +20,7 @@ on 2026-10-17 to bring the hub up to date. Full detail: `findastra/api-fairy` `d
 - **Astra's PC, read only, nothing changed:** Malwarebytes quarantined API Fairy's builds on 2026-10-07 (twice,
   "MachineLearning/Anomalous.100%"), 2026-10-08 (`tests.exe`, "Trojan.Crypt.MSIL", twice) and 2026-10-14 (a copy in
   `%USERPROFILE%\Downloads\api-fairy-main`). There is no `%LOCALAPPDATA%\API Fairy` folder, no Run entry and no API
-  Fairy process, so the desktop app has never run. The PC copy (`Documents\Astra's Pet Apps\api-fairy`) is clean on
+  Fairy process, so the desktop app has never run. The PC copy (`Documents\Astra's PetOS\api-fairy`) is clean on
   `codex/l3-activity-20261016`, which has diverged from `main`.
 - Both branches were made in clones in this chat's own workspace (the PC copies are on Codex branches, left alone) and
   pushed. Tests run: `npm test` here (see the commit).
@@ -28,7 +28,7 @@ on 2026-10-17 to bring the hub up to date. Full detail: `findastra/api-fairy` `d
 **Later the same day (Claude Opus 5.5):** Astra allowed `api-fairy\bin` in Malwarebytes. Rebuilt, 83/83 tests pass, the app ran on her PC and its window opened. Astra saw that the app's own desktop fairy was the old 2026-10-07 drawing and chose one fairy, Startup Star's: api-fairy `main` `6b1d430` removes it and uses the approved art; card 021 asks Codex to wire Startup Star's bubbles. Both api-fairy merges are on `main` (Codex L3 branch, then this record).
 
 ## Waiting on Astra (answered)
-1. Malwarebytes: Allow List → Add → Allow a file or folder → `%USERPROFILE%\Documents\Astra's Pet Apps\api-fairy\bin`.
+1. Malwarebytes: Allow List → Add → Allow a file or folder → `%USERPROFILE%\Documents\Astra's PetOS\api-fairy\bin`.
    This is the same family as PROTECTION-RINGS.md known gap 5 (unsigned `.exe` files).
 2. ~~Visibility~~ Decided 2026-10-17: api-fairy stays **public**; `pet.json` updated on its branch. The repo holds no keys, personal data or personal paths (scanned all branches and history).
 3. Merge order in api-fairy: `main`, `codex/yellow-phone-20261015` and `codex/l3-activity-20261016` have diverged.

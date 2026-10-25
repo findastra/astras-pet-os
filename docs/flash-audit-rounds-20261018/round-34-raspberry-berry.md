@@ -14,7 +14,7 @@
    *Next:* Your pick: see Decisions.
 2. ⚪ **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (the Raspberry Pi itself) but the page has no Third Party Programs row.  
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
-3. ⚪ **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `scripts/draw-berry.mjs`.  
+3. ⚪ **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `scripts/draw-berry.mjs`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 4. ⚪ **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.

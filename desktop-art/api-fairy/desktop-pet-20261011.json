@@ -6,7 +6,7 @@
   "status": "draft",
   "desktop_scale": 1,
   "sparkles": false,
-  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "renderer": "astras-pet-os/scripts/desktop-pets-20261011.cs",
   "art_files": [],
   "notes": "Fairy wings partly transparent.",
   "scale_reference": "Group 3 (Mommy's Mommies, Discord Damsel, API Fairy, Astra Wisp, VSCode Angel) share one scale: Mommy's Mommies' own crop, 202 art pixels tall up from the soles, drawn 58.75 logical pixels high (astras-pet-os docs/girls-same-size-20261017.md)",

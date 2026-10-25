@@ -39,7 +39,7 @@ hub folder stayed on `main`; **merged into `main` with PR #100 (`f4a90e5`, Astra
   1 skipped (the Pets Board); `npm run check` OK. In the browser pane (a temporary local server): Unity Stable, The
   Farm, Fairy Ring and the list at desktop width, Fairy Ring at phone width; a light switched off and marked yellow
   showed in L4; a note with `<b>` in it was saved as plain text; the chat panel opened; no console errors.
-- On Astra's PC: a temporary `spawner-preview-temp` entry was added to `Astra's Pet Apps\.claude\launch.json` and
+- On Astra's PC: a temporary `spawner-preview-temp` entry was added to `Astra's PetOS\.claude\launch.json` and
   removed after the check; the test note and lights were cleared from that browser. No pet folder was touched.
 - **Astra's review, the same evening:** "the modules dont have dashes in the border text sometimes you have a dash at
   the end. and make sure that the emotion bubbles are written with the text border format too. the page is just
@@ -76,7 +76,7 @@ Claude's scratchpad:
 - `npm run build -- --metadata-only` then changed only the System Map page and five spawn pages (Unity Stable, The
   Farm, GitHub Aquarium, File Kingdom, Chat Stack). `npm test`: 153 tests, 152 pass, 1 skipped (the Pets Board).
   `npm run check` OK.
-- In the browser pane (a temporary `tools-on-the-map-temp` entry in `Astra's Pet Apps\.claude\launch.json`, removed
+- In the browser pane (a temporary `tools-on-the-map-temp` entry in `Astra's PetOS\.claude\launch.json`, removed
   after): Unity Stable's L1 module lists all 55 under "Your tools", the 21 not merged with grey lights and "planned";
   the other four pages list theirs; the System Map draws the new hammers on ring 3 with no console errors.
 - Left out on purpose: harness-strapper (an example in TOOLS-AND-TRICKS.md and the framework, no code); Discord

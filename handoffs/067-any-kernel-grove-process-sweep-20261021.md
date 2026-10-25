@@ -14,7 +14,7 @@ too please."
 `skills/new-pet-or-tool`. Log Lynx only records crashes, File Master only files, Startup Star only starts the farm's pets.
 
 **findastra/kernel-grove#3** (`claude/process-sweep-20261021`, 02e8da2; merged with Astra's OK in chat, 2026-10-21,
-9de73c0; the repo is private). Local copy: `%USERPROFILE%\Documents\Astra's Pet Apps\kernel-grove` (cloned
+9de73c0; the repo is private). Local copy: `%USERPROFILE%\Documents\Astra's PetOS\kernel-grove` (cloned
 2026-10-21; it was not on the PC).
 - `kernel-grove-20261021.cs` and `build-kernel-grove-20261021.ps1`: a native Windows window, built with the C# compiler
   that ships with Windows, compiling log-den's two contracts from `..\log-den\contracts`. Tabs: At a glance (numbered

@@ -20,7 +20,7 @@ proposal before any rewrite, and for everything to be read first.
   and paper-girl; and on Astra's PC: `gh` signed in as `findastra` only, the programs running from pet folders, and how
   each local pet repo reaches the hub (pictures, pages, build icons). Nothing on her PC was changed.
 - **Found:** run through the `Documents\Astra's PetOS` junction, the privatizer prints nothing and does nothing
-  (checked: through `Astra's Pet Apps` it prints its usage). Meme Fiend's own `pet.json` says private; `pets.json` and
+  (checked: through `Astra's PetOS` it prints its usage). Meme Fiend's own `pet.json` says private; `pets.json` and
   GitHub say public.
 - **Wrote:** the proposal, `docs/farm-owner-and-single-pets-20261019.md` (what is true today, Parts 1 to 4, what it would
   take, risks), and a private slide deck of nine questions for Astra:

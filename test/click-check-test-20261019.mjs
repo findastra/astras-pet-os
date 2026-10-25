@@ -142,7 +142,7 @@ test('reports name files by their place in the repo, never by a path on this com
 
 test('the report says which file to fix: the generator for generated pages, never the page itself', () => {
   assert.match(sourceFor('apps/pet-programs/chat-rat-20261018.html'), /^scripts\/pet-program-pages-20261018\.mjs/);
-  assert.match(sourceFor('apps/astras-pet-apps-20261008.html'), /build-interfaces-20261008\.mjs/);
+  assert.match(sourceFor('apps/astras-pet-os-20261008.html'), /build-interfaces-20261008\.mjs/);
   assert.match(sourceFor('apps/drum-dog-20261008.html'), /pet's own repo/);
   assert.equal(sourceFor('apps/beginner-guide-20261019.html'), 'apps/beginner-guide-20261019.html');
   assert.ok(defaultPages().some((p) => p.endsWith('pet-program-spawner-20261018.html')), 'it checks the spawner\'s list too');

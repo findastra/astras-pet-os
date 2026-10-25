@@ -1,4 +1,4 @@
-# Astra's Pet Apps publication record
+# Astra's PetOS publication record
 
 Release date: **2026-10-08, America/Denver**. Prepared for Astra by **OpenAI Codex (GPT-6)**.
 
@@ -10,20 +10,20 @@ The update reuses the verified BSOD image for fast geometry reads and dispatches
 
 The scoped read-only benchmark on this machine measured the old search at 7.93 ms median / 12.67 ms p95, versus 0.09 ms median / 0.21 ms p95 for a cached rectangle read. These figures measure query cost while the mini is stationary, not perceived drag latency or a display frame guarantee.
 
-Patch source tag: `v0.2.1-20261008`. The rebuilt companion was restarted and verified as the only live Farmer, with continuous tracking active. Cached child-movement, fixed-size, duplicate-image and hidden-image checks passed; the 36 Cage tests and registry check also passed. Independent review found no blocking issues. The owner’s perceived drag smoothness has not yet been confirmed. Source commit `64ae43a228c0c9b69d876f448542fb4a995cb06f` and its annotated tag were pushed and verified remotely. [GitHub pre-release](https://github.com/findastra/astras-pet-apps/releases/tag/v0.2.1-20261008) was published and verified. The original 0.2.0 publication below is preserved as a separate immutable release.
+Patch source tag: `v0.2.1-20261008`. The rebuilt companion was restarted and verified as the only live Farmer, with continuous tracking active. Cached child-movement, fixed-size, duplicate-image and hidden-image checks passed; the 36 Cage tests and registry check also passed. Independent review found no blocking issues. The owner’s perceived drag smoothness has not yet been confirmed. Source commit `64ae43a228c0c9b69d876f448542fb4a995cb06f` and its annotated tag were pushed and verified remotely. [GitHub pre-release](https://github.com/findastra/astras-pet-os/releases/tag/v0.2.1-20261008) was published and verified. The original 0.2.0 publication below is preserved as a separate immutable release.
 
 ## Original 0.2.0 source and deployment
 
 | Field | Recorded state |
 |---|---|
-| Official name | Astra's Pet Apps |
+| Official name | Astra's PetOS |
 | Version | `0.2.0-20261008` |
 | Exact source tag | `v0.2.0-20261008` — pushed and remotely verified |
 | Source commit | `1df0f2d57ed8f6ee8d166ebc988cfa95abe9d0c8` |
-| GitHub destination | [findastra/astras-pet-apps](https://github.com/findastra/astras-pet-apps) — private repository created and verified |
-| Version source link | [v0.2.0-20261008](https://github.com/findastra/astras-pet-apps/tree/v0.2.0-20261008) — exact pushed source; collaborators only |
+| GitHub destination | [findastra/astras-pet-os](https://github.com/findastra/astras-pet-os) — private repository created and verified |
+| Version source link | [v0.2.0-20261008](https://github.com/findastra/astras-pet-os/tree/v0.2.0-20261008) — exact pushed source; collaborators only |
 | Source upload | Verified: remote main and peeled annotated tag matched the source commit |
-| GitHub Release | [Published pre-release](https://github.com/findastra/astras-pet-apps/releases/tag/v0.2.0-20261008) — verified in GitHub |
+| GitHub Release | [Published pre-release](https://github.com/findastra/astras-pet-os/releases/tag/v0.2.0-20261008) — verified in GitHub |
 | Platform | Static browser app, entry `cage.html` |
 | Hosted deployment | Local browser preview verified; no new hosted app deployment |
 | Local verification | Registry check passed; 36 automated tests passed, including original Chip pixel checks and all 18 interface paths; rendered roster visually inspected |

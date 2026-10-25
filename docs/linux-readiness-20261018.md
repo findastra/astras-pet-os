@@ -82,7 +82,7 @@ job that needs a Windows-only program, 5 need small changes, 4 are Windows-only,
   settings key for the Star's position and whether the pets are out.
 - Named `EventWaitHandle`s (show, quit, check, toggle-star, line-up) and a named `Mutex`, so only one copy runs and
   `--quit` and the shortcuts can signal it.
-- `System.Web.Script.Serialization` (JSON in .NET Framework only), `%LOCALAPPDATA%\astras-pet-apps\` for the status
+- `System.Web.Script.Serialization` (JSON in .NET Framework only), `%LOCALAPPDATA%\astras-pet-os\` for the status
   file.
 - The dock tracker (`scripts/pet-dock-tracker-20261011.cs`) finds the Codex desktop app's mini window (a Windows
   Store package named `OpenAI.Codex_…`) and its avatar button, so the pets can dock to it, with UI Automation
@@ -106,7 +106,7 @@ desktop-pets program's `--install-startup` (the registry `Run` key); records SHA
 
 **Startup Star** (`findastra/startup-star`): PowerShell and VBScript, the Windows Startup folder
 (`Astras PetOS Live Sync.vbs`), the scheduled task "Astras PetOS Startup Star" (sign-in and unlock), Start menu
-shortcuts, and a log in `%LOCALAPPDATA%\astras-pet-apps\`.
+shortcuts, and a log in `%LOCALAPPDATA%\astras-pet-os\`.
 
 ## The desktop-pet problem on Linux
 

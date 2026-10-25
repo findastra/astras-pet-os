@@ -16,7 +16,7 @@ asked: "Check that it worked and that the profile round can read it."
   `952df18`** with Astra's OK (`npm test` 305 tests, 304 pass, 1 skipped). A second copy of the same fix, #202 from
   another chat, was closed by its chat.
 - **The profile round** (findastra/findastra, `.github/workflows/farmer-profile-round.yml`, daily at 12:47 UTC) checks
-  the hub out under its old name `astras-pet-apps`; GitHub redirects it, and a signed-out `git ls-remote` of it works
+  the hub out under its old repo name; GitHub redirects it, and a signed-out `git ls-remote` of it works
   now. But a dry run on a copy of the profile README stopped with `No "pet apps" or "PetOS" section`: on 2026-10-20 at
   00:14 Denver two edits on GitHub (`22db404`, `665153e`) took the numbered pet list (174 lines) and the Astra's PetOS
   section (16 lines) off the profile.

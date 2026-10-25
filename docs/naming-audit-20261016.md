@@ -9,7 +9,7 @@
 | GitHub | All 93 repos under `findastra`, the `pet.json` in each, and every branch of `astras-pet-os` (41 branches) | ✅ |
 | `pet-programs.json` and `pets.json` | `main` and the Codex branches (`world-caretakers`, `yellow-phone`, `findastra-readme-auditor`, `identity-bound-access`) | ✅ |
 | Saved AI conversations on Astra's PC | 65 conversations in `Documents\Chats` (Chat Rat's archive): Codex (GPT-5.6, GPT-6, GPT-6.1) and Claude Code (Opus, Sonnet, Haiku), 2026-08-31 to 2026-10-16 17:10, plus `conversation-discord-presence-20261014.txt`. I read every message Astra wrote about pets and every answer she gave to a naming question | ✅ |
-| Pet folders on the PC | `Documents\Astra's Pet Apps` (41 folders), `Documents\ChatGPT`, `Documents\Codex` | ✅ |
+| Pet folders on the PC | `Documents\Astra's PetOS` (41 folders), `Documents\ChatGPT`, `Documents\Codex` | ✅ |
 | **Not covered** | ChatGPT phone and web chats (Intel Owl came from one), claude.ai chats, and Codex sessions after Chat Rat's last save (17:10 on 2026-10-16). Chat Rat cannot save these yet, and access to `.codex` was not granted | ⚠️ Not verified |
 
 ## Total

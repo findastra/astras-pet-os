@@ -29,13 +29,13 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-apps/blob/main/handoffs/008-farmer-register-new-placeholders.md>, <https://github.com/findastra/astras-pet-apps>.
+- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-os/blob/main/handoffs/008-farmer-register-new-placeholders.md>, <https://github.com/findastra/astras-pet-os>.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 8 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 8 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: audit block copied from the registry.
 - README: the stale "Not in the Cage yet ... card 008" line now says it is a pipeline pet in pets.json (card 008 is an old dropped draft).
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 2 in AGENTS.md, README.md. pet.json: audit block from the registry. README: the stale card 008 line now says it is a pipeline pet. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.

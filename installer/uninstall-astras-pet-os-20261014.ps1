@@ -5,7 +5,7 @@
 .DESCRIPTION
     Stops the desktop pets, removes the start-with-Windows entry, the Start menu shortcuts and the install folder.
     It only deletes a folder that ends in 'astras-pet-os' and holds an install-receipt.json, so it cannot remove
-    anything else. Settings the desktop pets saved in %LOCALAPPDATA%\astras-pet-apps are kept unless you add -RemoveSettings.
+    anything else. Settings the desktop pets saved in %LOCALAPPDATA%\astras-pet-os are kept unless you add -RemoveSettings.
     The code that pet packs brought (Part 5b of card 058): each folder the farm lock lists next to the install is removed
     only when every file in it is still the one the Friendly Farmer put there; a changed folder is kept and named.
 
@@ -73,5 +73,5 @@ if (Test-Path -LiteralPath $lockPath) {
 # The uninstaller lives inside the folder it removes, so it hands the last step to a short background command.
 $cmd = "Start-Sleep -Seconds 2; Remove-Item -LiteralPath '$($InstallDir.Replace("'", "''"))' -Recurse -Force"
 Start-Process -FilePath (Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList '-NoProfile', '-Command', $cmd -WindowStyle Hidden
-if ($RemoveSettings) { Remove-Item -LiteralPath (Join-Path $env:LOCALAPPDATA 'astras-pet-apps') -Recurse -Force -ErrorAction SilentlyContinue }
+if ($RemoveSettings) { Remove-Item -LiteralPath (Join-Path $env:LOCALAPPDATA 'astras-pet-os') -Recurse -Force -ErrorAction SilentlyContinue }
 Write-Host "Astra's PetOS was removed: its shortcuts, its start-with-Windows entry (if it had one) and $InstallDir are gone$(if ($RemoveSettings) { ', and its settings' } else { '; settings kept' })."

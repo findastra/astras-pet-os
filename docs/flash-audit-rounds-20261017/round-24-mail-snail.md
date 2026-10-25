@@ -31,13 +31,13 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-apps>, <https://github.com/findastra/astras-pet-apps/blob/main/handoffs/008-farmer-register-new-placeholders.md>.
+- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-os>, <https://github.com/findastra/astras-pet-os/blob/main/handoffs/008-farmer-register-new-placeholders.md>.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 10 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 10 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-12. That submission needs the Farmer and Astra.
 - pet.json: audit block copied from the registry.
 - README: the stale "Not in the Cage yet ... card 008" line now says it is a pipeline pet in pets.json (card 008 is an old dropped draft).

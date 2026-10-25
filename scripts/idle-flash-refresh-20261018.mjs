@@ -53,9 +53,9 @@ const SKIP_FILE = (p) => /^handoffs\//.test(p) || /^docs\/.*(handoff|publication
 const TEXT = /\.(md|json|html?|txt|yml|yaml|toml|svg)$/i;
 // Code files (js, mjs, cs, ps1...) are left alone: a name inside code can be behaviour (old-name detection, test fixtures). They are reported in the round cards instead.
 
-// A name followed by "-" or ".x" is a file name (apps/astras-pet-apps-20261008.html still exists in
+// A name followed by "-" or ".x" is a file name (an old page name can still exist in
 // the hub), and a name inside <script> can be a storage key, so both are left as they are.
-const OLD = '(astras-pet-apps|findastra-pet-apps)(?![-\\w]|\\.[a-z])';
+const OLD = '(findastra-pet-apps)(?![-\\w]|\\.[a-z])';
 function retireChunk(chunk, count) {
   if (HISTORY.test(chunk)) return chunk;
   let l = chunk;
@@ -64,7 +64,6 @@ function retireChunk(chunk, count) {
     swap(new RegExp(`findastra/${OLD}`, 'g'), 'findastra/astras-pet-os');
     swap(new RegExp(`\\b${OLD}`, 'g'), 'astras-pet-os');
   }
-  swap(/Astra(['’]|&#x27;|&#39;|&apos;|&rsquo;)s Pet Apps/g, (m, q) => `Astra${q}s PetOS`);
   swap(/Documents([\\/]+)Projects(?=[\\/])/g, (m, s) => `Documents${s}Astra's PetOS`);
   // A bare `Projects\astras-pet-os` (the hub's old folder, written short) is now `Astra's PetOS\astras-pet-os`.
   swap(/(?<![\w\\/])Projects([\\/]+)(?=astras-pet-os\b)/g, (m, s) => `Astra's PetOS${s}`);

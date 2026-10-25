@@ -47,7 +47,7 @@ program-72 next to `gpu-watch` and `busy-watch`. The pipeline node's id is `benc
 
 1. Done when this card merged: benchmark-rock#4, then #224 (Astra's OK in chat, 2026-10-23).
 2. The other chat: rebuild benchmark-rock#3 and hub #221 on top of them (above).
-3. After both merge: clone benchmark-rock into `Documents\Astra's Pet Apps` next to kernel-grove and log-den, build it,
+3. After both merge: clone benchmark-rock into `Documents\Astra's PetOS` next to kernel-grove and log-den, build it,
    and rebuild and restart Startup Star (read its current cards first) so Inference Iguana's menu shows.
 4. Astra tries the window herself. Not done yet.
 5. Pet art for Inference Iguana (costs money: waits on her OK).

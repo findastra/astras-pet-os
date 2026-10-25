@@ -237,11 +237,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "api-fairy-20261008.html: 2× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "api-fairy-20261008.html: 2× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "api-fairy-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -387,9 +387,9 @@
    },
    {
     "file": "api-fairy-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 2,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    },
    {
     "file": "src/Snapshot.cs",
@@ -661,11 +661,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "learn-python-20261008.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "learn-python-20261008.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "learn-python-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -748,9 +748,9 @@
   "stray": [
    {
     "file": "learn-python-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [],
@@ -827,11 +827,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "vrchat-ai-astra-20261008.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "vrchat-ai-astra-20261008.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "vrchat-ai-astra-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -971,9 +971,9 @@
   "stray": [
    {
     "file": "vrchat-ai-astra-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    },
    {
     "file": "vrchat-embodiment/HANDOFF-CLAUDE.md",
@@ -1517,11 +1517,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "paper-girl-20261008.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "paper-girl-20261008.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "paper-girl-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -1610,9 +1610,9 @@
   "stray": [
    {
     "file": "paper-girl-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [],
@@ -1697,11 +1697,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "file-master-20261008.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "file-master-20261008.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "file-master-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -1831,9 +1831,9 @@
    },
    {
     "file": "file-master-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [
@@ -1925,11 +1925,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "findastra-discord-presence-20261008.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "findastra-discord-presence-20261008.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "findastra-discord-presence-20261008.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -1955,41 +1955,41 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "openai-discord-presence/src/presence.js: 1× the retired name Astra's Pet Apps (e.g. \"Astra's Pet Apps\").",
+    "detail": "openai-discord-presence/src/presence.js: 1× the retired folder name.",
     "fix": {
      "type": "stray",
      "file": "openai-discord-presence/src/presence.js",
-     "what": "the retired name Astra's Pet Apps"
+     "what": "the retired folder name"
     }
    },
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "openai-discord-presence/src/presence.js: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "openai-discord-presence/src/presence.js: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "openai-discord-presence/src/presence.js",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "openai-discord-presence/test/project-name-test-20261011.js: 4× the retired name Astra's Pet Apps (e.g. \"Astra's Pet Apps\").",
+    "detail": "openai-discord-presence/test/project-name-test-20261011.js: 4× the retired folder name.",
     "fix": {
      "type": "stray",
      "file": "openai-discord-presence/test/project-name-test-20261011.js",
-     "what": "the retired name Astra's Pet Apps"
+     "what": "the retired folder name"
     }
    },
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "openai-discord-presence/test/project-name-test-20261011.js: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "openai-discord-presence/test/project-name-test-20261011.js: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "openai-discord-presence/test/project-name-test-20261011.js",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -2088,9 +2088,9 @@
   "stray": [
    {
     "file": "findastra-discord-presence-20261008.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    },
    {
     "file": "openai-discord-presence/DEVELOPMENT.md",
@@ -2106,27 +2106,27 @@
    },
    {
     "file": "openai-discord-presence/src/presence.js",
-    "what": "the retired name Astra's Pet Apps",
+    "what": "the retired folder name",
     "count": 1,
-    "sample": "Astra's Pet Apps"
+    "sample": "(old folder name)"
    },
    {
     "file": "openai-discord-presence/src/presence.js",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    },
    {
     "file": "openai-discord-presence/test/project-name-test-20261011.js",
-    "what": "the retired name Astra's Pet Apps",
+    "what": "the retired folder name",
     "count": 4,
-    "sample": "Astra's Pet Apps"
+    "sample": "(old folder name)"
    },
    {
     "file": "openai-discord-presence/test/project-name-test-20261011.js",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    },
    {
     "file": "openai-discord-presence/test/project-name-test-20261011.js",
@@ -4453,11 +4453,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "cage/README.md: 2× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "cage/README.md: 2× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "cage/README.md",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -4526,9 +4526,9 @@
   "stray": [
    {
     "file": "cage/README.md",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 2,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [
@@ -5027,11 +5027,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "scripts/draw-berry.mjs: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "scripts/draw-berry.mjs: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "scripts/draw-berry.mjs",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -5137,9 +5137,9 @@
   "stray": [
    {
     "file": "scripts/draw-berry.mjs",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [],
@@ -5370,11 +5370,11 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "index.html: 1× the retired repo name astras-pet-apps (e.g. \"astras-pet-apps\").",
+    "detail": "index.html: 1× the retired hub repo name.",
     "fix": {
      "type": "stray",
      "file": "index.html",
-     "what": "the retired repo name astras-pet-apps"
+     "what": "the retired hub repo name"
     }
    },
    {
@@ -5463,9 +5463,9 @@
   "stray": [
    {
     "file": "index.html",
-    "what": "the retired repo name astras-pet-apps",
+    "what": "the retired hub repo name",
     "count": 1,
-    "sample": "astras-pet-apps"
+    "sample": "(old hub repo name)"
    }
   ],
   "branches": [],

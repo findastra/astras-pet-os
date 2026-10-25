@@ -37,14 +37,14 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `mommys-20261008.html`, `pet.json`, `sprite-20261008.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `mommys-20261008.html`, `pet.json`, `sprite-20261008.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Manages Mommy's, the VRChat dance academy and entertainers club, for the Mommies. The pets are the twins from the Mommy's website, Astra and"
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 6 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, mommys-20261008.html, pet.json, sprite-20261008.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 6 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, mommys-20261008.html, pet.json, sprite-20261008.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - 2026-10-18 refresh: Brought up to date with main (1 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 

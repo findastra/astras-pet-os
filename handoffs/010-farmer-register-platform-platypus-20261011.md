@@ -7,7 +7,7 @@ needs: PET-FILES.md, pets.json, platform-platypus pet.json
 
 ## What I did
 
-- Made `%USERPROFILE%/Documents/Projects/platform-platypus` (now `%USERPROFILE%/Documents/Astra's PetOS/platform-platypus`; the PC folder is still named `Astra's Pet Apps` until it is renamed): `index.html` (the whole app, one file,
+- Made `%USERPROFILE%/Documents/Projects/platform-platypus` (now `%USERPROFILE%/Documents/Astra's PetOS/platform-platypus`): `index.html` (the whole app, one file,
   no dependencies), `pet.json` (with an `audit` block), `sprite.json`, `README.md` (credit line,
   "How to run it", "Limits"), `AGENTS.md`, `CLAUDE.md`, `LICENSE` (MIT, findastra), `.gitignore`.
 - Platform Platypus shows a page on iPhone SE, iPhone 16 Pro, Pixel 9, Galaxy S24, iPad mini and

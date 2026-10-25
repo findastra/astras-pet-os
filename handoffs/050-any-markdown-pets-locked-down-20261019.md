@@ -9,7 +9,7 @@ Astra, 2026-10-19: "A remote user tried to use the installation software to down
 the only pet program that was working was the platform platypus ... We need to make it so that computers under other
 security protocols can download these agents. On top of that, I couldn't read the JSON, so I had to rebuild this from
 scratch. The only files the user could give their computer was the markdown files." Her screenshots: a fresh farm
-with Platform Platypus, Mail Snail, Backup Beaver and Chat Rat, and on that computer a folder `astras-pet-apps-main`
+with Platform Platypus, Mail Snail, Backup Beaver and Chat Rat, and on that computer a folder `astras-pet-os-main`
 holding `cage.html`, `cage-data.js` and `start-farmer-dock-20261008.cmd`.
 
 What the screenshots show (from the repos, not guessed):

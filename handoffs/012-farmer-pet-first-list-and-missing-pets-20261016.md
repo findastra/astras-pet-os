@@ -23,7 +23,7 @@ flags repo-first ones; style doc updated. 48 of 48 tests pass.
 
 **findastra/findastra:** README regenerated with the new script (see the commit there).
 
-**Nothing on Astra's PC was changed.** Read only: `%USERPROFILE%\Documents\Astra's Pet Apps\workflow-whirlpool`.
+**Nothing on Astra's PC was changed.** Read only: `%USERPROFILE%\Documents\Astra's PetOS\workflow-whirlpool`.
 
 ## What pet-finder found (2026-10-16)
 - Fixed: Closet Cat (#45) pointed at a repo that does not exist.

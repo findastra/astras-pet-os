@@ -101,7 +101,7 @@ Every agent Astra uses, and what really limits it:
 ## One copy of each repo, always on GitHub (Astra, 2026-10-12)
 Work was being lost between assistants because every chat kept its own copy of the repos
 (`Documents\ChatGPT\...`, `Documents\Codex\<date>\...`) and some never pushed. From now on:
-1. **One working copy per repo on Astra's PC:** `%USERPROFILE%\Documents\Astra's PetOS\<repo>` (Astra, 2026-10-17; was `Documents\Projects`, then `Documents\Astra's Pet Apps`), named
+1. **One working copy per repo on Astra's PC:** `%USERPROFILE%\Documents\Astra's PetOS\<repo>` (Astra, 2026-10-17; was `Documents\Projects`, then `Documents\Astra's PetOS`), named
    exactly like the GitHub repo. Do not clone a second copy into a chat or dated folder. If your
    tool insists on its own workspace, push from it before you finish and say where it is.
 2. **Pull before you start** (`git fetch`, then fast-forward), and read the newest handoff.
@@ -139,7 +139,7 @@ Public credit is always **Astra**, never a legal name. Keep work information (in
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record each change in its own new file in `changes/` ("Changes are recorded in `changes/`" below), never as a new line here.
 
 ## What this is
-The hub for Astra's pet apps and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
+The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md` or `art/`. Run `npm run build`.

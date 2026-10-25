@@ -139,7 +139,7 @@ export function buildMarkdownFarm(facts, { inOneFile = false } = {}) {
     'program it builds, or downloaded `.zip` and `.json` files. That is the computer doing its job. **Do not try to get',
     'around it.** Use Astra\'s PetOS without installing anything:',
     '',
-    `1. **Open the pets in a browser.** The [Farmer's desk](${PAGES}/apps/astras-pet-apps-20261008.html), the`,
+    `1. **Open the pets in a browser.** The [Farmer's desk](${PAGES}/apps/astras-pet-os-20261008.html), the`,
     `   [System Map](${PAGES}/system-map-20261012.html) and every pet's program page below open in any browser,`,
     '   including on a phone or tablet. Nothing is installed.',
     `2. **Give the Markdown pets to an AI your organization allows.** Download [all-pets-${DATE}.md](${inOneFile ? `${BLOB}/${ALL}` : `all-pets-${DATE}.md`})`,

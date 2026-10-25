@@ -1,5 +1,5 @@
 status: open (step 3 waits on Astra's OK for one paid image)
-for: farmer (any assistant working on astras-pet-apps)
+for: farmer (any assistant working on astras-pet-os)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-09
 needs: PET-FILES.md "Adding a pet to the Cage", PET-WORDS.md, pets.json, scripts/generate-pets.mjs, findastra/rgbee
 ---

@@ -16,7 +16,7 @@
    *Next:* The title is a naming choice, so it was left alone. Rename the heading?
 2. ⚪ **A15 README and credit** — Missing. README has no "how to run it" section.  
    *Next:* Small README fix.
-3. ⚪ **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `learn-python-20261008.html`.  
+3. ⚪ **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `learn-python-20261008.html`.  
    *Next:* A line that tells history, a file name, or a name inside the page's script (a storage key), so it was kept; anything else here is for the pet's chat.
 4. ⚪ **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.

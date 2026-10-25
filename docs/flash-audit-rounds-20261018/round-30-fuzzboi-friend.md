@@ -10,7 +10,7 @@
 
 <sub>⚪ the Idle Flash Audit fixes it (a fix in code is named for the pet's chat) · 🔵 waits for your Active Flash Session</sub>
 
-1. ⚪ **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `cage/README.md`.  
+1. ⚪ **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `cage/README.md`.  
    *Next:* A line that tells history, a file name, or a name inside the page's script (a storage key), so it was kept; anything else here is for the pet's chat.
 2. ⚪ **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.

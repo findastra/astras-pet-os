@@ -17,7 +17,7 @@ const goodSnap = (over = {}) => ({
   files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE', 'app.html'],
   petJson: { pet: 'P', job: 'Does a thing.', entry: 'app.html', status: 'hatching' },
   readme: '# P\n\n*By Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
-  agents: 'Rules. The Cage is findastra/astras-pet-apps.', cards: [], ...over,
+  agents: 'Rules. The Cage is findastra/astras-pet-os.', cards: [], ...over,
 });
 const pet = (over = {}) => ({ repo: 'p', pet: 'P', job: 'Does a thing.', audit: { cadence: 'weekly', subject: 'my stuff', needs: 'a thing only you can do' }, ...over });
 
@@ -248,7 +248,7 @@ const profile = `<h2 align="center">Hi</h2>
 
 - [\`astras-infinite-pole\`](https://github.com/findastra/astras-infinite-pole) -- Astra's own words
 
-### Astra's Pet Apps
+### Astra's PetOS
 
 1. [\`astras-pet-os\`](https://github.com/findastra/astras-pet-os) -- **Friendly Farmer** · her blurb
 
@@ -269,7 +269,7 @@ test('profile round: numbered pets in Cage order, her blurbs kept, gone repos dr
   assert.ok(!/gone-repo/.test(text), 'a deleted repo is dropped');
   assert.match(text, /`secret` \*\(private\)\*/, 'a private line is kept');
   assert.ok(!/in the wrong place/.test(text.split("### Web & More")[1]), 'a pet is moved out of Web & More');
-  assert.match(text.split("### Astra's Pet Apps")[1], /\*\*\[RGBee\]\([^)]*rgbee\)\*\* -- in the wrong place/, 'and keeps its blurb in the pet list');
+  assert.match(text.split("### Astra's PetOS")[1], /\*\*\[RGBee\]\([^)]*rgbee\)\*\* -- in the wrong place/, 'and keeps its blurb in the pet list');
   assert.match(text.split('### VR & VRChat')[1].split('###')[0], /detour-into-vr.* -- takes detours into VR$/m);
   assert.match(text.split('### Web & More')[1], /tool-x.* -- a small tool$/m);
   assert.match(text, /\*\*Data Chip\*\*/, 'a private registered pet is listed unlinked');
@@ -281,8 +281,8 @@ test('profile round: numbered pets in Cage order, her blurbs kept, gone repos dr
 });
 
 test('profile round finds the pet list under the Astra\'s PetOS heading too', () => {
-  const renamed = profile.replace(/^(#{2,4} ).*[Pp]et [Aa]pps.*$/m, "$1Astra's PetOS - Personal AI Agent Platform");
-  assert.notEqual(renamed, profile, 'the fixture has a pet apps heading to rename');
+  const renamed = profile.replace(/^(#{2,4} ).*PetOS.*$/m, "$1Astra's PetOS - Personal AI Agent Platform");
+  assert.notEqual(renamed, profile, 'the fixture has a PetOS heading to rename');
   assert.doesNotThrow(() => syncProfile(renamed, registry, online([])));
   // With every pet program: seeds and roadmap pets join the list (numbered by pet program), never "Web & More".
   const programs = [{ number: 1, program: 'The Farm', assigned: true, icon: 'Friendly Farmer', repo: 'astras-pet-os', mini_descriptor: { text: 'Organizes the pets.' } },
@@ -290,7 +290,7 @@ test('profile round finds the pet list under the Astra\'s PetOS heading too', ()
   const all = syncProfile(profile, registry, online([{ name: 'pet-program-47', private: false, description: 'Queue Quokka' }]), programs);
   assert.match(all.text, /^47\. \*\*\[Queue Quokka\]\([^)]*\)\*\* -- tasks: watches retries\n    - \[`pet-program-47`\]\([^)]*\) -- pet program, not named yet$/m, 'same-name home and repo share one sub-bullet');
   assert.match(all.text, /^1\. \*\*\[Friendly Farmer\]\([^)]*\)\*\* -- organizes the pets\n   - (?:\[`the-farm`\]\([^)]*\)|`the-farm`) -- the pet program\n/m, 'pet and job, then its home as the first sub-bullet');
-  const others = all.text.split("### Astra's Pet Apps")[0] + (all.text.split('### Web & More')[1] || '');
+  const others = all.text.split("### Astra's PetOS")[0] + (all.text.split('### Web & More')[1] || '');
   assert.doesNotMatch(others, /pet-program-47/, 'a pet program never lands in another section');
   assert.deepEqual(syncProfile(all.text, registry, online([{ name: 'pet-program-47', private: false, description: 'Queue Quokka' }]), programs).changes, [], 'a second run changes nothing');
 });

@@ -14,7 +14,7 @@
    *Next:* Your pick: see Decisions.
 2. **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (the Raspberry Pi itself) but the page has no Third Party Programs row.  
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
-3. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `scripts/draw-berry.mjs`.  
+3. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `scripts/draw-berry.mjs`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 4. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
@@ -35,12 +35,12 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`.
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 8 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 8 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-13. That submission needs the Farmer and Astra.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 2 in README.md. Not changed: the pet submitted its own job on 2026-10-13; that waits on the Farmer and Astra. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 

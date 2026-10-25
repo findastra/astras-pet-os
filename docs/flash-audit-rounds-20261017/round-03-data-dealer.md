@@ -35,14 +35,14 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`, `pet.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Data Dealer's pixel twin."
 - **A16 pet.json** — pet.json has no audit block (the registry has one).
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 4 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, pet.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 4 replacement(s) in AGENTS.md, README.md, desktop-pet-20261011.json, pet.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 1 in AGENTS.md. pet.json: audit block from the registry. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.
 

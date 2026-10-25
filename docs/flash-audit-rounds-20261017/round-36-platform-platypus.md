@@ -10,7 +10,7 @@
 
 ### Exceptions
 
-1. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `index.html`.  
+1. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `index.html`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 2. **A55 Pictures** — Missing. README shows 1 picture(s).  
    *Next:* Needs real pictures of the program working (you take some: card 026).

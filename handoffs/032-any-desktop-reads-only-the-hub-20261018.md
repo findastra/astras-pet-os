@@ -13,7 +13,7 @@ needs: docs/one-art-source-20261017.md, PET-FILES.md ("Where the pictures live")
   `scripts/prepare-desktop-drafts-20261011.mjs` and guarded by `test/desktop-drafts-test-20261018.mjs`.
   - Why: the Startup Star session showed on 2026-10-18 that a program started inside the Claude or Codex app reads and
     writes that app's private copy of `%LOCALAPPDATA%` (`%LOCALAPPDATA%\Packages\Claude_…\LocalCache\Local\…`; Codex
-    has its own). The real `%LOCALAPPDATA%\astras-pet-apps` has no draft list, so the star Windows starts at sign-in
+    has its own). The real `%LOCALAPPDATA%\astras-pet-os` has no draft list, so the star Windows starts at sign-in
     shows only the 21 hub pets. Agents cannot write the real one.
   - The hub folder is in Documents, which is not redirected, so every star now reads the same list.
 - **Changed `scripts/desktop-pets-20261011.cs`:**
@@ -30,7 +30,7 @@ needs: docs/one-art-source-20261017.md, PET-FILES.md ("Where the pictures live")
   in the old list) lives only in the Claude app's private copy of `%LOCALAPPDATA%`. The new list does not use it.
   - The four public pets' copies there are byte-identical to the hub's.
 - **Astra copied the old list herself, 2026-10-18 02:24** (Startup Star session's script, run from her own PowerShell).
-  The real `%LOCALAPPDATA%\astras-pet-apps\` now holds Claude's copy of the old draft list (temporary pointer
+  The real `%LOCALAPPDATA%\astras-pet-os\` now holds Claude's copy of the old draft list (temporary pointer
   included), `drafts-20261011\` and `folder-icons\`. The scheduled task "Astras PetOS Startup Star" (sign-in and
   unlock) starts the real star, which shows 36 pets including the 16 drafts. Until the rebuild, the current exe keeps
   using that copy. After the rebuild, the hub's list wins.
@@ -59,10 +59,10 @@ there):
    - While pet PRs are open, it lists their copies.
    - Once they are all merged, it must say Correct, with only Claude Bot's exception.
 5. **Tell Astra** which folders are no longer used, so she may delete them. Agents never delete.
-   - The real `%LOCALAPPDATA%\astras-pet-apps\`: the old `desktop-drafts-*.json`, `drafts-20261011\` and
+   - The real `%LOCALAPPDATA%\astras-pet-os\`: the old `desktop-drafts-*.json`, `drafts-20261011\` and
      `desktop-art-main-20261018\`. Keep `folder-icons\` (desktop.ini uses it) and the status and log files.
-   - `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\astras-pet-apps\` holds the same old files.
-   - Any of the same names under Codex's `Packages\OpenAI.Codex_…\LocalCache\Local\astras-pet-apps\`.
+   - `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\astras-pet-os\` holds the same old files.
+   - Any of the same names under Codex's `Packages\OpenAI.Codex_…\LocalCache\Local\astras-pet-os\`.
 
 ## Done when
 

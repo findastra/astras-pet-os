@@ -20,7 +20,7 @@ program it builds, or refuse downloaded `.zip` and `.json` files. That is the co
 get around it**, and ask your IT team before installing anything on a computer that is not yours. You can still use
 Astra's PetOS with nothing to install (Astra, 2026-10-19):
 
-1. **Open the pets in a browser.** The [Farmer's desk](https://findastra.github.io/astras-pet-os/apps/astras-pet-apps-20261008.html),
+1. **Open the pets in a browser.** The [Farmer's desk](https://findastra.github.io/astras-pet-os/apps/astras-pet-os-20261008.html),
    the [System Map](https://findastra.github.io/astras-pet-os/system-map-20261012.html) and every pet's program page
    open in any browser, including on a phone or tablet.
 2. **Give the Markdown pets to an AI your organization allows.** **[markdown-pets](markdown-pets/README.md)** has

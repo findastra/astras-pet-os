@@ -35,8 +35,8 @@ the checks themselves take about an hour.
 
 ### Fixed without asking (blatant)
 
-- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): `Astra's Pet Apps`
-  -> `Astra's PetOS`, `astras-pet-apps` / `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
+- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): `Astra's PetOS`
+  -> `Astra's PetOS`, `astras-pet-os` / `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
   `Documents\Astra's PetOS`. Lines that tell history ("was", "renamed", "formerly") keep the old name.
 - Links to renamed repos (GitHub redirects them, but the current name is correct).
 - `pet.json` catching up with the registry (`pets.json`) and the one list of names (`pet-programs.json`): pet name,
@@ -88,7 +88,7 @@ $hub = "$env:USERPROFILE\Documents\Astra's PetOS\astras-pet-os"
    builds the System Map from the hub; its list-wide findings (a pet with no number, two pets on one program) go on
    the Farmer's round card, #1 (add `1` to the numbers to include it).
 3. **Look for false alarms** in the ledger before fixing anything. Examples from the first run: test fixtures
-   that use a made-up user folder (`you`) are not personal paths; a hub page whose file name still says `astras-pet-apps` must keep
+   that use a made-up user folder (`you`) are not personal paths; a hub page whose file name still says `astras-pet-os` must keep
    its name.
 4. **Dry run the fixer** and read every change:
    `node "$hub\scripts\idle-flash-fix-20261017.mjs" audit\ledger.json --dry`, then

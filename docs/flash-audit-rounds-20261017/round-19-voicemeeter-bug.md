@@ -33,12 +33,12 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`.
-- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-apps>, <https://github.com/findastra/astras-pet-apps/blob/main/PET-FILES.md>.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `CLAUDE.md`, `README.md`, `desktop-pet-20261011.json`.
+- **A31 Links** — 2 links point at the old hub name or a missing file: <https://github.com/findastra/astras-pet-os>, <https://github.com/findastra/astras-pet-os/blob/main/PET-FILES.md>.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 9 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 9 replacement(s) in AGENTS.md, CLAUDE.md, README.md, desktop-pet-20261011.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - Not changed: pet.json job differs from the registry, and the pet submitted a job to the Farmer on 2026-10-11. That submission needs the Farmer and Astra.
 - 2026-10-18 refresh: Brought up to date with master (3 new commit(s) there); master's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as master deleted it. Not changed: the pet submitted its own job on 2026-10-11; that waits on the Farmer and Astra. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 

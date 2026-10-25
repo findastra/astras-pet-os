@@ -14,7 +14,7 @@
 
 1. **A54 Third-party programs** — Missing. INTELLIGENCE-LEVELS lists programs made by others (Everything, SpaceSniffer) but the page has no Third Party Programs row.  
    *Next:* The Intelligence Levels table lists programs made by others that the page does not show (or the other way round): match them.
-2. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `agent/file-master.md`, `file-master-20261008.html`.  
+2. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `agent/file-master.md`, `file-master-20261008.html`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 3. **A17 Git branches** — Incorrect. 2 branch(es) with work not on main and no open pull request: codex/l3-activity-20261016 (+2), codex/yellow-phone-20261015 (+1).  
    *Next:* See Decisions: open a pull request, merge, or leave each branch.
@@ -34,13 +34,13 @@
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
 - **A15 README and credit** — README has no Limits section.
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `README.md`, `desktop-pet-20261011.json`.
 - **A16 pet.json** — Metadata: audit cadence pet.json has no audit block (the registry has one).
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Keeps a Windows PC organized: read-only audits and approval-based cleanup plans with undo. Never deletes."
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 13 replacement(s) in AGENTS.md, README.md, agent/file-master.md, desktop-pet-20261011.json, file-master-20261008.html (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 13 replacement(s) in AGENTS.md, README.md, agent/file-master.md, desktop-pet-20261011.json, file-master-20261008.html (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - README: added a Limits section from INTELLIGENCE-LEVELS.md.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 3 in AGENTS.md, file-master-20261008.html. README: Limits section from INTELLIGENCE-LEVELS.md. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 1 change(s) in README.md. Art prompts and provenance notes keep their wording.

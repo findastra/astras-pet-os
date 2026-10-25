@@ -12,7 +12,7 @@
 
 ### Exceptions
 
-1. **A57 Current names only** — Incorrect. Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `README.md`, `api-fairy-20261008.html`, `src/Snapshot.cs`, `tests/Tests.cs`.  
+1. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `README.md`, `api-fairy-20261008.html`, `src/Snapshot.cs`, `tests/Tests.cs`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 2. **A55 Pictures** — Missing. README shows 1 picture(s).  
    *Next:* Needs real pictures of the program working (you take some: card 026).
@@ -30,13 +30,13 @@
 
 ### Fixed tonight (in the fix PR, waiting for your merge)
 
-- **A57 Current names only** — Retired names (Astra's Pet Apps, astras-pet-apps, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `desktop-pet-20261011.json`, `pet.json`, `sprite-20261008.json`.
+- **A57 Current names only** — Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `AGENTS.md`, `desktop-pet-20261011.json`, `pet.json`, `sprite-20261008.json`.
 - **A16 pet.json** — pet.json job differs from the registry. pet.json: "Lives in the corner of the Windows desktop and keeps notes about your API keys, never the keys themselves."
-- **A31 Links** — Broken link https://github.com/findastra/astras-pet-apps: repo renamed: astras-pet-apps is now astras-pet-os.
+- **A31 Links** — Link to the hub under its old repo name: repo renamed to astras-pet-os.
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 6 replacement(s) in AGENTS.md, api-fairy-20261008.html, desktop-pet-20261011.json, pet.json, sprite-20261008.json (astras-pet-apps / findastra-pet-apps -> astras-pet-os, Astra's Pet Apps -> Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 6 replacement(s) in AGENTS.md, api-fairy-20261008.html, desktop-pet-20261011.json, pet.json, sprite-20261008.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry.
 - 2026-10-18 refresh: Brought up to date with main (4 new commit(s) there); where both changed a line, main's version was kept and the fixes below were applied again on top. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 2 change(s) in AGENTS.md, README.md. Art prompts and provenance notes keep their wording.
 

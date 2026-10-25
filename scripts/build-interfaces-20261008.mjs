@@ -7,10 +7,10 @@ import { ownerOf } from './farm-owner-20261020.mjs';
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
 const art = JSON.parse(readFileSync('art/frames/index.json', 'utf8'));
-// The manager is the Farmer's desk. Its file name and browser-storage key keep the old repo name (astras-pet-apps) so saved
-// notes survive the 2026-10-12 rename; the pet is found by role, never by repo name. Claude Opus 5.5, 2026-10-17.
+// The manager is the Farmer's desk; the pet is found by role, never by repo name. Its file name and browser-storage key
+// use the hub's name since 2026-10-25 (Astra: no old name anywhere); notes saved under the earlier key move over once.
 export const configs = [
-  { repo: 'astras-pet-apps', host: true, type: 'manager', title: "Astra's PetOS", subtitle: 'The Farmer’s desk', lead: 'Open your apps, review what needs attention, and keep a small follow-up list.', accent: '#dbe870', limit: 'App availability comes from the registry. Follow-up flags are your personal notes.' },
+  { repo: 'astras-pet-os', host: true, type: 'manager', title: "Astra's PetOS", subtitle: 'The Farmer’s desk', lead: 'Open your apps, review what needs attention, and keep a small follow-up list.', accent: '#dbe870', limit: 'App availability comes from the registry. Follow-up flags are your personal notes.' },
   { repo: 'api-fairy', type: 'keys', title: 'API Fairy', subtitle: 'Key metadata notebook', lead: 'Remember where a key lives, what uses it, and when you want to review it.', accent: '#c8a1f4', limit: 'Store names and locations only. This browser notebook does not read or watch your keys. The existing Windows app provides that separate functionality.' },
   { repo: 'learn-python', type: 'python', title: 'Python Panther', subtitle: 'A small practice desk', lead: 'Read a tiny Python example, predict its output, then check your answer.', accent: '#c7df66', limit: 'These exercises check expected answers locally. This page does not execute Python code.' },
   { repo: 'the-astral-plane', file: 'vrchat-ai-astra', type: 'vrchat', title: 'Astra Wisp', subtitle: 'VRChat AI Astra · readiness desk', lead: 'Prepare an embodiment session and keep track of the steps you have actually checked.', accent: '#acb2ff', limit: 'The existing AI Astra app runs through Electron and Python. This browser companion does not connect to the backend, change learned memory, or send VRChat messages.' },
@@ -21,8 +21,9 @@ export const configs = [
 
 function clientMain() {
   const cfg = window.APP_CONFIG, main = document.querySelector('main'), feedback = document.querySelector('#feedback');
-  const key = 'astras-pet-apps:' + cfg.repo + ':interface:v1';
+  const key = 'astras-pet-os:' + cfg.repo + ':interface:v1';
   let state = { rows: [], checks: {}, notes: '', solved: [], flags: {} }, editing = null;
+  try { const before = key.replace('astras-pet-os:', 'astras-pet-apps:'); if (!localStorage.getItem(key) && localStorage.getItem(before)) { localStorage.setItem(key, localStorage.getItem(before)); localStorage.removeItem(before); } } catch {}
   try { const found = JSON.parse(localStorage.getItem(key)); if (found && typeof found === 'object') state = { ...state, ...found }; } catch {}
   const h = (tag, text, cls, parent) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; if (parent) parent.append(e); return e; };
   const say = (message) => { feedback.textContent = message; };
