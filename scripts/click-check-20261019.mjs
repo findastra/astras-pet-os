@@ -832,7 +832,8 @@ function freshEvents() {
 
 /**
  * What a click did, from what the browser saw and what the page recorded, leaving out what any click anywhere on the
- * page does (the page's own reaction to being used, its timers): `noise` is { paths: Set, values: Map }.
+ * page does (the page's own reaction to being used, its timers): `noise` is { paths: Set, values: Map, farmData?: Set
+ * of file addresses, without ?query, the page reads on the farm only }.
  */
 export function judge(raw, noise) {
   const { item, after, ev } = raw;
@@ -854,7 +855,11 @@ export function judge(raw, noise) {
   if (jump && after.hashFound === false && !dom.length && !after.storage.length) return { verdict: 'dead-end', why: `it jumps to #${jump}, which is not on the page`, effects };
   // What the click asked for and did not get: missing (404) is a dead end; refused or limited (403, 429, 5xx) is
   // not proof, the same as for a link.
-  const failed = ev.failed.filter((f) => f.during);
+  // A file the page reads on Astra's PC only (outside the repo, already noted when the page opened) is the page's own
+  // timer reading it again, not the click: Rift Rabbit's page reloads its program lights every five seconds, and the
+  // same file with a fresh ?t= was blamed on whichever button was clicked then (2026-10-25).
+  const farmData = noise.farmData || new Set();
+  const failed = ev.failed.filter((f) => f.during && !farmData.has(String(f.url).split('#')[0].split('?')[0]));
   if (failed.length) {
     const status = /^\d+$/.test(failed[0].text) ? Number(failed[0].text) : 0;
     const c = status ? classifyHttp({ status }) : { verdict: 'dead-end' };
@@ -984,7 +989,8 @@ export async function checkPage(browser, pageAbs, ctx) {
     }
 
     // What the page does by itself, and what any click anywhere does: never counted for a button.
-    const noise = { paths: new Set(await tab.evaluate('__cc.noise(3800)', 10000).catch(() => [])), values: new Map() };
+    const noise = { paths: new Set(await tab.evaluate('__cc.noise(3800)', 10000).catch(() => [])), values: new Map(),
+      farmData: new Set(first.seen.failed.filter((f) => f.url.startsWith('file:') && !inRepo(f.url)).map((f) => f.url.split('#')[0].split('?')[0])) };
     const spot = await tab.evaluate('__cc.controlPoint()').catch(() => null);
     if (spot) {
       const before = await tab.evaluate('__cc.tops()').catch(() => []);

@@ -1927,9 +1927,9 @@
     },
     {
       "editorial": {
-        "says": "Live lights and the launch panel are in. Next: the cyberhome drawing, the Launch buttons, the watch at sign-in.",
+        "says": "The Launch buttons work: they ask Rift Rabbit’s own launcher on this PC, and Space Override and Space Sync are installed. Next: a launch in the headset, DoubleHip DoubleChest Tracker’s pairs, the launcher at sign-in, the cyberhome drawing.",
         "by": "Claude Opus 5.5",
-        "on": "2026-10-23"
+        "on": "2026-10-25"
       },
       "checks": {
         "third-party:steamvr": {
@@ -2083,13 +2083,13 @@
           "on": "2026-10-24"
         },
         "tool:vrchat-launch-quest-pro": {
-          "result": "issues",
-          "note": "The switches and notes work; its Launch buttons do not start anything yet (the launcher is in hub #239, not merged).",
+          "result": "works",
+          "note": "The switches and notes work. Launch asks Rift Rabbit's own launcher on this PC (findastra/rift-rabbit#8 and hub #239, merged 2026-10-24). Launch 1.0 and 1.1 reached the headset step; SteamVR onward is not tried in the headset yet.",
           "on": "2026-10-24"
         },
         "tool:vrchat-launch-quest-3": {
-          "result": "issues",
-          "note": "The switches and notes work; its Launch buttons do not start anything yet (the launcher is in hub #239, not merged).",
+          "result": "works",
+          "note": "The switches and notes work. Launch asks Rift Rabbit's own launcher on this PC (findastra/rift-rabbit#8 and hub #239, merged 2026-10-24). Launch 2.0 reached the headset step; SteamVR onward is not tried in the headset yet.",
           "on": "2026-10-24"
         },
         "chat:rift-rabbit": {
@@ -2114,13 +2114,13 @@
           "latest": "1.2.0"
         },
         "third-party:space-override": {
-          "result": "missing",
-          "note": "Not installed on this PC. Its newest release on GitHub (github.com/Nyabsi/OpenVR-SpaceOverride) is v10.0.0.",
+          "result": "works",
+          "note": "Installed 2026-10-24 from its GitHub release (v10; the checksum matches GitHub’s) and registered as a SteamVR driver; its add-on stays off until mode x.2 turns it on. No update waiting.",
           "on": "2026-10-24"
         },
         "third-party:space-sync": {
-          "result": "missing",
-          "note": "Not installed on this PC. Its newest release on GitHub (github.com/shinyflvre/OpenVR-SpaceSync) is v2.5.0.",
+          "result": "works",
+          "note": "Installed 2026-10-24 from its GitHub release (2.5.0; the checksum matches GitHub’s) and registered as a SteamVR driver; its add-on stays off until mode x.3 turns it on. No update waiting.",
           "on": "2026-10-24"
         },
         "trick:update-audit": {
@@ -2131,6 +2131,16 @@
         "tool:update-audit-tool": {
           "result": "works",
           "note": "Ran on this PC on 2026-10-24 and read every program it lists.",
+          "on": "2026-10-24"
+        },
+        "tool:vr-launch": {
+          "result": "works",
+          "note": "Launch asks Rift Rabbit's own launcher on this PC (findastra/rift-rabbit#8 and hub #239, merged 2026-10-24). Launch 1.0, 1.1 and 2.0 ran the add-on step, opened Virtual Desktop and waited at the headset step; Stop works. SteamVR onward is not tried in the headset yet.",
+          "on": "2026-10-24"
+        },
+        "third-party:object-track-vr": {
+          "result": "missing",
+          "note": "Not out yet: Steam lists Object Track VR as coming soon, so there is nothing to install.",
           "on": "2026-10-24"
         }
       },
@@ -2771,6 +2781,21 @@
             "node": "unity-hub",
             "how": "optional",
             "why": "program-watch shows whether it is open, and closes it the way its window's X does (moved from Kernel Grove, 2026-10-23)."
+          },
+          {
+            "node": "space-override",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
+          },
+          {
+            "node": "space-sync",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
+          },
+          {
+            "node": "voicemeeter",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
           }
         ]
       }

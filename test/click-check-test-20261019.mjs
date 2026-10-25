@@ -94,6 +94,15 @@ test('a click only counts for what it did itself, not what any press on the page
   const thrown = raw({});
   thrown.ev.exceptions.push('TypeError: x');
   assert.equal(judge(thrown, noise).verdict, 'throws');
+  // The page's own timer reading farm data again (a fresh ?t=) is never the click's dead end (2026-10-25); a missing
+  // file the click itself asks for still is.
+  const farm = { ...noise, farmData: new Set(["file:///C:/Astra's%20PetOS%20Data/benchmark-rock/programs-page-data.js"]) };
+  const timer = raw({ 'main>details:2@open': '' });
+  timer.ev.failed.push({ during: true, url: "file:///C:/Astra's%20PetOS%20Data/benchmark-rock/programs-page-data.js?t=1792925716156", text: 'not found' });
+  assert.equal(judge(timer, farm).verdict, 'ok', 'the timer\'s farm data is not the click\'s');
+  const missing = raw({});
+  missing.ev.failed.push({ during: true, url: 'file:///p/missing.png', text: 'not found' });
+  assert.equal(judge(missing, farm).verdict, 'dead-end', 'a missing file the click asks for is still a dead end');
   const hash = raw({});
   hash.item = { tag: 'a', href: '#' };
   hash.after.href = 'file:///p.html#';

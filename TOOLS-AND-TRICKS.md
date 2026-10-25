@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-249 rows: 12 native programs, 121 native tools, 18 native tricks, 98 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+252 rows: 12 native programs, 121 native tools, 18 native tricks, 101 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -287,29 +287,29 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |
 | 29 | Rift Rabbit | Wonderland Launchpad | native tool | update-audit | `wonderland-launchpad-v0.1-update-audit-v1.0` | Works today |
-| 29 | Rift Rabbit | Wonderland Launchpad | native tool | VR launch | `wonderland-launchpad-v1.0-vr-launch-v1.0` | Planned |
+| 29 | Rift Rabbit | Wonderland Launchpad | native tool | vr-launch | `wonderland-launchpad-v1.0-vr-launch-v1.0` | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | native trick | update-audit | `wonderland-launchpad-v0.1-update-audit-trick-v1.0` | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | DoubleHip DoubleChest Tracker |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Meta Horizon Link |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OSCGoesBrrr |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Advanced Settings |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Dynamic Resolution |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Smooth Tracking |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Calibrator |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Override |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Sync |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Steam |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | SteamVR |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Virtual Desktop |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Voicemeeter |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VRCFaceTracking |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VRChat |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Base Station FOV Viewer |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | BS Manager |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | DoubleHip DoubleChest Tracker |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Meta Horizon Link |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Object Track VR |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OSCGoesBrrr |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Advanced Settings |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Dynamic Resolution |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Pager |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Smooth Tracking |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | OVR Toolkit |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Calibrator |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Steam |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | SteamVR |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Virtual Desktop |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Voicemeeter |  | Planned |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VR Pole Overlay |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VRCFaceTracking |  | Planned |
-| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VRChat |  | Planned |
 | 30 | Fuzzboi Friend | Fuzzboi Factory | native program | Fuzzbois |  | Works today |
 | 30 | Fuzzboi Friend | Fuzzboi Factory | third-party program | GitHub |  | Works today |
 | 32 | Deck Duck | Deck Pond | third-party program | Elgato Stream Deck |  | Planned |
@@ -368,11 +368,14 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Smooth Tracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Toolkit |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Calibrator |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Space Override |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Space Sync |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Steam |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | SteamVR |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity 2022.3.22f1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity Hub 3.21.1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Virtual Desktop |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Voicemeeter |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VR Pole Overlay |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRCFaceTracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
