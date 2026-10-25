@@ -515,15 +515,15 @@
     },
     {
       "id": "vr-launch",
-      "name": "VR launch",
+      "name": "vr-launch",
       "type": "tool",
       "of": "program-29",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
       "label": "wonderland-launchpad-v1.0-vr-launch-v1.0",
-      "job": "A tool of Wonderland Launchpad, Rift Rabbit's pet program (Astra, 2026-10-24: \"Launching is done by Rift Rabbit\"): the launcher behind the Launch buttons on its VRChat setups. It switches SteamVR's Space Override and Space Sync add-ons for the mode, opens each program of the mode in her order through explorer.exe, waits for the headset, lights what Start VRChat waits for, and starts VRChat with her ignored trackers. A background program with no window or tray icon, listening on 127.0.0.1 only, with a code kept in Documents. In findastra/rift-rabbit#8, not merged."
+      "job": "A tool of Wonderland Launchpad, Rift Rabbit's pet program (Astra, 2026-10-24: \"Launching is done by Rift Rabbit\"): the launcher behind the Launch buttons on its VRChat setups. It switches SteamVR's Space Override and Space Sync add-ons for the mode, opens each program of the mode in her order through explorer.exe, waits for the headset, lights what Start VRChat waits for, and starts VRChat with her ignored trackers. A background program with no window or tray icon, listening on 127.0.0.1 only, with a code kept in Documents. Merged 2026-10-24 (findastra/rift-rabbit#8)."
     },
     {
       "id": "leftover-watch",
@@ -3406,15 +3406,15 @@
       "from": "vr-launch",
       "to": "space-override",
       "carries": "opens",
-      "state": "planned",
-      "why": "Its add-on switched on and its overlay opened in mode x.2 only (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Its add-on switched on and its overlay opened in mode x.2 only (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "space-sync",
       "carries": "opens",
-      "state": "planned",
-      "why": "Its add-on switched on and its overlay opened in mode x.3 only (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Its add-on switched on and its overlay opened in mode x.3 only (rift-rabbit#8)."
     },
     {
       "from": "rift-rabbit",
@@ -3434,8 +3434,8 @@
       "from": "vr-launch",
       "to": "voicemeeter",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened when the launch's Woojer vest switch is on: the vest plays what Voicemeeter sends it (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened when the launch's Woojer vest switch is on: the vest plays what Voicemeeter sends it (rift-rabbit#8)."
     },
     {
       "from": "rift-rabbit",
@@ -3455,85 +3455,106 @@
       "from": "vr-launch",
       "to": "virtual-desktop",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "meta-horizon-link",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "steam",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "steamvr",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "vrcft",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "ovr-advanced-settings",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "ovr-dynamic-resolution",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "space-calibrator",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in modes x.1, closed the way its X does in the others (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in modes x.1, closed the way its X does in the others (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "double-hip-tracker",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened after its Enable Hip / Enable Chest are set for her choice (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened after its Enable Hip / Enable Chest are set for her choice (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "ovr-smooth-tracking",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "oscgoesbrrr",
       "carries": "opens",
-      "state": "planned",
-      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+      "state": "now",
+      "why": "Opened in her launch order (rift-rabbit#8)."
     },
     {
       "from": "vr-launch",
       "to": "vrchat",
       "carries": "opens",
+      "state": "now",
+      "why": "Started last, through a Steam shortcut with her ignored trackers (rift-rabbit#8)."
+    },
+    {
+      "from": "program-watch",
+      "to": "space-override",
+      "carries": "manages",
       "state": "planned",
-      "why": "Started last, through a Steam shortcut with her ignored trackers (rift-rabbit#8, not merged)."
+      "why": "Open or closed, for Rift Rabbit’s VR sessions (2026-10-25), closed the way its window’s X does (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "space-sync",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit’s VR sessions (2026-10-25), closed the way its window’s X does (benchmark-rock#8, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "voicemeeter",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, for Rift Rabbit’s VR sessions (2026-10-25), closed the way its window’s X does (benchmark-rock#8, not merged)."
     },
     {
       "from": "program-watch",
