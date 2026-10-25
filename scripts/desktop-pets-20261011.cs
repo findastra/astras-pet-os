@@ -46,9 +46,29 @@ namespace AstraDesktopPets {
     internal static Dictionary<string,object> Read(string relative) { return Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(SafePath(relative))); }
     internal static string SafePath(string relative) {
       if(String.IsNullOrWhiteSpace(relative)||Path.IsPathRooted(relative))throw new InvalidDataException("Expected a relative pet asset path.");
-      string full=Path.GetFullPath(Path.Combine(Root,relative.Replace('/',Path.DirectorySeparatorChar)));
-      if(!full.StartsWith(Root+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Pet asset is outside its app folder.");
+      string root=PicturesRoot!=null&&IsPicture(relative)?PicturesRoot:Root;
+      string full=Path.GetFullPath(Path.Combine(root,relative.Replace('/',Path.DirectorySeparatorChar)));
+      if(!full.StartsWith(root+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Pet asset is outside its app folder.");
       return full;
+    }
+    // The pictures-only copy (Astra, 2026-10-24, all recommended; docs/one-art-source-20261017.md, "Addresses that never
+    // change"). Startup Star's live sync keeps Documents\Astra's PetOS Data\pictures\astras-pet-os exactly like GitHub and
+    // says in pictures-copy-status-20261024.json when this hub folder is held back (another branch, uncommitted changes or
+    // unpushed work). Only then do the pictures, pets.json and the draft list come from the copy, and only while the sync
+    // has checked in the last 10 minutes; otherwise everything comes from this folder, as before.
+    internal static string PicturesRoot;
+    internal static bool IsPicture(string relative) { string r=relative.Replace('\\','/');return r=="pets.json"||r.StartsWith("art/",StringComparison.OrdinalIgnoreCase)||r.StartsWith("desktop-art/",StringComparison.OrdinalIgnoreCase); }
+    internal static string PicturesStatusFile { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","pictures","pictures-copy-status-20261024.json"); } }
+    internal static string ChoosePicturesRoot(string statusFile,DateTime nowUtc) {
+      try {
+        if(!File.Exists(statusFile))return null;
+        var status=Json.Deserialize<Dictionary<string,object>>(File.ReadAllText(statusFile));object held,at;DateTime when;
+        if(!status.TryGetValue("hub_held_back",out held)||!(held is bool)||!(bool)held)return null;
+        if(!status.TryGetValue("synced_utc",out at)||!(at is string)||!DateTime.TryParse((string)at,CultureInfo.InvariantCulture,DateTimeStyles.AdjustToUniversal|DateTimeStyles.AssumeUniversal,out when))return null;
+        if(nowUtc-when>TimeSpan.FromMinutes(10)||when-nowUtc>TimeSpan.FromMinutes(10))return null;
+        string copy=Path.Combine(Path.GetDirectoryName(statusFile),"astras-pet-os");
+        return File.Exists(Path.Combine(copy,"pets.json"))&&Directory.Exists(Path.Combine(copy,"art"))?Path.GetFullPath(copy).TrimEnd(Path.DirectorySeparatorChar):null;
+      } catch { return null; }
     }
     // A draft's picture path is relative to this hub folder. Only an entry marked "private": true reads elsewhere: art that
     // may not be public (Claude Bot's exact BSOD copy; Astra, 2026-10-17) is read from its own repo folder next to the hub,
@@ -946,6 +966,21 @@ namespace AstraDesktopPets {
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
       if(!PetFiles.StartupCommand.StartsWith("\""+PetFiles.Exe+"\" \""))throw new Exception("Startup quoting failed.");
       bool rejected=false;try{PetFiles.SafePath("../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("Asset path validation failed.");
+      // The pictures-only copy: read only while the sync says the hub is held back and checked in the last 10 minutes.
+      { string dir=Path.Combine(Path.GetTempPath(),"pictures-copy-test-"+Process.GetCurrentProcess().Id),copy=Path.Combine(dir,"astras-pet-os"),file=Path.Combine(dir,"pictures-copy-status-20261024.json");DateTime now=DateTime.UtcNow;
+        try {
+          Directory.CreateDirectory(Path.Combine(copy,"art"));File.WriteAllText(Path.Combine(copy,"pets.json"),"{}");
+          Func<bool,DateTime,string> pick=(held,at)=>{File.WriteAllText(file,"{\"hub_held_back\":"+(held?"true":"false")+",\"synced_utc\":\""+at.ToString("o")+"\"}");return PetFiles.ChoosePicturesRoot(file,now);};
+          if(pick(true,now.AddMinutes(-1))!=Path.GetFullPath(copy))throw new Exception("A held-back hub did not switch to the pictures copy.");
+          if(pick(false,now)!=null||pick(true,now.AddMinutes(-11))!=null)throw new Exception("The pictures copy was used while the hub is current or the sync is quiet.");
+          if(PetFiles.ChoosePicturesRoot(Path.Combine(dir,"missing.json"),now)!=null)throw new Exception("No sync status must mean this folder.");
+          string keep=PetFiles.PicturesRoot;PetFiles.PicturesRoot=Path.GetFullPath(copy);
+          try {
+            if(!PetFiles.SafePath("art/frames/index.json").StartsWith(PetFiles.PicturesRoot+Path.DirectorySeparatorChar)||!PetFiles.SafePath("pets.json").StartsWith(PetFiles.PicturesRoot))throw new Exception("Pictures did not come from the copy.");
+            if(!PetFiles.SafePath("apps/pet-programs/x.html").StartsWith(PetFiles.Root+Path.DirectorySeparatorChar))throw new Exception("Pages must stay in the hub folder.");
+            rejected=false;try{PetFiles.SafePath("art/../../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("Copy path validation failed.");
+          } finally { PetFiles.PicturesRoot=keep; }
+        } finally { try{Directory.Delete(dir,true);}catch{} } }
       rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"}},Path.Combine(Path.GetTempPath(),"outside.png"));}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A public draft reached outside the hub.");
       rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","claude-bot"}},"../../outside.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft reached outside its repo folder.");
       rejected=false;try{PetFiles.DraftPath(new Dictionary<string,object>{{"id","x"},{"private",true},{"repo","../x"}},"idle.png");}catch(InvalidDataException){rejected=true;}if(!rejected)throw new Exception("A private draft named a folder that is not a repo.");
@@ -983,7 +1018,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -1167,6 +1202,8 @@ namespace AstraDesktopPets {
         if(mode=="--quit"||mode=="--quit-test")return PetFiles.Signal("quit",mode=="--quit-test"?"-test":"")?0:1;
         if(mode=="--check"||mode=="--check-test") { bool testCheck=mode=="--check-test";string path=testCheck?PetFiles.TestStateFile:PetFiles.StateFile;DateTime since=DateTime.UtcNow;bool running=PetFiles.Signal("check",testCheck?"-test":"");if(!running)PetFiles.WriteStatus(new{running=false,startup_enabled=PetFiles.StartupEnabled(),updated_utc=DateTime.UtcNow.ToString("o")},testCheck);else for(int i=0;i<25;i++){Thread.Sleep(40);if(File.Exists(path)&&File.GetLastWriteTimeUtc(path)>=since)break;}Console.WriteLine(File.ReadAllText(path));return running?0:1; }
         Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
+        // The self-test and previews always read this folder; a running star reads the pictures-only copy while the hub is held back.
+        if(mode!="--preview"&&mode!="--self-test")PetFiles.PicturesRoot=PetFiles.ChoosePicturesRoot(PetFiles.PicturesStatusFile,DateTime.UtcNow);
         if(mode=="--preview"||mode=="--self-test")using(var window=new PetsWindow(true,20261009)) { if(mode=="--self-test")window.SelfTest();else{string path=args.Length>2?Path.GetFullPath(args[2]):Path.Combine(PetFiles.Root,"desktop-pets-preview-20261008.png");window.Preview(path);Console.WriteLine(path);}return 0; }
         using(var mutex=new Mutex(false,PetFiles.Identity+suffix)) {
           bool own=false;try{own=mutex.WaitOne(0);}catch(AbandonedMutexException){own=true;}

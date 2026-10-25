@@ -29,11 +29,12 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- None recorded yet.
+- **VR launch** (planned, not built yet): A tool of Wonderland Launchpad, Rift Rabbit's pet program (Astra, 2026-10-24: "Launching is done by Rift Rabbit"): the launcher behind the Launch buttons on its VRChat setups. It switches SteamVR's Space Override and Space Sync add-ons for the mode, opens each program of the mode in her order through explorer.exe, waits for the headset, lights what Start VRChat waits for, and starts VRChat with her ignored trackers. A background program with no window or tray icon, listening on 127.0.0.1 only, with a code kept in Documents. In findastra/rift-rabbit#8, not merged.
+- **update-audit**: A tool of Wonderland Launchpad (scripts/update-audit-20261024.mjs; Astra, 2026-10-24, "Program, Tool or Trick" deck, answer 3: the script is the tool, the weekly steps are the trick): reads each GitHub-released VR program's installed version on the PC and GitHub's newest release, and records works, update (orange), missing or issues in pets.json. It only reads: it never downloads or installs anything.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- None recorded yet.
+- **update-audit**: A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: "no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.
 
 ### Pets it works with
 
@@ -45,6 +46,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Rift Rabbit](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/moods/rift-rabbit/idle.png)
+![Rift Rabbit](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/rift-rabbit/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

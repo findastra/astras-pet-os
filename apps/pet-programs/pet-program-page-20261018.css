@@ -6,7 +6,7 @@
    the line colors change aesthetically please, like a raspberrypurply pink"). */
 :root {
   --slate: #3d1530; --slate-2: #2f0f25; --chalk: #fbe9f2; --chalk-dim: #d9a9c4; --line: #c94f93; --line-dim: #8a3a6f;
-  --on: #4fb35a; --off: #d9534f; --care: #6cc7e8; --fix: #e8c547; --planned: #8c8a80;
+  --on: #4fb35a; --off: #d9534f; --care: #6cc7e8; --fix: #e8c547; --planned: #8c8a80; --update: #ff9a3c;
   --link: #ffd9a0; --connection: #f2a07b;
   --label: ui-monospace, Consolas, 'Cascadia Mono', monospace;
   --text: system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -206,13 +206,16 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .light.care { background: var(--care); }
 .light.care.is-fix { background: var(--fix); }
 .light.is-unset { background: var(--planned); }
+/* An update waiting for your approval (Astra, 2026-10-24: "if it happens to be found on updater audit, make the light
+   orange, then have L3 ask me if L4 wants to approve update"). */
+.light.care.is-update { background: var(--update); }
 /* The bubble that says what a light now means, under the light that was clicked. */
 .light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
   background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
 .light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
-.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); }
+.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); } .key.update { background: var(--update); }
 
 /* Inside the intelligence-level panels. */
 /* The sections stack, each across the whole tool panel, and the pills in them go three to a row, then two, then one as
@@ -315,7 +318,7 @@ th { font-weight: 600; color: var(--chalk-dim); }
 textarea, select { width: 100%; color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); font: 15px var(--text); padding: 8px; }
 textarea { resize: vertical; }
 textarea::-webkit-scrollbar { width: 22px; height: 22px; }
-textarea::-webkit-resizer { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M20 6 6 20M20 12l-8 8M20 17l-3 3' stroke='%23c94f93' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center; }   /* the grip in the line's pink (Astra, 2026-10-24) */
+textarea::-webkit-resizer { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M17 7 7 17M17 11l-6 6M17 15l-2 2' stroke='%23c94f93' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center; }   /* the grip in the line's pink, three lines of one thickness, evenly spaced and set in from the corner so they never touch the border (Astra, 2026-10-24: "dont like the thickness variation, isnt it supposed to be detached too?") */
 select { width: auto; max-width: 100%; padding: 3px 6px; }
 .note-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 label.file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
@@ -467,6 +470,9 @@ img[hidden] { display: none !important; }
    round corners and the tool background; its four ways, its menus and its Launch buttons are parts of that tool and
    round too (Astra, 2026-10-24: "I want to see this panel as a tool, so please give it round borders ... those should
    also have round borders as they are not panels, they are a sub part of a tool"). */
+/* The setups sit under the Native tools pills, as far below them as the pill rows and the two headset boxes are apart
+   (18px: a pill's 9px bottom margin plus this). Astra, 2026-10-24: "awkward space". */
+.vrchat-setups { margin-top: 9px; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
 /* Its name inside the border on the first row, its lights left of it, like every tool (Astra, 2026-10-24). The first
    light sits at the centre of the 18px corner, as on every tool: 18 - 5.5 - 1 = 11.5px in, its row centred 18px down. */
@@ -515,6 +521,22 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-warn { color: var(--fix); }
 .launch-try { display: grid; gap: 6px; }
 .launch-try textarea { width: 100%; box-sizing: border-box; }
+/* A launch in progress, in its mode's card (2026-10-24): each step with its mark, then what Start VRChat waits for. */
+.launch-run { border-top: 1px solid var(--line-dim); margin-top: 8px; padding-top: 6px; }
+.launch-steps { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 3px; }
+.launch-mark { display: inline-block; width: 1.2em; font-family: var(--label); }
+.launch-steps [data-state="done"] .launch-mark { color: var(--on); }
+.launch-steps [data-state="failed"] .launch-mark, .launch-steps [data-state="failed"] .launch-step-note { color: var(--off); }
+.launch-steps [data-state="now"] { color: var(--link); }
+.launch-steps [data-state="you"] { color: var(--fix); }
+.launch-steps [data-state="skipped"] { color: var(--chalk-dim); }
+.launch-step-note { color: var(--chalk-dim); }
+.launch-checks { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.launch-checks li::before { content: "\25CF\00A0"; color: var(--off); }
+.launch-checks li[data-on="yes"]::before { color: var(--on); }
+.launch-said { margin: 4px 0; }
+.launch-run-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
+.vrchat-launch .button:disabled { opacity: .45; cursor: not-allowed; }   /* a Launch button that is off looks off */
 .request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }
@@ -643,3 +665,5 @@ input[type="checkbox"] { accent-color: var(--line); }
   .page { padding-right: 28px; }
   .chat { right: 22px; }
 }
+/* Each group of devices under its own small heading (Astra, 2026-10-24: "group the trackers, base stations, headsets"). */
+.device-group { margin: 12px 0 0; font-size: 13px; color: var(--chalk-dim); font-weight: 600; }

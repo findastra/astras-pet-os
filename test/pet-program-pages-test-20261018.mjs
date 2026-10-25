@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, privateTarget } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -24,7 +24,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.ok(existsSync(`${root}/${path}`), `${path} is missing: run npm run build`);
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
   }
-  const expected = new Set([...Object.keys(files).map((p) => p.split('/').pop()), ASSETS.css, ASSETS.js]);
+  const expected = new Set([...Object.keys(files).map((p) => p.split('/').pop()), ASSETS.css, ASSETS.js, LAUNCHER_JS]);
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -209,7 +209,7 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
     for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
-      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|working correctly|not checked yet)"/);
+      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|checked, works|report issues|update waiting for your approval|not created)"/);
       assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
     }
   }
@@ -422,8 +422,10 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   // 2: "pets it talks to needs to go away. if anything that information lives in rift-rabbit-friends-list-panel" (2026-10-23).
   assert.ok(!unicorn.includes('<h3 class="talks">'), '2: no "Pets it talks to" in L2; the friends list has them');
   const l3 = unicorn.slice(unicorn.indexOf('>unity-unicorn-L3-control-panel<'), unicorn.indexOf('>unity-unicorn-L4-control-panel<'));
-  for (const h of ['Tricks running now · 0', 'Suggestions for you · 1', 'Harness skills · 3']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
-  for (const s of ['face-transfer', 'vrchat-unity-world', 'blender-unity-assets']) assert.ok(l3.includes(`data-name="${s}"`), `3: ${s} is a pill`);
+  // Since 2026-10-24 L3 is only L3 talking with L4 about the pet program ("L3 control panel should be about L3 to L4
+  // discussions, regarding the pet program only"): what L3 asks, its suggestions, the seat.
+  for (const h of ['L3 asks you · 0', 'Suggestions for you · 1', 'Seat · 0']) assert.ok(l3.includes(`<h3>${h}</h3>`), `3: ${h}`);
+  for (const h of ['Tricks running now', 'Harness skills', 'Token use']) assert.ok(!l3.includes(`<h3>${h}`), `3: no ${h} in L3`);
   assert.ok(l3.includes('<span class="tag cadence" title="How often it runs">weekly</span>'), '3: the suggestions are a weekly trick');
   assert.match(unicorn, /<h3>Shared programs · 1<\/h3>[\s\S]*?>My Avatar Closet</, '4: the closet under Shared programs');
   assert.ok(!/<h3>3rd party programs[^<]*<\/h3>(?:(?!<h3>)[\s\S])*My Avatar Closet/.test(unicorn), '4: not also a 3rd party program');

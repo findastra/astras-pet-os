@@ -115,6 +115,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Unity Unicorn](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/frames/unity-unicorn/idle.png)
+![Unity Unicorn](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/frames/unity-unicorn/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

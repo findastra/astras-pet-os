@@ -514,6 +514,18 @@
       "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/benchmark-rock#3, not merged."
     },
     {
+      "id": "vr-launch",
+      "name": "VR launch",
+      "type": "tool",
+      "of": "program-29",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v1.0-vr-launch-v1.0",
+      "job": "A tool of Wonderland Launchpad, Rift Rabbit's pet program (Astra, 2026-10-24: \"Launching is done by Rift Rabbit\"): the launcher behind the Launch buttons on its VRChat setups. It switches SteamVR's Space Override and Space Sync add-ons for the mode, opens each program of the mode in her order through explorer.exe, waits for the headset, lights what Start VRChat waits for, and starts VRChat with her ignored trackers. A background program with no window or tray icon, listening on 127.0.0.1 only, with a code kept in Documents. In findastra/rift-rabbit#8, not merged."
+    },
+    {
       "id": "leftover-watch",
       "name": "Leftover watch",
       "type": "tool",
@@ -713,6 +725,36 @@
       "does": "Controls your avatar's face tracking.",
       "layer": 6,
       "category": "Desktop app"
+    },
+    {
+      "id": "object-track-vr",
+      "name": "Object Track VR",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Tracks a real object in VR with a tracker on it (Astra, 2026-10-24: \"Also will eventually have Object Track VR, for tracking the Small Hoop, Large Hoop, and Dance Pole\"). Rift Rabbit's launch panel chooses the object. Not out yet, so not installed.",
+      "does": "Puts a real object, tracked by a tracker on it, into VRChat."
+    },
+    {
+      "id": "space-override",
+      "name": "Space Override",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "SteamVR add-on",
+      "job": "Installed 2026-10-24 from its GitHub release (Nyabsi/OpenVR-SpaceOverride v10). Off in SteamVR until Rift Rabbit launches mode x.2.",
+      "does": "Builds the headset's position from a tracker mounted on it, so headset and Lighthouse devices share one space."
+    },
+    {
+      "id": "space-sync",
+      "name": "Space Sync",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "SteamVR add-on",
+      "job": "Installed 2026-10-24 from its GitHub release (shinyflvre/OpenVR-SpaceSync 2.5.0). Off in SteamVR until Rift Rabbit launches mode x.3.",
+      "does": "Keeps the Lighthouse devices lined up with the headset, from a tracker mounted on it (a fork of Space Override)."
     },
     {
       "id": "oscgoesbrrr",
@@ -1269,13 +1311,40 @@
     },
     {
       "id": "double-hip-tracker",
-      "name": "Double Hip Tracker",
+      "name": "DoubleHip DoubleChest Tracker",
       "type": "program",
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Hip tracking helper. On the desktop (vr-gaming).",
-      "does": "Lets VRChat use two hip trackers and switches to the other when one loses tracking."
+      "job": "Hip and chest tracking helper by vr_hai (Patreon), version 1.3.0 in Documents\\DoubleHip DoubleChest. On the desktop (vr-gaming) as DoubleHip DoubleChest Tracker (Astra, 2026-10-24).",
+      "does": "Lets VRChat use two hip trackers, two chest trackers, or both, and switches to the other of a pair when one loses tracking."
+    },
+    {
+      "id": "update-audit-tool",
+      "name": "update-audit",
+      "type": "tool",
+      "of": "program-29",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v0.1-update-audit-v1.0",
+      "job": "A tool of Wonderland Launchpad (scripts/update-audit-20261024.mjs; Astra, 2026-10-24, \"Program, Tool or Trick\" deck, answer 3: the script is the tool, the weekly steps are the trick): reads each GitHub-released VR program's installed version on the PC and GitHub's newest release, and records works, update (orange), missing or issues in pets.json. It only reads: it never downloads or installs anything.",
+      "does": "Compares the VR programs from GitHub with their newest release, without changing anything."
+    },
+    {
+      "id": "update-audit",
+      "name": "update-audit",
+      "type": "trick",
+      "of": "program-29",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "wonderland-launchpad-v0.1-update-audit-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: \"no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update\"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.",
+      "does": "Checks the VR programs from GitHub against their newest release and asks you before any update."
     },
     {
       "id": "bs-manager",
@@ -1304,8 +1373,9 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Shows a real pole’s position in VR. On the desktop (vr-gaming).",
-      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room."
+      "job": "Shows a real pole’s position in VR, calibrated with a controller. By lukis101, open source (github.com/lukis101/VRPoleOverlay); version 1.0.0 in C:\\Program Files\\VRPoleOverlay. On the desktop (vr-gaming).",
+      "does": "Shows your real fitness pole in VR, as a see-through cylinder where it stands in the room.",
+      "url": "https://github.com/lukis101/VRPoleOverlay"
     },
     {
       "id": "unity-hub",
@@ -1798,12 +1868,12 @@
     },
     {
       "id": "vr-trackers",
-      "name": "13 HTC Vive Trackers 3.0",
+      "name": "9 HTC Vive Trackers 3.0",
       "type": "host-machine",
       "state": "now",
       "layer": 6,
       "category": "VR hardware",
-      "job": "Thirteen HTC Vive Tracker 3.0 body trackers, tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
+      "job": "Nine HTC Vive Tracker 3.0 body trackers (#10 to #13 never existed: Astra, 2026-10-24), tracked by the base stations. Each pairs with its own 2.4 GHz dongle on the PC; Space Calibrator lines them up with the Quest. Each tracker is its own node in this group, and every line drawn to the group reaches each of them (Astra, 2026-10-18). Which body spot each one is strapped to, and its label, come later (Astra has the labeling)."
     },
     {
       "id": "vive-tracker-01",
@@ -1814,7 +1884,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F3DF780D",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [RF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-02",
@@ -1825,7 +1895,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-B2105741",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [L] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-03",
@@ -1836,7 +1906,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-91D63DB2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [M] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-04",
@@ -1847,7 +1917,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6BA0C57A",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [C] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-05",
@@ -1858,7 +1928,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-28D88802",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [ ] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-06",
@@ -1869,7 +1939,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-F8590C98",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [R] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-07",
@@ -1880,7 +1950,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-E0ED8ACE",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [LF] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-08",
@@ -1891,7 +1961,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-6963FCE5",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [H] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "vive-tracker-09",
@@ -1902,47 +1972,7 @@
       "category": "VR hardware",
       "in": "vr-trackers",
       "serial": "LHR-467E1FA2",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
-    },
-    {
-      "id": "vive-tracker-10",
-      "name": "Vive Tracker 3.0 #10",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-11",
-      "name": "Vive Tracker 3.0 #11",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-12",
-      "name": "Vive Tracker 3.0 #12",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
-    },
-    {
-      "id": "vive-tracker-13",
-      "name": "Vive Tracker 3.0 #13",
-      "type": "host-machine",
-      "state": "now",
-      "layer": 6,
-      "category": "VR hardware",
-      "in": "vr-trackers",
-      "job": "One of Astra’s 13 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its body spot and label: to come."
+      "job": "One of Astra’s 9 HTC Vive Trackers 3.0, paired with its own 2.4 GHz dongle. Its sticker says [W] (Astra, 2026-10-23, from her ignore-trackers notes). Its body spot: to come."
     },
     {
       "id": "base-stations",
@@ -3373,6 +3403,139 @@
       "why": "Unity Stable links the closet Devilish and Astra share for Poppy, and its weekly closet-check trick looks at it."
     },
     {
+      "from": "vr-launch",
+      "to": "space-override",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Its add-on switched on and its overlay opened in mode x.2 only (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "space-sync",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Its add-on switched on and its overlay opened in mode x.3 only (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "space-override",
+      "carries": "manages",
+      "state": "now",
+      "why": "Mode x.2 of the VRChat setups (Astra, 2026-10-24)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "space-sync",
+      "carries": "manages",
+      "state": "now",
+      "why": "Mode x.3 of the VRChat setups (Astra, 2026-10-24)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "voicemeeter",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened when the launch's Woojer vest switch is on: the vest plays what Voicemeeter sends it (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "object-track-vr",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The launch panel's Object Track VR choice: Small Hoop, Large Hoop or Dance Pole (Astra, 2026-10-24). Not out yet."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "woojer-vest",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The VRChat launch panel's Woojer vest switch (Astra, 2026-10-24: \"We also need an option for Woojer vest (similar to OSCGoesBrrr)\"). It has no program of its own: a Bluetooth audio device that Voicemeeter plays to."
+    },
+    {
+      "from": "vr-launch",
+      "to": "virtual-desktop",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "meta-horizon-link",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "steam",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "steamvr",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "vrcft",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-advanced-settings",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-dynamic-resolution",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "space-calibrator",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in modes x.1, closed the way its X does in the others (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "double-hip-tracker",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened after its Enable Hip / Enable Chest are set for her choice (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "ovr-smooth-tracking",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "oscgoesbrrr",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Opened in her launch order (rift-rabbit#8, not merged)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "vrchat",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Started last, through a Steam shortcut with her ignored trackers (rift-rabbit#8, not merged)."
+    },
+    {
       "from": "program-watch",
       "to": "unity-editor",
       "carries": "manages",
@@ -4787,6 +4950,13 @@
       "why": "Pole Puff looks after the pole world; VR Pole Overlay shows the real pole in VR."
     },
     {
+      "from": "rift-rabbit",
+      "to": "vr-pole-overlay",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Rift Rabbit preps and tracks VR software and performance; VR Pole Overlay is VR software in the vr-gaming desktop folder, switched on and off from its page (Astra, 2026-10-24)."
+    },
+    {
       "from": "astras-gif-maker",
       "to": "sharex",
       "carries": "manages",
@@ -6037,7 +6207,7 @@
       "carries": "network",
       "medium": "bluetooth",
       "state": "suggested",
-      "why": "Bluetooth, or a 3.5 mm audio cable. To confirm."
+      "why": "Bluetooth: Windows pairs it as \"Woojer Vest S3\", an audio device (her screenshots, 2026-01-31). A 3.5 mm audio cable works too."
     },
     {
       "from": "speaker-bar",
