@@ -56,7 +56,7 @@ jobs:
           while git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; do n=$((n + 1)); BRANCH="$DAY-$n"; done
           git config user.name "Friendly Farmer"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-apps-20261008.html
+          git add pets.json status ROSTER.md README.md RELATIONS.md MOOD-KEY.md apps/astras-pet-os-20261008.html
           if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
           git switch -c "$BRANCH"
           git commit -m "$SUMMARY"
