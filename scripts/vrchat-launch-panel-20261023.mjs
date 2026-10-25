@@ -160,7 +160,7 @@ function modeCard(h, m, i) {
 // each. "Should be so we can select which device is tracking which spot, then your launch options become available
 // below"; "I only want to see this diagram once but it's not a launch tool". Her answers: named tracker-strapper; kept
 // in Rift Rabbit's launcher settings on her PC (the page there changes them; anywhere else it shows today's spots);
-// launch options wait for their spots; the headset on Face picks which launches show; the pole and hoops stand next to
+// launch options wait for their spots; both headset tools always show, and only the one on Face launches; the pole and hoops stand next to
 // her, to scale. Then: "stick figure is a woman obvs", the chest and sternum rings like the waist's, "put the human on
 // the left and the toys on the right in a spacious and proportional way", "I want to just click the spot on him, then
 // drop down assign a device from there", and a shorter list. Numbers, names and codes are hers. Facing you, so her right

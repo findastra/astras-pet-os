@@ -719,7 +719,7 @@
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
   // tracker-strapper (Astra, 2026-10-25): which device is on each of her 27 spots, and the launch options below follow it
-  // ("then your launch options become available below"). The headset on 23 Face shows only that headset's launches;
+  // ("then your launch options become available below"). Both headset tools show; only the one on 23 Face launches;
   // modes x.1 to x.3 wait for a tracker on 24 Head; Double Hip and Double Chest for both spots of their pair; each Object
   // Track VR object for the tracker on it. Rift Rabbit's launcher keeps the spots on her PC (vrchat-launcher-20261024.js
   // fills them in there and sends changes); anywhere else they show today's spots.
@@ -758,10 +758,14 @@
     var needs = [];
     if (!tracker('H')) needs.push(spotName('H'));
     Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
-      hs.hidden = !!face && hs.getAttribute('data-launch-headset') !== face;
+      // Both headset tools always show, as before (Astra, 2026-10-25: "I want to see the tool on here like it was
+      // before"); the one whose headset is not on 23 Face says so and does not launch until it is.
+      var id = hs.getAttribute('data-launch-headset');
+      var wrongFace = !!face && id !== face;
       Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
         var line = card.querySelector('[data-launch-needs]');
-        var need = card.getAttribute('data-launch-mode') !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
+        var need = wrongFace ? 'Needs the ' + (id === 'quest-3' ? 'Meta Quest 3' : 'Meta Quest Pro') + ' on ' + spotName('F') + '.' :
+          card.getAttribute('data-launch-mode') !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
         line.textContent = need; line.hidden = !need;
         card.classList.toggle('is-blocked', !!need);
       });
