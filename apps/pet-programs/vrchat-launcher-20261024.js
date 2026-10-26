@@ -385,4 +385,160 @@
   };
   script.onerror = function () { script.remove(); };
   document.head.appendChild(script);
+
+  // Poppy in 3D where the drawn figures stand (Astra, 2026-10-26: "3D render just put it as a mini model right in that
+  // little spot where the body is"; "lets actually get a real 3D version of poppy for the trackers"). Her avatar is not
+  // ours to publish, so a light copy lives only in Astra's PetOS Data on this PC (made from Poppy 1.fbx: body, face and
+  // messy bun, no face shapes) and loads here only when it is there. Each spot gets a stand-in for the device on it
+  // until the real device models are in; drag to turn her, click a spot to pick its device.
+  var LOCAL_POPPY = "../../../../Astra's PetOS Data/rift-rabbit/poppy-mini-20261026.js";
+  // Where each spot sits on her, from her bones (metres, she faces +z, her left is +x) plus an offset onto her skin.
+  var POPPY_SPOTS = {
+    F: ['Head', 0, 0.035, 0.085], H: ['Head', 0, 0.115, 0.07], FS: ['Chest', 0, 0.105, 0.085], BS: ['Chest', 0, 0.105, -0.1],
+    FD: ['Chest', 0, -0.01, 0.095], BD: ['Chest', 0, -0.01, -0.095], FW: ['Hips', 0, -0.05, 0.085], BW: ['Hips', 0, -0.05, -0.1],
+    RS: ['Hips', -0.15, -0.05, 0], LS: ['Hips', 0.15, -0.05, 0], RFS: ['Hips', -0.1, -0.05, 0.07], LFS: ['Hips', 0.1, -0.05, 0.07],
+    RBS: ['Hips', -0.1, -0.05, -0.08], LBS: ['Hips', 0.1, -0.05, -0.08], RE: ['Elbow_R', -0.02, 0, -0.035], LE: ['Elbow_L', 0.02, 0, -0.035],
+    RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.06], LK: ['Knee_L', 0, 0.025, 0.06],
+    RA: ['Foot_R', -0.045, 0.03, 0], LA: ['Foot_L', 0.045, 0.03, 0], RF: ['Big_Toe_R', 0, 0.045, -0.035], LF: ['Big_Toe_L', 0, 0.045, -0.035],
+  };
+  function miniModel(data) {
+    var svg = strapper && strapper.querySelector('.strap-drawing'), stage = strapper && strapper.querySelector('[data-strap-stage]');
+    if (!svg || !stage || !data || data.schema !== 'rift-rabbit-poppy-v1') return;
+    var base = 'https://cdn.jsdelivr.net/npm/three@0.160.0/';
+    import(base + 'build/three.module.js').then(function (THREE) {
+      // Her copy holds plain positions and triangles, so it is read here straight from the GLB's JSON and binary chunks
+      // (three's GLTFLoader needs an import map this page does not have).
+      var bin = Uint8Array.from(atob(data.glb), function (c) { return c.charCodeAt(0); }).buffer;
+      var dv = new DataView(bin), jsonLen = dv.getUint32(12, true);
+      var gl = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 20, jsonLen)));
+      var binStart = 20 + jsonLen + 8;
+      function accessor(i) {
+        var a = gl.accessors[i], v = gl.bufferViews[a.bufferView], n = { SCALAR: 1, VEC3: 3 }[a.type] * a.count;
+        var off = binStart + (v.byteOffset || 0) + (a.byteOffset || 0);
+        return a.componentType === 5126 ? new Float32Array(bin.slice(off, off + n * 4)) : a.componentType === 5125 ? new Uint32Array(bin.slice(off, off + n * 4)) : new Uint16Array(bin.slice(off, off + n * 2));
+      }
+      var scene = new THREE.Scene(), group = new THREE.Group();
+      var skin = new THREE.MeshStandardMaterial({ color: '#2a3552', roughness: 0.55, metalness: 0.05 });
+      gl.meshes.forEach(function (mesh) {
+        mesh.primitives.forEach(function (p) {
+          var g = new THREE.BufferGeometry();
+          g.setAttribute('position', new THREE.BufferAttribute(accessor(p.attributes.POSITION), 3));
+          if (p.indices != null) g.setIndex(new THREE.BufferAttribute(accessor(p.indices), 1));
+          g.computeVertexNormals();
+          group.add(new THREE.Mesh(g, skin));
+        });
+      });
+      scene.add(group);
+      scene.add(new THREE.HemisphereLight('#b4dcff', '#0a0d13', 2.2));
+      var key = new THREE.DirectionalLight('#ffffff', 1.3); key.position.set(1, 2, 2); scene.add(key);
+      var rim = new THREE.DirectionalLight('#9fc4ff', 1.1); rim.position.set(-1, 1, -2); scene.add(rim);
+      // The spots, each a ring in its state's colour with a stand-in for its device.
+      var bones = data.meta.bones, spots = {};
+      Object.keys(POPPY_SPOTS).forEach(function (code) {
+        var s = POPPY_SPOTS[code], b = bones[s[0]];
+        if (!b) return;
+        var at = new THREE.Vector3(b[0] + s[1], b[1] + s[2], b[2] + s[3]), holder = new THREE.Group();
+        holder.position.copy(at);
+        var out = new THREE.Vector3(at.x, 0, at.z); if (out.lengthSq() < 1e-6) out.set(0, 0, 1);
+        holder.lookAt(at.clone().add(out.normalize()));
+        var ring = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.004, 8, 24), new THREE.MeshBasicMaterial({ color: '#8a96ad' }));
+        holder.add(ring);
+        holder.userData.code = code;
+        group.add(holder);
+        spots[code] = { holder: holder, ring: ring, device: null };
+      });
+      var DEV = {
+        tracker: function () { return new THREE.Mesh(new THREE.CylinderGeometry(0.027, 0.027, 0.018, 20).rotateX(Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#6a7088', emissive: '#16243c', roughness: 0.4 })); },
+        index: function () { return new THREE.Mesh(new THREE.BoxGeometry(0.028, 0.11, 0.032), new THREE.MeshStandardMaterial({ color: '#5a6072', emissive: '#16243c', roughness: 0.4 })); },
+        'qpro-ctrl': function () { return new THREE.Mesh(new THREE.CapsuleGeometry(0.016, 0.055, 4, 12), new THREE.MeshStandardMaterial({ color: '#121318' })); },
+        'q3-ctrl': function () { return new THREE.Mesh(new THREE.CapsuleGeometry(0.017, 0.05, 4, 12), new THREE.MeshStandardMaterial({ color: '#ececf0' })); },
+        qpro: function () { return new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.05, 0.07), new THREE.MeshStandardMaterial({ color: '#101015' })); },
+        q3: function () { return new THREE.Mesh(new THREE.BoxGeometry(0.142, 0.06, 0.075), new THREE.MeshStandardMaterial({ color: '#ececf0' })); },
+        hand: function () { return new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 12), new THREE.MeshBasicMaterial({ color: '#b4dcff', transparent: true, opacity: 0.35 })); },
+      };
+      var COLOR = { used: '#6cc7e8', joined: '#d994c6', head: '#e8c547', off: '#8a96ad' };
+      // What she shows (2026-10-26: "put a tracker on every available spot on poppy, then her with nothing, and we can
+      // toggle the tracker on/off on the UI"): what she wears today, a device on every spot, or nothing at all.
+      var show = 'worn';
+      try { show = localStorage.getItem('rift-rabbit-poppy-show') || 'worn'; } catch (e) { /* worn */ }
+      var headsetKind = function () { return (svg.getAttribute('data-headset') || 'quest-pro') === 'quest-3' ? 'q3' : 'qpro'; };
+      function paint() {
+        Object.keys(spots).forEach(function (code) {
+          var g = strapper.querySelector('[data-strap-dot="' + code + '"]'), sp = spots[code];
+          if (!g) return;
+          var kind = g.getAttribute('data-kind') || '', state = g.getAttribute('data-state') || 'off';
+          if (show === 'all') { kind = code === 'F' ? headsetKind() : code === 'RH' || code === 'LH' ? 'index' : 'tracker'; state = 'used'; }
+          if (show === 'none') kind = '';
+          sp.ring.visible = show !== 'none';
+          sp.ring.material.color.set(COLOR[state] || COLOR.off);
+          if (sp.kind !== kind) {
+            if (sp.device) sp.holder.remove(sp.device);
+            sp.device = DEV[kind] ? DEV[kind]() : null;
+            if (sp.device) sp.holder.add(sp.device);
+            sp.kind = kind;
+          }
+        });
+      }
+      paint();
+      box.addEventListener('strapper-change', paint);
+      // The canvas covers the drawn figures (the left of the drawing, from her head to the floor), which step aside.
+      var canvas = document.createElement('canvas');
+      canvas.className = 'strap-mini';
+      canvas.setAttribute('aria-label', 'Poppy in 3D with her tracking spots: drag to turn her, click a spot to pick its device');
+      stage.appendChild(canvas);
+      svg.classList.add('has-mini');
+      var modes = document.createElement('div');
+      modes.className = 'strap-mini-modes';
+      modes.setAttribute('role', 'group'); modes.setAttribute('aria-label', 'What Poppy wears');
+      [['worn', 'Today'], ['all', 'Every spot'], ['none', 'Nothing']].forEach(function (m) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'button'; b.textContent = m[1]; b.setAttribute('aria-pressed', String(show === m[0]));
+        b.addEventListener('click', function () {
+          show = m[0];
+          try { localStorage.setItem('rift-rabbit-poppy-show', show); } catch (e) { /* this visit only */ }
+          Array.prototype.forEach.call(modes.children, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          paint(); draw();
+        });
+        modes.appendChild(b);
+      });
+      stage.appendChild(modes);
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(window.devicePixelRatio || 1);
+      var cam = new THREE.PerspectiveCamera(28, 1, 0.01, 50);
+      var top = data.meta.box.max[1];
+      function place() {
+        var r = svg.getBoundingClientRect(), s = stage.getBoundingClientRect(), k = r.width / 1110;
+        var x = r.left - s.left + stage.scrollLeft, y = r.top - s.top, w = 500 * k, h = 640 * k;
+        canvas.style.left = x + 'px'; canvas.style.top = (y + 240 * k) + 'px'; canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+        modes.style.left = (x + 12) + 'px'; modes.style.top = (y + 200 * k) + 'px';
+        renderer.setSize(w, h, false);
+        cam.aspect = w / h; cam.updateProjectionMatrix();
+        cam.position.set(0, top * 0.52, top * 2.05); cam.lookAt(0, top * 0.5, 0);
+        draw();
+      }
+      function draw() { renderer.render(scene, cam); }
+      // Drag to turn her; a double-click faces her front again.
+      var turning = null, moved = false;
+      canvas.addEventListener('pointerdown', function (e) { turning = e.clientX; moved = false; canvas.setPointerCapture(e.pointerId); });
+      canvas.addEventListener('pointermove', function (e) { if (turning == null) return; var dx = e.clientX - turning; if (Math.abs(dx) > 2) moved = true; group.rotation.y += dx * 0.012; turning = e.clientX; draw(); });
+      canvas.addEventListener('pointerup', function (e) {
+        turning = null;
+        if (moved) return;
+        // A click on a spot opens its picker, as clicking it on the drawing does.
+        var r = canvas.getBoundingClientRect(), ray = new THREE.Raycaster();
+        ray.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), cam);
+        var hit = ray.intersectObjects(Object.keys(spots).map(function (c) { return spots[c].holder; }), true)[0];
+        for (var o = hit && hit.object; o; o = o.parent) if (o.userData && o.userData.code) { var g = strapper.querySelector('[data-strap-dot="' + o.userData.code + '"]'); if (g) g.dispatchEvent(new MouseEvent('click', { bubbles: true })); break; }
+      });
+      canvas.addEventListener('dblclick', function () { group.rotation.y = 0; draw(); });
+      box.addEventListener('strapper-change', draw);
+      window.addEventListener('resize', place);
+      place();
+    }).catch(function () { /* stays the drawing */ });
+  }
+  var poppy = document.createElement('script');
+  poppy.setAttribute('src', LOCAL_POPPY);
+  poppy.onload = function () { poppy.remove(); miniModel(window.riftRabbitPoppy); };
+  poppy.onerror = function () { poppy.remove(); };
+  if (strapper) document.head.appendChild(poppy);
 })();

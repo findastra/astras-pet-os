@@ -470,7 +470,7 @@ const xpole = (x = POLE_X, c = CEILING, f = FLOOR) => `<g class="strap-pole"><re
 
 function strapperDrawing() {
   // Every spot carries each device's drawing; the page shows the one for the device on it.
-  const spot = (s) => `<g class="strap-spot" data-strap-dot="${esc(s.code)}" data-kind="" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title>
+  const spot = (s) => `<g class="strap-spot" data-strap-dot="${esc(s.code)}"${s.view ? ` data-view="${s.view}"` : ''} data-kind="" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title>
 <circle class="strap-halo" cx="${s.x}" cy="${s.y}" r="18"/><circle class="strap-empty" cx="${s.x}" cy="${s.y}" r="8"/>
 ${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" href="#ico-${k}${k === 'tracker' && s.side ? '-side' : ''}" x="${s.x - KIND_SIZE[k] / 2}" y="${s.y - KIND_SIZE[k] / 2}" width="${KIND_SIZE[k]}" height="${KIND_SIZE[k]}"${s.down ? ` transform="rotate(180 ${s.x} ${s.y})"` : ''}/>`).join('')}
 <circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
