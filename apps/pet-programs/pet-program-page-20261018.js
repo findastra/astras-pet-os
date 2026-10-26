@@ -719,7 +719,7 @@
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
   // tracker-strapper (Astra, 2026-10-25): which device is on each of her 27 spots, and the launch options below follow it
-  // ("then your launch options become available below"). The headset on 23 Face shows only that headset's launches;
+  // ("then your launch options become available below"). Both headset tools show; only the one on 23 Face launches;
   // modes x.1 to x.3 wait for a tracker on 24 Head; Double Hip and Double Chest for both spots of their pair; each Object
   // Track VR object for the tracker on it. Rift Rabbit's launcher keeps the spots on her PC (vrchat-launcher-20261024.js
   // fills them in there and sends changes); anywhere else they show today's spots.
@@ -738,14 +738,36 @@
       var inPair = (full.hip && pairs.hip.indexOf(code) >= 0) || (full.chest && pairs.chest.indexOf(code) >= 0);
       g.setAttribute('data-state', !worn[code] ? 'off' : code === 'H' ? 'head' : inPair ? 'joined' : 'used');
     });
+    // The list under the drawing: only the spots with a device, one short line each, in her numbers.
+    var list = strapper.querySelector('[data-strap-worn]');
+    list.textContent = '';
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
+      if (!sel.value) return;
+      var code = sel.getAttribute('data-strap-spot'), row = sel.closest('[data-strap-row]');
+      var li = document.createElement('li');
+      li.setAttribute('data-state', strapper.querySelector('[data-strap-dot="' + code + '"]').getAttribute('data-state'));
+      var n = document.createElement('b'); n.textContent = row.querySelector('.strap-name b').textContent;
+      li.appendChild(n);
+      li.appendChild(document.createTextNode(' ' + row.querySelector('.strap-name').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim() + ' · '));
+      var dev = document.createElement('span'); dev.className = 'strap-dev'; dev.textContent = sel.selectedOptions[0].getAttribute('data-short');
+      dev.title = sel.selectedOptions[0].textContent;
+      li.appendChild(dev);
+      list.appendChild(li);
+    });
     var face = worn.F || '';
     var needs = [];
     if (!tracker('H')) needs.push(spotName('H'));
     Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
-      hs.hidden = !!face && hs.getAttribute('data-launch-headset') !== face;
+      // Both headset tools always show, as before (Astra, 2026-10-25: "I want to see the tool on here like it was
+      // before"); the one whose headset is not on 23 Face says so and does not launch until it is.
+      var id = hs.getAttribute('data-launch-headset');
+      var wrongFace = !!face && id !== face;
       Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
         var line = card.querySelector('[data-launch-needs]');
-        var need = card.getAttribute('data-launch-mode') !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
+        var mode = card.getAttribute('data-launch-mode'), rooted = hs.querySelector('[data-launch-switch="rooted"]');
+        var need = wrongFace ? 'Needs the ' + (id === 'quest-3' ? 'Meta Quest 3' : 'Meta Quest Pro') + ' on ' + spotName('F') + '.' :
+          mode === 'questlhsync' ? (rooted && rooted.checked ? '' : 'Needs the headset rooted with Magisk: tick Rooted with Magisk.') :
+          mode !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
         line.textContent = need; line.hidden = !need;
         card.classList.toggle('is-blocked', !!need);
       });
@@ -763,11 +785,50 @@
   }
   if (strapper) {
     strapper.addEventListener('change', strap);
+    box.addEventListener('change', function (e) { if (e.target.matches && e.target.matches('[data-launch-switch="rooted"]')) strap(); });
     box.addEventListener('strapper-load', strap);
-    // A spot on the drawing opens its row in the list.
-    function goTo(g) { var sel = strapper.querySelector('[data-strap-spot="' + g.getAttribute('data-strap-dot') + '"]'); if (sel) { sel.scrollIntoView({ block: 'center', behavior: 'smooth' }); sel.focus({ preventScroll: true }); } }
-    strapper.addEventListener('click', function (e) { var g = e.target.closest && e.target.closest('[data-strap-dot]'); if (g) goTo(g); });
-    strapper.addEventListener('keydown', function (e) { var g = e.target.closest && e.target.closest('[data-strap-dot]'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); goTo(g); } });
+    // Clicking a spot on her drawing opens its picker right there (Astra, 2026-10-25: "I want to just click the spot on
+    // him, then drop down assign a device from there"). The picker is a copy of the spot's own select; a choice goes
+    // into that select, so the launcher script sends it as before.
+    var stage = strapper.querySelector('[data-strap-stage]'), pop = strapper.querySelector('[data-strap-pop]');
+    var popSelect = pop.querySelector('[data-strap-pop-select]'), popFor = null;
+    function closePop() { pop.hidden = true; if (popFor) popFor.classList.remove('is-open'); popFor = null; }
+    function openPop(g) {
+      var code = g.getAttribute('data-strap-dot'), own = strapper.querySelector('[data-strap-spot="' + code + '"]');
+      if (popFor) popFor.classList.remove('is-open');
+      popFor = g; g.classList.add('is-open');
+      pop.querySelector('[data-strap-pop-name]').textContent = spotName(code);
+      popSelect.textContent = '';
+      Array.prototype.forEach.call(own.options, function (o) { var c = document.createElement('option'); c.value = o.value; c.textContent = o.textContent; popSelect.appendChild(c); });
+      popSelect.value = own.value;
+      popSelect.disabled = own.disabled;
+      pop.querySelector('[data-strap-pop-note]').hidden = !own.disabled;
+      pop.hidden = false;
+      var dot = g.getBoundingClientRect(), box2 = stage.getBoundingClientRect();
+      var left = dot.left - box2.left + stage.scrollLeft + dot.width + 6, top = dot.top - box2.top + stage.scrollTop - 8;
+      if (left + pop.offsetWidth > stage.scrollWidth - 4) left = Math.max(4, dot.left - box2.left + stage.scrollLeft - pop.offsetWidth - 6);
+      pop.style.left = left + 'px'; pop.style.top = Math.max(4, top) + 'px';
+      if (!popSelect.disabled) popSelect.focus();
+    }
+    popSelect.addEventListener('change', function (e) {
+      e.stopPropagation();
+      var own = popFor && strapper.querySelector('[data-strap-spot="' + popFor.getAttribute('data-strap-dot') + '"]');
+      if (!own) return;
+      own.value = popSelect.value;
+      own.dispatchEvent(new Event('change', { bubbles: true }));
+      closePop();
+    });
+    pop.querySelector('[data-strap-pop-close]').addEventListener('click', closePop);
+    strapper.addEventListener('click', function (e) {
+      var g = e.target.closest && e.target.closest('[data-strap-dot]');
+      if (g) openPop(g);
+      else if (!pop.hidden && !(e.target.closest && e.target.closest('[data-strap-pop]'))) closePop();
+    });
+    strapper.addEventListener('keydown', function (e) {
+      var g = e.target.closest && e.target.closest('[data-strap-dot]');
+      if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openPop(g); }
+      if (e.key === 'Escape' && !pop.hidden) { var back = popFor; closePop(); if (back) back.focus(); }
+    });
   }
   Array.prototype.forEach.call(box.querySelectorAll('[data-launch-headset]'), function (hs) {
     var id = hs.getAttribute('data-launch-headset');

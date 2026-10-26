@@ -493,16 +493,24 @@ img[hidden] { display: none !important; }
 /* The setups sit under the Native tools pills, as far below them as the pill rows and the two headset boxes are apart
    (18px: a pill's 9px bottom margin plus this). Astra, 2026-10-24: "awkward space". */
 .vrchat-setups { margin-top: 9px; }
-/* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. Each spot's
-   colour says what is on it; the list under the drawing picks the device. */
-.strap-drawing { display: block; width: 100%; max-width: 560px; height: auto; margin: 4px auto 0; }
+/* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. She is on
+   the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
+   shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
+.strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
+.strap-drawing { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
 .strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
 .strap-body ellipse, .strap-body path { fill: none; stroke: #a99be8; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
 .strap-body .strap-band, .strap-body .strap-ring { stroke-width: 2; }
+.strap-body .strap-ring-dashed { stroke-dasharray: 5 4; }
+.strap-body .strap-hair { stroke: #c9a8f0; stroke-width: 3; }
 .strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
+.strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
+.strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
+.strap-toy-group { font: 600 13px var(--label); fill: var(--chalk-dim); }
+.strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
 .strap-spot { cursor: pointer; }
-.strap-spot circle { stroke-width: 2; stroke: #47d16a; fill: var(--slate-2); }
-.strap-spot text { font: 700 8.5px var(--text); fill: var(--fix); pointer-events: none; }
+.strap-spot circle { stroke-width: 2.2; stroke: #47d16a; fill: var(--slate-2); }
+.strap-spot text { font: 700 10px var(--text); fill: var(--fix); pointer-events: none; }
 .strap-back circle { stroke-dasharray: 2.5 2; }
 .strap-spot[data-state="used"] circle { fill: var(--care); }
 .strap-spot[data-state="joined"] circle { fill: #d994c6; }
@@ -510,21 +518,26 @@ img[hidden] { display: none !important; }
 .strap-spot:not([data-state="off"]) text { fill: var(--slate-2); }
 .strap-spot[data-state="off"] circle { stroke: var(--planned); }
 .strap-spot[data-state="off"] text { fill: var(--chalk-dim); }
-.strap-spot:focus-visible circle, .strap-spot:hover circle { stroke: var(--chalk); stroke-width: 3; }
-.strap-key { list-style: none; margin: 8px 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
-.strap-key li::before { content: "\25CF\00A0"; }
-.strap-key [data-state="used"]::before { color: var(--care); }
-.strap-key [data-state="joined"]::before { color: #d994c6; }
-.strap-key [data-state="head"]::before { color: var(--fix); }
+.strap-spot:focus-visible circle, .strap-spot:hover circle, .strap-spot.is-open circle { stroke: var(--chalk); stroke-width: 3.2; }
+.strap-spot:focus { outline: none; }
+.strap-pop { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; width: max-content; max-width: 300px; padding: 8px 10px; background: var(--slate-2); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0, 0, 0, .5); font-size: 13px; }
+.strap-pop b { font: 600 13px var(--label); color: var(--chalk); }
+.strap-pop select { grid-column: 1 / -1; font: 13px var(--text); color: var(--chalk); background: var(--slate); border: 1px solid var(--line); border-radius: 8px; padding: 3px 6px; max-width: 100%; }
+.strap-pop [data-strap-pop-note] { grid-column: 1 / -1; color: var(--chalk-dim); }
+.strap-pop-close { font: 16px var(--text); line-height: 1; color: var(--chalk-dim); background: none; border: 0; padding: 0 2px; cursor: pointer; }
+.strap-pop-close:hover { color: var(--fix); }
+.strap-key { list-style: none; margin: 8px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.strap-key li::before, .strap-worn li::before { content: "\25CF\00A0"; }
+.strap-key [data-state="used"]::before, .strap-worn [data-state="used"]::before { color: var(--care); }
+.strap-key [data-state="joined"]::before, .strap-worn [data-state="joined"]::before { color: #d994c6; }
+.strap-key [data-state="head"]::before, .strap-worn [data-state="head"]::before { color: var(--fix); }
 .strap-key [data-state="off"]::before { color: var(--planned); }
-.strap-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px 18px; }
-.strap-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 8px; font-size: 13px; min-width: 0; }
-.strap-name b { font-family: var(--label); color: var(--fix); }
-.strap-code { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
-.strap-row select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; max-width: 100%; }
-.strap-row select:disabled { opacity: .85; }
-.strap-pairs { display: grid; gap: 6px; margin: 10px 0 0; }
-.strap-pair-picks { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.strap-worn { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 3px 18px; font-size: 13.5px; }
+.strap-worn b { font-family: var(--label); color: var(--fix); }
+.strap-dev { color: var(--link); }
+.strap-pairs { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 10px 0 0; font-size: 13.5px; }
+.strap-pair-picks { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.strap-pairs select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; }
 .strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
 .strap-footer { margin: 6px 0 0; text-align: center; font: 600 14px var(--label); color: #47d16a; }
 .launch-mode.is-blocked { opacity: .7; }

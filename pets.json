@@ -2128,6 +2128,16 @@
           "note": "Installed 2026-10-24 from its GitHub release (2.5.0; the checksum matches GitHub’s) and registered as a SteamVR driver; its add-on stays off until mode x.3 turns it on. No update waiting.",
           "on": "2026-10-24"
         },
+        "third-party:questlhsync": {
+          "result": "missing",
+          "note": "Downloaded 1.26 to Documents\\QuestLHSync-1.26 (checksums match GitHub); not installed until the headset is rooted with Magisk.",
+          "on": "2026-10-25"
+        },
+        "third-party:singularity": {
+          "result": "missing",
+          "note": "Not downloaded: no source code, and its license grants no right to use it. Rooting is Astra's to do, at her own risk.",
+          "on": "2026-10-25"
+        },
         "trick:update-audit": {
           "result": "works",
           "note": "Ran on this PC: VR Pole Overlay has an update waiting; Space Override and Space Sync are not installed.",
@@ -2256,6 +2266,16 @@
             "node": "space-sync",
             "how": "optional",
             "why": "Rift Rabbit's launcher switches its SteamVR add-on on and opens its overlay in mode x.3 (installed 2026-10-24)."
+          },
+          {
+            "node": "questlhsync",
+            "how": "optional",
+            "why": "Rift Rabbit's launcher switches its SteamVR add-on on in mode x.4 only, once the headset is rooted (Astra, 2026-10-25)."
+          },
+          {
+            "node": "singularity",
+            "how": "optional",
+            "why": "How the headset gets rooted for mode x.4; Astra roots it herself (2026-10-25)."
           },
           {
             "node": "voicemeeter",
