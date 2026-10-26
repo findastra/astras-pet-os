@@ -392,6 +392,8 @@
   // messy bun, no face shapes) and loads here only when it is there. Each spot gets a stand-in for the device on it
   // until the real device models are in; drag to turn her, click a spot to pick its device.
   var LOCAL_POPPY = "../../../../Astra's PetOS Data/rift-rabbit/poppy-mini-20261026.js";
+  // Her Unity export comes first when it is there (2026-10-26); the light copy is the fallback.
+  var LOCAL_POPPY_UNITY = "../../../../Astra's PetOS Data/rift-rabbit/poppy-unity-20261026.js";
   // Where each spot sits on her, from her bones (metres, she faces +z, her left is +x) plus an offset onto her skin.
   // The belt spots sit about 2 inches above where they first went, like a belt (2026-10-26).
   var POPPY_SPOTS = {
@@ -404,31 +406,45 @@
   };
   function miniModel(data) {
     var svg = strapper && strapper.querySelector('.strap-drawing'), stage = strapper && strapper.querySelector('[data-strap-stage]');
-    if (!svg || !stage || !data || data.schema !== 'rift-rabbit-poppy-v1') return;
+    if (!svg || !stage || !data || (data.schema !== 'rift-rabbit-poppy-v1' && data.schema !== 'rift-rabbit-poppy-v2')) return;
     var base = 'https://cdn.jsdelivr.net/npm/three@0.160.0/';
     import(base + 'build/three.module.js').then(function (THREE) {
-      // Her copy holds plain positions and triangles, so it is read here straight from the GLB's JSON and binary chunks
-      // (three's GLTFLoader needs an import map this page does not have).
-      var bin = Uint8Array.from(atob(data.glb), function (c) { return c.charCodeAt(0); }).buffer;
-      var dv = new DataView(bin), jsonLen = dv.getUint32(12, true);
-      var gl = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 20, jsonLen)));
-      var binStart = 20 + jsonLen + 8;
-      function accessor(i) {
-        var a = gl.accessors[i], v = gl.bufferViews[a.bufferView], n = { SCALAR: 1, VEC3: 3 }[a.type] * a.count;
-        var off = binStart + (v.byteOffset || 0) + (a.byteOffset || 0);
-        return a.componentType === 5126 ? new Float32Array(bin.slice(off, off + n * 4)) : a.componentType === 5125 ? new Uint32Array(bin.slice(off, off + n * 4)) : new Uint16Array(bin.slice(off, off + n * 2));
-      }
       var scene = new THREE.Scene(), group = new THREE.Group();
-      var skin = new THREE.MeshStandardMaterial({ color: '#2a3552', roughness: 0.55, metalness: 0.05 });
-      gl.meshes.forEach(function (mesh) {
-        mesh.primitives.forEach(function (p) {
+      var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }).buffer; };
+      if (data.schema === 'rift-rabbit-poppy-v2') {
+        // Poppy as she stands in her Unity scene (ClaudePoppyMiniExport, 2026-10-26): each part in its own colour.
+        data.parts.forEach(function (p) {
           var g = new THREE.BufferGeometry();
-          g.setAttribute('position', new THREE.BufferAttribute(accessor(p.attributes.POSITION), 3));
-          if (p.indices != null) g.setIndex(new THREE.BufferAttribute(accessor(p.indices), 1));
+          g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(b64(p.pos)), 3));
+          g.setIndex(new THREE.BufferAttribute(new Uint32Array(b64(p.idx)), 1));
           g.computeVertexNormals();
-          group.add(new THREE.Mesh(g, skin));
+          var c = new THREE.Color().setRGB(p.color[0], p.color[1], p.color[2], THREE.SRGBColorSpace);
+          var mat = new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, metalness: 0.05, transparent: p.color[3] < 0.99, opacity: Math.max(0.15, p.color[3]), side: THREE.DoubleSide });
+          group.add(new THREE.Mesh(g, mat));
         });
-      });
+      } else {
+        // The light copy from Poppy 1.fbx holds plain positions and triangles, read straight from the GLB's JSON and binary
+        // chunks (three's GLTFLoader needs an import map this page does not have).
+        var bin = b64(data.glb);
+        var dv = new DataView(bin), jsonLen = dv.getUint32(12, true);
+        var gl = JSON.parse(new TextDecoder().decode(new Uint8Array(bin, 20, jsonLen)));
+        var binStart = 20 + jsonLen + 8;
+        var accessor = function (i) {
+          var a = gl.accessors[i], v = gl.bufferViews[a.bufferView], n = { SCALAR: 1, VEC3: 3 }[a.type] * a.count;
+          var off = binStart + (v.byteOffset || 0) + (a.byteOffset || 0);
+          return a.componentType === 5126 ? new Float32Array(bin.slice(off, off + n * 4)) : a.componentType === 5125 ? new Uint32Array(bin.slice(off, off + n * 4)) : new Uint16Array(bin.slice(off, off + n * 2));
+        };
+        var skin = new THREE.MeshStandardMaterial({ color: '#2a3552', roughness: 0.55, metalness: 0.05 });
+        gl.meshes.forEach(function (mesh) {
+          mesh.primitives.forEach(function (p) {
+            var g = new THREE.BufferGeometry();
+            g.setAttribute('position', new THREE.BufferAttribute(accessor(p.attributes.POSITION), 3));
+            if (p.indices != null) g.setIndex(new THREE.BufferAttribute(accessor(p.indices), 1));
+            g.computeVertexNormals();
+            group.add(new THREE.Mesh(g, skin));
+          });
+        });
+      }
       scene.add(group);
       scene.add(new THREE.HemisphereLight('#b4dcff', '#0a0d13', 2.2));
       var key = new THREE.DirectionalLight('#ffffff', 1.3); key.position.set(1, 2, 2); scene.add(key);
@@ -437,6 +453,8 @@
       var bones = data.meta.bones, spots = {};
       Object.keys(POPPY_SPOTS).forEach(function (code) {
         var s = POPPY_SPOTS[code], b = bones[s[0]];
+        // A rig with no toe bones: the foot spots sit on top of the foot instead.
+        if (!b && /^Big_Toe_/.test(s[0])) { var f = bones[s[0].replace('Big_Toe', 'Foot')]; if (f) { b = f; s = [s[0], s[1], 0, 0.08]; } }
         if (!b) return;
         var at = new THREE.Vector3(b[0] + s[1], b[1] + s[2], b[2] + s[3]), holder = new THREE.Group();
         holder.position.copy(at);
@@ -579,5 +597,10 @@
     s.onerror = function () { s.remove(); done(false); };
     document.head.appendChild(s);
   }
-  if (strapper) localScript(LOCAL_DEVICES, function () { localScript(LOCAL_POPPY, function (ok) { if (ok) miniModel(window.riftRabbitPoppy); }); });
+  if (strapper) localScript(LOCAL_DEVICES, function () {
+    localScript(LOCAL_POPPY_UNITY, function (ok) {
+      if (ok) miniModel(window.riftRabbitPoppy);
+      else localScript(LOCAL_POPPY, function (ok2) { if (ok2) miniModel(window.riftRabbitPoppy); });
+    });
+  });
 })();
