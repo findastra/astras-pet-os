@@ -136,7 +136,6 @@ ${/* The haptic vest (Astra, 2026-10-24: "We also need an option for Woojer vest
    no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${dev('woojer', 'Woojer vest')}
 ${/* Which of her Lovense toys (2026-10-26: "need to select which if not all of the Lovense Toys"). They connect in their
    own app, so a launch lists them as a reminder. */ ''}<span class="launch-switch launch-group launch-device"><span class="launch-group-name">Lovense</span>${LOVENSE.map(([id, name]) => `<label><input type="checkbox" data-launch-switch="lovense-${esc(id)}"> ${esc(name)}</label>`).join(' ')}</span>
-${/* Mode x.4 needs the headset rooted with Magisk (Astra, 2026-10-25); she ticks this once it is. */ ''}${dev('rooted', 'Rooted with Magisk')}
 ${/* Face tracking is a choice on the Quest Pro, and the Quest 3 has none, so no box there (Astra, 2026-10-26: "I also do
    have the option of using facetracking or not on Quest Pro, its just Quest 3 doesnt have it, so you can remove it from
    there"). */ ''}${h.face ? sw('face', 'VRCFaceTracking', true) : ''}
@@ -144,6 +143,8 @@ ${/* Her two overlays: a tick adds it to the launch, which opens it in order (20
    sequence until launched"). */ ''}${sw('fov', 'Base Station FOV Viewer', false)}
 ${sw('pole', 'VR Pole Overlay', false)}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
+${/* Mode x.4 needs the headset rooted with Magisk (Astra, 2026-10-25); she ticks this once it is. A headset setting, so
+   it is in the software colour (2026-10-26: "the root one is wrong color too"). */ ''}${sw('rooted', 'Rooted with Magisk', false)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
    together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch" hidden>DoubleHip DoubleChest Tracker <select data-launch-switch="double-hip" data-auto>${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch" title="Not out yet: a launch only says so">Object Track VR <select data-launch-switch="object-track">${OBJECTS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
