@@ -287,7 +287,7 @@ const stitch = (d) => `<path d="${d}" fill="none" stroke="#4a4a54" stroke-width=
 const STRAP = 'M6.4 1.3 C14 0 26 2 31.9 6.4 C31 18 29.5 30 29.8 40.4 C30 52 32 62 34 70.2 L13 72.3 C9 62 3 52 2.1 40.4 C1 30 0 20 0.9 14.9 C1.5 8 3.5 3 6.4 1.3 Z';
 const BELT = 'M0 80.9 C10 77 22 75.5 29.8 76.6 C38 78 44 84 50 85 C56 84 62 78 70.2 76.6 C78 75.5 90 77 100 80.9 C101.5 92 101.5 104 100 114.9 C90 118.5 80 119.5 70.2 119 C62 118 56 113 50 112.8 C44 113 38 118 29.8 119 C20 119.5 10 118.5 0 114.9 C-1.5 104 -1.5 92 0 80.9 Z';
 export const TOYS = [
-  { name: 'Woojer Vest 3', short: 'Vest 3', x: 556, y: 707, w: 129, scale: 1.29, label: [620, 914], svg: `<path d="${BELT}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>${stitch('M3 83 C12 80 22 79 29.8 80 C38 81 44 87 50 88 C56 87 62 81 70.2 80 C78 79 88 80 97 83')}
+  { name: 'Woojer Vest 3', short: 'Vest 3', x: 556, y: 707, w: 129, scale: 1.29, label: [620, 932], svg: `<path d="${BELT}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>${stitch('M3 83 C12 80 22 79 29.8 80 C38 81 44 87 50 88 C56 87 62 81 70.2 80 C78 79 88 80 97 83')}
 <path d="M27 68 h7 v12 h-7 Z M66 68 h7 v12 h-7 Z" fill="#111114"/><path d="M28 71 h5 M67 71 h5" stroke="#c4313c" stroke-width="1"/>
 <path d="${STRAP}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/><path d="${STRAP}" transform="translate(100 0) scale(-1 1)" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>
 ${stitch('M7 4 C2 12 2.6 30 3.6 40 C4.5 52 9 62 14 70')}${stitch('M93 4 C98 12 97.4 30 96.4 40 C95.5 52 91 62 86 70')}
@@ -300,18 +300,18 @@ ${pod(20.5, 27.5, 10.5)}${pod(79.5, 27.5, 10.5)}
 <rect x="31" y="96" width="38" height="6" fill="#121216"/><path d="M36.4 94.4 v9.2 M63.6 94.4 v9.2" stroke="#c4313c" stroke-width="1.2"/>
 ${pod(12.8, 99, 9.2)}${pod(87.2, 99, 9.2)}
 <circle cx="50" cy="99" r="5.4" fill="#26262c" stroke="#a0a0aa" stroke-width=".8"/><circle cx="50" cy="99" r="2.6" fill="none" stroke="#c8c8d0" stroke-width=".6"/><circle cx="50" cy="99" r=".9" fill="#e0e0e8"/>` },
-  { name: 'Nora', x: 752, y: 787, w: 24, scale: 1, label: [764, 914], svg: `<path d="M8.4 37 C3.6 34 1.6 28 2.2 22.4 C2.6 19.6 5 19.4 5.6 22.2 C6.4 26.8 7.6 29.8 10 31 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
+  { name: 'Nora', x: 752, y: 787, w: 24, scale: 1, label: [764, 932], svg: `<path d="M8.4 37 C3.6 34 1.6 28 2.2 22.4 C2.6 19.6 5 19.4 5.6 22.2 C6.4 26.8 7.6 29.8 10 31 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
 <path d="M7.6 45.5 C7 34 8 22 11 12 C12.6 6 15 2.6 17.6 3 C20.6 3.6 20.6 8 19.6 13 C18 22 17 34 16.6 45.5 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
 <rect x="7.2" y="45" width="9.8" height="2.4" rx=".6" fill="url(#toy-silver)"/><path d="M7.2 47.4 L7.2 69 Q7.2 73 12.1 73 Q17 73 17 69 L17 47.4 Z" fill="url(#toy-white)" stroke="#a7a7b2" stroke-width=".4"/>
 ${shine(12.3, 22, 1, 9)}${shine(9.6, 59, .9, 8)}` },
-  { name: 'Domi 2', x: 814, y: 791, w: 17, scale: 1, label: [822, 914], svg: `<path d="M5.8 13.6 Q8.5 15 11.2 13.6 L12 19.6 Q8.5 21 5 19.6 Z" fill="url(#toy-black)"/>
+  { name: 'Domi 2', x: 814, y: 791, w: 17, scale: 1, label: [822, 932], svg: `<path d="M5.8 13.6 Q8.5 15 11.2 13.6 L12 19.6 Q8.5 21 5 19.6 Z" fill="url(#toy-black)"/>
 <circle cx="8.5" cy="7.5" r="7.5" fill="url(#toy-black-head)"/><path d="M2.4 21 Q8.5 18.4 14.6 21 L15 66.6 Q15 69 12.8 69 L4.2 69 Q2 69 2 66.6 Z" fill="url(#toy-black)" stroke="#3a3a42" stroke-width=".4"/>
 <rect x="2.3" y="25.6" width="12.4" height="1.6" fill="url(#toy-silver)"/><circle cx="8.5" cy="33" r=".9" fill="#55555f"/><circle cx="8.5" cy="37" r=".9" fill="#55555f"/>
 ${shine(5.4, 4.6, 1.8, 2.2)}${shine(5.4, 46, .8, 16)}` },
-  { name: 'Lush 3', x: 864, y: 830, w: 34, scale: 1, label: [881, 914], svg: `<path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="#9c0f4a" stroke-width="4.2" stroke-linecap="round"/><path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="url(#toy-pink-line)" stroke-width="3" stroke-linecap="round"/>
+  { name: 'Lush 3', x: 864, y: 830, w: 34, scale: 1, label: [881, 932], svg: `<path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="#9c0f4a" stroke-width="4.2" stroke-linecap="round"/><path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="url(#toy-pink-line)" stroke-width="3" stroke-linecap="round"/>
 <ellipse cx="30.4" cy="10.6" rx="2.8" ry="1.8" fill="#ec3a85" stroke="#9c0f4a" stroke-width=".5" transform="rotate(62 30.4 10.6)"/>
 <path d="M9.6 25 C11.6 19.6 21 17.6 27.6 19.2 C33.4 20.6 33.6 28 28 29.6 C21.6 31.4 11.6 30.4 9.6 25 Z" fill="url(#toy-pink-v)" stroke="#9c0f4a" stroke-width=".5"/>${shine(22, 21.6, 6, 1.1)}` },
-  { name: 'Vulse', x: 926, y: 828, w: 38, scale: 1, label: [945, 914], svg: `<path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="#9e1622" stroke-width="4.6" stroke-linecap="round"/><path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="url(#toy-coral-line)" stroke-width="3.4" stroke-linecap="round"/>
+  { name: 'Vulse', x: 926, y: 828, w: 38, scale: 1, label: [945, 932], svg: `<path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="#9e1622" stroke-width="4.6" stroke-linecap="round"/><path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="url(#toy-coral-line)" stroke-width="3.4" stroke-linecap="round"/>
 <ellipse cx="26.8" cy="10" rx="2.8" ry="2" fill="#ff5a68" stroke="#9e1622" stroke-width=".5" transform="rotate(60 26.8 10)"/>
 <path d="M20 20.6 C31 19.6 38 22.6 38 26.4 C38 30 31 32.6 20 31.8 Z" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".5"/>
 ${[12, 14.2, 16.4, 18.6].map((x, i) => `<rect x="${x}" y="${20.6 + i * .1}" width="2.4" height="${11.2 - i * .2}" rx="1.2" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".45"/>`).join('')}${shine(29, 22.6, 5, 1)}` },
@@ -476,7 +476,7 @@ ${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" h
 <circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
   // Each toy stands on the floor with a soft shadow under it.
   const toy = (t) => `<g class="strap-toy"><ellipse class="strap-toy-shadow" cx="${t.x + t.w / 2}" cy="861" rx="${t.w / 2 + 4}" ry="3.5"/><g transform="translate(${t.x} ${t.y}) scale(${t.scale})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.short || t.name)}</text></g>`;
-  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 1000" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
+  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 1020" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
 <defs>${DEVICE_SYMBOLS}<linearGradient id="strap-skin" x1="0" x2="1"><stop offset="0" stop-color="#7f8fb8"/><stop offset=".5" stop-color="#b9c6e6"/><stop offset="1" stop-color="#7f8fb8"/></linearGradient>
 <radialGradient id="strap-galaxy" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#3a2a6a"/><stop offset=".45" stop-color="#160f2c"/><stop offset="1" stop-color="#050409"/></radialGradient>
 <linearGradient id="strap-hoop" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#1a1030"/><stop offset=".25" stop-color="#2a0f3a"/><stop offset=".5" stop-color="#0b1a33"/><stop offset=".75" stop-color="#14261c"/><stop offset="1" stop-color="#1a1030"/></linearGradient>
@@ -489,15 +489,15 @@ ${TOY_DEFS}
 <ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
 ${figure('front')}${figure('back')}
 ${/* What she is wearing, under her (2026-10-26: "need to see the headset name, tracker names, controller names, show up
-   below the people ... you can separate them and put the total trackers too"); the page fills it in from her spots. */ ''}<g class="strap-devices" data-strap-devices><text class="strap-dev-head" x="16" y="892">Headset</text><g data-strap-dev="headset"></g>
-<text class="strap-dev-head" x="100" y="892">Controllers</text><g data-strap-dev="controllers"></g>
-<text class="strap-dev-head" x="250" y="892" data-strap-dev-count>Trackers</text><g data-strap-dev="trackers"></g></g>
+   below the people ... you can separate them and put the total trackers too"); the page fills it in from her spots. */ ''}<g class="strap-devices" data-strap-devices><text class="strap-dev-head" x="16" y="910">Headset</text><g data-strap-dev="headset"></g>
+<text class="strap-dev-head" x="100" y="910">Controllers</text><g data-strap-dev="controllers"></g>
+<text class="strap-dev-head" x="250" y="910" data-strap-dev-count>Trackers</text><g data-strap-dev="trackers"></g></g>
 ${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
 ${xpole()}
 <text class="strap-prop-names" x="992" y="58" text-anchor="end">faces down</text>
 <g class="strap-prop-names"><text x="620" y="416" text-anchor="middle">Big Dance Hoop</text><text x="870" y="316" text-anchor="middle">Little</text><text x="870" y="334" text-anchor="middle">Dance</text><text x="870" y="352" text-anchor="middle">Hoop</text></g>
 ${/* Under the floor, the props by maker like her devices (2026-10-26: "move down all the woojer text to start with the
-   quest pro text, give Lovense a Category like Headset ... put the brands in different colors like Lovense in pink"). */ ''}<g class="strap-brands"><text class="strap-dev-head brand-woojer" x="620" y="892" text-anchor="middle">Woojer</text><text class="strap-dev-head brand-lovense" x="855" y="892" text-anchor="middle">Lovense</text><text class="strap-dev-head brand-xpole" x="${POLE_X}" y="892" text-anchor="middle">X-Pole</text><text class="strap-dev" x="${POLE_X}" y="914" text-anchor="middle">XPERT Pro</text></g>
+   quest pro text, give Lovense a Category like Headset ... put the brands in different colors like Lovense in pink"). */ ''}<g class="strap-brands"><text class="strap-dev-head brand-woojer" x="620" y="910" text-anchor="middle">Woojer</text><text class="strap-dev-head brand-lovense" x="855" y="910" text-anchor="middle">Lovense</text><text class="strap-dev-head brand-xpole" x="${POLE_X}" y="910" text-anchor="middle">X-Pole</text><text class="strap-dev" x="${POLE_X}" y="932" text-anchor="middle">XPERT Pro</text></g>
 ${TOYS.map(toy).join('\n')}
 ${SPOTS.map(spot).join('\n')}
 </svg>`;

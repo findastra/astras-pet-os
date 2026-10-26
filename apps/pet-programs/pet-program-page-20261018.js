@@ -759,7 +759,7 @@
         var per = Math.ceil(lines.length / cols) || 1;
         lines.forEach(function (line, i) {
           var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          t.setAttribute('class', 'strap-dev' + (/Quest/.test(line) ? ' brand-meta' : /Index/.test(line) ? ' brand-valve' : /^#\d/.test(line) ? ' brand-vive' : '')); t.setAttribute('x', x + Math.floor(i / per) * 135); t.setAttribute('y', 914 + (i % per) * 19);
+          t.setAttribute('class', 'strap-dev' + (/Quest/.test(line) ? ' brand-meta' : /Index/.test(line) ? ' brand-valve' : /^#\d/.test(line) ? ' brand-vive' : '')); t.setAttribute('x', x + Math.floor(i / per) * 135); t.setAttribute('y', 932 + (i % per) * 19);
           t.textContent = line; g.appendChild(t);
         });
       };
