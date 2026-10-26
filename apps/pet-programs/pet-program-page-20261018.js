@@ -749,6 +749,27 @@
     });
     // Her headset on the drawing follows 23 Face (Quest Pro or Quest 3).
     strapper.querySelector('.strap-drawing').setAttribute('data-headset', worn.F || '');
+    // What she is wearing, listed under her: headset, controllers, and every tracker with its spot and the total.
+    var devs = strapper.querySelector('[data-strap-devices]');
+    if (devs) {
+      var shortOf = function (code) { var sel = strapper.querySelector('[data-strap-spot="' + code + '"]'), o = sel && sel.options[sel.selectedIndex]; return o ? (o.getAttribute('data-short') || o.textContent) : ''; };
+      var plain = function (code) { return spotName(code).replace(/\s*\[[^\]]*\]\s*$/, ''); };
+      var fill = function (key, lines, x, cols) {
+        var g = devs.querySelector('[data-strap-dev="' + key + '"]'); g.textContent = '';
+        var per = Math.ceil(lines.length / cols) || 1;
+        lines.forEach(function (line, i) {
+          var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          t.setAttribute('class', 'strap-dev'); t.setAttribute('x', x + Math.floor(i / per) * 135); t.setAttribute('y', 914 + (i % per) * 19);
+          t.textContent = line; g.appendChild(t);
+        });
+      };
+      var dots = Array.prototype.map.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) { return g.getAttribute('data-strap-dot'); });
+      var trackers = dots.filter(tracker).map(function (code) { return shortOf(code).replace(/^Vive\s*/, '').replace(/\s*\[[^\]]*\]/, '') + ' ' + plain(code).replace(/^\d+\s+/, ''); });
+      fill('headset', [worn.F ? shortOf('F') : 'None'], 16, 1);
+      fill('controllers', ['RH', 'LH'].filter(function (c) { return worn[c]; }).map(function (c) { return shortOf(c).replace(/ controller$/, '') + (c === 'RH' ? ' (R)' : ' (L)'); }), 100, 1);
+      fill('trackers', trackers.length ? trackers : ['None'], 250, trackers.length > 5 ? 2 : 1);
+      devs.querySelector('[data-strap-dev-count]').textContent = 'Trackers · ' + trackers.length;
+    }
     var face = worn.F || '';
     var needs = [];
     if (!tracker('H')) needs.push(spotName('H'));

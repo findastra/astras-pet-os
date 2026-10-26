@@ -528,6 +528,8 @@ img[hidden] { display: none !important; }
 .strap-belt-link { display: none; }
 /* Hand tracking: her own hand lights up. */
 .strap-spot .ico-hand { filter: drop-shadow(0 0 5px #b4dcff); }
+.strap-dev-head { font: 600 16px var(--label); fill: var(--chalk); }
+.strap-dev { font: 15px var(--text); fill: var(--chalk-dim); }
 .strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
 .strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
 .strap-star { fill: #fff6d8; opacity: .9; }

@@ -467,7 +467,7 @@ ${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" h
 <circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
   // Each toy stands on the floor with a soft shadow under it.
   const toy = (t) => `<g class="strap-toy"><ellipse class="strap-toy-shadow" cx="${t.x + t.w / 2}" cy="861" rx="${t.w / 2 + 4}" ry="3.5"/><g transform="translate(${t.x} ${t.y}) scale(${t.scale})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.name)}</text></g>`;
-  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 916" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
+  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 1000" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
 <defs>${DEVICE_SYMBOLS}<linearGradient id="strap-skin" x1="0" x2="1"><stop offset="0" stop-color="#7f8fb8"/><stop offset=".5" stop-color="#b9c6e6"/><stop offset="1" stop-color="#7f8fb8"/></linearGradient>
 <radialGradient id="strap-galaxy" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#3a2a6a"/><stop offset=".45" stop-color="#160f2c"/><stop offset="1" stop-color="#050409"/></radialGradient>
 <linearGradient id="strap-hoop" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#1a1030"/><stop offset=".25" stop-color="#2a0f3a"/><stop offset=".5" stop-color="#0b1a33"/><stop offset=".75" stop-color="#14261c"/><stop offset="1" stop-color="#1a1030"/></linearGradient>
@@ -479,7 +479,10 @@ ${TOY_DEFS}
 <path class="strap-ceiling" d="M470 ${CEILING} H1100"/><text class="strap-prop-names" x="476" y="${CEILING + 20}">9 ft ceiling</text><path class="strap-floor" d="M8 862 H1102"/>
 <ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
 ${figure('front')}${figure('back')}
-<text class="strap-view" x="140" y="284" text-anchor="middle">Front Side</text><text class="strap-view" x="380" y="284" text-anchor="middle">Back Side</text>
+${/* What she is wearing, under her (2026-10-26: "need to see the headset name, tracker names, controller names, show up
+   below the people ... you can separate them and put the total trackers too"); the page fills it in from her spots. */ ''}<g class="strap-devices" data-strap-devices><text class="strap-dev-head" x="16" y="892">Headset</text><g data-strap-dev="headset"></g>
+<text class="strap-dev-head" x="100" y="892">Controllers</text><g data-strap-dev="controllers"></g>
+<text class="strap-dev-head" x="250" y="892" data-strap-dev-count>Trackers</text><g data-strap-dev="trackers"></g></g>
 ${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
 ${xpole()}
 <text class="strap-prop-names" x="992" y="58" text-anchor="end">faces down</text>
