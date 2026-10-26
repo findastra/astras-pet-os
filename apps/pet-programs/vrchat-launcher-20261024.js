@@ -169,6 +169,9 @@
   function readMap() { try { return JSON.parse(localStorage.getItem(MAP_KEY) || '{}') || {}; } catch (e) { return {}; } }
   function writeMap(m) { try { localStorage.setItem(MAP_KEY, JSON.stringify(m)); } catch (e) { /* kept for this visit only */ } }
   function isDongle(n) { return n.kind === 'tracker-dongle'; }
+  // Each controller's neon wire colour, the same in both layouts (its place in the scan).
+  var WIRES = ['#39f3ff', '#ff3df2', '#7dff3a', '#ffd23a', '#ff8a3d', '#a98bff'];
+  function wire(li, n) { var i = lastScan ? (lastScan.controllers || []).indexOf(n) : -1; if (i >= 0) li.style.setProperty('--wire', WIRES[i % WIRES.length]); }
   function dongles(n) { return (isDongle(n) ? 1 : 0) + (n.children || []).reduce(function (a, c) { return a + dongles(c); }, 0); }
   // Genesys hub chips: GL850 (05E3:0608) has one transaction translator for all its ports, GL852 (05E3:0610) one each.
   function hubKind(n) { var id = n.id || ''; return /VID_05E3&PID_0608/i.test(id) ? 'single' : /VID_05E3&PID_0610/i.test(id) ? 'multi' : /PID_0626/i.test(id) ? 'usb3' : ''; }
@@ -195,6 +198,7 @@
     li.setAttribute('data-kind', n.kind);
     var line = el('span', 'dongle-line'), port = (n.location || '').match(/Port_#0*(\d+)/);
     if (n.kind === 'controller') {
+      wire(li, n);
       line.appendChild(el('b', null, controllerName(n)));
       var count = dongles(n);
       if (count) line.appendChild(el('span', 'dongle-count', ' · ' + count + ' dongle' + (count === 1 ? '' : 's')));
@@ -235,7 +239,7 @@
   // for where its device is worn, one hub deep, the hubs spread over her USB controllers. The launch she plans decides
   // which dongles it needs; the rest are listed apart.
   function readScan(scanRes) {
-    var found = { dongles: [], hubs: [], others: [], controllers: [] };
+    var found = { dongles: [], hubs: [], others: [], controllers: [], radios: [] };
     (scanRes.controllers || []).forEach(function (c) {
       var ctrl = { name: controllerName(c), others: 0, node: c };
       found.controllers.push(ctrl);
@@ -245,6 +249,7 @@
           var at = where.concat(k.kind === 'hub' ? [(hk === 'single' ? 'single-TT hub' : 'hub') + (port ? ' port ' + port[1] : '')] : []);
           if (k.kind === 'hub') found.hubs.push({ kind: hk });
           if (isDongle(k)) found.dongles.push({ serial: k.serial, depth: depth, single: single, ctrl: ctrl.name, port: port ? port[1] : '', where: where });
+          else if (k.kind === 'radio') found.radios.push({ serial: k.serial, at: ctrl });
           else if (k.kind === 'device') { ctrl.others++; if (depth > 0 && /receiver|drive/i.test(k.name || '')) found.others.push({ name: k.name, ctrl: ctrl.name }); }
           walk(k, depth + (k.kind === 'hub' ? 1 : 0), single || hk === 'single', at);
         });
@@ -294,7 +299,7 @@
     var root = el('ul', 'dongle-branches dongle-root');
     ctrls.forEach(function (c) {
       var mine = hubs.filter(function (h) { return h.at === c; });
-      var li = el('li', 'dongle-node'); li.setAttribute('data-kind', 'controller');
+      var li = el('li', 'dongle-node'); li.setAttribute('data-kind', 'controller'); wire(li, c.node);
       var line = el('span', 'dongle-line'); line.appendChild(el('b', null, c.name));
       var n = mine.reduce(function (a, h) { return a + h.items.length; }, 0);
       if (n) line.appendChild(el('span', 'dongle-count', ' · ' + n + ' dongle' + (n === 1 ? '' : 's')));
@@ -316,6 +321,22 @@
         });
         hl.appendChild(hul); ul.appendChild(hl);
       });
+      // The Valve VR Radios (the Index controllers' own receivers) keep their hub where they are (2026-10-26: "you forgot
+      // to show the Watchman Dongles. Remember, a lot of the dongles are connected to the hub").
+      var radios = found.radios.filter(function (r) { return r.at === c; });
+      if (radios.length) {
+        var rl = el('li', 'dongle-node'); rl.setAttribute('data-kind', 'hub');
+        var rline = el('span', 'dongle-line'); rline.appendChild(el('b', null, 'Hub R')); rline.appendChild(el('span', 'dongle-port', ' · stays as it is · the Index controllers’ radios'));
+        rl.appendChild(rline);
+        var rul = el('ul', 'dongle-branches');
+        radios.forEach(function (r, k) {
+          var li2 = el('li', 'dongle-node'); li2.setAttribute('data-kind', 'radio');
+          var l2 = el('span', 'dongle-line'); l2.appendChild(el('b', null, 'Valve VR Radio')); l2.appendChild(el('span', 'dongle-port', ' · port ' + (k + 1)));
+          l2.appendChild(el('span', 'dongle-serial', ' · ' + r.serial));
+          li2.appendChild(l2); rul.appendChild(li2);
+        });
+        rl.appendChild(rul); ul.appendChild(rl);
+      }
       // The keyboard receiver and the drive go to the controller with no dongle hub, or the last one.
       if (!mine.length || c === ctrls[ctrls.length - 1]) found.others.splice(0).forEach(function (o) {
         var ol = el('li', 'dongle-node'); ol.setAttribute('data-kind', 'device');
