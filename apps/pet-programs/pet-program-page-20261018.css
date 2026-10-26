@@ -14,6 +14,16 @@
      window narrows, 16px on a phone. CSS inches are not real inches on every screen. */
   --gutter: clamp(20px, 6vw, 72px);
 }
+/* Wonderland Launchpad's own colours, a dark stormy sky (Astra, 2026-10-26: "I want the Wonderland Launchpad to be a
+   Dark Stormy vibe, so change the color theme"): storm-cloud navy and graphite, steel-blue lines, pale lightning-blue
+   links; every other pet page keeps the raspberry one. */
+:root[data-pet="rift-rabbit"] {
+  --slate: #10141c; --slate-2: #0a0d13; --chalk: #e3e9f3; --chalk-dim: #98a6bd; --line: #5b7aa6; --line-dim: #2f4058;
+  --link: #b4dcff; --connection: #8fb3d9;
+  --tool-bg: rgba(160, 190, 230, .05); --tool-bg-hover: rgba(160, 190, 230, .09);
+}
+:root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
+:root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
 * { box-sizing: border-box; }
 html { background: var(--slate); }
 body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 var(--text); }
@@ -497,54 +507,64 @@ img[hidden] { display: none !important; }
    the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
    shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
 .strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
-.strap-drawing { display: block; width: 100%; min-width: 560px; max-width: 760px; height: auto; margin: 0 auto; }
-.strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
-.strap-skin { fill: url(#strap-skin); stroke: #6c58c0; stroke-width: 1.6; }
-.strap-limb-edge { fill: none; stroke: #6c58c0; stroke-linecap: round; }
-.strap-limb { fill: none; stroke: #ab9cec; stroke-linecap: round; }
-.strap-hair { fill: #4a3478; stroke: #6c58c0; stroke-width: 1.2; }
-.strap-crease { fill: none; stroke: #6c58c0; stroke-width: 1.4; stroke-linecap: round; opacity: .7; }
-.strap-headset { fill: #2a2340; stroke: #8a7bd0; stroke-width: 1.6; }
-.strap-ring { fill: none; stroke: #f0eaff; stroke-width: 2; }
-.strap-ring-back { fill: none; stroke: #f0eaff; stroke-width: 1.6; stroke-dasharray: 5 4; opacity: .55; }
-.strap-shadow { fill: #000; opacity: .25; }
-.strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
+.strap-drawing { display: block; width: 100%; min-width: 640px; height: auto; margin: 0 auto; }
+.strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
+.strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
+.strap-skin { fill: url(#strap-skin); stroke: #4d5b80; stroke-width: 1.6; }
+.strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
+.strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
+.strap-hair { fill: #2b2f45; stroke: #4d5b80; stroke-width: 1.2; }
+.strap-crease { fill: none; stroke: #4d5b80; stroke-width: 1.4; stroke-linecap: round; opacity: .7; }
+.strap-headset { fill: #15171f; stroke: #8a95b3; stroke-width: 1.6; }
+.strap-shadow { fill: #000; opacity: .3; }
+.strap-view { font: 600 13px var(--label); fill: var(--chalk-dim); letter-spacing: .5px; }
+.strap-rig { stroke: #2d2d35; stroke-width: 6; stroke-linecap: round; }
+.strap-carabiner { fill: none; stroke: url(#strap-chrome); stroke-width: 2.5; }
+.strap-tab { fill: none; stroke: url(#strap-chrome); stroke-width: 4; stroke-linecap: round; }
+.strap-hoop { fill: none; stroke: url(#strap-chrome); stroke-width: 7; }
+.strap-hoop-shine { fill: none; stroke: #ffffff; stroke-width: 1.4; opacity: .35; stroke-dasharray: 18 40; }
 .strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
 .strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
 .strap-toy-group { font: 600 13px var(--label); fill: var(--chalk-dim); }
 .strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
+/* A spot: its colour halo, the device drawn on it (or a small ring when it is empty), its number on a corner badge. */
 .strap-spot { cursor: pointer; }
-.strap-spot circle { stroke-width: 2.2; stroke: #47d16a; fill: var(--slate-2); }
-.strap-spot text { font: 700 11px var(--text); fill: var(--fix); pointer-events: none; }
-.strap-back circle { stroke-dasharray: 2.5 2; }
-.strap-spot[data-state="used"] circle { fill: var(--care); }
-.strap-spot[data-state="joined"] circle { fill: #d994c6; }
-.strap-spot[data-state="head"] circle { fill: var(--fix); }
-.strap-spot:not([data-state="off"]) text { fill: var(--slate-2); }
-.strap-spot[data-state="off"] circle { stroke: var(--planned); }
-.strap-spot[data-state="off"] text { fill: var(--chalk-dim); }
-.strap-spot:focus-visible circle, .strap-spot:hover circle, .strap-spot.is-open circle { stroke: var(--chalk); stroke-width: 3.2; }
 .strap-spot:focus { outline: none; }
+.strap-halo { fill: none; stroke-width: 2.4; stroke: transparent; }
+.strap-spot[data-state="used"] .strap-halo { stroke: var(--care); fill: rgba(108, 199, 232, .15); }
+.strap-spot[data-state="joined"] .strap-halo { stroke: #d994c6; fill: rgba(217, 148, 198, .15); }
+.strap-spot[data-state="head"] .strap-halo { stroke: var(--fix); fill: rgba(232, 197, 71, .15); }
+.strap-empty { fill: rgba(255, 255, 255, .06); stroke: var(--chalk-dim); stroke-width: 1.6; stroke-dasharray: 2.5 2; }
+.strap-spot:not([data-kind=""]) .strap-empty { display: none; }
+.strap-spot .ico { display: none; }
+.strap-spot[data-kind="tracker"] .ico-tracker, .strap-spot[data-kind="index"] .ico-index, .strap-spot[data-kind="headset"] .ico-headset, .strap-spot[data-kind="hand"] .ico-hand { display: inline; }
+.strap-badge { fill: var(--slate-2); stroke: var(--chalk-dim); stroke-width: 1; }
+.strap-spot text { font: 700 9.5px var(--text); fill: var(--chalk); pointer-events: none; }
+.strap-spot:hover .strap-halo, .strap-spot:focus-visible .strap-halo, .strap-spot.is-open .strap-halo { stroke: var(--chalk); stroke-width: 3; }
 .strap-pop { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; width: max-content; max-width: 300px; padding: 8px 10px; background: var(--slate-2); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0, 0, 0, .5); font-size: 13px; }
 .strap-pop b { font: 600 13px var(--label); color: var(--chalk); }
 .strap-pop select { grid-column: 1 / -1; font: 13px var(--text); color: var(--chalk); background: var(--slate); border: 1px solid var(--line); border-radius: 8px; padding: 3px 6px; max-width: 100%; }
 .strap-pop [data-strap-pop-note] { grid-column: 1 / -1; color: var(--chalk-dim); }
 .strap-pop-close { font: 16px var(--text); line-height: 1; color: var(--chalk-dim); background: none; border: 0; padding: 0 2px; cursor: pointer; }
 .strap-pop-close:hover { color: var(--fix); }
-.strap-key { list-style: none; margin: 8px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+/* The key and her devices, each in a box of stacked rows, side by side or one under the other (2026-10-26). */
+.strap-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px 18px; margin: 10px 0 0; }
+.strap-box { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 14px 12px; min-width: 0; }
+.strap-box-title { margin: 0 0 6px; font: 600 13px var(--label); color: var(--chalk); }
+.strap-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .strap-key li::before, .strap-worn li::before { content: "\25CF\00A0"; }
 .strap-key [data-state="used"]::before, .strap-worn [data-state="used"]::before { color: var(--care); }
 .strap-key [data-state="joined"]::before, .strap-worn [data-state="joined"]::before { color: #d994c6; }
 .strap-key [data-state="head"]::before, .strap-worn [data-state="head"]::before { color: var(--fix); }
 .strap-key [data-state="off"]::before { color: var(--planned); }
-.strap-worn { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 3px 18px; font-size: 13.5px; }
+.strap-worn { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 13.5px; }
 .strap-worn b { font-family: var(--label); color: var(--fix); }
 .strap-dev { color: var(--link); }
 .strap-pairs { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 10px 0 0; font-size: 13.5px; }
 .strap-pair-picks { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 .strap-pairs select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; }
 .strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
-.strap-footer { margin: 6px 0 0; text-align: center; font: 600 14px var(--label); color: #47d16a; }
+.strap-footer { margin: 10px 0 0; font: 600 13px var(--label); color: #47d16a; }
 .launch-mode.is-blocked { opacity: .7; }
 .launch-needs { color: var(--fix); margin: 6px 0 0; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }

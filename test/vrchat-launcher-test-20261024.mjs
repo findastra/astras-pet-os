@@ -62,7 +62,11 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
   assert.doesNotMatch(rabbit, /--ignore-trackers|data-trk-/, 'no Steam line and no old drawing');
   assert.match(js, /ask\('\/spots'/, 'changes go to the launcher');
   // Her later notes (2026-10-25): a woman, chest and sternum rings like the waist's, a picker on the spot itself, a short list.
-  assert.equal((rabbit.match(/class="strap-ring"/g) || []).length, 3, 'chest, sternum and waist rings');
+  // 2026-10-26: her front and back side by side; each spot draws the device on it; the hoops hang from the ceiling.
+  assert.ok(rabbit.includes('strap-figure strap-front') && rabbit.includes('strap-figure strap-back'), 'a front view and a back view');
+  for (const k of ['tracker', 'index', 'headset', 'hand']) assert.ok(rabbit.includes(`<symbol id="ico-${k}"`), k);
+  assert.equal((rabbit.match(/class="strap-lyra"/g) || []).length, 2, 'two aerial hoops');
+  assert.ok(rabbit.includes('<html lang="en" data-pet="rift-rabbit">'), 'its own colours');
   assert.ok(rabbit.includes('strap-hair'));
   assert.equal((rabbit.match(/data-strap-pop hidden/g) || []).length, 1, 'one picker that opens on the spot clicked');
   assert.match(rabbit, /<div class="strap-store" hidden>/);

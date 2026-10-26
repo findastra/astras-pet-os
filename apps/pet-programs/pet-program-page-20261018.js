@@ -748,6 +748,9 @@
       var code = g.getAttribute('data-strap-dot');
       var inPair = (full.hip && pairs.hip.indexOf(code) >= 0) || (full.chest && pairs.chest.indexOf(code) >= 0);
       g.setAttribute('data-state', !worn[code] ? 'off' : code === 'H' ? 'head' : inPair ? 'joined' : 'used');
+      // The spot draws the device on it (2026-10-26: "look like HTC Vive 3.0, and Index Controller, etc.").
+      var dev = worn[code] || '';
+      g.setAttribute('data-kind', /^vive-tracker-/.test(dev) ? 'tracker' : /^index-controller-/.test(dev) ? 'index' : /^quest-/.test(dev) ? 'headset' : dev === 'hand-tracking' ? 'hand' : '');
     });
     // The list under the drawing: only the spots with a device, one short line each, in her numbers.
     var list = strapper.querySelector('[data-strap-worn]');

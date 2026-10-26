@@ -117,7 +117,7 @@
       var hs = b.closest('[data-launch-headset]'), card = b.closest('[data-launch-mode]');
       function pick(k) { var i = hs.querySelector('[data-launch-switch="' + k + '"]'); return !i ? null : i.type === 'checkbox' ? i.checked : i.value; }
       b.disabled = true;
-      ask('/launch', { headset: hs.getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode'), streamer: pick('streamer'), double: pick('double-hip') || '', object: pick('object-track') || '',osc: !!pick('oscgoesbrrr'), woojer: !!pick('woojer') })
+      ask('/launch', { headset: hs.getAttribute('data-launch-headset'), mode: card.getAttribute('data-launch-mode'), streamer: pick('streamer'), double: pick('double-hip') || '', object: pick('object-track') || '', osc: !!pick('oscgoesbrrr'), woojer: !!pick('woojer'), face: pick('face') === true, fov: !!pick('fov'), pole: !!pick('pole') })
         .then(function (res) { show(res, card); }, lost);
     });
   });
@@ -158,6 +158,16 @@
     });
   }
   box.addEventListener('strapper-change', function () { paintButtons(); });
+  // Base Station FOV Viewer and VR Pole Overlay: a tick opens it now, an untick closes it (Astra, 2026-10-26: "I would
+  // like to be able to turn these on at any moment").
+  box.addEventListener('change', function (e) {
+    var k = e.target.getAttribute && e.target.getAttribute('data-launch-switch');
+    if (!launcher || (k !== 'fov' && k !== 'pole')) return;
+    var on = e.target.checked;
+    // Both headset tools have the tick; keep them the same.
+    Array.prototype.forEach.call(box.querySelectorAll('[data-launch-switch="' + k + '"]'), function (i) { i.checked = on; });
+    ask('/overlay', { id: k === 'fov' ? 'base-station-fov' : 'vr-pole-overlay', on: on }).then(function (res) { e.target.title = (res && res.said) || ''; }, lost);
+  });
 
   var script = document.createElement('script');
   script.setAttribute('src', LOCAL_LAUNCH + '?t=' + Date.now());
