@@ -527,16 +527,17 @@ img[hidden] { display: none !important; }
 .strap-shadow { fill: #000; opacity: .3; }
 /* Labels on the drawing as big as the words under it (2026-10-26: "The font is a little small on the labels"). */
 .strap-view { font: 700 18px var(--label); fill: var(--chalk); letter-spacing: 2px; }
-.strap-rope { stroke: #050506; stroke-width: 6; stroke-linecap: butt; }
+.strap-rope { stroke: #050506; stroke-width: 5; stroke-linecap: butt; }
 .strap-rope-wrap { fill: none; stroke: #050506; stroke-width: 4; stroke-linecap: round; }
-.strap-hoop { fill: none; stroke: #0b0b10; stroke-width: 10; }
+.strap-hoop { fill: none; stroke: #0a0820; stroke-width: 7.5; }
+.strap-galaxy { filter: blur(1.2px); }
 .strap-hoop-gloss { fill: none; stroke: #ffffff; stroke-width: 1.6; opacity: .35; stroke-linecap: round; }
 .strap-fig8 { fill: none; stroke: #0b0b10; stroke-width: 4; }
 .strap-glitter { opacity: .95; }
 .strap-glitter-0 { fill: #ff6ad5; } .strap-glitter-1 { fill: #ffd25a; } .strap-glitter-2 { fill: #5affc8; } .strap-glitter-3 { fill: #6ab4ff; } .strap-glitter-4 { fill: #c58aff; }
 .strap-dome { filter: drop-shadow(0 0 4px #5dff3a); }
 .strap-prop-names, .strap-prop-names text { font: 16px var(--text); fill: var(--chalk-dim); }
-.strap-toy text { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
 .strap-toy-shadow { fill: #000; opacity: .45; }
 .strap-toy-group { font: 600 16px var(--label); fill: var(--chalk-dim); }
 .strap-toy-note { font: italic 15px var(--text); fill: var(--planned); }
@@ -601,6 +602,24 @@ img[hidden] { display: none !important; }
 /* Checkboxes in the page's own pink, not the browser's blue (Astra, 2026-10-24: "make the check boxes the right color
    themes"). */
 input[type="checkbox"] { accent-color: var(--line); }
+/* The switch rows in the page's own colours (Astra, 2026-10-26: "these look plain, make them match the rest of the pages
+   color themes too"): each switch a framed chip that lights up when ticked, the tick box and menus drawn in the theme. */
+.launch-switches { gap: 8px; }
+.launch-switch { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1px solid var(--line-dim); border-radius: 8px; background: var(--tool-bg, rgba(255, 255, 255, .04)); color: var(--chalk-dim); cursor: pointer; transition: border-color .15s, background .15s, color .15s, box-shadow .15s; }
+.launch-switch[hidden] { display: none; }
+.launch-switch:hover { border-color: var(--line); color: var(--chalk); }
+.launch-switch:has(> input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-group { gap: 4px; cursor: default; }
+.launch-group > label { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+.launch-group > label:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); }
+.launch-switches input[type="checkbox"] { appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 15px; height: 15px; margin: 0; border: 1.5px solid var(--line); border-radius: 4px; background: var(--slate-2); cursor: pointer; }
+.launch-switches input[type="checkbox"]::after { content: ''; position: absolute; left: 3.6px; top: .6px; width: 4px; height: 8px; border: solid var(--slate-2); border-width: 0 2px 2px 0; transform: rotate(45deg); opacity: 0; }
+.launch-switches input[type="checkbox"]:checked { border-color: var(--link); background: linear-gradient(135deg, var(--link), var(--line)); }
+.launch-switches input[type="checkbox"]:checked::after { opacity: 1; }
+.launch-switches input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
+.launch-switch select { appearance: none; -webkit-appearance: none; padding: 3px 26px 3px 9px; border-color: var(--line-dim); border-radius: 6px; background: linear-gradient(45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 13px) 55% / 5px 5px, linear-gradient(-45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 8px) 55% / 5px 5px, var(--slate-2); cursor: pointer; }
+.launch-switch select:hover, .launch-switch select:focus { border-color: var(--line); }
+.launch-switch select option { background: var(--slate-2); color: var(--chalk); }
 .launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; align-items: start; }   /* a folded mode shrinks to its name (Astra, 2026-10-24: "arrow needs to shrink the border up") */
 .launch-mode { border: 1px solid var(--line-dim); border-radius: 14px; padding: 4px 12px 10px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .launch-mode .button { border-radius: 14px; }
