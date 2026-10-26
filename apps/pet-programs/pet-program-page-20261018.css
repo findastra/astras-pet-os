@@ -521,6 +521,8 @@ img[hidden] { display: none !important; }
 .strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
 .strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
 .strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
+.strap-belt { fill: none; stroke: var(--link); stroke-width: 2.4; stroke-dasharray: 5 3; opacity: .85; }
+.strap-belt-link { display: none; }
 .strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
 .strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
 .strap-star { fill: #fff6d8; opacity: .9; }

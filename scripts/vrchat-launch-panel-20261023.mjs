@@ -208,15 +208,19 @@ export const SPOTS = [
   { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 160, y: 922 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 220, y: 922 },
   { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 166, y: 892 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 214, y: 892 },
   { code: 'RK', n: 5, name: 'Right Knee', view: 'front', x: 166, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', view: 'front', x: 214, y: 800 },
-  { code: 'FW', n: 7, name: 'Front Waist', view: 'front', x: 190, y: 670 }, { code: 'BW', n: 8, name: 'Back Waist', view: 'back', x: 190, y: 670 },
-  { code: 'RS', n: 9, name: 'Right Side', view: 'front', x: 139, y: 666 }, { code: 'LS', n: 10, name: 'Left Side', view: 'front', x: 241, y: 666 },
-  { code: 'RFS', n: 11, name: 'Right Front-Side', view: 'front', x: 161, y: 669 }, { code: 'LFS', n: 12, name: 'Left Front-Side', view: 'front', x: 219, y: 669 },
-  { code: 'RBS', n: 13, name: 'Right Back-Side', view: 'back', x: 219, y: 669 }, { code: 'LBS', n: 14, name: 'Left Back-Side', view: 'back', x: 161, y: 669 },
+  // 24 Head is the tracker clipped on top of the headset, so it shows on her front (2026-10-26: "tracker on the head is
+  // on the front always attached to top of headset").
+  // The eight waist spots once each, round her belt seen from above (2026-10-26: "I want each position to show up only
+  // once"): front at the bottom, back at the top, her right on your left.
+  { code: 'FW', n: 7, name: 'Front Waist', x: 260, y: 217 }, { code: 'BW', n: 8, name: 'Back Waist', x: 260, y: 113 },
+  { code: 'RS', n: 9, name: 'Right Side', x: 165, y: 165 }, { code: 'LS', n: 10, name: 'Left Side', x: 355, y: 165 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 193, y: 202 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 327, y: 202 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 193, y: 128 }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 327, y: 128 },
   { code: 'FD', n: 15, name: 'Front Diaphragm', view: 'front', x: 190, y: 594 }, { code: 'BD', n: 16, name: 'Back Diaphragm', view: 'back', x: 190, y: 594 },
   { code: 'FS', n: 17, name: 'Front Sternum', view: 'front', x: 190, y: 512 }, { code: 'BS', n: 18, name: 'Back Sternum', view: 'back', x: 190, y: 512 },
   { code: 'RE', n: 19, name: 'Right Elbow', view: 'front', x: 112, y: 600 }, { code: 'LE', n: 20, name: 'Left Elbow', view: 'front', x: 268, y: 600 },
   { code: 'RH', n: 21, name: 'Right Hand', view: 'front', x: 93, y: 724, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', view: 'front', x: 287, y: 724, kind: 'left-hand' },
-  { code: 'F', n: 23, name: 'Face', view: 'front', x: 190, y: 418, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', view: 'back', x: 190, y: 372 },
+  { code: 'F', n: 23, name: 'Face', view: 'front', x: 190, y: 418, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', view: 'front', x: 190, y: 380 },
   { code: 'DP', n: 25, name: 'Dance Pole', x: 1012, y: 54, object: 'dance-pole', side: true },
   // Each hoop's two spots (2026-10-26): on the side at 3 o'clock and high on the ring at half past one. Both stay off the
   // bottom, where she sits and hangs, and off the top tab, where the rigging and her hands are; either one is enough.
@@ -473,6 +477,9 @@ ${TOY_DEFS}
 <path class="strap-ceiling" d="M470 ${CEILING} H1100"/><text class="strap-prop-names" x="476" y="${CEILING + 20}">9 ft ceiling</text><path class="strap-floor" d="M8 862 H1102"/>
 <ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
 ${figure('front')}${figure('back')}
+<g class="strap-belt-map"><text class="strap-prop-names" x="260" y="78" text-anchor="middle">Waist, seen from above</text><ellipse class="strap-skin" cx="260" cy="165" rx="95" ry="52"/>
+<text class="strap-prop-names" x="260" y="150" text-anchor="middle">Back</text><text class="strap-prop-names" x="260" y="192" text-anchor="middle">Front</text>
+<path class="strap-belt" d="M92 601 H188 M332 601 H428"/><path class="strap-belt-link" d="M140 596 V250 M380 596 V250"/></g>
 <text class="strap-view" x="140" y="284" text-anchor="middle">Front Side</text><text class="strap-view" x="380" y="284" text-anchor="middle">Back Side</text>
 ${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
 ${xpole()}
