@@ -510,7 +510,8 @@ img[hidden] { display: none !important; }
 .strap-drawing { display: block; width: 100%; min-width: 640px; height: auto; margin: 0 auto; }
 .strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
 .strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
-.strap-skin { fill: url(#strap-skin); stroke: #4d5b80; stroke-width: 1.6; }
+/* Her body: a dark silhouette with a pale storm-light edge (2026-10-26: "redo the blue body too"). */
+.strap-skin { fill: #1a2030; stroke: #c9d6f2; stroke-width: 1.8; filter: drop-shadow(0 0 3px rgba(160, 200, 255, .35)); }
 .strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
 .strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
 .strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
@@ -520,20 +521,23 @@ img[hidden] { display: none !important; }
 .strap-band { fill: none; stroke: #15171f; stroke-width: 4; stroke-linecap: round; }
 .strap-band-wide { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.2; }
 .strap-drawing:not([data-headset="quest-pro"]) .strap-hs-quest-pro, .strap-drawing:not([data-headset="quest-3"]) .strap-hs-quest-3 { display: none; }
-.strap-crease { fill: none; stroke: #4d5b80; stroke-width: 1.4; stroke-linecap: round; opacity: .7; }
-.strap-headset { fill: #15171f; stroke: #8a95b3; stroke-width: 1.6; }
+.strap-crease { fill: none; stroke: #8fa0c4; stroke-width: 1.3; stroke-linecap: round; opacity: .7; }
+.strap-band-soft { fill: none; stroke: #d9d9e0; stroke-width: 5; stroke-linecap: round; }
+.strap-headset { fill: #101015; stroke: #a8b3d0; stroke-width: 1.6; }
 .strap-shadow { fill: #000; opacity: .3; }
 /* Labels on the drawing as big as the words under it (2026-10-26: "The font is a little small on the labels"). */
-.strap-view { font: 600 16px var(--label); fill: var(--chalk-dim); letter-spacing: .5px; }
-.strap-rope { stroke: #050506; stroke-width: 4; stroke-linecap: round; }
+.strap-view { font: 700 18px var(--label); fill: var(--chalk); letter-spacing: 2px; }
+.strap-rope { stroke: #050506; stroke-width: 6; stroke-linecap: butt; }
 .strap-rope-wrap { fill: none; stroke: #050506; stroke-width: 4; stroke-linecap: round; }
-.strap-hoop-rim { fill: none; stroke: #7d6ad0; stroke-width: 11; opacity: .55; }
-.strap-hoop { fill: none; stroke: url(#strap-hoop); stroke-width: 8; }
+.strap-hoop { fill: none; stroke: #0b0b10; stroke-width: 10; }
+.strap-hoop-gloss { fill: none; stroke: #ffffff; stroke-width: 1.6; opacity: .35; stroke-linecap: round; }
+.strap-fig8 { fill: none; stroke: #0b0b10; stroke-width: 4; }
 .strap-glitter { opacity: .95; }
 .strap-glitter-0 { fill: #ff6ad5; } .strap-glitter-1 { fill: #ffd25a; } .strap-glitter-2 { fill: #5affc8; } .strap-glitter-3 { fill: #6ab4ff; } .strap-glitter-4 { fill: #c58aff; }
 .strap-dome { filter: drop-shadow(0 0 4px #5dff3a); }
 .strap-prop-names, .strap-prop-names text { font: 16px var(--text); fill: var(--chalk-dim); }
 .strap-toy text { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-toy-shadow { fill: #000; opacity: .45; }
 .strap-toy-group { font: 600 16px var(--label); fill: var(--chalk-dim); }
 .strap-toy-note { font: italic 15px var(--text); fill: var(--planned); }
 /* A spot: its colour halo, the device drawn on it (or a small ring when it is empty), its number on a corner badge. */

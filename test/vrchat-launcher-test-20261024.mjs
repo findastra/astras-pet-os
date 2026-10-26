@@ -55,10 +55,11 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
   }
   const ids = Object.values(DEVICES).flat().map(([id]) => id);
   assert.ok(ids.every((id) => /^(quest-pro|quest-3|(index|quest-pro|quest-3)-controller-(left|right)|hand-tracking|vive-tracker-0[1-9])$/.test(id)));
-  assert.deepEqual(WORN, { F: 'quest-pro', H: 'vive-tracker-08', FC: 'vive-tracker-05', BC: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04', RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left' });
-  assert.deepEqual(PAIRS, { hip: ['FW', 'BW'], chest: ['FC', 'BC'] });
+  assert.deepEqual(WORN, { F: 'quest-pro', H: 'vive-tracker-08', FS: 'vive-tracker-05', BS: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04', RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left' });
+  assert.deepEqual(PAIRS, { hip: ['FW', 'BW'], chest: ['FS', 'BS'] });
   assert.equal(PAIR_SPOTS.hip.length, 8, 'any two of the eight waist spots');
-  assert.ok(rabbit.includes('27 locations tracking can occur, devices may vary'));
+  // 2026-10-26: no list of every position, no 27-locations line, no pair pickers: the pairs set themselves.
+  assert.ok(!rabbit.includes('27 locations tracking') && !rabbit.includes('data-strap-worn') && !rabbit.includes('data-strap-pair'));
   assert.doesNotMatch(rabbit, /--ignore-trackers|data-trk-/, 'no Steam line and no old drawing');
   assert.match(js, /ask\('\/spots'/, 'changes go to the launcher');
   // Her later notes (2026-10-25): a woman, chest and sternum rings like the waist's, a picker on the spot itself, a short list.
@@ -70,8 +71,7 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
   assert.ok(rabbit.includes('strap-hair'));
   assert.equal((rabbit.match(/data-strap-pop hidden/g) || []).length, 1, 'one picker that opens on the spot clicked');
   assert.match(rabbit, /<div class="strap-store" hidden>/);
-  assert.ok(rabbit.includes('data-strap-worn'));
-});
+  });
 
 // The dongle map (Astra, 2026-10-26): its tool sits after tracker-strapper, its Scan button stays off until the
 // launcher on this PC answers, and the launcher script asks the launcher for it.

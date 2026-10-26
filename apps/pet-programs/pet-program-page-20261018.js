@@ -728,22 +728,15 @@
   function spotName(code) { var row = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name'); return row ? row.textContent.replace(/\s+/g, ' ').trim() : code; }
   function strap() {
     if (!strapper) return;
-    var worn = {}, pairs = { hip: [], chest: [] };
+    var worn = {};
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) worn[sel.getAttribute('data-strap-spot')] = sel.value; });
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
     function tracker(code) { return /^vive-tracker-/.test(worn[code] || ''); }
-    // A pair picks itself (Astra, 2026-10-26: any two waist spots, and front or back chest and sternum crossed): when its
-    // spots are not both worn and exactly two spots of its group have trackers, those two become the pair.
-    var GROUPS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FC', 'BC', 'FS', 'BS'] };
-    for (var g in GROUPS) {
-      var worn2 = GROUPS[g].filter(tracker);
-      if (pairs[g].every(tracker) || worn2.length !== 2) continue;
-      var sels = strapper.querySelectorAll('[data-strap-pair="' + g + '"]');
-      sels[0].value = worn2[0]; sels[1].value = worn2[1]; pairs[g] = worn2;
-      sels[1].dispatchEvent(new Event('change', { bubbles: true }));
-      return;   // the change event draws everything again
-    }
-    var full = { hip: pairs.hip.every(tracker), chest: pairs.chest.every(tracker) };
+    // The Double pairs and choice set themselves from her spots, as Rift Rabbit's launcher sets them (Astra, 2026-10-26:
+    // "I dont want to have to mess with double hip I want you do fix that program for me when I launch"): the usual
+    // pair (Front and Back Waist, Front and Back Sternum) when both are worn, else the first two worn spots of the group.
+    function pairOf(group, usual) { if (usual.every(tracker)) return usual; var f = group.filter(tracker); return f.length >= 2 ? f.slice(0, 2) : []; }
+    var pairs = { hip: pairOf(['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], ['FW', 'BW']), chest: pairOf(['FS', 'BS', 'FD', 'BD'], ['FS', 'BS']) };
+    var full = { hip: pairs.hip.length === 2, chest: pairs.chest.length === 2 };
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) {
       var code = g.getAttribute('data-strap-dot');
       var inPair = (full.hip && pairs.hip.indexOf(code) >= 0) || (full.chest && pairs.chest.indexOf(code) >= 0);
@@ -755,28 +748,6 @@
     });
     // Her headset on the drawing follows 23 Face (Quest Pro or Quest 3).
     strapper.querySelector('.strap-drawing').setAttribute('data-headset', worn.F || '');
-    // Every position in her numbers, one row each; a used one says what is on it (2026-10-26).
-    var list = strapper.querySelector('[data-strap-worn]');
-    list.textContent = '';
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
-      var code = sel.getAttribute('data-strap-spot'), row = sel.closest('[data-strap-row]');
-      if (!sel.value) {
-        var empty = document.createElement('li'); empty.setAttribute('data-state', 'off');
-        var en = document.createElement('b'); en.textContent = row.querySelector('.strap-name b').textContent; empty.appendChild(en);
-        empty.appendChild(document.createTextNode(' ' + row.querySelector('.strap-name').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim()));
-        list.appendChild(empty);
-        return;
-      }
-      var li = document.createElement('li');
-      li.setAttribute('data-state', strapper.querySelector('[data-strap-dot="' + code + '"]').getAttribute('data-state'));
-      var n = document.createElement('b'); n.textContent = row.querySelector('.strap-name b').textContent;
-      li.appendChild(n);
-      li.appendChild(document.createTextNode(' ' + row.querySelector('.strap-name').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim() + ' · '));
-      var dev = document.createElement('span'); dev.className = 'strap-dev'; dev.textContent = sel.selectedOptions[0].getAttribute('data-short');
-      dev.title = sel.selectedOptions[0].textContent;
-      li.appendChild(dev);
-      list.appendChild(li);
-    });
     var face = worn.F || '';
     var needs = [];
     if (!tracker('H')) needs.push(spotName('H'));
@@ -801,7 +772,9 @@
         Array.prototype.forEach.call(sel.options, function (o) { o.disabled = !!o.value && !ok(o.value); });
         if (sel.selectedOptions[0] && sel.selectedOptions[0].disabled) { sel.value = ''; sel.dispatchEvent(new Event('change', { bubbles: true })); }
       }
-      gate('double-hip', function (v) { return (v !== 'hip' && v !== 'both' || full.hip) && (v !== 'chest' && v !== 'both' || full.chest); });
+      var auto = hs.querySelector('select[data-launch-switch="double-hip"]');
+      var want = full.hip && full.chest ? 'both' : full.hip ? 'hip' : full.chest ? 'chest' : '';
+      if (auto && auto.value !== want) { auto.value = want; auto.dispatchEvent(new Event('change', { bubbles: true })); }
       gate('object-track', function (v) { return tracker(OBJECT_SPOT[v]); });
     });
     box.dispatchEvent(new CustomEvent('strapper-change'));

@@ -131,18 +131,14 @@
       var v = d.spots[sel.getAttribute('data-strap-spot')] || '';
       sel.value = Array.prototype.some.call(sel.options, function (o) { return o.value === v; }) ? v : '';
     });
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) {
-      var p = d[sel.getAttribute('data-strap-pair')];
-      if (p && p[+sel.getAttribute('data-strap-i')]) sel.value = p[+sel.getAttribute('data-strap-i')];
-    });
     box.dispatchEvent(new CustomEvent('strapper-load'));
   }
   function sendSpots() {
-    var spots = {}, pairs = { hip: [], chest: [] };
+    var spots = {};
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) spots[sel.getAttribute('data-strap-spot')] = sel.value; });
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
     said.textContent = 'Saving…';
-    ask('/spots', { spots: spots, hip: pairs.hip, chest: pairs.chest }).then(function (res) {
+    // The launcher works out the Double pairs from the spots itself (2026-10-26).
+    ask('/spots', { spots: spots }).then(function (res) {
       // The launcher's answer is what it kept: a change it refused goes back.
       showSpots(res);
       said.textContent = res && res.ok ? 'Saved on this PC. Launches use these spots.' : (res && res.said) || 'Not saved.';
@@ -150,7 +146,7 @@
   }
   if (strapper) {
     strapper.addEventListener('change', function (e) {
-      if (!launcher || !e.target.matches('[data-strap-spot], [data-strap-pair]')) return;
+      if (!launcher || !e.target.matches('[data-strap-spot]')) return;
       // One tracker on one spot: putting it on a new spot takes it off the old one.
       if (e.target.matches('[data-strap-spot]') && /^vive-tracker-/.test(e.target.value))
         Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel !== e.target && sel.value === e.target.value) sel.value = ''; });
@@ -212,7 +208,7 @@
     if (!d || d.schema !== 'rift-rabbit-vr-launch-v1' || d.on !== true || !/^http:\/\/127\.0\.0\.1:\d{2,5}\/$/.test(d.url) || !/^[0-9a-f]{32,}$/i.test(d.code)) return;
     launcher = { url: d.url.slice(0, -1), code: d.code, installed: d.installed || {} };
     if (strapper) {
-      Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot], [data-strap-pair]'), function (sel) { sel.disabled = false; });
+      Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { sel.disabled = false; });
       said.textContent = 'Kept in Rift Rabbit’s launcher on this PC. A change saves at once.';
       showSpots(d);
     }
