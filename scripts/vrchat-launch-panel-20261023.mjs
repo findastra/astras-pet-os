@@ -182,28 +182,32 @@ function modeCard(h, m, i) {
 // the left and the toys on the right in a spacious and proportional way", "I want to just click the spot on him, then
 // drop down assign a device from there", and a shorter list. Numbers, names and codes are hers. Facing you, so her right
 // is on the left.
-// `x`, `y`: the spot on the drawing (2.4 px a centimetre: 5′7″ with slightly long arms and torso, her build); `back`:
-// on the back half of its ring, drawn dashed; `kind`: what may go on it.
+// Then (2026-10-26): "Redo these designs they still are not ergonomic or look good (person, objects)": she is a smooth
+// mannequin now, drawn larger (3.2 px a centimetre), with the rings round her chest, sternum and waist.
+// `x`, `y`: the spot on the drawing (5′7″ with slightly long arms and torso, her build); `back`: on the back half of its
+// ring, drawn dashed; `kind`: what may go on it.
 export const SPOTS = [
-  { code: 'RF', n: 1, name: 'Right Foot', x: 158, y: 694 }, { code: 'LF', n: 2, name: 'Left Foot', x: 242, y: 694 },
-  { code: 'RA', n: 3, name: 'Right Ankle', x: 172, y: 668 }, { code: 'LA', n: 4, name: 'Left Ankle', x: 228, y: 668 },
-  { code: 'RK', n: 5, name: 'Right Knee', x: 176, y: 600 }, { code: 'LK', n: 6, name: 'Left Knee', x: 224, y: 600 },
-  { code: 'FW', n: 7, name: 'Front Waist', x: 200, y: 500 }, { code: 'BW', n: 8, name: 'Back Waist', x: 200, y: 472, back: true },
-  { code: 'RS', n: 9, name: 'Right Side', x: 148, y: 486 }, { code: 'LS', n: 10, name: 'Left Side', x: 252, y: 486 },
-  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 174, y: 497 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 226, y: 497 },
-  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 174, y: 475, back: true }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 226, y: 475, back: true },
-  { code: 'FS', n: 15, name: 'Front Sternum', x: 200, y: 450 }, { code: 'BS', n: 16, name: 'Back Sternum', x: 200, y: 426, back: true },
-  { code: 'FC', n: 17, name: 'Front Chest', x: 200, y: 405 }, { code: 'BC', n: 18, name: 'Back Chest', x: 200, y: 379, back: true },
-  { code: 'RE', n: 19, name: 'Right Elbow', x: 136, y: 448 }, { code: 'LE', n: 20, name: 'Left Elbow', x: 264, y: 448 },
-  { code: 'RH', n: 21, name: 'Right Hand', x: 122, y: 540, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', x: 278, y: 540, kind: 'left-hand' },
-  { code: 'F', n: 23, name: 'Face', x: 200, y: 322, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', x: 200, y: 288 },
-  { code: 'DP', n: 25, name: 'Dance Pole', x: 955, y: 62, object: 'dance-pole' },
-  { code: 'BDH', n: 26, name: 'Big Dance Hoop', x: 555, y: 495, object: 'large-hoop' },
-  { code: 'LDH', n: 27, name: 'Little Dance Hoop', x: 488, y: 342, object: 'small-hoop' },
+  { code: 'RF', n: 1, name: 'Right Foot', x: 150, y: 924 }, { code: 'LF', n: 2, name: 'Left Foot', x: 230, y: 924 },
+  { code: 'RA', n: 3, name: 'Right Ankle', x: 158, y: 896 }, { code: 'LA', n: 4, name: 'Left Ankle', x: 222, y: 896 },
+  { code: 'RK', n: 5, name: 'Right Knee', x: 160, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', x: 220, y: 800 },
+  { code: 'FW', n: 7, name: 'Front Waist', x: 190, y: 657 }, { code: 'BW', n: 8, name: 'Back Waist', x: 190, y: 623, back: true },
+  { code: 'RS', n: 9, name: 'Right Side', x: 126, y: 640 }, { code: 'LS', n: 10, name: 'Left Side', x: 254, y: 640 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 152, y: 654 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 228, y: 654 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 152, y: 626, back: true }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 228, y: 626, back: true },
+  { code: 'FS', n: 15, name: 'Front Sternum', x: 190, y: 593 }, { code: 'BS', n: 16, name: 'Back Sternum', x: 190, y: 567, back: true },
+  { code: 'FC', n: 17, name: 'Front Chest', x: 190, y: 544 }, { code: 'BC', n: 18, name: 'Back Chest', x: 190, y: 512, back: true },
+  { code: 'RE', n: 19, name: 'Right Elbow', x: 108, y: 598 }, { code: 'LE', n: 20, name: 'Left Elbow', x: 272, y: 598 },
+  { code: 'RH', n: 21, name: 'Right Hand', x: 93, y: 716, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', x: 287, y: 716, kind: 'left-hand' },
+  { code: 'F', n: 23, name: 'Face', x: 190, y: 416, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', x: 190, y: 380 },
+  { code: 'DP', n: 25, name: 'Dance Pole', x: 860, y: 80, object: 'dance-pole' },
+  { code: 'BDH', n: 26, name: 'Big Dance Hoop', x: 613, y: 657, object: 'large-hoop' },
+  { code: 'LDH', n: 27, name: 'Little Dance Hoop', x: 501, y: 404, object: 'small-hoop' },
 ];
 
 // Double Hip's pair is any two of the eight waist spots, usually Front and Back Waist (Astra, 2026-10-25: "the double hip
-// can be made from any of the 8 on the waist, but typical is FW, BW"); Double Chest's any two of the four chest spots.
+// can be made from any of the 8 on the waist, but typical is FW, BW"); Double Chest's any two of the four chest and
+// sternum spots, front with back crossed too (2026-10-26: "the front chest and back sternum can be combined for a
+// doublechest, and front sternum back chest"). When exactly two spots of a group have trackers, they are the pair.
 export const PAIR_SPOTS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FS', 'BS', 'FC', 'BC'] };
 
 // Her devices, by the launcher's ids (findastra/rift-rabbit, its device table): [id, name in the picker, short name in
@@ -240,13 +244,13 @@ export const SPOT_STATES = [
 // sketches", "make them look realistic"): drawn from the makers' product photos, standing on the floor, with no spot.
 // The Woojer Vest 3 is to her scale (about 51 cm: a harness with a handle loop, two big transducers high on the chest,
 // a mesh spine with a chest strap, and a waist belt with two more transducers and a round buckle). The four Lovense
-// toys are drawn twice their size so their shapes read: Nora a 24.4 cm rotating rabbit, Domi 2 a 23 cm mini wand, Lush 3
+// toys are true size too, standing inside the big hoop: Nora a 24.4 cm rotating rabbit, Domi 2 a 23 cm mini wand, Lush 3
 // an 18 cm egg with a thin tail, Vulse a 21 cm thrusting egg with a ribbed neck and a long tail. `x`, `y`: the drawing's
-// top left; `label`: where its name sits.
+// top left; `scale`: from the outline's own size to hers; `label`: where its name sits.
 const shine = (cx, cy, rx, ry) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#ffffff" opacity=".28"/>`;
 const pod = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#toy-pod)" stroke="#55555e" stroke-width="1.2"/><circle cx="${cx}" cy="${cy}" r="${r * 0.55}" fill="none" stroke="#2c2c33" stroke-width="1"/>`;
 export const TOYS = [
-  { name: 'Woojer Vest 3', x: 596, y: 578, label: [654, 716], svg: `<path d="M38 6 Q58 0 78 6 L74 15 Q58 10 42 15 Z" fill="#2e2e35"/><rect x="50" y="1" width="16" height="5" rx="2.5" fill="none" stroke="#6a6a74" stroke-width="1.4"/>
+  { name: 'Woojer Vest 3', x: 688, y: 767, scale: 4 / 3, label: [760, 948], svg: `<path d="M38 6 Q58 0 78 6 L74 15 Q58 10 42 15 Z" fill="#2e2e35"/><rect x="50" y="1" width="16" height="5" rx="2.5" fill="none" stroke="#6a6a74" stroke-width="1.4"/>
 <path d="M38 6 Q20 6 11 22 Q3 40 9 58 Q20 67 35 60 L45 44 L46 14 Z" fill="url(#toy-vest)"/><path d="M78 6 Q96 6 105 22 Q113 40 107 58 Q96 67 81 60 L71 44 L70 14 Z" fill="url(#toy-vest)"/>
 <path d="M44 38 L72 38 L70 94 L46 94 Z" fill="url(#toy-mesh)" stroke="#1d1d22" stroke-width="1"/>
 <rect x="38" y="52" width="40" height="4" rx="1.5" fill="#1b1b20"/><rect x="54" y="50" width="8" height="8" rx="1.5" fill="#44444c"/>
@@ -256,18 +260,18 @@ ${pod(26, 33, 11)}${pod(90, 33, 11)}${pod(21, 99, 11)}${pod(95, 99, 11)}
 <rect x="84" y="44" width="10" height="13" rx="2" fill="#15151a" stroke="#4a4a52" stroke-width=".8"/><circle cx="89" cy="49" r="2.2" fill="none" stroke="#7fd3ff" stroke-width=".8"/>
 <path d="M50 60 V68 M66 60 V68 M48 112 V118 M68 112 V118" stroke="#c4313c" stroke-width="2" stroke-linecap="round"/>
 <text x="20" y="48" font-size="5" fill="#8a8a94" transform="rotate(-18 20 48)">woojer</text>` },
-  { name: 'Nora', x: 724, y: 583, label: [742, 716], svg: `<path d="M27 74 C36 72 43 64 43 52 C43 45 38 43 36 48 C35 58 32 63 27 64 Z" fill="url(#toy-pink)"/>
+  { name: 'Nora', x: 420, y: 852, scale: 2 / 3, label: [435, 948], svg: `<path d="M27 74 C36 72 43 64 43 52 C43 45 38 43 36 48 C35 58 32 63 27 64 Z" fill="url(#toy-pink)"/>
 <path d="M8 110 Q8 117 18 117 Q28 117 28 110 L28 84 C28 60 28 40 30 24 C32 12 30 2 22 2 C16 2 12 10 10 22 C6 40 8 60 8 84 Z" fill="url(#toy-pink)"/>
 <rect x="8" y="81" width="20" height="4" rx="1" fill="url(#toy-silver)"/><circle cx="18" cy="96" r="2.2" fill="#f7c3d6"/><circle cx="18" cy="104" r="2.2" fill="#f7c3d6"/>
 ${shine(13, 30, 2.2, 14)}${shine(13, 98, 1.8, 9)}` },
-  { name: 'Domi 2', x: 776, y: 588, label: [791, 716], svg: `<path d="M8 34 Q15 31 22 34 L21 104 Q15 112 9 104 Z" fill="url(#toy-pink)"/>
+  { name: 'Domi 2', x: 468, y: 857, scale: 2 / 3, label: [478, 948], svg: `<path d="M8 34 Q15 31 22 34 L21 104 Q15 112 9 104 Z" fill="url(#toy-pink)"/>
 <path d="M9 25 Q15 30 21 25 L20 35 Q15 37 10 35 Z" fill="url(#toy-silver)"/>
 <ellipse cx="15" cy="14" rx="14" ry="13" fill="url(#toy-head)"/>
 <circle cx="15" cy="50" r="2.2" fill="#f7c3d6"/><circle cx="15" cy="58" r="2.2" fill="#f7c3d6"/><rect x="13" y="64" width="4" height="7" rx="2" fill="#f7c3d6"/>
 ${shine(9, 9, 3.5, 4.5)}${shine(11, 70, 1.6, 22)}` },
-  { name: 'Lush 3', x: 814, y: 614, label: [830, 716], svg: `<path d="M12 50 C12 30 22 14 38 8" fill="none" stroke="url(#toy-pink-line)" stroke-width="5.5" stroke-linecap="round"/><circle cx="39" cy="8" r="4.2" fill="#e8508f"/>
+  { name: 'Lush 3', x: 512, y: 873, scale: 2 / 3, label: [527, 948], svg: `<path d="M12 50 C12 30 22 14 38 8" fill="none" stroke="url(#toy-pink-line)" stroke-width="5.5" stroke-linecap="round"/><circle cx="39" cy="8" r="4.2" fill="#e8508f"/>
 <ellipse cx="12" cy="66" rx="10" ry="19" fill="url(#toy-pink)"/>${shine(8, 60, 2.4, 9)}` },
-  { name: 'Vulse', x: 864, y: 599, label: [880, 716], svg: `<path d="M12 62 C12 38 26 18 44 10" fill="none" stroke="url(#toy-coral-line)" stroke-width="7" stroke-linecap="round"/><circle cx="45" cy="9.5" r="5" fill="#ff5a68"/>
+  { name: 'Vulse', x: 560, y: 863, scale: 2 / 3, label: [576, 948], svg: `<path d="M12 62 C12 38 26 18 44 10" fill="none" stroke="url(#toy-coral-line)" stroke-width="7" stroke-linecap="round"/><circle cx="45" cy="9.5" r="5" fill="#ff5a68"/>
 <rect x="3.5" y="58" width="17" height="6" rx="3" fill="url(#toy-coral)"/><rect x="3" y="64" width="18" height="6" rx="3" fill="url(#toy-coral)"/><rect x="2.5" y="70" width="19" height="6" rx="3" fill="url(#toy-coral)"/><rect x="2.5" y="76" width="19" height="6" rx="3" fill="url(#toy-coral)"/>
 <ellipse cx="12" cy="88" rx="9.5" ry="12" fill="url(#toy-coral)"/>${shine(8, 86, 2.2, 6)}` },
 ];
@@ -286,17 +290,37 @@ const TOY_DEFS = `<defs>
 const spotName = (s) => `${s.n} ${s.name} [${s.code}]`;
 
 function strapperDrawing() {
-  const spot = (s) => `<g class="strap-spot${s.back ? ' strap-back' : ''}" data-strap-dot="${esc(s.code)}" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title><circle cx="${s.x}" cy="${s.y}" r="10"/><text x="${s.x}" y="${s.y + 3.6}" text-anchor="middle">${s.n}</text></g>`;
-  const toy = (t) => `<g class="strap-toy"><g transform="translate(${t.x} ${t.y})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.name)}</text></g>`;
-  return `<svg class="strap-drawing" viewBox="0 0 990 724" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, facing you, with her 27 tracking spots; the dance hoops, her five toys and the dance pole beside her, to scale</title>
-<path class="strap-floor" d="M8 704 H982"/>
+  const spot = (s) => `<g class="strap-spot${s.back ? ' strap-back' : ''}" data-strap-dot="${esc(s.code)}" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title><circle cx="${s.x}" cy="${s.y}" r="11"/><text x="${s.x}" y="${s.y + 4}" text-anchor="middle">${s.n}</text></g>`;
+  const toy = (t) => `<g class="strap-toy"><g transform="translate(${t.x} ${t.y}) scale(${t.scale})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.name)}</text></g>`;
+  // Her figure: limbs drawn as rounded strokes (an outline, then the fill), the torso an hourglass, long hair behind her
+  // head, a headset on her face. Each ring's front half is solid and its back half dashed.
+  const limb = (d, w) => `<path class="strap-limb-edge" d="${d}" stroke-width="${w + 4}"/><path class="strap-limb" d="${d}" stroke-width="${w}"/>`;
+  const ring = (cy, rx, ry) => `<path class="strap-ring-back" d="M ${190 - rx} ${cy} A ${rx} ${ry} 0 0 1 ${190 + rx} ${cy}"/><path class="strap-ring" d="M ${190 - rx} ${cy} A ${rx} ${ry} 0 0 0 ${190 + rx} ${cy}"/>`;
+  return `<svg class="strap-drawing" viewBox="0 0 900 960" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, facing you, with her 27 tracking spots; the dance hoops, her five toys and the dance pole beside her, to scale</title>
+<defs><linearGradient id="strap-skin" x1="0" x2="1"><stop offset="0" stop-color="#8f7ad8"/><stop offset=".5" stop-color="#bcaef2"/><stop offset="1" stop-color="#8f7ad8"/></linearGradient>
+<radialGradient id="strap-glow" cx=".5" cy=".55" r=".5"><stop offset="0" stop-color="#bcaef2" stop-opacity=".18"/><stop offset="1" stop-color="#bcaef2" stop-opacity="0"/></radialGradient></defs>
 ${TOY_DEFS}
-<g class="strap-body"><path class="strap-hair" d="M176 322 Q174 292 200 290 Q226 292 224 322 M177 330 Q170 352 166 376 M223 330 Q230 352 234 376"/><ellipse cx="200" cy="320" rx="22" ry="28"/><path d="M200 348 V368 M152 368 L248 368 L236 486 L254 528 L146 528 L164 486 Z M152 368 L136 448 L124 534 M248 368 L264 448 L276 534 M180 528 L176 600 L172 680 L154 698 M220 528 L224 600 L228 680 L246 698"/><ellipse class="strap-band" cx="200" cy="322" rx="34" ry="9"/><ellipse class="strap-ring" cx="200" cy="392" rx="42" ry="13"/><ellipse class="strap-ring strap-ring-dashed" cx="200" cy="438" rx="38" ry="12"/><ellipse class="strap-ring" cx="200" cy="486" rx="52" ry="14"/></g>
-<g class="strap-props"><circle cx="450" cy="380" r="54"/><circle cx="470" cy="580" r="120"/><path d="M955 52 V700"/></g>
-<g class="strap-prop-names"><text x="450" y="454" text-anchor="middle">Little Dance Hoop</text><text x="470" y="718" text-anchor="middle">Big Dance Hoop</text><text x="955" y="718" text-anchor="middle">Dance Pole</text></g>
+<ellipse cx="190" cy="660" rx="170" ry="320" fill="url(#strap-glow)"/>
+<path class="strap-floor" d="M8 932 H892"/>
+<ellipse class="strap-shadow" cx="190" cy="932" rx="70" ry="7"/>
+<g class="strap-body">
+<path class="strap-hair" d="M164 418 C158 372 222 372 216 418 C220 445 226 470 232 490 C216 486 208 472 205 454 L175 454 C172 472 164 486 148 490 C154 470 160 445 164 418 Z"/>
+${limb('M166 700 L160 800 M214 700 L220 800', 42)}${limb('M160 800 L158 900 M220 800 L222 900', 28)}
+<ellipse class="strap-skin" cx="152" cy="922" rx="17" ry="8"/><ellipse class="strap-skin" cx="228" cy="922" rx="17" ry="8"/>
+${limb('M130 496 L108 598 M250 496 L272 598', 24)}${limb('M108 598 L95 700 M272 598 L285 700', 19)}
+<ellipse class="strap-skin" cx="93" cy="716" rx="10" ry="15"/><ellipse class="strap-skin" cx="287" cy="716" rx="10" ry="15"/>
+${limb('M190 448 V488', 20)}
+<path class="strap-skin" d="M134 494 C148 482 168 476 190 476 C212 476 232 482 246 494 C256 520 248 548 240 572 C234 596 228 612 230 626 C234 652 252 670 254 700 C230 718 150 718 126 700 C128 670 146 652 150 626 C152 612 146 596 140 572 C132 548 124 520 134 494 Z"/>
+<path class="strap-crease" d="M160 528 Q174 540 186 532 M194 532 Q206 540 220 528"/>
+<ellipse class="strap-skin" cx="190" cy="420" rx="25" ry="33"/>
+<rect class="strap-headset" x="158" y="404" width="64" height="24" rx="11"/>
+${ring(528, 70, 16)}${ring(580, 58, 13)}${ring(640, 64, 17)}
+</g>
+<g class="strap-props"><circle cx="450" cy="455" r="72"/><circle cx="500" cy="770" r="160"/><path d="M860 66 V930"/></g>
+<g class="strap-prop-names"><text x="450" y="552" text-anchor="middle">Little Dance Hoop</text><text x="500" y="600" text-anchor="middle">Big Dance Hoop</text><text x="860" y="948" text-anchor="middle">Dance Pole</text></g>
 ${TOYS.map(toy).join('\n')}
-<text class="strap-toy-group" x="819" y="568" text-anchor="middle">Lovense, drawn 2× size</text>
-<text class="strap-toy-note" x="760" y="548" text-anchor="middle">Toys don’t track</text>
+<text class="strap-toy-group" x="500" y="836" text-anchor="middle">Lovense</text>
+<text class="strap-toy-note" x="760" y="752" text-anchor="middle">Toys don’t track</text>
 ${SPOTS.map(spot).join('\n')}
 </svg>`;
 }
@@ -314,8 +338,8 @@ function strapperStore() {
 
 function strapperPairs() {
   const pair = (p, label) => `<label class="strap-pair">${esc(label)} <span class="strap-pair-picks">${[0, 1].map((i) => `<select data-strap-pair="${p}" data-strap-i="${i}" disabled>${PAIR_SPOTS[p].map((code) => { const s = SPOTS.find((x) => x.code === code); return `<option value="${esc(code)}"${PAIRS[p][i] === code ? ' selected' : ''}>${esc(`${s.n} ${s.code}`)}</option>`; }).join('')}</select>`).join(' + ')}</span></label>`;
-  return `<div class="strap-pairs">${pair('hip', 'Double Hip pair')}
-${pair('chest', 'Double Chest pair')}</div>`;
+  return `<div class="strap-pairs">${pair('hip', 'Double Hip pair (any two waist spots, 7–14)')}
+${pair('chest', 'Double Chest pair (any two of 15–18, front or back)')}</div>`;
 }
 
 export function trackerStrapper(lights = () => '') {

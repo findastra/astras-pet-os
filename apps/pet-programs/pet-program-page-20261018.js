@@ -732,6 +732,17 @@
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) worn[sel.getAttribute('data-strap-spot')] = sel.value; });
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
     function tracker(code) { return /^vive-tracker-/.test(worn[code] || ''); }
+    // A pair picks itself (Astra, 2026-10-26: any two waist spots, and front or back chest and sternum crossed): when its
+    // spots are not both worn and exactly two spots of its group have trackers, those two become the pair.
+    var GROUPS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FC', 'BC', 'FS', 'BS'] };
+    for (var g in GROUPS) {
+      var worn2 = GROUPS[g].filter(tracker);
+      if (pairs[g].every(tracker) || worn2.length !== 2) continue;
+      var sels = strapper.querySelectorAll('[data-strap-pair="' + g + '"]');
+      sels[0].value = worn2[0]; sels[1].value = worn2[1]; pairs[g] = worn2;
+      sels[1].dispatchEvent(new Event('change', { bubbles: true }));
+      return;   // the change event draws everything again
+    }
     var full = { hip: pairs.hip.every(tracker), chest: pairs.chest.every(tracker) };
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) {
       var code = g.getAttribute('data-strap-dot');

@@ -497,12 +497,17 @@ img[hidden] { display: none !important; }
    the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
    shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
 .strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
-.strap-drawing { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
+.strap-drawing { display: block; width: 100%; min-width: 560px; max-width: 760px; height: auto; margin: 0 auto; }
 .strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
-.strap-body ellipse, .strap-body path { fill: none; stroke: #a99be8; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.strap-body .strap-band, .strap-body .strap-ring { stroke-width: 2; }
-.strap-body .strap-ring-dashed { stroke-dasharray: 5 4; }
-.strap-body .strap-hair { stroke: #c9a8f0; stroke-width: 3; }
+.strap-skin { fill: url(#strap-skin); stroke: #6c58c0; stroke-width: 1.6; }
+.strap-limb-edge { fill: none; stroke: #6c58c0; stroke-linecap: round; }
+.strap-limb { fill: none; stroke: #ab9cec; stroke-linecap: round; }
+.strap-hair { fill: #4a3478; stroke: #6c58c0; stroke-width: 1.2; }
+.strap-crease { fill: none; stroke: #6c58c0; stroke-width: 1.4; stroke-linecap: round; opacity: .7; }
+.strap-headset { fill: #2a2340; stroke: #8a7bd0; stroke-width: 1.6; }
+.strap-ring { fill: none; stroke: #f0eaff; stroke-width: 2; }
+.strap-ring-back { fill: none; stroke: #f0eaff; stroke-width: 1.6; stroke-dasharray: 5 4; opacity: .55; }
+.strap-shadow { fill: #000; opacity: .25; }
 .strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
 .strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
 .strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
@@ -510,7 +515,7 @@ img[hidden] { display: none !important; }
 .strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
 .strap-spot { cursor: pointer; }
 .strap-spot circle { stroke-width: 2.2; stroke: #47d16a; fill: var(--slate-2); }
-.strap-spot text { font: 700 10px var(--text); fill: var(--fix); pointer-events: none; }
+.strap-spot text { font: 700 11px var(--text); fill: var(--fix); pointer-events: none; }
 .strap-back circle { stroke-dasharray: 2.5 2; }
 .strap-spot[data-state="used"] circle { fill: var(--care); }
 .strap-spot[data-state="joined"] circle { fill: #d994c6; }
