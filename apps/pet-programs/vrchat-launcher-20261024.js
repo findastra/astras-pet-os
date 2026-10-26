@@ -393,11 +393,12 @@
   // until the real device models are in; drag to turn her, click a spot to pick its device.
   var LOCAL_POPPY = "../../../../Astra's PetOS Data/rift-rabbit/poppy-mini-20261026.js";
   // Where each spot sits on her, from her bones (metres, she faces +z, her left is +x) plus an offset onto her skin.
+  // The belt spots sit about 2 inches above where they first went, like a belt (2026-10-26).
   var POPPY_SPOTS = {
     F: ['Head', 0, 0.035, 0.085], H: ['Head', 0, 0.115, 0.07], FS: ['Chest', 0, 0.105, 0.085], BS: ['Chest', 0, 0.105, -0.1],
-    FD: ['Chest', 0, -0.01, 0.095], BD: ['Chest', 0, -0.01, -0.095], FW: ['Hips', 0, -0.05, 0.085], BW: ['Hips', 0, -0.05, -0.1],
-    RS: ['Hips', -0.15, -0.05, 0], LS: ['Hips', 0.15, -0.05, 0], RFS: ['Hips', -0.1, -0.05, 0.07], LFS: ['Hips', 0.1, -0.05, 0.07],
-    RBS: ['Hips', -0.1, -0.05, -0.08], LBS: ['Hips', 0.1, -0.05, -0.08], RE: ['Elbow_R', -0.02, 0, -0.035], LE: ['Elbow_L', 0.02, 0, -0.035],
+    FD: ['Chest', 0, -0.01, 0.095], BD: ['Chest', 0, -0.01, -0.095], FW: ['Hips', 0, -0.01, 0.085], BW: ['Hips', 0, -0.01, -0.1],
+    RS: ['Hips', -0.15, -0.01, 0], LS: ['Hips', 0.15, -0.01, 0], RFS: ['Hips', -0.1, -0.01, 0.07], LFS: ['Hips', 0.1, -0.01, 0.07],
+    RBS: ['Hips', -0.1, -0.01, -0.08], LBS: ['Hips', 0.1, -0.01, -0.08], RE: ['Elbow_R', -0.02, 0, -0.035], LE: ['Elbow_L', 0.02, 0, -0.035],
     RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.06], LK: ['Knee_L', 0, 0.025, 0.06],
     RA: ['Foot_R', -0.045, 0.03, 0], LA: ['Foot_L', 0.045, 0.03, 0], RF: ['Big_Toe_R', 0, 0.045, -0.035], LF: ['Big_Toe_L', 0, 0.045, -0.035],
   };
@@ -447,7 +448,37 @@
         group.add(holder);
         spots[code] = { holder: holder, ring: ring, device: null };
       });
+      // SteamVR's own models where this PC has them (packed from its rendermodels, geometry only), scaled to Poppy:
+      // she is 1.31 m, Astra 1.70 m.
+      var REAL = window.riftRabbitDevices && window.riftRabbitDevices.schema === 'rift-rabbit-devices-v1' ? window.riftRabbitDevices.models : null;
+      var SCALE = (data.meta.box.max[1] - data.meta.box.min[1]) / 1.7, made = {};
+      function real(name, color, turn) {
+        var m = REAL && REAL[name];
+        if (!m) return null;
+        if (!made[name]) {
+          var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }).buffer; };
+          var g = new THREE.BufferGeometry();
+          g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(b64(m.pos)), 3));
+          g.setIndex(new THREE.BufferAttribute(new Uint32Array(b64(m.idx)), 1));
+          g.scale(SCALE, SCALE, SCALE); if (turn) turn(g); g.computeVertexNormals();
+          made[name] = g;
+        }
+        return new THREE.Mesh(made[name], new THREE.MeshStandardMaterial({ color: color, roughness: 0.45, metalness: 0.1 }));
+      }
+      // A tracker's dome faces out from her; a controller hangs in her hand, its ring or tip up.
+      // The Vive Tracker 3.0 model's dome points down its -z axis and its mount sits at z = 0, so a half turn sets the mount
+      // on her and the dome out, its light up.
+      var faceOut = function (g) { g.rotateY(Math.PI); };
+      var inHand = function (g) { g.rotateX(-Math.PI / 2); };
+      var side = function (code) { return code === 'LH' ? 'left' : 'right'; };
       var DEV = {
+        tracker: function () { return real('tracker', '#6a7088', faceOut) || DEV0.tracker(); },
+        index: function (code) { return real('index-' + side(code), '#4a4e5c', inHand) || DEV0.index(); },
+        'qpro-ctrl': function (code) { return real('qpro-ctrl-' + side(code), '#1b1c22', inHand) || DEV0['qpro-ctrl'](); },
+        'q3-ctrl': function (code) { return real('q3-ctrl-' + side(code), '#e8e8ee', inHand) || DEV0['q3-ctrl'](); },
+        qpro: function () { return DEV0.qpro(); }, q3: function () { return DEV0.q3(); }, hand: function () { return DEV0.hand(); },
+      };
+      var DEV0 = {
         tracker: function () { return new THREE.Mesh(new THREE.CylinderGeometry(0.027, 0.027, 0.018, 20).rotateX(Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#6a7088', emissive: '#16243c', roughness: 0.4 })); },
         index: function () { return new THREE.Mesh(new THREE.BoxGeometry(0.028, 0.11, 0.032), new THREE.MeshStandardMaterial({ color: '#5a6072', emissive: '#16243c', roughness: 0.4 })); },
         'qpro-ctrl': function () { return new THREE.Mesh(new THREE.CapsuleGeometry(0.016, 0.055, 4, 12), new THREE.MeshStandardMaterial({ color: '#121318' })); },
@@ -473,8 +504,12 @@
           sp.ring.material.color.set(COLOR[state] || COLOR.off);
           if (sp.kind !== kind) {
             if (sp.device) sp.holder.remove(sp.device);
-            sp.device = DEV[kind] ? DEV[kind]() : null;
-            if (sp.device) sp.holder.add(sp.device);
+            sp.device = DEV[kind] ? DEV[kind](code) : null;
+            if (sp.device) {
+              sp.holder.add(sp.device);
+              // Controllers keep their own upright, not the spot's facing.
+              if (/ctrl|index/.test(kind)) sp.device.quaternion.copy(sp.holder.quaternion).invert();
+            }
             sp.kind = kind;
           }
         });
@@ -536,9 +571,13 @@
       place();
     }).catch(function () { /* stays the drawing */ });
   }
-  var poppy = document.createElement('script');
-  poppy.setAttribute('src', LOCAL_POPPY);
-  poppy.onload = function () { poppy.remove(); miniModel(window.riftRabbitPoppy); };
-  poppy.onerror = function () { poppy.remove(); };
-  if (strapper) document.head.appendChild(poppy);
+  var LOCAL_DEVICES = "../../../../Astra's PetOS Data/rift-rabbit/steamvr-devices-20261026.js";
+  function localScript(src, done) {
+    var s = document.createElement('script');
+    s.setAttribute('src', src);
+    s.onload = function () { s.remove(); done(true); };
+    s.onerror = function () { s.remove(); done(false); };
+    document.head.appendChild(s);
+  }
+  if (strapper) localScript(LOCAL_DEVICES, function () { localScript(LOCAL_POPPY, function (ok) { if (ok) miniModel(window.riftRabbitPoppy); }); });
 })();
