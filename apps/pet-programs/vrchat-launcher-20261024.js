@@ -417,13 +417,18 @@
   var LOCAL_POPPY_UNITY = "../../../../Astra's PetOS Data/rift-rabbit/poppy-unity-20261026.js";
   // Where each spot sits on her, from her bones (metres, she faces +z, her left is +x) plus an offset onto her skin.
   // The belt spots sit about 2 inches above where they first went, like a belt (2026-10-26).
+  // Where each device sits on Poppy, from Astra's photos of herself strapped in (2026-10-26): the head tracker stands
+  // upright on top of the headset strap, the foot trackers lie on top of the foot facing up, the chest tracker sits on
+  // the harness at the bottom of the breastbone, the back one high between the shoulder blades, and the elbow trackers
+  // on the back of the upper arm just above the elbow. A fifth entry 'up' turns the tracker's dome to the sky, 'instep' up and a little forward along the top of her flat boot;
+  // 'arm' slides the spot up the upper arm towards the shoulder.
   var POPPY_SPOTS = {
-    F: ['Head', 0, 0.035, 0.085], H: ['Head', 0, 0.115, 0.07], FS: ['Chest', 0, 0.105, 0.085], BS: ['Chest', 0, 0.105, -0.1],
-    FD: ['Chest', 0, -0.01, 0.095], BD: ['Chest', 0, -0.01, -0.095], FW: ['Hips', 0, -0.01, 0.085], BW: ['Hips', 0, -0.01, -0.1],
+    F: ['Head', 0, 0.035, 0.085], H: ['Head', 0, 0.175, -0.01, 'up'], FS: ['Chest', 0, 0.045, 0.1], BS: ['Chest', 0, 0.13, -0.1],
+    FD: ['Chest', 0, -0.045, 0.09], BD: ['Chest', 0, -0.02, -0.095], FW: ['Hips', 0, -0.01, 0.085], BW: ['Hips', 0, 0.07, -0.1],
     RS: ['Hips', -0.15, -0.01, 0], LS: ['Hips', 0.15, -0.01, 0], RFS: ['Hips', -0.1, -0.01, 0.07], LFS: ['Hips', 0.1, -0.01, 0.07],
-    RBS: ['Hips', -0.1, -0.01, -0.08], LBS: ['Hips', 0.1, -0.01, -0.08], RE: ['Elbow_R', -0.02, 0, -0.035], LE: ['Elbow_L', 0.02, 0, -0.035],
-    RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.06], LK: ['Knee_L', 0, 0.025, 0.06],
-    RA: ['Foot_R', -0.045, 0.03, 0], LA: ['Foot_L', 0.045, 0.03, 0], RF: ['Big_Toe_R', 0, 0.045, -0.035], LF: ['Big_Toe_L', 0, 0.045, -0.035],
+    RBS: ['Hips', -0.1, -0.01, -0.08], LBS: ['Hips', 0.1, -0.01, -0.08], RE: ['Elbow_R', 0, 0, -0.04, 'arm'], LE: ['Elbow_L', 0, 0, -0.04, 'arm'],
+    RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.045], LK: ['Knee_L', 0, 0.025, 0.045],
+    RA: ['Foot_R', -0.045, 0.03, 0], LA: ['Foot_L', 0.045, 0.03, 0], RF: ['Foot_R', 0, -0.025, 0.075, 'instep'], LF: ['Foot_L', 0, -0.025, 0.075, 'instep'],
   };
   function miniModel(data) {
     var svg = strapper && strapper.querySelector('.strap-drawing'), stage = strapper && strapper.querySelector('[data-strap-stage]');
@@ -467,6 +472,9 @@
         });
       }
       scene.add(group);
+      // Her meshes, for setting each tracker's mount on her surface.
+      var body = group.children.slice();
+      group.updateMatrixWorld(true);
       scene.add(new THREE.HemisphereLight('#b4dcff', '#0a0d13', 2.2));
       var key = new THREE.DirectionalLight('#ffffff', 1.3); key.position.set(1, 2, 2); scene.add(key);
       var rim = new THREE.DirectionalLight('#9fc4ff', 1.1); rim.position.set(-1, 1, -2); scene.add(rim);
@@ -478,8 +486,23 @@
         if (!b && /^Big_Toe_/.test(s[0])) { var f = bones[s[0].replace('Big_Toe', 'Foot')]; if (f) { b = f; s = [s[0], s[1], 0, 0.08]; } }
         if (!b) return;
         var at = new THREE.Vector3(b[0] + s[1], b[1] + s[2], b[2] + s[3]), holder = new THREE.Group();
+        if (s[4] === 'arm' && bones.Neck) {
+          // Her shoulder is about 0.15 m out from the neck and 0.05 m below it.
+          var shoulder = new THREE.Vector3(Math.sign(b[0]) * 0.15, bones.Neck[1] - 0.05, bones.Neck[2]);
+          at.add(shoulder.sub(new THREE.Vector3(b[0], b[1], b[2])).multiplyScalar(0.3));
+        }
         holder.position.copy(at);
         var out = new THREE.Vector3(at.x, 0, at.z); if (out.lengthSq() < 1e-6) out.set(0, 0, 1);
+        if (s[4] === 'up') { holder.up.set(0, 0, 1); out.set(0, 1, 0); }
+        if (s[4] === 'instep') { holder.up.set(0, 0, 1); out.set(0, 1, 0.45); }
+        out.normalize();
+        // Strapped on, not sunk in or floating (2026-10-26: "They also are clipping or too far out"): a ray comes in from
+        // outside along the spot's facing and the mount sits where it first meets her. The headset and hands stay put.
+        if (!/^(F|RH|LH)$/.test(code)) {
+          var hit = new THREE.Raycaster(at.clone().addScaledVector(out, 0.3), out.clone().negate(), 0, 0.45).intersectObjects(body, false)[0];
+          if (hit) at.copy(hit.point).addScaledVector(out, 0.004);
+          holder.position.copy(at);
+        }
         holder.lookAt(at.clone().add(out.normalize()));
         var ring = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.004, 8, 24), new THREE.MeshBasicMaterial({ color: '#8a96ad' }));
         holder.add(ring);
@@ -579,7 +602,9 @@
       var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
       renderer.setPixelRatio(window.devicePixelRatio || 1);
       var cam = new THREE.PerspectiveCamera(28, 1, 0.01, 50);
-      var top = data.meta.box.max[1];
+      // She is framed from her own box, head to boots, with a margin all round (2026-10-26: "make sure she fits in the pane").
+      var lo = data.meta.box.min, hi = data.meta.box.max, mid = (lo[1] + hi[1]) / 2;
+      var tall = hi[1] - lo[1], wide = Math.max(Math.abs(lo[0]), Math.abs(hi[0]), Math.abs(lo[2]), Math.abs(hi[2])) * 2;
       function place() {
         var r = svg.getBoundingClientRect(), s = stage.getBoundingClientRect(), k = r.width / 1110;
         var x = r.left - s.left + stage.scrollLeft, y = r.top - s.top, w = 500 * k, h = 640 * k;
@@ -587,7 +612,9 @@
         modes.style.left = (x + 12) + 'px'; modes.style.top = (y + 200 * k) + 'px';
         renderer.setSize(w, h, false);
         cam.aspect = w / h; cam.updateProjectionMatrix();
-        cam.position.set(0, top * 0.52, top * 2.05); cam.lookAt(0, top * 0.5, 0);
+        var half = Math.tan(cam.fov * Math.PI / 360);
+        var dist = Math.max(tall * 1.12 / 2 / half, wide * 1.12 / 2 / (half * cam.aspect)) + wide / 2;
+        cam.position.set(0, mid, dist); cam.lookAt(0, mid, 0);
         draw();
       }
       function draw() { renderer.render(scene, cam); }

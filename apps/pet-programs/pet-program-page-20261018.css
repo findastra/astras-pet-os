@@ -515,8 +515,9 @@ img[hidden] { display: none !important; }
 /* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. She is on
    the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
    shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
-.strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
-.strap-drawing { display: block; width: 100%; min-width: 640px; height: auto; margin: 0 auto; }
+/* The whole scene always fits, Poppy and every toy, with no scroll bar (Astra, 2026-10-26). */
+.strap-stage { position: relative; overflow: hidden; margin: 4px 0 0; }
+.strap-drawing { display: block; width: 100%; height: auto; margin: 0 auto; }
 .strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
 .strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
 /* Her body: a dark silhouette with a pale storm-light edge (2026-10-26: "redo the blue body too"). */
