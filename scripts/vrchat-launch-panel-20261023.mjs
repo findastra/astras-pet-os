@@ -82,6 +82,22 @@ export const MODES = [
     off: ['Space Calibrator continuous calibration', 'Space Override'],
     untested: ['meta-horizon-link'],
   },
+  // x.4 (Astra, 2026-10-25: her friend found CreoleVR/QuestLHSync; her answers, "all recommended": a fifth mode in each
+  // headset tool, waiting for a headset rooted with Magisk). Like Space Sync with the headset's cameras doing the head
+  // tracker's job, so 24 Head [H] is free for another spot.
+  {
+    id: 'questlhsync', name: 'QuestLHSync', tracker: 'No head tracker: the rooted headset’s own cameras see the base stations',
+    points: [
+      'The headset keeps its own position.',
+      'Its cameras see the base stations’ laser flashes, and the Lighthouse devices follow the headset.',
+      'Needs the headset rooted with Magisk (Singularity), its QuestLHSync module, and its SteamVR driver on the PC.',
+      'The first time, look at each base station; it locks in about half a minute.',
+      'Runs alone: two tools moving the same trackers fight each other.',
+    ],
+    runs: ['QuestLHSync (inside SteamVR)'],
+    off: ['Space Calibrator continuous calibration', 'Space Override', 'Space Sync'],
+    rooted: true,
+  },
 ];
 
 // How each try went, kept in this browser.
@@ -116,6 +132,7 @@ ${h.face
     ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
     : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
 ${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
+${/* Mode x.4 needs the headset rooted with Magisk (Astra, 2026-10-25); she ticks this once it is. */ ''}${sw('rooted', 'Rooted with Magisk', false)}
 ${/* The haptic vest (Astra, 2026-10-24: "We also need an option for Woojer vest (similar to OSCGoesBrrr)"). It has
    no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${sw('woojer', 'Woojer vest', false)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or

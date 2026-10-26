@@ -21,8 +21,9 @@ test('only Rift Rabbit\'s page loads the launcher script, after the page script'
 
 test('every mode has a Launch button, off until the watch on this PC answers, and a place for its steps', () => {
   const buttons = rabbit.match(/<button type="button" class="button off" disabled data-launch-go[^>]*>Launch \d\.\d<\/button>/g) || [];
-  assert.equal(buttons.length, 8, 'two headsets, four modes each');
-  assert.equal((rabbit.match(/data-launch-run hidden/g) || []).length, 8);
+  assert.equal(buttons.length, 10, 'two headsets, five modes each');
+  assert.equal((rabbit.match(/data-launch-run hidden/g) || []).length, 10);
+  assert.equal((rabbit.match(/data-launch-switch="rooted"/g) || []).length, 2, 'a Rooted with Magisk tick on each headset');
 });
 
 test('the launcher script reads where to ask only from one fixed file, only on this PC, and only 127.0.0.1', () => {

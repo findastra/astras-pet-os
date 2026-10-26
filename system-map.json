@@ -757,6 +757,26 @@
       "does": "Keeps the Lighthouse devices lined up with the headset, from a tracker mounted on it (a fork of Space Override)."
     },
     {
+      "id": "questlhsync",
+      "name": "QuestLHSync",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "SteamVR add-on",
+      "job": "Mode x.4 of Rift Rabbit's VRChat setups (Astra, 2026-10-25). Downloaded 2026-10-25 from its GitHub release (CreoleVR/QuestLHSync 1.26, MIT; checksums match GitHub), not installed: it waits for a headset rooted with Magisk. Off in SteamVR until Rift Rabbit launches mode x.4.",
+      "does": "Lines the Lighthouse trackers up with a rooted Quest's own tracking: the headset's cameras see the base stations' laser flashes, so no tracker rides on the headset."
+    },
+    {
+      "id": "singularity",
+      "name": "Singularity",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Quest app",
+      "job": "How a Quest Pro gets rooted for QuestLHSync (Astra, 2026-10-25). Not downloaded: no source code, and its license (All Rights Reserved) grants no right to use it. Astra roots the headset herself if she chooses, at her own risk.",
+      "does": "Roots a Meta Quest with the fugu exploit and installs Magisk on it (Lumince/singularity)."
+    },
+    {
       "id": "oscgoesbrrr",
       "name": "OSCGoesBrrr",
       "type": "program",
@@ -3415,6 +3435,27 @@
       "carries": "opens",
       "state": "now",
       "why": "Its add-on switched on and its overlay opened in mode x.3 only (rift-rabbit#8)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "questlhsync",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Its add-on switched on in mode x.4 only, once a rooted headset has its module (Astra, 2026-10-25)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "questlhsync",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Mode x.4 of the VRChat setups (Astra, 2026-10-25)."
+    },
+    {
+      "from": "rift-rabbit",
+      "to": "singularity",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Listed as how the headset gets rooted for mode x.4: QuestLHSync's Quest part is a Magisk module. Astra roots it herself (2026-10-25)."
     },
     {
       "from": "rift-rabbit",

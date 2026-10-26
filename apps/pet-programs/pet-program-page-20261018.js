@@ -764,8 +764,10 @@
       var wrongFace = !!face && id !== face;
       Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-mode]'), function (card) {
         var line = card.querySelector('[data-launch-needs]');
+        var mode = card.getAttribute('data-launch-mode'), rooted = hs.querySelector('[data-launch-switch="rooted"]');
         var need = wrongFace ? 'Needs the ' + (id === 'quest-3' ? 'Meta Quest 3' : 'Meta Quest Pro') + ' on ' + spotName('F') + '.' :
-          card.getAttribute('data-launch-mode') !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
+          mode === 'questlhsync' ? (rooted && rooted.checked ? '' : 'Needs the headset rooted with Magisk: tick Rooted with Magisk.') :
+          mode !== 'native' && needs.length ? 'Needs a tracker on ' + needs[0] + '.' : '';
         line.textContent = need; line.hidden = !need;
         card.classList.toggle('is-blocked', !!need);
       });
@@ -783,6 +785,7 @@
   }
   if (strapper) {
     strapper.addEventListener('change', strap);
+    box.addEventListener('change', function (e) { if (e.target.matches && e.target.matches('[data-launch-switch="rooted"]')) strap(); });
     box.addEventListener('strapper-load', strap);
     // Clicking a spot on her drawing opens its picker right there (Astra, 2026-10-25: "I want to just click the spot on
     // him, then drop down assign a device from there"). The picker is a copy of the spot's own select; a choice goes
