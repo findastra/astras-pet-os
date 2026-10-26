@@ -179,7 +179,7 @@ function modeCard(h, m, i) {
 </fieldset>`;
 }
 
-// tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots where tracking can happen, and which device is on
+// tracker-strapper (Astra, 2026-10-25): her drawing of the 29 spots where tracking can happen, and which device is on
 // each. "Should be so we can select which device is tracking which spot, then your launch options become available
 // below"; "I only want to see this diagram once but it's not a launch tool". Her answers: named tracker-strapper; kept
 // in Rift Rabbit's launcher settings on her PC (the page there changes them; anywhere else it shows today's spots);
@@ -208,18 +208,22 @@ export const SPOTS = [
   { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 160, y: 922 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 220, y: 922 },
   { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 166, y: 892 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 214, y: 892 },
   { code: 'RK', n: 5, name: 'Right Knee', view: 'front', x: 166, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', view: 'front', x: 214, y: 800 },
-  { code: 'FW', n: 7, name: 'Front Waist', view: 'front', x: 190, y: 662 }, { code: 'BW', n: 8, name: 'Back Waist', view: 'back', x: 190, y: 662 },
-  { code: 'RS', n: 9, name: 'Right Side', view: 'front', x: 143, y: 656 }, { code: 'LS', n: 10, name: 'Left Side', view: 'front', x: 237, y: 656 },
-  { code: 'RFS', n: 11, name: 'Right Front-Side', view: 'front', x: 162, y: 660 }, { code: 'LFS', n: 12, name: 'Left Front-Side', view: 'front', x: 218, y: 660 },
-  { code: 'RBS', n: 13, name: 'Right Back-Side', view: 'back', x: 218, y: 660 }, { code: 'LBS', n: 14, name: 'Left Back-Side', view: 'back', x: 162, y: 660 },
+  { code: 'FW', n: 7, name: 'Front Waist', view: 'front', x: 190, y: 670 }, { code: 'BW', n: 8, name: 'Back Waist', view: 'back', x: 190, y: 670 },
+  { code: 'RS', n: 9, name: 'Right Side', view: 'front', x: 139, y: 666 }, { code: 'LS', n: 10, name: 'Left Side', view: 'front', x: 241, y: 666 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', view: 'front', x: 161, y: 669 }, { code: 'LFS', n: 12, name: 'Left Front-Side', view: 'front', x: 219, y: 669 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', view: 'back', x: 219, y: 669 }, { code: 'LBS', n: 14, name: 'Left Back-Side', view: 'back', x: 161, y: 669 },
   { code: 'FD', n: 15, name: 'Front Diaphragm', view: 'front', x: 190, y: 594 }, { code: 'BD', n: 16, name: 'Back Diaphragm', view: 'back', x: 190, y: 594 },
   { code: 'FS', n: 17, name: 'Front Sternum', view: 'front', x: 190, y: 512 }, { code: 'BS', n: 18, name: 'Back Sternum', view: 'back', x: 190, y: 512 },
   { code: 'RE', n: 19, name: 'Right Elbow', view: 'front', x: 112, y: 600 }, { code: 'LE', n: 20, name: 'Left Elbow', view: 'front', x: 268, y: 600 },
   { code: 'RH', n: 21, name: 'Right Hand', view: 'front', x: 93, y: 724, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', view: 'front', x: 287, y: 724, kind: 'left-hand' },
   { code: 'F', n: 23, name: 'Face', view: 'front', x: 190, y: 418, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', view: 'back', x: 190, y: 372 },
-  { code: 'DP', n: 25, name: 'Dance Pole', x: 1012, y: 60, object: 'dance-pole', down: true },
-  { code: 'BDH', n: 26, name: 'Big Dance Hoop', x: 770, y: 410, object: 'large-hoop' },
-  { code: 'LDH', n: 27, name: 'Little Dance Hoop', x: 938, y: 328, object: 'small-hoop' },
+  { code: 'DP', n: 25, name: 'Dance Pole', x: 1012, y: 54, object: 'dance-pole', side: true },
+  // Each hoop's two spots (2026-10-26): on the side at 3 o'clock and high on the ring at half past one. Both stay off the
+  // bottom, where she sits and hangs, and off the top tab, where the rigging and her hands are; either one is enough.
+  { code: 'BDH', n: 26, name: 'Big Dance Hoop Side', x: 770, y: 410, object: 'large-hoop' },
+  { code: 'BDT', n: 27, name: 'Big Dance Hoop Top', x: 716, y: 295, object: 'large-hoop' },
+  { code: 'LDH', n: 28, name: 'Little Dance Hoop Side', x: 938, y: 328, object: 'small-hoop' },
+  { code: 'LDT', n: 29, name: 'Little Dance Hoop Top', x: 904, y: 269, object: 'small-hoop' },
 ].map(place);
 
 // Double Hip's pair is any two of the eight waist spots, usually Front and Back Waist (Astra, 2026-10-25: "the double hip
@@ -275,7 +279,7 @@ const stitch = (d) => `<path d="${d}" fill="none" stroke="#4a4a54" stroke-width=
 const STRAP = 'M6.4 1.3 C14 0 26 2 31.9 6.4 C31 18 29.5 30 29.8 40.4 C30 52 32 62 34 70.2 L13 72.3 C9 62 3 52 2.1 40.4 C1 30 0 20 0.9 14.9 C1.5 8 3.5 3 6.4 1.3 Z';
 const BELT = 'M0 80.9 C10 77 22 75.5 29.8 76.6 C38 78 44 84 50 85 C56 84 62 78 70.2 76.6 C78 75.5 90 77 100 80.9 C101.5 92 101.5 104 100 114.9 C90 118.5 80 119.5 70.2 119 C62 118 56 113 50 112.8 C44 113 38 118 29.8 119 C20 119.5 10 118.5 0 114.9 C-1.5 104 -1.5 92 0 80.9 Z';
 export const TOYS = [
-  { name: 'Woojer Vest 3', x: 598, y: 707, w: 129, scale: 1.29, label: [662, 884], svg: `<path d="${BELT}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>${stitch('M3 83 C12 80 22 79 29.8 80 C38 81 44 87 50 88 C56 87 62 81 70.2 80 C78 79 88 80 97 83')}
+  { name: 'Woojer Vest 3', x: 536, y: 707, w: 129, scale: 1.29, label: [600, 884], svg: `<path d="${BELT}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>${stitch('M3 83 C12 80 22 79 29.8 80 C38 81 44 87 50 88 C56 87 62 81 70.2 80 C78 79 88 80 97 83')}
 <path d="M27 68 h7 v12 h-7 Z M66 68 h7 v12 h-7 Z" fill="#111114"/><path d="M28 71 h5 M67 71 h5" stroke="#c4313c" stroke-width="1"/>
 <path d="${STRAP}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/><path d="${STRAP}" transform="translate(100 0) scale(-1 1)" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>
 ${stitch('M7 4 C2 12 2.6 30 3.6 40 C4.5 52 9 62 14 70')}${stitch('M93 4 C98 12 97.4 30 96.4 40 C95.5 52 91 62 86 70')}
@@ -288,18 +292,18 @@ ${pod(20.5, 27.5, 10.5)}${pod(79.5, 27.5, 10.5)}
 <rect x="31" y="96" width="38" height="6" fill="#121216"/><path d="M36.4 94.4 v9.2 M63.6 94.4 v9.2" stroke="#c4313c" stroke-width="1.2"/>
 ${pod(12.8, 99, 9.2)}${pod(87.2, 99, 9.2)}
 <circle cx="50" cy="99" r="5.4" fill="#26262c" stroke="#a0a0aa" stroke-width=".8"/><circle cx="50" cy="99" r="2.6" fill="none" stroke="#c8c8d0" stroke-width=".6"/><circle cx="50" cy="99" r=".9" fill="#e0e0e8"/>` },
-  { name: 'Nora', x: 758, y: 787, w: 24, scale: 1, label: [770, 884], svg: `<path d="M8.4 37 C3.6 34 1.6 28 2.2 22.4 C2.6 19.6 5 19.4 5.6 22.2 C6.4 26.8 7.6 29.8 10 31 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
+  { name: 'Nora', x: 752, y: 787, w: 24, scale: 1, label: [764, 884], svg: `<path d="M8.4 37 C3.6 34 1.6 28 2.2 22.4 C2.6 19.6 5 19.4 5.6 22.2 C6.4 26.8 7.6 29.8 10 31 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
 <path d="M7.6 45.5 C7 34 8 22 11 12 C12.6 6 15 2.6 17.6 3 C20.6 3.6 20.6 8 19.6 13 C18 22 17 34 16.6 45.5 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
 <rect x="7.2" y="45" width="9.8" height="2.4" rx=".6" fill="url(#toy-silver)"/><path d="M7.2 47.4 L7.2 69 Q7.2 73 12.1 73 Q17 73 17 69 L17 47.4 Z" fill="url(#toy-white)" stroke="#a7a7b2" stroke-width=".4"/>
 ${shine(12.3, 22, 1, 9)}${shine(9.6, 59, .9, 8)}` },
-  { name: 'Domi 2', x: 816, y: 791, w: 17, scale: 1, label: [824, 884], svg: `<path d="M5.8 13.6 Q8.5 15 11.2 13.6 L12 19.6 Q8.5 21 5 19.6 Z" fill="url(#toy-black)"/>
+  { name: 'Domi 2', x: 814, y: 791, w: 17, scale: 1, label: [822, 884], svg: `<path d="M5.8 13.6 Q8.5 15 11.2 13.6 L12 19.6 Q8.5 21 5 19.6 Z" fill="url(#toy-black)"/>
 <circle cx="8.5" cy="7.5" r="7.5" fill="url(#toy-black-head)"/><path d="M2.4 21 Q8.5 18.4 14.6 21 L15 66.6 Q15 69 12.8 69 L4.2 69 Q2 69 2 66.6 Z" fill="url(#toy-black)" stroke="#3a3a42" stroke-width=".4"/>
 <rect x="2.3" y="25.6" width="12.4" height="1.6" fill="url(#toy-silver)"/><circle cx="8.5" cy="33" r=".9" fill="#55555f"/><circle cx="8.5" cy="37" r=".9" fill="#55555f"/>
 ${shine(5.4, 4.6, 1.8, 2.2)}${shine(5.4, 46, .8, 16)}` },
-  { name: 'Lush 3', x: 862, y: 830, w: 34, scale: 1, label: [879, 884], svg: `<path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="#9c0f4a" stroke-width="4.2" stroke-linecap="round"/><path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="url(#toy-pink-line)" stroke-width="3" stroke-linecap="round"/>
+  { name: 'Lush 3', x: 864, y: 830, w: 34, scale: 1, label: [881, 884], svg: `<path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="#9c0f4a" stroke-width="4.2" stroke-linecap="round"/><path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="url(#toy-pink-line)" stroke-width="3" stroke-linecap="round"/>
 <ellipse cx="30.4" cy="10.6" rx="2.8" ry="1.8" fill="#ec3a85" stroke="#9c0f4a" stroke-width=".5" transform="rotate(62 30.4 10.6)"/>
 <path d="M9.6 25 C11.6 19.6 21 17.6 27.6 19.2 C33.4 20.6 33.6 28 28 29.6 C21.6 31.4 11.6 30.4 9.6 25 Z" fill="url(#toy-pink-v)" stroke="#9c0f4a" stroke-width=".5"/>${shine(22, 21.6, 6, 1.1)}` },
-  { name: 'Vulse', x: 924, y: 828, w: 38, scale: 1, label: [943, 884], svg: `<path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="#9e1622" stroke-width="4.6" stroke-linecap="round"/><path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="url(#toy-coral-line)" stroke-width="3.4" stroke-linecap="round"/>
+  { name: 'Vulse', x: 926, y: 828, w: 38, scale: 1, label: [945, 884], svg: `<path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="#9e1622" stroke-width="4.6" stroke-linecap="round"/><path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="url(#toy-coral-line)" stroke-width="3.4" stroke-linecap="round"/>
 <ellipse cx="26.8" cy="10" rx="2.8" ry="2" fill="#ff5a68" stroke="#9e1622" stroke-width=".5" transform="rotate(60 26.8 10)"/>
 <path d="M20 20.6 C31 19.6 38 22.6 38 26.4 C38 30 31 32.6 20 31.8 Z" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".5"/>
 ${[12, 14.2, 16.4, 18.6].map((x, i) => `<rect x="${x}" y="${20.6 + i * .1}" width="2.4" height="${11.2 - i * .2}" rx="1.2" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".45"/>`).join('')}${shine(29, 22.6, 5, 1)}` },
@@ -327,12 +331,17 @@ const TOY_DEFS = `<defs>
 // controller its handle and ring; a Touch Pro controller a ringless grip with its cameras; a Touch Plus a ringless grip;
 // a Quest Pro a slim visor; a Quest 3 a deeper front with its three sensor slots; hand tracking an open hand. An empty
 // spot is a dashed ring. The spot's number rides on a badge at its corner, its colour halo says what it does.
-const DEVICE_SYMBOLS = `<symbol id="ico-tracker" viewBox="-12 -12 24 24"><path d="M0 -10.5 C3.5 -10.5 7 -5 9.6 0.5 C11.6 4.8 9.8 9 5.6 9.4 C2 9.8 -2 9.8 -5.6 9.4 C-9.8 9 -11.6 4.8 -9.6 0.5 C-7 -5 -3.5 -10.5 0 -10.5 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width="1.2"/><circle r="5.2" fill="#1a1a1f" stroke="#55555f" stroke-width="1"/><circle r="2.6" fill="#33333b"/><circle cy="-7.2" r="1.1" fill="#6cc7e8"/></symbol>
-<symbol id="ico-index" viewBox="-12 -12 24 24"><path d="M-2.6 -2 L-2.8 10 Q0 12 2.8 10 L2.6 -2 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width="1.2"/><ellipse cy="-6" rx="7" ry="5.4" fill="#2e3039" stroke="#dfe5f2" stroke-width="1.2"/><ellipse cy="-6" rx="3.6" ry="2.6" fill="#33333b"/><path d="M-7 -3 Q-10.5 4 -3 8" fill="none" stroke="#dfe5f2" stroke-width="1.6"/></symbol>
-<symbol id="ico-qpro-ctrl" viewBox="-12 -12 24 24"><path d="M-4 -9 Q0 -11.5 4.5 -9 L4.5 -2 Q4 6 2.6 10.5 Q0 11.8 -2.6 10.5 Q-4 6 -4.5 -2 Z" fill="#33353f" stroke="#dfe5f2" stroke-width="1.2"/><circle cx="-1.6" cy="-6.6" r="1" fill="#55555f"/><circle cx="1.8" cy="-6.6" r="1" fill="#55555f"/><circle cy="-3" r="1.9" fill="#2e2e36" stroke="#6a6a74" stroke-width=".6"/></symbol>
-<symbol id="ico-q3-ctrl" viewBox="-12 -12 24 24"><path d="M-5 -8 Q0 -11 5 -8 Q6.5 -4 4 -1 Q3.5 6 2.4 10 Q0 11.4 -2.4 10 Q-3.5 6 -4 -1 Q-6.5 -4 -5 -8 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/><circle cy="-5" r="2" fill="#c9c9d2"/><circle cx="3" cy="-6.6" r=".9" fill="#9a9aa6"/></symbol>
-<symbol id="ico-qpro" viewBox="-12 -12 24 24"><path d="M-11 -4 Q0 -8.5 11 -4 L10 3.5 Q0 6 -10 3.5 Z" fill="#1b1b20" stroke="#8a8a96" stroke-width="1"/><path d="M-8 -2.5 Q0 -5 8 -2.5" fill="none" stroke="#5a5a66" stroke-width="1"/><ellipse cx="-4.5" cy=".6" rx="3" ry="1.5" fill="#3a3a46"/><ellipse cx="4.5" cy=".6" rx="3" ry="1.5" fill="#3a3a46"/></symbol>
-<symbol id="ico-q3" viewBox="-12 -12 24 24"><path d="M-11 -6 Q0 -9 11 -6 L11 5 Q0 8 -11 5 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/><rect x="-8" y="-2" width="3.4" height="5.6" rx="1.7" fill="#2a2a32"/><rect x="-1.7" y="-2" width="3.4" height="5.6" rx="1.7" fill="#2a2a32"/><rect x="4.6" y="-2" width="3.4" height="5.6" rx="1.7" fill="#2a2a32"/></symbol>
+const DEVICE_SYMBOLS = `<symbol id="ico-tracker" viewBox="-12 -12 24 24"><path d="M0 -10.5 C3.5 -10.5 7 -5 9.6 0.5 C11.6 4.8 9.8 9 5.6 9.4 C2 9.8 -2 9.8 -5.6 9.4 C-9.8 9 -11.6 4.8 -9.6 0.5 C-7 -5 -3.5 -10.5 0 -10.5 Z" fill="#30323c" stroke="#dfe5f2" stroke-width="1"/><path d="M-6.6 -3.4 C-4.6 -7.6 -2.2 -9.2 0 -9.2 C2.2 -9.2 4.6 -7.6 6.6 -3.4" fill="none" stroke="#ffffff" stroke-width=".7" opacity=".35"/>
+<ellipse cx="-7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(-30 -7.6 4.6)"/><ellipse cx="7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(30 7.6 4.6)"/><ellipse cx="0" cy="8.2" rx="1.8" ry=".8" fill="#16161b"/><ellipse cx="-3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(30 -3.6 -6.4)"/><ellipse cx="3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(-30 3.6 -6.4)"/>
+<circle cy="1" r="4.8" fill="#1a1a1f" stroke="#6a6f80" stroke-width=".8"/><circle cy="1" r="3" fill="none" stroke="#3a3d48" stroke-width=".7"/><circle cy="1" r="1.3" fill="#4a4e5c"/><circle cy="-6.4" r="1" fill="#6cc7e8"/></symbol>
+<symbol id="ico-tracker-side" viewBox="-12 -12 24 24"><rect x="-6" y="-11" width="12" height="3" rx="1" fill="#55555f" stroke="#c9d1e0" stroke-width=".6"/><rect x="-1.4" y="-8.2" width="2.8" height="2.4" fill="#8a8f9c"/><path d="M-11 -4.6 Q-11 -6 -9.4 -6 H9.4 Q11 -6 11 -4.6 L10.2 1.6 Q8.4 6.6 0 7.2 Q-8.4 6.6 -10.2 1.6 Z" fill="#30323c" stroke="#dfe5f2" stroke-width="1"/><path d="M-9 -3.4 H9" stroke="#ffffff" stroke-width=".6" opacity=".35"/><ellipse cx="-6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><ellipse cx="6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><circle cx="0" cy="1.8" r="1" fill="#6cc7e8"/></symbol>
+<symbol id="ico-index" viewBox="-12 -12 24 24"><path d="M-3.6 -3 C-3.8 2 -3.2 7 -2.4 10.4 Q0 11.8 2.4 10.4 C3.2 7 3.8 2 3.6 -3 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width="1"/><rect x="-1.1" y="1" width="2.2" height="6.4" rx="1" fill="#16161b"/>
+<path d="M-6.2 -6.4 C-6.2 -10.8 6.2 -10.8 6.2 -6.4 C6.2 -3 3.8 -1.4 0 -1.4 C-3.8 -1.4 -6.2 -3 -6.2 -6.4 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width="1"/><ellipse cx=".4" cy="-6.4" rx="2" ry="2.7" fill="#16161b" stroke="#6a6f80" stroke-width=".5"/><circle cx="-3.4" cy="-5.6" r="1.1" fill="#16161b" stroke="#6a6f80" stroke-width=".4"/><circle cx="3.8" cy="-7.6" r=".6" fill="#6a6f80"/><circle cx="3.8" cy="-5.2" r=".6" fill="#6a6f80"/>
+<path d="M-3.8 -2 C-8.6 .6 -8.2 7.6 -2.8 9.8" fill="none" stroke="#9aa3b8" stroke-width="1.8"/><path d="M-3.8 -2 C-8.6 .6 -8.2 7.6 -2.8 9.8" fill="none" stroke="#2b2d36" stroke-width=".6" stroke-dasharray="1 1"/></symbol>
+<symbol id="ico-qpro-ctrl" viewBox="-12 -12 24 24"><path d="M-4.6 -9.6 Q0 -11.8 4.8 -9.6 Q6 -6 4.6 -2 Q4 6 2.6 10.5 Q0 11.8 -2.6 10.5 Q-4 6 -4.6 -2 Q-6 -6 -4.6 -9.6 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width="1"/><path d="M-3.6 -9 Q0 -10.6 3.8 -9" fill="none" stroke="#ffffff" stroke-width=".6" opacity=".4"/><circle cx="-2.2" cy="-8.2" r=".8" fill="#6a6f80"/><circle cx="0" cy="-8.8" r=".8" fill="#6a6f80"/><circle cx="2.2" cy="-8.2" r=".8" fill="#6a6f80"/><circle cy="-4.2" r="2" fill="#16161b" stroke="#6a6f80" stroke-width=".5"/><circle cx="2.6" cy="-1.2" r=".8" fill="#16161b"/><circle cx="-2.4" cy="-1.2" r=".8" fill="#16161b"/></symbol>
+<symbol id="ico-q3-ctrl" viewBox="-12 -12 24 24"><path d="M-5 -8 Q0 -11 5 -8 Q6.5 -4 4 -1 Q3.5 6 2.4 10 Q0 11.4 -2.4 10 Q-3.5 6 -4 -1 Q-6.5 -4 -5 -8 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/><path d="M-3.6 -8.4 Q0 -10 3.6 -8.4" fill="none" stroke="#ffffff" stroke-width=".7"/><circle cy="-5" r="2" fill="#2a2a32"/><circle cx="3.2" cy="-2.4" r=".8" fill="#9a9aa6"/><circle cx="-2.6" cy="-2.2" r=".8" fill="#9a9aa6"/></symbol>
+<symbol id="ico-qpro" viewBox="-12 -12 24 24"><path d="M-11 -4 Q0 -8.5 11 -4 L10 3.5 Q0 6 -10 3.5 Z" fill="#1b1b20" stroke="#8a8a96" stroke-width="1"/></symbol>
+<symbol id="ico-q3" viewBox="-12 -12 24 24"><path d="M-11 -6 Q0 -9 11 -6 L11 5 Q0 8 -11 5 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/></symbol>
 <symbol id="ico-hand" viewBox="-12 -12 24 24"><path d="M-5 10 L-6 0 L-8.5 -4 M-6 0 L-4 -9 M-2 -1 L-1 -10.5 M1 -1 L2.5 -9.5 M3.5 0 L5.6 -6.5 M-5 10 Q2 12 4.5 6 L6 -1" fill="none" stroke="#d9d2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>`;
 export const SPOT_KINDS = ['tracker', 'index', 'qpro-ctrl', 'q3-ctrl', 'qpro', 'q3', 'hand'];
 const KIND_SIZE = { tracker: 23, index: 46, 'qpro-ctrl': 34, 'q3-ctrl': 34, qpro: 0, q3: 0, hand: 46 };
@@ -351,19 +360,21 @@ function smooth(points) {
   return d + ' Z';
 }
 
-// Her body as one natural outline (2026-10-26: "body still looks weird, just make it a natural female body outline"):
+// Her body as one natural outline, head to feet in one line (2026-10-26: "body still looks weird, just make it a natural female body outline"):
 // her right half from the neck, down the arm and round the hand, up to the armpit, down the bust, waist, hip and leg to
 // the foot, and up the inner leg; the left half is its mirror. Drawn 190 wide-centre, 930 floor.
-const HALF = [[179, 450], [177, 474], [160, 484], [140, 491], [128, 502], [120, 540], [106, 598], [95, 662], [89, 700],
-  [84, 716], [86, 734], [94, 742], [101, 730], [101, 710], [106, 680], [116, 630], [124, 590], [133, 548], [140, 536],
-  [141, 556], [148, 574], [154, 612], [146, 646], [138, 682], [139, 726], [146, 772], [150, 804], [149, 846], [156, 900],
-  [149, 918], [146, 928], [170, 930], [176, 920], [177, 900], [180, 850], [182, 806], [185, 760], [189, 722]];
-const BODY = smooth([...HALF, ...HALF.slice().reverse().map(([x, y]) => [380 - x, y])].map(([x, y]) => [x, Math.round(lift(y) * 10) / 10]));
+const HALF = [[176, 392], [167, 404], [165, 421], [168, 438], [175, 449], [179, 457], [178, 474], [160, 484], [140, 491],
+  [128, 502], [120, 540], [106, 598], [95, 662], [89, 700], [84, 716], [86, 734], [94, 742], [101, 730], [101, 710],
+  [106, 680], [116, 630], [124, 590], [133, 548], [140, 536], [141, 556], [148, 574], [154, 612], [148, 636], [140, 656],
+  [137, 672], [139, 700], [143, 740], [148, 778], [150, 806], [149, 846], [155, 888], [151, 904], [143, 918], [141, 926],
+  [148, 930], [172, 930], [178, 921], [177, 904], [178, 888], [180, 850], [182, 806], [184, 760], [186, 716], [189, 692]];
+const BODY = smooth([[190, 388], ...HALF, ...HALF.slice().reverse().map(([x, y]) => [380 - x, y])].map(([x, y]) => [x, Math.round(lift(y) * 10) / 10]));
 
 // Her hair, black like a galaxy, up in a bun over her head (2026-10-26: "show the hair as black and galaxy like, its in
 // a bun over the head"). A few stars twinkle in it.
 const STARS = (pts) => pts.map(([x, y, r]) => `<circle class="strap-star" cx="${x}" cy="${y}" r="${r}"/>`).join('');
-const HAIR_FRONT = `<path class="strap-hair" d="M166 412 C164 384 216 384 214 412 C206 398 174 398 166 412 Z"/>`;
+const HAIR_FRONT = `<path class="strap-hair" d="M166 418 C163 392 178 386 190 386 C202 386 217 392 214 418 C212 430 211 438 209 445 L205.5 445 C207 430 206 412 200 404 C194 398 186 398 180 404 C174 412 173 430 174.5 445 L171 445 C169 438 168 430 166 418 Z"/>
+<path class="strap-face" d="M186.5 438.5 Q190 440.5 193.5 438.5 M184 444.5 Q190 448 196 444.5"/>`;
 const HAIR_BACK = `<path class="strap-hair" d="M165 418 C160 380 220 380 215 418 C214 440 204 452 190 454 C176 452 166 440 165 418 Z"/>`;
 const BUN = `<ellipse class="strap-hair" cx="190" cy="378" rx="19" ry="15"/><path class="strap-hair-tie" d="M176 388 Q190 394 204 388"/>${STARS([[184, 372, 1.3], [197, 381, .9], [190, 368, .8], [176, 384, .7], [205, 375, .8]])}`;
 
@@ -371,19 +382,21 @@ const BUN = `<ellipse class="strap-hair" cx="190" cy="378" rx="19" ry="15"/><pat
 // shows the one that is on.
 // The headsets at their real size on her face (Meta's cut sheets: Quest Pro 196 mm wide; Quest 3 about 184 mm), 3.2 to a
 // centimetre in her drawing.
-const HEADSETS_FRONT = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-band" d="M160 410 C150 396 156 374 178 368 C200 364 222 370 228 386 C231 394 228 404 222 410"/>
-<path class="strap-headset" d="M159 406 Q190 398 221 406 L220 422 Q219 430 210 430 Q190 433 170 430 Q161 430 160 422 Z"/><path d="M164 409 Q190 402 216 409" fill="none" stroke="#8a8a98" stroke-width="1.2"/><circle cx="166" cy="417" r="1.8" fill="#5a5a66"/><circle cx="214" cy="417" r="1.8" fill="#5a5a66"/></g>
+const HEADSETS_FRONT = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-band" d="M159 408 C152 392 160 376 178 371 C196 367 216 372 224 386 C228 394 226 402 221 408"/>
+<path class="strap-headset" d="M158.5 405 Q190 396 221.5 405 L220.5 423 Q219.5 431 210 431.5 Q190 434 170 431.5 Q160.5 431 159.5 423 Z"/><path d="M161 407.5 Q190 399.5 219 407.5" fill="none" stroke="#e8eefc" stroke-width=".9" opacity=".55"/>
+<path d="M163 416 Q190 410 217 416" fill="none" stroke="#3a3d4a" stroke-width="5" opacity=".7"/><circle cx="166" cy="425" r="1.4" fill="#4a4e5c"/><circle cx="214" cy="425" r="1.4" fill="#4a4e5c"/><circle cx="178" cy="428" r="1.1" fill="#4a4e5c"/><circle cx="202" cy="428" r="1.1" fill="#4a4e5c"/><circle cx="190" cy="429" r="1.1" fill="#4a4e5c"/></g>
 <g class="strap-hs strap-hs-quest-3"><path class="strap-band-soft" d="M161 410 C152 398 157 380 176 374 M219 410 C228 398 223 380 204 374 M176 374 Q190 366 204 374"/>
 <path class="strap-headset-q3" d="M160.5 402 Q190 395 219.5 402 L219.5 428 Q219.5 434 212 434 Q190 437 168 434 Q160.5 434 160.5 428 Z"/><rect x="167" y="410" width="9" height="17" rx="4.5" fill="#24242c"/><rect x="185.5" y="410" width="9" height="17" rx="4.5" fill="#24242c"/><rect x="204" y="410" width="9" height="17" rx="4.5" fill="#24242c"/></g>`;
-const HEADSETS_BACK = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-headset" d="M166 392 Q190 386 214 392 L212 408 Q190 413 168 408 Z"/><path d="M171 398 Q190 393 209 398" fill="none" stroke="#8a8a98" stroke-width="1.2"/></g>
-<g class="strap-hs strap-hs-quest-3"><path class="strap-band-soft" d="M162 404 Q190 396 218 404"/><rect class="strap-headset-q3" x="176" y="398" width="28" height="13" rx="5"/></g>`;
+// From the back: the Quest Pro's halo band round her head and its battery at the back; the Quest 3's soft strap.
+const HEADSETS_BACK = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-band" d="M166 414 Q190 406 214 414"/><rect class="strap-headset" x="180" y="408" width="20" height="15" rx="5"/><path d="M184 412 h12" stroke="#a8b3d0" stroke-width=".8" opacity=".6"/></g>
+<g class="strap-hs strap-hs-quest-3"><path class="strap-band-soft" d="M165 410 Q190 400 215 410 M167 426 Q190 418 213 426"/></g>`;
 
 function figure(view) {
   const front = view === 'front';
   return `<g class="strap-figure strap-${view}" transform="translate(${VIEW_X[view] - 190 * SCALE} ${FLOOR - 930 * SCALE}) scale(${SCALE})">
 <ellipse class="strap-shadow" cx="190" cy="930" rx="62" ry="6"/>
 <path class="strap-skin" d="${BODY}"/>
-<g transform="translate(0 -${LIFT})"><ellipse class="strap-skin" cx="190" cy="420" rx="24" ry="31"/>
+<g transform="translate(0 -${LIFT})">
 ${front ? '<path class="strap-crease" d="M160 552 Q172 566 186 558 M194 558 Q208 566 220 552 M190 626 v2"/>' : '<path class="strap-crease" d="M190 492 V700 M160 520 Q172 532 168 552 M220 520 Q208 532 212 552"/>'}
 ${front ? HAIR_FRONT : HAIR_BACK}${BUN}
 ${front ? HEADSETS_FRONT : HEADSETS_BACK}</g>
@@ -395,24 +408,27 @@ ${front ? HEADSETS_FRONT : HEADSETS_BACK}</g>
 // is black with a random galaxy glitter, as hers are (her photos; "the hoop needs to be a random galaxy material not the
 // pattern you are showing"): soft clouds of violet, blue, magenta and teal, holographic flakes of every size and colour
 // scattered at random, and a few bright white sparks. A fixed seed keeps the same sparkle on every build.
-const GALAXY_CLOUDS = ['#5a2bd6', '#7b3cff', '#3a3ccf', '#2a5cff', '#9b4dff', '#b04ad8', '#24206e'];
+const GALAXY_CLOUDS = ['#5a2bd6', '#2a4fd0', '#7b3cff', '#3a3ccf'];
 const HOLO = ['#ffffff', '#ffffff', '#ffffff', '#e6e2ff', '#c6a8ff', '#9fd0ff', '#7ef9ff', '#ff8fd0', '#d9b8ff'];
 const seeded = (seed) => () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 const lyra = (cx, cy, r, seed) => {
   const rnd = seeded(seed), at = (a, rr) => `${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)}`;
-  // Clouds all the way round (2026-10-26, her sample: "make the whole pattern like this"), overlapping so no bare black.
-  const many = Math.round(r / 3);
+  // Faint violet and blue clouds at an even step round the ring, the tube black between them.
+  const many = Math.round(r / 6);
   const clouds = Array.from({ length: many }, (_, i) => {
-    const a = (i / many) * Math.PI * 2 + rnd() * 0.3, len = 0.2 + rnd() * 0.4;
-    return `<path d="M${at(a, r)} A ${r} ${r} 0 0 1 ${at(a + len, r)}" stroke="${GALAXY_CLOUDS[Math.floor(rnd() * GALAXY_CLOUDS.length)]}" stroke-width="${(4 + rnd() * 4).toFixed(1)}" opacity="${(0.35 + rnd() * 0.4).toFixed(2)}"/>`;
+    const a = ((i + 0.2 * rnd()) / many) * Math.PI * 2, len = (Math.PI * 2 / many) * 0.55;
+    return `<path d="M${at(a, r)} A ${r} ${r} 0 0 1 ${at(a + len, r)}" stroke="${GALAXY_CLOUDS[i % GALAXY_CLOUDS.length]}" stroke-width="5" opacity=".3"/>`;
   }).join('');
-  const flakes = Array.from({ length: Math.round(r * 7) }, () => {
-    const a = rnd() * Math.PI * 2, rr = r + (rnd() - 0.5) * 7, big = rnd();
-    return `<circle cx="${at(a, rr).replace(' ', '" cy="')}" r="${(big > 0.95 ? 0.8 + rnd() * 0.4 : 0.2 + rnd() * 0.4).toFixed(2)}" fill="${HOLO[Math.floor(rnd() * HOLO.length)]}" opacity="${(0.55 + rnd() * 0.45).toFixed(2)}"/>`;
+  // Small stars spread evenly: one in each short stretch of the ring, at a random spot across the tube.
+  const count = Math.round(r * 4);
+  const flakes = Array.from({ length: count }, (_, i) => {
+    const a = ((i + rnd()) / count) * Math.PI * 2, rr = r + (rnd() - 0.5) * 6.4, big = rnd() > 0.96;
+    return `<circle cx="${at(a, rr).replace(' ', '" cy="')}" r="${(big ? 0.75 : 0.22 + rnd() * 0.3).toFixed(2)}" fill="${HOLO[Math.floor(rnd() * HOLO.length)]}" opacity="${(0.6 + rnd() * 0.4).toFixed(2)}"/>`;
   }).join('');
-  const sparks = Array.from({ length: Math.round(r / 12) }, () => {
-    const [x, y] = at(rnd() * Math.PI * 2, r + (rnd() - 0.5) * 5).split(' ').map(Number), k = 1.4 + rnd() * 1.6;
-    return `<path d="M${x - k} ${y} H${x + k} M${x} ${y - k} V${y + k}" stroke="#ffffff" stroke-width=".5"/>`;
+  const sparkCount = Math.round(r / 18);
+  const sparks = Array.from({ length: sparkCount }, (_, i) => {
+    const [x, y] = at(((i + 0.5) / sparkCount) * Math.PI * 2, r).split(' ').map(Number), k = 1.6;
+    return `<path d="M${x - k} ${y} H${x + k} M${x} ${y - k} V${y + k}" stroke="#ffffff" stroke-width=".45"/>`;
   }).join('');
   const top = cy - r;
   return `<g class="strap-lyra"><path class="strap-rope" d="M${cx} ${CEILING} V${top - 30}"/><circle class="strap-fig8" cx="${cx}" cy="${top - 24}" r="5"/><circle class="strap-fig8" cx="${cx}" cy="${top - 14}" r="6.5"/><path class="strap-rope" d="M${cx} ${top - 8} V${top}"/>
@@ -441,11 +457,11 @@ function strapperDrawing() {
   // Every spot carries each device's drawing; the page shows the one for the device on it.
   const spot = (s) => `<g class="strap-spot" data-strap-dot="${esc(s.code)}" data-kind="" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title>
 <circle class="strap-halo" cx="${s.x}" cy="${s.y}" r="18"/><circle class="strap-empty" cx="${s.x}" cy="${s.y}" r="8"/>
-${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" href="#ico-${k}" x="${s.x - KIND_SIZE[k] / 2}" y="${s.y - KIND_SIZE[k] / 2}" width="${KIND_SIZE[k]}" height="${KIND_SIZE[k]}"${s.down ? ` transform="rotate(180 ${s.x} ${s.y})"` : ''}/>`).join('')}
+${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" href="#ico-${k}${k === 'tracker' && s.side ? '-side' : ''}" x="${s.x - KIND_SIZE[k] / 2}" y="${s.y - KIND_SIZE[k] / 2}" width="${KIND_SIZE[k]}" height="${KIND_SIZE[k]}"${s.down ? ` transform="rotate(180 ${s.x} ${s.y})"` : ''}/>`).join('')}
 <circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
   // Each toy stands on the floor with a soft shadow under it.
   const toy = (t) => `<g class="strap-toy"><ellipse class="strap-toy-shadow" cx="${t.x + t.w / 2}" cy="861" rx="${t.w / 2 + 4}" ry="3.5"/><g transform="translate(${t.x} ${t.y}) scale(${t.scale})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.name)}</text></g>`;
-  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 916" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 27 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
+  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 916" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
 <defs>${DEVICE_SYMBOLS}<linearGradient id="strap-skin" x1="0" x2="1"><stop offset="0" stop-color="#7f8fb8"/><stop offset=".5" stop-color="#b9c6e6"/><stop offset="1" stop-color="#7f8fb8"/></linearGradient>
 <radialGradient id="strap-galaxy" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#3a2a6a"/><stop offset=".45" stop-color="#160f2c"/><stop offset="1" stop-color="#050409"/></radialGradient>
 <linearGradient id="strap-hoop" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#1a1030"/><stop offset=".25" stop-color="#2a0f3a"/><stop offset=".5" stop-color="#0b1a33"/><stop offset=".75" stop-color="#14261c"/><stop offset="1" stop-color="#1a1030"/></linearGradient>
@@ -457,13 +473,12 @@ ${TOY_DEFS}
 <path class="strap-ceiling" d="M470 ${CEILING} H1100"/><text class="strap-prop-names" x="476" y="${CEILING + 20}">9 ft ceiling</text><path class="strap-floor" d="M8 862 H1102"/>
 <ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
 ${figure('front')}${figure('back')}
-<text class="strap-view" x="140" y="284" text-anchor="middle">FRONT SIDE</text><text class="strap-view" x="380" y="284" text-anchor="middle">BACK SIDE</text>
+<text class="strap-view" x="140" y="284" text-anchor="middle">Front Side</text><text class="strap-view" x="380" y="284" text-anchor="middle">Back Side</text>
 ${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
 ${xpole()}
-<text class="strap-prop-names" x="988" y="72" text-anchor="end">faces down</text>
-<g class="strap-prop-names"><text x="620" y="574" text-anchor="middle">Big Dance Hoop</text><text x="870" y="414" text-anchor="middle">Little Dance Hoop</text><text x="${POLE_X}" y="884" text-anchor="middle">Dance Pole</text><text x="1100" y="904" text-anchor="end">X-Pole XPERT Pro</text></g>
+<text class="strap-prop-names" x="992" y="58" text-anchor="end">faces down</text>
+<g class="strap-prop-names"><text x="620" y="416" text-anchor="middle">Big Dance Hoop</text><text x="870" y="324" text-anchor="middle">Little</text><text x="870" y="343" text-anchor="middle">Dance Hoop</text><text x="${POLE_X}" y="884" text-anchor="middle">X-Pole</text><text x="${POLE_X}" y="904" text-anchor="middle">XPERT Pro</text></g>
 ${TOYS.map(toy).join('\n')}
-<text class="strap-toy-group" x="858" y="772" text-anchor="middle">Lovense</text>
 ${SPOTS.map(spot).join('\n')}
 </svg>`;
 }

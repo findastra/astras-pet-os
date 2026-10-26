@@ -40,13 +40,13 @@ test('the launcher script puts text in with textContent only and runs no code fr
   assert.deepEqual(findSensitive(js), []);
 });
 
-// tracker-strapper (Astra, 2026-10-25, her drawing): her 27 spots once each, in her numbers, before the launches; every
+// tracker-strapper (Astra, 2026-10-25, her drawing): her 29 spots once each, in her numbers, before the launches; every
 // device id is one Rift Rabbit's launcher knows; today's spots and pairs match the launcher's first settings; the pickers
 // stay off until the launcher on this PC answers.
-test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s spots, pickers off until the launcher answers', async () => {
+test('tracker-strapper: 29 spots in her numbers, above the launches, today\'s spots, pickers off until the launcher answers', async () => {
   const { SPOTS, DEVICES, WORN, PAIRS, PAIR_SPOTS } = await import('../scripts/vrchat-launch-panel-20261023.mjs');
-  assert.deepEqual(SPOTS.map((s) => s.n), Array.from({ length: 27 }, (_, i) => i + 1));
-  assert.equal(new Set(SPOTS.map((s) => s.code)).size, 27);
+  assert.deepEqual(SPOTS.map((s) => s.n), Array.from({ length: 29 }, (_, i) => i + 1));
+  assert.equal(new Set(SPOTS.map((s) => s.code)).size, 29);
   assert.equal((rabbit.match(/data-strapper/g) || []).length, 1);
   assert.ok(rabbit.indexOf('data-strapper') < rabbit.indexOf('data-launch-headset='), 'above the headset boxes');
   for (const s of SPOTS) {

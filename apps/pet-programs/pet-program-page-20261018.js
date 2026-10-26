@@ -718,13 +718,14 @@
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
-  // tracker-strapper (Astra, 2026-10-25): which device is on each of her 27 spots, and the launch options below follow it
+  // tracker-strapper (Astra, 2026-10-25): which device is on each of her 29 spots, and the launch options below follow it
   // ("then your launch options become available below"). Both headset tools show; only the one on 23 Face launches;
   // modes x.1 to x.3 wait for a tracker on 24 Head; Double Hip and Double Chest for both spots of their pair; each Object
   // Track VR object for the tracker on it. Rift Rabbit's launcher keeps the spots on her PC (vrchat-launcher-20261024.js
   // fills them in there and sends changes); anywhere else they show today's spots.
   var strapper = box.querySelector('[data-strapper]');
-  var OBJECT_SPOT = { 'dance-pole': 'DP', 'large-hoop': 'BDH', 'small-hoop': 'LDH' };
+  // Each hoop has two spots, its side and its top; a tracker on either is enough (2026-10-26).
+  var OBJECT_SPOT = { 'dance-pole': ['DP'], 'large-hoop': ['BDH', 'BDT'], 'small-hoop': ['LDH', 'LDT'] };
   function spotName(code) { var row = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name'); return row ? row.textContent.replace(/\s+/g, ' ').trim() : code; }
   function strap() {
     if (!strapper) return;
@@ -775,7 +776,7 @@
       var auto = hs.querySelector('select[data-launch-switch="double-hip"]');
       var want = full.hip && full.chest ? 'both' : full.hip ? 'hip' : full.chest ? 'chest' : '';
       if (auto && auto.value !== want) { auto.value = want; auto.dispatchEvent(new Event('change', { bubbles: true })); }
-      gate('object-track', function (v) { return tracker(OBJECT_SPOT[v]); });
+      gate('object-track', function (v) { return (OBJECT_SPOT[v] || []).some(tracker); });
     });
     box.dispatchEvent(new CustomEvent('strapper-change'));
   }

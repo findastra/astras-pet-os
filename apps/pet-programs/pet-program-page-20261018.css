@@ -214,18 +214,19 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
 .light.care { background: var(--care); }
-.light.care.is-fix { background: var(--fix); }
+/* Report issues orange, update waiting yellow (Astra, 2026-10-26: "switch update color and report issues color"). */
+.light.care.is-fix { background: var(--update); }
 .light.is-unset { background: var(--planned); }
 /* An update waiting for your approval (Astra, 2026-10-24: "if it happens to be found on updater audit, make the light
    orange, then have L3 ask me if L4 wants to approve update"). */
-.light.care.is-update { background: var(--update); }
+.light.care.is-update { background: var(--fix); }
 /* The bubble that says what a light now means, under the light that was clicked. */
 .light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
   background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
 .light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
-.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); } .key.update { background: var(--update); }
+.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--update); } .key.planned { background: var(--planned); } .key.update { background: var(--fix); }
 
 /* Inside the intelligence-level panels. */
 /* The sections stack, each across the whole tool panel, and the pills in them go three to a row, then two, then one as
@@ -274,6 +275,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill:not(:has(> .pill-more[open])) > .cadence { display: none; }
 .pill-more > summary { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; list-style: none; }
 .pill-more > summary::-webkit-details-marker { display: none; }
+/* Every pill that opens shows the same fold arrow as the panels and tool boxes (Astra, 2026-10-26: "all of these should
+   have the drop down arrow like rift-rabbit-tracker-strapper"). */
+.items li.pill:has(> .pill-more) > .item-name::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
+.items li.pill:has(> .pill-more[open]) > .item-name::after { content: "\00A0\00A0\25BE"; }
+.items li.pill:has(> .pill-more):hover > .item-name::after { color: var(--fix); }
 .items li.pill:has(> .pill-more > summary:focus-visible) { outline: 2px solid var(--fix); outline-offset: 2px; }
 .item-desc { margin: 4px 0 2px; font-size: 13px; line-height: 1.4; color: var(--chalk); overflow-wrap: anywhere; }
 .item-desc.empty { color: var(--chalk-dim); }
@@ -515,6 +521,7 @@ img[hidden] { display: none !important; }
 .strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
 .strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
 .strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
+.strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
 .strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
 .strap-star { fill: #fff6d8; opacity: .9; }
 .strap-headset-q3 { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.4; }
@@ -633,7 +640,12 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-headset.is-folded > :not(.launch-head), .launch-mode.is-folded > :not(legend) { display: none; }
 .launch-headset.is-folded { padding-bottom: 7px; }
 .launch-headset.is-folded > .launch-head { margin-bottom: 0; }
-.launch-mode legend { font: 13px var(--label); padding: 0 6px; }
+/* Each launch option's name sits inside its rounded box at the top, as on every tool, not in the border (Astra,
+   2026-10-26: "Tools, Toolsets, 3rd Party Programs all follow the round border, button, drop down arrow rule, but there
+   are a couple that have numbers"). */
+.launch-mode { padding-top: 10px; }
+.launch-mode > legend { float: left; width: 100%; font: 600 13.5px var(--label); color: var(--chalk); padding: 0; margin: 0 0 6px; }
+.launch-mode > legend + * { clear: both; }
 .launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
 .launch-mode[data-rating="bad"] { border-color: var(--off); }
 .launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
