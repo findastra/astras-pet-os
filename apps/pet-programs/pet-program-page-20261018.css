@@ -870,3 +870,16 @@ input[type="checkbox"] { accent-color: var(--line); }
 .strap-drawing .brand-valve { fill: #ff6b5a; }
 .strap-drawing .brand-vive { fill: #39d0e8; }
 .strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
+
+/* The dongle map in two columns: today's plugs on the left, the recommended layout on the right (2026-10-26). */
+.dongle-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; align-items: start; }
+.dongle-col { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 12px; min-width: 0; }
+.dongle-col-name { margin: 0 0 8px; font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-for { margin-bottom: 8px; }
+.dongle-pick { font: 13px var(--text); color: var(--chalk-dim); background: var(--slate-2); border: 1px solid var(--line-dim); border-radius: 6px; padding: 1px 4px; }
+.dongle-flag, .dongle-flags li { color: var(--update); }
+.dongle-other { color: var(--chalk-dim); opacity: .75; }
+.dongle-hub { margin: 6px 0 8px; }
+.dongle-hub > b { color: var(--link); font-weight: 600; }
+.dongle-items, .dongle-rules, .dongle-flags { margin: 4px 0 6px; padding-left: 18px; }
+.dongle-rules { color: var(--chalk-dim); }

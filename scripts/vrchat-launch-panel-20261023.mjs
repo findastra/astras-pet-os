@@ -532,9 +532,10 @@ ${strapperStore()}
 // tree; the page draws each USB controller as a branch, its hubs under it, and every dongle where it is plugged in.
 export function dongleMap(lights = () => '') {
   return `<div class="launch-headset dongle-map" data-dongle-map><div class="launch-head">${lights('tool:dongle-map', 'rift-rabbit-dongle-map')}<button type="button" class="launch-fold launch-name" aria-expanded="true">rift-rabbit-dongle-map</button></div>
-<p class="small dongle-about">Which USB controller and hub each Watchman dongle and Valve VR Radio is on, read by USBDeview. Dongles crowded on one controller or behind many hubs are the ones to spread out.</p>
+<p class="small dongle-about">Where each Watchman dongle is plugged in today, read by USBDeview, and where it would work best for the launch you plan.</p>
 <p class="dongle-run"><button type="button" class="button off" disabled data-dongle-scan>Scan USB</button> <span class="small" data-dongle-said>Works on the page opened on your PC while Rift Rabbit’s launcher runs.</span></p>
-<div class="dongle-tree" data-dongle-tree></div>
+${/* Current on the left, recommended on the right (Astra, 2026-10-26). */ ''}<div class="dongle-cols"><section class="dongle-col"><h4 class="dongle-col-name">Current layout</h4><div class="dongle-tree" data-dongle-tree><p class="small">Scan USB to see it.</p></div></section>
+<section class="dongle-col"><h4 class="dongle-col-name">Recommended layout</h4><label class="launch-switch dongle-for">Plan for <select data-dongle-for>${HEADSETS.map((h) => MODES.map((m, i) => `<option value="${esc(h.id)}|${esc(m.id)}">${h.n}.${i} ${esc(h.device)} · ${esc(m.name)}</option>`).join('')).join('')}</select></label><div class="dongle-suggest" data-dongle-suggest></div></section></div>
 </div>`;
 }
 

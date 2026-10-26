@@ -160,36 +160,153 @@
   // Pole Overlay automatically opens it, I just need this to add to the sequence until launched"); to open one any time
   // she uses its row under 3rd party programs.
 
-  // The dongle map: the launcher runs USBDeview and sends back each USB controller's branches; drawn with textContent.
+  // The dongle map (Astra, 2026-10-26: "show Current Layout on the Left as shown, and then Recommended Layout on the
+  // right"; "make it so the dongles are labeled by which one they are corresponding to the models available"). The
+  // launcher runs USBDeview and sends back each USB controller's branches; drawn with textContent. SteamVR does not log
+  // which tracker a dongle is paired with, so she names each dongle once from her own devices; this PC remembers it.
   var dongle = document.querySelector('[data-dongle-map]');
-  function dongles(n) { return (n.kind === 'tracker-dongle' || n.kind === 'radio' ? 1 : 0) + (n.children || []).reduce(function (a, c) { return a + dongles(c); }, 0); }
-  function branch(n) {
+  var lastScan = null, MAP_KEY = 'rift-rabbit-dongle-devices';
+  function readMap() { try { return JSON.parse(localStorage.getItem(MAP_KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function writeMap(m) { try { localStorage.setItem(MAP_KEY, JSON.stringify(m)); } catch (e) { /* kept for this visit only */ } }
+  function isDongle(n) { return n.kind === 'tracker-dongle'; }
+  function dongles(n) { return (isDongle(n) ? 1 : 0) + (n.children || []).reduce(function (a, c) { return a + dongles(c); }, 0); }
+  // Genesys hub chips: GL850 (05E3:0608) has one transaction translator for all its ports, GL852 (05E3:0610) one each.
+  function hubKind(n) { var id = n.id || ''; return /VID_05E3&PID_0608/i.test(id) ? 'single' : /VID_05E3&PID_0610/i.test(id) ? 'multi' : /PID_0626/i.test(id) ? 'usb3' : ''; }
+  function controllerName(n) {
+    var v = /USB (2\.0|3\.\d+)/.exec(n.name || '');
+    return 'USB ' + (v ? v[1] : '') + ' controller' + (/DEV_15B[6-8]/i.test(n.id || '') ? ' (on the CPU)' : /DEV_43EF/i.test(n.id || '') ? ' (on the chipset)' : '');
+  }
+  // Her devices that need a dongle, from tracker-strapper's lists: every Vive Tracker and both Index controllers.
+  function deviceChoices() {
+    var seen = {}, list = [];
+    if (!strapper) return list;
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot] option'), function (o) {
+      if (!/^(vive-tracker-|index-controller-)/.test(o.value) || seen[o.value]) return;
+      seen[o.value] = true;
+      list.push({ id: o.value, name: (o.getAttribute('data-short') || o.textContent).replace(/^Index Knuckles$/, 'Index controller') + (/-right$/.test(o.value) ? ' (R)' : /-left$/.test(o.value) ? ' (L)' : '') });
+    });
+    return list;
+  }
+  function branch(n, depth) {
+    // The root hub only repeats its controller, so its devices hang straight off the controller.
+    if (n.kind === 'root-hub') { var f = document.createDocumentFragment(); (n.children || []).forEach(function (c) { f.appendChild(branch(c, depth)); }); return f; }
     var li = el('li', 'dongle-node');
     li.setAttribute('data-kind', n.kind);
-    var line = el('span', 'dongle-line');
-    line.appendChild(el('b', null, n.name));
-    var port = (n.location || '').match(/Port_#0*(\d+)\.Hub_#0*(\d+)/);
-    if (port) line.appendChild(el('span', 'dongle-port', ' · port ' + port[1] + ' of hub ' + port[2]));
-    if (n.serial && (n.kind === 'tracker-dongle' || n.kind === 'radio')) line.appendChild(el('span', 'dongle-serial', ' · ' + n.serial));
-    if (n.tracker) line.appendChild(el('span', 'dongle-tracker', ' → ' + n.tracker));
-    var count = dongles(n);
-    if (n.children && count) line.appendChild(el('span', 'dongle-count', ' (' + count + ' dongle' + (count === 1 ? '' : 's') + ')'));
+    var line = el('span', 'dongle-line'), port = (n.location || '').match(/Port_#0*(\d+)/);
+    if (n.kind === 'controller') {
+      line.appendChild(el('b', null, controllerName(n)));
+      var count = dongles(n);
+      if (count) line.appendChild(el('span', 'dongle-count', ' · ' + count + ' dongle' + (count === 1 ? '' : 's')));
+    } else if (n.kind === 'hub') {
+      var k = hubKind(n);
+      line.appendChild(el('b', null, k === 'usb3' ? 'USB 3 hub' : 'Hub'));
+      if (k === 'single') { var w = el('span', 'dongle-flag', ' · single-TT: all its ports share one 12 Mbit/s lane'); line.appendChild(w); li.setAttribute('data-warn', 'yes'); }
+      if (k === 'multi') line.appendChild(el('span', 'dongle-port', ' · multi-TT'));
+      if (port) line.appendChild(el('span', 'dongle-port', ' · port ' + port[1]));
+    } else if (isDongle(n)) {
+      var map = readMap(), pick = el('select', 'dongle-pick');
+      pick.setAttribute('aria-label', 'Which device this dongle is paired with');
+      pick.appendChild(new Option('Which device?', ''));
+      deviceChoices().forEach(function (d) { pick.appendChild(new Option(d.name, d.id)); });
+      pick.value = map[n.serial] || '';
+      pick.addEventListener('change', function () { var m = readMap(); if (pick.value) m[n.serial] = pick.value; else delete m[n.serial]; writeMap(m); recommend(); });
+      line.appendChild(el('b', null, 'Watchman '));
+      line.appendChild(pick);
+      if (port) line.appendChild(el('span', 'dongle-port', ' · port ' + port[1]));
+      line.appendChild(el('span', 'dongle-serial', ' · ' + n.serial));
+    } else {
+      line.appendChild(el('span', 'dongle-other', n.kind === 'radio' ? 'Valve VR Radio' : n.name));
+      if (port) line.appendChild(el('span', 'dongle-port', ' · port ' + port[1]));
+    }
     li.appendChild(line);
-    if (n.children) { var ul = el('ul', 'dongle-branches'); n.children.forEach(function (c) { ul.appendChild(branch(c)); }); li.appendChild(ul); }
+    var kids = (n.children || []);
+    if (kids.length) { var ul = el('ul', 'dongle-branches'); kids.forEach(function (c) { ul.appendChild(branch(c, depth + 1)); }); li.appendChild(ul); }
     return li;
+  }
+
+  // The recommended layout for the launch she plans, from the spots she wears (2026-10-26: "The dongle map should suggest
+  // a layout based on the tracking locations/devices, and the desired launch option"). One answer, with its reasons.
+  var HEAD_MODES = ['space-calibrator', 'space-override', 'space-sync'];
+  var OBJECT_SPOTS = { 'dance-pole': ['DP'], 'large-hoop': ['BDH', 'BDT'], 'small-hoop': ['LDH', 'LDT'] };
+  var LOW = ['RF', 'LF', 'RA', 'LA', 'RK', 'LK'];
+  function recommend() {
+    var out = dongle && dongle.querySelector('[data-dongle-suggest]'), planFor = dongle && dongle.querySelector('[data-dongle-for]');
+    if (!out || !strapper) return;
+    var pick = (planFor.value || 'quest-pro|native').split('|'), hs = box.querySelector('[data-launch-headset="' + pick[0] + '"]');
+    var objSel = hs && hs.querySelector('select[data-launch-switch="object-track"]'), obj = objSel ? objSel.value : '';
+    var map = readMap(), serialOf = {};
+    Object.keys(map).forEach(function (s) { serialOf[map[s]] = s; });
+    var groups = { high: [], low: [] };
+    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
+      var code = sel.getAttribute('data-strap-spot'), dev = sel.value, o = sel.options[sel.selectedIndex];
+      if (!dev || !/^(vive-tracker-|index-controller-)/.test(dev)) return;
+      if (code === 'H' && HEAD_MODES.indexOf(pick[1]) < 0) return;
+      var objOf = Object.keys(OBJECT_SPOTS).filter(function (k) { return OBJECT_SPOTS[k].indexOf(code) >= 0; })[0];
+      if (objOf && objOf !== obj) return;
+      var where = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name');
+      var spot = where ? where.textContent.replace(/\s*\[[^\]]*\]\s*$/, '').replace(/^\d+\s+/, '') : code;
+      var name = (o.getAttribute('data-short') || o.textContent).replace(/^Vive\s*/, '').replace(/\s*\[[^\]]*\]/, '').replace(/^Index Knuckles$/, 'Index controller');
+      groups[LOW.indexOf(code) >= 0 ? 'low' : 'high'].push({ label: name + ' · ' + spot, dongle: serialOf[dev] || '' });
+    });
+    out.textContent = '';
+    var total = groups.high.length + groups.low.length;
+    out.appendChild(el('p', 'small dongle-plan-head', total + ' dongle' + (total === 1 ? '' : 's') + ' for this launch.'));
+    var ctrl = (lastScan && lastScan.controllers || []).map(controllerName);
+    var hubs = [['high', 'Hub A · high on the wall, facing the play space', 'head, chest, waist, elbows, hands, hoop and pole'], ['low', 'Hub B · low, at the front edge of the desk', 'feet, ankles and knees']];
+    hubs.forEach(function (h, i) {
+      var items = groups[h[0]];
+      if (!items.length) return;
+      var sec = el('div', 'dongle-hub');
+      sec.appendChild(el('b', null, h[1]));
+      sec.appendChild(el('span', 'small dongle-port', ' · ' + h[2] + (ctrl.length > 1 ? ' · on a ' + ctrl[i % ctrl.length] : ' · on its own USB controller')));
+      var ul = el('ul', 'small dongle-items');
+      items.forEach(function (it) { var li = el('li', null, it.label); if (it.dongle) li.appendChild(el('span', 'dongle-serial', ' · dongle ' + it.dongle)); ul.appendChild(li); });
+      sec.appendChild(ul);
+      out.appendChild(sec);
+    });
+    var how = el('ul', 'small dongle-rules');
+    ['Each dongle in its cradle on a USB 2.0 extension, about 40 cm from the next, upright.', 'At least 45 cm from the PC (HTC’s own rule), with nothing metal or USB 3 next to it.',
+      'Powered multi-TT USB 2.0 hubs, one hub between the PC and each dongle.', 'The keyboard receiver and the Game Drive on other ports, not on the dongle hubs.'].forEach(function (t) { how.appendChild(el('li', null, t)); });
+    out.appendChild(how);
+    // What today's scan does differently.
+    if (lastScan) {
+      var flags = [], deep = 0, single = 0, onCtrl = 0, others = 0;
+      (function walk(n, hubs, sTT) {
+        var k = n.kind === 'hub' ? hubKind(n) : '';
+        var h = hubs + (n.kind === 'hub' ? 1 : 0), s = sTT || k === 'single';
+        if (isDongle(n)) { deep = Math.max(deep, h); if (s) single++; }
+        if (n.kind === 'device' && h > 0 && n.name && /receiver|drive/i.test(n.name)) others++;
+        (n.children || []).forEach(function (c) { walk(c, h, s); });
+      })({ children: lastScan.controllers || [] }, 0, false);
+      (lastScan.controllers || []).forEach(function (c) { if (dongles(c) > 0) onCtrl++; });
+      var found = lastScan.dongles || 0;
+      if (found < total) flags.push('This launch needs ' + total + ' dongles; ' + found + ' are plugged in.');
+      if (single) flags.push(single + ' dongle' + (single === 1 ? '' : 's') + ' share a single-TT hub: swap it for a multi-TT hub.');
+      if (deep > 1) flags.push('Some dongles sit ' + deep + ' hubs deep: keep it to one.');
+      if (onCtrl === 1 && found > 4) flags.push('All ' + found + ' are on one USB controller: split them over two.');
+      if (others) flags.push('A 2.4 GHz receiver or a drive shares the dongle hubs: move it.');
+      if (flags.length) { var f = el('ul', 'small dongle-flags'); flags.forEach(function (t) { f.appendChild(el('li', null, t)); }); out.appendChild(f); }
+    }
   }
   if (dongle) {
     var scan = dongle.querySelector('[data-dongle-scan]'), dsaid = dongle.querySelector('[data-dongle-said]'), tree = dongle.querySelector('[data-dongle-tree]');
+    var planFor = dongle.querySelector('[data-dongle-for]');
+    if (planFor) planFor.addEventListener('change', recommend);
+    box.addEventListener('strapper-change', recommend);
+    box.addEventListener('change', function (e) { if (e.target.matches && e.target.matches('[data-launch-switch="object-track"]')) recommend(); });
+    recommend();
     scan.addEventListener('click', function () {
       scan.disabled = true; dsaid.textContent = 'Scanning…';
       ask('/usb-map').then(function (res) {
         scan.disabled = false;
         tree.textContent = '';
         if (!res || !res.ok) { dsaid.textContent = (res && res.said) || 'The scan did not work.'; return; }
+        lastScan = res;
         dsaid.textContent = res.dongles + ' Watchman dongles found, ' + new Date(res.time).toLocaleTimeString() + '.';
         var ul = el('ul', 'dongle-branches dongle-root');
-        (res.controllers || []).filter(function (c) { return dongles(c) > 0; }).concat((res.controllers || []).filter(function (c) { return dongles(c) === 0; })).forEach(function (c) { ul.appendChild(branch(c)); });
+        (res.controllers || []).filter(function (c) { return dongles(c) > 0; }).concat((res.controllers || []).filter(function (c) { return dongles(c) === 0; })).forEach(function (c) { ul.appendChild(branch(c, 0)); });
         tree.appendChild(ul);
+        recommend();
       }, lost);
     });
   }
