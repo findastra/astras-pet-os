@@ -13,8 +13,8 @@ export const TOOL = 'wonderland-launchpad-v1.0-vrchat-launch-panel-v0.1';
 export const STREAMERS = [
   ['virtual-desktop', 'Virtual Desktop'],
   ['steam-link', 'Steam Link'],
-  ['meta-horizon-link', 'Meta Horizon Link (cable)'],
-  ['air-link', 'Air Link'],
+  ['meta-horizon-link', 'Meta Horizon (Link Cable)'],
+  ['air-link', 'Meta Horizon (Air Link)'],
 ];
 
 // DoubleHip DoubleChest Tracker's three uses, plus off (the empty value).
