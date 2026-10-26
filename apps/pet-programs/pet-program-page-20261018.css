@@ -883,3 +883,5 @@ input[type="checkbox"] { accent-color: var(--line); }
 .dongle-hub > b { color: var(--link); font-weight: 600; }
 .dongle-items, .dongle-rules, .dongle-flags { margin: 4px 0 6px; padding-left: 18px; }
 .dongle-rules { color: var(--chalk-dim); }
+
+.dongle-dev { color: var(--link); }

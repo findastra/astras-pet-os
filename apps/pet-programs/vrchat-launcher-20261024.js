@@ -173,6 +173,7 @@
   // Genesys hub chips: GL850 (05E3:0608) has one transaction translator for all its ports, GL852 (05E3:0610) one each.
   function hubKind(n) { var id = n.id || ''; return /VID_05E3&PID_0608/i.test(id) ? 'single' : /VID_05E3&PID_0610/i.test(id) ? 'multi' : /PID_0626/i.test(id) ? 'usb3' : ''; }
   function controllerName(n) {
+    if (n.label) return n.label;
     var v = /USB (2\.0|3\.\d+)/.exec(n.name || '');
     return 'USB ' + (v ? v[1] : '') + ' controller' + (/DEV_15B[6-8]/i.test(n.id || '') ? ' (on the CPU)' : /DEV_43EF/i.test(n.id || '') ? ' (on the chipset)' : '');
   }
@@ -225,69 +226,118 @@
   }
 
   // The recommended layout for the launch she plans, from the spots she wears (2026-10-26: "The dongle map should suggest
-  // a layout based on the tracking locations/devices, and the desired launch option"). One answer, with its reasons.
+  // a layout based on the tracking locations/devices, and the desired launch option").
   var HEAD_MODES = ['space-calibrator', 'space-override', 'space-sync'];
   var OBJECT_SPOTS = { 'dance-pole': ['DP'], 'large-hoop': ['BDH', 'BDT'], 'small-hoop': ['LDH', 'LDT'] };
   var LOW = ['RF', 'LF', 'RA', 'LA', 'RK', 'LK'];
+  // The recommended layout is the current one rearranged (Astra, 2026-10-26: "I want the recommended layout to be
+  // generated based on what you have in current layout"): the same dongles and her own hubs, each dongle under the hub
+  // for where its device is worn, one hub deep, the hubs spread over her USB controllers. The launch she plans decides
+  // which dongles it needs; the rest are listed apart.
+  function readScan(scanRes) {
+    var found = { dongles: [], hubs: [], others: [], controllers: [] };
+    (scanRes.controllers || []).forEach(function (c) {
+      var ctrl = { name: controllerName(c), others: 0, node: c };
+      found.controllers.push(ctrl);
+      (function walk(n, depth, single, where) {
+        (n.children || []).forEach(function (k) {
+          var port = (k.location || '').match(/Port_#0*(\d+)/), hk = k.kind === 'hub' ? hubKind(k) : '';
+          var at = where.concat(k.kind === 'hub' ? [(hk === 'single' ? 'single-TT hub' : 'hub') + (port ? ' port ' + port[1] : '')] : []);
+          if (k.kind === 'hub') found.hubs.push({ kind: hk });
+          if (isDongle(k)) found.dongles.push({ serial: k.serial, depth: depth, single: single, ctrl: ctrl.name, port: port ? port[1] : '', where: where });
+          else if (k.kind === 'device') { ctrl.others++; if (depth > 0 && /receiver|drive/i.test(k.name || '')) found.others.push({ name: k.name, ctrl: ctrl.name }); }
+          walk(k, depth + (k.kind === 'hub' ? 1 : 0), single || hk === 'single', at);
+        });
+      })(c, 0, false, []);
+    });
+    return found;
+  }
   function recommend() {
     var out = dongle && dongle.querySelector('[data-dongle-suggest]'), planFor = dongle && dongle.querySelector('[data-dongle-for]');
     if (!out || !strapper) return;
+    out.textContent = '';
+    if (!lastScan) { out.appendChild(el('p', 'small', 'Scan USB first: the recommendation is built from your current layout.')); return; }
     var pick = (planFor.value || 'quest-pro|native').split('|'), hs = box.querySelector('[data-launch-headset="' + pick[0] + '"]');
     var objSel = hs && hs.querySelector('select[data-launch-switch="object-track"]'), obj = objSel ? objSel.value : '';
-    var map = readMap(), serialOf = {};
-    Object.keys(map).forEach(function (s) { serialOf[map[s]] = s; });
-    var groups = { high: [], low: [] };
+    // Which spot each of her devices is on, and whether this launch uses it.
+    var spotOf = {}, needed = {}, label = {};
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
       var code = sel.getAttribute('data-strap-spot'), dev = sel.value, o = sel.options[sel.selectedIndex];
       if (!dev || !/^(vive-tracker-|index-controller-)/.test(dev)) return;
-      if (code === 'H' && HEAD_MODES.indexOf(pick[1]) < 0) return;
-      var objOf = Object.keys(OBJECT_SPOTS).filter(function (k) { return OBJECT_SPOTS[k].indexOf(code) >= 0; })[0];
-      if (objOf && objOf !== obj) return;
       var where = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name');
-      var spot = where ? where.textContent.replace(/\s*\[[^\]]*\]\s*$/, '').replace(/^\d+\s+/, '') : code;
-      var name = (o.getAttribute('data-short') || o.textContent).replace(/^Vive\s*/, '').replace(/\s*\[[^\]]*\]/, '').replace(/^Index Knuckles$/, 'Index controller');
-      groups[LOW.indexOf(code) >= 0 ? 'low' : 'high'].push({ label: name + ' · ' + spot, dongle: serialOf[dev] || '' });
+      spotOf[dev] = { code: code, name: where ? where.textContent.replace(/\s*\[[^\]]*\]\s*$/, '').replace(/^\d+\s+/, '') : code };
+      label[dev] = (o.getAttribute('data-short') || o.textContent).replace(/^Vive\s*/, '').replace(/\s*\[[^\]]*\]/, '').replace(/^Index Knuckles$/, 'Index controller');
+      var objOf = Object.keys(OBJECT_SPOTS).filter(function (k) { return OBJECT_SPOTS[k].indexOf(code) >= 0; })[0];
+      needed[dev] = !(code === 'H' && HEAD_MODES.indexOf(pick[1]) < 0) && !(objOf && objOf !== obj);
     });
-    out.textContent = '';
+    var map = readMap(), found = readScan(lastScan);
+    var groups = { high: [], low: [] }, spare = [], unnamed = [];
+    found.dongles.forEach(function (d) {
+      var dev = map[d.serial], spot = dev && spotOf[dev];
+      d.text = dev ? (label[dev] || dev) + (spot ? ' · ' + spot.name : ' · not on a spot') : 'Which device? Pick it on the left';
+      if (!dev) unnamed.push(d);
+      if (dev && (!spot || !needed[dev])) { spare.push(d); return; }
+      groups[spot && LOW.indexOf(spot.code) >= 0 ? 'low' : 'high'].push(d);
+    });
+    // Her own multi-TT hubs (4 ports each) carry the dongles, one hub per group of four, each straight on a controller,
+    // the controllers with the fewest other devices first.
+    var multi = found.hubs.filter(function (h) { return h.kind === 'multi'; }).length;
+    var ctrls = found.controllers.slice().sort(function (a, b) { return a.others - b.others; });
+    var hubs = [];
+    [['high', 'A', 'high on the wall, facing the play space'], ['low', 'B', 'low, at the front edge of the desk']].forEach(function (g) {
+      for (var i = 0; i < groups[g[0]].length; i += 4) hubs.push({ name: 'Hub ' + g[1] + (groups[g[0]].length > 4 ? (i / 4 + 1) : ''), where: g[2], items: groups[g[0]].slice(i, i + 4) });
+    });
+    hubs.forEach(function (h, i) { h.at = ctrls.length ? ctrls[i % ctrls.length] : null; });
     var total = groups.high.length + groups.low.length;
-    out.appendChild(el('p', 'small dongle-plan-head', total + ' dongle' + (total === 1 ? '' : 's') + ' for this launch.'));
-    var ctrl = (lastScan && lastScan.controllers || []).map(controllerName);
-    var hubs = [['high', 'Hub A · high on the wall, facing the play space', 'head, chest, waist, elbows, hands, hoop and pole'], ['low', 'Hub B · low, at the front edge of the desk', 'feet, ankles and knees']];
-    hubs.forEach(function (h, i) {
-      var items = groups[h[0]];
-      if (!items.length) return;
-      var sec = el('div', 'dongle-hub');
-      sec.appendChild(el('b', null, h[1]));
-      sec.appendChild(el('span', 'small dongle-port', ' · ' + h[2] + (ctrl.length > 1 ? ' · on a ' + ctrl[i % ctrl.length] : ' · on its own USB controller')));
-      var ul = el('ul', 'small dongle-items');
-      items.forEach(function (it) { var li = el('li', null, it.label); if (it.dongle) li.appendChild(el('span', 'dongle-serial', ' · dongle ' + it.dongle)); ul.appendChild(li); });
-      sec.appendChild(ul);
-      out.appendChild(sec);
+    out.appendChild(el('p', 'small dongle-plan-head', total + ' of your ' + found.dongles.length + ' dongles in this launch, on ' + hubs.length + ' hub' + (hubs.length === 1 ? '' : 's') + (multi >= hubs.length ? ' (you have ' + multi + ' multi-TT hubs already).' : ' (you have ' + multi + ' multi-TT hubs; get ' + (hubs.length - multi) + ' more).')));
+    // The same tree as Current, rearranged.
+    var root = el('ul', 'dongle-branches dongle-root');
+    ctrls.forEach(function (c) {
+      var mine = hubs.filter(function (h) { return h.at === c; });
+      var li = el('li', 'dongle-node'); li.setAttribute('data-kind', 'controller');
+      var line = el('span', 'dongle-line'); line.appendChild(el('b', null, c.name));
+      var n = mine.reduce(function (a, h) { return a + h.items.length; }, 0);
+      if (n) line.appendChild(el('span', 'dongle-count', ' · ' + n + ' dongle' + (n === 1 ? '' : 's')));
+      li.appendChild(line);
+      var ul = el('ul', 'dongle-branches');
+      mine.forEach(function (h) {
+        var hl = el('li', 'dongle-node'); hl.setAttribute('data-kind', 'hub');
+        var hline = el('span', 'dongle-line'); hline.appendChild(el('b', null, h.name)); hline.appendChild(el('span', 'dongle-port', ' · multi-TT, powered · ' + h.where));
+        hl.appendChild(hline);
+        var hul = el('ul', 'dongle-branches');
+        h.items.forEach(function (d, k) {
+          var dl = el('li', 'dongle-node'); dl.setAttribute('data-kind', 'tracker-dongle');
+          var dline = el('span', 'dongle-line'); dline.appendChild(el('b', null, 'Watchman '));
+          dline.appendChild(el('span', map[d.serial] ? 'dongle-dev' : 'dongle-flag', d.text));
+          dline.appendChild(el('span', 'dongle-port', ' · port ' + (k + 1)));
+          var was = 'now ' + (d.depth === 0 ? 'on the controller' : d.depth + ' hub' + (d.depth === 1 ? '' : 's') + ' deep') + (d.single ? ', behind the single-TT hub' : '') + (d.ctrl !== c.name ? ', on the ' + d.ctrl : '');
+          dline.appendChild(el('span', 'dongle-serial', ' · ' + d.serial + ' (' + was + ')'));
+          dl.appendChild(dline); hul.appendChild(dl);
+        });
+        hl.appendChild(hul); ul.appendChild(hl);
+      });
+      // The keyboard receiver and the drive go to the controller with no dongle hub, or the last one.
+      if (!mine.length || c === ctrls[ctrls.length - 1]) found.others.splice(0).forEach(function (o) {
+        var ol = el('li', 'dongle-node'); ol.setAttribute('data-kind', 'device');
+        ol.appendChild(el('span', 'dongle-line dongle-other', o.name + ' · moved here, off the dongle hubs'));
+        ul.appendChild(ol);
+      });
+      if (ul.children.length) li.appendChild(ul);
+      root.appendChild(li);
     });
+    out.appendChild(root);
+    if (spare.length) {
+      var sp = el('p', 'small dongle-rules', 'Not needed for this launch: ' + spare.map(function (d) { return d.text + ' (' + d.serial + ')'; }).join('; ') + '.');
+      out.appendChild(sp);
+    }
+    if (unnamed.length) out.appendChild(el('p', 'small dongle-flag', unnamed.length + ' dongle' + (unnamed.length === 1 ? ' has' : 's have') + ' no device picked yet, so ' + (unnamed.length === 1 ? 'it is' : 'they are') + ' placed on Hub A until you pick.'));
+    if (found.hubs.some(function (h) { return h.kind === 'single'; })) out.appendChild(el('p', 'small dongle-flag', 'Unplug the single-TT hub (05E3:0608): nothing goes through it.'));
     var how = el('ul', 'small dongle-rules');
     ['Each dongle in its cradle on a USB 2.0 extension, about 40 cm from the next, upright.', 'At least 45 cm from the PC (HTC’s own rule), with nothing metal or USB 3 next to it.',
-      'Powered multi-TT USB 2.0 hubs, one hub between the PC and each dongle.', 'The keyboard receiver and the Game Drive on other ports, not on the dongle hubs.'].forEach(function (t) { how.appendChild(el('li', null, t)); });
+      'Each hub plugged straight into the PC, never into another hub.'].forEach(function (t) { how.appendChild(el('li', null, t)); });
     out.appendChild(how);
-    // What today's scan does differently.
-    if (lastScan) {
-      var flags = [], deep = 0, single = 0, onCtrl = 0, others = 0;
-      (function walk(n, hubs, sTT) {
-        var k = n.kind === 'hub' ? hubKind(n) : '';
-        var h = hubs + (n.kind === 'hub' ? 1 : 0), s = sTT || k === 'single';
-        if (isDongle(n)) { deep = Math.max(deep, h); if (s) single++; }
-        if (n.kind === 'device' && h > 0 && n.name && /receiver|drive/i.test(n.name)) others++;
-        (n.children || []).forEach(function (c) { walk(c, h, s); });
-      })({ children: lastScan.controllers || [] }, 0, false);
-      (lastScan.controllers || []).forEach(function (c) { if (dongles(c) > 0) onCtrl++; });
-      var found = lastScan.dongles || 0;
-      if (found < total) flags.push('This launch needs ' + total + ' dongles; ' + found + ' are plugged in.');
-      if (single) flags.push(single + ' dongle' + (single === 1 ? '' : 's') + ' share a single-TT hub: swap it for a multi-TT hub.');
-      if (deep > 1) flags.push('Some dongles sit ' + deep + ' hubs deep: keep it to one.');
-      if (onCtrl === 1 && found > 4) flags.push('All ' + found + ' are on one USB controller: split them over two.');
-      if (others) flags.push('A 2.4 GHz receiver or a drive shares the dongle hubs: move it.');
-      if (flags.length) { var f = el('ul', 'small dongle-flags'); flags.forEach(function (t) { f.appendChild(el('li', null, t)); }); out.appendChild(f); }
-    }
   }
+
   if (dongle) {
     var scan = dongle.querySelector('[data-dongle-scan]'), dsaid = dongle.querySelector('[data-dongle-said]'), tree = dongle.querySelector('[data-dongle-tree]');
     var planFor = dongle.querySelector('[data-dongle-for]');
@@ -302,6 +352,10 @@
         tree.textContent = '';
         if (!res || !res.ok) { dsaid.textContent = (res && res.said) || 'The scan did not work.'; return; }
         lastScan = res;
+        // Two controllers can share a name: number them so each is told apart.
+        var named = {};
+        (res.controllers || []).forEach(function (c) { var nm = controllerName(c); (named[nm] = named[nm] || []).push(c); });
+        Object.keys(named).forEach(function (nm) { if (named[nm].length > 1) named[nm].forEach(function (c, i) { c.label = nm.replace(' controller', ' controller ' + (i + 1)); }); });
         dsaid.textContent = res.dongles + ' Watchman dongles found, ' + new Date(res.time).toLocaleTimeString() + '.';
         var ul = el('ul', 'dongle-branches dongle-root');
         (res.controllers || []).filter(function (c) { return dongles(c) > 0; }).concat((res.controllers || []).filter(function (c) { return dongles(c) === 0; })).forEach(function (c) { ul.appendChild(branch(c, 0)); });
