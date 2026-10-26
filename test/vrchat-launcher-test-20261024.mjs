@@ -54,7 +54,7 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
     assert.match(rabbit, new RegExp(`<select data-strap-spot="${s.code}" disabled>`));
   }
   const ids = Object.values(DEVICES).flat().map(([id]) => id);
-  assert.ok(ids.every((id) => /^(quest-pro|quest-3|index-controller-(left|right)|hand-tracking|vive-tracker-0[1-9])$/.test(id)));
+  assert.ok(ids.every((id) => /^(quest-pro|quest-3|(index|quest-pro|quest-3)-controller-(left|right)|hand-tracking|vive-tracker-0[1-9])$/.test(id)));
   assert.deepEqual(WORN, { F: 'quest-pro', H: 'vive-tracker-08', FC: 'vive-tracker-05', BC: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04', RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left' });
   assert.deepEqual(PAIRS, { hip: ['FW', 'BW'], chest: ['FC', 'BC'] });
   assert.equal(PAIR_SPOTS.hip.length, 8, 'any two of the eight waist spots');
@@ -64,11 +64,19 @@ test('tracker-strapper: 27 spots in her numbers, above the launches, today\'s sp
   // Her later notes (2026-10-25): a woman, chest and sternum rings like the waist's, a picker on the spot itself, a short list.
   // 2026-10-26: her front and back side by side; each spot draws the device on it; the hoops hang from the ceiling.
   assert.ok(rabbit.includes('strap-figure strap-front') && rabbit.includes('strap-figure strap-back'), 'a front view and a back view');
-  for (const k of ['tracker', 'index', 'headset', 'hand']) assert.ok(rabbit.includes(`<symbol id="ico-${k}"`), k);
+  for (const k of ['tracker', 'index', 'qpro-ctrl', 'q3-ctrl', 'qpro', 'q3', 'hand']) assert.ok(rabbit.includes(`<symbol id="ico-${k}"`), k);
   assert.equal((rabbit.match(/class="strap-lyra"/g) || []).length, 2, 'two aerial hoops');
   assert.ok(rabbit.includes('<html lang="en" data-pet="rift-rabbit">'), 'its own colours');
   assert.ok(rabbit.includes('strap-hair'));
   assert.equal((rabbit.match(/data-strap-pop hidden/g) || []).length, 1, 'one picker that opens on the spot clicked');
   assert.match(rabbit, /<div class="strap-store" hidden>/);
   assert.ok(rabbit.includes('data-strap-worn'));
+});
+
+// The dongle map (Astra, 2026-10-26): its tool sits after tracker-strapper, its Scan button stays off until the
+// launcher on this PC answers, and the launcher script asks the launcher for it.
+test('dongle map: a tool after tracker-strapper, off until the launcher answers', () => {
+  assert.ok(rabbit.indexOf('data-strapper') < rabbit.indexOf('data-dongle-map') && rabbit.indexOf('data-dongle-map') < rabbit.indexOf('data-launch-headset='));
+  assert.match(rabbit, /<button type="button" class="button off" disabled data-dongle-scan>Scan USB<\/button>/);
+  assert.match(js, /ask\('\/usb-map'\)/);
 });

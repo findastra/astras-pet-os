@@ -750,14 +750,23 @@
       g.setAttribute('data-state', !worn[code] ? 'off' : code === 'H' ? 'head' : inPair ? 'joined' : 'used');
       // The spot draws the device on it (2026-10-26: "look like HTC Vive 3.0, and Index Controller, etc.").
       var dev = worn[code] || '';
-      g.setAttribute('data-kind', /^vive-tracker-/.test(dev) ? 'tracker' : /^index-controller-/.test(dev) ? 'index' : /^quest-/.test(dev) ? 'headset' : dev === 'hand-tracking' ? 'hand' : '');
+      g.setAttribute('data-kind', /^vive-tracker-/.test(dev) ? 'tracker' : /^index-controller-/.test(dev) ? 'index' : /^quest-pro-controller-/.test(dev) ? 'qpro-ctrl' :
+        /^quest-3-controller-/.test(dev) ? 'q3-ctrl' : dev === 'quest-pro' ? 'qpro' : dev === 'quest-3' ? 'q3' : dev === 'hand-tracking' ? 'hand' : '');
     });
-    // The list under the drawing: only the spots with a device, one short line each, in her numbers.
+    // Her headset on the drawing follows 23 Face (Quest Pro or Quest 3).
+    strapper.querySelector('.strap-drawing').setAttribute('data-headset', worn.F || '');
+    // Every position in her numbers, one row each; a used one says what is on it (2026-10-26).
     var list = strapper.querySelector('[data-strap-worn]');
     list.textContent = '';
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
-      if (!sel.value) return;
       var code = sel.getAttribute('data-strap-spot'), row = sel.closest('[data-strap-row]');
+      if (!sel.value) {
+        var empty = document.createElement('li'); empty.setAttribute('data-state', 'off');
+        var en = document.createElement('b'); en.textContent = row.querySelector('.strap-name b').textContent; empty.appendChild(en);
+        empty.appendChild(document.createTextNode(' ' + row.querySelector('.strap-name').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim()));
+        list.appendChild(empty);
+        return;
+      }
       var li = document.createElement('li');
       li.setAttribute('data-state', strapper.querySelector('[data-strap-dot="' + code + '"]').getAttribute('data-state'));
       var n = document.createElement('b'); n.textContent = row.querySelector('.strap-name b').textContent;

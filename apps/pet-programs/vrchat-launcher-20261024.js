@@ -169,6 +169,40 @@
     ask('/overlay', { id: k === 'fov' ? 'base-station-fov' : 'vr-pole-overlay', on: on }).then(function (res) { e.target.title = (res && res.said) || ''; }, lost);
   });
 
+  // The dongle map: the launcher runs USBDeview and sends back each USB controller's branches; drawn with textContent.
+  var dongle = document.querySelector('[data-dongle-map]');
+  function dongles(n) { return (n.kind === 'tracker-dongle' || n.kind === 'radio' ? 1 : 0) + (n.children || []).reduce(function (a, c) { return a + dongles(c); }, 0); }
+  function branch(n) {
+    var li = el('li', 'dongle-node');
+    li.setAttribute('data-kind', n.kind);
+    var line = el('span', 'dongle-line');
+    line.appendChild(el('b', null, n.name));
+    var port = (n.location || '').match(/Port_#0*(\d+)\.Hub_#0*(\d+)/);
+    if (port) line.appendChild(el('span', 'dongle-port', ' · port ' + port[1] + ' of hub ' + port[2]));
+    if (n.serial && (n.kind === 'tracker-dongle' || n.kind === 'radio')) line.appendChild(el('span', 'dongle-serial', ' · ' + n.serial));
+    if (n.tracker) line.appendChild(el('span', 'dongle-tracker', ' → ' + n.tracker));
+    var count = dongles(n);
+    if (n.children && count) line.appendChild(el('span', 'dongle-count', ' (' + count + ' dongle' + (count === 1 ? '' : 's') + ')'));
+    li.appendChild(line);
+    if (n.children) { var ul = el('ul', 'dongle-branches'); n.children.forEach(function (c) { ul.appendChild(branch(c)); }); li.appendChild(ul); }
+    return li;
+  }
+  if (dongle) {
+    var scan = dongle.querySelector('[data-dongle-scan]'), dsaid = dongle.querySelector('[data-dongle-said]'), tree = dongle.querySelector('[data-dongle-tree]');
+    scan.addEventListener('click', function () {
+      scan.disabled = true; dsaid.textContent = 'Scanning…';
+      ask('/usb-map').then(function (res) {
+        scan.disabled = false;
+        tree.textContent = '';
+        if (!res || !res.ok) { dsaid.textContent = (res && res.said) || 'The scan did not work.'; return; }
+        dsaid.textContent = res.dongles + ' Watchman dongles found, ' + new Date(res.time).toLocaleTimeString() + '.';
+        var ul = el('ul', 'dongle-branches dongle-root');
+        (res.controllers || []).filter(function (c) { return dongles(c) > 0; }).concat((res.controllers || []).filter(function (c) { return dongles(c) === 0; })).forEach(function (c) { ul.appendChild(branch(c)); });
+        tree.appendChild(ul);
+      }, lost);
+    });
+  }
+
   var script = document.createElement('script');
   script.setAttribute('src', LOCAL_LAUNCH + '?t=' + Date.now());
   script.onload = function () {
@@ -182,6 +216,7 @@
       said.textContent = 'Kept in Rift Rabbit’s launcher on this PC. A change saves at once.';
       showSpots(d);
     }
+    if (dongle) { var sc = dongle.querySelector('[data-dongle-scan]'); sc.disabled = false; sc.classList.remove('off'); dongle.querySelector('[data-dongle-said]').textContent = 'Reads what is plugged in right now; nothing is changed.'; }
     paintButtons();
     // A launch still running (the page was reloaded) shows again in its card; a finished or stopped one does not.
     ask('/status').then(function (res) { if (res && live(res.run)) show(res); }, lost);

@@ -2133,6 +2133,11 @@
           "note": "Downloaded 1.26 to Documents\\QuestLHSync-1.26 (checksums match GitHub); not installed until the headset is rooted with Magisk.",
           "on": "2026-10-25"
         },
+        "third-party:usbdeview": {
+          "result": "works",
+          "note": "USBDeview 3.10 from NirSoft, SHA-256 matches NirSoft's. A scan through Rift Rabbit's launcher found 9 Watchman dongles and 2 Valve VR Radios (2026-10-26).",
+          "on": "2026-10-26"
+        },
         "third-party:singularity": {
           "result": "missing",
           "note": "Not downloaded: no source code, and its license grants no right to use it. Rooting is Astra's to do, at her own risk.",
@@ -2276,6 +2281,11 @@
             "node": "singularity",
             "how": "optional",
             "why": "How the headset gets rooted for mode x.4; Astra roots it herself (2026-10-25)."
+          },
+          {
+            "node": "usbdeview",
+            "how": "optional",
+            "why": "The dongle map runs it to see which hub and USB controller each dongle is on (2026-10-26)."
           },
           {
             "node": "voicemeeter",

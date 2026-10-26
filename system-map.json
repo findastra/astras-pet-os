@@ -777,6 +777,16 @@
       "does": "Roots a Meta Quest with the fugu exploit and installs Magisk on it (Lumince/singularity)."
     },
     {
+      "id": "usbdeview",
+      "name": "USBDeview",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26 to the USBDeview-3.10 folder in Documents (its SHA-256 matches NirSoft's).",
+      "does": "Lists every USB device on the PC with its hub and port."
+    },
+    {
       "id": "oscgoesbrrr",
       "name": "OSCGoesBrrr",
       "type": "program",
@@ -3449,6 +3459,13 @@
       "carries": "manages",
       "state": "planned",
       "why": "Mode x.4 of the VRChat setups (Astra, 2026-10-25)."
+    },
+    {
+      "from": "vr-launch",
+      "to": "usbdeview",
+      "carries": "opens",
+      "state": "now",
+      "why": "The dongle map's Scan USB runs it hidden and reads its list (2026-10-26)."
     },
     {
       "from": "rift-rabbit",

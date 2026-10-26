@@ -513,20 +513,29 @@ img[hidden] { display: none !important; }
 .strap-skin { fill: url(#strap-skin); stroke: #4d5b80; stroke-width: 1.6; }
 .strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
 .strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
-.strap-hair { fill: #2b2f45; stroke: #4d5b80; stroke-width: 1.2; }
+.strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
+.strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
+.strap-star { fill: #fff6d8; opacity: .9; }
+.strap-headset-q3 { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.4; }
+.strap-band { fill: none; stroke: #15171f; stroke-width: 4; stroke-linecap: round; }
+.strap-band-wide { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.2; }
+.strap-drawing:not([data-headset="quest-pro"]) .strap-hs-quest-pro, .strap-drawing:not([data-headset="quest-3"]) .strap-hs-quest-3 { display: none; }
 .strap-crease { fill: none; stroke: #4d5b80; stroke-width: 1.4; stroke-linecap: round; opacity: .7; }
 .strap-headset { fill: #15171f; stroke: #8a95b3; stroke-width: 1.6; }
 .strap-shadow { fill: #000; opacity: .3; }
-.strap-view { font: 600 13px var(--label); fill: var(--chalk-dim); letter-spacing: .5px; }
-.strap-rig { stroke: #2d2d35; stroke-width: 6; stroke-linecap: round; }
-.strap-carabiner { fill: none; stroke: url(#strap-chrome); stroke-width: 2.5; }
-.strap-tab { fill: none; stroke: url(#strap-chrome); stroke-width: 4; stroke-linecap: round; }
-.strap-hoop { fill: none; stroke: url(#strap-chrome); stroke-width: 7; }
-.strap-hoop-shine { fill: none; stroke: #ffffff; stroke-width: 1.4; opacity: .35; stroke-dasharray: 18 40; }
-.strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
-.strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
-.strap-toy-group { font: 600 13px var(--label); fill: var(--chalk-dim); }
-.strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
+/* Labels on the drawing as big as the words under it (2026-10-26: "The font is a little small on the labels"). */
+.strap-view { font: 600 16px var(--label); fill: var(--chalk-dim); letter-spacing: .5px; }
+.strap-rope { stroke: #050506; stroke-width: 4; stroke-linecap: round; }
+.strap-rope-wrap { fill: none; stroke: #050506; stroke-width: 4; stroke-linecap: round; }
+.strap-hoop-rim { fill: none; stroke: #7d6ad0; stroke-width: 11; opacity: .55; }
+.strap-hoop { fill: none; stroke: url(#strap-hoop); stroke-width: 8; }
+.strap-glitter { opacity: .95; }
+.strap-glitter-0 { fill: #ff6ad5; } .strap-glitter-1 { fill: #ffd25a; } .strap-glitter-2 { fill: #5affc8; } .strap-glitter-3 { fill: #6ab4ff; } .strap-glitter-4 { fill: #c58aff; }
+.strap-dome { filter: drop-shadow(0 0 4px #5dff3a); }
+.strap-prop-names, .strap-prop-names text { font: 16px var(--text); fill: var(--chalk-dim); }
+.strap-toy text { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-toy-group { font: 600 16px var(--label); fill: var(--chalk-dim); }
+.strap-toy-note { font: italic 15px var(--text); fill: var(--planned); }
 /* A spot: its colour halo, the device drawn on it (or a small ring when it is empty), its number on a corner badge. */
 .strap-spot { cursor: pointer; }
 .strap-spot:focus { outline: none; }
@@ -537,9 +546,10 @@ img[hidden] { display: none !important; }
 .strap-empty { fill: rgba(255, 255, 255, .06); stroke: var(--chalk-dim); stroke-width: 1.6; stroke-dasharray: 2.5 2; }
 .strap-spot:not([data-kind=""]) .strap-empty { display: none; }
 .strap-spot .ico { display: none; }
-.strap-spot[data-kind="tracker"] .ico-tracker, .strap-spot[data-kind="index"] .ico-index, .strap-spot[data-kind="headset"] .ico-headset, .strap-spot[data-kind="hand"] .ico-hand { display: inline; }
+.strap-spot[data-kind="tracker"] .ico-tracker, .strap-spot[data-kind="index"] .ico-index, .strap-spot[data-kind="qpro-ctrl"] .ico-qpro-ctrl, .strap-spot[data-kind="q3-ctrl"] .ico-q3-ctrl,
+.strap-spot[data-kind="qpro"] .ico-qpro, .strap-spot[data-kind="q3"] .ico-q3, .strap-spot[data-kind="hand"] .ico-hand { display: inline; }
 .strap-badge { fill: var(--slate-2); stroke: var(--chalk-dim); stroke-width: 1; }
-.strap-spot text { font: 700 9.5px var(--text); fill: var(--chalk); pointer-events: none; }
+.strap-spot text { font: 700 10px var(--text); fill: var(--chalk); pointer-events: none; }
 .strap-spot:hover .strap-halo, .strap-spot:focus-visible .strap-halo, .strap-spot.is-open .strap-halo { stroke: var(--chalk); stroke-width: 3; }
 .strap-pop { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; width: max-content; max-width: 300px; padding: 8px 10px; background: var(--slate-2); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0, 0, 0, .5); font-size: 13px; }
 .strap-pop b { font: 600 13px var(--label); color: var(--chalk); }
@@ -548,7 +558,8 @@ img[hidden] { display: none !important; }
 .strap-pop-close { font: 16px var(--text); line-height: 1; color: var(--chalk-dim); background: none; border: 0; padding: 0 2px; cursor: pointer; }
 .strap-pop-close:hover { color: var(--fix); }
 /* The key and her devices, each in a box of stacked rows, side by side or one under the other (2026-10-26). */
-.strap-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px 18px; margin: 10px 0 0; }
+.strap-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px 18px; margin: 10px 0 0; align-items: start; }
+.strap-column { display: grid; gap: 12px; min-width: 0; }
 .strap-box { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 14px 12px; min-width: 0; }
 .strap-box-title { margin: 0 0 6px; font: 600 13px var(--label); color: var(--chalk); }
 .strap-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
@@ -559,8 +570,10 @@ img[hidden] { display: none !important; }
 .strap-key [data-state="off"]::before { color: var(--planned); }
 .strap-worn { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 13.5px; }
 .strap-worn b { font-family: var(--label); color: var(--fix); }
-.strap-dev { color: var(--link); }
-.strap-pairs { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 10px 0 0; font-size: 13.5px; }
+.strap-worn [data-state="off"] { color: var(--chalk-dim); }
+.strap-worn [data-state="off"]::before { color: var(--planned); }
+.strap-dev { color: var(--care); }
+.strap-pairs { display: grid; gap: 8px; margin: 0; font-size: 13.5px; }
 .strap-pair-picks { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 .strap-pairs select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; }
 .strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
@@ -761,3 +774,23 @@ input[type="checkbox"] { accent-color: var(--line); }
 }
 /* Each group of devices under its own small heading (Astra, 2026-10-24: "group the trackers, base stations, headsets"). */
 .device-group { margin: 12px 0 0; font-size: 13px; color: var(--chalk-dim); font-weight: 600; }
+/* The dongle map (Astra, 2026-10-26): each USB controller a branch, its hubs and devices under it on drawn lines;
+   Watchman dongles and Valve VR Radios stand out, with how many dongles each branch carries. */
+.dongle-about { margin: 2px 0 8px; color: var(--chalk-dim); }
+.dongle-run { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 8px; }
+.dongle-tree { overflow-x: auto; }
+.dongle-branches { list-style: none; margin: 0; padding: 0 0 0 18px; font-size: 13.5px; }
+.dongle-root { padding-left: 0; display: grid; gap: 10px; }
+.dongle-branches .dongle-branches { border-left: 1px solid var(--line-dim); margin-left: 6px; }
+.dongle-node { position: relative; padding: 2px 0; }
+.dongle-branches .dongle-branches > .dongle-node::before { content: ""; position: absolute; left: -18px; top: 13px; width: 14px; border-top: 1px solid var(--line-dim); }
+.dongle-node b { font-weight: 500; }
+.dongle-node[data-kind="controller"] > .dongle-line b { font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line b { color: var(--care); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--care); }
+.dongle-node[data-kind="radio"] > .dongle-line b { color: var(--fix); }
+.dongle-node[data-kind="radio"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--fix); }
+.dongle-node[data-kind="device"] > .dongle-line, .dongle-node[data-kind="root-hub"] > .dongle-line { color: var(--chalk-dim); }
+.dongle-port, .dongle-serial { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
+.dongle-tracker { color: var(--care); font-family: var(--label); font-size: 12px; }
+.dongle-count { color: var(--fix); font-size: 12.5px; }
