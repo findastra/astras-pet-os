@@ -205,17 +205,17 @@ const LIFT = 16, HIPS = 722;
 const lift = (y) => y <= HIPS ? y - LIFT : 930 - (930 - y) * (930 - HIPS + LIFT) / (930 - HIPS);
 const place = (s) => s.view ? { ...s, x: Math.round(VIEW_X[s.view] + (s.x - 190) * SCALE), y: Math.round(FLOOR - (930 - lift(s.y)) * SCALE) } : s;
 export const SPOTS = [
-  { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 160, y: 922 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 220, y: 922 },
-  { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 166, y: 892 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 214, y: 892 },
+  { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 146, y: 918 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 234, y: 918 },
+  { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 168, y: 888 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 212, y: 888 },
   { code: 'RK', n: 5, name: 'Right Knee', view: 'front', x: 166, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', view: 'front', x: 214, y: 800 },
   // 24 Head is the tracker clipped on top of the headset, so it shows on her front (2026-10-26: "tracker on the head is
   // on the front always attached to top of headset").
-  // The eight waist spots once each, round her belt seen from above (2026-10-26: "I want each position to show up only
-  // once"): front at the bottom, back at the top, her right on your left.
-  { code: 'FW', n: 7, name: 'Front Waist', x: 260, y: 217 }, { code: 'BW', n: 8, name: 'Back Waist', x: 260, y: 113 },
-  { code: 'RS', n: 9, name: 'Right Side', x: 165, y: 165 }, { code: 'LS', n: 10, name: 'Left Side', x: 355, y: 165 },
-  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 193, y: 202 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 327, y: 202 },
-  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 193, y: 128 }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 327, y: 128 },
+  // The waist spots at belt height (2026-10-26: "waist trackers need to be lower down like where belt would be"), each
+  // once: front and sides on her front, back ones on her back.
+  { code: 'FW', n: 7, name: 'Front Waist', view: 'front', x: 190, y: 670 }, { code: 'BW', n: 8, name: 'Back Waist', view: 'back', x: 190, y: 670 },
+  { code: 'RS', n: 9, name: 'Right Side', view: 'front', x: 139, y: 666 }, { code: 'LS', n: 10, name: 'Left Side', view: 'front', x: 241, y: 666 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', view: 'front', x: 161, y: 669 }, { code: 'LFS', n: 12, name: 'Left Front-Side', view: 'front', x: 219, y: 669 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', view: 'back', x: 219, y: 669 }, { code: 'LBS', n: 14, name: 'Left Back-Side', view: 'back', x: 161, y: 669 },
   { code: 'FD', n: 15, name: 'Front Diaphragm', view: 'front', x: 190, y: 594 }, { code: 'BD', n: 16, name: 'Back Diaphragm', view: 'back', x: 190, y: 594 },
   { code: 'FS', n: 17, name: 'Front Sternum', view: 'front', x: 190, y: 512 }, { code: 'BS', n: 18, name: 'Back Sternum', view: 'back', x: 190, y: 512 },
   { code: 'RE', n: 19, name: 'Right Elbow', view: 'front', x: 112, y: 600 }, { code: 'LE', n: 20, name: 'Left Elbow', view: 'front', x: 268, y: 600 },
@@ -339,16 +339,18 @@ const DEVICE_SYMBOLS = `<symbol id="ico-tracker" viewBox="-12 -12 24 24"><path d
 <ellipse cx="-7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(-30 -7.6 4.6)"/><ellipse cx="7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(30 7.6 4.6)"/><ellipse cx="0" cy="8.2" rx="1.8" ry=".8" fill="#16161b"/><ellipse cx="-3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(30 -3.6 -6.4)"/><ellipse cx="3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(-30 3.6 -6.4)"/>
 <circle cy="1" r="4.8" fill="#1a1a1f" stroke="#6a6f80" stroke-width=".8"/><circle cy="1" r="3" fill="none" stroke="#3a3d48" stroke-width=".7"/><circle cy="1" r="1.3" fill="#4a4e5c"/><circle cy="-6.4" r="1" fill="#6cc7e8"/></symbol>
 <symbol id="ico-tracker-side" viewBox="-12 -12 24 24"><rect x="-6" y="-11" width="12" height="3" rx="1" fill="#55555f" stroke="#c9d1e0" stroke-width=".6"/><rect x="-1.4" y="-8.2" width="2.8" height="2.4" fill="#8a8f9c"/><path d="M-11 -4.6 Q-11 -6 -9.4 -6 H9.4 Q11 -6 11 -4.6 L10.2 1.6 Q8.4 6.6 0 7.2 Q-8.4 6.6 -10.2 1.6 Z" fill="#30323c" stroke="#dfe5f2" stroke-width="1"/><path d="M-9 -3.4 H9" stroke="#ffffff" stroke-width=".6" opacity=".35"/><ellipse cx="-6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><ellipse cx="6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><circle cx="0" cy="1.8" r="1" fill="#6cc7e8"/></symbol>
-<symbol id="ico-index" viewBox="-12 -12 24 24"><path d="M-3.6 -3 C-3.8 2 -3.2 7 -2.4 10.4 Q0 11.8 2.4 10.4 C3.2 7 3.8 2 3.6 -3 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width="1"/><rect x="-1.1" y="1" width="2.2" height="6.4" rx="1" fill="#16161b"/>
-<path d="M-6.2 -6.4 C-6.2 -10.8 6.2 -10.8 6.2 -6.4 C6.2 -3 3.8 -1.4 0 -1.4 C-3.8 -1.4 -6.2 -3 -6.2 -6.4 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width="1"/><ellipse cx=".4" cy="-6.4" rx="2" ry="2.7" fill="#16161b" stroke="#6a6f80" stroke-width=".5"/><circle cx="-3.4" cy="-5.6" r="1.1" fill="#16161b" stroke="#6a6f80" stroke-width=".4"/><circle cx="3.8" cy="-7.6" r=".6" fill="#6a6f80"/><circle cx="3.8" cy="-5.2" r=".6" fill="#6a6f80"/>
-<path d="M-3.8 -2 C-8.6 .6 -8.2 7.6 -2.8 9.8" fill="none" stroke="#9aa3b8" stroke-width="1.8"/><path d="M-3.8 -2 C-8.6 .6 -8.2 7.6 -2.8 9.8" fill="none" stroke="#2b2d36" stroke-width=".6" stroke-dasharray="1 1"/></symbol>
-<symbol id="ico-qpro-ctrl" viewBox="-12 -12 24 24"><path d="M-4.6 -9.6 Q0 -11.8 4.8 -9.6 Q6 -6 4.6 -2 Q4 6 2.6 10.5 Q0 11.8 -2.6 10.5 Q-4 6 -4.6 -2 Q-6 -6 -4.6 -9.6 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width="1"/><path d="M-3.6 -9 Q0 -10.6 3.8 -9" fill="none" stroke="#ffffff" stroke-width=".6" opacity=".4"/><circle cx="-2.2" cy="-8.2" r=".8" fill="#6a6f80"/><circle cx="0" cy="-8.8" r=".8" fill="#6a6f80"/><circle cx="2.2" cy="-8.2" r=".8" fill="#6a6f80"/><circle cy="-4.2" r="2" fill="#16161b" stroke="#6a6f80" stroke-width=".5"/><circle cx="2.6" cy="-1.2" r=".8" fill="#16161b"/><circle cx="-2.4" cy="-1.2" r=".8" fill="#16161b"/></symbol>
-<symbol id="ico-q3-ctrl" viewBox="-12 -12 24 24"><path d="M-5 -8 Q0 -11 5 -8 Q6.5 -4 4 -1 Q3.5 6 2.4 10 Q0 11.4 -2.4 10 Q-3.5 6 -4 -1 Q-6.5 -4 -5 -8 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/><path d="M-3.6 -8.4 Q0 -10 3.6 -8.4" fill="none" stroke="#ffffff" stroke-width=".7"/><circle cy="-5" r="2" fill="#2a2a32"/><circle cx="3.2" cy="-2.4" r=".8" fill="#9a9aa6"/><circle cx="-2.6" cy="-2.2" r=".8" fill="#9a9aa6"/></symbol>
+<symbol id="ico-index" viewBox="-12 -12 24 24"><path d="M-2.4 -2.6 L-3.2 10.6 Q0 12.2 3.2 10.6 L2.4 -2.6 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width=".9"/><path d="M-1 0 V9" stroke="#16161b" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M-3 -2.4 C-10.5 -1 -10.5 9.6 -3.2 10.6" fill="none" stroke="#c8ced9" stroke-width="2.4" stroke-linecap="round"/><path d="M-3 -2.4 C-10.5 -1 -10.5 9.6 -3.2 10.6" fill="none" stroke="#2b2d36" stroke-width=".8" stroke-dasharray="1.2 1"/>
+<path d="M-4.4 -11 Q2 -12.6 5.6 -8.6 Q7 -5 4.4 -2.4 L-2.6 -2 Q-6.2 -5.4 -4.4 -11 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width=".9"/><ellipse cx=".6" cy="-6.8" rx="2.6" ry="2" fill="#16161b" stroke="#8a90a0" stroke-width=".5" transform="rotate(-20 .6 -6.8)"/><circle cx="4" cy="-4.4" r=".7" fill="#8a90a0"/></symbol>
+<symbol id="ico-qpro-ctrl" viewBox="-12 -12 24 24"><path d="M-6.4 -7 Q-6.4 -11 0 -11 Q6.4 -11 6.4 -7 Q6.4 -3.4 3.2 -2 Q3 5 1.8 10 Q0 11.4 -1.8 10 Q-3 5 -3.2 -2 Q-6.4 -3.4 -6.4 -7 Z" fill="#121318" stroke="#dfe5f2" stroke-width=".9"/>
+<circle cx="-3.6" cy="-8.4" r="1.1" fill="#f2f5fb"/><circle cx="3.6" cy="-8.4" r="1.1" fill="#f2f5fb"/><circle cx="0" cy="-3.4" r="1.1" fill="#f2f5fb"/><circle cx="0" cy="-7" r="1.9" fill="#2b2d36" stroke="#8a90a0" stroke-width=".5"/><circle cx="3.4" cy="-5.4" r=".7" fill="#55555f"/><circle cx="-3.4" cy="-5.4" r=".7" fill="#55555f"/></symbol>
+<symbol id="ico-q3-ctrl" viewBox="-12 -12 24 24"><path d="M-5.4 -10 Q0 -12 5.4 -10 Q7.6 -6.6 5.2 -3 Q3.8 5 2.2 9.6 Q0 11 -2.2 9.6 Q-3.8 5 -5.2 -3 Q-7.6 -6.6 -5.4 -10 Z" fill="#f2f2f5" stroke="#7a7a86" stroke-width=".9"/><path d="M-4 -10.2 Q0 -11.4 4 -10.2" fill="none" stroke="#ffffff" stroke-width=".8"/>
+<circle cx="-1.6" cy="-6.6" r="2" fill="#2a2a32"/><circle cx="2.8" cy="-7.8" r=".9" fill="#b0b0bc"/><circle cx="2.8" cy="-4.8" r=".9" fill="#b0b0bc"/><path d="M-3 0 Q0 1.4 3 0" fill="none" stroke="#c4c4cc" stroke-width=".6"/></symbol>
 <symbol id="ico-qpro" viewBox="-12 -12 24 24"><path d="M-11 -4 Q0 -8.5 11 -4 L10 3.5 Q0 6 -10 3.5 Z" fill="#1b1b20" stroke="#8a8a96" stroke-width="1"/></symbol>
 <symbol id="ico-q3" viewBox="-12 -12 24 24"><path d="M-11 -6 Q0 -9 11 -6 L11 5 Q0 8 -11 5 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/></symbol>
-<symbol id="ico-hand" viewBox="-12 -12 24 24"><path d="M-5 10 L-6 0 L-8.5 -4 M-6 0 L-4 -9 M-2 -1 L-1 -10.5 M1 -1 L2.5 -9.5 M3.5 0 L5.6 -6.5 M-5 10 Q2 12 4.5 6 L6 -1" fill="none" stroke="#d9d2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>`;
+<symbol id="ico-hand" viewBox="-12 -12 24 24"><path d="M-3.6 -7.6 Q0 -9 3.6 -7.6 L4.2 2.6 Q3.6 7.8 0 8.2 Q-3.6 7.8 -4.2 2.6 Z" fill="#b4dcff" fill-opacity=".35" stroke="#b4dcff" stroke-width="1.1"/></symbol>`;
 export const SPOT_KINDS = ['tracker', 'index', 'qpro-ctrl', 'q3-ctrl', 'qpro', 'q3', 'hand'];
-const KIND_SIZE = { tracker: 23, index: 46, 'qpro-ctrl': 34, 'q3-ctrl': 34, qpro: 0, q3: 0, hand: 46 };
+const KIND_SIZE = { tracker: 23, index: 46, 'qpro-ctrl': 34, 'q3-ctrl': 34, qpro: 0, q3: 0, hand: 36 };
 
 const spotName = (s) => `${s.n} ${s.name} [${s.code}]`;
 
@@ -370,8 +372,8 @@ function smooth(points) {
 const HALF = [[176, 392], [167, 404], [165, 421], [168, 438], [175, 449], [179, 457], [178, 474], [160, 484], [140, 491],
   [128, 502], [120, 540], [106, 598], [95, 662], [89, 700], [84, 716], [86, 734], [94, 742], [101, 730], [101, 710],
   [106, 680], [116, 630], [124, 590], [133, 548], [140, 536], [141, 556], [148, 574], [154, 612], [148, 636], [140, 656],
-  [137, 672], [139, 700], [143, 740], [148, 778], [150, 806], [149, 846], [155, 888], [151, 904], [143, 918], [141, 926],
-  [148, 930], [172, 930], [178, 921], [177, 904], [178, 888], [180, 850], [182, 806], [184, 760], [186, 716], [189, 692]];
+  [137, 672], [139, 700], [143, 740], [148, 778], [150, 806], [149, 846], [155, 884], [152, 894], [146, 906], [134, 916], [126, 924],
+  [128, 930], [158, 931], [174, 929], [179, 919], [176, 904], [178, 888], [180, 850], [182, 806], [184, 760], [186, 716], [189, 692]];
 const BODY = smooth([[190, 388], ...HALF, ...HALF.slice().reverse().map(([x, y]) => [380 - x, y])].map(([x, y]) => [x, Math.round(lift(y) * 10) / 10]));
 
 // Her hair, black like a galaxy, up in a bun over her head (2026-10-26: "show the hair as black and galaxy like, its in
@@ -477,9 +479,6 @@ ${TOY_DEFS}
 <path class="strap-ceiling" d="M470 ${CEILING} H1100"/><text class="strap-prop-names" x="476" y="${CEILING + 20}">9 ft ceiling</text><path class="strap-floor" d="M8 862 H1102"/>
 <ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
 ${figure('front')}${figure('back')}
-<g class="strap-belt-map"><text class="strap-prop-names" x="260" y="78" text-anchor="middle">Waist, seen from above</text><ellipse class="strap-skin" cx="260" cy="165" rx="95" ry="52"/>
-<text class="strap-prop-names" x="260" y="150" text-anchor="middle">Back</text><text class="strap-prop-names" x="260" y="192" text-anchor="middle">Front</text>
-<path class="strap-belt" d="M92 601 H188 M332 601 H428"/><path class="strap-belt-link" d="M140 596 V250 M380 596 V250"/></g>
 <text class="strap-view" x="140" y="284" text-anchor="middle">Front Side</text><text class="strap-view" x="380" y="284" text-anchor="middle">Back Side</text>
 ${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
 ${xpole()}

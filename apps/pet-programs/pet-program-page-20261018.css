@@ -25,6 +25,9 @@
 :root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
 :root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
 * { box-sizing: border-box; }
+/* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
+   tracker choice menu still doesnt work"). */
+[hidden] { display: none !important; }
 html { background: var(--slate); }
 body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 var(--text); }
 a { color: var(--link); }
@@ -523,6 +526,8 @@ img[hidden] { display: none !important; }
 .strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
 .strap-belt { fill: none; stroke: var(--link); stroke-width: 2.4; stroke-dasharray: 5 3; opacity: .85; }
 .strap-belt-link { display: none; }
+/* Hand tracking: her own hand lights up. */
+.strap-spot .ico-hand { filter: drop-shadow(0 0 5px #b4dcff); }
 .strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
 .strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
 .strap-star { fill: #fff6d8; opacity: .9; }
