@@ -623,9 +623,20 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-switches { gap: 8px; }
 .launch-switch { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1px solid var(--line-dim); border-radius: 8px; background: var(--tool-bg, rgba(255, 255, 255, .04)); color: var(--chalk-dim); cursor: pointer; transition: border-color .15s, background .15s, color .15s, box-shadow .15s; }
 .launch-switch[hidden] { display: none; }
+/* Devices in violet, software in the page's steel blue (2026-10-26). */
+.launch-switch.launch-device { --chip: #9d7bd8; --chip-dim: #4a3a6e; --chip-glow: #c9b2ff; border-color: var(--chip-dim); }
+.launch-switch.launch-device:hover, .launch-switch.launch-device:has(> input:checked), .launch-device > label:has(input:checked) { border-color: var(--chip); }
+.launch-switch.launch-device:has(> input:checked) { box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
+.launch-device input[type="checkbox"] { border-color: var(--chip) !important; }
+.launch-device input[type="checkbox"]:checked { border-color: var(--chip-glow) !important; background: linear-gradient(135deg, var(--chip-glow), var(--chip)) !important; }
+.launch-device .launch-group-name { border-right-color: var(--chip); }
+.launch-switch:has(> input:disabled) { opacity: .5; cursor: not-allowed; }
 .launch-switch:hover { border-color: var(--line); color: var(--chalk); }
 .launch-switch:has(> input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
 .launch-group { gap: 4px; cursor: default; }
+/* Its name set off by a bar from its toys (Astra, 2026-10-26: "separate the lovense somehow to look different, maybe a
+   bar divider"). */
+.launch-group-name { font-weight: 600; color: var(--chalk); padding-right: 10px; margin-right: 4px; border-right: 2px solid var(--line); }
 .launch-group > label { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
 .launch-group > label:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); }
 .launch-switches input[type="checkbox"] { appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 15px; height: 15px; margin: 0; border: 1.5px solid var(--line); border-radius: 4px; background: var(--slate-2); cursor: pointer; }

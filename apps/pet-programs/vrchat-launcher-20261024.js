@@ -154,16 +154,9 @@
     });
   }
   box.addEventListener('strapper-change', function () { paintButtons(); });
-  // Base Station FOV Viewer and VR Pole Overlay: a tick opens it now, an untick closes it (Astra, 2026-10-26: "I would
-  // like to be able to turn these on at any moment").
-  box.addEventListener('change', function (e) {
-    var k = e.target.getAttribute && e.target.getAttribute('data-launch-switch');
-    if (!launcher || (k !== 'fov' && k !== 'pole')) return;
-    var on = e.target.checked;
-    // Both headset tools have the tick; keep them the same.
-    Array.prototype.forEach.call(box.querySelectorAll('[data-launch-switch="' + k + '"]'), function (i) { i.checked = on; });
-    ask('/overlay', { id: k === 'fov' ? 'base-station-fov' : 'vr-pole-overlay', on: on }).then(function (res) { e.target.title = (res && res.said) || ''; }, lost);
-  });
+  // Base Station FOV Viewer and VR Pole Overlay ticks only add them to the launch (Astra, 2026-10-26: "clicking the VR
+  // Pole Overlay automatically opens it, I just need this to add to the sequence until launched"); to open one any time
+  // she uses its row under 3rd party programs.
 
   // The dongle map: the launcher runs USBDeview and sends back each USB controller's branches; drawn with textContent.
   var dongle = document.querySelector('[data-dongle-map]');
