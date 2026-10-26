@@ -861,3 +861,12 @@ input[type="checkbox"] { accent-color: var(--line); }
    names take the tick labels' colour. Last in the file, so nothing above overrides it. */
 .launch-switches .launch-switch select, .launch-switches .launch-switch select option { color: var(--chalk-dim); background-color: var(--slate-2); }
 .launch-switches .launch-switch .launch-group-name { color: var(--chalk-dim); }
+
+/* Each maker in its own colour under the floor (2026-10-26: "put the brands in different colors like Lovense in pink"). */
+.strap-drawing .brand-lovense { fill: #ff4fa3; }
+.strap-drawing .brand-woojer { fill: #ff8a3d; }
+.strap-drawing .brand-xpole { fill: #5dff3a; }
+.strap-drawing .brand-meta { fill: #5fa8ff; }
+.strap-drawing .brand-valve { fill: #ff6b5a; }
+.strap-drawing .brand-vive { fill: #39d0e8; }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
