@@ -797,13 +797,8 @@
       var auto = hs.querySelector('select[data-launch-switch="double-hip"]');
       var want = full.hip && full.chest ? 'both' : full.hip ? 'hip' : full.chest ? 'chest' : '';
       if (auto && auto.value !== want) { auto.value = want; auto.dispatchEvent(new Event('change', { bubbles: true })); }
-      // Every object stays pickable (2026-10-26: "the drop down menu for object track vr isnt working"); one with no tracker
-      // on its spots says so, and the launcher names the missing tracker if she launches anyway.
-      var objSel = hs.querySelector('select[data-launch-switch="object-track"]');
-      if (objSel) Array.prototype.forEach.call(objSel.options, function (o) {
-        if (!o.hasAttribute('data-base')) o.setAttribute('data-base', o.textContent);
-        o.textContent = o.getAttribute('data-base') + (o.value && !(OBJECT_SPOT[o.value] || []).some(tracker) ? ' (needs a tracker)' : '');
-      });
+      // Every object stays pickable (2026-10-26: "the drop down menu for object track vr isnt working"); the launcher names a
+      // missing tracker if she launches without one.
     });
     box.dispatchEvent(new CustomEvent('strapper-change'));
   }
@@ -859,10 +854,18 @@
     var s = saved[id] = saved[id] || { switches: {}, tries: {} };
     var switches = hs.querySelectorAll('[data-launch-switch]');
     function value(input) { return input.type === 'checkbox' ? input.checked : input.value; }
+    // OSCGoesBrrr drives the Lovense toys: a toy ticked ticks it, and it unticked unticks the toys; it may still be on
+    // with no toy (Astra, 2026-10-26: "if any of the Lovense are selected, the OSCGoesBrrr is automatically selected.
+    // just as if its turned off, the lovense devices are unselected").
+    hs.addEventListener('change', function (e) {
+      var k = e.target.getAttribute && e.target.getAttribute('data-launch-switch');
+      var osc = hs.querySelector('[data-launch-switch="oscgoesbrrr"]');
+      if (!k || !osc) return;
+      function set(input, on) { if (input.checked !== on) { input.checked = on; input.dispatchEvent(new Event('change', { bubbles: true })); } }
+      if (/^lovense-/.test(k) && e.target.checked) set(osc, true);
+      if (k === 'oscgoesbrrr' && !osc.checked) Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-switch^="lovense-"]'), function (c) { set(c, false); });
+    });
     function refresh() {
-      // OSCGoesBrrr only with a Lovense toy ticked: it drives the toys (2026-10-26).
-      var anyToy = Array.prototype.some.call(hs.querySelectorAll('[data-launch-switch^="lovense-"]'), function (c) { return c.checked; });
-      Array.prototype.forEach.call(hs.querySelectorAll('[data-needs-toy]'), function (c) { c.disabled = !anyToy; if (!anyToy) c.checked = false; });
       var sw = {};
       Array.prototype.forEach.call(switches, function (input) { sw[input.getAttribute('data-launch-switch')] = value(input); });
       // Each mode's start list names the chosen streamer and shows a switch's program while it is on.

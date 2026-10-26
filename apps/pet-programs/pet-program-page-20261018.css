@@ -520,7 +520,8 @@ img[hidden] { display: none !important; }
 .strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
 .strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
 /* Her body: a dark silhouette with a pale storm-light edge (2026-10-26: "redo the blue body too"). */
-.strap-skin { fill: #1a2030; stroke: #c9d6f2; stroke-width: 1.8; filter: drop-shadow(0 0 3px rgba(160, 200, 255, .35)); }
+.strap-skin { fill: #2a3552; stroke: #b9c8ea; stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(160, 200, 255, .25)); }
+.strap-boot { fill: #0e1119; stroke: #b9c8ea; stroke-width: 1.6; }
 .strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
 .strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
 .strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
@@ -634,6 +635,10 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-switch:hover { border-color: var(--line); color: var(--chalk); }
 .launch-switch:has(> input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
 .launch-group { gap: 4px; cursor: default; }
+/* A group lights up as a whole when anything in it is ticked (2026-10-26: "when any of the lovense are selected, the
+   whole bubble needs to light up"). */
+.launch-switch.launch-group:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-switch.launch-device.launch-group:has(input:checked) { border-color: var(--chip); box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
 /* Its name set off by a bar from its toys (Astra, 2026-10-26: "separate the lovense somehow to look different, maybe a
    bar divider"). */
 .launch-group-name { font-weight: 600; color: var(--chalk); padding-right: 10px; margin-right: 4px; border-right: 2px solid var(--line); }

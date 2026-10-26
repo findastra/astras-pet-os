@@ -2260,7 +2260,7 @@
           {
             "node": "object-track-vr",
             "how": "optional",
-            "why": "Planned: the launch panel chooses which object it tracks (Small Hoop, Large Hoop or Dance Pole; Astra, 2026-10-24). Not out yet."
+            "why": "Planned: the launch panel chooses which object it tracks (Big Dance Hoop, Little Dance Hoop or Dance Pole; Astra, 2026-10-24 and 2026-10-26). Not out yet."
           },
           {
             "node": "space-override",

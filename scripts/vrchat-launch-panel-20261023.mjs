@@ -13,7 +13,8 @@ export const TOOL = 'wonderland-launchpad-v1.0-vrchat-launch-panel-v0.1';
 export const STREAMERS = [
   ['virtual-desktop', 'Virtual Desktop'],
   ['steam-link', 'Steam Link'],
-  ['meta-horizon-link', 'Meta Horizon Link (cable or Air Link)'],
+  ['meta-horizon-link', 'Meta Horizon Link (cable)'],
+  ['air-link', 'Air Link'],
 ];
 
 // DoubleHip DoubleChest Tracker's three uses, plus off (the empty value).
@@ -26,7 +27,7 @@ export const LOVENSE = [['nora', 'Nora'], ['domi-2', 'Domi 2'], ['lush-3', 'Lush
 // Small Hoop, Large Hoop, and Dance Pole ... its also a choice between the 4 objects being tracked, like the DoubleHip
 // DoubleChest Tracker drop down"). She counts 4; the fourth is hers to name. The program is not out yet (Steam: coming
 // soon), so a launch only says so.
-export const OBJECTS = [['', 'Off'], ['small-hoop', 'Small Hoop'], ['large-hoop', 'Large Hoop'], ['dance-pole', 'Dance Pole']];
+export const OBJECTS = [['', 'Off'], ['large-hoop', 'Big Dance Hoop'], ['small-hoop', 'Little Dance Hoop'], ['dance-pole', 'Dance Pole']];
 
 export const HEADSETS = [
   { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', device: 'Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
@@ -142,8 +143,7 @@ ${/* Face tracking is a choice on the Quest Pro, and the Quest 3 has none, so no
 ${/* Her two overlays: a tick adds it to the launch, which opens it in order (2026-10-26: "I just need this to add to the
    sequence until launched"). */ ''}${sw('fov', 'Base Station FOV Viewer', false)}
 ${sw('pole', 'VR Pole Overlay', false)}
-${/* OSCGoesBrrr drives the Lovense toys, so it waits for one (2026-10-26: "you cant really use OSCGoesBrrr without the
-   devices"). */ ''}<label class="launch-switch" title="Drives the Lovense toys: tick a toy first"><input type="checkbox" data-launch-switch="oscgoesbrrr" data-needs-toy> OSCGoesBrrr</label>
+${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
    together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch" hidden>DoubleHip DoubleChest Tracker <select data-launch-switch="double-hip" data-auto>${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch" title="Not out yet: a launch only says so">Object Track VR <select data-launch-switch="object-track">${OBJECTS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
@@ -208,8 +208,8 @@ const LIFT = 16, HIPS = 722;
 const lift = (y) => y <= HIPS ? y - LIFT : 930 - (930 - y) * (930 - HIPS + LIFT) / (930 - HIPS);
 const place = (s) => s.view ? { ...s, x: Math.round(VIEW_X[s.view] + (s.x - 190) * SCALE), y: Math.round(FLOOR - (930 - lift(s.y)) * SCALE) } : s;
 export const SPOTS = [
-  { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 146, y: 918 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 234, y: 918 },
-  { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 168, y: 888 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 212, y: 888 },
+  { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 146, y: 916 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 234, y: 916 },
+  { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 162, y: 884 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 218, y: 884 },
   { code: 'RK', n: 5, name: 'Right Knee', view: 'front', x: 166, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', view: 'front', x: 214, y: 800 },
   // 24 Head is the tracker clipped on top of the headset, so it shows on her front (2026-10-26: "tracker on the head is
   // on the front always attached to top of headset").
@@ -372,11 +372,16 @@ function smooth(points) {
 // Her body as one natural outline, head to feet in one line (2026-10-26: "body still looks weird, just make it a natural female body outline"):
 // her right half from the neck, down the arm and round the hand, up to the armpit, down the bust, waist, hip and leg to
 // the foot, and up the inner leg; the left half is its mirror. Drawn 190 wide-centre, 930 floor.
-const HALF = [[176, 392], [167, 404], [165, 421], [168, 438], [175, 449], [179, 457], [178, 474], [160, 484], [140, 491],
-  [128, 502], [120, 540], [106, 598], [95, 662], [89, 700], [84, 716], [86, 734], [94, 742], [101, 730], [101, 710],
-  [106, 680], [116, 630], [124, 590], [133, 548], [140, 536], [141, 556], [148, 574], [154, 612], [148, 636], [140, 656],
-  [137, 672], [139, 700], [143, 740], [148, 778], [150, 806], [149, 846], [155, 884], [152, 894], [146, 906], [134, 916], [126, 924],
-  [128, 930], [158, 931], [174, 929], [179, 919], [176, 904], [178, 888], [180, 850], [182, 806], [184, 760], [186, 716], [189, 692]];
+// Fuller arms and thighs and booted feet (2026-10-26: "the feet look like flippers. make them look like boots. make the
+// figure not look like a skeleton").
+const HALF = [[176, 392], [167, 404], [165, 421], [168, 438], [175, 449], [179, 457], [178, 474], [160, 484], [138, 491],
+  [125, 503], [116, 540], [101, 598], [91, 662], [86, 700], [82, 716], [84, 734], [93, 743], [101, 731], [102, 710],
+  [108, 680], [119, 630], [127, 590], [135, 550], [140, 538], [141, 556], [148, 574], [154, 612], [147, 636], [139, 656],
+  [136, 672], [137, 700], [141, 740], [147, 778], [149, 806], [148, 846], [150, 880], [149, 904], [146, 918], [145, 927],
+  [150, 931], [176, 931], [180, 926], [180, 904], [179, 884], [180, 850], [182, 806], [183, 760], [186, 716], [189, 692]];
+// Her boots over her feet: a shaft to mid-calf, the foot turned out to her side, a rounded toe and a flat sole.
+const BOOT = [[149, 858], [158, 855], [175, 855], [181, 858], [181, 904], [182, 922], [179, 931], [133, 932], [125, 928], [125, 920], [132, 913], [146, 906], [148, 884]];
+const BOOTS = [BOOT, BOOT.slice().reverse().map(([x, y]) => [380 - x, y])].map((pts) => smooth(pts.map(([x, y]) => [x, Math.round(lift(y) * 10) / 10])));
 const BODY = smooth([[190, 388], ...HALF, ...HALF.slice().reverse().map(([x, y]) => [380 - x, y])].map(([x, y]) => [x, Math.round(lift(y) * 10) / 10]));
 
 // Her hair, black like a galaxy, up in a bun over her head (2026-10-26: "show the hair as black and galaxy like, its in
@@ -404,9 +409,9 @@ function figure(view) {
   const front = view === 'front';
   return `<g class="strap-figure strap-${view}" transform="translate(${VIEW_X[view] - 190 * SCALE} ${FLOOR - 930 * SCALE}) scale(${SCALE})">
 <ellipse class="strap-shadow" cx="190" cy="930" rx="62" ry="6"/>
-<path class="strap-skin" d="${BODY}"/>
+<path class="strap-skin" d="${BODY}"/>${BOOTS.map((d) => `<path class="strap-boot" d="${d}"/>`).join('')}
 <g transform="translate(0 -${LIFT})">
-${front ? '<path class="strap-crease" d="M160 552 Q172 566 186 558 M194 558 Q208 566 220 552 M190 626 v2"/>' : '<path class="strap-crease" d="M190 492 V700 M160 520 Q172 532 168 552 M220 520 Q208 532 212 552"/>'}
+${front ? '<path class="strap-crease" d="M160 552 Q172 566 186 558 M194 558 Q208 566 220 552 M190 626 v2"/>' : ''}
 ${front ? HAIR_FRONT : HAIR_BACK}${BUN}
 ${front ? HEADSETS_FRONT : HEADSETS_BACK}</g>
 </g>`;
