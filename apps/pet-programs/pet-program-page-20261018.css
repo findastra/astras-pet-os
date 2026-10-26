@@ -651,6 +651,7 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-switches input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
 .launch-switch select { appearance: none; -webkit-appearance: none; padding: 3px 26px 3px 9px; border-color: var(--line-dim); border-radius: 6px; background: linear-gradient(45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 13px) 55% / 5px 5px, linear-gradient(-45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 8px) 55% / 5px 5px, var(--slate-2); cursor: pointer; }
 .launch-switch select:hover, .launch-switch select:focus { border-color: var(--line); }
+
 .launch-switch select option { background: var(--slate-2); color: var(--chalk); }
 .launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; align-items: start; }   /* a folded mode shrinks to its name (Astra, 2026-10-24: "arrow needs to shrink the border up") */
 .launch-mode { border: 1px solid var(--line-dim); border-radius: 14px; padding: 4px 12px 10px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
@@ -854,3 +855,9 @@ input[type="checkbox"] { accent-color: var(--line); }
 .dongle-port, .dongle-serial { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
 .dongle-tracker { color: var(--care); font-family: var(--label); font-size: 12px; }
 .dongle-count { color: var(--fix); font-size: 12.5px; }
+
+/* No plain white in the switch rows (Astra, 2026-10-26: "the white text isnt following the general color theming"; then
+   "the items in the drop downs need to be the same color text as the options above, and Lovense"): menu values and group
+   names take the tick labels' colour. Last in the file, so nothing above overrides it. */
+.launch-switches .launch-switch select, .launch-switches .launch-switch select option { color: var(--chalk-dim); background-color: var(--slate-2); }
+.launch-switches .launch-switch .launch-group-name { color: var(--chalk-dim); }

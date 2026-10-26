@@ -57,6 +57,10 @@
     area.setAttribute('data-drawn', drawn);
     area.hidden = false;
     area.textContent = '';
+    // What the launcher last said (Stopped, done, a problem) comes first, above the steps (Astra, 2026-10-26: "move the
+    // stopped part to the top above the line").
+    var line = said || (r && r.said);
+    if (line) area.appendChild(el('p', 'small launch-said', line));
     if (r) {
       var ol = el('ol', 'small launch-steps');
       r.steps.forEach(function (s) {
@@ -75,8 +79,6 @@
         area.appendChild(checks);
       }
     }
-    var line = said || (r && r.said);
-    if (line) area.appendChild(el('p', 'small launch-said', line));
     if (!live(r)) return;
     var row = el('p', 'launch-run-buttons');
     var waitingOnYou = r.steps.some(function (s) { return (s.id === 'headset' || s.id === 'streamer-on-headset') && s.state === 'you'; });
