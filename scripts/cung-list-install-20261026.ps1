@@ -124,7 +124,7 @@ if (-not $hasWinget) {
   Write-Host 'winget is missing. Install "App Installer" from the Microsoft Store (https://apps.microsoft.com/detail/9NBLGGH4NNS1), then run this again.' -ForegroundColor Yellow
 }
 
-# 1. Ollama (item 6): local models. model-library's run-ollama-shelf script chooses and pulls the models.
+# 1. Ollama (item 6): local models. model-library's run-ollama-shelf script lists them and prints the `ollama pull <name>` line; Astra runs it.
 $step = 'Ollama'
 if ((Test-Command 'ollama') -or (Test-WingetPackage 'Ollama.Ollama')) {
   Add-Result $step 'already there' (Get-FirstLine 'ollama' @('--version'))
