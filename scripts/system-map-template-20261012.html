@@ -176,13 +176,32 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
   .navpad{flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);border-radius:24px}
   h1{font-size:1.15rem}
 }
+/* Pets view (Astra, 2026-10-27: "It should be the pets, and then every pet has a pet program"): only the pets and their
+   pet programs, spinning like The Cooling Tower's Mini Model, with its big Stop spinning button. A pet's card shows the
+   pet, then its pet program page below. It opens by itself when the map sits in a frame (her portfolio's Polaroid). */
+body:not(.pets) .pets-only{display:none!important}
+body.pets .navpad,body.pets .grip{display:none!important}
+.spinbig{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 15px var(--sans);padding:10px 16px;border-radius:8px;cursor:pointer;background:var(--panel);border:1px solid var(--host);color:var(--host);z-index:2}
+.spinbig[aria-pressed="false"]{border-color:var(--raise-edge);color:var(--fg)}
+.spinbig:focus-visible{outline:2px solid var(--host);outline-offset:2px}
+.petsline{display:block;font:400 12px var(--mono);color:var(--muted);margin-top:3px}
+.side.petcard{width:min(400px,calc(100vw - 24px));max-height:calc(100% - 80px)}
+.petpic{display:block;width:100%;height:150px;object-fit:contain;background:var(--well);border:1px solid var(--line);border-radius:10px;image-rendering:auto}
+.petpic.none{display:grid;place-items:center;color:var(--muted);font-size:12px}
+.side .progname{font-family:var(--display);font-size:1.05rem;margin:4px 0 0}
+.petprog{display:block;width:100%;height:min(420px,52vh);border:1px solid var(--line);border-radius:10px;background:#fff}
+@media (max-width:700px){
+  body.pets .side{bottom:calc(64px + env(safe-area-inset-bottom,0px));max-height:calc(100% - 140px)}
+  .petpic{height:110px}
+  .petprog{height:300px}
+}
 </style></head><body>
 <div id="stage" aria-label="3D map of Astra's PetOS"></div>
 <div id="labels" aria-hidden="true"></div>
 
 <section class="hud" aria-label="Map key and controls">
   <div class="hudtop">
-    <h1><b id="sysName" class="sysname" tabindex="0" title="Double-click (or press Enter) to rename your system">Astra's PetOS</b> <span>System Map</span></h1>
+    <h1><b id="sysName" class="sysname" tabindex="0" title="Double-click (or press Enter) to rename your system">Astra's PetOS</b> <span>System Map</span><span class="petsline pets-only">Every pet and its pet program. Click a pet.</span></h1>
     <button class="btn mintoggle" id="hudMin" type="button" aria-expanded="true" title="Fold the key panel down to its title">Hide key</button>
   </div>
   <div class="nameask" id="nameAsk" hidden>
@@ -197,6 +216,7 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
     <div class="res" id="res" hidden role="listbox"></div>
   </div>
   <div class="row" role="group" aria-label="View">
+    <button class="btn" id="vPets" aria-pressed="false" title="Only the pets and their pet programs, spinning; click a pet to see it with its pet program below">Pets</button>
     <button class="btn" id="vNow" aria-pressed="false">Works today</button>
     <button class="btn" id="vAll" aria-pressed="true">Everything planned</button>
     <button class="btn" id="vNet" aria-pressed="false" title="How the devices are physically connected: Wi-Fi, Ethernet, Bluetooth, USB and more">Network view</button>
@@ -266,6 +286,7 @@ body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
   <button class="btn no-touch" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
   <span class="dims no-touch" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
 </nav>
+<button class="spinbig pets-only" id="petSpin" type="button" aria-pressed="true">Stop spinning</button>
 <div class="tip" id="tip" hidden></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
@@ -298,6 +319,13 @@ const RING = Object.fromEntries(DATA.rings.map(r=>[r.ring,r]));
 // drags it, two fingers pinch to zoom, and nothing turns it.
 const TOUCH = matchMedia('(pointer: coarse)').matches;
 if(TOUCH) document.body.classList.add('touch');
+// Pets view (Astra, 2026-10-27): the registered pets, the Farmer and each one's pet program. ?view=pets opens it; inside a
+// frame it is the default (her portfolio's Polaroid), and ?view=all keeps the whole map there.
+const PET_NODE = new Set();
+DATA.nodes.forEach(n=>{ if(['host','pet','pipeline'].includes(n.type) && !n.private){ PET_NODE.add(n.id); if(n.home&&n.home.node) PET_NODE.add(n.home.node); } });
+const VIEW = new URLSearchParams(location.search).get('view');
+let petsOnly = VIEW==='pets' || (VIEW!=='all' && window.self!==window.top);
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- the rings: nested spheres (Astra, 2026-10-12 and 2026-10-13) ----------
 // Inside out: the core, the Friendly Farmer, the pets, the pet programs, then the glass sphere of the agent harness
@@ -329,8 +357,8 @@ const HOME_TARGET = [0,0,0], HOME_ELEV = .26, FIT_R = 84;
 const homeTarget = () => new THREE.Vector3(...(flat?FLAT_TARGET:HOME_TARGET));
 // The opening view fits the whole sphere into the space beside the key panel, at any window size.
 function homeCam(){ const {fw,fh}=openSpace(), tanV=Math.tan(camera.fov*Math.PI/360);
-  if(flat){ const el_=TOUCH?TOUCH_ELEV:FLAT_ELEV, d=Math.max(FLAT_FIT/(tanV*camera.aspect*fw),(FLAT_FIT*Math.sin(el_)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(el_),Math.cos(el_)).multiplyScalar(d).add(homeTarget()); }
-  const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = FIT_R/Math.sin(half);
+  if(flat){ const fitFlat=petsOnly?44:FLAT_FIT, el_=TOUCH?TOUCH_ELEV:FLAT_ELEV, d=Math.max(fitFlat/(tanV*camera.aspect*fw),(fitFlat*Math.sin(el_)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(el_),Math.cos(el_)).multiplyScalar(d).add(homeTarget()); }
+  const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = (petsOnly?60:FIT_R)/Math.sin(half);
   return new THREE.Vector3(0,Math.sin(HOME_ELEV),Math.cos(HOME_ELEV)).multiplyScalar(d).add(homeTarget()); }
 const LAYER_COLOR = {0:css('--l0'),1:css('--l1'),2:css('--l2'),3:css('--l3'),4:css('--l4'),5:css('--l5'),6:css('--l6')};
 const STATE = {
@@ -367,7 +395,7 @@ const REMOVED_KEY = 'petos-removed';
 const removed = new Set((()=>{ try{ return JSON.parse(localStorage.getItem(REMOVED_KEY)||'[]'); }catch(e){ return []; } })());
 const saveRemoved = ()=>{ try{ localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed])); }catch(e){} };
 let examplesHidden = false;
-const nodeOn = n => !hiddenTypes.has(n.type) && !(APP_RING[n.id] && hiddenTypes.has('@apps')) && !removed.has(n.id) && !(examplesHidden && EXAMPLES[n.id]);
+const nodeOn = n => !hiddenTypes.has(n.type) && !(APP_RING[n.id] && hiddenTypes.has('@apps')) && !removed.has(n.id) && !(examplesHidden && EXAMPLES[n.id]) && !(petsOnly && !PET_NODE.has(n.id));
 // Clusters (Astra, 2026-10-14): a node with "in" is its own node, placed on a small ring around its hub node (each
 // tracker around "13 HTC Vive Trackers 3.0").
 const inCluster = n => !!(n && n.in && nodeById[n.in]);
@@ -383,7 +411,7 @@ const camera = new THREE.PerspectiveCamera(48,1,.1,900); camera.position.set(0,7
 // Trackball, not orbit: it turns freely in every direction, over the top and under the bottom, with no stops.
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 controls.target.copy(homeTarget());
-let autoSpin = !TOUCH && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+let autoSpin = (petsOnly || !TOUCH) && !REDUCED; // touch screens never turn the full map (Astra, 2026-10-18); the Pets view spins there too (Astra, 2026-10-27)
 controls.rotateSpeed = 1.2; controls.zoomSpeed = 1.4; controls.panSpeed = .6; controls.dynamicDampingFactor = .2;
 controls.minDistance = 2; controls.maxDistance = 600;
 // The switch maps mouse BUTTONS to actions: left (0) rotates, middle (1) pans, right (2) is left free for fly-look.
@@ -803,7 +831,10 @@ function apply(){
     // !! because three.js hides an object only when visible is false, never when it is null.
     if(n.exampleTag) n.exampleTag.visible=!!(keep&&(fid===n.id||(matches&&matches.has(n.id)))); });
   const glass=!hiddenTypes.has('harness'), both=!!morph; harnessGlass.visible=glass&&(!flat||both); harnessWire.visible=glass&&(!flat||both); flatDecor.visible=flat||both; domeGlass.visible=glass; domeWire.visible=glass; domeRim.visible=glass;
-  Object.values(shells).forEach(sh=>sh.visible=!flat||both);
+  // The Pets view keeps only the animals' rings and the glass; the rings outside it hold nothing it shows.
+  const ringShown = k => !petsOnly || ['0','1','2','3','H'].includes(k.replace(/[bt]$/,''));
+  Object.entries(shells).forEach(([k,sh])=>sh.visible=(!flat||both)&&ringShown(k));
+  Object.entries(flatRings).forEach(([k,l])=>l.visible=ringShown(k)); ground.visible=!petsOnly;
   const glassHot = (fid && nodeById[fid] && nodeById[fid].type==='harness') || ringOn==='H';
   harnessWire.material.opacity = glassHot ? .35 : .1; harnessGlass.material.opacity = glassHot ? .1 : .05;
   domeWire.material.opacity = glassHot ? .35 : .09; domeGlass.material.opacity = glassHot ? .1 : .045; domeRim.material.opacity = glassHot ? .7 : .3;
@@ -816,7 +847,7 @@ function apply(){
     r.visible=nodeOn(n)&&nodeOn(nodeById[APP_RING[n.id]]); r.material.emissiveIntensity = fid===n.id ? .55 : .25; r.material.opacity = on ? .85 : .2; });
   // While a card is open, only its own ring keeps its name tag.
   const focusRing = fid&&nodeById[fid] ? nodeById[fid].ring : null;
-  ringTags.forEach(s=>{ s.visible = ringOn || !(fid||selectedPair) || s.userData.ring===focusRing; s.material.opacity = ringOn ? (s.userData.ring===ringOn?1:.35) : anyFocus ? .55 : 1; });
+  ringTags.forEach(s=>{ s.visible = ringShown(s.userData.ring) && (ringOn || !(fid||selectedPair) || s.userData.ring===focusRing); s.material.opacity = ringOn ? (s.userData.ring===ringOn?1:.35) : anyFocus ? .55 : 1; });
   Object.entries(ringButtons).forEach(([k,b])=>b.setAttribute('aria-pressed',ringOn===k));
 }
 const ray=new THREE.Raycaster(), mouse=new THREE.Vector2(); const tip=document.getElementById('tip');
@@ -850,7 +881,7 @@ function close(){ selected=null; selectedPair=null; ringOn=null; if(!q.value.tri
 // Every card has Hide and Close beside its name: Hide folds it down to its name, so the map shows (Astra, 2026-10-18).
 // A folded card stays folded when you pick something else; tap its name or Show to open it.
 let sideMin = TOUCH;
-function head(title){ side.replaceChildren(); const h=el('div','sidehead'), t=el('h2','',title), m=el('button','btn',''), c=el('button','btn','Close');
+function head(title){ side.replaceChildren(); side.classList.remove('petcard'); const h=el('div','sidehead'), t=el('h2','',title), m=el('button','btn',''), c=el('button','btn','Close');
   m.type='button'; c.type='button';
   const sync=()=>{ side.classList.toggle('min',sideMin); m.textContent=sideMin?'Show':'Hide'; m.setAttribute('aria-expanded',String(!sideMin)); m.title=sideMin?'Open the whole card':'Fold the card down to its name'; };
   m.onclick=()=>{ sideMin=!sideMin; sync(); side.scrollTop=0; }; t.onclick=m.onclick; c.onclick=close;
@@ -927,7 +958,27 @@ function partsBlock(n){
       if(t.state!=='now'){ top.append(document.createTextNode(' ')); top.appendChild(el('span','chip',(STATE_WORD[t.state]||t.state).split(' (')[0])); }
       li.appendChild(top); if(t.label) li.appendChild(el('code','codechip',t.label)); li.appendChild(el('div','why',t.job||'')); ul.appendChild(li); });
     d.appendChild(ul); side.appendChild(d); }); }
-function selectNode(n){
+// A pet program page's address, if it is one the card may open (the hub's own pages, or an https page).
+const pageOf = owner => owner&&/^(apps\/pet-programs\/[a-z0-9-]+\.html|https:\/\/\S+)$/.test(owner.page||'') ? owner.page : null;
+// The Pets view's card (Astra, 2026-10-27: "when you click them, I want to see the pet, and then I want to see the pet
+// program below that"): the pet's newest drawing, then its pet program page, live. A pet program opens its pet's card.
+function petCard(n){
+  const pet = PET_TYPES.includes(n.type) ? n : DATA.nodes.find(m=>m.home&&m.home.node===n.id) || n;
+  selected=pet; selectedPair=null; ringOn=null; apply(); // no fly: the whole map stays in view, the pet lit up on it
+  sideMin=false; head(pet.name); side.classList.add('petcard'); try{ history.replaceState(null,'','#node='+encodeURIComponent(pet.id)); }catch(e){}
+  if(pet.pic){ const im=el('img','petpic'); im.src=pet.pic; im.alt=pet.name; side.appendChild(im); }
+  else side.appendChild(el('div','petpic none','No drawing yet'));
+  if(pet.job) side.appendChild(el('p','job',short(pet.job,220)));
+  const page=pageOf(pet), h=pet.home;
+  side.appendChild(el('h3','progname', h ? `Pet program #${h.number} · ${h.assigned?h.name:'name not assigned yet'}` : 'Pet program'));
+  if(page){ const f=el('iframe','petprog'); f.src=page; f.title=(h?h.name:pet.name)+': pet program page'; f.loading='lazy'; side.appendChild(f);
+    const p=el('p','meta'), a=el('a','','Open its page full size ↗'); a.href=page; a.target='_blank'; a.rel='noopener'; p.appendChild(a); side.appendChild(p); }
+  else side.appendChild(el('p','why','Its pet program page is not built yet.'));
+  const more=el('button','btn','Everything about it on the map'); more.type='button'; more.onclick=()=>selectNode(pet,true); side.appendChild(more);
+  side.hidden=false; side.scrollTop=0;
+}
+function selectNode(n, full){
+  if(petsOnly && !full && PET_NODE.has(n.id)) return petCard(n);
   selected=n; selectedPair=null; ringOn=null; apply(); flyTo(n.id);
   head(n.name); try{ history.replaceState(null,'','#node='+encodeURIComponent(n.id)); }catch(e){}
   const chips=el('div','chips');
@@ -964,7 +1015,7 @@ function selectNode(n){
   // The pet program page (Astra, 2026-10-19: every place that shows a pet opens it, with Open today's app on it): on a
   // pet's card, and on its pet program's card.
   { const owner = n.page ? n : (n.type==='own-program'&&n.program!==undefined ? DATA.nodes.find(m=>m.page&&m.home&&m.home.number===n.program) : null);
-    if(owner&&/^(apps\/pet-programs\/[a-z0-9-]+\.html|https:\/\/\S+)$/.test(owner.page)){ const p=el('p','meta'); p.append(document.createTextNode('Pet Program: '));
+    if(pageOf(owner)){ const p=el('p','meta'); p.append(document.createTextNode('Pet Program: '));
       const a=el('a','',owner.home?owner.home.name:owner.name); a.href=owner.page; a.target='_blank'; a.rel='noopener'; p.append(a, document.createTextNode(' (its page, with Open today’s app on it)')); side.appendChild(p); } }
   if(n.repo){ const m=el('p','meta'); const a=el('a','', 'findastra/'+n.repo); a.href='https://github.com/findastra/'+n.repo; a.target='_blank'; a.rel='noopener'; m.append(a, document.createTextNode(n.visibility?` · ${n.visibility}`:'')); side.appendChild(m); }
   side.appendChild(codeBlock(n));
@@ -1127,7 +1178,16 @@ document.getElementById('nZoomOut').onclick=()=>zoomBy(1.4);
 document.getElementById('nReset').onclick=()=>{ close(); frameAll(); };
 const spinBtn=document.getElementById('nSpin'); spinBtn.setAttribute('aria-pressed',autoSpin);
 spinBtn.onclick=()=>{ autoSpin=!autoSpin; spinBtn.setAttribute('aria-pressed',autoSpin); };
-setInterval(()=>spinBtn.setAttribute('aria-pressed',autoSpin),500); // other controls stop the spin
+// The Pets view's own button, as on the Mini Model: Stop spinning while it turns, Spin when it stands still.
+const petSpin=document.getElementById('petSpin');
+const syncSpin=()=>{ spinBtn.setAttribute('aria-pressed',autoSpin); petSpin.setAttribute('aria-pressed',autoSpin); petSpin.textContent=autoSpin?'Stop spinning':'Spin'; };
+petSpin.onclick=()=>{ autoSpin=!autoSpin; syncSpin(); };
+setInterval(syncSpin,500); // other controls stop the spin
+const petsBtn=document.getElementById('vPets');
+function setPets(on){ petsOnly=on; document.body.classList.toggle('pets',on); petsBtn.setAttribute('aria-pressed',on);
+  try{ const u=new URL(location.href); on?u.searchParams.set('view','pets'):u.searchParams.delete('view'); history.replaceState(null,'',u.pathname+u.search+u.hash); }catch(e){}
+  if(on){ setHudMin(true); autoSpin=!REDUCED; } else if(TOUCH) autoSpin=false; syncSpin(); close(); frameAll(); }
+petsBtn.onclick=()=>setPets(!petsOnly);
 
 // ---------- touch screens: drag and pinch on the flat map, no turning (Astra, 2026-10-18) ----------
 // One finger drags the map; the spot under your finger stays under it. Two fingers pinch to zoom around the point
@@ -1186,7 +1246,9 @@ const openSpace = () => { const hud=document.querySelector('.hud'), r=hud?hud.ge
   // on a computer the map fits beside the key panel and above the buttons at the bottom
   return innerWidth>700 ? {sx:r?Math.round((r.right+12)/2):0, sy:-34, fw:r?Math.max(200,innerWidth-r.right-12)/innerWidth:1, fh:Math.max(.5,(innerHeight-84)/innerHeight)}
     : {sx:0, sy:r?Math.round((r.bottom+8+innerHeight-70)/2-innerHeight/2):0, fw:1, fh:r?Math.max(160,innerHeight-70-r.bottom-8)/innerHeight:1}; };
-function resize(){ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight;
+function resize(){ if(!innerWidth||!innerHeight) return; // a frame that starts at no size (a lazy Polaroid) would leave the camera at NaN
+  renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight;
+  if(!Number.isFinite(camera.position.x)){ camera.up.set(0,1,0); camera.position.copy(homeCam()); camera.lookAt(controls.target); }
   const {sx,sy}=openSpace();
   if(sx||sy) camera.setViewOffset(innerWidth,innerHeight,-sx,-sy,innerWidth,innerHeight); else camera.clearViewOffset();
   const pad=document.querySelector('.navpad'); if(pad) pad.style.left=(innerWidth/2+sx)+'px';
@@ -1211,6 +1273,7 @@ function setHudMin(on){ hudEl.classList.toggle('min',on); hudBtn.textContent=on?
   hudBtn.title=on?'Open the key panel':'Fold the key panel down to its title'; placeGrip(); }
 hudBtn.onclick=()=>setHudMin(!hudEl.classList.contains('min'));
 if(TOUCH){ setHudMin(true); hudEl.querySelectorAll('details.sec[open]').forEach(d=>d.open=false); }
+if(petsOnly){ document.body.classList.add('pets'); petsBtn.setAttribute('aria-pressed','true'); setHudMin(true); syncSpin(); }
 if('ResizeObserver' in window) new ResizeObserver(()=>{ placeGrip(); resize(); }).observe(hudEl);
 addEventListener('resize',()=>{ resize(); placeGrip(); }); resize(); placeGrip(); camera.position.copy(homeCam()); camera.lookAt(controls.target);
 let last=performance.now();
