@@ -219,7 +219,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     the choice on this device. The chat's own left light switches it off. Closed, it is one rounded pill with its
    label in the top border; open, a rounded card whose window opens above the lights and the button (Astra,
    2026-10-19: "The shape is a little awkward. Make it better").
-11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
+11. **`<pet>-related-pets`** (Astra, 2026-10-19: at the bottom of every Pet Program page, "there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I
     manage <its pet program>", then what it sends or receives), its picture beside it, and the whole of it opens that
@@ -264,8 +264,8 @@ report broken.
 audit always agree. An audit that compares the L1 tools with the tool files in the repo, so none is missed, is still
 to build. [docs/pet-page-review-20261016.md](docs/pet-page-review-20261016.md) shows what each pet had on 2026-10-16.
 
-**Every pet starts with the basics (Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page,
-with just the basics first"; of the sketch: "they need these at a minimum, and more").** The Friendly Farmer's **pet
+**Every pet starts with the basics (Astra, 2026-10-18: every single Pet gets "a pet program spawn page, with just the
+basics first"; of the sketch: "they need these at a minimum, and more").** The Friendly Farmer's **pet
 program spawner** (`the-farm-v1.0-pet-program-spawner-v1.0`, `scripts/pet-program-pages-20261018.mjs`) writes a page
 for every registered and pipeline pet, `apps/pet-programs/<repo>-20261018.html`, listed on
 [the spawner's page](apps/pet-programs/pet-program-spawner-20261018.html). Each has every tool panel of the sketch in its

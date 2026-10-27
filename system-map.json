@@ -248,7 +248,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-program-spawner-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-10-18: \"make sure every single pet app has a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every tool panel of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
+      "job": "A tool of The Farm (Astra, 2026-10-18: every single Pet gets \"a pet program spawn page, with just the basics first\"): writes a pet program page for every registered and pipeline pet with every tool panel of Astra's sketch (PET-PROGRAM-FRAMEWORK.md, section 3), from pets.json, pet-programs.json, this map and the hub's art. Pages in apps/pet-programs/, rebuilt by npm run build (scripts/pet-program-pages-20261018.mjs)."
     },
     {
       "id": "markdown-pets",
@@ -811,7 +811,7 @@
       "name": "Desktop PC",
       "type": "host-machine",
       "state": "now",
-      "job": "Your Windows desktop PC: a device you use, and the machine everything local runs on today (desktop host and tray Star, Windows pet apps, presence apps, private pets' data).",
+      "job": "Your Windows desktop PC: a device you use, and the machine everything local runs on today (desktop host and tray Star, the Pets' Windows programs, presence apps, private pets' data).",
       "layer": 1,
       "category": "Device"
     },
@@ -7363,7 +7363,7 @@
           {
             "language": "HTML",
             "percent": 6.8,
-            "why": "The pet app page and a static copy of the site."
+            "why": "The Pet Program page and a static copy of the site."
           },
           {
             "language": "Shell",
@@ -7488,7 +7488,7 @@
           {
             "language": "HTML",
             "percent": 3,
-            "why": "The renderer's screens and the pet app page."
+            "why": "The renderer's screens and the Pet Program page."
           },
           {
             "language": "CSS",

@@ -10,7 +10,7 @@ Everything below is already done and waiting as one patch in the pet's repo:
 pets.json entry and new `fuzzboi` kind, the updated Fuzzbois candidate line, the generator prompt and
 reference, the app copy, the **paid mood sheet** (generated 2026-10-09 after Astra added credits) and the
 rebuilt frames, roster and cage-data. Checked against `main` at `52637db`: applies cleanly, `npm run check`
-says 19 pet apps, 48 tests pass. Astra asked to keep it out of this repo until her Cage update.
+says 19 pets, 48 tests pass. Astra asked to keep it out of this repo until her Cage update.
 
 ```
 git apply path/to/fuzzboi-friend/cage/cage-registration-20261009.patch

@@ -1,7 +1,7 @@
 status: open
 for: any
 from: OpenAI Codex (GPT-6), 2026-10-20
-needs: pet-app skill, new-pet-or-tool skill, PET-PROGRAM-FRAMEWORK.md, PROTECTION-RINGS.md, Log Den heartbeat checker
+needs: build-a-pet skill (named pet-app until 2026-10-26), new-pet-or-tool skill, PET-PROGRAM-FRAMEWORK.md, PROTECTION-RINGS.md, Log Den heartbeat checker
 ---
 ## Task
 

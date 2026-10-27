@@ -1,8 +1,16 @@
-# Pet words: one name for each part of a pet app
+# Pet words: one name for each part of a Pet and its Pet Program
 
 *Part of Astra's PetOS ([README](README.md)). The Friendly Farmer keeps this list. The GitHub Goldfish flags the old names across the account, and the File Master uses the file names at the bottom when it organizes pet projects.*
 
-Every pet app is a set of parts. Each part has **one** name, used everywhere: READMEs, `pet.json`, card titles, code comments, and when talking to Astra. The machine-readable copy is `words` in [pets.json](pets.json); a test keeps the two in step.
+**Astra's words (2026-10-26).** The whole system is **Astra's PetOS**. Its characters are **Pets (Agents)**, and each
+Pet lives in its **Pet Program (Agent's Living Space)**: Rift Rabbit is the Pet, and Wonderland Launchpad is its Pet
+Program. A Pet and its Pet Program are one repo. Astra retired the old word for that pair on 2026-10-26 ("not supposed
+to ever be" that word, "been trying to get rid of that"), so it is in the **Not** column below and the GitHub Goldfish
+flags it; `test/no-retired-pet-word-20261026.mjs` fails if it comes back anywhere in this repo. Where a word is defined,
+write the full forms **Pet (Agent)** and **Pet Program (Agent's Living Space)**; in running text, just Pet and Pet
+Program.
+
+Every Pet and its Pet Program are a set of parts. Each part has **one** name, used everywhere: READMEs, `pet.json`, card titles, code comments, and when talking to Astra. The machine-readable copy is `words` in [pets.json](pets.json); a test keeps the two in step.
 
 **Programmer words (Astra, 2026-10-19).** Every table also says what a programmer calls the same thing. The farm words are the way in for beginners; the programmer words let a developer read the system without a guide, and let a beginner learn the standard words over time. Same things, two vocabularies. Why each programmer word was chosen, and the words Astra changed because they meant something else to developers, are in the glossary of [skills/dev-mindset](skills/dev-mindset/SKILL.md). The programmer column and the sections from "The pet program page" to "Process words" were added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-19, from every Markdown file and registry in this repo.
 
@@ -18,8 +26,9 @@ else changes. This page stays the place where each word is chosen: change a word
 
 | Part | Call it | Programmer word | Not | What it is |
 |---|---|---|---|---|
-| The whole set | **pet app** | project: one repo with its app and its character | | One repo, one pet, and its app. "RGBee is a pet app." |
-| The character | **pet** | mascot (the app's character) | pixel twin | The creature itself, by name: "the Goldfish", "Data Chip". It lives on the Windows desktop and in its app's pet well. |
+| The whole set | **a Pet and its Pet Program** | project: one repo holding an agent and its control hub | pet app, pet apps | One repo: one Pet and the Pet Program it lives in. "Rift Rabbit is a Pet; Wonderland Launchpad is its Pet Program." When you mean only the character, say Pet; only its home, Pet Program. |
+| The character | **Pet (Agent)** | agent (its pictures are the mascot) | pixel twin | The creature itself, by name: "the Goldfish", "Data Chip", "Rift Rabbit". It lives on the Windows desktop and in its Pet Program's pet well. Short form: Pet. |
+| Its home | **Pet Program (Agent's Living Space)** | control hub: the program the agent runs and its dashboard | | The one main program a Pet stands for and lives in, named in `pet-programs.json`: Wonderland Launchpad, The Farm, Unity Stable. Its page is the pet program page. Short form: Pet Program. |
 | The full window | **app** | application (its user interface) | pet app's app, application interface, pet interface, local interface, browser companion | What opens when you double-click the pet. Either a **web app** (an HTML page) or a **Windows app** (a program). The Farmer's app is called his **desk**. |
 | The pet on your desktop | **desktop pet** | desktop overlay: an always-on-top animated sprite window | pet app icon, desktop companion | The small pet that sits on the Windows desktop above other windows. Optional: the Farmer and Claude Bot have one. |
 | The pet talking | **bubble** | toast notification (one way) | speech bubble, chat bubble | A short line that pops up over the pet for a few seconds. One way: the pet talks to you. The lines live in `says` in pets.json. |
@@ -46,7 +55,7 @@ So: the pet floating on the desktop is the **desktop pet** (an *icon* is the sti
 | Call it | Programmer word | Meaning |
 |---|---|---|
 | **host** | host: the coordinator app (`role: "host"`) | The Friendly Farmer. Exactly one. |
-| **companion** | secondary character (a second sprite in the same app) | A second character drawn with a pet app (registry `companions`). Only this meaning: what used to be called a desktop companion is a desktop pet, and a browser companion is a web app. |
+| **companion** | secondary character (a second sprite in the same app) | A second character drawn with a Pet (registry `companions`). Only this meaning: what used to be called a desktop companion is a desktop pet, and a browser companion is a web app. |
 | **mascot** | mascot with no app | A character with no app of its own (registry `mascots`). |
 | **guest** | third-party character (someone else's, never copied) | A visitor from outside the Cage, such as BSOD. |
 
@@ -62,7 +71,7 @@ farmhands; they are not pets.*
 | **the Farmer's desk** | main dashboard: a launcher plus a to-do list | The Farmer's app: every app plus a follow-up list. |
 | **registry** | registry (the app catalog, a JSON manifest) | `pets.json`. |
 | **roster** | generated catalog page | `ROSTER.md`. |
-| **job** | one-line description (purpose statement) | The one sentence that says what a pet app does. |
+| **job** | one-line description (purpose statement) | The one sentence that says what a Pet does. |
 | **status** | maturity: prototype, beta, stable | `hatching`, `growing` or `grown`. |
 | **card** | ticket: a task file kept in the repo | A task in a `handoffs/` folder, for whichever assistant picks it up. |
 
@@ -111,7 +120,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **Friendly Farmer** | orchestrator and package manager | The pet that organizes the pets, hatches new ones and keeps the farm lock. |
 | **the pets** | the apps (modular apps, each with an optional AI agent) | Every intelligent app together. Never "the herd". |
 | **intelligent app** | app with an optional AI agent | What a pet is. "An Intelligent App, or Pet." |
-| **pet program** | program: the one main program a pet stands for | An app, site, world, service or script, like The Farm or Unity Stable. |
+| **Pet Program (Agent's Living Space)** | control hub: the one main program a Pet stands for | An app, site, world, service or script the Pet lives in, like The Farm, Unity Stable or Wonderland Launchpad. Defined with the parts at the top. |
 | **pet program icon** | mascot (the character); the icon files are its pictures | The pet's character, like the Friendly Farmer. |
 | **home** | product name of the pet program | The name in `pet-programs.json`, like **Unity Stable**. |
 | **L1 Programs** | application layer: dependencies plus owned code | The third-party programs it runs, and the programs and tools it makes. |

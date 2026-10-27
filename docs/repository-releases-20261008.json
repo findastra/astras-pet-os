@@ -3,7 +3,7 @@
   "date": "2026-10-08",
   "timezone": "America/Denver",
   "prepared_by": "OpenAI Codex (GPT-6)",
-  "purpose": "Exact source publication ledger for the 18 registered pet apps. Source publication, GitHub Release and website hosting are separate verification states.",
+  "purpose": "Exact source publication ledger for the 18 registered Pets. Source publication, GitHub Release and website hosting are separate verification states.",
   "summary": {
     "registered_entries": 18,
     "repositories_created_verified": 18,

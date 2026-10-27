@@ -51,7 +51,7 @@ for (const [repo, short, title] of RELEASES) {
       try {
         run('git', ['init', '-q'], { cwd: dir });
         run('git', ['fetch', '-q', '--depth', '1', url, main], { cwd: dir });
-        run('git', [...TAGGER, 'tag', '-a', TAG, '-m', 'Astra pet app source 0.1.1-20261009', main], { cwd: dir });
+        run('git', [...TAGGER, 'tag', '-a', TAG, '-m', 'Astra Pet and Pet Program source 0.1.1-20261009', main], { cwd: dir });
         run('git', ['push', '-q', url, `refs/tags/${TAG}`], { cwd: dir });
       } finally { rmSync(dir, { recursive: true, force: true }); }
     }

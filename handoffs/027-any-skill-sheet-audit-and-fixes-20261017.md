@@ -13,7 +13,7 @@ tricks, a proposed new skill sheet, the work pushed to "the skill-scout repo", a
   - `rules/skill-scout-rules-20261017.json`: retired names, old folders, known conflicts (data, not code).
   - `test/skill-scout-test-20261017.mjs`: 29 tests, each rule with a "does not fire" case. `npm test` passes.
   - Tricks: `skills/skill-census`, `skills/skill-fix`, `skills/write-a-skill`; `templates/` for SKILL.md and AGENTS.md.
-  - `proposals/pet-app/SKILL.md`: pet-app v2; review of v1 in `docs/pet-app-skill-review-20261017.md`.
+  - `proposals/pet-app/SKILL.md`: pet-app v2; review of v1 in `docs/pet-app-skill-review-20261017.md`. The hub's skill is `skills/build-a-pet` since 2026-10-26 (Astra retired the old word), so v2 lands there if adopted.
   - `docs/skill-sheet-audit-20261017.md`: the audit (what to fix and why, systemic errors, future paths, fix plan).
   - `index.html` (pet program page to the framework), `pet.json` (first pet with an `intelligence_levels` block),
     README, AGENTS.md, CLAUDE.md, `data/catalog-public-20261017.*` (public catalog), `art/` (the 2026-10-12 seed icon,

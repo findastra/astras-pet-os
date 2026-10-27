@@ -5,7 +5,7 @@ needs: PET-PROGRAM-FRAMEWORK.md (section 3), docs/images/pet-program-page-sketch
 ---
 ## What I did
 
-Astra, 2026-10-18: "please make sure every single pet app has a pet program spawn page, with just the basics first",
+Astra, 2026-10-18: please make sure every single Pet has "a pet program spawn page, with just the basics first",
 then, with her sketch of the Unity Den: "they need these at a minimum, and more." "Spawn page" is the page the Friendly
 Farmer's Pet Program spawner makes (her words in the Startup Star chat that saved the sketch, 2026-10-18).
 

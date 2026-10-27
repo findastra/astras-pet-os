@@ -17,7 +17,7 @@ asked: "Check that it worked and that the profile round can read it."
   another chat, was closed by its chat.
 - **The profile round** (findastra/findastra, `.github/workflows/farmer-profile-round.yml`, daily at 12:47 UTC) checks
   the hub out under its old repo name; GitHub redirects it, and a signed-out `git ls-remote` of it works
-  now. But a dry run on a copy of the profile README stopped with `No "pet apps" or "PetOS" section`: on 2026-10-20 at
+  now. But a dry run on a copy of the profile README stopped because the profile had no pet list (no section named for the pets or Astra's PetOS): on 2026-10-20 at
   00:14 Denver two edits on GitHub (`22db404`, `665153e`) took the numbered pet list (174 lines) and the Astra's PetOS
   section (16 lines) off the profile.
 - **Question deck:** https://claude.ai/artifact/9SfwjGUKgcZVHntJ3Vev95 (four questions).
@@ -26,7 +26,7 @@ asked: "Check that it worked and that the profile round can read it."
 
 | # | Question | Answer | Where it landed |
 |---|---|---|---|
-| 1 | The profile round, now the profile has no pet list | A: skip quietly | `scripts/farmer-profile-20261009.mjs`: with no "pet apps" or "PetOS" section it changes nothing (the other sections included) and says why; a new test in `test/pet-first-test-20261016.mjs`. This card's pull request. |
+| 1 | The profile round, now the profile has no pet list | A: skip quietly | `scripts/farmer-profile-20261009.mjs`: with no section named for the pets or Astra's PetOS it changes nothing (the other sections included) and says why; a new test in `test/pet-first-test-20261016.mjs`. This card's pull request. |
 | 2 | paper-girl's site job, failing since it went private | A: switch the job off, keep it private | **Her click**, not done by a chat: findastra/paper-girl › Actions › Deploy to GitHub Pages › Disable workflow. |
 | 3 | The old Aquarium app copy (`apps/github-goldfish-20261008.html`, the Oct 8 v0.1) | A: replace it with the Goldfish's current page | The same copy (findastra/github-goldfish `df01a46`) landed first through #201, from the word-audit chat, merged on Astra's OK; this card's pull request makes no further change to it. Card 068, task 2. |
 | 4 | The name "Showcase" | A: keep it | github-goldfish [#25](https://github.com/findastra/github-goldfish/pull/25): AGENTS.md says confirmed; the README's picture line names the app and the pet program page (card 068, tasks 3 and 4). |

@@ -26,6 +26,6 @@ if (process.argv.includes('--online')) {
 }
 if (problems.length) { console.error(problems.map((s) => '- ' + s).join('\n')); process.exit(1); }
 const stand = Object.entries(art.pets).filter(([, a]) => a.placeholder).map(([id]) => id);
-console.log(`Pets OK: ${registry.pets.length} pet apps, ${(registry.mascots || []).length} mascot(s), ${Object.keys(art.pets).length} characters drawn at ${art.size}px.`);
+console.log(`Pets OK: ${registry.pets.length} Pets, ${(registry.mascots || []).length} mascot(s), ${Object.keys(art.pets).length} characters drawn at ${art.size}px.`);
 // A placeholder is not an error (the desktop pets still work), but it is not finished art either.
 if (stand.length) console.log(`Placeholder art, needs regenerating: ${stand.join(", ")}`);

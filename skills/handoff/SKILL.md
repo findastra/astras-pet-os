@@ -133,7 +133,7 @@ GitHub is the shared desk for the farm. "Tell the Farmer" means a card in
 `findastra/astras-pet-os/handoffs/`, subject to the existing authorization for that work.
 The catalog assigns this existing trick to The Farm; provider copies are installations,
 not a change of ownership, runtime capability or permissions.
-For pet development, use the current `pet-app` skill and the hub's full reading requirements,
+For Pet and Pet Program development, use the current `build-a-pet` skill and the hub's full reading requirements,
 including its architecture, migration plan and ownership assignments. Its registration,
 framework, security and `cage.submit` rules remain authoritative; do not revive the retired
 Cage UI. Resolve these references from the hub root, not this installed skill's folder.

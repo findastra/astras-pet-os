@@ -15,6 +15,7 @@ The text below is the 2026-10-09 design, unchanged except the repo's new name (`
 | 3 (the chat bot) | **Decided in another form:** every pet program has a chat bot shaped like its icon, running in L3 chat ([PET-PROGRAM-FRAMEWORK.md](../PET-PROGRAM-FRAMEWORK.md); Flash Audit A22, A44). Whether it files GitHub issues is still this page's open question. |
 | 4, decision 2 (live Claude) | **Still open.** Related: the Farmer's round now opens pull requests (gap 11, 2026-10-17) and needs the repo setting "Allow GitHub Actions to create and approve pull requests". |
 | 5, decision 4 (moods for "needs Astra") | **Still open.** PET-FILES.md still uses `sick` for "I need you". |
+| Words on this page | Astra retired the old word for a Pet and its Pet Program on 2026-10-26 ([PET-WORDS.md](../PET-WORDS.md)); this page now says Pet and Pet Program where it used it, her 2026-10-09 chat bot name included (Claude Opus 5.5, 2026-10-26). |
 | 6 (systemic updates) and 7 (the github-desk skill) | **Not built.** Related skills exist: [handoff](../skills/handoff/SKILL.md) and [merge-order](../skills/merge-order/SKILL.md). |
 
 Astra works with several assistants (Claude accounts, OpenAI Codex, others) across every
@@ -23,14 +24,14 @@ desk**: every request, question, answer and systemic change travels through it, 
 format that any assistant can read without having been in the conversation.
 
 This blueprint is piloted in the Friendly Farmer (this repo) first. When the pilot works, it
-becomes systemic update **U001** (section 6) and every pet app takes it as it is next updated.
+becomes systemic update **U001** (section 6) and every Pet takes it as its Pet Program is next updated.
 
 ## 1. Words
 
 | Astra says | Pet words (PET-WORDS.md) | Notes |
 |---|---|---|
 | The Program | **app** | The full window. *Decision for Astra: keep "app", or rename it "program" everywhere.* |
-| Pet App Chat Bot | **chat bot** (new part) | The round button at the bottom right of the app. Two-way, like quick chat, but it lives in the app and reaches GitHub. Added to PET-WORDS.md in the pilot. |
+| Pet Chat Bot | **chat bot** (new part) | The round button at the bottom right of the app. Two-way, like quick chat, but it lives in the app and reaches GitHub. Added to PET-WORDS.md in the pilot. |
 | Icon | **pet** in the app's pet well / **desktop pet** / **app icon** | Unchanged. |
 | Icon Emotions | **moods** | Each pet keeps its own mood key (section 5). |
 
@@ -157,7 +158,7 @@ An update note uses the same header:
 update: U001
 title: The chat bot and the queue
 from: <model and version>, <date>
-applies to: every pet app | <list of repos>
+applies to: every Pet | <list of repos>
 needs: <files to read first>
 ---
 ## What changes and why
@@ -183,7 +184,7 @@ Astra's account so every Claude session in every project starts the same way:
 
 1. Find the repo; read its AGENTS.md / CLAUDE.md.
 2. Read its open `queue` issues and its `handoffs/` cards; take what is `for:` you.
-3. If it is a pet app, apply any pending updates from the Farmer.
+3. If it is a Pet's repo, apply any pending updates from the Farmer.
 4. Work; reply in the message format; ask Astra with `decision`/`urgent`, never in chat only.
 5. Leave anything unfinished as an issue, not a chat message.
 

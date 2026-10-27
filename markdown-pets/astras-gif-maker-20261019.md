@@ -6,7 +6,7 @@
 
 Makes GIFs in the browser.
 
-Its job in the registry: Placeholder for a pet app that will make GIFs.
+Its job in the registry: Placeholder for a Pet that will make GIFs.
 
 ## Open it with nothing to install
 

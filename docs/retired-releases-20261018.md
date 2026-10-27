@@ -15,7 +15,7 @@ Notes, as published:
 > 
 > The optional Windows Farmer companion now follows the real BSOD mini continuously from the right, at a fixed case-to-feet height. Browser group dragging is separate from the native mini.
 > 
-> Validation: 36 automated tests and the 18-entry registry check passed. Live browser checks verified all four drag handles, pet app launching, and selected interface workflows. Native tracking passed synthetic movement tests and an independent review.
+> Validation: 36 automated tests and the 18-entry registry check passed. Live browser checks verified all four drag handles, [launching each Pet's app], and selected interface workflows. Native tracking passed synthetic movement tests and an independent review.
 > 
 > Exact source: [1df0f2d57ed8f6ee8d166ebc988cfa95abe9d0c8](https://github.com/findastra/astras-pet-os/commit/1df0f2d57ed8f6ee8d166ebc988cfa95abe9d0c8). [Publication record](https://github.com/findastra/astras-pet-os/blob/main/docs/publications-20261008.md) and per-app source ledger are included. Open cage.html locally. This private source release does not create a new public hosted site.
 > 

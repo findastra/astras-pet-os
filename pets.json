@@ -90,19 +90,27 @@
     ]
   },
   "words": {
-    "about": "One name for each part of a pet app; PET-WORDS.md explains them. The GitHub Goldfish reads this list and flags the retired names in pet repos. test/pet-words-test-20261009.mjs keeps it in step with PET-WORDS.md.",
+    "about": "One name for each part of a Pet and its Pet Program; PET-WORDS.md explains them. The GitHub Goldfish reads this list and flags the retired names in pet repos. test/pet-words-test-20261009.mjs keeps it in step with PET-WORDS.md.",
     "parts": [
       {
-        "say": "pet app",
-        "means": "the whole set: one repo, one pet and its app",
-        "retired": []
+        "say": "a Pet and its Pet Program",
+        "means": "the whole set: one repo, one Pet and the Pet Program it lives in (Astra, 2026-10-26)",
+        "retired": [
+          "pet app",
+          "pet apps"
+        ]
       },
       {
-        "say": "pet",
-        "means": "the character itself, by name",
+        "say": "Pet (Agent)",
+        "means": "the character itself, by name; Pet in running text",
         "retired": [
           "pixel twin"
         ]
+      },
+      {
+        "say": "Pet Program (Agent's Living Space)",
+        "means": "the one main program a Pet stands for and lives in, named in pet-programs.json; Pet Program in running text",
+        "retired": []
       },
       {
         "say": "app",
@@ -1871,7 +1879,7 @@
       "pet": "Gif Giraffe",
       "visibility": "private",
       "status": "hatching",
-      "job": "Placeholder for a pet app that will make GIFs.",
+      "job": "Placeholder for a Pet that will make GIFs.",
       "added": "2026-10-09",
       "version": "0.1.0",
       "version_assigned": true,
@@ -2827,7 +2835,7 @@
     }
   ],
   "seeds": {
-    "about": "Approved by Astra on 2026-10-11 as future pets. A seed has a name and nothing built; it is not counted as a pet app. When a seed gets a repo it moves to the pipeline. Jobs marked undecided are Astra's to decide.",
+    "about": "Approved by Astra on 2026-10-11 as future pets. A seed has a name and nothing built; it is not counted as a Pet with a Pet Program yet. When a seed gets a repo it moves to the pipeline. Jobs marked undecided are Astra's to decide.",
     "pets": [
       {
         "pet": "Pole Puff",

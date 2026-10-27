@@ -1,11 +1,13 @@
 ---
-name: pet-app
-description: Build, update, audit or publish an Intelligent App (Pet) in Astra's PetOS, including its GitHub registration and visible UI. Use for pet program work in Codex or Claude, not real animals or ChatGPT Work pet customization.
+name: build-a-pet
+description: Build, update, audit or publish a Pet (Agent) and its Pet Program (Agent's Living Space) in Astra's PetOS, including its GitHub registration and visible UI. Use for Pet and Pet Program work in Codex or Claude, not real animals or ChatGPT Work pet customization.
 ---
 
-# Intelligent App development
+# Build a Pet
 
-OpenAI Codex (GPT-6), 2026-10-18. Shared instructions for OpenAI Codex and Anthropic Claude.
+OpenAI Codex (GPT-6), 2026-10-18. Shared instructions for OpenAI Codex and Anthropic Claude. Named `pet-app` until
+2026-10-26, when Astra retired that word (PET-WORDS.md): a **Pet (Agent)** lives in its **Pet Program (Agent's Living
+Space)**, as Rift Rabbit lives in Wonderland Launchpad. Renamed by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-26.
 
 ## Read the complete current rules before work
 
@@ -39,4 +41,4 @@ A pet program is a control panel (Astra, 2026-10-19): its page shows how things 
 
 ## Both providers
 
-The maintained source is `astras-pet-os/skills/pet-app/SKILL.md`. Install the same file in `%USERPROFILE%/.codex/skills/pet-app/SKILL.md` and `%USERPROFILE%/.claude/skills/pet-app/SKILL.md`. Do not edit bundled or cached skills. Verify the copies match and validate the frontmatter. A newly installed skill may need a new provider session to appear in its skill catalog; direct file reading still works.
+The maintained source is `astras-pet-os/skills/build-a-pet/SKILL.md`. Install the same file in `%USERPROFILE%/.codex/skills/build-a-pet/SKILL.md` and `%USERPROFILE%/.claude/skills/build-a-pet/SKILL.md`, and remove the old `pet-app` folder from both (`%USERPROFILE%/.codex/skills/pet-app`, `%USERPROFILE%/.claude/skills/pet-app`) so the retired name stops loading. Do not edit bundled or cached skills. Verify the copies match and validate the frontmatter. A newly installed skill may need a new provider session to appear in its skill catalog; direct file reading still works.

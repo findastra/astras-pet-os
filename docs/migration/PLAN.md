@@ -105,7 +105,7 @@ a phone over private access.
 
 ## Seeded pets (Astra, 2026-10-11)
 
-Approved names with nothing built, recorded under `seeds` in `pets.json`. A seed is not a pet app
+Approved names with nothing built, recorded under `seeds` in `pets.json`. A seed has no repo or Pet Program yet
 and is not counted. It moves to the pipeline when it gets a repo, then to the Farm like any pet.
 
 | Seed | What is known | Next step |

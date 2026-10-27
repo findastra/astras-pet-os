@@ -23,7 +23,7 @@ lives on Astra's PC at `%USERPROFILE%\Documents\ChatGPT\Voicemeeter Bug\`.
   - `test/cage-controls-test-20261008.mjs`: the bug is caged during the two zone/flock tests.
     The fish and birds chase bugs by design (`cage_life.chases`), which pulled them out of the
     zones those tests measure. The real Cage still lets them chase him.
-  - Rebuilt with `npm run build`. `npm test` passed 62/62, five runs in a row. `npm run check` reported 19 pet apps.
+  - Rebuilt with `npm run build`. `npm test` passed 62/62, five runs in a row. `npm run check` reported 19 pets.
 - This commit: this card, its README row (plus the missing row for card 007), and the
   `## What I did` rule in `skills/handoff/SKILL.md`.
 

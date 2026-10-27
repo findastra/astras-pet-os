@@ -1,7 +1,7 @@
 status: open (waiting on Astra: approve core pipeline enrollment and merge)
 for: farmer
 from: OpenAI Codex (GPT-6), 2026-10-18
-needs: AGENTS.md, CLAUDE.md, every top-level Markdown file, skills/pet-app/SKILL.md, cards 012 and 032
+needs: AGENTS.md, CLAUDE.md, every top-level Markdown file, skills/build-a-pet/SKILL.md (named pet-app until 2026-10-26), cards 012 and 032
 ---
 ## What I did
 

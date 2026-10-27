@@ -4,7 +4,7 @@ Read-only inventory by OpenAI Codex (GPT-6). Checked live GitHub owner repositor
 
 ## Scope and result
 
-At the initial audit snapshot, the local hub registry had 19 registered pets and 14 pipeline apps. **Chat Rat is an additional established pet app missing from both lists.** Every pipeline app and Chat Rat already has a GitHub repository. All app repositories inspected have only main. The separate branch audit found no extra new-pet art in any of the hub's nine non-main branches.
+At the initial audit snapshot, the local hub registry had 19 registered pets and 14 pipeline apps. **Chat Rat is an additional established Pet missing from both lists.** Every pipeline app and Chat Rat already has a GitHub repository. All app repositories inspected have only main. The separate branch audit found no extra new-pet art in any of the hub's nine non-main branches.
 
 Seven pipeline apps have no image art: Claude Bot, RGBee, Mine Mole, Mail Snail, Patch Cat, Backup Beaver, and Rift Rabbit. Existing work should be reused for the other seven pipeline apps and Chat Rat. Deck Duck's art explicitly identifies itself as a hand-drawn stand-in. Meme Fiend has one icon, not nine moods.
 
@@ -33,9 +33,9 @@ Local root abbreviation below: `%USERPROFILE%/Documents/Projects/`.
 - Hub card `handoffs/006-farmer-register-fuzzboi-friend.md` and remote `fuzzboi-friend/cage/README.md` both say the paid sheet is ready; the patch's file list was verified live and contains the sheet, nine frames, and reference.
 - Mine Mole's generation failed for lack of credits on 2026-10-09; its handoff explicitly says nothing was billed and no art exists.
 - `%USERPROFILE%/Documents/ChatGPT/Findastra Pet Apps/pet-system-audit-20261011.json` independently records the existing GIF Giraffe art and stale new-pet handoffs. Its older total of 18 registered pets predates the now-registered Voicemeeter Bug.
-- The archived `pet-repositories-20261008` and `interface-repositories-20261008` folders contain the already registered pet apps, not additional missing pipeline art.
+- The archived `pet-repositories-20261008` and `interface-repositories-20261008` folders contain the already registered Pets and their apps, not additional missing pipeline art.
 - Role Fairy exists publicly at `findastra/role-fairy`, but its README describes a Discord role picker. It has no pet.json, sprite assets, pet-app topic, or registry entry. It is not counted as an established new pet.
-- Other nonpet app repositories, existing characters, and candidate world projects are not new pet-art gaps.
+- Other repositories that are not Pets, existing characters, and candidate world projects are not new pet-art gaps.
 
 ## Handling notes
 

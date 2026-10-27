@@ -321,7 +321,7 @@ const Goldfish = (() => {
     }).filter((rule, i, all) => all.findIndex((other) => other.repo === rule.repo && other.from.toLowerCase() === rule.from.toLowerCase()) === i);
   }
 
-  // Pet words: one name per part of a pet app. The list lives in the Cage registry
+  // Pet words: one name per part of a Pet and its Pet Program. The list lives in the hub's registry
   // (pets.json "words", explained in astras-pet-os/PET-WORDS.md); the Goldfish only reads it.
   const WORDS_PAGE = 'PET-WORDS.md'; // names the retired words on purpose
   function petWords(registry) {
@@ -331,7 +331,7 @@ const Goldfish = (() => {
       if (!p || typeof p.say !== 'string' || !p.say.trim() || !Array.isArray(p.retired)) continue;
       for (const r of p.retired.slice(0, 20)) if (typeof r === 'string' && r.trim() && r.length <= 60 && !/[\u0000-\u001f]/.test(r)) out.push({ from: r.trim().replace(/’/g, "'"), to: p.say.trim() });
     }
-    return out.sort((a, b) => b.from.length - a.from.length); // longest first: "pet app icon chat" before "pet app icon"
+    return out.sort((a, b) => b.from.length - a.from.length); // longest first: a three-word retired name before the two-word one inside it
   }
   function petWordChecks(repo, where, text, kind, ctx, sink) {
     if (!text || !ctx.petWords.length || where === WORDS_PAGE) return;
@@ -342,7 +342,7 @@ const Goldfish = (() => {
       for (const m of t.matchAll(re)) sink.add('Organizational', 'note', repo, where, `Old pet word: "${m[0]}". Say "${to}".`, {
         line: kind === 'md' ? lineOf(text, m.index) : undefined,
         evidence: clip(text.slice(Math.max(0, m.index - 25), m.index + m[0].length + 25).replace(/\n/g, ' ')),
-        fix: `One name per part of a pet app: see ${HUB}/${WORDS_PAGE}.`,
+        fix: `One name per part of a Pet and its Pet Program: see ${HUB}/${WORDS_PAGE}.`,
       });
       t = t.replace(re, blank); // a shorter phrase must not match inside a longer one already reported
     }
@@ -703,7 +703,7 @@ const Goldfish = (() => {
       const R = (where, text, kind) => S(name, where, text, kind);
       const topics = r.topics || [];
       const hasPetJson = r.files['pet.json'] != null;
-      const isPet = hasPetJson || topics.includes('pet-app'); // the Cage's own repo is a pet app too (the Friendly Farmer)
+      const isPet = hasPetJson || topics.includes('pet-app'); // the hub's own repo is a Pet too (the Friendly Farmer, with The Farm)
       if (isPet) petRepos.push(r);
 
       /* text surfaces */
@@ -790,7 +790,7 @@ const Goldfish = (() => {
         if (readme != null) {
           const head = readme.split('\n').filter((l) => l.trim()).slice(0, 8).join('\n');
           // Astra, 2026-10-20: the credit is "By Astra." The longer credit lines are retired (card 033's line of 2026-10-18,
-          // and the pet app line before it), so a README that still has one is a finding.
+          // and the "A pet app by Astra." line before it), so a README that still has one is a finding.
           if (/Intelligent App,? \(?or Pet\)?,? by Astra|A pet app by Astra/i.test(readme)) add('Document control', 'error', name, 'README.md', 'README still has a retired credit line.', { fix: 'Replace it with "*By Astra.*" (Astra, 2026-10-20).' });
           else if (!/\bBy Astra\b/i.test(head)) add('Document control', 'error', name, 'README.md', 'README does not open with "*By Astra.*" (public credit).', { fix: 'Put "*By Astra.*" right under the title.' });
           const hs = headings(readme).map((h) => h.text);
@@ -1054,7 +1054,7 @@ const Goldfish = (() => {
   const ago = (iso, now) => (iso ? Math.floor((now - Date.parse(iso)) / DAY) : null);
   const firstSentence = (md) => {
     const p = md.replace(/(^|\n)(```|~~~)[^\n]*\n[\s\S]*?(\n\2[^\n]*|$)/g, '\n').replace(/!\[[^\]]*\]\([^)]*\)/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/<(https?:[^>\s]+)>/g, '$1').replace(/<[^>\n]+>/g, ' ').replace(/[<>`]/g, '').split('\n').map((l) => l.trim())
-      .filter((l) => l && !/^(#|!|\||>|<|[-*]\s*$)/.test(l) && !/^\*[^*]+\*$/.test(l) && !/^(an intelligent app|a pet app)\b|^by astra\.?$/i.test(l.replace(/[*_]/g, '').trim()));
+      .filter((l) => l && !/^(#|!|\||>|<|[-*]\s*$)/.test(l) && !/^\*[^*]+\*$/.test(l) && !/^(an intelligent app|a pet app by astra)\b|^by astra\.?$/i.test(l.replace(/[*_]/g, '').trim()));
     const s = (p[0] || '').replace(/[*_]/g, '').replace(/\s+/g, ' ').trim();
     return clip((/^(.+?[.!?])(\s|$)/.exec(s) || [null, s])[1], 220);
   };

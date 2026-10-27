@@ -139,7 +139,7 @@ Public credit is always **Astra**, never a legal name. Keep work information (in
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record each change in its own new file in `changes/` ("Changes are recorded in `changes/`" below), never as a new line here.
 
 ## What this is
-The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
+The hub for Astra's PetOS, and itself a Pet with its Pet Program: its Pet is the **Friendly Farmer**, whose Pet Program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md` or `art/`. Run `npm run build`.
@@ -190,7 +190,7 @@ The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer
 - New asset filenames are lowercase and dated immediately before the extension. Set `asset_date`
   on a new registry entry; the sheet and all nine mood files use that suffix. Existing filenames stay unchanged.
 - Pet file rules: [PET-FILES.md](PET-FILES.md).
-- **Pet words:** one name per part (pet, app, desktop pet, bubble, quick chat, app icon, pet well). Use [PET-WORDS.md](PET-WORDS.md); `words` in pets.json is its machine-readable copy for the Goldfish. When a new part needs a name, add it to both and run `npm test`.
+- **Pet words:** one name per part (Pet (Agent), Pet Program (Agent's Living Space), app, desktop pet, bubble, quick chat, app icon, pet well); never the old word for a Pet and its Pet Program, which Astra retired on 2026-10-26 (the Not column of PET-WORDS.md). Use [PET-WORDS.md](PET-WORDS.md); `words` in pets.json is its machine-readable copy for the Goldfish. When a new part needs a name, add it to both and run `npm test`.
 - The GitHub Goldfish (`findastra/github-goldfish`) audits this repo and the whole account.
 - **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `cage.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
 - **The pipeline** in pets.json holds pets that are on GitHub but not registered (no art yet). Registering one moves it to `pets`.
@@ -206,4 +206,4 @@ The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer
 
 ## Complete top-level Markdown reading (Astra, 2026-10-18)
 
-Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [pet-app](skills/pet-app/SKILL.md). OpenAI Codex (GPT-6), 2026-10-18.
+Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [build-a-pet](skills/build-a-pet/SKILL.md) (its old name, `pet-app`, is retired: PET-WORDS.md). OpenAI Codex (GPT-6), 2026-10-18.
