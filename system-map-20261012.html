@@ -411,7 +411,7 @@ const camera = new THREE.PerspectiveCamera(48,1,.1,900); camera.position.set(0,7
 // Trackball, not orbit: it turns freely in every direction, over the top and under the bottom, with no stops.
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 controls.target.copy(homeTarget());
-let autoSpin = !TOUCH && !REDUCED; // touch screens never turn (Astra, 2026-10-18), in the Pets view too
+let autoSpin = (petsOnly || !TOUCH) && !REDUCED; // touch screens never turn the full map (Astra, 2026-10-18); the Pets view spins there too (Astra, 2026-10-27)
 controls.rotateSpeed = 1.2; controls.zoomSpeed = 1.4; controls.panSpeed = .6; controls.dynamicDampingFactor = .2;
 controls.minDistance = 2; controls.maxDistance = 600;
 // The switch maps mouse BUTTONS to actions: left (0) rotates, middle (1) pans, right (2) is left free for fly-look.
@@ -1186,7 +1186,7 @@ setInterval(syncSpin,500); // other controls stop the spin
 const petsBtn=document.getElementById('vPets');
 function setPets(on){ petsOnly=on; document.body.classList.toggle('pets',on); petsBtn.setAttribute('aria-pressed',on);
   try{ const u=new URL(location.href); on?u.searchParams.set('view','pets'):u.searchParams.delete('view'); history.replaceState(null,'',u.pathname+u.search+u.hash); }catch(e){}
-  if(on){ setHudMin(true); autoSpin=!TOUCH&&!REDUCED; } syncSpin(); close(); frameAll(); }
+  if(on){ setHudMin(true); autoSpin=!REDUCED; } else if(TOUCH) autoSpin=false; syncSpin(); close(); frameAll(); }
 petsBtn.onclick=()=>setPets(!petsOnly);
 
 // ---------- touch screens: drag and pinch on the flat map, no turning (Astra, 2026-10-18) ----------

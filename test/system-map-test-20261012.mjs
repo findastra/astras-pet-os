@@ -168,7 +168,8 @@ test('on touch screens the map opens flat with no turning, and both panes fold',
   assert.match(page, /const TOUCH = matchMedia\('\(pointer: coarse\)'\)\.matches/);
   assert.match(page, /if\(TOUCH\) controls\.enabled = false;/, 'the trackball must not turn the map on touch');
   assert.match(page, /if\(TOUCH\)\{ flat=true;/, 'touch screens open on the flat map');
-  assert.match(page, /let autoSpin = !TOUCH/, 'no spin on touch');
+  // Astra, 2026-10-27 ("Spin on phones too"): the Pets view spins on touch screens too; the full map still never does.
+  assert.match(page, /let autoSpin = \(petsOnly \|\| !TOUCH\)/, 'no spin on touch, except in the Pets view');
   assert.match(page, /id="nSpin"[^>]*|class="btn no-touch" id="nSpin"/);
   assert.match(page, /class="dims no-touch"/, 'the 3D switch is hidden on touch');
   assert.match(page, /id="hudMin"/, 'the key panel has its fold button');
