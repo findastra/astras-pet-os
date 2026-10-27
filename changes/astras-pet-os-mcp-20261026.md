@@ -17,3 +17,8 @@ existing repos only, free tiers only, one branch and one pull request per item).
   (TOOLS-AND-TRICKS.md registry, The Farm's pet program page, the Markdown pets, the System Map).
 - `skills/new-pet-or-tool/SKILL.md` (the decision: a tool of The Farm, Astra approves by merging),
   `INTELLIGENCE-LEVELS.md` (the Friendly Farmer's row), `docs/astras-pet-os-mcp-20261026.md`.
+
+Review fixes (2026-10-26): handoff card file names may hold capitals (open card
+`011-any-claude-session-012RaHVD-wrapup-20261012.md` was left out of `list_open_handoffs` and the resources); still no
+dots, slashes or backslashes. Tests check every numbered card on disk is read and that card 011 is listed and readable.
+Claude Opus 5.5 (`claude-opus-5-5`).

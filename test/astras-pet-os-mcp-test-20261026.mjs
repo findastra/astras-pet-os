@@ -114,6 +114,22 @@ test('list_open_handoffs: open cards only ("done when" is still open), newest fi
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('card file names in any case are cards; names that could leave handoffs/ never are (review fix, 2026-10-26)', () => {
+  for (const ok of ['011-any-claude-session-012RaHVD-wrapup-20261012.md', '001-farmer-register-thing.md', '250-Claude-X-20261026.md'])
+    assert.match(ok, farm.HANDOFF_FILE, ok);
+  for (const bad of ['../AGENTS.md', '011-../AGENTS.md', '011-a/../../b.md', '011-a\\..\\b.md', '011-a..b.md', '011-a.b.md',
+    '011--a.md', '011-a-.md', '011-.md', '11-a.md', '011-a.md.txt', '011-a.MD', 'README.md', '011-a b.md', '011-a%2F..%2Fb.md'])
+    assert.doesNotMatch(bad, farm.HANDOFF_FILE, bad);
+  const dir = standInFarm();
+  try {
+    writeFileSync(join(dir, 'handoffs', '260-any-session-012RaHVD-wrapup-20261012.md'), 'status: open\nfor: any\n---\n## What I did\n- x\n');
+    const card = farm.listOpenHandoffs(dir).cards.find((c) => c.number === 260);
+    assert.ok(card, 'a card with capitals in its name is listed');
+    assert.equal(card.topic, 'session 012RaHVD wrapup');
+    assert.match(farm.readHandoff(dir, 260).text, /What I did/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('get_rule: one section by heading, up to the next of its level; only the listed rule files', () => {
   const dir = standInFarm();
   try {
@@ -144,6 +160,16 @@ test('the real farm: every pet program resolves, and the files the server reads 
   assert.ok(farmer.intelligence_levels, 'INTELLIGENCE-LEVELS.md still has its per-pet table');
   assert.ok(farmer.tools_and_tricks.items.some((t) => t.name === 'click-check'), 'TOOLS-AND-TRICKS.md still has its registry table');
   assert.ok(farm.listOpenHandoffs(root).count > 0);
+  // No card is left out silently: every numbered .md in handoffs/ is one the server reads (card 011 has capitals).
+  const onDisk = readdirSync(join(root, 'handoffs')).filter((f) => /^\d{3}-.*\.md$/i.test(f)).sort();
+  assert.deepEqual(farm.handoffFiles(root), onDisk);
+  const real = '011-any-claude-session-012RaHVD-wrapup-20261012.md';
+  if (existsSync(join(root, 'handoffs', real))) {
+    assert.ok(farm.handoffFiles(root).includes(real), `${real} is listed`);
+    assert.match(farm.readHandoff(root, 11).text, /^status:/m);
+    const open = farm.isOpenStatus(farm.cardHeader(readFileSync(join(root, 'handoffs', real), 'utf8')).status);
+    assert.equal(farm.listOpenHandoffs(root).cards.some((c) => c.file === `handoffs/${real}`), open, `${real} is listed exactly when it is open`);
+  }
   assert.match(farm.getRule(root, 'One list of names').text, /pet-programs\.json/);
   assert.match(farm.getRule(root, 'Protection rings and animal code').text, /Agents can only control animals/);
   for (const f of farm.RULE_FILES) assert.ok(existsSync(join(root, f)), `${f} exists`);
@@ -250,6 +276,11 @@ test('MCP: resources: the name list, the rules files and the handoff cards', { s
     const card = uris.find((u) => u.startsWith('astras-pet-os://handoffs/'));
     assert.match((await client.readResource({ uri: card })).contents[0].text, /status:/);
     await assert.rejects(client.readResource({ uri: 'astras-pet-os://handoffs/..%2FAGENTS.md' }));
+    const real = 'astras-pet-os://handoffs/011-any-claude-session-012RaHVD-wrapup-20261012.md';
+    if (existsSync(join(hub, 'handoffs', '011-any-claude-session-012RaHVD-wrapup-20261012.md'))) {
+      assert.ok(uris.includes(real), 'card 011 (capitals in its name) is a resource');
+      assert.match((await client.readResource({ uri: real })).contents[0].text, /^status:/m);
+    }
   } finally { await close(); }
 });
 
