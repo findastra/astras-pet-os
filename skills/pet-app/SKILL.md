@@ -5,7 +5,8 @@ description: Build, update, audit or publish an Intelligent App (Pet) in Astra's
 
 # Intelligent App development
 
-OpenAI Codex (GPT-6), 2026-10-18. Shared instructions for OpenAI Codex and Anthropic Claude.
+OpenAI Codex (GPT-6), 2026-10-18. Shared instructions for OpenAI Codex and Anthropic Claude. The six build stages
+were added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-26.
 
 ## Read the complete current rules before work
 
@@ -32,6 +33,80 @@ Keep pet artwork in the hub's canonical art directories, with draft art clearly 
 Keep L1 program, L2 runtime and L3 agent status truthful. Launcher switches are not security enforcement. A guaranteed OFF requires disabling the underlying capability. These development skills belong to the provider's L3 seat; they are not Workflow Whale's runtime tools and confer no permissions.
 
 Run appropriate checks, privacy and filename audits. Update the hub registry proposal, System Map, authoritative program list, art index/draft list and profile source as applicable. Generate derived files using the repo's scripts. Keep a concrete handoff describing exact changes, evidence, pending adoption and unverified integrations. Push authorized source branches and attach created PRs. Do not claim a merged registration, installed native pet, iPad acceptance or live chat delivery without evidence.
+
+## Building a new pet: six stages in order (Astra, 2026-10-26, Cung List item 4)
+
+Every new pet, and every new tool or trick big enough to need its own pull request, goes through these six stages in
+order. They follow the Superpowers method (obra/superpowers: brainstorm, plan, test first, review, verify), fitted to
+the steps above. Every step above still applies; the stages say when each one happens. Do not skip a stage because the
+task looks small. A one-line fix can make its plan one line long, but it still has a test and a verification.
+
+1. **Brainstorm: what is it for, and whose is it?** Before any file is written:
+   - Restate the need in one line and give its standard software term (`skills/dev-mindset`).
+   - Run `skills/new-pet-or-tool`: the three tests (own program, own data, own schedule), the permissions it needs and
+     the privacy check. Recommend one owner and one alternative.
+   - Write down every question only Astra can answer (names, homes, owner, scope, keys) and ask them as one slideshow
+     (`skills/questions-as-slides`). Names come only from `pet-programs.json`; never invent one. A key goes through
+     `skills/key-request`.
+   - Done when Astra has agreed to the design. A small design is agreed in chat; a larger one is written down as
+     `docs/<topic>-design-YYYYMMDD.md` in the pet's repo.
+2. **Written plan: what exactly will change.** Before any code:
+   - List every file you will create or change (repo-relative paths, the house file names: lowercase, dated before the
+     extension), every test you will write, and which PET-PROGRAM-FRAMEWORK.md checklist items the work meets.
+   - Name the ring, each grant with its R W X, and whether each one is enforced, written only or planned
+     (`skills/farm-security`).
+   - Break the work into small tasks, each with the command that proves it works.
+   - Claim the scope: a handoff card with the implementer, the exact files and the reviewer (`skills/handoff`). Put the
+     plan in the card, or in `docs/<topic>-plan-YYYYMMDD.md` linked from it.
+   - Work on a `claude/` or `codex/` branch in an isolated worktree, never a second clone (above).
+3. **Test first.** For each task, write the test before the code (`node --test` in the hub, or the pet's own test
+   runner). Run it and watch it fail for the reason you expect. A test that passes before the code exists proves nothing.
+   Tools get tests that run with no network and no AI; a trick gets a check that every program, tool and trick it names
+   exists (TOOLS-AND-TRICKS.md, "lock the tools, review the tricks").
+4. **Build.** Write the smallest code that makes the test pass, then the next task. Keep the rules above: pet.json,
+   README.md, AGENTS.md, CLAUDE.md and LICENSE; art only from the hub; Node's built-in modules only in the hub;
+   generated files only through the repo's scripts; keys from environment variables, never in the repo. Commit after
+   each green task.
+5. **Self-review.** Read your own whole diff against the plan before anyone else does:
+   - Does it do what the plan said, and nothing it did not say?
+   - The framework checklist, the privacy and file-name audits, and the grants (no write or run wider than planned).
+   - Names only from `pet-programs.json`, public credit "Astra", no personal paths, no keys, no legal names.
+   - Then the maker-checker rule (`skills/farm-security`, section 7): a separate read-only checker (another model or a
+     fresh session) reviews the diff. Fix what it finds, or write down why not.
+6. **Verification: evidence before claims.** Run the full checks fresh and read their output: `npm test` in the hub and
+   in the pet's repo, `npm run build` and `npm run check` where they apply, `npm run click-check` for pages. Look at the
+   page and every mood in a browser, not only the build result. Write the commands and their pass counts in the card's
+   `## What I did` and the pull request. Anything that only Astra's PC can prove (a desktop pet, a headset, a
+   connection) is written as **not verified here**, with the exact command for her PC. Then push the branch, open the
+   pull request, give the merge order (`skills/merge-order`) and wait for Astra's OK to merge.
+
+### Superpowers itself: an optional third-party plugin for the seat
+
+[Superpowers](https://github.com/obra/superpowers) (MIT, by Jesse Vincent and Prime Radiant) is a set of skills that
+makes Claude Code or Codex follow this same method on its own. It is a **third-party harness skill set** (community
+tier): it belongs to the seat, brings no permissions, and is not part of any pet. Installing it is Astra's choice; read
+its skills before you turn it on (TOOLS-AND-TRICKS.md, "Third-party tools and tricks"). Claude Code, either of:
+
+```
+/plugin install superpowers@claude-plugins-official
+```
+
+```
+/plugin marketplace add obra/superpowers-marketplace
+/plugin install superpowers@superpowers-marketplace
+```
+
+Codex: open `/plugins`, search `superpowers`, choose Install Plugin. Its brainstorming page loads a logo from its
+makers' website that reports the Superpowers version; to turn that off, set the Windows user environment variable
+`SUPERPOWERS_DISABLE_TELEMETRY=1`. Restart the session after installing.
+
+Where Superpowers and this skill disagree, this skill and the hub rules win:
+- **Never merge.** Its last step offers "merge locally"; here the answer is always a pushed branch and a pull request,
+  merged only after Astra's OK in chat.
+- **File names.** It saves designs and plans to `docs/superpowers/specs/` and `docs/superpowers/plans/` with the date
+  first. Here they are `docs/<topic>-design-YYYYMMDD.md` and `docs/<topic>-plan-YYYYMMDD.md`, or the handoff card.
+- **Questions** go to Astra as a slideshow (`skills/questions-as-slides`), not one at a time.
+- **Worktrees** are welcome, but in the canonical repo's own worktree list, never a second clone.
 
 ## Pet programs are control panels (Astra, 2026-10-19)
 
