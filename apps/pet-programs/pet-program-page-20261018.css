@@ -736,3 +736,6 @@ input[type="checkbox"] { accent-color: var(--line); }
 }
 /* Each group of devices under its own small heading (Astra, 2026-10-24: "group the trackers, base stations, headsets"). */
 .device-group { margin: 12px 0 0; font-size: 13px; color: var(--chalk-dim); font-weight: 600; }
+/* Clicker training sits under the session notes, beside the R W X panel, and the emotions get the full width (Astra,
+   2026-10-24: "put this section over here", pointing at the space under the session notes). */
+.notes-column { display: grid; gap: 0; align-content: start; min-width: 0; }
