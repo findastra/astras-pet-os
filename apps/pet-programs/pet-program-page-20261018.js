@@ -718,42 +718,58 @@
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
   function save() { write('vrchat-launch', saved); }
-  // tracker-strapper (Astra, 2026-10-25): which device is on each of her 27 spots, and the launch options below follow it
+  // tracker-strapper (Astra, 2026-10-25): which device is on each of her 29 spots, and the launch options below follow it
   // ("then your launch options become available below"). Both headset tools show; only the one on 23 Face launches;
   // modes x.1 to x.3 wait for a tracker on 24 Head; Double Hip and Double Chest for both spots of their pair; each Object
   // Track VR object for the tracker on it. Rift Rabbit's launcher keeps the spots on her PC (vrchat-launcher-20261024.js
   // fills them in there and sends changes); anywhere else they show today's spots.
   var strapper = box.querySelector('[data-strapper]');
-  var OBJECT_SPOT = { 'dance-pole': 'DP', 'large-hoop': 'BDH', 'small-hoop': 'LDH' };
+  // Each hoop has two spots, its side and its top; a tracker on either is enough (2026-10-26).
+  var OBJECT_SPOT = { 'dance-pole': ['DP'], 'large-hoop': ['BDH', 'BDT'], 'small-hoop': ['LDH', 'LDT'] };
   function spotName(code) { var row = strapper.querySelector('[data-strap-row="' + code + '"] .strap-name'); return row ? row.textContent.replace(/\s+/g, ' ').trim() : code; }
   function strap() {
     if (!strapper) return;
-    var worn = {}, pairs = { hip: [], chest: [] };
+    var worn = {};
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) { if (sel.value) worn[sel.getAttribute('data-strap-spot')] = sel.value; });
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-pair]'), function (sel) { pairs[sel.getAttribute('data-strap-pair')][+sel.getAttribute('data-strap-i')] = sel.value; });
     function tracker(code) { return /^vive-tracker-/.test(worn[code] || ''); }
-    var full = { hip: pairs.hip.every(tracker), chest: pairs.chest.every(tracker) };
+    // The Double pairs and choice set themselves from her spots, as Rift Rabbit's launcher sets them (Astra, 2026-10-26:
+    // "I dont want to have to mess with double hip I want you do fix that program for me when I launch"): the usual
+    // pair (Front and Back Waist, Front and Back Sternum) when both are worn, else the first two worn spots of the group.
+    function pairOf(group, usual) { if (usual.every(tracker)) return usual; var f = group.filter(tracker); return f.length >= 2 ? f.slice(0, 2) : []; }
+    var pairs = { hip: pairOf(['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], ['FW', 'BW']), chest: pairOf(['FS', 'BS', 'FD', 'BD'], ['FS', 'BS']) };
+    var full = { hip: pairs.hip.length === 2, chest: pairs.chest.length === 2 };
     Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) {
       var code = g.getAttribute('data-strap-dot');
       var inPair = (full.hip && pairs.hip.indexOf(code) >= 0) || (full.chest && pairs.chest.indexOf(code) >= 0);
       g.setAttribute('data-state', !worn[code] ? 'off' : code === 'H' ? 'head' : inPair ? 'joined' : 'used');
+      // The spot draws the device on it (2026-10-26: "look like HTC Vive 3.0, and Index Controller, etc.").
+      var dev = worn[code] || '';
+      g.setAttribute('data-kind', /^vive-tracker-/.test(dev) ? 'tracker' : /^index-controller-/.test(dev) ? 'index' : /^quest-pro-controller-/.test(dev) ? 'qpro-ctrl' :
+        /^quest-3-controller-/.test(dev) ? 'q3-ctrl' : dev === 'quest-pro' ? 'qpro' : dev === 'quest-3' ? 'q3' : dev === 'hand-tracking' ? 'hand' : '');
     });
-    // The list under the drawing: only the spots with a device, one short line each, in her numbers.
-    var list = strapper.querySelector('[data-strap-worn]');
-    list.textContent = '';
-    Array.prototype.forEach.call(strapper.querySelectorAll('[data-strap-spot]'), function (sel) {
-      if (!sel.value) return;
-      var code = sel.getAttribute('data-strap-spot'), row = sel.closest('[data-strap-row]');
-      var li = document.createElement('li');
-      li.setAttribute('data-state', strapper.querySelector('[data-strap-dot="' + code + '"]').getAttribute('data-state'));
-      var n = document.createElement('b'); n.textContent = row.querySelector('.strap-name b').textContent;
-      li.appendChild(n);
-      li.appendChild(document.createTextNode(' ' + row.querySelector('.strap-name').textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim() + ' · '));
-      var dev = document.createElement('span'); dev.className = 'strap-dev'; dev.textContent = sel.selectedOptions[0].getAttribute('data-short');
-      dev.title = sel.selectedOptions[0].textContent;
-      li.appendChild(dev);
-      list.appendChild(li);
-    });
+    // Her headset on the drawing follows 23 Face (Quest Pro or Quest 3).
+    strapper.querySelector('.strap-drawing').setAttribute('data-headset', worn.F || '');
+    // What she is wearing, listed under her: headset, controllers, and every tracker with its spot and the total.
+    var devs = strapper.querySelector('[data-strap-devices]');
+    if (devs) {
+      var shortOf = function (code) { var sel = strapper.querySelector('[data-strap-spot="' + code + '"]'), o = sel && sel.options[sel.selectedIndex]; return o ? (o.getAttribute('data-short') || o.textContent) : ''; };
+      var plain = function (code) { return spotName(code).replace(/\s*\[[^\]]*\]\s*$/, ''); };
+      var fill = function (key, lines, x, cols) {
+        var g = devs.querySelector('[data-strap-dev="' + key + '"]'); g.textContent = '';
+        var per = Math.ceil(lines.length / cols) || 1;
+        lines.forEach(function (line, i) {
+          var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          t.setAttribute('class', 'strap-dev' + (/Quest/.test(line) ? ' brand-meta' : /Index/.test(line) ? ' brand-valve' : /^#\d/.test(line) ? ' brand-vive' : '')); t.setAttribute('x', x + Math.floor(i / per) * 135); t.setAttribute('y', 932 + (i % per) * 19);
+          t.textContent = line; g.appendChild(t);
+        });
+      };
+      var dots = Array.prototype.map.call(strapper.querySelectorAll('[data-strap-dot]'), function (g) { return g.getAttribute('data-strap-dot'); });
+      var trackers = dots.filter(tracker).map(function (code) { return shortOf(code).replace(/^Vive\s*/, '').replace(/\s*\[[^\]]*\]/, '') + ' ' + plain(code).replace(/^\d+\s+/, ''); });
+      fill('headset', [worn.F ? shortOf('F') : 'None'], 16, 1);
+      fill('controllers', ['RH', 'LH'].filter(function (c) { return worn[c]; }).map(function (c) { return shortOf(c).replace(/ controller$/, '') + (c === 'RH' ? ' (R)' : ' (L)'); }), 100, 1);
+      fill('trackers', trackers.length ? trackers : ['None'], 250, trackers.length > 5 ? 2 : 1);
+      devs.querySelector('[data-strap-dev-count]').textContent = 'Trackers · ' + trackers.length;
+    }
     var face = worn.F || '';
     var needs = [];
     if (!tracker('H')) needs.push(spotName('H'));
@@ -778,8 +794,11 @@
         Array.prototype.forEach.call(sel.options, function (o) { o.disabled = !!o.value && !ok(o.value); });
         if (sel.selectedOptions[0] && sel.selectedOptions[0].disabled) { sel.value = ''; sel.dispatchEvent(new Event('change', { bubbles: true })); }
       }
-      gate('double-hip', function (v) { return (v !== 'hip' && v !== 'both' || full.hip) && (v !== 'chest' && v !== 'both' || full.chest); });
-      gate('object-track', function (v) { return tracker(OBJECT_SPOT[v]); });
+      var auto = hs.querySelector('select[data-launch-switch="double-hip"]');
+      var want = full.hip && full.chest ? 'both' : full.hip ? 'hip' : full.chest ? 'chest' : '';
+      if (auto && auto.value !== want) { auto.value = want; auto.dispatchEvent(new Event('change', { bubbles: true })); }
+      // Every object stays pickable (2026-10-26: "the drop down menu for object track vr isnt working"); the launcher names a
+      // missing tracker if she launches without one.
     });
     box.dispatchEvent(new CustomEvent('strapper-change'));
   }
@@ -835,6 +854,17 @@
     var s = saved[id] = saved[id] || { switches: {}, tries: {} };
     var switches = hs.querySelectorAll('[data-launch-switch]');
     function value(input) { return input.type === 'checkbox' ? input.checked : input.value; }
+    // OSCGoesBrrr drives the Lovense toys: a toy ticked ticks it, and it unticked unticks the toys; it may still be on
+    // with no toy (Astra, 2026-10-26: "if any of the Lovense are selected, the OSCGoesBrrr is automatically selected.
+    // just as if its turned off, the lovense devices are unselected").
+    hs.addEventListener('change', function (e) {
+      var k = e.target.getAttribute && e.target.getAttribute('data-launch-switch');
+      var osc = hs.querySelector('[data-launch-switch="oscgoesbrrr"]');
+      if (!k || !osc) return;
+      function set(input, on) { if (input.checked !== on) { input.checked = on; input.dispatchEvent(new Event('change', { bubbles: true })); } }
+      if (/^lovense-/.test(k) && e.target.checked) set(osc, true);
+      if (k === 'oscgoesbrrr' && !osc.checked) Array.prototype.forEach.call(hs.querySelectorAll('[data-launch-switch^="lovense-"]'), function (c) { set(c, false); });
+    });
     function refresh() {
       var sw = {};
       Array.prototype.forEach.call(switches, function (input) { sw[input.getAttribute('data-launch-switch')] = value(input); });

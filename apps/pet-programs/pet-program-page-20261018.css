@@ -14,7 +14,20 @@
      window narrows, 16px on a phone. CSS inches are not real inches on every screen. */
   --gutter: clamp(20px, 6vw, 72px);
 }
+/* Wonderland Launchpad's own colours, a dark stormy sky (Astra, 2026-10-26: "I want the Wonderland Launchpad to be a
+   Dark Stormy vibe, so change the color theme"): storm-cloud navy and graphite, steel-blue lines, pale lightning-blue
+   links; every other pet page keeps the raspberry one. */
+:root[data-pet="rift-rabbit"] {
+  --slate: #10141c; --slate-2: #0a0d13; --chalk: #e3e9f3; --chalk-dim: #98a6bd; --line: #5b7aa6; --line-dim: #2f4058;
+  --link: #b4dcff; --connection: #8fb3d9;
+  --tool-bg: rgba(160, 190, 230, .05); --tool-bg-hover: rgba(160, 190, 230, .09);
+}
+:root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
+:root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
 * { box-sizing: border-box; }
+/* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
+   tracker choice menu still doesnt work"). */
+[hidden] { display: none !important; }
 html { background: var(--slate); }
 body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 var(--text); }
 a { color: var(--link); }
@@ -204,18 +217,19 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
 .light.care { background: var(--care); }
-.light.care.is-fix { background: var(--fix); }
+/* Report issues orange, update waiting yellow (Astra, 2026-10-26: "switch update color and report issues color"). */
+.light.care.is-fix { background: var(--update); }
 .light.is-unset { background: var(--planned); }
 /* An update waiting for your approval (Astra, 2026-10-24: "if it happens to be found on updater audit, make the light
    orange, then have L3 ask me if L4 wants to approve update"). */
-.light.care.is-update { background: var(--update); }
+.light.care.is-update { background: var(--fix); }
 /* The bubble that says what a light now means, under the light that was clicked. */
 .light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
   background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
 .light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
-.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); } .key.update { background: var(--update); }
+.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--update); } .key.planned { background: var(--planned); } .key.update { background: var(--fix); }
 
 /* Inside the intelligence-level panels. */
 /* The sections stack, each across the whole tool panel, and the pills in them go three to a row, then two, then one as
@@ -264,6 +278,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill:not(:has(> .pill-more[open])) > .cadence { display: none; }
 .pill-more > summary { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; list-style: none; }
 .pill-more > summary::-webkit-details-marker { display: none; }
+/* Every pill that opens shows the same fold arrow as the panels and tool boxes (Astra, 2026-10-26: "all of these should
+   have the drop down arrow like rift-rabbit-tracker-strapper"). */
+.items li.pill:has(> .pill-more) > .item-name::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
+.items li.pill:has(> .pill-more[open]) > .item-name::after { content: "\00A0\00A0\25BE"; }
+.items li.pill:has(> .pill-more):hover > .item-name::after { color: var(--fix); }
 .items li.pill:has(> .pill-more > summary:focus-visible) { outline: 2px solid var(--fix); outline-offset: 2px; }
 .item-desc { margin: 4px 0 2px; font-size: 13px; line-height: 1.4; color: var(--chalk); overflow-wrap: anywhere; }
 .item-desc.empty { color: var(--chalk-dim); }
@@ -496,50 +515,92 @@ img[hidden] { display: none !important; }
 /* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. She is on
    the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
    shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
-.strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
-.strap-drawing { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
-.strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
-.strap-body ellipse, .strap-body path { fill: none; stroke: #a99be8; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.strap-body .strap-band, .strap-body .strap-ring { stroke-width: 2; }
-.strap-body .strap-ring-dashed { stroke-dasharray: 5 4; }
-.strap-body .strap-hair { stroke: #c9a8f0; stroke-width: 3; }
-.strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
-.strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
-.strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
-.strap-toy-group { font: 600 13px var(--label); fill: var(--chalk-dim); }
-.strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
+/* The whole scene always fits, Poppy and every toy, with no scroll bar (Astra, 2026-10-26). */
+.strap-stage { position: relative; overflow: hidden; margin: 4px 0 0; }
+.strap-drawing { display: block; width: 100%; height: auto; margin: 0 auto; }
+.strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
+.strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
+/* Her body: a dark silhouette with a pale storm-light edge (2026-10-26: "redo the blue body too"). */
+.strap-skin { fill: #2a3552; stroke: #b9c8ea; stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(160, 200, 255, .25)); }
+.strap-boot { fill: #0e1119; stroke: #b9c8ea; stroke-width: 1.6; }
+.strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
+.strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
+.strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
+.strap-belt { fill: none; stroke: var(--link); stroke-width: 2.4; stroke-dasharray: 5 3; opacity: .85; }
+.strap-belt-link { display: none; }
+/* Hand tracking: her own hand lights up. */
+.strap-spot .ico-hand { filter: drop-shadow(0 0 5px #b4dcff); }
+.strap-dev-head { font: 600 16px var(--label); fill: var(--chalk); }
+.strap-dev { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
+.strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
+.strap-star { fill: #fff6d8; opacity: .9; }
+.strap-headset-q3 { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.4; }
+.strap-band { fill: none; stroke: #15171f; stroke-width: 4; stroke-linecap: round; }
+.strap-band-wide { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.2; }
+.strap-drawing:not([data-headset="quest-pro"]) .strap-hs-quest-pro, .strap-drawing:not([data-headset="quest-3"]) .strap-hs-quest-3 { display: none; }
+.strap-crease { fill: none; stroke: #8fa0c4; stroke-width: 1.3; stroke-linecap: round; opacity: .7; }
+.strap-band-soft { fill: none; stroke: #d9d9e0; stroke-width: 5; stroke-linecap: round; }
+.strap-headset { fill: #101015; stroke: #a8b3d0; stroke-width: 1.6; }
+.strap-shadow { fill: #000; opacity: .3; }
+/* Labels on the drawing as big as the words under it (2026-10-26: "The font is a little small on the labels"). */
+.strap-view { font: 700 18px var(--label); fill: var(--chalk); letter-spacing: 2px; }
+.strap-rope { stroke: #050506; stroke-width: 5; stroke-linecap: butt; }
+.strap-rope-wrap { fill: none; stroke: #050506; stroke-width: 4; stroke-linecap: round; }
+.strap-hoop { fill: none; stroke: #0a0820; stroke-width: 7.5; }
+.strap-galaxy { filter: blur(1.2px); }
+.strap-hoop-gloss { fill: none; stroke: #ffffff; stroke-width: 1.6; opacity: .35; stroke-linecap: round; }
+.strap-fig8 { fill: none; stroke: #0b0b10; stroke-width: 4; }
+.strap-glitter { opacity: .95; }
+.strap-glitter-0 { fill: #ff6ad5; } .strap-glitter-1 { fill: #ffd25a; } .strap-glitter-2 { fill: #5affc8; } .strap-glitter-3 { fill: #6ab4ff; } .strap-glitter-4 { fill: #c58aff; }
+.strap-dome { filter: drop-shadow(0 0 4px #5dff3a); }
+.strap-prop-names, .strap-prop-names text { font: 16px var(--text); fill: var(--chalk-dim); }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-toy-shadow { fill: #000; opacity: .45; }
+.strap-toy-group { font: 600 16px var(--label); fill: var(--chalk-dim); }
+.strap-toy-note { font: italic 15px var(--text); fill: var(--planned); }
+/* A spot: its colour halo, the device drawn on it (or a small ring when it is empty), its number on a corner badge. */
 .strap-spot { cursor: pointer; }
-.strap-spot circle { stroke-width: 2.2; stroke: #47d16a; fill: var(--slate-2); }
-.strap-spot text { font: 700 10px var(--text); fill: var(--fix); pointer-events: none; }
-.strap-back circle { stroke-dasharray: 2.5 2; }
-.strap-spot[data-state="used"] circle { fill: var(--care); }
-.strap-spot[data-state="joined"] circle { fill: #d994c6; }
-.strap-spot[data-state="head"] circle { fill: var(--fix); }
-.strap-spot:not([data-state="off"]) text { fill: var(--slate-2); }
-.strap-spot[data-state="off"] circle { stroke: var(--planned); }
-.strap-spot[data-state="off"] text { fill: var(--chalk-dim); }
-.strap-spot:focus-visible circle, .strap-spot:hover circle, .strap-spot.is-open circle { stroke: var(--chalk); stroke-width: 3.2; }
 .strap-spot:focus { outline: none; }
+.strap-halo { fill: none; stroke-width: 2.4; stroke: transparent; }
+.strap-spot[data-state="used"] .strap-halo { stroke: var(--care); fill: rgba(108, 199, 232, .15); }
+.strap-spot[data-state="joined"] .strap-halo { stroke: #d994c6; fill: rgba(217, 148, 198, .15); }
+.strap-spot[data-state="head"] .strap-halo { stroke: var(--fix); fill: rgba(232, 197, 71, .15); }
+.strap-empty { fill: rgba(255, 255, 255, .06); stroke: var(--chalk-dim); stroke-width: 1.6; stroke-dasharray: 2.5 2; }
+.strap-spot:not([data-kind=""]) .strap-empty { display: none; }
+.strap-spot .ico { display: none; }
+.strap-spot[data-kind="tracker"] .ico-tracker, .strap-spot[data-kind="index"] .ico-index, .strap-spot[data-kind="qpro-ctrl"] .ico-qpro-ctrl, .strap-spot[data-kind="q3-ctrl"] .ico-q3-ctrl,
+.strap-spot[data-kind="qpro"] .ico-qpro, .strap-spot[data-kind="q3"] .ico-q3, .strap-spot[data-kind="hand"] .ico-hand { display: inline; }
+.strap-badge { fill: var(--slate-2); stroke: var(--chalk-dim); stroke-width: 1; }
+.strap-spot text { font: 700 10px var(--text); fill: var(--chalk); pointer-events: none; }
+.strap-spot:hover .strap-halo, .strap-spot:focus-visible .strap-halo, .strap-spot.is-open .strap-halo { stroke: var(--chalk); stroke-width: 3; }
 .strap-pop { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; width: max-content; max-width: 300px; padding: 8px 10px; background: var(--slate-2); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0, 0, 0, .5); font-size: 13px; }
 .strap-pop b { font: 600 13px var(--label); color: var(--chalk); }
 .strap-pop select { grid-column: 1 / -1; font: 13px var(--text); color: var(--chalk); background: var(--slate); border: 1px solid var(--line); border-radius: 8px; padding: 3px 6px; max-width: 100%; }
 .strap-pop [data-strap-pop-note] { grid-column: 1 / -1; color: var(--chalk-dim); }
 .strap-pop-close { font: 16px var(--text); line-height: 1; color: var(--chalk-dim); background: none; border: 0; padding: 0 2px; cursor: pointer; }
 .strap-pop-close:hover { color: var(--fix); }
-.strap-key { list-style: none; margin: 8px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+/* The key and her devices, each in a box of stacked rows, side by side or one under the other (2026-10-26). */
+.strap-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px 18px; margin: 10px 0 0; align-items: start; }
+.strap-column { display: grid; gap: 12px; min-width: 0; }
+.strap-box { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 14px 12px; min-width: 0; }
+.strap-box-title { margin: 0 0 6px; font: 600 13px var(--label); color: var(--chalk); }
+.strap-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .strap-key li::before, .strap-worn li::before { content: "\25CF\00A0"; }
 .strap-key [data-state="used"]::before, .strap-worn [data-state="used"]::before { color: var(--care); }
 .strap-key [data-state="joined"]::before, .strap-worn [data-state="joined"]::before { color: #d994c6; }
 .strap-key [data-state="head"]::before, .strap-worn [data-state="head"]::before { color: var(--fix); }
 .strap-key [data-state="off"]::before { color: var(--planned); }
-.strap-worn { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 3px 18px; font-size: 13.5px; }
+.strap-worn { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 13.5px; }
 .strap-worn b { font-family: var(--label); color: var(--fix); }
-.strap-dev { color: var(--link); }
-.strap-pairs { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 10px 0 0; font-size: 13.5px; }
+.strap-worn [data-state="off"] { color: var(--chalk-dim); }
+.strap-worn [data-state="off"]::before { color: var(--planned); }
+.strap-dev { color: var(--care); }
+.strap-pairs { display: grid; gap: 8px; margin: 0; font-size: 13.5px; }
 .strap-pair-picks { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 .strap-pairs select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; }
 .strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
-.strap-footer { margin: 6px 0 0; text-align: center; font: 600 14px var(--label); color: #47d16a; }
+.strap-footer { margin: 10px 0 0; font: 600 13px var(--label); color: #47d16a; }
 .launch-mode.is-blocked { opacity: .7; }
 .launch-needs { color: var(--fix); margin: 6px 0 0; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
@@ -559,6 +620,40 @@ img[hidden] { display: none !important; }
 /* Checkboxes in the page's own pink, not the browser's blue (Astra, 2026-10-24: "make the check boxes the right color
    themes"). */
 input[type="checkbox"] { accent-color: var(--line); }
+/* The switch rows in the page's own colours (Astra, 2026-10-26: "these look plain, make them match the rest of the pages
+   color themes too"): each switch a framed chip that lights up when ticked, the tick box and menus drawn in the theme. */
+.launch-switches { gap: 8px; }
+.launch-switch { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1px solid var(--line-dim); border-radius: 8px; background: var(--tool-bg, rgba(255, 255, 255, .04)); color: var(--chalk-dim); cursor: pointer; transition: border-color .15s, background .15s, color .15s, box-shadow .15s; }
+.launch-switch[hidden] { display: none; }
+/* Devices in violet, software in the page's steel blue (2026-10-26). */
+.launch-switch.launch-device { --chip: #9d7bd8; --chip-dim: #4a3a6e; --chip-glow: #c9b2ff; border-color: var(--chip-dim); }
+.launch-switch.launch-device:hover, .launch-switch.launch-device:has(> input:checked), .launch-device > label:has(input:checked) { border-color: var(--chip); }
+.launch-switch.launch-device:has(> input:checked) { box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
+.launch-device input[type="checkbox"] { border-color: var(--chip) !important; }
+.launch-device input[type="checkbox"]:checked { border-color: var(--chip-glow) !important; background: linear-gradient(135deg, var(--chip-glow), var(--chip)) !important; }
+.launch-device .launch-group-name { border-right-color: var(--chip); }
+.launch-switch:has(> input:disabled) { opacity: .5; cursor: not-allowed; }
+.launch-switch:hover { border-color: var(--line); color: var(--chalk); }
+.launch-switch:has(> input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-group { gap: 4px; cursor: default; }
+/* A group lights up as a whole when anything in it is ticked (2026-10-26: "when any of the lovense are selected, the
+   whole bubble needs to light up"). */
+.launch-switch.launch-group:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-switch.launch-device.launch-group:has(input:checked) { border-color: var(--chip); box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
+/* Its name set off by a bar from its toys (Astra, 2026-10-26: "separate the lovense somehow to look different, maybe a
+   bar divider"). */
+.launch-group-name { font-weight: 600; color: var(--chalk); padding-right: 10px; margin-right: 4px; border-right: 2px solid var(--line); }
+.launch-group > label { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+.launch-group > label:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); }
+.launch-switches input[type="checkbox"] { appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 15px; height: 15px; margin: 0; border: 1.5px solid var(--line); border-radius: 4px; background: var(--slate-2); cursor: pointer; }
+.launch-switches input[type="checkbox"]::after { content: ''; position: absolute; left: 3.6px; top: .6px; width: 4px; height: 8px; border: solid var(--slate-2); border-width: 0 2px 2px 0; transform: rotate(45deg); opacity: 0; }
+.launch-switches input[type="checkbox"]:checked { border-color: var(--link); background: linear-gradient(135deg, var(--link), var(--line)); }
+.launch-switches input[type="checkbox"]:checked::after { opacity: 1; }
+.launch-switches input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
+.launch-switch select { appearance: none; -webkit-appearance: none; padding: 3px 26px 3px 9px; border-color: var(--line-dim); border-radius: 6px; background: linear-gradient(45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 13px) 55% / 5px 5px, linear-gradient(-45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 8px) 55% / 5px 5px, var(--slate-2); cursor: pointer; }
+.launch-switch select:hover, .launch-switch select:focus { border-color: var(--line); }
+
+.launch-switch select option { background: var(--slate-2); color: var(--chalk); }
 .launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; align-items: start; }   /* a folded mode shrinks to its name (Astra, 2026-10-24: "arrow needs to shrink the border up") */
 .launch-mode { border: 1px solid var(--line-dim); border-radius: 14px; padding: 4px 12px 10px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .launch-mode .button { border-radius: 14px; }
@@ -572,7 +667,12 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-headset.is-folded > :not(.launch-head), .launch-mode.is-folded > :not(legend) { display: none; }
 .launch-headset.is-folded { padding-bottom: 7px; }
 .launch-headset.is-folded > .launch-head { margin-bottom: 0; }
-.launch-mode legend { font: 13px var(--label); padding: 0 6px; }
+/* Each launch option's name sits inside its rounded box at the top, as on every tool, not in the border (Astra,
+   2026-10-26: "Tools, Toolsets, 3rd Party Programs all follow the round border, button, drop down arrow rule, but there
+   are a couple that have numbers"). */
+.launch-mode { padding-top: 10px; }
+.launch-mode > legend { float: left; width: 100%; font: 600 13.5px var(--label); color: var(--chalk); padding: 0; margin: 0 0 6px; }
+.launch-mode > legend + * { clear: both; }
 .launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
 .launch-mode[data-rating="bad"] { border-color: var(--off); }
 .launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
@@ -736,3 +836,68 @@ input[type="checkbox"] { accent-color: var(--line); }
 }
 /* Each group of devices under its own small heading (Astra, 2026-10-24: "group the trackers, base stations, headsets"). */
 .device-group { margin: 12px 0 0; font-size: 13px; color: var(--chalk-dim); font-weight: 600; }
+/* The dongle map (Astra, 2026-10-26): each USB controller a branch, its hubs and devices under it on drawn lines;
+   Watchman dongles and Valve VR Radios stand out, with how many dongles each branch carries. */
+.dongle-about { margin: 2px 0 8px; color: var(--chalk-dim); }
+.dongle-run { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 8px; }
+.dongle-tree { overflow-x: auto; }
+.dongle-branches { list-style: none; margin: 0; padding: 0 0 0 18px; font-size: 13.5px; }
+.dongle-root { padding-left: 0; display: grid; gap: 10px; }
+.dongle-branches .dongle-branches { border-left: 1px solid var(--line-dim); margin-left: 6px; }
+.dongle-node { position: relative; padding: 2px 0; }
+.dongle-branches .dongle-branches > .dongle-node::before { content: ""; position: absolute; left: -18px; top: 13px; width: 14px; border-top: 1px solid var(--line-dim); }
+.dongle-node b { font-weight: 500; }
+.dongle-node[data-kind="controller"] > .dongle-line b { font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line b { color: var(--care); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--care); }
+.dongle-node[data-kind="radio"] > .dongle-line b { color: var(--fix); }
+.dongle-node[data-kind="radio"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--fix); }
+.dongle-node[data-kind="device"] > .dongle-line, .dongle-node[data-kind="root-hub"] > .dongle-line { color: var(--chalk-dim); }
+.dongle-port, .dongle-serial { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
+.dongle-tracker { color: var(--care); font-family: var(--label); font-size: 12px; }
+.dongle-count { color: var(--fix); font-size: 12.5px; }
+
+/* No plain white in the switch rows (Astra, 2026-10-26: "the white text isnt following the general color theming"; then
+   "the items in the drop downs need to be the same color text as the options above, and Lovense"): menu values and group
+   names take the tick labels' colour. Last in the file, so nothing above overrides it. */
+.launch-switches .launch-switch select, .launch-switches .launch-switch select option { color: var(--chalk-dim); background-color: var(--slate-2); }
+.launch-switches .launch-switch .launch-group-name { color: var(--chalk-dim); }
+
+/* Each maker in its own colour under the floor (2026-10-26: "put the brands in different colors like Lovense in pink"). */
+.strap-drawing .brand-lovense { fill: #ff4fa3; }
+.strap-drawing .brand-woojer { fill: #ff8a3d; }
+.strap-drawing .brand-xpole { fill: #5dff3a; }
+.strap-drawing .brand-meta { fill: #5fa8ff; }
+.strap-drawing .brand-valve { fill: #ff6b5a; }
+.strap-drawing .brand-vive { fill: #39d0e8; }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
+
+/* The dongle map in two columns: today's plugs on the left, the recommended layout on the right (2026-10-26). */
+.dongle-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; align-items: start; }
+.dongle-col { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 12px; min-width: 0; }
+.dongle-col-name { margin: 0 0 8px; font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-for { margin-bottom: 8px; }
+.dongle-pick { font: 13px var(--text); color: var(--chalk-dim); background: var(--slate-2); border: 1px solid var(--line-dim); border-radius: 6px; padding: 1px 4px; }
+.dongle-flag, .dongle-flags li { color: var(--update); }
+.dongle-other { color: var(--chalk-dim); opacity: .75; }
+.dongle-hub { margin: 6px 0 8px; }
+.dongle-hub > b { color: var(--link); font-weight: 600; }
+.dongle-items, .dongle-rules, .dongle-flags { margin: 4px 0 6px; padding-left: 18px; }
+.dongle-rules { color: var(--chalk-dim); }
+
+.dongle-dev { color: var(--link); }
+
+/* Poppy in 3D over the drawn figures when her copy is on this PC (2026-10-26); the figures and their spots step aside but
+   stay in place, so a picker still opens where the spot is. */
+.strap-mini { position: absolute; cursor: grab; touch-action: none; }
+.strap-mini:active { cursor: grabbing; }
+.strap-drawing.has-mini .strap-figure, .strap-drawing.has-mini [data-view] { visibility: hidden; }
+.strap-mini-modes { position: absolute; display: flex; gap: 6px; z-index: 2; }
+.strap-mini-modes .button { font-size: 12.5px; padding: 2px 10px; }
+.strap-mini-modes .button[aria-pressed="true"] { border-color: var(--link); color: var(--link); box-shadow: 0 0 8px -3px var(--link); }
+
+/* Neon wires (Astra, 2026-10-26: "i wanna see neon wires"): each USB controller's cables glow in its own colour, from
+   the controller through its hubs to every dongle, in both the current and the recommended layout. */
+.dongle-root > .dongle-node > .dongle-line b { color: var(--wire); text-shadow: 0 0 8px var(--wire); }
+.dongle-branches .dongle-branches { border-left: 2px solid var(--wire, var(--line-dim)); box-shadow: -2px 0 8px -3px var(--wire, transparent); }
+.dongle-branches .dongle-branches > .dongle-node::before { border-top: 2px solid var(--wire, var(--line-dim)); box-shadow: 0 0 7px var(--wire, transparent); }

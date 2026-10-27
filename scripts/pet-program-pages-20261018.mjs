@@ -859,7 +859,7 @@ ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : 
 ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send to Claude or ChatGPT leaves this PC. A note stays here.</p>` : ''}</div></aside>`;
 
   return assertPublic(`<!doctype html>
-<html lang="en">
+<html lang="en" data-pet="${esc(d.petSlug)}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
