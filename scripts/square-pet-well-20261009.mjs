@@ -1,4 +1,4 @@
-// One shared fix for the pet frame (.pet-well) in the rail-style pet apps.
+// One shared fix for the pet well (.pet-well) in the rail-style apps of the Pets.
 // The frame was sized by min-height, so its shape followed the rail width:
 // 176×190 on desktop, 151×190 on laptops, 70×77 on phones. It is now a square
 // at every width (aspect-ratio) and the pet scales with it.

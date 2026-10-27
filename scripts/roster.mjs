@@ -18,12 +18,12 @@ export function buildRoster(registry, moods, names = {}, frames = {}) {
   const n = counts(registry);
   const out = [];
   out.push('# Roster', '', '*The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*', '');
-  out.push(`**${n.apps} pet apps so far, drawn as ${n.characters} characters (${n.apps} app pets, ${n.companions} companion${n.companions === 1 ? '' : 's'}, ${n.mascots} mascot${n.mascots === 1 ? '' : 's'}). ${n.published} of the ${n.apps} pet apps have a repo on GitHub.**`, '');
+  out.push(`**${n.apps} Pets so far, each with its Pet Program, drawn as ${n.characters} characters (${n.apps} Pets, ${n.companions} companion${n.companions === 1 ? '' : 's'}, ${n.mascots} mascot${n.mascots === 1 ? '' : 's'}). ${n.published} of the ${n.apps} Pets have a repo on GitHub.**`, '');
   out.push(`Whether each of those repos carries its \`pet.json\` and the \`pet-app\` topic is not recorded here. Run \`npm run check -- --online\` to ask GitHub.`, '');
   out.push(`Last updated ${registry.updated}. Drawings below are **drafts** unless their notes record Astra's approval. The pets are generated pixel art; how they are made is in [PET-FILES.md](PET-FILES.md).`, '');
   out.push('![Every character in every mood](art/roster.png)', '', `Sheet order: rows are ${order(registry).map((o) => names[o.id] || o.id).join(', ')}; columns are ${moods.join(', ')}.`, '');
 
-  out.push('## Pet apps', '', '| # | Pet | Role | Status | On GitHub | What it does | Art |', '|---|---|---|---|---|---|---|');
+  out.push('## Pets', '', '| # | Pet | Role | Status | On GitHub | What it does | Art |', '|---|---|---|---|---|---|---|');
   (registry.pets || []).forEach((p, i) => {
     const where = p.published === false ? 'not yet' : p.visibility === 'private' ? 'private repo' : `[${p.repo}](${repoUrl(registry, p.repo)})`;
     out.push(`| ${i + 1} | **${p.pet}** | ${p.role} | ${p.status} | ${where} | ${p.job} | ${[p.art, ...(p.companions || [])].map((id) => img(id, 'idle', 48)).join(' ')} |`);

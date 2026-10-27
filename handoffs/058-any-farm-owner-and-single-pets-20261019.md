@@ -52,7 +52,7 @@ proposal before any rewrite, and for everything to be read first.
     public both ways, each with a message to copy), `skills/farm-security` section 2, the decision row in
     `skills/new-pet-or-tool`, the tool's job and grant 3 in `system-map.json` (all pet pages and markdown pets rebuilt),
     AGENTS.md credit line, the proposal's answers.
-  - `npm run build`; `npm run check` (23 pet apps); `npm test` 227 tests, 226 pass, 0 fail, 1 skipped.
+  - `npm run build`; `npm run check` (23 pets); `npm test` 227 tests, 226 pass, 0 fail, 1 skipped.
   - Live, read-only, signed in as findastra: `plan private meme-fiend paper-girl astras-pet-os` (Paper Girl's Pages
     site listed as a loss; the hub refused) and `plan public claude-bot workflow-whirlpool meme-fiend` (Workflow
     Whirlpool stopped on local service addresses; Claude Bot stays private). Nothing changed on GitHub.
@@ -99,7 +99,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   - `npm run build` after the split leaves the tree clean. Against `main`, only The Farm's page, its two Markdown
     pets, TOOLS-AND-TRICKS.md and the map change (the new tool's row).
   - The desk's data was compared with a baseline build: the same, plus owner fields, all `findastra`.
-  - `npm run check` (23 pet apps). `npm test` on the merged tree: 263 tests, 262 pass, 0 fail, 1 skipped.
+  - `npm run check` (23 pets). `npm test` on the merged tree: 263 tests, 262 pass, 0 fail, 1 skipped.
   - make-it-yours run for real in a throwaway clone.
   - The guide at 375 px (no sideways scroll, 44 px copy button, no console errors), served on 127.0.0.1 from the clone
     through a temporary entry in the session folder's `.claude/launch.json`, removed afterwards.
@@ -151,7 +151,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   `needs`), `skills/dev-mindset` (two rows), the decision row in `skills/new-pet-or-tool`, the Farmer's row in
   INTELLIGENCE-LEVELS.md, the AGENTS.md line, and the proposal's "As built".
 - **Checked:**
-  - `npm run build`, `npm run check` (23 pet apps), `npm test`: 274 tests, 273 pass, 0 fail, 1 skipped.
+  - `npm run build`, `npm run check` (23 pets), `npm test`: 274 tests, 273 pass, 0 fail, 1 skipped.
   - Real packs from GitHub for Forensic Ferret, Voicemeeter Bug and Mine Mole, in the scratchpad only. Windows'
     Expand-Archive and Info-ZIP both open them, and every SHA-256 matches.
   - The unzipped packs, served on 127.0.0.1 through a temporary entry in the session folder's `.claude/launch.json`
@@ -172,7 +172,7 @@ TikToks) stay hers on every farm. `npm run build` and `npm run check` passed, an
   farm (`farm.lock`).
 - **Merged to `main` with Astra's OK in chat (2026-10-21: "OK, merge #183").**
   - `main` had moved while she answered: #180 and #181 (two cards) were merged into the branch first.
-  - On that merged tree: `npm run build` left nothing to commit, `npm run check` passed (23 pet apps), and `npm test`
+  - On that merged tree: `npm run build` left nothing to commit, `npm run check` passed (23 pets), and `npm test`
     gave 274 tests, 273 pass, 0 fail, 1 skipped.
 - **Astra's answers to the three pet-pack questions (2026-10-21: "all recommended")**, recorded in the proposal's
   table (rows 10 to 12) and MAKE-IT-YOURS.md section 6:
@@ -194,7 +194,7 @@ This is the second half of Astra's answer 6. It is a proposal only: no code chan
   `db470b1` (Astra's answers). **Merged to `main` as `db2fd41` with Astra's OK in chat (2026-10-21: "OK, merge
   #197").**
   - Main (#194, then #190) was merged into the branch first.
-  - On that tree, `npm run build` changed nothing and `npm run check` passed (23 pet apps).
+  - On that tree, `npm run build` changed nothing and `npm run check` passed (23 pets).
   - `npm test` gave 300 tests: 299 pass, 0 fail, 1 skipped.
 - **Read first:**
   - this card, the proposal (Parts 1 to 4 as built, answers 1 to 12), the pet-packs tool and its manifest;
@@ -295,7 +295,7 @@ merged only with my OK."*
   - The window was drawn with `-SetupWindowPicture -Farm Scratch -Pets evidence-locker,goldfish`, in farm and
     developer words: Log Lynx is ticked, greyed, "Needed by Forensic Ferret", and the count is 4.
   - On the branch with `main` merged in (through #212), `npm run build` changes nothing and `npm run check` passes (23
-    pet apps). `npm test` gives 322 tests: 321 pass, 0 fail, 1 skipped.
+    pets). `npm test` gives 322 tests: 321 pass, 0 fail, 1 skipped.
   - The beginner guide at 375 px in the browser pane, served on 127.0.0.1 from the clone through a temporary entry in
     the session folder's `.claude/launch.json` (removed afterwards): no sideways scroll, the new copy button is 44 px,
     and there are no console errors.
@@ -340,7 +340,7 @@ next to the farm, and the uninstaller removing pack folders. One pull request, m
     `--and-unneeded`.
   - The real uninstaller removed the pack folder and then the install folder.
   - Discord Damsel's repo (the one public pet repo) cannot be packed: the pack scan stops on its files.
-  - `npm run build` changes nothing, and `npm run check` passes (23 pet apps).
+  - `npm run build` changes nothing, and `npm run check` passes (23 pets).
   - `npm test` gives 332 tests: 331 pass, 0 fail, 1 skipped.
 
 ## Task

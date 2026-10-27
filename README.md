@@ -88,7 +88,7 @@ This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets ar
 
 ![Every character in every mood](art/roster.png)
 
-Every pet has the same nine moods (idle, blink, happy, curious, worried, sad, sick, alarmed, sleep). What each part of a pet app is called is in [PET-WORDS.md](PET-WORDS.md). Drawings are **drafts** unless their roster notes record Astra's approval.
+Every pet has the same nine moods (idle, blink, happy, curious, worried, sad, sick, alarmed, sleep). What each part of a Pet and its Pet Program is called is in [PET-WORDS.md](PET-WORDS.md). Drawings are **drafts** unless their roster notes record Astra's approval.
 
 ## Pictures
 

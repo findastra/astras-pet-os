@@ -15,7 +15,7 @@ This audit records what the code does today. Nothing was changed to produce it.
 | Other `findastra` repos | Listed through GitHub (44 repos). Not cloned |
 | Export `ASTRA_PET_OS_FINAL_EXPORT_v5.2.zip` | Master handoff v5.2, v4.1 baseline, learning-pets CSV, Kennel registry starter |
 | Astra's list of 33 apps (2026-10-11) | Compared with `pets.json` below |
-| `npm test` / `npm run check` on `main` | 64 of 64 pass; "19 pet apps, 0 mascots, 19 characters drawn at 256px" |
+| `npm test` / `npm run check` on `main` | 64 of 64 pass; `npm run check` counted 19 registered pets, 0 mascots and 19 characters drawn at 256px |
 
 ## Repository shape
 

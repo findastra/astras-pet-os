@@ -1,4 +1,4 @@
-// Seeded pets: approved names that are not pet apps yet. Claude Opus 5.5 (claude-opus-5-5), 2026-10-11.
+// Seeded pets: approved names that have no repo or Pet Program yet. Claude Opus 5.5 (claude-opus-5-5), 2026-10-11.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';

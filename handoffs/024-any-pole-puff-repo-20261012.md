@@ -4,7 +4,7 @@ from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-12
 needs: AGENTS.md "Before any work" list, ASTRAS_PET_OS.md, docs/migration/PLAN.md (Seeded pets), PET-FILES.md, pets.json `seeds`, drafts/pole-puff/
 ---
 ## Why this card exists
-Astra asked a Claude chat (2026-10-11) to "generate the pet app Pole Puff" and check the Friendly
+Astra asked a Claude chat (2026-10-11) to generate Pole Puff, the Pet and its Pet Program, and check the Friendly
 Farmer's repo for instructions. That Claude account is being closed (2026-10-12), so everything from
 that chat is written here and in `drafts/pole-puff/`. Nothing is left only in the chat.
 
@@ -21,7 +21,7 @@ Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-11 to 2026-10-12:
      now say Pole Puff **manages Astra's Infinite Pole** and works with Unity Unicorn. The draft uses that.
   3. **Art:** do **not** generate yet (paid). A free hand-drawn stand-in was made instead.
   4. **Kind:** a **puffball sprite that floats** (`kind: "sprite"`, sky zone).
-- Wrote the whole pet app and put it in this repo at **`drafts/pole-puff/`**, branch
+- Wrote the whole Pet and Pet Program and put it in this repo at **`drafts/pole-puff/`**, branch
   `claude/pole-puff-draft-20261012` (not `main`). The files: `pet.json` (with an audit block),
   `sprite.json`, `index.html` (the pet floating, nine mood buttons, bubble lines set with
   `textContent`), `README.md` (how to run it, Limits), `AGENTS.md`, `CLAUDE.md`, `LICENSE` (MIT,

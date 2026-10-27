@@ -10,9 +10,10 @@
     ["The Shed", "The plugin registry"]
   ],
   "words": [
+    ["pet program (agent's living space)", "control hub"],
+    ["pet (agent)", "agent"],
     ["a pet program page", "a control hub page"],
     ["a pet program", "a control hub"],
-    ["a pet app", "an agent app"],
     ["a markdown pet", "an agent definition file"],
     ["a pet", "an agent"],
     ["a farmhand", "an AI model"],
@@ -24,8 +25,6 @@
     ["pet program icon", "agent icon"],
     ["pet programs", "control hubs"],
     ["pet program", "control hub"],
-    ["pet apps", "agent apps"],
-    ["pet app", "agent app"],
     ["desktop pets", "desktop overlays"],
     ["desktop pet", "desktop overlay"],
     ["markdown pets", "agent definition files"],

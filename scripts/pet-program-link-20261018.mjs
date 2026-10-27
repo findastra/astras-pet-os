@@ -45,7 +45,7 @@ export function parseProfileHomes(md) {
   const out = new Map();
   let inPets = false, cur = null;
   for (const line of String(md || '').split(/\r?\n/)) {
-    if (/^#{2,4} /.test(line) && !/align=/.test(line)) { inPets = /pet apps|petos|pet_os/i.test(line); cur = null; continue; }
+    if (/^#{2,4} /.test(line) && !/align=/.test(line)) { inPets = /petos|pet_os|\bpets\b|\bpet programs?\b/i.test(line); cur = null; continue; } // as PET_SECTION in farmer-profile
     if (!inPets) continue;
     const pet = /^(\d+)\. \*\*/.exec(line);
     if (pet) { cur = Number(pet[1]); out.set(cur, { href: null, name: null }); continue; }

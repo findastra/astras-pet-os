@@ -2,7 +2,7 @@
 
 *The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
 
-**23 pet apps so far, drawn as 23 characters (23 app pets, 0 companions, 0 mascots). 23 of the 23 pet apps have a repo on GitHub.**
+**23 Pets so far, each with its Pet Program, drawn as 23 characters (23 Pets, 0 companions, 0 mascots). 23 of the 23 Pets have a repo on GitHub.**
 
 Whether each of those repos carries its `pet.json` and the `pet-app` topic is not recorded here. Run `npm run check -- --online` to ask GitHub.
 
@@ -12,7 +12,7 @@ Last updated 2026-10-19. Drawings below are **drafts** unless their notes record
 
 Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
-## Pet apps
+## Pets
 
 | # | Pet | Role | Status | On GitHub | What it does | Art |
 |---|---|---|---|---|---|---|

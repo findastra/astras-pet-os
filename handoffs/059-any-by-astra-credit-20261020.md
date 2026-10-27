@@ -14,7 +14,7 @@ README and write 'By Astra.' where a credit is needed."**
 On branch `claude/by-astra-credit-20261020` of the hub (in a clone in Claude's scratchpad; Astra's PC folders were
 not touched):
 - **The rule:** PET-FILES.md's README row says the credit is `*By Astra.*`, and that a README that still has a retired
-  credit line (card 033's, or the "pet app" line before it) is reported. Flash Audit A15 and
+  credit line (card 033's, or the "A pet app by Astra." line before it) is reported. Flash Audit A15 and
   `docs/idle-flash-audit-20261017.md` say the same.
 - **The checks:** the Farmer's round (`auditPet`) now says "my README has the old credit line" for a retired line and
   "my README needs "By Astra."" when there is no credit; it names the retired line and never quotes it, so the
@@ -51,8 +51,8 @@ old cards. No installed skill copy on the PC (`~/.claude/skills`, `~/.codex`) ha
    requests (README only, so their order does not matter).
 2. **Repo descriptions (waits on Astra's OK; a public settings change):** 14 GitHub repo descriptions still call the
    pet "a pet app by Astra": spoonfed, rgbee, chat-rat, wifi-butterfly, rift-rabbit, raspberry-berry, patch-cat,
-   mine-mole, mesh-moth, meme-fiend, mail-snail, fuzzboi-friend, deck-duck, astras-gif-maker (and the retired word
-   "pet app" in each). With her OK: `gh repo edit findastra/<repo> --description "<new words>"`, each new description
+   mine-mole, mesh-moth, meme-fiend, mail-snail, fuzzboi-friend, deck-duck, astras-gif-maker (and, in each, the old word
+   for a Pet and its Pet Program, which Astra retired on 2026-10-26). With her OK: `gh repo edit findastra/<repo> --description "<new words>"`, each new description
    ending "By Astra." or leaving the credit out.
 3. **The next Farmer's round** rewrites `status/pets-status.json`, the Farmer's desk and the pet program pages'
    "Last check" lines, which still say "my README needs the credit line" from the round before this change.

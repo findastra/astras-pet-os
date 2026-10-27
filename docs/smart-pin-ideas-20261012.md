@@ -27,7 +27,7 @@ On the System Map this is the planned device "Smart pin", looked after by the Fr
 ## Recommendation
 
 - **Want it soon:** the Divoom Emodo. It is made for pixel art and clips onto a bag or jacket; you load the pets from your phone.
-- **Want it to know the pets by itself:** build option 4. It is a small project that could become its own pet app.
+- **Want it to know the pets by itself:** build option 4. It is a small project that could become its own Pet, with its own Pet Program.
 - Both can happen: wear the Emodo now, build the Wi-Fi pin later.
 
 ## Sources

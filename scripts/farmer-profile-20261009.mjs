@@ -4,7 +4,7 @@
 //
 // It only touches the repo lists. The header, tagline, socials, headings and Astra's own blurbs stay as
 // she wrote them (layout rules: github-goldfish/docs/profile-style-20261009.md). It:
-//   - rewrites the pet apps list as a numbered running list, in pet program order. Each pet is (Astra, 2026-10-16):
+//   - rewrites the pet list as a numbered running list, in pet program order. Each pet is (Astra, 2026-10-16):
 //       N. **Pet** -- what the pet does [status]
 //          - [`home-slug`](page) -- the pet program      (or `pet-program-N` until it is named)
 //          - [`repo`](link) -- the repo note           (left out when Astra links that repo above the list)
@@ -17,6 +17,8 @@ import { dirname, join } from 'node:path';
 
 // Astra-only on purpose (card 058, Part 3, 2026-10-20): her profile round writes findastra/findastra's README. It keeps her account, findastra, and never reads a farm's pets.json github_owner.
 const OWNER = 'findastra';
+// The profile section that holds the pet list: Astra's PetOS, Pets or Pet Programs (Astra's words, 2026-10-26).
+export const PET_SECTION = /petos|pet_os|\bpets\b|\bpet programs?\b/i;
 // The separator is " -- "; a line Astra writes with a dash instead (" -— ", " — ", 2026-10-18) is still hers and is kept.
 const SEP = ' (?:--|-?[—–]) ';
 const BULLET = new RegExp(`^- (?:\\[\`([^\`]+)\`\\]\\([^)]*\\)|\`([^\`]+)\` \\*\\(private\\)\\*)${SEP}(.*)$`);
@@ -120,15 +122,16 @@ export function syncProfile(readme, registry, repos, programs = null) {
     else if ((m = BULLET.exec(ln))) blurbs.set(repoOf(m[1] || m[2], ln), m[3]);
   });
   sections.forEach((s, k) => { s.end = k + 1 < sections.length ? sections[k + 1].start : lines.length; });
-  // Astra renamed the section "Astra's PetOS - Personal AI Agent Platform" on 2026-10-11; accept either name.
-  const petSection = sections.find((s) => /pet apps|petos|pet_os/i.test(s.title));
+  // Astra renamed the section "Astra's PetOS - Personal AI Agent Platform" on 2026-10-11. Her words since 2026-10-26
+  // (PET-WORDS.md): Astra's PetOS, Pets and Pet Programs, so a section named with any of them is the pet list.
+  const petSection = sections.find((s) => PET_SECTION.test(s.title));
   // No pet list on the profile (Astra took it off on 2026-10-20): the round has nothing to look after, so it changes
   // nothing at all, the other sections included, and says why (Astra, 2026-10-21, "all recommended": skip quietly).
-  // If she brings a "pet apps" or "PetOS" section back, the next round looks after it again.
-  if (!petSection) return { text: readme, changes: [], skipped: 'No pet list on the profile (no "pet apps" or "PetOS" section), so there is nothing to keep in order.' };
+  // If she brings a "PetOS", "Pets" or "Pet Programs" section back, the next round looks after it again.
+  if (!petSection) return { text: readme, changes: [], skipped: 'No pet list on the profile (no "PetOS", "Pets" or "Pet Programs" section), so there is nothing to keep in order.' };
   const mentioned = new Set(blurbs.keys());
 
-  // The pet apps list.
+  // The pet list.
   const petLines = [];
   const petRepoOf = [];
   if (programs) for (const p of programs) {
@@ -188,7 +191,7 @@ export function syncProfile(readme, registry, repos, programs = null) {
       const m = pf ? [ln, pf[3], pf[4]] : BULLET.exec(ln) || NUMBERED.exec(ln);
       if (m) {
         const repo = repoOf(m[1] || m[2], ln);
-        if (petRepos.has(repo) && !alsoListed.has(repo)) { changes.push(`moved ${repo} to the pet apps list`); continue; }
+        if (petRepos.has(repo) && !alsoListed.has(repo)) { changes.push(`moved ${repo} to the pet list`); continue; }
         if (hidden.has(repo)) { changes.push(`took ${repo} off the profile`); continue; }
         if (places.includes(repo)) { changes.push(`moved ${repo} under its pet in Astra's PetOS`); continue; }
         if (!online.has(repo) && m[1]) { changes.push(`removed ${repo} (not on GitHub)`); continue; }
@@ -205,7 +208,7 @@ export function syncProfile(readme, registry, repos, programs = null) {
   }
   let text = out.join('\n');
   const old = lines.filter((l) => PET_LINE.test(l) || NUMBERED.test(l) || PET_FIRST.test(l) || PET_HOME.test(l)).join('\n');
-  if (old !== petLines.join('\n') && !changes.some((c) => c.startsWith('added pet'))) changes.push('reordered or refreshed the pet apps list');
+  if (old !== petLines.join('\n') && !changes.some((c) => c.startsWith('added pet'))) changes.push('reordered or refreshed the pet list');
   if (text === readme) return { text, changes: [] };
   if (!changes.length) changes.push('tidied the pet list layout');
   return { text, changes };

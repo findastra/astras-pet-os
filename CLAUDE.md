@@ -21,4 +21,4 @@ For Claude:
 
 ## Complete top-level Markdown reading (Astra, 2026-10-18)
 
-Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [pet-app](skills/pet-app/SKILL.md). OpenAI Codex (GPT-6), 2026-10-18.
+Before work, OpenAI Codex and Anthropic Claude read every top-level `.md` file in this repo and the target pet repo in full, in addition to the existing skill and handoff requirements. Enumerate files and finish truncated reads. The shared provider skill is [build-a-pet](skills/build-a-pet/SKILL.md) (its old name, `pet-app`, is retired: PET-WORDS.md). OpenAI Codex (GPT-6), 2026-10-18.

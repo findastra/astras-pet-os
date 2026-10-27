@@ -1,5 +1,5 @@
 // The Friendly Farmer's pet program spawner (`the-farm-v1.0-pet-program-spawner-v1.0`, a tool of The Farm).
-// Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first", with
+// Astra, 2026-10-18: every single Pet gets "a pet program spawn page, with just the basics first", with
 // her sketch (docs/images/pet-program-page-sketch-20261018.webp): "they need these at a minimum, and more."
 // Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every tool panel of the
 // sketch in its place (PET-PROGRAM-FRAMEWORK.md, section 3) and her answers of the same day: the intelligence levels
@@ -41,7 +41,7 @@ const wordScripts = WORDS.map((src) => `<script src="${src}"></script>`).join('\
 export const TOOL_LABEL = 'the-farm-v1.0-pet-program-spawner-v1.0';
 export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // Every tool panel of the sketch, in the sketch's order; the test checks each page has them all, in this order.
-// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every pet app) sits above the footer;
+// related-pets (Astra, 2026-10-19: a "related pets" category at the bottom of every Pet Program page) sits above the footer;
 // since 2026-10-23 it is `<pet>-plays-with`, most used first.
 // The quick summary is `<home>-quick-summary-panel` (Astra, 2026-10-23: "wonderland-launchpad-quick-summary-panel"). The two squares beside the title are `<pet>-cyberhome-panel` and
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
