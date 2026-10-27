@@ -424,7 +424,7 @@
   // 'arm' slides the spot up the upper arm towards the shoulder.
   var POPPY_SPOTS = {
     F: ['Head', 0, 0.035, 0.085], H: ['Head', 0, 0.175, -0.01, 'up'], FS: ['Chest', 0, 0.045, 0.1], BS: ['Chest', 0, 0.13, -0.1],
-    FD: ['Chest', 0, -0.045, 0.09], BD: ['Chest', 0, -0.02, -0.095], FW: ['Hips', 0, -0.01, 0.085], BW: ['Hips', 0, 0.07, -0.1],
+    FD: ['Chest', 0, -0.045, 0.09], BD: ['Chest', 0, -0.02, -0.095], FW: ['Hips', 0, 0.015, 0.085], BW: ['Hips', 0, 0.07, -0.1],
     RS: ['Hips', -0.15, -0.01, 0], LS: ['Hips', 0.15, -0.01, 0], RFS: ['Hips', -0.1, -0.01, 0.07], LFS: ['Hips', 0.1, -0.01, 0.07],
     RBS: ['Hips', -0.1, -0.01, -0.08], LBS: ['Hips', 0.1, -0.01, -0.08], RE: ['Elbow_R', 0, 0, -0.04, 'arm'], LE: ['Elbow_L', 0, 0, -0.04, 'arm'],
     RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.045], LK: ['Knee_L', 0, 0.025, 0.045],
@@ -435,7 +435,7 @@
     if (!svg || !stage || !data || (data.schema !== 'rift-rabbit-poppy-v1' && data.schema !== 'rift-rabbit-poppy-v2')) return;
     var base = 'https://cdn.jsdelivr.net/npm/three@0.160.0/';
     import(base + 'build/three.module.js').then(function (THREE) {
-      var scene = new THREE.Scene(), group = new THREE.Group();
+      var scene = new THREE.Scene(), group = new THREE.Group(), gear = {};
       var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }).buffer; };
       if (data.schema === 'rift-rabbit-poppy-v2') {
         // Poppy as she stands in her Unity scene (ClaudePoppyMiniExport, 2026-10-26): each part in its own colour.
@@ -445,8 +445,11 @@
           g.setIndex(new THREE.BufferAttribute(new Uint32Array(b64(p.idx)), 1));
           g.computeVertexNormals();
           var c = new THREE.Color().setRGB(p.color[0], p.color[1], p.color[2], THREE.SRGBColorSpace);
-          var mat = new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, metalness: 0.05, transparent: p.color[3] < 0.99, opacity: Math.max(0.15, p.color[3]), side: THREE.DoubleSide });
-          group.add(new THREE.Mesh(g, mat));
+          var mat = new THREE.MeshStandardMaterial({ color: c, roughness: p.gear ? 0.35 : 0.6, metalness: 0.05, transparent: p.color[3] < 0.99, opacity: Math.max(0.15, p.color[3]), side: THREE.DoubleSide });
+          var mesh = new THREE.Mesh(g, mat);
+          // Her VR Gear from Unity (ClaudePoppyVrGear): hidden until its spot wears it.
+          if (p.gear) { mesh.visible = false; (gear[p.gear] = gear[p.gear] || []).push(mesh); }
+          group.add(mesh);
         });
       } else {
         // The light copy from Poppy 1.fbx holds plain positions and triangles, read straight from the GLB's JSON and binary
@@ -473,7 +476,7 @@
       }
       scene.add(group);
       // Her meshes, for setting each tracker's mount on her surface.
-      var body = group.children.slice();
+      var body = group.children.filter(function (m) { return m.visible; });
       group.updateMatrixWorld(true);
       scene.add(new THREE.HemisphereLight('#b4dcff', '#0a0d13', 2.2));
       var key = new THREE.DirectionalLight('#ffffff', 1.3); key.position.set(1, 2, 2); scene.add(key);
@@ -484,7 +487,18 @@
         var s = POPPY_SPOTS[code], b = bones[s[0]];
         // A rig with no toe bones: the foot spots sit on top of the foot instead.
         if (!b && /^Big_Toe_/.test(s[0])) { var f = bones[s[0].replace('Big_Toe', 'Foot')]; if (f) { b = f; s = [s[0], s[1], 0, 0.08]; } }
-        if (!b) return;
+        var fixed = data.meta.spots && data.meta.spots[code];
+        if (!b && !fixed) return;
+        if (fixed) {
+          // Placed in Unity on her real surface (the same spot her VR Gear tracker sits on): mount point, dome, horn.
+          var holder0 = new THREE.Group(), at0 = new THREE.Vector3(fixed[0], fixed[1], fixed[2]);
+          holder0.position.copy(at0); holder0.up.set(fixed[6], fixed[7], fixed[8]);
+          holder0.lookAt(at0.clone().add(new THREE.Vector3(fixed[3], fixed[4], fixed[5])));
+          var ring0 = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.004, 8, 24), new THREE.MeshBasicMaterial({ color: '#8a96ad' }));
+          holder0.add(ring0); holder0.userData.code = code; group.add(holder0);
+          spots[code] = { holder: holder0, ring: ring0, device: null };
+          return;
+        }
         var at = new THREE.Vector3(b[0] + s[1], b[1] + s[2], b[2] + s[3]), holder = new THREE.Group();
         if (s[4] === 'arm' && bones.Neck) {
           // Her shoulder is about 0.15 m out from the neck and 0.05 m below it.
@@ -555,7 +569,14 @@
       var show = 'worn';
       try { show = localStorage.getItem('rift-rabbit-poppy-show') || 'worn'; } catch (e) { /* worn */ }
       var headsetKind = function () { return (svg.getAttribute('data-headset') || 'quest-pro') === 'quest-3' ? 'q3' : 'qpro'; };
+      // Which of her Unity gear pieces a spot wears, when the export has them.
+      var GEAR_NAME = { qpro: 'Quest Pro', q3: 'Quest 3', index: 'Index', 'qpro-ctrl': 'Touch Pro', 'q3-ctrl': 'Touch Plus' };
+      function gearFor(code, kind) {
+        var name = kind === 'tracker' ? 'Tracker ' + code : code === 'F' ? GEAR_NAME[kind] : (code === 'RH' || code === 'LH') && GEAR_NAME[kind] ? GEAR_NAME[kind] + (code === 'RH' ? ' R' : ' L') : null;
+        return name && gear[name] ? name : null;
+      }
       function paint() {
+        Object.keys(gear).forEach(function (n) { gear[n].forEach(function (m) { m.visible = false; }); });
         Object.keys(spots).forEach(function (code) {
           var g = strapper.querySelector('[data-strap-dot="' + code + '"]'), sp = spots[code];
           if (!g) return;
@@ -566,7 +587,8 @@
           sp.ring.material.color.set(COLOR[state] || COLOR.off);
           if (sp.kind !== kind) {
             if (sp.device) sp.holder.remove(sp.device);
-            sp.device = DEV[kind] ? DEV[kind](code) : null;
+            sp.gear = gearFor(code, kind);
+            sp.device = sp.gear ? null : DEV[kind] ? DEV[kind](code) : null;
             if (sp.device) {
               sp.holder.add(sp.device);
               // Controllers keep their own upright, not the spot's facing.
@@ -574,6 +596,7 @@
             }
             sp.kind = kind;
           }
+          if (sp.gear) gear[sp.gear].forEach(function (m) { m.visible = true; });
         });
       }
       paint();
@@ -640,7 +663,8 @@
   var LOCAL_DEVICES = "../../../../Astra's PetOS Data/rift-rabbit/steamvr-devices-20261026.js";
   function localScript(src, done) {
     var s = document.createElement('script');
-    s.setAttribute('src', src);
+    // a fresh copy each visit: these files change whenever Poppy is exported again from Unity
+    s.setAttribute('src', src + '?t=' + Date.now());
     s.onload = function () { s.remove(); done(true); };
     s.onerror = function () { s.remove(); done(false); };
     document.head.appendChild(s);
