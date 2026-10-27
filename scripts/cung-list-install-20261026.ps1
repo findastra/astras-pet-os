@@ -24,7 +24,7 @@
   administrator rights, and for those Windows itself asks you.
 
   Cung List items 6, 7, 13, 14 and 15, ideas from Tyson Cung's public GitHub. By Astra.
-  Written by Claude Opus 5.5 (claude-opus-5-5), 2026-10-26. Tested on Linux by test/cung-list-install-test-20261026.mjs
+  Written by Claude Opus 5.5 (claude-opus-5-5), 2026-10-26. Tested on Linux by test/cung-list-dev-tools-test-20261026.mjs
   (a text check: it has not run on Windows yet).
 
 .PARAMETER DryRun
@@ -181,9 +181,9 @@ $step = 'Serena'
 if (-not (Test-Command 'git')) {
   Add-Result $step 'needs you' 'uvx fetches Serena with git; install Git (winget install --id Git.Git) and run this again'
 } elseif ($DryRun) {
-  Add-Result $step 'would run' 'uvx --from git+https://github.com/oraios/serena serena --version'
+  Add-Result $step 'would run' 'uvx --from git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3 serena --version'
 } elseif (Test-Command 'uvx') {
-  $serena = Get-FirstLine 'uvx' @('--from', 'git+https://github.com/oraios/serena', 'serena', '--version')
+  $serena = Get-FirstLine 'uvx' @('--from', 'git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3', 'serena', '--version')
   if ($serena) { Add-Result $step 'ok' ("{0}; Claude Code starts it from .mcp.json" -f $serena) }
   else { Add-Result $step 'failed' 'uvx could not start Serena; run the command by hand to see why' }
 } else {
@@ -263,7 +263,7 @@ if (-not (Test-Command 'npx')) {
 
 # What only you can do, inside Claude Code (no script can type these for you).
 Add-Result 'Superpowers' 'manual' 'In Claude Code, type: /plugin install superpowers@claude-plugins-official (skills/pet-app/SKILL.md)'
-Add-Result 'Context7 and Serena' 'manual' 'Open Claude Code in this folder and approve the two servers from .mcp.json when it asks'
+Add-Result 'Context7 and Serena' 'manual' 'Open Claude Code in this folder and approve context7 when it asks; approve serena only if you want it (it adds code-editing tools: docs/cung-list-20261026.md)'
 
 Write-Host ''
 Write-Host 'Summary' -ForegroundColor Cyan

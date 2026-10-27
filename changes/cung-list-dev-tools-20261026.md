@@ -18,3 +18,8 @@ her PC runs.
   docs, `.mcp.json`, the skill's stages and the list.
 
 By Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-26, branch `claude/cung-list-dev-tools-20261026`.
+
+Review fixes (2026-10-26): Serena pinned to the tested commit `9e1cced0c34ed48d668e179f7c56c77b4d14a3e3` and switched from
+the `claude-code` context (its prompt forbids Claude's built-in Read and Edit on code files) to `ide` (forbids nothing),
+re-checked with the MCP handshake (23 tools); the install script names its real test file, and the test now checks every
+repo path the script names and the Serena pin. Claude Opus 5.5 (`claude-opus-5-5`).
