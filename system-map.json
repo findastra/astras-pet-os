@@ -215,6 +215,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
     },
     {
+      "id": "astras-pet-os-mcp",
+      "name": "astras-pet-os-mcp",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-astras-pet-os-mcp-v1.0",
+      "job": "A tool of The Farm (Astra's Cung List, item 3, 2026-10-26): an MCP server that lets the agent in the seat (Claude Code, Claude Desktop or Codex) read the farm from this repo's own files: list_pets, get_pet, search_pets, list_open_handoffs, get_rule and list_rules, plus the name list, the rules files and the handoff cards as resources. Read only: no tool writes, runs a program or reaches the network, and a write tool would need its own opt-in switch, off by default, and Astra's OK. It runs on Node.js with the MCP SDK and zod, installed only in its own folder (mcp/, npm ci), so the hub stays dependency-free (mcp/server-20261026.mjs; docs/astras-pet-os-mcp-20261026.md)."
+    },
+    {
       "id": "farm-pets",
       "name": "farm-pets",
       "type": "tool",
