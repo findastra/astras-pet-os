@@ -8,7 +8,7 @@ test('Damsel archive remains a native program with a compact launcher and no pri
   const node=sources.extra.nodes.find(n=>n.id==='dm-archive-review');
   assert.equal(node.type,'own-program'); assert.equal(node.of,'program-13');
   assert.equal(node.state,'planned');
-  const html=spawnerFiles(sources)['apps/pet-programs/findastra-discord-presence-20261018.html'];
+  const html=spawnerFiles(sources)['apps/pet-programs/discord-tower-20261018.html'];
   assert.match(html,/discord-damsel-dm-archive-tool-panel/);
   assert.match(html,/id="dm-archive-open"/);
   assert.match(html,/adoption pending/);
@@ -22,7 +22,7 @@ test('public launcher keeps a source link; file pages open the sibling pet witho
     const link={href:'source',textContent:'Get the local viewer'},note={textContent:'source note'};
     new Function('document','location',js)({getElementById:id=>id==='dm-archive-open'?link:note},{protocol});
     if(protocol==='file:'){
-      assert.equal(link.href,'../../../findastra-discord-presence/discord-damsel-archive-review-20261020.html');
+      assert.equal(link.href,'../../../discord-tower/discord-damsel-archive-review-20261020.html');
       assert.match(note.textContent,/does not check/);
     }else assert.equal(link.href,'source');
   }

@@ -62,7 +62,7 @@ flowchart LR
     rgbee["RGBee *"]
     deck_duck["Deck Duck *"]
     claude_bot["Claude Bot *"]
-    findastra_discord_presence["Discord Damsel"]
+    discord_tower["Discord Damsel"]
   end
   subgraph Private["Private"]
     health_hummy["Health Hummy"]
@@ -98,7 +98,7 @@ flowchart LR
   data_dealer -.->|keys| api_fairy
   github_goldfish -.->|keys| api_fairy
   astras_pet_os -.->|shipped| portfolio_puffer
-  claude_bot -.->|status| findastra_discord_presence
+  claude_bot -.->|status| discord_tower
   mommys_mommies -.->|cue| rgbee
   mommys_mommies -.->|cue| drum_dog
   drum_dog -.->|cue| rgbee
@@ -108,8 +108,8 @@ flowchart LR
   astras_gif_maker -.->|art| meme_fiend
   file_master -.->|findings| backup_beaver
   mail_snail -->|findings| finance_finch
-  mommys_mommies -->|cue| findastra_discord_presence
-  role_fairy -->|status| findastra_discord_presence
+  mommys_mommies -->|cue| discord_tower
+  role_fairy -->|status| discord_tower
   github_goldfish -.->|shipped| portfolio_puffer
   mine_mole -.->|findings| finance_finch
   mesh_moth -.->|status| raspberry_berry

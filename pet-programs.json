@@ -188,7 +188,7 @@
       "icon": "Discord Damsel",
       "idea": "Presence Tower (she runs the OpenAI and Anthropic Discord Presence apps)",
       "stage": "registered",
-      "repo": "findastra-discord-presence",
+      "repo": "discord-tower",
       "repo_exists": true,
       "mini_descriptor": {
         "label": "discord-tower-v1.0-mini-descriptor-v1.0",

@@ -355,7 +355,7 @@
       },
       {
         "from": "claude-bot",
-        "to": "findastra-discord-presence",
+        "to": "discord-tower",
         "carries": "status",
         "state": "idea",
         "why": "Claude Bot's status feeds the Anthropic presence card."
@@ -425,14 +425,14 @@
       },
       {
         "from": "mommys-mommies",
-        "to": "findastra-discord-presence",
+        "to": "discord-tower",
         "carries": "cue",
         "state": "planned",
         "why": "Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps."
       },
       {
         "from": "role-fairy",
-        "to": "findastra-discord-presence",
+        "to": "discord-tower",
         "carries": "status",
         "state": "planned",
         "why": "Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are."
@@ -525,7 +525,7 @@
         "rgbee",
         "deck-duck",
         "claude-bot",
-        "findastra-discord-presence"
+        "discord-tower"
       ],
       "Private": [
         "health-hummy",
@@ -1016,7 +1016,7 @@
         "os": [],
         "pets": [
           {
-            "repo": "findastra-discord-presence",
+            "repo": "discord-tower",
             "how": "optional",
             "why": "Planned: Mommy's Mommies' Discord connection goes through Discord Damsel."
           }
@@ -1124,7 +1124,7 @@
       }
     },
     {
-      "repo": "findastra-discord-presence",
+      "repo": "discord-tower",
       "pet": "Discord Damsel",
       "role": "pet",
       "art": "discord-damsel",
@@ -1135,10 +1135,10 @@
       "added": "2026-10-07",
       "version": "0.1.1-20261008-pets",
       "note": "DRAFT. Blurple hennin and veil; no Discord logo.",
-      "interface_local_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
-      "interface_url": "apps/pet-programs/findastra-discord-presence-20261018.html",
+      "interface_local_url": "apps/pet-programs/discord-tower-20261018.html",
+      "interface_url": "apps/pet-programs/discord-tower-20261018.html",
       "app_url": "apps/findastra-discord-presence-20261008.html",
-      "visibility": "public",
+      "visibility": "private",
       "source_tag": "v0.1.1-20261008-pets",
       "source_commit": "25bfb4031ee98e5f496b052643189f56cfec92be",
       "audit": {
