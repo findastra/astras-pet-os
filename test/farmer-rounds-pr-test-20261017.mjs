@@ -57,7 +57,8 @@ test('a submission cannot change a pet\'s name: the name becomes a note for Astr
 test('a whole round with renaming submissions leaves every name alone and reports them', async () => {
   const r = clone();
   const github = {
-    listRepos: async () => allPets(r).filter((p) => p.visibility !== 'private').map((p) => ({ name: p.repo, private: false, topics: ['pet-app'], description: '' })),
+    // Every pet repo is private since 2026-10-28 (Discord Damsel's became discord-tower), so here GitHub shows them all.
+    listRepos: async () => allPets(r).map((p) => ({ name: p.repo, private: false, topics: ['pet-app'], description: '' })),
     snapshot: async (repo) => ({ readable: true, files: ['pet.json'], petJson: { pet: 'X', job: 'Y', cage: { submit: { date: '2026-10-17', pet: `New ${repo.name}` } } } }),
   };
   const report = await runRound({ registry: r, status: {}, github, token: null, ownerToken: null, now: new Date('2026-10-17T13:00:00Z'), log: () => {}, only: [] });

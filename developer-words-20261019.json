@@ -123,7 +123,7 @@
     "mommys-mommies": { "agent": "Event Planning Agent" },
     "paper-girl": { "agent": "Science News Agent", "keep_home": true },
     "file-master": { "agent": "File Agent" },
-    "findastra-discord-presence": { "agent": "Discord Presence Agent" },
+    "discord-tower": { "agent": "Discord Presence Agent" },
     "portfolio-puffer": { "agent": "Portfolio Agent" },
     "drum-dog": { "agent": "Music Agent" },
     "vscode-angel": { "agent": "Code Review Agent" },

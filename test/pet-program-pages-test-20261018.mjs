@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -24,7 +24,12 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.ok(existsSync(`${root}/${path}`), `${path} is missing: run npm run build`);
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
   }
-  const expected = new Set([...Object.keys(files).map((p) => p.split('/').pop()), ASSETS.css, ASSETS.js, LAUNCHER_JS]);
+  // A moved pet's old page sends you on to its new one (Astra, 2026-10-28).
+  for (const [path, html] of Object.entries(movedFiles())) {
+    assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
+    assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
+  }
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS]));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -255,9 +260,9 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-control-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
   assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
   const html = files[pagePath(damsel.repo)];
-  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/discord-tower/tree/main/tools/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {
@@ -360,7 +365,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
       assert.ok(html.includes(`href="${r.page}"`), `${d.repo}: ${r.pet} is a link`);
     }
   }
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
   assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
   // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
@@ -372,7 +377,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
 });
 
 test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
   assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
 });
 

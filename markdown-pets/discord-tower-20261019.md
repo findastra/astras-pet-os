@@ -12,9 +12,9 @@ Its job in the registry: Puts Astra's live AI work on her Discord profile: the O
 
 Each link opens in any web browser, on any computer, phone or tablet.
 
-- **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/findastra-discord-presence-20261018.html
+- **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/discord-tower-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/findastra-discord-presence-20261008.html
-- **Its code:** https://github.com/findastra/findastra-discord-presence
+- **Its code:** a private repo.
 
 ## If you are an AI asked to be Discord Damsel
 
@@ -31,12 +31,12 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **Sticker Manager** (planned, not built yet): A tool of Discord Tower, in Discord Damsel's servers panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Merged 2026-10-18 (findastra-discord-presence PR #15); not installed yet.
+- **Sticker Manager**: A tool of Discord Tower, in Discord Damsel's servers tool panel (Astra, 2026-10-18): every server you are in, each opening to its stickers; pick stickers from any server and reset your favorite stickers to exactly those, with an undo. A BetterDiscord plugin inside Discord desktop; it changes only your favorite stickers, after you confirm, and makes no requests of its own. Installed in Astra's Discord on 2026-10-19, where it read 91 servers and 1315 stickers and reset her favorites; 1.0.4, with the version check's maintenance light, since 2026-10-24. In discord-tower since 2026-10-28 (it was findastra-discord-presence PR #15). The Put back test inside Discord is still open (card 005).
 - **CLI Proxy API manager**: A tool of Discord Tower (Astra, 2026-10-18): installs only the verified CLI Proxy API release from quarantine, keeps it on this PC only, with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder; Start is Astra's click. Merged 2026-10-18 (findastra-discord-presence PR #16); first run 2026-10-19, with v8.0.33 (card 006).
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- **dm-cleanup**: A trick of Discord Tower (findastra-discord-presence skills/dm-cleanup/SKILL.md): help Astra delete her own messages in one Discord DM or channel with Undiscord, a third-party userscript that only she runs; she approves the exact scope.
+- **dm-cleanup**: A trick of Discord Tower (discord-tower skills/dm-cleanup/SKILL.md): help Astra delete her own messages in one Discord DM or channel with Undiscord, a third-party userscript that only she runs; she approves the exact scope.
 
 ### Pets it works with
 

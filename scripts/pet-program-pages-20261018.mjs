@@ -575,7 +575,7 @@ function vrchatSetups() {
 ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Rift Rabbit's launcher on this PC (<code>wonderland-launchpad-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the launcher runs, and show each step as it goes.`)}</div>`;
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'findastra-discord-presence': dmArchivePanel, 'github-goldfish': outstandingPanel };
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': dmArchivePanel, 'github-goldfish': outstandingPanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -944,6 +944,16 @@ export function spawnerPages(src) {
 }
 
 /** Every file the spawner writes: { path: html }. */
+// A pet whose repo moved keeps its old page address as a small page that sends you on, so links to it keep working
+// (Astra, 2026-10-28: Discord Damsel's repo became discord-tower; findastra.github.io links the old page).
+export const MOVED_PAGES = { 'findastra-discord-presence': 'discord-tower' };
+export const movedPage = (now) => '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+  + '<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>This pet program page moved</title>\n'
+  + `<meta http-equiv="refresh" content="0; url=${now}-${DATE}.html">\n<link rel="canonical" href="${now}-${DATE}.html">\n`
+  + '<style>:root{color-scheme:dark}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#17161d;color:#f3f0f7;font:16px/1.6 system-ui,sans-serif}a{color:#d8b4da}</style>\n'
+  + `</head>\n<body>\n<p>This pet program page moved: <a href="${now}-${DATE}.html">open it here</a>.</p>\n</body>\n</html>\n`;
+export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).map(([was, now]) => [pagePath(was), movedPage(now)]));
+
 export function spawnerFiles(src) {
   const pages = spawnerPages(src);
   return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages) };
@@ -952,7 +962,7 @@ export function spawnerFiles(src) {
 export function writePetProgramPages(root = '.') {
   const files = spawnerFiles(readSpawnerSources(root));
   mkdirSync(`${root}/${DIR}`, { recursive: true });
-  for (const [path, html] of Object.entries(files)) writeFileSync(`${root}/${path}`, html);
+  for (const [path, html] of Object.entries({ ...files, ...movedFiles() })) writeFileSync(`${root}/${path}`, html);
   return Object.keys(files);
 }
 

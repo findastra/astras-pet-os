@@ -39,7 +39,7 @@ test('Unity Unicorn\'s page shows Avatar tools and World tools, and every tool o
 });
 
 test('a pet whose tools have no side keeps one Native tools list', () => {
-  const d = pages.find((p) => p.repo === 'findastra-discord-presence');
+  const d = pages.find((p) => p.repo === 'discord-tower');
   assert.ok(d.tools.length > 0 && d.tools.every((t) => !t.side));
   const html = buildPetProgramPage(d);
   assert.ok(html.includes(`<h3>Native tools · ${d.tools.length}</h3>`));
