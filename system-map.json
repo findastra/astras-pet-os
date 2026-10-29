@@ -7221,7 +7221,7 @@
           {
             "language": "JavaScript",
             "percent": 70.5,
-            "why": "The Sticker Manager (a BetterDiscord plugin), its version check, the CLI Proxy API manager and their tests. Re-measured 2026-10-28, when the repo became discord-tower; the presence apps live in findastra-discord-presence."
+            "why": "The Sticker Manager (a BetterDiscord plugin), its version check, the CLI Proxy API manager and their tests. Re-measured 2026-10-28, when the repo became discord-tower; the presence apps live in ai-discord-presence (named findastra-discord-presence until 2026-10-28)."
           },
           {
             "language": "HTML",
