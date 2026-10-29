@@ -324,7 +324,9 @@ if(TOUCH) document.body.classList.add('touch');
 const PET_NODE = new Set();
 DATA.nodes.forEach(n=>{ if(['host','pet','pipeline'].includes(n.type) && !n.private){ PET_NODE.add(n.id); if(n.home&&n.home.node) PET_NODE.add(n.home.node); } });
 const VIEW = new URLSearchParams(location.search).get('view');
-let petsOnly = VIEW==='pets' || (VIEW!=='all' && window.self!==window.top);
+// Inside a frame (her portfolio's Polaroid, Astra 2026-10-29): the sphere, even on a touch screen, filling most of the square.
+const IN_FRAME = window.self!==window.top;
+let petsOnly = VIEW==='pets' || (VIEW!=='all' && IN_FRAME);
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- the rings: nested spheres (Astra, 2026-10-12 and 2026-10-13) ----------
@@ -358,7 +360,7 @@ const homeTarget = () => new THREE.Vector3(...(flat?FLAT_TARGET:HOME_TARGET));
 // The opening view fits the whole sphere into the space beside the key panel, at any window size.
 function homeCam(){ const {fw,fh}=openSpace(), tanV=Math.tan(camera.fov*Math.PI/360);
   if(flat){ const fitFlat=petsOnly?44:FLAT_FIT, el_=TOUCH?TOUCH_ELEV:FLAT_ELEV, d=Math.max(fitFlat/(tanV*camera.aspect*fw),(fitFlat*Math.sin(el_)+10)/(tanV*fh)); return new THREE.Vector3(0,Math.sin(el_),Math.cos(el_)).multiplyScalar(d).add(homeTarget()); }
-  const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = (petsOnly?60:FIT_R)/Math.sin(half);
+  const half = Math.min(Math.atan(tanV*fh), Math.atan(tanV*camera.aspect*fw)), d = (petsOnly?(IN_FRAME?46:60):FIT_R)/Math.sin(half);
   return new THREE.Vector3(0,Math.sin(HOME_ELEV),Math.cos(HOME_ELEV)).multiplyScalar(d).add(homeTarget()); }
 const LAYER_COLOR = {0:css('--l0'),1:css('--l1'),2:css('--l2'),3:css('--l3'),4:css('--l4'),5:css('--l5'),6:css('--l6')};
 const STATE = {
@@ -711,7 +713,7 @@ function fadeDecor(e){ const fs=flat?1-e:e, ff=flat?e:1-e;
 const d2=document.getElementById('d2'), d3=document.getElementById('d3');
 function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
 d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
-if(TOUCH){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold
+if(TOUCH && !IN_FRAME){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold; a frame keeps the sphere
 
 // ---------- the key: rings, line toggles, shapes, colours ----------
 const STATE_WORD = DATA.states;

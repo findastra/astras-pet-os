@@ -167,7 +167,10 @@ test('on touch screens the map opens flat with no turning, and both panes fold',
   const page = read('system-map-20261012.html');
   assert.match(page, /const TOUCH = matchMedia\('\(pointer: coarse\)'\)\.matches/);
   assert.match(page, /if\(TOUCH\) controls\.enabled = false;/, 'the trackball must not turn the map on touch');
-  assert.match(page, /if\(TOUCH\)\{ flat=true;/, 'touch screens open on the flat map');
+  assert.match(page, /if\(TOUCH && !IN_FRAME\)\{ flat=true;/, 'touch screens open on the flat map');
+  // inside a frame (the portfolio's Polaroid) it stays the sphere and fills most of the square (Astra, 2026-10-29)
+  assert.match(page, /const IN_FRAME = window\.self!==window\.top;/, 'a frame is told apart');
+  assert.match(page, /petsOnly\?\(IN_FRAME\?46:60\)/, 'a frame fits the sphere closer');
   // Astra, 2026-10-27 ("Spin on phones too"): the Pets view spins on touch screens too; the full map still never does.
   assert.match(page, /let autoSpin = \(petsOnly \|\| !TOUCH\)/, 'no spin on touch, except in the Pets view');
   assert.match(page, /id="nSpin"[^>]*|class="btn no-touch" id="nSpin"/);
