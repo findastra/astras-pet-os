@@ -67,7 +67,7 @@ export function syncProfile(readme, registry, repos, programs = null) {
   // page entry); `tools` nests each pet's home first, then its tools (the Kennel, the Shed, the vet-clinic), under that pet.
   const hidden = new Set(registry.profile?.hidden || []);
   const toolsOf = registry.profile?.tools || {};
-  // also_listed: pet repos Astra also lists in another section on purpose (findastra-discord-presence under Discord).
+  // also_listed: pet repos Astra also lists in another section on purpose (ai-discord-presence, once findastra-discord-presence, under Discord).
   const alsoListed = new Set(registry.profile?.also_listed || []);
   const places = Object.values(toolsOf).flatMap((t) => t.tools || []).filter((r) => !petRepos.has(r));
   // Astra may label a repo's line with another name (`fuzzboi-factory` for the fuzzbois repo, 2026-10-17). When the
