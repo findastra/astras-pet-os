@@ -1,58 +1,42 @@
-status: open (reviewed; waiting on Astra for integration)
+status: taken by Codex (Damsel-only integration)
 for: Codex
 from: OpenAI Codex (GPT-6), 2026-10-30
-needs: current hub rules, PR 268, Discord Tower bridge revision
+needs: current hub rules, PR 268, Discord Tower PR 1, AI Discord Presence PR 50
 ---
 ## Task
 
-Normalize desktop pet sizes, keep Workflow Whale largest but compact, and provide working OpenAI/Anthropic start/open controls on Discord Damsel's page.
+Restore working OpenAI presence and provide accurate status and start/open controls for OpenAI and Anthropic in Discord Damsel.
 
 ## Ownership and state
 
-State: READY_FOR_REVIEW — source review accepted; integration pending
+State: IN_PROGRESS - narrowed integration review.
 
-Implementer: root presence/sizing session. Writable scope: `scripts/desktop-pets-20261011.cs`, sizing tests and dated sizing preview/docs, this card and `changes/pet-sizes-presence-20261030.md`.
+Implementer: root presence session, owning the previously claimed desktop hook, Damsel UI and generated page scope, this card and change record. Previous delegated implementation scope has been released and received. Reviewer: rules-review agent for narrowed desktop code; presence-diagnosis agent and root for the accepted service/UI. One active writer per file.
 
-Delegated implementer: Damsel agent in this session. Writable scope: `scripts/pet-program-pages-20261018.mjs`, Damsel companion JavaScript and tests, generated Discord Tower page, presence URL entries in `system-map.json`, and the narrow presence-managed hook in `apps/pet-programs/pet-program-page-20261018.js`. The Discord Tower service is developed on its own isolated branch. The delegate does not edit the desktop host.
-
-Reviewer: rules-review agent for desktop sizing; root for Damsel controls and the separate launcher fix. No production artwork changes; active artwork review PR 267 remains separate. Live main and desktop executable remain unchanged until the reviewed core change is approved.
-
-Both implementation scopes are released. Source review is accepted as recorded below; no live desktop adoption or final owner acceptance is claimed.
+Astra's latest direction: "Don't worry about any of the pet stuff. Did you fix the AI Discord presence and did you fix the Discord Damosel? Please pull them up." Root is proceeding only with the requested presence/Damsel repair and opening. All sizing code, diagnostics and policy documentation are removed from the integration candidate. Historical uninstalled sizing proposal remains in commit c265417; it is not adopted.
 
 ## What I did
 
-- Inspected installed presence apps and confirmed both servers stopped despite saved ON indicators.
-- Restored OpenAI from its actual installation path: Automatic mode, RPC connected, activity published and acknowledged by Discord. The visible profile itself is not yet visually verified.
-- Found launcher entrypoint comparison fails through a Windows directory junction; separate presence source repair is underway.
-- Confirmed the generated Damsel presence entries have no URL or working start control.
-- Confirmed existing desktop size multipliers and pre-override cap allow oversized exceptions.
-- Published isolated branch claim `29019ec` and draft PR 268 before implementation.
-- Replaced per-pet multipliers with bounded species sizes, preserving aspect ratios, shared human calibration and paired movement. Whale maximum dimension is 64 logical pixels (previously about 78); Claude Bot is 48 high (previously 88.125). Source drawings are unchanged; the Farmer's different head/body ratio remains an artwork issue.
-- Added the fixed hidden Damsel launcher hook, visible Start/open/Stop controls, verified publishing lights and local-only control links. The pet-owned service is delivered separately in Discord Tower; the junction guard fix is AI Discord Presence PR 50.
-- Candidate desktop build and complete native `--self-test` passed. The diagnostic `--size-report` loads current art without starting the live pets.
-- `npm run build` and `npm run check` passed; derived changes are the Damsel page and System Map. The 36 targeted page/framework tests passed. Headless Edge exercised the actual Damsel page using a fake local adapter: stopped, start, published, stop, no stale saved ON, existing owner report preserved, no JS errors, no 360-pixel overflow. No live Stop action was used.
-- Size comparison loaded all 18 distinct source images, toggled before/after and zoom, and passed narrow-screen overflow and script-error checks.
-- Full hub suite: 353 tests, 342 passed, 8 failed, 3 skipped. Remaining failures are in browser GPU startup, sandboxed installer prerequisites/registry access, and existing CRLF-sensitive checks. They are recorded explicitly; the suite is not claimed fully green. Baseline confirmation follows below.
-- Checked current outstanding-items across the account before proposing integration. Unrelated failing scheduled jobs and stale/conflicting work are not dependencies of this repair. No image assets or other active artwork scope changed.
+- Confirmed both companion servers were stopped despite saved ON indicators. Restored OpenAI from the real installation path: Automatic mode, connected, activity published and acknowledged by Discord. The visible Discord profile itself has not been inspected.
+- Presence PR 50 fixes launcher entry detection through the old Windows directory junction. Root accepted source 652ad169ff1e5799e4dcfd70b0b6a5b27d3e26fc, receipt 6f6009e. All 108 tests passed, including red-before/green-after junction regressions; both required bundles were rebuilt and audited.
+- Discord Tower PR 1 supplies the local fixed allowlisted launcher/status service. Accepted source 6f08015458a419c53d263673b07c601e4b92e906; backend SHA256 bef390b1555e0c10d475ccba52f0da2b8a5db7d5d5e92d3d5193ffb22836fb7f. Full 70 tests passed; independent review reran 11 backend tests and 5 UI tests.
+- Damsel has visible Start and open, Open controls and Stop sharing actions, live publishing lights, guarded local-only control links, and a fixed hidden desktop launcher. Existing notes and reported maintenance state are preserved at the same canonical page URL.
+- Hub build/check and 36 targeted UI/framework tests passed. Actual generated-page browser checks exercised stopped/start/published/stop, stale status protection, retained maintenance report, no JavaScript errors and no overflow at 360 pixels. Live Stop was not used.
+- Full wider suite had six remaining unrelated baseline/environment failures after line-ending-only fixes: two developer-mode assertions reproduced on canonical main e7bdc5b, three sandboxed installer prerequisite/registry failures, one sandbox browser GPU startup failure. Their scripts are unchanged; no unsandboxed installer tests were run. The entire broad suite is not claimed green.
+- Removed the previous sizing implementation at the owner's direction. Only the Damsel launch helper, double-click route and its self-test remain in desktop code. No artwork changes, size changes or size-report mode are part of this revision.
 
 ## Done when
 
-Species size rules preserve artwork aspect ratios, shared human calibration and paired behavior; the whale has a modest upper bound and is the largest individual pet. Damsel shows accurate runtime state and can start/open either presence app. Tests, independent review, approved integration and live acceptance are recorded separately.
+The narrowed source has passed review and appropriate checks, the installed Damsel can start/open both companions and truthfully report publishing, and OpenAI remains connected and publishing. Open the requested Damsel and OpenAI panels. Record source adoption and remaining visual verification limits truthfully.
 
 ## Return
 
-Record exact revisions, commands and results here. Keep local diagnostics private; publish only sanitized evidence.
+Record exact accepted revisions, review, integration and live checks here. Keep private paths, runtime access codes and owner notes out of public records.
 
 ## Receipt and review
 
-Rules-review agent received and accepted the complete desktop C# implementation at SHA256 `777db51fbd43fd73a38c41440ddfe920edbea702a9aea7db63ff5b8270a0f677`, including fixed hidden command routing, final size caps, aspect ratios and existing shared human calibration. No blocking static findings; root ran the full native self-test separately.
+Prior independent service/UI review accepted safe installation checks, sanitized errors and stale-response handling. Accepted hub generator SHA256 85479c521140f6152530c0351f44cedccd2c94d4ecf0315f40228bc4d93cc5cc; shared page JavaScript bd80565cc5ce6c297ad8a19f1f388b8ac1e54ff944335b6b19524fd9a1c9a914; companion f8bfd22271ff6bf1e26cf74fe21899dbcc886ef2e18da3343458dca55208b819; companion test 8cb82e1b7948e1b90c12929d8a697820db2f9511f70666efbdc796e78bfcf14d. These files are unchanged by narrowing.
 
-The presence-diagnosis reviewer independently reviewed the Damsel service and UI, ran 11 backend tests and 5 UI tests, and accepted the fixes for unverified timeouts, stale responses and private OS-error messages. Root inspected the visible desktop/phone page evidence and confirmed the live host uses the same canonical page URL, preserving file-page storage. Exact service revision is recorded in its own handoff.
+Narrowed desktop review and integration checks follow below. The owner-reported maintenance flag remains available for the owner to clear.
 
-Discord Tower PR 1 service source was received and accepted at `6f08015458a419c53d263673b07c601e4b92e906` (backend SHA256 `bef390b1555e0c10d475ccba52f0da2b8a5db7d5d5e92d3d5193ffb22836fb7f`). The same reviewer accepted hub generator `85479c521140f6152530c0351f44cedccd2c94d4ecf0315f40228bc4d93cc5cc`, shared page JS `bd80565cc5ce6c297ad8a19f1f388b8ac1e54ff944335b6b19524fd9a1c9a914`, companion `f8bfd22271ff6bf1e26cf74fe21899dbcc886ef2e18da3343458dca55208b819`, and companion test `8cb82e1b7948e1b90c12929d8a697820db2f9511f70666efbdc796e78bfcf14d`.
-
-Baseline follow-up: the independent reviewer reproduced the two developer-mode assertion/parsing failures on canonical main `e7bdc5b`. The key-request/Linux failures were CRLF-only checkout differences; restoring those unchanged files to LF made both selected checks pass without any Git content diff. Three installer failures were blocked by the sandbox's Windows PowerShell/registry prerequisites, and the browser test's GPU process exited in the sandbox; their scripts/tests are byte-identical to baseline and no unsandboxed installer rerun was attempted. Six wider-suite baseline/environment failures therefore remain documented, with all feature-specific and desktop checks passing.
-
-The separate junction launcher fix was accepted by root at `652ad169ff1e5799e4dcfd70b0b6a5b27d3e26fc`, with receipt committed as `6f6009e` in AI Discord Presence PR 50.
-
-The owner-reported maintenance flag is preserved for the owner to clear. Merge and live adoption await Astra's explicit approval; the current OpenAI process is restored and publishing, but the new controls and size policy are still the reviewed candidate.
+Narrowed desktop review accepted SHA256 e4f544eccb719f5b64cca5fb65afa8e648ea987f851043dda6c72f46bd22095a. Reviewer verified the exact diff contains only the Damsel helper, fixed hidden launch route and self-test; no sizing, diagnostics, preview or encoding changes. Root rebuilt that exact source and the full native self-test passed; all five UI tests passed again. Implementation scope released for integration.
