@@ -1,9 +1,17 @@
-status: open
+status: taken by Codex pet-art-review-20261030
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Current artwork review, 2026-10-30
+
+Astra requested a proposal for every pet, missing artwork, and repairs using her favorite existing pets as references. This explicitly resumes and expands the redraw task. State: IN_PROGRESS. Implementer: Codex, branch `codex/pet-art-review-20261030`. Write scope: this card, `art/drafts/art-review-20261030/`, dated review scripts and docs, and `changes/pet-art-review-20261030.md`. Existing production art, runtime, registry, and `art/latest/` remain outside the proposal scope. Reviewer: Codex independent rules/art review subagent, read-only.
+
+The current main list contains 84 pets; the Reactor Raccoon proposal is separately pending. The live checkout is clean at `e7bdc5b02d345a94ea2d183922fd5314273f364b`. Earlier art and open branches are being checked before replacements. The owner named Deck Duck, Drum Dog, Spoonfed Sugarcube, Mommy's Mommies, GitHub Goldfish, Rift Rabbit, Mail Snail, Raspberry Pi Berry, Friendly Farmer, Gone Ghost, Mine Mole, Patch Cat, Backup Beaver and Chat Rat as favorites. Preserve these as references and recommend keeping good art. Data Chip's original renderer and Claude Bot's private exception remain intact.
+
+Acceptance: one explicit keep/repair/new-art recommendation for every listed pet; proposed art visibly reviewed at desktop size; nine moods checked where a replacement sheet is delivered; unclipped alpha bounds and consistent registration; prompts and provenance saved; draft status truthful. Final adoption requires Astra's visual approval. The original notes below are historical: superseded distributed-copy instructions do not apply to the current single art source.
 
 Astra's 2026-10-17 art round (full request in [docs/pet-art-redesign-20261017.md](../docs/pet-art-redesign-20261017.md)).
 I made the pixel edits on branch `claude/pet-art-redesign-20261017` of this repo and of eight pet repos (PRs listed in
