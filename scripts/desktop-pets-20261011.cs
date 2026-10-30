@@ -98,6 +98,12 @@ namespace AstraDesktopPets {
     internal static bool Signal(string action,string suffix="") { try { using(var handle=EventWaitHandle.OpenExisting(Identity+suffix+"-"+action))handle.Set();return true; } catch(WaitHandleCannotBeOpenedException) { return false; } }
     internal static void WriteStatus(object value,bool test=false) { Directory.CreateDirectory(Path.GetDirectoryName(StateFile));File.WriteAllText(test?TestStateFile:StateFile,Json.Serialize(value)); }
     internal static void Open(string relative) { string file=SafePath(relative);if(File.Exists(file))Process.Start(new ProcessStartInfo(file) { UseShellExecute=true }); }
+    internal static string DamselStart { get { return Path.Combine(Path.GetDirectoryName(Root),"discord-tower","open-discord-damsel-20261030.cmd"); } }
+    internal static ProcessStartInfo DamselStartInfo() {
+      return new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),"cmd.exe"),"/d /c \"\""+DamselStart+"\"\"") {
+        UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(DamselStart)
+      };
+    }
     internal static void StartBug(string argument) { if(!File.Exists(BugExe))return;Process.Start(new ProcessStartInfo(BugExe,argument) { UseShellExecute=false,WindowStyle=argument=="--status"?ProcessWindowStyle.Normal:ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(BugExe) }); }
   }
 
@@ -527,11 +533,11 @@ namespace AstraDesktopPets {
   // The star and the Friendly Farmer. The star shows or hides every pet at once; while the
   // pets are out, each one roams the whole screen in its own PetWindow.
   internal sealed class PetsWindow : Form {
-    internal const float NormalHeight=58.75f,BugHeight=58.75f,MaxPetWidth=96;
+    internal const float NormalHeight=52f,MaxPetWidth=64f,OtherPetLimit=56f,PairedHeight=38f;
     // Group 3 share Mommy's Mommies' face and body in art pixels (docs/girls-same-size-20261017.md). Halos,
     // horns, wings, the star and the headset make their alpha bounds differ, so instead of each being fitted
     // by its bounds they all use one crop height, measured up from the soles: one scale for all six girls.
-    // 202 is Mommy's Mommies' own height, so they are drawn exactly as before.
+    // 202 is Mommy's Mommies' art height. Shared scaling preserves their measured face/body proportions.
     internal static readonly string[] SameSize={"mommys-mommies","discord-damsel","api-fairy","astra-wisp","vscode-angel"};
     internal const int SameSizeCrop=202;
     const int LogicalWidth=20,LogicalHeight=20,StarDrop=0;
@@ -706,12 +712,45 @@ namespace AstraDesktopPets {
     void SavePosition() { if(test||!started||dockBounds.HasValue)return;using(var key=Registry.CurrentUser.CreateSubKey(PetFiles.SettingsKey)){Point location=Compact?expandedLocation:Location;key.SetValue("X",location.X);key.SetValue("Y",location.Y);} }
     void SavePetsOut() { if(test)return;using(var key=Registry.CurrentUser.CreateSubKey(PetFiles.SettingsKey))key.SetValue("PetsOut",petsOut?1:0); }
     void LayoutPets() {
-      // Every pet stands the same height; wide art is fitted without distortion.
-      foreach(var pet in pets) { float h=pet.Id=="voicemeeter-bug"?BugHeight:NormalHeight;float w=h*pet.Crop.Width/pet.Crop.Height;if(w>MaxPetWidth){h*=MaxPetWidth/w;w=MaxPetWidth;}float size=1;
-        if(Array.IndexOf(SameSize,pet.Id)>=0) { pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop,pet.Crop.Right,pet.Crop.Bottom);h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height; }
-        switch(pet.Id) { case "wifi-butterfly":size=0.7f;break;case "fuzzboi-friend":size=0.75f;break;case "paper-girl":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break;case "claude-bot":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=1.5f;break;case "rift-rabbit":size=0.9f;break;case "chat-rat":size=0.8f;break;case "meme-fiend":case "raspberry-berry":size=0.8f;break;case "rgbee":size=0.7f;break;case "mesh-moth":size=0.64f;break;case "spoonfed-sugarcube":size=0.7f;break;case "health-hummy":size=0.7776f;break;case "voicemeeter-bug":case "mail-snail":case "portfolio-puffer":case "ghost-protocol":size=0.8f;break;case "finance-finch":case "backup-beaver":case "patch-cat":size=0.85f;break;case "file-master":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break; }
-        pet.Hit=new RectangleF(0,0,w*size,h*size); }
-      float fh=NormalHeight*0.9f,fw=fh*farmer.Crop.Width/farmer.Crop.Height;farmer.Hit=new RectangleF(0,0,fw,fh);
+      foreach(var pet in pets) {
+        if(Array.IndexOf(SameSize,pet.Id)>=0)pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop,pet.Crop.Right,pet.Crop.Bottom);
+        pet.Hit=DisplayBounds(pet.Id,pet.Crop.Size);
+      }
+      farmer.Hit=DisplayBounds(farmer.Id,farmer.Crop.Size);
+    }
+    // A compressed animal-size scale, in logical screen pixels, not biological scale. Kind describes movement,
+    // so related species are named explicitly here. The largest dimension is used for animals: a wide fish must
+    // not become enormous just because it is short. Existing image proportions are never stretched.
+    internal static float AnimalExtent(string id) {
+      switch(id) {
+        case "workflow-whale":return MaxPetWidth;
+        case "gif-giraffe":return 56;
+        case "unity-unicorn":return 54;
+        case "python-panther":case "log-lynx":return 46;
+        case "drum-dog":return 44;
+        case "patch-cat":case "backup-beaver":case "portfolio-puffer":return 40;
+        case "rift-rabbit":case "platform-platypus":case "deck-duck":case "project-parrot":return 38;
+        case "chat-rat":case "door-dormouse":case "mine-mole":case "forensic-ferret":return 34;
+        case "finance-finch":case "packet-piranha":return 32;
+        case "health-hummy":case "goldfish":return 30;
+        case "mesh-moth":case "rgbee":case "wifi-butterfly":case "voicemeeter-bug":return 28;
+        case "mail-snail":return 26;
+        case "claude-bot":return 48;
+        case "chip":case "raspberry-berry":case "spoonfed-sugarcube":return 34;
+        case "meme-fiend":case "fuzzboi-friend":return 36;
+        default:return 40;
+      }
+    }
+    internal static RectangleF DisplayBounds(string id,Size crop) {
+      if(crop.Width<1||crop.Height<1)throw new InvalidDataException("A pet needs nonempty artwork.");
+      bool sharedHuman=Array.IndexOf(SameSize,id)>=0;
+      float ratio=sharedHuman?NormalHeight/SameSizeCrop:id=="farmer"?NormalHeight/crop.Height:
+        id=="paper-girl"||id=="file-master"?PairedHeight/crop.Height:AnimalExtent(id)/Math.Max(crop.Width,crop.Height);
+      float w=crop.Width*ratio,h=crop.Height*ratio;
+      // Always cap AFTER group calibration. Neither a human crop nor an individual override can bypass it.
+      float limit=id=="workflow-whale"?MaxPetWidth:OtherPetLimit;
+      float fit=Math.Min(1,limit/Math.Max(w,h));
+      return new RectangleF(0,0,w*fit,h*fit);
     }
     void CreatePetWindows(Rectangle area) { ClosePetWindows();LayoutPets();foreach(var pet in pets)roaming.Add(new PetWindow(this,pet,scale,random));roaming.Add(new PetWindow(this,farmer,scale,random));Scatter(area); }
     void ClosePetWindows() { foreach(var window in roaming){window.Close();window.Dispose();}roaming.Clear(); }
@@ -866,7 +905,17 @@ namespace AstraDesktopPets {
     // One and two clicks are the same for every pet; a pet with a tool on three clicks waits for a possible third.
     int MostClicks(string id) { var pet=pets.Find(p=>p.Id==id);return pet!=null&&pet.ThreeClicks!=null?3:2; }
     internal void OpenPet(PetSprite pet) {
-      testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
+      testActions.Add("open:"+pet.Id);
+      if(pet.Id=="discord-damsel") {
+        if(test){testActions.Add("start:discord-tower-controls");return;}
+        // The pet owns its launcher and only its two presence programs. It opens the same generated page,
+        // keeping that page's notes and reported issues, and supplies its fixed start/status buttons.
+        if(File.Exists(PetFiles.DamselStart)) {
+          try { Process.Start(PetFiles.DamselStartInfo());return; }
+          catch(Exception error) { MessageBox.Show("Discord Damsel's launcher could not start: "+error.Message,"Discord Tower"); }
+        }
+      }
+      if(test){WriteStatus();return;}
       // Voicemeeter Bug too: his own status window stays in his tray menu (Status and help).
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
@@ -934,6 +983,22 @@ namespace AstraDesktopPets {
         bitmap.Save(path,ImageFormat.Png);
       }
     }
+    // Deterministic diagnostic output for comparing the same source art before adopting a desktop build.
+    internal void SizeReport() {
+      var all=new List<PetSprite>(pets);all.Add(farmer);all.Sort((a,b)=>String.CompareOrdinal(a.Id,b.Id));
+      Console.WriteLine(PetFiles.Json.Serialize(all.ConvertAll(p=>new {id=p.Id,name=p.Name,width=p.Hit.Width,height=p.Hit.Height,crop_x=p.Crop.X,crop_y=p.Crop.Y,crop_width=p.Crop.Width,crop_height=p.Crop.Height})));
+    }
+    static void SizeTests() {
+      // Shape changes and an extreme accessory must not defeat caps or stretch an image.
+      foreach(string id in new[]{"workflow-whale","claude-bot","farmer","discord-damsel","paper-girl","unknown"})foreach(var crop in new[]{new Size(198,149),new Size(20,200),new Size(800,202)}) {
+        var box=DisplayBounds(id,crop);float limit=id=="workflow-whale"?MaxPetWidth:OtherPetLimit;
+        if(Math.Max(box.Width,box.Height)>limit+.01f||Math.Abs(box.Width/box.Height-crop.Width/(float)crop.Height)>.001f)throw new Exception("Size cap or aspect ratio failed: "+id);
+      }
+      foreach(var group in new[]{new[]{"chat-rat","door-dormouse"},new[]{"mesh-moth","rgbee","wifi-butterfly","voicemeeter-bug"},new[]{"python-panther","log-lynx"}}) {
+        float edge=0;foreach(string id in group) { var box=DisplayBounds(id,id==group[0]?new Size(170,200):new Size(220,130));float current=Math.Max(box.Width,box.Height);if(edge!=0&&Math.Abs(edge-current)>.01f)throw new Exception("Related pets use different sizes.");edge=current; }
+      }
+      if(!(AnimalExtent("mail-snail")<AnimalExtent("chat-rat")&&AnimalExtent("chat-rat")<AnimalExtent("drum-dog")&&AnimalExtent("drum-dog")<AnimalExtent("gif-giraffe")&&AnimalExtent("gif-giraffe")<AnimalExtent("workflow-whale")))throw new Exception("Animal size order failed.");
+    }
     object PairStatus() {
       var paper=roaming.Find(p=>p.Pet.Id=="paper-girl");var files=roaming.Find(p=>p.Pet.Id=="file-master");
       bool available=paper!=null&&files!=null,paused=available&&(paper.InteractionActive||files.InteractionActive);
@@ -954,11 +1019,16 @@ namespace AstraDesktopPets {
     internal void SelfTest() {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
       foreach(var pet in pets)pet.ValidateEffects();
-      if(BugHeight!=NormalHeight)throw new Exception("Bug standard size test failed.");
+      SizeTests();
+      var damsel=pets.Find(p=>p.Id=="discord-damsel");if(damsel!=null) {
+        ResolveClicks(damsel.Id,2);if(testActions[testActions.Count-1]!="start:discord-tower-controls")throw new Exception("Damsel must open her presence controls launcher.");
+        var start=PetFiles.DamselStartInfo();if(start.UseShellExecute||!start.CreateNoWindow||start.WindowStyle!=ProcessWindowStyle.Hidden||!start.Arguments.EndsWith("open-discord-damsel-20261030.cmd\"\""))throw new Exception("Damsel launcher must be fixed and hidden.");
+        testActions.Clear();
+      }
       if(StarBounds.Right>LogicalWidth||StarBounds.Bottom>LogicalHeight)throw new Exception("Star layout overflow.");
-      foreach(var pet in pets)if(pet.Hit.Height>(pet.Id=="claude-bot"?NormalHeight*1.5f:NormalHeight)+.01f||pet.Hit.Width>MaxPetWidth+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
+      foreach(var pet in pets)if(Math.Max(pet.Hit.Width,pet.Hit.Height)>(pet.Id=="workflow-whale"?MaxPetWidth:OtherPetLimit)+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
-      if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
+      if(Math.Abs(paper.Hit.Height-PairedHeight)>.01f||Math.Abs(files.Hit.Height-PairedHeight)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
       foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
         if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
 
@@ -1018,7 +1088,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, compact species sizes and aspect ratios, bounded largest whale, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -1203,8 +1273,8 @@ namespace AstraDesktopPets {
         if(mode=="--check"||mode=="--check-test") { bool testCheck=mode=="--check-test";string path=testCheck?PetFiles.TestStateFile:PetFiles.StateFile;DateTime since=DateTime.UtcNow;bool running=PetFiles.Signal("check",testCheck?"-test":"");if(!running)PetFiles.WriteStatus(new{running=false,startup_enabled=PetFiles.StartupEnabled(),updated_utc=DateTime.UtcNow.ToString("o")},testCheck);else for(int i=0;i<25;i++){Thread.Sleep(40);if(File.Exists(path)&&File.GetLastWriteTimeUtc(path)>=since)break;}Console.WriteLine(File.ReadAllText(path));return running?0:1; }
         Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
         // The self-test and previews always read this folder; a running star reads the pictures-only copy while the hub is held back.
-        if(mode!="--preview"&&mode!="--self-test")PetFiles.PicturesRoot=PetFiles.ChoosePicturesRoot(PetFiles.PicturesStatusFile,DateTime.UtcNow);
-        if(mode=="--preview"||mode=="--self-test")using(var window=new PetsWindow(true,20261009)) { if(mode=="--self-test")window.SelfTest();else{string path=args.Length>2?Path.GetFullPath(args[2]):Path.Combine(PetFiles.Root,"desktop-pets-preview-20261008.png");window.Preview(path);Console.WriteLine(path);}return 0; }
+        if(mode!="--preview"&&mode!="--self-test"&&mode!="--size-report")PetFiles.PicturesRoot=PetFiles.ChoosePicturesRoot(PetFiles.PicturesStatusFile,DateTime.UtcNow);
+        if(mode=="--preview"||mode=="--self-test"||mode=="--size-report")using(var window=new PetsWindow(true,20261009)) { if(mode=="--self-test")window.SelfTest();else if(mode=="--size-report")window.SizeReport();else{string path=args.Length>2?Path.GetFullPath(args[2]):Path.Combine(PetFiles.Root,"desktop-pets-preview-20261008.png");window.Preview(path);Console.WriteLine(path);}return 0; }
         using(var mutex=new Mutex(false,PetFiles.Identity+suffix)) {
           bool own=false;try{own=mutex.WaitOne(0);}catch(AbandonedMutexException){own=true;}
           if(!own){if(mode!="--startup")PetFiles.Signal("show",suffix);return 0;}

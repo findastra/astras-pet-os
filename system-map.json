@@ -319,6 +319,7 @@
     {
       "id": "openai-discord-presence",
       "name": "OpenAI Discord Presence",
+      "url": "https://github.com/findastra/ai-discord-presence/tree/main/openai-discord-presence",
       "type": "own-program",
       "state": "now",
       "job": "Windows app that shows Codex activity on Astra's Discord profile. One of Discord Damsel's programs.",
@@ -329,6 +330,7 @@
     {
       "id": "anthropic-discord-presence",
       "name": "Anthropic Discord Presence",
+      "url": "https://github.com/findastra/ai-discord-presence/tree/main/anthropic-discord-presence",
       "type": "own-program",
       "state": "now",
       "job": "Windows app that shows Claude activity on Astra's Discord profile. One of Discord Damsel's programs.",

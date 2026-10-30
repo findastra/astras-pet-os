@@ -34,6 +34,7 @@ export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-pa
 // Rift Rabbit's Launch buttons (2026-10-24): the only page script that sends anything, and only to Rift Rabbit's own
 // launcher on this PC, so it is its own file and only Rift Rabbit's page loads it (wherever its VRChat setups are drawn).
 export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
+export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -312,10 +313,10 @@ const careOf = (key, planned, unseen) => {
   return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
-const lights = (key, name, { planned = false, unseen = false } = {}) => {
+const lights = (key, name, { planned = false, unseen = false, presence = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p} aria-label="${esc(name)}: ${unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="ON/OFF (kill switch): click to switch"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : 'ON/OFF (kill switch): click to switch'}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -398,7 +399,7 @@ function itemList(items, prefix, empty) {
     // and no switch: it is a question, not a tool you turn on or off.
     const pillLights = i.waiting
       ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
-      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device' });
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence'].includes(i.id) });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
     return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
@@ -584,7 +585,18 @@ function vrchatSetups() {
 ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Rift Rabbit's launcher on this PC (<code>wonderland-launchpad-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the launcher runs, and show each step as it goes.`)}</div>`;
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': dmArchivePanel };
+function presencePanel(d) {
+  const card = (key, name) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${name} Discord Presence</legend>
+<p data-presence-status role="status">Not checked. Open Discord Damsel on this PC to connect.</p>
+<p><button type="button" class="button" data-presence-start="${key}" disabled>Start &amp; open ${name}</button>
+<a class="button" data-presence-controls="${key}" aria-disabled="true" target="_blank" rel="noopener">Open ${name} controls</a>
+<button type="button" class="button" data-presence-stop="${key}" disabled>Stop sharing</button></p></fieldset>`;
+  return panel(`${d.petSlug}-presence-control-panel`, `<div id="discord-damsel-presence-control">
+${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}
+<p class="small" id="presence-control-note" role="status">Start and open works on this PC after you double-click Discord Damsel. The control links open apps that are already running.</p>
+${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`, { cls: 'presence' });
+}
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': d => presencePanel(d) + '\n' + dmArchivePanel(d) };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -889,7 +901,7 @@ ${footer}
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
-${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
+${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
 `, pagePath(d.repo));
