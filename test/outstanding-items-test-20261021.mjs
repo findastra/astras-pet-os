@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { analyze, cardNeed, cardTitles, graphql, pageData, prState, toMarkdown, GROUPS, LABEL, PAGE_DATA_PATH, SCHEMA, STALE_DAYS } from '../scripts/outstanding-items-20261021.mjs';
-import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, PET_PANELS, OUTSTANDING_EXAMPLES, OUTSTANDING_GROUPS, OUTSTANDING_BOARD } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, PET_PANELS, OUTSTANDING_EXAMPLES, OUTSTANDING_GROUPS, OUTSTANDING_TOOL_IDS, OUTSTANDING_BOARD } from '../scripts/pet-program-pages-20261018.mjs';
 import { systemMapData } from '../scripts/system-map-20261012.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -141,20 +141,45 @@ test('it is GitHub Aquarium\'s tool on the map, with the Pets Board as its nativ
   assert.match(read('package.json'), /"outstanding-items": "node scripts\/outstanding-items-20261021\.mjs"/);
 });
 
-test('GitHub Aquarium\'s page has the panel first, before the four levels; no other page does', () => {
+test('GitHub Aquarium\'s five groups are tools in its L1 control panel; no other page has them', () => {
   const files = spawnerFiles(readSpawnerSources(root));
   const page = files[pagePath('github-goldfish')];
-  const at = page.indexOf('>github-goldfish-outstanding-items-tool-panel<');
-  // A pet's own panels come first, under the header (Astra, 2026-10-24).
-  assert.ok(at > page.indexOf('</header>') && at < page.indexOf('>github-goldfish-intelligence-levels-panel<'), 'under the header, before the four levels');
-  for (const [id, label] of OUTSTANDING_GROUPS) assert.ok(page.includes(`<fieldset class="request-group outstanding-group g-${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
+  // Astra, 2026-10-29: "All of those things are tools ... put them in the right spot": Native tools, inside L1.
+  const l1 = page.indexOf('>github-goldfish-L1-control-panel<'), l2 = page.indexOf('>github-goldfish-L2-control-panel<');
+  assert.ok(!page.includes('outstanding-items-tool-panel'), 'no separate panel above the four levels any more');
+  for (const [id, label] of OUTSTANDING_GROUPS) {
+    const at = page.indexOf(`<div class="toolbox outstanding-group g-${id}"><div class="toolbox-head">`);
+    assert.ok(at > l1 && at < l2, `${label} is a tool box in L1`);
+    assert.ok(page.slice(at, at + 1500).includes(`data-item="tool:${label}"`), `${label} has its lights, keyed by its map id`);
+    assert.ok(page.slice(at, at + 1500).includes(`aria-expanded="true">${label}</button>`), `${label} has its name`);
+  }
   assert.doesNotMatch(page, /class="[^"]*\boutstanding-group (?:broken|you|chat|close|info)\b/, 'no bare group class: `chat` is the chat pill\'s');
-  assert.ok(page.includes(`href="${OUTSTANDING_BOARD}"`), 'the Open button goes to the Pets Board');
-  assert.equal(typeof PET_PANELS['github-goldfish'], 'function', 'GitHub Aquarium has its own pet panel');
-  for (const d of spawnerPages(readSpawnerSources(root))) if (d.repo !== 'github-goldfish') assert.ok(!files[pagePath(d.repo)].includes('outstanding-items-tool-panel'), `${d.repo} has no outstanding-items panel`);
+  const at = page.indexOf('id="outstanding-items"');
+  assert.ok(at > l1 && at < l2 && page.indexOf(`href="${OUTSTANDING_BOARD}"`) > at, 'the Open button goes to the Pets Board, next to the tools');
+  assert.equal(PET_PANELS['github-goldfish'], undefined, 'not a pet panel of its own any more');
+  for (const d of spawnerPages(readSpawnerSources(root))) if (d.repo !== 'github-goldfish') assert.ok(!files[pagePath(d.repo)].includes('id="outstanding-items"'), `${d.repo} has no outstanding items`);
   const m = page.match(/<script type="application\/json" id="outstanding-examples">([^<]*)<\/script>/);
   assert.deepEqual(JSON.parse(m[1]), OUTSTANDING_EXAMPLES);
   for (const e of OUTSTANDING_EXAMPLES) { assert.equal(e.example, true); assert.match(e.title, /^Example: /); assert.match(e.repo, /^example-/); assert.match(e.url, /^https:\/\//); }
+});
+
+test('the five are GitHub Aquarium\'s important tools: on the map, first under Native tools, listed once', () => {
+  // Astra, 2026-10-29: "make these important tools for the goldfish".
+  const map = JSON.parse(read('system-map.json'));
+  assert.deepEqual(OUTSTANDING_TOOL_IDS, OUTSTANDING_GROUPS.map(([, label]) => label));
+  for (const id of OUTSTANDING_TOOL_IDS) {
+    const n = map.nodes.find((x) => x.id === id);
+    assert.ok(n, `${id} is on the map`);
+    assert.equal(n.of, 'program-2'); assert.equal(n.type, 'tool'); assert.equal(n.layer, 6);
+    assert.equal(n.label, `github-aquarium-v1.0-${id}-v1.0`);
+    assert.match(n.job, /^An important tool of GitHub Aquarium/);
+  }
+  const page = spawnerFiles(readSpawnerSources(root))[pagePath('github-goldfish')];
+  const tools = map.nodes.filter((n) => n.of === 'program-2' && n.type === 'tool').length;
+  const head = page.indexOf(`<h3>Native tools · ${tools}</h3>`);
+  assert.ok(head > 0, `Native tools counts all ${tools}, the five included`);
+  assert.ok(page.indexOf('id="outstanding-items"') > head && page.indexOf('id="outstanding-items"') < page.indexOf('data-item="tool:flash-audit"'), 'the five come before the other tools');
+  for (const id of OUTSTANDING_TOOL_IDS) assert.equal(page.split(`data-item="tool:${id}"`).length - 1, 2, `${id} is listed once (two lights)`);
 });
 
 test('the panel and the Pets Board read the list only from one fixed file on Astra\'s PC, and only there', () => {
