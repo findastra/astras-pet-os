@@ -6,7 +6,16 @@ The review includes all **84 current pets plus pending Reactor Raccoon (#85)**. 
 
 The latest size pass aligns animals by family. Normal animals use about 200 pixels of a 256-pixel square; smaller overrides cover bugs, mice and the owner-identified oversized characters. Cat heads are checked against Patch Cat. The 1024-pixel review exports preserve the same positions and sizes in a larger square; 256-pixel exports are provided for later integration. Runtime rendering currently normalizes some sprites independently, so the final desktop scale must be integrated and checked separately after design choices.
 
-The public source files and prompts are in `art/drafts/art-review-20261030/`. Every proposal is a draft. No live artwork or stable `art/latest/` link is replaced. Private Claude Bot and the latest local character-reference Skill Scout draft appear only in local review outputs.
+The public source files and prompts are in `art/drafts/art-review-20261030/`. Every proposal is a draft. No live artwork or existing stable `art/latest/` link is replaced. The Farmer's picture build adds 217 draft-only aliases under `art/latest/drafts/art-review-20261030/`, preserving every pre-existing alias byte for byte. These generated aliases follow the required undated naming exception; source assets remain dated. Private Claude Bot and the latest local character-reference Skill Scout draft appear only in local review outputs.
+
+## Review evidence
+
+- Complete neutral review: 35 first designs, 17 repairs/refinements, and 33 retained designs; 84 current pets and one separately pending pet. All 85 have 1024-square and 256-square centered exports. The public branch contains 51 generated proposals and 83 pairs of exports; two private pairs stay local.
+- Independent review checked every source proposal and all 170 exports for dimensions, alpha bounds, scale and centering, plus the final overview, seven detailed sheets, pending page and four repair comparisons. The normalization manifest SHA-256 is `f58e52a1a8755cf0b524fc473b2f0bf856c326537f7c783e1aef0eb357c134eb`; the local sheet hash receipt is `e62936c1d8f99ca4849769ce2d674e77d23c91ecee20c1f13d1f7fc188c18538`.
+- The local review gallery includes original/proposed views, available original moods, Keep/Improve choices and notes. Browser checks passed for all 85 tiles, choices, notes and submission, with no overflow at 320 or 768 pixels. All 86 sampled public CDN URLs returned HTTP 200 image content, pinned to source commit `52df6adb4ddf4dac268811b0589d9d3f185f63db`.
+- The full test run before draft-alias generation reported 332 passed, 13 failed and 3 skipped. The alias failure is resolved: all nine picture-home tests now pass. Eight other failures are newline-sensitive assertions (six reproduced on unchanged main; two reflect this worktree's CRLF checkout); their content comparisons agree after in-memory LF normalization. Four integration failures remain: a browser connection timeout and three Windows installer/uninstaller checks affected by unavailable `Get-FileHash` or registry access. Relevant test/runtime scripts are unchanged. No unrelated implementation was modified; the full suite was not rerun.
+
+All source generation and independent review assignments are released. Owner design choices remain pending; no nine-expression replacement set, runtime adoption or merge is claimed.
 
 ## Every pet
 
