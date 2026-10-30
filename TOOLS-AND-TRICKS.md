@@ -87,8 +87,9 @@ tricks it can reach, so its review lists every one it names, and Skill Scout fla
 | Unity Unicorn | `harness-strapper`: a Unity editor tool that rigs avatars | **Rig a new avatar:** import it, run harness-strapper, check the bones, then record which avatar it is rigged on in the tool box |
 | Unity Unicorn | `prop-decomposer`: a Blender script that takes a real model apart into its parts | **Make a prop look real** (`unity-stable-v0.3.0-make-a-prop-look-real-trick-v1.0`, 2026-10-18, in unity-unicorn's `skills/make-a-prop-look-real`): start from a real CC0 model, run prop-decomposer, restyle by mask, paint brands out of every map, mount at true size |
 
-Tricks that already exist: `skills/handoff`, `skills/pet-finder` and `skills/pet-organizer` in this repo are The Farm's
-tricks. They are instructions, and they only use tools the agents already have (git, files, the pet-finder tool).
+Tricks that already exist: `skills/handoff`, `skills/pet-finder`, `skills/pet-organizer` and `skills/page-sweep`
+(2026-10-30) in this repo are The Farm's tricks. They are instructions, and they only use tools the agents already have
+(git, files, the pet-finder tool, the pet program spawner's test, a headless browser).
 Every trick a pet's repo holds is in the registry below.
 A harness skill that exists: `vrchat-unity-world` in Claude Code on Astra's PC, which helps any AI work on Astra's
 VRChat worlds; no pet owns it.
@@ -127,7 +128,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-260 rows: 12 native programs, 126 native tools, 18 native tricks, 104 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+261 rows: 12 native programs, 126 native tools, 19 native tricks, 104 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -146,6 +147,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | page-sweep | `the-farm-v1.0-page-sweep-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-finder | `the-farm-v1.0-pet-finder-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-organizer | `the-farm-v1.0-pet-organizer-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | GitHub |  | Works today |

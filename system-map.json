@@ -3352,6 +3352,18 @@
       "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
     },
     {
+      "id": "page-sweep-trick",
+      "name": "page-sweep",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-page-sweep-trick-v1.0",
+      "job": "A trick of The Farm (skills/page-sweep/SKILL.md): look at every pet program page side by side, from main: which pets have a page, the version each shows, missing tool panels, the colours each really shows, its live link and a screenshot, in one sheet; findings keyed to the Flash Audit. It only reports."
+    },
+    {
       "id": "make-a-prop-look-real",
       "name": "make-a-prop-look-real",
       "type": "trick",
