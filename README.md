@@ -1,6 +1,7 @@
 # Astra's PetOS
 
-*By Astra.* **A free, open-source AI operating system.** A farm of pets: each pet is an intelligent app that looks
+*By Astra.*
+**A free, open-source AI operating system.** A farm of pets: each pet is an intelligent app that looks
 after something real in your life, the **Friendly Farmer** organizes them, and the System Map shows every one on its
 ring.
 
