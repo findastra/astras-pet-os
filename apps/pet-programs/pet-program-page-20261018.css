@@ -724,13 +724,13 @@ input[type="checkbox"] { accent-color: var(--line); }
 .example-tag { border-style: dashed; }
 .request-count { margin: 0 0 2px; }
 .request-problems { margin: 4px 0 0; }
-/* GitHub Aquarium's outstanding items (Astra, 2026-10-21): the same groups, each labelled in its top border. Broken on
-   main and waiting on you, the two she acts on, run the full width; the others sit below them. */
-.outstanding-group.g-broken, .outstanding-group.g-you { grid-column: 1 / -1; }
+/* GitHub Aquarium's outstanding items (Astra, 2026-10-21), tools in its L1 control panel since 2026-10-29: broken on
+   main and waiting on you, the two she acts on, keep their colours. */
+.outstanding-tools > .toolboxes { margin: 6px 0 12px; }
 .outstanding-group.g-broken { border-color: var(--off); }
-.outstanding-group.g-broken legend { color: var(--off); }
+.outstanding-group.g-broken .toolbox-name { color: var(--off); }
 .outstanding-group.g-you { border-color: var(--fix); }
-.outstanding-group.g-you legend { color: var(--fix); }
+.outstanding-group.g-you .toolbox-name { color: var(--fix); }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
 .moods.related { list-style: none; margin: 0; padding: 0; align-items: start; }
 /* No dashed line between "I manage ..." and the quote (Astra, 2026-10-23, crossing it out). */

@@ -77,7 +77,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Meme Fiend** (Cursed Archive): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Mesh Moth** (Mesh Lantern): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Mine Mole** (Crypto Burrow): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Mommy's Mommies** (Mommy’s Green Room): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Mommy's Mommies** (Mommy’s HQ): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Packet Piranha** (Packet River): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Paper Patty** (Paper Girl): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Patch Cat** (The Litter Box): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
