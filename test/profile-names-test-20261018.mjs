@@ -8,7 +8,7 @@ import { syncProfile } from '../scripts/farmer-profile-20261009.mjs';
 const read = (f) => JSON.parse(readFileSync(new URL('../' + f, import.meta.url), 'utf8'));
 const programs = read('pet-programs.json').programs;
 const registry = read('pets.json');
-// The same slug the round uses for a home's name: "Mommy’s Green Room" is `mommys-green-room`.
+// The same slug the round uses for a home's name: "Mommy’s HQ" is `mommys-hq`.
 const slug = (s) => s.toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const readme = `<h2 align="center">Hi</h2>
 

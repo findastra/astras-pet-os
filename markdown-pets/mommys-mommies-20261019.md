@@ -1,6 +1,6 @@
 # Mommy's Mommies
 
-*A Markdown pet from Astra's PetOS. Pet program #10: Mommy’s Green Room. Status: hatching (an idea or a first draft).*
+*A Markdown pet from Astra's PetOS. Pet program #10: Mommy’s HQ. Status: hatching (an idea or a first draft).*
 
 ## What it does
 
