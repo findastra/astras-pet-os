@@ -1,9 +1,21 @@
-status: open (waiting on local file/process tool recovery)
+status: open (waiting on Astra: remaining neutral-design choices)
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Completed round-2 review, 2026-10-30
+
+State: READY_FOR_REVIEW. The temporary local-tool interruption below was resolved. Final public art and exports are published in draft PR267 at `4774f2b5d53f455ac629fc758623117cb889c88c`: 31 revised drawings across the local review (30 public plus local Skill Scout), 54 retained designs, and all 85 pets in 1024-square and 256-square exports. Public normalized images are 83 pairs; Claude Bot and Skill Scout remain local. Existing round-1 drawings and review outputs are retained. The owner-approved black-bow/cursive Patty and selected Unicorn are frozen exactly as selected.
+
+Root received the generation receipts, the independent mouth and human-face reviews, and the independent final audit of every source/export. All 170 export hashes, dimensions, uniform pixel transforms and placement checks pass. All five family sheets pass visual review. Cats share a 145px cheek width and actual paw baseline; Farmer's achieved anatomical height is about 186.85px versus 184px for the girls, with face width about 53.15px versus Fairy's 53.33px. Puffer is 158x138px beside Whale's 180x136px. Final normalization manifest SHA-256: `4c763bdd15f1b2149d3a6e75c260e60ba002af10aea1a9213b398e23a18efd8b`; independent local QA receipt SHA-256: `31276442dd216abef4080c83d0d041ea98756490eb04429b565261e6597ea030`.
+
+All nine picture-home tests pass. The build added 196 draft-only aliases and changed no existing aliases. Filename/privacy checks and staged whitespace checks pass. The full hub suite was not rerun for this image-only revision; the earlier baseline/environment limits remain in the round-1 record. Tiny alpha1 source noise on four export files is invisible and was retained rather than changing source transparency; no visible alpha32 clipping was found.
+
+The gallery agent delivered 14 large review pages, including five family comparisons, and browser checks covering all 85 pets, before/after switching, choices, notes, saved state and sending choices. Patty and the selected Unicorn default to Keep; restored user choices take precedence. The final gallery is 558,340 bytes, SHA-256 `abd24a25aeaf044d852626adc5f5d3857229cb4d5ab5d2a63d53234c1ff91543`. All 245 remaining remote image URLs passed actual image requests and matched source hashes. Four unavailable CDN previews were replaced by embedded previews, leaving no failing remote references; their full-resolution originals remain in the package.
+
+Root received and accepted the delivery receipt. The local `pet-art-round-2-review-20261030.zip` contains 102 verified entries: 85 individual 1024-square PNGs, 14 review pages, all 31 revised designs' full prompts/provenance, and two manifests. Size: 102,894,346 bytes. SHA-256: `f6a493167b86c0012d2a53464da56b07162741ce060f40780703ff59d4db39b1`. Built-in image generation was used. All implementation, normalization, review and package scopes are released; no checks remain pending for this neutral-art delivery. Remaining owner design choices, nine-expression production and live integration are separate next stages. No merge is claimed. Runtime PR268 still requires reconciliation before final desktop equality claims.
 
 ### Round-2 checkpoint: local tool interruption, 2026-10-30
 

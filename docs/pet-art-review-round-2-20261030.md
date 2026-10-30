@@ -14,9 +14,11 @@ The square exports show proposed artwork placement. Runtime PR268 is separate an
 
 ## Validation
 
-All85 exports are1024-square and256-square, with no visible edge clipping. Each uses one recorded uniform source transform and source/output hashes. Source imagery, family comparisons, mouth edits and final face-width refinements received independent visual review. Gallery/browser and final package receipts are recorded in handoff030 once delivery finishes. The source-only changes do not modify the pet registry, runtime or existing live artwork. The required picture build adds only draft aliases for this round; existing aliases must remain byte-identical.
+All 85 pets have 1024-square and 256-square exports, with no visible edge clipping. Each uses one recorded uniform source transform and source/output hashes. Source imagery, family comparisons, mouth edits and final face-width refinements received independent visual review. Gallery/browser and the final 102-file package receipts are recorded in handoff030. All 245 remote gallery images passed image/hash checks; four unavailable CDN previews were embedded, with full-resolution originals retained in the package. All 85 gallery tiles, comparison controls, choices, notes and saved state passed browser checks at narrow and desktop widths. Built-in image generation was used; full prompts are included. No neutral-review checks remain pending. The source-only changes do not modify the pet registry, runtime or existing live artwork. The picture build adds only draft aliases for this round; all existing aliases remain byte-identical.
 
 ## Every pet
+
+Final source/export commit: `4774f2b5d53f455ac629fc758623117cb889c88c`. All 85 pets and 170 exports passed independent source-hash, dimension, alpha, uniform-transform and placement checks. The five family comparisons passed visual review. All nine picture-home tests pass; 196 new draft aliases were added with zero changes to existing aliases. The full hub suite was not rerun for this image-only revision. Final normalization manifest SHA-256: `4c763bdd15f1b2149d3a6e75c260e60ba002af10aea1a9213b398e23a18efd8b`.
 
 | # | Pet | Proposal | Review note |
 |---|---|---|---|
