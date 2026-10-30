@@ -72,7 +72,11 @@ button.key:focus-visible{outline:2px solid var(--host);outline-offset:1px}
 .rings .glass{border-top:1px dashed var(--l5);border-bottom:1px dashed var(--l5);border-radius:0}
 .rings .glass .num,.rings .glass b{color:var(--l5)}
 details.sec{border-top:1px solid var(--line);padding-top:8px}
-details.sec>summary{cursor:pointer;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);list-style-position:outside}
+/* Each section's arrow sits in line with its words, not out in the panel's margin (Astra, 2026-10-29). */
+details.sec>summary{cursor:pointer;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);list-style:none;display:flex;gap:8px;align-items:baseline}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::before{content:'▸';flex:none;width:10px;color:var(--host);transition:transform .15s}
+details.sec[open]>summary::before{transform:rotate(90deg)}
 details.sec[open]>summary{margin-bottom:8px}
 details.sec>div{display:grid;gap:8px}
 /* R W X on a grant (Astra, 2026-10-17): filled = yes; outlined with a mark = only through a PR, a grant or the harness asking. */
@@ -163,10 +167,11 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
 .side.min>:not(.sidehead){display:none!important}
 .side.min{padding:10px 12px}
 #stage canvas{touch-action:none}
-/* Touch screens (Astra, 2026-10-18): a flat 2D map you drag and pinch; no turning, so no Spin and no 3D. */
+/* Touch screens (Astra, 2026-10-18): open on the flat 2D map you drag and pinch, with no Spin. The 2D | 3D switch is
+   there too (Astra, 2026-10-29): in 3D one finger turns the sphere. */
 body.touch .no-touch{display:none!important}
 body:not(.touch) .touch-only{display:none!important}
-body.touch details.sec>summary{padding:8px 0;font-size:12px}
+body.touch details.sec>summary{padding:8px 0;font-size:12px;letter-spacing:.05em}
 body.touch .mintoggle,body.touch .sidehead .btn{min-height:36px}
 @media (max-width:700px){
   .hud{width:auto;right:12px;max-height:44%}
@@ -209,7 +214,7 @@ body.pets .navpad,body.pets .grip{display:none!important}
     <input id="nameInput" maxlength="40" autocomplete="off">
     <div class="row"><button class="btn" id="nameSave" aria-pressed="true">Save</button><button class="btn" id="nameSkip">Keep "Astra's PetOS"</button></div>
   </div>
-  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI.<span class="no-touch"> Switch between <b>2D</b> and <b>3D</b> at the bottom.</span><span class="touch-only"> Drag to move, pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
+  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom.<span class="touch-only"> In 2D drag to move; in 3D drag to turn. Pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
   <div class="search">
     <label class="label" for="q">Search</label>
     <input id="q" type="search" placeholder="Pet, program, job…" autocomplete="off" aria-controls="res">
@@ -284,7 +289,7 @@ body.pets .navpad,body.pets .grip{display:none!important}
   <button class="btn" id="nZoomOut" title="Zoom out" aria-label="Zoom out">－</button>
   <button class="btn" id="nReset" title="Back to the whole map">Reset view</button>
   <button class="btn no-touch" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
-  <span class="dims no-touch" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
+  <span class="dims" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
 </nav>
 <button class="spinbig pets-only" id="petSpin" type="button" aria-pressed="true">Stop spinning</button>
 <div class="tip" id="tip" hidden></div>
@@ -419,7 +424,7 @@ controls.minDistance = 2; controls.maxDistance = 600;
 // The switch maps mouse BUTTONS to actions: left (0) rotates, middle (1) pans, right (2) is left free for fly-look.
 controls.mouseButtons = {LEFT:0, MIDDLE:-9, RIGHT:-8}; controls.noZoom = true; // scroll and scroll-click drag are handled below
 controls.keys = ['NoKeyA','NoKeyS','NoKeyD']; // keep A, S and D for flying, not the trackball's key modes
-if(TOUCH) controls.enabled = false; // touch screens use the flat drag-and-pinch below, never the trackball's turning
+if(TOUCH) controls.enabled = false; // touch screens use the flat drag-and-pinch below in 2D; in 3D the trackball turns the sphere
 scene.add(new THREE.AmbientLight(0xffffff,.6));
 const key = new THREE.PointLight(0xffffff,1.1); key.position.set(20,60,40); scene.add(key);
 const rim = new THREE.PointLight(0xff4fa3,.7); rim.position.set(-40,20,-30); scene.add(rim);
@@ -686,7 +691,7 @@ const hits = links.map(l=>l.hit);
 function placeNodes(P){ DATA.nodes.forEach(n=>{ const p=P[n.id]; if(!p) return; pos[n.id].copy(p); n.mesh.position.copy(p); n.iconSprite.position.copy(p);
     if(n.exampleTag){ const r=TYPE[n.type].r; n.exampleTag.position.copy(p).add(new THREE.Vector3(0,r*2.4+.4,0)); } });
   appRings.forEach(r=>{ const m=pos[APP_RING[r.userData.node.id]]; r.position.copy(m); r.userData.hit.position.copy(m); }); }
-function setFlat(on){ if(on===flat||morph) return;
+function setFlat(on){ if(on===flat||morph) return; if(TOUCH) controls.enabled=!on; // touch: 3D turns with the trackball, 2D drags flat
   const from={}; Object.keys(pos).forEach(id=>from[id]=pos[id].clone());
   flat=on; syncDims(); autoSpin=false; fly=null;
   const to=on?posFlat:posSphere;
@@ -714,6 +719,7 @@ const d2=document.getElementById('d2'), d3=document.getElementById('d3');
 function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
 d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
 if(TOUCH && !IN_FRAME){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold; a frame keeps the sphere
+if(TOUCH) controls.enabled=!flat; // in a frame a touch screen opens on the sphere, which one finger turns
 
 // ---------- the key: rings, line toggles, shapes, colours ----------
 const STATE_WORD = DATA.states;
@@ -1200,7 +1206,7 @@ if(TOUCH){
   const slide=(a,b)=>{ if(!a||!b) return; const d=a.sub(b); d.y=0; camera.position.add(d); controls.target.add(d); };
   const both=()=>{ const [a,b]=[...fingers.values()]; return {x:(a.x+b.x)/2, y:(a.y+b.y)/2, d:Math.hypot(a.x-b.x,a.y-b.y)}; };
   const cv=renderer.domElement;
-  cv.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse') return; if(!fingers.size) noTap=false;
+  cv.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse'||!flat) return; if(!fingers.size) noTap=false;
     fingers.set(e.pointerId,{x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY}); fly=null; autoSpin=false;
     if(fingers.size>1) noTap=true; try{ cv.setPointerCapture(e.pointerId); }catch(err){} });
   cv.addEventListener('pointermove',e=>{ const f=fingers.get(e.pointerId); if(!f) return; e.preventDefault();
@@ -1213,7 +1219,7 @@ if(TOUCH){
     slide(under,groundAt(after.x,after.y)); },{passive:false});
   const lift=e=>{ fingers.delete(e.pointerId); fingers.forEach(f=>{ f.x0=f.x; f.y0=f.y; }); };
   cv.addEventListener('pointerup',lift); cv.addEventListener('pointercancel',lift);
-  document.getElementById('moveHelp').textContent='On a touch screen the map lies flat and is seen from above. Drag with one finger to move around; pinch with two fingers to zoom in or out. It never turns. Tap anything for its card; ＋ and － zoom, Reset view shows the whole map.';
+  document.getElementById('moveHelp').textContent='On a touch screen the map opens flat (2D), seen from above: drag with one finger to move around, pinch with two fingers to zoom. Tap 3D at the bottom for the spheres: one finger turns them, two fingers zoom. Tap anything for its card; ＋ and － zoom, Reset view shows the whole map.';
 }
 
 // ---------- labels: the most important names first, and only where they fit ----------

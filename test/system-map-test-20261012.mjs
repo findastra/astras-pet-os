@@ -174,7 +174,7 @@ test('on touch screens the map opens flat with no turning, and both panes fold',
   // Astra, 2026-10-27 ("Spin on phones too"): the Pets view spins on touch screens too; the full map still never does.
   assert.match(page, /let autoSpin = \(petsOnly \|\| !TOUCH\)/, 'no spin on touch, except in the Pets view');
   assert.match(page, /id="nSpin"[^>]*|class="btn no-touch" id="nSpin"/);
-  assert.match(page, /class="dims no-touch"/, 'the 3D switch is hidden on touch');
+  assert.match(page, /class="dims" role="group"/, 'the 2D | 3D switch shows on touch screens too');
   assert.match(page, /id="hudMin"/, 'the key panel has its fold button');
   assert.match(page, /\.hud\.min>:not\(\.hudtop\)\{display:none!important\}/);
   assert.match(page, /\.side\.min>:not\(\.sidehead\)\{display:none!important\}/, 'the card folds to its name');
