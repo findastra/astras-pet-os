@@ -1,7 +1,8 @@
 // The Friendly Farmer's pet program spawner (`the-farm-v1.0-pet-program-spawner-v1.0`, a tool of The Farm).
 // Astra, 2026-10-18: "make sure every single pet app has a pet program spawn page, with just the basics first", with
 // her sketch (docs/images/pet-program-page-sketch-20261018.webp): "they need these at a minimum, and more."
-// Writes one page per registered and pipeline pet, apps/pet-programs/<repo>-20261018.html, with every tool panel of the
+// Writes one page per numbered pet program (registered and pipeline pets, and since 2026-10-30 the seed and roadmap pets,
+// whose pages say nothing is built), apps/pet-programs/<repo>-20261018.html, with every tool panel of the
 // sketch in its place (PET-PROGRAM-FRAMEWORK.md, section 3) and her answers of the same day: the intelligence levels
 // as four stacked tool panels, the lights as buttons. Plus apps/pet-programs/pet-program-spawner-20261018.html, the list.
 // Panels, not modules (Astra, 2026-10-19): to a developer a module is a file of code, like this one; a bordered box on
@@ -72,6 +73,13 @@ const STATE = { now: 'works today', planned: 'planned', idea: 'idea, not agreed 
 const PET_TYPES = new Set(['host', 'pet', 'pipeline']);
 // Plays-with also shows the pets not hatched yet (Astra, 2026-10-23: "those need to show OSC Sealion", a seed).
 const PLAY_TYPES = new Set([...PET_TYPES, 'seed', 'roadmap']);
+// Seed and roadmap pets get a page too (Astra, 2026-10-30: "Pages for 40 pets"), saying plainly that nothing is built.
+// The page is not a gate: they stay out of pets.json, the desktop, the Markdown pets and the pet packs until Astra lets
+// them in (nobody becomes an animal by saying so).
+export const UNHATCHED = {
+  seed: 'Seed: an approved name, nothing built yet. Not an animal until Astra lets it in at the gate.',
+  roadmap: 'Roadmap: approved for the roadmap, nothing built yet. Not an animal until Astra lets it in at the gate.',
+};
 
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const slug = (s) => String(s).toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -160,11 +168,12 @@ function lastRound(status, reg) {
 }
 
 /** Everything one page needs, worked out from the sources. */
-export function pageData({ reg, prog, registry, map, frameIndex, drafts, status, exists, list, measure = () => null }) {
+export function pageData({ reg, prog, registry, programs, map, frameIndex, drafts, status, exists, list, measure = () => null }) {
   const nodes = new Map(map.nodes.map((n) => [n.id, n]));
-  const petNode = nodes.get(reg.repo);
+  // A seed or roadmap pet is on the map under its pet's name and its program's number, not its repo (unhatchedPages).
+  const petNode = nodes.get(reg.repo) || nodes.get(reg.map_ids?.[0]);
   const homeNode = petNode?.home?.node ? nodes.get(petNode.home.node) : null;
-  const mine = new Set([reg.repo, homeNode?.id].filter(Boolean));
+  const mine = new Set([reg.repo, ...(reg.map_ids || []), homeNode?.id].filter(Boolean));
   const home = prog.assigned ? prog.program : `pet-program-${prog.number}`;
   const homeSlug = prog.assigned ? slug(prog.program) : `pet-program-${prog.number}`;
   const petSlug = slug(reg.pet);
@@ -232,9 +241,12 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const order = (id) => { const i = chosen.indexOf(id); return i < 0 ? chosen.length : i; };
   const related = [...plays.values()].map(({ id, o, links, state, why }) => {
     const r = regs.find((x) => x.repo === id);
+    // A seed or roadmap pet has a page too (Astra, 2026-10-30), under its program's repo.
+    const seed = r ? null : (programs || []).find((p) => UNHATCHED[p.stage] && slug(p.icon) === id);
     const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
     return { id, pet: o.name, home, state, why, links,
-      page: r ? `${id}-${DATE}.html` : null, idle: petFrames(r || { repo: id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
+      page: r ? `${id}-${DATE}.html` : seed ? `${seed.repo}-${DATE}.html` : null,
+      idle: petFrames(r || { repo: seed?.repo || id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
@@ -271,7 +283,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     repo: reg.repo, pet: reg.pet, petSlug, home, homeSlug, number: prog.number, assigned: !!prog.assigned, stage: prog.stage,
     summary: prog.mini_descriptor?.text || reg.job || '', job: reg.job || '', status: reg.status || null, added: reg.added || null, version: versionOf(reg),
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
-    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
+    owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : petNode?.id || reg.repo,
+    unhatched: UNHATCHED[prog.stage] || null,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, petHeight, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
@@ -696,7 +709,7 @@ export function buildPetProgramPage(d) {
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>${d.unhatched ? `<p class="small unhatched">${esc(d.unhatched)}</p>` : ''}`, { cls: 'summary' })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -923,9 +936,11 @@ ${wordScripts}
 <main class="page">
 <details class="panel" open><summary><span class="legend">${TOOL_LABEL}</span></summary>
 <h1>Every pet program</h1>
-<p>One page for every registered and pipeline pet, spawned by the Friendly Farmer with the minimum every pet program contains: Astra's sketch of 2026-10-18 (<a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a>, section 3). These are the basics; each pet's page grows from here.</p>
+<p>One page for every numbered pet program, spawned by the Friendly Farmer with the minimum every pet program contains: Astra's sketch of 2026-10-18 (<a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a>, section 3). These are the basics; each pet's page grows from here. Seed and roadmap pets have nothing built yet, and their pages say so.</p>
 ${group('registered', 'Registered')}
 ${group('pipeline', 'Pipeline')}
+${group('seed', 'Seed')}
+${group('roadmap', 'Roadmap')}
 <p class="small">By Astra. Generated by <code>npm run build</code> from pets.json and pet-programs.json; do not edit by hand.</p>
 <p class="words-switch" data-words-switch></p>
 </details>
@@ -964,6 +979,21 @@ export function spawnerPages(src) {
   return out;
 }
 
+/** The pages of the seed and roadmap pets (Astra, 2026-10-30): built from pet-programs.json, pets.json's `seeds` and
+ *  the System Map, where each is a node named for its pet (and its native programs carry its number). They are never
+ *  added to pets.json here, so the Markdown pets, pet packs and the desktop, which read spawnerPages, leave them out. */
+export function unhatchedPages(src) {
+  const map = systemMapData(src.registry, src.extra, src.programs);
+  const ids = new Set(map.nodes.map((n) => n.id));
+  const seeds = src.registry.seeds?.pets || [];
+  return src.programs.filter((p) => UNHATCHED[p.stage] && p.repo).map((prog) => {
+    const seed = seeds.find((s) => s.repo === prog.repo || s.program === prog.program || s.pet === prog.icon);
+    const map_ids = [slug(prog.icon), ...map.nodes.filter((n) => n.program === prog.number).map((n) => n.id)].filter((id, i, a) => ids.has(id) && a.indexOf(id) === i);
+    const reg = { repo: prog.repo, pet: prog.icon, job: seed?.job || '', role: prog.stage, map_ids };
+    return pageData({ reg, prog, registry: src.registry, map, ...src });
+  });
+}
+
 /** Every file the spawner writes: { path: html }. */
 // A pet whose repo moved keeps its old page address as a small page that sends you on, so links to it keep working
 // (Astra, 2026-10-28: Discord Damsel's repo became discord-tower; findastra.github.io links the old page).
@@ -976,7 +1006,7 @@ export const movedPage = (now) => '<!doctype html>\n<html lang="en">\n<head>\n<m
 export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).map(([was, now]) => [pagePath(was), movedPage(now)]));
 
 export function spawnerFiles(src) {
-  const pages = spawnerPages(src);
+  const pages = [...spawnerPages(src), ...unhatchedPages(src)];
   return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages) };
 }
 

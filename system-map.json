@@ -3342,6 +3342,18 @@
       "job": "A trick of The Farm (skills/pet-finder/SKILL.md): run the pet-finder tool, fix only what the data proves, and give Astra one short list of the rest."
     },
     {
+      "id": "pet-page-audit-trick",
+      "name": "pet-page-audit",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-page-audit-trick-v1.0",
+      "job": "A trick of The Farm (skills/pet-page-audit/SKILL.md; Astra, 2026-10-30): audit every pet program page on the newest main as one table: page, version, missing panels, a screenshot, its colours and its live link. Read only; Flash Audit A62."
+    },
+    {
       "id": "pet-organizer-trick",
       "name": "pet-organizer",
       "type": "trick",

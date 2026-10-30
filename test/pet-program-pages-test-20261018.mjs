@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, unhatchedPages, UNHATCHED, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -17,6 +17,24 @@ test('every registered and pipeline pet program has a page', () => {
   assert.equal(pages.length, animals.length);
   for (const p of animals) assert.ok(files[pagePath(p.repo)], `${p.icon} (#${p.number}) has no page`);
   assert.ok(files[INDEX], 'the spawner list is written');
+});
+
+// Astra, 2026-10-30 ("Pages for 40 pets"): the seed and roadmap pets get a page too, which says nothing is built and
+// keeps them out of pets.json, so they are still not animals.
+test('every seed and roadmap pet program has a page that says nothing is built, and stays out of pets.json', () => {
+  const unhatched = src.programs.filter((p) => UNHATCHED[p.stage]);
+  const extra = unhatchedPages(src);
+  assert.equal(extra.length, unhatched.length);
+  assert.equal(pages.length + extra.length, src.programs.length, 'one page for every numbered pet program');
+  const regs = [...src.registry.pets, ...src.registry.pipeline].map((r) => r.repo);
+  for (const d of extra) {
+    const html = files[pagePath(d.repo)];
+    assert.ok(html, `${d.pet} (#${d.number}) has no page`);
+    assert.ok(html.includes(`<p class="small unhatched">${esc(UNHATCHED[d.stage])}</p>`), `${d.repo}: the quick summary says it is a ${d.stage} pet`);
+    for (const label of PANELS) assert.ok(html.includes(`-${label}<`), `${d.repo}: ${label}`);
+    assert.ok(!regs.includes(d.repo), `${d.repo}: a page never puts it in pets.json`);
+    assert.ok(files[INDEX].includes(`href="${d.repo}-20261018.html"`), `${d.repo}: listed on the spawner's list`);
+  }
 });
 
 test('the pages on disk are exactly what the spawner writes (run npm run build, never edit them by hand)', () => {
@@ -353,7 +371,7 @@ test('the app link never leads into a private repo or its switched-off Pages sit
 });
 
 test('related pets sit at the bottom: every pet it talks to, linked to its own pet program page (Astra, 2026-10-19)', () => {
-  const names = new Set(pages.map((d) => `${d.repo}-20261018.html`));
+  const names = new Set(Object.keys(files).map((p) => p.split('/').pop()));
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     assert.ok(html.indexOf(`>${d.petSlug}-friends-list-panel<`) < html.indexOf(`>${d.petSlug}-unified-footer-panel<`), `${d.repo}: plays-with comes just above the footer`);
