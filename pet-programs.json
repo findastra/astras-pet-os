@@ -138,7 +138,7 @@
     },
     {
       "number": 10,
-      "program": "Mommy’s Green Room",
+      "program": "Mommy’s HQ",
       "assigned": true,
       "icon": "Mommy's Mommies",
       "idea": "Mommy's Academy",
@@ -146,7 +146,7 @@
       "repo": "mommys-mommies",
       "repo_exists": true,
       "mini_descriptor": {
-        "label": "mommys-green-room-v1.0-mini-descriptor-v1.0",
+        "label": "mommys-hq-v1.0-mini-descriptor-v1.0",
         "text": "A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned.",
         "reviewed": false
       }
