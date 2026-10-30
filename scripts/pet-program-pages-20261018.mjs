@@ -338,9 +338,11 @@ function deviceGroups(devices) {
   return order.map((key) => `<h4 class="device-group">${esc(key === 'headsets' ? 'Headsets' : key === 'other' ? 'Other devices' : names[key] || key)} · ${groups.get(key).length}</h4>${itemList(groups.get(key), 'device', '')}`).join('');
 }
 
-function toolSections(tools, extra = '', extraCount = 0) {
+// `first`: the extra tool boxes go above the list (GitHub Aquarium's important tools).
+function toolSections(tools, extra = '', extraCount = 0, { first = false } = {}) {
   const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
-  if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${tools.length || !extra ? itemList(tools, 'tool', empty) : ''}${extra}</section>`;
+  const list = tools.length || !extra ? itemList(tools, 'tool', empty) : '';
+  if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${first ? extra + list : list + extra}</section>`;
   const rest = tools.filter((t) => !t.side);
   const sides = Object.entries(SIDES).map(([side, title]) => {
     const mine = tools.filter((t) => t.side === side);
@@ -539,9 +541,12 @@ export const OUTSTANDING_EXAMPLES = [
 // its lights left of its name (Astra, 2026-10-29: "Broken on main, waiting on you, waiting on a chat, close or keep,
 // being checked or drafts. All of those things are tools. So turn them into what is supposed to be look like a tool
 // and put them in the right spot"). outstanding-items fills them; the Pets Board, a native program, has the full list.
+// They are tools on the System Map too, and come first (Astra, 2026-10-29: "make these important tools for the
+// goldfish"), so the plain tool list leaves them out instead of listing them twice.
+export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label);
 function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
-  const boxes = OUTSTANDING_GROUPS.map(([id, label, empty]) => toolBox(`${d.petSlug}-${label}`, label, `<p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p>`, { cls: `outstanding-group g-${id}` })).join('\n');
+  const boxes = OUTSTANDING_GROUPS.map(([id, label, empty]) => toolBox(label, label, `<p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p>`, { cls: `outstanding-group g-${id}` })).join('\n');
   return `<div class="outstanding-tools" id="outstanding-items"><p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
 <div class="toolboxes">${boxes}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
@@ -707,7 +712,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools, outstandingTools(d), OUTSTANDING_GROUPS.length) : toolSections(d.tools)}
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 

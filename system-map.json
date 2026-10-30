@@ -3207,6 +3207,66 @@
       "job": "A tool of GitHub Aquarium (Astra, 2026-10-21: \"Can we get the GitHub goldfish to check the outstanding items on GitHub?\", then all recommended, github-goldfish card 006): what waits on the farm owner on GitHub, from every repo they own, read only and sorted by the merge-order rank: jobs failing on a main branch, pull requests ready for her OK, handoff cards that wait on her, conflicts, failing checks and stacked pull requests for their chats, branches with work and no pull request, and pull requests nobody has touched for a month (close?). It runs when asked (npm run outstanding-items, or a chat before a merge chart) and writes the list for this page's panel and the Pets Board on her PC only, because it names private repos. The Pets Board's GitHub reading moved here (scripts/outstanding-items-20261021.mjs)."
     },
     {
+      "id": "broken-on-main",
+      "name": "broken-on-main",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-broken-on-main-v1.0",
+      "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows jobs that fail on a main branch, the first thing to fix (red), as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
+    },
+    {
+      "id": "waiting-on-you",
+      "name": "waiting-on-you",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-waiting-on-you-v1.0",
+      "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows pull requests ready for her OK and handoff cards that wait on her (orange), as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
+    },
+    {
+      "id": "waiting-on-a-chat",
+      "name": "waiting-on-a-chat",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-waiting-on-a-chat-v1.0",
+      "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows conflicts, failing checks and stacked pull requests that a chat has to fix, as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
+    },
+    {
+      "id": "close-or-keep",
+      "name": "close-or-keep",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-close-or-keep-v1.0",
+      "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows pull requests and branches nobody has touched for a month, to close or keep, as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
+    },
+    {
+      "id": "being-checked-or-drafts",
+      "name": "being-checked-or-drafts",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-being-checked-or-drafts-v1.0",
+      "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows drafts and pull requests whose checks are still running, as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
+    },
+    {
       "id": "pets-board",
       "name": "Pets Board",
       "type": "own-program",

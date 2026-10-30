@@ -13,3 +13,14 @@ those things are tools. So turn them into what is supposed to be look like a too
 - `toolBox()` takes a class now; GitHub Aquarium is no longer in `PET_PANELS`.
 
 By Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-29.
+
+## Important tools on the map (2026-10-29)
+
+Astra, later the same day: "make these important tools for the goldfish".
+
+- The five are GitHub Aquarium's tools in `system-map.json` too (`github-aquarium-v1.0-<name>-v1.0`, layer 6), so
+  the System Map, TOOLS-AND-TRICKS.md and the Markdown pets list them; GitHub Aquarium has 13 native tools.
+- On the page they come first under Native tools, above the other eight, and are listed once: the plain tool list
+  leaves them out. Their lights are keyed by their map ids (`tool:broken-on-main` ...).
+
+By Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-29.
