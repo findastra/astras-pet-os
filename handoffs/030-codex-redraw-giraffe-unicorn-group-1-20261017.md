@@ -1,9 +1,23 @@
-status: taken by Codex pet-art-review-round-2-20261030
+status: open (waiting on local file/process tool recovery)
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Round-2 checkpoint: local tool interruption, 2026-10-30
+
+State: IN_PROGRESS; export and integration unfinished. The local process/file tools stopped returning results during final source saves. Default and elevated read-only probes stalled; the Node kernel reports a closed transport and the connected desktop file tool is offline. Image generation and image viewing still work. This is an execution-tool failure, not an approval rejection. Do not claim the new all-pet size sheets are complete.
+
+Astra explicitly approved the latest Paper Patty with black waist bow, eyelashes and cursive handwriting. Keep that drawing exactly. She chose the second-to-last Unicorn shown in chat and attached it again; retain that selected image, including its smile, rather than the later rounder variant. Approved source locators in built-in generation storage: Patty `exec-361a807a-f128-4c8a-ae59-7038ce1a7c6f.png`; selected Unicorn `exec-922920e8-8817-4c18-9d96-8cfe814cdf5d.png`. These replacements still require verified copies and updated prompt provenance in the round-2 draft folders.
+
+Thirty character revisions have been generated across the assignments. The six people and eight animal redesigns were delivered with prompts and source checks; the ten mouth-only revisions received independent visual review. Root's new Python, Closet Cat and Log Lynx use Patch Cat's shared seated template. Root's slim Patty and matching black-face/black-body Butterfly were visually reviewed; Patty subsequently received the approved bow/cursive refinement. The final Farmer face-narrowing correction is `exec-989978a2-b7ae-4333-83e5-9145718342b2.png`; its copy and revision prompt still need verification. The earlier Farmer body length is preserved, while the face width is reduced from about355 to254 source pixels. All exact prompts and private source locators remain in this chat; no private art is published.
+
+Confirmed cat cheek widths in current source pixels: Python821, Closet813, Lynx807 on1254-square images, Patch660 on the prior1024-square export. Proposed common output cheek width145 on a256-square canvas; align actual paw soles, excluding Closet's shopping bag and Lynx's ear tufts. Source cheek ranges: Python176–996, Closet174–986, Lynx189–995, Patch144–803. Chin: Python752–760, Closet756–767, Patch624–635; Lynx side jaw754–761 is the proxy because its white muzzle joins the chest. Ordinary ear tops: Python144, Closet144, Patch120, Lynx185; Lynx tufts start120.
+
+Human landmarks and final candidate images are available from the gallery agent's receipt in this chat. Use main hair crown, chin, shoulder, face width and true sole landmarks; exclude hats, buns, halos and wings. Farmer's body must be at least as tall as the girls. Recommended next preview targets: Puffer155–160px wide versus Whale176–180; Duck180–184 high; Finch166–174; Data Chip176–180; small bugs below ordinary mammals. Review round body area and face size, not just the outermost prop. Preserve the approved Fairy, Angel and Moth designs.
+
+Remaining work: reconcile any delayed saves before overwriting a candidate; copy the approved Patty/Unicorn and final Farmer; save missing exact prompts; finish one shared proportion normalization for all85; build the all84 overview with512px squares, seven1024-square detail pages, pending85 page and family comparisons; inspect every final export; update the gallery and package; publish only reviewed public draft sources/aliases and records. Existing round-1 outputs remain available. No round-2 normalization script or final review sheets have been delivered yet. Nothing is merged or adopted by live pets. PR268's separate runtime scale still needs reconciliation before any final desktop equality claim.
 
 ### Revision round 2, 2026-10-30
 
