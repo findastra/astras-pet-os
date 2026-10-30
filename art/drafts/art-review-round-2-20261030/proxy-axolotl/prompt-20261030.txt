@@ -1,0 +1,32 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/proxy-axolotl-neutral-20261030.png
+
+Full prompt:
+Use case: precise-object-edit. Image1 is the approved Proxy Axolotl design; preserve the same exact character silhouette, anatomy, pose, relative proportions, big round face, six turquoise gill branches, eyes with white glints, little hands and lavender feet, curved tail, purple gold-trimmed shield with gold padlock, black outline, and framing. Recolor only its peach/orange skin on head, arms, torso and tail to vivid BRIGHT BUBBLEGUM PINK, with one restrained darker pink shade. Turn pale yellow muzzle/belly/tail highlight into pale blush pink while retaining visible contrast. Keep turquoise gills and purple/gold shield unchanged. Replace only the tiny U-shaped smile with a tiny cute omega lowercase-w mouth as requested; leave the rest of the face unchanged. Same crisp chunky stepped pixel art. Genuine transparent background; no added object, shadow, glow, texture, words or symbols.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: bright pink skin, same turquoise gills, lavender feet and purple/gold shield, silhouette preserved, requested tiny omega mouth.
+{
+  "id": "proxy-axolotl",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "f90238f95134bdcb9fcb6e2522a8ffdf1ff505dbde73003c87d3e4f32b2b23e8",
+  "boundsAlpha32": [
+    139,
+    209,
+    1115,
+    1047
+  ],
+  "minimumPadding": 138,
+  "fullyTransparentPercent": 59.4,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-d79e3fb4-d83f-4d4a-aa72-f8c09d588eca.png
+The final listed output was copied to idle-proposal-20261030.png.

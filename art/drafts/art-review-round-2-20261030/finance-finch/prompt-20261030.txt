@@ -1,0 +1,34 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/finance-finch-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: precise-object-edit. Revise Finance Finch into a smaller-looking compact canary-style finch with natural chibi proportions: a modest rounded head flowing into a plump visible body, two complete folded wings at sides, and two modest orange bird feet. ALL feathers are sunny lemon YELLOW including BOTH WINGS, with restrained golden-yellow shade. Absolutely NO GREEN anywhere. Soft pale cream belly and tiny pink cheeks are permitted. Friendly small black dot eyes and a tiny orange conical finch bill with a clear closed seam; no oversized duck bill. Hold one small gold coin low against belly without covering the wings or whole torso. The coin has a plain center, no currency text. Keep sweet calm neutral expression and complete left/right wing anatomy. The intended body will later be displayed smaller than the large general pets; don't shrink it inside an unusually huge blank canvas. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: yellow body AND both yellow wings, no green; orange feet/beak, small plain gold coin, full wings visible.
+{
+  "id": "finance-finch",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "6ae99f069fb49d7106e2bfa7bf5d98bad24c320aa59084845e31e799fad85c10",
+  "boundsAlpha32": [
+    263,
+    168,
+    987,
+    1060
+  ],
+  "minimumPadding": 168,
+  "fullyTransparentPercent": 67.56,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-10ebf3e4-5f77-4eab-9a76-f564d488ea9e.png
+The final listed output was copied to idle-proposal-20261030.png.

@@ -1,0 +1,13 @@
+By Astra. OpenAI Codex (GPT-6), 2026-10-30.
+Method: built-in image_gen; precise mouth-only edit; neutral draft, not adopted.
+Reference: art/drafts/art-review-20261030/normalized/forensic-ferret-neutral-20261030.png
+All previous source art remains unchanged. This candidate changes the mouth to the owner's requested small omega/double-curve shape.
+
+Full generation prompt:
+Use case: precise-object-edit.
+Asset type: transparent neutral-pose pixel-art desktop-pet candidate.
+Input image 1: the ONLY edit target, the existing Forensic Ferret artwork.
+Primary request: edit ONLY the tiny mouth immediately below the existing nose (or between the cheeks for the whale). Replace its simple/flat smile with a very small cute omega-shaped mouth: two shallow curved lobes joined in the middle, like a lowercase w with rounded bottoms, the sideways-three cat mouth. It must be a drawn mouth, not a printed letter.
+Preserve exactly: slim upright yellow ferret with purple eye mask and paws, pink-rimmed magnifying glass, exact narrow body and long tail. Preserve original species, anatomy, body/head proportions, eyes, nose, accessories, pose, pixel texture, outline thickness, palette, position and relative canvas size. No other changes. This is a mouth-only edit of an approved drawing, not a redesign and not a cat transformation.
+Use the existing small mouth region only. Keep the mouth black and understated, matching the original pixel scale and line weight. All existing surrounding pixels/appearance should remain visually identical. Maintain the full original square canvas and complete unclipped silhouette with its existing transparent margin.
+Background: genuine transparent alpha. No backdrop, shadow, checkerboard, text, border or decoration. One pet only, one neutral pose.

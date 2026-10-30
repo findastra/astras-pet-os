@@ -1,0 +1,39 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/piranesi-nessi-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: stylized-concept. Completely redesign Piranesi Nessi into an adorable compact baby lake monster, three-quarter view, clearly a miniature Loch Ness creature. Retain sea-glass mint body, a few marble-white patches, warm dusty-gold belly and four rounded paddle flippers. One softly rounded head on a curved S-shaped neck, the neck visibly longer than a seal's but compact and curled close to the plump body; two small rounded humps along its back and one short tapering tail. Head modestly proportioned to the plump body, clear neck/body separation. Tiny kind dot eyes, pink cheeks, little omega w-shaped mouth on the rounded muzzle. Four readable paddle flippers, no hooves or legs. No shell, dinosaur spikes, extra creatures, platforms, water or scenery. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Revision1 after visual review; edit target previous round-two Nessi output:
+Use case: precise-object-edit. Redesign the body proportions of this same mint-and-gold baby lake monster to make it substantially more compact and cuddly. Keep mint color, white marble patches, gold belly and paddle flippers, two back humps, dot eyes, blush, tiny omega w mouth and crisp black pixel outline. Reduce its disproportionately large head by25percent relative to the body. Make the plump oval body larger and its curved neck40percent SHORTER, curling the neck in a soft S so the head rests just above the front of the body. Show exactly FOUR broad short rounded PADDLE FLIPPERS, twofront and tworear, distinguishable at the base, not clawed feet or brontosaurus legs. The silhouette should feel like a huggable baby aquatic plesiosaur, not a tall dinosaur. Retain one short tapering tail. Three-quarter view neutral pose. Do not merely copy the existing proportions. One whole complete original character, centered on a square canvas with balanced ordinary transparent margins; no ground, shadow, glow, lettering or backdrop. Strong continuous black stepped outline, clear chunky pixels, flat mint/gold/ivory palette.
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed after second shape pass: shorter curved neck, smaller head, mint/ivory/gold palette, two humps and paddle flippers, tiny omega mouth.
+{
+  "id": "piranesi-nessi",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "dd1d64aeeda9ef9c953d648b3eb56816b236ddb4585b33e45c3c9c6ae7771ce7",
+  "boundsAlpha32": [
+    200,
+    253,
+    1146,
+    1061
+  ],
+  "minimumPadding": 107,
+  "fullyTransparentPercent": 72.89,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-c3f63c9b-c912-4877-80ec-5e5fa05a43f4.png
+Revision1: exec-aee42126-c316-4fbf-a7e3-0a0817983912.png
+The final listed output was copied to idle-proposal-20261030.png.
