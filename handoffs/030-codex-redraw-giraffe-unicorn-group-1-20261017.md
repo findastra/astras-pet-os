@@ -1,9 +1,15 @@
-status: open (waiting on Astra: neutral-pose artwork choices)
+status: taken by Codex pet-art-review-round-2-20261030
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Revision round 2, 2026-10-30
+
+State: IN_PROGRESS. Astra reviewed the neutral sheet and requested a second pass: one consistent head/body template for cats including the lynx; a shared girls' proportion template; Farmer at least as tall as the girls; slim, completely redrawn Paper Patty; smaller Puffer, Deck Duck, Data Chip and Finch; corrected orange monarch body; yellow or pink/yellow Finch; broader bee wings; bright pink Axolotl; shorter Stoat; redrawn Port Spider, Passport Pelican, Photo Dodo, Piranesi Nessie and OSC Sealion; a friendlier Unicorn; and small omega-shaped mouths across the animals, especially mammals. Preserve the approved Giraffe, API Fairy, VSCode Angel and Mesh Moth designs. Preserve Dubstep Gunsmith's concept while matching the girls' ratios.
+
+Root owns this card, public reports, revised normalization, contact sheets and export records. art_inventory owns only round-2 source images/prompts for Skill Scout (local only), Role Fairy, Gatekeeper Goddess, Dubstep Gunsmith, Discord Damsel and Friendly Farmer. art_pipeline owns only round-2 source images/prompts for Photo Dodo, Piranesi Nessie, OSC Sealion, Proxy Axolotl, Port Spider, Passport Pelican, Finance Finch and RGBee. Root owns round-2 source images/prompts for Python Panther, Closet Cat, Log Lynx, Meme Fiend if needed, Paper Patty, Unity Unicorn and WiFi Butterfly, plus any other explicitly assigned mouth corrections after review. New public candidates are saved separately under `art/drafts/art-review-round-2-20261030/`; private Scout under the existing local review workspace's `round-2/`. Earlier drawings remain available. rules_review is the read-only proportions and final-art reviewer. Acceptance: visually coherent family comparisons, measured head/body proportions rather than only bounding-box equality, all 85 in updated square sheets, precise prompt/provenance, unchanged live pets and truthful neutral-only scope. Owner visual approval and nine expressions remain pending.
 
 ### Current artwork review, 2026-10-30
 
