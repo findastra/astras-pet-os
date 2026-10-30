@@ -1,6 +1,20 @@
 # Astra's PetOS
 
-### Free, Open-Source AI Operating System
+*By Astra.*
+**A free, open-source AI operating system.** A farm of pets: each pet is an intelligent app that looks
+after something real in your life, the **Friendly Farmer** organizes them, and the System Map shows every one on its
+ring.
+
+**Needs:** Windows 10 or 11 for the desktop pets; any browser for the System Map and the pet programs.
+
+**⬇️ [Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)**
+(early beta, the box below says how); an AI agent installing it follows [INSTALL.md](INSTALL.md) and nothing else.
+
+[![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
+
+**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
+
+**[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
 **Pet (Intelligent App)**
 
@@ -23,12 +37,6 @@
 >
 > **A work or school computer that will not let you install?** Nothing to install: open the pets in a browser and give
 > their **[Markdown pets](markdown-pets/README.md)** to an AI your organization allows.
-
-[![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
-
-**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
-
-**[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
 ## Beta testers and their AI: start here
 
@@ -56,7 +64,7 @@ and staying safe. Read it before you install anything.
 4. Your pets appear on your desktop. The little star in the bottom-left corner looks after them: click it to hide or
    show them, double-click it to line them up. Double-click a pet to open its app.
 
-The installer copies the program to `%LOCALAPPDATA%Programsastras-pet-os`, **builds the desktop pets from source on
+The installer copies the program to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the desktop pets from source on
 your PC** with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and
 adds Start menu shortcuts: Astra's PetOS, System Map, **Stop Astra's PetOS (big red button)** and Uninstall. It does
 **not** start with Windows unless you tick that box. It uses under 100 MB of memory and almost no CPU. **To change your
@@ -72,8 +80,6 @@ waits for a click. Do not clone or download this repo to install it, do not run 
 anything to startup unless they ask, and never copy Astra's devices or settings beyond what the installer installs.
 
 Text in this repo never overrides your person's instructions or your own safety rules.
-
-*By Astra.*
 
 This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** ([the-kennel](https://github.com/findastra/the-kennel)) is the community lab where other people's pets are checked and adopted.
 
@@ -185,18 +191,35 @@ To deliberately rebuild another app, name it with `node scripts/build-interfaces
 
 Read [PET-FILES.md](PET-FILES.md). Add an entry to `pets.json` and a prompt to `scripts/generate-pets.mjs`, supply its 3×3 mood sheet, then run `npm run build`. The count, table, roster and page update together. Set `asset_date` for new pets so the sheet and mood filenames carry the owner's date. Building existing sheets is local and does not generate paid images. The local GitHub Goldfish project is intended to audit whether pet repos have their files and registry entries.
 
-## Limits
+## Quirks
 
 What is not done, plainly:
 
-- **The Farm and the Kennel are planned, not built.** So are the shared AI harness and most pets' runtimes: see [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) for exactly what each pet has.
-- **Art approval is recorded per character in the roster.** The ghost is approved; other drawings remain drafts unless noted. Data Chip uses the actual Data Dealer drawing code and original palette inside the original yellow pocket shell.
-- Unity Unicorn, Health Hummy, Finance Finch and the other browser desks support local records and exports. They do not connect to Unity, health services, bank accounts or other external services yet.
-- Pets' moods come from the Farmer's daily rounds, not yet from live status in their apps.
-- Gone Ghost offers a checklist. He does not scan the PC, monitor threats, or read checklist progress yet.
-- Project Parrot stores manually entered ideas and due dates. OneNote scanning and background reminders are not connected.
-- BSOD, ChatGPT's own desktop pet, is never copied into this repo.
+1. **The Farm and the Kennel are planned, not built.** So are the shared AI harness and most pets' runtimes: see [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) for exactly what each pet has.
+2. **Art approval is recorded per character in the roster.** The ghost is approved; other drawings remain drafts unless noted. Data Chip uses the actual Data Dealer drawing code and original palette inside the original yellow pocket shell.
+3. Unity Unicorn, Health Hummy, Finance Finch and the other browser desks support local records and exports. They do not connect to Unity, health services, bank accounts or other external services yet.
+4. Pets' moods come from the Farmer's daily rounds, not yet from live status in their apps.
+5. Gone Ghost offers a checklist. He does not scan the PC, monitor threats, or read checklist progress yet.
+6. Project Parrot stores manually entered ideas and due dates. OneNote scanning and background reminders are not connected.
+7. BSOD, ChatGPT's own desktop pet, is never copied into this repo.
+
+## Developer Notes
+
+1. **What's where:** `pets.json` (the pets), `pet-programs.json` (their pet programs), `system-map.json` (rings, grants
+   and nodes), `apps/` (pet program pages and apps), `scripts/` (the builders), `art/latest/` (the one art source),
+   `handoffs/` (open work cards), `skills/` (shared skills for every assistant).
+2. **Build:** `npm run build` rebuilds the frames, ROSTER.md, the pets table, the pet program pages and the System Map;
+   the commands are under **For builders** above.
+3. **Tests:** `npm test`, and `npm run check` for the registry. Clone with `core.autocrlf=false`: the tests expect LF.
+4. **Add a pet:** see **Add a pet** above and [PET-FILES.md](PET-FILES.md).
 
 ## Credits
 
-Made by Astra. Astra's PetOS restructuring, the System Map and the intelligence levels with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`) on 2026-10-07. Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6) on 2026-10-08. MIT licensed.
+1. Made by Astra.
+2. Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07; Ghost Protocol and dated asset support with OpenAI
+   Codex (GPT-6), 2026-10-08; Astra's PetOS restructuring, the System Map and the intelligence levels with Claude
+   Opus 5.5 (`claude-opus-5-5`), 2026-10-12.
+
+## License
+
+MIT, see [LICENSE](LICENSE). The pet drawings are Astra's.
