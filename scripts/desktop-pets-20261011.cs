@@ -98,6 +98,12 @@ namespace AstraDesktopPets {
     internal static bool Signal(string action,string suffix="") { try { using(var handle=EventWaitHandle.OpenExisting(Identity+suffix+"-"+action))handle.Set();return true; } catch(WaitHandleCannotBeOpenedException) { return false; } }
     internal static void WriteStatus(object value,bool test=false) { Directory.CreateDirectory(Path.GetDirectoryName(StateFile));File.WriteAllText(test?TestStateFile:StateFile,Json.Serialize(value)); }
     internal static void Open(string relative) { string file=SafePath(relative);if(File.Exists(file))Process.Start(new ProcessStartInfo(file) { UseShellExecute=true }); }
+    internal static string DamselStart { get { return Path.Combine(Path.GetDirectoryName(Root),"discord-tower","open-discord-damsel-20261030.cmd"); } }
+    internal static ProcessStartInfo DamselStartInfo() {
+      return new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),"cmd.exe"),"/d /c \"\""+DamselStart+"\"\"") {
+        UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(DamselStart)
+      };
+    }
     internal static void StartBug(string argument) { if(!File.Exists(BugExe))return;Process.Start(new ProcessStartInfo(BugExe,argument) { UseShellExecute=false,WindowStyle=argument=="--status"?ProcessWindowStyle.Normal:ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(BugExe) }); }
   }
 
@@ -866,7 +872,17 @@ namespace AstraDesktopPets {
     // One and two clicks are the same for every pet; a pet with a tool on three clicks waits for a possible third.
     int MostClicks(string id) { var pet=pets.Find(p=>p.Id==id);return pet!=null&&pet.ThreeClicks!=null?3:2; }
     internal void OpenPet(PetSprite pet) {
-      testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
+      testActions.Add("open:"+pet.Id);
+      if(pet.Id=="discord-damsel") {
+        if(test){testActions.Add("start:discord-tower-controls");return;}
+        // The pet owns its launcher and only its two presence programs. It opens the same generated page,
+        // keeping that page's notes and reported issues, and supplies its fixed start/status buttons.
+        if(File.Exists(PetFiles.DamselStart)) {
+          try { Process.Start(PetFiles.DamselStartInfo());return; }
+          catch(Exception error) { MessageBox.Show("Discord Damsel's launcher could not start: "+error.Message,"Discord Tower"); }
+        }
+      }
+      if(test){WriteStatus();return;}
       // Voicemeeter Bug too: his own status window stays in his tray menu (Status and help).
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
@@ -955,6 +971,11 @@ namespace AstraDesktopPets {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
       foreach(var pet in pets)pet.ValidateEffects();
       if(BugHeight!=NormalHeight)throw new Exception("Bug standard size test failed.");
+      var damsel=pets.Find(p=>p.Id=="discord-damsel");if(damsel!=null) {
+        ResolveClicks(damsel.Id,2);if(testActions[testActions.Count-1]!="start:discord-tower-controls")throw new Exception("Damsel must open her presence controls launcher.");
+        var start=PetFiles.DamselStartInfo();if(start.UseShellExecute||!start.CreateNoWindow||start.WindowStyle!=ProcessWindowStyle.Hidden||!start.Arguments.EndsWith("open-discord-damsel-20261030.cmd\"\""))throw new Exception("Damsel launcher must be fixed and hidden.");
+        testActions.Clear();
+      }
       if(StarBounds.Right>LogicalWidth||StarBounds.Bottom>LogicalHeight)throw new Exception("Star layout overflow.");
       foreach(var pet in pets)if(pet.Hit.Height>(pet.Id=="claude-bot"?NormalHeight*1.5f:NormalHeight)+.01f||pet.Hit.Width>MaxPetWidth+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
@@ -1018,7 +1039,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {

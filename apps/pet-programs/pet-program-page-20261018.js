@@ -137,11 +137,12 @@
   function isDevice(b) { return /^device:/.test(b.dataset.item || ''); }
   var CARE = { none: 'not created', fix: 'report issues', update: 'update waiting for your approval', ok: 'checked, works' };
   function paint() {
-    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {}, issues = [], waiting = [];
+    var buttons = document.querySelectorAll('button.light[data-item]'), names = {}, planned = {}, managed = {}, issues = [], waiting = [];
     for (var i = 0; i < buttons.length; i++) {
       var b = buttons[i], k = b.dataset.item, name = b.dataset.name;
       names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
+        if (b.dataset.presenceManaged) { managed[k] = true; continue; }
         var p = b.dataset.unseen ? (seen(b) ? 'on' : 'off') : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
@@ -165,7 +166,7 @@
     }
     if (off) {
       off.textContent = '';
-      Object.keys(names).filter(function (k) { return !planned[k] && power(k) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
+      Object.keys(names).filter(function (k) { return !managed[k] && !planned[k] && power(k) === 'off'; }).forEach(function (k) { off.appendChild(el('li', names[k] + ': switched off in this browser')); });
     }
     // A level tool panel glows like L4 while something in it is in use: a program open or a device on (Astra,
     // 2026-10-23: "the L1 control panel is not lighting up even though we are using tools and programs in there").
@@ -196,6 +197,7 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('button.light[data-item]');
     if (!b) return;
+    if (b.dataset.presenceManaged) return; // Damsel's local controls own these two live power lights.
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
     if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
