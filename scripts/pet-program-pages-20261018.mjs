@@ -353,7 +353,7 @@ function toolSections(tools, extra = '', extraCount = 0) {
 // A tool with parts of its own (a toolset) inside a control panel: a round box with the tool background, its lights
 // and its name inside on the first row, like the VRChat setups' headset boxes, and it folds to that row (Astra,
 // 2026-10-24: "control panels have tools and toolsets in side them"; panels keep square corners, tools are round).
-const toolBox = (key, name, body, { open = true, fold = true } = {}) => `<div class="toolbox${open ? '' : ' is-folded'}"><div class="toolbox-head">${lights(`tool:${key}`, name)}${fold
+const toolBox = (key, name, body, { open = true, fold = true, cls = '' } = {}) => `<div class="toolbox${cls ? ` ${cls}` : ''}${open ? '' : ' is-folded'}"><div class="toolbox-head">${lights(`tool:${key}`, name)}${fold
   ? `<button type="button" class="toolbox-fold toolbox-name" aria-expanded="${open}">${esc(name)}</button>` : `<span class="toolbox-name">${esc(name)}</span>`}</div>
 <div class="toolbox-body">${body}</div></div>`;
 
@@ -535,13 +535,17 @@ export const OUTSTANDING_EXAMPLES = [
   { group: 'info', kind: 'pull request', repo: 'example-site', number: 4, title: 'Example: a draft', url: MERGE_ORDER_SKILL, does: 'Nothing yet: it is a draft', example: true },
 ];
 
-function outstandingPanel(d) {
+// The five groups are tools of GitHub Aquarium, round tool boxes in its L1 control panel under Native tools, each with
+// its lights left of its name (Astra, 2026-10-29: "Broken on main, waiting on you, waiting on a chat, close or keep,
+// being checked or drafts. All of those things are tools. So turn them into what is supposed to be look like a tool
+// and put them in the right spot"). outstanding-items fills them; the Pets Board, a native program, has the full list.
+function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
-  const groups = OUTSTANDING_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group outstanding-group g-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
-  return panel(`${d.petSlug}-outstanding-items-tool-panel`, `<p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
-<div class="request-groups outstanding" id="outstanding-items">${groups}</div>
+  const boxes = OUTSTANDING_GROUPS.map(([id, label, empty]) => toolBox(`${d.petSlug}-${label}`, label, `<p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p>`, { cls: `outstanding-group g-${id}` })).join('\n');
+  return `<div class="outstanding-tools" id="outstanding-items"><p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
+<div class="toolboxes">${boxes}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
-<details class="about"><summary>More details</summary><p class="small">outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills this panel only when the page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'outstanding-items', light: true });
+${about('outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) fills these five tools. It reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills these tools only when the page is opened there. Anywhere else they show made-up examples.')}</div>`;
 }
 
 
@@ -575,7 +579,7 @@ function vrchatSetups() {
 ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Rift Rabbit's launcher on this PC (<code>wonderland-launchpad-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the launcher runs, and show each step as it goes.`)}</div>`;
 }
 
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': dmArchivePanel, 'github-goldfish': outstandingPanel };
+export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': dmArchivePanel };
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -703,7 +707,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : toolSections(d.tools)}
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools, outstandingTools(d), OUTSTANDING_GROUPS.length) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
@@ -879,7 +883,7 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${PET_PANELS[d.repo] === outstandingPanel ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
+${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
 ${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
