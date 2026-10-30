@@ -13,6 +13,10 @@ The current main list contains 84 pets; the Reactor Raccoon proposal is separate
 
 Acceptance: one explicit keep/repair/new-art recommendation for every listed pet; proposed art visibly reviewed at desktop size; nine moods checked where a replacement sheet is delivered; unclipped alpha bounds and consistent registration; prompts and provenance saved; draft status truthful. Final adoption requires Astra's visual approval. The original notes below are historical: superseded distributed-copy instructions do not apply to the current single art source.
 
+Owner clarification in this review: start with one neutral pose per character and approve the designs before making the nine-expression sheets. Show all 84 current pets in large, zoomable contact sheets, each in an outlined square; #85 Reactor Raccoon is separate and pending. Nine-mood production is a subsequent stage after design decisions.
+
+Disjoint subagent write assignments under `art/drafts/art-review-20261030/`: art_pipeline owns pet numbers 46,47,49,50,51,52,54,55,56,57,58,59,60,61,62,63,64; art_inventory owns 37,65,66,67,68,69,71,72,73,74,75,76,77,78,79,80,81,85. Each writes only its own pet folder with a dated neutral PNG and prompt. Root owns requested repairs and shared gallery/report records. rules_review owns only a local contact-sheet layout builder; it reviews artwork read-only. Local review outputs may show the private Claude Bot; the private artwork must never enter this public branch. All generated images remain proposals.
+
 Astra's 2026-10-17 art round (full request in [docs/pet-art-redesign-20261017.md](../docs/pet-art-redesign-20261017.md)).
 I made the pixel edits on branch `claude/pet-art-redesign-20261017` of this repo and of eight pet repos (PRs listed in
 that record, none merged): rat smaller, RGBee and Mesh Moth brighter and less round, WiFi Butterfly's face orange,
