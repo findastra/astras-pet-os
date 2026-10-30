@@ -29,3 +29,9 @@ flash audit."
   screenshot, its colours, its live link), after the first run audited a copy 668 commits behind `main`.
 - Flash Audit **A62, Every program page at once** (`docs/flash-audit-20261014.md`), right after A09;
   `test/idle-flash-dots-test-20261018.mjs` counts 62 checks.
+- Folded in from the other session's `claude/page-sweep-trick-20261030` (Astra: "Friendly Farmer owns both"; its own
+  page-sweep trick is dropped as a duplicate of pet-page-audit): audit `main`, not the PC folder (Flash Audit section 1);
+  A59 says the spawner's `MOVED_PAGES` redirects are not findings; A07 flags `v0.1`, hub-assigned versions and `v?`; A10
+  reports a 404 with its address; A17 makes a hub folder behind `origin/main` a finding; A50 measures the palette from
+  screenshot pixels. AGENTS.md: GitHub Desktop's git when `git` is not on PATH. The trick's row in
+  `skills/new-pet-or-tool` and the Friendly Farmer's row in INTELLIGENCE-LEVELS.md.

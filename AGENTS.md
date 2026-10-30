@@ -203,6 +203,8 @@ The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer
 ## Commands
 - `npm run build`, `npm run check` (add `-- --online` to ask GitHub), `npm test`
 - Node 20+. If `node` is missing from PATH on Astra's PC, the Codex bundled runtime works.
+- git: if `git` is missing from PATH on Astra's PC, GitHub Desktop's copy works
+  (`%LOCALAPPDATA%\GitHubDesktop\app-<version>\resources\app\git\cmd\git.exe`; 2026-10-30).
 
 ## Complete top-level Markdown reading (Astra, 2026-10-18)
 
