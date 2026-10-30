@@ -69,9 +69,9 @@ One row per pet, in `pet-programs.json` order: number, pet program, pet, stage, 
 colours on screen (swatches), screenshot, live link. On top: how many have a page, how many have none, and what
 stood out, each with its Flash Audit ID. Give the commit swept.
 
-- Keep the sheet and the screenshots out of the hub (a temp folder, or a private Artifact with the screenshots as its
-  files). They are evidence for this run, not repo pictures: pictures for READMEs are A55's, through
-  project-image-generator.
+- Keep the sheet and the screenshots out of the hub, in a temp folder on Astra's PC. They are evidence for this run,
+  not repo pictures: pictures for READMEs are A55's, through project-image-generator. Publishing the sheet anywhere
+  (a private Artifact, a gist) sends it off the PC: ask Astra first.
 - Never write a personal path, a private pet's data or a private repo's page into it.
 
 ## 5. Then
