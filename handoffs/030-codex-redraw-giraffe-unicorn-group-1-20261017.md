@@ -1,9 +1,14 @@
-status: open (waiting on Astra: remaining neutral-design choices)
+status: taken by Codex root round 3
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Round 3, 2026-10-30
+
+State: IN_PROGRESS. Owner requested latest redraws and smaller sizes, old Unicorn restored, approved Patty and Role Fairy retained. Root is sole implementer of art/drafts/art-review-round-3-20261030 and local dated round-3 exports/contact sheets/scripts; reviewer unassigned. Prior scopes remain released. Acceptance: every requested change addressed, all 84 plus pending 85 visible in labeled square contact sheet, sources and prompts preserved, no live adoption. Local-only characters remain private.
+
 
 ### Completed round-2 review, 2026-10-30
 
@@ -127,4 +132,10 @@ passes, and Astra has looked at them (draft until she approves).
 
 ## Return
 
-Update `## What I did` with sheets, prompts, commits and PRs; set `status: done`; commit.
+Update `## What I did
+
+### Round 3, 2026-10-30
+
+State: IN_PROGRESS. Owner requested latest redraws and smaller sizes, old Unicorn restored, approved Patty and Role Fairy retained. Root is sole implementer of art/drafts/art-review-round-3-20261030 and local dated round-3 exports/contact sheets/scripts; reviewer unassigned. Prior scopes remain released. Acceptance: every requested change addressed, all 84 plus pending 85 visible in labeled square contact sheet, sources and prompts preserved, no live adoption. Local-only characters remain private.
+` with sheets, prompts, commits and PRs; set `status: done`; commit.
+
