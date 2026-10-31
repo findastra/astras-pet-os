@@ -1,9 +1,19 @@
-status: taken by Codex root body and center audit
+status: ready for review
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Scout body and center audit delivery, 2026-10-31
+
+State: READY_FOR_REVIEW. Eleven final redraws: eight girl designs on Scout's body reference, male Farmer, and both penguins. Owner's additional request for even cuter penguins is incorporated: compact matching silhouettes, small smiling beaks, larger glossy eyes, black/white Linux and pink/glasses Portfolio. Intermediate long-headed variants are superseded. All selected full prompts accompany the drafts; original Tux credit is retained.
+
+Uniform technical exports use manually observed chin-to-sole landmarks:119px at256px for the girls/Scout,122px for Farmer. This is a practical body-size match, not a claim of identical anatomy. Raspberry/Sugar Cube main-body landmark widths are140px at256px, excluding leaves/spoon. One recenter-only change for Scout, two food resizes,11 redraws,71 designs byte-identical to previous exports. Scout's shape and approved Paper Patty are retained.
+
+Center audit:85/85 silhouettes pass at1024 and256. Measured maximum error at1024 is0.5px; minimum outer margin104px. Prior Farmer was36px high and Scout15px low. Twelve alpha-mass offset flags were visually reviewed as expected effects of hats, wings, tails or accessories, separately from full-outline centering. Detailed local JSON and plain-text report explain the criterion and each flag. Root inspected all selected generated images, complete grouped white sheet, girls comparison, food comparison and penguin comparison.170 export hashes/dimensions verify; nine picture-home tests pass;177 new draft-only aliases, no existing image alias changes. Filename/privacy checks pass.
+
+Local deliverables: all-pets-body-center-review-20261031.png and all-pets-center-audit-20261031.png (9504x9640), large girls sheet/strip, penguin pair, matched food pair, audit JSON/summary and pet-body-center-review-20261031.zip (107 entries). Combined sheets and private assets remain local. Owner visual acceptance and independent review pending; reviewer unassigned. No live adoption, merge or nine-expression production. Implementation scope released.
 
 ### Body-template and centering claim, 2026-10-31
 
