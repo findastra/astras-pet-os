@@ -1,9 +1,17 @@
-status: taken by Codex root grouped review
+status: ready for review
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Grouped review delivery, 2026-10-31
+
+State: READY_FOR_REVIEW. Eleven revised neutral drawings: eight girl designs (API Fairy, Astra Wisp, Mommy's Mommies pair, Discord Damsel, VSCode Angel, Dubstep Gunsmith, Gatekeeper Goddess, Role Fairy) refined using Scout's craft as the reference; Linux Penguin adapted from original Tux with cute eyes; distinct pink Portfolio Penguin; compact seated Forensic Ferret. Other 74 drawings are byte-identical to round-4 exports, including Farmer, Scout and approved Paper Patty. Original Tux credit and full generation prompts are saved. Built-in image generation used.
+
+Local outputs: all-pets-grouped-by-likeness-20261031.png (9504 x 9640, 640px squares), large girls comparison, single-row girls strip, two-penguin comparison, grouping/decision JSON and pet-art-grouped-review-20261031.zip (103 entries). All 85 appear exactly once across 11 likeness rows, original numbers retained. REVIEW means awaiting acceptance of the current revision, not a claim that the design is bad; four fantasy/lookalike placements are marked GROUP CHECK. Only Paper Patty is labeled approved; Scout is the style reference. Full sheets and private artwork remain local.
+
+Root inspected every generated drawing, grouped overview, girls comparison and penguin comparison. All 170 export hashes/dimensions verify, with 74 unchanged designs and 11 revisions. Nine picture-home tests pass; 33 new draft aliases, no pre-existing image alias changes. Filename/privacy checks pass. Reviewer unassigned and owner design acceptance pending. No live integration, merge or nine-expression production. Implementation scope released.
 
 ### Grouped review and penguin claim, 2026-10-31
 
