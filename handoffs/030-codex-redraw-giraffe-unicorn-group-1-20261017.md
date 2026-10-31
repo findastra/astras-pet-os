@@ -1,9 +1,13 @@
-status: ready for review
+status: taken by Codex root grouped review
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Grouped review and penguin claim, 2026-10-31
+
+State: IN_PROGRESS. Root owns art/drafts/penguin-review-20261031, its generated draft aliases, and dated local grouped-sheet scripts/exports. Owner requests all girls beside Farmer, all 85 grouped by likeness with unresolved choices identified, Linux Penguin based on original Tux with theme-matching eyes, and a similar but distinct Portfolio Penguin. Preserve all other round-4 artwork. Reviewer unassigned. Acceptance: both penguins visually checked side by side, one complete grouped white sheet with every pet once, clear review-status labels, original Tux credit, local-only artwork preserved. Previous scopes remain released.
 
 ### Round 4 delivery, 2026-10-30
 
