@@ -1,9 +1,14 @@
-status: open (waiting on Astra: round-3 neutral-art choices)
+status: taken by Codex root round 4
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Round 4 claim, 2026-10-30
+
+State: IN_PROGRESS. Root owns art/drafts/art-review-round-4-20261030 and dated local round-4 scripts, exports, assessments and white contact sheet. Owner requests original Fuzzboi restoration, family size assessment, smaller Beaver/Rabbit, larger Ant/Iguana, centered smaller Police Officer, selective exterior-outline improvement based on Drum Dog/Rift Rabbit/Mail Snail. Reviewer unassigned. All previous scopes released. Acceptance: all85 on white square grid, retained approved people, safe margins, explicit per-pet assessment, transparent assets, no live adoption.
+
 
 ### Round 3 delivery, 2026-10-30
 
@@ -140,6 +145,11 @@ passes, and Astra has looked at them (draft until she approves).
 
 Update `## What I did
 
+### Round 4 claim, 2026-10-30
+
+State: IN_PROGRESS. Root owns art/drafts/art-review-round-4-20261030 and dated local round-4 scripts, exports, assessments and white contact sheet. Owner requests original Fuzzboi restoration, family size assessment, smaller Beaver/Rabbit, larger Ant/Iguana, centered smaller Police Officer, selective exterior-outline improvement based on Drum Dog/Rift Rabbit/Mail Snail. Reviewer unassigned. All previous scopes released. Acceptance: all85 on white square grid, retained approved people, safe margins, explicit per-pet assessment, transparent assets, no live adoption.
+
+
 ### Round 3 delivery, 2026-10-30
 
 State: READY_FOR_REVIEW. Root completed 25 revised drawings, eight size-only changes, restored round-1 Unicorn, and retained 51 designs exactly. All 85 neutral exports pass source hash, dimensions and safe-margin checks. Owner-approved Patty and Role Fairy are unchanged. All 84 registered pets plus pending Reactor Raccoon appear together on a 7488 x 9740 contact sheet with 768-square cells. Five 1024-square family comparison pages and all 85 individual 1024-square images are included in the local review package. Full generation prompts are saved next to every revised source; built-in image generation used. Local-only characters and full review sheets stay private.
@@ -150,3 +160,4 @@ Root visually inspected each revised drawing and the completed overview, people 
 
 State: IN_PROGRESS. Owner requested latest redraws and smaller sizes, old Unicorn restored, approved Patty and Role Fairy retained. Root is sole implementer of art/drafts/art-review-round-3-20261030 and local dated round-3 exports/contact sheets/scripts; reviewer unassigned. Prior scopes remain released. Acceptance: every requested change addressed, all 84 plus pending 85 visible in labeled square contact sheet, sources and prompts preserved, no live adoption. Local-only characters remain private.
 ` with sheets, prompts, commits and PRs; set `status: done`; commit.
+
