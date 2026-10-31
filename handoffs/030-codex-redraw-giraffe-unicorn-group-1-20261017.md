@@ -1,9 +1,17 @@
-status: taken by Codex root round 4
+status: ready for review
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Round 4 delivery, 2026-10-30
+
+State: READY_FOR_REVIEW. Root completed 11 exterior-outline refinements and a Backup Beaver tail repair, restored original Fuzzboi native layer recipe 330007 (Style B, original black-outline tint), adjusted size/placement for 61 retained designs, and preserved 11 approved people/Paper Patty exports exactly. Beaver's tail truncation existed in the source; it was repaired with built-in image generation, not merely hidden by resizing. Full prompts and Fuzzboi provenance accompany the public drafts.
+
+All 85 neutral poses appear on a plain white 7488 x 9740 sheet, with visible 768px square boundaries. Five family comparison pages and 1024px individual images remain in the local review package. Claude Bot, Skill Scout and sheets containing them remain local. The per-pet review index records size rules and outline assessment. Mammal visible area plus full-silhouette limits improve comparable visual weight; this is not an anatomical landmark measurement. Shared cat ratios are preserved. Ant and Iguana are larger; Police is smaller and centered. Every adjusted export has at least 12% visible-alpha margin and a centered silhouette within one pixel.
+
+Root visually inspected all revised drawings, the complete white overview and mammal comparison, and the final repaired Beaver export. All 85 source hashes and dimensions pass; nine picture-home tests pass. The build adds 179 draft-only aliases and changes no existing art aliases. Owner acceptance and independent review remain pending; reviewer unassigned. No live adoption or merge. Neutral art only; nine-expression production remains a later stage. Implementation scope released.
 
 ### Round 4 claim, 2026-10-30
 
