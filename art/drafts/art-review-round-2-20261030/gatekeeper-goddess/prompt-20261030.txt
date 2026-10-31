@@ -1,0 +1,23 @@
+Use case: precise-object-edit. Asset type: ONE neutral standing pixel-art desktop pet, transparent square. Image 1 is the character edit target; preserve its identity. Images 2 and 3 are API Fairy and VSCode Angel, the APPROVED EXACT HUMAN PROPORTION AND PIXEL-STYLE REFERENCES, not additional subjects. Primary task: redraw Image 1 with the SAME face/head/body/limb proportions as these two girls. This is a proportion correction, not a new costume or concept. Common measured template: let H be main hair crown to boot sole, excluding halo, buns, crown, hat, wings and held tool. Crown y=0, chin=.40H, shoulders=.43H, waist=.62H, short skirt/apron hem=.80H, soles=1.00H; exposed face width .28H (about .25 of full silhouette including head accessories), main hair/head width .42H; hands near .66H. Match the compact standing body of Image 3. Small dark dot eyes with one white pixel highlight, small rosy cheeks, tiny neutral friendly mouth. Crisp deliberately stepped chunky pixels, one continuous black outline with the SAME outline weight as Image 2, flat vivid colors and one hard-edged shade. Full character complete and centered within the central76% of a square canvas, safe margins on every side. REAL transparent alpha. No checkerboard pixels, background, glow, cast shadow, blur, gradients, text, lettering, labels, watermarks, duplicate characters or floating decorations. No sprite sheet.
+
+Character-specific invariants and correction:
+Preserve Gatekeeper Goddess's warm deep brown skin, vivid cobalt blue wavy hair, thin golden crown with ruby center, red-and-ivory dress with gold trim, matching red boots, and one golden key held in front. Change the seated baby silhouette into a FULL STANDING GIRL like API Fairy and VSCode Angel. Reduce the very large head and face; show a clear torso, arms and TWO short standing legs with boots. Use the same compact standing chibi proportions as the reference girls, never a seated baby. Keep the dress red/ivory/gold and preserve the kind small smile, crown and key.
+
+REFERENCE PROVENANCE
+Generation: built-in image_gen; round 2; 2026-10-30; neutral-pose design proposal only.
+Image 1, edit target: art/drafts/art-review-20261030/normalized/gatekeeper-goddess-neutral-20261030.png
+Image 2, primary style/proportion anchor: art/drafts/art-review-20261030/normalized/api-fairy-neutral-20261030.png
+Image 3, standing-body proportion anchor: art/drafts/art-review-20261030/normalized/vscode-angel-neutral-20261030.png
+Earlier artwork is preserved. Design remains pending owner approval.
+
+FINAL CORRECTIVE PASS
+The first round-2 generation retained obsolete seated shoe shapes at the skirt hem. The delivered image uses this single targeted anatomy correction on that intermediate image:
+Use case: precise-object-edit. Edit ONLY one defect in this standing Gatekeeper Goddess. She accidentally has TWO EXTRA RED OVAL SHOE SHAPES attached to the LEFT AND RIGHT bottom corners of the SKIRT, above her actual brown legs. REMOVE those two extra red ovals completely and replace them with a continuous clean IVORY skirt hem with GOLD trim. She must have EXACTLY TWO feet total: the two RED STANDING BOOTS already at the very bottom of the picture. Keep those real boots, the brown legs, face, hair, crown, hands, key, colors, pose, body proportions and every other part unchanged. Skirt hem should be a smooth flared red-and-ivory dress edge with no foot shapes. Maintain crisp black pixel outlines and genuine transparent background. Full same-size square canvas with safe margins; no text, shadow or glow.
+
+
+VERIFIED SOURCE AND OUTPUT HASHES
+Image 1 (gatekeeper-goddess) SHA256: 0ebd79283eb2823c3ca50ac299da225d00ac7a9414f7cc6717dac8487dda844a
+Image 2 (api-fairy) SHA256: 4b375b7084f5cff78a88c2e2b67e10be621acbaeadde161bf4cf3e58b4d77719
+Image 3 (vscode-angel) SHA256: 557e422f42cd667951bdaad25fdd04dc0d50b97e3343da616c4b5e99f1006b98
+Delivered PNG SHA256: 244cc1494c935bab2075c847538ecdc509d9d328a7767291127c04043658c7a4
+Verified: 1254 x 1254 RGBA; transparent background; no visible pixel touches any canvas edge.

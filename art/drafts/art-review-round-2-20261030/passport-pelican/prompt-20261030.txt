@@ -1,0 +1,34 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/passport-pelican-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: precise-object-edit. Redraw Passport Pelican so its species is immediately recognizable and its beak is completely readable. Keep ivory feathers, folded teal-blue wings, coral webbed feet and a small violet passport with a plain gold circle held against the belly. Change to a clear three-quarter view with the head and bill aimed slightly to the right. One generous LONG SUNNY-YELLOW PELICAN BILL extends from the lower face under the eye, with a fairly straight top ridge, one distinct closed black beak seam, and a broad soft golden-yellow pouch underneath attached under the jaw. The entire bill is outlined in BLACK, including its lower pouch and rounded tip, and sits against empty transparent space so its whole shape is visible; it does not overlap the passport. Bill projects sideways, not toward the viewer, not a triangular duck bill. Eye clearly ON THE IVORY HEAD above and behind bill, never on bill. Small ivory head relative to a plump body, slim short neck, modest crest. Gentle neutral friendly pose with small blush. The bill is the mouth; no separate human smile. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: clearly outlined long yellow bill and golden throat pouch, closed black seam, eyes on ivory head, passport visible below bill.
+{
+  "id": "passport-pelican",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "fd0fa3c979d23944e021ba61975e71f6cb23afc47be4d9c680b24b763c10fe75",
+  "boundsAlpha32": [
+    241,
+    143,
+    1130,
+    1147
+  ],
+  "minimumPadding": 106,
+  "fullyTransparentPercent": 65.42,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-b030853b-db81-48fb-ad2c-d0ab914ca86e.png
+The final listed output was copied to idle-proposal-20261030.png.

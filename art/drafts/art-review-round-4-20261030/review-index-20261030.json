@@ -1,0 +1,4244 @@
+{
+  "round": 4,
+  "total": 85,
+  "policy": {
+    "method": "Uniform scale only. Comparable mammal silhouette area with ear/tail fit limits, matched cats retained at shared 90% scale, approved people retained, all changed exports centered by visible extents.",
+    "reference": "Drum Dog, Rift Rabbit, Mail Snail exterior outlines",
+    "scope": "Neutral review only; original Fuzzboi layer recipe restored"
+  },
+  "pets": [
+    {
+      "number": 1,
+      "id": "farmer",
+      "name": "Friendly Farmer",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/farmer-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 199,
+            "top": 32,
+            "right": 828,
+            "bottom": 920,
+            "width": 629,
+            "height": 888,
+            "centerX": 513.5,
+            "centerY": 476,
+            "area": 298029
+          },
+          "sha256": "94f48d35e5bc6030a62ed784e4c7b483055284d71dff52c2036c09e7d7a214f1",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/farmer-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 50,
+            "top": 8,
+            "right": 207,
+            "bottom": 230,
+            "width": 157,
+            "height": 222,
+            "centerX": 128.5,
+            "centerY": 119,
+            "area": 18606
+          },
+          "sha256": "3547556014850a58ac9345b0381be0132ce2b85df052a493ecdf8bed8f52cc33",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 2,
+      "id": "goldfish",
+      "name": "GitHub Goldfish",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 170px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/goldfish-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 190,
+            "top": 172,
+            "right": 834,
+            "bottom": 852,
+            "width": 644,
+            "height": 680,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 261779
+          },
+          "sha256": "0900bc2aa1d8e0e36053211452a6ef8bdf76962a5c548eaf8755941139091032",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/goldfish-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 43,
+            "right": 208,
+            "bottom": 213,
+            "width": 160,
+            "height": 170,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16374
+          },
+          "sha256": "e18c1cd4ed0a323bcd7c3192ba8da28aa9b5782f47929564821f611477339827",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 3,
+      "id": "chip",
+      "name": "Data Chip",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/chip-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 250,
+            "top": 164,
+            "right": 774,
+            "bottom": 860,
+            "width": 524,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 304502
+          },
+          "sha256": "3ac0a22a02b37ae933864d2c665c04ce26d4d5fcd99a7a4f90a8db97a66ad8f5",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/chip-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 63,
+            "top": 41,
+            "right": 193,
+            "bottom": 215,
+            "width": 130,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18944
+          },
+          "sha256": "ee8072eea5e7a75eb0bdc7fc50d930edcc34928a4bda89e5e5724b9ac38880e8",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 4,
+      "id": "api-fairy",
+      "name": "API Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/api-fairy-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 259,
+            "top": 93,
+            "right": 770,
+            "bottom": 922,
+            "width": 511,
+            "height": 829,
+            "centerX": 514.5,
+            "centerY": 507.5,
+            "area": 252175
+          },
+          "sha256": "46706526451b7dc7917f4f9150f9db07dad7e20e88477b5d5091888274a2d2af",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/api-fairy-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 23,
+            "right": 192,
+            "bottom": 230,
+            "width": 127,
+            "height": 207,
+            "centerX": 128.5,
+            "centerY": 126.5,
+            "area": 15783
+          },
+          "sha256": "8a0eb932134cdabed7808e0642e923312dc9a3dace8309759b63499e3edb87a7",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 5,
+      "id": "unity-unicorn",
+      "name": "Unity Unicorn",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/unity-unicorn-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 193,
+            "top": 164,
+            "right": 831,
+            "bottom": 860,
+            "width": 638,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 308894
+          },
+          "sha256": "534173b1f64286232f4b0f9499552755efb6c8ce6ca88b1aaaf37b577baf5b06",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/unity-unicorn-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 41,
+            "right": 208,
+            "bottom": 215,
+            "width": 160,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 19329
+          },
+          "sha256": "f7b378b52fb09732502ad8ee2a3efabf092717ba2ef03db3fc239bff85fd97b7",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 6,
+      "id": "python-panther",
+      "name": "Python Panther",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Shared cat head ratio retained; 10% smaller and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/python-panther-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 204,
+            "right": 803,
+            "bottom": 820,
+            "width": 582,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 271187
+          },
+          "sha256": "ea01272e0eec6b4e8479368efc538a407c1ec1ba540c15ded3e512724feb6a47",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/python-panther-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 51,
+            "right": 201,
+            "bottom": 205,
+            "width": 146,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16931
+          },
+          "sha256": "452634c9c7d8ba94bfd0864251228f0cfef8c8af4fc795a66b8261557dee1195",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 7,
+      "id": "astra-wisp",
+      "name": "Astra Wisp",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/astra-wisp-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 140,
+            "top": 85,
+            "right": 880,
+            "bottom": 920,
+            "width": 740,
+            "height": 835,
+            "centerX": 510,
+            "centerY": 502.5,
+            "area": 336079
+          },
+          "sha256": "54c7a0a520eab2d16f46e6bbbd0b48aecb5050375a0d1a724883d45dfbd8989b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/astra-wisp-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 35,
+            "top": 21,
+            "right": 220,
+            "bottom": 230,
+            "width": 185,
+            "height": 209,
+            "centerX": 127.5,
+            "centerY": 125.5,
+            "area": 21000
+          },
+          "sha256": "7378632f5076fec952c9535babefebcd29fdd3d438b088aba1e51437ad2ab1ab",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 8,
+      "id": "health-hummy",
+      "name": "Health Hummy",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 172px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/health-hummy-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 168,
+            "top": 196,
+            "right": 856,
+            "bottom": 828,
+            "width": 688,
+            "height": 632,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 259051
+          },
+          "sha256": "47bbb64246c4a6c8d03d1ef33c2c28ff17933da66f55547534a296cc42a764a0",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/health-hummy-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 42,
+            "top": 49,
+            "right": 214,
+            "bottom": 207,
+            "width": 172,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16183
+          },
+          "sha256": "f0cc6112f7c8922847c5bca741c36273855295a5d5bc0c84631e48d07973578e",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 9,
+      "id": "finance-finch",
+      "name": "Finance Finch",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 170px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/finance-finch-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 239,
+            "top": 172,
+            "right": 785,
+            "bottom": 852,
+            "width": 546,
+            "height": 680,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287294
+          },
+          "sha256": "0f9097659096a2941c6761dfa3dff6056664d501a1ac78be96fc2e7c0399a7dc",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/finance-finch-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 43,
+            "right": 196,
+            "bottom": 213,
+            "width": 136,
+            "height": 170,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17937
+          },
+          "sha256": "26a70e7219792c68497702ca3dd2b97cae4767dd2db0a5de73bc73e59812060c",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 10,
+      "id": "mommys-mommies",
+      "name": "Mommy's Mommies",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mommys-mommies-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 134,
+            "top": 117,
+            "right": 886,
+            "bottom": 916,
+            "width": 752,
+            "height": 799,
+            "centerX": 510,
+            "centerY": 516.5,
+            "area": 444410
+          },
+          "sha256": "3ce81e11f02334a6ceefd7ffd20bdf7d7cac7295e480c7111d7e8dddfc6abd51",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mommys-mommies-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 34,
+            "top": 29,
+            "right": 221,
+            "bottom": 229,
+            "width": 187,
+            "height": 200,
+            "centerX": 127.5,
+            "centerY": 129,
+            "area": 27983
+          },
+          "sha256": "011958f69a0515178ca03c446f133ab68b1959bad97f7e93e815cdca16f39131",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 11,
+      "id": "paper-girl",
+      "name": "Paper Patty",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/paper-girl-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 313,
+            "top": 152,
+            "right": 711,
+            "bottom": 872,
+            "width": 398,
+            "height": 720,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 229676
+          },
+          "sha256": "301f4b25fa0b301d62dff8fb1b445ef2e41263e95b6f77d7b144ee0c014a01f8",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/paper-girl-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 78,
+            "top": 38,
+            "right": 178,
+            "bottom": 218,
+            "width": 100,
+            "height": 180,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14377
+          },
+          "sha256": "9a2a5cd35513f19b7a0175a8e1e68402ae71fc9afc77e57b8b7770821b0f8079",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 12,
+      "id": "file-master",
+      "name": "File Master",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 170px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/file-master-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 229,
+            "right": 852,
+            "bottom": 795,
+            "width": 680,
+            "height": 566,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 255749
+          },
+          "sha256": "474707d0a851c7cbcd3432aaf9fdc7e8628d9c5fd2dab81e72193153490e39dc",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/file-master-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 57,
+            "right": 213,
+            "bottom": 199,
+            "width": 170,
+            "height": 142,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 15981
+          },
+          "sha256": "4a72a21cd110c8352b9aa5ed7cc34824f6e7bdf8bd63ad40eddf99a45f69287a",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 13,
+      "id": "discord-damsel",
+      "name": "Discord Damsel",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/discord-damsel-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 261,
+            "top": 42,
+            "right": 768,
+            "bottom": 920,
+            "width": 507,
+            "height": 878,
+            "centerX": 514.5,
+            "centerY": 481,
+            "area": 314070
+          },
+          "sha256": "eaa3dba86b3930fd05a246197f16590051e0c87c6de33756bf6aaa891010171a",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/discord-damsel-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 11,
+            "right": 192,
+            "bottom": 230,
+            "width": 127,
+            "height": 219,
+            "centerX": 128.5,
+            "centerY": 120.5,
+            "area": 19614
+          },
+          "sha256": "cd5a8b592b9b1477069ac3b4f315d5a522c345821eada8f48ea90ed25b11a015",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 14,
+      "id": "portfolio-puffer",
+      "name": "Portfolio Puffer",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 166px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/portfolio-puffer-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 236,
+            "top": 180,
+            "right": 788,
+            "bottom": 844,
+            "width": 552,
+            "height": 664,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 266313
+          },
+          "sha256": "469ba667180912974dab9924981413edc58c707fcbf881fde6d8597d8e82bcec",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/portfolio-puffer-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 59,
+            "top": 45,
+            "right": 197,
+            "bottom": 211,
+            "width": 138,
+            "height": 166,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16646
+          },
+          "sha256": "039850439c3a6d98830d221b030bc5ba4dbdd6c51ab7fc11b3332da0c5395369",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 15,
+      "id": "drum-dog",
+      "name": "Drum Dog",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/drum-dog-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 191,
+            "top": 212,
+            "right": 833,
+            "bottom": 812,
+            "width": 642,
+            "height": 600,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287959
+          },
+          "sha256": "d668b6bdc86331867440da22155972950a098718d27fbf6071c1ae7506c03c76",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/drum-dog-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 53,
+            "right": 208,
+            "bottom": 203,
+            "width": 160,
+            "height": 150,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18012
+          },
+          "sha256": "8210ff684dc5711f0c00278617d369a759565957995a4b5d045af710085a9988",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 16,
+      "id": "vscode-angel",
+      "name": "VSCode Angel",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/vscode-angel-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 222,
+            "top": 94,
+            "right": 808,
+            "bottom": 919,
+            "width": 586,
+            "height": 825,
+            "centerX": 515,
+            "centerY": 506.5,
+            "area": 286921
+          },
+          "sha256": "4add746a299c6696dbe817c2e69d50a03ef58f2d314a6d7a42fc66407f96feb7",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/vscode-angel-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 24,
+            "right": 202,
+            "bottom": 230,
+            "width": 146,
+            "height": 206,
+            "centerX": 129,
+            "centerY": 127,
+            "area": 17950
+          },
+          "sha256": "3f6e07e650c90037da1ec2eb383f6d39a0f7883dbbbd843961f625c12d8e438e",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 17,
+      "id": "ghost-protocol",
+      "name": "Gone Ghost",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 170px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/ghost-protocol-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 188,
+            "right": 852,
+            "bottom": 836,
+            "width": 680,
+            "height": 648,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 306337
+          },
+          "sha256": "46037b7f4d5ce7ca85a07e7d5adeb379dbb17c4ef32177a1bccfacb9136f5f8c",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/ghost-protocol-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 47,
+            "right": 213,
+            "bottom": 209,
+            "width": 170,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 19140
+          },
+          "sha256": "8855e3bef88dd77b098776dcb4bac95b541a8836a5864b778e7401d8c070ecb9",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 18,
+      "id": "project-parrot",
+      "name": "Project Parrot",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/project-parrot-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 179,
+            "top": 164,
+            "right": 845,
+            "bottom": 860,
+            "width": 666,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 298811
+          },
+          "sha256": "e4b1cdd2a9ac50e1baef8ae1b66f6d8d5bb0f8b26cff8e926d79f9250f62bdd7",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/project-parrot-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 41,
+            "right": 211,
+            "bottom": 215,
+            "width": 166,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18643
+          },
+          "sha256": "6305d1aa5cf6d16b206f6e58ffcc75ef1dee87008620abf98d21e22e241bc3e4",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 19,
+      "id": "voicemeeter-bug",
+      "name": "Voicemeeter Bug",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 145px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/voicemeeter-bug-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 234,
+            "top": 222,
+            "right": 790,
+            "bottom": 802,
+            "width": 556,
+            "height": 580,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 252103
+          },
+          "sha256": "67ff646fa7d619a1c115172c87515d57df03b2bef066a3abd3b03a652b176b9d",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/voicemeeter-bug-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 55,
+            "right": 197,
+            "bottom": 200,
+            "width": 139,
+            "height": 145,
+            "centerX": 127.5,
+            "centerY": 127.5,
+            "area": 15736
+          },
+          "sha256": "7c047a39a34c149522ed893f2bc7d7d7b85aa6d861aa57b8e51d4178a6a122ef",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 20,
+      "id": "spoonfed-sugarcube",
+      "name": "Spoonfed Sugarcube",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 162px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/spoonfed-sugarcube-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 267,
+            "right": 836,
+            "bottom": 757,
+            "width": 648,
+            "height": 490,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 242405
+          },
+          "sha256": "b52f23698946b5f5bc618bd596d29ede0173c11337d5923b0a86e762236a70d3",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/spoonfed-sugarcube-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 67,
+            "right": 209,
+            "bottom": 189,
+            "width": 162,
+            "height": 122,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 15160
+          },
+          "sha256": "7420c2812db3ffc964398cbb3969e34df494f146c55503b61129615b27e3ed41",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 22,
+      "id": "rgbee",
+      "name": "RGBee",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rgbee-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 295,
+            "right": 860,
+            "bottom": 729,
+            "width": 696,
+            "height": 434,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 211678
+          },
+          "sha256": "358faa3a3e80662f760eeae5ae62a5c1a14ff6f0438f3d32c614a7a693f90920",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rgbee-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 74,
+            "right": 215,
+            "bottom": 182,
+            "width": 174,
+            "height": 108,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 13193
+          },
+          "sha256": "4511ec0c18f07728881169b207b82ae3f17b457954abb9e8cbaab7341d0dc1a3",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 23,
+      "id": "mine-mole",
+      "name": "Mine Mole",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mine-mole-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 195,
+            "top": 183,
+            "right": 829,
+            "bottom": 841,
+            "width": 634,
+            "height": 658,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287982
+          },
+          "sha256": "0a91219996d89d4b7f0353ce4b7698a607ebd8ab0fc5e6530ecf8950823cd3ad",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mine-mole-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 46,
+            "right": 207,
+            "bottom": 210,
+            "width": 158,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17995
+          },
+          "sha256": "874f5906f0093e741c966155920d0125b2f3600d2d770eb682371773a65f67ff",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 24,
+      "id": "mail-snail",
+      "name": "Mail Snail",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 156px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mail-snail-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 200,
+            "top": 206,
+            "right": 824,
+            "bottom": 818,
+            "width": 624,
+            "height": 612,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 276391
+          },
+          "sha256": "8f0e9b97db84cca747268e9cdaa073bf03d6f531003f84e9230c41508c7d91aa",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mail-snail-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 50,
+            "top": 51,
+            "right": 206,
+            "bottom": 204,
+            "width": 156,
+            "height": 153,
+            "centerX": 128,
+            "centerY": 127.5,
+            "area": 17285
+          },
+          "sha256": "9bbfa0b3726feb85461168a1f2dd89d9ee019a6c8de0773fbf87bb53b4439f6e",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 25,
+      "id": "patch-cat",
+      "name": "Patch Cat",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Shared cat head ratio retained; 10% smaller and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/patch-cat-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 202,
+            "right": 803,
+            "bottom": 822,
+            "width": 582,
+            "height": 620,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 274997
+          },
+          "sha256": "11a377afd11486b7548217dfb95bbbc486bbd6dd2ab849d1c1117e1879bc6588",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/patch-cat-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 50,
+            "right": 201,
+            "bottom": 206,
+            "width": 146,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17211
+          },
+          "sha256": "349c0596b25e7fc60225c8afd414ed4ad0d92521910bc1cda9a7b5a12aedbf32",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 26,
+      "id": "meme-fiend",
+      "name": "Meme Fiend",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/meme-fiend-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 206,
+            "top": 193,
+            "right": 818,
+            "bottom": 831,
+            "width": 612,
+            "height": 638,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288150
+          },
+          "sha256": "f329c4330192eadf78dff2847eb84e73e04c51e7b05b7250f941479f5294d86c",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/meme-fiend-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 52,
+            "top": 48,
+            "right": 204,
+            "bottom": 208,
+            "width": 152,
+            "height": 160,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17985
+          },
+          "sha256": "de4cd56d1ebff8c170a39074220caca6aae04d1a48399f7ce762d9762f44a771",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 27,
+      "id": "gif-giraffe",
+      "name": "Gif Giraffe",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/gif-giraffe-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 230,
+            "top": 164,
+            "right": 794,
+            "bottom": 860,
+            "width": 564,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 266313
+          },
+          "sha256": "059ae70fde3a4f90839a620e13ab2428b2d99a5056307804008ab9038a3d137b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/gif-giraffe-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 41,
+            "right": 198,
+            "bottom": 215,
+            "width": 140,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16652
+          },
+          "sha256": "b21285d8f950d7ec4a1991cc28fd2c48728bd0ebf8ffbd9c62899cb404891296",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 28,
+      "id": "backup-beaver",
+      "name": "Backup Beaver",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/backup-beaver-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 186,
+            "top": 226,
+            "right": 838,
+            "bottom": 798,
+            "width": 652,
+            "height": 572,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287865
+          },
+          "sha256": "bbc54f3a3835908279531fae4ede2915b3fb17e5adb14fd94db7c1527ad10315",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/backup-beaver-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 56,
+            "right": 209,
+            "bottom": 200,
+            "width": 162,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18029
+          },
+          "sha256": "8765e60966eb6670adc9b3eeb20a57124878383b258ef759cab557c85083accd",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 29,
+      "id": "rift-rabbit",
+      "name": "Rift Rabbit",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 156px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rift-rabbit-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 258,
+            "top": 200,
+            "right": 766,
+            "bottom": 824,
+            "width": 508,
+            "height": 624,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 249767
+          },
+          "sha256": "3e2c601aad3b6aabf1985646e79f8bc27eb30296bbfd5441d8b5a1196595cdd2",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rift-rabbit-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 50,
+            "right": 191,
+            "bottom": 206,
+            "width": 126,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 15585
+          },
+          "sha256": "53bd432dcc0397b87b1c82e9d37cf3a4bd6d137a8235c0012b26c33ee6ab5100",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 30,
+      "id": "fuzzboi-friend",
+      "name": "Fuzzboi Friend",
+      "visibility": "public-draft",
+      "sourceMode": "original-restored",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 166px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/fuzzboi-friend-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 238,
+            "right": 844,
+            "bottom": 786,
+            "width": 664,
+            "height": 548,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 229830
+          },
+          "sha256": "54ed290183c5e80496c24626d0b562e49513fd2ee98330da3306ca5f326f75bf",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/fuzzboi-friend-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 60,
+            "right": 211,
+            "bottom": 196,
+            "width": 166,
+            "height": 136,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14364
+          },
+          "sha256": "fefcc9e7a85213c9182f0b2897979b9c106b4ccde79e7622ac986a1be6c32e82",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 31,
+      "id": "wifi-butterfly",
+      "name": "Wifi Butterfly",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/wifi-butterfly-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 253,
+            "right": 860,
+            "bottom": 771,
+            "width": 696,
+            "height": 518,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 258253
+          },
+          "sha256": "5d0710117c0afd63945bdd9be91468b2187765e6b6742580e64d38b70f5b0d04",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/wifi-butterfly-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 63,
+            "right": 215,
+            "bottom": 193,
+            "width": 174,
+            "height": 130,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16203
+          },
+          "sha256": "0b0bd63bd6e47dc175cf42bcb6b3c4d15c194c5c989fcd138fd422ace5f16052",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 32,
+      "id": "deck-duck",
+      "name": "Deck Duck",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/deck-duck-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 164,
+            "right": 836,
+            "bottom": 860,
+            "width": 648,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 328509
+          },
+          "sha256": "f72aaeedb65f20483e033add9c27d9f01f21e65ca56861e8ade8ff3969d9ed3c",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/deck-duck-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 41,
+            "right": 209,
+            "bottom": 215,
+            "width": 162,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 20492
+          },
+          "sha256": "005a17377ce956efbeb4cb0740bbf98e82c66c7156dcbe4258b09e31cf7cda50",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 33,
+      "id": "mesh-moth",
+      "name": "Mesh Moth",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mesh-moth-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 184,
+            "right": 860,
+            "bottom": 840,
+            "width": 696,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 329364
+          },
+          "sha256": "e79ad80816c14be2668e0062fd524858d9e533886c6fdd006c4635d8f2b865fe",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/mesh-moth-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 46,
+            "right": 215,
+            "bottom": 210,
+            "width": 174,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 20601
+          },
+          "sha256": "3093ef58d149b930a2b07adf656caee26a49b1b0e195c9f0a62d9755dc6a602a",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 34,
+      "id": "raspberry-berry",
+      "name": "Raspberry Pi Berry",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/raspberry-berry-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 183,
+            "top": 164,
+            "right": 841,
+            "bottom": 860,
+            "width": 658,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 363476
+          },
+          "sha256": "b545b42f334900cf700cf59529e99264c7e00be450816fa52bd74532b22c813a",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/raspberry-berry-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 41,
+            "right": 210,
+            "bottom": 215,
+            "width": 164,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 22713
+          },
+          "sha256": "148c115ed5b06e6b23957d73a74bff6080e0cd92b2b07ed7ea1ef3f879eb2772",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 35,
+      "id": "chat-rat",
+      "name": "Chat Rat",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/chat-rat-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 192,
+            "top": 205,
+            "right": 832,
+            "bottom": 819,
+            "width": 640,
+            "height": 614,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287981
+          },
+          "sha256": "39ca7131356b003a2c0a908c664e1d0c2f306d564b3af45695211a0758e5d612",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/chat-rat-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 51,
+            "right": 208,
+            "bottom": 205,
+            "width": 160,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18010
+          },
+          "sha256": "e6f2142ee01404c0795bdf478087ddb15549c96bda45df69e610a286c08de3ac",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 36,
+      "id": "platform-platypus",
+      "name": "Platform Platypus",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 170px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/platform-platypus-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 180,
+            "right": 852,
+            "bottom": 844,
+            "width": 680,
+            "height": 664,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 300016
+          },
+          "sha256": "610ef2f4da0ac34a74eca43e2aac15734728816a646cf02921e932cf4ea2529d",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/platform-platypus-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 45,
+            "right": 213,
+            "bottom": 211,
+            "width": 170,
+            "height": 166,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18752
+          },
+          "sha256": "0fefd92ba5e0a272a5c7a868c8f66fb1d15ad4c38e7cf1b3ac00ee1413d7ca09",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 37,
+      "id": "dubstep-gunsmith",
+      "name": "Dubstep Gunsmith",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/dubstep-gunsmith-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 291,
+            "top": 113,
+            "right": 781,
+            "bottom": 920,
+            "width": 490,
+            "height": 807,
+            "centerX": 536,
+            "centerY": 516.5,
+            "area": 229482
+          },
+          "sha256": "199c4c2e5aa3a9ca5602cecb4fbfc0e2cb7cf6d20a76b05f09b8fa309b71c496",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/dubstep-gunsmith-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 73,
+            "top": 28,
+            "right": 195,
+            "bottom": 230,
+            "width": 122,
+            "height": 202,
+            "centerX": 134,
+            "centerY": 129,
+            "area": 14383
+          },
+          "sha256": "604542c8ba28565e51c24b57425023ba89599e0a8911d8dc95a32f13c37cb3f4",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 38,
+      "id": "pole-puff",
+      "name": "Pole Puff",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 160px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/pole-puff-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 249,
+            "top": 192,
+            "right": 775,
+            "bottom": 832,
+            "width": 526,
+            "height": 640,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 190389
+          },
+          "sha256": "64f257b03a1a3206747674a7678ddb19f5ff6f36249a31a5793c02f8e7ea46d9",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/pole-puff-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 62,
+            "top": 48,
+            "right": 194,
+            "bottom": 208,
+            "width": 132,
+            "height": 160,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 11897
+          },
+          "sha256": "d2db81913ed8509c80f30f468451e1fd5105b960377bf7e9d3d4f27dc255d6ef",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 39,
+      "id": "procreate-panda",
+      "name": "Procreate Panda",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/procreate-panda-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 244,
+            "top": 167,
+            "right": 780,
+            "bottom": 857,
+            "width": 536,
+            "height": 690,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288141
+          },
+          "sha256": "45645a7804d6921c24dbbd70df7364cc30e300f53bbd5c7dd8b9e57de8c710e4",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/procreate-panda-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 61,
+            "top": 42,
+            "right": 195,
+            "bottom": 214,
+            "width": 134,
+            "height": 172,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18017
+          },
+          "sha256": "b105314693ee4823d089efc2e9acb5a9888ec86661b1defb467bbf2d9123fd9e",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 41,
+      "id": "osc-sealion",
+      "name": "OSC Sealion",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 158px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/osc-sealion-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 196,
+            "top": 198,
+            "right": 828,
+            "bottom": 826,
+            "width": 632,
+            "height": 628,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 258032
+          },
+          "sha256": "9fe28fb6afa37380140cb8e2b33760ae4708f930402fe1020b257ea7c17f2b1e",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/osc-sealion-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 49,
+            "right": 207,
+            "bottom": 206,
+            "width": 158,
+            "height": 157,
+            "centerX": 128,
+            "centerY": 127.5,
+            "area": 16121
+          },
+          "sha256": "b3c8f3106e745c158d43523df5eb4c5b24a9c244f25a5f5d979b5ebb7a81bb4f",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 42,
+      "id": "piranesi-nessi",
+      "name": "Piranesi Nessi",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/piranesi-nessi-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 201,
+            "right": 860,
+            "bottom": 823,
+            "width": 696,
+            "height": 622,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 226069
+          },
+          "sha256": "6b7efa15312abbbdc1cce8245f9e3c32b6dee33d043fd772680ac3083bc6eb4b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/piranesi-nessi-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 50,
+            "right": 215,
+            "bottom": 206,
+            "width": 174,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14095
+          },
+          "sha256": "646c3a3213becfd4f1c7a228caad78c28459574d6eb2fc52c0be240ee1f08c87",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 43,
+      "id": "photo-dodo",
+      "name": "Photo Dodo",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/photo-dodo-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 230,
+            "top": 164,
+            "right": 794,
+            "bottom": 860,
+            "width": 564,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 270104
+          },
+          "sha256": "738c5af34f5dab3f3dcde4dd26d11120e90f21dcd06ba004d8b35d4a3d66f86e",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/photo-dodo-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 41,
+            "right": 198,
+            "bottom": 215,
+            "width": 140,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16868
+          },
+          "sha256": "f1fd48848909b9d41da567781a99be2a0c02a3429d36a31175741c692fab76aa",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 44,
+      "id": "video-vulture",
+      "name": "Video Vulture",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/video-vulture-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 164,
+            "right": 804,
+            "bottom": 860,
+            "width": 584,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 280809
+          },
+          "sha256": "80cb0824b7432597db68aab82b798c5524e30cb0dc8e666963a8011bfaf98d87",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/video-vulture-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 41,
+            "right": 201,
+            "bottom": 215,
+            "width": 146,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17551
+          },
+          "sha256": "764c086306701bd27c8d1de4f662f5368ac6670d84cff51454f4018e98b726ad",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 45,
+      "id": "closet-cat",
+      "name": "Closet Cat",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Shared cat head ratio retained; 10% smaller and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/closet-cat-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 216,
+            "top": 189,
+            "right": 808,
+            "bottom": 835,
+            "width": 592,
+            "height": 646,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288491
+          },
+          "sha256": "978f21dba366dfd44b294ff7737588cf4c10b041ce9f8ef34176b2a3189140bb",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/closet-cat-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 47,
+            "right": 202,
+            "bottom": 209,
+            "width": 148,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18021
+          },
+          "sha256": "caf8b0055b197702b8096de95c93c904bf29bec332944d0bbe705522a1e550c5",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 46,
+      "id": "gatekeeper-goddess",
+      "name": "Gatekeeper Goddess",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/gatekeeper-goddess-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 285,
+            "top": 184,
+            "right": 741,
+            "bottom": 920,
+            "width": 456,
+            "height": 736,
+            "centerX": 513,
+            "centerY": 552,
+            "area": 219927
+          },
+          "sha256": "d24181bcd283006b821a92f5f9ae30b7df153d4a9a6f19c4ec7314954cacb5b1",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/gatekeeper-goddess-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 71,
+            "top": 46,
+            "right": 185,
+            "bottom": 230,
+            "width": 114,
+            "height": 184,
+            "centerX": 128,
+            "centerY": 138,
+            "area": 13767
+          },
+          "sha256": "7408acbcd507862668b8c3d70a969124591b2c0bf97c99217642274d7b2701fe",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 47,
+      "id": "queue-quokka",
+      "name": "Queue Quokka",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/queue-quokka-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 186,
+            "right": 803,
+            "bottom": 838,
+            "width": 582,
+            "height": 652,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287870
+          },
+          "sha256": "51b38bf9dd285c1c22ad1a1ee45b9d6cce1418eaed56e188f96da6c170a891ba",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/queue-quokka-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18007
+          },
+          "sha256": "d200f8afaefe0d42840a8c92e0638779c0e0db4902504ef78c5910288d286b1f",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 48,
+      "id": "log-lynx",
+      "name": "Log Lynx",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Shared cat head ratio retained; 10% smaller and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/log-lynx-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 222,
+            "top": 184,
+            "right": 802,
+            "bottom": 840,
+            "width": 580,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 279742
+          },
+          "sha256": "ee7831e42db97ab86151c01d6550e197a6e9dbc78145a16e8670a17db242e36d",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/log-lynx-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17548
+          },
+          "sha256": "20d8d5ec9f7f6b8b496367f4e822911e2c266d902aebfe54b4e5df65a3894e63",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 49,
+      "id": "server-salamander",
+      "name": "Server Salamander",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 158px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/server-salamander-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 196,
+            "top": 224,
+            "right": 828,
+            "bottom": 800,
+            "width": 632,
+            "height": 576,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 256191
+          },
+          "sha256": "80216b7089126b7a86670aec1b76f393a44a962381b4ce61115a293ac95a7332",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/server-salamander-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 56,
+            "right": 207,
+            "bottom": 200,
+            "width": 158,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16000
+          },
+          "sha256": "22132736e4f77c828da960189a823d4f786f57fcfb66f8c3f7760ee6d626aa50",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 50,
+      "id": "docker-dragon",
+      "name": "Docker Dragon",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/docker-dragon-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 176,
+            "top": 164,
+            "right": 848,
+            "bottom": 860,
+            "width": 672,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 329728
+          },
+          "sha256": "40364397e1dbe2afbea2ccff9d72d039884f1233149b2d0b002f0afdd4ef2c8f",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/docker-dragon-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 41,
+            "right": 212,
+            "bottom": 215,
+            "width": 168,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 20635
+          },
+          "sha256": "b6282b53191141f72cfbe36e7d4664db75f35cdb35f92dd745d16c5f0e32eccb",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 51,
+      "id": "test-tortoise",
+      "name": "Test Tortoise",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/test-tortoise-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 181,
+            "top": 164,
+            "right": 843,
+            "bottom": 860,
+            "width": 662,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 353481
+          },
+          "sha256": "e8f8b55d84a8db74f81bc480dfada275a39df3f81b9c63c72344adc54d55e85b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/test-tortoise-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 41,
+            "right": 211,
+            "bottom": 215,
+            "width": 166,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 22159
+          },
+          "sha256": "599a73a0d8e10cb1694bb3daf234adb8a957957814f8066e4976556fb1678070",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 52,
+      "id": "token-toucan",
+      "name": "Token Toucan",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/token-toucan-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 164,
+            "right": 804,
+            "bottom": 860,
+            "width": 584,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 276233
+          },
+          "sha256": "25627f61f1c0aa4b2b6a361e73302826bc8d31fdb652c99f21f35f8134f33722",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/token-toucan-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 41,
+            "right": 201,
+            "bottom": 215,
+            "width": 146,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17253
+          },
+          "sha256": "01eb0be33cf37f38b1117d339bb30cbff7ad951de8cd8edba77c21ca1f884c56",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 53,
+      "id": "packet-piranha",
+      "name": "Packet Piranha",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 164px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/packet-piranha-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 222,
+            "right": 840,
+            "bottom": 802,
+            "width": 656,
+            "height": 580,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 236082
+          },
+          "sha256": "8cad203341b3688230184cfbb8bb33910df8b610de7227b7b1a3b3cc210a53cc",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/packet-piranha-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 56,
+            "right": 210,
+            "bottom": 200,
+            "width": 164,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14762
+          },
+          "sha256": "def0438a862f4763d850b3bf36cad71c18d39c949355ebc0d7dde0a97b2f7689",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 54,
+      "id": "calendar-crow",
+      "name": "Calendar Crow",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/calendar-crow-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 226,
+            "top": 164,
+            "right": 798,
+            "bottom": 860,
+            "width": 572,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 284728
+          },
+          "sha256": "24989c120e9fbbc216f904a5327eb38582c2a32f5c587d7cb005bf669be35fa5",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/calendar-crow-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 41,
+            "right": 199,
+            "bottom": 215,
+            "width": 143,
+            "height": 174,
+            "centerX": 127.5,
+            "centerY": 128,
+            "area": 17775
+          },
+          "sha256": "2e31ac4ca8ec3d647f3bd37c7606a785d7fca142230c8a3a8f6bb476708b8764",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 55,
+      "id": "browser-bat",
+      "name": "Browser Bat",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/browser-bat-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 221,
+            "right": 860,
+            "bottom": 803,
+            "width": 696,
+            "height": 582,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 262674
+          },
+          "sha256": "7488df65fb106155ea5d966bf7ae83de508faccce5c4bc697210ab3dbf221805",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/browser-bat-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 55,
+            "right": 215,
+            "bottom": 201,
+            "width": 174,
+            "height": 146,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16440
+          },
+          "sha256": "3341171a740725bf6ebdcc9b64b0eb20f1319e76c02d73a0ed7373705422978b",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 56,
+      "id": "data-dragonfly",
+      "name": "Data Dragonfly",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 166px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/data-dragonfly-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 253,
+            "right": 844,
+            "bottom": 771,
+            "width": 664,
+            "height": 518,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 208021
+          },
+          "sha256": "6b5c8b6c540ea0467b53559bff5bde87bca082fab106b2f7ebcba1a7a230b269",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/data-dragonfly-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 63,
+            "right": 211,
+            "bottom": 193,
+            "width": 166,
+            "height": 130,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 13020
+          },
+          "sha256": "dfc884f8851e6623e0de285078234b28ec349662eb4fcaa2e62222bb25e4937d",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 57,
+      "id": "update-urchin",
+      "name": "Update Urchin",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 164px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/update-urchin-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 204,
+            "right": 840,
+            "bottom": 820,
+            "width": 656,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 273155
+          },
+          "sha256": "411b1d9a1f532c8ed2f2063aeb1a8ddb4382f7914f2b82c409060a2c312856ec",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/update-urchin-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 51,
+            "right": 210,
+            "bottom": 205,
+            "width": 164,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17106
+          },
+          "sha256": "c9bee6280df506cabdc78f9b36ea7b4e38cb3db63ec884620619b8f655a631eb",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 58,
+      "id": "linux-penguin",
+      "name": "Linux Penguin",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 166px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/linux-penguin-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 222,
+            "top": 180,
+            "right": 802,
+            "bottom": 844,
+            "width": 580,
+            "height": 664,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 283412
+          },
+          "sha256": "8a64155d2282391a6d9ad9bc7bff0fab3a53cfd7e7ea35283b9c0944385c1c5f",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/linux-penguin-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 45,
+            "right": 200,
+            "bottom": 211,
+            "width": 145,
+            "height": 166,
+            "centerX": 127.5,
+            "centerY": 128,
+            "area": 17723
+          },
+          "sha256": "ea07a7c74029ce198783894ef36c9c84cf721f36f3fa02f7475914f9337b4984",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 59,
+      "id": "stock-fox",
+      "name": "Stock Fox",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/stock-fox-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 205,
+            "top": 199,
+            "right": 819,
+            "bottom": 825,
+            "width": 614,
+            "height": 626,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287972
+          },
+          "sha256": "3e7489c716c7dd2b536319dfd59bd5563b8d262c5d28704ecce7dbc1ff3d5edc",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/stock-fox-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 50,
+            "right": 205,
+            "bottom": 206,
+            "width": 154,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18005
+          },
+          "sha256": "87e9f3beeabffc63deb5cde4c460d7c47f6005e09a62f42c962abf5374f1bbad",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 60,
+      "id": "passport-pelican",
+      "name": "Passport Pelican",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/passport-pelican-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 204,
+            "top": 164,
+            "right": 820,
+            "bottom": 860,
+            "width": 616,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 255712
+          },
+          "sha256": "056a68a8792ddabbfe05d3906ae268314a425c7997ecac41c480deeb371373d2",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/passport-pelican-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 41,
+            "right": 205,
+            "bottom": 215,
+            "width": 154,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16035
+          },
+          "sha256": "9c5cb42057dd5c98ee091304fb16855a577c485f3b4889ad5c0aa593b0514d30",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 61,
+      "id": "journal-jellyfish",
+      "name": "Journal Jellyfish",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 164px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/journal-jellyfish-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 195,
+            "right": 840,
+            "bottom": 829,
+            "width": 656,
+            "height": 634,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 278668
+          },
+          "sha256": "f90bc0f34e17091dbd6ac00a83742a379391e92aa5b6e0f526c09082d89c67bd",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/journal-jellyfish-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 49,
+            "right": 210,
+            "bottom": 207,
+            "width": 164,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17420
+          },
+          "sha256": "af8de47f2ea3648ff188b47a424edf70b5cbdb3aaccbb2a4448a4e62bbbd1ccb",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 62,
+      "id": "shell-squid",
+      "name": "Shell Squid",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 164px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/shell-squid-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 184,
+            "right": 804,
+            "bottom": 840,
+            "width": 584,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 269161
+          },
+          "sha256": "9daca9a9a524c76e2f058c411db096e7009b3e12440bb861ad879ce75e928f03",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/shell-squid-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16817
+          },
+          "sha256": "62ef1d579cc1be8d6c115c7a34d888ace4d0f14df891b72ce1ffbbce1e4c9f83",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 63,
+      "id": "kernel-koala",
+      "name": "Kernel Koala",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/kernel-koala-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 221,
+            "right": 844,
+            "bottom": 803,
+            "width": 664,
+            "height": 582,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287997
+          },
+          "sha256": "0055fca8e278f90e86734cf944d3f8059b7a94d043741b483c2be9b027c52549",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/kernel-koala-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 55,
+            "right": 211,
+            "bottom": 201,
+            "width": 166,
+            "height": 146,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18038
+          },
+          "sha256": "584da27569beca0e2be866e514c732568e2501c6335f38d842298041c6700057",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 64,
+      "id": "proxy-axolotl",
+      "name": "Proxy Axolotl",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 174px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/proxy-axolotl-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 213,
+            "right": 860,
+            "bottom": 811,
+            "width": 696,
+            "height": 598,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 317357
+          },
+          "sha256": "fa02a5a255829f42ac45984c543012f8312bd99ced4bb8b089e80ab40bc6493a",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/proxy-axolotl-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 53,
+            "right": 215,
+            "bottom": 203,
+            "width": 174,
+            "height": 150,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 19895
+          },
+          "sha256": "060f9eeabbfd977bad1356d42ef3fa8db9c03ca40ecf817ceba1cbf32baadcfe",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 65,
+      "id": "cluster-crab",
+      "name": "Cluster Crab",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 168px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cluster-crab-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 176,
+            "top": 281,
+            "right": 848,
+            "bottom": 743,
+            "width": 672,
+            "height": 462,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 214485
+          },
+          "sha256": "b6dfde1a26883d340ceaac86a68cfc554e60f5b2b69cc6070d5230e850702d7b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cluster-crab-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 70,
+            "right": 212,
+            "bottom": 186,
+            "width": 168,
+            "height": 116,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 13407
+          },
+          "sha256": "0e3c7b8ef5e49b08d29677bbcc8e8e3d442d339f39f869eb00bb7301e59f4e3f",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 66,
+      "id": "storage-stoat",
+      "name": "Storage Stoat",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/storage-stoat-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 240,
+            "top": 156,
+            "right": 784,
+            "bottom": 868,
+            "width": 544,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 265428
+          },
+          "sha256": "eed6adadfc173d563546855a9484c2b7ea0f7c312de3d05d290c5f30708eb845",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/storage-stoat-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 39,
+            "right": 196,
+            "bottom": 217,
+            "width": 136,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16565
+          },
+          "sha256": "20c99db372c4b3ebbdef36567642c7757090b2e443998842e5fd137e887a487f",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 67,
+      "id": "white-hat-weasel",
+      "name": "White Hat Weasel",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/white-hat-weasel-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 224,
+            "top": 156,
+            "right": 800,
+            "bottom": 868,
+            "width": 576,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 262862
+          },
+          "sha256": "9dfcdfc96eae1acc7e54a6bb46b6b8740cc20935da70dfed8ad378b273a183b9",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/white-hat-weasel-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 39,
+            "right": 200,
+            "bottom": 217,
+            "width": 144,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 16411
+          },
+          "sha256": "6cd6361dbc924ed28adb3e2820a6bf77a270d54ed59687b08d19df6129969c9a",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 68,
+      "id": "port-spider",
+      "name": "Port Spider",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 154px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/port-spider-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 204,
+            "top": 289,
+            "right": 820,
+            "bottom": 735,
+            "width": 616,
+            "height": 446,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 171283
+          },
+          "sha256": "2ce2821aabcfc8f633aff23ca839b1571a6e5675cfabf3167ab7a82874518800",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/port-spider-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 72,
+            "right": 205,
+            "bottom": 184,
+            "width": 154,
+            "height": 112,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 10702
+          },
+          "sha256": "c60833f4a5aec972a6fde05a6d8693a14711c1fc5eddbab03891f7417410db24",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 69,
+      "id": "cipher-owl",
+      "name": "Cipher Owl",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 154px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cipher-owl-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 260,
+            "top": 204,
+            "right": 764,
+            "bottom": 820,
+            "width": 504,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 239555
+          },
+          "sha256": "2e2fc94187ed8f235213d3afe5741402cf7838c328fb8ac7ac7c172f3d6f6f53",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cipher-owl-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 51,
+            "right": 191,
+            "bottom": 205,
+            "width": 126,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14929
+          },
+          "sha256": "defc201ecb0c91decdeeae3287dd020cdf1541e4adc277f214a6d1ae6bfb8a57",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 70,
+      "id": "forensic-ferret",
+      "name": "Forensic Ferret",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/forensic-ferret-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 231,
+            "top": 156,
+            "right": 793,
+            "bottom": 868,
+            "width": 562,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 208136
+          },
+          "sha256": "bbe6b53f6cd4c693390c02b9dd20ef2f7d2f0939e5a8b873eaaa8dd4bb83e3cd",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/forensic-ferret-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 39,
+            "right": 198,
+            "bottom": 217,
+            "width": 140,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 13031
+          },
+          "sha256": "38286bb0e731b35131e311e468f5292f7aa4223cc30d8a3b1127c3a10851d8f1",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 71,
+      "id": "llama-librarian",
+      "name": "Llama Librarian",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 164px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/llama-librarian-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 326,
+            "top": 184,
+            "right": 698,
+            "bottom": 840,
+            "width": 372,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 183041
+          },
+          "sha256": "233b99e996ab2a7f8fc65388329f1e7530a61ae3a8f99789f08b642e52182678",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/llama-librarian-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 81,
+            "top": 46,
+            "right": 174,
+            "bottom": 210,
+            "width": 93,
+            "height": 164,
+            "centerX": 127.5,
+            "centerY": 128,
+            "area": 11398
+          },
+          "sha256": "10d406263cb12f9c6b8815ff0c0881117539978e70272855156208a8b9d45ada",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 72,
+      "id": "inference-iguana",
+      "name": "Inference Iguana",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 190px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/inference-iguana-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 132,
+            "top": 284,
+            "right": 892,
+            "bottom": 740,
+            "width": 760,
+            "height": 456,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 218018
+          },
+          "sha256": "e5b71cb75f000e37fd2256ce7ae3a89a0e7710273089bf6d98ae6f0a5109c137",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/inference-iguana-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 71,
+            "right": 223,
+            "bottom": 185,
+            "width": 190,
+            "height": 114,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 13605
+          },
+          "sha256": "2262581cdac36d07e899711c551b19826339c557e41ee0cb6d4b0ca6e02b400a",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 73,
+      "id": "agent-ant",
+      "name": "Agent Ant",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 168px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/agent-ant-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 278,
+            "top": 176,
+            "right": 746,
+            "bottom": 848,
+            "width": 468,
+            "height": 672,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 167437
+          },
+          "sha256": "f7e53892b8b0e01a655c9606281ceddbd3b1f80674624f012ed76d55ba6fba43",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/agent-ant-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 70,
+            "top": 44,
+            "right": 186,
+            "bottom": 212,
+            "width": 116,
+            "height": 168,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 10476
+          },
+          "sha256": "f9d53712fa73b48c87381a7b7ca9919f127e8984c4911fa5c9629e416cb481fa",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 74,
+      "id": "roaming-raven",
+      "name": "Roaming Raven",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 158px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/roaming-raven-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 286,
+            "top": 196,
+            "right": 738,
+            "bottom": 828,
+            "width": 452,
+            "height": 632,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 194540
+          },
+          "sha256": "c8ec2e4549a107e4d35f1621babf3507ad3dbb701c34db1f2e39a8aeacad366b",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/roaming-raven-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 71,
+            "top": 49,
+            "right": 184,
+            "bottom": 207,
+            "width": 113,
+            "height": 158,
+            "centerX": 127.5,
+            "centerY": 128,
+            "area": 12148
+          },
+          "sha256": "c3b21be588f96187dbcf6dcedfdb5f96d1e6472bde483b008fac7ef823c34de2",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 75,
+      "id": "cache-coyote",
+      "name": "Cache Coyote",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cache-coyote-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 227,
+            "top": 156,
+            "right": 797,
+            "bottom": 868,
+            "width": 570,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 286389
+          },
+          "sha256": "3845eeaa937acb53fa2e31fb7c2ea61cd9c40e46c3074406f60eb0bd505535f6",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/cache-coyote-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 57,
+            "top": 39,
+            "right": 199,
+            "bottom": 217,
+            "width": 142,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17968
+          },
+          "sha256": "3f86312c263909cdf2156621e2f0c06b2df50adfb87f608cb2dd460f6acacd0d",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 76,
+      "id": "sync-mink",
+      "name": "Sync Mink",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/sync-mink-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 225,
+            "top": 181,
+            "right": 799,
+            "bottom": 843,
+            "width": 574,
+            "height": 662,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287947
+          },
+          "sha256": "0cc9768f99fc2191d8157de06ab88fa2cc21bf5875a679c3d1dfbafc38a82f97",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/sync-mink-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 45,
+            "right": 200,
+            "bottom": 211,
+            "width": 144,
+            "height": 166,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18021
+          },
+          "sha256": "8890a398199e47de44272359539051185a9241fc11cbb809bba58737055fad02",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 77,
+      "id": "triage-tapir",
+      "name": "Triage Tapir",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/triage-tapir-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 236,
+            "top": 166,
+            "right": 788,
+            "bottom": 858,
+            "width": 552,
+            "height": 692,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288243
+          },
+          "sha256": "f07cec9eaa57a1a0e5937ae3a84afd024a30097bdd0f8dbf0733f55cf4d0374f",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/triage-tapir-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 59,
+            "top": 42,
+            "right": 197,
+            "bottom": 214,
+            "width": 138,
+            "height": 172,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17966
+          },
+          "sha256": "479e993474919e54b3f3a646edb9e05a37e7966049b87563123a4fd9e63ddd53",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 78,
+      "id": "pet-police-officer",
+      "name": "Pet Police Officer",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 180px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/pet-police-officer-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 318,
+            "top": 152,
+            "right": 706,
+            "bottom": 872,
+            "width": 388,
+            "height": 720,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 167841
+          },
+          "sha256": "a95b01e88e67c00fa26e631ac4752680d9af4aa791563208ef1778f0f74b5d85",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/pet-police-officer-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 79,
+            "top": 38,
+            "right": 177,
+            "bottom": 218,
+            "width": 98,
+            "height": 180,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 10524
+          },
+          "sha256": "ce30cb05f39b583f80b372c0fb359ca1df16ec7c605fb0f8eb398776d87958dd",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 79,
+      "id": "ai-dashund",
+      "name": "AI Dashund",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/ai-dashund-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 197,
+            "right": 836,
+            "bottom": 827,
+            "width": 648,
+            "height": 630,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288015
+          },
+          "sha256": "95e78f5277610ba44d65fdd52ef508483ad8d1431bce74f509997ad24e0c2a9f",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/ai-dashund-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 49,
+            "right": 209,
+            "bottom": 207,
+            "width": 162,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18021
+          },
+          "sha256": "1f60b50065d45516bc44c102d3fbb2f49a1619249c4d2e337e8a5382fd94bd95",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 80,
+      "id": "rescue-retriever",
+      "name": "Rescue Retriever",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rescue-retriever-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 195,
+            "top": 198,
+            "right": 829,
+            "bottom": 826,
+            "width": 634,
+            "height": 628,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288125
+          },
+          "sha256": "14081e0cdcb63d541c1b5b9c4bba0e2fb19c6c98350c8df497e47be5a51c8e93",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/rescue-retriever-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 50,
+            "right": 207,
+            "bottom": 206,
+            "width": 158,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17945
+          },
+          "sha256": "da0ea590f424467394b43c8019a1b55c32e997f5a1c08b049691754b0d628ffd",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 81,
+      "id": "intel-owl",
+      "name": "Intel Owl",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Family footprint 154px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/intel-owl-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 275,
+            "top": 204,
+            "right": 749,
+            "bottom": 820,
+            "width": 474,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 227770
+          },
+          "sha256": "cad5ea46f43db7f7628b5577bc98ff403c4dcb66b2eeb64fa31485c6a2faa89c",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/intel-owl-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 69,
+            "top": 51,
+            "right": 187,
+            "bottom": 205,
+            "width": 118,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14222
+          },
+          "sha256": "518b0828c18d80989098d8c6cdf620e425e252d5abc8b0d7dd617fb7eb247892",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 82,
+      "id": "door-dormouse",
+      "name": "Door Dormouse",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/door-dormouse-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 191,
+            "top": 228,
+            "right": 833,
+            "bottom": 796,
+            "width": 642,
+            "height": 568,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 287996
+          },
+          "sha256": "0c49bf1f749b277896c2c6de828891e4d9f22b125e74533fffed5b3fd02a0102",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/door-dormouse-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 57,
+            "right": 208,
+            "bottom": 199,
+            "width": 160,
+            "height": 142,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 18004
+          },
+          "sha256": "ec1e2faaff7c62baf8ecc8cc3f73a6123d3efcae7d920b7a6851c5d4f6d218f8",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 83,
+      "id": "role-fairy",
+      "name": "Role Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Approved people/paper design and placement retained",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/role-fairy-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 177,
+            "top": 112,
+            "right": 850,
+            "bottom": 921,
+            "width": 673,
+            "height": 809,
+            "centerX": 513.5,
+            "centerY": 516.5,
+            "area": 330635
+          },
+          "sha256": "bdddac8db02a268224cd5aa1c877a600cdb9174d75c361a1521766b0c97d9aeb",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/role-fairy-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 28,
+            "right": 213,
+            "bottom": 230,
+            "width": 169,
+            "height": 202,
+            "centerX": 128.5,
+            "centerY": 129,
+            "area": 20657
+          },
+          "sha256": "8d061abe8e5fddba8fad65ab103cde3f6befab343a06836921f2177970943555",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 84,
+      "id": "workflow-whale",
+      "name": "Workflow Whale",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-revised",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Family footprint 166px; centered full silhouette",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/workflow-whale-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 270,
+            "right": 844,
+            "bottom": 754,
+            "width": 664,
+            "height": 484,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 235242
+          },
+          "sha256": "02e5e6af3deb2b4d894e8eedf976d2091cd20dc3da0cad43b8ca6c33a9637eab",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/workflow-whale-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 67,
+            "right": 211,
+            "bottom": 189,
+            "width": 166,
+            "height": 122,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 14740
+          },
+          "sha256": "86736a7c3c8d68296838660d07a92df3a3ae35b3d0714fe18dd088f8f812be6e",
+          "visibleEdgePixels": 0
+        }
+      }
+    },
+    {
+      "number": 85,
+      "id": "reactor-raccoon",
+      "name": "Reactor Raccoon",
+      "visibility": "public-draft",
+      "sourceMode": "round-4-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Comparable mammal visible area 18000px, full silhouette limited to178px",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/reactor-raccoon-neutral-20261030.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 215,
+            "top": 186,
+            "right": 809,
+            "bottom": 838,
+            "width": 594,
+            "height": 652,
+            "centerX": 512,
+            "centerY": 512,
+            "area": 288279
+          },
+          "sha256": "e2627389d5f49c075fc4e3b78438ce004e24d5a155483b46aeea533118dce54f",
+          "visibleEdgePixels": 0
+        },
+        "sprite": {
+          "path": "art/drafts/art-review-round-4-20261030/normalized/reactor-raccoon-sprite-20261030.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 47,
+            "right": 202,
+            "bottom": 209,
+            "width": 148,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "area": 17962
+          },
+          "sha256": "3772f3892db382e9eb7c7c6b012be225c8ebfaaf766a889e54c0da386e4fa21c",
+          "visibleEdgePixels": 0
+        }
+      }
+    }
+  ]
+}

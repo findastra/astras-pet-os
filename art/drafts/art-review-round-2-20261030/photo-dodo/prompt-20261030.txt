@@ -1,0 +1,34 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/photo-dodo-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: stylized-concept. Redesign Photo Dodo completely into a sweet compact baby dodo, in a gentle three-quarter view. Retain soft bright peach feathers, cream chest, teal hooked bill, lemon-yellow feet and camera neck strap, small black camera with teal lens. Give it a rounded integrated head, a short substantial teal bill projecting sideways with a clearly curved hooked tip and closed beak seam, one or two properly placed black eyes ABOVE the bill on the head, two tiny wings and a little tuft of tail feathers. Let the plump body occupy at least half the overall height; the head is not a giant ball. Camera small enough that the peach body remains visible. Friendly, readable, cuddly, calm neutral stance. No penguin or generic chick anatomy. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: complete hooked teal bill in three-quarter view, eye placement clear, peach body/cream belly and black camera preserved, feet and tail visible.
+{
+  "id": "photo-dodo",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "0affeab9ac903a1d1bc8a1e763195a5e786718d41f1df8482ccaeb536e23955b",
+  "boundsAlpha32": [
+    193,
+    163,
+    998,
+    1144
+  ],
+  "minimumPadding": 109,
+  "fullyTransparentPercent": 64.98,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-bae51eb0-8c59-4486-8aa8-c39900eb23e1.png
+The final listed output was copied to idle-proposal-20261030.png.
