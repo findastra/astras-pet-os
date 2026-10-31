@@ -1,9 +1,13 @@
-status: ready for review
+status: taken by Codex root body and center audit
 for: codex
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-17
 needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the prompt format), PET-FILES.md ("Making or redoing a pet's art"), handoffs/018-any-curious-faces-and-hummy-beak-20261017.md
 ---
 ## What I did
+
+### Body-template and centering claim, 2026-10-31
+
+State: IN_PROGRESS. Owner requests Linux's shared cute eyes, Portfolio closer to Linux anatomy, Skill Scout's actual body as the template for the other human girls and a male Farmer, matching Raspberry/Sugarcube size, and a center-of-square audit. Root owns art/drafts/body-and-center-review-20261031, generated draft aliases, dated local audit/normalization/sheet scripts and review artifacts. Keep Scout and approved Paper Patty identities; use existing neutral assets for everything outside the requested redraws. Audit all 85 visible silhouettes, safe margins and optical offsets; match sugar/berry main-body size excluding leaf/spoon. Private assets and combined sheets stay local. Reviewer unassigned. Prior scopes released; no live adoption.
 
 ### Grouped review delivery, 2026-10-31
 
