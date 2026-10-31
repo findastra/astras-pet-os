@@ -7,6 +7,8 @@ needs: docs/pet-art-redesign-20261017.md, desktop-art/*/prompt-20261011.md (the 
 
 ### Grouped review and penguin claim, 2026-10-31
 
+Scope amendment: owner now requests the other human girls upgraded to Skill Scout's art quality, plus fixes revealed by grouping. Root additionally owns art/drafts/girls-review-20261031 and its generated aliases. Preserve each identity/outfit, approved Paper Patty and Skill Scout itself; local-only Scout is a style reference only and stays local. Compare human face/body ratios and shared linework before export. No other writer assigned.
+
 State: IN_PROGRESS. Root owns art/drafts/penguin-review-20261031, its generated draft aliases, and dated local grouped-sheet scripts/exports. Owner requests all girls beside Farmer, all 85 grouped by likeness with unresolved choices identified, Linux Penguin based on original Tux with theme-matching eyes, and a similar but distinct Portfolio Penguin. Preserve all other round-4 artwork. Reviewer unassigned. Acceptance: both penguins visually checked side by side, one complete grouped white sheet with every pet once, clear review-status labels, original Tux credit, local-only artwork preserved. Previous scopes remain released.
 
 ### Round 4 delivery, 2026-10-30
