@@ -479,6 +479,10 @@ namespace AstraDesktopPets {
       list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
       // Inference Iguana's busy-watch (Astra, 2026-10-23: the graphics card watch is hers); no desktop pet yet.
       list.Add(new Entry{Repo="benchmark-rock",Pet="Inference Iguana",Exe=Path.Combine(parent,"benchmark-rock","bin","benchmark-rock-20261023.exe"),Folder=Path.Combine(DataRoot,"benchmark-rock"),StartArgs=new[]{"--startup"}});
+      // Rift Rabbit's launcher, behind the Launch buttons on its page (rift-rabbit#8, card 239's step 4). It runs from
+      // Documents\Astra's PetOS Data\rift-rabbit\program, not the repo, and starts at sign-in: with it off, every Launch
+      // button is dead (2026-11-01, after a restart).
+      list.Add(new Entry{Repo="rift-rabbit",Pet="Rift Rabbit",Exe=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program","rift-rabbit-20261024.exe"),Folder=Path.Combine(DataRoot,"rift-rabbit"),StartArgs=new[]{"--startup"}});
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -486,8 +490,9 @@ namespace AstraDesktopPets {
     internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
     // The star starts the crash watchers itself, so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
     // log-den, packet-river and evidence-locker "should not be here at all"; they were Startup-folder shortcuts). The Bug is
-    // started as before; Kernel Koala's and Inference Iguana's watches start only when Astra asks.
-    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)); }
+    // started as before; Kernel Koala's and Inference Iguana's watches start only when Astra asks. Rift Rabbit's launcher
+    // starts too, with no alarmed face.
+    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)||e.Repo=="rift-rabbit"); }
     internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
     static Dictionary<string,object> Read(Entry e,string name,string schema) {
       try {
@@ -1067,7 +1072,9 @@ namespace AstraDesktopPets {
       var iguana=BackgroundPets.Find("benchmark-rock");
       if(iguana==null||iguana.Pet!="Inference Iguana"||iguana.StartArgs[0]!="--startup"||!iguana.Exe.EndsWith("benchmark-rock-20261023.exe")||BackgroundPets.Watches("benchmark-rock"))throw new Exception("Inference Iguana's watch must be in the star's menu, started quietly, with no alarmed face.");
       int signIn=testActions.Count;StartBackgroundPets();
-      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup")throw new Exception("The star must start the three crash watchers quietly, and only them.");
+      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup,sign-in:rift-rabbit:--startup")throw new Exception("The star must start the three crash watchers and Rift Rabbit's launcher quietly, and only them.");
+      var rabbit=BackgroundPets.Find("rift-rabbit");
+      if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);
       string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
       try {
