@@ -1,4 +1,4 @@
-status: waiting for Astra's merge OK (#269 here, findastra/rift-rabbit#14)
+status: merged on Astra's OK; waiting for her first launch in the headset
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-01
 needs: card 239, findastra/rift-rabbit#14
@@ -36,6 +36,8 @@ Star PASS. Hub `npm test`: 348 pass, 2 fail, and the same two fail on unchanged 
 ## Return
 
 Record the merges, the star rebuild and her first in-headset launch below.
+
+- 2026-11-01, Astra: "Merge both". findastra/rift-rabbit#14 merged (e16af93), then this PR.
 
 ## Receipt and review
 
