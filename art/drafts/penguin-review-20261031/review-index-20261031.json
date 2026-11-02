@@ -1,0 +1,90 @@
+{
+  "pets": [
+    {
+      "number": 14,
+      "id": "portfolio-puffer",
+      "name": "Portfolio Puffer",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Matched penguin family footprint",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/penguin-review-20261031/normalized/portfolio-puffer-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 239,
+            "top": 164,
+            "right": 785,
+            "bottom": 860,
+            "width": 546,
+            "height": 696
+          },
+          "sha256": "c670792d161d0442a916438bc5effecc6e1312f9858a30b4073009ec4249f4dc"
+        },
+        "sprite": {
+          "path": "art/drafts/penguin-review-20261031/normalized/portfolio-puffer-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 41,
+            "right": 196,
+            "bottom": 215,
+            "width": 136,
+            "height": 174
+          },
+          "sha256": "52fc829fb9eb6a5be0feea0d14e508002f9bcda1ddd609138b96ca9f1ada22d1"
+        }
+      }
+    },
+    {
+      "number": 58,
+      "id": "linux-penguin",
+      "name": "Linux Penguin",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Matched penguin family footprint",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/penguin-review-20261031/normalized/linux-penguin-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 212,
+            "top": 164,
+            "right": 812,
+            "bottom": 860,
+            "width": 600,
+            "height": 696
+          },
+          "sha256": "d94ff7d5ef9913d5381a807409926be1531be752a19010950cbbb05c1c33cbd7"
+        },
+        "sprite": {
+          "path": "art/drafts/penguin-review-20261031/normalized/linux-penguin-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 53,
+            "top": 41,
+            "right": 203,
+            "bottom": 215,
+            "width": 150,
+            "height": 174
+          },
+          "sha256": "01a61ea9aa8fdef7ff2ccdbf3725e16f63dedc3544d410f6e5268237a47979e7"
+        }
+      }
+    }
+  ]
+}

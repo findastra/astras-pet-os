@@ -1,0 +1,19 @@
+Use case: precise-object-edit. Asset type: ONE neutral standing pixel-art desktop pet, transparent square. Image 1 is the character edit target; preserve its identity. Images 2 and 3 are API Fairy and VSCode Angel, the APPROVED EXACT HUMAN PROPORTION AND PIXEL-STYLE REFERENCES, not additional subjects. Primary task: redraw Image 1 with the SAME face/head/body/limb proportions as these two girls. This is a proportion correction, not a new costume or concept. Common measured template: let H be main hair crown to boot sole, excluding halo, buns, crown, hat, wings and held tool. Crown y=0, chin=.40H, shoulders=.43H, waist=.62H, short skirt/apron hem=.80H, soles=1.00H; exposed face width .28H (about .25 of full silhouette including head accessories), main hair/head width .42H; hands near .66H. Match the compact standing body of Image 3. Small dark dot eyes with one white pixel highlight, small rosy cheeks, tiny neutral friendly mouth. Crisp deliberately stepped chunky pixels, one continuous black outline with the SAME outline weight as Image 2, flat vivid colors and one hard-edged shade. Full character complete and centered within the central76% of a square canvas, safe margins on every side. REAL transparent alpha. No checkerboard pixels, background, glow, cast shadow, blur, gradients, text, lettering, labels, watermarks, duplicate characters or floating decorations. No sprite sheet.
+
+Character-specific invariants and correction:
+This is Friendly Farmer, the owner's favorite. Keep his recognizable friendly blond face and fringe, yellow straw hat with brown band, GREEN short-sleeve collared shirt, BLUE trousers with brown belt and gold buckle, brown boots, and RED APPLE with green leaf in the same hand. Preserve the favorite design and colors; adjust proportions only. Make him stand upright with a full visible torso and legs, SAME anatomical standing head/face/body ratio as the reference girls, with main-hair-crown-to-sole height about FIVE PERCENT TALLER than the girls at equal canvas scale. Do not shrink his body because of the wide straw hat. Hat is above/around crown; face and boots stay fully visible. Keep small dot eyes, pink cheeks and his gentle smile.
+
+REFERENCE PROVENANCE
+Generation: built-in image_gen; round 2; 2026-10-30; neutral-pose design proposal only.
+Image 1, edit target: art/drafts/art-review-20261030/normalized/farmer-neutral-20261030.png
+Image 2, primary style/proportion anchor: art/drafts/art-review-20261030/normalized/api-fairy-neutral-20261030.png
+Image 3, standing-body proportion anchor: art/drafts/art-review-20261030/normalized/vscode-angel-neutral-20261030.png
+Earlier artwork is preserved. Design remains pending owner approval.
+
+
+VERIFIED SOURCE AND OUTPUT HASHES
+Image 1 (farmer) SHA256: b8d23b107e0138d677a9f31f73e18dc1a91089c2b58f554ce5a4700659f4ab06
+Image 2 (api-fairy) SHA256: 4b375b7084f5cff78a88c2e2b67e10be621acbaeadde161bf4cf3e58b4d77719
+Image 3 (vscode-angel) SHA256: 557e422f42cd667951bdaad25fdd04dc0d50b97e3343da616c4b5e99f1006b98
+Initial round-2 PNG SHA256, superseded by prompt-revision-20261030.txt: 5b8a6b23abe5da1d53c3ac659a181add61a8127d8124121426ae41b296208872
+Verified: 1254 x 1254 RGBA; transparent background; no visible pixel touches any canvas edge.

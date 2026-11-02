@@ -1,0 +1,8 @@
+Use case: precise-object-edit. This ONE current Friendly Farmer image is the only input and must remain the same character. Make ONE precise proportional correction: NARROW HIS FACE, CHEEKS, EARS AND MAIN BLOND HAIR MASS horizontally by about22%, centered on the existing body/neck centerline. Preserve the head's VERTICAL HEIGHT and chin position exactly. Keep facial features in the same expression and relative arrangement within the narrower face: friendly black dot eyes, blush, tiny smile, blond fringe. Let H be main-hair-crown-to-boot-sole height; target exposed face width about0.30H and main blond head/hair width about0.43H. His standing BODY AND LEGS NOW HAVE THE CORRECT LENGTH: do not shorten or lengthen them. Do NOT change the wide yellow straw hat, its brown band, green shirt, blue trousers, belt, brown boots, red apple, hands, pose, colors, body width, body height, outline style, canvas size or registration. The hat remains exactly its current size; only the face/ears/hair directly below it become narrower. Keep all non-head artwork unchanged. No extra objects or characters. Crisp stepped pixel art and black outlines; preserve genuine transparent alpha, no background, shadow, glow, text or watermark.
+
+REFERENCE PROVENANCE
+Built-in image_gen, 2026-10-30; one targeted horizontal-head correction.
+Only reference: previous round-2 Friendly Farmer candidate, SHA256 5b8a6b23abe5da1d53c3ac659a181add61a8127d8124121426ae41b296208872.
+Native output identifier: exec-989978a2-b7ae-4333-83e5-9145718342b2.png.
+Independent visual reviewer accepted the new face width approximately 0.29-0.31H and main hair width approximately 0.42H; body, hat, apple and clothes retained.
+Final anatomical placement is applied by the separate round-2 normalization step.

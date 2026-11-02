@@ -1,0 +1,44 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/port-spider-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: stylized-concept. Completely redesign Port Spider, an adorable gentle compact jumping-spider companion that checks network ports. A small lilac round face in front of a slightly larger plum-purple oval abdomen, TWO simple kind black dot eyes with tiny white glints, pink cheeks and a small omega lowercase-w mouth. EXACTLY EIGHT visible short rounded lavender legs, FOUR attached down each side, clean separated silhouettes with rounded feet; no extra arms, no mittens, no antennae. Make it irresistibly cuddly and unthreatening, with a small clear sturdy black outline around every leg. A tiny mint port-shaped badge on the front of its abdomen, a dark inset rectangle with four gold contact pixels, communicates the job; no dangling cable or large prop, nothing obscuring legs. Calm neutral front three-quarter view, two rounded body segments remain distinct, not a giant head. No fangs, claws, realistic hairs, webs or scary details. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Revision1 after visual review; edit target previous round-two Spider output:
+Use case: precise-object-edit. Fix only the leg anatomy of this cute lilac-and-plum Port Spider. It must have EXACTLY EIGHT clearly visible legs in a balanced front view, FOUR ON THE LEFT and FOUR ON THE RIGHT, mirror-paired at the same four heights. Each leg is one short lavender bent limb with a separate rounded pink foot. Current drawing has only three clear left legs and four right legs. Make both sides have the same FOUR separated legs: rear pair high and wide, second pair mid-high and wide, third pair mid-low, front pair low and near the face. Make eight pink feet individually countable, each separated by transparent space. No extra arms or hidden limbs. Keep the round lilac face, exactly two black eyes and white eye glints, tiny w mouth, pink cheeks, plum abdomen, small mint port badge, colors, scale and crisp thick black pixel outline otherwise unchanged. The whole character should remain centered and compact. Transparent background, no shadows, glow, textures, lettering or added props.
+
+
+Revision2 after visual review; missing front-left leg addition:
+Use case: precise-object-edit. Add ONE missing spider leg in the EMPTY SPACE immediately below the LEFT HALF OF THE FACE. The current image has seven pink feet: three on the left and four on the right. Keep all seven existing legs and all other pixels/design unchanged. ADD THE EIGHTH LEG: a short lavender limb starts at the underside of the face at about x510,y815 and bends down to a round pink toe at about x505,y905 on this roughly1254-square canvas. This new leg is the MIRROR OF THE EXISTING INNER FRONT-RIGHT LEG (whose pink foot is around x710,y905). It fits between the existing bottom-left pink foot and the empty central bottom gap. It must be separately outlined in heavy black and have visible transparent separation from the neighboring leg. The final feet, left to right, are at approximately x230,270,365,505,710,860,975,1045: EIGHT FEET TOTAL. Do not remove, merge, shrink or hide any existing limb. Keep exactly two eyes, tiny w smile, abdomen badge and same colors, scale and canvas. True transparent background. This is a surgical addition of the absent front-left leg, nothing else.
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed after two leg corrections: EXACTLY EIGHT separately visible pink feet, four per side; lavender face, two eyes, omega mouth, plum abdomen and mint port badge. No dangling cable.
+{
+  "id": "port-spider",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "8b42308f0ff7d394f0e6b7d1c035b620ad0da52ee06cf3396b46b2e1b2736bc0",
+  "boundsAlpha32": [
+    186,
+    337,
+    1091,
+    951
+  ],
+  "minimumPadding": 162,
+  "fullyTransparentPercent": 76.3,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-7ca53adc-395e-43df-9c00-011cc65aee8b.png
+Revision1: exec-e381eaec-8f6f-404a-806b-c379cecfdacf.png
+Revision2: exec-3616e18f-7d69-4f55-aefd-7f8d3fcbac3c.png
+The final listed output was copied to idle-proposal-20261030.png.

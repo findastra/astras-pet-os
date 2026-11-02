@@ -1,0 +1,35 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/rgbee-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+Image 4: art/drafts/art-review-20261030/mesh-moth/idle-proposal-20261030.png
+
+Full prompt:
+Use case: precise-object-edit. Make RGBee much cuter and give it conspicuously LARGE beautiful bee wings. Preserve a compact yellow bee with little black-tipped antennae, RGB rainbow horizontal abdomen stripes, kind black dot eyes and modest pink cheeks. Use a tiny cute omega lowercase-w mouth. Reduce body bulk slightly; head and striped abdomen together form a compact little oval. Four strong clearly outlined pale icy-blue wings, TWO UPPER wings and TWO LOWER wings, stretch widely and symmetrically from the thorax. The upper wings each are about the HEIGHT OF THE YELLOW HEAD plus half the abdomen, the lower pair abouttwo-thirds that; total wingspan abouttwice bodywidth, making wings a major beautiful part of the silhouette. Six short tiny dark feet may rest under abdomen. Image4 is Mesh Moth, a WING-PROPORTION and outline reference only: borrow broad readable wing area, not its mesh texture or moth antennae. Wings have simple subtle cyan veins and flat white-blue panels, NO mesh, holes, sparkles or translucency texture. Complete all four wings with generous space around their tips. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: four broad complete icy-blue wings, RGB-striped compact bee body, omega mouth, black outline. Wings are especially broad; final body-relative display scale belongs in normalization.
+{
+  "id": "rgbee",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "0ef6118736895e181168bc7baed83e496298d3a2d8880739e9a2b9db2d76fd3e",
+  "boundsAlpha32": [
+    21,
+    255,
+    1232,
+    1010
+  ],
+  "minimumPadding": 21,
+  "fullyTransparentPercent": 58.37,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-955c1263-6031-4d1d-a6c8-eef1fd6c3631.png
+The final listed output was copied to idle-proposal-20261030.png.

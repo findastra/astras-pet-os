@@ -1,0 +1,348 @@
+{
+  "pets": [
+    {
+      "number": 4,
+      "id": "api-fairy",
+      "name": "API Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/api-fairy-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 294,
+            "top": 120,
+            "right": 730,
+            "bottom": 904,
+            "width": 436,
+            "height": 784
+          },
+          "sha256": "bc97196d37561ae9c4a36d8d535bd547a71ab1192aad6134f7dbe9ba3e2ce9e1"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/api-fairy-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 74,
+            "top": 30,
+            "right": 182,
+            "bottom": 226,
+            "width": 108,
+            "height": 196
+          },
+          "sha256": "07ad0ff7a7aae55b2af60a941b8aa2e3b60a7103c3033adef4577d6d53e0b733"
+        }
+      }
+    },
+    {
+      "number": 7,
+      "id": "astra-wisp",
+      "name": "Astra Wisp",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/astra-wisp-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 175,
+            "top": 120,
+            "right": 849,
+            "bottom": 904,
+            "width": 674,
+            "height": 784
+          },
+          "sha256": "22170d1b2a7c57f2fd65522d2d0e21b15eee9188a746534e9db2cfc9787f7aed"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/astra-wisp-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 30,
+            "right": 212,
+            "bottom": 226,
+            "width": 168,
+            "height": 196
+          },
+          "sha256": "fd13f96eb1330b668a596217c23c53c7591cf2ac2275e7ae5cd1cd24d6e11398"
+        }
+      }
+    },
+    {
+      "number": 10,
+      "id": "mommys-mommies",
+      "name": "Mommy's Mommies",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/mommys-mommies-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 159,
+            "top": 120,
+            "right": 865,
+            "bottom": 904,
+            "width": 706,
+            "height": 784
+          },
+          "sha256": "28bca3419fe9fd723dc6c093fc660bc3ee8d59e378b8e78780c0a6f80ad72c2a"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/mommys-mommies-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 40,
+            "top": 30,
+            "right": 216,
+            "bottom": 226,
+            "width": 176,
+            "height": 196
+          },
+          "sha256": "7507f4a403dfaf8940e7f0d8d39be589446ac66be26c169ce53f7ca2996df964"
+        }
+      }
+    },
+    {
+      "number": 13,
+      "id": "discord-damsel",
+      "name": "Discord Damsel",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/discord-damsel-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 285,
+            "top": 120,
+            "right": 739,
+            "bottom": 904,
+            "width": 454,
+            "height": 784
+          },
+          "sha256": "1459d55c639e84202782fae7943881b9af4ebe09c33e6002010d67a9f6422d92"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/discord-damsel-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 71,
+            "top": 30,
+            "right": 185,
+            "bottom": 226,
+            "width": 114,
+            "height": 196
+          },
+          "sha256": "87d1bc5c1925445824737e67521437c0142770220c8a46c26bfcdbf6140d9623"
+        }
+      }
+    },
+    {
+      "number": 16,
+      "id": "vscode-angel",
+      "name": "VSCode Angel",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/vscode-angel-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 241,
+            "top": 120,
+            "right": 783,
+            "bottom": 904,
+            "width": 542,
+            "height": 784
+          },
+          "sha256": "d6afe753203e85cb264545d909cfd65bac634917d1a017972328075d587a9a3a"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/vscode-angel-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 30,
+            "right": 196,
+            "bottom": 226,
+            "width": 136,
+            "height": 196
+          },
+          "sha256": "521084e8196252778162c9dec0a419ee92fdb5137d8c66c245cdcf8dac410a60"
+        }
+      }
+    },
+    {
+      "number": 37,
+      "id": "dubstep-gunsmith",
+      "name": "Dubstep Gunsmith",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/dubstep-gunsmith-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 293,
+            "top": 120,
+            "right": 731,
+            "bottom": 904,
+            "width": 438,
+            "height": 784
+          },
+          "sha256": "bafdd9e07f0fc9f70017acb0b445980442b01140d57f8f5fd51156c18cb4a133"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/dubstep-gunsmith-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 73,
+            "top": 30,
+            "right": 183,
+            "bottom": 226,
+            "width": 110,
+            "height": 196
+          },
+          "sha256": "647f1204974bab1b62c0f88f14354e5513d98f1d46ef6cf49ecc19d136745653"
+        }
+      }
+    },
+    {
+      "number": 46,
+      "id": "gatekeeper-goddess",
+      "name": "Gatekeeper Goddess",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/gatekeeper-goddess-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 271,
+            "top": 120,
+            "right": 753,
+            "bottom": 904,
+            "width": 482,
+            "height": 784
+          },
+          "sha256": "014f5b63b02b597bb56f1a6b6a4fa0143cbf09b24e22ed2df262a556d5103a6a"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/gatekeeper-goddess-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 68,
+            "top": 30,
+            "right": 188,
+            "bottom": 226,
+            "width": 120,
+            "height": 196
+          },
+          "sha256": "9b485dbc5896860f31b878ed5e4d1f74c18c4f3ae8c968f8e379aca72905a269"
+        }
+      }
+    },
+    {
+      "number": 83,
+      "id": "role-fairy",
+      "name": "Role Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout quality refinement; uniformly scaled and centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/girls-review-20261031/normalized/role-fairy-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 120,
+            "right": 836,
+            "bottom": 904,
+            "width": 648,
+            "height": 784
+          },
+          "sha256": "a02e272dc4d1d595e35e1f7dc39d1041ffba23663cee291d0670a7156d3f6934"
+        },
+        "sprite": {
+          "path": "art/drafts/girls-review-20261031/normalized/role-fairy-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 30,
+            "right": 209,
+            "bottom": 226,
+            "width": 162,
+            "height": 196
+          },
+          "sha256": "7e4d7ccf93f8f2ff6ff8e8fea22834603e6975c1ebf0296ca4e8de35dba5fe3f"
+        }
+      }
+    }
+  ]
+}

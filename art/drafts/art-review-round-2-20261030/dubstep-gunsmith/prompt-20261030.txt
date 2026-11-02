@@ -1,0 +1,19 @@
+Use case: precise-object-edit. Asset type: ONE neutral standing pixel-art desktop pet, transparent square. Image 1 is the character edit target; preserve its identity. Images 2 and 3 are API Fairy and VSCode Angel, the APPROVED EXACT HUMAN PROPORTION AND PIXEL-STYLE REFERENCES, not additional subjects. Primary task: redraw Image 1 with the SAME face/head/body/limb proportions as these two girls. This is a proportion correction, not a new costume or concept. Common measured template: let H be main hair crown to boot sole, excluding halo, buns, crown, hat, wings and held tool. Crown y=0, chin=.40H, shoulders=.43H, waist=.62H, short skirt/apron hem=.80H, soles=1.00H; exposed face width .28H (about .25 of full silhouette including head accessories), main hair/head width .42H; hands near .66H. Match the compact standing body of Image 3. Small dark dot eyes with one white pixel highlight, small rosy cheeks, tiny neutral friendly mouth. Crisp deliberately stepped chunky pixels, one continuous black outline with the SAME outline weight as Image 2, flat vivid colors and one hard-edged shade. Full character complete and centered within the central76% of a square canvas, safe margins on every side. REAL transparent alpha. No checkerboard pixels, background, glow, cast shadow, blur, gradients, text, lettering, labels, watermarks, duplicate characters or floating decorations. No sprite sheet.
+
+Character-specific invariants and correction:
+Preserve EVERYTHING that makes Dubstep Gunsmith adorable: short cobalt blue tousled hair, plum-purple ear protectors with neon-yellow details, charcoal shirt and shorts, bright neon-yellow tool apron with its same pockets and small wrench, fingerless charcoal gloves, coral-red chunky boots, and the EXACT playful white/plum/yellow speaker-barrel musical blaster held in the same hand. Preserve colors, outfit, prop and expression. Reduce the oversized head to the common girls' head-to-body ratio; make the standing body and limbs match API Fairy and VSCode Angel. Keep both feet fully visible and the blaster recognizable; one prop only, no firing.
+
+REFERENCE PROVENANCE
+Generation: built-in image_gen; round 2; 2026-10-30; neutral-pose design proposal only.
+Image 1, edit target: art/drafts/art-review-20261030/normalized/dubstep-gunsmith-neutral-20261030.png
+Image 2, primary style/proportion anchor: art/drafts/art-review-20261030/normalized/api-fairy-neutral-20261030.png
+Image 3, standing-body proportion anchor: art/drafts/art-review-20261030/normalized/vscode-angel-neutral-20261030.png
+Earlier artwork is preserved. Design remains pending owner approval.
+
+
+VERIFIED SOURCE AND OUTPUT HASHES
+Image 1 (dubstep-gunsmith) SHA256: 56b65877378236141db977f80b9798ba96298e8e76198716635da54e26d8e58d
+Image 2 (api-fairy) SHA256: 4b375b7084f5cff78a88c2e2b67e10be621acbaeadde161bf4cf3e58b4d77719
+Image 3 (vscode-angel) SHA256: 557e422f42cd667951bdaad25fdd04dc0d50b97e3343da616c4b5e99f1006b98
+Delivered PNG SHA256: d18914e8dfa7ea3e7bc6d05a02fbef968e757ead0f61f9c768c17fba3c4907dc
+Verified: 1254 x 1254 RGBA; transparent background; no visible pixel touches any canvas edge.

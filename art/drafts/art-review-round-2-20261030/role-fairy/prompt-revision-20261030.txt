@@ -1,0 +1,14 @@
+By Astra. OpenAI Codex (GPT-6), 2026-10-30.
+Method: built-in image_gen precise-object-edit; neutral draft only.
+Edit target: art/drafts/art-review-round-2-20261030/role-fairy/idle-proposal-20261030.png, original round-2 candidate before this revision. Its original full generation prompt remains in prompt-20261030.txt.
+Original edit-target SHA256: 9c42c040005ed4269a461da6d60a05fa21c65b0c2bae27efc70832b4e2a4a91d.
+Selected candidate SHA256: e0c4d2dae4406ed45c048550c05acdc604a486a7d34b9fdbb58e1d601397cf25.
+Change: horizontal face/ears/main-hair narrowing only. Preserved vertical head height, body, clothes, rainbow wings, buns and wand.
+Verification: viewed original and output; central skin width approximately233px versus273px; outline-inclusive facial width approximately254px versus298px, crown-to-sole height890px. Final face ratio approximately0.285, matching the0.29 family target.
+
+Full revision prompt:
+Use case: precise-object-edit.
+Input image 1: current Role Fairy, the only edit target.
+Make exactly one controlled proportional edit: narrow only the face, ears, and main white-haired head horizontally by 13%, centered on the current head center. The current skin face width is about298px at1254canvas; target260px. Preserve the full vertical face/head height, eye/nose/mouth style, vertical feature positions, chin height and neck. Adjust the eye spacing inward to fit the narrower head but keep the original eyes and their shape/size.
+Preserve ALL other artwork exactly: unchanged standing body, hands, legs, boots, pink dress, hair buns with pink ties, rainbow wings, star wand, palette, pose, line thickness, pixel texture and square-canvas placement. Do not change the body, overall height, wings or wand. This is a small horizontal head-width correction, not a new design. Keep the existing face expression.
+Target facial proportion: skin face width0.29 times main-hair-crown-to-sole height890px, with hair buns excluded from height. No vertical scaling. One complete transparent pixel-art pet, genuine transparent alpha, no background, text, frame, glow, shadow or additional objects.

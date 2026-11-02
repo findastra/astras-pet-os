@@ -1,0 +1,34 @@
+Built-in image_gen; transparent_background=true.
+Image 1: art/drafts/art-review-20261030/normalized/osc-sealion-neutral-20261030.png
+Image 2: desktop-art/deck-duck/idle-20261011.png
+Image 3: desktop-art/rift-rabbit/idle-20261011.png
+
+Full prompt:
+Use case: stylized-concept. Completely redesign OSC Sealion into an irresistibly cute baby sea lion sitting upright in a calm neutral pose. Retain electric cobalt-blue body, creamy ice-white muzzle and belly, simple orange over-ear headphones. Compact rounded head blends into a short plump pear-shaped body, head about40 percent and substantial torso about60 percent of silhouette height. Two broad stubby front flippers rest beside belly; paired little rear flippers visible on the ground, small ear flaps distinguish sea lion. Kind dot eyes, tiny black nose above a clear small omega w mouth, pink blush. Three short clean whiskers on EACH cheek; not a long moustache. Simple slim orange headphone band around head and two small orange ear cups; headphones must not overwhelm the animal. No teeth or tusks, no human hands, no dangling cables. Asset type: one neutral original Astra desktop-pet character. Image1 shows the prior identity only; replace its awkward drawing as directed. Image2 Deck Duck and image3 Rift Rabbit are STYLE REFERENCES ONLY: match their cute compact small-game-sprite family, simple black dot eyes with one tiny white glint, modest blush, strong uniform continuous black stepped silhouette, crisp chunky square pixels, flat saturated colors with at most one shade. Natural compact chibi anatomy; visible body and limbs, no giant spherical head attached to a tiny body. A tiny lowercase-w omega mouth wherever a muzzle permits; birds retain an anatomically proper closed bill. One complete isolated character, centered on a square transparent canvas with ordinary balanced padding around all extremities (about12 percent), feet/tail/wings entirely visible. Genuine transparent alpha. No gradients, glow, bloom, shadow, fog, fuzzy fringe, blur, scenery, rendered checkerboard, words, letters, logos or mood symbols. Do not copy the references' species, objects, rabbit monocle or duck controller.
+
+
+
+Final visual QA receipt, 2026-10-30:
+Visually reviewed: blue body, white muzzle/belly, orange headphones, clear omega muzzle with three whiskers each cheek, compact complete flippers.
+{
+  "id": "osc-sealion",
+  "canvas": [
+    1254,
+    1254
+  ],
+  "sha256": "963b16fe727964c9896ad6d1bccb98842c47a72b1c526033ea2d60a296c1e5de",
+  "boundsAlpha32": [
+    175,
+    203,
+    1079,
+    1101
+  ],
+  "minimumPadding": 152,
+  "fullyTransparentPercent": 65.48,
+  "visibleEdgePixels": 0
+}
+Built-in generation only; PNG copied without resampling or color-keying. Prior-round sources unchanged.
+
+Generator output provenance (originals retained in image generation library):
+Initial generation: exec-6eb1b382-e380-4bda-80cd-cc622a845c6a.png
+The final listed output was copied to idle-proposal-20261030.png.

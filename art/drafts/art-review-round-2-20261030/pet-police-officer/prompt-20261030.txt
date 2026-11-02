@@ -1,0 +1,18 @@
+By Astra. OpenAI Codex (GPT-6), 2026-10-30.
+Method: built-in image_gen precise-object-edit; neutral draft only.
+Original reference: art/drafts/art-review-20261030/pet-police-officer/idle-proposal-20261030.png
+Two localized head-narrowing passes were necessary: the first only partially achieved the requested width; the second finished the correction. The first-pass intermediate is retained in built-in generation history and is not the selected candidate.
+Preserved: original cap, body, boots, shield, uniform, pose and vertical head/face height. Only orange-haired head/face/ears narrowed horizontally.
+Measured landmarks on1254px square: main-hair crown-to-sole height747px unchanged; final cheek/skin face including outline approximatelyx511–730 (219px), ratio0.293. Role-family target0.29. Head decorations excluded.
+
+Full initial prompt:
+Use case: precise-object-edit.
+Input image 1: current Pet Police Officer, the only edit target.
+Make exactly one controlled proportional edit: narrow only the skin face, ears, and orange-haired head horizontally by32%, centered on the existing head center. The current face width is319px on1254canvas; target217px. Preserve the full vertical head/face height, chin height, current eyes/eyelashes/nose/mouth design and vertical feature positions. Bring the eyes inward to fit the narrower face while preserving original eye shape and size.
+Preserve EVERYTHING outside the head exactly: leave the blue police cap and yellow badge at their existing size/shape/position; do not narrow the hat. Leave standing blue uniformed body, yellow badges, belt, hands, green shield, teal boots, posture, palette, original chunky pixel pattern, outlines and entire square-canvas placement unchanged. Do not change body proportions or overall height. Keep orange hair identity but make its width fit the narrower face under the unchanged cap. This is a localized horizontal head-width correction, not a redesign or a style change.
+Target skin face width0.29 times main-hair-crown-to-sole height747px, cap excluded from height. No vertical scaling, no larger eyes, no new expression, no other edits. One complete transparent pixel-art pet, genuine transparent alpha, no background, text, frame, glow, shadow or additional objects.
+
+Full second-pass prompt (input was first-pass generated image):
+Use case: precise-object-edit. Input image 1 is the current Pet Police Officer after a partial horizontal head narrowing. This exact image is the edit target.
+The face is STILL too wide. Make only the entire orange-haired head, skin face and ears another19% NARROWER HORIZONTALLY, centered on the same head center. Its current outline-inclusive face width is268px; final target217px, aboutx510–727 on this1254square. This is an additional narrowing from the attached image, not from some earlier reference. The skin face must be only0.29 of the747px main-hair-crown-to-sole height. Keep the vertical head height unchanged. Bring the eyes inward but preserve their original shape/size/style and vertical positions. Keep the exact existing expression, hair design and colors, only less width.
+Do NOT scale or change anything outside the orange-haired head. The blue police cap, gold badge, body, blue uniform, belt, limbs, teal boots and green shield must be EXACTLY UNCHANGED in size, shape, position and appearance. Keep same canvas placement and same transparent margins. Especially keep the cap width unchanged: only the face, ears and orange hair beneath it should narrow. No vertical scaling, no posture change, no other edits. Genuine transparent alpha; no background or additions.

@@ -1,0 +1,47 @@
+{
+  "pets": [
+    {
+      "number": 70,
+      "id": "forensic-ferret",
+      "name": "Forensic Ferret",
+      "visibility": "public-draft",
+      "sourceMode": "round-5-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Compact seated small-mammal proportions",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/animal-refinements-20261031/normalized/forensic-ferret-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 159,
+            "top": 184,
+            "right": 865,
+            "bottom": 840,
+            "width": 706,
+            "height": 656
+          },
+          "sha256": "0573621c24d3a8f384a9a354e016ea89b759840448eeaa28cd3d7c0455274b39"
+        },
+        "sprite": {
+          "path": "art/drafts/animal-refinements-20261031/normalized/forensic-ferret-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 40,
+            "top": 46,
+            "right": 216,
+            "bottom": 210,
+            "width": 176,
+            "height": 164
+          },
+          "sha256": "38aef4f60cdcf759ff63712e8351dc3dd93dfcd4ce48de805fe014d9afd57d4b"
+        }
+      }
+    }
+  ]
+}

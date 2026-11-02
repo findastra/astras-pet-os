@@ -1,0 +1,13 @@
+{
+  "source": "Original Astra layers",
+  "recipe": {
+    "code": "330007",
+    "style": "B",
+    "layers": [
+      "desktop-art/fuzzboi-friend/layers/fillB3.png",
+      "desktop-art/fuzzboi-friend/layers/outlineB.png",
+      "desktop-art/fuzzboi-friend/layers/eyes.png"
+    ]
+  },
+  "outline": "Original desktop renderer black tint; no AI redraw"
+}

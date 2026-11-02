@@ -1,0 +1,5052 @@
+{
+  "round": 6,
+  "total": 85,
+  "policy": {
+    "centering": "Full visible silhouette bounding-box center; alpha threshold32; maximum 1px deviation at both 1024 and256. Alpha-weighted centroid tracked separately for optical review.",
+    "body": "Scout chin-to-sole landmark119px at256; Farmer122px. Uniform scale only; hats/hair excluded from anatomy measurement.",
+    "food": "Main-body landmark widths matched to140px at256; spoon and leaves excluded."
+  },
+  "pets": [
+    {
+      "number": 1,
+      "id": "farmer",
+      "name": "Friendly Farmer",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/farmer-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 284,
+            "top": 127,
+            "right": 740,
+            "bottom": 897,
+            "width": 456,
+            "height": 770,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.9520717378289874,
+            "centroidDy": -53.14631479682674,
+            "visiblePixels": 172607,
+            "minMargin": 127
+          },
+          "sha256": "478b8677542a30a92fe3870c076d73cd8f856ac8faf8cc8647fa2cce5e77710e"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/farmer-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 71,
+            "top": 32,
+            "right": 185,
+            "bottom": 224,
+            "width": 114,
+            "height": 192,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.2625661559823982,
+            "centroidDy": -13.393700446825534,
+            "visiblePixels": 10763,
+            "minMargin": 32
+          },
+          "sha256": "5110478bcbd2b6bd7b6e7094310a1c8d148ae3b23daaef79d07a172779c129c5"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 502,
+        "soleY": 1158,
+        "targetAt256": 122,
+        "achievedAt256": 122
+      }
+    },
+    {
+      "number": 2,
+      "id": "goldfish",
+      "name": "GitHub Goldfish",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/goldfish-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 190,
+            "top": 172,
+            "right": 834,
+            "bottom": 852,
+            "width": 644,
+            "height": 680,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.28857749352721385,
+            "centroidDy": 42.14330057788925,
+            "visiblePixels": 261779,
+            "minMargin": 172
+          },
+          "sha256": "0900bc2aa1d8e0e36053211452a6ef8bdf76962a5c548eaf8755941139091032"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/goldfish-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 43,
+            "right": 208,
+            "bottom": 213,
+            "width": 160,
+            "height": 170,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.04063471722201939,
+            "centroidDy": 10.541081882495348,
+            "visiblePixels": 16374,
+            "minMargin": 43
+          },
+          "sha256": "e18c1cd4ed0a323bcd7c3192ba8da28aa9b5782f47929564821f611477339827"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 3,
+      "id": "chip",
+      "name": "Data Chip",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/chip-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 250,
+            "top": 164,
+            "right": 774,
+            "bottom": 860,
+            "width": 524,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.1935849354027255,
+            "centroidDy": 24.807285338027327,
+            "visiblePixels": 304502,
+            "minMargin": 164
+          },
+          "sha256": "3ac0a22a02b37ae933864d2c665c04ce26d4d5fcd99a7a4f90a8db97a66ad8f5"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/chip-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 63,
+            "top": 41,
+            "right": 193,
+            "bottom": 215,
+            "width": 130,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.5471917229729684,
+            "centroidDy": 6.3266469594594525,
+            "visiblePixels": 18944,
+            "minMargin": 41
+          },
+          "sha256": "ee8072eea5e7a75eb0bdc7fc50d930edcc34928a4bda89e5e5724b9ac38880e8"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 4,
+      "id": "api-fairy",
+      "name": "API Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/api-fairy-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 299,
+            "top": 106,
+            "right": 725,
+            "bottom": 918,
+            "width": 426,
+            "height": 812,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.3139705588520201,
+            "centroidDy": -20.467155342962315,
+            "visiblePixels": 192171,
+            "minMargin": 106
+          },
+          "sha256": "b455e64706f60b2708dd18a875de40992bf1a047d2bb416391f00397fbd30c69"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/api-fairy-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 75,
+            "top": 26,
+            "right": 181,
+            "bottom": 230,
+            "width": 106,
+            "height": 204,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.0693995234133098,
+            "centroidDy": -5.041044480314653,
+            "visiblePixels": 12026,
+            "minMargin": 26
+          },
+          "sha256": "f3e29d7e593069db23725e6aca5194aa3217e7d5126764be97aab35112dcc607"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 539,
+        "soleY": 1154,
+        "targetAt256": 119,
+        "achievedAt256": 118.99999999999999
+      }
+    },
+    {
+      "number": 5,
+      "id": "unity-unicorn",
+      "name": "Unity Unicorn",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/unity-unicorn-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 193,
+            "top": 164,
+            "right": 831,
+            "bottom": 860,
+            "width": 638,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -14.443749550462542,
+            "centroidDy": 43.859578318668014,
+            "visiblePixels": 308894,
+            "minMargin": 164
+          },
+          "sha256": "534173b1f64286232f4b0f9499552755efb6c8ce6ca88b1aaaf37b577baf5b06"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/unity-unicorn-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 41,
+            "right": 208,
+            "bottom": 215,
+            "width": 160,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.582398683707183,
+            "centroidDy": 10.969254451979964,
+            "visiblePixels": 19329,
+            "minMargin": 41
+          },
+          "sha256": "f7b378b52fb09732502ad8ee2a3efabf092717ba2ef03db3fc239bff85fd97b7"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 6,
+      "id": "python-panther",
+      "name": "Python Panther",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/python-panther-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 204,
+            "right": 803,
+            "bottom": 820,
+            "width": 582,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.94015610119078,
+            "centroidDy": 16.099243707515257,
+            "visiblePixels": 271187,
+            "minMargin": 204
+          },
+          "sha256": "ea01272e0eec6b4e8479368efc538a407c1ec1ba540c15ded3e512724feb6a47"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/python-panther-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 51,
+            "right": 201,
+            "bottom": 205,
+            "width": 146,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.498291403746464,
+            "centroidDy": 4.047474667598124,
+            "visiblePixels": 16931,
+            "minMargin": 51
+          },
+          "sha256": "452634c9c7d8ba94bfd0864251228f0cfef8c8af4fc795a66b8261557dee1195"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 7,
+      "id": "astra-wisp",
+      "name": "Astra Wisp",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/astra-wisp-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 104,
+            "right": 836,
+            "bottom": 920,
+            "width": 648,
+            "height": 816,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.2119705966367178,
+            "centroidDy": -16.90020087668421,
+            "visiblePixels": 278761,
+            "minMargin": 104
+          },
+          "sha256": "978e89eb7f4d74040d822794cdd63cf01a2f56ec0e4c0d4d77d23e67edc373e0"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/astra-wisp-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 26,
+            "right": 209,
+            "bottom": 230,
+            "width": 162,
+            "height": 204,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.07984387309120677,
+            "centroidDy": -4.212916307489536,
+            "visiblePixels": 17415,
+            "minMargin": 26
+          },
+          "sha256": "a0027756b95a381ab43f4a6680f6a2ec84fff6b28fd52f43f4448d8d89891354"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 558,
+        "soleY": 1135,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 8,
+      "id": "health-hummy",
+      "name": "Health Hummy",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/health-hummy-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 168,
+            "top": 196,
+            "right": 856,
+            "bottom": 828,
+            "width": 688,
+            "height": 632,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.496670764892258,
+            "centroidDy": 21.093814116247017,
+            "visiblePixels": 259051,
+            "minMargin": 168
+          },
+          "sha256": "47bbb64246c4a6c8d03d1ef33c2c28ff17933da66f55547534a296cc42a764a0"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/health-hummy-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 42,
+            "top": 49,
+            "right": 214,
+            "bottom": 207,
+            "width": 172,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.405743792415791,
+            "centroidDy": 5.226290783382126,
+            "visiblePixels": 16183,
+            "minMargin": 42
+          },
+          "sha256": "f0cc6112f7c8922847c5bca741c36273855295a5d5bc0c84631e48d07973578e"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 9,
+      "id": "finance-finch",
+      "name": "Finance Finch",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/finance-finch-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 239,
+            "top": 172,
+            "right": 785,
+            "bottom": 852,
+            "width": 546,
+            "height": 680,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 1.375932602128728,
+            "centroidDy": 20.45579677941521,
+            "visiblePixels": 287294,
+            "minMargin": 172
+          },
+          "sha256": "0f9097659096a2941c6761dfa3dff6056664d501a1ac78be96fc2e7c0399a7dc"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/finance-finch-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 43,
+            "right": 196,
+            "bottom": 213,
+            "width": 136,
+            "height": 170,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.37130777523617553,
+            "centroidDy": 5.141724294316475,
+            "visiblePixels": 17937,
+            "minMargin": 43
+          },
+          "sha256": "26a70e7219792c68497702ca3dd2b97cae4767dd2db0a5de73bc73e59812060c"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 10,
+      "id": "mommys-mommies",
+      "name": "Mommy's Mommies",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mommys-mommies-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 167,
+            "top": 112,
+            "right": 857,
+            "bottom": 912,
+            "width": 690,
+            "height": 800,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.233374192910901,
+            "centroidDy": -9.243573344566585,
+            "visiblePixels": 361023,
+            "minMargin": 112
+          },
+          "sha256": "d005b60b5eff04523d083078498d84d2220f72566564dad4020dc63ecc378a70"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mommys-mommies-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 42,
+            "top": 28,
+            "right": 214,
+            "bottom": 228,
+            "width": 172,
+            "height": 200,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.7896345924313835,
+            "centroidDy": -2.344370089019847,
+            "visiblePixels": 22578,
+            "minMargin": 28
+          },
+          "sha256": "f3c1aefb82981a39c17e9d2476bbdcbf0dfb8d9da28c4f5172eaec66cc2e572d"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 529,
+        "soleY": 1176,
+        "targetAt256": 119,
+        "achievedAt256": 119.00000000000001
+      }
+    },
+    {
+      "number": 11,
+      "id": "paper-girl",
+      "name": "Paper Patty",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/paper-girl-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 313,
+            "top": 152,
+            "right": 711,
+            "bottom": 872,
+            "width": 398,
+            "height": 720,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 2.3176806214864882,
+            "centroidDy": -8.2043948435537,
+            "visiblePixels": 229676,
+            "minMargin": 152
+          },
+          "sha256": "301f4b25fa0b301d62dff8fb1b445ef2e41263e95b6f77d7b144ee0c014a01f8"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/paper-girl-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 78,
+            "top": 38,
+            "right": 178,
+            "bottom": 218,
+            "width": 100,
+            "height": 180,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.573218022301802,
+            "centroidDy": -2.0463352664367704,
+            "visiblePixels": 14377,
+            "minMargin": 38
+          },
+          "sha256": "9a2a5cd35513f19b7a0175a8e1e68402ae71fc9afc77e57b8b7770821b0f8079"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 12,
+      "id": "file-master",
+      "name": "File Master",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/file-master-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 229,
+            "right": 852,
+            "bottom": 795,
+            "width": 680,
+            "height": 566,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.9949771641648226,
+            "centroidDy": 21.57622302698826,
+            "visiblePixels": 255749,
+            "minMargin": 172
+          },
+          "sha256": "474707d0a851c7cbcd3432aaf9fdc7e8628d9c5fd2dab81e72193153490e39dc"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/file-master-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 57,
+            "right": 213,
+            "bottom": 199,
+            "width": 170,
+            "height": 142,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.8224892998267279,
+            "centroidDy": 5.245502899457819,
+            "visiblePixels": 15981,
+            "minMargin": 43
+          },
+          "sha256": "4a72a21cd110c8352b9aa5ed7cc34824f6e7bdf8bd63ad40eddf99a45f69287a"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 13,
+      "id": "discord-damsel",
+      "name": "Discord Damsel",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/discord-damsel-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 307,
+            "top": 151,
+            "right": 717,
+            "bottom": 873,
+            "width": 410,
+            "height": 722,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.11847435953245622,
+            "centroidDy": 10.16014499757705,
+            "visiblePixels": 196157,
+            "minMargin": 151
+          },
+          "sha256": "d73a267f2f7a614d3e8c3ed80585d56b81ca35d122ff0b6660135ba39d494817"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/discord-damsel-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 77,
+            "top": 38,
+            "right": 179,
+            "bottom": 218,
+            "width": 102,
+            "height": 180,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.03955371286645004,
+            "centroidDy": 2.5455312616118704,
+            "visiblePixels": 12246,
+            "minMargin": 38
+          },
+          "sha256": "e2551d384587deb1d995421b51adfd6f8551db892326df0e1b43214cfd168b1b"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 500,
+        "soleY": 1183,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 14,
+      "id": "portfolio-puffer",
+      "name": "Portfolio Puffer",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Matched cute penguin family size",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/portfolio-puffer-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 214,
+            "top": 164,
+            "right": 810,
+            "bottom": 860,
+            "width": 596,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.08925089716592538,
+            "centroidDy": 48.57185575964752,
+            "visiblePixels": 264362,
+            "minMargin": 164
+          },
+          "sha256": "3367061823709810d2c5c6a26b716a1e96405c0b300f3dbd76bbec3030462c15"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/portfolio-puffer-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 41,
+            "right": 202,
+            "bottom": 215,
+            "width": 148,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.10461957992404791,
+            "centroidDy": 12.17370521560278,
+            "visiblePixels": 16517,
+            "minMargin": 41
+          },
+          "sha256": "edcff3b1479398efad307e13120105ef78a365d3c0bb0fb2e892dbd1b7b94d2c"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 15,
+      "id": "drum-dog",
+      "name": "Drum Dog",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/drum-dog-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 191,
+            "top": 212,
+            "right": 833,
+            "bottom": 812,
+            "width": 642,
+            "height": 600,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 10.384681806213848,
+            "centroidDy": 7.652923794209187,
+            "visiblePixels": 287959,
+            "minMargin": 191
+          },
+          "sha256": "d668b6bdc86331867440da22155972950a098718d27fbf6071c1ae7506c03c76"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/drum-dog-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 53,
+            "right": 208,
+            "bottom": 203,
+            "width": 160,
+            "height": 150,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 2.6218887338088166,
+            "centroidDy": 1.888060911561496,
+            "visiblePixels": 18012,
+            "minMargin": 48
+          },
+          "sha256": "8210ff684dc5711f0c00278617d369a759565957995a4b5d045af710085a9988"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 16,
+      "id": "vscode-angel",
+      "name": "VSCode Angel",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/vscode-angel-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 256,
+            "top": 124,
+            "right": 768,
+            "bottom": 900,
+            "width": 512,
+            "height": 776,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.1714972556669636,
+            "centroidDy": -20.803507482057512,
+            "visiblePixels": 217423,
+            "minMargin": 124
+          },
+          "sha256": "6458b766294fec0472501ef561f6f81b45b27e0b39b5290eaa7eedd97def4638"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/vscode-angel-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 64,
+            "top": 31,
+            "right": 192,
+            "bottom": 225,
+            "width": 128,
+            "height": 194,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.04592479141010131,
+            "centroidDy": -5.160144802797774,
+            "visiblePixels": 13594,
+            "minMargin": 31
+          },
+          "sha256": "86ae7fa78e7a9e90d39432d98a64b4565be73abc67a6ab510b0f4f6827d88bc7"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 530,
+        "soleY": 1152,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 17,
+      "id": "ghost-protocol",
+      "name": "Gone Ghost",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/ghost-protocol-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 188,
+            "right": 852,
+            "bottom": 836,
+            "width": 680,
+            "height": 648,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.04289220846453645,
+            "centroidDy": 8.679911775698315,
+            "visiblePixels": 306337,
+            "minMargin": 172
+          },
+          "sha256": "46037b7f4d5ce7ca85a07e7d5adeb379dbb17c4ef32177a1bccfacb9136f5f8c"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/ghost-protocol-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 47,
+            "right": 213,
+            "bottom": 209,
+            "width": 170,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.020788242766030862,
+            "centroidDy": 2.157913562649611,
+            "visiblePixels": 19140,
+            "minMargin": 43
+          },
+          "sha256": "8855e3bef88dd77b098776dcb4bac95b541a8836a5864b778e7401d8c070ecb9"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 18,
+      "id": "project-parrot",
+      "name": "Project Parrot",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/project-parrot-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 179,
+            "top": 164,
+            "right": 845,
+            "bottom": 860,
+            "width": 666,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -26.888541648097544,
+            "centroidDy": 43.237101459432324,
+            "visiblePixels": 298811,
+            "minMargin": 164
+          },
+          "sha256": "e4b1cdd2a9ac50e1baef8ae1b66f6d8d5bb0f8b26cff8e926d79f9250f62bdd7"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/project-parrot-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 41,
+            "right": 211,
+            "bottom": 215,
+            "width": 166,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.698224252599175,
+            "centroidDy": 10.834558072337558,
+            "visiblePixels": 18643,
+            "minMargin": 41
+          },
+          "sha256": "6305d1aa5cf6d16b206f6e58ffcc75ef1dee87008620abf98d21e22e241bc3e4"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 19,
+      "id": "voicemeeter-bug",
+      "name": "Voicemeeter Bug",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/voicemeeter-bug-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 234,
+            "top": 222,
+            "right": 790,
+            "bottom": 802,
+            "width": 556,
+            "height": 580,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.6327702470421173,
+            "centroidDy": 26.494835376896162,
+            "visiblePixels": 252103,
+            "minMargin": 222
+          },
+          "sha256": "67ff646fa7d619a1c115172c87515d57df03b2bef066a3abd3b03a652b176b9d"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/voicemeeter-bug-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 55,
+            "right": 197,
+            "bottom": 200,
+            "width": 139,
+            "height": 145,
+            "centerX": 127.5,
+            "centerY": 127.5,
+            "dx": -0.5,
+            "dy": -0.5,
+            "centroidDx": 0.03826200826605941,
+            "centroidDy": 6.379172258264731,
+            "visiblePixels": 15736,
+            "minMargin": 55
+          },
+          "sha256": "7c047a39a34c149522ed893f2bc7d7d7b85aa6d861aa57b8e51d4178a6a122ef"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 20,
+      "id": "spoonfed-sugarcube",
+      "name": "Spoonfed Sugarcube",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-resized",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Main-body width matched to140px; accessories excluded",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/spoonfed-sugarcube-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 167,
+            "top": 251,
+            "right": 857,
+            "bottom": 773,
+            "width": 690,
+            "height": 522,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 36.79824322555214,
+            "centroidDy": 4.489800580820884,
+            "visiblePixels": 274736,
+            "minMargin": 167
+          },
+          "sha256": "9c813b275fe5dc903d6059b322619636f994677d10b9e1fc40d0ff70d3ca1b63"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/spoonfed-sugarcube-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 42,
+            "top": 63,
+            "right": 214,
+            "bottom": 193,
+            "width": 172,
+            "height": 130,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 9.127641677360032,
+            "centroidDy": 1.1340253602887174,
+            "visiblePixels": 17162,
+            "minMargin": 42
+          },
+          "sha256": "7b6cb67bd543ad378295c89371b3052430304addb91e22b46255eb35eeb9a24b"
+        }
+      },
+      "bodyMeasurement": {
+        "sourceBodyBox": {
+          "left": 314,
+          "top": 266,
+          "right": 840,
+          "bottom": 758
+        },
+        "matchedWidthAt256": 140
+      }
+    },
+    {
+      "number": 22,
+      "id": "rgbee",
+      "name": "RGBee",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rgbee-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 295,
+            "right": 860,
+            "bottom": 729,
+            "width": 696,
+            "height": 434,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.06290004451773257,
+            "centroidDy": -7.166676429162919,
+            "visiblePixels": 211678,
+            "minMargin": 164
+          },
+          "sha256": "358faa3a3e80662f760eeae5ae62a5c1a14ff6f0438f3d32c614a7a693f90920"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rgbee-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 74,
+            "right": 215,
+            "bottom": 182,
+            "width": 174,
+            "height": 108,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.11225710912930253,
+            "centroidDy": -1.9451103428181824,
+            "visiblePixels": 13193,
+            "minMargin": 41
+          },
+          "sha256": "4511ec0c18f07728881169b207b82ae3f17b457954abb9e8cbaab7341d0dc1a3"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 23,
+      "id": "mine-mole",
+      "name": "Mine Mole",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mine-mole-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 195,
+            "top": 183,
+            "right": 829,
+            "bottom": 841,
+            "width": 634,
+            "height": 658,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 14.730178867102268,
+            "centroidDy": 21.806113306974453,
+            "visiblePixels": 287982,
+            "minMargin": 183
+          },
+          "sha256": "0a91219996d89d4b7f0353ce4b7698a607ebd8ab0fc5e6530ecf8950823cd3ad"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mine-mole-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 46,
+            "right": 207,
+            "bottom": 210,
+            "width": 158,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.6432731561240814,
+            "centroidDy": 5.5002111493955965,
+            "visiblePixels": 17995,
+            "minMargin": 46
+          },
+          "sha256": "874f5906f0093e741c966155920d0125b2f3600d2d770eb682371773a65f67ff"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 24,
+      "id": "mail-snail",
+      "name": "Mail Snail",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mail-snail-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 200,
+            "top": 206,
+            "right": 824,
+            "bottom": 818,
+            "width": 624,
+            "height": 612,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -5.495595733953564,
+            "centroidDy": 42.64936633217394,
+            "visiblePixels": 276391,
+            "minMargin": 200
+          },
+          "sha256": "8f0e9b97db84cca747268e9cdaa073bf03d6f531003f84e9230c41508c7d91aa"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mail-snail-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 50,
+            "top": 51,
+            "right": 206,
+            "bottom": 204,
+            "width": 156,
+            "height": 153,
+            "centerX": 128,
+            "centerY": 127.5,
+            "dx": 0,
+            "dy": -0.5,
+            "centroidDx": -1.45398017446324,
+            "centroidDy": 10.492664403045694,
+            "visiblePixels": 17285,
+            "minMargin": 50
+          },
+          "sha256": "9bbfa0b3726feb85461168a1f2dd89d9ee019a6c8de0773fbf87bb53b4439f6e"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 25,
+      "id": "patch-cat",
+      "name": "Patch Cat",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/patch-cat-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 202,
+            "right": 803,
+            "bottom": 822,
+            "width": 582,
+            "height": 620,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.135403795776824,
+            "centroidDy": 18.212803662539727,
+            "visiblePixels": 274997,
+            "minMargin": 202
+          },
+          "sha256": "11a377afd11486b7548217dfb95bbbc486bbd6dd2ab849d1c1117e1879bc6588"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/patch-cat-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 50,
+            "right": 201,
+            "bottom": 206,
+            "width": 146,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.230882486672769,
+            "centroidDy": 4.673088923139687,
+            "visiblePixels": 17211,
+            "minMargin": 50
+          },
+          "sha256": "349c0596b25e7fc60225c8afd414ed4ad0d92521910bc1cda9a7b5a12aedbf32"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 26,
+      "id": "meme-fiend",
+      "name": "Meme Fiend",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/meme-fiend-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 206,
+            "top": 193,
+            "right": 818,
+            "bottom": 831,
+            "width": 612,
+            "height": 638,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.491695915863261,
+            "centroidDy": 19.672223267950358,
+            "visiblePixels": 288150,
+            "minMargin": 193
+          },
+          "sha256": "f329c4330192eadf78dff2847eb84e73e04c51e7b05b7250f941479f5294d86c"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/meme-fiend-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 52,
+            "top": 48,
+            "right": 204,
+            "bottom": 208,
+            "width": 152,
+            "height": 160,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.9786200540350762,
+            "centroidDy": 4.895003424476158,
+            "visiblePixels": 17985,
+            "minMargin": 48
+          },
+          "sha256": "de4cd56d1ebff8c170a39074220caca6aae04d1a48399f7ce762d9762f44a771"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 27,
+      "id": "gif-giraffe",
+      "name": "Gif Giraffe",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/gif-giraffe-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 230,
+            "top": 164,
+            "right": 794,
+            "bottom": 860,
+            "width": 564,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.05363241189877499,
+            "centroidDy": 13.723356964551272,
+            "visiblePixels": 266313,
+            "minMargin": 164
+          },
+          "sha256": "059ae70fde3a4f90839a620e13ab2428b2d99a5056307804008ab9038a3d137b"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/gif-giraffe-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 41,
+            "right": 198,
+            "bottom": 215,
+            "width": 140,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.01881811948385348,
+            "centroidDy": 3.5555819604640533,
+            "visiblePixels": 16652,
+            "minMargin": 41
+          },
+          "sha256": "b21285d8f950d7ec4a1991cc28fd2c48728bd0ebf8ffbd9c62899cb404891296"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 28,
+      "id": "backup-beaver",
+      "name": "Backup Beaver",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/backup-beaver-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 186,
+            "top": 226,
+            "right": 838,
+            "bottom": 798,
+            "width": 652,
+            "height": 572,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -36.62010391333678,
+            "centroidDy": 16.66160724955853,
+            "visiblePixels": 287865,
+            "minMargin": 186
+          },
+          "sha256": "bbc54f3a3835908279531fae4ede2915b3fb17e5adb14fd94db7c1527ad10315"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/backup-beaver-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 56,
+            "right": 209,
+            "bottom": 200,
+            "width": 162,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.194940754614777,
+            "centroidDy": 4.151705628438322,
+            "visiblePixels": 18029,
+            "minMargin": 47
+          },
+          "sha256": "8765e60966eb6670adc9b3eeb20a57124878383b258ef759cab557c85083accd"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 29,
+      "id": "rift-rabbit",
+      "name": "Rift Rabbit",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rift-rabbit-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 258,
+            "top": 200,
+            "right": 766,
+            "bottom": 824,
+            "width": 508,
+            "height": 624,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.57281479082468,
+            "centroidDy": 23.628892679793466,
+            "visiblePixels": 249767,
+            "minMargin": 200
+          },
+          "sha256": "3e2c601aad3b6aabf1985646e79f8bc27eb30296bbfd5441d8b5a1196595cdd2"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rift-rabbit-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 50,
+            "right": 191,
+            "bottom": 206,
+            "width": 126,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.6669776538219025,
+            "centroidDy": 5.8474390573356345,
+            "visiblePixels": 15585,
+            "minMargin": 50
+          },
+          "sha256": "53bd432dcc0397b87b1c82e9d37cf3a4bd6d137a8235c0012b26c33ee6ab5100"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 30,
+      "id": "fuzzboi-friend",
+      "name": "Fuzzboi Friend",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/fuzzboi-friend-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 238,
+            "right": 844,
+            "bottom": 786,
+            "width": 664,
+            "height": 548,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.8576611476897824,
+            "centroidDy": 2.201119320165617,
+            "visiblePixels": 229830,
+            "minMargin": 180
+          },
+          "sha256": "54ed290183c5e80496c24626d0b562e49513fd2ee98330da3306ca5f326f75bf"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/fuzzboi-friend-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 60,
+            "right": 211,
+            "bottom": 196,
+            "width": 166,
+            "height": 136,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.20167235724105126,
+            "centroidDy": 0.5581433695784881,
+            "visiblePixels": 14364,
+            "minMargin": 45
+          },
+          "sha256": "fefcc9e7a85213c9182f0b2897979b9c106b4ccde79e7622ac986a1be6c32e82"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 31,
+      "id": "wifi-butterfly",
+      "name": "Wifi Butterfly",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/wifi-butterfly-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 253,
+            "right": 860,
+            "bottom": 771,
+            "width": 696,
+            "height": 518,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.07054142007552855,
+            "centroidDy": -2.200776575355121,
+            "visiblePixels": 258253,
+            "minMargin": 164
+          },
+          "sha256": "5d0710117c0afd63945bdd9be91468b2187765e6b6742580e64d38b70f5b0d04"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/wifi-butterfly-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 63,
+            "right": 215,
+            "bottom": 193,
+            "width": 174,
+            "height": 130,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.11419417365871709,
+            "centroidDy": -0.7381843540376849,
+            "visiblePixels": 16203,
+            "minMargin": 41
+          },
+          "sha256": "0b0bd63bd6e47dc175cf42bcb6b3c4d15c194c5c989fcd138fd422ace5f16052"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 32,
+      "id": "deck-duck",
+      "name": "Deck Duck",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/deck-duck-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 164,
+            "right": 836,
+            "bottom": 860,
+            "width": 648,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.2646377458227107,
+            "centroidDy": 35.812393568451625,
+            "visiblePixels": 328509,
+            "minMargin": 164
+          },
+          "sha256": "f72aaeedb65f20483e033add9c27d9f01f21e65ca56861e8ade8ff3969d9ed3c"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/deck-duck-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 41,
+            "right": 209,
+            "bottom": 215,
+            "width": 162,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.07367001826543174,
+            "centroidDy": 8.874230241477278,
+            "visiblePixels": 20492,
+            "minMargin": 41
+          },
+          "sha256": "005a17377ce956efbeb4cb0740bbf98e82c66c7156dcbe4258b09e31cf7cda50"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 33,
+      "id": "mesh-moth",
+      "name": "Mesh Moth",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mesh-moth-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 184,
+            "right": 860,
+            "bottom": 840,
+            "width": 696,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.2673078392457455,
+            "centroidDy": 12.984401721038353,
+            "visiblePixels": 329364,
+            "minMargin": 164
+          },
+          "sha256": "e79ad80816c14be2668e0062fd524858d9e533886c6fdd006c4635d8f2b865fe"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/mesh-moth-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 46,
+            "right": 215,
+            "bottom": 210,
+            "width": 174,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.615191736906695,
+            "centroidDy": 3.046230095111298,
+            "visiblePixels": 20601,
+            "minMargin": 41
+          },
+          "sha256": "3093ef58d149b930a2b07adf656caee26a49b1b0e195c9f0a62d9755dc6a602a"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 34,
+      "id": "raspberry-berry",
+      "name": "Raspberry Pi Berry",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-resized",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Main-body width matched to140px; accessories excluded",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/raspberry-berry-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 218,
+            "top": 201,
+            "right": 806,
+            "bottom": 823,
+            "width": 588,
+            "height": 622,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.8755438594280349,
+            "centroidDy": -8.23836728689821,
+            "visiblePixels": 290750,
+            "minMargin": 201
+          },
+          "sha256": "b3540e8b7c8403f7c52c52f88dce3de1ae200b6da12f164df7075be763a21da6"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/raspberry-berry-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 50,
+            "right": 202,
+            "bottom": 206,
+            "width": 148,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.24148271597036342,
+            "centroidDy": -2.1314342472856396,
+            "visiblePixels": 18216,
+            "minMargin": 50
+          },
+          "sha256": "f8d72113d0539fb909d454491e0830fdb3f8cebc08f6735fdbab65aa0817ea88"
+        }
+      },
+      "bodyMeasurement": {
+        "sourceBodyBox": {
+          "left": 199,
+          "top": 320,
+          "right": 825,
+          "bottom": 838
+        },
+        "matchedWidthAt256": 140
+      }
+    },
+    {
+      "number": 35,
+      "id": "chat-rat",
+      "name": "Chat Rat",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/chat-rat-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 192,
+            "top": 205,
+            "right": 832,
+            "bottom": 819,
+            "width": 640,
+            "height": 614,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -8.620889317835406,
+            "centroidDy": 1.761615532158089,
+            "visiblePixels": 287981,
+            "minMargin": 192
+          },
+          "sha256": "39ca7131356b003a2c0a908c664e1d0c2f306d564b3af45695211a0758e5d612"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/chat-rat-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 51,
+            "right": 208,
+            "bottom": 205,
+            "width": 160,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.158834889672576,
+            "centroidDy": 0.49835353011906136,
+            "visiblePixels": 18010,
+            "minMargin": 48
+          },
+          "sha256": "e6f2142ee01404c0795bdf478087ddb15549c96bda45df69e610a286c08de3ac"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 36,
+      "id": "platform-platypus",
+      "name": "Platform Platypus",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/platform-platypus-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 172,
+            "top": 180,
+            "right": 852,
+            "bottom": 844,
+            "width": 680,
+            "height": 664,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -49.844583597763176,
+            "centroidDy": 51.944981590139264,
+            "visiblePixels": 300016,
+            "minMargin": 172
+          },
+          "sha256": "610ef2f4da0ac34a74eca43e2aac15734728816a646cf02921e932cf4ea2529d"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/platform-platypus-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 43,
+            "top": 45,
+            "right": 213,
+            "bottom": 211,
+            "width": 170,
+            "height": 166,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -12.452441473717357,
+            "centroidDy": 13.065875540358661,
+            "visiblePixels": 18752,
+            "minMargin": 43
+          },
+          "sha256": "0fefd92ba5e0a272a5c7a868c8f66fb1d15ad4c38e7cf1b3ac00ee1413d7ca09"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 37,
+      "id": "dubstep-gunsmith",
+      "name": "Dubstep Gunsmith",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/dubstep-gunsmith-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 330,
+            "top": 131,
+            "right": 694,
+            "bottom": 893,
+            "width": 364,
+            "height": 762,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -13.168063622712907,
+            "centroidDy": -31.990251617365573,
+            "visiblePixels": 150707,
+            "minMargin": 131
+          },
+          "sha256": "77fba9c20a982eea5d5c8516aaa6f635b26e81f089d5bdb8c165b843d819d0f2"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/dubstep-gunsmith-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 82,
+            "top": 33,
+            "right": 174,
+            "bottom": 223,
+            "width": 92,
+            "height": 190,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.2819347733182553,
+            "centroidDy": -7.944295376215379,
+            "visiblePixels": 9429,
+            "minMargin": 33
+          },
+          "sha256": "9971dfea436d2fa18c239e4d1a5423cc8e093a148704d3681e915047aced3e21"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 507,
+        "soleY": 1160,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 38,
+      "id": "pole-puff",
+      "name": "Pole Puff",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/pole-puff-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 249,
+            "top": 192,
+            "right": 775,
+            "bottom": 832,
+            "width": 526,
+            "height": 640,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.462931255496983,
+            "centroidDy": 57.581988273328534,
+            "visiblePixels": 190389,
+            "minMargin": 192
+          },
+          "sha256": "64f257b03a1a3206747674a7678ddb19f5ff6f36249a31a5793c02f8e7ea46d9"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/pole-puff-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 62,
+            "top": 48,
+            "right": 194,
+            "bottom": 208,
+            "width": 132,
+            "height": 160,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.6640824050618619,
+            "centroidDy": 14.290096964763762,
+            "visiblePixels": 11897,
+            "minMargin": 48
+          },
+          "sha256": "d2db81913ed8509c80f30f468451e1fd5105b960377bf7e9d3d4f27dc255d6ef"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 39,
+      "id": "procreate-panda",
+      "name": "Procreate Panda",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/procreate-panda-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 244,
+            "top": 167,
+            "right": 780,
+            "bottom": 857,
+            "width": 536,
+            "height": 690,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 6.12689480202971,
+            "centroidDy": 29.349741813466494,
+            "visiblePixels": 288141,
+            "minMargin": 167
+          },
+          "sha256": "45645a7804d6921c24dbbd70df7364cc30e300f53bbd5c7dd8b9e57de8c710e4"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/procreate-panda-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 61,
+            "top": 42,
+            "right": 195,
+            "bottom": 214,
+            "width": 134,
+            "height": 172,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 1.5855750126654868,
+            "centroidDy": 7.3789861010154425,
+            "visiblePixels": 18017,
+            "minMargin": 42
+          },
+          "sha256": "b105314693ee4823d089efc2e9acb5a9888ec86661b1defb467bbf2d9123fd9e"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 41,
+      "id": "osc-sealion",
+      "name": "OSC Sealion",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/osc-sealion-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 196,
+            "top": 198,
+            "right": 828,
+            "bottom": 826,
+            "width": 632,
+            "height": 628,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.26537608399166857,
+            "centroidDy": 27.40382142094427,
+            "visiblePixels": 258032,
+            "minMargin": 196
+          },
+          "sha256": "9fe28fb6afa37380140cb8e2b33760ae4708f930402fe1020b257ea7c17f2b1e"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/osc-sealion-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 49,
+            "right": 207,
+            "bottom": 206,
+            "width": 158,
+            "height": 157,
+            "centerX": 128,
+            "centerY": 127.5,
+            "dx": 0,
+            "dy": -0.5,
+            "centroidDx": -0.11863997223248646,
+            "centroidDy": 6.623552628473902,
+            "visiblePixels": 16121,
+            "minMargin": 49
+          },
+          "sha256": "b3c8f3106e745c158d43523df5eb4c5b24a9c244f25a5f5d979b5ebb7a81bb4f"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 42,
+      "id": "piranesi-nessi",
+      "name": "Piranesi Nessi",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/piranesi-nessi-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 201,
+            "right": 860,
+            "bottom": 823,
+            "width": 696,
+            "height": 622,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -48.613105723693025,
+            "centroidDy": 32.31009493235479,
+            "visiblePixels": 226069,
+            "minMargin": 164
+          },
+          "sha256": "6b7efa15312abbbdc1cce8245f9e3c32b6dee33d043fd772680ac3083bc6eb4b"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/piranesi-nessi-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 50,
+            "right": 215,
+            "bottom": 206,
+            "width": 174,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -12.168625216680951,
+            "centroidDy": 7.945511248831082,
+            "visiblePixels": 14095,
+            "minMargin": 41
+          },
+          "sha256": "646c3a3213becfd4f1c7a228caad78c28459574d6eb2fc52c0be240ee1f08c87"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 43,
+      "id": "photo-dodo",
+      "name": "Photo Dodo",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/photo-dodo-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 230,
+            "top": 164,
+            "right": 794,
+            "bottom": 860,
+            "width": 564,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 15.433474310725614,
+            "centroidDy": 3.40551600665583,
+            "visiblePixels": 270104,
+            "minMargin": 164
+          },
+          "sha256": "738c5af34f5dab3f3dcde4dd26d11120e90f21dcd06ba004d8b35d4a3d66f86e"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/photo-dodo-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 58,
+            "top": 41,
+            "right": 198,
+            "bottom": 215,
+            "width": 140,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.8950383494437233,
+            "centroidDy": 0.8430683792475122,
+            "visiblePixels": 16868,
+            "minMargin": 41
+          },
+          "sha256": "f1fd48848909b9d41da567781a99be2a0c02a3429d36a31175741c692fab76aa"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 44,
+      "id": "video-vulture",
+      "name": "Video Vulture",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/video-vulture-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 164,
+            "right": 804,
+            "bottom": 860,
+            "width": 584,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.07972500261848836,
+            "centroidDy": 19.558213985194925,
+            "visiblePixels": 280809,
+            "minMargin": 164
+          },
+          "sha256": "80cb0824b7432597db68aab82b798c5524e30cb0dc8e666963a8011bfaf98d87"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/video-vulture-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 41,
+            "right": 201,
+            "bottom": 215,
+            "width": 146,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.02408438891839637,
+            "centroidDy": 4.73337627353655,
+            "visiblePixels": 17551,
+            "minMargin": 41
+          },
+          "sha256": "764c086306701bd27c8d1de4f662f5368ac6670d84cff51454f4018e98b726ad"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 45,
+      "id": "closet-cat",
+      "name": "Closet Cat",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/closet-cat-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 216,
+            "top": 189,
+            "right": 808,
+            "bottom": 835,
+            "width": 592,
+            "height": 646,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -7.824552940398746,
+            "centroidDy": 14.985037005853883,
+            "visiblePixels": 288491,
+            "minMargin": 189
+          },
+          "sha256": "978f21dba366dfd44b294ff7737588cf4c10b041ce9f8ef34176b2a3189140bb"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/closet-cat-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 47,
+            "right": 202,
+            "bottom": 209,
+            "width": 148,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.961924217910493,
+            "centroidDy": 3.7339227417701863,
+            "visiblePixels": 18021,
+            "minMargin": 47
+          },
+          "sha256": "caf8b0055b197702b8096de95c93c904bf29bec332944d0bbe705522a1e550c5"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 46,
+      "id": "gatekeeper-goddess",
+      "name": "Gatekeeper Goddess",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/gatekeeper-goddess-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 293,
+            "top": 139,
+            "right": 731,
+            "bottom": 885,
+            "width": 438,
+            "height": 746,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.11971287702840527,
+            "centroidDy": -39.572574266160814,
+            "visiblePixels": 192760,
+            "minMargin": 139
+          },
+          "sha256": "afee611c7cd3180df81a34524253043fe76dbc517d3bc1682c2be058ca87df7f"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/gatekeeper-goddess-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 73,
+            "top": 35,
+            "right": 183,
+            "bottom": 221,
+            "width": 110,
+            "height": 186,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.026163710304928145,
+            "centroidDy": -9.965048857895553,
+            "visiblePixels": 12076,
+            "minMargin": 35
+          },
+          "sha256": "3927a2fb4142948df272e263c094bdb12e2c9d98d50655be55f856cfed3ecc60"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 517,
+        "soleY": 1167,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 47,
+      "id": "queue-quokka",
+      "name": "Queue Quokka",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/queue-quokka-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 221,
+            "top": 186,
+            "right": 803,
+            "bottom": 838,
+            "width": 582,
+            "height": 652,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -15.080989697906773,
+            "centroidDy": 16.076369730590955,
+            "visiblePixels": 287870,
+            "minMargin": 186
+          },
+          "sha256": "51b38bf9dd285c1c22ad1a1ee45b9d6cce1418eaed56e188f96da6c170a891ba"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/queue-quokka-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.6920375766012086,
+            "centroidDy": 4.134884940514155,
+            "visiblePixels": 18007,
+            "minMargin": 46
+          },
+          "sha256": "d200f8afaefe0d42840a8c92e0638779c0e0db4902504ef78c5910288d286b1f"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 48,
+      "id": "log-lynx",
+      "name": "Log Lynx",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/log-lynx-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 222,
+            "top": 184,
+            "right": 802,
+            "bottom": 840,
+            "width": 580,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -10.613875895674255,
+            "centroidDy": 24.574702495205884,
+            "visiblePixels": 279742,
+            "minMargin": 184
+          },
+          "sha256": "ee7831e42db97ab86151c01d6550e197a6e9dbc78145a16e8670a17db242e36d"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/log-lynx-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.6165019648426977,
+            "centroidDy": 6.098892333494973,
+            "visiblePixels": 17548,
+            "minMargin": 46
+          },
+          "sha256": "20d8d5ec9f7f6b8b496367f4e822911e2c266d902aebfe54b4e5df65a3894e63"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 49,
+      "id": "server-salamander",
+      "name": "Server Salamander",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/server-salamander-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 196,
+            "top": 224,
+            "right": 828,
+            "bottom": 800,
+            "width": 632,
+            "height": 576,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -11.84398525461819,
+            "centroidDy": 32.02049939977792,
+            "visiblePixels": 256191,
+            "minMargin": 196
+          },
+          "sha256": "80216b7089126b7a86670aec1b76f393a44a962381b4ce61115a293ac95a7332"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/server-salamander-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 56,
+            "right": 207,
+            "bottom": 200,
+            "width": 158,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.1691953428329924,
+            "centroidDy": 7.982351455952596,
+            "visiblePixels": 16000,
+            "minMargin": 49
+          },
+          "sha256": "22132736e4f77c828da960189a823d4f786f57fcfb66f8c3f7760ee6d626aa50"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 50,
+      "id": "docker-dragon",
+      "name": "Docker Dragon",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/docker-dragon-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 176,
+            "top": 164,
+            "right": 848,
+            "bottom": 860,
+            "width": 672,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 12.405420620833752,
+            "centroidDy": 27.475147280950296,
+            "visiblePixels": 329728,
+            "minMargin": 164
+          },
+          "sha256": "40364397e1dbe2afbea2ccff9d72d039884f1233149b2d0b002f0afdd4ef2c8f"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/docker-dragon-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 41,
+            "right": 212,
+            "bottom": 215,
+            "width": 168,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 3.1094755318169973,
+            "centroidDy": 6.981899770573875,
+            "visiblePixels": 20635,
+            "minMargin": 41
+          },
+          "sha256": "b6282b53191141f72cfbe36e7d4664db75f35cdb35f92dd745d16c5f0e32eccb"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 51,
+      "id": "test-tortoise",
+      "name": "Test Tortoise",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/test-tortoise-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 181,
+            "top": 164,
+            "right": 843,
+            "bottom": 860,
+            "width": 662,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.11335617668021314,
+            "centroidDy": 26.856489978027753,
+            "visiblePixels": 353481,
+            "minMargin": 164
+          },
+          "sha256": "e8f8b55d84a8db74f81bc480dfada275a39df3f81b9c63c72344adc54d55e85b"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/test-tortoise-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 41,
+            "right": 211,
+            "bottom": 215,
+            "width": 166,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.020672523417118782,
+            "centroidDy": 6.750477203910236,
+            "visiblePixels": 22159,
+            "minMargin": 41
+          },
+          "sha256": "599a73a0d8e10cb1694bb3daf234adb8a957957814f8066e4976556fb1678070"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 52,
+      "id": "token-toucan",
+      "name": "Token Toucan",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/token-toucan-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 164,
+            "right": 804,
+            "bottom": 860,
+            "width": 584,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -29.38802751681976,
+            "centroidDy": 40.75362358580446,
+            "visiblePixels": 276233,
+            "minMargin": 164
+          },
+          "sha256": "25627f61f1c0aa4b2b6a361e73302826bc8d31fdb652c99f21f35f8134f33722"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/token-toucan-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 41,
+            "right": 201,
+            "bottom": 215,
+            "width": 146,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -7.310399432649547,
+            "centroidDy": 10.290665383921322,
+            "visiblePixels": 17253,
+            "minMargin": 41
+          },
+          "sha256": "01eb0be33cf37f38b1117d339bb30cbff7ad951de8cd8edba77c21ca1f884c56"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 53,
+      "id": "packet-piranha",
+      "name": "Packet Piranha",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/packet-piranha-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 222,
+            "right": 840,
+            "bottom": 802,
+            "width": 656,
+            "height": 580,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -8.083627833378728,
+            "centroidDy": 42.56011908587527,
+            "visiblePixels": 236082,
+            "minMargin": 184
+          },
+          "sha256": "8cad203341b3688230184cfbb8bb33910df8b610de7227b7b1a3b3cc210a53cc"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/packet-piranha-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 56,
+            "right": 210,
+            "bottom": 200,
+            "width": 164,
+            "height": 144,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.002864130075565,
+            "centroidDy": 10.661276853906259,
+            "visiblePixels": 14762,
+            "minMargin": 46
+          },
+          "sha256": "def0438a862f4763d850b3bf36cad71c18d39c949355ebc0d7dde0a97b2f7689"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 54,
+      "id": "calendar-crow",
+      "name": "Calendar Crow",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/calendar-crow-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 226,
+            "top": 164,
+            "right": 798,
+            "bottom": 860,
+            "width": 572,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.9806447313319495,
+            "centroidDy": 23.271990209532532,
+            "visiblePixels": 284728,
+            "minMargin": 164
+          },
+          "sha256": "24989c120e9fbbc216f904a5327eb38582c2a32f5c587d7cb005bf669be35fa5"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/calendar-crow-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 41,
+            "right": 199,
+            "bottom": 215,
+            "width": 143,
+            "height": 174,
+            "centerX": 127.5,
+            "centerY": 128,
+            "dx": -0.5,
+            "dy": 0,
+            "centroidDx": -0.39916375701047,
+            "centroidDy": 5.634363949526829,
+            "visiblePixels": 17775,
+            "minMargin": 41
+          },
+          "sha256": "2e31ac4ca8ec3d647f3bd37c7606a785d7fca142230c8a3a8f6bb476708b8764"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 55,
+      "id": "browser-bat",
+      "name": "Browser Bat",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/browser-bat-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 221,
+            "right": 860,
+            "bottom": 803,
+            "width": 696,
+            "height": 582,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.17481728705558908,
+            "centroidDy": 5.4773954677890515,
+            "visiblePixels": 262674,
+            "minMargin": 164
+          },
+          "sha256": "7488df65fb106155ea5d966bf7ae83de508faccce5c4bc697210ab3dbf221805"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/browser-bat-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 55,
+            "right": 215,
+            "bottom": 201,
+            "width": 174,
+            "height": 146,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.05270625693808029,
+            "centroidDy": 1.4372336126030234,
+            "visiblePixels": 16440,
+            "minMargin": 41
+          },
+          "sha256": "3341171a740725bf6ebdcc9b64b0eb20f1319e76c02d73a0ed7373705422978b"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 56,
+      "id": "data-dragonfly",
+      "name": "Data Dragonfly",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/data-dragonfly-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 253,
+            "right": 844,
+            "bottom": 771,
+            "width": 664,
+            "height": 518,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -5.188234309553707,
+            "centroidDy": 16.935610322982257,
+            "visiblePixels": 208021,
+            "minMargin": 180
+          },
+          "sha256": "6b5c8b6c540ea0467b53559bff5bde87bca082fab106b2f7ebcba1a7a230b269"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/data-dragonfly-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 63,
+            "right": 211,
+            "bottom": 193,
+            "width": 166,
+            "height": 130,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.377166644335361,
+            "centroidDy": 4.115507570313156,
+            "visiblePixels": 13020,
+            "minMargin": 45
+          },
+          "sha256": "dfc884f8851e6623e0de285078234b28ec349662eb4fcaa2e62222bb25e4937d"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 57,
+      "id": "update-urchin",
+      "name": "Update Urchin",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/update-urchin-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 204,
+            "right": 840,
+            "bottom": 820,
+            "width": 656,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.3001207215792192,
+            "centroidDy": 28.323271937095114,
+            "visiblePixels": 273155,
+            "minMargin": 184
+          },
+          "sha256": "411b1d9a1f532c8ed2f2063aeb1a8ddb4382f7914f2b82c409060a2c312856ec"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/update-urchin-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 51,
+            "right": 210,
+            "bottom": 205,
+            "width": 164,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.048378759551411576,
+            "centroidDy": 6.918213051550396,
+            "visiblePixels": 17106,
+            "minMargin": 46
+          },
+          "sha256": "c9bee6280df506cabdc78f9b36ea7b4e38cb3db63ec884620619b8f655a631eb"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 58,
+      "id": "linux-penguin",
+      "name": "Linux Penguin",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Matched cute penguin family size",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/linux-penguin-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 197,
+            "top": 164,
+            "right": 827,
+            "bottom": 860,
+            "width": 630,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.38502268050001476,
+            "centroidDy": 31.72669496300955,
+            "visiblePixels": 305759,
+            "minMargin": 164
+          },
+          "sha256": "e842c65972ef4e6ab35a818ed744c62ef569a26735824fafee0606c5efb80d95"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/linux-penguin-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 41,
+            "right": 207,
+            "bottom": 215,
+            "width": 158,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.04413519676006672,
+            "centroidDy": 7.847769465070314,
+            "visiblePixels": 19110,
+            "minMargin": 41
+          },
+          "sha256": "c53358417be7c430ec888a08db00d33607af683a74f8d3c978d4f0fce7dc9487"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 59,
+      "id": "stock-fox",
+      "name": "Stock Fox",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/stock-fox-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 205,
+            "top": 199,
+            "right": 819,
+            "bottom": 825,
+            "width": 614,
+            "height": 626,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.091604546333826,
+            "centroidDy": 9.244912489796661,
+            "visiblePixels": 287972,
+            "minMargin": 199
+          },
+          "sha256": "3e7489c716c7dd2b536319dfd59bd5563b8d262c5d28704ecce7dbc1ff3d5edc"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/stock-fox-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 50,
+            "right": 205,
+            "bottom": 206,
+            "width": 154,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.5046851902226024,
+            "centroidDy": 2.2478920611883098,
+            "visiblePixels": 18005,
+            "minMargin": 50
+          },
+          "sha256": "87e9f3beeabffc63deb5cde4c460d7c47f6005e09a62f42c962abf5374f1bbad"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 60,
+      "id": "passport-pelican",
+      "name": "Passport Pelican",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/passport-pelican-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 204,
+            "top": 164,
+            "right": 820,
+            "bottom": 860,
+            "width": 616,
+            "height": 696,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -38.438851316677585,
+            "centroidDy": 24.65858838598217,
+            "visiblePixels": 255712,
+            "minMargin": 164
+          },
+          "sha256": "056a68a8792ddabbfe05d3906ae268314a425c7997ecac41c480deeb371373d2"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/passport-pelican-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 41,
+            "right": 205,
+            "bottom": 215,
+            "width": 154,
+            "height": 174,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.528033125350234,
+            "centroidDy": 6.22045679647897,
+            "visiblePixels": 16035,
+            "minMargin": 41
+          },
+          "sha256": "9c5cb42057dd5c98ee091304fb16855a577c485f3b4889ad5c0aa593b0514d30"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 61,
+      "id": "journal-jellyfish",
+      "name": "Journal Jellyfish",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/journal-jellyfish-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 184,
+            "top": 195,
+            "right": 840,
+            "bottom": 829,
+            "width": 656,
+            "height": 634,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.49193330820452275,
+            "centroidDy": -5.728118802846723,
+            "visiblePixels": 278668,
+            "minMargin": 184
+          },
+          "sha256": "f90bc0f34e17091dbd6ac00a83742a379391e92aa5b6e0f526c09082d89c67bd"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/journal-jellyfish-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 46,
+            "top": 49,
+            "right": 210,
+            "bottom": 207,
+            "width": 164,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.2563257724385295,
+            "centroidDy": -1.5088337282170272,
+            "visiblePixels": 17420,
+            "minMargin": 46
+          },
+          "sha256": "af8de47f2ea3648ff188b47a424edf70b5cbdb3aaccbb2a4448a4e62bbbd1ccb"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 62,
+      "id": "shell-squid",
+      "name": "Shell Squid",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/shell-squid-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 220,
+            "top": 184,
+            "right": 804,
+            "bottom": 840,
+            "width": 584,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.09732598535913439,
+            "centroidDy": 38.1420777418341,
+            "visiblePixels": 269161,
+            "minMargin": 184
+          },
+          "sha256": "9daca9a9a524c76e2f058c411db096e7009b3e12440bb861ad879ce75e928f03"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/shell-squid-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 55,
+            "top": 46,
+            "right": 201,
+            "bottom": 210,
+            "width": 146,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.015471856721859467,
+            "centroidDy": 9.554505061445411,
+            "visiblePixels": 16817,
+            "minMargin": 46
+          },
+          "sha256": "62ef1d579cc1be8d6c115c7a34d888ace4d0f14df891b72ce1ffbbce1e4c9f83"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 63,
+      "id": "kernel-koala",
+      "name": "Kernel Koala",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/kernel-koala-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 221,
+            "right": 844,
+            "bottom": 803,
+            "width": 664,
+            "height": 582,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.05220900472636458,
+            "centroidDy": -17.027151338455724,
+            "visiblePixels": 287997,
+            "minMargin": 180
+          },
+          "sha256": "0055fca8e278f90e86734cf944d3f8059b7a94d043741b483c2be9b027c52549"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/kernel-koala-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 55,
+            "right": 211,
+            "bottom": 201,
+            "width": 166,
+            "height": 146,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.03866847764334125,
+            "centroidDy": -4.157074977037354,
+            "visiblePixels": 18038,
+            "minMargin": 45
+          },
+          "sha256": "584da27569beca0e2be866e514c732568e2501c6335f38d842298041c6700057"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 64,
+      "id": "proxy-axolotl",
+      "name": "Proxy Axolotl",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/proxy-axolotl-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 164,
+            "top": 213,
+            "right": 860,
+            "bottom": 811,
+            "width": 696,
+            "height": 598,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 11.619255479518984,
+            "centroidDy": -1.1237120521756765,
+            "visiblePixels": 317357,
+            "minMargin": 164
+          },
+          "sha256": "fa02a5a255829f42ac45984c543012f8312bd99ced4bb8b089e80ab40bc6493a"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/proxy-axolotl-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 41,
+            "top": 53,
+            "right": 215,
+            "bottom": 203,
+            "width": 174,
+            "height": 150,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 2.9006387819652844,
+            "centroidDy": -0.2105623455786514,
+            "visiblePixels": 19895,
+            "minMargin": 41
+          },
+          "sha256": "060f9eeabbfd977bad1356d42ef3fa8db9c03ca40ecf817ceba1cbf32baadcfe"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 65,
+      "id": "cluster-crab",
+      "name": "Cluster Crab",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cluster-crab-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 176,
+            "top": 281,
+            "right": 848,
+            "bottom": 743,
+            "width": 672,
+            "height": 462,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.09418198111592346,
+            "centroidDy": 0.39318013249771866,
+            "visiblePixels": 214485,
+            "minMargin": 176
+          },
+          "sha256": "b6dfde1a26883d340ceaac86a68cfc554e60f5b2b69cc6070d5230e850702d7b"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cluster-crab-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 44,
+            "top": 70,
+            "right": 212,
+            "bottom": 186,
+            "width": 168,
+            "height": 116,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.27495593773880955,
+            "centroidDy": -0.2037016459022425,
+            "visiblePixels": 13407,
+            "minMargin": 44
+          },
+          "sha256": "0e3c7b8ef5e49b08d29677bbcc8e8e3d442d339f39f869eb00bb7301e59f4e3f"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 66,
+      "id": "storage-stoat",
+      "name": "Storage Stoat",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/storage-stoat-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 240,
+            "top": 156,
+            "right": 784,
+            "bottom": 868,
+            "width": 544,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -36.11609966054135,
+            "centroidDy": 27.79728099190777,
+            "visiblePixels": 265428,
+            "minMargin": 156
+          },
+          "sha256": "eed6adadfc173d563546855a9484c2b7ea0f7c312de3d05d290c5f30708eb845"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/storage-stoat-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 60,
+            "top": 39,
+            "right": 196,
+            "bottom": 217,
+            "width": 136,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.099645144575959,
+            "centroidDy": 7.034341603724528,
+            "visiblePixels": 16565,
+            "minMargin": 39
+          },
+          "sha256": "20c99db372c4b3ebbdef36567642c7757090b2e443998842e5fd137e887a487f"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 67,
+      "id": "white-hat-weasel",
+      "name": "White Hat Weasel",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/white-hat-weasel-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 224,
+            "top": 156,
+            "right": 800,
+            "bottom": 868,
+            "width": 576,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -21.907348942170984,
+            "centroidDy": 16.10158855220118,
+            "visiblePixels": 262862,
+            "minMargin": 156
+          },
+          "sha256": "9dfcdfc96eae1acc7e54a6bb46b6b8740cc20935da70dfed8ad378b273a183b9"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/white-hat-weasel-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 39,
+            "right": 200,
+            "bottom": 217,
+            "width": 144,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -5.538576611963322,
+            "centroidDy": 4.029633744972756,
+            "visiblePixels": 16411,
+            "minMargin": 39
+          },
+          "sha256": "6cd6361dbc924ed28adb3e2820a6bf77a270d54ed59687b08d19df6129969c9a"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 68,
+      "id": "port-spider",
+      "name": "Port Spider",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/port-spider-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 204,
+            "top": 289,
+            "right": 820,
+            "bottom": 735,
+            "width": 616,
+            "height": 446,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.4812898694912633,
+            "centroidDy": 10.850330518011333,
+            "visiblePixels": 171283,
+            "minMargin": 204
+          },
+          "sha256": "2ce2821aabcfc8f633aff23ca839b1571a6e5675cfabf3167ab7a82874518800"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/port-spider-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 51,
+            "top": 72,
+            "right": 205,
+            "bottom": 184,
+            "width": 154,
+            "height": 112,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.6658652479510749,
+            "centroidDy": 2.5958650384950204,
+            "visiblePixels": 10702,
+            "minMargin": 51
+          },
+          "sha256": "c60833f4a5aec972a6fde05a6d8693a14711c1fc5eddbab03891f7417410db24"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 69,
+      "id": "cipher-owl",
+      "name": "Cipher Owl",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cipher-owl-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 260,
+            "top": 204,
+            "right": 764,
+            "bottom": 820,
+            "width": 504,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.2153661231775459,
+            "centroidDy": -1.1057521958815073,
+            "visiblePixels": 239555,
+            "minMargin": 204
+          },
+          "sha256": "2e2fc94187ed8f235213d3afe5741402cf7838c328fb8ac7ac7c172f3d6f6f53"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cipher-owl-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 65,
+            "top": 51,
+            "right": 191,
+            "bottom": 205,
+            "width": 126,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.046879524925756755,
+            "centroidDy": -0.44203157835781326,
+            "visiblePixels": 14929,
+            "minMargin": 51
+          },
+          "sha256": "defc201ecb0c91decdeeae3287dd020cdf1541e4adc277f214a6d1ae6bfb8a57"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 70,
+      "id": "forensic-ferret",
+      "name": "Forensic Ferret",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/forensic-ferret-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 159,
+            "top": 184,
+            "right": 865,
+            "bottom": 840,
+            "width": 706,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -13.25523554575534,
+            "centroidDy": -1.7454188475001615,
+            "visiblePixels": 315620,
+            "minMargin": 159
+          },
+          "sha256": "0573621c24d3a8f384a9a354e016ea89b759840448eeaa28cd3d7c0455274b39"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/forensic-ferret-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 40,
+            "top": 46,
+            "right": 216,
+            "bottom": 210,
+            "width": 176,
+            "height": 164,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -3.3153367221223817,
+            "centroidDy": -0.44558438475665696,
+            "visiblePixels": 19729,
+            "minMargin": 40
+          },
+          "sha256": "38aef4f60cdcf759ff63712e8351dc3dd93dfcd4ce48de805fe014d9afd57d4b"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 71,
+      "id": "llama-librarian",
+      "name": "Llama Librarian",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/llama-librarian-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 326,
+            "top": 184,
+            "right": 698,
+            "bottom": 840,
+            "width": 372,
+            "height": 656,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 0.051485911882650726,
+            "centroidDy": 26.691052366555596,
+            "visiblePixels": 183041,
+            "minMargin": 184
+          },
+          "sha256": "233b99e996ab2a7f8fc65388329f1e7530a61ae3a8f99789f08b642e52182678"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/llama-librarian-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 81,
+            "top": 46,
+            "right": 174,
+            "bottom": 210,
+            "width": 93,
+            "height": 164,
+            "centerX": 127.5,
+            "centerY": 128,
+            "dx": -0.5,
+            "dy": 0,
+            "centroidDx": -0.12566685434283897,
+            "centroidDy": 6.62958749797923,
+            "visiblePixels": 11398,
+            "minMargin": 46
+          },
+          "sha256": "10d406263cb12f9c6b8815ff0c0881117539978e70272855156208a8b9d45ada"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 72,
+      "id": "inference-iguana",
+      "name": "Inference Iguana",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/inference-iguana-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 132,
+            "top": 284,
+            "right": 892,
+            "bottom": 740,
+            "width": 760,
+            "height": 456,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -9.58825305128164,
+            "centroidDy": 43.32331631183865,
+            "visiblePixels": 218018,
+            "minMargin": 132
+          },
+          "sha256": "e5b71cb75f000e37fd2256ce7ae3a89a0e7710273089bf6d98ae6f0a5109c137"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/inference-iguana-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 71,
+            "right": 223,
+            "bottom": 185,
+            "width": 190,
+            "height": 114,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -2.3012899120219714,
+            "centroidDy": 10.78047113285703,
+            "visiblePixels": 13605,
+            "minMargin": 33
+          },
+          "sha256": "2262581cdac36d07e899711c551b19826339c557e41ee0cb6d4b0ca6e02b400a"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 73,
+      "id": "agent-ant",
+      "name": "Agent Ant",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/agent-ant-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 278,
+            "top": 176,
+            "right": 746,
+            "bottom": 848,
+            "width": 468,
+            "height": 672,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 11.039571790615241,
+            "centroidDy": 7.812040428421142,
+            "visiblePixels": 167437,
+            "minMargin": 176
+          },
+          "sha256": "f7e53892b8b0e01a655c9606281ceddbd3b1f80674624f012ed76d55ba6fba43"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/agent-ant-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 70,
+            "top": 44,
+            "right": 186,
+            "bottom": 212,
+            "width": 116,
+            "height": 168,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 2.806308537859877,
+            "centroidDy": 2.0890796095781354,
+            "visiblePixels": 10476,
+            "minMargin": 44
+          },
+          "sha256": "f9d53712fa73b48c87381a7b7ca9919f127e8984c4911fa5c9629e416cb481fa"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 74,
+      "id": "roaming-raven",
+      "name": "Roaming Raven",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/roaming-raven-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 286,
+            "top": 196,
+            "right": 738,
+            "bottom": 828,
+            "width": 452,
+            "height": 632,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 1.7813542046225166,
+            "centroidDy": 27.31934513822341,
+            "visiblePixels": 194540,
+            "minMargin": 196
+          },
+          "sha256": "c8ec2e4549a107e4d35f1621babf3507ad3dbb701c34db1f2e39a8aeacad366b"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/roaming-raven-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 71,
+            "top": 49,
+            "right": 184,
+            "bottom": 207,
+            "width": 113,
+            "height": 158,
+            "centerX": 127.5,
+            "centerY": 128,
+            "dx": -0.5,
+            "dy": 0,
+            "centroidDx": 0.3181627381020178,
+            "centroidDy": 6.690348879556495,
+            "visiblePixels": 12148,
+            "minMargin": 49
+          },
+          "sha256": "c3b21be588f96187dbcf6dcedfdb5f96d1e6472bde483b008fac7ef823c34de2"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 75,
+      "id": "cache-coyote",
+      "name": "Cache Coyote",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cache-coyote-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 227,
+            "top": 156,
+            "right": 797,
+            "bottom": 868,
+            "width": 570,
+            "height": 712,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -28.850868810714587,
+            "centroidDy": 36.68223674422234,
+            "visiblePixels": 286389,
+            "minMargin": 156
+          },
+          "sha256": "3845eeaa937acb53fa2e31fb7c2ea61cd9c40e46c3074406f60eb0bd505535f6"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/cache-coyote-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 57,
+            "top": 39,
+            "right": 199,
+            "bottom": 217,
+            "width": 142,
+            "height": 178,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -7.1840661562963675,
+            "centroidDy": 9.174162426473487,
+            "visiblePixels": 17968,
+            "minMargin": 39
+          },
+          "sha256": "3f86312c263909cdf2156621e2f0c06b2df50adfb87f608cb2dd460f6acacd0d"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 76,
+      "id": "sync-mink",
+      "name": "Sync Mink",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/sync-mink-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 225,
+            "top": 181,
+            "right": 799,
+            "bottom": 843,
+            "width": 574,
+            "height": 662,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -23.53245925073145,
+            "centroidDy": 11.885544379280873,
+            "visiblePixels": 287947,
+            "minMargin": 181
+          },
+          "sha256": "0cc9768f99fc2191d8157de06ab88fa2cc21bf5875a679c3d1dfbafc38a82f97"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/sync-mink-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 56,
+            "top": 45,
+            "right": 200,
+            "bottom": 211,
+            "width": 144,
+            "height": 166,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -5.922920521961643,
+            "centroidDy": 3.0007336681932486,
+            "visiblePixels": 18021,
+            "minMargin": 45
+          },
+          "sha256": "8890a398199e47de44272359539051185a9241fc11cbb809bba58737055fad02"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 77,
+      "id": "triage-tapir",
+      "name": "Triage Tapir",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/triage-tapir-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 236,
+            "top": 166,
+            "right": 788,
+            "bottom": 858,
+            "width": 552,
+            "height": 692,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -4.372420371091096,
+            "centroidDy": 12.974450467570477,
+            "visiblePixels": 288243,
+            "minMargin": 166
+          },
+          "sha256": "f07cec9eaa57a1a0e5937ae3a84afd024a30097bdd0f8dbf0733f55cf4d0374f"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/triage-tapir-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 59,
+            "top": 42,
+            "right": 197,
+            "bottom": 214,
+            "width": 138,
+            "height": 172,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.0639116747678088,
+            "centroidDy": 3.3104984692853066,
+            "visiblePixels": 17966,
+            "minMargin": 42
+          },
+          "sha256": "479e993474919e54b3f3a646edb9e05a37e7966049b87563123a4fd9e63ddd53"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 78,
+      "id": "pet-police-officer",
+      "name": "Pet Police Officer",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/pet-police-officer-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 318,
+            "top": 152,
+            "right": 706,
+            "bottom": 872,
+            "width": 388,
+            "height": 720,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 10.667801094833862,
+            "centroidDy": 5.281399982427047,
+            "visiblePixels": 167841,
+            "minMargin": 152
+          },
+          "sha256": "a95b01e88e67c00fa26e631ac4752680d9af4aa791563208ef1778f0f74b5d85"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/pet-police-officer-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 79,
+            "top": 38,
+            "right": 177,
+            "bottom": 218,
+            "width": 98,
+            "height": 180,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 2.687122798280683,
+            "centroidDy": 1.316205307052627,
+            "visiblePixels": 10524,
+            "minMargin": 38
+          },
+          "sha256": "ce30cb05f39b583f80b372c0fb359ca1df16ec7c605fb0f8eb398776d87958dd"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 79,
+      "id": "ai-dashund",
+      "name": "AI Dashund",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/ai-dashund-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 188,
+            "top": 197,
+            "right": 836,
+            "bottom": 827,
+            "width": 648,
+            "height": 630,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.233005724243128,
+            "centroidDy": -4.977451645272538,
+            "visiblePixels": 288015,
+            "minMargin": 188
+          },
+          "sha256": "95e78f5277610ba44d65fdd52ef508483ad8d1431bce74f509997ad24e0c2a9f"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/ai-dashund-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 47,
+            "top": 49,
+            "right": 209,
+            "bottom": 207,
+            "width": 162,
+            "height": 158,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.5372889416209432,
+            "centroidDy": -1.2339251172503793,
+            "visiblePixels": 18021,
+            "minMargin": 47
+          },
+          "sha256": "1f60b50065d45516bc44c102d3fbb2f49a1619249c4d2e337e8a5382fd94bd95"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 80,
+      "id": "rescue-retriever",
+      "name": "Rescue Retriever",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rescue-retriever-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 195,
+            "top": 198,
+            "right": 829,
+            "bottom": 826,
+            "width": 634,
+            "height": 628,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.8192293361268526,
+            "centroidDy": 15.862024693441526,
+            "visiblePixels": 288125,
+            "minMargin": 195
+          },
+          "sha256": "14081e0cdcb63d541c1b5b9c4bba0e2fb19c6c98350c8df497e47be5a51c8e93"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/rescue-retriever-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 49,
+            "top": 50,
+            "right": 207,
+            "bottom": 206,
+            "width": 158,
+            "height": 156,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.43678609536320323,
+            "centroidDy": 3.887920342364822,
+            "visiblePixels": 17945,
+            "minMargin": 49
+          },
+          "sha256": "da0ea590f424467394b43c8019a1b55c32e997f5a1c08b049691754b0d628ffd"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 81,
+      "id": "intel-owl",
+      "name": "Intel Owl",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/intel-owl-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 275,
+            "top": 204,
+            "right": 749,
+            "bottom": 820,
+            "width": 474,
+            "height": 616,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.793997856115595,
+            "centroidDy": -5.0368198280881415,
+            "visiblePixels": 227770,
+            "minMargin": 204
+          },
+          "sha256": "cad5ea46f43db7f7628b5577bc98ff403c4dcb66b2eeb64fa31485c6a2faa89c"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/intel-owl-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 69,
+            "top": 51,
+            "right": 187,
+            "bottom": 205,
+            "width": 118,
+            "height": 154,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -1.866601467674883,
+            "centroidDy": -1.3854443483356107,
+            "visiblePixels": 14222,
+            "minMargin": 51
+          },
+          "sha256": "518b0828c18d80989098d8c6cdf620e425e252d5abc8b0d7dd617fb7eb247892"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 82,
+      "id": "door-dormouse",
+      "name": "Door Dormouse",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/door-dormouse-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 191,
+            "top": 228,
+            "right": 833,
+            "bottom": 796,
+            "width": 642,
+            "height": 568,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 5.3727120555059855,
+            "centroidDy": -2.05515199736908,
+            "visiblePixels": 287996,
+            "minMargin": 191
+          },
+          "sha256": "0c49bf1f749b277896c2c6de828891e4d9f22b125e74533fffed5b3fd02a0102"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/door-dormouse-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 48,
+            "top": 57,
+            "right": 208,
+            "bottom": 199,
+            "width": 160,
+            "height": 142,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": 1.3536040654452108,
+            "centroidDy": -0.5550922361804851,
+            "visiblePixels": 18004,
+            "minMargin": 48
+          },
+          "sha256": "ec1e2faaff7c62baf8ecc8cc3f73a6123d3efcae7d920b7a6851c5d4f6d218f8"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 83,
+      "id": "role-fairy",
+      "name": "Role Fairy",
+      "visibility": "public-draft",
+      "sourceMode": "round-6-revised",
+      "outlineAssessment": "Refined exterior outline and internal detail",
+      "rule": "Scout anatomical body template, landmark-scaled",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/role-fairy-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 268,
+            "top": 137,
+            "right": 756,
+            "bottom": 887,
+            "width": 488,
+            "height": 750,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.4299982975958301,
+            "centroidDy": -60.67085029357389,
+            "visiblePixels": 198822,
+            "minMargin": 137
+          },
+          "sha256": "690aa184a17e873ea2f2dbd869f55e858cf91c707bf4bd469ce7c17420d13f18"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/role-fairy-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 67,
+            "top": 34,
+            "right": 189,
+            "bottom": 222,
+            "width": 122,
+            "height": 188,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -0.1266142458044186,
+            "centroidDy": -15.096093707155362,
+            "visiblePixels": 12429,
+            "minMargin": 34
+          },
+          "sha256": "6fcf71ed69abe2629411ebf1511eef945d806132ec7fac21f11662e2489bd582"
+        }
+      },
+      "bodyMeasurement": {
+        "chinY": 500,
+        "soleY": 1186,
+        "targetAt256": 119,
+        "achievedAt256": 119
+      }
+    },
+    {
+      "number": 84,
+      "id": "workflow-whale",
+      "name": "Workflow Whale",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Exterior contour refined",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/workflow-whale-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 180,
+            "top": 270,
+            "right": 844,
+            "bottom": 754,
+            "width": 664,
+            "height": 484,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -29.68568720142173,
+            "centroidDy": 14.211242864664314,
+            "visiblePixels": 235242,
+            "minMargin": 180
+          },
+          "sha256": "02e5e6af3deb2b4d894e8eedf976d2091cd20dc3da0cad43b8ca6c33a9637eab"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/workflow-whale-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 45,
+            "top": 67,
+            "right": 211,
+            "bottom": 189,
+            "width": 166,
+            "height": 122,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -7.4387492475974994,
+            "centroidDy": 3.6455047370695297,
+            "visiblePixels": 14740,
+            "minMargin": 45
+          },
+          "sha256": "86736a7c3c8d68296838660d07a92df3a3ae35b3d0714fe18dd088f8f812be6e"
+        }
+      },
+      "bodyMeasurement": null
+    },
+    {
+      "number": 85,
+      "id": "reactor-raccoon",
+      "name": "Reactor Raccoon",
+      "visibility": "public-draft",
+      "sourceMode": "retained-unchanged",
+      "outlineAssessment": "Existing contour sufficient at review scale",
+      "rule": "Size retained; visible silhouette centered",
+      "exports": {
+        "neutral": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/reactor-raccoon-neutral-20261031.png",
+          "canvas": [
+            1024,
+            1024
+          ],
+          "bounds": {
+            "left": 215,
+            "top": 186,
+            "right": 809,
+            "bottom": 838,
+            "width": 594,
+            "height": 652,
+            "centerX": 512,
+            "centerY": 512,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -24.337689490621813,
+            "centroidDy": 13.376807507923104,
+            "visiblePixels": 288279,
+            "minMargin": 186
+          },
+          "sha256": "e2627389d5f49c075fc4e3b78438ce004e24d5a155483b46aeea533118dce54f"
+        },
+        "sprite": {
+          "path": "art/drafts/body-and-center-review-20261031/normalized/reactor-raccoon-sprite-20261031.png",
+          "canvas": [
+            256,
+            256
+          ],
+          "bounds": {
+            "left": 54,
+            "top": 47,
+            "right": 202,
+            "bottom": 209,
+            "width": 148,
+            "height": 162,
+            "centerX": 128,
+            "centerY": 128,
+            "dx": 0,
+            "dy": 0,
+            "centroidDx": -6.108962095904133,
+            "centroidDy": 3.3211266692796926,
+            "visiblePixels": 17962,
+            "minMargin": 47
+          },
+          "sha256": "3772f3892db382e9eb7c7c6b012be225c8ebfaaf766a889e54c0da386e4fa21c"
+        }
+      },
+      "bodyMeasurement": null
+    }
+  ]
+}

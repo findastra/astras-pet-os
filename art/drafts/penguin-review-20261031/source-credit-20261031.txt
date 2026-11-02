@@ -1,0 +1,5 @@
+Original Tux design: Larry Ewing, created with GIMP.
+Original reference: https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png
+Attribution information: https://www.kernel.org/faq.html
+Linux Penguin is a new pixel-art adaptation of Tux requested by Astra, with theme-matching cute eyes. Portfolio Penguin is a distinct pink companion design.
+Prepared by Codex for Astra, 2026-10-31. Built-in image generation. Neutral-pose proposals only; not adopted into live pets.

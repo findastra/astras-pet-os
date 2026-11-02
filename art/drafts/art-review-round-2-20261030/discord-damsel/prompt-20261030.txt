@@ -1,0 +1,19 @@
+Use case: precise-object-edit. Asset type: ONE neutral standing pixel-art desktop pet, transparent square. Image 1 is the character edit target; preserve its identity. Images 2 and 3 are API Fairy and VSCode Angel, the APPROVED EXACT HUMAN PROPORTION AND PIXEL-STYLE REFERENCES, not additional subjects. Primary task: redraw Image 1 with the SAME face/head/body/limb proportions as these two girls. This is a proportion correction, not a new costume or concept. Common measured template: let H be main hair crown to boot sole, excluding halo, buns, crown, hat, wings and held tool. Crown y=0, chin=.40H, shoulders=.43H, waist=.62H, short skirt/apron hem=.80H, soles=1.00H; exposed face width .28H (about .25 of full silhouette including head accessories), main hair/head width .42H; hands near .66H. Match the compact standing body of Image 3. Small dark dot eyes with one white pixel highlight, small rosy cheeks, tiny neutral friendly mouth. Crisp deliberately stepped chunky pixels, one continuous black outline with the SAME outline weight as Image 2, flat vivid colors and one hard-edged shade. Full character complete and centered within the central76% of a square canvas, safe margins on every side. REAL transparent alpha. No checkerboard pixels, background, glow, cast shadow, blur, gradients, text, lettering, labels, watermarks, duplicate characters or floating decorations. No sprite sheet.
+
+Character-specific invariants and correction:
+Preserve Discord Damsel's long golden-blonde hair, deep royal-blue/violet gown with bright cyan piping, black-and-white VR headset resting ABOVE her eyes, and black game controller held at her waist. Face stays uncovered. Preserve the identity and long gown, but give the anatomical head, torso, hands and legs beneath the skirt the EXACT same compact proportions as the standing reference girls. Gown hem sits at the boots rather than extending the body; two small feet may peek below. The headset is an accessory above the main hair crown, not an excuse to shrink the face. Redraw the blurry source into crisp black-outlined pixels matching the reference girls.
+
+REFERENCE PROVENANCE
+Generation: built-in image_gen; round 2; 2026-10-30; neutral-pose design proposal only.
+Image 1, edit target: art/drafts/art-review-20261030/normalized/discord-damsel-neutral-20261030.png
+Image 2, primary style/proportion anchor: art/drafts/art-review-20261030/normalized/api-fairy-neutral-20261030.png
+Image 3, standing-body proportion anchor: art/drafts/art-review-20261030/normalized/vscode-angel-neutral-20261030.png
+Earlier artwork is preserved. Design remains pending owner approval.
+
+
+VERIFIED SOURCE AND OUTPUT HASHES
+Image 1 (discord-damsel) SHA256: 8c6c974e176a7fe905ca11f67784389353f9ac68eaee77d8439ff5022f2ac26f
+Image 2 (api-fairy) SHA256: 4b375b7084f5cff78a88c2e2b67e10be621acbaeadde161bf4cf3e58b4d77719
+Image 3 (vscode-angel) SHA256: 557e422f42cd667951bdaad25fdd04dc0d50b97e3343da616c4b5e99f1006b98
+Delivered PNG SHA256: 7de903f2b97126ad384b89995c1dfffa42d53ecd63dfa1a32a2795939a249547
+Verified: 1254 x 1254 RGBA; transparent background; no visible pixel touches any canvas edge.
