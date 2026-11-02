@@ -3414,6 +3414,18 @@
       "job": "A trick of Discord Tower (discord-tower skills/dm-cleanup/SKILL.md): help Astra delete her own messages in one Discord DM or channel with Undiscord, a third-party userscript that only she runs; she approves the exact scope."
     },
     {
+      "id": "typing-indicator",
+      "name": "typing-indicator",
+      "type": "trick",
+      "of": "program-13",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "discord-tower-v1.0-typing-indicator-trick-v1.0",
+      "job": "A trick of Discord Tower (discord-tower skills/typing-indicator/SKILL.md): set what Discord shows while Astra types (Settings, then App Settings, then Typing Indicator); her pick is \"find /astra is cooking...\", and she sets it herself."
+    },
+    {
       "id": "save-chats",
       "name": "save-chats",
       "type": "trick",
