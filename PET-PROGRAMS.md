@@ -3,7 +3,7 @@
 Every pet program in Astra's PetOS, numbered for good. Each **mini-descriptor** is one or two sentences on what the pet
 program actually does; it is shown in the pet's own repo, the findastra profile and the System Map. Its label follows
 the naming rules: `<pet-program>-v1.0-mini-descriptor-v1.0`. **Bold** program names are assigned; `pet-program-#`
-means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 84 reviewed.
+means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 85 reviewed.
 
 Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not edit this page; edit the JSON.
 
@@ -71,7 +71,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 60 | Passport Pelican | **Passport Harbor** | [passport-harbor](https://github.com/findastra/passport-harbor) | Roadmap | Passport/ID metadata, visa research and deadlines, encrypted. *(draft)* |
 | 61 | Journal Jellyfish | **Journal Lagoon** | [journal-lagoon](https://github.com/findastra/journal-lagoon) | Roadmap | Private travel diary and itineraries. *(draft)* |
 | 62 | Shell Squid | **Shell Trench** | [shell-trench](https://github.com/findastra/shell-trench) | Roadmap | Bash, terminal scripting and guarded automation. *(draft)* |
-| 63 | Kernel Koala | **Kernel Grove** | [kernel-grove](https://github.com/findastra/kernel-grove) | Pipeline | Processes, memory, drivers and OS internals. *(draft)* |
+| 63 | Kernel Koala | **Kernel Grove** | [kernel-grove](https://github.com/findastra/kernel-grove) | Pipeline | What runs on your PC: programs, memory and what starts at sign-in. *(draft)* |
 | 64 | Proxy Axolotl | **Proxy Lake** | [proxy-lake](https://github.com/findastra/proxy-lake) | Roadmap | Reverse proxies, TLS and secure private remote access. *(draft)* |
 | 65 | Cluster Crab | **Cluster Shore** | [cluster-shore](https://github.com/findastra/cluster-shore) | Roadmap | Distributed services and orchestration. *(draft)* |
 | 66 | Storage Stoat | **Storage Warren** | [storage-warren](https://github.com/findastra/storage-warren) | Roadmap | NAS, ZFS, snapshots and capacity health. *(draft)* |
@@ -93,3 +93,4 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 82 | Door Dormouse | **The Threshold** | [the-threshold](https://github.com/findastra/the-threshold) | Seed | Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website. Browser prototype; L3 and Unity execution are not connected. *(draft)* |
 | 83 | Role Fairy | **Fairy Ring** | [role-fairy](https://github.com/findastra/role-fairy) | Pipeline | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. *(draft)* |
 | 84 | Workflow Whale | **Workflow Whirlpool** | [workflow-whirlpool](https://github.com/findastra/workflow-whirlpool) | Pipeline | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. *(draft)* |
+| 86 | PC Master | **PC Master Race** | [pc-master-race](https://github.com/findastra/pc-master-race) | Pipeline | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own tool box, and lessons with your own parts as the example. *(draft)* |

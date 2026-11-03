@@ -66,5 +66,6 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
 | **Kernel Koala** * | what runs on the PC: leftovers, memory and what starts at sign-in | weekly, Sunday | your OK to stop a leftover or switch a sign-in item off |
 | **Inference Iguana** * | the graphics cards: their memory, how busy they are and what is using them | weekly, Monday | a look at a program that keeps the graphics card busy with no window, or at what fills its memory |
+| **PC Master** * | your PC’s core tools: which are on the PC, signed and up to date | weekly, Tuesday | your OK to accept a tool’s license or install one |
 
 \* in the pipeline: on GitHub, not registered yet.

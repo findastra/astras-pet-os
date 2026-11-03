@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-268 rows: 12 native programs, 129 native tools, 19 native tricks, 108 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+313 rows: 12 native programs, 152 native tools, 19 native tricks, 130 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -399,4 +399,49 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
+| 86 | PC Master | PC Master Race | native tool | autoruns-tool | `pc-master-race-v1.0-autoruns-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | coreinfo-tool | `pc-master-race-v1.0-coreinfo-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | cpu-z-tool | `pc-master-race-v1.0-cpu-z-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | crystaldiskinfo-tool | `pc-master-race-v1.0-crystaldiskinfo-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | everything-tool | `pc-master-race-v1.0-everything-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | handle-tool | `pc-master-race-v1.0-handle-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | hwinfo-tool | `pc-master-race-v1.0-hwinfo-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | powertoys-tool | `pc-master-race-v1.0-powertoys-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | process-explorer-tool | `pc-master-race-v1.0-process-explorer-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | process-monitor-tool | `pc-master-race-v1.0-process-monitor-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | rammap-tool | `pc-master-race-v1.0-rammap-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | sigcheck-tool | `pc-master-race-v1.0-sigcheck-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | spacesniffer-tool | `pc-master-race-v1.0-spacesniffer-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | tcpview-tool | `pc-master-race-v1.0-tcpview-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | usbdeview-tool | `pc-master-race-v1.0-usbdeview-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | windows-performance-recorder-tool | `pc-master-race-v1.0-windows-performance-recorder-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | winget-tool | `pc-master-race-v1.0-winget-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | winobj-tool | `pc-master-race-v1.0-winobj-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | wireshark-tool | `pc-master-race-v1.0-wireshark-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | wiztree-tool | `pc-master-race-v1.0-wiztree-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | latencymon-tool | `pc-master-race-v1.0-latencymon-tool-v1.0` | Planned |
+| 86 | PC Master | PC Master Race | third-party program | Autoruns |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Coreinfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CPU-Z |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CrystalDiskInfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | ES (Everything’s command line) |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Everything |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Handle |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | HWiNFO64 |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | PowerToys |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Explorer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Monitor |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | RAMMap |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Sigcheck |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | SpaceSniffer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | TCPView |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | USBDeview |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Windows Performance Recorder |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | winget |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WinObj |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Wireshark |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 <!-- registry:end -->

@@ -942,7 +942,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "pet-program-63-v1.0-mini-descriptor-v1.0",
-        "text": "Processes, memory, drivers and OS internals.",
+        "text": "What runs on your PC: programs, memory and what starts at sign-in.",
         "reviewed": false
       }
     },
@@ -1260,6 +1260,21 @@
       "mini_descriptor": {
         "label": "workflow-whirlpool-v1.0-mini-descriptor-v1.0",
         "text": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
+        "reviewed": false
+      }
+    },
+    {
+      "number": 86,
+      "program": "PC Master Race",
+      "assigned": true,
+      "icon": "PC Master",
+      "idea": null,
+      "stage": "pipeline",
+      "repo": "pc-master-race",
+      "repo_exists": true,
+      "mini_descriptor": {
+        "label": "pc-master-race-v1.0-mini-descriptor-v1.0",
+        "text": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own tool box, and lessons with your own parts as the example.",
         "reviewed": false
       }
     }
