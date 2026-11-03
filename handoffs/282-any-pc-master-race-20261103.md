@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge #282 and kernel-grove#9; accept the Sysinternals licenses)
+status: open (waiting on Astra: accept the Sysinternals licenses for Autoruns, TCPView and Coreinfo)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-03
 needs: nothing
@@ -62,7 +62,7 @@ only data, two new tool pages and generated files. Whichever merges second takes
 3. Buttons that open a program from its box need a local service like Rift Rabbit's launcher, with an Iron Gates grant.
 4. HWiNFO64 sensors and CrystalDiskInfo's SMART numbers in their boxes (sensor log, admin) are not built.
 5. The engineering pet (Astra's question 3): a candidate to think about, not decided.
-6. kernel-grove's own pet.json job line: findastra/kernel-grove#9 (open).
+6. The engineering pet is being thought through in its own chat ("Think through an engineering pet with Astra").
 
 ## Done when
 
@@ -75,4 +75,7 @@ Record the merges below.
 
 ## Receipt and review
 
-Pending.
+- 2026-11-03: Astra's OK in chat, "Merge both" (#282 and findastra/kernel-grove#9). Before merging: `main` had not
+  moved since the branch was cut (83ac263c), #282 was mergeable with its 4 checks green, `npm test` 349 of 354 (the 2
+  failures also on `main`). Merged by Claude Opus 5.5 right after this line; her PC hub copy and kernel-grove copy are
+  fast-forwarded the same turn. Still open from this card: Not done 1 to 6.
