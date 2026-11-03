@@ -15,8 +15,13 @@ deck "PC Master Race questions": "all recommended for everything else" (question
   Astra's PC, and a planned relation to Kernel Grove; Kernel Koala's job line as above.
 - **system-map.json:** 19 new third-party programs (ES, WizTree, CPU-Z, HWiNFO64, CrystalDiskInfo, LatencyMon (held),
   nine Sysinternals tools, PowerToys, winget, Wireshark, Windows Performance Recorder; Everything, SpaceSniffer and
-  USBDeview were already there), PC Master Race's 23 tools, each in its own tool box in L1 with the tool page, and
-  their 22 links; PC Master Race's code list.
+  USBDeview were already there), each opening to its live preview inside its own pill (Astra, the same night: "they're
+  native to only if we created them. So they actually need to be third party, unless we made them"), PC Master Race's
+  two native tools (learn-computer-organization-tool, pc-look-tool), 22 links from PC Master Race to the programs it
+  looks after, and its code list.
+- **pet-program-page-20261018.css:** a pill holding a working tool sits in the three columns and widens only while it
+  is open (Astra: "I like the width that they are under third party. And then if you expand them, they can take up the
+  whole page, but not until you do that").
 - **apps/pc-master-race-tools-20261103.html and .js:** the tool page every box shows (`?tool=<id>`). It reads only
   `Documents\Astra's PetOS Data\pc-master-race\pc-tools-page-data.js`, written by the pet's look, and shows nothing
   anywhere else (the lesson tool still works).

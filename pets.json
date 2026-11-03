@@ -2867,7 +2867,7 @@
       "pet": "PC Master",
       "visibility": "private",
       "status": "hatching",
-      "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own tool box, and lessons with your own parts as the example.",
+      "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
       "audit": {
@@ -2889,112 +2889,112 @@
           {
             "node": "everything-search",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "es-cli",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "spacesniffer",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "wiztree",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "usbdeview",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "cpu-z",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "hwinfo",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "crystaldiskinfo",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "latencymon",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "process-explorer",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "autoruns",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "process-monitor",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "rammap",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "tcpview",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "coreinfo",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "winobj",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "handle",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "sigcheck",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "powertoys",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "winget",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "wireshark",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           },
           {
             "node": "windows-performance-recorder",
             "how": "optional",
-            "why": "A tool box of PC Master Race shows it (Astra, 2026-11-03)."
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
           }
         ]
       },
@@ -3035,8 +3035,8 @@
           "on": "2026-11-03"
         },
         "third-party:autoruns": {
-          "result": "works",
-          "note": "On this PC, version 14.3, signed by Microsoft Corporation.",
+          "result": "issues",
+          "note": "On this PC, version 14.3, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
           "on": "2026-11-03"
         },
         "third-party:process-monitor": {
@@ -3050,13 +3050,13 @@
           "on": "2026-11-03"
         },
         "third-party:tcpview": {
-          "result": "works",
-          "note": "On this PC, version 4.19, signed by Microsoft Corporation.",
+          "result": "issues",
+          "note": "On this PC, version 4.19, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
           "on": "2026-11-03"
         },
         "third-party:coreinfo": {
-          "result": "works",
-          "note": "On this PC, version 4.02, signed by Microsoft Corporation.",
+          "result": "issues",
+          "note": "On this PC, version 4.02, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
           "on": "2026-11-03"
         },
         "third-party:winobj": {
@@ -3117,111 +3117,6 @@
         "tool:pc-look-tool": {
           "result": "works",
           "note": "Drew on this PC from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:everything-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:spacesniffer-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:wiztree-tool": {
-          "result": "missing",
-          "note": "Its program is not on this PC yet.",
-          "on": "2026-11-03"
-        },
-        "tool:usbdeview-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:cpu-z-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:hwinfo-tool": {
-          "result": "missing",
-          "note": "Its program is not on this PC yet.",
-          "on": "2026-11-03"
-        },
-        "tool:crystaldiskinfo-tool": {
-          "result": "missing",
-          "note": "Its program is not on this PC yet.",
-          "on": "2026-11-03"
-        },
-        "tool:latencymon-tool": {
-          "result": "missing",
-          "note": "Held with LatencyMon.",
-          "on": "2026-11-03"
-        },
-        "tool:process-explorer-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:autoruns-tool": {
-          "result": "issues",
-          "note": "Waits for Astra to accept Microsoft’s Sysinternals license; until then the box only says the tool is there.",
-          "on": "2026-11-03"
-        },
-        "tool:process-monitor-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:rammap-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:tcpview-tool": {
-          "result": "issues",
-          "note": "Waits for Astra to accept Microsoft’s Sysinternals license; until then the box only says the tool is there.",
-          "on": "2026-11-03"
-        },
-        "tool:coreinfo-tool": {
-          "result": "issues",
-          "note": "Waits for Astra to accept Microsoft’s Sysinternals license; until then the box only says the tool is there.",
-          "on": "2026-11-03"
-        },
-        "tool:winobj-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:handle-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:sigcheck-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:powertoys-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:winget-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:wireshark-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
-          "on": "2026-11-03"
-        },
-        "tool:windows-performance-recorder-tool": {
-          "result": "works",
-          "note": "Its box drew from a real look on 2026-11-03.",
           "on": "2026-11-03"
         }
       }

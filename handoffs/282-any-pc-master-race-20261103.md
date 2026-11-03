@@ -25,12 +25,20 @@ only data, two new tool pages and generated files. Whichever merges second takes
 
 ## What I did
 
-- **findastra/pc-master-race** (new, private, topic `pet-app`, main `29ee987`): `pc-master-race-20261103.mjs` (`--look`,
-  `--watch`, `--self-test`: 15 of 15 pass), `start-watch-20261103.vbs`, README, AGENTS.md, CLAUDE.md, LICENSE, pet.json,
-  `changes/`. PC copy cloned to `Documents\Astra's PetOS\pc-master-race`; its watch started there through Explorer
-  (outside the Claude app) on 2026-11-03 and writes `Documents\Astra's PetOS Data\pc-master-race\pc-tools-page-data.js`.
-- **This PR (#282):** pet-programs.json #86 and #63's line; pets.json pipeline entry (needs, 45 checks, relation to
-  Kernel Grove) and Kernel Koala's job; system-map.json (19 programs, 23 tools, 22 links, code list);
+- **findastra/pc-master-race** (new, private, topic `pet-app`, main `1c739ab`): `pc-master-race-20261103.mjs` (`--look`,
+  `--watch`, `--self-test`: 16 of 16 pass), `start-watch-20261103.vbs`, README, AGENTS.md, CLAUDE.md, LICENSE, pet.json,
+  `changes/`. PC copy cloned to `Documents\Astra's PetOS\pc-master-race`; its watch runs from there, started through
+  Explorer (outside the Claude app), and writes `Documents\Astra's PetOS Data\pc-master-race\pc-tools-page-data.js`.
+- **Native only if we made it** (Astra, 2026-11-03: "they're native to only if we created them. So they actually need
+  to be third party, unless we made them"): the previews open inside the 21 third-party programs' own pills; the only
+  native tools are learn-computer-organization-tool and pc-look-tool. Everything, SpaceSniffer and USBDeview carry the
+  same pill on File Master's and Rift Rabbit's pages.
+- **Pills in three columns** (Astra: "I like the width that they are under third party. And then if you expand them,
+  they can take up the whole page, but not until you do that"): `pet-program-page-20261018.css` now widens a pill that
+  holds a working tool only while it is open, on every page (Bass & Biscuits' closed tools also sit in the columns).
+- **This PR (#282):** pet-programs.json #86 and #63's line; pets.json pipeline entry (needs, 24 checks, relation to
+  Kernel Grove) and Kernel Koala's job; system-map.json (19 new programs, every preview on its program, 2 tools, 22
+  links from PC Master Race, code list);
   `apps/pc-master-race-tools-20261103.html` and `.js`; draft art (`DRAFT_PC_MASTER`, `art/drafts/pc-master-race/`,
   `art/icons/pc-master-race-20261103.png`, `scripts/build-pc-master-draft-20261103.mjs`); INTELLIGENCE-LEVELS.md row;
   skills/new-pet-or-tool decision; developer word; `changes/pc-master-race-20261103.md`; generated files rebuilt.
@@ -42,8 +50,8 @@ only data, two new tool pages and generated files. Whichever merges second takes
   official address (winget lists 7.31), signed by SOFTREV LABS S.R.L.S., and Resplendence reports a Windows driver block
   from June 2026.
 - **Art:** one paid image (Astra's OK), cut into nine frames with the shared mood stickers. Draft, not approved.
-- **Shown:** the working copy of `apps/pet-programs/pc-master-race-20261018.html` in the browser pane, with all 23
-  boxes drawing from the real look.
+- **Shown:** the working copy of `apps/pet-programs/pc-master-race-20261018.html` in the browser pane: all 23 pills
+  with a preview draw from the real look, closed ones three across (288 px), an opened one the whole width.
 
 ## Not done
 

@@ -617,7 +617,8 @@
       "does": "Learn how a computer is organized, from the chip up, with your own PC’s parts as the example.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=learn",
       "frame": "wide",
-      "in_pill": true
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "pc-look-tool",
@@ -637,384 +638,6 @@
       "in_pill": true,
       "start_closed": true,
       "cadence": "every 10 minutes"
-    },
-    {
-      "id": "everything-tool",
-      "name": "everything-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-everything-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=everything",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): Everything’s own web search, which answers on this PC only, inside this tool box while Everything runs; the age of its index; the twelve biggest files through es.exe. File Master keeps using Everything for finding files (a tool can sit on several pets, Astra, 2026-11-03).",
-      "does": "Search your whole PC by file name right in this box, while Everything runs, and see the biggest files.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=everything",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "spacesniffer-tool",
-      "name": "spacesniffer-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-spacesniffer-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=spacesniffer",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): each drive’s size, free space and how full it is, from Windows. SpaceSniffer has no quiet export, so its map of boxes stays in its own window. File Master keeps it too.",
-      "does": "How full each drive is; SpaceSniffer’s map of boxes opens in its own window.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=spacesniffer",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "wiztree-tool",
-      "name": "wiztree-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-wiztree-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wiztree",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): WizTree’s own CSV export of her user folder, one level deep and without administrator (/admin=0), every hour.",
-      "does": "The biggest folders in your user folder, from WizTree’s scan every hour.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wiztree",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "usbdeview-tool",
-      "name": "usbdeview-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-usbdeview-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): USBDeview’s own hidden CSV export, plugged-in devices first. Rift Rabbit’s dongle map runs the same program.",
-      "does": "Every USB device this PC has seen, plugged in now or not, with its hub and port.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "cpu-z-tool",
-      "name": "cpu-z-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-cpu-z-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=cpu-z",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): Windows’ own numbers for the parts CPU-Z reports (CPU-Z asks for administrator each time, so its full report stays in its window), with a note when memory runs below the speed its part number names.",
-      "does": "Your CPU, its three cache levels, your memory sticks and graphics cards.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=cpu-z",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "hwinfo-tool",
-      "name": "hwinfo-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-hwinfo-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=hwinfo",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): whether HWiNFO64 is on the PC, its version and whether it runs. Its sensors stay in its own window; feeding them here from its sensor log is not built.",
-      "does": "Every sensor (temperatures, clocks, voltages, fans), in HWiNFO’s own window.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=hwinfo",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "crystaldiskinfo-tool",
-      "name": "crystaldiskinfo-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-crystaldiskinfo-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=crystaldiskinfo",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): each drive’s health, kind and connection from Windows’ own check; CrystalDiskInfo reads every SMART number in its own window, with administrator.",
-      "does": "Is each drive healthy? Windows’ health check here; every SMART number in CrystalDiskInfo.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=crystaldiskinfo",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "latencymon-tool",
-      "name": "latencymon-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "planned",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-latencymon-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=latencymon",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): held, not installed: why is on its box and on LatencyMon’s card.",
-      "does": "Finds the driver behind audio crackle or VR stutter. Held: it waits for your word.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=latencymon",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "process-explorer-tool",
-      "name": "process-explorer-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-process-explorer-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-explorer",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): the twelve programs using the most memory, from Windows. Process Explorer’s tree, handles and VirusTotal check stay in its window; stopping programs stays Kernel Koala’s job.",
-      "does": "What uses the most memory now; Process Explorer shows the whole process tree.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-explorer",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "autoruns-tool",
-      "name": "autoruns-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-autoruns-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=autoruns",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): autorunsc’s CSV (sign-in and scheduled tasks, Microsoft’s own hidden), once Astra has accepted the Sysinternals license herself. Switching items off stays with Kernel Grove’s startup switch.",
-      "does": "Everything that starts at sign-in and as a scheduled task, not only Task Manager’s list.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=autoruns",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "process-monitor-tool",
-      "name": "process-monitor-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-process-monitor-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-monitor",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): whether Process Monitor is on the PC and its version; recording needs administrator, so it runs only when Astra starts it.",
-      "does": "Records every file and registry touch, to see what a program really does.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-monitor",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "rammap-tool",
-      "name": "rammap-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-rammap-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=rammap",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): memory in use and the biggest users, from Windows; RAMMap’s page-by-page map needs administrator and stays in its window.",
-      "does": "How much memory is in use and what uses it; RAMMap maps every page.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=rammap",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "tcpview-tool",
-      "name": "tcpview-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-tcpview-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=tcpview",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): tcpvcon’s CSV counted per program (talking, listening), once Astra has accepted the Sysinternals license herself. Packet Piranha owns how well the network works.",
-      "does": "Which programs talk over the network right now.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=tcpview",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "coreinfo-tool",
-      "name": "coreinfo-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-coreinfo-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=coreinfo",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): Coreinfo’s core and cache map, once Astra has accepted the Sysinternals license herself.",
-      "does": "Which cores share which cache: the map of how your CPU is built.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=coreinfo",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "winobj-tool",
-      "name": "winobj-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-winobj-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winobj",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): whether WinObj is on the PC; it browses Windows’ object namespace in its own window, a companion to Windows Internals.",
-      "does": "Windows’ own inner map of objects: devices, drivers, events.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winobj",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "handle-tool",
-      "name": "handle-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-handle-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=handle",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): whether Handle is on the PC. It needs administrator, so an assistant runs it only with Astra’s OK; PowerToys’ File Locksmith does the same without.",
-      "does": "What has a file or folder open, the usual reason a rename or delete fails.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=handle",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "sigcheck-tool",
-      "name": "sigcheck-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-sigcheck-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=sigcheck",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): every tool’s signature as Windows checks it, on every look; Sigcheck goes deeper when asked.",
-      "does": "Who signed each tool, so you know it came from its maker.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=sigcheck",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "powertoys-tool",
-      "name": "powertoys-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-powertoys-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=powertoys",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): which PowerToys tools are switched on and off, from PowerToys’ own settings.",
-      "does": "Which PowerToys are on: File Locksmith, Peek, PowerRename, Command Palette and more.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=powertoys",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "winget-tool",
-      "name": "winget-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-winget-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): winget’s list of updates waiting (winget source only), hourly. Nothing is updated from here: Patch Cat keeps programs patched, and an update waits for Astra’s OK.",
-      "does": "Every program with an update waiting, from winget, every hour.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "wireshark-tool",
-      "name": "wireshark-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-wireshark-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wireshark",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): the adapters dumpcap -D lists. Recording happens only in Wireshark’s own window; Packet Piranha owns network checks.",
-      "does": "The network adapters Wireshark can record on.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wireshark",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
-    },
-    {
-      "id": "windows-performance-recorder-tool",
-      "name": "windows-performance-recorder-tool",
-      "type": "tool",
-      "of": "program-86",
-      "state": "now",
-      "layer": 6,
-      "category": "Tool",
-      "version": "v1.0",
-      "label": "pc-master-race-v1.0-windows-performance-recorder-tool-v1.0",
-      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=windows-performance-recorder",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): whether wpr.exe is there; recording needs administrator, so it runs only when Astra asks.",
-      "does": "Windows’ own deep recording of why the PC is slow.",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=windows-performance-recorder",
-      "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
     },
     
     {
@@ -1263,7 +886,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26 to the USBDeview-3.10 folder in Documents (its SHA-256 matches NirSoft's).",
-      "does": "Lists every USB device on the PC with its hub and port."
+      "does": "Lists every USB device on the PC with its hub and port.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "es-cli",
@@ -1283,7 +911,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Antibody Software, free for personal use): WizTree 4.33, downloaded 2026-11-03 from diskanalyzer.com (SHA-256 matches winget's manifest, signed by Antibody Software Limited); Astra installs it from its own window.",
-      "does": "Shows what fills a drive, biggest first, in seconds."
+      "does": "Shows what fills a drive, biggest first, in seconds.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wiztree",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wiztree",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "cpu-z",
@@ -1293,7 +926,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (CPUID): CPU-Z, MSI’s edition, already installed on Astra’s PC. It asks for administrator each time, so PC Master Race shows Windows’ own numbers for the same parts.",
-      "does": "Shows your CPU, its caches, your memory and motherboard in detail."
+      "does": "Shows your CPU, its caches, your memory and motherboard in detail.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=cpu-z",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=cpu-z",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "hwinfo",
@@ -1303,7 +941,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (REALiX, free for non-commercial use): HWiNFO64 8.54, downloaded 2026-11-03 through winget (installer hash verified, signed by REALiX); Astra installs it from its own window.",
-      "does": "Every sensor in the PC: temperatures, clocks, voltages and fans, plus a full parts list."
+      "does": "Every sensor in the PC: temperatures, clocks, voltages and fans, plus a full parts list.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=hwinfo",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=hwinfo",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "crystaldiskinfo",
@@ -1313,7 +956,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Crystal Dew World, MIT license): CrystalDiskInfo 9.9.3, downloaded 2026-11-03 through winget (installer hash verified, signed by CrystalMark Inc.); Astra installs it from its own window.",
-      "does": "Reads each drive’s SMART health: hours on, temperature, wear, warnings."
+      "does": "Reads each drive’s SMART health: hours on, temperature, wear, warnings.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=crystaldiskinfo",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=crystaldiskinfo",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "latencymon",
@@ -1323,7 +971,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Resplendence). Held 2026-11-03: the file at its official address was version 7.40 (winget lists 7.31), so its SHA-256 did not match, and it is signed by SOFTREV LABS S.R.L.S., not Resplendence by name; Resplendence also says a Windows policy of June 2026 blocks its driver. Not installed; it waits for Astra's word.",
-      "does": "Finds the driver behind audio crackle or VR stutter."
+      "does": "Finds the driver behind audio crackle or VR stutter.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=latencymon",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=latencymon",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "process-explorer",
@@ -1333,7 +986,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): Process Explorer 17.2, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Task Manager with x-ray vision: the process tree, what each program has open, a VirusTotal check."
+      "does": "Task Manager with x-ray vision: the process tree, what each program has open, a VirusTotal check.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-explorer",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-explorer",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "autoruns",
@@ -1343,7 +1001,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): Autoruns 14.3, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Everything that starts with Windows, from every place it can start."
+      "does": "Everything that starts with Windows, from every place it can start.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=autoruns",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=autoruns",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "process-monitor",
@@ -1353,7 +1016,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): Process Monitor 4.12, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Records every file and registry touch, live."
+      "does": "Records every file and registry touch, live.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-monitor",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=process-monitor",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "rammap",
@@ -1363,7 +1031,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): RAMMap 1.63, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Shows where every page of memory goes."
+      "does": "Shows where every page of memory goes.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=rammap",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=rammap",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "tcpview",
@@ -1373,7 +1046,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): TCPView 4.19, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Which program is talking to which address, live."
+      "does": "Which program is talking to which address, live.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=tcpview",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=tcpview",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "coreinfo",
@@ -1383,7 +1061,12 @@
       "layer": 6,
       "category": "Command-line tool",
       "job": "Third-party program (Microsoft Sysinternals): Coreinfo 4.02, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Which cores share which cache, and what the CPU supports."
+      "does": "Which cores share which cache, and what the CPU supports.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=coreinfo",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=coreinfo",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "winobj",
@@ -1393,7 +1076,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft Sysinternals): WinObj 3.14, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Browses Windows’ own object namespace: devices, drivers, events."
+      "does": "Browses Windows’ own object namespace: devices, drivers, events.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winobj",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winobj",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "handle",
@@ -1403,7 +1091,12 @@
       "layer": 6,
       "category": "Command-line tool",
       "job": "Third-party program (Microsoft Sysinternals): Handle 5.0, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Shows which program has a file or folder open."
+      "does": "Shows which program has a file or folder open.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=handle",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=handle",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "sigcheck",
@@ -1413,7 +1106,12 @@
       "layer": 6,
       "category": "Command-line tool",
       "job": "Third-party program (Microsoft Sysinternals): Sigcheck 2.93, downloaded 2026-11-03 from download.sysinternals.com (SHA-256 matches winget's manifest, signed by Microsoft Corporation) into C:\\Program Files\\Sysinternals, where changing it needs a Windows admin prompt (Astra, 2026-11-03, deck question 6).",
-      "does": "Checks a file’s digital signature and fingerprint."
+      "does": "Checks a file’s digital signature and fingerprint.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=sigcheck",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=sigcheck",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "powertoys",
@@ -1423,7 +1121,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Microsoft): PowerToys 0.100.2, already installed for Astra. PC Master Race reads which of its tools are switched on from its own settings.",
-      "does": "Microsoft’s extra Windows tools: File Locksmith, Peek, PowerRename, Command Palette and more."
+      "does": "Microsoft’s extra Windows tools: File Locksmith, Peek, PowerRename, Command Palette and more.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=powertoys",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=powertoys",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "winget",
@@ -1433,7 +1136,12 @@
       "layer": 6,
       "category": "Command-line tool",
       "job": "Third-party program (Microsoft): the Windows Package Manager, part of Windows’ App Installer. PC Master Race lists updates waiting, hourly, and installs nothing.",
-      "does": "Windows’ package manager: installs programs and lists every update waiting."
+      "does": "Windows’ package manager: installs programs and lists every update waiting.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "wireshark",
@@ -1443,7 +1151,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Third-party program (Wireshark Foundation): Wireshark 4.6.9, already installed on Astra’s PC. PC Master Race lists the adapters it can record on (dumpcap -D); recording happens only in its own window.",
-      "does": "Records network traffic so you can see every packet."
+      "does": "Records network traffic so you can see every packet.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wireshark",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=wireshark",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "windows-performance-recorder",
@@ -1453,7 +1166,12 @@
       "layer": 6,
       "category": "Command-line tool",
       "job": "Third-party program (Microsoft): wpr.exe, built into Windows. Recording needs administrator, so it runs only when Astra asks.",
-      "does": "Windows’ own deep recording of why the PC is slow."
+      "does": "Windows’ own deep recording of why the PC is slow.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=windows-performance-recorder",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=windows-performance-recorder",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "oscgoesbrrr",
@@ -1906,7 +1624,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Instant file-name search for the whole PC. Installed.",
-      "does": "Finds any file on the PC by its name, instantly."
+      "does": "Finds any file on the PC by its name, instantly.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=everything",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=everything",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "spacesniffer",
@@ -1916,7 +1639,12 @@
       "layer": 6,
       "category": "Desktop app",
       "job": "Shows what is filling the disks, as a map of boxes. Installed.",
-      "does": "Shows what fills each disk, as a map of boxes."
+      "does": "Shows what fills each disk, as a map of boxes.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=spacesniffer",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=spacesniffer",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "steamvr",
@@ -4186,158 +3914,158 @@
   ],
   "links": [
     {
-      "from": "everything-tool",
+      "from": "pc-master-race",
       "to": "everything-search",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows Everything’s own web search, which answers on this PC only, inside this tool box while Everything runs; the age of its index; the twelve biggest files through es.exe. File Master keeps using Everything for finding files (a tool can sit on several pets, Astra, 2026-11-03)."
     },
     {
-      "from": "everything-tool",
+      "from": "pc-master-race",
       "to": "es-cli",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "Everything’s command line: PC Master Race asks it for the biggest files while Everything runs."
     },
     {
-      "from": "spacesniffer-tool",
+      "from": "pc-master-race",
       "to": "spacesniffer",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows each drive’s size, free space and how full it is, from Windows. SpaceSniffer has no quiet export, so its map of boxes stays in its own window. File Master keeps it too."
     },
     {
-      "from": "wiztree-tool",
+      "from": "pc-master-race",
       "to": "wiztree",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows WizTree’s own CSV export of her user folder, one level deep and without administrator (/admin=0), every hour."
     },
     {
-      "from": "usbdeview-tool",
+      "from": "pc-master-race",
       "to": "usbdeview",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows USBDeview’s own hidden CSV export, plugged-in devices first. Rift Rabbit’s dongle map runs the same program."
     },
     {
-      "from": "cpu-z-tool",
+      "from": "pc-master-race",
       "to": "cpu-z",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows Windows’ own numbers for the parts CPU-Z reports (CPU-Z asks for administrator each time, so its full report stays in its window), with a note when memory runs below the speed its part number names."
     },
     {
-      "from": "hwinfo-tool",
+      "from": "pc-master-race",
       "to": "hwinfo",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows whether HWiNFO64 is on the PC, its version and whether it runs. Its sensors stay in its own window; feeding them here from its sensor log is not built."
     },
     {
-      "from": "crystaldiskinfo-tool",
+      "from": "pc-master-race",
       "to": "crystaldiskinfo",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows each drive’s health, kind and connection from Windows’ own check; CrystalDiskInfo reads every SMART number in its own window, with administrator."
     },
     {
-      "from": "latencymon-tool",
+      "from": "pc-master-race",
       "to": "latencymon",
-      "carries": "opens",
+      "carries": "manages",
       "state": "planned",
-      "why": "Held: LatencyMon is not installed."
+      "why": "Held, not installed: why is on its box and on LatencyMon’s card."
     },
     {
-      "from": "process-explorer-tool",
+      "from": "pc-master-race",
       "to": "process-explorer",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows the twelve programs using the most memory, from Windows. Process Explorer’s tree, handles and VirusTotal check stay in its window; stopping programs stays Kernel Koala’s job."
     },
     {
-      "from": "autoruns-tool",
+      "from": "pc-master-race",
       "to": "autoruns",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows autorunsc’s CSV (sign-in and scheduled tasks, Microsoft’s own hidden), once Astra has accepted the Sysinternals license herself. Switching items off stays with Kernel Grove’s startup switch."
     },
     {
-      "from": "process-monitor-tool",
+      "from": "pc-master-race",
       "to": "process-monitor",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows whether Process Monitor is on the PC and its version; recording needs administrator, so it runs only when Astra starts it."
     },
     {
-      "from": "rammap-tool",
+      "from": "pc-master-race",
       "to": "rammap",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows memory in use and the biggest users, from Windows; RAMMap’s page-by-page map needs administrator and stays in its window."
     },
     {
-      "from": "tcpview-tool",
+      "from": "pc-master-race",
       "to": "tcpview",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows tcpvcon’s CSV counted per program (talking, listening), once Astra has accepted the Sysinternals license herself. Packet Piranha owns how well the network works."
     },
     {
-      "from": "coreinfo-tool",
+      "from": "pc-master-race",
       "to": "coreinfo",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows Coreinfo’s core and cache map, once Astra has accepted the Sysinternals license herself."
     },
     {
-      "from": "winobj-tool",
+      "from": "pc-master-race",
       "to": "winobj",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows whether WinObj is on the PC; it browses Windows’ object namespace in its own window, a companion to Windows Internals."
     },
     {
-      "from": "handle-tool",
+      "from": "pc-master-race",
       "to": "handle",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows whether Handle is on the PC. It needs administrator, so an assistant runs it only with Astra’s OK; PowerToys’ File Locksmith does the same without."
     },
     {
-      "from": "sigcheck-tool",
+      "from": "pc-master-race",
       "to": "sigcheck",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows every tool’s signature as Windows checks it, on every look; Sigcheck goes deeper when asked."
     },
     {
-      "from": "powertoys-tool",
+      "from": "pc-master-race",
       "to": "powertoys",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows which PowerToys tools are switched on and off, from PowerToys’ own settings."
     },
     {
-      "from": "winget-tool",
+      "from": "pc-master-race",
       "to": "winget",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows winget’s list of updates waiting (winget source only), hourly. Nothing is updated from here: Patch Cat keeps programs patched, and an update waits for Astra’s OK."
     },
     {
-      "from": "wireshark-tool",
+      "from": "pc-master-race",
       "to": "wireshark",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows the adapters dumpcap -D lists. Recording happens only in Wireshark’s own window; Packet Piranha owns network checks."
     },
     {
-      "from": "windows-performance-recorder-tool",
+      "from": "pc-master-race",
       "to": "windows-performance-recorder",
-      "carries": "opens",
+      "carries": "manages",
       "state": "now",
-      "why": "PC Master Race’s look reads it for this tool box, hidden and never as administrator (Astra, 2026-11-03)."
+      "why": "PC Master Race shows whether wpr.exe is there; recording needs administrator, so it runs only when Astra asks."
     },
     {
       "from": "unity-unicorn",
