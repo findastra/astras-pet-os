@@ -350,6 +350,12 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .toolbox-fold::after { content: "\00A0\00A0\25BE"; font-size: 10px; color: var(--chalk-dim); }
 .toolbox.is-folded .toolbox-fold::after { content: "\00A0\00A0\25B8"; }
 .toolbox-fold:hover::after { color: var(--fix); }
+/* A folded tool opens when clicked anywhere, like a pill (Astra, 2026-11-02); open, its name line folds it again. */
+.toolbox.is-folded, .toolbox-head:has(.toolbox-fold), .launch-headset.is-folded, .launch-head, .launch-mode.is-folded, .launch-mode > legend { cursor: pointer; }
+.toolbox.is-folded:hover, .launch-headset.is-folded:hover, .launch-mode.is-folded:hover { border-color: var(--line); background: var(--tool-bg-hover); }
+.toolbox.is-folded:hover .toolbox-fold, .toolbox-head:hover .toolbox-fold,
+.launch-headset.is-folded:hover > .launch-head .launch-fold, .launch-head:hover .launch-fold,
+.launch-mode.is-folded:hover > legend .launch-fold, .launch-mode > legend:hover .launch-fold { text-decoration: underline; text-underline-offset: 3px; }
 .toolbox-body > :first-child { margin-top: 0; }
 .toolbox-body > :last-child { margin-bottom: 0; }
 .toolbox .button { border-radius: 14px; }
