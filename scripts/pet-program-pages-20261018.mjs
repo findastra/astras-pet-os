@@ -21,6 +21,8 @@ import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
 import { drawnBox, pictureHeight } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
+import { STICKERS } from './art-kit.mjs';
+import { INDICATORS } from './indicators.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -765,7 +767,7 @@ ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(
 ${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${embeddedTools(d, true)}
-${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
+${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
@@ -996,14 +998,27 @@ const SHOW_FACES = {
   sad: '<circle cx="104" cy="122" r="9"/><circle cx="152" cy="122" r="9"/><path d="M106 170q22-20 44 0" class="line"/><path d="M160 136q6 12 0 16q-6-4 0-16z" class="tear"/>',
   sick: '<path d="M96 114l16 14M112 114l-16 14M144 114l16 14M160 114l-16 14" class="line"/><path d="M106 164q10-8 22 0t22 0" class="line"/>',
   alarmed: '<circle cx="104" cy="118" r="13"/><circle cx="152" cy="118" r="13"/><ellipse cx="128" cy="166" rx="12" ry="15"/>',
-  sleep: '<path d="M94 124q10 8 20 0M142 124q10 8 20 0" class="line"/><path d="M114 162h28" class="line"/><path d="M180 70h22l-22 24h22" class="line thin"/>',
+  sleep: '<path d="M94 124q10 8 20 0M142 124q10 8 20 0" class="line"/><path d="M114 162h28" class="line"/>',
 };
-export const showPetArt = () => Object.fromEntries(MOODS.map((mood) => [`${SHOW_PET.art}/${mood}-${SHOW_PET.date}.svg`,
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Pet Name, ${mood}">`
-  + '<style>.body{fill:#b8b2c6;stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}</style>'
+// Each drawing carries the same mood sticker as every pet (Astra, 2026-10-24: the nine mood symbols "stay the same
+// across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
+// it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
+const stickerSvg = (mood) => {
+  const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
+  const ox = Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy = Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55)));
+  return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
+};
+const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
+  + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}</style>`
   + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
   + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
-  + `${SHOW_FACES[mood]}</svg>\n`]));
+  + `${SHOW_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
+// Pet Name's nine moods, and an idle drawing for each of the two made-up friends.
+export const SHOW_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
+export const showPetArt = () => ({
+  ...Object.fromEntries(MOODS.map((mood) => [`${SHOW_PET.art}/${mood}-${SHOW_PET.date}.svg`, petSvg('Pet Name', '#b8b2c6', mood)])),
+  ...Object.fromEntries(Object.entries(SHOW_FRIENDS).map(([id, [name, fill]]) => [`${SHOW_PET.art}/${id}-idle-${SHOW_PET.date}.svg`, petSvg(name, fill, 'idle')])),
+});
 
 /** Pet Name's page data: the same fields as pageData's, every list with one of each kind. */
 export function showPetData(src) {
@@ -1012,7 +1027,8 @@ export function showPetData(src) {
   const item = (id, name, desc, more = {}) => ({ id: `show-pet-${id}`, name, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
     inL1: false, inPill: false, pillOpen: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
   const guide = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md`;
-  const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `Tool ${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });
+  const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `tool-${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });
+  const toolPage = (n) => `${SHOW_PET.tool.slice(DIR.length + 1)}?tool=${n}`;
   const grant = (id, who, level, [r, w, x], status, self, how, more = {}) => ({ id: `show-pet-${id}`, who, on: self ? 'Pet Program Name' : 'everything else', self, level, r, w, x, status, how, next: null, evidence: [], ...more });
   const proof = [{ test: 'test/show-pet-test-20261102.mjs' }];
   const reg = { repo: 'pet-repo-name', pet: 'Pet Name', audit: { cadence: 'weekly', subject: 'what Pet Program Name looks after', needs: 'a decision only you can make' } };
@@ -1025,7 +1041,7 @@ export function showPetData(src) {
     art: { frames, plain: frames, source: 'show-pet' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'],
-    asks: ['Approve the update of Tool three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
+    asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
     statusUpdated: '2026-11-02T08:00:00.000Z',
     thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
       item('third-party-two', '3rd party program two', 'Another program made by someone else, planned.', { state: 'planned' })],
@@ -1040,14 +1056,14 @@ export function showPetData(src) {
       tool('two', 'A tool with an issue reported: its second light is orange.'),
       tool('three', 'A tool with an update waiting for your OK: its second light is yellow, and L3 asks you.'),
       tool('four', 'A tool that is not built yet: off (red), and its second light grey.', { state: 'planned' }),
-      tool('five', 'A tool that runs on its own every day: the tag says how often.', { cadence: 'daily' }),
-      tool('six', 'A tool that works right on this page in its own tool panel, at the top: Use it below.', { embed: `${SHOW_PET.tool.slice(DIR.length + 1)}?tool=six`, panel: 'pet-name-tool-six-tool-panel' }),
-      tool('seven', 'A tool that works inside its own rounded tool box, right here in L1.', { embed: `${SHOW_PET.tool.slice(DIR.length + 1)}?tool=seven`, inL1: true, inPill: true, pillOpen: true })],
-    tricks: [{ ...item('trick-one', 'Trick one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
-      { ...item('trick-two', 'Trick two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
+      tool('five', 'A tool that runs on its own every day and has not been checked yet: report issues until someone checks it.', { cadence: 'daily' }),
+      tool('six', 'A tool that works right here, inside its own tool box, open from the start.', { embed: toolPage('six'), url: toolPage('six'), inL1: true, inPill: true, pillOpen: true }),
+      tool('seven', 'Another tool that works right here, in a tool box that starts closed: click it to open it.', { embed: toolPage('seven'), url: toolPage('seven'), inL1: true, inPill: true, pillOpen: false })],
+    tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
+      { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'show-pet-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'show-pet-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: null },
-      { id: 'show-pet-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: null }],
+    related: [{ id: 'show-pet-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${SHOW_PET.art}/pet-two-idle-${SHOW_PET.date}.svg` },
+      { id: 'show-pet-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${SHOW_PET.art}/pet-three-idle-${SHOW_PET.date}.svg` }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
@@ -1057,7 +1073,7 @@ export function showPetData(src) {
         grant('l1-own', 'Its tools (L1)', ['L1'], ['yes', 'no', 'yes'], 'written', true, 'Example: its tools read and run inside its folder; a written rule.')],
       by: [grant('by-one', 'Pet Program Name', ['L2'], ['yes', 'no', 'no'], 'written', false, 'Example: what Pet Program Name may use outside itself.', { on: 'Native program one' })] },
     languages: [], languageNote: null,
-    clicks: { 3: { tool: 'show-pet-tool-one', what: 'Runs Tool one.', label: 'pet-program-name-v1.0-tool-one-v1.0' } },
+    clicks: { 3: { tool: 'show-pet-tool-one', what: 'Runs tool-one.', label: 'pet-program-name-v1.0-tool-one-v1.0' } },
     editorial: { says: 'Example: the AI working on this pet program writes here how the site is coming along.', by: 'the seated agent', on: '2026-11-02' },
     checks: { 'tool:show-pet-tool-one': { result: 'works', note: 'Example: checked and works.', on: '2026-11-02' },
       'tool:show-pet-tool-two': { result: 'issues', note: 'Example: an issue was reported.', on: '2026-11-02' },
@@ -1069,18 +1085,26 @@ export function showPetData(src) {
 
 // Its script, a file of its own (pages hold no inline code): it lights the pad you press, nothing else.
 const SHOW_PET_TOOL_JS = `const which = new URLSearchParams(location.search).get('tool');
-document.getElementById('name').textContent = which === 'seven' ? 'Tool seven' : which === 'six' ? 'Tool six' : 'Example tool';
+document.getElementById('name').textContent = which === 'seven' ? 'tool-seven' : which === 'six' ? 'tool-six' : 'Example tool';
 const said = document.getElementById('said');
 for (const b of document.querySelectorAll('button')) b.addEventListener('click', () => {
   const on = b.getAttribute('aria-pressed') !== 'true';
   b.setAttribute('aria-pressed', String(on));
   said.textContent = b.textContent + (on ? ' is lit.' : ' is off.');
 });
+let inTool = false;
+try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
+if (inTool) {
+  const tell = () => { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.body.getBoundingClientRect().height) }, '*'); } catch (e) { /* no page around it */ } };
+  tell();
+  window.addEventListener('load', tell);
+  if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
+}
 `;
 // Show Pet's files that are not pages: the example tool's script and the nine drawings.
 export const showPetAssets = () => ({ [SHOW_PET.toolJs]: SHOW_PET_TOOL_JS, ...showPetArt() });
 
-/** The small example tool that Tool six and Tool seven run right on the page. */
+/** The small example tool that tool-six and tool-seven run right on the page. */
 export function buildShowPetTool() {
   const pads = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   return assertPublic(`<!doctype html>

@@ -29,7 +29,10 @@ test('Show Pet has every tool panel, with Pet Name\'s labels', () => {
 
 test('Show Pet shows every light and every kind of item once', () => {
   for (const result of ['works', 'issues', 'update', 'missing']) assert.ok(html.includes(`data-check="${result}"`), `a ${result} check`);
-  for (const cls of ['is-unset', 'is-update', 'is-fix', 'data-planned="1"', 'data-unseen="1"', 'tag cadence', 'pill-tool', 'tool-embed',
+  assert.ok(!html.includes('tool-embed'), 'a tool that works on the page is in its tool box in L1, never a panel above the levels');
+  assert.equal((html.match(/<details class="pill-more" open>/g) || []).length, 1, 'one tool box open, one closed');
+  assert.ok(html.includes('pet-two-idle-') && html.includes('pet-three-idle-'), 'the friends have pictures');
+  for (const cls of ['is-unset', 'is-update', 'is-fix', 'data-planned="1"', 'data-unseen="1"', 'tag cadence', 'pill-tool', 'Open it full screen',
     'item-serial', 'device-group', 'mark enforced', 'mark written', 'mark planned']) assert.ok(html.includes(cls), cls);
   for (const h of ['3rd party programs · 2', 'Native programs · 2', 'Shared programs · 1', 'Native tools · 7', 'Devices it looks after · 3',
     'Native tricks · 3', 'L3 asks you · 1']) assert.ok(html.includes(h), h);
@@ -39,7 +42,7 @@ test('Show Pet shows every light and every kind of item once', () => {
 
 test('Show Pet uses placeholder names only, never a real pet\'s things', () => {
   const names = [...html.matchAll(/<span class="item-name">([^<]+)<\/span>/g)].map((m) => m[1]);
-  const placeholder = /^(?:(?:Tool|Trick|3rd party program|Native program|Shared program|Headset|Device) (?:one|two|three|four|five|six|seven)|Approve the update of Tool three to v1\.1\?|self-audit|weekly-suggestions|seat|(?:one|two|three) clicks?)$/;
+  const placeholder = /^(?:(?:tool|trick)-(?:one|two|three|four|five|six|seven)|(?:3rd party program|Native program|Shared program|Headset|Device) (?:one|two|three)|Approve the update of tool-three to v1\.1\?|self-audit|weekly-suggestions|seat|(?:one|two|three) clicks?)$/;
   assert.ok(names.length > 20);
   for (const n of names) assert.match(n, placeholder);
   for (const p of [...src.registry.pets, ...src.registry.pipeline].filter((x) => x.role !== 'host')) assert.ok(!html.includes(`>${p.pet}<`), `${p.pet} is a real pet`);
@@ -49,7 +52,7 @@ test('the spawner writes Show Pet, its example tool and its nine drawings, and l
   const files = spawnerFiles(src);
   const all = { ...files, ...showPetAssets() };
   for (const f of [SHOW_PET.page, SHOW_PET.tool, SHOW_PET.toolJs, ...Object.keys(showPetAssets())]) assert.equal(readFileSync(`${root}/${f}`, 'utf8'), all[f], `${f} is out of date: run npm run build`);
-  assert.equal(Object.keys(showPetAssets()).filter((f) => f.startsWith(`${SHOW_PET.art}/`)).length, 9);
+  assert.equal(Object.keys(showPetAssets()).filter((f) => f.startsWith(`${SHOW_PET.art}/`)).length, 11, 'nine moods and two friends');
   assert.ok(files[INDEX].includes(SHOW_PET.page.split('/').pop()), 'the list links Show Pet');
   assert.ok(![...src.registry.pets, ...src.registry.pipeline].some((p) => p.repo === model.repo), 'Show Pet is not in pets.json');
   assert.ok(!real.some((d) => d.repo === model.repo), 'Show Pet is not one of the spawned pets');
