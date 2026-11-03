@@ -3005,8 +3005,8 @@
           "on": "2026-11-03"
         },
         "third-party:wiztree": {
-          "result": "missing",
-          "note": "Not on this PC yet: its installer waits for Astra.",
+          "result": "works",
+          "note": "On this PC, version 4.33, signed by Antibody Software Limited; installed by Astra from its own window on 2026-11-03.",
           "on": "2026-11-03"
         },
         "third-party:cpu-z": {
@@ -3015,13 +3015,13 @@
           "on": "2026-11-03"
         },
         "third-party:hwinfo": {
-          "result": "missing",
-          "note": "Not on this PC yet: its installer waits for Astra.",
+          "result": "works",
+          "note": "On this PC, version 8.54-6090, signed by REALiX; installed by Astra from its own window on 2026-11-03.",
           "on": "2026-11-03"
         },
         "third-party:crystaldiskinfo": {
-          "result": "missing",
-          "note": "Not on this PC yet: its installer waits for Astra.",
+          "result": "works",
+          "note": "On this PC, version 9.9.3.0, signed by CrystalMark Inc.; installed by Astra from its own window on 2026-11-03.",
           "on": "2026-11-03"
         },
         "third-party:latencymon": {

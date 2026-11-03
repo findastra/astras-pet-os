@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge #282 and kernel-grove's job line; accept the Sysinternals licenses; finish the three installers)
+status: open (waiting on Astra: OK to merge #282 and kernel-grove#9; accept the Sysinternals licenses)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-03
 needs: nothing
@@ -46,7 +46,9 @@ only data, two new tool pages and generated files. Whichever merges second takes
 - **Downloads (Astra's OK, deck question 5):** each into its own folder, checked against winget's SHA-256 (Coreinfo and
   WinObj, which winget does not list, by Microsoft's signature). One Windows prompt, which Astra clicked at 00:17,
   copied nine Sysinternals tools into `C:\Program Files\Sysinternals` and es.exe next to Everything, then opened the
-  HWiNFO64, CrystalDiskInfo and WizTree installers for her own clicks. **LatencyMon held**: version 7.40 at its
+  HWiNFO64, CrystalDiskInfo and WizTree installers for her own clicks; she finished all three (00:52 to 00:53), and the
+  look at 00:54 found 21 of 22 tools (HWiNFO64 8.54, CrystalDiskInfo 9.9.3, WizTree 4.33 with its first folder scan);
+  their checks say works. **LatencyMon held**: version 7.40 at its
   official address (winget lists 7.31), signed by SOFTREV LABS S.R.L.S., and Resplendence reports a Windows driver block
   from June 2026.
 - **Art:** one paid image (Astra's OK), cut into nine frames with the shared mood stickers. Draft, not approved.
@@ -64,12 +66,12 @@ only data, two new tool pages and generated files. Whichever merges second takes
 
 ## Done when
 
-1. Astra OKs #282 and the kernel-grove PR in chat; both merge, her PC hub copy fast-forwards.
-2. The three installers are finished or cancelled by her, and the next look's checks are written here.
+1. Astra OKs #282 and kernel-grove#9 in chat; both merge, her PC hub copy fast-forwards.
+2. The three Sysinternals previews fill once their license is accepted.
 
 ## Return
 
-Record the merges and the installers' outcome below.
+Record the merges below.
 
 ## Receipt and review
 
