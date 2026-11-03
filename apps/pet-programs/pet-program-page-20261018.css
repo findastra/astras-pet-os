@@ -341,6 +341,22 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .about > summary:hover::before, .may-use > summary:hover::before, .backlog > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .about[open] > summary::before, .may-use[open] > summary::before, .backlog[open] > summary::before { transform: rotate(90deg); }
 .about > p { margin: 4px 0 0 16px; }
+/* More details is the same four lines on every panel (Astra, 2026-11-03, Flash Audit deck, answer 8: A): how it works,
+   where it comes from, your rules, not built yet. */
+.about-lines { margin: 4px 0 0 16px; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 12px; }
+.about-lines dt { color: var(--chalk); font-weight: 600; }
+.about-lines dd { margin: 0; overflow-wrap: anywhere; }
+.about-lines a { color: var(--accent); }
+/* In the two top squares only the arrow shows, in the bottom corner; opened, its lines lie over the page below the
+   square (2026-10-23: no words in the squares). */
+.top > .panel > .about.arrow-only { position: absolute; bottom: 6px; margin: 0; z-index: 3; }
+.top > .cyberhome > .about.arrow-only { left: 8px; }
+.top > .system-map > .about.arrow-only { right: 8px; }
+.top > .panel > .about.arrow-only[open] > .about-lines { position: absolute; top: calc(100% + 4px); width: min(340px, calc(100vw - 48px));
+  margin: 0; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); }
+.top > .cyberhome > .about.arrow-only[open] > .about-lines { left: -8px; }
+.top > .system-map > .about.arrow-only[open] > .about-lines { right: -8px; }
+@media (max-width: 560px) { .about-lines { grid-template-columns: minmax(0, 1fr); gap: 0; } .about-lines dd + dt { margin-top: 4px; } }
 /* A tool with parts of its own inside a control panel (L4's parts, the session notes): drawn like the VRChat setups'
    headset boxes, round with the tool background, its lights and name inside on the first row, folding to that row
    (Astra, 2026-10-24: "control panels have tools and toolsets in side them"). Its menus and buttons are round like a
@@ -545,7 +561,6 @@ label.file { position: relative; }
 }
 /* Faces the page script switches between: a hidden one never shows. */
 img[hidden] { display: none !important; }
-.awake-faces { display: inline-block; }
 /* API Fairy's key requests (Astra, 2026-10-19): three groups, each labelled in its top border. Waiting on you, the one
    she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
    a phone. */
@@ -862,10 +877,65 @@ input[type="checkbox"] { accent-color: var(--line); }
 .chat-seats > summary { cursor: pointer; font-size: 13px; color: var(--chalk-dim); }
 .chat-seats > summary span { color: var(--chalk); font-weight: 600; }
 .chat-who .button .small { color: var(--chalk-dim); font-size: 11px; }
+.chat .about.arrow-only { margin-top: 8px; }
+
+/* Data Chip's phone (Astra, 2026-11-03, Flash Audit deck, answer 2: "i like the phone on data dealer, its program needs
+   its own chat"): his yellow shell from Data Dealer's dashboard, its heavy outline, the antenna and the LCD screens, in
+   its own colours. The little phone is the chat tool's open button; the window is the phone. */
+.chat-phone { --neon: #d9e25a; --neon-ink: #0a0b05; --lcd: #c3d39b; --lcd-ink: #1f2b0e; --lcd-mid: #56662f; --pixel: 'Silkscreen', var(--label); }
+.phone-screen { display: block; flex: none; background: var(--lcd); border: 3px solid var(--neon-ink); border-radius: 12px; overflow: hidden; }
+.chip-face { display: block; width: 100%; height: 100%; }
+.chat-phone .chat-open { width: auto; height: auto; padding: 0; border-radius: 12px; }
+.chat-phone .chat-open svg, .chat-phone .chat-open[aria-expanded="true"] svg { width: 100%; height: 100%; transform: none; transition: none; }
+.phone-mini { position: relative; display: grid; justify-items: center; gap: 3px; margin-top: 7px; padding: 5px 6px 4px; background: var(--neon);
+  border: 2px solid var(--neon-ink); border-radius: 11px 11px 13px 13px; box-shadow: 0 0 0 2px var(--neon); }
+.phone-mini::before { content: ""; position: absolute; top: -9px; left: 7px; width: 5px; height: 7px; background: var(--neon); border: 2px solid var(--neon-ink);
+  border-bottom: 0; border-radius: 3px 3px 0 0; }
+.phone-mini .phone-screen { width: 36px; height: 27px; border-width: 2px; border-radius: 6px; }
+.phone-name { font: 700 7px/1 var(--pixel); color: var(--neon-ink); letter-spacing: .02em; white-space: nowrap; }
+.chat-open:hover .phone-mini { transform: translateY(-1px); }
+.chat-open[aria-expanded="true"] .phone-mini { background: #c6cf45; }
+.chat-phone .chat-panel { overflow: visible; max-height: none; position: relative; padding: 14px 14px 12px; background: var(--neon); color: var(--neon-ink);
+  border: 3px solid var(--neon-ink); border-radius: 30px 30px 34px 34px; box-shadow: 0 0 0 3px var(--neon); }
+.chat-phone .chat-panel:not([hidden]) { margin-top: 24px; }
+.chat-phone .chat-panel::before { content: ""; position: absolute; top: -18px; left: 30px; width: 10px; height: 15px; background: var(--neon);
+  border: 3px solid var(--neon-ink); border-bottom: 0; border-radius: 6px 6px 0 0; }
+.chat-phone .chat-head { gap: 12px; margin: 0 0 10px; }
+.chat-phone .chat-head .phone-screen { width: 96px; height: 72px; border-radius: 14px; }
+.chat-phone .chat-title b { font: 700 16px/1.15 var(--pixel); letter-spacing: .08em; text-transform: uppercase; color: var(--neon-ink); }
+.chat-phone .chat-title .small { font: 11px/1.3 var(--pixel); color: var(--neon-ink); }
+.chat-phone .chat-close { width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--neon-ink); color: var(--neon); align-self: flex-start; }
+.chat-phone .chat-close:hover { color: #fff; }
+.chat-phone .chat-tabs .button { flex: 1; padding: 7px 4px; background: transparent; color: var(--neon-ink); border: 3px solid var(--neon-ink); border-radius: 10px;
+  font: 700 10px/1.1 var(--pixel); letter-spacing: .06em; text-transform: uppercase; }
+.chat-phone .chat-tabs .button[aria-pressed="true"] { background: var(--neon-ink); color: var(--neon); border-color: var(--neon-ink); }
+.chat-phone .chat-view { padding: 8px 10px; background: var(--lcd); color: var(--lcd-ink); border: 3px solid var(--neon-ink); border-radius: 16px;
+  box-shadow: inset 0 0 0 3px rgba(31, 43, 14, .12); }
+.chat-phone .chat-needs { max-height: 40vh; overflow-y: auto; }
+.chat-phone .chat-needs a { padding: 7px 0; color: var(--lcd-ink); border: 0; border-bottom: 2px dotted rgba(31, 43, 14, .3); font: 15px/1.2 var(--label); }
+.chat-phone .chat-needs li:last-child a { border-bottom: 0; }
+.chat-phone .chat-needs .tag, .chat-phone .chat-view .tag { color: var(--lcd-ink); border-color: var(--lcd-ink); }
+.chat-phone .chat-view .empty, .chat-phone .chat-view .small, .chat-phone .chat-view label { color: var(--lcd-ink); }
+.chat-phone .chat-log { max-height: min(200px, 30vh); }
+.chat-phone .chat-log li { margin: 6px 0; padding: 0; border: 0; border-radius: 0; color: var(--lcd-ink); font: 15px/1.25 var(--label); }
+.chat-phone .chat-log li.pet { margin-right: 6%; }
+.chat-phone .chat-log li.pet::before { content: var(--phone-name) "> "; color: var(--lcd-mid); font-weight: 700; }
+.chat-phone .chat-log li.me { margin-left: 18%; padding: 3px 9px; background: var(--lcd-ink); color: var(--lcd); border-radius: 10px 10px 2px 10px; }
+.chat-phone .chat-view .button { background: var(--lcd-ink); color: var(--lcd); border: 0; border-radius: 8px; padding: 6px 9px; font: 700 10px/1.2 var(--pixel);
+  letter-spacing: .05em; text-transform: uppercase; }
+.chat-phone .chat-view .button:hover { background: #33461a; }
+.chat-phone .chat-view .button[aria-pressed="true"] { background: var(--neon-ink); color: var(--neon); }
+.chat-phone .chat-who .button .small { color: inherit; font: 10px var(--pixel); text-transform: none; }
+.chat-phone textarea { background: #eef0cf; color: var(--neon-ink); border: 3px solid var(--neon-ink); border-radius: 12px; font: 16px/1.2 var(--label); }
+.chat-phone .chat-seats { border-top: 2px dotted rgba(31, 43, 14, .35); }
+.chat-phone .chat-seats > summary, .chat-phone .chat-seats > summary span { color: var(--lcd-ink); }
+.chat-phone .chat-panel > .about { color: var(--neon-ink); }
+.chat-phone .chat-panel > .about .about-lines dt, .chat-phone .chat-panel > .about .about-lines a { color: var(--neon-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .den .pet { animation: none !important; }
   .chat-open svg { transition: none; }
+  .chat-open:hover .phone-mini { transform: none; }
   .panel.level[data-activity="live"] { animation: none; }
 }
 

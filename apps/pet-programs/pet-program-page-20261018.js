@@ -258,8 +258,9 @@
     setInterval(function () { if (!document.hidden) load(); }, 5000);
   })();
 
-  // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
-  // face blinking) after you use the page, idle again after two quiet minutes. The mood it is in lights up in the
+  // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (its own
+  // drawing, the `blink` frame with the twinkles: Astra, 2026-11-03, Flash Audit deck, answer 1: A) after you use the
+  // page, idle again after two quiet minutes. The mood it is in lights up in the
   // emotions tool panel (Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light
   // up'"); the cyberhome has no bubble any more. ----
   // Every face is already in the page; the script only shows one and hides the others (no picture address passes
@@ -285,7 +286,7 @@
   var quiet, blinker;
   function show(next) {
     mood = next;
-    face(den, mood === 'sad' ? 'sad' : 'idle');
+    face(den, mood === 'sad' ? 'sad' : mood === 'awake' && has(den, 'blink') ? 'blink' : 'idle');
     lightUp(mood === 'awake' ? 'blink' : mood);
     // No blinking: the pet stays still (Astra, 2026-10-24: "make the animation of the rabbit moving go away on the pet
     // program, just want to see it static").
@@ -304,7 +305,6 @@
     sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
   });
 
-  // The awake picture in the emotions tool panel stays still too (2026-10-24: "just want to see it static").
 
   // ---- Session notes: every submission goes to the backlog first (section 7). ----
   var backlog = read('backlog', { schema: 'pet-program-backlog-v1', store: STORE, entries: [] });
