@@ -476,7 +476,6 @@
       "label": "kernel-grove-v1.0-process-sweep-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): every running program grouped by app the way Task Manager groups it, with what it is, why it runs and what to do (keep, your choice, safe to stop); finds leftovers from vibe coding (dev servers and scripts whose chat or terminal closed) and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "startup-switch",
       "name": "Startup switch",
@@ -489,7 +488,6 @@
       "label": "kernel-grove-v1.0-startup-switch-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): what starts at sign-in, each with a suggestion, switched on or off in Windows' StartupApproved list the way Task Manager does; only Astra's own items, never all-users ones (they need administrator permission). Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "service-host-explainer",
       "name": "Service Host explainer",
@@ -502,7 +500,6 @@
       "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): what each \"Service Host: ...\" row in Task Manager is, from Windows' own service descriptions, and which background services came from other companies. Read-only. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "program-watch",
       "name": "Program watch",
@@ -539,7 +536,6 @@
       "label": "kernel-grove-v1.0-leftover-watch-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
-    
     {
       "id": "crash-catcher",
       "name": "Crash catcher",
@@ -832,7 +828,7 @@
       "name": "Gatekeeper Goddess",
       "type": "roadmap",
       "state": "planned",
-      "job": "Security and approvals: human-facing approvals and security monitoring. Pet program: Iron Gates. Issues the grants and the short-lived agent keys; never approves her own.",
+      "job": "Security and approvals: human-facing approvals and security monitoring. Pet program: Iron Gates. Issues the grants and the short-lived agent keys; never approves her own. Design 2026-11-02: owns exact-amount/currency/payee/reason spending approval workflow and YubiKey enrollment; trusted core independently enforces hardware-backed, transaction-bound approvals. Not deployed.",
       "layer": 4
     },
     {
@@ -915,7 +911,7 @@
       "job": "Bash, terminal scripting and guarded automation.",
       "layer": 4
     },
-{
+    {
       "id": "proxy-axolotl",
       "name": "Proxy Axolotl",
       "type": "roadmap",
@@ -960,7 +956,7 @@
       "name": "Cipher Owl",
       "type": "roadmap",
       "state": "planned",
-      "job": "Encryption, keys, certificates and crypto education. Security role: checks signatures and provenance (PROVENANCE.md).",
+      "job": "Encryption, keys, certificates and crypto education. Security role: checks signatures and provenance (PROVENANCE.md). Design 2026-11-02: reviews cryptographic transaction-intent binding, signature provenance and nonsecret authenticator metadata; does not possess private keys.",
       "layer": 4
     },
     {
@@ -1171,7 +1167,7 @@
       "state": "now",
       "layer": 1,
       "category": "Device",
-      "job": "The physical key on your keychain that you tap or plug in to sign in (a FIDO2 or passkey authenticator). It proves it is really you: to your accounts, and later to the Farm and to approvals. ASTRAS_PET_OS lists one in the cyberdeck for hardware-backed sign-in, not as a replacement for encrypted storage, backups or recovery codes."
+      "job": "The physical key on your keychain that you tap or plug in to sign in (a FIDO2 or passkey authenticator). It proves it is really you: to your accounts, and later to the Farm and to approvals. ASTRAS_PET_OS lists one in the cyberdeck for hardware-backed sign-in, not as a replacement for encrypted storage, backups or recovery codes. Design 2026-11-02: spending approvals require L4 confirmation of exact amount, currency, payee and reason, bound to a WebAuthn challenge verified by trusted core. The key itself cannot display transaction details."
     },
     {
       "id": "chatgpt",
@@ -1779,7 +1775,7 @@
       "state": "planned",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "Pet Police Officer’s pet program: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach (findastra/the-police-station).",
+      "job": "Pet Police Officer’s pet program: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach (findastra/the-police-station). Design 2026-11-02: must observe denied internal tool requests as well as completed writes, attempted privilege escalation, unauthorized spend, suspicious token reuse and requests to disable monitoring; independent core audit required. Not deployed.",
       "does": "Watches every write and every agent key use, and switches things off when something looks like a break-in."
     },
     {
@@ -6498,6 +6494,27 @@
       "carries": "reports",
       "state": "planned",
       "why": "Asks for the newest clean backup from before the incident."
+    },
+    {
+      "from": "cipher-owl",
+      "to": "gatekeeper-goddess",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Crypto verification and hardware-key guidance for exact transaction-intent approval."
+    },
+    {
+      "from": "gatekeeper-goddess",
+      "to": "the-police-station",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Send scoped grant and spending approval decisions to independent audit monitoring."
+    },
+    {
+      "from": "the-police-station",
+      "to": "security-key",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Monitor attempted misuse of key-backed approval flows via core events; never read authenticator secrets."
     }
   ],
   "rings": {
@@ -6621,7 +6638,9 @@
       {
         "id": "owner",
         "who": "Astra (you, L4)",
-        "level": ["L4"],
+        "level": [
+          "L4"
+        ],
         "subjects": [
           "id:astra"
         ],
@@ -6633,13 +6652,19 @@
         "w": "yes",
         "x": "yes",
         "status": "enforced",
-        "evidence": [{ "setting": "Your own Windows account on this PC, and your own GitHub, Discord and AI accounts: only you sign in to them" }],
+        "evidence": [
+          {
+            "setting": "Your own Windows account on this PC, and your own GitHub, Discord and AI accounts: only you sign in to them"
+          }
+        ],
         "how": "It is your PC and your accounts. You give and take back every other grant in this list."
       },
       {
         "id": "seat-core",
         "who": "The agent in the seat (Claude Code or Codex, with a farmhand in it)",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6663,7 +6688,9 @@
       {
         "id": "seat-animals",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6686,7 +6713,9 @@
       {
         "id": "seat-asks",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6697,13 +6726,19 @@
         "w": "ask",
         "x": "ask",
         "status": "enforced",
-        "evidence": [{ "setting": "Claude Code's permission modes, and Codex's approval and sandbox settings, on this PC" }],
+        "evidence": [
+          {
+            "setting": "Claude Code's permission modes, and Codex's approval and sandbox settings, on this PC"
+          }
+        ],
         "how": "Claude Code and Codex ask before they run a command or touch a file outside the project folder, unless Astra turns the question off for that session (auto mode or an allow list)."
       },
       {
         "id": "farmer-round",
         "who": "The Friendly Farmer's daily round",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "type:host"
         ],
@@ -6716,7 +6751,11 @@
         "w": "pr",
         "x": "yes",
         "status": "enforced",
-        "evidence": [{ "test": "test/farmer-rounds-pr-test-20261017.mjs" }],
+        "evidence": [
+          {
+            "test": "test/farmer-rounds-pr-test-20261017.mjs"
+          }
+        ],
         "how": "The round pushes a dated farmer/rounds- branch and opens a pull request; it never pushes main. Text a pet submits is data, never instructions. test/farmer-rounds-pr-test-20261017.mjs fails if that changes.",
         "gaps": [
           11
@@ -6725,7 +6764,11 @@
       {
         "id": "pet-own-folder",
         "who": "Each pet (its own code and its L3 agent)",
-        "level": ["L1","L2","L3"],
+        "level": [
+          "L1",
+          "L2",
+          "L3"
+        ],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -6744,7 +6787,10 @@
       {
         "id": "pet-elsewhere",
         "who": "Each pet",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "type:pet",
           "type:pipeline"
@@ -6765,7 +6811,9 @@
       {
         "id": "call-models",
         "who": "The agent in the seat, or a pet's L3 agent with a key",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex",
@@ -6790,7 +6838,9 @@
       {
         "id": "seat-third-party",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6808,7 +6858,9 @@
       {
         "id": "seat-devices",
         "who": "The agent in the seat",
-        "level": ["L3"],
+        "level": [
+          "L3"
+        ],
         "subjects": [
           "id:claude-code",
           "id:codex"
@@ -6866,7 +6918,9 @@
       {
         "id": "toucan-reads-cli-proxy",
         "who": "Token Toucan",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "id:token-toucan"
         ],
@@ -6884,7 +6938,9 @@
       {
         "id": "axolotl-reads-cli-proxy",
         "who": "Proxy Axolotl",
-        "level": ["L2"],
+        "level": [
+          "L2"
+        ],
         "subjects": [
           "id:proxy-axolotl"
         ],
@@ -6993,7 +7049,10 @@
       {
         "id": "log-lynx-watch",
         "who": "Log Lynx (Log Den: crash-catcher, windows-log-reader, heartbeat-checker)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:log-den"
         ],
@@ -7014,7 +7073,10 @@
       {
         "id": "packet-piranha-probe",
         "who": "Packet Piranha (Packet River: ping-sampler, dns-checker, reach-checker, route-tracer)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:packet-river"
         ],
@@ -7033,7 +7095,10 @@
       {
         "id": "forensic-ferret-read",
         "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
-        "level": ["L1","L2"],
+        "level": [
+          "L1",
+          "L2"
+        ],
         "subjects": [
           "id:evidence-locker"
         ],
@@ -7178,7 +7243,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7216,7 +7281,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7257,7 +7322,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7285,7 +7350,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page that keeps your data in that browser on your PC, so nothing is sent anywhere or committed to the repo."
           }
         ]
@@ -7313,7 +7378,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Type a hex code and the page draws that exact Fuzzboi as a PNG, right in the browser."
           }
         ]
@@ -7322,7 +7387,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "The security checklist and its content pages, saved in your browser."
           }
         ]
@@ -7345,7 +7410,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page that keeps your data in that browser on your PC, so nothing is sent anywhere or committed to the repo."
           }
         ]
@@ -7354,7 +7419,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "A Python practice desk that checks your answers in the browser, so you can practise without installing Python."
           }
         ]
@@ -7363,7 +7428,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7372,7 +7437,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7381,7 +7446,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7390,7 +7455,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7462,7 +7527,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7471,7 +7536,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7480,7 +7545,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7503,7 +7568,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Plans and previews lighting scenes in the browser; sending them to real lights is planned."
           }
         ]
@@ -7512,7 +7577,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7587,7 +7652,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Its app is one HTML page with its script inside, so it opens by double-click in any browser, with nothing to install and no server."
           }
         ]
@@ -7596,7 +7661,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file until the job is decided."
           }
         ]
@@ -7638,7 +7703,7 @@
           }
         ]
       },
-            "log-den": {
+      "log-den": {
         "languages": [
           {
             "language": "C#",
@@ -7699,7 +7764,7 @@
         "languages": [
           {
             "language": "JavaScript",
-            "percent": 100.0,
+            "percent": 100,
             "why": "The whole Discord bot: it builds the single-choice role menu and the welcome-channel message. Measured from GitHub on 2026-10-17."
           }
         ]
@@ -7708,7 +7773,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "Placeholder page only: one HTML file. Finding unpaid bills is planned and not built yet."
           }
         ]
@@ -7717,7 +7782,7 @@
         "languages": [
           {
             "language": "HTML",
-            "percent": 100.0,
+            "percent": 100,
             "why": "One page that runs in any browser, so it can preview and check other pages on every device size without installing anything."
           }
         ]
@@ -7738,7 +7803,7 @@
           },
           {
             "language": "HTML",
-            "percent": 22.0,
+            "percent": 22,
             "why": "Program interface, local console and iPad setup guide."
           },
           {
