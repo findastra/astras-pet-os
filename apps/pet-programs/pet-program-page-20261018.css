@@ -24,6 +24,14 @@
 }
 :root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
 :root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
+/* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
+   biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
+:root[data-pet="drum-dog"] {
+  --slate: #12132b; --slate-2: #0b0c1d; --chalk: #e8ecff; --chalk-dim: #a5aed6; --line: #3d6bff; --line-dim: #27357a;
+  --link: #7fe7ff; --connection: #9fb4ff;
+  --tool-bg: rgba(120, 150, 255, .06); --tool-bg-hover: rgba(120, 150, 255, .11);
+}
+:root[data-pet="drum-dog"] .footer-group::before, :root[data-pet="drum-dog"] .footer-sparkle { color: #9fb4ff; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
@@ -292,6 +300,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill-picture img { display: block; width: 160px; max-width: 100%; height: auto; }
 /* a tool that works right on the page, in its own tool panel inside L1 (Astra's Window Star, 2026-10-20) */
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
+/* A wide tool fills the panel (Bass & Biscuits' APC64 deck): about the deck's own shape plus its two short rows. */
+.tool-frame.wide { max-width: none; height: auto; aspect-ratio: 1370 / 1150; min-height: 420px; }
 .plain li { margin: 5px 0; }
 .about { margin-top: 10px; font-size: 12.5px; color: var(--chalk-dim); }
 .about > summary { cursor: pointer; width: fit-content; }
