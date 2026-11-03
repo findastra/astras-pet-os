@@ -5,7 +5,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, KEY_REQUEST_GROUPS, KEY_REQUEST_EXAMPLES, PET_PANELS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, KEY_REQUEST_GROUPS, KEY_REQUEST_EXAMPLES, PET_BOXES } from '../scripts/pet-program-pages-20261018.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const files = spawnerFiles(readSpawnerSources(root));
@@ -13,16 +13,12 @@ const pages = spawnerPages(readSpawnerSources(root));
 const page = files[pagePath('api-fairy')];
 const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
 
-test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel first, before the four levels, labelled in its border, and it folds', () => {
-  const at = page.indexOf('>api-fairy-key-requests-tool-panel<');
-  // A pet's own panels come first, under the header (Astra, 2026-10-24: "all of the non typical panels we make for
-  // these pet programs need to go at the top if applicable").
-  for (const after of ['api-fairy-intelligence-levels-panel', 'api-fairy-L4-control-panel', 'api-fairy-rwx-panel']) {
-    assert.ok(page.indexOf(`>${after}<`) > -1, `${after} is on the page`);
-    assert.ok(at > -1 && at < page.indexOf(`>${after}<`), `before ${after}`);
-  }
-  assert.ok(at > page.indexOf('</header>'), 'under the header');
-  assert.match(page, /<details class="panel key-requests" open><summary[^>]*><span class="legend">api-fairy-key-requests-tool-panel<\/span><\/summary>/);
+test('API Fairy Ring\'s key-requests tool is its own tool box in L1, under Native tools, listed once', () => {
+  // No special panels (Astra, 2026-11-02): it was a panel above the levels since 2026-10-24.
+  const at = page.indexOf('<div class="toolbox pet-box key-requests">');
+  assert.ok(at > page.indexOf('>api-fairy-L1-control-panel<') && at < page.indexOf('>api-fairy-L2-control-panel<'), 'inside L1');
+  assert.ok(!page.includes('api-fairy-key-requests-tool-panel'), 'no panel of its own');
+  assert.equal((page.match(/data-item="tool:key-requests"/g) || []).length, 2, 'one tool, its two lights: never also a pill');
   assert.deepEqual(KEY_REQUEST_GROUPS.map(([, label]) => label), ['waiting-on-you', 'has-a-key', 'declined-or-not-needed']);
   for (const [id, label] of KEY_REQUEST_GROUPS) {
     assert.ok(page.includes(`<fieldset class="request-group ${id}"><legend>${label}</legend>`), `${label} has its name in its border`);
@@ -32,7 +28,7 @@ test('API Fairy Ring\'s page has api-fairy-key-requests-tool-panel first, before
 });
 
 test('only API Fairy\'s page has the panel', () => {
-  assert.equal(typeof PET_PANELS['api-fairy'], 'function');
+  assert.equal(PET_BOXES['api-fairy'][0].tool, 'key-requests');
   for (const d of pages) if (d.repo !== 'api-fairy') assert.ok(!files[pagePath(d.repo)].includes('key-request'), `${d.repo} has no key-requests panel`);
 });
 

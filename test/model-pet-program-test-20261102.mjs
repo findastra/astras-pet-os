@@ -43,6 +43,14 @@ test('The Model Pet Program shows every light and every kind of item once', () =
   assert.match(html, /L3 to you, the seated agent/, 'an editorial note');
 });
 
+test('no page has a panel between its header and its four levels (Astra, 2026-11-02: "No special panels")', () => {
+  for (const d of [...real, model]) {
+    const page = buildPetProgramPage(d);
+    const between = page.slice(page.indexOf('</header>'), page.indexOf('<details class="panel levels"'));
+    assert.doesNotMatch(between, /class="legend"/, `${d.repo}: a panel above the levels`);
+  }
+});
+
 test('The Model Pet Program uses placeholder names only, never a real pet\'s things', () => {
   const names = [...html.matchAll(/<span class="item-name">([^<]+)<\/span>/g)].map((m) => m[1]);
   const placeholder = /^(?:(?:tool|trick)-(?:one|two|three|four|five|six|seven|eight|nine)|(?:3rd party program|Native program|Shared program|Headset|Device) (?:one|two|three)|Approve the update of tool-three to v1\.1\?|self-audit|weekly-suggestions|seat|(?:one|two|three) clicks?)$/;

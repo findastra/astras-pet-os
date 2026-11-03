@@ -196,7 +196,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -415,8 +415,8 @@ const showPicture = (i) => !!i.picture && !i.embed;
 // `in_pill: true` goes further: no panel at all, the tool works inside its own rounded tool box in L1, which starts open
 // (Astra, 2026-11-02, of the APC64 board: "that board needs to be within a tool... the tool should look like any other
 // tool we see on here. So use that like curved border, and then put it in there"; "that shouldn't be its own panel").
-const embeddedTools = (d, inL1 = false) => d.tools.filter((t) => t.embed && !t.inPill && t.inL1 === inL1).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay"></iframe>
-${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}`)}`, { cls: 'tool-embed', id: `${t.id}-tool-panel`, light: true })).join('\n');
+// No tool that works on the page has a panel of its own (Astra, 2026-11-02: "No special panels"; the APC64 board: "that
+// shouldn't be its own panel"): every tool with an `embed` is a pill that holds it, in its own tool box in L1.
 
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
 // They need to have like an oval around them ... and those two buttons needs to be on it"): its paired lights, then
@@ -560,11 +560,11 @@ export const KEY_REQUEST_EXAMPLES = [
     link: KEY_REQUEST_SKILL, found: 'cannot-see', found_in: 'It goes inside another program\'s own settings, where I can\'t look.', note: 'Declined: a bot other people use runs on its own API key with a spend limit, never your own sign-in.' },
 ];
 
-function keyRequestsPanel(d) {
+function keyRequestsBody(d) {
   const groups = KEY_REQUEST_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group ${id}"><legend>${esc(label)}</legend><p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
-  return panel(`${d.petSlug}-key-requests-tool-panel`, `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
+  return `<p class="small" id="key-requests-source" aria-live="polite">Looking for API Fairy's list on this PC.</p>
 <div class="request-groups" id="key-requests">${groups}</div>
-<details class="about"><summary>More details</summary><p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this panel when this page is opened there. Anywhere else it shows made-up examples.</p></details>`, { cls: 'key-requests', light: true });
+<details class="about"><summary>More details</summary><p class="small">A chat, pet or tool that needs a key files a key request for API Fairy (<a href="${esc(KEY_REQUEST_SKILL)}">skills/key-request</a>): who is asking, which provider and key name, what for, the spend limit and a link back to where it asked. Never the key itself. The list stays on Astra's PC: API Fairy reads it, looks for each key by name in Windows' environment variables and the .env files she watches, and fills this tool when this page is opened there. Anywhere else it shows made-up examples.</p></details>`;
 }
 
 // GitHub Aquarium's outstanding items (Astra, 2026-10-21, all recommended: findastra/github-goldfish card 006): what
@@ -606,24 +606,21 @@ ${about('outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</c
 
 
 // By Astra. OpenAI Codex (GPT-6), 2026-10-20. No private archive state enters the hub.
-function dmArchivePanel(d) {
+function dmArchiveBody(d) {
   const source = d.programs.find(p => p.id === 'dm-archive-review')?.url;
   if (!source) return '';
-  return panel(`${d.petSlug}-dm-archive-tool-panel`, `<fieldset class="tool-box"><legend>discord-tower-v1.0-dm-archive-v0.1</legend>
+  return `<fieldset class="tool-box"><legend>discord-tower-v1.0-dm-archive-v0.1</legend>
 <h3>DM archive review</h3><p>Check and search a conversation saved with DiscordChatExporter. Messages and media stay in the review tab on your computer.</p>
 <p class="small">Source prepared · adoption pending. No archive is loaded here. Export and deletion are separate.</p>
 <p><a class="button" id="dm-archive-open" href="${esc(source)}">Get the local viewer</a></p>
 <p class="small" id="dm-archive-open-note">Download Damsel's repository after the archive review change is merged, then open discord-damsel-archive-review-20261020.html. This public page cannot read your computer's files.</p>
-</fieldset>`, { cls: 'dm-archive' });
+</fieldset>`;
 }
 
 
 // Portfolio Puffer's social row (Astra, 2026-10-22: "can we see all these on the portfolio puffer pet program?"): the six
 // styles of the "Profile Social Row" canvas for the links at the top of her GitHub profile, the live one marked.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-22. Styles and links: scripts/social-row-preview-20261022.mjs.
-function socialRowPanel(d) {
-  return panel(`${d.petSlug}-social-row-tool-panel`, socialRowBody(), { cls: 'social-row' });
-}
 
 // Rift Rabbit's VRChat launch panel (Astra, 2026-10-23): two headsets, four ways of tracking the head each, and her
 // notes on how each try went, to find the one that works best. Claude Opus 5.5 (claude-opus-5-5), 2026-10-23.
@@ -635,18 +632,31 @@ function vrchatSetups() {
 ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what each way of launching VRChat starts and turns off. The switches and your notes on each try are saved in this browser only. A web page cannot start programs, so the Launch buttons ask Rift Rabbit's launcher on this PC (<code>wonderland-launchpad-v1.0-vr-launch-v1.0</code>, 127.0.0.1 only, with a code only this PC knows); they work only on the page opened from this PC while the launcher runs, and show each step as it goes.`)}</div>`;
 }
 
-function presencePanel(d) {
+function presenceBody(d) {
   const card = (key, name) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${name} Discord Presence</legend>
 <p data-presence-status role="status">Not checked. Open Discord Damsel on this PC to connect.</p>
 <p><button type="button" class="button" data-presence-start="${key}" disabled>Start &amp; open ${name}</button>
 <a class="button" data-presence-controls="${key}" aria-disabled="true" target="_blank" rel="noopener">Open ${name} controls</a>
 <button type="button" class="button" data-presence-stop="${key}" disabled>Stop sharing</button></p></fieldset>`;
-  return panel(`${d.petSlug}-presence-control-panel`, `<div id="discord-damsel-presence-control">
+  return `<div id="discord-damsel-presence-control">
 ${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}
 <p class="small" id="presence-control-note" role="status">Start and open works on this PC after you double-click Discord Damsel. The control links open apps that are already running.</p>
-${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`, { cls: 'presence' });
+${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`;
 }
-export const PET_PANELS = { 'portfolio-puffer': socialRowPanel, 'api-fairy': keyRequestsPanel, 'discord-tower': d => presencePanel(d) + '\n' + dmArchivePanel(d) };
+// A pet's own tool boxes, in L1 under Native tools (Astra, 2026-11-02, all recommended: "No special panels"; they were
+// panels above the levels since 2026-10-24). `tool` names the System Map tool the box is, so its pill is not listed
+// twice; a box without one is named <pet>-<name>.
+export const PET_BOXES = {
+  'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
+  'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
+  'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
+};
+function petBoxes(d) {
+  const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
+  const html = boxes.map(({ b, body, t }) => toolBox(t ? t.id : `${d.petSlug}-${b.name}`, t ? t.name : `${d.petSlug}-${b.name}`,
+    `${t?.desc ? `<p class="small">${esc(t.desc)}</p>` : ''}${t?.label ? `<code class="label">${esc(t.label)}</code>` : ''}${body}`, { cls: `pet-box ${b.tool || b.name}` })).join('\n');
+  return { html: html ? `<div class="toolboxes">${html}</div>` : '', count: boxes.length, toolIds: boxes.map(({ t }) => t?.id).filter(Boolean) };
+}
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
@@ -773,13 +783,13 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
+  const boxes = petBoxes(d);
   const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools)}
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
-${embeddedTools(d, true)}
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
@@ -839,13 +849,6 @@ ${sub('pet-id', `<dl class="status">
 <dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>`, { cls: 'level', light: true });
-
-  // A pet's own panels come first, under the header and before the four levels (Astra, 2026-10-24:
-  // "rift-rabbit-launch-panel should be the first panel before the intelligence levels. all of the non typical panels
-  // we make for these pet programs need to go at the top if applicable"). A tool that works right on the page is one
-  // of them, its pill still listed in L1 (Astra, 2026-10-22: "astras-photostar-panel is its own and the tool is listed
-  // too just separately").
-  const own = `${embeddedTools(d) ? `${embeddedTools(d)}\n` : ''}${PET_PANELS[d.repo] ? `${PET_PANELS[d.repo](d)}\n` : ''}`;
 
   const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>checked, works <span class="key fix"></span>report issues <span class="key update"></span>update waiting for your OK <span class="key planned"></span>not created</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
@@ -947,7 +950,7 @@ ${wordScripts}
 <main class="page">
 ${editorial}
 <header class="top">${cyberhome}${title}${systemMap}</header>
-${own}${levels}
+${levels}
 <div class="side-by-side">${rwx}${notes}</div>
 <div class="pair">${emotions}${clicker}</div>
 ${related}
@@ -955,7 +958,7 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${PET_PANELS[d.repo] === keyRequestsPanel ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
+${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
 ${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>

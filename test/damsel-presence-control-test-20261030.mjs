@@ -59,7 +59,9 @@ test('Damsel generated page has visible start/open/stop controls and verified-li
     assert.match(html, new RegExp(`data-presence-stop="${key}" disabled`));
     assert.match(html, new RegExp(`class="light onoff is-off" data-item="program:${key}-discord-presence"[^>]*data-presence-managed="1"`));
   }
-  assert.ok(html.indexOf('id="discord-damsel-presence-control"') < html.indexOf('discord-damsel-L1-control-panel'));
+  // In its own tool box in L1 since 2026-11-02 (Astra: "No special panels").
+  assert.ok(html.indexOf('id="discord-damsel-presence-control"') > html.indexOf('discord-damsel-L1-control-panel'));
+  assert.ok(html.indexOf('id="discord-damsel-presence-control"') < html.indexOf('discord-damsel-L2-control-panel'));
   assert.match(html, /src="\.\.\/discord-damsel-presence-control-20261030.js"/);
   for (const [path, page] of Object.entries(files)) if (!path.includes('discord-tower-')) assert.doesNotMatch(page, /src="\.\.\/discord-damsel-presence-control/);
 });

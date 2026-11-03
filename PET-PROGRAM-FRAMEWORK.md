@@ -83,6 +83,12 @@ only as an "Open it full screen" button. A box can start closed (`start_closed: 
 Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
 breakout, its own website with only a summary tool panel, needs Astra's OK.
 
+**No special panels** (Astra, 2026-11-02: "No special panels"). Nothing sits between the header and the four levels:
+a pet's own tool (API Fairy's key requests, Discord Damsel's presence controls and DM archive, Portfolio Puffer's social
+row) is a rounded tool box in L1 under Native tools (`PET_BOXES` in the spawner), and every tool that works on the page
+(an `embed` on its System Map node, like Astra's Window Star) is held in its own tool box there. The 2026-10-24 rule
+that put such panels at the top is replaced.
+
 **Toolsets, from data** (Astra, 2026-10-24: "control panels have tools and toolsets in side them"; 2026-11-02, all
 recommended): a tool whose own tools name it with `in` on the System Map (as a device names its group) is a toolset.
 The spawner draws it as one rounded tool box with its lights, its name, its one line and its label, and its tools as

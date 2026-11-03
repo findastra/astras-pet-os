@@ -738,12 +738,12 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-said { margin: 4px 0; }
 .launch-run-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
 .vrchat-launch .button:disabled { opacity: .45; cursor: not-allowed; }   /* a Launch button that is off looks off */
-.request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+.request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }
 .request-group.waiting { border-color: var(--fix); grid-column: 1 / -1; }
 .request-group.waiting legend { color: var(--fix); }
-.request-group.waiting .requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 24px; }
+.request-group.waiting .requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 0 24px; }
 .request-group.waiting .request, .request-group.waiting .request:first-child { border-top: 0; border-bottom: 1px solid var(--line-dim); }
 .requests { list-style: none; margin: 0; padding: 0; }
 .request { border-top: 1px solid var(--line-dim); padding: 8px 0 6px; overflow-wrap: anywhere; }

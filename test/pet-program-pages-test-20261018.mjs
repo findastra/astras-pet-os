@@ -255,15 +255,15 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
   }
   const puffer = files[pagePath('portfolio-puffer')];
   // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
-  // 2026-10-22 its panel is its own ("astras-photostar-panel is its own and the tool is listed too just separately"),
-  // and its pill in L1 points there. Since 2026-10-24 a pet's own panels come first, before the four levels.
+  // 2026-11-02 it works inside its own tool box in L1, like every tool that works on the page ("No special panels").
   const levelsStart = puffer.indexOf(">portfolio-puffer-intelligence-levels-panel<");
   const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
-  const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
-  assert.ok(at > -1 && at < levelsStart, "its own panel, before the four levels");
-  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  const at = puffer.indexOf('<div class="pill-tool" id="astras-star-window">');
+  assert.ok(at > levelsStart && at < levelsEnd, "in its own tool box in L1");
+  assert.ok(!puffer.includes('astras-star-window-tool-panel'), "no panel of its own");
+  assert.match(puffer.slice(at), /^<div class="pill-tool" id="astras-star-window"><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-control-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
-  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
+  assert.match(puffer, /<a class="button" href="https:\/\/findastra\.github\.io\/astras-star-window\/" target="_blank" rel="noopener">Open it full screen<\/a>/, 'its own page opens full screen');
   const damsel = pages.find((d) => d.repo === 'discord-tower');
   const html = files[pagePath(damsel.repo)];
   for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/discord-tower/tree/main/tools/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
