@@ -63,3 +63,18 @@ memory of earlier chats, and the pages she shaped most (Wonderland Launchpad, Ba
    Launchpad and Bass & Biscuits set them so they look exactly as before.
 
 Fit-check: 19 of 19 screens for the model and for API Fairy's page in the new colours.
+
+## Corrections, 2026-11-03
+
+- **Colours: a classic blueprint, the same layout as always.** Astra: "Something's really wrong about the colors ...
+  It's dark blue blocks ... I wanted you to just use the exact same formatting as we've been", then "we need to use the
+  dark color ... do it like a blueprint color, blue and white and yellow. Like, make it very classical." The filled
+  navy boxes are gone (`--box` is transparent again); every page without its own colours is Prussian blue with a faint
+  drafting grid (`--grid`), white lines and lettering, yellow links, marks, serial numbers and L3's note. The Farm,
+  Wonderland Launchpad and Bass & Biscuits set every new colour themselves and look exactly as before (their accent had
+  been broken by a self-reference in the first version; fixed).
+- **One tool that works on the page, not two**: Astra, "you have tool 6 and tool 7, but they're the exact same thing."
+  tool-six stays (open, Open it full screen); its example is a plain tool (one line, three results, Run) instead of the
+  pad grid. The toolset holds tool-seven and tool-eight.
+- **Click a tool anywhere to open it**: main's #277 is merged into this branch, so the model has it too.
+- Fit-check: 19 of 19 screens.

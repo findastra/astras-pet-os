@@ -99,10 +99,12 @@ levels are **four stacked tool panels**, one per level, and the lights are **but
 example; [docs/unity-unicorn-page-modules-20261018.md](docs/unity-unicorn-page-modules-20261018.md) puts every one of
 its tools and tricks in its tool panel.
 
-**The colours every page gets** unless it has its own (Astra, 2026-11-02: "I don't like the raspberry color page
-either. Let's make it like sky blue or something. With darker boxes"): a sky-blue page behind deep navy boxes, navy
-ink for the title on the sky, light text in the boxes. Pages with their own colours keep them (the Farm's green,
-Wonderland Launchpad's storm, Bass & Biscuits' midnight indigo). Every group is a **tool panel**: a thin bordered box with its label
+**The colours every page gets** unless it has its own: **a classic blueprint** (Astra, 2026-11-03: "do it like a
+blueprint color, blue and white and yellow. Like, make it very classical"; raspberry until 2026-11-02): Prussian blue
+paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
+changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
+boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
+midnight indigo). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
 or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
