@@ -187,7 +187,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: ['wide', 'square'].includes(n.frame) ? n.frame : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -376,13 +376,13 @@ const showPicture = (i) => !!i.picture && !i.embed;
 
 // A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map. A `frame: "wide"`
 // tool fills the panel's width (Bass & Biscuits' APC64 deck, Astra 2026-11-02: "build that right on the base and
-// biscuit"); `allow="midi"` lets it hear a controller plugged into this PC after the browser asks.
+// biscuit"); `allow="midi"` and `allow="hid"` let it hear a controller plugged into this PC after the browser asks (`hid`: the Stream Deck +, 2026-11-02).
 // `in_l1: true` puts it inside the L1 control panel with the other tools instead of above the levels (Astra, 2026-11-02,
 // of the APC64 deck: "remember this is a tool... its not above it"; tools "under L1").
 // `in_pill: true` goes further: no panel at all, the tool works inside its own rounded tool box in L1, which starts open
 // (Astra, 2026-11-02, of the APC64 board: "that board needs to be within a tool... the tool should look like any other
 // tool we see on here. So use that like curved border, and then put it in there"; "that shouldn't be its own panel").
-const embeddedTools = (d, inL1 = false) => d.tools.filter((t) => t.embed && !t.inPill && t.inL1 === inL1).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay"></iframe>
+const embeddedTools = (d, inL1 = false) => d.tools.filter((t) => t.embed && !t.inPill && t.inL1 === inL1).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay; hid"></iframe>
 ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}`)}`, { cls: 'tool-embed', id: `${t.id}-tool-panel`, light: true })).join('\n');
 
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
@@ -407,7 +407,7 @@ function itemList(items, prefix, empty) {
     const inPanel = i.embed && !i.inPill;
     const href = inPanel ? `#${i.id}-tool-panel` : i.url;
     const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
-    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
+    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; hid"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
     const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${tool}${open}`;

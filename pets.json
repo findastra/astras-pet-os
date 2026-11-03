@@ -2446,9 +2446,14 @@
         ],
         "programs": [
           {
+            "node": "web-browser",
+            "how": "required",
+            "why": "The Stream Deck + deck runs in the browser and hears the real deck through WebHID (Edge)."
+          },
+          {
             "node": "stream-deck",
             "how": "optional",
-            "why": "Planned: Deck Duck is the Elgato Stream Deck pet."
+            "why": "Installed (7.6.0); it runs the actions the deck's labels describe. Deck Duck works without it."
           }
         ]
       }
