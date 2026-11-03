@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-267 rows: 12 native programs, 129 native tools, 19 native tricks, 107 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+268 rows: 12 native programs, 129 native tools, 19 native tricks, 108 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -273,6 +273,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
+| 13 | Discord Damsel | Discord Tower | third-party program | Discord Canary |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | apc64-deck-guide | `bass-biscuits-v1.0-apc64-deck-guide-v1.0` | Works today |
