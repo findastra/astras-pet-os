@@ -100,3 +100,19 @@ the Friendly Farmer repo... let's start doing it like that going forward."
   and the checklist), and `skills/show-pet-panel/SKILL.md`. This is now the skill's maintained copy in the hub; the
   Claude and Codex installs match it. A test guards it.
 - The same rule is in Astra's global rules for Claude (`CLAUDE.md`) and Codex (`AGENTS.md`) on this PC.
+
+## All of Bass & Biscuits on its page, one blue, no scroll bars (same day)
+
+Astra: "get rid of like the scroll bar on it... make sure that the debt guide page and all the other separate pages
+that we've created involving Basin Biscuits... has the same like blue theme... I never wanted to do any breakouts to
+begin with, so I think we should try our hardest to put it on the actual page."
+
+- apc64-drum-kit-tool and learn-apc64-tool now work inside their own tool boxes in L1, as use-my-apc64-tool does.
+  They start closed (`start_closed`) so the page stays short; the deck starts open.
+- The lessons moved from findastra/drum-dog into the hub, as `apps/drum-dog-learn-apc64-20261102.html`, so GitHub
+  Pages can show them on the page. They are in midnight indigo now; the kits and the deck already were.
+- No scroll bar inside a tool box: `apps/drum-dog-in-tool-20261102.js` tells the page how tall each tool is, and the
+  box grows to fit. Wide tools may be up to 12000 px tall. Inside a box, the tools also drop their own background and
+  their repeated header.
+- The deck's "My kits" button opens the kit tool's box on the same page.
+- PET-PROGRAM-FRAMEWORK.md, section 3: "On the page first, no breakouts".
