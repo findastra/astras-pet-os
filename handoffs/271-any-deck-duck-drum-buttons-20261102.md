@@ -18,7 +18,7 @@ open. Please add these two buttons wherever Deck Pond keeps its Stream Deck butt
 | **Surprise kit** | Website | the same address plus `?kit=surprise` (the deck picks one of Astra's drum kits at random) |
 
 Bass & Biscuits' page also shows the deck at
-`https://findastra.github.io/astras-pet-os/apps/pet-programs/drum-dog-20261018.html#use-my-apc64-tool`. The
+`https://findastra.github.io/astras-pet-os/apps/pet-programs/drum-dog-20261018.html#preview-my-apc64-tool`. The
 deck page on its own opens faster and fills the window, so it is the better target for a button.
 
 ## Ownership and state

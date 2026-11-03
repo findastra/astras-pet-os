@@ -246,7 +246,7 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
       // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19), or one that
-      // works inside its own tool box (Astra, 2026-11-02, use-my-apc64-tool: "that board needs to be within a tool")
+      // works inside its own tool box (Astra, 2026-11-02, preview-my-apc64-tool: "that board needs to be within a tool")
       // A tool in its own tool box may start closed (start_closed) so a page with several stays short (2026-11-02).
       const open = p.includes('<details class="pill-more" open>');
       if (p.includes('class="pill-picture"')) assert.ok(open, `${d.repo}: a live picture starts open`);

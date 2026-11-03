@@ -10,7 +10,9 @@
   if (!inTool) return;
   document.documentElement.classList.add('in-tool');
   function tell() {
-    var h = Math.ceil(document.documentElement.scrollHeight);
+    // The content's own height: the whole page's scrollHeight never drops below the box's current height, so the box
+    // could grow but never shrink back.
+    var h = Math.ceil(document.body.getBoundingClientRect().bottom + window.scrollY);
     try { window.parent.postMessage({ type: 'tool-panel-height', height: h }, '*'); } catch (e) { /* no page around it */ }
   }
   window.addEventListener('load', tell);

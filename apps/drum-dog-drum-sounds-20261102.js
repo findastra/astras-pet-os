@@ -1,4 +1,4 @@
-// Bass & Biscuits' drum sounds and drum kits, shared by the APC64 deck (apc64-deck-guide) and the kit tool
+// Bass & Biscuits' drum sounds and drum kits, shared by the APC64 deck (preview-my-apc64-tool) and the kit tool
 // (apc64-drum-kit-tool). Every sound is made in the browser with Web Audio; Astra's own sound files stay in this
 // browser (IndexedDB). Nothing is downloaded or sent. Claude Opus 5.5 (claude-opus-5-5), 2026-11-02.
 (function () {
@@ -52,26 +52,47 @@
     'Bass blip': function (v, k) { tone('sawtooth', 55 * k, 0, 0.25, v * 0.35); tone('sine', 110 * k, 0, 0.25, v * 0.4); },
     'Vinyl crackle': function (v, k) { for (var i = 0; i < 6; i++) noise('highpass', 3000 * k, 0.01, v * 0.4, Math.random() * 0.3); }
   };
-  // What colour family each sound lights on the pads.
+  // Which colour family a sound is: 0 kicks, 1 snares and claps, 2 hats and cymbals, 3 toms, 4 everything else.
   function family(name) {
-    if (/kick|boom/i.test(name)) return '#2ef2ff';
-    if (/snare|clap|rim/i.test(name)) return '#ff4fd8';
-    if (/hat|ride|crash|shaker|crackle/i.test(name)) return '#b6ff3b';
-    if (/tom|bongo/i.test(name)) return '#ffc23b';
-    return '#b98bff';
+    if (/kick|boom/i.test(name)) return 0;
+    if (/snare|clap|rim/i.test(name)) return 1;
+    if (/hat|ride|crash|shaker|crackle/i.test(name)) return 2;
+    if (/tom|bongo/i.test(name)) return 3;
+    return 4;
   }
+  // Every kit lights its pads in its own five colours (one per family), so kits can be told apart at a glance
+  // (Astra, 2026-11-03: "I can't tell them apart ... by just the colors of the buttons").
+  var PALETTES = [
+    ['#2ef2ff', '#ff4fd8', '#b6ff3b', '#ffc23b', '#b98bff'],   // neon
+    ['#ff2a2a', '#ff8a1f', '#ffe14d', '#ff5fa2', '#ffffff'],   // fire
+    ['#2f6bff', '#29e0ff', '#7fffd4', '#a9b8ff', '#5b3dff'],   // ocean
+    ['#ffb3c7', '#c9b6ff', '#b8f2e6', '#ffe5a5', '#a0c4ff'],   // pastel
+    ['#9b30ff', '#ff2bd6', '#e8b8ff', '#5d1dff', '#ff7ab8'],   // grape
+    ['#ff3b30', '#f2f2f2', '#ffb000', '#9aa1ad', '#ff6a00'],   // red and silver
+    ['#00ff9c', '#39ff14', '#00e5ff', '#d4ff3b', '#7cffcb'],   // alien green
+    ['#ff6b00', '#00f0ff', '#ff00a0', '#fff200', '#00ff6a'],   // arcade
+    ['#ffd700', '#ff9e3d', '#fff6b0', '#d4a017', '#ffe7d1'],   // gold
+    ['#ff0055', '#7a00ff', '#00d1ff', '#ff00e6', '#4dff00']    // party
+  ];
+  var FILE_COLOR = '#ff9a3c';   // a pad playing one of Astra's own sound files
 
   // Ready-made kits: 16 pads, bottom row first, left to right (the 4x4 drum layout Live puts on the APC64).
-  function kit(id, name, pads) { return { id: id, name: name, ready: true, pads: pads.map(function (p) { return typeof p === 'string' ? { sound: p, tune: 1 } : p; }) }; }
+  function kit(id, name, palette, pads) { return { id: id, name: name, ready: true, colors: PALETTES[palette], pads: pads.map(function (p) { return typeof p === 'string' ? { sound: p, tune: 1 } : p; }) }; }
   var READY = [
-    kit('starter', 'Starter', ['Kick', 'Rim', 'Snare', 'Clap', 'Low tom', 'Shaker', 'Closed hat', 'Mid tom', 'High tom', 'Cowbell', 'Open hat', 'Click', 'Crash', '808 boom', 'Crack snare', 'Ride']),
-    kit('808', '808', ['808 boom', 'Rim', 'Snare', 'Clap', { sound: '808 boom', tune: 0.8 }, { sound: '808 boom', tune: 1.25 }, 'Closed hat', 'Open hat', 'Low tom', 'Mid tom', 'High tom', 'Cowbell', 'Crash', 'Shaker', 'Click', 'Ride']),
-    kit('house', 'House', ['Punch kick', 'Clap', { sound: 'Closed hat', tune: 1.1 }, 'Open hat', 'Kick', 'Snare', 'Shaker', 'Ride', 'Bass blip', { sound: 'Bass blip', tune: 1.5 }, 'Rim', 'Cowbell', 'Crash', 'Bongo', { sound: 'Bongo', tune: 1.4 }, 'Click']),
-    kit('lofi', 'Lo-fi', [{ sound: 'Kick', tune: 0.85 }, 'Rim', 'Soft snare', 'Vinyl crackle', 'Low tom', 'Shaker', { sound: 'Closed hat', tune: 0.7 }, 'Mid tom', 'High tom', 'Bongo', { sound: 'Open hat', tune: 0.7 }, 'Click', { sound: 'Crash', tune: 0.6 }, '808 boom', { sound: 'Snare', tune: 0.8 }, { sound: 'Ride', tune: 0.8 }]),
-    kit('trap', 'Trap', ['808 boom', { sound: 'Crack snare', tune: 1.1 }, 'Clap', 'Closed hat', { sound: '808 boom', tune: 0.75 }, { sound: '808 boom', tune: 1.33 }, { sound: 'Closed hat', tune: 1.3 }, 'Open hat', 'Rim', 'Snare', 'Shaker', 'Click', 'Crash', 'Cowbell', 'Laser', 'Ride']),
-    kit('rock', 'Rock', ['Punch kick', 'Rim', 'Snare', 'Crack snare', 'Low tom', 'Mid tom', 'Closed hat', 'High tom', { sound: 'Low tom', tune: 0.8 }, 'Cowbell', 'Open hat', 'Ride', 'Crash', 'Kick', { sound: 'Crash', tune: 1.2 }, 'Clap']),
-    kit('space', 'Space', ['808 boom', 'Zap', 'Laser', 'Clap', 'Bass blip', { sound: 'Zap', tune: 0.6 }, { sound: 'Laser', tune: 1.5 }, 'Shaker', { sound: 'Bass blip', tune: 0.75 }, 'Bongo', 'Open hat', 'Click', 'Crash', { sound: 'Zap', tune: 1.4 }, { sound: 'Laser', tune: 0.7 }, 'Vinyl crackle'])
+    kit('starter', 'Starter', 0, ['Kick', 'Rim', 'Snare', 'Clap', 'Low tom', 'Shaker', 'Closed hat', 'Mid tom', 'High tom', 'Cowbell', 'Open hat', 'Click', 'Crash', '808 boom', 'Crack snare', 'Ride']),
+    kit('808', '808', 1, ['808 boom', 'Rim', 'Snare', 'Clap', { sound: '808 boom', tune: 0.8 }, { sound: '808 boom', tune: 1.25 }, 'Closed hat', 'Open hat', 'Low tom', 'Mid tom', 'High tom', 'Cowbell', 'Crash', 'Shaker', 'Click', 'Ride']),
+    kit('house', 'House', 2, ['Punch kick', 'Clap', { sound: 'Closed hat', tune: 1.1 }, 'Open hat', 'Kick', 'Snare', 'Shaker', 'Ride', 'Bass blip', { sound: 'Bass blip', tune: 1.5 }, 'Rim', 'Cowbell', 'Crash', 'Bongo', { sound: 'Bongo', tune: 1.4 }, 'Click']),
+    kit('lofi', 'Lo-fi', 3, [{ sound: 'Kick', tune: 0.85 }, 'Rim', 'Soft snare', 'Vinyl crackle', 'Low tom', 'Shaker', { sound: 'Closed hat', tune: 0.7 }, 'Mid tom', 'High tom', 'Bongo', { sound: 'Open hat', tune: 0.7 }, 'Click', { sound: 'Crash', tune: 0.6 }, '808 boom', { sound: 'Snare', tune: 0.8 }, { sound: 'Ride', tune: 0.8 }]),
+    kit('trap', 'Trap', 4, ['808 boom', { sound: 'Crack snare', tune: 1.1 }, 'Clap', 'Closed hat', { sound: '808 boom', tune: 0.75 }, { sound: '808 boom', tune: 1.33 }, { sound: 'Closed hat', tune: 1.3 }, 'Open hat', 'Rim', 'Snare', 'Shaker', 'Click', 'Crash', 'Cowbell', 'Laser', 'Ride']),
+    kit('rock', 'Rock', 5, ['Punch kick', 'Rim', 'Snare', 'Crack snare', 'Low tom', 'Mid tom', 'Closed hat', 'High tom', { sound: 'Low tom', tune: 0.8 }, 'Cowbell', 'Open hat', 'Ride', 'Crash', 'Kick', { sound: 'Crash', tune: 1.2 }, 'Clap']),
+    kit('space', 'Space', 6, ['808 boom', 'Zap', 'Laser', 'Clap', 'Bass blip', { sound: 'Zap', tune: 0.6 }, { sound: 'Laser', tune: 1.5 }, 'Shaker', { sound: 'Bass blip', tune: 0.75 }, 'Bongo', 'Open hat', 'Click', 'Crash', { sound: 'Zap', tune: 1.4 }, { sound: 'Laser', tune: 0.7 }, 'Vinyl crackle'])
   ];
+  // A new kit takes the next colour set no kit is using yet.
+  function freshColors() {
+    var used = allKits().map(function (k) { return (k.colors || [])[0]; });
+    for (var i = 0; i < PALETTES.length; i++) if (used.indexOf(PALETTES[i][0]) < 0) return PALETTES[i].slice();
+    return PALETTES[allKits().length % PALETTES.length].slice();
+  }
 
   // Astra's own kits and which kit the deck plays, kept in this browser.
   var KITS_KEY = 'bass-biscuits-drum-kits-20261102', CURRENT_KEY = 'bass-biscuits-current-kit-20261102';
@@ -82,7 +103,7 @@
   function findKit(id) { var all = allKits(); for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i]; return null; }
   function currentKit() { return findKit(read(CURRENT_KEY, 'starter')) || READY[0]; }
   function setCurrent(id) { write(CURRENT_KEY, id); }
-  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), pads: k.pads }); return write(KITS_KEY, mine); }
+  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), colors: k.colors, pads: k.pads }); return write(KITS_KEY, mine); }
   function deleteMyKit(id) { write(KITS_KEY, myKits().filter(function (x) { return x.id !== id; })); if (read(CURRENT_KEY, '') === id) setCurrent('starter'); }
   function surprise() { var all = allKits(), cur = currentKit().id, pick = all[Math.floor(Math.random() * all.length)]; if (all.length > 1 && pick.id === cur) return surprise(); setCurrent(pick.id); return pick; }
 
@@ -116,11 +137,12 @@
     (VOICES[pad.sound] || VOICES.Click)(v, k);
   }
   function padName(pad) { return pad ? (pad.file ? (pad.label || 'My sound') : pad.sound) : ''; }
-  function padColor(pad) { return pad && pad.file ? '#ff9a3c' : family(pad ? pad.sound : ''); }
+  // A pad's colour in its kit (kits saved before 2026-11-03 have no colours of their own and light in the first set).
+  function padColor(pad, k) { return pad && pad.file ? FILE_COLOR : ((k && k.colors) || PALETTES[0])[family(pad ? pad.sound : '')]; }
 
   window.DrumSounds = {
     audio: audio, voices: Object.keys(VOICES), ready: READY, allKits: allKits, myKits: myKits, findKit: findKit,
     currentKit: currentKit, setCurrent: setCurrent, saveMyKit: saveMyKit, deleteMyKit: deleteMyKit, surprise: surprise,
-    putFile: putFile, playPad: playPad, padName: padName, padColor: padColor
+    freshColors: freshColors, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor
   };
 })();
