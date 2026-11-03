@@ -16,12 +16,23 @@ browser pane.
 - Platform Platypus's fit-check: 19 of 19 screens fit. Shown to Astra in the browser pane.
 - The full list: `changes/show-pet-20261102.md`.
 
+## Redone (Astra, 2026-11-02: "do a deep analysis ... try to redo this page before we do anything")
+
+Read against her dated instructions in the spawner, stylesheet, script, framework and earlier chats, and the pages she
+shaped most. Fixed: working tools in their own tool boxes in L1 (never a panel above the levels), the box fits the tool,
+tool-one/trick-one names, the shared mood stickers, the friends' pictures, L1's light words on every page, and the
+framework's stale lines (`changes/show-pet-20261102.md`). Fit-check: 19 of 19 screens.
+
 ## Still open
 
-1. Astra picks the name (working name: Show Pet). A rename is the page, art folder, label and the words in the
-   framework, README and this card.
-2. The unchecked-tool light: orange "report issues" today, grey by the L1 panel's own words. Astra decides which.
-3. Retarget #278 to `main` before #276 merges (stacked).
+Deck https://claude.ai/artifact/UabwS56hrUmZwYj52M2NNf, four questions:
+1. The name (working name Show Pet).
+2. A pet's special panels (key requests, presence controls, social row): at the top, or tool boxes in L1.
+3. Whether the spawner learns toolsets from data, so the model shows toolset-one.
+4. The colours a new page gets (raspberry today).
+
+The light question is withdrawn: Astra decided it on 2026-10-24 (report issues until checked, grey is not created).
+Retarget #278 to `main` before #276 merges (stacked).
 
 ## Receipt and review
 
