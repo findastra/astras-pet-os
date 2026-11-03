@@ -26,17 +26,17 @@ html.in-tool main{padding:4px 0 8px}
 main{padding:16px}
 button,select,input{font:inherit;color:var(--ink);background:#23264a;border:1px solid var(--line2);border-radius:8px;padding:4px 10px}
 button,select{cursor:pointer}
-.edit{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;min-height:40px;margin-bottom:12px}
+.edit{display:flex;gap:10px 14px;align-items:center;justify-content:center;flex-wrap:wrap;min-height:40px;margin-bottom:12px}
 .edit b{color:var(--cyan)}
 .edit label{color:var(--dim)}
 .dim{color:var(--dim)}
-.kits{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start}
+.kits{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;justify-content:center}
 .kit{display:flex;flex-direction:column;gap:4px}
 .kit .name{font-weight:700;color:var(--cyan);min-height:30px;display:flex;align-items:center}
 .kit .name input{width:100%;font-weight:700;color:var(--cyan);padding:2px 8px}
 /* The 4x4, styled exactly as the board's pads are (preview-my-apc64-tool), in the board's own units. --u is one board
    unit in px: the board is 1370 units across the full width of its tool box, and this tool box is just as wide. */
-svg.board{display:block;width:calc(var(--u) * 363);height:calc(var(--u) * 361);overflow:visible;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);overflow:visible;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .body{fill:#15161a;stroke:#3a3f49;stroke-width:3}
 .kit.sel .body{stroke:#fff;stroke-width:6}
 .pad{cursor:pointer}
@@ -70,8 +70,8 @@ svg.board{display:block;width:calc(var(--u) * 363);height:calc(var(--u) * 361);o
   function el(tag, a, parent, text) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (text != null) e.textContent = text; parent.appendChild(e); return e; }
 
   // The board's bottom-left 4x4, in the board's own units (preview-my-apc64-tool: PADX, PADY, pads 73 x 73, corner 3),
-  // cut out with 12 units of the board's body around it.
-  var PADX = [866, 955, 1042, 1132], PADY = [547, 635, 723, 811], X0 = 854, Y0 = 535, W = 363, H = 361;
+  // cut out with a black frame as thick as the space between pads (16 units), inside the board's 3-unit rim.
+  var PADX = [866, 955, 1042, 1132], PADY = [547, 635, 723, 811], X0 = 847, Y0 = 528, W = 377, H = 375;
   // Board unit to px: the board is drawn 1370 units across the full width of its own tool box, as wide as this one.
   function scale() { document.documentElement.style.setProperty('--u', (document.documentElement.clientWidth / 1370) + 'px'); }
   scale(); window.addEventListener('resize', scale);
@@ -80,7 +80,7 @@ svg.board{display:block;width:calc(var(--u) * 363);height:calc(var(--u) * 361);o
 
   function board(card, k, on) {
     var svg = el('svg', { class: 'board', viewBox: X0 + ' ' + Y0 + ' ' + W + ' ' + H, role: 'group', 'aria-label': k.name }, card);
-    el('rect', { class: 'body', x: X0 + 3, y: Y0 + 3, width: W - 6, height: H - 6, rx: 6 }, svg);
+    el('rect', { class: 'body', x: X0 + 1.5, y: Y0 + 1.5, width: W - 3, height: H - 3, rx: 6 }, svg);
     for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) (function (i, x, y) {
       var p = k.pads[i], n = S.padName(p), g = el('g', { class: 'pad' + (on && i === padIx ? ' sel' : ''), tabindex: 0, role: 'button', 'aria-label': n }, svg);
       el('rect', { x: x, y: y, width: 73, height: 73, rx: 3, style: 'fill:' + S.padColor(p, k) }, g);
@@ -110,7 +110,7 @@ svg.board{display:block;width:calc(var(--u) * 363);height:calc(var(--u) * 361);o
     var add = make('div', 'kit add', box); add.setAttribute('role', 'button'); add.setAttribute('aria-label', 'New kit'); add.tabIndex = 0;
     make('div', 'name', add);
     var svg = el('svg', { class: 'board', viewBox: X0 + ' ' + Y0 + ' ' + W + ' ' + H }, add);
-    el('rect', { class: 'body', x: X0 + 3, y: Y0 + 3, width: W - 6, height: H - 6, rx: 6 }, svg);
+    el('rect', { class: 'body', x: X0 + 1.5, y: Y0 + 1.5, width: W - 3, height: H - 3, rx: 6 }, svg);
     el('text', { class: 'plus', x: X0 + W / 2, y: Y0 + H / 2 + 52 }, svg, '+');
     function newKit() {
       var c = copy(S.ready[0]); c.id = 'kit-' + Date.now().toString(36); c.name = 'My kit ' + (S.myKits().length + 1); c.colors = S.freshColors(); delete c.ready;

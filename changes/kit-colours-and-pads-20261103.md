@@ -21,6 +21,9 @@ buttons like Surprise me, a redone layout, and the board tool renamed preview-my
     a picked control), and shows that pad's Sound, Tune and My own sound file in one line above the kits, so the kits
     never move. Her own kits have a name box; Delete kit is in that line.
   - The **+** after the last kit is the same size empty 4x4 and makes a new kit.
+  - Then: "thicker black border around all the buttons ... as thick ... as the space between each of the buttons" and
+    "centered". The black frame inside each kit's rim is 16 board units, the pads' gap (measured: 10 px frame, 10 px
+    gap), and the kits and the pad line are centred in the box (57 px / 56 px either side).
   - Gone: Surprise me, New kit, Play this kit, "Playing on the deck", Copy it to change it. Changing a pad on a
     ready-made kit keeps the change in "My <kit>" by itself.
 - `apps/drum-dog-apc64-deck-20261102.html`: lit in the picked kit's colours, with the kit's name in its colour. Gone:
