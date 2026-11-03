@@ -32,8 +32,8 @@ The earlier left-side maintenance-control refinement and selected names are on t
 branch, checkpoint `6ecb54b`, not necessarily main. Re-read current sources each run.
 
 Resolve conflicts explicitly: direct owner instructions take precedence; the canonical
-architecture governs conflicting legacy product descriptions. The Cage is retired as
-a product concept: preserve compatibility files but do not demand new Cage behavior.
+architecture governs conflicting legacy product descriptions. The old pets page is retired as
+a product concept: preserve compatibility files but do not demand new hub behavior.
 Missing optional software that was never installed is asleep / "not on this PC",
 not a defect. A selected required connection that needs the owner is a blocked check.
 Do not overwrite approved artwork to satisfy older generic palette/accessory rules.
@@ -140,7 +140,7 @@ Repo, files and folders.
 | ⚪ A15 | README and credit | Check how-to-run and Limits, public credit "By Astra." (Astra, 2026-10-20; a README that still has a retired credit line is a finding, card 059), model/version/date, license, truthful status and naming exceptions. |
 | 🔵 A56 | Work saved in its native folder | Everything the project works on lives where a developer expects it: source, tools, pictures, docs and build output in its own repo folder (`%USERPROFILE%\Documents\Astra's PetOS\<repo>`); the user's own data (private records, saved chats, settings) in its declared data folder outside the repo (`%LOCALAPPDATA%\<repo>\`, recorded as `data_folder` in pet.json); caches and logs in that data folder, never in the repo. Nothing it makes lands in Downloads, the Desktop, a dated chat folder (`Documents\Codex\<date>`, `Documents\ChatGPT\...`), the hub or another pet's folder. Check pet.json, the code's write paths and a File Master scan of the PC. Report each stray file with its proper home; moving it goes through a File Master plan that Astra approves. ⚪ Declaring `data_folder` in pet.json and writing the plan rows are idle; changing where the code writes is named on the round card for the pet's chat. |
 | ⚪ A57 | Current names only | Live text uses today's names: **Astra's PetOS** and `astras-pet-os` (never `Astra's PetOS`, `astras-pet-os` or `findastra-pet-apps`), the folder `Documents\Astra's PetOS` (never `Documents\Projects`), each repo's current GitHub name, and the pet and program names in `pet-programs.json`. Lines that tell history keep the old name, and so do names that code depends on (browser storage keys, `%LOCALAPPDATA%\astras-pet-os`, file names other programs open): report those with what a rename would take. Fix documents on a branch; code waits for its owner. Added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17, in the first Idle Flash Audit. 🔵 Renaming a name that code depends on is Astra's. |
-| ⚪ A16 | Metadata and self-audit | Validate pet.json including job, runs_on, entry, sprite, status, framework, tools, links and audit cadence/subject/needs. Hatching/growing/grown must reflect evidence. 🔵 A field the pet submitted itself (`cage.submit`) that the registry has not taken is a decision, not an idle fix. |
+| ⚪ A16 | Metadata and self-audit | Validate pet.json including job, runs_on, entry, sprite, status, framework, tools, links and audit cadence/subject/needs. Hatching/growing/grown must reflect evidence. 🔵 A field the pet submitted itself (`hub.submit`) that the registry has not taken is a decision, not an idle fix. |
 | ⚪ A17 | Git and deployment | Record dirty files, ahead/behind commits, pushed branch, merged state and deployed version separately. Do not reset/stash/discard another agent's work. |
 
 ### 3. Pictures and art
@@ -239,7 +239,7 @@ For an approved new pet:
 4. Keep art a draft until approved. Preserve approved reference sheets; never reroll the
    whole herd for one change. Follow the current art pipeline and Chip's native-art exception.
    Preserve Mommy's Mommies as one shared sprite. Use approved mood overlays where applicable.
-5. Submit metadata changes through dated cage.submit for the existing compatibility path;
+5. Submit metadata changes through dated hub.submit for the existing compatibility path;
    leave a Farmer registration card. Discovery/pipeline presence does not grant access.
 6. Have the Farmer coordinate registry/art/relations; owner approval precedes admission.
    Build generated outputs from canonical sources rather than editing generated files.

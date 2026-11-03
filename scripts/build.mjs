@@ -50,8 +50,8 @@ const data = {
   placeholders: Object.entries(index.pets).filter(([, p]) => p.placeholder).map(([id]) => id),
 };
 // Public pages never show operational details (scripts/public-safety-20261014.mjs): addresses, ports and personal
-// paths in the data become plain descriptions, and a secret stops the build. (The old Cage page's data file was removed
-// with the Cage, Astra 2026-10-18.)
+// paths in the data become plain descriptions, and a secret stops the build. (The old pets page's data file was removed
+// with the hub, Astra 2026-10-18.)
 const redacted = [];
 const names = Object.fromEntries([
   ...(registry.pets || []).map((p) => [p.art, p.pet]),

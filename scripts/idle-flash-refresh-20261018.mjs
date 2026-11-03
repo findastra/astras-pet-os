@@ -101,7 +101,7 @@ function credit(text, html, readme = false) {
   return { text: text.split(/(<script\b[\s\S]*?<\/script\b[^>]*>)/i).map((seg) => /^<script\b/i.test(seg) ? seg : swap(seg)).join(''), n };
 }
 const catalogNow = Object.fromEntries(JSON.parse(execFileSync('gh', ['api', '-H', 'Accept: application/vnd.github.raw', 'repos/findastra/astras-pet-os/contents/pet-programs.json?ref=main'], { encoding: 'utf8', maxBuffer: 32 << 20 })).programs.map((p) => [p.number, p]));
-const CARD008 = /Not in the Cage yet\. Registering it is \[card 008\]\(https:\/\/github\.com\/findastra\/astras-pet-(?:os|apps)\/blob\/main\/handoffs\/008-farmer-register-new-placeholders\.md\) for the Friendly Farmer\./;
+const CARD008 = /Not in the hub yet\. Registering it is \[card 008\]\(https:\/\/github\.com\/findastra\/astras-pet-(?:os|apps)\/blob\/main\/handoffs\/008-farmer-register-new-placeholders\.md\) for the Friendly Farmer\./;
 const results2 = {};
 for (const rec of ledger) {
   if (!rec.audited) continue;
@@ -150,7 +150,7 @@ for (const rec of ledger) {
     if (existsSync(pjPath)) {
       const raw = readFileSync(pjPath, 'utf8'); let pj = null; try { pj = JSON.parse(raw); } catch {}
       if (pj) {
-        const sub = pj.cage?.submit || {}; const reg = regOf(repo); const cat = catalogNow[rec.number]; const ch = [];
+        const sub = pj.hub?.submit || {}; const reg = regOf(repo); const cat = catalogNow[rec.number]; const ch = [];
         if (cat?.icon && !/^pet-program-/.test(cat.icon) && pj.pet !== cat.icon && !sub.pet) { ch.push(`pet "${pj.pet}" -> "${cat.icon}"`); pj.pet = cat.icon; }
         if (reg?.job && pj.job !== reg.job && !/placeholder|not decided/i.test(reg.job)) { if (!sub.job) { ch.push('job now matches the registry'); pj.job = reg.job; } else log.push(`Not changed: the pet submitted its own job on ${sub.date || '?'}; that waits on the Farmer and Astra.`); }
         if (reg?.audit && !pj.audit && !sub.audit) { ch.push('audit block from the registry'); pj.audit = reg.audit; }

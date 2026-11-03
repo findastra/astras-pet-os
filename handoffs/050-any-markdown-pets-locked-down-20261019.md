@@ -10,13 +10,13 @@ the only pet program that was working was the platform platypus ... We need to m
 security protocols can download these agents. On top of that, I couldn't read the JSON, so I had to rebuild this from
 scratch. The only files the user could give their computer was the markdown files." Her screenshots: a fresh farm
 with Platform Platypus, Mail Snail, Backup Beaver and Chat Rat, and on that computer a folder `astras-pet-os-main`
-holding `cage.html`, `cage-data.js` and `start-farmer-dock-20261008.cmd`.
+holding the old pets page, its data file and `start-farmer-dock-20261008.cmd`.
 
 What the screenshots show (from the repos, not guessed):
 - **Platform Platypus worked because it is a web page** on GitHub Pages: nothing to install.
 - **Mail Snail and Backup Beaver have no app yet**: their `index.html` says "Placeholder. The app is not built yet."
 - **Chat Rat needs Node and a `.cmd`/`.ps1` launcher**, which a locked-down computer stops.
-- **The folder on that computer is an old green Code button download** (before the repo was renamed and the Cage
+- **The folder on that computer is an old green Code button download** (before the repo was renamed and the hub
   removed, card 042), not the v0.3.0-beta installer.
 - The error screenshot itself did not come through in the chat; the cause above is read from the other screenshots.
 
