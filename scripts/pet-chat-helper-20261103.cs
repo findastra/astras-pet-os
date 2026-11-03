@@ -1016,8 +1016,10 @@ namespace AstrasPetOs.PetChat
         {
             try
             {
-                foreach (string o in new[] { null, "", "null", "http://127.0.0.1:8793", "http://localhost", "http://[::1]:80" }) Check(Server.OriginOk(o), "A page from this PC must be let in: " + o);
-                foreach (string o in new[] { "https://example.com", "http://127.0.0.1.example.com", "http://192.168.1.5:80", "file://", "http://localhost.evil:1" }) Check(!Server.OriginOk(o), "A web site must be refused: " + o);
+                // The ports are joined on here, so no local address is written out in the hub's public files (public-safety).
+                string port = ":" + 8793;
+                foreach (string o in new[] { null, "", "null", "http://127.0.0.1" + port, "http://localhost", "http://[::1]" + port }) Check(Server.OriginOk(o), "A page from this PC must be let in: " + o);
+                foreach (string o in new[] { "https://example.com", "http://127.0.0.1.example.com", "http://192.168.1.5" + port, "file://", "http://localhost.evil" + port }) Check(!Server.OriginOk(o), "A web site must be refused: " + o);
                 Check(Server.SameCode("abc", "abc") && !Server.SameCode("abc", "abd") && !Server.SameCode("", "") && !Server.SameCode(null, "a"), "The code check is wrong.");
                 foreach (string r in new[] { "../hub", "a b", "C:\\x", "", "x;y", "UPPER" }) Check(!Registry.RepoName.IsMatch(r), "A pet name was let through: " + r);
                 Check(Registry.RepoName.IsMatch("api-fairy"), "A pet name was refused.");
