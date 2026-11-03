@@ -1,4 +1,4 @@
-status: merged on Astra's OK; waiting for her first launch in the headset
+status: merged and the star rebuilt; waiting for her first launch in the headset
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-01
 needs: card 239, findastra/rift-rabbit#14
@@ -38,7 +38,14 @@ Star PASS. Hub `npm test`: 348 pass, 2 fail, and the same two fail on unchanged 
 Record the merges, the star rebuild and her first in-headset launch below.
 
 - 2026-11-01, Astra: "Merge both". findastra/rift-rabbit#14 merged (e16af93), then this PR.
+- 2026-11-01 10:51: her PC hub copy fast-forwarded to 77bdeb4 and the live Startup Star rebuilt from it and restarted
+  (the old exe kept as `bin\desktop-pets-before-20261101.exe`). `--self-test` PASS; `--check` shows the star and tray
+  icon visible. Rift Rabbit's launcher kept running (one copy, same process), so the star's start at sign-in shows only
+  at her next sign-in.
+- Still open: the launcher running after her next sign-in (Done when 2), and her first launch in the headset reaching
+  VRChat (Done when 3).
 
 ## Receipt and review
 
-Pending.
+Done when 1, and the star rebuild in 2: Claude Opus 5.5, 2026-11-01. The rest waits on her next sign-in and on Astra in
+the headset.
