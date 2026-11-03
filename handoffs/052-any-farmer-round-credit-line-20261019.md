@@ -29,7 +29,7 @@ this card's commit):
   `status/pets-status.json` and the Farmer's desk are generated. Exempting generated audit text would let the sentence
   back into the desk page, which the rule forbids.
 - Not touched: `.github/workflows/farmer-daily-rounds.yml` (this login has no workflow scope; nothing in it needed
-  changing: Astra's own edit of 2026-10-18, `f6bd9f7`, already took `cage-data.js` out of its `git add` line).
+  changing: Astra's own edit of 2026-10-18, `f6bd9f7`, already took the old pets page's data file out of its `git add` line).
 
 **Tested,** in an LF clone (`core.autocrlf=false`) in my scratchpad, never in Astra's PC folders:
 - Reproduced the failure on `main` (`a0ae17c`) by running the workflow's steps in order against live GitHub with only a
@@ -43,14 +43,14 @@ this card's commit):
 
 **Seen, not changed:**
 - Round pull request [#83](https://github.com/findastra/astras-pet-os/pull/83) (2026-10-18) is still open. Its
-  `status/pets-status.json` and Farmer's desk quote the sentence (5 and 1 times) and it still adds `cage-data.js`, so
+  `status/pets-status.json` and Farmer's desk quote the sentence (5 and 1 times) and it still adds the old pets page's data file, so
   merging it would break `npm test` on `main`. Leave it: the next round closes it as replaced.
 - `status/pets-status.json` keeps entries for repos the registry no longer has (for example `vrchat-ai-astra`, now
   `the-astral-plane`, with a 2026-10-11 finding about "A pet app by Astra"). The round never removes old entries.
 - Text a pet writes (its job, bubble lines, or a card's "waiting on Astra" words) is copied into `pets.json` and the
   status file. If a pet ever writes the credit sentence there, the guard stops the round again. That is a pet repo's
   text to fix, not the round's.
-- The workflow's second step is still named "Rebuild the Cage and the Farmer's desk" (a workflow edit, Astra's).
+- The workflow's second step is still named "Rebuild the hub and the Farmer's desk" (a workflow edit, Astra's).
 
 **Shipped the same day.** Astra gave her OK in chat and #128 was merged as `9a0d0b1`. Then, at Astra's word in
 chat ("Yes, start the Farmer's round now from main"), I started the round by hand with `gh workflow run` on `main`

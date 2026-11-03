@@ -172,7 +172,7 @@ in that browser.
 gives each of the 38 registered and pipeline pets a page with every tool panel of Astra's sketch
 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3): the basics first, rebuilt by `npm run build`.
 
-**The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
+**The old pets page is gone** (Astra, 2026-10-18): the old pets page, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):
 

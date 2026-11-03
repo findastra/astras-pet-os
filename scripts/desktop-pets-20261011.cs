@@ -595,7 +595,7 @@ namespace AstraDesktopPets {
       menu.Items.Add("Open Farmer's desk",null,delegate { OpenPet(farmer); });
       menu.Items.Add("Line up on the floor",null,delegate { LineUp(); });
       menu.Items.Add("Let the pets roam",null,delegate { LinedUp=false;ShowPets(); });
-      menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-os-20261008.html"); }); // the Cage page was removed (Astra, 2026-10-18)
+      menu.Items.Add("Open the Farmer's desk",null,delegate { if(!test)PetFiles.Open("apps/astras-pet-os-20261008.html"); }); // the old pets page was removed (Astra, 2026-10-18)
       // The pets in the background, each with its own menu (no tray icon of their own since 2026-10-21).
       menu.Items.Add(new ToolStripSeparator());
       foreach(var entry in BackgroundPets.All()) {

@@ -17,7 +17,7 @@ const goodSnap = (over = {}) => ({
   files: ['pet.json', 'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE', 'app.html'],
   petJson: { pet: 'P', job: 'Does a thing.', entry: 'app.html', status: 'hatching' },
   readme: '# P\n\n*By Astra.*\n\n## How to run it\n\nOpen it.\n\n## Limits\n\nSome.\n',
-  agents: 'Rules. The Cage is findastra/astras-pet-os.', cards: [], ...over,
+  agents: 'Rules. The hub is findastra/astras-pet-os.', cards: [], ...over,
 });
 const pet = (over = {}) => ({ repo: 'p', pet: 'P', job: 'Does a thing.', audit: { cadence: 'weekly', subject: 'my stuff', needs: 'a thing only you can do' }, ...over });
 
@@ -99,7 +99,7 @@ test('new work turns back to sleepy after a day, and a missed check is worried',
 test('submissions: taken once, only when dated, only known keys', () => {
   const r = clone();
   const entry = r.pipeline.find((p) => p.repo === 'rgbee');
-  const pj = { cage: { submit: { date: '2026-10-11', job: 'New job.', says: ['bzz', 42, ''], moods: { happy: 'All lit.', nope: 'x' }, audit: { cadence: 'daily', needs: 'light brands' }, kind: 'dragon' } } };
+  const pj = { hub: { submit: { date: '2026-10-11', job: 'New job.', says: ['bzz', 42, ''], moods: { happy: 'All lit.', nope: 'x' }, audit: { cadence: 'daily', needs: 'light brands' }, kind: 'dragon' } } };
   const changes = adoptSubmission(r, entry, pj);
   assert.deepEqual(changes, ['job', 'bubble lines', 'mood key', 'audit']);
   assert.equal(entry.job, 'New job.');
@@ -109,7 +109,7 @@ test('submissions: taken once, only when dated, only known keys', () => {
   assert.equal(entry.kind, undefined, 'kind belongs to the Farmer');
   assert.equal(entry.submitted, '2026-10-11');
   assert.deepEqual(adoptSubmission(r, entry, pj), [], 'the same submission is not taken twice');
-  assert.deepEqual(adoptSubmission(r, entry, { cage: { submit: { job: 'undated' } } }), []);
+  assert.deepEqual(adoptSubmission(r, entry, { hub: { submit: { job: 'undated' } } }), []);
 });
 
 // Astra, 2026-10-21: "remember to assign version #s". The page's title shows it.
@@ -222,7 +222,7 @@ test('a README with a retired credit line is a finding, and "By Astra." passes',
   assert.equal(auditPet(registry, pet(), goodSnap({ readme: readme('*By Astra.*') })).mood, 'sleep', '"By Astra." passes');
 });
 
-test('relations only name pets the Cage knows, with known kinds and states', () => {
+test('relations only name pets the hub knows, with known kinds and states', () => {
   const known = new Set([...allPets(registry).map((p) => p.repo), 'astra', 'profile', 'pets']);
   for (const l of registry.relations.links) {
     assert.ok(known.has(l.from), `unknown "from": ${l.from}`);
@@ -260,7 +260,7 @@ const profile = `<h2 align="center">Hi</h2>
 `;
 const online = (extra = []) => [...['astras-infinite-pole', 'astras-pet-os', 'rgbee', 'claude-bot', 'findastra'].map((name) => ({ name, private: false, description: '' })), ...extra];
 
-test('profile round: numbered pets in Cage order, her blurbs kept, gone repos dropped, new repos sorted', () => {
+test('profile round: numbered pets in hub order, her blurbs kept, gone repos dropped, new repos sorted', () => {
   const registry = clone();
   registry.pets.find((p) => p.repo === 'data-dealer').visibility = 'private'; // the private example, whatever GitHub says today
   const { text, changes } = syncProfile(profile, registry, online([{ name: 'detour-into-vr', private: false, description: 'Takes detours into VR.' }, { name: 'tool-x', private: false, description: 'A small tool.' }]));

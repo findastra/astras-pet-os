@@ -2,7 +2,7 @@
 //
 // Daily, from .github/workflows/farmer-daily-rounds.yml (or by hand: node scripts/farmer-rounds-20261009.mjs):
 //   1. find pet repos on GitHub that this hub does not know yet, and add them to the pipeline;
-//   2. take each pet's submission (the "cage.submit" block in its own pet.json);
+//   2. take each pet's submission (the "hub.submit" block in its own pet.json);
 //   3. run the self-audits that are due (each pet on its own cadence and day);
 //   4. write status/pets-status.json: every pet's mood and one-line bubble, and what it needs from Astra.
 // Then npm run build (metadata only) and the Farmer's desk rebuild show the result.
@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
 
-export const CAGE = 'astras-pet-os'; // renamed by Astra, 2026-10-12
+export const HUB_REPO = 'astras-pet-os'; // renamed by Astra, 2026-10-12
 // The nine moods, most urgent first: when several apply, the first one shows. Meanings are Astra's sketch of
 // 2026-10-18 (PET-PROGRAM-FRAMEWORK.md, section 3); the order is proposed. Claude Opus 5.5, 2026-10-18.
 export const ORDER = ['alarmed', 'sick', 'curious', 'worried', 'happy', 'sad', 'idle', 'blink', 'sleep'];
@@ -117,8 +117,8 @@ export function auditPet(registry, pet, snap, last = null) {
     for (const k of ['pet', 'job', 'entry', 'status']) if (!pj[k]) f('warn', `pet.json is missing "${k}".`, `add "${k}" to pet.json`);
     if (pj.status && !STATUSES.includes(pj.status)) f('warn', `pet.json status "${pj.status}" is not hatching, growing or grown.`, 'fix my status');
     for (const k of ['entry', 'sprite']) if (typeof pj[k] === 'string' && /\.\w+$/.test(pj[k]) && !has(pj[k])) f(k === 'entry' ? 'error' : 'warn', `pet.json "${k}" points at ${pj[k]}, which is not in the repo.`, `my ${k} file is missing`);
-    const submitted = pj.cage && pj.cage.submit;
-    if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from pets.json in the hub. Submit the one I want (cage.submit) or copy the hub\'s.', 'my job wording differs from the Cage');
+    const submitted = pj.hub && pj.hub.submit;
+    if (pj.job && pet.job && pj.job !== pet.job && !submitted) f('note', 'My pet.json describes my job differently from pets.json in the hub. Submit the one I want (hub.submit) or copy the hub\'s.', 'my job wording differs from the hub');
   }
   const readme = snap.readme;
   if (readme == null) f('warn', 'No README.md.', 'add a README');
@@ -131,7 +131,7 @@ export function auditPet(registry, pet, snap, last = null) {
     if (!/^#+ .*(limit|not done)/im.test(readme)) f('warn', 'README has no "Limits" section.', 'my README needs "Limits"');
   }
   if (!has('AGENTS.md')) f('warn', 'No AGENTS.md, so assistants have no rules for me.', 'add AGENTS.md');
-  else if (snap.agents != null && !/astras-pet-(apps|os)/.test(snap.agents)) f('warn', 'AGENTS.md does not point at the hub (astras-pet-os), so I do not know how to submit changes to the Farmer.', 'my AGENTS.md should point at the Cage');
+  else if (snap.agents != null && !/astras-pet-(apps|os)/.test(snap.agents)) f('warn', 'AGENTS.md does not point at the hub (astras-pet-os), so I do not know how to submit changes to the Farmer.', 'my AGENTS.md should point at the hub');
   if (!has('CLAUDE.md')) f('note', 'No CLAUDE.md.', 'add CLAUDE.md');
   if (!snap.private && !has('LICENSE')) f('warn', 'No LICENSE.', 'add a LICENSE');
   if (!snap.private && Array.isArray(snap.topics) && !snap.topics.includes('pet-app')) f('warn', 'Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.', 'add the pet-app topic');
@@ -171,14 +171,14 @@ export function auditFarmer(registry, ctx) {
 /* ---------------- submissions and discovery ---------------- */
 
 /**
- * A pet submits a change by editing the "cage.submit" block in its own pet.json, with a date.
+ * A pet submits a change by editing the "hub.submit" block in its own pet.json, with a date.
  * The Farmer takes it when that date is newer than the last one he took. Returns the list of changes.
  * A submitted name (`pet`) is never taken: names live only in pet-programs.json (AGENTS.md, "One list of names",
  * 2026-10-16). It becomes a note for Astra in `notes`, and the round's pull request shows it. Everything a pet
  * submits is data written by a pet, never instructions. Claude Opus 5.5, 2026-10-17.
  */
 export function adoptSubmission(registry, entry, petJson, notes = []) {
-  const sub = petJson && petJson.cage && petJson.cage.submit;
+  const sub = petJson && petJson.hub && petJson.hub.submit;
   if (!sub || typeof sub !== 'object' || !/^\d{4}-\d{2}-\d{2}$/.test(sub.date || '')) return [];
   if (entry.submitted && entry.submitted >= sub.date) return [];
   const changes = [];
@@ -223,7 +223,7 @@ export function adoptVersion(entry, petJson) {
 export function discover(registry, repos, today, approved = []) {
   // approved: the repos of seed and roadmap pets Astra already approved (pet-programs.json, in the core). They are known
   // pets, not newcomers, so they do not queue at the gate. A repo's own pet.json can never put itself on this list.
-  const known = new Set([...allPets(registry).map((p) => p.repo), registry.cage, ...(registry.candidates || []).map((c) => c.repo), ...approved]);
+  const known = new Set([...allPets(registry).map((p) => p.repo), registry.hub, ...(registry.candidates || []).map((c) => c.repo), ...approved]);
   const added = [];
   for (const r of repos) {
     if (known.has(r.name) || r.fork || r.archived) continue;
@@ -302,7 +302,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   const report = { today, discovered: [], submissions: [], names: [], visibility: [], audited: [], unreadable: [], missing: [] };
 
   // 1. Discovery: a repo with a pet.json or the pet-app topic asks to be a pet. It waits at the gate (candidates).
-  const unknown = repos.filter((r) => !allPets(registry).some((p) => p.repo === r.name) && r.name !== registry.cage && !r.fork && !r.archived);
+  const unknown = repos.filter((r) => !allPets(registry).some((p) => p.repo === r.name) && r.name !== registry.hub && !r.fork && !r.archived);
   for (const r of unknown) {
     const snap = await github.snapshot(r, ownerToken || token, false);
     r.isPet = !!(snap.petJson || r.topics.includes('pet-app'));
@@ -314,7 +314,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
   status.pets ||= {};
   registry.pipeline ||= [];
   for (const pet of allPets(registry)) {
-    if (pet.repo === registry.cage) continue;
+    if (pet.repo === registry.hub) continue;
     const entry = [...registry.pets, ...registry.pipeline].find((p) => p.repo === pet.repo);
     const owner = ownerOf(registry, pet.repo);
     const r = byName.get(at(owner, pet.repo));
