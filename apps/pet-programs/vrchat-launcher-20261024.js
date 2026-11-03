@@ -430,11 +430,12 @@
     RH: ['Wrist_R', -0.05, -0.05, 0.01], LH: ['Wrist_L', 0.05, -0.05, 0.01], RK: ['Knee_R', 0, 0.025, 0.045], LK: ['Knee_L', 0, 0.025, 0.045],
     RA: ['Foot_R', -0.045, 0.03, 0], LA: ['Foot_L', 0.045, 0.03, 0], RF: ['Foot_R', 0, -0.025, 0.075, 'instep'], LF: ['Foot_L', 0, -0.025, 0.075, 'instep'],
   };
-  function miniModel(data) {
+  // The drawn figures come back only when Poppy cannot be shown.
+  function noMini() { var d = strapper && strapper.querySelector('.strap-drawing'); if (d) d.classList.remove('mini-wait'); }
+  function miniModel(data, three) {
     var svg = strapper && strapper.querySelector('.strap-drawing'), stage = strapper && strapper.querySelector('[data-strap-stage]');
-    if (!svg || !stage || !data || (data.schema !== 'rift-rabbit-poppy-v1' && data.schema !== 'rift-rabbit-poppy-v2')) return;
-    var base = 'https://cdn.jsdelivr.net/npm/three@0.160.0/';
-    import(base + 'build/three.module.js').then(function (THREE) {
+    if (!svg || !stage || !data || (data.schema !== 'rift-rabbit-poppy-v1' && data.schema !== 'rift-rabbit-poppy-v2')) { noMini(); return; }
+    three.then(function (THREE) {
       var scene = new THREE.Scene(), group = new THREE.Group(), gear = {};
       var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }).buffer; };
       if (data.schema === 'rift-rabbit-poppy-v2') {
@@ -607,6 +608,7 @@
       canvas.setAttribute('aria-label', 'Poppy in 3D with her tracking spots: drag to turn her, click a spot to pick its device');
       stage.appendChild(canvas);
       svg.classList.add('has-mini');
+      svg.classList.remove('mini-wait');
       var modes = document.createElement('div');
       modes.className = 'strap-mini-modes';
       modes.setAttribute('role', 'group'); modes.setAttribute('aria-label', 'What Poppy wears');
@@ -658,7 +660,7 @@
       box.addEventListener('strapper-change', draw);
       window.addEventListener('resize', place);
       place();
-    }).catch(function () { /* stays the drawing */ });
+    }).catch(noMini);
   }
   var LOCAL_DEVICES = "../../../../Astra's PetOS Data/rift-rabbit/steamvr-devices-20261026.js";
   function localScript(src, done) {
@@ -669,10 +671,18 @@
     s.onerror = function () { s.remove(); done(false); };
     document.head.appendChild(s);
   }
-  if (strapper) localScript(LOCAL_DEVICES, function () {
+  // Her devices, her Unity export and three load side by side; Poppy is built once all three are in.
+  if (strapper) {
+    var drawing = strapper.querySelector('.strap-drawing');
+    if (drawing) drawing.classList.add('mini-wait');
+    var three = import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+    three.catch(function () { /* noMini runs when Poppy is built */ });
+    var devices = false, poppy = null;
+    var ready = function () { if (devices && poppy !== null) poppy ? miniModel(window.riftRabbitPoppy, three) : noMini(); };
+    localScript(LOCAL_DEVICES, function () { devices = true; ready(); });
     localScript(LOCAL_POPPY_UNITY, function (ok) {
-      if (ok) miniModel(window.riftRabbitPoppy);
-      else localScript(LOCAL_POPPY, function (ok2) { if (ok2) miniModel(window.riftRabbitPoppy); });
+      if (ok) { poppy = true; ready(); }
+      else localScript(LOCAL_POPPY, function (ok2) { poppy = ok2; ready(); });
     });
-  });
+  }
 })();
