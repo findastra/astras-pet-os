@@ -78,21 +78,21 @@
       "does": "Teaches you to play drums on the APC64 in Ableton Live, one short lesson at a time."
     },
     {
-      "id": "apc64-deck-guide",
-      "name": "apc64-deck-guide",
+      "id": "use-my-apc64-tool",
+      "name": "use-my-apc64-tool",
       "type": "tool",
       "of": "drum-dog",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "bass-biscuits-v1.0-apc64-deck-guide-v1.0",
+      "label": "bass-biscuits-v1.0-use-my-apc64-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
-      "job": "The Akai APC64’s top surface at its measured size, right on Bass & Biscuits’ page (Astra, 2026-11-02: \"build that right on the base and biscuit\"; \"let’s try to get me making sound at least\"). Tap a pad to hear a drum, tap anything to see what it does in a few words, and add your own label. \"Use my APC64\" hears the real pads in the browser (Web MIDI) and plays the same drums, with no Ableton needed. Traced from Akai’s APC64 User Guide v1.0.",
-      "does": "Your APC64 on the page: tap pads to play drums, tap buttons to learn them.",
+      "job": "Your APC64 on the page. Tap a pad to play the kit you picked, tap a button to see what it does.",
+      "does": "Play your APC64: tap pads for drums, tap buttons to learn them, or hit the real pads.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
       "frame": "wide",
-      "in_l1": true
+      "in_pill": true
     },
     {
       "id": "ableton-usb-audio-driver",
@@ -5137,7 +5137,7 @@
       "why": "Installed with Live; the APC64 does not need it."
     },
     {
-      "from": "apc64-deck-guide",
+      "from": "use-my-apc64-tool",
       "to": "web-browser",
       "carries": "runs-on",
       "state": "now",
