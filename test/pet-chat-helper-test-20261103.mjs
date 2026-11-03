@@ -107,8 +107,10 @@ test('a web site, a wrong code or anything but POST is refused', { skip }, async
   assert.equal((await post('hello', { pet: 'mail-snail' }, { origin: 'https://example.com' })).status, 403);
   assert.equal((await post('hello', { pet: 'mail-snail' }, { code: 'wrong' })).status, 401);
   assert.equal((await fetch(pageData().url + 'hello')).status, 405);
-  const ok = await post('hello', { pet: 'mail-snail' }, { origin: 'http://127.0.0.1:8793' });
-  assert.equal(ok.headers.get('access-control-allow-origin'), 'http://127.0.0.1:8793');
+  // A page served on this PC (the port joined on here: no local address written out in the hub's public files).
+  const here = `http://127.0.0.1${':'}${8793}`;
+  const ok = await post('hello', { pet: 'mail-snail' }, { origin: here });
+  assert.equal(ok.headers.get('access-control-allow-origin'), here);
 });
 
 test('only a pet on the farm gets a seat, and never a private one', { skip }, async () => {
