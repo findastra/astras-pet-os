@@ -100,10 +100,12 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     add({ name: String(i + 1), title: 'Track ' + (i + 1), shift: LQ[i], what: 'Pick track ' + (i + 1) + '.', x: x, y: 923, w: 74, h: 35, big: true });
     add({ name: '', title: 'Bottom button ' + (i + 1), what: 'Does what RECORD ARM / MUTE / SOLO / CLIP STOP picks, to track ' + (i + 1) + '.', x: x, y: 974, w: 74, h: 54 });
   });
-  add({ name: '▲', title: 'Up', what: 'Move up.', poly: '625,923 683,923 683,970 625,970', tx: 654, ty: 951 });
-  add({ name: '▼', title: 'Down', what: 'Move down.', poly: '625,981 683,981 683,1027 625,1027', tx: 654, ty: 1009 });
-  add({ name: '◀', title: 'Left', what: 'Move left.', poly: '577,923 614,923 625,975 614,1027 577,1027', tx: 597, ty: 980 });
-  add({ name: '▶', title: 'Right', what: 'Move right.', poly: '694,923 732,923 732,1027 694,1027 683,975', tx: 712, ty: 980 });
+  // The arrow keys as Akai draws them: Up and Down are trapezoids, wide at the outer edge and narrow where they meet;
+  // Left and Right have an angled inner edge that points in (Astra, 2026-11-03: "They're trapezoids").
+  add({ name: '▲', title: 'Up', what: 'Move up.', poly: '622,923 686,923 675,971 634,971', tx: 654, ty: 945 });
+  add({ name: '▼', title: 'Down', what: 'Move down.', poly: '634,980 675,980 686,1028 622,1028', tx: 654, ty: 1006 });
+  add({ name: '◀', title: 'Left', what: 'Move left.', poly: '576,923 613,923 627,976 613,1028 576,1028', tx: 596, ty: 976 });
+  add({ name: '▶', title: 'Right', what: 'Move right.', poly: '695,923 733,923 733,1028 695,1028 682,976', tx: 713, ty: 976 });
   add({ name: '', title: 'Screen', what: 'Shows what you are doing.', x: 1616, y: 951, w: 83, h: 46, kind: 'screen' });
   add({ name: '', title: 'Knob', what: 'Turn to choose, push to pick. Push alone: click track on/off.', kind: 'knob', cx: 1782, cy: 974, rr: 37 });
 

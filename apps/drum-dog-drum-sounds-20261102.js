@@ -15,15 +15,27 @@
     return ac;
   }
   function env(g, t, peak, len) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(peak, 0.0002), t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + len); }
-  function tone(type, f0, f1, len, vol, delay) {
+  // A sound can go through a distortion first (dest = crunch(amount)) instead of straight out.
+  function tone(type, f0, f1, len, vol, delay, dest) {
     var t = ac.currentTime + (delay || 0), o = ac.createOscillator(), g = ac.createGain();
     o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + len);
-    env(g, t, vol, len); o.connect(g); g.connect(out); o.start(t); o.stop(t + len + 0.05);
+    env(g, t, vol, len); o.connect(g); g.connect(dest || out); o.start(t); o.stop(t + len + 0.05);
   }
-  function noise(filter, freq, len, vol, delay) {
+  function noise(filter, freq, len, vol, delay, dest) {
     var t = ac.currentTime + (delay || 0), s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
     s.buffer = noiseBuf; f.type = filter; f.frequency.value = freq; env(g, t, vol, len);
-    s.connect(f); f.connect(g); g.connect(out); s.start(t); s.stop(t + len + 0.05);
+    s.connect(f); f.connect(g); g.connect(dest || out); s.start(t); s.stop(t + len + 0.05);
+  }
+  // Hard distortion plus a coarse step (a "bit crush" look-alike): the bigger the amount, the dirtier.
+  var crunchCurves = {};
+  function crunch(amount) {
+    if (!crunchCurves[amount]) {
+      var n = 1024, c = new Float32Array(n), steps = Math.max(4, 64 - amount / 2);
+      for (var i = 0; i < n; i++) { var x = i * 2 / n - 1, y = Math.tanh(x * amount / 10); c[i] = Math.round(y * steps) / steps; }
+      crunchCurves[amount] = c;
+    }
+    var w = ac.createWaveShaper(), g = ac.createGain(); w.curve = crunchCurves[amount]; g.gain.value = 0.6; w.connect(g); g.connect(out);
+    return w;
   }
 
   // Each voice takes a loudness (0-1) and a tune (0.5-2, 1 = normal).
@@ -50,11 +62,28 @@
     'Zap': function (v, k) { tone('sawtooth', 1800 * k, 80 * k, 0.18, v * 0.25); },
     'Laser': function (v, k) { tone('square', 3000 * k, 300 * k, 0.3, v * 0.15); },
     'Bass blip': function (v, k) { tone('sawtooth', 55 * k, 0, 0.25, v * 0.35); tone('sine', 110 * k, 0, 0.25, v * 0.4); },
-    'Vinyl crackle': function (v, k) { for (var i = 0; i < 6; i++) noise('highpass', 3000 * k, 0.01, v * 0.4, Math.random() * 0.3); }
+    'Vinyl crackle': function (v, k) { for (var i = 0; i < 6; i++) noise('highpass', 3000 * k, 0.01, v * 0.4, Math.random() * 0.3); },
+    // Weird digital computer sounds for the Hyperpop and Computer kits (Astra, 2026-11-03: "a collection of digital
+    // weird computer sounds ... like Frost Children, Bassvictim"): distorted, crushed, glitchy, chippy.
+    'Distort 808': function (v, k) { tone('sine', 70 * k, 34 * k, 1.1, v, 0, crunch(30)); },
+    'Crushed kick': function (v, k) { tone('square', 140 * k, 40 * k, 0.22, v * 0.5, 0, crunch(60)); },
+    'Bitcrush snare': function (v, k) { noise('bandpass', 2600 * k, 0.16, v * 0.9, 0, crunch(80)); [0, 0.02, 0.04].forEach(function (d, i) { tone('square', [190, 140, 230][i] * k, 0, 0.018, v * 0.25, d); }); },
+    'Hyper clap': function (v, k) { [0, 0.008, 0.016, 0.024].forEach(function (d) { noise('highpass', 1900 * k, 0.03, v, d, crunch(20)); }); noise('bandpass', 2400 * k, 0.35, v * 0.35, 0.03); },
+    'Glitch stutter': function (v, k) { for (var i = 0; i < 6; i++) tone('square', (300 + Math.random() * 1500) * k, 0, 0.02, v * 0.22, i * 0.035); },
+    'Chip bleep': function (v, k) { tone('square', 1320 * k, 0, 0.08, v * 0.2); },
+    'Chip arp': function (v, k) { [523, 659, 784, 1047, 1319].forEach(function (f, i) { tone('square', f * k, 0, 0.035, v * 0.18, i * 0.04); }); },
+    'Modem': function (v, k) { for (var i = 0; i < 12; i++) tone('square', (i % 2 ? 2200 : 1200) * k, 0, 0.03, v * 0.12, i * 0.035); noise('bandpass', 1800 * k, 0.45, v * 0.15); },
+    'Error beep': function (v, k) { tone('square', 880 * k, 0, 0.09, v * 0.2); tone('square', 440 * k, 0, 0.14, v * 0.2, 0.1); },
+    'Formant blip': function (v, k) { var t = ac.currentTime, o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain(); o.type = 'sawtooth'; o.frequency.value = 220 * k; f.type = 'bandpass'; f.Q.value = 8; f.frequency.setValueAtTime(400, t); f.frequency.exponentialRampToValueAtTime(2600, t + 0.18); env(g, t, v * 0.9, 0.22); o.connect(f); f.connect(g); g.connect(out); o.start(t); o.stop(t + 0.3); },
+    'Sub drop': function (v, k) { tone('sine', 130 * k, 28 * k, 0.9, v); },
+    'Metal ping': function (v, k) { var t = ac.currentTime, c = ac.createOscillator(), m = ac.createOscillator(), mg = ac.createGain(), g = ac.createGain(); c.frequency.value = 600 * k; m.frequency.value = 1450 * k; mg.gain.setValueAtTime(1800 * k, t); mg.gain.exponentialRampToValueAtTime(10, t + 0.4); m.connect(mg); mg.connect(c.frequency); env(g, t, v * 0.35, 0.45); c.connect(g); g.connect(out); c.start(t); m.start(t); c.stop(t + 0.5); m.stop(t + 0.5); },
+    'Data burst': function (v, k) { for (var i = 0; i < 10; i++) tone('sine', (800 + Math.random() * 3000) * k, 0, 0.012, v * 0.3, i * 0.018); },
+    'Robot': function (v, k) { var t = ac.currentTime, o = ac.createOscillator(), lfo = ac.createOscillator(), am = ac.createGain(), g = ac.createGain(); o.type = 'square'; o.frequency.value = 150 * k; lfo.type = 'square'; lfo.frequency.value = 32; am.gain.value = 0; lfo.connect(am.gain); env(g, t, v * 0.3, 0.35); o.connect(am); am.connect(g); g.connect(out); o.start(t); lfo.start(t); o.stop(t + 0.4); lfo.stop(t + 0.4); },
+    'Reverse swell': function (v, k) { var t = ac.currentTime, s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.setValueAtTime(500 * k, t); f.frequency.exponentialRampToValueAtTime(6000 * k, t + 0.4); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v * 0.6, t + 0.4); g.gain.setValueAtTime(0.0001, t + 0.41); s.connect(f); f.connect(g); g.connect(out); s.start(t); s.stop(t + 0.45); }
   };
   // Which colour family a sound is: 0 kicks, 1 snares and claps, 2 hats and cymbals, 3 toms, 4 everything else.
   function family(name) {
-    if (/kick|boom/i.test(name)) return 0;
+    if (/kick|boom|808|drop/i.test(name)) return 0;
     if (/snare|clap|rim/i.test(name)) return 1;
     if (/hat|ride|crash|shaker|crackle/i.test(name)) return 2;
     if (/tom|bongo/i.test(name)) return 3;
@@ -85,7 +114,10 @@
     kit('lofi', 'Lo-fi', 3, [{ sound: 'Kick', tune: 0.85 }, 'Rim', 'Soft snare', 'Vinyl crackle', 'Low tom', 'Shaker', { sound: 'Closed hat', tune: 0.7 }, 'Mid tom', 'High tom', 'Bongo', { sound: 'Open hat', tune: 0.7 }, 'Click', { sound: 'Crash', tune: 0.6 }, '808 boom', { sound: 'Snare', tune: 0.8 }, { sound: 'Ride', tune: 0.8 }]),
     kit('trap', 'Trap', 4, ['808 boom', { sound: 'Crack snare', tune: 1.1 }, 'Clap', 'Closed hat', { sound: '808 boom', tune: 0.75 }, { sound: '808 boom', tune: 1.33 }, { sound: 'Closed hat', tune: 1.3 }, 'Open hat', 'Rim', 'Snare', 'Shaker', 'Click', 'Crash', 'Cowbell', 'Laser', 'Ride']),
     kit('rock', 'Rock', 5, ['Punch kick', 'Rim', 'Snare', 'Crack snare', 'Low tom', 'Mid tom', 'Closed hat', 'High tom', { sound: 'Low tom', tune: 0.8 }, 'Cowbell', 'Open hat', 'Ride', 'Crash', 'Kick', { sound: 'Crash', tune: 1.2 }, 'Clap']),
-    kit('space', 'Space', 6, ['808 boom', 'Zap', 'Laser', 'Clap', 'Bass blip', { sound: 'Zap', tune: 0.6 }, { sound: 'Laser', tune: 1.5 }, 'Shaker', { sound: 'Bass blip', tune: 0.75 }, 'Bongo', 'Open hat', 'Click', 'Crash', { sound: 'Zap', tune: 1.4 }, { sound: 'Laser', tune: 0.7 }, 'Vinyl crackle'])
+    kit('space', 'Space', 6, ['808 boom', 'Zap', 'Laser', 'Clap', 'Bass blip', { sound: 'Zap', tune: 0.6 }, { sound: 'Laser', tune: 1.5 }, 'Shaker', { sound: 'Bass blip', tune: 0.75 }, 'Bongo', 'Open hat', 'Click', 'Crash', { sound: 'Zap', tune: 1.4 }, { sound: 'Laser', tune: 0.7 }, 'Vinyl crackle']),
+    // Hyperpop and Computer: the weird digital sounds (Astra, 2026-11-03).
+    kit('hyperpop', 'Hyperpop', 9, ['Distort 808', 'Hyper clap', 'Bitcrush snare', 'Closed hat', { sound: 'Distort 808', tune: 0.75 }, { sound: 'Distort 808', tune: 1.33 }, 'Glitch stutter', 'Open hat', 'Chip bleep', 'Formant blip', { sound: 'Formant blip', tune: 1.5 }, 'Error beep', 'Sub drop', 'Chip arp', 'Metal ping', 'Laser']),
+    kit('computer', 'Computer', 7, ['Crushed kick', 'Bitcrush snare', 'Data burst', 'Modem', 'Robot', 'Error beep', 'Chip bleep', { sound: 'Chip bleep', tune: 0.5 }, 'Glitch stutter', 'Metal ping', 'Formant blip', 'Click', 'Reverse swell', 'Chip arp', { sound: 'Data burst', tune: 1.5 }, 'Zap'])
   ];
   // A new kit takes the next colour set no kit is using yet.
   function freshColors() {

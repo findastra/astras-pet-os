@@ -39,3 +39,11 @@ buttons like Surprise me, a redone layout, and the board tool renamed preview-my
   colour set; changing a pad on 808 made "My 808" and the board played it (first layout); tapping a Space pad made the
   board play Space and opened its controls under it (final layout). `node --test test/*.mjs`: 349 pass and the
   same 2 failures as `main`.
+
+## Weird digital kits and the arrow keys (same day)
+
+Astra: "these drum kits ... are all kind of the same" and "Give me a collection of digital weird computer sounds ... like Frost Children, Bassvictim". She was right: every kit was the same 23 simple browser-made sounds, rearranged and retuned.
+
+- `drum-dog-drum-sounds-20261102.js`: 15 new sounds (Distort 808, Crushed kick, Bitcrush snare, Hyper clap, Glitch stutter, Chip bleep, Chip arp, Modem, Error beep, Formant blip, Sub drop, Metal ping, Data burst, Robot, Reverse swell), with a `crunch` distortion helper. Two new ready-made kits use them: **Hyperpop** (party colours) and **Computer** (arcade colours). 808 and drop sounds now light in the kick colour.
+- `drum-dog-apc64-deck-20261102.html`: the arrow keys follow Akai's top view. Up and Down are trapezoids, wide at the outer edge; Left and Right have an angled inner edge (Astra: "They're trapezoids").
+- Checks: in the pane every new sound played without an error and both kits show in the kit tool; the arrows match the APC64 editor's top view. They are browser-made sounds, not recordings; Ableton's own kits (808 Core Kit and the rest) are real samples.
