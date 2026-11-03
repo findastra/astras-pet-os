@@ -38,3 +38,23 @@ Biscuits. Need a different color theme for bass & biscuits too."
   - Links to Voicemeeter (where its sound goes) and to the web browser.
 - Bass & Biscuits' own colours: a midnight studio (deep indigo, electric-blue lines, neon cyan links). Every other page
   keeps its own.
+
+## apc64-drum-kit-tool, the deck in L1, Deck Duck's buttons (same day)
+
+Astra: "i want a kit tool that keeps track of all my drum kits... apc64-drum-kit-tool would be ok i think as the name
+for it under L1"; "remember this is a tool... its not above it"; "coordinate with the deck duck. its program is being
+made now."
+
+- `apps/drum-dog-apc64-drum-kits-20261102.html` is apc64-drum-kit-tool, a native tool in L1 with its own page.
+  - It holds seven ready-made kits (Starter, 808, House, Lo-fi, Trap, Rock, Space) and her own copies.
+  - In her own kits she can change any pad's sound or tune, or drop her own sound file on a pad (kept in IndexedDB).
+  - "Play this kit" sets what the deck plays, and "Surprise me" picks a kit at random.
+- `apps/drum-dog-drum-sounds-20261102.js` holds the sounds and kits that the deck and the kit tool share.
+- The deck plays the picked kit, has its own "Surprise me" button, and reads `?kit=surprise` for Deck Duck's Stream
+  Deck button.
+- The page builder takes `in_l1: true`, which puts an embedded tool inside the L1 control panel instead of above the
+  levels. The APC64 deck uses it.
+- Card `handoffs/271-any-deck-duck-drum-buttons-20261102.md` asks whoever builds Deck Pond for two Stream Deck
+  buttons, Drums and Surprise kit. Nothing was written in findastra/deck-duck.
+- Checked in headless Edge: copied the 808 kit, changed a pad to Laser, set it playing; the deck showed "My 808" with
+  Laser on its bottom-left pad, and Surprise me switched kits.

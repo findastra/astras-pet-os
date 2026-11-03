@@ -179,7 +179,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, frame: n.frame === 'wide' ? 'wide' : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -369,7 +369,9 @@ const showPicture = (i) => !!i.picture && !i.embed;
 // A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map. A `frame: "wide"`
 // tool fills the panel's width (Bass & Biscuits' APC64 deck, Astra 2026-11-02: "build that right on the base and
 // biscuit"); `allow="midi"` lets it hear a controller plugged into this PC after the browser asks.
-const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay"></iframe>
+// `in_l1: true` puts it inside the L1 control panel with the other tools instead of above the levels (Astra, 2026-11-02,
+// of the APC64 deck: "remember this is a tool... its not above it"; tools "under L1").
+const embeddedTools = (d, inL1 = false) => d.tools.filter((t) => t.embed && t.inL1 === inL1).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay"></iframe>
 ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}`)}`, { cls: 'tool-embed', id: `${t.id}-tool-panel`, light: true })).join('\n');
 
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.
@@ -728,6 +730,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
 ${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
+${embeddedTools(d, true)}
 ${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a

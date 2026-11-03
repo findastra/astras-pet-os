@@ -91,7 +91,8 @@
       "job": "The Akai APC64’s top surface at its measured size, right on Bass & Biscuits’ page (Astra, 2026-11-02: \"build that right on the base and biscuit\"; \"let’s try to get me making sound at least\"). Tap a pad to hear a drum, tap anything to see what it does in a few words, and add your own label. \"Use my APC64\" hears the real pads in the browser (Web MIDI) and plays the same drums, with no Ableton needed. Traced from Akai’s APC64 User Guide v1.0.",
       "does": "Your APC64 on the page: tap pads to play drums, tap buttons to learn them.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
-      "frame": "wide"
+      "frame": "wide",
+      "in_l1": true
     },
     {
       "id": "ableton-usb-audio-driver",
@@ -102,6 +103,20 @@
       "category": "Driver",
       "job": "Installed with Live on 2026-10-31 (v5.72.0; its control panel runs in the background). It is for Ableton’s own hardware (Move, Push); the APC64 does not need it.",
       "does": "Audio driver for Ableton Move and Push."
+    },
+    {
+      "id": "apc64-drum-kit-tool",
+      "name": "apc64-drum-kit-tool",
+      "type": "tool",
+      "of": "drum-dog",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-drum-kits-20261102.html",
+      "job": "Keeps track of all of Astra’s drum kits (Astra, 2026-11-02: \"i want a kit tool that keeps track of all my drum kits... apc64-drum-kit-tool would be ok i think as the name for it under L1\"). Seven ready-made kits (Starter, 808, House, Lo-fi, Trap, Rock, Space), her own copies with any pad’s sound or tune changed, or her own sound files dropped on a pad. \"Play this kit\" sets what the APC64 deck plays; \"Surprise me\" picks one at random. Kits stay in this browser.",
+      "does": "All your drum kits: pick the one the APC64 deck plays, change pads, add your own sounds."
     },
     {
       "id": "dm-archive-review",
@@ -5115,6 +5130,13 @@
       "carries": "manages",
       "state": "now",
       "why": "Avatar meshes are often edited in Blender before Unity."
+    },
+    {
+      "from": "apc64-drum-kit-tool",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Kits and Astra’s own sound files are kept in the browser; it plays them with Web Audio."
     },
     {
       "from": "drum-dog",

@@ -18,7 +18,8 @@ body{margin:0;background:var(--bg)}
 button,input{font:inherit;color:var(--ink);background:#2c3038;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
 button{cursor:pointer}
 button.on{border-color:var(--lime);color:var(--lime)}
-#midiState{color:var(--dim);font-size:.9rem}
+#midiState,.kitname{color:var(--dim);font-size:.9rem}
+.kitname b{color:var(--lime)}
 svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .info{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:6px 4px;min-height:64px}
 .info b{color:var(--cyan);font-size:1.15rem}
@@ -44,6 +45,9 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
 <body>
 <div class="top">
   <button type="button" id="midi">Use my APC64</button>
+  <span class="kitname">Kit: <b id="kit"></b></span>
+  <button type="button" id="surprise">Surprise me</button>
+  <a href="drum-dog-apc64-drum-kits-20261102.html" target="_top"><button type="button">My kits</button></a>
   <span id="midiState">Tap a pad to hear it.</span>
 </div>
 <svg id="deck" viewBox="525 70 1370 1010" role="img" aria-label="Akai APC64"></svg>
@@ -51,6 +55,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   <b id="tName">Tap anything</b> <span id="tWhat"></span>
   <input id="note" maxlength="40" placeholder="My label" aria-label="My label for this control" hidden>
 </div>
+<script src="drum-dog-drum-sounds-20261102.js"></script>
 <script>
 (function () {
   'use strict';
@@ -60,39 +65,13 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   function save() { try { localStorage.setItem(KEY, JSON.stringify(labels)); } catch (e) { /* private window */ } }
   function el(tag, a, parent, text) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (text != null) e.textContent = text; (parent || svg).appendChild(e); return e; }
 
-  // ---- Drum sounds, made in the browser (no sample files) ----
-  var ac = null, noiseBuf = null;
-  function audio() {
-    if (!ac) { var A = window.AudioContext || window.webkitAudioContext; if (!A) return null; ac = new A();
-      noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); var d = noiseBuf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
-    if (ac.state === 'suspended') ac.resume();
-    return ac;
-  }
-  function env(g, t, peak, len) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + len); }
-  function tone(type, f0, f1, len, vol) { var t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + len); env(g, t, vol, len); o.connect(g).connect(ac.destination); o.start(t); o.stop(t + len + 0.05); }
-  function noise(filter, freq, len, vol, delay) { var t = ac.currentTime + (delay || 0), s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; f.type = filter; f.frequency.value = freq; env(g, t, vol, len); s.connect(f).connect(g).connect(ac.destination); s.start(t); s.stop(t + len + 0.05); }
-  var SOUND = {
-    'Kick': function (v) { tone('sine', 150, 45, 0.45, v); },
-    'Kick 2': function (v) { tone('sine', 110, 35, 0.6, v); },
-    'Snare': function (v) { tone('triangle', 220, 120, 0.12, v * 0.5); noise('highpass', 1500, 0.2, v * 0.7); },
-    'Snare 2': function (v) { tone('triangle', 300, 160, 0.1, v * 0.4); noise('bandpass', 3000, 0.25, v * 0.8); },
-    'Clap': function (v) { [0, 0.012, 0.024].forEach(function (d) { noise('bandpass', 1200, 0.06, v * 0.8, d); }); noise('bandpass', 1200, 0.25, v * 0.5, 0.036); },
-    'Rim': function (v) { tone('square', 1700, 900, 0.03, v * 0.35); },
-    'Closed hat': function (v) { noise('highpass', 8000, 0.05, v * 0.6); },
-    'Open hat': function (v) { noise('highpass', 7000, 0.35, v * 0.5); },
-    'Shaker': function (v) { noise('bandpass', 6000, 0.09, v * 0.5); },
-    'Ride': function (v) { noise('highpass', 9000, 0.6, v * 0.25); tone('square', 520, 0, 0.4, v * 0.04); },
-    'Crash': function (v) { noise('highpass', 5000, 1.2, v * 0.5); },
-    'Low tom': function (v) { tone('sine', 110, 70, 0.4, v); },
-    'Mid tom': function (v) { tone('sine', 160, 100, 0.35, v); },
-    'High tom': function (v) { tone('sine', 230, 150, 0.3, v); },
-    'Cowbell': function (v) { tone('square', 560, 0, 0.25, v * 0.15); tone('square', 845, 0, 0.25, v * 0.15); },
-    'Click': function (v) { tone('square', 2500, 0, 0.015, v * 0.3); }
-  };
-  // The 4x4 kit, bottom row first, like the drum layout Live puts on the APC64. Every 4x4 corner of the grid plays it.
-  var KIT = [['Kick', 'Rim', 'Snare', 'Clap'], ['Low tom', 'Shaker', 'Closed hat', 'Mid tom'], ['High tom', 'Cowbell', 'Open hat', 'Click'], ['Crash', 'Kick 2', 'Snare 2', 'Ride']];
-  var FAMILY = { 'Kick': '#2ef2ff', 'Kick 2': '#2ef2ff', 'Snare': '#ff4fd8', 'Snare 2': '#ff4fd8', 'Clap': '#ff4fd8', 'Rim': '#ff8fe8', 'Closed hat': '#b6ff3b', 'Open hat': '#b6ff3b', 'Ride': '#b6ff3b', 'Crash': '#b6ff3b', 'Shaker': '#d6ff8a', 'Low tom': '#ffc23b', 'Mid tom': '#ffc23b', 'High tom': '#ffc23b', 'Cowbell': '#b98bff', 'Click': '#b98bff' };
-  function soundAt(r, c) { var fromBottom = (8 - r) % 4; return KIT[fromBottom][(c - 1) % 4]; }
+  // ---- Drums: the kit picked in apc64-drum-kit-tool (shared drum-dog-drum-sounds-20261102.js) ----
+  var S = window.DrumSounds;
+  if (/[?&]kit=surprise\b/.test(location.search)) S.surprise();  // Deck Duck's "Surprise kit" Stream Deck button
+  var kit = S.currentKit();
+  // The kit's 16 pads are bottom row first, like the drum layout Live puts on the APC64; every 4x4 corner plays it.
+  function padIndex(r, c) { return ((8 - r) % 4) * 4 + (c - 1) % 4; }
+  function kitPad(o) { return kit.pads[padIndex(o.r, o.c)]; }
 
   // ---- The deck, at its measured geometry (units of 0.2757 mm, from Akai's top view) ----
   var C = [];
@@ -110,8 +89,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     .forEach(function (m) { add({ name: m[0], shift: m[1], what: m[2], x: 777, y: m[3], w: 58, h: 29 }); });
   var PADX = [866, 955, 1042, 1132, 1221, 1311, 1400, 1486], PADY = [191, 279, 368, 457, 547, 635, 723, 811];
   for (var r = 1; r <= 8; r++) for (var c = 1; c <= 8; c++) {
-    var snd = soundAt(r, c);
-    add({ id: 'pad-r' + r + 'c' + c, name: snd, what: 'Tap to play.', kind: 'pad', r: r, c: c, x: PADX[c - 1], y: PADY[r - 1], w: 73, h: 73, sound: snd });
+    add({ id: 'pad-r' + r + 'c' + c, name: '', what: 'Tap to play.', kind: 'pad', r: r, c: c, x: PADX[c - 1], y: PADY[r - 1], w: 73, h: 73 });
   }
   var SCENE = ['VELOCITY', 'PROBABILITY', 'MUTATE', '', 'SAVE', 'SAVE TO...', '', 'STOP ALL'];
   [203, 293, 381, 470, 559, 649, 737, 826].forEach(function (y, i) { add({ name: 'LAUNCH', shift: SCENE[i], what: 'Plays the whole row ' + (i + 1) + ' in Ableton.', x: 1584, y: y, w: 59, h: 48 }); });
@@ -144,23 +122,35 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     else if (o.poly) { o.k = el('polygon', { class: 'k', points: o.poly }, g); el('text', { class: 'name', x: o.tx, y: o.ty + 4, style: 'font-size:13px' }, g, o.name); o.lx = o.tx; o.ly = o.ty; }
     else {
       o.k = el('rect', { class: 'k', x: o.x, y: o.y, width: o.w, height: o.h, rx: 3 }, g); o.lx = o.x + o.w / 2; o.ly = o.y + o.h / 2;
-      if (o.kind === 'pad') { o.k.style.fill = FAMILY[o.sound]; if (o.r >= 5 && o.c <= 4) el('text', { class: 'padtxt', x: o.lx, y: o.ly + 5, style: 'font-size:' + (o.sound.length > 6 ? 10.5 : 13) + 'px' }, g, o.sound); byPad[o.r + ',' + o.c] = o; }
+      if (o.kind === 'pad') { if (o.r >= 5 && o.c <= 4) o.padT = el('text', { class: 'padtxt', x: o.lx, y: o.ly + 5 }, g, ''); byPad[o.r + ',' + o.c] = o; }
       else if (o.kind === 'fader') { for (var d = 0; d < 9; d++) el('circle', { class: 'dot', cx: o.x + o.w + 12, cy: o.y + 20 + d * 36, r: 3.5 }, g); el('text', { class: 'name', x: o.lx, y: o.y - 6, style: 'font-size:11px' }, g, String(o.num)); }
       else if (o.kind === 'screen') { o.k.style.fill = '#1e2a33'; }
       else if (o.name) { var lines = o.name.indexOf(' ') > 0 && o.name.length > 6 ? o.name.split(' ') : [o.name]; var t = el('text', { class: 'name', x: o.lx, y: o.ly + 4 - (lines.length - 1) * 5.5, style: o.big ? 'font-size:12px' : '' }, g); lines.forEach(function (ln, i) { el('tspan', { x: o.lx, dy: i ? 11 : 0 }, t, ln); }); }
       if (o.shift) el('text', { class: 'shiftname', x: o.lx, y: o.y + o.h + 12 }, g, o.shift);
     }
     o.mine = el('text', { class: 'mylabel', x: o.lx, y: o.kind === 'pad' ? o.y + 16 : o.ly - (o.kind === 'fader' ? 0 : 22) }, g, '');
-    function act(e) { if (e) e.preventDefault(); pick(o); if (o.sound) hit(o, 0.9); }
+    function act(e) { if (e) e.preventDefault(); pick(o); if (o.kind === 'pad') hit(o, 0.9); }
     g.addEventListener('pointerdown', act);
     g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') act(e); });
   });
 
+  function paintKit() {
+    kit = S.currentKit(); document.getElementById('kit').textContent = kit.name;
+    C.forEach(function (o) {
+      if (o.kind !== 'pad') return;
+      var p = kitPad(o), n = S.padName(p);
+      o.name = n; o.k.style.fill = S.padColor(p); o.g.setAttribute('aria-label', n);
+      if (o.padT) { o.padT.textContent = n; o.padT.style.fontSize = (n.length > 6 ? 10.5 : 13) + 'px'; }
+    });
+    if (current && current.kind === 'pad') pick(current);
+  }
   function hit(o, vel) {
-    if (!audio()) return;
-    SOUND[o.sound](Math.max(0.15, vel));
+    S.playPad(kitPad(o), vel);
     o.g.classList.add('hit'); clearTimeout(o.t); o.t = setTimeout(function () { o.g.classList.remove('hit'); }, 110);
   }
+  document.getElementById('surprise').addEventListener('click', function () { S.surprise(); paintKit(); hit(byPad['8,1'], 0.9); });
+  window.addEventListener('storage', paintKit);   // a kit picked in the kit tool, in another tab
+  window.addEventListener('focus', paintKit);
   var note = document.getElementById('note');
   function pick(o) {
     if (current) current.g.classList.remove('sel');
@@ -172,6 +162,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   note.addEventListener('input', function () { if (!current) return; var v = note.value.trim(); if (v) labels[current.id] = v; else delete labels[current.id]; save(); drawLabels(); });
   function drawLabels() { C.forEach(function (o) { o.mine.textContent = labels[o.id] || ''; }); }
   drawLabels();
+  paintKit();
 
   // ---- The real APC64: play these drums when its pads are hit (Web MIDI; the browser asks first) ----
   var midiBtn = document.getElementById('midi'), state = document.getElementById('midiState');
@@ -180,11 +171,11 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     if (s !== 0x90 || !v) return;
     // Pads send notes 0-63 from the bottom-left, row by row; anything else still plays the kit by note.
     var o = n < 64 ? byPad[(8 - Math.floor(n / 8)) + ',' + (n % 8 + 1)] : null;
-    if (o) { hit(o, v / 127); } else { var snd = KIT[Math.floor((n % 16) / 4)][n % 4]; audio() && SOUND[snd](v / 127); }
+    if (o) { hit(o, v / 127); } else { S.playPad(kit.pads[n % 16], v / 127); }
     state.textContent = 'Pad note ' + n;
   }
   midiBtn.addEventListener('click', function () {
-    audio();
+    S.audio();
     if (!navigator.requestMIDIAccess) { state.textContent = 'This browser can’t hear the APC64. Try Edge or Chrome.'; return; }
     navigator.requestMIDIAccess().then(function (a) {
       var n = 0;
