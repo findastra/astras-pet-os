@@ -1073,12 +1073,11 @@ export function modelProgramData(src) {
       tool('three', 'A tool with an update waiting for your OK: its second light is yellow, and L3 asks you.'),
       tool('four', 'A tool that is not built yet: off (red), and its second light grey.', { state: 'planned' }),
       tool('five', 'A tool that runs on its own every day and has not been checked yet: report issues until someone checks it.', { cadence: 'daily' }),
-      tool('six', 'A tool that works right here, inside its own tool box, open from the start.', { embed: toolPage('six'), url: toolPage('six'), inL1: true, inPill: true, pillOpen: true }),
-      tool('seven', 'Another tool that works right here, in a tool box that starts closed: click it to open it.', { embed: toolPage('seven'), url: toolPage('seven'), inL1: true, inPill: true, pillOpen: false }),
+      tool('six', 'A tool that works right here, inside its own tool box: its own page, with Open it full screen below.', { embed: toolPage('six'), url: toolPage('six'), inL1: true, inPill: true, pillOpen: true }),
       // A toolset: tools that name it with `in` (`group` here) sit inside its rounded box.
       { ...item('toolset-one', 'toolset-one', 'A toolset: one rounded box that holds several tools, each with its own lights; it folds to its name.'), label: 'pet-program-name-v1.0-toolset-one-v1.0', side: null },
-      tool('eight', 'A tool inside toolset-one.', { group: 'model-toolset-one', groupName: 'toolset-one' }),
-      tool('nine', 'Another tool inside toolset-one, planned.', { group: 'model-toolset-one', groupName: 'toolset-one', state: 'planned' })],
+      tool('seven', 'A tool inside toolset-one.', { group: 'model-toolset-one', groupName: 'toolset-one' }),
+      tool('eight', 'Another tool inside toolset-one, planned.', { group: 'model-toolset-one', groupName: 'toolset-one', state: 'planned' })],
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
@@ -1103,14 +1102,12 @@ export function modelProgramData(src) {
   };
 }
 
-// Its script, a file of its own (pages hold no inline code): it lights the pad you press, nothing else.
-const MODEL_PROGRAM_TOOL_JS = `const which = new URLSearchParams(location.search).get('tool');
-document.getElementById('name').textContent = which === 'seven' ? 'tool-seven' : which === 'six' ? 'tool-six' : 'Example tool';
-const said = document.getElementById('said');
-for (const b of document.querySelectorAll('button')) b.addEventListener('click', () => {
-  const on = b.getAttribute('aria-pressed') !== 'true';
-  b.setAttribute('aria-pressed', String(on));
-  said.textContent = b.textContent + (on ? ' is lit.' : ' is off.');
+// Its script, a file of its own (pages hold no inline code): Run says it ran, nothing else.
+const MODEL_PROGRAM_TOOL_JS = `const said = document.getElementById('said');
+let runs = 0;
+document.getElementById('run').addEventListener('click', () => {
+  runs += 1;
+  said.textContent = 'tool-six ran ' + runs + (runs === 1 ? ' time.' : ' times.');
 });
 let inTool = false;
 try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
@@ -1124,9 +1121,8 @@ if (inTool) {
 // The Model Pet Program's files that are not pages: the example tool's script and the nine drawings.
 export const modelProgramAssets = () => ({ [MODEL_PROGRAM.toolJs]: MODEL_PROGRAM_TOOL_JS, ...modelProgramArt() });
 
-/** The small example tool that tool-six and tool-seven run right on the page. */
+/** The small example tool that tool-six runs right on the page: one line, one button, one result. */
 export function buildModelProgramTool() {
-  const pads = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   return assertPublic(`<!doctype html>
 <html lang="en">
 <head>
@@ -1135,23 +1131,23 @@ export function buildModelProgramTool() {
 <title>Example tool · Pet Program Name</title>
 ${wordScripts}
 <style>
-html,body{margin:0;background:transparent;color:#eef6ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
-main{padding:12px;max-width:440px;margin:0 auto}
-h1{font-size:17px;margin:0 0 4px}
-p{margin:0 0 12px;color:#a8c8e8}
-.pads{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-button{aspect-ratio:1;border-radius:14px;border:1px solid #9fd6ff;background:rgba(150,205,255,.07);color:inherit;font:inherit;cursor:pointer}
-button[aria-pressed="true"]{background:#9fd6ff;color:#0b2440}
-button:focus-visible{outline:2px solid #ffe08a;outline-offset:2px}
-output{display:block;margin-top:12px;font-size:13px;color:#a8c8e8}
+html,body{margin:0;background:transparent;color:#f4f8ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+main{padding:4px 0}
+p{margin:0 0 10px;color:#c3d5ef}
+ul{list-style:none;margin:0 0 12px;padding:0;max-width:420px}
+li{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid rgba(232,240,255,.35)}
+li span:last-child{color:#c3d5ef}
+button{border-radius:999px;border:1px solid #e8f0ff;background:rgba(255,255,255,.06);color:inherit;font:inherit;padding:4px 14px;cursor:pointer}
+button:hover{background:rgba(255,255,255,.1)}
+button:focus-visible{outline:2px solid #ffd84d;outline-offset:2px}
+output{display:inline-block;margin-left:10px;font-size:13px;color:#c3d5ef}
 </style>
 </head>
 <body>
 <main>
-<h1 id="name">Tool</h1>
-<p>An example tool that works right on the pet program page. Press a pad to light it.</p>
-<div class="pads">${pads.map((p) => `<button type="button" aria-pressed="false">Pad ${p}</button>`).join('')}</div>
-<output id="said" aria-live="polite">Nothing pressed yet.</output>
+<p>What the tool shows goes here: the tool's own page, working inside its tool box.</p>
+<ul>${['one', 'two', 'three'].map((n) => `<li><span>Result ${n}</span><span>value ${n}</span></li>`).join('')}</ul>
+<button type="button" id="run">Run</button><output id="said" aria-live="polite">Not run yet.</output>
 </main>
 <script src="${MODEL_PROGRAM.toolJs.slice(DIR.length + 1)}"></script>
 </body>

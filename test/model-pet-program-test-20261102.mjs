@@ -30,15 +30,15 @@ test('The Model Pet Program has every tool panel, with Pet Name\'s labels', () =
 test('The Model Pet Program shows every light and every kind of item once', () => {
   for (const result of ['works', 'issues', 'update', 'missing']) assert.ok(html.includes(`data-check="${result}"`), `a ${result} check`);
   assert.ok(!html.includes('tool-embed'), 'a tool that works on the page is in its tool box in L1, never a panel above the levels');
-  assert.equal((html.match(/<details class="pill-more" open>/g) || []).length, 1, 'one tool box open, one closed');
+  assert.equal((html.match(/<details class="pill-more" open>/g) || []).length, 1, 'one tool that works on the page, its box open');
   assert.ok(html.includes('pet-two-idle-') && html.includes('pet-three-idle-'), 'the friends have pictures');
   for (const cls of ['is-unset', 'is-update', 'is-fix', 'data-planned="1"', 'data-unseen="1"', 'tag cadence', 'pill-tool', 'Open it full screen',
     'item-serial', 'device-group', 'mark enforced', 'mark written', 'mark planned']) assert.ok(html.includes(cls), cls);
-  for (const h of ['3rd party programs · 2', 'Native programs · 2', 'Shared programs · 1', 'Native tools · 10', 'Devices it looks after · 3',
+  for (const h of ['3rd party programs · 2', 'Native programs · 2', 'Shared programs · 1', 'Native tools · 9', 'Devices it looks after · 3',
     'Native tricks · 3', 'L3 asks you · 1']) assert.ok(html.includes(h), h);
   assert.match(html, /three clicks/, 'a click count bound to a tool');
   const toolset = html.slice(html.indexOf('<div class="toolbox toolset">'));
-  assert.ok(html.includes('<div class="toolbox toolset">') && /toolset-one[\s\S]*?tool-eight[\s\S]*?tool-nine/.test(toolset), 'a toolset with its tools inside');
+  assert.ok(html.includes('<div class="toolbox toolset">') && /toolset-one[\s\S]*?tool-seven[\s\S]*?tool-eight/.test(toolset), 'a toolset with its tools inside');
   assert.ok(html.includes('>v0.0.0 // YYYYMMDD<'), 'the version and date as their format');
   assert.match(html, /L3 to you, the seated agent/, 'an editorial note');
 });
@@ -53,7 +53,7 @@ test('no page has a panel between its header and its four levels (Astra, 2026-11
 
 test('The Model Pet Program uses placeholder names only, never a real pet\'s things', () => {
   const names = [...html.matchAll(/<span class="item-name">([^<]+)<\/span>/g)].map((m) => m[1]);
-  const placeholder = /^(?:(?:tool|trick)-(?:one|two|three|four|five|six|seven|eight|nine)|(?:3rd party program|Native program|Shared program|Headset|Device) (?:one|two|three)|Approve the update of tool-three to v1\.1\?|self-audit|weekly-suggestions|seat|(?:one|two|three) clicks?)$/;
+  const placeholder = /^(?:(?:tool|trick)-(?:one|two|three|four|five|six|seven|eight)|(?:3rd party program|Native program|Shared program|Headset|Device) (?:one|two|three)|Approve the update of tool-three to v1\.1\?|self-audit|weekly-suggestions|seat|(?:one|two|three) clicks?)$/;
   assert.ok(names.length > 20);
   for (const n of names) assert.match(n, placeholder);
   for (const p of [...src.registry.pets, ...src.registry.pipeline].filter((x) => x.role !== 'host')) assert.ok(!html.includes(`>${p.pet}<`), `${p.pet} is a real pet`);
