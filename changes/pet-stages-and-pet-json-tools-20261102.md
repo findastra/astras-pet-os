@@ -41,6 +41,40 @@ Astra, same message: "fix the spawner so those pets get their pages, with their 
   Portfolio Puffer's Handwritten Message Manager and Benchmark Rock's device-watch (planned).
 - Test: `test/pet-json-tools-test-20261102.mjs`.
 
+## Nine pets move to the pipeline
+
+Astra, 2026-11-02, answering the deck "Friendly Farmer: pets to the pipeline": "All recommended". Question 1, option B:
+the four seed and roadmap pets with real work on main and the five she is building today. Question 2, option A: pages
+follow the pipeline, so the 40 "nothing built yet" pages of `claude/seed-roadmap-pages-20261030` stay out; its
+pet-page-audit trick and Flash Audit notes come over in their own pull request next.
+
+| Pet | Repo | Was | Why now |
+|---|---|---|---|
+| Skill Scout | lunas-log | seed | the skill census and its catalog page on main |
+| Journal Jellyfish | journal-lagoon | roadmap | the diary, its worker and six tools on main |
+| AI Dashund | ai-doghouse | seed | the research library and four tools (claude-toolset-tool merged in ai-doghouse#6 today) |
+| Door Dormouse | the-threshold | seed | The Threshold's found-floors page and tools tracker |
+| White Hat Weasel | white-hat-lab | roadmap | being built: the scan log in white-hat-lab#3 |
+| Gatekeeper Goddess | iron-gates | roadmap | being built: YubiKey enrollment, spending approval on a design branch |
+| Cipher Owl | cipher-hollow | roadmap | being built: design/yubikey-spend-approval-20261102 |
+| Roaming Raven | roam-map | roadmap | being built: design/remote-access-inventory-20261102 |
+| Pet Police Officer | the-police-station | seed | being built: design/yubikey-spend-approval-20261102 |
+
+- pet-programs.json: their stage is `pipeline`. pets.json: a pipeline entry each (private, hatching, its own pet.json
+  version and tools), Skill Scout, Pet Police Officer and Door Dormouse leave the seeds list (Door Dormouse's
+  works_with became a relations link to Unity Unicorn, and he needs Startup Star for his desktop pet).
+- system-map.json, the way Kernel Koala moved (756373b4): the roadmap nodes `journal-jellyfish`, `white-hat-weasel`,
+  `gatekeeper-goddess`, `cipher-owl` and `roaming-raven` give way to the pipeline nodes, and every link and security
+  hat moved to the repo's id (also `skill-scout` to `lunas-log`, `pet-police-officer` to `the-police-station`). The
+  Police Station's program node is now `program-78`, so the pet itself is `the-police-station`. Measured code lists for
+  the nine repos. **A branch that still names an old id** (design/yubikey-spend-approval-20261102 names
+  `gatekeeper-goddess` and `cipher-owl`) stops the build with "unknown node" until it uses the new id.
+- The stage chart's pipeline row says "or Astra has said it is being built", as she chose.
+- `desktop-art/desktop-drafts-20261018.json` (regenerated): Door Dormouse's desktop pet opens his page.
+- Tests: test/pet-privatizer-test-20261018.mjs refuses `osc-sonar` (still a seed) instead of `lunas-log`.
+- Their own pet.json files still say `status: "seed"` or `"roadmap"`: pet-finder reports it (`wrong-stage`), and each
+  pet's repo changes it to `hatching` in its own pull request.
+
 ## The Farm's own colours
 
 Astra, 2026-11-02: "I don't like the raspberry color of the farm. Let's change it to like dark green, something else,

@@ -81,6 +81,7 @@ flowchart LR
   packet_river["Packet Piranha"]
   log_den["Log Lynx"]
   evidence_locker["Forensic Ferret"]
+  the_threshold["Door Dormouse *"]
   pets ==>|registry| astras_pet_os
   astras_pet_os ==>|status| pets
   astras_pet_os ==>|status| astra
@@ -118,6 +119,7 @@ flowchart LR
   log_den ==>|findings| evidence_locker
   packet_river ==>|findings| evidence_locker
   log_den -->|status| astras_pet_os
+  the_threshold -->|findings| unity_unicorn
 ```
 
 ### What travels
@@ -175,6 +177,7 @@ flowchart LR
 | Log Lynx | Forensic Ferret | `findings` | now | Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later. |
 | Packet Piranha | Forensic Ferret | `findings` | now | The network samples around each case: fine, or what was wrong. |
 | Log Lynx | Friendly Farmer | `status` | planned | The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8). |
+| Door Dormouse * | Unity Unicorn | `findings` | planned | The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists. |
 
 ### Private pets
 
@@ -182,4 +185,4 @@ Health Hummy, Finance Finch. These pets' data never leaves the PC. Other pets do
 
 ### On their own so far
 
-Python Panther, Astra Wisp, Paper Patty, Voicemeeter Bug, Platform Platypus, Spoonfed Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *, Linux Penguin *, Kernel Koala *, Inference Iguana *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.
+Python Panther, Astra Wisp, Paper Patty, Voicemeeter Bug, Platform Platypus, Spoonfed Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *, Linux Penguin *, Kernel Koala *, Inference Iguana *, Skill Scout *, Journal Jellyfish *, AI Dashund *, White Hat Weasel *, Gatekeeper Goddess *, Cipher Owl *, Roaming Raven *, Pet Police Officer *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.

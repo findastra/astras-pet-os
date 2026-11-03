@@ -135,7 +135,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |
 | **pet stages** | lifecycle states | candidate, seed, roadmap, pipeline, registered: the chart with how many pets are at each is in the [README](README.md#pet-stages), written by `npm run build` from pet-programs.json. |
 | **seed** | planned (an approved idea, nothing built) | A pet with an approved name and job and no working tool yet. It may have a starter repo (a README and a pet.json); a repo alone does not make it a pipeline pet. |
-| **pipeline** | in development (on GitHub, not released) | A pet whose repo has real work (a tool or a page): an animal in pets.json `pipeline`, with its pet program page, but no registered art yet. |
+| **pipeline** | in development (on GitHub, not released) | A pet whose repo has real work (a tool or a page), or that Astra says is being built: an animal in pets.json `pipeline`, with its pet program page, but no registered art yet. |
 | **registered** | released (in the registry) | A pet in `pets` in pets.json, with its art. |
 | **roadmap pet** | roadmap item (not started) | Approved for later in the architecture. It may have a starter repo too. |
 | **the gate** | approval queue (an allowlist) | Where a new repo waits in `candidates` until Astra lets it in. Nobody becomes an animal by saying so. |

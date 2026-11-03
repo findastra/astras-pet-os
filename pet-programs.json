@@ -592,7 +592,7 @@
       "assigned": true,
       "icon": "Skill Scout",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "lunas-log",
       "repo_exists": true,
       "mini_descriptor": {
@@ -682,7 +682,7 @@
       "assigned": true,
       "icon": "Gatekeeper Goddess",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "iron-gates",
       "repo_exists": true,
       "mini_descriptor": {
@@ -907,7 +907,7 @@
       "assigned": true,
       "icon": "Journal Jellyfish",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "journal-lagoon",
       "repo_exists": true,
       "mini_descriptor": {
@@ -997,7 +997,7 @@
       "assigned": true,
       "icon": "White Hat Weasel",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "white-hat-lab",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1027,7 +1027,7 @@
       "assigned": true,
       "icon": "Cipher Owl",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "cipher-hollow",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1102,7 +1102,7 @@
       "assigned": true,
       "icon": "Roaming Raven",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "roam-map",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1162,7 +1162,7 @@
       "assigned": true,
       "icon": "Pet Police Officer",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "the-police-station",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1177,7 +1177,7 @@
       "assigned": true,
       "icon": "AI Dashund",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "ai-doghouse",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1222,7 +1222,7 @@
       "assigned": true,
       "icon": "Door Dormouse",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "the-threshold",
       "repo_exists": true,
       "implementation_status": "Core-hosted browser prototype: floor planning, local notes, exports and connected concept website. On the-threshold's GitHub Pages since 2026-10-19: the tools tracker (tools-tracker-20261019.html, the door-dormouse-L1-panel with the tool box the-threshold-v1.0-tools-tracker-v1.0), which reads Liminal Doors' tools-by-floor ledger and shows which tools made which worlds, and the public found floors page (https://findastra.github.io/the-threshold/), where visitors tick the floors they have found and the ticks stay in their browser; Liminal Doors' VRChat world description links it (written, waiting for the first upload). Native pet, L3 harness and Unity execution bridge are pending.",

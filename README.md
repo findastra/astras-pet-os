@@ -121,9 +121,9 @@ Every pet is at one stage on its way from an idea to a released pet. The chart i
 <!-- stages:start (generated from pet-programs.json and pets.json by scripts/pet-stages-20261102.mjs; do not edit by hand) -->
 ```mermaid
 flowchart LR
-  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 15"]
-  candidate -->|Astra lets it in| roadmap["Roadmap · 25"]
-  seed -->|real work in its repo| pipeline["Pipeline · 21"]
+  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 11"]
+  candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
+  seed -->|real work in its repo| pipeline["Pipeline · 30"]
   roadmap -->|real work in its repo| pipeline
   pipeline -->|art registered| registered["Registered · 23"]
 ```
@@ -131,12 +131,12 @@ flowchart LR
 | Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
 |---|---|---|---|---|---|
 | **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
-| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 15 | 15 |
-| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 25 | 25 |
-| **Pipeline** | Being built. Its repo has real work (a tool or a page), it is an animal in pets.json, and it has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 21 | 21 |
+| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 11 | 11 |
+| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 30 | 30 |
 | **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
 
-84 numbered pet programs and 4 candidates at the gate. 44 have a pet program page (registered and pipeline).
+84 numbered pet programs and 4 candidates at the gate. 53 have a pet program page (registered and pipeline).
 <!-- stages:end -->
 
 **Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,

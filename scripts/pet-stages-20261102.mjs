@@ -19,7 +19,7 @@ export const STAGES = [
   { stage: 'roadmap', name: 'Roadmap', kept: 'pet-programs.json', page: false,
     means: 'Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started.' },
   { stage: 'pipeline', name: 'Pipeline', kept: 'pet-programs.json and pets.json `pipeline`', page: true,
-    means: 'Being built. Its repo has real work (a tool or a page), it is an animal in pets.json, and it has its pet program page. Its art is not registered yet.' },
+    means: 'Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet.' },
   { stage: 'registered', name: 'Registered', kept: 'pet-programs.json and pets.json `pets`', page: true,
     means: 'Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop.' },
 ];

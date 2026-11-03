@@ -492,6 +492,13 @@
         "carries": "status",
         "state": "planned",
         "why": "The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8)."
+      },
+      {
+        "from": "the-threshold",
+        "to": "unity-unicorn",
+        "carries": "findings",
+        "state": "planned",
+        "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
       }
     ],
     "private": [
@@ -3130,6 +3137,293 @@
           "planned": true
         }
       ]
+    },
+    {
+      "repo": "lunas-log",
+      "pet": "Skill Scout",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the agent and skill files of every assistant, and its skill catalog",
+        "needs": "your OK on which skills to adopt, fix or retire"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: the skill census (skill-scout-20261017.mjs), its catalog page (index.html) and three tricks. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/lunas-log-20261018.html",
+      "interface_local_url": "apps/pet-programs/lunas-log-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "journal-lagoon",
+      "pet": "Journal Jellyfish",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Private travel diary and itineraries.",
+      "added": "2026-11-02",
+      "version": "0.2.0",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the diary, its nightly reminder and its backups",
+        "needs": "a look at the diary on your PC"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; real work on main: the diary page, its worker and nightly reminder, six tools in its pet.json. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/journal-lagoon-20261018.html",
+      "interface_local_url": "apps/pet-programs/journal-lagoon-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      },
+      "tools": [
+        {
+          "name": "journal-lagoon-v0.2.0-mood-check-in-v1.0",
+          "use": "Record an explicitly selected daily mood and optional context",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-year-in-color-v1.0",
+          "use": "Display one latest self-reported mood per day; export counts",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-diary-entries-v1.0",
+          "use": "Save text and attachment bytes locally",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-my-diary-v1.0",
+          "use": "Browse submitted entries and committed panel interactions",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-nightly-reminder-v1.0",
+          "use": "Ask for a color at the configured time; snooze or skip",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-backup-restore-v1.0",
+          "use": "Export complete diary and merge validated backups without deleting existing records",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        }
+      ]
+    },
+    {
+      "repo": "ai-doghouse",
+      "pet": "AI Dashund",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the research library, its sources and the research paper plan",
+        "needs": "your review of the research paper plan"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: the research library and the research paper plan, four tools in its pet.json (claude-toolset-tool merged in findastra/ai-doghouse#6). No pet art registered yet.",
+      "interface_url": "apps/pet-programs/ai-doghouse-20261018.html",
+      "interface_local_url": "apps/pet-programs/ai-doghouse-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      },
+      "tools": [
+        {
+          "name": "research-library",
+          "label": "ai-doghouse-v0.1-research-library-v1.0",
+          "use": "Vetted sources with evidence levels and where each applies.",
+          "entry": "library/references-20261014.md",
+          "visibility": "public"
+        },
+        {
+          "name": "research-paper",
+          "label": "ai-doghouse-v0.1-research-paper-v0.1",
+          "use": "The plan for the research paper on Astra's PetOS.",
+          "entry": "docs/research-paper-plan-20261014.md",
+          "visibility": "public"
+        },
+        {
+          "name": "ai-tools-list",
+          "label": "ai-doghouse-v0.1-ai-tools-list-v1.0",
+          "use": "Teaches which tools and assets the pets' agents fetched, why, and how to use them safely; the record is Unity Unicorn's download ledger, reached by grant.",
+          "entry": "library/ai-tools-20261018.md",
+          "visibility": "public"
+        },
+        {
+          "name": "claude-toolset-tool",
+          "label": "ai-doghouse-v0.1-claude-toolset-tool-v0.1",
+          "use": "Sorts every / tool in Claude, and the skills Codex and the hub have, by where it came from, which pet should own it and whether it helps Astra now. --check flags new, missing or drifted skills.",
+          "entry": "tools/claude-toolset-tool/claude-toolset-tool-20261102.html",
+          "visibility": "private"
+        }
+      ]
+    },
+    {
+      "repo": "the-threshold",
+      "pet": "Door Dormouse",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website. Browser prototype; L3 and Unity execution are not connected.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "The Threshold's page, the Liminal Doors floors and the tools tracker",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: The Threshold's found-floors page (index.html) and the tools tracker for Liminal Doors. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/the-threshold-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-threshold-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Door Dormouse on the desktop; The Threshold's page works without it."
+          }
+        ],
+        "programs": []
+      }
+    },
+    {
+      "repo": "white-hat-lab",
+      "pet": "White Hat Weasel",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Authorized security assessment and remediation.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "authorized security tests and their scan log",
+        "needs": "your OK before every test"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the private scan log is in findastra/white-hat-lab#3. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/white-hat-lab-20261018.html",
+      "interface_local_url": "apps/pet-programs/white-hat-lab-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "iron-gates",
+      "pet": "Gatekeeper Goddess",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Security and approvals: human-facing approvals and security monitoring. Issues the grants and the short-lived agent keys; never approves her own.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the grants, agent keys and YubiKey enrollment",
+        "needs": "the YubiKey steps only you can do"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo with the YubiKey enrollment list on main; the YubiKey spending approval is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/iron-gates-20261018.html",
+      "interface_local_url": "apps/pet-programs/iron-gates-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "cipher-hollow",
+      "pet": "Cipher Owl",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Encryption, keys, certificates and crypto education.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "encryption, keys and certificates",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; its YubiKey part is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/cipher-hollow-20261018.html",
+      "interface_local_url": "apps/pet-programs/cipher-hollow-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "roam-map",
+      "pet": "Roaming Raven",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Travel connectivity, VPN/tailnet and remote access.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "remote access, VPN and the tailnet",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the remote access list is on design/remote-access-inventory-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/roam-map-20261018.html",
+      "interface_local_url": "apps/pet-programs/roam-map-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "the-police-station",
+      "pet": "Pet Police Officer",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every write and agent key use it watches",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; being built: a starter repo on main; its YubiKey part is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/the-police-station-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-police-station-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {
@@ -3159,13 +3453,6 @@
         "repo": null,
         "job": "Handles the redlines Astra makes in Procreate and manages her Procreate tools and drawings.",
         "note": "Named after Procreate. Takes the panda, so the v5.2 passport pet is now Passport Pelican."
-      },
-      {
-        "pet": "Skill Scout",
-        "program": "Luna's Log",
-        "repo": null,
-        "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
-        "note": "Job and look decided by Astra on 2026-10-12: an original sailor-style girl in the Mommies' design with very long braids (not a copy of any existing character)."
       },
       {
         "pet": "OSC Sealion",
@@ -3242,13 +3529,6 @@
         "note": "Named by Astra on 2026-10-12."
       },
       {
-        "pet": "Pet Police Officer",
-        "program": "The Police Station",
-        "repo": null,
-        "job": "Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.",
-        "note": "Approved by Astra on 2026-10-14. Pet program: The Police Station (repo findastra/the-police-station, created 2026-10-14). Moves to the pipeline when Astra lets it in at the gate."
-      },
-      {
         "pet": "Triage Tapir",
         "program": "The Triage Desk",
         "repo": null,
@@ -3274,25 +3554,14 @@
             "why": "Shares defensive findings; File Master retains file management ownership."
           }
         ]
-      },
-      {
-        "pet": "Door Dormouse",
-        "program": "The Threshold",
-        "repo": null,
-        "for": "liminal-doors",
-        "job": "Manages Liminal Doors: floor planning, tools, Unity project metadata and the preview website.",
-        "note": "Named and requested by Astra on 2026-10-16. Browser prototype is on Codex's branch; no independent repo, native desktop pet, automatic schedule, L3 connection or Unity execution grant.",
-        "works_with": [
-          {
-            "pet": "unity-unicorn",
-            "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
-          }
-        ]
       }
     ],
     "already_in_pipeline": [
       "claude-bot (Claude Bot)",
-      "spoonfed (Spoonfed Sugarcube)"
+      "spoonfed (Spoonfed Sugarcube)",
+      "lunas-log (Skill Scout)",
+      "the-police-station (Pet Police Officer)",
+      "the-threshold (Door Dormouse)"
     ],
     "renames": [
       {
