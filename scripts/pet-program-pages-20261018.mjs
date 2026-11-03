@@ -179,7 +179,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, frame: n.frame === 'wide' ? 'wide' : null, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -366,8 +366,10 @@ const built = (state) => !state || state === 'now';
 // A pill shows its live picture (and starts open) unless the tool works right on the page in its own tool panel.
 const showPicture = (i) => !!i.picture && !i.embed;
 
-// A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map.
-const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy"></iframe>
+// A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map. A `frame: "wide"`
+// tool fills the panel's width (Bass & Biscuits' APC64 deck, Astra 2026-11-02: "build that right on the base and
+// biscuit"); `allow="midi"` lets it hear a controller plugged into this PC after the browser asks.
+const embeddedTools = (d) => d.tools.filter((t) => t.embed).map((t) => panel(t.panel || `${t.id}-panel`, `<iframe class="tool-frame${t.frame ? ` ${t.frame}` : ''}" src="${esc(t.embed)}" title="${esc(t.name)}" loading="lazy" allow="midi; autoplay"></iframe>
 ${about(`${esc(t.name)}: ${esc(d.pet)}'s tool, right here.${t.url ? ` <a href="${esc(t.url)}">Open it on its own page</a>.` : ''}`)}`, { cls: 'tool-embed', id: `${t.id}-tool-panel`, light: true })).join('\n');
 
 // Every item is a pill, the same on every page (Astra, 2026-10-19: "those tools need to look the same on each page.

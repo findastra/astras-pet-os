@@ -87,9 +87,21 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "bass-biscuits-v1.0-apc64-deck-guide-v1.0",
-      "url": "https://github.com/findastra/drum-dog/blob/main/apc64-deck-guide-20261102.html",
-      "job": "The Akai APC64’s top surface drawn to scale, 371 × 272 mm (Astra, 2026-11-02: \"an exact copy of the surface of it as a tool on the drum dog so that we can, like, label stuff on there for me to look at so it’s easier for me to find\"): every pad, button, touch fader, the cursors, display and encoder. Click one to see what it does and add your own label; the pads switch between Session, drum and Step Seq views. Labels stay in the browser. A page in drum-dog (drum-dog PR #9), traced from Akai’s APC64 User Guide v1.0.",
-      "does": "Shows every button on the APC64 where it really is, with what it does and your own labels."
+      "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
+      "job": "The Akai APC64’s top surface at its measured size, right on Bass & Biscuits’ page (Astra, 2026-11-02: \"build that right on the base and biscuit\"; \"let’s try to get me making sound at least\"). Tap a pad to hear a drum, tap anything to see what it does in a few words, and add your own label. \"Use my APC64\" hears the real pads in the browser (Web MIDI) and plays the same drums, with no Ableton needed. Traced from Akai’s APC64 User Guide v1.0.",
+      "does": "Your APC64 on the page: tap pads to play drums, tap buttons to learn them.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
+      "frame": "wide"
+    },
+    {
+      "id": "ableton-usb-audio-driver",
+      "name": "Ableton USB Audio Driver",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Driver",
+      "job": "Installed with Live on 2026-10-31 (v5.72.0; its control panel runs in the background). It is for Ableton’s own hardware (Move, Push); the APC64 does not need it.",
+      "does": "Audio driver for Ableton Move and Push."
     },
     {
       "id": "dm-archive-review",
@@ -1481,10 +1493,10 @@
       "id": "ableton-live",
       "name": "Ableton Live",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Music production. Drum Dog plans an Ableton Live connection. Not found on the Desktop PC in the 2026-10-12 scan (no install, no Ableton folders); may be on another computer.",
+      "job": "Music production. Ableton Live 12 Trial (12.4.16) has been installed on the Desktop PC since 2026-10-31. Live Lite, which comes with the APC64, waits on its registration. Not connected to Drum Dog yet.",
       "does": "Music production software for making, recording and performing music."
     },
     {
@@ -2164,6 +2176,15 @@
       "layer": 6,
       "category": "Monitor",
       "job": "The Desktop PC’s monitor."
+    },
+    {
+      "id": "akai-apc64",
+      "name": "Akai APC64",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "MIDI controller",
+      "job": "Astra’s drum pad controller (2026-11-02): 64 pads and 8 touch faders, USB-C only (no Bluetooth and no sound of its own). Windows sees it as APC64. Its Live Lite registration is with Akai support."
     },
     {
       "id": "speaker-bar",
@@ -5094,6 +5115,34 @@
       "carries": "manages",
       "state": "now",
       "why": "Avatar meshes are often edited in Blender before Unity."
+    },
+    {
+      "from": "drum-dog",
+      "to": "akai-apc64",
+      "carries": "manages",
+      "state": "now",
+      "why": "The APC64 deck and lessons teach it; its pads play the deck’s drums."
+    },
+    {
+      "from": "drum-dog",
+      "to": "voicemeeter",
+      "carries": "audio",
+      "state": "now",
+      "why": "The deck’s drums, and later Live, play out through Voicemeeter like every app on this PC."
+    },
+    {
+      "from": "drum-dog",
+      "to": "ableton-usb-audio-driver",
+      "carries": "manages",
+      "state": "now",
+      "why": "Installed with Live; the APC64 does not need it."
+    },
+    {
+      "from": "apc64-deck-guide",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The browser makes the drum sounds and, with Web MIDI, hears the APC64’s pads."
     },
     {
       "from": "drum-dog",

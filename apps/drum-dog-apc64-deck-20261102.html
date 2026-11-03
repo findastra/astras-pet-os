@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APC64 deck · Bass &amp; Biscuits</title>
+<!-- apc64-deck-guide, a native tool of Bass & Biscuits (Drum Dog), shown inside its pet program page.
+     The APC64's top surface at its measured geometry (Akai's top view in the APC64 User Guide v1.0; body 371 x 272 mm).
+     Tap a pad to hear a drum; tap anything to see what it does. "Use my APC64" listens to the real pads (Web MIDI) and
+     plays the same drums in the browser, with no Ableton needed. Sounds are made in the browser (Web Audio), nothing
+     is downloaded or sent. Labels stay in this browser. Claude Opus 5.5 (claude-opus-5-5), 2026-11-02. -->
+<style>
+:root{--bg:#1b1d22;--panel:#24272e;--line:#3a3f49;--ink:#e9ebf0;--dim:#a3a9b5;--cyan:#2ef2ff;--pink:#ff4fd8;--lime:#b6ff3b;--amber:#ffc23b;--violet:#b98bff;
+  font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+.top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 4px}
+button,input{font:inherit;color:var(--ink);background:#2c3038;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+button{cursor:pointer}
+button.on{border-color:var(--lime);color:var(--lime)}
+#midiState{color:var(--dim);font-size:.9rem}
+svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.info{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:6px 4px;min-height:64px}
+.info b{color:var(--cyan);font-size:1.15rem}
+.info span{color:var(--ink)}
+.info input{flex:1 1 220px;max-width:340px}
+.body{fill:#15161a;stroke:#3a3f49;stroke-width:3}
+.ctl{cursor:pointer}
+.ctl .k{fill:#2a2d34;stroke:#4a505c;stroke-width:2;transition:fill .08s}
+.ctl.fader .k{fill:#0e0f12}
+.ctl:hover .k{stroke:var(--cyan);stroke-width:4}
+.ctl.sel .k{stroke:#fff;stroke-width:6}
+.ctl.hit .k{fill:#ffffff !important}
+.name{fill:#d9dce3;font:600 9.5px system-ui,sans-serif;pointer-events:none;text-anchor:middle}
+.shiftname{fill:#9aa1ad;font:600 9.5px system-ui,sans-serif;pointer-events:none;text-anchor:middle}
+.padtxt{fill:#0d0e10;font:800 13px system-ui,sans-serif;pointer-events:none;text-anchor:middle}
+.mylabel{fill:var(--amber);font:700 12px system-ui,sans-serif;pointer-events:none;text-anchor:middle;paint-order:stroke;stroke:#15161a;stroke-width:4px}
+.logo{fill:#cfd3da;font:800 34px system-ui,sans-serif;letter-spacing:1px}
+.logo2{fill:none;stroke:#cfd3da;stroke-width:2.5;font:400 58px system-ui,sans-serif;letter-spacing:3px}
+.dot{fill:#555b67}
+.small{fill:#7d8592;font:600 12px system-ui,sans-serif}
+</style>
+</head>
+<body>
+<div class="top">
+  <button type="button" id="midi">Use my APC64</button>
+  <span id="midiState">Tap a pad to hear it.</span>
+</div>
+<svg id="deck" viewBox="525 70 1370 1010" role="img" aria-label="Akai APC64"></svg>
+<div class="info" aria-live="polite">
+  <b id="tName">Tap anything</b> <span id="tWhat"></span>
+  <input id="note" maxlength="40" placeholder="My label" aria-label="My label for this control" hidden>
+</div>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('deck');
+  var KEY = 'apc64-deck-guide-labels-20261102', labels = {};
+  try { labels = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { labels = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(labels)); } catch (e) { /* private window */ } }
+  function el(tag, a, parent, text) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (text != null) e.textContent = text; (parent || svg).appendChild(e); return e; }
+
+  // ---- Drum sounds, made in the browser (no sample files) ----
+  var ac = null, noiseBuf = null;
+  function audio() {
+    if (!ac) { var A = window.AudioContext || window.webkitAudioContext; if (!A) return null; ac = new A();
+      noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); var d = noiseBuf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    if (ac.state === 'suspended') ac.resume();
+    return ac;
+  }
+  function env(g, t, peak, len) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + len); }
+  function tone(type, f0, f1, len, vol) { var t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + len); env(g, t, vol, len); o.connect(g).connect(ac.destination); o.start(t); o.stop(t + len + 0.05); }
+  function noise(filter, freq, len, vol, delay) { var t = ac.currentTime + (delay || 0), s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; f.type = filter; f.frequency.value = freq; env(g, t, vol, len); s.connect(f).connect(g).connect(ac.destination); s.start(t); s.stop(t + len + 0.05); }
+  var SOUND = {
+    'Kick': function (v) { tone('sine', 150, 45, 0.45, v); },
+    'Kick 2': function (v) { tone('sine', 110, 35, 0.6, v); },
+    'Snare': function (v) { tone('triangle', 220, 120, 0.12, v * 0.5); noise('highpass', 1500, 0.2, v * 0.7); },
+    'Snare 2': function (v) { tone('triangle', 300, 160, 0.1, v * 0.4); noise('bandpass', 3000, 0.25, v * 0.8); },
+    'Clap': function (v) { [0, 0.012, 0.024].forEach(function (d) { noise('bandpass', 1200, 0.06, v * 0.8, d); }); noise('bandpass', 1200, 0.25, v * 0.5, 0.036); },
+    'Rim': function (v) { tone('square', 1700, 900, 0.03, v * 0.35); },
+    'Closed hat': function (v) { noise('highpass', 8000, 0.05, v * 0.6); },
+    'Open hat': function (v) { noise('highpass', 7000, 0.35, v * 0.5); },
+    'Shaker': function (v) { noise('bandpass', 6000, 0.09, v * 0.5); },
+    'Ride': function (v) { noise('highpass', 9000, 0.6, v * 0.25); tone('square', 520, 0, 0.4, v * 0.04); },
+    'Crash': function (v) { noise('highpass', 5000, 1.2, v * 0.5); },
+    'Low tom': function (v) { tone('sine', 110, 70, 0.4, v); },
+    'Mid tom': function (v) { tone('sine', 160, 100, 0.35, v); },
+    'High tom': function (v) { tone('sine', 230, 150, 0.3, v); },
+    'Cowbell': function (v) { tone('square', 560, 0, 0.25, v * 0.15); tone('square', 845, 0, 0.25, v * 0.15); },
+    'Click': function (v) { tone('square', 2500, 0, 0.015, v * 0.3); }
+  };
+  // The 4x4 kit, bottom row first, like the drum layout Live puts on the APC64. Every 4x4 corner of the grid plays it.
+  var KIT = [['Kick', 'Rim', 'Snare', 'Clap'], ['Low tom', 'Shaker', 'Closed hat', 'Mid tom'], ['High tom', 'Cowbell', 'Open hat', 'Click'], ['Crash', 'Kick 2', 'Snare 2', 'Ride']];
+  var FAMILY = { 'Kick': '#2ef2ff', 'Kick 2': '#2ef2ff', 'Snare': '#ff4fd8', 'Snare 2': '#ff4fd8', 'Clap': '#ff4fd8', 'Rim': '#ff8fe8', 'Closed hat': '#b6ff3b', 'Open hat': '#b6ff3b', 'Ride': '#b6ff3b', 'Crash': '#b6ff3b', 'Shaker': '#d6ff8a', 'Low tom': '#ffc23b', 'Mid tom': '#ffc23b', 'High tom': '#ffc23b', 'Cowbell': '#b98bff', 'Click': '#b98bff' };
+  function soundAt(r, c) { var fromBottom = (8 - r) % 4; return KIT[fromBottom][(c - 1) % 4]; }
+
+  // ---- The deck, at its measured geometry (units of 0.2757 mm, from Akai's top view) ----
+  var C = [];
+  function add(o) { C.push(o); return o; }
+  [['SESSION VIEW', 'OVERVIEW', 'Shows your clips in Ableton.'], ['NOTE MODE', 'CONFIG', 'Pads play notes. On a drum track: drums.'], ['CHORD MODE', 'CONFIG', 'Pads play chords.'], ['STEP SEQ', 'CONFIG', 'Build a beat step by step.'], ['PROJECT', '', 'Save the APC64’s own settings.'], ['CUSTOM', 'GLOBAL', 'Your own layout.']]
+    .forEach(function (m, i) { add({ name: m[0], shift: m[1], what: m[2], x: [863, 936, 1010, 1084, 1158, 1232][i], y: 118, w: 57, h: 48 }); });
+  [['PLAY', '', 'Start.'], ['STOP', '', 'Stop. Twice: back to the start.'], ['RECORD', 'MIDI OVERDUB', 'Record in Ableton.']]
+    .forEach(function (m, i) { add({ name: m[0], shift: m[1], what: m[2], x: [1350, 1425, 1499][i], y: 118, w: 58, h: 48 }); });
+  [[569, 192], [685, 192], [569, 559], [685, 559], [1678, 192], [1794, 192], [1678, 559], [1794, 559]].forEach(function (p, i) {
+    add({ name: 'Fader ' + (i + 1), what: 'Slide to change volume (or what the buttons beside it pick).', kind: 'fader', x: p[0], y: p[1], w: 59, h: 324, num: i + 1 });
+  });
+  [['DEVICE', '', 'Faders control the sound’s knobs.', 190], ['VOLUME', '', 'Faders set volume.', 234], ['PAN', '', 'Faders set left / right.', 278], ['SEND', '', 'Faders set effects.', 322], ['CHANNEL STRIP', '', 'Faders show one track.', 367], ['OFF', '', 'Faders do nothing.', 411],
+   ['TEMPO', 'SWING', 'Tap to set the speed.', 480], ['CLEAR', '', 'Hold + tap something to delete it.', 545], ['DUPLICATE', 'DOUBLE', 'Hold + tap a clip to copy it.', 591], ['FIXED LENGTH', '', 'Recording stops by itself.', 650], ['QUANTIZE', 'RECORD', 'Hold + tap a clip to fix its timing.', 693],
+   ['UNDO', 'REDO', 'Undo.', 750], ['SHIFT', '', 'Hold for the small words under buttons.', 811], ['RECORD ARM', '', 'Bottom row: get tracks ready to record.', 872], ['MUTE', '', 'Bottom row: silence tracks.', 914], ['SOLO', '', 'Bottom row: hear one track alone.', 957], ['CLIP STOP', '', 'Bottom row: stop tracks.', 1000]]
+    .forEach(function (m) { add({ name: m[0], shift: m[1], what: m[2], x: 777, y: m[3], w: 58, h: 29 }); });
+  var PADX = [866, 955, 1042, 1132, 1221, 1311, 1400, 1486], PADY = [191, 279, 368, 457, 547, 635, 723, 811];
+  for (var r = 1; r <= 8; r++) for (var c = 1; c <= 8; c++) {
+    var snd = soundAt(r, c);
+    add({ id: 'pad-r' + r + 'c' + c, name: snd, what: 'Tap to play.', kind: 'pad', r: r, c: c, x: PADX[c - 1], y: PADY[r - 1], w: 73, h: 73, sound: snd });
+  }
+  var SCENE = ['VELOCITY', 'PROBABILITY', 'MUTATE', '', 'SAVE', 'SAVE TO...', '', 'STOP ALL'];
+  [203, 293, 381, 470, 559, 649, 737, 826].forEach(function (y, i) { add({ name: 'LAUNCH', shift: SCENE[i], what: 'Plays the whole row ' + (i + 1) + ' in Ableton.', x: 1584, y: y, w: 59, h: 48 }); });
+  var LQ = ['8 BARS', '4 BARS', '2 BARS', '1 BAR', '1/4', '1/8', '1/16', '1/32'], ROWX = [863, 951, 1040, 1128, 1217, 1306, 1394, 1483];
+  ROWX.forEach(function (x, i) {
+    add({ name: String(i + 1), title: 'Track ' + (i + 1), shift: LQ[i], what: 'Pick track ' + (i + 1) + '.', x: x, y: 923, w: 74, h: 35, big: true });
+    add({ name: '', title: 'Bottom button ' + (i + 1), what: 'Does what RECORD ARM / MUTE / SOLO / CLIP STOP picks, to track ' + (i + 1) + '.', x: x, y: 974, w: 74, h: 54 });
+  });
+  add({ name: '▲', title: 'Up', what: 'Move up.', poly: '625,923 683,923 683,970 625,970', tx: 654, ty: 951 });
+  add({ name: '▼', title: 'Down', what: 'Move down.', poly: '625,981 683,981 683,1027 625,1027', tx: 654, ty: 1009 });
+  add({ name: '◀', title: 'Left', what: 'Move left.', poly: '577,923 614,923 625,975 614,1027 577,1027', tx: 597, ty: 980 });
+  add({ name: '▶', title: 'Right', what: 'Move right.', poly: '694,923 732,923 732,1027 694,1027 683,975', tx: 712, ty: 980 });
+  add({ name: '', title: 'Screen', what: 'Shows what you are doing.', x: 1616, y: 951, w: 83, h: 46, kind: 'screen' });
+  add({ name: '', title: 'Knob', what: 'Turn to choose, push to pick. Push alone: click track on/off.', kind: 'knob', cx: 1782, cy: 974, rr: 37 });
+
+  el('path', { class: 'body', d: 'M549 79 H847 V89 H1567 V79 H1869 Q1881 79 1881 91 V1045 Q1881 1057 1869 1057 H849 V1067 H549 Q537 1067 537 1055 V91 Q537 79 549 79 Z' });
+  el('text', { class: 'logo', x: 575, y: 140 }, null, 'AKAI');
+  el('text', { class: 'small', x: 577, y: 158 }, null, 'PROFESSIONAL');
+  el('text', { class: 'logo2', x: 1606, y: 150 }, null, 'APC64');
+  el('rect', { x: 1581, y: 923, width: 259, height: 102, rx: 4, fill: '#0b0c0e', stroke: '#3a3f49' });
+  el('text', { class: 'shiftname', x: 1210, y: 916, style: 'font-size:11px' }, null, 'TRACK SELECT');
+  [[190, 440], [545, 722], [872, 1028]].forEach(function (b) { el('path', { d: 'M842 ' + b[0] + ' H848 V' + b[1] + ' H842', fill: 'none', stroke: '#6b7280', 'stroke-width': 2 }); });
+
+  var current = null, byPad = {};
+  C.forEach(function (o, idx) {
+    o.id = o.id || 'c' + idx;
+    var g = el('g', { class: 'ctl' + (o.kind ? ' ' + o.kind : ''), tabindex: 0, role: 'button', 'aria-label': o.title || o.name });
+    o.g = g;
+    if (o.kind === 'knob') { o.k = el('circle', { class: 'k', cx: o.cx, cy: o.cy, r: o.rr }, g); el('line', { x1: o.cx, y1: o.cy - 31, x2: o.cx, y2: o.cy - 14, stroke: '#9aa1ad', 'stroke-width': 4, 'stroke-linecap': 'round' }, g); o.lx = o.cx; o.ly = o.cy; }
+    else if (o.poly) { o.k = el('polygon', { class: 'k', points: o.poly }, g); el('text', { class: 'name', x: o.tx, y: o.ty + 4, style: 'font-size:13px' }, g, o.name); o.lx = o.tx; o.ly = o.ty; }
+    else {
+      o.k = el('rect', { class: 'k', x: o.x, y: o.y, width: o.w, height: o.h, rx: 3 }, g); o.lx = o.x + o.w / 2; o.ly = o.y + o.h / 2;
+      if (o.kind === 'pad') { o.k.style.fill = FAMILY[o.sound]; if (o.r >= 5 && o.c <= 4) el('text', { class: 'padtxt', x: o.lx, y: o.ly + 5, style: 'font-size:' + (o.sound.length > 6 ? 10.5 : 13) + 'px' }, g, o.sound); byPad[o.r + ',' + o.c] = o; }
+      else if (o.kind === 'fader') { for (var d = 0; d < 9; d++) el('circle', { class: 'dot', cx: o.x + o.w + 12, cy: o.y + 20 + d * 36, r: 3.5 }, g); el('text', { class: 'name', x: o.lx, y: o.y - 6, style: 'font-size:11px' }, g, String(o.num)); }
+      else if (o.kind === 'screen') { o.k.style.fill = '#1e2a33'; }
+      else if (o.name) { var lines = o.name.indexOf(' ') > 0 && o.name.length > 6 ? o.name.split(' ') : [o.name]; var t = el('text', { class: 'name', x: o.lx, y: o.ly + 4 - (lines.length - 1) * 5.5, style: o.big ? 'font-size:12px' : '' }, g); lines.forEach(function (ln, i) { el('tspan', { x: o.lx, dy: i ? 11 : 0 }, t, ln); }); }
+      if (o.shift) el('text', { class: 'shiftname', x: o.lx, y: o.y + o.h + 12 }, g, o.shift);
+    }
+    o.mine = el('text', { class: 'mylabel', x: o.lx, y: o.kind === 'pad' ? o.y + 16 : o.ly - (o.kind === 'fader' ? 0 : 22) }, g, '');
+    function act(e) { if (e) e.preventDefault(); pick(o); if (o.sound) hit(o, 0.9); }
+    g.addEventListener('pointerdown', act);
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') act(e); });
+  });
+
+  function hit(o, vel) {
+    if (!audio()) return;
+    SOUND[o.sound](Math.max(0.15, vel));
+    o.g.classList.add('hit'); clearTimeout(o.t); o.t = setTimeout(function () { o.g.classList.remove('hit'); }, 110);
+  }
+  var note = document.getElementById('note');
+  function pick(o) {
+    if (current) current.g.classList.remove('sel');
+    current = o; o.g.classList.add('sel');
+    document.getElementById('tName').textContent = o.title || o.name;
+    document.getElementById('tWhat').textContent = o.what + (o.shift ? ' SHIFT: ' + o.shift + '.' : '');
+    note.hidden = false; note.value = labels[o.id] || '';
+  }
+  note.addEventListener('input', function () { if (!current) return; var v = note.value.trim(); if (v) labels[current.id] = v; else delete labels[current.id]; save(); drawLabels(); });
+  function drawLabels() { C.forEach(function (o) { o.mine.textContent = labels[o.id] || ''; }); }
+  drawLabels();
+
+  // ---- The real APC64: play these drums when its pads are hit (Web MIDI; the browser asks first) ----
+  var midiBtn = document.getElementById('midi'), state = document.getElementById('midiState');
+  function onMsg(e) {
+    var s = e.data[0] & 0xf0, n = e.data[1], v = e.data[2];
+    if (s !== 0x90 || !v) return;
+    // Pads send notes 0-63 from the bottom-left, row by row; anything else still plays the kit by note.
+    var o = n < 64 ? byPad[(8 - Math.floor(n / 8)) + ',' + (n % 8 + 1)] : null;
+    if (o) { hit(o, v / 127); } else { var snd = KIT[Math.floor((n % 16) / 4)][n % 4]; audio() && SOUND[snd](v / 127); }
+    state.textContent = 'Pad note ' + n;
+  }
+  midiBtn.addEventListener('click', function () {
+    audio();
+    if (!navigator.requestMIDIAccess) { state.textContent = 'This browser can’t hear the APC64. Try Edge or Chrome.'; return; }
+    navigator.requestMIDIAccess().then(function (a) {
+      var n = 0;
+      a.inputs.forEach(function (i) { if (/apc ?64/i.test(i.name)) { i.onmidimessage = onMsg; n++; } });
+      if (!n) { state.textContent = 'APC64 not found. Is it plugged in and on?'; return; }
+      midiBtn.classList.add('on'); midiBtn.textContent = 'APC64 connected'; state.textContent = 'Hit a pad on your APC64.';
+    }, function () { state.textContent = 'The browser said no. Allow MIDI for this page and try again.'; });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1261,9 +1261,24 @@
         ],
         "programs": [
           {
+            "node": "web-browser",
+            "how": "required",
+            "why": "The APC64 deck runs in the browser: its drum sounds (Web Audio) and the real pads (Web MIDI)."
+          },
+          {
             "node": "ableton-live",
             "how": "optional",
-            "why": "Planned: Drum Dog’s job: Ableton Live connections are planned."
+            "why": "Installed (Live 12 Trial); the lessons teach it. Drum Dog works without it."
+          },
+          {
+            "node": "voicemeeter",
+            "how": "optional",
+            "why": "The deck’s drums play out through Voicemeeter on Astra’s PC; any sound output works."
+          },
+          {
+            "node": "ableton-usb-audio-driver",
+            "how": "optional",
+            "why": "Installed with Live; the APC64 does not need it."
           }
         ]
       }
