@@ -256,14 +256,32 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). No languages (2026-10-24: "get rid of the
    code on the unified footer"). The license, signature, date (it is beside the title), Take Me Home!, the list of
    links, the words switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
-10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
-    bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
-    Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
-    and the message is copied too), Claude Code or Codex on this PC (needs Startup Star's link; until then the message
-    waits in the backlog), or just a note to the backlog. The page keeps no keys, sends nothing itself and remembers
-    the choice on this device. The chat's own left light switches it off. Its box is `<pet>-chat-panel`, square like
-    every panel (Astra, 2026-10-20: "no round edges!!"); the chat in it is a tool, `<pet>-chat`, a pill with its
-    lights, its name and the open button (2026-10-23), and the window opens above them.
+10. **`<pet>-chat`** (fixed, bottom right): **the pet's chat, like Data Chip's on Data Dealer** (Astra, 2026-10-20: "he
+    was fully interactive"; 2026-11-03: "the way that it works on data dealer is the only one that works right. So this
+    concept combined with that"). The `<pet>-chat` tool, a pill with its paired lights, its name, a count of what
+    needs you and the open button, opens the window at once (2026-10-19) in its square `<pet>-chat-panel` box
+    (2026-10-20: "no round edges!!"):
+    - **The pet and its seat:** its face, its name, and who is in its seat right now (L3), or "Seat: empty".
+    - **Needs you:** what waits on you on this page (L4's approvals, what L3 asks you, tools with an issue), each a
+      link to its place.
+    - **Ask:** the conversation as bubbles, quick questions (Explain this page, What needs me?, How are my tools?)
+      that the page answers itself from what it shows, as Data Chip answered from his dashboard, and a message box.
+    - **Who answers:** the AI seated in the pet's harness on this PC, found by the **pet chat helper**: **Claude Code
+      first, then Codex** (Astra, 2026-11-03: "I pay for a premium subscription to Claude, so it should be Claude Code
+      answering first and then Codex, most likely, unless dictated otherwise"), then any other AI the helper finds (a
+      local model, another harness). On anyone else's farm the helper finds what they have, and they choose which
+      (2026-11-03: "it needs to auto recognize it or give you an option to choose which model to use"). Then your own
+      Claude or ChatGPT in a new tab (the message typed in and copied), or a note to the backlog.
+    - **What the seated agent may do: supervised** (ASTRAS_PET_OS 8.3; 2026-11-03: "The agents are supposed to be able
+      to change stuff, read the plan"): it reads the plan (this framework, the pet's AGENTS.md, its cards) and the
+      pet's repo, makes changes on a branch, runs the pet's own tools and tests, and asks you in this window before
+      anything bigger: a merge or a push, anything outside the pet's folder, a key, an account or money. A private
+      pet's data never leaves the PC. The grants it holds are on the R W X panel, with whether code enforces them.
+    - **The pet chat helper** (card 061, with card 054's link to Startup Star): a small program on this PC, on
+      127.0.0.1 only, started at Windows sign-in, that seats Claude Code or Codex in the pet's folder and streams the
+      answer into the window. Astra chose it on 2026-11-03 ("I guess recommended"). **Not built yet:** until it is, a
+      message for the seat waits in the backlog and the pet says so; the page keeps no keys and the chat's own left
+      light switches it off.
 11. **`<pet>-friends-list-panel`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I

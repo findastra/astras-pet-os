@@ -7,14 +7,16 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
-import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS, CHAT_SEATS } from '../scripts/pet-program-pages-20261018.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const src = readSpawnerSources(root);
 const files = spawnerFiles(src);
 const pages = spawnerPages(src);
 const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-const WHO = ['claude', 'chatgpt', 'this-pc', 'note'];
+// Who answers, in Astra's order (2026-11-03): Claude Code, then Codex, then another AI on this PC; then the new tabs and a note.
+const WHO = CHAT_SEATS.map(([k]) => k);
+const at = (k) => WHO.indexOf(k);
 
 // Cut by plain string search: this reads the spawner's own pages, it does not filter HTML.
 const between = (text, open, close) => {
@@ -36,12 +38,17 @@ test('every page starts with an empty cyberhome, and no star door in it (Astra c
   assert.ok(css.includes('prefers-reduced-motion: reduce'), 'no flying for people who turned motion off');
 });
 
-test('every page has a chat window that asks who answers', () => {
+test('every page has a chat window like Data Chip\'s: the pet, Needs you, Ask, and who answers', () => {
+  assert.deepEqual(WHO.slice(0, 2), ['claude-code', 'codex'], 'Claude Code answers first, then Codex');
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     assert.ok(html.includes(`aria-label="Open ${esc(d.pet)}'s chat"`), `${d.repo}: the chat button`);
     const box = between(html, '<div class="chat-panel" id="chat-panel"', '</aside>');
     for (const k of WHO) assert.ok(box.includes(`data-who="${k}"`), `${d.repo}: ${k}`);
+    for (const v of ['needs', 'ask']) assert.ok(box.includes(`data-view="${v}"`) && box.includes(`data-view-of="${v}"`), `${d.repo}: the ${v} view`);
+    for (const k of ['explain', 'needs', 'tools']) assert.ok(box.includes(`data-quick="${k}"`), `${d.repo}: quick question ${k}`);
+    assert.match(box, /Supervised: the seated agent reads the plan/, `${d.repo}: what the seated agent may do`);
+    for (const id of ['chat-close', 'chat-seat', 'chat-who-now']) assert.ok(box.includes(`id="${id}"`), `${d.repo}: ${id}`);
     for (const id of ['chat-text', 'chat-send', 'chat-status', 'chat-log', 'chat-who-says']) assert.ok(box.includes(`id="${id}"`), `${d.repo}: ${id}`);
     assert.equal(box.includes('leaves this PC'), d.isPrivate, `${d.repo}: private pets warn that a message to Claude or ChatGPT leaves the PC`);
   }
@@ -73,7 +80,7 @@ class El {
   set innerHTML(_) { throw new Error('Page text must never be rendered as HTML.'); }
 }
 
-function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
+function boot(d, { saved = {}, reduce = false, frames = [], panel: setupPanel = null } = {}) {
   const html = files[pagePath(d.repo)];
   const config = between(html, '<script type="application/json" id="pet-program-data">', '</script>');
   let now = 0;
@@ -98,6 +105,7 @@ function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
   const moods = ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'].map((m) => { const f = new El('figure'); f.dataset.mood = m; return f; });
   byId('chat-panel').hidden = true;
   byId('chat-panel').qa['button[data-who]'] = who;
+  if (setupPanel) setupPanel(byId('chat-panel'));
   const document = {
     hidden: false, listeners: {},
     getElementById: byId,
@@ -193,8 +201,8 @@ test('the chat button opens the window at once, ready to type', () => {
 
 test('My Claude opens claude.ai with the message typed in, and copies it; the choice is remembered', () => {
   const p = boot(panther);
-  p.who[0].click();
-  assert.equal(p.who[0].attrs['aria-pressed'], 'true');
+  p.who[at('claude')].click();
+  assert.equal(p.who[at('claude')].attrs['aria-pressed'], 'true');
   assert.equal(p.read('chat-with'), 'claude');
   p.byId('chat-text').value = 'Why is my lesson check failing?';
   p.byId('chat-send').click();
@@ -210,19 +218,23 @@ test('My Claude opens claude.ai with the message typed in, and copies it; the ch
   assert.equal(p.read('chat').at(-1).to, 'your Claude');
   // Opened again later: the window remembers who answers.
   const again = boot(panther, { saved: { 'chat-with': 'chatgpt' } });
-  assert.equal(again.who[1].attrs['aria-pressed'], 'true');
+  assert.equal(again.who[at('chatgpt')].attrs['aria-pressed'], 'true');
   again.byId('chat-text').value = 'hi';
   again.byId('chat-send').click();
   assert.ok(again.opened[0].startsWith('https://chatgpt.com/?q='));
 });
 
-test('Send asks for a message and a choice first, and a switched-off chat sends nothing', () => {
+test('Send asks for a message first; with no choice Claude Code answers; a switched-off chat sends nothing', () => {
   const p = boot(panther);
+  assert.equal(p.who[at('claude-code')].attrs['aria-pressed'], 'true', 'Claude Code is chosen until you pick another');
   p.byId('chat-send').click();
   assert.equal(p.byId('chat-status').textContent, 'Type a message first.');
   p.byId('chat-text').value = 'hello';
   p.byId('chat-send').click();
-  assert.equal(p.byId('chat-status').textContent, 'Choose who should answer first.');
+  assert.equal(p.opened.length, 0, 'nothing opens for the seat on this PC');
+  const lines = p.read('chat');
+  assert.deepEqual(lines.map((m) => m.from), ['me', 'pet']);
+  assert.match(lines[1].text, /^Nobody is in my seat yet: the pet chat helper that seats Claude Code on this PC is not built/, 'the pet says honestly why it cannot answer');
   const off = boot(panther, { saved: { 'chat-with': 'claude', lights: { [`chat:${panther.petSlug}`]: { off: true } } } });
   off.byId('chat-text').value = 'hello';
   off.byId('chat-send').click();
@@ -234,8 +246,8 @@ test('Send asks for a message and a choice first, and a switched-off chat sends 
   assert.equal(off2.opened.length, 0, 'the newer light format switches it off too');
 });
 
-test('A note, or Claude Code or Codex on this PC until the link is built, goes to the backlog', () => {
-  for (const k of ['note', 'this-pc']) {
+test('A note, or a message for the seat on this PC until the pet chat helper is built, goes to the backlog', () => {
+  for (const k of ['note', 'claude-code', 'codex', 'other-ai']) {
     const p = boot(panther, { saved: { 'chat-with': k } });
     p.byId('chat-text').value = 'Add a lesson on loops';
     p.byId('chat-send').click();
@@ -245,6 +257,21 @@ test('A note, or Claude Code or Codex on this PC until the link is built, goes t
     assert.equal(entry.tool, `${panther.petSlug}-chat`);
     assert.match(entry.id, /^python-jungle-v1\.0-backlog-\d{8}-001$/);
   }
+});
+
+test('the page answers questions about itself straight away, like Data Chip did', () => {
+  const q = (k, label) => Object.assign(new El('button'), { textContent: label }, { dataset: { quick: k } });
+  const quick = [q('explain', 'Explain this page'), q('needs', 'What needs me?'), q('tools', 'How are my tools?')];
+  // A pretend page whose chat panel holds the quick buttons, so the script binds them.
+  const p = boot(panther, { panel: (panel) => { panel.qa['.chat-quick button'] = quick; } });
+  quick[0].click();
+  let lines = p.read('chat');
+  assert.deepEqual(lines.map((m) => m.from), ['me', 'pet']);
+  assert.ok(lines[1].text.startsWith(panther.summary), 'explain starts with the pet program\'s own summary');
+  quick[1].click();
+  lines = p.read('chat');
+  assert.equal(lines.at(-1).text, 'Nothing needs you right now.', 'with nothing waiting, it says so');
+  assert.equal(p.opened.length, 0, 'nothing leaves the page');
 });
 
 test('a pet with a private repo never names it in the message', () => {
