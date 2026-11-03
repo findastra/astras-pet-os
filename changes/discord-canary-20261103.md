@@ -10,6 +10,7 @@ use the Microsoft."
 - On her PC: Discord Canary installed from discord.com (installer signature valid, Discord Inc.); it waits for her to sign
   in. Whether it has Typing Indicator is not checked yet. The pet's side: `findastra/discord-tower`
   `changes/discord-canary-20261103.md`.
+- Canary's description reworded in plain words the same day, at Astra's request.
 - `npm test`: the same 7 environment failures as on `main` (farm packs, secrets scan); nothing new.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-03.

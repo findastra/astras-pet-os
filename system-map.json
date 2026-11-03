@@ -1106,8 +1106,8 @@
       "type": "program",
       "state": "now",
       "layer": 6,
-      "job": "Third-party program (Discord Inc.): Discord's own early-test desktop app, beside the regular one. Installed on Astra's PC on 2026-11-03 for Discord Damsel's typing-indicator trick, to look for settings desktop Stable does not have yet. Not signed in yet; whether it has Typing Indicator is not checked yet.",
-      "does": "Discord's early-test desktop app, which gets new features before the regular app.",
+      "job": "Third-party program, made by Discord: its test version of the Discord desktop app, with the same account and servers. Discord Damsel uses it to find new settings before the regular desktop app has them, starting with Typing Indicator for her typing-indicator trick. Installed on Astra's PC on 2026-11-03; not signed in yet, so whether it has Typing Indicator is not checked yet.",
+      "does": "Discord's test version of its desktop app: the same Discord, but new features and settings arrive here first, and it can be buggier. It runs beside regular Discord with a yellow icon.",
       "category": "Desktop app"
     },
     {
