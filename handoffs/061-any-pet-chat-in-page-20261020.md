@@ -1,4 +1,4 @@
-status: open (waiting on Astra: four answers in the slides, first of all how the chat answers in the page)
+status: answered 2026-11-03; the window is #283 (card 283); the helper waits on Astra's OK to build
 for: any
 from: Claude (claude-opus-5-5), a side session of the "API Fairy" chat, 2026-10-20
 needs: handoffs/054-any-cyberhome-link-20261019.md (tasks 1 and 4, question 1), scripts/pet-program-pages-20261018.mjs, apps/pet-programs/pet-program-page-20261018.js, PET-PROGRAM-FRAMEWORK.md (section 3, item 10), apps/data-dealer-20261008.html (Data Chip, `petAsk()`), skills/key-request
@@ -12,11 +12,29 @@ Make the chat window answer **in the page**, as a running conversation with the 
 Dealer's Data Chip did. The new-tab buttons (My Claude, My ChatGPT) and Just leave a note stay as the fallback. Fix the
 generator, not the generated pages.
 
+## Her answers (2026-11-03, the "Friendly Farmer" chat)
+
+"I guess recommended, but just remember other people are going to be using this stuff too. So what needs to plug into
+whatever they have, it needs to auto recognize it or give you an option to choose which model to use is really the
+basic. I pay for a premium subscription to Claude, so it should be Claude Code answering first and then Codex, most
+likely, unless dictated otherwise. The agents are supposed to be able to change stuff, read the plan."
+
+| # | Her answer |
+| --- | --- |
+| 1 | A: a helper on this PC (127.0.0.1 only) seats the agent in the pet's folder and streams the reply into the window. |
+| 2 | Claude Code first, then Codex (not Codex first). Another farm's helper finds the agents installed on that PC, or the person picks. |
+| 3 | B, supervised (ASTRAS_PET_OS 8.3): the agent reads the plan and the pet's repo and changes things on a branch, asking in the chat before anything bigger. Private pets still read nothing. |
+| 4 | A: at Windows sign-in, quietly, with a way to stop it. |
+
+Because of answer 3, the per-PC secret matters more than the note below says: other HTML files opened from disk could
+read it, so the helper accepts only chat messages, never commands, and every change lands on a branch for her review.
+
 ## Ownership and state
 
-State: waiting on Astra (paused at her request, 2026-10-20: "end chat and leave note we will pick up later").
-Implementer: none yet; writable files: none claimed. Reviewer: unassigned.
-Next action: when Astra answers the slides, whoever picks this up claims the card and builds her choice.
+State: the window is built (#283, Claude Opus 5.5, card 283). The helper is not started: it lets an agent change files
+from a page, so it waits on Astra's OK (L4), and Claude Code outside the Claude app needs her one-time sign-in.
+Implementer: none for the helper; writable files: none claimed. Reviewer: unassigned.
+Next action: with her OK, build the helper from card 283's plan.
 
 ## What I did
 
