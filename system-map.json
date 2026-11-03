@@ -1046,6 +1046,16 @@
       "category": "Cloud service"
     },
     {
+      "id": "discord-canary",
+      "name": "Discord Canary",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "job": "Third-party program (Discord Inc.): Discord's own early-test desktop app, beside the regular one. Installed on Astra's PC on 2026-11-03 for Discord Damsel's typing-indicator trick, to look for settings desktop Stable does not have yet. Not signed in yet; whether it has Typing Indicator is not checked yet.",
+      "does": "Discord's early-test desktop app, which gets new features before the regular app.",
+      "category": "Desktop app"
+    },
+    {
       "id": "betterdiscord",
       "name": "BetterDiscord",
       "type": "program",
@@ -3423,7 +3433,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "discord-tower-v1.0-typing-indicator-trick-v1.0",
-      "job": "A trick of Discord Tower (discord-tower skills/typing-indicator/SKILL.md): set what Discord shows while Astra types (Settings, then App Settings, then Typing Indicator); her pick is \"find /astra is cooking...\", and she sets it herself."
+      "job": "A trick of Discord Tower (discord-tower skills/typing-indicator/SKILL.md): set what Discord shows while Astra types (phone app: Settings, then App Settings, then Typing Indicator); her pick is \"find /astra is cooking...\", and she sets it herself."
     },
     {
       "id": "save-chats",
@@ -4583,6 +4593,13 @@
       "carries": "opens",
       "state": "now",
       "why": "Discord Damsel's page links her Sticker Manager, which runs inside Discord (Astra, 2026-10-18)."
+    },
+    {
+      "from": "typing-indicator",
+      "to": "discord-canary",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Discord Canary is where an assistant looks for Typing Indicator on Astra's PC, while desktop Stable does not have it."
     },
     {
       "from": "sticker-manager",

@@ -1180,6 +1180,11 @@
             "node": "cli-proxy-api",
             "how": "optional",
             "why": "Installs the verified release, writes a config that keeps it on this PC only, starts and stops it; refuses a Claude sign-in."
+          },
+          {
+            "node": "discord-canary",
+            "how": "optional",
+            "why": "The typing-indicator trick looks in Discord Canary for settings desktop Stable does not have yet (Astra, 2026-11-03)."
           }
         ]
       }
