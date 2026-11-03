@@ -203,6 +203,8 @@ in that browser.
 **Every pet program's page:** the Friendly Farmer's [pet program spawner](apps/pet-programs/pet-program-spawner-20261018.html)
 gives each registered and pipeline pet a page with every tool panel of Astra's sketch
 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3): the basics first, rebuilt by `npm run build`.
+**[Show Pet](apps/pet-programs/show-pet-20261102.html)** is the model pet program: a made-up pet with every tool
+panel, every kind of item and every light, named Tool one, Tool two and so on.
 
 **The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 

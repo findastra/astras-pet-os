@@ -50,6 +50,15 @@ What each one means: section 3, `<pet>-emotions`.
 
 ## 3. The page, top to bottom
 
+**See it first: Show Pet, the model pet program** (Astra, 2026-11-02:
+[apps/pet-programs/show-pet-20261102.html](apps/pet-programs/show-pet-20261102.html)). A made-up pet, Pet Name, in
+Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
+(Tool one, Tool two, 3rd party program one ...). The pet program spawner draws it with the same code as every real
+page, so it always shows today's rules; `test/show-pet-test-20261102.mjs` fails when a real page can show something
+Show Pet does not. Before changing how pet program pages look, change Show Pet's page first and check it on every
+screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
+platform-platypus): on 2026-11-02, 19 of 19 screens fit.
+
 ### A pet program is a control panel (Astra, 2026-10-19)
 
 A pet program page is a **control panel**: it shows at a glance how the pet's programs, tools and tricks are doing,
@@ -505,6 +514,8 @@ copies a request for the user's own AI to start a seed like it on their farm.
 
 ## 14. Checklist for a new or updated pet program
 
+- [ ] It looks like Show Pet, the model pet program (section 3), and a change to how pages look was made on Show Pet
+      first and checked on every screen with Platform Platypus's fit-check.
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.
 - [ ] Page has every tool panel of Astra's 2026-10-18 sketch (section 3), in that order, with the four L1 to L4 tool panels
