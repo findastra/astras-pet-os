@@ -16,6 +16,7 @@
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
+import { NUMBERED } from './pet-stages-20261102.mjs';
 const PLACEHOLDER = /pet-program-\d+|icon-\d+/i;
 
 /**
@@ -58,6 +59,12 @@ export function findPets({ programs, registry, repos, local = [] }) {
     if (pj?.pet && pj.pet !== p.icon) add('name-mismatch', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number}: pet-programs.json says ${p.icon}, ${p.repo}/pet.json says ${pj.pet}.` });
     // 4. Registered or pipeline pet programs that the registry does not know.
     if (['registered', 'pipeline'].includes(p.stage) && !registered.has(p.repo)) add('not-in-registry', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon} (${p.stage}) is missing from pets.json. Registering it moves it through the gate, so Astra decides.` });
+    // 4b. A pet at the wrong stage (Astra, 2026-11-02): a seed or roadmap pet whose repo has real work (tools or an entry
+    // page in its pet.json), or a pet whose own pet.json names another stage. The Farmer moves it on a branch.
+    const tools = Array.isArray(pj?.tools) ? pj.tools.length : 0;
+    if (['seed', 'roadmap'].includes(p.stage) && (tools || (typeof pj?.entry === 'string' && pj.entry))) add('wrong-stage', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon} is a ${p.stage} pet, but ${p.repo}/pet.json lists ${tools ? `${tools} tool${tools === 1 ? '' : 's'}` : `an entry page (${pj.entry})`}: real work. Move it to the pipeline (pet-programs.json and pets.json), npm run build, and a pull request for Astra.` });
+    const own = [pj?.stage, pj?.status].find((s) => NUMBERED.includes(s));
+    if (own && own !== p.stage) add('wrong-stage', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon}: ${p.repo}/pet.json says ${own}, pet-programs.json says ${p.stage}. Fix whichever is out of date.` });
   }
   // 5. Placeholder names and missing homes (the profile shows them as they are; Astra names them).
   for (const p of programs) {

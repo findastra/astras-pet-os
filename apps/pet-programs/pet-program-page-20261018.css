@@ -32,6 +32,15 @@
   --tool-bg: rgba(120, 150, 255, .06); --tool-bg-hover: rgba(120, 150, 255, .11);
 }
 :root[data-pet="drum-dog"] .footer-group::before, :root[data-pet="drum-dog"] .footer-sparkle { color: #9fb4ff; }
+/* The Farm's own colours, a night pasture (Astra, 2026-11-02: "I don't like the raspberry color of the farm. Let's
+   change it to like dark green ... something interesting that we haven't already used for a pet program"): deep pine
+   green, neon chartreuse lines, wheat-gold links, mint connections. */
+:root[data-pet="friendly-farmer"] {
+  --slate: #0c1f18; --slate-2: #071510; --chalk: #e9f7ee; --chalk-dim: #9fc8b0; --line: #8fe04a; --line-dim: #35663f;
+  --link: #ffe39a; --connection: #7fe7c4;
+  --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
+}
+:root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */

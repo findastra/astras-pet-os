@@ -1121,7 +1121,25 @@
             "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "repo-catcher",
+          "label": "pet-program-12-v1.0-repo-catcher-v1.0",
+          "use": "Read only: lists repos on this PC that were never pushed or hold unpushed work, newest first.",
+          "entry": "scripts/repo-catcher-20261013.ps1",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "new-programs-watch",
+          "label": "pet-program-12-v1.0-new-programs-watch-v1.0",
+          "use": "Read only: lists programs that are new on this PC, wherever they were installed.",
+          "entry": "scripts/new-programs-watch-20261013.ps1",
+          "visibility": "private",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "discord-tower",
@@ -1187,7 +1205,37 @@
             "why": "The typing-indicator trick looks in Discord Canary for settings desktop Stable does not have yet (Astra, 2026-11-03)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "openai-discord-presence",
+          "label": "discord-tower-v1.0-openai-discord-presence-v0.2",
+          "use": "Shows the OpenAI model, effort and active Codex projects on Discord. Reads Codex metadata read-only; names a chat by its user-given name, then its folder, then its saved Codex project.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
+          "name": "anthropic-discord-presence",
+          "label": "discord-tower-v1.0-anthropic-discord-presence-v0.2",
+          "use": "Shows the Anthropic model, effort and active Claude Code projects on Discord. Reads Claude Code transcript metadata only; names a session by its /rename name, then its folder. Always on covers Claude on the web and desktop chat.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
+          "name": "sticker-manager",
+          "label": "discord-tower-v1.0-sticker-manager-v1.0",
+          "use": "Shows every Discord server Astra is in, each opening to its stickers, and resets her favorite stickers to the ones she picks, after she confirms. Reads the Discord app's own server, sticker and favorites lists; changes only the favorite stickers, through Discord's own settings saver. No requests of ",
+          "visibility": "private",
+          "version": "1.0.5"
+        },
+        {
+          "name": "cli-proxy-api",
+          "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
+          "use": "Looks after CLI Proxy API, a third-party program: installs only the verified v8.0.34 from quarantine, writes a config that keeps it on 127.0.0.1 with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder. Never signs a",
+          "visibility": "private",
+          "version": "1.0.0"
+        }
+      ]
     },
     {
       "repo": "portfolio-puffer",
@@ -1229,7 +1277,19 @@
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "Handwritten Message Manager",
+          "use": "Keeps Astra's hand lettering for the findastra.github.io hero slider: clears Procreate backgrounds, holds the words and order, exports the pictures and lettering-data.js.",
+          "entry": "handwritten-message-manager-20261019.html"
+        },
+        {
+          "name": "Astra's Window Star",
+          "label": "astras-star-window",
+          "use": "Keeps Astra's Window Star: one hosted picture (findastra.github.io/astras-star-window/star-window.svg) of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile. One page, also in its tool panel on Puffer's pet program: tap +, drag the ph"
+        }
+      ]
     },
     {
       "repo": "drum-dog",
@@ -1455,7 +1515,17 @@
             "why": "Voicemeeter Bug watches output A2."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "keep-voicemeeter-open",
+          "label": "audio-rescue-v1.0-keep-voicemeeter-open-v1.0",
+          "use": "Opens Voicemeeter again a few seconds after it closes (the same app the Bug last saw running) and closes its About / Registration info reminder in the first three minutes after Voicemeeter starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes or a failed launch. Never registers Voi",
+          "entry": "keep-open-20261018.cs",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "platform-platypus",
@@ -1546,7 +1616,37 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "crash-catcher",
+          "label": "log-den-v1.0-crash-catcher-v1.0",
+          "use": "Records every crash window when it appears: program, path, SHA-256, command line, parent, window text, stack trace (presses Details only on .NET dialogs) and a picture.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "windows-log-reader",
+          "label": "log-den-v1.0-windows-log-reader-v1.0",
+          "use": "Reads crash records from the Windows Application log (Application Error 1000, .NET Runtime 1026, Windows Error Reporting 1001).",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "heartbeat-checker",
+          "label": "log-den-v1.0-heartbeat-checker-v1.0",
+          "use": "Checks that every pet program writing farm events, and the desktop pets’ and Voicemeeter Bug’s logs, are still writing; writes Log Lynx’s heartbeat.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "farm-event-log",
+          "label": "log-den-v1.0-farm-event-log-v1.0",
+          "use": "The shared farm event record format (contracts/farm-event-v1-20261018.cs and .schema.json); other pet programs compile this one copy.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "packet-river",
@@ -1589,7 +1689,44 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "ping-sampler",
+          "label": "packet-river-v1.0-ping-sampler-v1.0",
+          "use": "Every minute: five pings each to the router and the DNS server; loss and latency.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "dns-checker",
+          "label": "packet-river-v1.0-dns-checker-v1.0",
+          "use": "Every minute: DNS answer time for each name in the targets file.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "reach-checker",
+          "label": "packet-river-v1.0-reach-checker-v1.0",
+          "use": "Every minute: one TCP connection to github.com:443, opened and closed with no data sent.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "route-tracer",
+          "label": "packet-river-v1.0-route-tracer-v1.0",
+          "use": "The hops to a host: on request, and once when the internet is lost while the router answers.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "link-watcher",
+          "label": "packet-river-v1.0-link-watcher-v1.0",
+          "use": "The adapter in use, its speed and router, and every change or drop.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "evidence-locker",
@@ -1637,7 +1774,37 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "case-opener",
+          "label": "evidence-locker-v1.0-case-opener-v1.0",
+          "use": "Opens a case two minutes after every crash Log Lynx catches, or for a moment Astra names.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "evidence-collector",
+          "label": "evidence-locker-v1.0-evidence-collector-v1.0",
+          "use": "Gathers farm events, crash pictures and stack traces, screenshots, file activity (names and times) and Windows log errors around the moment; read-only copies.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "custody-log",
+          "label": "evidence-locker-v1.0-custody-log-v1.0",
+          "use": "A hash-chained chain of custody per case; --verify re-checks every item and entry.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "timeline-builder",
+          "label": "evidence-locker-v1.0-timeline-builder-v1.0",
+          "use": "One timeline and a plain report.md per case.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     }
   ],
   "pipeline": [
@@ -2333,7 +2500,17 @@
             "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "vr-launch",
+          "label": "wonderland-launchpad-v1.0-vr-launch-v1.0",
+          "use": "Starts a VRChat setup's programs in Astra's order when she presses Launch on Rift Rabbit's page opened from her PC: SteamVR's Space Override / Space Sync add-ons for the mode, the streamer, the headset (it waits), SteamVR, the programs SteamVR used to auto-start, the mode's own program, DoubleHip Do",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        }
+      ]
     },
     {
       "repo": "fuzzboi-friend",
@@ -2591,7 +2768,15 @@
             "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "chat-rat-v0.1.0-save-missing-v0.1.0",
+          "use": "Archive local and exported conversations",
+          "entry": "chat-rat-20261016.mjs",
+          "visibility": "private"
+        }
+      ]
     },
     {
       "repo": "workflow-whirlpool",
@@ -2625,7 +2810,16 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "ipad-workflow-caster",
+          "use": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
+          "entry": "dist/ipad-workflow-caster/index.html",
+          "visibility": "private",
+          "version": "0.1.0"
+        }
+      ]
     },
     {
       "repo": "linux-iceberg",
@@ -2658,7 +2852,25 @@
             "why": "Planned: Linux Penguin manages MacAttack, the Kali drives that test this farm (Astra, 2026-10-18)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "mac-prewipe-check",
+          "label": "linux-iceberg-v0.1-mac-prewipe-check-v1.0",
+          "use": "Read-only report on a Mac before it is wiped for Linux: model, T2, Wi-Fi card, Apple ID and Find My state, folder sizes and what to copy off. Changes nothing, sends nothing.",
+          "entry": "tools/mac-prewipe-check-20261018.sh",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "linux-check",
+          "label": "linux-iceberg-v0.1-linux-check-v1.0",
+          "use": "Read-only look at a Linux computer: distro and family (from /etc/os-release), the matching trick, desktop session, updates waiting, failed services, SSH server, disk, memory and anything listening beyond the computer. Changes nothing, sends nothing, never runs sudo.",
+          "entry": "tools/linux-check-20261019.sh",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "kernel-grove",
@@ -2690,7 +2902,37 @@
         ],
         "core": [],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "process-sweep",
+          "label": "kernel-grove-v1.0-process-sweep-v1.0",
+          "use": "Shows every running program grouped by app, with what it is, why it runs and what to do, and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "startup-switch",
+          "label": "kernel-grove-v1.0-startup-switch-v1.0",
+          "use": "Lists what starts at sign-in with a suggestion for each, and switches Astra's own items on or off in Windows' StartupApproved list, the way Task Manager does. All-users items need administrator permission and are left to Windows' Startup apps.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "service-host-explainer",
+          "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
+          "use": "Explains each Service Host row (Windows' own service descriptions) and lists other companies' background services. Read-only.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "leftover-watch",
+          "label": "kernel-grove-v1.0-leftover-watch-v1.0",
+          "use": "In the background, a look every ten minutes for leftovers and memory above 85%; writes its last look to its menu in Startup Star's menu and its mood to its mood file. No tray icon, no pop-ups, never stops anything by itself.",
+          "visibility": "private",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "benchmark-rock",
@@ -2853,7 +3095,41 @@
             "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "gpu-watch",
+          "label": "benchmark-rock-v1.0-gpu-watch-v1.0",
+          "use": "Shows each graphics card (its name, its own memory, how much of it is in use, how busy it is and on which engine) and every program using it: its graphics memory, what it borrows from the PC, how busy it keeps the card and whether it has a window. Live every three seconds while the window is open. R",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "busy-watch",
+          "label": "benchmark-rock-v1.0-busy-watch-v1.0",
+          "use": "In the background, a look every two minutes: curious when a card's own memory is 90% full, or when a program with no window has kept a card 80% busy for ten minutes. Writes its last look to its menu file and its mood to its mood file. No tray icon, no pop-ups, never stops anything.",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "program-watch",
+          "label": "benchmark-rock-v1.0-program-watch-v1.0",
+          "use": "Every five seconds while the watch runs: which of the 3rd party programs on the System Map are open, written for Startup Star and for the pet program pages opened on this PC. Closes one the way its window's X does, never forced, and opens one from its own shortcut. Moved here from Kernel Grove on 20",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "device-watch",
+          "label": "benchmark-rock-v1.0-device-watch-v1.0",
+          "use": "Which VR devices on the System Map are on (headsets, Index controllers, trackers, base stations), from SteamVR's own log of this session, written with program-watch's look for the same pages. Read only.",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        }
+      ]
     }
   ],
   "seeds": {

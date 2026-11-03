@@ -133,10 +133,11 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **your programs** | managed applications (the L1 tool panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |
-| **seed** | planned (an approved idea, no repo yet) | A pet with an approved name and no repo yet. |
-| **pipeline** | in development (on GitHub, not released) | A pet with a repo but no registered art yet. |
+| **pet stages** | lifecycle states | candidate, seed, roadmap, pipeline, registered: the chart with how many pets are at each is in the [README](README.md#pet-stages), written by `npm run build` from pet-programs.json. |
+| **seed** | planned (an approved idea, nothing built) | A pet with an approved name and job and no working tool yet. It may have a starter repo (a README and a pet.json); a repo alone does not make it a pipeline pet. |
+| **pipeline** | in development (on GitHub, not released) | A pet whose repo has real work (a tool or a page): an animal in pets.json `pipeline`, with its pet program page, but no registered art yet. |
 | **registered** | released (in the registry) | A pet in `pets` in pets.json, with its art. |
-| **roadmap pet** | roadmap item (not started) | Approved for later in the architecture. |
+| **roadmap pet** | roadmap item (not started) | Approved for later in the architecture. It may have a starter repo too. |
 | **the gate** | approval queue (an allowlist) | Where a new repo waits in `candidates` until Astra lets it in. Nobody becomes an animal by saying so. |
 | **core pets** | required base packages (cannot be deselected) | The pets every farm needs. Today: the Friendly Farmer. |
 | **farm lock** (`farm-lock-20261021.json`) | lockfile | Exactly which pets and versions a farm runs, and where each came from. It stays on the computer, in the farm's own folder (Astra, 2026-10-21). |
