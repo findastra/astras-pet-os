@@ -58,3 +58,17 @@ made now."
   buttons, Drums and Surprise kit. Nothing was written in findastra/deck-duck.
 - Checked in headless Edge: copied the 808 kit, changed a pad to Laser, set it playing; the deck showed "My 808" with
   Laser on its bottom-left pad, and Surprise me switched kits.
+
+## The deck matches the page (same day, after the merge)
+
+Astra: "Bass & Biscuits is supposed to be like a dark blue color... it seems like there might be two revisions
+happening at once."
+
+There was only one revision on GitHub. The other "Drum Dog" chat only helped with the hardware and opened Ableton; it
+changed no files. Two things made the page look different:
+- A browser that already had the old shared style file kept the raspberry colours for up to 10 minutes
+  (`max-age=600`).
+- The deck inside the page used graphite gray around the APC64 instead of the page's dark blue.
+
+The deck's background and buttons now use Bass & Biscuits' midnight indigo. The APC64 drawing itself stays black like
+the real unit.
