@@ -72,3 +72,17 @@ changed no files. Two things made the page look different:
 
 The deck's background and buttons now use Bass & Biscuits' midnight indigo. The APC64 drawing itself stays black like
 the real unit.
+
+## use-my-apc64-tool: the board inside its own tool box (same day)
+
+Astra: "that board needs to be within a tool. And that tool needs to be use my AP64 tool. And the tool should look like
+any other tool we see on here. So use that like curved border, and then put it in there"; "that shouldn't be its own
+panel. The AP64 deck guide. I don't think we need that panel at all."
+
+- apc64-deck-guide is renamed use-my-apc64-tool (`bass-biscuits-v1.0-use-my-apc64-tool-v1.0`).
+- The page builder takes `in_pill: true`: such a tool gets no panel. Its tool box in L1 takes the whole row, starts
+  open, and holds the tool itself, with an "Open it full screen" button.
+- Inside the tool box the deck has no background of its own, so the box shows through.
+- Its description is one short line.
+- The deck page keeps its address (`apps/drum-dog-apc64-deck-20261102.html`), so Deck Duck's buttons (card 271) still
+  work. The card now links the tool box at `#use-my-apc64-tool`.
