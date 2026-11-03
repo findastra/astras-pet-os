@@ -30,7 +30,8 @@ button,select{cursor:pointer}
 .edit b{color:var(--cyan)}
 .edit label{color:var(--dim)}
 .dim{color:var(--dim)}
-.kits{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;justify-content:center}
+/* A centred grid: every row, the last one too, lines up under the same columns. */
+.kits{display:grid;grid-template-columns:repeat(auto-fill,calc(var(--u) * 377));gap:14px 18px;align-items:start;justify-content:center}
 .kit{display:flex;flex-direction:column;gap:4px}
 .kit .name{font-weight:700;color:var(--cyan);min-height:30px;display:flex;align-items:center}
 .kit .name input{width:100%;font-weight:700;color:var(--cyan);padding:2px 8px}
