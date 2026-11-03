@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>APC64 deck · Bass &amp; Biscuits</title>
-<!-- use-my-apc64-tool (named apc64-deck-guide until 2026-11-02), a native tool of Bass & Biscuits (Drum Dog), shown inside its tool box in L1.
+<!-- preview-my-apc64-tool (named apc64-deck-guide, then use-my-apc64-tool, until 2026-11-03), a native tool of Bass & Biscuits (Drum Dog), shown inside its tool box in L1.
      The APC64's top surface at its measured geometry (Akai's top view in the APC64 User Guide v1.0; body 371 x 272 mm).
      Tap a pad to hear a drum; tap anything to see what it does. "Use my APC64" listens to the real pads (Web MIDI) and
      plays the same drums in the browser, with no Ableton needed. Sounds are made in the browser (Web Audio), nothing
@@ -14,7 +14,7 @@
   font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg)}
-/* Inside use-my-apc64-tool's tool box on Bass & Biscuits' page: no background of its own, the tool box shows through. */
+/* Inside preview-my-apc64-tool's tool box on Bass & Biscuits' page: no background of its own, the tool box shows through. */
 html.in-tool,html.in-tool body{background:transparent}
 html.in-tool{color-scheme:normal;overflow:hidden}   /* a dark color-scheme inside the page would paint a solid square behind the board */
 .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 4px}
@@ -49,9 +49,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
 <body>
 <div class="top">
   <button type="button" id="midi">Use my APC64</button>
-  <span class="kitname">Kit: <b id="kit"></b></span>
-  <button type="button" id="surprise">Surprise me</button>
-  <a href="drum-dog-apc64-drum-kits-20261102.html" target="_top" id="kitsLink"><button type="button">My kits</button></a>
+  <span class="kitname"><b id="kit"></b></span>
   <span id="midiState">Tap a pad to hear it.</span>
 </div>
 <svg id="deck" viewBox="525 70 1370 1010" role="img" aria-label="Akai APC64"></svg>
@@ -139,11 +137,12 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   });
 
   function paintKit() {
-    kit = S.currentKit(); document.getElementById('kit').textContent = kit.name;
+    kit = S.currentKit();
+    var kn = document.getElementById('kit'); kn.textContent = kit.name; kn.style.color = S.padColor(kit.pads[0], kit);
     C.forEach(function (o) {
       if (o.kind !== 'pad') return;
       var p = kitPad(o), n = S.padName(p);
-      o.name = n; o.k.style.fill = S.padColor(p); o.g.setAttribute('aria-label', n);
+      o.name = n; o.k.style.fill = S.padColor(p, kit); o.g.setAttribute('aria-label', n);
       if (o.padT) { o.padT.textContent = n; o.padT.style.fontSize = (n.length > 6 ? 10.5 : 13) + 'px'; }
     });
     if (current && current.kind === 'pad') pick(current);
@@ -152,12 +151,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     S.playPad(kitPad(o), vel);
     o.g.classList.add('hit'); clearTimeout(o.t); o.t = setTimeout(function () { o.g.classList.remove('hit'); }, 110);
   }
-  document.getElementById('surprise').addEventListener('click', function () { S.surprise(); paintKit(); hit(byPad['8,1'], 0.9); });
-  // On Bass & Biscuits' page, My kits opens apc64-drum-kit-tool's own tool box there instead of leaving the page.
-  document.getElementById('kitsLink').addEventListener('click', function (e) {
-    try { var box = window.top !== window && window.top.document.getElementById('apc64-drum-kit-tool'); if (!box) return; e.preventDefault(); var d = box.closest('details'); if (d) d.open = true; box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) { /* open the kits page as usual */ }
-  });
-  window.addEventListener('storage', paintKit);   // a kit picked in the kit tool, in another tab
+  window.addEventListener('storage', paintKit);   // a kit picked in apc64-drum-kit-tool (its box below, or another tab)
   window.addEventListener('focus', paintKit);
   var note = document.getElementById('note');
   function pick(o) {

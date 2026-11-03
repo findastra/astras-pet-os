@@ -5,66 +5,67 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Drum kits · Bass &amp; Biscuits</title>
 <!-- apc64-drum-kit-tool, a native tool of Bass & Biscuits (Drum Dog): every drum kit Astra has, ready-made and her own.
-     Pick the kit the APC64 deck plays, change any pad's sound or tune, or drop her own sound file on a pad. Kits stay in
-     this browser (localStorage; her files in IndexedDB). Sounds come from drum-dog-drum-sounds-20261102.js.
-     Astra, 2026-11-02: "i want a kit tool that keeps track of all my drum kits". Claude Opus 5.5 (claude-opus-5-5). -->
+     Tap a kit to play it on the APC64; tap a pad to hear it and change its sound or tune, or drop her own sound file on
+     it. Changing a ready-made kit keeps a copy as her own. + makes a new kit. Kits stay in this browser (localStorage;
+     her files in IndexedDB). Sounds and each kit's colours come from drum-dog-drum-sounds-20261102.js.
+     Astra, 2026-11-02: "i want a kit tool that keeps track of all my drum kits". 2026-11-03: every kit in its own
+     colours, pads shaped like the board's, + for a new kit, no extra buttons. Claude Opus 5.5 (claude-opus-5-5). -->
 <style>
-:root{--bg:#12132b;--panel:#1b1d3a;--line:#3d6bff;--line2:#27357a;--ink:#e8ecff;--dim:#a5aed6;--cyan:#7fe7ff;--lime:#b6ff3b;
+:root{--bg:#12132b;--line2:#27357a;--ink:#e8ecff;--dim:#a5aed6;--cyan:#7fe7ff;
   font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 body{margin:0;background:var(--bg)}
 /* Inside apc64-drum-kit-tool's tool box on Bass & Biscuits' page: the box shows through, no scroll bar. */
 html.in-tool,html.in-tool body{background:transparent}
 html.in-tool{color-scheme:normal;overflow:hidden}
 html.in-tool main{padding:4px 0 8px}
-html.in-tool h1,html.in-tool .solo{display:none}   /* the deck is right on the same page */
-main{max-width:980px;margin:0 auto;padding:20px 16px 48px}
-h1{margin:0 0 10px;color:var(--cyan);font-size:1.6rem}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+main{max-width:980px;margin:0 auto;padding:16px}
 button,select,input{font:inherit;color:var(--ink);background:#23264a;border:1px solid var(--line2);border-radius:8px;padding:6px 12px}
-button{cursor:pointer}
-button.main{border-color:var(--lime);color:var(--lime)}
-.kits{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.kit{background:var(--panel);border:2px solid var(--line2);border-radius:12px;padding:10px;cursor:pointer;text-align:left}
-.kit.sel{border-color:var(--cyan)}
-.kit b{display:block;margin-bottom:6px}
-.kit .now{color:var(--lime);font-size:.85rem}
-.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.mini i{display:block;aspect-ratio:1;border-radius:3px}
-.edit{margin-top:18px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:14px}
-.edit h2{margin:0 0 10px;color:var(--cyan);font-size:1.2rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.pads{display:grid;grid-template-columns:repeat(4,minmax(0,92px));gap:8px;margin-bottom:12px}
-.pad{aspect-ratio:1;border-radius:8px;border:3px solid transparent;color:#0d0e10;font-weight:800;font-size:.8rem;padding:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;touch-action:manipulation}
-.pad.sel{border-color:#fff}
-.pad.hit{filter:brightness(1.6)}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0}
-.row label{color:var(--dim)}
-.dim{color:var(--dim);font-size:.9rem}
+button,select{cursor:pointer}
+/* A 4x4 of pads drawn the way preview-my-apc64-tool draws the board's pads (pad 73, gap 16, corner 3, rim 2, in units
+   of the board), on the board's dark body. --p is the pad size; everything else follows from it. */
+.board{--p:24px;display:grid;grid-template-columns:repeat(4,var(--p));gap:calc(var(--p)*16/73);padding:calc(var(--p)*16/73);
+  background:#15161a;border:calc(var(--p)*3/73 + 1px) solid #3a3f49;border-radius:calc(var(--p)*12/73 + 2px);width:max-content}
+.board i,.board .pad{width:var(--p);height:var(--p);border-radius:calc(var(--p)*3/73);border:max(1px,calc(var(--p)*2/73)) solid #4a505c;display:block}
+.kits{display:flex;flex-wrap:wrap;gap:14px}
+.kit,.add{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink);font-weight:700}
+.kit .board{outline:3px solid transparent;outline-offset:2px}
+.kit:hover .board,.add:hover .board{outline-color:var(--cyan)}
+.kit.sel .board{outline-color:#fff}
+.add .board{place-items:center;grid-template-columns:1fr;width:calc(var(--p)*4 + var(--p)*16/73*5 + 2*(var(--p)*3/73 + 1px));height:calc(var(--p)*4 + var(--p)*16/73*5 + 2*(var(--p)*3/73 + 1px))}
+.add b{font-size:2.6rem;line-height:1;color:var(--dim);font-weight:400}
+.add:hover b{color:var(--cyan)}
+.edit{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin-top:18px}
+.edit .board{--p:64px}
+.edit .pad{cursor:pointer;color:#0d0e10;font:800 calc(var(--p)*13/73)/1.1 system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;touch-action:manipulation}
+.edit .pad.sel{border-color:#fff;border-width:calc(var(--p)*6/73)}
+.edit .pad.hit{background:#fff !important}
+.side{flex:1 1 240px;display:flex;flex-direction:column;gap:10px;min-width:220px}
+.side h2{margin:0;color:var(--cyan);font-size:1.25rem}
+.side input#rename{font-weight:700;color:var(--cyan);font-size:1.15rem}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row label{color:var(--dim);min-width:3.2em}
+.dim{color:var(--dim);font-size:.9rem;margin:0}
 </style>
 <script src="drum-dog-in-tool-20261102.js"></script>
 </head>
 <body>
 <main>
-<h1>Drum kits</h1>
-<div class="bar">
-  <button type="button" class="main" id="surprise">Surprise me</button>
-  <button type="button" id="newKit">New kit</button>
-  <a href="drum-dog-apc64-deck-20261102.html" class="solo"><button type="button">Play on the APC64 deck</button></a>
-</div>
 <div class="kits" id="kits"></div>
 
-<section class="edit" id="edit">
-  <h2><span id="kitName"></span> <button type="button" id="use" class="main">Play this kit</button></h2>
-  <div class="pads" id="pads"></div>
-  <div id="ready" class="row"><span class="dim">A ready-made kit.</span> <button type="button" id="copy">Copy it to change it</button></div>
-  <div id="mine" hidden>
-    <div class="row"><label for="rename">Name</label><input id="rename" maxlength="40"> <button type="button" id="del">Delete kit</button></div>
-    <div class="row" id="padEdit" hidden>
-      <label for="sound">Pad sound</label><select id="sound"></select>
-      <label for="tune">Tune</label><input type="range" id="tune" min="0.5" max="2" step="0.05" value="1">
-      <button type="button" id="fileBtn">Use my own sound file</button><input type="file" id="file" accept="audio/*" hidden>
+<section class="edit">
+  <div class="board" id="pads"></div>
+  <div class="side">
+    <h2 id="kitName"></h2>
+    <input id="rename" maxlength="40" aria-label="Kit name" hidden>
+    <div id="padEdit" hidden>
+      <div class="row"><label for="sound">Sound</label><select id="sound"></select></div>
+      <div class="row"><label for="tune">Tune</label><input type="range" id="tune" min="0.5" max="2" step="0.05" value="1"></div>
+      <div class="row"><button type="button" id="fileBtn">My own sound file</button><input type="file" id="file" accept="audio/*" hidden></div>
     </div>
-    <p class="dim" id="tip">Tap a pad to change it.</p>
+    <p class="dim" id="tip">Tap a pad.</p>
+    <div class="row" id="mine" hidden><button type="button" id="del">Delete kit</button></div>
   </div>
 </section>
 </main>
@@ -77,40 +78,49 @@ button.main{border-color:var(--lime);color:var(--lime)}
   function kitOf(id) { return S.findKit(id) || S.ready[0]; }
   // Pads are listed bottom row first; show them the way they sit on the APC64 (bottom row at the bottom).
   var ORDER = [12, 13, 14, 15, 8, 9, 10, 11, 4, 5, 6, 7, 0, 1, 2, 3];
+  function copy(o) { return JSON.parse(JSON.stringify(o)); }
 
   function drawKits() {
-    var box = $('kits'), cur = S.currentKit().id; box.textContent = '';
+    var box = $('kits'); box.textContent = '';
     S.allKits().forEach(function (k) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'kit' + (k.id === view ? ' sel' : '');
-      var n = document.createElement('b'); n.textContent = k.name; b.appendChild(n);
-      var m = document.createElement('div'); m.className = 'mini';
-      ORDER.forEach(function (i) { var c = document.createElement('i'); c.style.background = S.padColor(k.pads[i]); m.appendChild(c); });
-      b.appendChild(m);
-      if (k.id === cur) { var s = document.createElement('div'); s.className = 'now'; s.textContent = 'Playing on the deck'; b.appendChild(s); }
-      b.addEventListener('click', function () { view = k.id; padIx = -1; draw(); });
+      b.setAttribute('aria-label', k.name);
+      var m = document.createElement('div'); m.className = 'board';
+      ORDER.forEach(function (i) { var c = document.createElement('i'); c.style.background = S.padColor(k.pads[i], k); m.appendChild(c); });
+      var n = document.createElement('span'); n.textContent = k.name;
+      b.appendChild(m); b.appendChild(n);
+      // One tap: the deck plays this kit, and it opens below.
+      b.addEventListener('click', function () { view = k.id; padIx = -1; S.setCurrent(k.id); draw(); S.playPad(k.pads[0], 0.9); });
       box.appendChild(b);
     });
+    var add = document.createElement('button'); add.type = 'button'; add.className = 'add'; add.setAttribute('aria-label', 'New kit');
+    add.innerHTML = '<div class="board"><b>+</b></div><span>&nbsp;</span>';
+    add.addEventListener('click', function () {
+      var c = copy(S.ready[0]); c.id = 'kit-' + Date.now().toString(36); c.name = 'My kit ' + (S.myKits().length + 1); c.colors = S.freshColors(); delete c.ready;
+      S.saveMyKit(c); view = c.id; padIx = -1; S.setCurrent(c.id); draw();
+    });
+    box.appendChild(add);
   }
   function drawEditor() {
     var k = kitOf(view), own = !k.ready;
-    $('kitName').textContent = k.name;
-    $('use').textContent = S.currentKit().id === k.id ? 'Playing on the deck' : 'Play this kit';
+    $('kitName').textContent = k.name; $('kitName').hidden = own;
+    $('rename').hidden = !own; if (own && document.activeElement !== $('rename')) $('rename').value = k.name;
+    $('mine').hidden = !own;
     var box = $('pads'); box.textContent = '';
     ORDER.forEach(function (i) {
       var p = k.pads[i], d = document.createElement('div');
-      d.className = 'pad' + (i === padIx ? ' sel' : ''); d.style.background = S.padColor(p); d.textContent = S.padName(p);
+      d.className = 'pad' + (i === padIx ? ' sel' : ''); d.style.background = S.padColor(p, k); d.textContent = S.padName(p);
       d.setAttribute('role', 'button'); d.tabIndex = 0;
-      function tap(e) { e.preventDefault(); S.playPad(p, 0.9); d.classList.add('hit'); setTimeout(function () { d.classList.remove('hit'); }, 120); if (own) { padIx = i; drawPadEdit(); markSel(); } }
+      function tap(e) { e.preventDefault(); S.playPad(p, 0.9); d.classList.add('hit'); setTimeout(function () { d.classList.remove('hit'); }, 120); padIx = i; drawPadEdit(); markSel(); }
       d.addEventListener('pointerdown', tap);
       d.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') tap(e); });
       d.dataset.i = i; box.appendChild(d);
     });
-    $('ready').hidden = own; $('mine').hidden = !own;
-    if (own) { $('rename').value = k.name; drawPadEdit(); }
+    drawPadEdit();
   }
   function markSel() { Array.prototype.forEach.call($('pads').children, function (d) { d.classList.toggle('sel', +d.dataset.i === padIx); }); }
   function drawPadEdit() {
-    var k = kitOf(view), p = k.pads[padIx];
+    var p = kitOf(view).pads[padIx];
     $('padEdit').hidden = !p; $('tip').hidden = !!p;
     if (!p) return;
     $('sound').value = p.file ? '__file' : p.sound; $('tune').value = p.tune || 1;
@@ -121,7 +131,13 @@ button.main{border-color:var(--lime);color:var(--lime)}
   S.voices.forEach(function (v) { var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
   var fo = document.createElement('option'); fo.value = '__file'; fo.textContent = 'My own sound'; fo.disabled = true; sel.appendChild(fo);
 
-  function editPad(fn) { var k = JSON.parse(JSON.stringify(kitOf(view))); fn(k.pads[padIx]); S.saveMyKit(k); draw(); S.playPad(kitOf(view).pads[padIx], 0.9); }
+  // Changing a ready-made kit keeps the change in her own copy of it ("My House"), in colours of its own so it never
+  // looks like the kit it came from.
+  function editPad(fn) {
+    var k = copy(kitOf(view));
+    if (k.ready) { k.id = 'kit-' + Date.now().toString(36); k.name = 'My ' + k.name; k.colors = S.freshColors(); delete k.ready; S.setCurrent(k.id); }
+    fn(k.pads[padIx]); S.saveMyKit(k); view = k.id; draw(); S.playPad(kitOf(view).pads[padIx], 0.9);
+  }
   sel.addEventListener('change', function () { editPad(function (p) { delete p.file; delete p.label; p.sound = sel.value; }); });
   $('tune').addEventListener('change', function () { var t = +$('tune').value; editPad(function (p) { p.tune = t; }); });
   $('fileBtn').addEventListener('click', function () { $('file').click(); });
@@ -131,13 +147,10 @@ button.main{border-color:var(--lime);color:var(--lime)}
     S.putFile(id, f).then(function () { editPad(function (p) { p.file = id; p.label = f.name.replace(/\.[^.]+$/, '').slice(0, 18); p.tune = 1; }); })
       .catch(function () { $('tip').hidden = false; $('tip').textContent = 'This browser could not keep that file.'; });
   });
-  $('rename').addEventListener('input', function () { var k = JSON.parse(JSON.stringify(kitOf(view))); k.name = $('rename').value.trim() || 'My kit'; S.saveMyKit(k); drawKits(); $('kitName').textContent = k.name; });
+  $('rename').addEventListener('input', function () { var k = copy(kitOf(view)); k.name = $('rename').value.trim() || 'My kit'; S.saveMyKit(k); drawKits(); });
   $('del').addEventListener('click', function () { if (!confirm('Delete this kit?')) return; S.deleteMyKit(view); view = S.currentKit().id; padIx = -1; draw(); });
-  function copyOf(k, name) { var c = JSON.parse(JSON.stringify(k)); c.id = 'kit-' + Date.now().toString(36); c.name = name; delete c.ready; S.saveMyKit(c); view = c.id; padIx = -1; draw(); }
-  $('copy').addEventListener('click', function () { var k = kitOf(view); copyOf(k, 'My ' + k.name); });
-  $('newKit').addEventListener('click', function () { copyOf(S.ready[0], 'My kit ' + (S.myKits().length + 1)); });
-  $('use').addEventListener('click', function () { S.setCurrent(view); draw(); });
-  $('surprise').addEventListener('click', function () { var k = S.surprise(); view = k.id; padIx = -1; draw(); S.playPad(k.pads[0], 0.9); });
+  // A kit picked somewhere else (the deck's ?kit=surprise, another tab) shows here too.
+  window.addEventListener('storage', function () { view = S.currentKit().id; padIx = -1; draw(); });
   draw();
 })();
 </script>

@@ -71,7 +71,7 @@ first to make it work **inside its own tool box** in L1 (`in_pill: true` on its 
 The rounded box takes the whole row and holds the working tool. The box grows to fit the tool, so there is no scroll
 bar inside: the tool page sends its height, as `apps/drum-dog-in-tool-20261102.js` does. The tool's own page stays
 only as an "Open it full screen" button. A box can start closed (`start_closed: true`) when the page holds several.
-Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
+Bass & Biscuits is the first: preview-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
 breakout, its own website with only a summary tool panel, needs Astra's OK.
 
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below

@@ -82,15 +82,15 @@
       "start_closed": true
     },
     {
-      "id": "use-my-apc64-tool",
-      "name": "use-my-apc64-tool",
+      "id": "preview-my-apc64-tool",
+      "name": "preview-my-apc64-tool",
       "type": "tool",
       "of": "drum-dog",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "bass-biscuits-v1.0-use-my-apc64-tool-v1.0",
+      "label": "bass-biscuits-v1.0-preview-my-apc64-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-deck-20261102.html",
       "job": "Your APC64 on the page. Tap a pad to play the kit you picked, tap a button to see what it does.",
       "does": "Play your APC64: tap pads for drums, tap buttons to learn them, or hit the real pads.",
@@ -5185,7 +5185,7 @@
       "why": "Installed with Live; the APC64 does not need it."
     },
     {
-      "from": "use-my-apc64-tool",
+      "from": "preview-my-apc64-tool",
       "to": "web-browser",
       "carries": "runs-on",
       "state": "now",
