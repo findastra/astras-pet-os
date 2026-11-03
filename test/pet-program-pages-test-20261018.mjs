@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -29,7 +29,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
     assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
   }
-  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS]));
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS]));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 

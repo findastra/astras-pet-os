@@ -273,15 +273,34 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
       (2026-11-03: "it needs to auto recognize it or give you an option to choose which model to use"). Then your own
       Claude or ChatGPT in a new tab (the message typed in and copied), or a note to the backlog.
     - **What the seated agent may do: supervised** (ASTRAS_PET_OS 8.3; 2026-11-03: "The agents are supposed to be able
-      to change stuff, read the plan"): it reads the plan (this framework, the pet's AGENTS.md, its cards) and the
-      pet's repo, makes changes on a branch, runs the pet's own tools and tests, and asks you in this window before
-      anything bigger: a merge or a push, anything outside the pet's folder, a key, an account or money. A private
-      pet's data never leaves the PC. The grants it holds are on the R W X panel, with whether code enforces them.
-    - **The pet chat helper** (card 061, with card 054's link to Startup Star): a small program on this PC, on
-      127.0.0.1 only, started at Windows sign-in, that seats Claude Code or Codex in the pet's folder and streams the
-      answer into the window. Astra chose it on 2026-11-03 ("I guess recommended"). **Not built yet:** until it is, a
-      message for the seat waits in the backlog and the pet says so; the page keeps no keys and the chat's own left
-      light switches it off.
+      to change stuff, read the plan"): it reads the plan (a fresh copy of this framework, AGENTS.md, ASTRAS_PET_OS.md,
+      PET-WORDS.md, TOOLS-AND-TRICKS.md, PROTECTION-RINGS.md and pet-programs.json, and the pet's own AGENTS.md and
+      pet.json) and changes files in its own copy of the pet's repo, on its own branch. It asks you in this window
+      before anything bigger: a push, anything outside the pet's folder, a key, an account or money. A private pet
+      (`relations.private` in pets.json) gets no seat. The grants it holds are on the R W X panel.
+    - **The pet chat helper** (`the-farm-v1.0-pet-chat-helper-v1.0`, `scripts/pet-chat-helper-20261103.cs`, card 283;
+      Astra chose it on 2026-11-03, "I guess recommended"): a small program with no window, built next to Startup
+      Star and started by it at sign-in, with **Pet chat** in the star's menu (Stop pet chat, and the folder with its
+      log). It listens on this PC only, on a port it picks, and answers only a page that sends the code from its page
+      data file (`Astra's PetOS Data\astras-pet-os\pet-chat\`, two folders above the farm, where only a page opened
+      from this PC can read it). Approval is enforced by its code, not by the agent's instructions (8.3):
+      - it finds what is installed and signed in, in the farm's order (Claude Code, Codex; Gemini CLI and GitHub
+        Copilot CLI are named but not seated yet), and the window shows each seat as ready, sign in once, not on this
+        PC or found, not yet; with nothing chosen, the first ready one answers;
+      - it makes a worktree of the pet's repo from origin's main in its data folder, on `claude/pet-chat-<repo>-YYYYMMDD`
+        (or `codex/…`), so your own copy is never touched;
+      - Claude Code runs `--restricted` (file tools only, confined to that folder and the plan's copy, none of your
+        settings, plugins or MCP servers); Codex runs in its workspace-write sandbox with `--ignore-user-config` (its
+        plugins, computer use and browser stay out; your model choice comes along); no API key and no Claude app
+        session reach either;
+      - your message goes in on stdin, never on a command line; the answer streams into the pet's bubble, with what it
+        is doing under it; Send becomes Stop while it answers; at most 15 minutes, one answer at a time;
+      - the helper commits each answer's changes on the branch itself (hooks off), and the window offers **Push N
+        changes for review**: a push happens only after you say yes in the helper's own Windows box, which a page
+        cannot click, and never to main; then the window links to the pull request on GitHub;
+      - every answer is written to its log; Start over begins a new conversation and keeps the branch.
+      With no helper, or on the public site, a message for the seat waits in the backlog and the pet says why. The page
+      keeps no keys, and the chat's own left light switches it off.
 11. **`<pet>-friends-list-panel`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I
