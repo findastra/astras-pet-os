@@ -65,6 +65,15 @@ and gives you the switches (the paired lights, short lists, buttons, a note box)
   change, anything that needs you) and an **Open** button. The panel manages the website; it does not hold it.
 - Small tools stay on the page: a tool box with its lights, one line on what it does, and its button.
 
+**On the page first, no breakouts (Astra, 2026-11-02):** "I never wanted to do any breakouts to begin with, so I think
+we should try our hardest to put it on the actual page." Where the rule above would make a tool its own website, try
+first to make it work **inside its own tool box** in L1 (`in_pill: true` on its System Map node, with `frame: "wide"`).
+The rounded box takes the whole row and holds the working tool. The box grows to fit the tool, so there is no scroll
+bar inside: the tool page sends its height, as `apps/drum-dog-in-tool-20261102.js` does. The tool's own page stays
+only as an "Open it full screen" button. A box can start closed (`start_closed: true`) when the page holds several.
+Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
+breakout, its own website with only a summary tool panel, needs Astra's OK.
+
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
 ![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)

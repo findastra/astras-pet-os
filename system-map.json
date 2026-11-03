@@ -73,9 +73,13 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "bass-biscuits-v1.0-learn-apc64-tool-v1.0",
-      "url": "https://github.com/findastra/drum-dog/blob/main/learn-apc64-tool-20261102.html",
-      "job": "Lesson plan for playing drums on an Akai APC64 in Ableton Live (Astra, 2026-11-02: \"design a lesson plan to teach me how to use these drums, and put the instructions on Bass & Biscuits\"): setup, the controls, and nine lessons from first sound to a mini song, each with practice and a tick box kept in the browser. A page in drum-dog (drum-dog PR #9); button names from Akai's APC64 User Guide v1.0.",
-      "does": "Teaches you to play drums on the APC64 in Ableton Live, one short lesson at a time."
+      "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-learn-apc64-20261102.html",
+      "job": "Nine short lessons for playing drums on the APC64 in Ableton Live, from first sound to a mini song. Ticks stay in this browser.",
+      "does": "Teaches you to play drums on the APC64 in Ableton Live, one short lesson at a time.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/drum-dog-learn-apc64-20261102.html",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "use-my-apc64-tool",
@@ -115,8 +119,12 @@
       "version": "v1.0",
       "label": "bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-drum-kits-20261102.html",
-      "job": "Keeps track of all of Astra’s drum kits (Astra, 2026-11-02: \"i want a kit tool that keeps track of all my drum kits... apc64-drum-kit-tool would be ok i think as the name for it under L1\"). Seven ready-made kits (Starter, 808, House, Lo-fi, Trap, Rock, Space), her own copies with any pad’s sound or tune changed, or her own sound files dropped on a pad. \"Play this kit\" sets what the APC64 deck plays; \"Surprise me\" picks one at random. Kits stay in this browser.",
-      "does": "All your drum kits: pick the one the APC64 deck plays, change pads, add your own sounds."
+      "job": "All your drum kits: seven ready-made, plus your own. Pick the kit the APC64 plays, change a pad, add your own sounds.",
+      "does": "All your drum kits: pick the one the APC64 deck plays, change pads, add your own sounds.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/drum-dog-apc64-drum-kits-20261102.html",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
     },
     {
       "id": "dm-archive-review",
