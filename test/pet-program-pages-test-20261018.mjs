@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, LIVE_CHECK, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -439,4 +439,23 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.match(css, /\.top \{ --square: 180px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
+});
+
+// Astra, 2026-11-02: "the editorial status panel on the one we're working on, but we don't have it on the live one...
+// That way I know if I'm looking at the most recent push or if I'm looking at the one I'm working on."
+test('the editorial status panel marks the working copy and is hidden on the live site', () => {
+  const css = readFileSync(new URL(`../apps/pet-programs/${ASSETS.css}`, import.meta.url), 'utf8');
+  assert.match(css, /html\.live-site \.panel\.editorial \{ display: none; \}/, 'the stylesheet hides it on the live site');
+  const check = readFileSync(new URL('../apps/live-site-20261102.js', import.meta.url), 'utf8');
+  assert.ok(check.includes('/\\.github\\.io$/i.test(location.hostname)'), 'the live site is any <owner>.github.io address');
+  assert.ok(LIVE_CHECK.includes('live-site-20261102.js'), 'every page loads the live check');
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const head = html.slice(0, html.indexOf('</head>'));
+    assert.ok(head.includes(LIVE_CHECK), `${d.repo}: the live check is in <head>`);
+    assert.ok(head.indexOf(LIVE_CHECK) < head.indexOf('<link rel="stylesheet"'), `${d.repo}: the live check runs before anything is drawn`);
+    const ed = html.indexOf('-editorial-status-panel<');
+    assert.ok(ed > 0 && ed < html.indexOf('<header class="top">'), `${d.repo}: the editorial status panel comes first`);
+    assert.ok(html.slice(ed, ed + 600).includes('<p class="working-copy">Working copy: not the live site.</p>'), `${d.repo}: it says it is the working copy`);
+  }
 });

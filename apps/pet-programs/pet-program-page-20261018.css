@@ -73,6 +73,9 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 37px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
 .panel.editorial > summary .legend { color: #3ff0ff; }
 .panel.editorial p { margin: 0; }
+/* Only on a working copy (Astra, 2026-11-02): never on the live site, so the panel itself says which one you are on. */
+html.live-site .panel.editorial { display: none; }
+.panel.editorial .working-copy { color: #3ff0ff; font-weight: 700; }
 .panel.editorial p + p { margin-top: 4px; }
 .panel.editorial .editorial-by { color: #7fe7f0; font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }

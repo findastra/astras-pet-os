@@ -84,6 +84,13 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
+0. **`<home>-editorial-status-panel`** (first, full width): L3's note to you on how the site is coming along, and
+   **the sign that you are looking at the working copy** (Astra, 2026-11-02: "the editorial status panel on the one
+   we're working on, but we don't have it on the live one... That way I know if I'm looking at the most recent push or
+   if I'm looking at the one I'm working on"). Its first line says "Working copy: not the live site." On the live site
+   (any `<owner>.github.io` address) it is never shown: a check in the page's `<head>` hides it before anything is
+   drawn. **No editorial panel means live; the editorial panel means the working copy.** Assistants show Astra the
+   working copy, one page at a time (AGENTS.md, "Show the working copy").
 1. **`<pet>-cyberhome`** (top left): the pet's habitat. The desktop pet comes to live here while the page is
    open. Its paired lights sit inside its top corner, off the border line (Astra,
    2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page
@@ -521,3 +528,5 @@ copies a request for the user's own AI to start a seed like it on their farm.
 - [ ] Follows [PROTECTION-RINGS.md](PROTECTION-RINGS.md): it is an animal only once L4 lets it in.
 - [ ] The page is a control panel (section 3): anything too big for a tool panel is its own website the pet program
       manages, with one tool panel that shows how it is doing and opens it.
+- [ ] The editorial status panel shows on the working copy, with "Working copy: not the live site.", and is hidden on
+      the live site (section 3, item 0).

@@ -48,6 +48,10 @@ export const pagePath = (repo) => `${DIR}/${repo}-${DATE}.html`;
 // `<pet>-system-map-panel` (Astra, 2026-10-23: "should be rift-rabbit-system-map-panel and rift-rabbit-cyberhome-panel";
 // before, the map box was `astras-pet-os-system-map`). SYSTEM_MAP_LABEL is the part after the pet's name.
 export const SYSTEM_MAP_LABEL = 'system-map-panel';
+// The live site is the published GitHub Pages copy (any <owner>.github.io): apps/live-site-20261102.js marks it, first
+// in <head> before anything is drawn, so the editorial status panel never flashes there: it shows only on a working
+// copy (Astra, 2026-11-02).
+export const LIVE_CHECK = '<script src="../live-site-20261102.js"></script>';
 export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
@@ -76,6 +80,10 @@ const PLAY_TYPES = new Set([...PET_TYPES, 'seed', 'roadmap']);
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const slug = (s) => String(s).toLowerCase().replace(/['’]/g, '').replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const isUrl = (u) => /^https?:\/\//.test(u || '');
+// A tool page published in this hub is embedded by its path, not its live address, so a working copy shows its own
+// working tool and the live site its live one (Astra, 2026-11-02: "I want to look at the page that we're working on
+// actively"). Pages sit in apps/pet-programs/, two folders below the hub root.
+const hubRelative = (u) => { const live = `https://${OWNER}.github.io/astras-pet-os/`; return u.startsWith(live) ? `../../${u.slice(live.length)}` : u; };
 
 /** The pet whose private repo a link goes into, or whose GitHub Pages site it is: a free account has no Pages site for a
  *  private repo, and a private repo opens only for its owner (Astra, 2026-10-20: "i privated most repos"). Null for
@@ -179,7 +187,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? n.embed : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -672,10 +680,13 @@ export function buildPetProgramPage(d) {
   // wonderland-launchpad-editorial-status-panel"). It is L3's note to Astra (L4) on how this site is coming along
   // ("that is just for the L3 to communicate with L4 and on progress to this site"): the pet's `editorial` in pets.json,
   // { says, by, on }, written by the AI working in its seat. Nothing is made up when there is no note.
+  // It is also the sign that this is the working copy (Astra, 2026-11-02: "the editorial status panel on the one we're
+  // working on, but we don't have it on the live one... That way I know if I'm looking at the most recent push or if
+  // I'm looking at the one I'm working on"): LIVE_CHECK hides it on the live site, and its first line says so here.
   const note = d.editorial;
-  const editorial = panel(`${d.homeSlug}-editorial-status-panel`, note && note.says
+  const editorial = panel(`${d.homeSlug}-editorial-status-panel`, `<p class="working-copy">Working copy: not the live site.</p>${note && note.says
     ? `<p>${esc(note.says)}</p><p class="small editorial-by">L3 to you${note.by ? `, ${esc(note.by)}` : ''}${note.on ? `, ${esc(note.on)}` : ''}</p>`
-    : '<p class="empty">No note from L3 yet. The AI working on this pet program writes here how the site is coming along.</p>', { cls: 'editorial' });
+    : '<p class="empty">No note from L3 yet. The AI working on this pet program writes here how the site is coming along.</p>'}`, { cls: 'editorial' });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -895,6 +906,7 @@ ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send t
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(d.home)} · ${esc(d.pet)}</title>
+${LIVE_CHECK}
 <link rel="stylesheet" href="${ASSETS.css}">
 ${wordScripts}
 </head>
