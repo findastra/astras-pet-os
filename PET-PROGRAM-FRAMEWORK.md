@@ -50,12 +50,12 @@ What each one means: section 3, `<pet>-emotions`.
 
 ## 3. The page, top to bottom
 
-**See it first: Show Pet, the model pet program** (Astra, 2026-11-02:
-[apps/pet-programs/show-pet-20261102.html](apps/pet-programs/show-pet-20261102.html)). A made-up pet, Pet Name, in
+**See it first: the Model Pet Program** (Astra, 2026-11-02:
+[apps/pet-programs/model-pet-program-20261102.html](apps/pet-programs/model-pet-program-20261102.html)). A made-up pet, Pet Name, in
 Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
-(Tool one, Tool two, 3rd party program one ...). The pet program spawner draws it with the same code as every real
-page, so it always shows today's rules; `test/show-pet-test-20261102.mjs` fails when a real page can show something
-Show Pet does not. Before changing how pet program pages look, change Show Pet's page first and check it on every
+(tool-one, tool-two, 3rd party program one ...) and the version as its format, v0.0.0 // YYYYMMDD. The pet program spawner draws it with the same code as every real
+page, so it always shows today's rules; `test/model-pet-program-test-20261102.mjs` fails when a real page can show something
+the Model Pet Program does not. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
 screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
 platform-platypus): on 2026-11-02, 19 of 19 screens fit.
 
@@ -83,6 +83,12 @@ only as an "Open it full screen" button. A box can start closed (`start_closed: 
 Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
 breakout, its own website with only a summary tool panel, needs Astra's OK.
 
+**Toolsets, from data** (Astra, 2026-10-24: "control panels have tools and toolsets in side them"; 2026-11-02, all
+recommended): a tool whose own tools name it with `in` on the System Map (as a device names its group) is a toolset.
+The spawner draws it as one rounded tool box with its lights, its name, its one line and its label, and its tools as
+pills inside; it takes the whole row after the other tools and starts closed with `start_closed: true`. The Model Pet
+Program shows one, toolset-one.
+
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
 ![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)
@@ -93,7 +99,10 @@ levels are **four stacked tool panels**, one per level, and the lights are **but
 example; [docs/unity-unicorn-page-modules-20261018.md](docs/unity-unicorn-page-modules-20261018.md) puts every one of
 its tools and tricks in its tool panel.
 
-Dark slate stationery and light, hand-lettered text. Every group is a **tool panel**: a thin bordered box with its label
+**The colours every page gets** unless it has its own (Astra, 2026-11-02: "I don't like the raspberry color page
+either. Let's make it like sky blue or something. With darker boxes"): a sky-blue page behind deep navy boxes, navy
+ink for the title on the sky, light text in the boxes. Pages with their own colours keep them (the Farm's green,
+Wonderland Launchpad's storm, Bass & Biscuits' midnight indigo). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
 or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
@@ -196,7 +205,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | **Right: maintenance** | **blue** checked, and it works · **orange** report issues (you reported one, a check found one, or nobody has checked it yet) · **yellow** an update is waiting for your OK · **grey** not created | Marks it as reporting an issue: your report that it is broken from your point of view. It goes to the Farmer's `broken-tools-on-the-farm` and the backlog, and only you clear it. Its colour comes from a check recorded in pets.json `checks`, never a default (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work or not by you"; 2026-10-26: "switch update color and report issues color"). |
 
    Each button has a tooltip, keyboard focus and a name a screen reader reads ("copyright-auditor: on",
-   "copyright-auditor: checked, and it works"). Show Pet, the model pet program, has one of each.
+   "copyright-auditor: checked, and it works"). The Model Pet Program has one of each.
 6. **`<pet>-session-notes`**: a notes text box with **submit** and **add file**. Every submission goes to the backlog
    (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
 7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a cloud that says when it shows, three to a row
@@ -533,7 +542,7 @@ copies a request for the user's own AI to start a seed like it on their farm.
 
 ## 14. Checklist for a new or updated pet program
 
-- [ ] It looks like Show Pet, the model pet program (section 3), and a change to how pages look was made on Show Pet
+- [ ] It looks like the Model Pet Program (section 3), and a change to how pages look was made on the Model Pet Program
       first and checked on every screen with Platform Platypus's fit-check.
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.

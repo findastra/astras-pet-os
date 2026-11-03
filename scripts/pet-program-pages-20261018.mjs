@@ -196,7 +196,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -367,17 +367,30 @@ function deviceGroups(devices) {
   return order.map((key) => `<h4 class="device-group">${esc(key === 'headsets' ? 'Headsets' : key === 'other' ? 'Other devices' : names[key] || key)} · ${groups.get(key).length}</h4>${itemList(groups.get(key), 'device', '')}`).join('');
 }
 
+// A toolset from the System Map (Astra, 2026-10-24: "control panels have tools and toolsets in side them"; 2026-11-02,
+// all recommended: the spawner draws one from data, for any pet): a tool whose own tools name it with `in`, the way a
+// device names its group. It is a rounded tool box with its lights and its name, its one line and its label, and its
+// tools as pills inside; it takes the whole row after the other tools, and folds closed with `start_closed`.
+function toolList(tools, empty) {
+  const ids = new Set(tools.map((t) => t.id));
+  const sets = tools.filter((s) => tools.some((t) => t.group === s.id));
+  const plain = tools.filter((t) => !sets.includes(t) && !(t.group && ids.has(t.group)));
+  const boxes = sets.map((s) => toolBox(s.id, s.name, `${s.desc ? `<p class="small">${esc(s.desc)}</p>` : ''}${s.label ? `<code class="label">${esc(s.label)}</code>` : ''}
+${itemList(tools.filter((t) => t.group === s.id), 'tool', '')}`, { open: !s.startClosed, cls: 'toolset' }));
+  return `${plain.length || !boxes.length ? itemList(plain, 'tool', empty) : ''}${boxes.length ? `<div class="toolboxes">${boxes.join('\n')}</div>` : ''}`;
+}
+
 // `first`: the extra tool boxes go above the list (GitHub Aquarium's important tools).
 function toolSections(tools, extra = '', extraCount = 0, { first = false } = {}) {
   const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
-  const list = tools.length || !extra ? itemList(tools, 'tool', empty) : '';
+  const list = tools.length || !extra ? toolList(tools, empty) : '';
   if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${first ? extra + list : list + extra}</section>`;
   const rest = tools.filter((t) => !t.side);
   const sides = Object.entries(SIDES).map(([side, title]) => {
     const mine = tools.filter((t) => t.side === side);
-    return `<section class="side-${side}">${heading(title, mine)}${itemList(mine, 'tool', 'None yet.')}</section>`;
+    return `<section class="side-${side}">${heading(title, mine)}${toolList(mine, 'None yet.')}</section>`;
   });
-  if (rest.length) sides.push(`<section>${heading('Other native tools', rest)}${itemList(rest, 'tool', '')}</section>`);
+  if (rest.length) sides.push(`<section>${heading('Other native tools', rest)}${toolList(rest, '')}</section>`);
   return sides.join('\n');
 }
 
@@ -966,7 +979,7 @@ ${wordScripts}
 <details class="panel" open><summary><span class="legend">${TOOL_LABEL}</span></summary>
 <h1>Every pet program</h1>
 <p>One page for every registered and pipeline pet, spawned by the Friendly Farmer with the minimum every pet program contains: Astra's sketch of 2026-10-18 (<a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a>, section 3). These are the basics; each pet's page grows from here.</p>
-<h2>The model pet program</h2><ul class="cards"><li class="card"><a href="${esc(SHOW_PET.page.slice(DIR.length + 1))}">${img(`${SHOW_PET.art}/idle-${SHOW_PET.date}.svg`, 'Pet Name, idle', 'thumb')}<span class="card-text"><b>Show Pet</b><span>Pet Name · every panel, item and light, with placeholder names</span></span></a></li></ul>
+<h2>The model pet program</h2><ul class="cards"><li class="card"><a href="${esc(MODEL_PROGRAM.page.slice(DIR.length + 1))}">${img(`${MODEL_PROGRAM.art}/idle-${MODEL_PROGRAM.date}.svg`, 'Pet Name, idle', 'thumb')}<span class="card-text"><b>Model Pet Program</b><span>Pet Name · every panel, item and light, with placeholder names</span></span></a></li></ul>
 ${group('registered', 'Registered')}
 ${group('pipeline', 'Pipeline')}
 <p class="small">By Astra. Generated by <code>npm run build</code> from pets.json and pet-programs.json; do not edit by hand.</p>
@@ -978,7 +991,7 @@ ${group('pipeline', 'Pipeline')}
 `, INDEX);
 }
 
-// ---------- Show Pet: the model pet program ----------
+// ---------- The Model Pet Program ----------
 // Astra, 2026-11-02: "a template pet program, like to actually see the website ... instead of it saying like actual
 // tools ... it'll just say tool one, tool two, tool three. And what this does is it actually will cover a whole bunch
 // of different types of like structures or like styles ... And then it also like has every rule really strictly kind of
@@ -986,10 +999,10 @@ ${group('pipeline', 'Pipeline')}
 // A made-up pet, Pet Name, whose program is Pet Program Name: every kind of item and every light state once, with
 // placeholder names, drawn by the same buildPetProgramPage as every real page, so it always follows today's rules. It
 // is not an animal: it is in no registry, so the desktop, the Markdown pets and the pet packs leave it out.
-// test/show-pet-test-20261102.mjs fails when a real page has something the model does not show.
-export const SHOW_PET = { page: `${DIR}/show-pet-20261102.html`, tool: `${DIR}/show-pet-tool-20261102.html`, toolJs: `${DIR}/show-pet-tool-20261102.js`, art: 'art/show-pet', date: '20261102', label: 'the-farm-v1.0-show-pet-v1.0' };
+// test/model-pet-program-test-20261102.mjs fails when a real page has something the model does not show.
+export const MODEL_PROGRAM = { page: `${DIR}/model-pet-program-20261102.html`, tool: `${DIR}/model-pet-program-tool-20261102.html`, toolJs: `${DIR}/model-pet-program-tool-20261102.js`, art: 'art/model-pet-program', date: '20261102', label: 'the-farm-v1.0-model-pet-program-v1.0' };
 // The nine placeholder drawings: a plain round pet, one face per mood, drawn as SVG so nobody's art stands in.
-const SHOW_FACES = {
+const MODEL_FACES = {
   idle: '<circle cx="104" cy="120" r="9"/><circle cx="152" cy="120" r="9"/><path d="M110 160h36" class="line"/>',
   blink: '<path d="M94 121h20M142 121h20" class="line"/><path d="M110 160h36" class="line"/>',
   happy: '<path d="M94 124q10-14 20 0M142 124q10-14 20 0" class="line"/><path d="M104 152q24 22 48 0" class="line"/>',
@@ -1012,33 +1025,33 @@ const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" v
   + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}</style>`
   + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
   + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
-  + `${SHOW_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
+  + `${MODEL_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
 // Pet Name's nine moods, and an idle drawing for each of the two made-up friends.
-export const SHOW_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
-export const showPetArt = () => ({
-  ...Object.fromEntries(MOODS.map((mood) => [`${SHOW_PET.art}/${mood}-${SHOW_PET.date}.svg`, petSvg('Pet Name', '#b8b2c6', mood)])),
-  ...Object.fromEntries(Object.entries(SHOW_FRIENDS).map(([id, [name, fill]]) => [`${SHOW_PET.art}/${id}-idle-${SHOW_PET.date}.svg`, petSvg(name, fill, 'idle')])),
+export const MODEL_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
+export const modelProgramArt = () => ({
+  ...Object.fromEntries(MOODS.map((mood) => [`${MODEL_PROGRAM.art}/${mood}-${MODEL_PROGRAM.date}.svg`, petSvg('Pet Name', '#b8b2c6', mood)])),
+  ...Object.fromEntries(Object.entries(MODEL_FRIENDS).map(([id, [name, fill]]) => [`${MODEL_PROGRAM.art}/${id}-idle-${MODEL_PROGRAM.date}.svg`, petSvg(name, fill, 'idle')])),
 });
 
 /** Pet Name's page data: the same fields as pageData's, every list with one of each kind. */
-export function showPetData(src) {
+export function modelProgramData(src) {
   const map = systemMapData(src.registry, src.extra, src.programs);
-  const frames = Object.fromEntries(MOODS.map((m) => [m, `${SHOW_PET.art}/${m}-${SHOW_PET.date}.svg`]));
-  const item = (id, name, desc, more = {}) => ({ id: `show-pet-${id}`, name, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
-    inL1: false, inPill: false, pillOpen: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
+  const frames = Object.fromEntries(MOODS.map((m) => [m, `${MODEL_PROGRAM.art}/${m}-${MODEL_PROGRAM.date}.svg`]));
+  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
+    inL1: false, inPill: false, pillOpen: false, startClosed: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
   const guide = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md`;
   const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `tool-${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });
-  const toolPage = (n) => `${SHOW_PET.tool.slice(DIR.length + 1)}?tool=${n}`;
-  const grant = (id, who, level, [r, w, x], status, self, how, more = {}) => ({ id: `show-pet-${id}`, who, on: self ? 'Pet Program Name' : 'everything else', self, level, r, w, x, status, how, next: null, evidence: [], ...more });
-  const proof = [{ test: 'test/show-pet-test-20261102.mjs' }];
+  const toolPage = (n) => `${MODEL_PROGRAM.tool.slice(DIR.length + 1)}?tool=${n}`;
+  const grant = (id, who, level, [r, w, x], status, self, how, more = {}) => ({ id: `model-${id}`, who, on: self ? 'Pet Program Name' : 'everything else', self, level, r, w, x, status, how, next: null, evidence: [], ...more });
+  const proof = [{ test: 'test/model-pet-program-test-20261102.mjs' }];
   const reg = { repo: 'pet-repo-name', pet: 'Pet Name', audit: { cadence: 'weekly', subject: 'what Pet Program Name looks after', needs: 'a decision only you can make' } };
   return {
     repo: reg.repo, pet: reg.pet, petSlug: 'pet-name', home: 'Pet Program Name', homeSlug: 'pet-program-name', number: 0, assigned: true, stage: 'pipeline',
     summary: 'The model pet program: every tool panel, every kind of item and every light, with placeholder names. One or two sentences on what the pet program does go here.',
-    job: 'What Pet Name does, in one sentence.', status: 'hatching', added: '2026-11-02', version: { core: '1.0.0', full: '1.0.0', assigned: false },
+    job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
     visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
     appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
-    art: { frames, plain: frames, source: 'show-pet' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
+    art: { frames, plain: frames, source: 'model-pet-program' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'],
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
@@ -1050,20 +1063,24 @@ export function showPetData(src) {
     shared: [item('shared-program-one', 'Shared program one', 'A program made with someone else ("Shared").', { sharedWith: 'someone else' })],
     skills: [],
     devices: [item('headset-one', 'Headset one', 'A headset Pet Name looks after: headsets come first.', { serial: 'SERIAL-0001' }),
-      item('device-one', 'Device one', 'A device in a group of its own, under its group\'s name.', { group: 'show-pet-device-group', groupName: 'Device group one', serial: 'SERIAL-0002' }),
-      item('device-two', 'Device two', 'Another device in the same group.', { group: 'show-pet-device-group', groupName: 'Device group one', serial: 'SERIAL-0003' })],
+      item('device-one', 'Device one', 'A device in a group of its own, under its group\'s name.', { group: 'model-device-group', groupName: 'Device group one', serial: 'SERIAL-0002' }),
+      item('device-two', 'Device two', 'Another device in the same group.', { group: 'model-device-group', groupName: 'Device group one', serial: 'SERIAL-0003' })],
     tools: [tool('one', 'A tool that works today and was checked: its second light is blue. Open it goes to its own page.', { url: guide }),
       tool('two', 'A tool with an issue reported: its second light is orange.'),
       tool('three', 'A tool with an update waiting for your OK: its second light is yellow, and L3 asks you.'),
       tool('four', 'A tool that is not built yet: off (red), and its second light grey.', { state: 'planned' }),
       tool('five', 'A tool that runs on its own every day and has not been checked yet: report issues until someone checks it.', { cadence: 'daily' }),
       tool('six', 'A tool that works right here, inside its own tool box, open from the start.', { embed: toolPage('six'), url: toolPage('six'), inL1: true, inPill: true, pillOpen: true }),
-      tool('seven', 'Another tool that works right here, in a tool box that starts closed: click it to open it.', { embed: toolPage('seven'), url: toolPage('seven'), inL1: true, inPill: true, pillOpen: false })],
+      tool('seven', 'Another tool that works right here, in a tool box that starts closed: click it to open it.', { embed: toolPage('seven'), url: toolPage('seven'), inL1: true, inPill: true, pillOpen: false }),
+      // A toolset: tools that name it with `in` (`group` here) sit inside its rounded box.
+      { ...item('toolset-one', 'toolset-one', 'A toolset: one rounded box that holds several tools, each with its own lights; it folds to its name.'), label: 'pet-program-name-v1.0-toolset-one-v1.0', side: null },
+      tool('eight', 'A tool inside toolset-one.', { group: 'model-toolset-one', groupName: 'toolset-one' }),
+      tool('nine', 'Another tool inside toolset-one, planned.', { group: 'model-toolset-one', groupName: 'toolset-one', state: 'planned' })],
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
-    connections: [{ id: 'show-pet-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'show-pet-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${SHOW_PET.art}/pet-two-idle-${SHOW_PET.date}.svg` },
-      { id: 'show-pet-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${SHOW_PET.art}/pet-three-idle-${SHOW_PET.date}.svg` }],
+    connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
@@ -1073,18 +1090,18 @@ export function showPetData(src) {
         grant('l1-own', 'Its tools (L1)', ['L1'], ['yes', 'no', 'yes'], 'written', true, 'Example: its tools read and run inside its folder; a written rule.')],
       by: [grant('by-one', 'Pet Program Name', ['L2'], ['yes', 'no', 'no'], 'written', false, 'Example: what Pet Program Name may use outside itself.', { on: 'Native program one' })] },
     languages: [], languageNote: null,
-    clicks: { 3: { tool: 'show-pet-tool-one', what: 'Runs tool-one.', label: 'pet-program-name-v1.0-tool-one-v1.0' } },
+    clicks: { 3: { tool: 'model-tool-one', what: 'Runs tool-one.', label: 'pet-program-name-v1.0-tool-one-v1.0' } },
     editorial: { says: 'Example: the AI working on this pet program writes here how the site is coming along.', by: 'the seated agent', on: '2026-11-02' },
-    checks: { 'tool:show-pet-tool-one': { result: 'works', note: 'Example: checked and works.', on: '2026-11-02' },
-      'tool:show-pet-tool-two': { result: 'issues', note: 'Example: an issue was reported.', on: '2026-11-02' },
-      'tool:show-pet-tool-three': { result: 'update', latest: 'v1.1', note: 'Example: an update is waiting.', on: '2026-11-02' },
-      'tool:show-pet-tool-four': { result: 'missing', note: 'Example: not created yet.', on: '2026-11-02' },
-      'device:show-pet-headset-one': { result: 'works', note: 'Example: seen and working.', on: '2026-11-02' } },
+    checks: { 'tool:model-tool-one': { result: 'works', note: 'Example: checked and works.', on: '2026-11-02' },
+      'tool:model-tool-two': { result: 'issues', note: 'Example: an issue was reported.', on: '2026-11-02' },
+      'tool:model-tool-three': { result: 'update', latest: 'v1.1', note: 'Example: an update is waiting.', on: '2026-11-02' },
+      'tool:model-tool-four': { result: 'missing', note: 'Example: not created yet.', on: '2026-11-02' },
+      'device:model-headset-one': { result: 'works', note: 'Example: seen and working.', on: '2026-11-02' } },
   };
 }
 
 // Its script, a file of its own (pages hold no inline code): it lights the pad you press, nothing else.
-const SHOW_PET_TOOL_JS = `const which = new URLSearchParams(location.search).get('tool');
+const MODEL_PROGRAM_TOOL_JS = `const which = new URLSearchParams(location.search).get('tool');
 document.getElementById('name').textContent = which === 'seven' ? 'tool-seven' : which === 'six' ? 'tool-six' : 'Example tool';
 const said = document.getElementById('said');
 for (const b of document.querySelectorAll('button')) b.addEventListener('click', () => {
@@ -1101,11 +1118,11 @@ if (inTool) {
   if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
 }
 `;
-// Show Pet's files that are not pages: the example tool's script and the nine drawings.
-export const showPetAssets = () => ({ [SHOW_PET.toolJs]: SHOW_PET_TOOL_JS, ...showPetArt() });
+// The Model Pet Program's files that are not pages: the example tool's script and the nine drawings.
+export const modelProgramAssets = () => ({ [MODEL_PROGRAM.toolJs]: MODEL_PROGRAM_TOOL_JS, ...modelProgramArt() });
 
 /** The small example tool that tool-six and tool-seven run right on the page. */
-export function buildShowPetTool() {
+export function buildModelProgramTool() {
   const pads = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
   return assertPublic(`<!doctype html>
 <html lang="en">
@@ -1115,15 +1132,15 @@ export function buildShowPetTool() {
 <title>Example tool · Pet Program Name</title>
 ${wordScripts}
 <style>
-html,body{margin:0;background:transparent;color:#fbe9f2;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+html,body{margin:0;background:transparent;color:#eef6ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
 main{padding:12px;max-width:440px;margin:0 auto}
 h1{font-size:17px;margin:0 0 4px}
-p{margin:0 0 12px;color:#d9a9c4}
+p{margin:0 0 12px;color:#a8c8e8}
 .pads{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-button{aspect-ratio:1;border-radius:14px;border:1px solid #c94f93;background:rgba(255,255,255,.05);color:inherit;font:inherit;cursor:pointer}
-button[aria-pressed="true"]{background:#c94f93;color:#2f0f25}
-button:focus-visible{outline:2px solid #ffd9a0;outline-offset:2px}
-output{display:block;margin-top:12px;font-size:13px;color:#d9a9c4}
+button{aspect-ratio:1;border-radius:14px;border:1px solid #9fd6ff;background:rgba(150,205,255,.07);color:inherit;font:inherit;cursor:pointer}
+button[aria-pressed="true"]{background:#9fd6ff;color:#0b2440}
+button:focus-visible{outline:2px solid #ffe08a;outline-offset:2px}
+output{display:block;margin-top:12px;font-size:13px;color:#a8c8e8}
 </style>
 </head>
 <body>
@@ -1133,10 +1150,10 @@ output{display:block;margin-top:12px;font-size:13px;color:#d9a9c4}
 <div class="pads">${pads.map((p) => `<button type="button" aria-pressed="false">Pad ${p}</button>`).join('')}</div>
 <output id="said" aria-live="polite">Nothing pressed yet.</output>
 </main>
-<script src="${SHOW_PET.toolJs.slice(DIR.length + 1)}"></script>
+<script src="${MODEL_PROGRAM.toolJs.slice(DIR.length + 1)}"></script>
 </body>
 </html>
-`, SHOW_PET.tool);
+`, MODEL_PROGRAM.tool);
 }
 
 // ---------- Sources and writing ----------
@@ -1182,19 +1199,19 @@ export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).m
 export function spawnerFiles(src) {
   const pages = spawnerPages(src);
   return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages),
-    [SHOW_PET.page]: buildPetProgramPage(showPetData(src)), [SHOW_PET.tool]: buildShowPetTool() };
+    [MODEL_PROGRAM.page]: buildPetProgramPage(modelProgramData(src)), [MODEL_PROGRAM.tool]: buildModelProgramTool() };
 }
 
 export function writePetProgramPages(root = '.') {
   const files = spawnerFiles(readSpawnerSources(root));
   mkdirSync(`${root}/${DIR}`, { recursive: true });
-  mkdirSync(`${root}/${SHOW_PET.art}`, { recursive: true });
-  for (const [path, html] of Object.entries({ ...files, ...movedFiles(), ...showPetAssets() })) writeFileSync(`${root}/${path}`, html);
+  mkdirSync(`${root}/${MODEL_PROGRAM.art}`, { recursive: true });
+  for (const [path, html] of Object.entries({ ...files, ...movedFiles(), ...modelProgramAssets() })) writeFileSync(`${root}/${path}`, html);
   return Object.keys(files);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   process.chdir(fileURLToPath(new URL('..', import.meta.url)));
   const written = writePetProgramPages('.');
-  console.log(`Spawned ${written.filter((p) => p.endsWith(`-${DATE}.html`) && p !== INDEX).length} pet program pages, the list (${INDEX}) and Show Pet (${SHOW_PET.page}).`);
+  console.log(`Spawned ${written.filter((p) => p.endsWith(`-${DATE}.html`) && p !== INDEX).length} pet program pages, the list (${INDEX}) and the Model Pet Program (${MODEL_PROGRAM.page}).`);
 }

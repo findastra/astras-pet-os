@@ -1,6 +1,6 @@
-# Show Pet, the model pet program
+# The Model Pet Program
 
-2026-11-02, Claude Opus 5.5 (`claude-opus-5-5`), branch `claude/show-pet-20261102` (the "Friendly Farmer" chat), on
+2026-11-02, Claude Opus 5.5 (`claude-opus-5-5`), branch `claude/model-pet-program-20261102` (the "Friendly Farmer" chat), on
 top of `claude/pet-stages-chart-20261102` (#276).
 
 Astra, 2026-11-02: "a template pet program, like to actually see the website ... instead of it saying like actual
@@ -8,21 +8,20 @@ tools ... it'll just say tool one, tool two, tool three. And what this does is i
 different types of like structures or like styles ... every rule really strictly kind of like chiseled out ... And then
 also it appears across all of the platforms correctly ... come up with something for that [a name] as well."
 
-- **Show Pet** (`apps/pet-programs/show-pet-20261102.html`, `the-farm-v1.0-show-pet-v1.0`, a working name until Astra
-  picks one): a made-up pet, Pet Name, whose program is Pet Program Name. The pet program spawner draws it with the same
-  `buildPetProgramPage` as every real page (`showPetData` in `scripts/pet-program-pages-20261018.mjs`), so it shows
+- **The Model Pet Program** (`apps/pet-programs/model-pet-program-20261102.html`, `the-farm-v1.0-model-pet-program-v1.0`): a made-up pet, Pet Name, whose program is Pet Program Name. The pet program spawner draws it with the same
+  `buildPetProgramPage` as every real page (`modelProgramData` in `scripts/pet-program-pages-20261018.mjs`), so it shows
   today's rules and nothing hand-made.
 - What it shows once each: every tool panel; 3rd party, native and shared programs; seven tools (checked and works,
   an issue reported, an update waiting, not built, a daily cadence, a tool in its own panel at the top, a tool inside its
   own rounded box in L1); headsets and a device group with serial numbers; tricks with a cadence and a planned one;
   an L3 question; L4's approvals; R W X rows with In code, Rule only and Not built; a bound three clicks; an editorial
-  note; friends with and without a page; nine placeholder drawings (`art/show-pet/`, SVG, nobody's art).
-- The example tool both embedded tools run: `apps/pet-programs/show-pet-tool-20261102.html` and its script.
+  note; friends with and without a page; nine placeholder drawings (`art/model-pet-program/`, SVG, nobody's art).
+- The example tool both embedded tools run: `apps/pet-programs/model-pet-program-tool-20261102.html` and its script.
 - It is not an animal: in no registry, so the desktop, the Markdown pets and the pet packs leave it out. The spawner's
   list links it first.
-- `test/show-pet-test-20261102.mjs`: Show Pet has every field and item field a real page has, every tool panel, every
+- `test/model-pet-program-test-20261102.mjs`: the Model Pet Program has every field and item field a real page has, every tool panel, every
   light and kind of item, placeholder names only, and the files on disk are what the spawner writes.
-- PET-PROGRAM-FRAMEWORK.md section 3 and the checklist: change Show Pet first when pages change, and check it on every
+- PET-PROGRAM-FRAMEWORK.md section 3 and the checklist: change the Model Pet Program first when pages change, and check it on every
   screen with Platform Platypus's fit-check. README.md links it.
 - Checked: Platform Platypus's fit-check (findastra/platform-platypus `tools/fit-check`), 19 of 19 screens fit (phones
   and iPads both ways up, laptop, desktop, a window dragged small, stretched wide and tall); the browser pane at phone,
@@ -47,3 +46,20 @@ memory of earlier chats, and the pages she shaped most (Wonderland Launchpad, Ba
   (2026-10-24), the chat panel's square box (2026-10-20, 2026-10-23), the friends list's name, L2 with tricks only and
   L3 as L3-to-you only (2026-10-24), L4's rounded tool boxes, and the checklist (no connection boxes, no languages).
 - Platform Platypus's fit-check after the redo: 19 of 19 screens fit.
+
+## Astra's answers to the deck (2026-11-02, https://claude.ai/artifact/UabwS56hrUmZwYj52M2NNf)
+
+"All recommended", then two changes in her own words:
+1. **The name: the Model Pet Program**, not Show Pet ("a model pet program is better, not show pet. Remember, it's
+   supposed to be the place that it lives"); Pet Name and Pet Program Name stay its placeholders. Files, label
+   (`the-farm-v1.0-model-pet-program-v1.0`), drawings (`art/model-pet-program/`), test and card renamed. Its title
+   shows the format: `v0.0.0 // YYYYMMDD` ("I also want to see YYYYMMDD ... and then V0.0.0").
+2. **No special panels**: a pet's special panels become tool boxes in L1, in a pull request of its own.
+3. **Toolsets from data**: a tool whose tools name it with `in` is a toolset, one rounded box holding them
+   (`toolList` in the spawner); the model shows toolset-one with tool-eight and tool-nine.
+4. **The colours every page gets: sky blue with darker boxes** ("I don't like the raspberry color page either. Let's
+   make it like sky blue or something. With darker boxes"), not raspberry: a sky page, deep navy boxes, navy title ink.
+   New `--box`, `--surface`, `--page-ink` and `--accent` colours in the stylesheet; the Farm, Wonderland
+   Launchpad and Bass & Biscuits set them so they look exactly as before.
+
+Fit-check: 19 of 19 screens for the model and for API Fairy's page in the new colours.
