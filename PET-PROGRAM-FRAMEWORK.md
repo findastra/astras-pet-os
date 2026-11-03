@@ -65,6 +65,15 @@ and gives you the switches (the paired lights, short lists, buttons, a note box)
   change, anything that needs you) and an **Open** button. The panel manages the website; it does not hold it.
 - Small tools stay on the page: a tool box with its lights, one line on what it does, and its button.
 
+**On the page first, no breakouts (Astra, 2026-11-02):** "I never wanted to do any breakouts to begin with, so I think
+we should try our hardest to put it on the actual page." Where the rule above would make a tool its own website, try
+first to make it work **inside its own tool box** in L1 (`in_pill: true` on its System Map node, with `frame: "wide"`).
+The rounded box takes the whole row and holds the working tool. The box grows to fit the tool, so there is no scroll
+bar inside: the tool page sends its height, as `apps/drum-dog-in-tool-20261102.js` does. The tool's own page stays
+only as an "Open it full screen" button. A box can start closed (`start_closed: true`) when the page holds several.
+Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
+breakout, its own website with only a summary tool panel, needs Astra's OK.
+
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
 ![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)
@@ -84,6 +93,13 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
+0. **`<home>-editorial-status-panel`** (first, full width): L3's note to you on how the site is coming along, and
+   **the sign that you are looking at the working copy** (Astra, 2026-11-02: "the editorial status panel on the one
+   we're working on, but we don't have it on the live one... That way I know if I'm looking at the most recent push or
+   if I'm looking at the one I'm working on"). Its first line says "Working copy: not the live site." On the live site
+   (any `<owner>.github.io` address) it is never shown: a check in the page's `<head>` hides it before anything is
+   drawn. **No editorial panel means live; the editorial panel means the working copy.** Assistants show Astra the
+   working copy, one page at a time (AGENTS.md, "Show the working copy").
 1. **`<pet>-cyberhome`** (top left): the pet's habitat. The desktop pet comes to live here while the page is
    open. Its paired lights sit inside its top corner, off the border line (Astra,
    2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page
@@ -521,3 +537,5 @@ copies a request for the user's own AI to start a seed like it on their farm.
 - [ ] Follows [PROTECTION-RINGS.md](PROTECTION-RINGS.md): it is an animal only once L4 lets it in.
 - [ ] The page is a control panel (section 3): anything too big for a tool panel is its own website the pet program
       manages, with one tool panel that shows how it is doing and opens it.
+- [ ] The editorial status panel shows on the working copy, with "Working copy: not the live site.", and is hidden on
+      the live site (section 3, item 0).

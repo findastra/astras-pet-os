@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PC tools · PC Master</title>
+<!-- PC Master Race's tool page (Astra, 2026-11-03: "make sure all of the tools are on there and I can see all of the
+     stuff you've downloaded"). Each of PC Master Race's tool boxes in L1 shows this page with ?tool=<id>; opened on its
+     own with no ?tool it shows every tool. It reads only what PC Master Race's look wrote on this PC,
+     Documents\Astra's PetOS Data\pc-master-race\pc-tools-page-data.js, and shows nothing about any PC anywhere else.
+     Self-contained, no dependencies, works by double-click. Written with Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{
+  --bg:#16181c; --panel:#1f2227; --panel2:#2a2e35; --line:#3a3f48; --ink:#eceff2; --dim:#a9b3bd;
+  --green:#3dff9a; --pink:#ff5adb; --cyan:#2ef2ff; --amber:#ffc23b; --red:#ff6b6b;
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:0 0 6px}
+html.in-tool header{display:none}
+main{max-width:980px;margin:0 auto;padding:20px 14px 48px}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--green)}
+.sub{color:var(--dim)}
+.tool{background:var(--panel);border:1px solid var(--line);padding:14px 16px;margin:12px 0}
+html.in-tool .tool{margin:0;border:0;background:var(--panel)}
+.tool h2{margin:0 0 8px;font-size:1.15rem;color:var(--green)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chip{border:1px solid var(--line);background:var(--panel2);padding:1px 8px;font-size:.85rem;white-space:nowrap}
+.chip.ok{border-color:var(--green);color:var(--green)}
+.chip.no{border-color:var(--amber);color:var(--amber)}
+.chip.bad{border-color:var(--red);color:var(--red)}
+.chip.run{border-color:var(--cyan);color:var(--cyan)}
+h3{margin:12px 0 4px;font-size:.98rem;color:var(--pink)}
+p{margin:4px 0}
+a{color:var(--cyan)}
+a:visited{color:var(--pink)}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--panel2);border:1px solid var(--line);padding:0 4px;font-size:.88em;overflow-wrap:anywhere}
+pre{font-family:ui-monospace,Consolas,monospace;font-size:.8rem;background:var(--panel2);border:1px solid var(--line);padding:8px;overflow-x:auto;white-space:pre;margin:6px 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:4px 0}
+th,td{border:1px solid var(--line);padding:3px 7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{background:var(--panel2);color:var(--cyan);font-weight:600}
+td.n{text-align:right;white-space:nowrap}
+tr.off td{color:var(--dim)}
+.bar{height:12px;background:var(--panel2);border:1px solid var(--line);min-width:80px}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.bar span.full{background:linear-gradient(90deg,var(--amber),var(--red))}
+.note{border-left:3px solid var(--amber);padding:3px 10px;margin:8px 0;background:var(--panel2)}
+.use{border-left:3px solid var(--cyan);padding:3px 10px;margin:8px 0;background:var(--panel2)}
+.frame{width:100%;height:520px;border:1px solid var(--line);background:#fff}
+.lesson{border:1px solid var(--line);background:var(--panel2);padding:8px 12px;margin:8px 0}
+.lesson label{display:flex;gap:8px;align-items:center;font-weight:600;margin-top:6px}
+.lesson input{width:18px;height:18px;accent-color:var(--green)}
+.ladder td:first-child{white-space:nowrap;color:var(--green)}
+.empty{color:var(--dim);font-style:italic}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>PC tools</h1>
+<p class="sub">PC Master’s look at your PC’s core tools. <span data-looked></span></p>
+</header>
+<div data-tools><p class="empty">Reading PC Master Race’s last look…</p></div>
+</main>
+<script src="pc-master-race-tools-20261103.js"></script>
+</body>
+</html>

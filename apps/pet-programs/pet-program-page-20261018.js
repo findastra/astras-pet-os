@@ -684,13 +684,26 @@
   }
   })();
 
-  // ---- A tool box (L4's parts) folds to its name when its name is clicked, like the VRChat setups (2026-10-24). ----
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('.toolbox-fold');
+  // ---- A folded tool opens when it is clicked anywhere, like a pill (Astra, 2026-11-02: "all you have to do is click on
+  // the tool itself to open it"); open, it folds again from its name line, so clicks inside it stay its own. Its lights,
+  // links, buttons and fields keep their own clicks, and selecting text in it does nothing. ----
+  function foldClick(e, boxes, head, fold) {
+    var box = e.target.closest && e.target.closest(boxes);
+    // A box made without a fold (the notes box) always stays open.
+    var b = box && box.querySelector(':scope > :is(' + head + ') ' + fold);
     if (!b) return;
-    var folded = b.closest('.toolbox').classList.toggle('is-folded');
+    if (!e.target.closest(fold)) {
+      if (e.target.closest('button, a, input, select, textarea, label, summary, [contenteditable]')) return;
+      var h = e.target.closest(head);
+      if (!box.classList.contains('is-folded') && !(h && h.parentElement === box)) return;
+      var sel = window.getSelection();
+      if (String(sel) && box.contains(sel.anchorNode)) return;
+    }
+    var folded = box.classList.toggle('is-folded');
     b.setAttribute('aria-expanded', String(!folded));
-  });
+  }
+  // A tool box (L4's parts), like the VRChat setups (2026-10-24).
+  document.addEventListener('click', function (e) { foldClick(e, '.toolbox', '.toolbox-head', '.toolbox-fold'); });
 
   // ---- Clicking a pill opens or closes it, like Halo List's (Astra, 2026-10-23: "just clicking the bubble opens it").
   // Its lights, links, buttons and fields keep their own clicks, and selecting text in it does not close it. ----
@@ -707,15 +720,12 @@
   (function () {
   var box = document.getElementById('vrchat-launch');
   if (!box) return;
-  // Each headset tool and each of its ways folds down to its name when its name is clicked (Astra, 2026-10-24: "these
-  // also need to be collapsable").
+  // Each headset tool and each of its ways folds down to its name (Astra, 2026-10-24: "these also need to be
+  // collapsable") and opens when clicked anywhere, like a tool box.
   box.addEventListener('click', function (e) {
     // Face tracking's box cannot be unticked or ticked: it is drawn in the page's pink, not greyed out (2026-10-24).
     if (e.target.matches && e.target.matches('[data-launch-locked]')) { e.preventDefault(); return; }
-    var b = e.target.closest && e.target.closest('.launch-fold');
-    if (!b) return;
-    var folded = b.closest('.launch-mode, .launch-headset').classList.toggle('is-folded');
-    b.setAttribute('aria-expanded', String(!folded));
+    foldClick(e, '.launch-mode, .launch-headset', '.launch-head, legend', '.launch-fold');
   });
   var RANK = { best: 4, good: 3, ok: 2, bad: 1 };
   var saved = read('vrchat-launch', {});
@@ -926,7 +936,9 @@
     if (!msg || msg.type !== 'tool-panel-height') return;
     var frames = document.querySelectorAll('iframe.tool-frame');
     for (var i = 0; i < frames.length; i++) {
-      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+      // A wide tool in its own tool box (Bass & Biscuits' APC64 board, kits and lessons) may be long: its box grows to
+      // fit it, with no scroll bar inside (Astra, 2026-11-02: "get rid of like the scroll bar on it").
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(frames[i].classList.contains('wide') ? 12000 : 1400, Math.max(200, Number(msg.height) || 0)) + 'px';
     }
   });
 })();
