@@ -302,6 +302,9 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
 /* A wide tool fills the panel (Bass & Biscuits' APC64 deck): about the deck's own shape plus its two short rows. */
 .tool-frame.wide { max-width: none; height: auto; aspect-ratio: 1370 / 1150; min-height: 420px; }
+/* A tool that works inside its own rounded tool box (`in_pill`) takes the whole row, and its tool fills the box. */
+.items li.pill:has(> .pill-more .pill-tool) { grid-column: 1 / -1; }
+.pill-tool { margin: 8px 0 4px; }
 .plain li { margin: 5px 0; }
 .about { margin-top: 10px; font-size: 12.5px; color: var(--chalk-dim); }
 .about > summary { cursor: pointer; width: fit-content; }

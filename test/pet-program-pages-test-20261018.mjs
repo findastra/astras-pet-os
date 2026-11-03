@@ -245,8 +245,9 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
       assert.match(p, /<details class="pill-more"( open)?><summary aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the pill opens`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
-      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
-      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"'), `${d.repo}: open only to show a picture`);
+      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19), or one that
+      // works inside its own tool box (Astra, 2026-11-02, use-my-apc64-tool: "that board needs to be within a tool")
+      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"') || p.includes('class="pill-tool"'), `${d.repo}: open only to show a picture or a working tool`);
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
