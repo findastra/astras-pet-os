@@ -6,6 +6,12 @@ import { readFileSync } from 'node:fs';
 import { readSpawnerSources, spawnerFiles } from '../scripts/pet-program-pages-20261018.mjs';
 
 const source = readFileSync('apps/discord-damsel-presence-control-20261030.js', 'utf8');
+// Made-up ports in the 400xx range: the real addresses stay in this PC's gitignored local services list
+// (docs/local-services-20261014.md), and the public-safety test allows loopback addresses here only on 400xx ports.
+const OPENAI = 'http://127.0.0.1:40001/', ANTHROPIC = 'http://127.0.0.1:40002/', ABLETON = 'http://127.0.0.1:40003/';
+const PRESENCE = 'http://127.0.0.1:40004';
+const SERVICES = { 'openai-discord-presence': OPENAI, 'anthropic-discord-presence': ANTHROPIC,
+  'ableton-live-discord-presence': ABLETON, 'discord-damsel-presence-control': PRESENCE + '/' };
 const flush = async () => { for (let i = 0; i < 6; i++) await new Promise(resolve => setImmediate(resolve)); };
 function node() {
   return { textContent: '', disabled: false, listeners: {}, attrs: {}, classes: new Set(),
@@ -50,7 +56,8 @@ function browser(protocol = 'file:', holdStart = false) {
     } };
   vm.runInNewContext(source, context);
   return { cards, lights, note, posts, scripts, tabs, status, offline() { failure = true; }, finishStart() { finishStart(); },
-    connect(value = { url: 'http://127.0.0.1:38764', code: 'a'.repeat(64) }) { win.DiscordDamselPresenceData = value; scripts[0].onload(); } };
+    services(list = SERVICES) { win.LOCAL_SERVICES = list; scripts[0].onload(); },
+    connect(value = { url: PRESENCE, code: 'a'.repeat(64) }) { if (scripts.length === 1) this.services(); win.DiscordDamselPresenceData = value; scripts[1].onload(); } };
 }
 
 test('Damsel generated page has visible start/open/stop controls and verified-live power hooks', () => {
@@ -76,11 +83,11 @@ test('hosted pages make no local requests and keep honest disconnected lights', 
 });
 test('local controls show actual stopped/off/published states and never touch saved reports', async () => {
   const b = browser(); b.connect(); await flush();
-  assert.equal(b.cards.openai.parts['[data-presence-controls]'].href, 'http://127.0.0.1:38761/');
+  assert.equal(b.cards.openai.parts['[data-presence-controls]'].href, OPENAI);
   assert.match(b.cards.openai.parts['[data-presence-status]'].textContent, /App stopped/);
   assert.match(b.cards.anthropic.parts['[data-presence-status]'].textContent, /sharing is off/);
   b.cards.openai.parts['[data-presence-start]'].listeners.click(); await flush();
-  assert.equal(b.tabs[0].url, 'http://127.0.0.1:38761/'); assert.equal(b.tabs[0].opener, null);
+  assert.equal(b.tabs[0].url, OPENAI); assert.equal(b.tabs[0].opener, null);
   assert.equal(b.lights[0].attrs['aria-pressed'], 'true');
   assert.match(b.cards.openai.parts['[data-presence-status]'].textContent, /Card published/);
   assert.equal(b.posts.find(p => p.url.endsWith('/api/start')).input.app, 'openai');
@@ -88,17 +95,29 @@ test('local controls show actual stopped/off/published states and never touch sa
   assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
   assert.match(b.cards.openai.parts['[data-presence-status]'].textContent, /sharing is off/);
 });
-test('Ableton Live has its own card: its controls on 38765, start and stop for it alone', async () => {
+test('Ableton Live has its own card: its own controls link, start and stop for it alone', async () => {
   const b = browser(); b.connect(); await flush();
-  assert.equal(b.cards.ableton.parts['[data-presence-controls]'].href, 'http://127.0.0.1:38765/');
+  assert.equal(b.cards.ableton.parts['[data-presence-controls]'].href, ABLETON);
   assert.match(b.cards.ableton.parts['[data-presence-status]'].textContent, /Card published/);
   b.cards.ableton.parts['[data-presence-stop]'].listeners.click(); await flush();
   assert.equal(b.posts.find(p => p.url.endsWith('/api/stop')).input.app, 'ableton');
   b.cards.ableton.parts['[data-presence-start]'].listeners.click(); await flush();
-  assert.equal(b.tabs[0].url, 'http://127.0.0.1:38765/');
+  assert.equal(b.tabs[0].url, ABLETON);
   // The AI apps' lights are unchanged by Ableton's buttons.
   assert.equal(b.lights.length, 2);
   assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
+});
+test('the addresses come from this PC only: no list, or one that is not loopback, makes no request', async () => {
+  const none = browser(); none.scripts[0].onerror(); await flush();
+  assert.equal(none.scripts.length, 1); assert.equal(none.posts.length, 0);
+  assert.match(none.note.textContent, /no address for Discord Damsel/);
+  const elsewhere = browser(); elsewhere.services({ ...SERVICES, 'openai-discord-presence': 'https://example.com/', 'discord-damsel-presence-control': 'https://example.com/' }); await flush();
+  assert.equal(elsewhere.scripts.length, 1); assert.equal(elsewhere.posts.length, 0);
+  assert.equal(elsewhere.cards.openai.parts['[data-presence-controls]'].href, undefined);
+  assert.equal(elsewhere.cards.anthropic.parts['[data-presence-controls]'].href, ANTHROPIC);
+  assert.match(elsewhere.note.textContent, /no address for Discord Damsel/);
+  const other = browser(); other.connect({ url: 'http://127.0.0.1:40009', code: 'a'.repeat(64) }); await flush();
+  assert.equal(other.posts.length, 0);
 });
 test('invalid bootstrap makes no request; connection loss clears stale publishing', async () => {
   const invalid = browser(); invalid.connect({ url: 'https://example.com', code: 'a'.repeat(64) }); await flush();
