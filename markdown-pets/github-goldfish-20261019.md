@@ -80,6 +80,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Packet Piranha** (Packet River): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Paper Patty** (Paper Girl): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Patch Cat** (The Litter Box): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **PC Master** (PC Master Race): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Platform Platypus** (Mirror Pool): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Project Parrot** (Idea Perch): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Python Panther** (Python Jungle): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.

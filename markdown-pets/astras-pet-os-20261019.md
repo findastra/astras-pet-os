@@ -81,6 +81,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Packet Piranha** (Packet River): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Paper Patty** (Paper Girl): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Patch Cat** (The Litter Box): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **PC Master** (PC Master Race): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Platform Platypus** (Mirror Pool): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Python Panther** (Python Jungle): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Raspberry Pi Berry** (Raspberry Pi Maker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
