@@ -195,7 +195,7 @@ All three run on Python's stdlib, and all three can be **fitted to Astra's own f
   3. **Discrete events:** blinks drawn from a log-normal interval distribution. At 13.7 blinks/min the mean interval is about 4.4 s. Shorten it when she "talks" and lengthen it when she "concentrates". The same pattern works for glances and micro-smiles.
 - **Fitting to Astra ("cloning herself"):** from her own recorded constellation streams she can estimate μ and θ per expression (how fast her face returns to neutral), the spectral slope of her micro-motion, and her blink log-normal parameters. These numbers are a personal "noise fingerprint" for AI Astra, which fits the DynAffect idea that each person has their own home base, inertia and volatility.
 - **Where randomness enters:** every N(0,1) draw and every interval draw comes from one seeded `random.Random(seed)`. Using one seed keeps the whole mood trace replayable, and the seed can be quantum-sourced for the symbolic version (Q4).
-- **Safety:** mood noise must only move parameters on Decision 7's allowlist, at low amplitude. Adult features stay under Astra's manual control whatever the noise does.
+- **Safety:** mood noise must only move parameters on Decision 7's allowlist, at low amplitude, and nothing outside it. Which expressions AI Astra may change (the allowlist) is still Astra's decision.
 
 ### Gaps
 - I did not retrieve affective-computing agent models such as ALMA (Gebhard 2005, mood with decay in PAD space) or WASABI (Becker-Asano, mood as damped dynamics), or the "Eyes Alive" gaze/saccade statistics (Lee, Badler and Badler 2002). These are relevant but uncited here.

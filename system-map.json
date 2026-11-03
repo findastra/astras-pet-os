@@ -1723,6 +1723,66 @@
       "job": "A tool of The Astral Plane (Astra, 2026-10-19: it \"helps people's agent connect to VR chat\"): a small body any agent can use on the PC that runs VRChat, to say, type, move, turn, jump and stop through VRChat's OSC input. In code: this PC only, eight buttons, a move held 0.1 to 3 s and always released. VRChat AI Astra uses it as her body. Merged (the-astral-plane PR #8, vrchat-embodiment/embodiment.py, 63 tests pass); never run against live VRChat yet."
     },
     {
+      "id": "face-recorder",
+      "name": "Face recorder",
+      "type": "tool",
+      "of": "ai-astra",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-face-recorder-v1.0",
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"I want to track my own face tracking data and my reaction to other people or scenarios\"): records Astra's own face and eye values (VRCFaceTracking's parameters, as VRChat's OSC output repeats them) into a session file that stays on her PC, and a line she types marks a moment. In code: it listens on 127.0.0.1 only and sends nothing of its own; it keeps only face, eye and tracking values; it never stores a name (an optional relay, off unless asked, passes each packet on to VRChat unchanged). Built and tested on the-astral-plane branch claude/face-tools-20261103 (face/ai_astra_face_recorder.py), not merged; never run against live VRChat or a real headset."
+    },
+    {
+      "id": "face-translator",
+      "name": "Face translator",
+      "type": "tool",
+      "of": "ai-astra",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-face-translator-v1.0",
+      "job": "A tool of The Astral Plane (2026-11-03): turns a face snapshot, in VRCFaceTracking's Unified Expressions names, into 13 plain face values and words AI Astra's model can read (\"smiling a lot, eyebrows raised, looking left\"), never an emotion label. This is Astralese, the face language, a layer on top of Unified Expressions (a working name, waiting on Astra's OK). It can turn the values back into Unified Expressions weights, as a preview only. In code: no network or connector code, so it cannot send anything. Built and tested on the-astral-plane branch claude/face-tools-20261103 (face/ai_astra_astralese.py), not merged; never run against live VRChat or a real headset."
+    },
+    {
+      "id": "reaction-learner",
+      "name": "Reaction learner",
+      "type": "tool",
+      "of": "ai-astra",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-reaction-learner-v1.0",
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"convert that into how the AI should be reacting in VR chat\"): cuts Astra's reactions (0.5 to 3 s) out of her recorded sessions, after each moment she marked or each event, into a reaction book on her PC that she can review, rate good or bad and delete from. Given a moment in words, it picks one of her closest reactions and varies it by at most 10%. In code: a preview only, with no way to send to VRChat (which expressions AI Astra may change is still Astra's open decision 7). Built and tested on the-astral-plane branch claude/face-tools-20261103 (face/ai_astra_reactions.py), not merged; never run against live VRChat or a real headset."
+    },
+    {
+      "id": "quantum-coin",
+      "name": "Quantum coin",
+      "type": "tool",
+      "of": "ai-astra",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-quantum-coin-v1.0",
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"truly random quantum bits and vary her small mood shifts\"): random bits for AI Astra's small variations, from a coin jar of bits measured on a real quantum computer (each used once), or from her PC's own random numbers when the jar is empty, and it says which. Her PC's own random numbers are already enough for this: the jar is an experiment. Also gentle, human-shaped noise for mood drift and blinks, with hard limits in code. A separate script fills the jar with Astra's own IBM Quantum account; it has not been run. Built and tested on the-astral-plane branch claude/face-tools-20261103 (face/ai_astra_quantum_coin.py), not merged; never run against live VRChat or a real headset."
+    },
+    {
+      "id": "clone-session",
+      "name": "clone-session",
+      "type": "trick",
+      "of": "ai-astra",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-astral-plane-v1.0-clone-session-trick-v1.0",
+      "job": "A trick of The Astral Plane (skills/clone-session; Astra, 2026-11-03: \"I'm going to basically clone myself in VR chat\"): the steps for one recording session of Astra's own face: who is present and whether they are comfortable, check the face is coming in, record, mark moments with roles rather than names, stop, learn, review the reaction book, and delete what she does not want kept. Astra starts and stops every recording, and nothing is sent to VRChat. It uses the face recorder, face translator, reaction learner and quantum coin, with VRChat and VRCFaceTracking. Written on the-astral-plane branch claude/face-tools-20261103, not merged; never followed in a live session."
+    },
+    {
       "id": "data-dealer-project",
       "name": "Data Dealer",
       "program": 3,
@@ -5588,6 +5648,41 @@
       "carries": "opens",
       "state": "now",
       "why": "The Astral Plane runs this tool: VRChat AI Astra uses it as her body, and any agent can run it on its own PC with its own VRChat account (Astra, 2026-10-19)."
+    },
+    {
+      "from": "ai-astra",
+      "to": "face-recorder",
+      "carries": "opens",
+      "state": "planned",
+      "why": "The Astral Plane runs this tool when Astra starts a recording of her own face (Astra, 2026-11-03). Planned: on the-astral-plane branch claude/face-tools-20261103, not merged."
+    },
+    {
+      "from": "ai-astra",
+      "to": "face-translator",
+      "carries": "opens",
+      "state": "planned",
+      "why": "The Astral Plane runs this tool to put a face snapshot into plain words for AI Astra's model (2026-11-03). Planned: on the-astral-plane branch claude/face-tools-20261103, not merged."
+    },
+    {
+      "from": "ai-astra",
+      "to": "reaction-learner",
+      "carries": "opens",
+      "state": "planned",
+      "why": "The Astral Plane runs this tool to learn Astra's reactions from her sessions and preview one (2026-11-03). Planned: on the-astral-plane branch claude/face-tools-20261103, not merged."
+    },
+    {
+      "from": "ai-astra",
+      "to": "quantum-coin",
+      "carries": "opens",
+      "state": "planned",
+      "why": "The Astral Plane runs this tool for the random bits behind AI Astra's small variations (2026-11-03). Planned: on the-astral-plane branch claude/face-tools-20261103, not merged."
+    },
+    {
+      "from": "face-recorder",
+      "to": "vrchat",
+      "carries": "opens",
+      "state": "planned",
+      "why": "Listens to VRChat's OSC output on this PC (127.0.0.1, port 9001) and, when asked, reads event types from VRChat's log (someone joined, a new world), never names; it sends nothing of its own. Planned until the first live test: it has never run against live VRChat."
     },
     {
       "from": "vrchat-connector",

@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-268 rows: 12 native programs, 129 native tools, 19 native tricks, 108 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+273 rows: 12 native programs, 133 native tools, 20 native tricks, 108 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -254,6 +254,11 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Planned |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face translator | `the-astral-plane-v1.0-face-translator-v1.0` | Planned |
+| 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Planned |
+| 7 | Astra Wisp | The Astral Plane | native tool | Reaction learner | `the-astral-plane-v1.0-reaction-learner-v1.0` | Planned |
+| 7 | Astra Wisp | The Astral Plane | native trick | clone-session | `the-astral-plane-v1.0-clone-session-trick-v1.0` | Planned |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
 | 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |

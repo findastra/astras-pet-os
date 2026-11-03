@@ -119,8 +119,10 @@ behaviour, and REACT 2026 added official **personalised** tracks. In machine-lea
 - REACT 2023 and 2024 (first and second editions) were not researched individually.
 - Whether any Seamless Interaction *models* (not just data) are publicly downloadable was not confirmed; the GitHub
   README did not say so.
-- Found no work that clones a person from their *own VR face-tracking logs* specifically (also noted in the earlier
-  report's notes).
+- Found no work that clones one person's own natural social reactions from their *own VR face-tracking logs* into an
+  avatar. The nearest precedent is a robot: Honda Research Institute Europe learns robot expressions from
+  emotion-labelled Quest Pro blendshape demonstrations (arXiv 2508.08999; see the earlier report's robots notes and
+  section 3's gaps).
 
 ## 2. Motion matching as a retrieval analogue for expressions
 
@@ -241,8 +243,12 @@ realism and synchrony metrics plus human A/B or Turing-style tests.
 
 ### Gaps
 - Found no published minimum (hours of data) for a person-specific facial reaction model.
-- No study found that uses VR face-tracking blendshapes (rather than video-extracted 3DMM/AUs) as the reaction
-  representation.
+- No facial reaction generation study found that uses VR face-tracking blendshapes (rather than video-extracted
+  3DMM/AUs) as the reaction representation. The nearest precedent is in robotics: Honda Research Institute Europe
+  (Chao Wang, Michael Gienger, Fan Zhang) records Quest Pro face blendshapes with head and controller poses as
+  emotion-labelled demonstrations, and a flow-matching model trained on them generates a robot's expressions in
+  response to cues such as a moving object — (search summary) [arXiv 2508.08999](https://arxiv.org/html/2508.08999v2).
+  No one found has cloned one person's own natural social reactions from their VR face-tracking logs into an avatar.
 - No study found of friends judging a clone of someone they know (all perceptual tests found use strangers).
 
 ## 4. Methods that fit a framework-free statistical mind
