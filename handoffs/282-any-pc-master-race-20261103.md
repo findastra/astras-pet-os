@@ -1,0 +1,68 @@
+status: open (waiting on Astra: OK to merge #282 and kernel-grove's job line; accept the Sysinternals licenses; finish the three installers)
+for: any
+from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-03
+needs: nothing
+---
+## Task
+
+Astra, 2026-11-03: "I want to see all of these tools being put into a pet program and the same format that I've been
+doing it for everything else, where the tool opens and I can see a preview of it and use it straight from this pet
+program and not have to open up the other program." Then she named the pet ("PC Master ... PC Master Race. And it's a
+race to be the PC Master") and answered the deck "PC Master Race questions": "all recommended for everything else",
+"We need an engineering pet, it seems like. Question 3, maybe think of that", "download it all", "He's going to need
+art, too".
+
+Her answers, recorded here as the deck said: (1) new pet PC Master, #86; (2) Kernel Koala keeps his four tools, job line
+"What runs on your PC: programs, memory and what starts at sign-in."; (3) the core PC tools plus a lesson tool, with
+an engineering pet to think about for DWSIM, Qalculate!, Jupyter, GeoGebra, Lean and Zotero; (4) private repo;
+(5) every download; (6) portable tools in Program Files.
+
+## Ownership and state
+
+Implementer: this chat. Writable files: this PR's branch, findastra/pc-master-race, and kernel-grove's job line.
+Overlaps: #276, #278 and #279 (another Claude chat, open, stacked) rewrite the spawner and every page; this PR changes
+only data, two new tool pages and generated files. Whichever merges second takes `main`'s generated files and rebuilds.
+
+## What I did
+
+- **findastra/pc-master-race** (new, private, topic `pet-app`, main `29ee987`): `pc-master-race-20261103.mjs` (`--look`,
+  `--watch`, `--self-test`: 15 of 15 pass), `start-watch-20261103.vbs`, README, AGENTS.md, CLAUDE.md, LICENSE, pet.json,
+  `changes/`. PC copy cloned to `Documents\Astra's PetOS\pc-master-race`; its watch started there through Explorer
+  (outside the Claude app) on 2026-11-03 and writes `Documents\Astra's PetOS Data\pc-master-race\pc-tools-page-data.js`.
+- **This PR (#282):** pet-programs.json #86 and #63's line; pets.json pipeline entry (needs, 45 checks, relation to
+  Kernel Grove) and Kernel Koala's job; system-map.json (19 programs, 23 tools, 22 links, code list);
+  `apps/pc-master-race-tools-20261103.html` and `.js`; draft art (`DRAFT_PC_MASTER`, `art/drafts/pc-master-race/`,
+  `art/icons/pc-master-race-20261103.png`, `scripts/build-pc-master-draft-20261103.mjs`); INTELLIGENCE-LEVELS.md row;
+  skills/new-pet-or-tool decision; developer word; `changes/pc-master-race-20261103.md`; generated files rebuilt.
+  `npm test`: 349 of 354 pass, the 2 failures also on `main`, 3 skipped.
+- **Downloads (Astra's OK, deck question 5):** each into its own folder, checked against winget's SHA-256 (Coreinfo and
+  WinObj, which winget does not list, by Microsoft's signature). One Windows prompt, which Astra clicked at 00:17,
+  copied nine Sysinternals tools into `C:\Program Files\Sysinternals` and es.exe next to Everything, then opened the
+  HWiNFO64, CrystalDiskInfo and WizTree installers for her own clicks. **LatencyMon held**: version 7.40 at its
+  official address (winget lists 7.31), signed by SOFTREV LABS S.R.L.S., and Resplendence reports a Windows driver block
+  from June 2026.
+- **Art:** one paid image (Astra's OK), cut into nine frames with the shared mood stickers. Draft, not approved.
+- **Shown:** the working copy of `apps/pet-programs/pc-master-race-20261018.html` in the browser pane, with all 23
+  boxes drawing from the real look.
+
+## Not done
+
+1. Startup Star does not start PC Master's watch at sign-in (`BackgroundPets` in scripts/desktop-pets-20261011.cs).
+2. Autoruns, TCPView and Coreinfo previews wait for Astra to accept Microsoft's Sysinternals license herself.
+3. Buttons that open a program from its box need a local service like Rift Rabbit's launcher, with an Iron Gates grant.
+4. HWiNFO64 sensors and CrystalDiskInfo's SMART numbers in their boxes (sensor log, admin) are not built.
+5. The engineering pet (Astra's question 3): a candidate to think about, not decided.
+6. kernel-grove's own pet.json job line: findastra/kernel-grove#9 (open).
+
+## Done when
+
+1. Astra OKs #282 and the kernel-grove PR in chat; both merge, her PC hub copy fast-forwards.
+2. The three installers are finished or cancelled by her, and the next look's checks are written here.
+
+## Return
+
+Record the merges and the installers' outcome below.
+
+## Receipt and review
+
+Pending.
