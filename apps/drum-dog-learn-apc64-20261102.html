@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learn the APC64 · Drum Dog</title>
+<!-- learn-apc64-tool: Bass & Biscuits' lesson plan, shown in its tool box in L1 (moved from findastra/drum-dog into the
+     hub 2026-11-02 so it can sit on the pet program page) for playing drums on an Akai APC64 with Ableton Live.
+     Self-contained, no dependencies, works by double-click. Lesson ticks are kept in this browser only.
+     Button names and steps follow Akai's APC64 User Guide v1.0 (sections given on each lesson).
+     Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-02. -->
+<style>
+:root{
+  --bg:#12132b; --panel:#1b1d3a; --panel2:#23264a; --line:#27357a; --ink:#e8ecff; --dim:#a5aed6;
+  --pink:#ff4fd8; --cyan:#2ef2ff; --lime:#b6ff3b; --amber:#ffc23b;
+  font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+/* Inside learn-apc64-tool's tool box on Bass & Biscuits' page: the box shows through, no scroll bar, no second header. */
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:0 0 8px}
+html.in-tool header{display:none}
+main{max-width:920px;margin:0 auto;padding:24px 16px 64px}
+header{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header img{width:96px;height:96px;image-rendering:pixelated;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+h1{margin:0;font-size:1.9rem;color:var(--cyan)}
+h2{color:var(--pink);margin:0 0 6px;font-size:1.3rem}
+h3{color:var(--lime);margin:18px 0 6px;font-size:1.05rem}
+p{margin:6px 0}
+a{color:var(--cyan)}
+code,kbd{font-family:ui-monospace,Consolas,monospace;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:0 5px;font-size:.92em}
+kbd{color:var(--amber);font-weight:600}
+.sub{color:var(--dim)}
+.bar{height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:6px 0 2px}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .3s}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:16px 0}
+.card.done{border-color:var(--lime)}
+details.card>summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary h2{margin:0}
+.num{font-weight:800;color:var(--bg);background:var(--cyan);border-radius:6px;padding:0 8px}
+.card.done .num{background:var(--lime)}
+.meta{color:var(--dim);font-size:.9rem}
+ol,ul{padding-left:22px;margin:6px 0}
+li{margin:3px 0}
+.tick{display:flex;gap:8px;align-items:center;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-weight:600}
+.tick input{width:20px;height:20px;accent-color:var(--lime)}
+.note{border-left:3px solid var(--amber);padding:4px 10px;margin:10px 0;background:var(--panel2);border-radius:0 8px 8px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--panel2);color:var(--cyan)}
+.scroll{overflow-x:auto}
+.grid{display:grid;gap:3px;margin:8px 0;font-size:.8rem}
+.grid .lab{color:var(--dim);padding-right:6px;white-space:nowrap;align-self:center}
+.grid .st{height:26px;border-radius:4px;background:var(--panel2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.grid .st.beat{border-color:#5a6070}
+.grid .st.on{background:var(--pink);border-color:var(--pink);color:var(--bg);font-weight:700}
+.grid .st.on.k{background:var(--cyan);border-color:var(--cyan)}
+.grid .st.on.h{background:var(--lime);border-color:var(--lime)}
+.pads{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:330px;margin:8px 0}
+.pads div{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:8px 4px;text-align:center;font-size:.8rem}
+.pads b{display:block;color:var(--ink)}
+.pads small{color:var(--dim)}
+footer{color:var(--dim);font-size:.85rem;margin-top:32px}
+button.reset{background:none;border:1px solid var(--line);color:var(--dim);border-radius:6px;padding:4px 10px;cursor:pointer}
+.grid{overflow-x:auto}
+@media (max-width:600px){h1{font-size:1.5rem} header img{width:72px;height:72px}
+  .card{padding:12px} .grid{gap:2px;font-size:.7rem} .grid .st{height:22px}}
+</style>
+<script src="drum-dog-in-tool-20261102.js"></script>
+</head>
+<body>
+<main>
+<header>
+  <img src="https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/frames/drum-dog/idle.png" alt="Drum Dog">
+  <div>
+    <h1>Learn the APC64</h1>
+    <p class="sub">Drum Dog's lessons for playing drums on your Akai APC64 in Ableton Live. Nine short lessons, about 15–20 minutes each.</p>
+    <p><a href="https://cdn.inmusicbrands.com/akai/APC64/APC64%20-%20User%20Guide%20-%20v1.0.pdf" target="_blank" rel="noopener">APC64 manual (PDF)</a> · <a href="drum-dog-apc64-deck-20261102.html" target="_top">Your APC64 deck</a></p>
+  </div>
+</header>
+
+<div class="card">
+  <p><b>Your progress</b> <span id="count" class="meta"></span></p>
+  <div class="bar"><span id="fill"></span></div>
+  <p class="meta">Tick a lesson when you can do its practice without looking here. Ticks stay in this browser only. <button type="button" class="reset" id="reset">Clear my ticks</button></p>
+</div>
+
+<div class="card">
+  <h2>Before you start</h2>
+  <ol>
+    <li>Plug the APC64 into a <b>USB 3.0 port on the PC</b> with its USB-C cable. If you use a hub, it must be a powered one.</li>
+    <li>Flip the <b>power switch</b> on the back. The pads light up.</li>
+    <li>Open Ableton Live, then open <b>Options → Settings → Link, Tempo &amp; MIDI</b>.</li>
+    <li>In an empty <b>Control Surface</b> row, pick <code>APC64</code>, and pick <code>APC64</code> for its <b>Input</b> and <b>Output</b> too.</li>
+    <li>Leave MPE off for the APC64. Close Settings.</li>
+  </ol>
+  <div class="note"><b>Which Live?</b> The APC64 comes with Ableton Live Lite: up to 8 tracks, plenty for these lessons. Until your Lite serial comes through, you can practise in the installed Live by choosing <b>Save/Export Disabled</b> on its welcome window: everything works except saving.</div>
+  <p class="meta">From the APC64 User Guide, 2.0 Setup and 4.0 Tutorial.</p>
+</div>
+
+<div class="card">
+  <h2>The controls you'll use</h2>
+  <div class="scroll"><table>
+    <tr><th>Button</th><th>What it does</th></tr>
+    <tr><td><kbd>SESSION VIEW</kbd></td><td>The grid shows your clips: columns are tracks, rows are scenes.</td></tr>
+    <tr><td><kbd>NOTE MODE</kbd></td><td>Play notes. On a drum track the grid turns into a <b>4×4 drum pad layout</b> in the bottom-left corner.</td></tr>
+    <tr><td><kbd>STEP SEQ</kbd></td><td>Build beats step by step, like a drum machine.</td></tr>
+    <tr><td><kbd>TRACK SELECT</kbd> 1–8</td><td>Pick the track the pads play. <kbd>SHIFT</kbd> + these set launch quantize (8 BARS … 1/32).</td></tr>
+    <tr><td><kbd>PLAY</kbd> / <kbd>STOP</kbd> / <kbd>RECORD</kbd></td><td>Transport. Press <kbd>STOP</kbd> twice to go back to the start.</td></tr>
+    <tr><td>Encoder (the knob)</td><td>Turn to choose, push to select. Pushing it on its own turns the <b>metronome</b> on or off.</td></tr>
+    <tr><td><kbd>TEMPO</kbd></td><td>Tap in time to set the speed, or hold it and turn the knob.</td></tr>
+    <tr><td><kbd>FIXED LENGTH</kbd></td><td>Recording stops by itself after a set length. Hold it and turn the knob to set the length.</td></tr>
+    <tr><td><kbd>QUANTIZE</kbd></td><td>Hold it and tap a clip to snap its notes onto the beat.</td></tr>
+    <tr><td><kbd>UNDO</kbd></td><td>Undo in Live. <kbd>SHIFT</kbd> + <kbd>UNDO</kbd> is redo.</td></tr>
+    <tr><td><kbd>CLEAR</kbd> / <kbd>DUPLICATE</kbd></td><td>Hold, then tap a clip, step or track to clear it or copy it.</td></tr>
+    <tr><td><kbd>RECORD ARM</kbd> <kbd>MUTE</kbd> <kbd>SOLO</kbd> <kbd>CLIP STOP</kbd></td><td>Choose what the row of buttons under the grid does to each track.</td></tr>
+    <tr><td>Scene <kbd>LAUNCH</kbd></td><td>The buttons on the right start a whole row. <kbd>SHIFT</kbd> + the bottom one is <b>STOP ALL</b>.</td></tr>
+    <tr><td>Touch faders</td><td>Slide a finger to change volume, pan, sends or the selected device; choose which with the buttons beside them.</td></tr>
+  </table></div>
+  <p class="meta">From the APC64 User Guide, 3.1 Top Panel.</p>
+</div>
+
+<details class="card lesson" data-id="1" open>
+  <summary><span class="num">1</span><h2>First sound</h2><span class="meta">15 min · 4.0 Tutorial, 5.2.3</span></summary>
+  <p>Goal: hear the drums and know where the kick, snare and hi-hat are.</p>
+  <ol>
+    <li>In Live's Browser (left side), open <b>Drums</b> and drag a kit (any name ending in "Kit") onto an empty MIDI track.</li>
+    <li>On the APC64, press <kbd>NOTE MODE</kbd>, then that track's <kbd>TRACK SELECT</kbd> button. The track arms itself in Live.</li>
+    <li>The 16 coloured pads in the <b>bottom-left corner</b> are your drums. A pad flashes green while you hit it.</li>
+    <li>Hit each of the 16 pads and say out loud what it is.</li>
+  </ol>
+  <p>In most Ableton kits the pads sit like this (yours may differ slightly: trust your ears):</p>
+  <div class="pads">
+    <div><b>Crash?</b><small>row 4</small></div><div><b>Tom</b><small>row 4</small></div><div><b>Perc</b><small>row 4</small></div><div><b>Perc</b><small>row 4</small></div>
+    <div><b>Tom</b><small>row 3</small></div><div><b>Tom</b><small>row 3</small></div><div><b>Open hat</b><small>row 3</small></div><div><b>Perc</b><small>row 3</small></div>
+    <div><b>Tom</b><small>row 2</small></div><div><b>Perc</b><small>row 2</small></div><div><b>Closed hat</b><small>row 2</small></div><div><b>Tom</b><small>row 2</small></div>
+    <div><b>Kick</b><small>bottom</small></div><div><b>Rim</b><small>bottom</small></div><div><b>Snare</b><small>bottom</small></div><div><b>Clap</b><small>bottom</small></div>
+  </div>
+  <h3>Practice</h3>
+  <p>Eyes closed: hit kick, snare, closed hat, clap. Then open your eyes and check.</p>
+  <label class="tick"><input type="checkbox"> I can find kick, snare and hi-hat without looking</label>
+</details>
+
+<details class="card lesson" data-id="2">
+  <summary><span class="num">2</span><h2>Keep time</h2><span class="meta">15 min · 3.1 (TEMPO, encoder)</span></summary>
+  <p>Goal: play steadily with a click. Steady matters more than fancy.</p>
+  <ol>
+    <li>Push the knob (encoder) to turn the <b>metronome</b> on.</li>
+    <li>Hold <kbd>TEMPO</kbd> and turn the knob to <b>80</b> BPM.</li>
+    <li>Press <kbd>PLAY</kbd>. Count out loud "1, 2, 3, 4".</li>
+    <li>Hit the <b>kick</b> on every count for one minute. Then the <b>snare</b> on 2 and 4 only.</li>
+    <li>Then <b>hi-hat</b> twice per count: "1 and 2 and 3 and 4 and".</li>
+  </ol>
+  <h3>Practice</h3>
+  <p>One minute of hi-hats at 80 without drifting off the click. Then try 95.</p>
+  <label class="tick"><input type="checkbox"> I can hold steady hi-hats at 80 BPM for a minute</label>
+</details>
+
+<details class="card lesson" data-id="3">
+  <summary><span class="num">3</span><h2>Your first beat</h2><span class="meta">20 min</span></summary>
+  <p>Goal: play the classic rock/pop beat with both hands. One bar has 8 hi-hats: "1 &amp; 2 &amp; 3 &amp; 4 &amp;".</p>
+  <div class="grid" data-pattern="Hi-hat:h:1,2,3,4,5,6,7,8|Snare:s:3,7|Kick:k:1,5" data-steps="8" data-counts="1,&,2,&,3,&,4,&"></div>
+  <ol>
+    <li>Right hand: hi-hat on every box.</li>
+    <li>Left hand: snare on <b>2</b> and <b>4</b>.</li>
+    <li>Kick on <b>1</b> and <b>3</b> (another finger, or your left hand between snares).</li>
+    <li>Start at 70 BPM with the metronome. Loop it until it feels boring, then go faster.</li>
+  </ol>
+  <h3>Next variation</h3>
+  <div class="grid" data-pattern="Hi-hat:h:1,2,3,4,5,6,7,8|Snare:s:3,7|Kick:k:1,4,5,6" data-steps="8" data-counts="1,&,2,&,3,&,4,&"></div>
+  <label class="tick"><input type="checkbox"> I can play both beats for a minute at 80 BPM</label>
+</details>
+
+<details class="card lesson" data-id="4">
+  <summary><span class="num">4</span><h2>Record it</h2><span class="meta">20 min · 4.0, 5.1.3, 3.1 (FIXED LENGTH, QUANTIZE)</span></summary>
+  <p>Goal: record your beat as a clip that loops, and tidy its timing.</p>
+  <ol>
+    <li>Hold <kbd>FIXED LENGTH</kbd> and turn the knob to <b>2 bars</b>. Let go; the button stays lit.</li>
+    <li>Metronome on. Press <kbd>RECORD</kbd>. Live makes a new clip and starts recording straight away, so be ready.</li>
+    <li>Play the beat from lesson 3. Recording stops by itself after 2 bars and the clip loops.</li>
+    <li>A bit off the beat? Hold <kbd>QUANTIZE</kbd> and tap the clip's pad (in <kbd>SESSION VIEW</kbd>) to snap it to the grid.</li>
+    <li>Didn't like it? <kbd>UNDO</kbd>, or hold <kbd>CLEAR</kbd> and tap the clip, and go again.</li>
+    <li>Want to add more on top? <kbd>SHIFT</kbd> + <kbd>RECORD</kbd> is <b>overdub</b>: it keeps what's there and adds what you play.</li>
+  </ol>
+  <h3>Practice</h3>
+  <p>Record hi-hats and kick first, then overdub the snare on a second pass.</p>
+  <label class="tick"><input type="checkbox"> I recorded a 2-bar beat that loops cleanly</label>
+</details>
+
+<details class="card lesson" data-id="5">
+  <summary><span class="num">5</span><h2>Step sequencer: build a beat by tapping</h2><span class="meta">20 min · 5.3, 5.3.2–5.3.5</span></summary>
+  <p>Goal: make a house beat without having to play it in time.</p>
+  <ol>
+    <li>Press <kbd>STEP SEQ</kbd>. The <b>top four rows</b> are 32 steps; the <b>bottom-left 4×4</b> are your drums; the <b>bottom-right 4×4</b> set loudness (velocity).</li>
+    <li>Tap the <b>kick</b> in the bottom-left to pick it, then tap steps <b>1, 5, 9, 13</b> in the top rows.</li>
+    <li>Pick the <b>clap</b> and tap steps <b>5</b> and <b>13</b>.</li>
+    <li>Pick the <b>closed hat</b> and tap <b>3, 7, 11, 15</b>.</li>
+    <li>Press <kbd>PLAY</kbd>. The green pad walks along the steps. <kbd>STOP</kbd> to stop.</li>
+    <li>Tap a lit step again to remove it.</li>
+  </ol>
+  <div class="grid" data-pattern="Closed hat:h:3,7,11,15|Clap:s:5,13|Kick:k:1,5,9,13" data-steps="16" data-counts="1,e,&,a,2,e,&,a,3,e,&,a,4,e,&,a"></div>
+  <div class="note">Steps are 1/16 notes by default, so 16 steps make one bar. Press <kbd>STEP SEQ</kbd> a second time to open its settings: the top four rows there set the <b>last step</b> (tap step 16 for a one-bar loop), and row 6 sets the step length.</div>
+  <label class="tick"><input type="checkbox"> I built the house beat in the step sequencer</label>
+</details>
+
+<details class="card lesson" data-id="6">
+  <summary><span class="num">6</span><h2>Make it feel human</h2><span class="meta">20 min · 5.3.4, 5.3.1 (swing)</span></summary>
+  <p>Goal: loud and soft hits, a bit of chance, and swing.</p>
+  <h3>Velocity (loud and soft)</h3>
+  <ol>
+    <li>In <kbd>STEP SEQ</kbd>, the <b>bottom-right 4×4</b> sets loudness: top-right is full, the pads get softer going down and left. Pick the closed hat, hold one of its lit steps and tap a softer pad. (The guide only says these pads set each step's velocity; if holding a step doesn't change it, tap the loudness pad first, then the step.)</li>
+    <li>Make every other hi-hat softer. Hear how it starts to groove.</li>
+  </ol>
+  <h3>Probability (a bit of chance)</h3>
+  <ol>
+    <li>Press the <b>row 2</b> scene <kbd>LAUNCH</kbd> button (PROBABILITY). The bottom-right pads now set how likely a step plays.</li>
+    <li>Give a few extra hi-hats 50%. Now the beat changes a little every time. Row 1 <kbd>LAUNCH</kbd> takes you back to velocity.</li>
+  </ol>
+  <h3>Swing</h3>
+  <ol>
+    <li>Open the settings (<kbd>STEP SEQ</kbd> twice), press the track's <kbd>TRACK SELECT</kbd>, and turn on the <b>Swing</b> pad (row 5, 4th pad).</li>
+    <li>Hold <kbd>SHIFT</kbd> + <kbd>TEMPO</kbd> and turn the knob: 50% is straight, 75% is heavy swing. Try about 58%.</li>
+  </ol>
+  <label class="tick"><input type="checkbox"> My beat has soft and loud hats and some swing</label>
+</details>
+
+<details class="card lesson" data-id="7">
+  <summary><span class="num">7</span><h2>Send it to Live</h2><span class="meta">10 min · 5.3.7 Send to Clip</span></summary>
+  <p>Goal: turn your step-sequencer beat into a real clip in Live, so you can keep it.</p>
+  <ol>
+    <li><kbd>STOP</kbd> the sequencer first (it won't send while playing).</li>
+    <li>In Live, click your drum track and an <b>empty clip slot</b> on it.</li>
+    <li>On the APC64, in <kbd>STEP SEQ</kbd>, select the sequencer track with your beat.</li>
+    <li>Hold <kbd>SHIFT</kbd> until the screen says <b>Send to Clip</b>, then push the knob.</li>
+    <li>The screen says <b>Sending...</b>, then <b>Done!</b>, and the clip appears in Live.</li>
+  </ol>
+  <label class="tick"><input type="checkbox"> My step-sequencer beat is a clip in Live</label>
+</details>
+
+<details class="card lesson" data-id="8">
+  <summary><span class="num">8</span><h2>Session view: play your clips like an instrument</h2><span class="meta">20 min · 5.1, 5.1.2, 3.1</span></summary>
+  <p>Goal: launch beats live and switch between them on the bar.</p>
+  <ol>
+    <li>Press <kbd>SESSION VIEW</kbd>. Each lit pad is a clip; columns are tracks, rows are scenes.</li>
+    <li>Make 3 more beats in the same column: a quiet <b>intro</b> (hats only), your <b>main beat</b>, and a busier <b>chorus</b> beat. <kbd>DUPLICATE</kbd> + a clip copies it to the next slot so you can change the copy.</li>
+    <li>Hold <kbd>SHIFT</kbd> and press the <kbd>TRACK SELECT</kbd> button labelled <b>1 BAR</b>: now clips switch exactly on the next bar.</li>
+    <li>Tap clips to switch between them while it plays. A row's <kbd>LAUNCH</kbd> button starts the whole row.</li>
+    <li>Press <kbd>MUTE</kbd> or <kbd>SOLO</kbd> (bottom-left), then a button in the row under the grid, to mute or solo that track.</li>
+    <li><kbd>SHIFT</kbd> + the bottom <kbd>LAUNCH</kbd> button (STOP ALL) stops everything.</li>
+  </ol>
+  <label class="tick"><input type="checkbox"> I can switch between intro, beat and chorus in time</label>
+</details>
+
+<details class="card lesson" data-id="9">
+  <summary><span class="num">9</span><h2>Fills and your first mini song</h2><span class="meta">20 min</span></summary>
+  <p>Goal: end a section with a fill, and play a 1-minute song from start to finish.</p>
+  <h3>A simple fill (last bar before a change)</h3>
+  <div class="grid" data-pattern="Snare:s:9,10,11,12|Tom:h:13,14|Kick:k:1,5,15,16|Hi-hat:h:1,3,5,7" data-steps="16" data-counts="1,e,&,a,2,e,&,a,3,e,&,a,4,e,&,a"></div>
+  <ol>
+    <li>Record or step-program this fill as its own clip.</li>
+    <li>Song plan: <b>intro</b> 4 bars → <b>beat</b> 8 bars → <b>fill</b> 1 bar → <b>chorus</b> 8 bars → <b>STOP ALL</b>.</li>
+    <li>Turn the touch faders to <b>VOLUME</b> and slide the drum track down at the end for a fade-out.</li>
+  </ol>
+  <h3>Your 10-minute daily warm-up</h3>
+  <ul>
+    <li>2 min: hi-hats with the metronome (lesson 2), a little faster than yesterday.</li>
+    <li>3 min: the lesson 3 beat, then one variation you invent.</li>
+    <li>3 min: build a new 1-bar beat in the step sequencer.</li>
+    <li>2 min: play your clips in Session view and finish with a fill.</li>
+  </ul>
+  <label class="tick"><input type="checkbox"> I played a whole mini song without stopping</label>
+</details>
+
+<footer>
+  <p>learn-apc64-tool, a tool of Bass &amp; Biscuits (Drum Dog). By Astra. Written with Claude Opus 5.5 (<code>claude-opus-5-5</code>), 2026-11-02.</p>
+  <p>Button names and steps follow Akai Professional's <a href="https://www.akaipro.com/apc64">APC64</a> User Guide v1.0; sections are listed on each lesson. The drum pad map in lesson 1 is the usual Ableton kit layout, not from the guide. This page sends nothing anywhere; your ticks stay in this browser.</p>
+</footer>
+</main>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'learn-apc64-tool-ticks-20261102';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var lessons = Array.prototype.slice.call(document.querySelectorAll('.lesson'));
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* private window: ticks just aren't kept */ } }
+  function refresh() {
+    var done = 0;
+    lessons.forEach(function (l) { var on = !!saved[l.dataset.id]; l.classList.toggle('done', on); if (on) done++; });
+    document.getElementById('count').textContent = done + ' of ' + lessons.length + ' lessons done';
+    document.getElementById('fill').style.width = (100 * done / lessons.length) + '%';
+  }
+  lessons.forEach(function (l) {
+    var box = l.querySelector('.tick input');
+    box.checked = !!saved[l.dataset.id];
+    box.addEventListener('change', function () { saved[l.dataset.id] = box.checked; save(); refresh(); });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    saved = {}; save(); lessons.forEach(function (l) { l.querySelector('.tick input').checked = false; }); refresh();
+  });
+
+  // Beat grids: data-pattern is "Name:colour:steps|...", drawn with textContent only.
+  Array.prototype.forEach.call(document.querySelectorAll('.grid'), function (g) {
+    var steps = +g.dataset.steps, counts = g.dataset.counts.split(','), per = steps / 4;
+    g.style.gridTemplateColumns = 'max-content repeat(' + steps + ', minmax(' + (steps > 8 ? 12 : 18) + 'px, 1fr))';
+    function cell(cls, text) { var d = document.createElement('div'); d.className = cls; d.textContent = text; g.appendChild(d); }
+    g.dataset.pattern.split('|').forEach(function (row) {
+      var parts = row.split(':'), on = {};
+      parts[2].split(',').forEach(function (n) { on[+n] = true; });
+      cell('lab', parts[0]);
+      for (var i = 1; i <= steps; i++) cell('st' + ((i - 1) % per === 0 ? ' beat' : '') + (on[i] ? ' on ' + parts[1] : ''), on[i] ? '●' : '');
+    });
+    cell('lab', 'Count');
+    counts.forEach(function (c) { cell('lab', c); });
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>

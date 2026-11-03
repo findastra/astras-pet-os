@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, LIVE_CHECK, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -247,7 +247,10 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
       // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19), or one that
       // works inside its own tool box (Astra, 2026-11-02, use-my-apc64-tool: "that board needs to be within a tool")
-      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"') || p.includes('class="pill-tool"'), `${d.repo}: open only to show a picture or a working tool`);
+      // A tool in its own tool box may start closed (start_closed) so a page with several stays short (2026-11-02).
+      const open = p.includes('<details class="pill-more" open>');
+      if (p.includes('class="pill-picture"')) assert.ok(open, `${d.repo}: a live picture starts open`);
+      if (open) assert.ok(p.includes('class="pill-picture"') || p.includes('class="pill-tool"'), `${d.repo}: open only to show a picture or a working tool`);
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
@@ -439,4 +442,23 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.match(css, /\.top \{ --square: 180px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
+});
+
+// Astra, 2026-11-02: "the editorial status panel on the one we're working on, but we don't have it on the live one...
+// That way I know if I'm looking at the most recent push or if I'm looking at the one I'm working on."
+test('the editorial status panel marks the working copy and is hidden on the live site', () => {
+  const css = readFileSync(new URL(`../apps/pet-programs/${ASSETS.css}`, import.meta.url), 'utf8');
+  assert.match(css, /html\.live-site \.panel\.editorial \{ display: none; \}/, 'the stylesheet hides it on the live site');
+  const check = readFileSync(new URL('../apps/live-site-20261102.js', import.meta.url), 'utf8');
+  assert.ok(check.includes('/\\.github\\.io$/i.test(location.hostname)'), 'the live site is any <owner>.github.io address');
+  assert.ok(LIVE_CHECK.includes('live-site-20261102.js'), 'every page loads the live check');
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const head = html.slice(0, html.indexOf('</head>'));
+    assert.ok(head.includes(LIVE_CHECK), `${d.repo}: the live check is in <head>`);
+    assert.ok(head.indexOf(LIVE_CHECK) < head.indexOf('<link rel="stylesheet"'), `${d.repo}: the live check runs before anything is drawn`);
+    const ed = html.indexOf('-editorial-status-panel<');
+    assert.ok(ed > 0 && ed < html.indexOf('<header class="top">'), `${d.repo}: the editorial status panel comes first`);
+    assert.ok(html.slice(ed, ed + 600).includes('<p class="working-copy">Working copy: not the live site.</p>'), `${d.repo}: it says it is the working copy`);
+  }
 });

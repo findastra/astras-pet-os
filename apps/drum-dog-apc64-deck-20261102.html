@@ -16,7 +16,7 @@
 body{margin:0;background:var(--bg)}
 /* Inside use-my-apc64-tool's tool box on Bass & Biscuits' page: no background of its own, the tool box shows through. */
 html.in-tool,html.in-tool body{background:transparent}
-html.in-tool{color-scheme:normal}   /* a dark color-scheme inside the page would paint a solid square behind the board */
+html.in-tool{color-scheme:normal;overflow:hidden}   /* a dark color-scheme inside the page would paint a solid square behind the board */
 .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 4px}
 button,input{font:inherit;color:var(--ink);background:#23264a;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
 button{cursor:pointer}
@@ -44,13 +44,14 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
 .dot{fill:#555b67}
 .small{fill:#7d8592;font:600 12px system-ui,sans-serif}
 </style>
+<script src="drum-dog-in-tool-20261102.js"></script>
 </head>
 <body>
 <div class="top">
   <button type="button" id="midi">Use my APC64</button>
   <span class="kitname">Kit: <b id="kit"></b></span>
   <button type="button" id="surprise">Surprise me</button>
-  <a href="drum-dog-apc64-drum-kits-20261102.html" target="_top"><button type="button">My kits</button></a>
+  <a href="drum-dog-apc64-drum-kits-20261102.html" target="_top" id="kitsLink"><button type="button">My kits</button></a>
   <span id="midiState">Tap a pad to hear it.</span>
 </div>
 <svg id="deck" viewBox="525 70 1370 1010" role="img" aria-label="Akai APC64"></svg>
@@ -62,7 +63,6 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
 <script>
 (function () {
   'use strict';
-  try { if (window.self !== window.top) document.documentElement.classList.add('in-tool'); } catch (e) { document.documentElement.classList.add('in-tool'); }
   var NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('deck');
   var KEY = 'apc64-deck-guide-labels-20261102', labels = {};
   try { labels = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { labels = {}; }
@@ -153,6 +153,10 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     o.g.classList.add('hit'); clearTimeout(o.t); o.t = setTimeout(function () { o.g.classList.remove('hit'); }, 110);
   }
   document.getElementById('surprise').addEventListener('click', function () { S.surprise(); paintKit(); hit(byPad['8,1'], 0.9); });
+  // On Bass & Biscuits' page, My kits opens apc64-drum-kit-tool's own tool box there instead of leaving the page.
+  document.getElementById('kitsLink').addEventListener('click', function (e) {
+    try { var box = window.top !== window && window.top.document.getElementById('apc64-drum-kit-tool'); if (!box) return; e.preventDefault(); var d = box.closest('details'); if (d) d.open = true; box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) { /* open the kits page as usual */ }
+  });
   window.addEventListener('storage', paintKit);   // a kit picked in the kit tool, in another tab
   window.addEventListener('focus', paintKit);
   var note = document.getElementById('note');

@@ -22,6 +22,23 @@ no "I'll read it if I need it". This applies to small tasks too.
    before doing anything else.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
+## Show the working copy, one page at a time (Astra, 2026-11-02)
+
+Astra: "Stop giving me the live pages. I want to look at the page that we're working on actively... I'm sick of
+getting a bunch of conflated programs opening at once." Then: "the editorial status panel on the one we're working
+on, but we don't have it on the live one... let's start doing it like that going forward."
+
+- **Show the working copy.** Show the page built from your branch or worktree, never the live site, until the change
+  is merged, and say which branch it is. Show the live page only when Astra asks, or once right after a merge to
+  confirm it, and say that it is live.
+- **The editorial status panel tells them apart.** Every pet program page shows its `<home>-editorial-status-panel`,
+  headed "Working copy: not the live site.", everywhere except the live site (`<owner>.github.io`), where a check in
+  `<head>` hides it (PET-PROGRAM-FRAMEWORK.md, section 3, item 0; `LIVE_CHECK` in
+  scripts/pet-program-pages-20261018.mjs). If she sees the panel, it is the working copy; if not, it is live.
+- **One thing at a time.** Open only the page she is looking at, in the browser pane. Never open several pages,
+  programs or windows at once, or pages in her own browser, unless she asks for that one thing.
+- Pets: follow [skills/show-pet-panel](skills/show-pet-panel/SKILL.md).
+
 ## Shared handoff ownership and review
 
 Use [skills/handoff/SKILL.md](skills/handoff/SKILL.md) for transfers, resumed work and parallel
