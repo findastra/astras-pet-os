@@ -11,13 +11,16 @@ buttons like Surprise me, a redone layout, and the board tool renamed preview-my
   seven ready-made kits each have their own set. A new kit, or a copy of a ready-made one, takes the next set no kit is
   using (`freshColors`). `padColor(pad, kit)` lights a pad in its kit's colours. Kits saved before today light in the
   first set.
-- `apps/drum-dog-apc64-drum-kits-20261102.html` (apc64-drum-kit-tool), redone. After a first try with small kit tiles
-  and one big editor, Astra said "I just want to see one size of 4x4", so:
-  - Every kit is the same full-size 4x4, pads named, drawn the way the board draws its pads (pad 73, gap 16, corner 3,
-    rim 2, on the board's dark body).
-  - Tapping a pad plays it, makes the board play that kit (outlined white), and opens that pad's Sound, Tune and
-    My own sound file under the kit. Her own kits have a name box and Delete above them.
-  - The **+** after the last kit is a full-size empty 4x4 that makes a new kit.
+- `apps/drum-dog-apc64-drum-kits-20261102.html` (apc64-drum-kit-tool), redone three times the same day. Small kit
+  tiles plus one big editor became "one size of 4x4", then "the same size as they are on the board above, like exact
+  same size ... cut out a clip from up there", with a selection that goes all the way round and three kits a row:
+  - Every kit is the board's bottom-left 4x4 cut from preview-my-apc64-tool's own drawing (its PADX/PADY, 73-unit
+    pads, corner 3, the same strokes), drawn at the board's scale (one board unit = tool width / 1370). Measured in
+    the pane: pads 45.6 px with 10 px gaps on both; three kits a row in an 856 px box.
+  - Tapping a pad plays it, makes the board play that kit (its frame turns white all the way round, as the board marks
+    a picked control), and shows that pad's Sound, Tune and My own sound file in one line above the kits, so the kits
+    never move. Her own kits have a name box; Delete kit is in that line.
+  - The **+** after the last kit is the same size empty 4x4 and makes a new kit.
   - Gone: Surprise me, New kit, Play this kit, "Playing on the deck", Copy it to change it. Changing a pad on a
     ready-made kit keeps the change in "My <kit>" by itself.
 - `apps/drum-dog-apc64-deck-20261102.html`: lit in the picked kit's colours, with the kit's name in its colour. Gone:
