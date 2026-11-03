@@ -86,3 +86,17 @@ panel. The AP64 deck guide. I don't think we need that panel at all."
 - Its description is one short line.
 - The deck page keeps its address (`apps/drum-dog-apc64-deck-20261102.html`), so Deck Duck's buttons (card 271) still
   work. The card now links the tool box at `#use-my-apc64-tool`.
+
+## The working copy is marked (same day)
+
+Astra: "Stop giving me the live pages. I want to look at the page that we're working on actively"; "the editorial
+status panel on the one we're working on, but we don't have it on the live one... make that a requirement. Put that in
+the Friendly Farmer repo... let's start doing it like that going forward."
+
+- Every pet program page starts its editorial status panel with "Working copy: not the live site." A check in
+  `<head>` (`LIVE_CHECK`) marks the live site (any `<owner>.github.io` address), and the stylesheet hides the panel
+  there. If the panel is there, it is the working copy; if it is missing, it is live.
+- Written into AGENTS.md ("Show the working copy, one page at a time"), PET-PROGRAM-FRAMEWORK.md (section 3, item 0,
+  and the checklist), and `skills/show-pet-panel/SKILL.md`. This is now the skill's maintained copy in the hub; the
+  Claude and Codex installs match it. A test guards it.
+- The same rule is in Astra's global rules for Claude (`CLAUDE.md`) and Codex (`AGENTS.md`) on this PC.
