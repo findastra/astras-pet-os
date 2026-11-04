@@ -19,6 +19,9 @@
   font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg)}
+/* Inside its tool box on Deck Pond's page: no background of its own, the box shows through (drum-dog-in-tool-20261102.js). */
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
 .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 4px}
 button,input,select{font:inherit;color:var(--ink);background:#2c3038;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
 button{cursor:pointer}
@@ -29,6 +32,7 @@ svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto;user-sele
 .info b{color:var(--pond);font-size:1.15rem}
 .info input{flex:1 1 200px;max-width:320px}
 .swatches{display:flex;gap:6px}
+.swatches[hidden]{display:none}
 .swatches button{width:26px;height:26px;padding:0;border-radius:50%}
 .swatches button[aria-pressed="true"]{outline:2px solid #fff;outline-offset:2px}
 .body{fill:#121316;stroke:#3a3f49;stroke-width:3}
@@ -63,6 +67,7 @@ svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto;user-sele
   <input id="note" maxlength="24" placeholder="What it does" aria-label="My label for this control" hidden>
   <span class="swatches" id="swatches" hidden></span>
 </div>
+<script src="drum-dog-in-tool-20261102.js"></script>
 <script>
 (function () {
   'use strict';
