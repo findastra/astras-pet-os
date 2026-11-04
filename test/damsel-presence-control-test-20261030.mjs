@@ -18,16 +18,19 @@ function browser(protocol = 'file:', holdStart = false) {
   const note = node(), cards = {}, lights = [], posts = [], scripts = [], tabs = [];
   let failure = false, finishStart;
   const status = { openai: { installed: true, running: false, mode: null, connected: false, published: false },
-    anthropic: { installed: true, running: true, mode: 'off', connected: false, published: false } };
-  for (const key of ['openai', 'anthropic']) {
+    anthropic: { installed: true, running: true, mode: 'off', connected: false, published: false },
+    ableton: { installed: true, running: true, mode: 'auto', connected: true, published: true } };
+  for (const key of ['openai', 'anthropic', 'ableton']) {
     const parts = { '[data-presence-status]': node(), '[data-presence-start]': node(), '[data-presence-stop]': node(), '[data-presence-controls]': node() };
     cards[key] = { querySelector: selector => parts[selector], parts };
+    // Only the two AI apps have program lights on the map.
+    if (key === 'ableton') continue;
     const light = node(); light.dataset = { item: 'program:' + key + '-discord-presence', name: key };
     light.classList.toggle = (name, on) => on ? light.classes.add(name) : light.classes.delete(name);
     lights.push(light);
   }
   const box = { closest: () => ({}), scrollIntoView() {}, querySelector(selector) {
-    const key = selector.includes('openai') ? 'openai' : 'anthropic';
+    const key = ['openai', 'ableton'].find(name => selector.includes(name)) || 'anthropic';
     if (selector.includes('card')) return cards[key];
     return cards[key].parts[selector.includes('start') ? '[data-presence-start]' : selector.includes('controls') ? '[data-presence-controls]' : '[data-presence-stop]'];
   } };
@@ -59,6 +62,7 @@ test('Damsel generated page has visible start/open/stop controls and verified-li
     assert.match(html, new RegExp(`data-presence-stop="${key}" disabled`));
     assert.match(html, new RegExp(`class="light onoff is-off" data-item="program:${key}-discord-presence"[^>]*data-presence-managed="1"`));
   }
+  for (const what of ['data-presence-start="ableton" disabled', 'data-presence-controls="ableton" aria-disabled="true"', 'data-presence-stop="ableton" disabled', 'Ableton Live Discord Presence']) assert.ok(html.includes(what), what);
   assert.ok(html.indexOf('id="discord-damsel-presence-control"') < html.indexOf('discord-damsel-L1-control-panel'));
   assert.match(html, /src="\.\.\/discord-damsel-presence-control-20261030.js"/);
   for (const [path, page] of Object.entries(files)) if (!path.includes('discord-tower-')) assert.doesNotMatch(page, /src="\.\.\/discord-damsel-presence-control/);
@@ -83,6 +87,18 @@ test('local controls show actual stopped/off/published states and never touch sa
   b.cards.openai.parts['[data-presence-stop]'].listeners.click(); await flush();
   assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
   assert.match(b.cards.openai.parts['[data-presence-status]'].textContent, /sharing is off/);
+});
+test('Ableton Live has its own card: its controls on 38765, start and stop for it alone', async () => {
+  const b = browser(); b.connect(); await flush();
+  assert.equal(b.cards.ableton.parts['[data-presence-controls]'].href, 'http://127.0.0.1:38765/');
+  assert.match(b.cards.ableton.parts['[data-presence-status]'].textContent, /Card published/);
+  b.cards.ableton.parts['[data-presence-stop]'].listeners.click(); await flush();
+  assert.equal(b.posts.find(p => p.url.endsWith('/api/stop')).input.app, 'ableton');
+  b.cards.ableton.parts['[data-presence-start]'].listeners.click(); await flush();
+  assert.equal(b.tabs[0].url, 'http://127.0.0.1:38765/');
+  // The AI apps' lights are unchanged by Ableton's buttons.
+  assert.equal(b.lights.length, 2);
+  assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
 });
 test('invalid bootstrap makes no request; connection loss clears stale publishing', async () => {
   const invalid = browser(); invalid.connect({ url: 'https://example.com', code: 'a'.repeat(64) }); await flush();

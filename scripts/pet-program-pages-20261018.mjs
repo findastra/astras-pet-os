@@ -642,7 +642,7 @@ function presencePanel(d) {
 <a class="button" data-presence-controls="${key}" aria-disabled="true" target="_blank" rel="noopener">Open ${name} controls</a>
 <button type="button" class="button" data-presence-stop="${key}" disabled>Stop sharing</button></p></fieldset>`;
   return panel(`${d.petSlug}-presence-control-panel`, `<div id="discord-damsel-presence-control">
-${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}
+${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}${card('ableton', 'Ableton Live')}
 <p class="small" id="presence-control-note" role="status">Start and open works on this PC after you double-click Discord Damsel. The control links open apps that are already running.</p>
 ${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`, { cls: 'presence' });
 }
