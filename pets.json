@@ -499,6 +499,13 @@
         "carries": "findings",
         "state": "planned",
         "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
+      },
+      {
+        "from": "pc-master-race",
+        "to": "kernel-grove",
+        "carries": "findings",
+        "state": "planned",
+        "why": "PC Master points to Kernel Grove for stopping a program or switching a sign-in item: Task Manager cleanup stays Kernel Koala’s (Astra, 2026-11-03)."
       }
     ],
     "private": [
@@ -2884,7 +2891,7 @@
       "pet": "Kernel Koala",
       "visibility": "private",
       "status": "hatching",
-      "job": "Processes, memory, drivers and OS internals.",
+      "job": "What runs on your PC: programs, memory and what starts at sign-in.",
       "added": "2026-10-21",
       "version": "0.1.0-20261021",
       "audit": {
@@ -3423,6 +3430,265 @@
         "pets": [],
         "core": [],
         "programs": []
+      }
+    },
+    {
+      "repo": "pc-master-race",
+      "pet": "PC Master",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
+      "added": "2026-11-03",
+      "version": "0.1.0-20261103",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your PC’s core tools: which are on the PC, signed and up to date",
+        "needs": "your OK to accept a tool’s license or install one"
+      },
+      "note": "Astra, 2026-11-03: \"Maybe we should call this PC Master. And then we can call the pet program PC Master Race. And it's a race to be the PC Master\", and \"the PC master race one needs to just have the tools that are related to this stuff ... Organization, I guess, and PC education\". Then \"all recommended\" on the deck (new pet #86, Kernel Koala keeps Task Manager cleanup, the core PC tools plus a lesson tool, private repo, every download, portable tools in Program Files). Draft art generated the same day with her OK.",
+      "interface_url": "apps/pet-programs/pc-master-race-20261018.html",
+      "interface_local_url": "apps/pet-programs/pc-master-race-20261018.html",
+      "submitted": "2026-11-03",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "everything-search",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "es-cli",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "spacesniffer",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "wiztree",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "usbdeview",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "cpu-z",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "hwinfo",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "crystaldiskinfo",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "latencymon",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "process-explorer",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "autoruns",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "process-monitor",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "rammap",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "tcpview",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "coreinfo",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "winobj",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "handle",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "sigcheck",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "powertoys",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "winget",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "wireshark",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "windows-performance-recorder",
+            "how": "optional",
+            "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          }
+        ]
+      },
+      "checks": {
+        "third-party:es-cli": {
+          "result": "works",
+          "note": "On this PC, version 1.1.0.37, signed by voidtools PTY LTD.",
+          "on": "2026-11-03"
+        },
+        "third-party:wiztree": {
+          "result": "works",
+          "note": "On this PC, version 4.33, signed by Antibody Software Limited; installed by Astra from its own window on 2026-11-03.",
+          "on": "2026-11-03"
+        },
+        "third-party:cpu-z": {
+          "result": "works",
+          "note": "On this PC, version 2.1.9.0, signed by CPUID.",
+          "on": "2026-11-03"
+        },
+        "third-party:hwinfo": {
+          "result": "works",
+          "note": "On this PC, version 8.54-6090, signed by REALiX; installed by Astra from its own window on 2026-11-03.",
+          "on": "2026-11-03"
+        },
+        "third-party:crystaldiskinfo": {
+          "result": "works",
+          "note": "On this PC, version 9.9.3.0, signed by CrystalMark Inc.; installed by Astra from its own window on 2026-11-03.",
+          "on": "2026-11-03"
+        },
+        "third-party:latencymon": {
+          "result": "missing",
+          "note": "Held: not installed (see LatencyMon on the System Map).",
+          "on": "2026-11-03"
+        },
+        "third-party:process-explorer": {
+          "result": "works",
+          "note": "On this PC, version 17.2, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:autoruns": {
+          "result": "issues",
+          "note": "On this PC, version 14.3, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
+          "on": "2026-11-03"
+        },
+        "third-party:process-monitor": {
+          "result": "works",
+          "note": "On this PC, version 4.12, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:rammap": {
+          "result": "works",
+          "note": "On this PC, version 1.63, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:tcpview": {
+          "result": "issues",
+          "note": "On this PC, version 4.19, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
+          "on": "2026-11-03"
+        },
+        "third-party:coreinfo": {
+          "result": "issues",
+          "note": "On this PC, version 4.02, signed by Microsoft Corporation. Its preview waits for Astra to accept Microsoft’s Sysinternals license; until then its pill only says it is there.",
+          "on": "2026-11-03"
+        },
+        "third-party:winobj": {
+          "result": "works",
+          "note": "On this PC, version 3.14, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:handle": {
+          "result": "works",
+          "note": "On this PC, version 5.0, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:sigcheck": {
+          "result": "works",
+          "note": "On this PC, version 2.93, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:powertoys": {
+          "result": "works",
+          "note": "On this PC, version 0.100.2.0, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:winget": {
+          "result": "works",
+          "note": "On this PC, signed by Microsoft Corporation.",
+          "on": "2026-11-03"
+        },
+        "third-party:wireshark": {
+          "result": "works",
+          "note": "On this PC, version 4.6.9, signed by Wireshark Foundation.",
+          "on": "2026-11-03"
+        },
+        "third-party:windows-performance-recorder": {
+          "result": "works",
+          "note": "On this PC, version 10.0.26100.9711, signed by Microsoft Windows.",
+          "on": "2026-11-03"
+        },
+        "third-party:everything-search": {
+          "result": "works",
+          "note": "On this PC, version 1.4.1.1032, signed by voidtools PTY LTD.",
+          "on": "2026-11-03"
+        },
+        "third-party:spacesniffer": {
+          "result": "works",
+          "note": "On this PC, version 1.3.0.2; Its maker does not sign it..",
+          "on": "2026-11-03"
+        },
+        "third-party:usbdeview": {
+          "result": "works",
+          "note": "On this PC, version 3.10; NirSoft does not sign it; its SHA-256 matched NirSoft’s published one on 2026-10-26..",
+          "on": "2026-11-03"
+        },
+        "tool:learn-computer-organization-tool": {
+          "result": "works",
+          "note": "Drew on this PC from a real look on 2026-11-03.",
+          "on": "2026-11-03"
+        },
+        "tool:pc-look-tool": {
+          "result": "works",
+          "note": "Drew on this PC from a real look on 2026-11-03.",
+          "on": "2026-11-03"
+        }
       }
     }
   ],
