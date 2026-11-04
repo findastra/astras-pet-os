@@ -1,4 +1,4 @@
-status: open (Spoonfed Sugarcube's pet well and Astra's one-screen redesign on findastra/spoonfed#9, draft; reviews source and her OK to merge pending)
+status: open (Spoonfed Sugarcube's pet well and Astra's one-screen redesign on findastra/spoonfed#9, draft; four questions in the Spoonfed: real restaurants deck and her OK to merge pending)
 for: farmer
 from: OpenAI Codex (GPT-6), 2026-10-11
 needs: PET-FILES.md, PET-WORDS.md, pets.json, Spoonfed pet.json
@@ -69,3 +69,31 @@ web build checked in the browser pane at desktop and phone widths. Not on a real
   picture-reading model.
 - Saving favorites went with the Saved tab; bring it back only if she asks.
 - Registration in `pets.json` (pipeline to pets) is still the Farmer's step; the drafts are not marked approved.
+
+## 2026-11-03, later: more notes and answers (Claude Opus 5.5, `claude-opus-5-5`)
+
+**Built** on spoonfed#9 (commit fd78a0a): distances 1, 2, 3, 4, 5, 10, 15, 20, 25 and 30 miles from you (the four
+sample spots past 30 moved inside it); a mouse wheel over the distance, cuisine or price reel turns it one value per
+click; more room under spoonfed and above the row; her unified footer pinned to the bottom of the window (it had sat
+just below the fold). 21 tests pass.
+
+**Her answers in chat**, replacing the reviews, photo-label and texting questions of the deck
+[Spoonfed: real restaurants](https://claude.ai/artifact/6oWLtcxcmUTXAzdKwecQPb) (private):
+
+- Reviews from both Google and Yelp.
+- Pictures of the food matter most, with the dish name when we can get it; reviews too, but less.
+- A shake loads the pick's menu to scroll through, saved so people nearby don't wait for it; a link straight to the
+  menu.
+- Directions and the menu reach the phone for free: a QR code on a computer, a tap on a phone. No texting service.
+- She also asked for an account that keeps favorites.
+
+**What that needs** (checked 2026-11-03, partly from third-party summaries): Google and Yelp give no menus, and tools
+that copy menus out of Google Maps break Google's rules. Google's rules let an app keep only a place's ID; Yelp's limit
+is reported as 24 hours; so their photos and reviews are fetched fresh for each person. A menu read from the
+restaurant's own page is Spoonfed's own record and can be shared. Yelp photos: 3 on the middle plan, up to 12 on the
+top plan; about $229 a month.
+
+**Still open** (deck questions, recommended first): distance from you or the circle's width (from you; built that way);
+where the menu comes from (the restaurant's own page, read by an AI, saved for everyone); where the food pictures come
+from (the restaurant's own first, then fresh Google and Yelp, with an AI keeping the food); sign-in for favorites (email
+link, since she chose free over texting). Then key requests for API Fairy (Google, Yelp), none filed yet.

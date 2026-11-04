@@ -63,7 +63,7 @@ their pull request and are found in this folder ("Card numbers", below).
 | [017: API Fairy's desktop app has never run; verify it](017-any-api-fairy-desktop-verify-20261017.md) | any | done 2026-10-17 |
 | [012: Pet-first profile list and missing pets](012-farmer-pet-first-list-and-missing-pets-20261016.md) | Farmer | open, waits on Astra: #77's name, homes, Chat Rat, Workflow Whale |
 | [010: Register Platform Platypus](010-farmer-register-platform-platypus-20261011.md) | Farmer | done 2026-10-17: registered with the existing seed sheet |
-| [009: Register Spoonfed Sugarcube](009-farmer-register-spoonfed-sugarcube-20261011.md) | Farmer | open: pet well and redesign on spoonfed#9 (draft); reviews source waits on Astra |
+| [009: Register Spoonfed Sugarcube](009-farmer-register-spoonfed-sugarcube-20261011.md) | Farmer | open: pet well and redesign on spoonfed#9 (draft); four deck questions wait on Astra |
 | [001: Register Claude Bot in the Cage](001-farmer-register-claude-bot.md) | Farmer | open |
 | [002: Build Claude Bot v0](002-any-build-claude-bot.md) | any | open |
 | [003: Goldfish audit of Claude Bot](003-goldfish-audit-claude-bot.md) | Goldfish | open |
