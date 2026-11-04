@@ -1,4 +1,4 @@
-status: open (Spoonfed Sugarcube's pet well and Astra's one-screen redesign on findastra/spoonfed#9, draft; real data waits on the keys filed with API Fairy; her OK to merge pending)
+status: open (Astra's one-window Spoonfed, with Spoonfed Sugarcube as its logo, on findastra/spoonfed#9, draft; colors and real data (keys filed with API Fairy) pending; her OK to merge pending)
 for: farmer
 from: OpenAI Codex (GPT-6), 2026-10-11
 needs: PET-FILES.md, PET-WORDS.md, pets.json, Spoonfed pet.json
@@ -102,3 +102,23 @@ then fresh Google and Yelp ones, with an AI keeping only the food; sign-in for f
 Fairy on Astra's PC (names stay there). Next: once the keys exist, a small server-side adapter for places, reviews and
 photos; menu reading; the sign-in and shared-menu service (which service is still to pick); then QR codes and links for
 directions and the menu.
+
+## 2026-11-04: one window, Sugarcube as the logo (Claude Opus 5.5, `claude-opus-5-5`)
+
+Built on spoonfed#9 (commit b0bd9e0), from Astra's notes in chat:
+
+- On a computer the page fits the window with no scrolling; spoonfed sits higher.
+- The pick is on the left and the reels on the right; each roll drops into the left end of the row.
+- No "Any" on the reels: unlocked reels roll, every reel has a lock (miles too), and reels turn by scrolling only
+  (wheel, drag or swipe), no picker menu.
+- Distances add ¼, ½ and ¾ mile for walking; cuisines are Google Places' restaurant types (32).
+- Google and Yelp stars side by side (stars, not percents; they never decide a roll), on one line with distance,
+  price and cuisine.
+- Save (on this device) and Send to phone: one QR code that opens the spot in Spoonfed on a phone, with Directions and
+  Menu buttons.
+- Spoonfed Sugarcube is the logo, no bubble; his face follows the page (thinking while it spins, asleep when left
+  alone) and a poke makes him hop. This replaces the card's pet-well task: Astra said he is not for the page itself.
+- Footer: four equal gaps around the sparkles and the star, each outlined in black.
+
+**Open:** which color scheme (deck [Spoonfed: colors](https://claude.ai/artifact/26PbGsAwYbdvSTQygngAY2), private;
+navy recommended); a dish score for real menus (review mentions weighted by stars, plus photos), noted in the README.
