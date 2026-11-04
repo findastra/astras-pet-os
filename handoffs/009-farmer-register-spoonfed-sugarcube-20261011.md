@@ -146,3 +146,14 @@ Built on spoonfed#9 (commit 38ff265), from Astra's notes in chat:
 which phone version first (recommended: web app), where it lives (Cloudflare), who can open it (anyone with the link,
 capped), Yelp now or later (later), how it's paid for (free with daily caps), and more types (16 foods, one Bar).
 Restaurants are still made up until the Google key exists.
+
+## 2026-11-04, evening: Spoonfed on a phone
+
+Astra: "get me the live link so i can see if it works on my phone. i want others to see the same thing but on their
+phone." Claude can't create her Cloudflare account, so the phone copy went on her GitHub site instead (her "ok publish
+it", then "merge"): **https://findastra.github.io/spoonfed/**, the built `dist/` in the `spoonfed/` folder of
+findastra.github.io (#39, merged as a5e1cd4). Spoonfed's repo is private and Pages needs a public one. The app builds
+for that address through `experiments.baseUrl` `/spoonfed` (findastra/spoonfed 095a58f on #9). The six deck questions
+stay open: this answers "web app first" and "anyone with the link" for now, with the same 26 made-up spots for everyone.
+It's live and checked: signed out, the page, script and fonts answer 200; at phone size a roll works
+and the pick's name, stars and buttons show. Not yet seen on a real phone.
