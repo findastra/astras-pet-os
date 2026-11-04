@@ -120,5 +120,8 @@ Built on spoonfed#9 (commit b0bd9e0), from Astra's notes in chat:
   alone) and a poke makes him hop. This replaces the card's pet-well task: Astra said he is not for the page itself.
 - Footer: four equal gaps around the sparkles and the star, each outlined in black.
 
-**Open:** which color scheme (deck [Spoonfed: colors](https://claude.ai/artifact/26PbGsAwYbdvSTQygngAY2), private;
-navy recommended); a dish score for real menus (review mentions weighted by stars, plus photos), noted in the README.
+**Answered:** colors are Espresso (deck [Spoonfed: colors](https://claude.ai/artifact/26PbGsAwYbdvSTQygngAY2),
+private; Astra: "Espresso looks really good. Let's do a lot of different shades of brown"). Built on spoonfed#9
+(commit 8490cdc) with the middle panels at about two-thirds size and more room around them.
+
+**Open:** a dish score for real menus (review mentions weighted by stars, plus photos), noted in the README.
