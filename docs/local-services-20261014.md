@@ -21,8 +21,15 @@ The Discord Damsel page (`findastra-discord-presence`) uses
 window.LOCAL_SERVICES = {
   'openai-discord-presence': '<the control panel address from OpenAI Discord Presence on this PC>',
   'anthropic-discord-presence': '<the control panel address from Anthropic Discord Presence on this PC>',
+  'ableton-live-discord-presence': '<the control panel address from Ableton Live Discord Presence on this PC>',
+  'discord-damsel-presence-control': '<the address of Discord Damsel\'s presence controls (Start and Stop) on this PC>',
 };
 ```
+
+Discord Damsel's pet program page (`apps/pet-programs/discord-tower-20261018.html`) reads the same file through
+`apps/discord-damsel-presence-control-20261030.js` for its Open controls links and its Start and Stop buttons. Without
+the file, or without `discord-damsel-presence-control` in it, the buttons stay off and make no request. The
+presence controls' own one-time code (`Astra's PetOS Data/discord-tower/`) must name the same address.
 
 Each companion prints its control panel address when it starts, and its README lists the default address. The page
 only accepts `http://127.0.0.1:<port>/` or `http://localhost:<port>/`, so an edited file cannot send a button anywhere
@@ -39,4 +46,6 @@ over an existing farm leaves it in place.
   reached a public file has to be rotated, not hidden.
 
 `npm test` (`test/public-safety-test-20261014.mjs`) checks every committed file the same way, so a hand edit cannot
-slip an address or a secret onto the public site either.
+slip an address or a secret onto the public site either. One narrow allowance: a test that drives a page's local
+controls (listed in `LOOPBACK_FIXTURES` there) may name `127.0.0.1` on made-up ports 40000 to 40099, never a real one.
+Secrets and personal folder paths are still checked in those files.
