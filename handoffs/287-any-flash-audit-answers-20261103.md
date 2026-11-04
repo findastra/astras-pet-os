@@ -23,8 +23,10 @@ rows and the pages disagreed): "i like the phone on data dealer, its program nee
 
 ## Next
 
-1. After Astra's OK, merge in order, each retargeted to `main` first: #276, #278, #279, #283, #285, #287. #276
-   conflicts with `main` since #282 and #284 merged: take main's generated files, rebuild, test, then merge.
+1. After Astra's OK, merge in order, each retargeted to `main` first: #276, #278, #279, #283, #285, #287. `main`
+   (#282, #284) was merged into #276 on 2026-11-03 and carried up the stack: `pets.json` keeps both new relations,
+   Damsel's L1 tool box has the Ableton Live card, generated files rebuilt, every branch tested. If `main` moves
+   again, do the same.
 2. Real pets' awake drawings with open eyes are new art, hers to OK (Flash Audit A02, A03).
 3. Play with and Care for need their numbered steps and L3 running them in the chat (A37).
 
