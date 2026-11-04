@@ -125,3 +125,24 @@ private; Astra: "Espresso looks really good. Let's do a lot of different shades 
 (commit 8490cdc) with the middle panels at about two-thirds size and more room around them.
 
 **Open:** a dish score for real menus (review mentions weighted by stars, plus photos), noted in the README.
+
+## 2026-11-04, later: no repeats, rating weight, drum reels, a spoon logo (Claude Opus 5.5, `claude-opus-5-5`)
+
+Built on spoonfed#9 (commit 38ff265), from Astra's notes in chat:
+
+- No repeats: nothing rolled today comes back today, nor the pick on screen; the row never repeats the pick, and the
+  old pick drops into the row as soon as the reels start.
+- Better-rated spots for their price roll more often (a half star above the same-$ average doubles the chance, a
+  quarter to four times); bad ones still can. This replaces "ratings never decide a roll".
+- Each $ shows its per-person amount (under $10, $11–30, $31–60, $61+). New types: Bar, Coffee, Dessert, Ice cream.
+- The row has a Saved tab; faster wheel scrolling; slower, softer drop-in.
+- Facts line spread out in four colors (Google gold, Yelp copper, miles blue, $ light green).
+- The two big boxes are the same size, 16 px apart like the row's cards. Reels turn as drums.
+- Sugarcube sits in a long silver spoon seen from the side (drawn after the side views in US design patents D351,091
+  and D285,889), with a shine along it; a poke rolls; happy while the QR code is up.
+- The footer line spans only the footer and fades at its ends.
+
+**Asked:** deck [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private), six questions:
+which phone version first (recommended: web app), where it lives (Cloudflare), who can open it (anyone with the link,
+capped), Yelp now or later (later), how it's paid for (free with daily caps), and more types (16 foods, one Bar).
+Restaurants are still made up until the Google key exists.
