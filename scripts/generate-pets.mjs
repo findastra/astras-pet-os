@@ -96,7 +96,13 @@ export const PETS = [
 // sheet to art/sheets/role-fairy.png (then --match keeps this body). Claude Opus 5.5.
 export const DRAFT_ROLE_FAIRY = { id: 'role-fairy', what: 'a tiny cheerful fairy girl with LARGE butterfly wings made of five clearly separate coloured panels, a short ruffled tutu dress, hair in two round buns, holding a small star wand topped with a round badge, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink tutu, snow-white hair, gold wand and star' };
 
+// PC Master (PC Master Race, #86), draft: generated 2026-11-03 with Astra's OK ("He's going to need art, too"), sheet
+// in art/drafts/pc-master-race/. A gaming PC tower racing to be the PC Master (her words: "it's a race to be the PC
+// Master"), in her graphite grey with neon; no other pet is grey with green fans and magenta stripes. Claude Opus 5.5.
+export const DRAFT_PC_MASTER = { id: 'pc-master', what: 'a chubby little gaming PC tower creature: a tall rounded computer case standing on two small feet with two little arms, its face on the front panel, a clear glass side panel showing three round glowing fans, a round power button on its top, two racing stripes running down its front, holding a tiny checkered racing flag, no other props and no lettering', colours: 'gunmetal graphite-grey case, neon green glowing fans, hot magenta racing stripes, electric cyan power button, black and white checkered flag' };
+
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;
+export const promptFor = prompt;
 
 /* ---------- run ----------
    Only when this file is run directly. Importing it (the tests read PETS) must never spend

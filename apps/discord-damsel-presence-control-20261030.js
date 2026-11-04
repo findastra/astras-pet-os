@@ -4,7 +4,9 @@
   var box = document.getElementById('discord-damsel-presence-control');
   if (!box) return;
   var note = document.getElementById('presence-control-note');
-  var keys = ['openai', 'anthropic'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
+  // Ableton Live Discord Presence joined as her third app (Claude Opus 5.5, 2026-11-03).
+  var keys = ['openai', 'anthropic', 'ableton'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
+  var controls = { openai: 'http://127.0.0.1:38761/', anthropic: 'http://127.0.0.1:38762/', ableton: 'http://127.0.0.1:38765/' };
   var lights = document.querySelectorAll('button.onoff[data-presence-managed]');
   function description(s) {
     if (!s) return 'Not connected to Discord Damsel. Double-click her desktop pet to reconnect.';
@@ -68,7 +70,7 @@
       if (generation !== connection) { if (tab) tab.close(); return; }
       statuses[key] = result.status;
       note.textContent = start ? 'Started. The controls show the app’s current activity and Discord connection.' : 'Sharing switched off for this app.';
-      if (tab) tab.location.replace(key === 'openai' ? 'http://127.0.0.1:38761/' : 'http://127.0.0.1:38762/');
+      if (tab) tab.location.replace(controls[key]);
       else if (start) note.textContent += ' Use its Open controls link if your browser blocked the new tab.';
     }, function (error) {
       if (tab) tab.close();
@@ -94,7 +96,7 @@
   }
   keys.forEach(function (key) {
     var link = box.querySelector('[data-presence-controls="' + key + '"]');
-    link.href = key === 'openai' ? 'http://127.0.0.1:38761/' : 'http://127.0.0.1:38762/';
+    link.href = controls[key];
     link.removeAttribute('aria-disabled');
   });
   var bootstrap = document.createElement('script');
