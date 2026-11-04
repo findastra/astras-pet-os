@@ -4,7 +4,7 @@
 
 ## What it does
 
-Processes, memory, drivers and OS internals.
+What runs on your PC: programs, memory and what starts at sign-in.
 
 ## Open it with nothing to install
 
@@ -42,6 +42,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **PC Master** (PC Master Race) (planned, not built yet): PC Master points to Kernel Grove for stopping a program or switching a sign-in item: Task Manager cleanup stays Kernel Koala’s (Astra, 2026-11-03).
 - **Linux Penguin** (Linux Iceberg) (architecture): OS internals under Linux administration.
 
 ## Picture
