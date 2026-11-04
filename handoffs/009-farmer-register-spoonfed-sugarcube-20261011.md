@@ -1,4 +1,4 @@
-status: open (Spoonfed Sugarcube's pet well and Astra's one-screen redesign on findastra/spoonfed#9, draft; four questions in the Spoonfed: real restaurants deck and her OK to merge pending)
+status: open (Spoonfed Sugarcube's pet well and Astra's one-screen redesign on findastra/spoonfed#9, draft; real data waits on the keys filed with API Fairy; her OK to merge pending)
 for: farmer
 from: OpenAI Codex (GPT-6), 2026-10-11
 needs: PET-FILES.md, PET-WORDS.md, pets.json, Spoonfed pet.json
@@ -93,7 +93,12 @@ is reported as 24 hours; so their photos and reviews are fetched fresh for each 
 restaurant's own page is Spoonfed's own record and can be shared. Yelp photos: 3 on the middle plan, up to 12 on the
 top plan; about $229 a month.
 
-**Still open** (deck questions, recommended first): distance from you or the circle's width (from you; built that way);
-where the menu comes from (the restaurant's own page, read by an AI, saved for everyone); where the food pictures come
-from (the restaurant's own first, then fresh Google and Yelp, with an AI keeping the food); sign-in for favorites (email
-link, since she chose free over texting). Then key requests for API Fairy (Google, Yelp), none filed yet.
+**Answered** (Astra: "pretty much all recommended"): distance is how far from you (as built); the menu comes from the
+restaurant's own page, read by an AI and saved for everyone nearby; food pictures from the restaurant's own first,
+then fresh Google and Yelp ones, with an AI keeping only the food; sign-in for favorites by email link.
+
+**Then, the same day:** the bottom row became her rolls, newest first, kept on the device (spoonfed#9, commit 2e260e2):
+"it should just be stuff you roll", with no add-five-more button. The key requests for real data are filed with API
+Fairy on Astra's PC (names stay there). Next: once the keys exist, a small server-side adapter for places, reviews and
+photos; menu reading; the sign-in and shared-menu service (which service is still to pick); then QR codes and links for
+directions and the menu.
