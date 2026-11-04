@@ -18,13 +18,14 @@ rows and the pages disagreed): "i like the phone on data dealer, its program nee
 - `docs/flash-audit-20261014.md` and `PET-PROGRAM-FRAMEWORK.md` follow her answers; the list of changes is
   `changes/flash-audit-answers-20261103.md`.
 - #285 fix on its own branch, merged in here: the helper's self-test and test no longer write out a local address.
-- `npm test` in an LF checkout: 380 of 385 pass, 3 skipped; the 2 failures are the same as on `main`. Checked in the
+- `npm test` in an LF checkout, after merging `main`: 383 of 387 pass, 3 skipped; the 1 failure (the from-scratch
+  Windows install) is the same as on `main`. Checked in the
   browser pane from the branch at 1280×900 and 375×812.
 
 ## Next
 
 1. After Astra's OK, merge in order, each retargeted to `main` first: #276, #278, #279, #283, #285, #287. `main`
-   (#282, #284) was merged into #276 on 2026-11-03 and carried up the stack: `pets.json` keeps both new relations,
+   (#282, #284, #286) was merged into #276 on 2026-11-03 and carried up the stack: `pets.json` keeps both new relations,
    Damsel's L1 tool box has the Ableton Live card, generated files rebuilt, every branch tested. If `main` moves
    again, do the same.
 2. Real pets' awake drawings with open eyes are new art, hers to OK (Flash Audit A02, A03).
