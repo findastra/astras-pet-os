@@ -30,3 +30,7 @@ pet-packs/
 # farm-catalog/.
 farm-lock-20261021.json
 farm-catalog/
+
+# Serena (docs/cung-list-20261026.md): .serena/project.yml is shared; the notes an agent writes into its memories stay
+# on the PC. Serena's own .serena/.gitignore keeps its cache and project.local.yml out.
+.serena/memories/

@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide",
+        "--project",
+        "${CLAUDE_PROJECT_DIR:-.}",
+        "--agent-interface",
+        "tools",
+        "--open-web-dashboard",
+        "false"
+      ]
+    }
+  }
+}
