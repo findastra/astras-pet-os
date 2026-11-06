@@ -7,4 +7,7 @@ Astra, 2026-11-06: "Change the color of this to the dicord purple".
 - Her picture is the hub's current Discord Damsel art (the same drawing as her desktop pet); she is drawn at her
   desktop size, like every pet page (Astra, 2026-10-23).
 
+- Damsel stands 10% taller on her page with her feet where they were (Astra, 2026-11-06: "make the damsel like 10%
+  bigger, taller from where she is standing"); her desktop size is unchanged.
+
 Credit: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-06.

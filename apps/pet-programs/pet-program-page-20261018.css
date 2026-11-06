@@ -40,6 +40,9 @@
   --tool-bg: rgba(88, 101, 242, .07); --tool-bg-hover: rgba(88, 101, 242, .13);
 }
 :root[data-pet="discord-damsel"] .footer-group::before, :root[data-pet="discord-damsel"] .footer-sparkle { color: #8f97f7; }
+/* Damsel 10% taller on her page, feet where they were (Astra, 2026-11-06: "make the damsel like 10% bigger, taller
+   from where she is standing"): her feet are 92.2% down her picture (row 236 of 256). */
+:root[data-pet="discord-damsel"] .den img.pet { scale: 1.1; transform-origin: 50% 92.2%; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
