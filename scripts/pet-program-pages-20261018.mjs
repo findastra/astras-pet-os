@@ -99,6 +99,13 @@ export function privateTarget(registry, url) {
 /** One line on what an item does, for its pill (Astra, 2026-10-21: "summarize what each program does in here", and a
  *  tool's description on its tool). A program's `does` in system-map.json says it plainly; a tool's or trick's job is
  *  written "A tool of <program> (<kind>): <what it does> (<where it lives>)", so this keeps the middle part. */
+/** A tool's short id from its name, id or label: `journal-lagoon-v0.2.0-mood-check-in-v1.0` and `Mood check-in` are
+ *  both `mood-check-in`, so a tool on the System Map and the same tool in the pet's pet.json are one tool. */
+export function toolKey(s) {
+  const k = slug(s || '');
+  return (/^.+?-v\d+(?:-\d+)*-([a-z].*?)(?:-v\d+(?:-\d+)*)?$/.exec(k)?.[1] || k.replace(/-v\d+(?:-\d+)*$/, '')) || null;
+}
+
 export function brief(job) {
   const s = String(job || '').trim();
   const m = /^An? (?:native )?(?:tool|trick|program) of [^:]{1,80}?: (.+)$/.exec(s);
@@ -193,6 +200,17 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
   // avatar tools vs world tools"); the L1 tool panel then shows the two sides instead of one list.
   const tools = map.nodes.filter((n) => n.type === 'tool' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-v1.0`, side: SIDES[n.side] ? n.side : null }));
+  // The tools the pet lists in its own pet.json (pets.json `tools`, copied by the Farmer's round: adoptTools; Astra,
+  // 2026-11-02: "with their tools read from their own pet.json"), after the map's, unless the map already has them.
+  const known = new Set(map.nodes.flatMap((n) => [n.id, n.label, n.name]).map(toolKey).filter(Boolean));
+  for (const t of reg.tools || []) {
+    const id = toolKey(t.name) || toolKey(t.label);
+    if (!id || known.has(id) || known.has(toolKey(t.label))) continue;
+    known.add(id);
+    const url = t.entry ? `https://github.com/${owner}/${reg.repo}/blob/HEAD/${t.entry.split('/').map(encodeURIComponent).join('/')}` : null;
+    const name = t.name && !/-v\d+(?:\.\d+)*-/.test(t.name) ? t.name : id;
+    tools.push({ ...item({ id, name, job: t.use || '', does: t.use || '', url, state: t.planned ? 'planned' : 'now' }), label: t.label || `${homeSlug}-v1.0-${id}-v1.0`, side: null });
+  }
   // Third-party programs also count when one of the pet's tools runs or looks after them (Flash Audit A54), as
   // BetterDiscord does for Discord Damsel's Sticker Manager.
   const toolIds = new Set(tools.map((t) => t.id));

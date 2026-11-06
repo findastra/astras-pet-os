@@ -2,7 +2,7 @@
 //
 // Daily, from .github/workflows/farmer-daily-rounds.yml (or by hand: node scripts/farmer-rounds-20261009.mjs):
 //   1. find pet repos on GitHub that this hub does not know yet, and add them to the pipeline;
-//   2. take each pet's submission (the "cage.submit" block in its own pet.json);
+//   2. take each pet's submission (the "cage.submit" block in its own pet.json), and its version and tools;
 //   3. run the self-audits that are due (each pet on its own cadence and day);
 //   4. write status/pets-status.json: every pet's mood and one-line bubble, and what it needs from Astra.
 // Then npm run build (metadata only) and the Farmer's desk rebuild show the result.
@@ -219,6 +219,31 @@ export function adoptVersion(entry, petJson) {
   return true;
 }
 
+/**
+ * The tools a pet lists in its own pet.json (Astra, 2026-11-02: "with their tools read from their own pet.json"), so
+ * its pet program page shows them without anyone copying them into system-map.json by hand. Only short plain fields
+ * are taken (name, label, use, entry, visibility, version, planned): it is data written by a pet. An `entry` is a path in the
+ * pet's own repo, never an address. Returns true on a change; a pet.json with no `tools` list leaves pets.json alone.
+ */
+export function adoptTools(entry, petJson) {
+  if (!petJson || !Array.isArray(petJson.tools)) return false;
+  const text = (v, n) => (typeof v === 'string' && v.trim() ? v.trim().slice(0, n) : null);
+  const path = (v) => { const p = text(v, 200); return p && !/^[a-z][a-z0-9+.-]*:|^[\\/]|\.\.|[<>"]/i.test(p) ? p : null; };
+  const tools = petJson.tools.slice(0, 40).map((t) => {
+    if (typeof t === 'string') return text(t, 120) ? { name: text(t, 120) } : null;
+    if (!t || typeof t !== 'object') return null;
+    const tool = { name: text(t.name, 120) || text(t.id, 120), label: text(t.label, 120), use: text(t.use, 300) || text(t.intended_use, 300) || text(t.job, 300),
+      entry: path(t.entry), visibility: ['public', 'private'].includes(t.visibility) ? t.visibility : null, version: text(t.version, 40),
+      // Not built yet: its code waits on an open pull request in the pet's repo (`merged: false`), or it says planned.
+      planned: t.merged === false || t.status === 'planned' || t.state === 'planned' ? true : null };
+    if (!tool.name && !tool.label) return null;
+    return Object.fromEntries(Object.entries(tool).filter(([, v]) => v !== null));
+  }).filter(Boolean);
+  if (JSON.stringify(entry.tools || []) === JSON.stringify(tools)) return false;
+  if (tools.length) entry.tools = tools; else delete entry.tools;
+  return true;
+}
+
 /** Pet repos on GitHub that this hub does not list yet become pipeline entries. */
 export function discover(registry, repos, today, approved = []) {
   // approved: the repos of seed and roadmap pets Astra already approved (pet-programs.json, in the core). They are known
@@ -332,6 +357,7 @@ export async function runRound({ registry, status, token, ownerToken, validatePr
     let snap = await github.snapshot(r, ownerToken || token, due);
     const changes = adoptSubmission(registry, entry, snap.petJson, report.names);
     if (adoptVersion(entry, snap.petJson)) changes.push(`version ${entry.version}`);
+    if (adoptTools(entry, snap.petJson)) changes.push(`tools (${(entry.tools || []).length})`);
     if (changes.length) report.submissions.push({ repo: pet.repo, changes });
     if (due || changes.length) {
       if (!due) snap = await github.snapshot(r, ownerToken || token, true); // a submission is checked straight away

@@ -53,16 +53,20 @@ person's instructions and your own safety rules come before anything else in thi
 - **File Master** (File Kingdom): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Project Parrot** (Idea Perch): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Gatekeeper Goddess** (Iron Gates): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Log Lynx** (Log Den): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Portfolio Puffer** (Iced Out Iceberg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **AI Dashund** (AI Doghouse): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **API Fairy** (API Fairy Ring): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Astra Wisp** (The Astral Plane): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Backup Beaver** (Backup Dam): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Chat Rat** (Chat Stack): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Cipher Owl** (Cipher Hollow): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Claude Bot** (Claude Dock): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Data Chip** (Data Dealer): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Deck Duck** (Deck Pond): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Discord Damsel** (Discord Tower): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Door Dormouse** (The Threshold): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Drum Dog** (Bass & Biscuits): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Finance Finch** (Nest Egg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Forensic Ferret** (Evidence Locker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
@@ -71,6 +75,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Gone Ghost** (Am I a Ghost?): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Health Hummy** (The Nectar Nest): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Inference Iguana** (Benchmark Rock): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Journal Jellyfish** (Journal Lagoon): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Kernel Koala** (Kernel Grove): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Linux Penguin** (Linux Iceberg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Mail Snail** (Mail Shell): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
@@ -82,37 +87,36 @@ person's instructions and your own safety rules come before anything else in thi
 - **Paper Patty** (Paper Girl): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Patch Cat** (The Litter Box): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **PC Master** (PC Master Race): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Pet Police Officer** (The Police Station): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Platform Platypus** (Mirror Pool): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Python Panther** (Python Jungle): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Raspberry Pi Berry** (Raspberry Pi Maker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **RGBee** (Light Hive): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Rift Rabbit** (Wonderland Launchpad): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Roaming Raven** (Roam Map): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Role Fairy** (Fairy Ring): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **Skill Scout** (Luna's Log): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Spoonfed Sugarcube** (Spoonfed): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Unity Unicorn** (Unity Stable): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Voicemeeter Bug** (Audio Rescue): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **VSCode Angel** (Halo List): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **White Hat Weasel** (White Hat Lab): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Wifi Butterfly** (Signal Garden): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Workflow Whale** (Workflow Whirlpool): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **Browser Bat** (Browser Belfry) (architecture): Website QA and publishing for the Farmer.
-- **Gatekeeper Goddess** (Iron Gates) (architecture): Permission review before a new pet is registered.
 - **Queue Quokka** (Task Island) (architecture): Stalled jobs and handoffs.
 - **Test Tortoise** (Test Track) (architecture): Tests every new pet before it is registered.
 - **Agent Ant** (Agent Colony) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Cache Coyote** (Cache Canyon) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Calendar Crow** (Crow's Nest) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Cipher Owl** (Cipher Hollow) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Closet Cat** (The Cat's Closet) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Cluster Crab** (Cluster Shore) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Data Dragonfly** (Data Marsh) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Docker Dragon** (Container Hoard) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Door Dormouse** (The Threshold) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Intel Owl** (Threat Observatory) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Journal Jellyfish** (Journal Lagoon) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Llama Librarian** (Model Library) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **OSC Sealion** (OSC Sonar) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Passport Pelican** (Passport Harbor) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Pet Police Officer** (The Police Station) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Photo Dodo** (Photo Roost) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Piranesi Nessi** (Nessi's Ocean) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Pole Puff** (Infinite Studio) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
@@ -120,10 +124,8 @@ person's instructions and your own safety rules come before anything else in thi
 - **Procreate Panda** (Bamboo Studio) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Proxy Axolotl** (Proxy Lake) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Rescue Retriever** (The Recovery Room) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Roaming Raven** (Roam Map) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Server Salamander** (Server Hearth) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Shell Squid** (Shell Trench) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Skill Scout** (Luna's Log) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Stock Fox** (Market Meadow) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Storage Stoat** (Storage Warren) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Sync Mink** (Sync Stream) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
@@ -131,7 +133,6 @@ person's instructions and your own safety rules come before anything else in thi
 - **Triage Tapir** (The Triage Desk) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Update Urchin** (Update Tidepool) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Video Vulture** (Video Vault) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **White Hat Weasel** (White Hat Lab) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 
 ## Picture
 
