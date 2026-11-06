@@ -11,7 +11,7 @@ Astra, 2026-11-06, looking at PC Master's draft art: "lets make the website gray
   branch add theirs. No generated file changes; `npm run build` leaves the tree as it was.
 - Checked in the browser pane from the branch's own copy, and in headless Edge at 1280 px. `npm test`: 356 tests, 352
   pass, 3 skipped, 1 fails: the Windows farm-setup test, which fails on `main` the same way.
-- Not in this change: six other ideas for PC Master's look (one generated board, not committed) wait on Astra's pick.
-  His draft art stays as it is until she picks one.
+- Not in this change: six other ideas for PC Master's look were shown to Astra on one generated board, not committed.
+  She picked the tower he already is ("I like the original PC"), so his draft art stays; it is not approved yet.
 
 Claude Opus 5.5 (`claude-opus-5-5`).

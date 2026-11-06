@@ -82,4 +82,4 @@ Record the merges below.
 - 2026-11-06: Astra on the draft art: "hes cute... but do we have other ideas / lets make the website gray and green
   and pink like him also." The page colours are on branch `claude/pc-master-colours-20261106`
   (changes/pc-master-colours-20261106.md). Six other ideas for his look were shown to her as one generated board (not
-  committed); his art stays the draft until she picks.
+  committed). She picked the tower he already is ("I like the original PC"); his draft art is not approved yet.
