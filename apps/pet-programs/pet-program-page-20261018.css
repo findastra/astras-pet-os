@@ -32,6 +32,14 @@
   --tool-bg: rgba(120, 150, 255, .06); --tool-bg-hover: rgba(120, 150, 255, .11);
 }
 :root[data-pet="drum-dog"] .footer-group::before, :root[data-pet="drum-dog"] .footer-sparkle { color: #9fb4ff; }
+/* Discord Tower's own colours, Discord purple (Astra, 2026-11-06: "Change the color of this to the dicord purple"):
+   deep blurple background, Discord's blurple (#5865f2) lines, pale lavender links. */
+:root[data-pet="discord-damsel"] {
+  --slate: #1f2147; --slate-2: #171936; --chalk: #eef0ff; --chalk-dim: #b3b9ec; --line: #5865f2; --line-dim: #3a43a3;
+  --link: #c9cdfb; --connection: #8f97f7;
+  --tool-bg: rgba(88, 101, 242, .07); --tool-bg-hover: rgba(88, 101, 242, .13);
+}
+:root[data-pet="discord-damsel"] .footer-group::before, :root[data-pet="discord-damsel"] .footer-sparkle { color: #8f97f7; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
