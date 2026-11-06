@@ -79,3 +79,7 @@ Record the merges below.
   moved since the branch was cut (83ac263c), #282 was mergeable with its 4 checks green, `npm test` 349 of 354 (the 2
   failures also on `main`). Merged by Claude Opus 5.5 right after this line; her PC hub copy and kernel-grove copy are
   fast-forwarded the same turn. Still open from this card: Not done 1 to 6.
+- 2026-11-06: Astra on the draft art: "hes cute... but do we have other ideas / lets make the website gray and green
+  and pink like him also." The page colours are on branch `claude/pc-master-colours-20261106`
+  (changes/pc-master-colours-20261106.md). Six other ideas for his look were shown to her as one generated board (not
+  committed); his art stays the draft until she picks.
