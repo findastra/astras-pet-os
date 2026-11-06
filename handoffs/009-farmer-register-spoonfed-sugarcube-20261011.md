@@ -157,3 +157,20 @@ for that address through `experiments.baseUrl` `/spoonfed` (findastra/spoonfed 0
 stay open: this answers "web app first" and "anyone with the link" for now, with the same 26 made-up spots for everyone.
 It's live and checked: signed out, the page, script and fonts answer 200; at phone size a roll works
 and the pick's name, stars and buttons show. Not yet seen on a real phone.
+
+## 2026-11-05 to 06: long names, her own spoon, phone copy updated (Claude Opus 5.5, `claude-opus-5-5`)
+
+From Astra's notes in chat, on spoonfed#9:
+- "Yes, fix names": on a phone a long name takes a second line instead of "…" (689a120).
+- "use the exact spoon I gave you": the logo spoon is the exact spoon from her picture, never a drawn or substitute one.
+  "it looks weird and pixely": her picture is small, so the spoon's outline is now traced at 8x and smoothed, filled
+  with the picture's own shading (cbae471, `assets/spoon-photo-20261106.png`). She OK'd the picture for her public
+  site ("Yes, it's OK").
+
+The phone copy has both: findastra.github.io#40, squash-merged as 263454d on her "Yes, merge #40" (an earlier commit
+there held a spoon photo she didn't want). GitHub Pages' deploy stuck on "updating pages" twice; a third publish
+request worked. Live and checked: the page serves the new script and spoon picture, and the old photo answers 404.
+
+**Still open:** the six questions in [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7)
+(private); the Google Places key (restaurants are still made up, so Feed me can't roll real places near her); her merge
+OK for spoonfed#9; the cuisine reel still cuts long types ("Indonesi…") on phones.
