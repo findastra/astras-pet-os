@@ -24,6 +24,18 @@
 }
 :root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
 :root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
+/* PC Master Race's own colours, PC Master's (Astra, 2026-11-06: "lets make the website gray and green and pink like him
+   also"): his graphite case for the page, hot pink panel lines like his racing stripes, neon green links and pill edges
+   like his fans, his cyan power button for the working-copy box. The second line keeps them on pages that use those
+   names (hub #278). */
+:root[data-pet="pc-master"] {
+  --slate: #1b1d21; --slate-2: #131417; --chalk: #eef1ec; --chalk-dim: #a4aba6; --line: #ff4fb0; --line-dim: #5fae2a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #9dff3a;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --link: #9dff3a; --connection: #c4ff86;
+  --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(157, 255, 58, .08);
+}
+:root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
