@@ -21,6 +21,8 @@ import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
 import { drawnBox, pictureHeight } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
+import { STICKERS } from './art-kit.mjs';
+import { INDICATORS } from './indicators.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -194,7 +196,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true, pillOpen: n.in_pill === true && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -365,17 +367,30 @@ function deviceGroups(devices) {
   return order.map((key) => `<h4 class="device-group">${esc(key === 'headsets' ? 'Headsets' : key === 'other' ? 'Other devices' : names[key] || key)} · ${groups.get(key).length}</h4>${itemList(groups.get(key), 'device', '')}`).join('');
 }
 
+// A toolset from the System Map (Astra, 2026-10-24: "control panels have tools and toolsets in side them"; 2026-11-02,
+// all recommended: the spawner draws one from data, for any pet): a tool whose own tools name it with `in`, the way a
+// device names its group. It is a rounded tool box with its lights and its name, its one line and its label, and its
+// tools as pills inside; it takes the whole row after the other tools, and folds closed with `start_closed`.
+function toolList(tools, empty) {
+  const ids = new Set(tools.map((t) => t.id));
+  const sets = tools.filter((s) => tools.some((t) => t.group === s.id));
+  const plain = tools.filter((t) => !sets.includes(t) && !(t.group && ids.has(t.group)));
+  const boxes = sets.map((s) => toolBox(s.id, s.name, `${s.desc ? `<p class="small">${esc(s.desc)}</p>` : ''}${s.label ? `<code class="label">${esc(s.label)}</code>` : ''}
+${itemList(tools.filter((t) => t.group === s.id), 'tool', '')}`, { open: !s.startClosed, cls: 'toolset' }));
+  return `${plain.length || !boxes.length ? itemList(plain, 'tool', empty) : ''}${boxes.length ? `<div class="toolboxes">${boxes.join('\n')}</div>` : ''}`;
+}
+
 // `first`: the extra tool boxes go above the list (GitHub Aquarium's important tools).
 function toolSections(tools, extra = '', extraCount = 0, { first = false } = {}) {
   const empty = 'None recorded yet. Every tool the pet owns is listed here, on main or not merged.';
-  const list = tools.length || !extra ? itemList(tools, 'tool', empty) : '';
+  const list = tools.length || !extra ? toolList(tools, empty) : '';
   if (!tools.some((t) => t.side)) return `<section><h3>Native tools · ${tools.length + extraCount}</h3>${first ? extra + list : list + extra}</section>`;
   const rest = tools.filter((t) => !t.side);
   const sides = Object.entries(SIDES).map(([side, title]) => {
     const mine = tools.filter((t) => t.side === side);
-    return `<section class="side-${side}">${heading(title, mine)}${itemList(mine, 'tool', 'None yet.')}</section>`;
+    return `<section class="side-${side}">${heading(title, mine)}${toolList(mine, 'None yet.')}</section>`;
   });
-  if (rest.length) sides.push(`<section>${heading('Other native tools', rest)}${itemList(rest, 'tool', '')}</section>`);
+  if (rest.length) sides.push(`<section>${heading('Other native tools', rest)}${toolList(rest, '')}</section>`);
   return sides.join('\n');
 }
 
@@ -765,7 +780,7 @@ ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(
 ${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${embeddedTools(d, true)}
-${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off, and a grey maintenance light is not checked yet. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
+${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
@@ -964,6 +979,7 @@ ${wordScripts}
 <details class="panel" open><summary><span class="legend">${TOOL_LABEL}</span></summary>
 <h1>Every pet program</h1>
 <p>One page for every registered and pipeline pet, spawned by the Friendly Farmer with the minimum every pet program contains: Astra's sketch of 2026-10-18 (<a href="https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md">PET-PROGRAM-FRAMEWORK.md</a>, section 3). These are the basics; each pet's page grows from here.</p>
+<h2>The model pet program</h2><ul class="cards"><li class="card"><a href="${esc(MODEL_PROGRAM.page.slice(DIR.length + 1))}">${img(`${MODEL_PROGRAM.art}/idle-${MODEL_PROGRAM.date}.svg`, 'Pet Name, idle', 'thumb')}<span class="card-text"><b>Model Pet Program</b><span>Pet Name · every panel, item and light, with placeholder names</span></span></a></li></ul>
 ${group('registered', 'Registered')}
 ${group('pipeline', 'Pipeline')}
 <p class="small">By Astra. Generated by <code>npm run build</code> from pets.json and pet-programs.json; do not edit by hand.</p>
@@ -973,6 +989,167 @@ ${group('pipeline', 'Pipeline')}
 </body>
 </html>
 `, INDEX);
+}
+
+// ---------- The Model Pet Program ----------
+// Astra, 2026-11-02: "a template pet program, like to actually see the website ... instead of it saying like actual
+// tools ... it'll just say tool one, tool two, tool three. And what this does is it actually will cover a whole bunch
+// of different types of like structures or like styles ... And then it also like has every rule really strictly kind of
+// like chiseled out ... And then also it appears across all of the platforms correctly."
+// A made-up pet, Pet Name, whose program is Pet Program Name: every kind of item and every light state once, with
+// placeholder names, drawn by the same buildPetProgramPage as every real page, so it always follows today's rules. It
+// is not an animal: it is in no registry, so the desktop, the Markdown pets and the pet packs leave it out.
+// test/model-pet-program-test-20261102.mjs fails when a real page has something the model does not show.
+export const MODEL_PROGRAM = { page: `${DIR}/model-pet-program-20261102.html`, tool: `${DIR}/model-pet-program-tool-20261102.html`, toolJs: `${DIR}/model-pet-program-tool-20261102.js`, art: 'art/model-pet-program', date: '20261102', label: 'the-farm-v1.0-model-pet-program-v1.0' };
+// The nine placeholder drawings: a plain round pet, one face per mood, drawn as SVG so nobody's art stands in.
+const MODEL_FACES = {
+  idle: '<circle cx="104" cy="120" r="9"/><circle cx="152" cy="120" r="9"/><path d="M110 160h36" class="line"/>',
+  blink: '<path d="M94 121h20M142 121h20" class="line"/><path d="M110 160h36" class="line"/>',
+  happy: '<path d="M94 124q10-14 20 0M142 124q10-14 20 0" class="line"/><path d="M104 152q24 22 48 0" class="line"/>',
+  curious: '<circle cx="104" cy="122" r="9"/><circle cx="152" cy="120" r="12"/><path d="M140 96l26-6" class="line"/><path d="M114 162q14-8 28 0" class="line"/>',
+  worried: '<circle cx="104" cy="124" r="9"/><circle cx="152" cy="124" r="9"/><path d="M92 100l22 8M164 100l-22 8" class="line"/><path d="M106 164q8-8 14 0t16 0 14 0" class="line"/>',
+  sad: '<circle cx="104" cy="122" r="9"/><circle cx="152" cy="122" r="9"/><path d="M106 170q22-20 44 0" class="line"/><path d="M160 136q6 12 0 16q-6-4 0-16z" class="tear"/>',
+  sick: '<path d="M96 114l16 14M112 114l-16 14M144 114l16 14M160 114l-16 14" class="line"/><path d="M106 164q10-8 22 0t22 0" class="line"/>',
+  alarmed: '<circle cx="104" cy="118" r="13"/><circle cx="152" cy="118" r="13"/><ellipse cx="128" cy="166" rx="12" ry="15"/>',
+  sleep: '<path d="M94 124q10 8 20 0M142 124q10 8 20 0" class="line"/><path d="M114 162h28" class="line"/>',
+};
+// Each drawing carries the same mood sticker as every pet (Astra, 2026-10-24: the nine mood symbols "stay the same
+// across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
+// it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
+const stickerSvg = (mood) => {
+  const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
+  const ox = Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy = Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55)));
+  return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
+};
+const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
+  + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}</style>`
+  + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
+  + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
+  + `${MODEL_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
+// Pet Name's nine moods, and an idle drawing for each of the two made-up friends.
+export const MODEL_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
+export const modelProgramArt = () => ({
+  ...Object.fromEntries(MOODS.map((mood) => [`${MODEL_PROGRAM.art}/${mood}-${MODEL_PROGRAM.date}.svg`, petSvg('Pet Name', '#b8b2c6', mood)])),
+  ...Object.fromEntries(Object.entries(MODEL_FRIENDS).map(([id, [name, fill]]) => [`${MODEL_PROGRAM.art}/${id}-idle-${MODEL_PROGRAM.date}.svg`, petSvg(name, fill, 'idle')])),
+});
+
+/** Pet Name's page data: the same fields as pageData's, every list with one of each kind. */
+export function modelProgramData(src) {
+  const map = systemMapData(src.registry, src.extra, src.programs);
+  const frames = Object.fromEntries(MOODS.map((m) => [m, `${MODEL_PROGRAM.art}/${m}-${MODEL_PROGRAM.date}.svg`]));
+  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
+    inL1: false, inPill: false, pillOpen: false, startClosed: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
+  const guide = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md`;
+  const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `tool-${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });
+  const toolPage = (n) => `${MODEL_PROGRAM.tool.slice(DIR.length + 1)}?tool=${n}`;
+  const grant = (id, who, level, [r, w, x], status, self, how, more = {}) => ({ id: `model-${id}`, who, on: self ? 'Pet Program Name' : 'everything else', self, level, r, w, x, status, how, next: null, evidence: [], ...more });
+  const proof = [{ test: 'test/model-pet-program-test-20261102.mjs' }];
+  const reg = { repo: 'pet-repo-name', pet: 'Pet Name', audit: { cadence: 'weekly', subject: 'what Pet Program Name looks after', needs: 'a decision only you can make' } };
+  return {
+    repo: reg.repo, pet: reg.pet, petSlug: 'pet-name', home: 'Pet Program Name', homeSlug: 'pet-program-name', number: 0, assigned: true, stage: 'pipeline',
+    summary: 'The model pet program: every tool panel, every kind of item and every light, with placeholder names. One or two sentences on what the pet program does go here.',
+    job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
+    visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
+    appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
+    art: { frames, plain: frames, source: 'model-pet-program' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
+    round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
+    needs: ['Example: a decision only you can make.'],
+    asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
+    statusUpdated: '2026-11-02T08:00:00.000Z',
+    thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
+      item('third-party-two', '3rd party program two', 'Another program made by someone else, planned.', { state: 'planned' })],
+    programs: [item('native-program-one', 'Native program one', 'A program Astra made that Pet Name looks after, opened on its own.', { url: guide }),
+      item('native-program-two', 'Native program two', 'Another native program, an idea not agreed yet.', { state: 'idea' })],
+    shared: [item('shared-program-one', 'Shared program one', 'A program made with someone else ("Shared").', { sharedWith: 'someone else' })],
+    skills: [],
+    devices: [item('headset-one', 'Headset one', 'A headset Pet Name looks after: headsets come first.', { serial: 'SERIAL-0001' }),
+      item('device-one', 'Device one', 'A device in a group of its own, under its group\'s name.', { group: 'model-device-group', groupName: 'Device group one', serial: 'SERIAL-0002' }),
+      item('device-two', 'Device two', 'Another device in the same group.', { group: 'model-device-group', groupName: 'Device group one', serial: 'SERIAL-0003' })],
+    tools: [tool('one', 'A tool that works today and was checked: its second light is blue. Open it goes to its own page.', { url: guide }),
+      tool('two', 'A tool with an issue reported: its second light is orange.'),
+      tool('three', 'A tool with an update waiting for your OK: its second light is yellow, and L3 asks you.'),
+      tool('four', 'A tool that is not built yet: off (red), and its second light grey.', { state: 'planned' }),
+      tool('five', 'A tool that runs on its own every day and has not been checked yet: report issues until someone checks it.', { cadence: 'daily' }),
+      tool('six', 'A tool that works right here, inside its own tool box: its own page, with Open it full screen below.', { embed: toolPage('six'), url: toolPage('six'), inL1: true, inPill: true, pillOpen: true }),
+      // A toolset: tools that name it with `in` (`group` here) sit inside its rounded box.
+      { ...item('toolset-one', 'toolset-one', 'A toolset: one rounded box that holds several tools, each with its own lights; it folds to its name.'), label: 'pet-program-name-v1.0-toolset-one-v1.0', side: null },
+      tool('seven', 'A tool inside toolset-one.', { group: 'model-toolset-one', groupName: 'toolset-one' }),
+      tool('eight', 'Another tool inside toolset-one, planned.', { group: 'model-toolset-one', groupName: 'toolset-one', state: 'planned' })],
+    tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
+      { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
+    connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }],
+    plays_with: [],
+    access: { statuses: map.access.statuses, values: map.access.values,
+      on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
+        grant('l3-own', 'The seated agent (L3)', ['L3'], ['yes', 'pr', 'no'], 'written', true, 'Example: reads its own folder and changes it only on a branch Astra merges; a written rule.'),
+        grant('l3-rest', 'The seated agent (L3)', ['L3'], ['ask', 'no', 'no'], 'planned', false, 'Example: reads anything else only after asking; planned.', { next: 'Iron Gates issues the grant.' }),
+        grant('l2-own', 'Pet Program Name (L2)', ['L2'], ['yes', 'yes', 'no'], 'enforced', true, 'Example: the pet program reads and writes its own data; in code.', { evidence: proof }),
+        grant('l1-own', 'Its tools (L1)', ['L1'], ['yes', 'no', 'yes'], 'written', true, 'Example: its tools read and run inside its folder; a written rule.')],
+      by: [grant('by-one', 'Pet Program Name', ['L2'], ['yes', 'no', 'no'], 'written', false, 'Example: what Pet Program Name may use outside itself.', { on: 'Native program one' })] },
+    languages: [], languageNote: null,
+    clicks: { 3: { tool: 'model-tool-one', what: 'Runs tool-one.', label: 'pet-program-name-v1.0-tool-one-v1.0' } },
+    editorial: { says: 'Example: the AI working on this pet program writes here how the site is coming along.', by: 'the seated agent', on: '2026-11-02' },
+    checks: { 'tool:model-tool-one': { result: 'works', note: 'Example: checked and works.', on: '2026-11-02' },
+      'tool:model-tool-two': { result: 'issues', note: 'Example: an issue was reported.', on: '2026-11-02' },
+      'tool:model-tool-three': { result: 'update', latest: 'v1.1', note: 'Example: an update is waiting.', on: '2026-11-02' },
+      'tool:model-tool-four': { result: 'missing', note: 'Example: not created yet.', on: '2026-11-02' },
+      'device:model-headset-one': { result: 'works', note: 'Example: seen and working.', on: '2026-11-02' } },
+  };
+}
+
+// Its script, a file of its own (pages hold no inline code): Run says it ran, nothing else.
+const MODEL_PROGRAM_TOOL_JS = `const said = document.getElementById('said');
+let runs = 0;
+document.getElementById('run').addEventListener('click', () => {
+  runs += 1;
+  said.textContent = 'tool-six ran ' + runs + (runs === 1 ? ' time.' : ' times.');
+});
+let inTool = false;
+try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
+if (inTool) {
+  const tell = () => { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.body.getBoundingClientRect().height) }, '*'); } catch (e) { /* no page around it */ } };
+  tell();
+  window.addEventListener('load', tell);
+  if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
+}
+`;
+// The Model Pet Program's files that are not pages: the example tool's script and the nine drawings.
+export const modelProgramAssets = () => ({ [MODEL_PROGRAM.toolJs]: MODEL_PROGRAM_TOOL_JS, ...modelProgramArt() });
+
+/** The small example tool that tool-six runs right on the page: one line, one button, one result. */
+export function buildModelProgramTool() {
+  return assertPublic(`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Example tool · Pet Program Name</title>
+${wordScripts}
+<style>
+html,body{margin:0;background:transparent;color:#f4f8ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+main{padding:4px 0}
+p{margin:0 0 10px;color:#c3d5ef}
+ul{list-style:none;margin:0 0 12px;padding:0;max-width:420px}
+li{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid rgba(232,240,255,.35)}
+li span:last-child{color:#c3d5ef}
+button{border-radius:999px;border:1px solid #e8f0ff;background:rgba(255,255,255,.06);color:inherit;font:inherit;padding:4px 14px;cursor:pointer}
+button:hover{background:rgba(255,255,255,.1)}
+button:focus-visible{outline:2px solid #ffd84d;outline-offset:2px}
+output{display:inline-block;margin-left:10px;font-size:13px;color:#c3d5ef}
+</style>
+</head>
+<body>
+<main>
+<p>What the tool shows goes here: the tool's own page, working inside its tool box.</p>
+<ul>${['one', 'two', 'three'].map((n) => `<li><span>Result ${n}</span><span>value ${n}</span></li>`).join('')}</ul>
+<button type="button" id="run">Run</button><output id="said" aria-live="polite">Not run yet.</output>
+</main>
+<script src="${MODEL_PROGRAM.toolJs.slice(DIR.length + 1)}"></script>
+</body>
+</html>
+`, MODEL_PROGRAM.tool);
 }
 
 // ---------- Sources and writing ----------
@@ -1017,18 +1194,20 @@ export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).m
 
 export function spawnerFiles(src) {
   const pages = spawnerPages(src);
-  return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages) };
+  return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages),
+    [MODEL_PROGRAM.page]: buildPetProgramPage(modelProgramData(src)), [MODEL_PROGRAM.tool]: buildModelProgramTool() };
 }
 
 export function writePetProgramPages(root = '.') {
   const files = spawnerFiles(readSpawnerSources(root));
   mkdirSync(`${root}/${DIR}`, { recursive: true });
-  for (const [path, html] of Object.entries({ ...files, ...movedFiles() })) writeFileSync(`${root}/${path}`, html);
+  mkdirSync(`${root}/${MODEL_PROGRAM.art}`, { recursive: true });
+  for (const [path, html] of Object.entries({ ...files, ...movedFiles(), ...modelProgramAssets() })) writeFileSync(`${root}/${path}`, html);
   return Object.keys(files);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   process.chdir(fileURLToPath(new URL('..', import.meta.url)));
   const written = writePetProgramPages('.');
-  console.log(`Spawned ${written.length - 1} pet program pages and the list (${INDEX}).`);
+  console.log(`Spawned ${written.filter((p) => p.endsWith(`-${DATE}.html`) && p !== INDEX).length} pet program pages, the list (${INDEX}) and the Model Pet Program (${MODEL_PROGRAM.page}).`);
 }
