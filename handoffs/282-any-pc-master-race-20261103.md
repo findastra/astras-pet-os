@@ -83,3 +83,6 @@ Record the merges below.
   and pink like him also." The page colours are on branch `claude/pc-master-colours-20261106`
   (changes/pc-master-colours-20261106.md). Six other ideas for his look were shown to her as one generated board (not
   committed). She picked the tower he already is ("I like the original PC"); his draft art is not approved yet.
+- 2026-11-06: Astra's OK in chat, "Merge #293". Before merging: `main` had not moved since the branch was cut
+  (a729b436), #293's 4 checks passed, and a test merge with each open PR that touches the page CSS was clean (#276,
+  #278, #283, #287, #289, #292); #247 already conflicts with `main`. Merged by Claude Opus 5.5 right after this line.
