@@ -6,9 +6,11 @@
 <title>APC64 deck · Bass &amp; Biscuits</title>
 <!-- preview-my-apc64-tool (named apc64-deck-guide, then use-my-apc64-tool, until 2026-11-03), a native tool of Bass & Biscuits (Drum Dog), shown inside its tool box in L1.
      The APC64's top surface at its measured geometry (Akai's top view in the APC64 User Guide v1.0; body 371 x 272 mm).
-     Tap a pad to hear a drum; tap anything to see what it does. "Use my APC64" listens to the real pads (Web MIDI) and
-     plays the same drums in the browser, with no Ableton needed. Sounds are made in the browser (Web Audio), nothing
-     is downloaded or sent. Labels stay in this browser. Claude Opus 5.5 (claude-opus-5-5), 2026-11-02. -->
+     Tap a pad to hear a drum; tap anything to see what it does. Each 4x4 quarter plays its own kit: drag a kit's name
+     from apc64-drum-kit-tool onto a quarter and it loads on the real APC64 through Ableton (the Drum Dog add-on,
+     apps/drum-dog-ableton-20261105, on this PC only; "Load on my APC64" sends all four again). Sounds are made in the
+     browser (Web Audio); only the Drum Dog add-on on this PC gets them. Labels stay in this browser.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-02; four quarters and Ableton 2026-11-05. -->
 <style>
 :root{--bg:#12132b;--panel:#1b1d3a;--line:#27357a;--ink:#e8ecff;--dim:#a5aed6;--cyan:#2ef2ff;--pink:#ff4fd8;--lime:#b6ff3b;--amber:#ffc23b;--violet:#b98bff;
   font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
@@ -48,9 +50,9 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
 </head>
 <body>
 <div class="top">
-  <button type="button" id="midi">Use my APC64</button>
-  <span class="kitname"><b id="kit"></b></span>
-  <span id="midiState">Tap a pad to hear it.</span>
+  <button type="button" id="midi">Load on my APC64</button>
+  <span class="kitname" id="kit"></span>
+  <span id="midiState">Drag a kit’s name onto a quarter of the pads.</span>
 </div>
 <svg id="deck" viewBox="525 70 1370 1010" role="img" aria-label="Akai APC64"></svg>
 <div class="info" aria-live="polite">
@@ -70,10 +72,13 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   // ---- Drums: the kit picked in apc64-drum-kit-tool (shared drum-dog-drum-sounds-20261102.js) ----
   var S = window.DrumSounds;
   if (/[?&]kit=surprise\b/.test(location.search)) S.surprise();  // Deck Duck's "Surprise kit" Stream Deck button
-  var kit = S.currentKit();
-  // The kit's 16 pads are bottom row first, like the drum layout Live puts on the APC64; every 4x4 corner plays it.
+  // Four kits, one per 4x4 quarter (top-left, top-right, bottom-left, bottom-right): drag a kit's name from
+  // apc64-drum-kit-tool onto a quarter (Astra, 2026-11-05). Each kit's 16 pads are bottom row first, left to right.
+  var qk = S.quarters();
+  function quarterOf(r, c) { return (r <= 4 ? 0 : 2) + (c <= 4 ? 0 : 1); }
   function padIndex(r, c) { return ((8 - r) % 4) * 4 + (c - 1) % 4; }
-  function kitPad(o) { return kit.pads[padIndex(o.r, o.c)]; }
+  function kitOf(o) { return qk[quarterOf(o.r, o.c)]; }
+  function kitPad(o) { return kitOf(o).pads[padIndex(o.r, o.c)]; }
 
   // ---- The deck, at its measured geometry (units of 0.2757 mm, from Akai's top view) ----
   var C = [];
@@ -126,7 +131,7 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
     else if (o.poly) { o.k = el('polygon', { class: 'k', points: o.poly }, g); el('text', { class: 'name', x: o.tx, y: o.ty + 4, style: 'font-size:13px' }, g, o.name); o.lx = o.tx; o.ly = o.ty; }
     else {
       o.k = el('rect', { class: 'k', x: o.x, y: o.y, width: o.w, height: o.h, rx: 3 }, g); o.lx = o.x + o.w / 2; o.ly = o.y + o.h / 2;
-      if (o.kind === 'pad') { if (o.r >= 5 && o.c <= 4) o.padT = el('text', { class: 'padtxt', x: o.lx, y: o.ly + 5 }, g, ''); byPad[o.r + ',' + o.c] = o; }
+      if (o.kind === 'pad') { o.padT = el('text', { class: 'padtxt', x: o.lx, y: o.ly + 5 }, g, ''); byPad[o.r + ',' + o.c] = o; }
       else if (o.kind === 'fader') { for (var d = 0; d < 9; d++) el('circle', { class: 'dot', cx: o.x + o.w + 12, cy: o.y + 20 + d * 36, r: 3.5 }, g); el('text', { class: 'name', x: o.lx, y: o.y - 6, style: 'font-size:11px' }, g, String(o.num)); }
       else if (o.kind === 'screen') { o.k.style.fill = '#1e2a33'; }
       else if (o.name) { var lines = o.name.indexOf(' ') > 0 && o.name.length > 6 ? o.name.split(' ') : [o.name]; var t = el('text', { class: 'name', x: o.lx, y: o.ly + 4 - (lines.length - 1) * 5.5, style: o.big ? 'font-size:12px' : '' }, g); lines.forEach(function (ln, i) { el('tspan', { x: o.lx, dy: i ? 11 : 0 }, t, ln); }); }
@@ -139,12 +144,14 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   });
 
   function paintKit() {
-    kit = S.currentKit();
-    var kn = document.getElementById('kit'); kn.textContent = kit.name; kn.style.color = S.padColor(kit.pads[0], kit);
+    qk = S.quarters();
+    // The kit names, each in its own colour, in quarter order (top-left, top-right, bottom-left, bottom-right).
+    var kn = document.getElementById('kit'), seen = {}; kn.textContent = '';
+    qk.forEach(function (k) { if (seen[k.id]) return; seen[k.id] = 1; var b = document.createElement('b'); b.textContent = k.name; b.style.color = S.padColor(k.pads[0], k); b.style.marginRight = '10px'; kn.appendChild(b); });
     C.forEach(function (o) {
       if (o.kind !== 'pad') return;
       var p = kitPad(o), n = S.padName(p);
-      o.name = n; o.k.style.fill = S.padColor(p, kit); o.g.setAttribute('aria-label', n);
+      o.name = n; o.k.style.fill = S.padColor(p, kitOf(o)); o.g.setAttribute('aria-label', n);
       if (o.padT) { o.padT.textContent = n; o.padT.style.fontSize = (n.length > 6 ? 10.5 : 13) + 'px'; }
     });
     if (current && current.kind === 'pad') pick(current);
@@ -168,26 +175,53 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   drawLabels();
   paintKit();
 
-  // ---- The real APC64: play these drums when its pads are hit (Web MIDI; the browser asks first) ----
-  var midiBtn = document.getElementById('midi'), state = document.getElementById('midiState');
-  function onMsg(e) {
-    var s = e.data[0] & 0xf0, n = e.data[1], v = e.data[2];
-    if (s !== 0x90 || !v) return;
-    // Pads send notes 0-63 from the bottom-left, row by row; anything else still plays the kit by note.
-    var o = n < 64 ? byPad[(8 - Math.floor(n / 8)) + ',' + (n % 8 + 1)] : null;
-    if (o) { hit(o, v / 127); } else { S.playPad(kit.pads[n % 16], v / 127); }
-    state.textContent = 'Pad note ' + n;
-  }
-  midiBtn.addEventListener('click', function () {
-    S.audio();
-    if (!navigator.requestMIDIAccess) { state.textContent = 'This browser can’t hear the APC64. Try Edge or Chrome.'; return; }
-    navigator.requestMIDIAccess().then(function (a) {
-      var n = 0;
-      a.inputs.forEach(function (i) { if (/apc ?64/i.test(i.name)) { i.onmidimessage = onMsg; n++; } });
-      if (!n) { state.textContent = 'APC64 not found. Is it plugged in and on?'; return; }
-      midiBtn.classList.add('on'); midiBtn.textContent = 'APC64 connected'; state.textContent = 'Hit a pad on your APC64.';
-    }, function () { state.textContent = 'The browser said no. Allow MIDI for this page and try again.'; });
+  // ---- Drop a kit on a quarter: it shows here and loads on the real APC64 through Ableton ----
+  // The four quarters' outlines, shown while a kit is dragged over the board.
+  var QX = [856, 1211], QY = [181, 537], qBox = [0, 1, 2, 3].map(function (i) {
+    return el('rect', { x: QX[i % 2], y: QY[i >> 1], width: 350, height: 350, rx: 8, fill: 'rgba(46,242,255,.12)', stroke: '#2ef2ff', 'stroke-width': 6, 'stroke-dasharray': '18 10', 'pointer-events': 'none', visibility: 'hidden' });
   });
+  function quarterAt(e) {
+    var pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; pt = pt.matrixTransform(svg.getScreenCTM().inverse());
+    if (pt.x < 846 || pt.x > 1571 || pt.y < 171 || pt.y > 897) return -1;
+    return (pt.y < 537 ? 0 : 2) + (pt.x < 1211 ? 0 : 1);
+  }
+  function showQ(i) { qBox.forEach(function (b, j) { b.setAttribute('visibility', j === i ? 'visible' : 'hidden'); }); }
+  function isKit(e) { return Array.prototype.indexOf.call(e.dataTransfer.types, 'text/x-drum-kit') >= 0; }
+  svg.addEventListener('dragover', function (e) { if (!isKit(e)) return; var i = quarterAt(e); showQ(i); if (i >= 0) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; } });
+  svg.addEventListener('dragleave', function () { showQ(-1); });
+  svg.addEventListener('drop', function (e) {
+    var i = quarterAt(e), k = S.findKit(e.dataTransfer.getData('text/x-drum-kit')); showQ(-1);
+    if (i < 0 || !k) return; e.preventDefault();
+    S.setQuarter(S.QUARTERS[i], k.id); paintKit(); toAbleton([i]);
+  });
+
+  // Ableton gets the kits from the Drum Dog add-on (drum_dog, a control surface in Ableton's Link, Tempo & MIDI
+  // settings), which listens on this PC only and loads the sounds into its Drum Dog track, one quarter of pads per kit.
+  var ABLETON = 'http://' + ['127', '0', '0', '1'].join('.') + ':38771/kit', midiBtn = document.getElementById('midi'), state = document.getElementById('midiState');
+  function b64(buf) { var s = '', u = new Uint8Array(buf); for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+  function sendQuarter(i) {
+    var k = qk[i];
+    return Promise.all(k.pads.map(function (p) { return S.renderPad(p); })).then(function (wavs) {
+      var body = { quarter: S.QUARTERS[i], kit: { id: k.id, name: k.name }, pads: k.pads.map(function (p, n) {
+        return { name: S.padName(p), color: S.padColor(p, k), wav: wavs[n] ? b64(wavs[n]) : '' };
+      }) };
+      // text/plain keeps it a simple request (no preflight); the add-on reads the JSON.
+      return fetch(ABLETON, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(body) });
+    }).then(function (r) { return r.json(); }).then(function (a) { if (!a.ok) throw new Error(a.message || 'Ableton said no.'); return a; });
+  }
+  function toAbleton(list) {
+    var names = list.map(function (i) { return qk[i].name; }).join(', ');
+    state.textContent = 'Sending ' + names + ' to your APC64…';
+    list.reduce(function (p, i) { return p.then(function () { return sendQuarter(i); }); }, Promise.resolve())
+      .then(function () { state.textContent = names + ': on your APC64.'; })
+      .catch(function (err) {
+        state.textContent = err instanceof TypeError
+          ? 'Ableton isn’t listening. Open Ableton and pick Drum Dog as a Control Surface (Settings, Link, Tempo & MIDI).'
+          : String(err.message || err);
+      });
+  }
+  // After Ableton opens again, this puts all four kits back on the pads.
+  midiBtn.addEventListener('click', function () { qk = S.quarters(); toAbleton([0, 1, 2, 3]); });
 })();
 </script>
 </body>

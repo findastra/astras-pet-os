@@ -34,6 +34,9 @@ button,select{cursor:pointer}
 .kits{display:grid;grid-template-columns:repeat(auto-fill,calc(var(--u) * 377));gap:14px 18px;align-items:start;justify-content:center}
 .kit{display:flex;flex-direction:column;gap:4px}
 .kit .name{font-weight:700;color:var(--cyan);min-height:30px;display:flex;align-items:center}
+.kit .name{cursor:grab;gap:6px}
+.kit .name .grip{color:var(--dim);font-size:18px;line-height:1}
+.kit.add .name{cursor:default}
 .kit .name input{width:100%;font-weight:700;color:var(--cyan);padding:2px 8px}
 /* The 4x4, styled exactly as the board's pads are (preview-my-apc64-tool), in the board's own units. --u is one board
    unit in px: the board is 1370 units across the full width of its tool box, and this tool box is just as wide. */
@@ -101,7 +104,11 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
     var box = $('kits'); box.textContent = '';
     S.allKits().forEach(function (k) {
       var on = k.id === view, card = make('div', 'kit' + (on ? ' sel' : ''), box), name = make('div', 'name', card);
-      if (k.ready) name.textContent = k.name;
+      // The name is the handle: drag it onto a quarter of the board above to play this kit there and on the APC64.
+      name.draggable = true; name.title = 'Drag onto a quarter of the board';
+      name.addEventListener('dragstart', function (e) { e.dataTransfer.setData('text/x-drum-kit', k.id); e.dataTransfer.setData('text/plain', k.name); e.dataTransfer.effectAllowed = 'copy'; });
+      make('span', 'grip', name, '⠿');
+      if (k.ready) make('span', '', name, k.name);
       else {
         var inp = make('input', '', name); inp.maxLength = 40; inp.value = k.name; inp.setAttribute('aria-label', 'Kit name');
         inp.addEventListener('input', function () { var c = copy(kitOf(k.id)); c.name = inp.value.trim() || 'My kit'; S.saveMyKit(c); });
@@ -126,7 +133,7 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
   function drawEdit() {
     var ed = $('edit'), k = kitOf(view), p = k.pads[padIx]; ed.textContent = '';
     make('b', '', ed, k.name);
-    if (!p) make('span', 'dim', ed, 'Tap a pad.');
+    if (!p) make('span', 'dim', ed, 'Tap a pad. Drag a kit’s name onto the board to play it there.');
     else {
       var l1 = make('label', '', ed, 'Sound '), sel = make('select', '', l1);
       S.voices.forEach(function (v) { var o = make('option', '', sel, v); o.value = v; });
