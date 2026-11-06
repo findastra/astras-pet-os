@@ -1,10 +1,10 @@
 status: open
 for: farmer (any assistant working on astras-pet-os)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-09
-needs: PET-FILES.md "Adding a pet to the Cage", pets.json, scripts/generate-pets.mjs, handoffs/002-any-build-claude-bot.md
+needs: PET-FILES.md "Adding a pet to the hub", pets.json, scripts/generate-pets.mjs, handoffs/002-any-build-claude-bot.md
 ---
 ## Task
-Welcome a new pet to the Cage: **Claude Bot** (`claude-bot`), a small always-on-top
+Welcome a new pet to the hub: **Claude Bot** (`claude-bot`), a small always-on-top
 Windows control for Claude, like the Codex/ChatGPT desktop "Mini" pet. Astra asked for an
 orange face.
 
@@ -19,7 +19,7 @@ orange face.
    `npm run build`, look at `art/roster-sheet.png`, `npm run check`, `npm test`.
 
 ## Done when
-The pet shows in the Cage and ROSTER.md with nine draft moods, and checks pass.
+The pet shows in the hub and ROSTER.md with nine draft moods, and checks pass.
 The art stays a draft until Astra approves it.
 
 ## Return

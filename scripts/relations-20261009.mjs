@@ -24,12 +24,12 @@ export function buildRelations(registry) {
   out.push('| Level | Who | Owns | Saves by |', '|---|---|---|---|');
   out.push('| 1 | **Astra** | Approvals: new art (it costs money), a pet\'s job, anything in a card waiting on her | Answering a card, or telling an assistant |');
   out.push('| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on this hub |');
-  out.push('| 3 | **Each pet\'s repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `cage.submit` |');
+  out.push('| 3 | **Each pet\'s repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `hub.submit` |');
   out.push('| 4 | **Generated** | `ROSTER.md`, the README table, the Farmer\'s desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile\'s pet list | Never by hand: the build and the rounds rewrite them |', '');
   out.push('```mermaid', 'flowchart TD');
   out.push('  A(["Astra"]) -->|asks| S["Any assistant session"]');
   out.push('  S -->|creates or changes| P["Pet repo<br/>pet.json · README · handoffs/"]');
-  out.push('  P -->|"cage.submit in pet.json"| F{{"Friendly Farmer<br/>daily round"}}');
+  out.push('  P -->|"hub.submit in pet.json"| F{{"Friendly Farmer<br/>daily round"}}');
   out.push('  F -->|finds new pet repos| PL["pets.json pipeline"]');
   out.push('  PL -->|"register card + Astra OKs the art"| R["pets.json pets"]');
   out.push('  F -->|"self-audit on each pet\'s day"| ST["status/pets-status.json<br/>mood + bubble"]');
@@ -85,7 +85,7 @@ export function buildMoodKey(registry) {
   for (const m of ORDER) out.push(`| \`${m}\`${SKETCH[m] ? ` (${SKETCH[m]})` : ''} | ${key[m]} |`);
   out.push('');
   out.push('## Each pet', '');
-  out.push('A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).', '');
+  out.push('A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).', '');
   out.push('| Pet | Checks | How often | When it is curious it needs |', '|---|---|---|---|');
   for (const p of allPets(registry)) {
     const a = p.audit || {};

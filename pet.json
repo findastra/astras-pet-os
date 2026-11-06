@@ -8,7 +8,7 @@
   "runs_on": "Windows 10 and 11: the installer builds the desktop pets from source. The Farmer's desk and the System Map open in any browser. Node 20 or newer for builds and checks.",
   "entry": "apps/astras-pet-os-20261008.html",
   "status": "growing",
-  "cage": {
+  "hub": {
     "topic": "pet-app",
     "home": "README.md"
   },

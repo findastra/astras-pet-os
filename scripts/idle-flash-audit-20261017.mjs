@@ -272,12 +272,12 @@ for (const prog of catalog) {
 
   // A16 metadata vs registry.
   if (pet && reg) {
-    // A16: "🔵 A field the pet submitted itself (cage.submit) that the registry has not taken is a decision".
-    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job }, ...(pet.cage?.submit?.job ? { dot: BLUE } : {}) });
+    // A16: "🔵 A field the pet submitted itself (hub.submit) that the registry has not taken is a decision".
+    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job }, ...(pet.hub?.submit?.job ? { dot: BLUE } : {}) });
     if (reg.status && pet.status && reg.status !== pet.status) add('A16', 'Incorrect', `pet.json status "${pet.status}" differs from the registry "${reg.status}".`);
     if (reg.audit && !pet.audit) add('A16', 'Missing', 'pet.json has no audit block (the registry has one).', { fix: { type: 'petjson-audit', audit: reg.audit } });
   }
-  if (pet?.cage?.repository && /findastra-pet-apps/.test(pet.cage.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
+  if (pet?.hub?.repository && /findastra-pet-apps/.test(pet.hub.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
 
   // A17 git: unmerged branches and the local copy.
   const branches = gh(`repos/${OWNER}/${meta.name}/branches?per_page=100`) || [];

@@ -57,7 +57,7 @@ Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-11 to 2026-10-12:
    ```
    Generate, `npm run build`, look at `art/roster.png`, `npm run check`, `npm test`.
 4. Build the real job: what "manages Astra's Infinite Pole" means. Ask Astra (for example, tracking
-   world uploads, builds or to-dos), then plan it as a PetOS pet (PLAN.md phases). No new Cage features.
+   world uploads, builds or to-dos), then plan it as a PetOS pet (PLAN.md phases). No new old pets page features.
 
 ## Done when
 `findastra/pole-puff` exists with these files, Pole Puff is in the pipeline, and `drafts/pole-puff/` is gone.

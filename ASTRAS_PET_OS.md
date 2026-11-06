@@ -10,10 +10,10 @@
 >   L2 and followed at L3 ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)).
 > - 2026-10-19: **Clicking every button on the farm's pages is The Farm's job, not Browser Bat's.** The Friendly Farmer's native tool `click-check` (`the-farm-v1.0-click-check-v1.0`, `npm run click-check`) clicks every button and link on the pet program pages and today's apps and says which go nowhere, land on a dead end or go to the wrong place, one row per cause with the file to fix. The Farm makes those pages, so it checks them; Browser Bat keeps the sites outside the farm (the Browser Bat line below says so).
 > - 2026-10-19: **Native programs, native tools, native tricks** ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)). Everything a pet program owns is a native program (opened or run on its own), a native tool (code run with no AI) or a native trick (steps its AI follows). **Only programs are drawn on the System Map**; tools and tricks are listed on their pet program's card, in sections that fold, and every one is a row of the registry table in TOOLS-AND-TRICKS.md. Startup Star and the System Map are native programs of The Farm (this replaces "tool" for them in the 2026-10-13 and 2026-10-14 amendments below).
-> - 2026-10-18: **The Cage is gone, not just retired.** `cage.html`, `cage-data.js` and the old desktop Farmer (the Farmer dock) are removed, with their 2026-10-08 releases retired. **The installer zip on each release is the one download** ([INSTALL.md](INSTALL.md)): the installer exists, and beta testers and their AI install with it (this replaces "Beta: there is no installer yet", 2026-10-14).
+> - 2026-10-18: **The old pets page is gone, not just retired.** the old pets page, its data file and the old desktop Farmer (the Farmer dock) are removed, with their 2026-10-08 releases retired. **The installer zip on each release is the one download** ([INSTALL.md](INSTALL.md)): the installer exists, and beta testers and their AI install with it (this replaces "Beta: there is no installer yet", 2026-10-14).
 > - 2026-10-18: **Tricks are owned at L2 and followed at L3.** A trick is a skill the pet program owns (its repo, its page's L2 module, Skill Scout); only the AI in the seat can carry it out. A **harness skill** belongs to the seat (Claude Code or Codex), not to a pet: section 8.6's development `SKILL.md`, where a trick is the runtime one. For security, a trick's text holds nothing; only the grants on the tools it uses do. The chart: [TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md#the-chart-what-runs-and-how-security-sees-it). This corrects "a skill its agent has learned" (2026-10-14).
 > - 2026-10-17: **Rings say where things live; R W X lives on grants** ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)). A ring grants nothing. Every grant names who may read, write or run which things, and says whether it is **enforced**, **written only** or **planned**. The System Map shows them on every card. This replaces the R W X tag on each ring (2026-10-13).
-> - 2026-10-14: **The Farmer, kept simple:** the **Friendly Farmer** (pet program icon) and **The Farm** (his pet program), nothing more. Everything else he does is a tool of The Farm: the System Map, Startup Star, broken-tools-on-the-farm, the daily rounds, the profile round and the seed-suggester. "The Farmer's desk" is The Farm's page; "the Cage" and the "Farmer dock" are retired names.
+> - 2026-10-14: **The Farmer, kept simple:** the **Friendly Farmer** (pet program icon) and **The Farm** (his pet program), nothing more. Everything else he does is a tool of The Farm: the System Map, Startup Star, broken-tools-on-the-farm, the daily rounds, the profile round and the seed-suggester. "The Farmer's desk" is The Farm's page; "the hub" and the "Farmer dock" are retired names.
 > - 2026-10-14: **Farmhands:** AI models are farmhands, not pets: they sit in the seat and drive the pets, each with its own icon. Only farmhands on the allowlist get keys, and trust is earned in levels (Claude and OpenAI as helpers now; Astra's local farmhand earning trust; AI Astra's mind limited to her own program and the VRChat chatbox). **Recovery:** a shutdown is containment; **Rescue Retriever** (pet program **The Recovery Room**) rebuilds and restarts the farm in the safe order ([security model](docs/security-model-20261018.md)). The Friendly Farmer suggests seeds from the programs installed on the PC, and every example pet offers "Make one like this for me".
 > - 2026-10-14: **L1 to L4, redrawn:** L1 **Programs** (the third-party programs it runs, plus the programs and tools it creates), L2 **Pet program** (its dashboard and runtime), L3 **Agentic harness** (an AI model sits in the harness and becomes the agent), L4 **Verified human**. **Beta:** there is no installer yet; the README tells beta testers and their AI to read, explore and join the community, not to install or run anything. The Kennel's repo is **`the-kennel`**.
 > - 2026-10-14: **Tools and tricks** ([TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)): a tool is code a pet program owns; a trick is a skill its agent has learned, kept by Skill Scout. Shared tools have one owner and **grants** (folders, R W X, limits) from Iron Gates. Third-party tools and tricks come through **the Shed**. Every agent, internal or external, needs a **short-lived key** per session from Iron Gates, traceable to agent, model, person, device and place; API Fairy shows them in her mushroom circle. New pet: **Pet Police Officer** (pet program **The Police Station**) watches every write and key use, switches things OFF and raises **the alarm** everywhere. API Fairy's pet program is **API Fairy Ring**. On first install, Astra's PetOS opens to the System Map and the Friendly Farmer teaches **How to Take Care of Your Farm!**
@@ -23,7 +23,7 @@
 > - 2026-10-13: **Protection rings** ([PROTECTION-RINGS.md](PROTECTION-RINGS.md)). Everything inside the harness is an animal, and agents can only control animals; nobody becomes an animal without L4. Changes follow the maker-checker rule: a maker agent proposes, a read-only checker agent verifies, L4 approves.
 > - 2026-10-13: **The Farm is the Friendly Farmer's pet program** (pet-program-1) and the core. It is a platform that runs on Windows, not an operating system (this replaces "the native OS" below). **Every other program a pet program owns is a tool** of it, with the same ring and permissions; Startup Star and the System Map are tools of The Farm.
 > - 2026-10-13: **Names carry versions with a `v`:** `pet-program-3-v1.0-icon-2-v1.0`. Pet program names come from [docs/naming-20261013.md](docs/naming-20261013.md); unassigned ones are `pet-program-#`. New names: Am I a Ghost? (Gone Ghost), Iron Gates (Gatekeeper Goddess), Raspberry Pi Maker (Raspberry Pi Berry).
-> - 2026-10-12: **Astra renamed the development repo to `astras-pet-os`** (old links redirect). The Cage is retired: it is no longer the Farmer's job.
+> - 2026-10-12: **Astra renamed the development repo to `astras-pet-os`** (old links redirect). The old pets page is retired: it is no longer the Farmer's job.
 > - 2026-10-12: **The pets are intelligent apps.** When talking about all of them together, just say **the pets** (never "the herd"). **The Friendly Farmer organizes the pets.** **The Farm is the native OS** of Astra's PetOS, the first-party home where the pets live and run; the Farm website is its face. **The Kennel is the community lab**, where other people's pets are built, tried, reviewed and adopted. Each pet grows through three levels of intelligence: program, runtime, agentic harness ([INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)). The 3D diagram is **Astra's PetOS System Map**, also called the 3D PFD.
 > - 2026-10-12: **The project's title is "Astra's PetOS".** In files, folders, code and identifiers it is written **`ASTRAS_PET_OS`** (ASTRAS with the S, an underscore before PET and before OS), never `ASTRA_PET_OS`, `ASTRA_PETOS` or `PetOS` on its own. This document lives at the top of the repo as `ASTRAS_PET_OS.md` (moved from `docs/architecture/` on 2026-10-12). Where the text below says to display `ASTRAS_PET_OS` as the product name, show "Astra's PetOS" to people instead.
 > - 2026-10-12: **Tools are not pets.** A tool does a job but has no face, mood or intelligence levels. **Startup Star** (the tray Star and desktop host) is the Friendly Farmer's tool.
@@ -51,7 +51,7 @@
 ### Brand and distribution
 
 - **ASTRAS_PET_OS** is the umbrella consumer product and developer platform; technically it is a local-first, cross-device, distributed multi-agent operating *environment* running on top of Windows/Linux host OSes, not a replacement kernel.
-- **`astras-farm`** is the first-party home: official Astra-maintained pets, the user's installed pets, Farmer's management interface, and a simple responsive Farm website. Every pet card has an always-visible fast text box. No browser-based Cage, simulated habitat, or pet roaming in a browser.
+- **`astras-farm`** is the first-party home: official Astra-maintained pets, the user's installed pets, Farmer's management interface, and a simple responsive Farm website. Every pet card has an always-visible fast text box. No browser-based pets page, simulated habitat, or pet roaming in a browser.
 - **`astras-kennel`** is the community pet adoption catalog: community-submitted repositories, searchable metadata, adoption/install flow, compatibility and security status, and maintainer attribution. A Kennel pet may later be proposed for migration into the official Farm only through explicit consent, licensing/provenance review, security checks, and a deliberate maintenance transfer; never automatic.
 - **Astra Pet SDK** supplies common contracts, manifests, templates, runtime harness, task/inbox infrastructure, tool adapters, permissions, versioning, and testing scaffolds.
 - Users pick **only the pets they want**. Shared core security/identity/messaging services remain framework responsibilities, not optional bypassable controls.
@@ -215,7 +215,7 @@ Validation milestones: real end-to-end demo; 10–20 external users who install 
 
 Astra's PetOS is a local-first, multi-device ecosystem of independent utility applications with optional proactive AI agents, each represented by a pet.
 
-**The Farm is a lightweight, responsive website**, not a visual Cage, game, or simulated pet habitat. It displays all pets as cards. **Under every pet is an always-visible, fast text box** for the user to submit recommendations, questions, tasks, and standing-goal suggestions. The Farm must work from **Android, iPad, iPhone, Windows, and future authorized devices and servers**. Responsive browser access is mandatory; native mobile apps are optional later.
+**The Farm is a lightweight, responsive website**, not a visual pets page, game, or simulated pet habitat. It displays all pets as cards. **Under every pet is an always-visible, fast text box** for the user to submit recommendations, questions, tasks, and standing-goal suggestions. The Farm must work from **Android, iPad, iPhone, Windows, and future authorized devices and servers**. Responsive browser access is mandatory; native mobile apps are optional later.
 
 **Friendly Farmer is a pet like every other pet.** He has his own application, runtime, harness, memory, schedules, standing goals, permissions, and Program Manager registration. His domain is coordinating, maintaining, and improving the pets. He operates the Farm website. He is not the entire framework, not the sole AI brain, and not required for other pets to execute their work.
 
@@ -225,7 +225,7 @@ Astra's PetOS is a local-first, multi-device ecosystem of independent utility ap
 
 **Pets roam on the actual Windows desktop, across monitors**, not within the Farm website. The Star tray controls desktop visuals independently of the background workers.
 
-**Retire the Cage as a product concept.** Audit its code and reuse useful components, but do not continue building a browser enclosure or animated virtual habitat.
+**Retire the old pets page as a product concept.** Audit its code and reuse useful components, but do not continue building a browser enclosure or animated virtual habitat.
 
 ## 2. Exact conceptual distinctions
 
@@ -286,7 +286,7 @@ This is a logical architecture, not a mandate for a single process or machine. D
 
 ## 4. The Farm: required product experience
 
-**No Cage, no browser roaming, no farm simulation.** Prioritize usability and speed.
+**No pets page, no browser roaming, no farm simulation.** Prioritize usability and speed.
 
 ### 4.1 Main screen
 - Header: The Farm, search/filter, pet health summary, access to Farmer.
@@ -444,7 +444,7 @@ Pets roam on the **actual Windows desktop**, across monitors. Windows system tra
 - Triple-click: organized formation vs free roam.
 - Right-click: management menu.
 
-Use mutually exclusive click recognition with appropriate timing. Multi-monitor/DPI-aware, draggable transparent mascots, optional per-pet visibility, verified live mood/status, open real program and console. Hiding or closing desktop visuals must not stop workers. Do not revive Cage.
+Use mutually exclusive click recognition with appropriate timing. Multi-monitor/DPI-aware, draggable transparent mascots, optional per-pet visibility, verified live mood/status, open real program and console. Hiding or closing desktop visuals must not stop workers. Do not revive the old pets page.
 
 ## 12. Security and operational correctness
 
@@ -491,13 +491,13 @@ This is a proposed layout, not a command to move everything. Keep one canonical 
 
 ## 14. Migration phases
 
-**Phase 0 — Audit:** inspect repo, instructions, current Cage/Farm, Farmer, Star, pet registry, independent workers, agents, APIs, tests, dependencies. Inventory working features, gaps and migration risks. Present plan before foundational rewrite.
+**Phase 0 — Audit:** inspect repo, instructions, current old pets page/Farm, Farmer, Star, pet registry, independent workers, agents, APIs, tests, dependencies. Inventory working features, gaps and migration risks. Present plan before foundational rewrite.
 
 **Phase 1 — Contracts:** stable pet/program/project identities, versioned schemas, health, permissions, task/message formats, contract tests.
 
 **Phase 2 — Program Manager:** real URLs/native launchers, adapters, capabilities, project grouping, Farmer's own registration.
 
-**Phase 3 — Farm web UI:** replace Cage product concept with responsive directory and always-visible per-pet input. Durable submission, device-aware Open Program, real status. Test on mobile/tablet.
+**Phase 3 — Farm web UI:** replace the old pets page product concept with responsive directory and always-visible per-pet input. Durable submission, device-aware Open Program, real status. Test on mobile/tablet.
 
 **Phase 4 — Independent workers:** durable scheduler, inbox, task store, health, crash recovery; prove worker continues while Farm and Farmer are closed.
 
@@ -505,7 +505,7 @@ This is a proposed layout, not a command to move everything. Keep one canonical 
 
 **Phase 6 — Inter-agent:** Deck Duck ↔ Patch Cat structured requests and bounded collaboration; Farmer observes without acting as mandatory proxy.
 
-**Phase 7 — Windows embodiment:** tray Star gestures, real desktop roaming, verified moods; no browser Cage.
+**Phase 7 — Windows embodiment:** tray Star gestures, real desktop roaming, verified moods; no browser pets page.
 
 **Phase 8 — Additional hosts and pets:** authenticated home server/Pi deployment, remote routing, Android/iOS/iPad usability, incremental migration, rollback.
 
@@ -519,7 +519,7 @@ This is a proposed layout, not a command to move everything. Keep one canonical 
 
 **D. Mobile and tablet:** Authenticated Android, iPhone and iPad can open Farm securely, submit suggestions, view tasks/approvals, open web targets, and see honest handling of Windows-only apps. No public unauthenticated control API.
 
-**E. Windows desktop:** Star single/double/triple click behavior, multi-monitor roaming, hide/close visuals without stopping work. No browser Cage.
+**E. Windows desktop:** Star single/double/triple click behavior, multi-monitor roaming, hide/close visuals without stopping work. No browser pets page.
 
 **F. Safety:** Unapproved destructive operation blocked and audited; permitted low-risk diagnostic succeeds; prompt injection does not bypass trusted permissions; task budgets and delegation depth enforced.
 
@@ -529,13 +529,13 @@ Mock screens alone do not satisfy acceptance. Provide reproducible test evidence
 
 1. Read this entire document and inspect the real `findastra/astras-pet-os` checkout.
 2. Read `CLAUDE.md`, `AGENTS.md`, all existing skills and architecture docs.
-3. Audit Cage, Farmer, Project Parrot, desktop Star, Farm UI, pet runtimes, program links and agents. Do not assume prior claims reflect the code.
+3. Audit the old pets page, Farmer, Project Parrot, desktop Star, Farm UI, pet runtimes, program links and agents. Do not assume prior claims reflect the code.
 4. Produce `AUDIT.md`, `GAP-ANALYSIS.md`, and `PLAN.md` (use repository-consistent paths).
-5. Explicitly map how to retire Cage without losing reusable code.
+5. Explicitly map how to retire the old pets page without losing reusable code.
 6. Plan the **first vertical slice**: Program Manager registers Farmer and Deck Duck; responsive Farm shows both with real links and durable quick-input submissions; works on phone/tablet through authenticated private access.
 7. Define contracts and divide file ownership between Claude and Codex before parallel edits.
 8. Update `CLAUDE.md`, `AGENTS.md` and relevant skills consistently with one canonical architecture document.
 9. Ask for review before destructive restructuring, forced pushes, or major foundational merges.
 10. Implement in small testable increments; demonstrate real behavior and truthful status.
 
-**NORTH STAR:** The Farm is a simple multi-device website. Friendly Farmer is an independently operating pet that organizes the pets. The neutral Program Manager manages Farmer too. Every pet connects to real programs, can receive fast suggestions, and can proactively discover and delegate authorized work. The mascots roam on Windows, never inside a Cage.
+**NORTH STAR:** The Farm is a simple multi-device website. Friendly Farmer is an independently operating pet that organizes the pets. The neutral Program Manager manages Farmer too. Every pet connects to real programs, can receive fast suggestions, and can proactively discover and delegate authorized work. The mascots roam on Windows, never inside a browser page.
