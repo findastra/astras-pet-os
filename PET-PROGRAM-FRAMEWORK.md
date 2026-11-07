@@ -110,12 +110,18 @@ blueprint color, blue and white and yellow. Like, make it very classical"; raspb
 paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
 changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
 boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
-midnight indigo). Every group is a **tool panel**: a thin bordered box with its label
+midnight indigo), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
+deck, answer 6: A); Data Chip's phone on Data Dealer keeps his neon and LCD greens (item 10). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
 or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
 window narrows, 16px on a phone. CSS inches are not real inches on every screen.
-**Every tool panel can collapse**, so the page works on a phone. The tool, notes and connection boxes from the list below
+**Every tool panel can collapse**, so the page works on a phone. **The page stays wide** (Astra, 2026-11-03, Flash
+Audit deck, answer 7: A): up to 1180 px inside the frame, with no sideways scroll on any screen (Platform Platypus's
+`fit-check`). **Every panel ends with More details**, folded behind its arrow (2026-10-22), the same four lines in the
+same order (2026-11-03, answer 8: A): **How it works**, **Where it comes from**, **Your rules** (her dated decisions for
+it, with a link to this section) and **Not built yet**. The two top squares and the chat show only the arrow until it
+is opened (2026-10-23: no words in the squares); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
@@ -185,7 +191,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | Tool panel | Level | What goes in it |
    |---|---|---|
    | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list). Nothing else: the update history is in L4's Pet ID (2026-10-24, answer 4), and the pets it talks to are in the friends list. |
+   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list), and so are **`play-with` and `care-for`**, the Play with and Care for tutorials every pet has, off until L3 can run them in the chat (2026-11-03, Flash Audit deck, answer 4: A). Nothing else: the update history is in L4's Pet ID (2026-10-24, answer 4), and the pets it talks to are in the friends list. |
    | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | Only L3 talking with you about this pet program (Astra, 2026-10-24: "L3 control panel should be about L3 to L4 discussions, regarding the pet program only"), in three sections of pills: **L3 asks you** (an update the update audit found waits for your yes, with the yellow light) · **suggestions for you** (a weekly trick) · **the seat** (which farmhand, or empty). |
    | **`<pet>-L4-tool-panel`** | L4 You, the verified human | Five rounded tool boxes that fold to their name, each with its paired lights and a lowercase name (Astra, 2026-10-22; round since 2026-10-24: "control panels have tools and toolsets in side them"): **`approvals-waiting-on-you`**, each with approve and decline · **`grants`**, what grants are (permissions: what each level may read, write and run) and a pointer to their own panel (item 12 below) · **`keys`** agents hold for it (API Fairy shows them) · **`<pet>-required-maintenance`**, items marked requires maintenance and their vet-clinic tickets · **`pet-id`**, the Pet ID (item 9 below). |
 
@@ -237,8 +243,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | awake | `blink` | the program is open and you have interacted with it recently | the open page (to build) |
    | sleepy | `sleep` | it is running in the background | the Farmer's round (nothing else applies) |
 
-   Awake uses the `blink` mood frame, whose eyes are shut; until a frame with open eyes is drawn for awake, the page
-   shows the idle frame blinking every few seconds.
+   Awake always shows its own drawing, the `blink` mood frame with its two yellow twinkles (Astra, 2026-11-03, Flash
+   Audit deck, answer 1: A), in this panel and in the cyberhome; nothing blinks (2026-10-24: "just want to see it
+   static"). The Model Pet Program's awake drawing has open eyes; a real pet's keeps its own until Astra OKs new art.
 8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. **One and two clicks are the
    same for every pet; from three clicks on, each can be assigned a tool** (Astra, 2026-10-18, which matches Flash Audit
    A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
@@ -260,7 +267,11 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
     was fully interactive"; 2026-11-03: "the way that it works on data dealer is the only one that works right. So this
     concept combined with that"). The `<pet>-chat` tool, a pill with its paired lights, its name, a count of what
     needs you and the open button, opens the window at once (2026-10-19) in its square `<pet>-chat-panel` box
-    (2026-10-20: "no round edges!!"):
+    (2026-10-20: "no round edges!!"). **Data Dealer's is Data Chip's own phone** (2026-11-03, Flash Audit deck, answer
+    2: "i like the phone on data dealer, its program needs its own chat"): the open button is the little yellow phone
+    from Data Dealer's dashboard, his face from its original drawing on the screen, and the window opens as the phone,
+    its screens LCD green, with "DATA CHIP>" before his lines. It is the same chat as every pet's; every other page
+    keeps the arrow and the plain window. The window:
     - **The pet and its seat:** its face, its name, and who is in its seat right now (L3), or "Seat: empty".
     - **Needs you:** what waits on you on this page (L4's approvals, what L3 asks you, tools with an issue), each a
       link to its place.
@@ -337,7 +348,7 @@ report broken.
   people (WCAG 2.1, success criterion 1.4.1). Grey is decided for the maintenance light only, "not checked yet"; the
   ON/OFF light is never grey (Astra, 2026-10-21), so a third-party program missing from a PC needs another way to say
   so (proposed before: grey, which no longer fits).
-- **The order of the moods** above, and a frame with open eyes for awake.
+- **The order of the moods** above, and awake drawings with open eyes for the real pets (new art, hers to OK).
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 
 **One source for the page:** each pet's `pet.json` holds an `intelligence_levels` block, with `L1` (`third_party`,
