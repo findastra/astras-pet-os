@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget, movedFiles } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets } from '../scripts/pet-program-pages-20261018.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -29,7 +29,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
     assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
   }
-  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS]));
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS]));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -163,8 +163,9 @@ test('headings count what they hold, and the pet\'s own things are native (Astra
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   assert.ok(unicorn.includes(`<h3>3rd party programs · ${d.thirdParty.length}</h3>`), '3rd party programs · #');
   assert.ok(unicorn.includes(`<h3>Native programs · ${d.programs.length}</h3>`), 'Native programs · #');
-  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22).
-  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0)}</h3>`), 'Native tricks · #');
+  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22), and play-with and care-for are
+  // two more on every page (2026-11-03).
+  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0) + 2}</h3>`), 'Native tricks · #');
   assert.ok(!unicorn.includes('<h3>Schedule</h3>') && unicorn.includes('>self-audit</span> <span class="tag cadence"'), 'no Schedule list: the self-audit is a trick with its cadence');
   for (const p of pages) assert.ok(!/<h3>Your (programs|tools|tricks|other tools)/.test(files[pagePath(p.repo)]), `${p.repo}: native, not "your"`);
 });
@@ -245,21 +246,25 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
       assert.match(p, /<details class="pill-more"( open)?><summary aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the pill opens`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
-      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
-      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"'), `${d.repo}: open only to show a picture`);
+      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19), or one that
+      // works inside its own tool box (Astra, 2026-11-02, use-my-apc64-tool: "that board needs to be within a tool")
+      // A tool in its own tool box may start closed (start_closed) so a page with several stays short (2026-11-02).
+      const open = p.includes('<details class="pill-more" open>');
+      if (p.includes('class="pill-picture"')) assert.ok(open, `${d.repo}: a live picture starts open`);
+      if (open) assert.ok(p.includes('class="pill-picture"') || p.includes('class="pill-tool"'), `${d.repo}: open only to show a picture or a working tool`);
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
   // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
-  // 2026-10-22 its panel is its own ("astras-photostar-panel is its own and the tool is listed too just separately"),
-  // and its pill in L1 points there. Since 2026-10-24 a pet's own panels come first, before the four levels.
+  // 2026-11-02 it works inside its own tool box in L1, like every tool that works on the page ("No special panels").
   const levelsStart = puffer.indexOf(">portfolio-puffer-intelligence-levels-panel<");
   const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
-  const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
-  assert.ok(at > -1 && at < levelsStart, "its own panel, before the four levels");
-  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  const at = puffer.indexOf('<div class="pill-tool" id="astras-star-window">');
+  assert.ok(at > levelsStart && at < levelsEnd, "in its own tool box in L1");
+  assert.ok(!puffer.includes('astras-star-window-tool-panel'), "no panel of its own");
+  assert.match(puffer.slice(at), /^<div class="pill-tool" id="astras-star-window"><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-control-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
-  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
+  assert.match(puffer, /<a class="button" href="https:\/\/findastra\.github\.io\/astras-star-window\/" target="_blank" rel="noopener">Open it full screen<\/a>/, 'its own page opens full screen');
   const damsel = pages.find((d) => d.repo === 'discord-tower');
   const html = files[pagePath(damsel.repo)];
   for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/discord-tower/tree/main/tools/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
@@ -438,4 +443,65 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.match(css, /\.top \{ --square: 180px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
+});
+
+// Astra, 2026-11-02: "the editorial status panel on the one we're working on, but we don't have it on the live one...
+// That way I know if I'm looking at the most recent push or if I'm looking at the one I'm working on."
+test('the editorial status panel marks the working copy and is hidden on the live site', () => {
+  const css = readFileSync(new URL(`../apps/pet-programs/${ASSETS.css}`, import.meta.url), 'utf8');
+  assert.match(css, /html\.live-site \.panel\.editorial \{ display: none; \}/, 'the stylesheet hides it on the live site');
+  const check = readFileSync(new URL('../apps/live-site-20261102.js', import.meta.url), 'utf8');
+  assert.ok(check.includes('/\\.github\\.io$/i.test(location.hostname)'), 'the live site is any <owner>.github.io address');
+  assert.ok(LIVE_CHECK.includes('live-site-20261102.js'), 'every page loads the live check');
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const head = html.slice(0, html.indexOf('</head>'));
+    assert.ok(head.includes(LIVE_CHECK), `${d.repo}: the live check is in <head>`);
+    assert.ok(head.indexOf(LIVE_CHECK) < head.indexOf('<link rel="stylesheet"'), `${d.repo}: the live check runs before anything is drawn`);
+    const ed = html.indexOf('-editorial-status-panel<');
+    assert.ok(ed > 0 && ed < html.indexOf('<header class="top">'), `${d.repo}: the editorial status panel comes first`);
+    assert.ok(html.slice(ed, ed + 600).includes('<p class="working-copy">Working copy: not the live site.</p>'), `${d.repo}: it says it is the working copy`);
+  }
+});
+
+// Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
+// all other reccd").
+test('every panel ends with More details, the same four lines in order; the two squares and the chat show only the arrow', () => {
+  const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    assert.equal((html.match(lines) || []).length, PANELS.length, `${d.repo}: one More details with four lines per panel`);
+    assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 3, `${d.repo}: the cyberhome, the System Map box and the chat show the arrow only`);
+    for (const square of ['cyberhome', 'system-map']) {
+      const start = html.indexOf(`<details class="panel ${square}"`);
+      assert.ok(html.slice(start, html.indexOf('</details>\n', html.indexOf('about arrow-only', start)) + 10).includes('about arrow-only'), `${d.repo}: ${square}'s arrow is inside its square`);
+    }
+  }
+});
+
+test('Data Dealer\'s chat is Data Chip\'s yellow phone; every other pet keeps the arrow', () => {
+  const dd = files[pagePath('data-dealer')];
+  assert.match(dd, /<aside class="chat chat-phone" aria-label="data-chip-chat-panel" style="--phone-name: 'DATA CHIP'">/);
+  assert.match(dd, /<button type="button" class="chat-open" id="chat-open"[^>]*><span class="phone-mini" aria-hidden="true"><span class="phone-screen"><svg class="chip-face"/, 'the little phone is the open button');
+  assert.match(dd, /<div class="chat-head"><span class="phone-screen"><svg class="chip-face"/, 'his face on the phone\'s screen');
+  for (const id of ['chat-panel', 'chat-log', 'chat-text', 'chat-send', 'chat-push', 'chat-new', 'chat-seat']) assert.ok(dd.includes(`id="${id}"`), `the phone is the same chat: #${id}`);
+  for (const d of pages.filter((p) => p.repo !== 'data-dealer')) assert.ok(!files[pagePath(d.repo)].includes('chat-phone'), `${d.repo} has no phone`);
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /\.chat-phone \{ --neon: #d9e25a;/, 'Data Dealer\'s own neon');
+  assert.match(css, /\.chat-phone \.chat-log li\.pet::before \{ content: var\(--phone-name\) "> "/, 'DATA CHIP> before his lines');
+});
+
+test('awake shows its own drawing with the twinkles; L2 has play-with and care-for, off until L3 runs them', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const awake = html.slice(html.indexOf('<figure class="mood" data-mood="blink">'));
+    const pic = awake.slice(0, awake.indexOf('</figure>'));
+    const own = d.art.frames.blink || d.art.frames.idle;
+    if (own) assert.ok(pic.includes(`src="../../${own}"`), `${d.repo}: awake shows ${own}`);
+    assert.ok(!html.includes('awake-faces'), `${d.repo}: awake is no longer the idle face`);
+    const l2 = html.slice(html.indexOf(`${d.petSlug}-L2-control-panel`), html.indexOf(`${d.petSlug}-L3-control-panel`));
+    for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
+  }
+  const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
+  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
 });

@@ -13,6 +13,11 @@
   font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg)}
+/* Inside apc64-drum-kit-tool's tool box on Bass & Biscuits' page: the box shows through, no scroll bar. */
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:4px 0 8px}
+html.in-tool h1,html.in-tool .solo{display:none}   /* the deck is right on the same page */
 main{max-width:980px;margin:0 auto;padding:20px 16px 48px}
 h1{margin:0 0 10px;color:var(--cyan);font-size:1.6rem}
 .bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -36,6 +41,7 @@ button.main{border-color:var(--lime);color:var(--lime)}
 .row label{color:var(--dim)}
 .dim{color:var(--dim);font-size:.9rem}
 </style>
+<script src="drum-dog-in-tool-20261102.js"></script>
 </head>
 <body>
 <main>
@@ -43,7 +49,7 @@ button.main{border-color:var(--lime);color:var(--lime)}
 <div class="bar">
   <button type="button" class="main" id="surprise">Surprise me</button>
   <button type="button" id="newKit">New kit</button>
-  <a href="drum-dog-apc64-deck-20261102.html"><button type="button">Play on the APC64 deck</button></a>
+  <a href="drum-dog-apc64-deck-20261102.html" class="solo"><button type="button">Play on the APC64 deck</button></a>
 </div>
 <div class="kits" id="kits"></div>
 

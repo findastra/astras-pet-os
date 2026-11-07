@@ -18,4 +18,11 @@ New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'bin') | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Desktop pets build failed. Quit the desktop pets before rebuilding if the executable is in use.' }
 & $petsCompiler @petsArgs '/target:exe' ('/out:' + $petsCheck) $petsSource $petsTracker
 if ($LASTEXITCODE -ne 0) { throw 'Desktop pets diagnostic build failed.' }
+# The pet chat helper (card 283), which the star starts at sign-in. A running helper keeps its program in use, so its
+# build failing is a warning, never a failed star build: stop it (Pet chat, then Stop pet chat) and build again.
+$chatSource = Join-Path $PSScriptRoot 'scripts\pet-chat-helper-20261103.cs'
+$chatOutput = Join-Path $PSScriptRoot 'bin\pet-chat-helper-20261103.exe'
+$chatArgs = @('/nologo','/platform:x64','/optimize+','/target:winexe','/reference:System.dll','/reference:System.Core.dll','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll')
+$chatSaid = & $petsCompiler @chatArgs ('/out:' + $chatOutput) $chatSource
+if ($LASTEXITCODE -ne 0) { Write-Warning ("The pet chat helper was not built (is it running?): " + ($chatSaid -join ' ')) }
 Write-Output $petsOutput

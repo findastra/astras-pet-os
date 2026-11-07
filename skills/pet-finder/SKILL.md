@@ -31,6 +31,7 @@ node scripts/pet-finder-20261016.mjs --local "%USERPROFILE%\Documents\Astra's Pe
 | `no-repo` | A listed pet whose repo is not on GitHub, so the profile leaves it out | Fine for seeds; otherwise find or push the repo |
 | `name-mismatch` | pet-programs.json and the repo's `pet.json` name the pet differently | The pet's chat updates its repo, or Astra picks one name |
 | `not-in-registry` | A registered or pipeline pet program missing from pets.json | Registering it moves it through the gate: Astra decides |
+| `wrong-stage` | A seed or roadmap pet whose `pet.json` lists tools or an `entry` page (real work), or a pet whose own `pet.json` `status`/`stage` names a different stage | Update its `stage` in pet-programs.json (and pets.json), `npm run build`, pull request for Astra (below) |
 | `placeholder-name` | `pet-program-77-icon-77` and the like | Astra names it |
 | `no-home` | Listed pets with no home yet, with the suggested `idea` for each | Astra approves homes |
 | `pc-only` | Pet metadata (`pet.json`, `*-candidate-YYYYMMDD.json`) in a PC folder with no GitHub repo | Push it with Astra's OK (AGENTS.md: never leave a program only on the PC) |
@@ -43,5 +44,9 @@ Discord bots) are not pets and are not reported.
    shallow clone of each repo (`git show HEAD:pet.json`).
 2. Fix only what the data already proves (a wrong repo, a job a pet's own `pet.json` states). Everything else goes to
    Astra as one short list, with the suggested fix.
+   **A wrong stage is always fixed, on a branch** (Astra, 2026-11-02): update the pet's `stage` in pet-programs.json,
+   add or move its pets.json entry when it becomes an animal, run `npm run build` (the README's
+   [Pet stages](../../README.md#pet-stages) chart and the pet program pages follow), and open a pull request. Moving a pet
+   into the pipeline goes through the gate, so ask Astra which ones in the same list and merge only with her OK.
 3. Then run the **pet-organizer** trick so the profile shows the result.
 4. Record what you did in a handoff card (`skills/handoff`), with `## What I did`.

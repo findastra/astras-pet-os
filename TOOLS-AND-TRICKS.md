@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-269 rows: 13 native programs, 129 native tools, 19 native tricks, 108 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+299 rows: 13 native programs, 136 native tools, 20 native tricks, 130 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -139,6 +139,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | farm-pets | `the-farm-v1.0-farm-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | make-it-yours | `the-farm-v1.0-make-it-yours-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | pet-chat-helper | `the-farm-v1.0-pet-chat-helper-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
@@ -254,7 +255,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
 | 6 | Python Panther | Python Jungle | native program | Euler's Identity, in 2D & 3D | `python-jungle-v1.0-eulers-identity-2d-3d-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Reaction learner | `the-astral-plane-v1.0-reaction-learner-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native trick | clone-session | `the-astral-plane-v1.0-clone-session-trick-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
 | 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
@@ -277,9 +283,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord Canary |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
-| 15 | Drum Dog | Bass & Biscuits | native tool | apc64-deck-guide | `bass-biscuits-v1.0-apc64-deck-guide-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | apc64-drum-kit-tool | `bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | learn-apc64-tool | `bass-biscuits-v1.0-learn-apc64-tool-v1.0` | Works today |
+| 15 | Drum Dog | Bass & Biscuits | native tool | use-my-apc64-tool | `bass-biscuits-v1.0-use-my-apc64-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton USB Audio Driver |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Voicemeeter |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Web browser (WebGL) |  | Works today |
@@ -400,4 +406,28 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
+| 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Autoruns |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Coreinfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CPU-Z |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CrystalDiskInfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | ES (Everything’s command line) |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Everything |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Handle |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | HWiNFO64 |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | PowerToys |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Explorer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Monitor |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | RAMMap |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Sigcheck |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | SpaceSniffer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | TCPView |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | USBDeview |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Windows Performance Recorder |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | winget |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WinObj |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Wireshark |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 <!-- registry:end -->

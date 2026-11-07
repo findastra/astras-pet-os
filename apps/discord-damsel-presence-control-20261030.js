@@ -4,7 +4,14 @@
   var box = document.getElementById('discord-damsel-presence-control');
   if (!box) return;
   var note = document.getElementById('presence-control-note');
-  var keys = ['openai', 'anthropic'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
+  // Ableton Live Discord Presence joined as her third app (Claude Opus 5.5, 2026-11-03).
+  var keys = ['openai', 'anthropic', 'ableton'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
+  // Where the apps' controls and Damsel's presence controls listen stays on this PC, in the gitignored
+  // apps/findastra-discord-presence-local-services-20261014.js; only loopback addresses are used
+  // (docs/local-services-20261014.md; Claude Opus 5.5, 2026-11-03).
+  var services = { openai: 'openai-discord-presence', anthropic: 'anthropic-discord-presence', ableton: 'ableton-live-discord-presence' };
+  var controls = {}, presence = null;
+  function loopback(url) { return typeof url === 'string' && /^http:\/\/(?:127\.0\.0\.1|localhost):\d{2,5}\/$/.test(url) ? url : null; }
   var lights = document.querySelectorAll('button.onoff[data-presence-managed]');
   function description(s) {
     if (!s) return 'Not connected to Discord Damsel. Double-click her desktop pet to reconnect.';
@@ -68,7 +75,8 @@
       if (generation !== connection) { if (tab) tab.close(); return; }
       statuses[key] = result.status;
       note.textContent = start ? 'Started. The controls show the app’s current activity and Discord connection.' : 'Sharing switched off for this app.';
-      if (tab) tab.location.replace(key === 'openai' ? 'http://127.0.0.1:38761/' : 'http://127.0.0.1:38762/');
+      if (tab && controls[key]) tab.location.replace(controls[key]);
+      else if (tab) tab.close();
       else if (start) note.textContent += ' Use its Open controls link if your browser blocked the new tab.';
     }, function (error) {
       if (tab) tab.close();
@@ -92,20 +100,35 @@
     note.textContent = 'Open the installed Discord Damsel desktop pet for Start and open and the local control links.';
     return;
   }
-  keys.forEach(function (key) {
-    var link = box.querySelector('[data-presence-controls="' + key + '"]');
-    link.href = key === 'openai' ? 'http://127.0.0.1:38761/' : 'http://127.0.0.1:38762/';
-    link.removeAttribute('aria-disabled');
-  });
-  var bootstrap = document.createElement('script');
-  bootstrap.src = "../../../../Astra's PetOS Data/discord-tower/presence-control-page-data-20261030.js?t=" + Date.now();
-  bootstrap.onload = function () {
-    var value = window.DiscordDamselPresenceData;
-    if (!value || value.url !== 'http://127.0.0.1:38764' || !/^[a-f0-9]{64}$/.test(value.code || '')) { lost(); return; }
-    connection++; data = value;
-    note.textContent = 'Connected to local presence controls. Your maintenance report is unchanged.';
-    refresh();
+  var missing = 'This PC has no address for Discord Damsel’s presence controls (apps/findastra-discord-presence-local-services-20261014.js). Nothing was changed.';
+  var list = document.createElement('script');
+  list.src = '../findastra-discord-presence-local-services-20261014.js?t=' + Date.now();
+  list.onload = function () {
+    var known = window.LOCAL_SERVICES || {};
+    keys.forEach(function (key) {
+      controls[key] = loopback(known[services[key]]);
+      if (!controls[key]) return;
+      var link = box.querySelector('[data-presence-controls="' + key + '"]');
+      link.href = controls[key];
+      link.removeAttribute('aria-disabled');
+    });
+    presence = loopback(known['discord-damsel-presence-control']);
+    if (presence) connect(); else lost(missing);
   };
-  bootstrap.onerror = function () { lost(); };
-  document.head.appendChild(bootstrap);
+  list.onerror = function () { lost(missing); };
+  document.head.appendChild(list);
+  // The bootstrap must name the same presence controls address as this PC's list.
+  function connect() {
+    var bootstrap = document.createElement('script');
+    bootstrap.src = "../../../../Astra's PetOS Data/discord-tower/presence-control-page-data-20261030.js?t=" + Date.now();
+    bootstrap.onload = function () {
+      var value = window.DiscordDamselPresenceData;
+      if (!value || value.url + '/' !== presence || !/^[a-f0-9]{64}$/.test(value.code || '')) { lost(); return; }
+      connection++; data = value;
+      note.textContent = 'Connected to local presence controls. Your maintenance report is unchanged.';
+      refresh();
+    };
+    bootstrap.onerror = function () { lost(); };
+    document.head.appendChild(bootstrap);
+  }
 })();
