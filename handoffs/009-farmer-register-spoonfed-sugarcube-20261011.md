@@ -185,9 +185,11 @@ From Astra's notes in chat, on spoonfed#9:
 - "the unified footer star looks weird": its black outline was four shifted shadows that smeared the star's glow on the
   brown page; it now follows the star's own edge.
 
-On her "Yes, make the PR", findastra.github.io#41 replaces the phone copy with this build. It waits for her merge OK.
+On her "Yes, make the PR", findastra.github.io#41 replaced the phone copy with this build; squash-merged as f2a2028 on
+her "Yes, merge #41". The deploy step hung again, but the live page serves the new script, the new spoon picture
+answers 200 and the old one 404.
 
-**Still open:** her merge OK for findastra.github.io#41; the six questions in
+**Still open:** the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
 (restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
 reel still cuts long types ("Indonesi…") on phones.
