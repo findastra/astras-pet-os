@@ -163,8 +163,9 @@ test('headings count what they hold, and the pet\'s own things are native (Astra
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   assert.ok(unicorn.includes(`<h3>3rd party programs · ${d.thirdParty.length}</h3>`), '3rd party programs · #');
   assert.ok(unicorn.includes(`<h3>Native programs · ${d.programs.length}</h3>`), 'Native programs · #');
-  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22).
-  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0)}</h3>`), 'Native tricks · #');
+  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22), and play-with and care-for are
+  // two more on every page (2026-11-03).
+  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0) + 2}</h3>`), 'Native tricks · #');
   assert.ok(!unicorn.includes('<h3>Schedule</h3>') && unicorn.includes('>self-audit</span> <span class="tag cadence"'), 'no Schedule list: the self-audit is a trick with its cadence');
   for (const p of pages) assert.ok(!/<h3>Your (programs|tools|tricks|other tools)/.test(files[pagePath(p.repo)]), `${p.repo}: native, not "your"`);
 });
@@ -461,4 +462,46 @@ test('the editorial status panel marks the working copy and is hidden on the liv
     assert.ok(ed > 0 && ed < html.indexOf('<header class="top">'), `${d.repo}: the editorial status panel comes first`);
     assert.ok(html.slice(ed, ed + 600).includes('<p class="working-copy">Working copy: not the live site.</p>'), `${d.repo}: it says it is the working copy`);
   }
+});
+
+// Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
+// all other reccd").
+test('every panel ends with More details, the same four lines in order; the two squares and the chat show only the arrow', () => {
+  const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    assert.equal((html.match(lines) || []).length, PANELS.length, `${d.repo}: one More details with four lines per panel`);
+    assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 3, `${d.repo}: the cyberhome, the System Map box and the chat show the arrow only`);
+    for (const square of ['cyberhome', 'system-map']) {
+      const start = html.indexOf(`<details class="panel ${square}"`);
+      assert.ok(html.slice(start, html.indexOf('</details>\n', html.indexOf('about arrow-only', start)) + 10).includes('about arrow-only'), `${d.repo}: ${square}'s arrow is inside its square`);
+    }
+  }
+});
+
+test('Data Dealer\'s chat is Data Chip\'s yellow phone; every other pet keeps the arrow', () => {
+  const dd = files[pagePath('data-dealer')];
+  assert.match(dd, /<aside class="chat chat-phone" aria-label="data-chip-chat-panel" style="--phone-name: 'DATA CHIP'">/);
+  assert.match(dd, /<button type="button" class="chat-open" id="chat-open"[^>]*><span class="phone-mini" aria-hidden="true"><span class="phone-screen"><svg class="chip-face"/, 'the little phone is the open button');
+  assert.match(dd, /<div class="chat-head"><span class="phone-screen"><svg class="chip-face"/, 'his face on the phone\'s screen');
+  for (const id of ['chat-panel', 'chat-log', 'chat-text', 'chat-send', 'chat-push', 'chat-new', 'chat-seat']) assert.ok(dd.includes(`id="${id}"`), `the phone is the same chat: #${id}`);
+  for (const d of pages.filter((p) => p.repo !== 'data-dealer')) assert.ok(!files[pagePath(d.repo)].includes('chat-phone'), `${d.repo} has no phone`);
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /\.chat-phone \{ --neon: #d9e25a;/, 'Data Dealer\'s own neon');
+  assert.match(css, /\.chat-phone \.chat-log li\.pet::before \{ content: var\(--phone-name\) "> "/, 'DATA CHIP> before his lines');
+});
+
+test('awake shows its own drawing with the twinkles; L2 has play-with and care-for, off until L3 runs them', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const awake = html.slice(html.indexOf('<figure class="mood" data-mood="blink">'));
+    const pic = awake.slice(0, awake.indexOf('</figure>'));
+    const own = d.art.frames.blink || d.art.frames.idle;
+    if (own) assert.ok(pic.includes(`src="../../${own}"`), `${d.repo}: awake shows ${own}`);
+    assert.ok(!html.includes('awake-faces'), `${d.repo}: awake is no longer the idle face`);
+    const l2 = html.slice(html.indexOf(`${d.petSlug}-L2-control-panel`), html.indexOf(`${d.petSlug}-L3-control-panel`));
+    for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
+  }
+  const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
+  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
 });

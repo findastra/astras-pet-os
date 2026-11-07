@@ -471,7 +471,16 @@ const panel = (label, body, { cls = '', open = true, id = '' } = {}) =>
 
 // The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
-const about = (html) => `<details class="about"><summary>More details</summary><p class="small">${html}</p></details>`;
+// Every panel has one, the catch-all, with the same four lines in the same order (Astra, 2026-11-03, Flash Audit deck,
+// answer 8: A): how it works, where it comes from, your rules (dated, with a link to this framework) and what is not
+// built yet. In the two top squares and the chat box only the arrow shows until it is opened (2026-10-23: no words in
+// the squares). A tool box inside a panel keeps its one paragraph.
+const FRAMEWORK_URL = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md#3-the-page-top-to-bottom`;
+const yourRules = (item, html) => `${html} (<a href="${FRAMEWORK_URL}">PET-PROGRAM-FRAMEWORK.md</a>, section 3${item === undefined ? '' : `, item ${item}`}).`;
+const ABOUT_LINES = [['how', 'How it works'], ['from', 'Where it comes from'], ['rules', 'Your rules'], ['notYet', 'Not built yet']];
+const about = (html, { arrow = false } = {}) => (typeof html === 'string'
+  ? `<details class="about"><summary>More details</summary><p class="small">${html}</p></details>`
+  : `<details class="about${arrow ? ' arrow-only' : ''}"><summary${arrow ? ' title="More details" aria-label="More details"' : ''}>${arrow ? '' : 'More details'}</summary><dl class="small about-lines">${ABOUT_LINES.map(([k, name]) => `<dt>${name}</dt><dd>${html[k]}</dd>`).join('')}</dl></details>`);
 
 const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
@@ -520,7 +529,12 @@ export function rwxPanelBody(d) {
 }).join('')}</div>
 <details class="may-use"><summary><h3>What ${esc(d.home)} may use</h3></summary>
 ${a.by.length ? `<div class="rwx-rows">${a.by.map((g) => grantItem(g, g.on.charAt(0).toUpperCase() + g.on.slice(1), a, { level: true })).join('')}</div>` : '<p class="empty">No grants recorded.</p>'}</details>
-${about('Each level has two rows: what it may do inside the pet program’s own folder, and everywhere else. A row shows the most that level is allowed there by any rule; open a row to see every rule behind it and its proof. The row’s mark is the least sure of those rules: one “Rule only” makes the whole row “Rule only”. These are the same rules as the System Map card and PROTECTION-RINGS.md, and the build refuses an “In code” mark that names no proof.')}`;
+${about({
+    how: 'Each level has two rows: what it may do inside the pet program’s own folder, and everywhere else. A row shows the most that level is allowed there by any rule; open a row to see every rule behind it and its proof. The row’s mark is the least sure of those rules: one “Rule only” makes the whole row “Rule only”.',
+    from: '<code>access</code> in system-map.json, the same rules as the System Map card and PROTECTION-RINGS.md. The build refuses an “In code” mark that names no proof.',
+    rules: yourRules(12, '2026-10-19: its own panel, right after the four level panels; 2026-10-22: two rows per level, its own folder and everything else'),
+    notYet: 'Every grant enforced in code: a “Rule only” row is a rule the core does not check yet. The panel’s working name waits on you.',
+  })}`;
 }
 
 // Each pet it talks to speaks in a bubble like the related pets, its picture beside it, no lights of its own (Astra,
@@ -670,6 +684,27 @@ export const CHAT_SEATS = [['claude-code', 'Claude Code', 'on this PC'], ['codex
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
 const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+// Data Chip's face on his phone's screen: the original Data Dealer drawing (apps/data-dealer-20261008.html, drawPet,
+// happy with his eyes open), 32 by 24 pixels in its LCD greens, drawn here so no script draws it.
+const CHIP_FACE = (() => {
+  const INK = '#1f2b0e', MID = '#7d8f55', px = [];
+  const p = (x, y, c = INK) => px.push(`<rect x="${x}" y="${y}" width="1" height="1" fill="${c}"/>`);
+  for (let x = 9; x <= 22; x++) { if (x !== 15 && x !== 16) p(x, 4); p(x, 16); } // the package, its notch open
+  for (let y = 5; y <= 15; y++) { p(9, y); p(22, y); }
+  [6, 9, 12, 15].forEach((y) => { p(7, y); p(8, y); p(23, y); p(24, y); }); // side pins
+  p(15, 5); p(16, 5); p(11, 6, MID); // the notch and the pin-1 dot
+  [12, 19].forEach((x) => { for (let y = 17; y <= 19; y++) p(x, y); p(x - 1, 20); p(x, 20); p(x + 1, 20); }); // legs
+  [[13, 9], [13, 10], [18, 9], [18, 10]].forEach(([x, y]) => p(x, y)); // eyes open
+  [[13, 12], [14, 13], [15, 13], [16, 13], [17, 13], [18, 12]].forEach(([x, y]) => p(x, y)); // the smile
+  p(11, 12, MID); p(20, 12, MID); // cheeks
+  return `<svg class="chip-face" viewBox="0 0 32 24" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect width="32" height="24" fill="#c3d39b"/>${px.join('')}</svg>`;
+})();
+// A pet whose chat is its own phone (Astra, 2026-11-03, Flash Audit deck, answer 2: "i like the phone on data dealer, its
+// program needs its own chat"): Data Chip's yellow phone from Data Dealer's dashboard. The little phone is the chat
+// tool's open button, and the window opens as the phone, its screens LCD green; the box, the ids and what the chat does
+// are every pet's. Every other pet keeps the arrow and the plain window (answer 2, for the rest: A).
+const CHAT_PHONES = { 'data-dealer': { name: 'DATA CHIP', face: CHIP_FACE } };
+
 // The first related pets in the System Map box, under its node (Astra, 2026-10-20: "reserved for other agent links,
 // relative, full list below"): up to three, each its picture and name linking to its pet program, then a link down to
 // the related pets panel with all of them.
@@ -737,7 +772,13 @@ export function buildPetProgramPage(d) {
   const note = d.editorial;
   const editorial = panel(`${d.homeSlug}-editorial-status-panel`, `<p class="working-copy">Working copy: not the live site.</p>${note && note.says
     ? `<p>${esc(note.says)}</p><p class="small editorial-by">L3 to you${note.by ? `, ${esc(note.by)}` : ''}${note.on ? `, ${esc(note.on)}` : ''}</p>`
-    : '<p class="empty">No note from L3 yet. The AI working on this pet program writes here how the site is coming along.</p>'}`, { cls: 'editorial' });
+    : '<p class="empty">No note from L3 yet. The AI working on this pet program writes here how the site is coming along.</p>'}
+${about({
+    how: `L3’s note to you on how ${esc(d.home)}’s site is coming along. It shows only on the working copy, so you can tell it from the live site.`,
+    from: '<code>editorial</code> in pets.json (what it says, who wrote it, when), written by the AI working on this pet program.',
+    rules: yourRules(0, '2026-10-23: first on the page, full width, L3 talking to you about this site; 2026-11-02: only on the working copy'),
+    notYet: 'The seated agent writing it by itself: today a chat writes it in pets.json on a branch.',
+  })}`, { cls: 'editorial' });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -753,7 +794,13 @@ export function buildPetProgramPage(d) {
   const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
+<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>
+${about({
+    how: `${esc(d.pet)} moves in when this page opens, stands as tall as on the desktop and shows the mood it is in. Click ${esc(d.pet)} for the current reminder. The <code>${esc(render)}</code> tool is the little drawn cyberhome, off until it is drawn.`,
+    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), and the reminder from the Friendly Farmer’s last merged round.`,
+    rules: yourRules(1, '2026-10-19: empty until the page opens; 2026-10-21: no bubble, the mood lights up in the emotions panel; 2026-10-23: a square with no words, its tool a pill with its lights'),
+    notYet: `${esc(d.pet)} coming straight from the desktop (Startup Star’s link); the drawn cyberhome.`,
+  }, { arrow: true })}`, { cls: 'cyberhome' });
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
   // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
@@ -767,7 +814,13 @@ export function buildPetProgramPage(d) {
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>
+${about({
+    how: `One or two sentences on what ${esc(d.home)} does. The name above it gets smaller until it fits on one line with its version.`,
+    from: `${esc(d.home)}’s mini descriptor in pet-programs.json (or the pet’s job in pets.json), and the version from ${esc(d.repo)}’s pet.json.`,
+    rules: yourRules(3, '2026-10-20: the version always right of the title; 2026-10-21: nothing listed under the title, no buttons'),
+    notYet: 'Nothing planned.',
+  })}`, { cls: 'summary' })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -786,7 +839,13 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
 <div class="map-box"><a class="map-link" href="${esc(map)}" title="Open ${esc(d.home)} on the System Map" aria-label="Open ${esc(d.home)} on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-</a></div></div>`, { cls: 'system-map' });
+</a></div></div>
+${about({
+    how: `The rings are the link: they open ${esc(d.home)} on the System Map, with a dot on the ring it lives on. The <code>${esc(mapTool)}</code> tool’s left light says the link is open, its right light that the map’s information on ${esc(d.pet)} is wrong.`,
+    from: 'system-map.json: this pet program’s node and its ring (PROTECTION-RINGS.md).',
+    rules: yourRules(1, '2026-10-19: always top right, opposite the cyberhome (Flash Audit A60); 2026-10-23: a square with no words, its tool with its lights'),
+    notYet: 'Nothing planned.',
+  }, { arrow: true })}`, { cls: 'system-map' });
   // No words in the two squares, only their tools and the pictures (Astra, 2026-10-23: "get rid of all text in the
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
@@ -798,17 +857,37 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
 ${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
-${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true, id: `${d.petSlug}-L1-control-panel` });
+${about({
+    how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
+    from: `The System Map’s programs and tools for ${esc(d.home)}, ${esc(d.repo)}’s pet.json tools, and the checks recorded in pets.json. ON/OFF and maintenance are saved in this browser only.`,
+    rules: yourRules(4, '2026-10-21: 3rd party programs, native programs and native tools are L1, each heading with its count, pills three to a row; 2026-11-02: a pet’s own tools are tool boxes here, no special panels'),
+    notYet: 'The core enforcing ON/OFF and maintenance (PET-PROGRAM-FRAMEWORK.md, section 4); an audit that compares these tools with the files in the repo.',
+  })}`, { cls: 'level', light: true, id: `${d.petSlug}-L1-control-panel` });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
     desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
-  const tricks = [...selfAudit, ...d.tricks];
+  // Every pet has two tutorials, Play with and Care for (Flash Audit A37, A47): numbered steps the AI in the seat follows
+  // with you, which is what a trick is, so they are two tricks here, off until L3 can run them in the chat (Astra,
+  // 2026-11-03, Flash Audit deck, answer 4: A).
+  const tutorials = [
+    ['play-with', `to play with ${d.home}: what it does, tried out together`],
+    ['care-for', `to look after ${d.home}: its checks, updates and fixes`],
+  ].filter(([id]) => !d.tricks.some((t) => t.id === id || t.id.endsWith(`-${id}`))).map(([id, what]) => ({ id, name: id, state: 'planned', why: '',
+    desc: `Numbered steps the seated agent walks you through in ${d.pet}'s chat, ${what}. Planned: off until L3 can run it in the chat.`,
+    label: `${d.homeSlug}-v1.0-${id}-trick-v1.0` }));
+  const tricks = [...selfAudit, ...tutorials, ...d.tricks];
   // Update history is part of the Pet ID in L4, your record of the pet program (Astra, 2026-10-24, "Program, Tool or
   // Trick" deck, answer 4); L2 holds the pet program's tricks.
   const L2 = panel(`${d.petSlug}-L2-control-panel`, `<div class="columns">
-<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>`, { cls: 'level', light: true });
+<section>${heading('Native tricks', tricks)}${itemList(tricks, 'trick', 'None recorded in the hub yet. Skill Scout will keep them.')}</section></div>
+${about({
+    how: `${esc(d.home)}’s own tricks: written steps its AI follows, each with how often it runs. Play with and Care for are on every pet program, off until L3 can run them in the chat.`,
+    from: `The System Map’s tricks for ${esc(d.home)}, the self-audit from pets.json, and Skill Scout’s list.`,
+    rules: yourRules(4, '2026-10-21: a trick is a way of using the pet’s programs, tools and tricks, owned at L2 and followed at L3; 2026-10-22: anything on a schedule is a trick with how often it runs; 2026-11-03: play-with and care-for on every page'),
+    notYet: 'Play with and Care for, run by L3 in the chat; Skill Scout keeping every trick and where it came from.',
+  })}`, { cls: 'level', light: true });
 
   // L3 (Astra, 2026-10-22): "unity stable program activity", and the bubble names the pet program, not the pet. Its
   // suggestions are a weekly trick, and the tricks and harness skills are pills like everything else (answer 3: A).
@@ -831,7 +910,13 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
 <section>${heading('L3 asks you', d.asks)}${itemList(asks, `l3-ask:${d.petSlug}`, `Nothing to ask you about ${d.home} right now.`)}</section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
 <section>${heading('Seat', [])}${itemList(seat, `l3:${d.petSlug}`, '')}</section>
-</div>`, { cls: 'level', light: true, id: `${d.petSlug}-L3-control-panel` });
+</div>
+${about({
+    how: `Only L3 talking with you about ${esc(d.home)}: what L3 asks you (with the yellow light), its suggestions, and who is seated.`,
+    from: 'The update audit’s questions in pets.json; the seat, from the pet chat helper on this PC, is shown in the chat.',
+    rules: yourRules(4, '2026-10-24: L3’s panel is about L3 to L4 discussions on this pet program only, in sections of pills; 2026-11-03: the editorial status panel is L3’s note to you, no activity bubble (Flash Audit A52)'),
+    notYet: 'Weekly suggestions; this seat pill showing who the pet chat helper seated.',
+  })}`, { cls: 'level', light: true, id: `${d.petSlug}-L3-control-panel` });
 
   // L4's parts are tools of their own, each with its lights and a lowercase name (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id"):
@@ -856,16 +941,28 @@ ${sub('pet-id', `<dl class="status">
 <dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>`, { cls: 'level', light: true, id: `${d.petSlug}-L4-control-panel` });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>
+${about({
+    how: 'Your part, the verified human: approvals waiting on you, grants, keys, required maintenance and the Pet ID, each a tool box that folds to its name.',
+    from: 'The Friendly Farmer’s last merged round, the grants on the R W X panel, the lights you marked in this browser, and the pet’s repo and versions.',
+    rules: yourRules(4, '2026-10-22: five tool boxes with lowercase names; 2026-10-24: round boxes, the update history in the Pet ID’s stamps; Pet ID, not passport'),
+    notYet: 'Approve and decline buttons and agent keys (Iron Gates, shown by API Fairy); the microchip signature; security patches.',
+  })}`, { cls: 'level', light: true, id: `${d.petSlug}-L4-control-panel` });
 
-  const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>checked, works <span class="key fix"></span>report issues <span class="key update"></span>update waiting for your OK <span class="key planned"></span>not created</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
+  const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>checked, works <span class="key fix"></span>report issues <span class="key update"></span>update waiting for your OK <span class="key planned"></span>not created</p>${L1}${L2}${L3}${L4}
+${about({
+    how: 'The four levels stacked, L1 at the top: programs and tools (L1), the pet program’s own tricks (L2), the AI in the seat (L3) and you (L4). The key above says what each light means; a level’s panel glows while it is working.',
+    from: 'The System Map, pets.json and each pet’s pet.json, and the Friendly Farmer’s rounds; the lights you set are saved in this browser.',
+    rules: yourRules(4, '2026-10-18: four stacked panels, lights are buttons; 2026-10-23: only tools have lights; 2026-10-24 and 2026-10-26: blue checked, orange report issues or not checked, yellow update waiting, grey not created'),
+    notYet: 'L1, L2 and L3 glowing while they work (Startup Star’s link); the core enforcing the lights.',
+  })}`, { cls: 'levels' });
 
   const rwx = panel(`${d.petSlug}-rwx-panel`, rwxPanelBody(d), { cls: 'rwx-panel', id: `${d.petSlug}-rwx-panel` });
 
   // The notes are a tool in the panel, drawn like the others (Astra, 2026-10-24: "this one looks sloppy too, make it
   // match the other panel UI themology"): a round box with its lights and name; its menu and buttons round like a
   // tool's; the writing box keeps square corners (2026-10-24: "this also should be square corners").
-  const notes = panel(`${d.petSlug}-session-notes-panel`, toolBox(`${d.homeSlug}-notes`, 'notes', `<form id="notes" class="notes">
+  const notes = panel(`${d.petSlug}-session-notes-panel`, `${toolBox(`${d.homeSlug}-notes`, 'notes', `<form id="notes" class="notes">
 <textarea id="note-text" rows="3" aria-label="notes" placeholder="A note, a bug or a change you want. It goes to the backlog straight away."></textarea>
 <div class="note-row"><label>about <select id="note-about">${aboutOptions}</select></label>
 <label class="button file">add file<input type="file" id="note-file" multiple></label>
@@ -873,14 +970,26 @@ ${sub('pet-id', `<dl class="status">
 <p class="small" id="note-files" data-words-keep></p></form>
 <details class="backlog"><summary>${esc(d.homeSlug)}-backlog in this browser (<span id="backlog-count">0</span>)</summary><ol id="backlog" reversed data-words-keep></ol>
 <p><button type="button" class="button" id="export">export the backlog (JSON)</button></p>
-<p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { fold: false }), { cls: 'session-notes' });
+<p class="small">The backlog is saved in this browser, before anything else happens. This browser keeps each file's name and size, not the file itself yet. Export moves it to another device.</p></details>`, { fold: false })}
+${about({
+    how: 'Write a note, a bug or a change you want, choose what it is about, add files, and submit: it goes to the backlog straight away. Export moves the backlog to another device.',
+    from: 'This browser: the backlog is saved here first, with each file’s name and size.',
+    rules: yourRules(6, '2026-10-18: every submission goes to the backlog first (section 7); 2026-10-24: drawn as a tool, the writing box with square corners'),
+    notYet: 'Keeping the files themselves; the backlog reaching the Farmer’s weekly run by itself.',
+  })}`, { cls: 'session-notes' });
 
+  // Awake always shows its own drawing, the `blink` frame with the two yellow twinkles (Astra, 2026-11-03, Flash Audit
+  // deck, answer 1: A); it was the idle face, wearing idle's three dots. A pet with no awake drawing shows idle's.
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
-    const picture = mood === 'blink'
-      ? (f.idle ? `<span class="awake-faces">${faces(f, d.pet, ['idle', 'blink'], 'awake')}</span>` : img(null, `${d.pet}, ${name}`))
-      : img(f[mood], `${d.pet}, ${name}`);
+    const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`);
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
-  }).join('')}</div>${about(`The mood ${esc(d.pet)} is in now lights up (the page knows idle, awake and sad so far). Awake shows the idle face blinking until a picture with open eyes is drawn. Drawings are drafts unless Astra approved them.`)}`, { cls: 'emotions' });
+  }).join('')}</div>
+${about({
+    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up; the page knows idle, awake and sad so far. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
+    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json.`,
+    rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles'),
+    notYet: `The other six moods set by the rounds and the Police Station. An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
+  })}`, { cls: 'emotions' });
 
   // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
   // tools bound so far come from `clicks` in pets.json (2026-10-19: Voicemeeter Bug's repair moved to three clicks).
@@ -896,7 +1005,12 @@ ${sub('pet-id', `<dl class="status">
       : [{ id: 'three-clicks', name: 'three clicks', state: 'unassigned', desc: 'A tool you assign: none assigned yet.' }]),
   ];
   const clicker = panel(`${d.petSlug}-clicker-training-panel`, `${itemList(clickItems, `click:${d.petSlug}`, '')}
-${about(`One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}'s tools (code, no AI).`)}`, { cls: 'clicker' });
+${about({
+    how: `What clicking the desktop pet does. One and two clicks are the same for every pet. From three clicks on, each number of clicks can run one of ${esc(d.home)}’s tools (code, no AI).`,
+    from: '<code>clicks</code> in pets.json.',
+    rules: yourRules(8, '2026-10-18: one and two clicks the same for every pet; 2026-10-22: each number of clicks is a pill, like a tool; always on the page (Flash Audit A41)'),
+    notYet: 'One click’s reminder box; the desktop pet’s click timing checked on this PC.',
+  })}`, { cls: 'clicker' });
 
   // Each related pet speaks in a cloud like the emotion bubbles, its name in the border and its picture beside it
   // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
@@ -905,10 +1019,15 @@ ${about(`One and two clicks are the same for every pet. From three clicks on, ea
     const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
-  const related = panel(`${d.petSlug}-friends-list-panel`, d.related.length
-    ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>
-${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, most used first. Use is not measured yet, so the order is the map's: links that work today, then planned, then ideas; within each, the pet they share the most with. A <code>plays_with</code> list in pets.json sets the order instead. Click one to open its pet program.`)}`
-    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel` });
+  const related = panel(`${d.petSlug}-friends-list-panel`, `${d.related.length
+    ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>`
+    : `<p class="empty">Plays with no one yet: ${esc(d.pet)} has no links to other pets on the System Map.</p>`}
+${about({
+    how: `Every pet ${esc(d.pet)} plays with, hatched or not, most used first. Click one to open its pet program.`,
+    from: 'The System Map’s links between pets; a <code>plays_with</code> list in pets.json sets the order instead.',
+    rules: yourRules(11, '2026-10-19: every page lists the pets it plays with at the bottom; 2026-10-22: each speaks in a cloud like the emotions'),
+    notYet: 'Measuring use: until then the order is the map’s (links that work today, then planned, then ideas; within each, the pet they share the most with).',
+  })}`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel` });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
@@ -923,6 +1042,12 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
+${about({
+    how: 'By Astra, her photostar and Find Out More with her links, the same on every pet program.',
+    from: 'The links on her GitHub profile README, and Iced Out Iceberg’s photostar (astras-star-window).',
+    rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
+    notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
+  })}
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
@@ -942,10 +1067,14 @@ ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : 
     ...d.asks.map((a) => ({ kind: 'L3 asks you', text: a, where: `${d.petSlug}-L3-control-panel` })),
     ...Object.entries(d.checks).filter(([, c]) => c.result === 'issues').map(([k, c]) => ({ kind: 'report issues', text: `${itemName(k)}: ${c.note || 'an issue was reported'}`, where: `${d.petSlug}-L1-control-panel` })),
   ];
-  const chatFace = f.idle ? `<img class="chat-face" src="${esc(up(f.idle))}" alt="" width="44" height="44">` : '';
-  const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat-panel"><span class="chat-label">${esc(d.petSlug)}-chat-panel</span>
+  // A pet with its own phone (Data Chip) opens its chat from the little phone and talks in it; every other pet has the
+  // arrow and the plain window.
+  const phone = CHAT_PHONES[d.repo];
+  const chatFace = phone ? `<span class="phone-screen">${phone.face}</span>` : f.idle ? `<img class="chat-face" src="${esc(up(f.idle))}" alt="" width="44" height="44">` : '';
+  const chatOpen = phone ? `<span class="phone-mini" aria-hidden="true"><span class="phone-screen">${phone.face}</span><span class="phone-name">${esc(phone.name)}</span></span>` : CHAT_ARROW;
+  const chat = `<aside class="chat${phone ? ' chat-phone' : ''}" aria-label="${esc(d.petSlug)}-chat-panel"${phone ? ` style="--phone-name: '${esc(phone.name)}'"` : ''}><span class="chat-label">${esc(d.petSlug)}-chat-panel</span>
 <div class="chat-tool">${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}<span class="chat-name">${esc(d.petSlug)}-chat</span>${needsYou.length ? `<span class="chat-badge" title="${needsYou.length} need${needsYou.length === 1 ? 's' : ''} you">${needsYou.length}</span>` : ''}
-<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button></div>
+<button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${chatOpen}</button></div>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
 <div class="chat-head">${chatFace}<span class="chat-title"><b>${esc(d.pet)}</b><span class="small" id="chat-seat">Seat: empty</span></span><button type="button" class="chat-close" id="chat-close" aria-label="Close ${esc(d.pet)}'s chat">×</button></div>
 <div class="chat-tabs" role="group" aria-label="${esc(d.pet)}'s chat">${[['needs', `Needs you · ${needsYou.length}`], ['ask', `Ask ${d.pet}`]].map(([k, label]) => `<button type="button" class="button" data-view="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
@@ -963,7 +1092,14 @@ ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : 
 <p class="small" id="chat-who-says"></p>
 <p class="small">Supervised: the seated agent reads the plan and ${esc(d.pet)}'s repo and changes files only on its own branch, in a copy of the repo; the pet chat helper saves each answer's changes there. Nothing reaches GitHub until you press Push and say yes in the box on your PC, and nothing goes to main from here. For anything bigger, such as a merge, a key or an account, it asks you here first.</p>
 ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: its data never leaves this PC, and a message to My Claude or My ChatGPT does. A note stays here.</p>` : ''}</details>
-</div></div></aside>`;
+</div>
+${about({
+    how: `Needs you lists what waits on you on this page, each a link to its place. Ask answers the quick questions from this page; the AI seated in ${esc(d.pet)}’s harness on this PC answers the rest, supervised, and Push asks you first.`,
+    from: 'This page, for Needs you and the quick answers; the pet chat helper on this PC, for the seat; this browser’s backlog, for a note.',
+    rules: yourRules(10, `2026-10-20: like Data Chip’s on Data Dealer; 2026-11-03: Claude Code first, then Codex, the agent changing things only on its own branch${phone ? `; 2026-11-03: ${esc(d.home)}’s chat is ${esc(d.pet)}’s own phone` : ''}`),
+    notYet: 'Gemini CLI and GitHub Copilot CLI in the seat; the chat on the public site (it says why a message waits).',
+  }, { arrow: true })}
+</div></aside>`;
 
   return assertPublic(`<!doctype html>
 <html lang="en" data-pet="${esc(d.petSlug)}">
@@ -1037,7 +1173,9 @@ export const MODEL_PROGRAM = { page: `${DIR}/model-pet-program-20261102.html`, t
 // The nine placeholder drawings: a plain round pet, one face per mood, drawn as SVG so nobody's art stands in.
 const MODEL_FACES = {
   idle: '<circle cx="104" cy="120" r="9"/><circle cx="152" cy="120" r="9"/><path d="M110 160h36" class="line"/>',
-  blink: '<path d="M94 121h20M142 121h20" class="line"/><path d="M110 160h36" class="line"/>',
+  // Awake has its own drawing, eyes open and bright (Astra, 2026-11-03, Flash Audit deck, answer 1: A); `blink` is its
+  // mood file's old name.
+  blink: '<circle cx="104" cy="120" r="12"/><circle cx="152" cy="120" r="12"/><circle class="shine" cx="108" cy="115" r="4"/><circle class="shine" cx="156" cy="115" r="4"/><path d="M110 156q18 14 36 0" class="line"/>',
   happy: '<path d="M94 124q10-14 20 0M142 124q10-14 20 0" class="line"/><path d="M104 152q24 22 48 0" class="line"/>',
   curious: '<circle cx="104" cy="122" r="9"/><circle cx="152" cy="120" r="12"/><path d="M140 96l26-6" class="line"/><path d="M114 162q14-8 28 0" class="line"/>',
   worried: '<circle cx="104" cy="124" r="9"/><circle cx="152" cy="124" r="9"/><path d="M92 100l22 8M164 100l-22 8" class="line"/><path d="M106 164q8-8 14 0t16 0 14 0" class="line"/>',
@@ -1055,7 +1193,7 @@ const stickerSvg = (mood) => {
   return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
-  + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}</style>`
+  + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}.shine{fill:#f4f8ff}</style>`
   + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
   + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
   + `${MODEL_FACES[mood]}${stickerSvg(mood)}</svg>\n`;

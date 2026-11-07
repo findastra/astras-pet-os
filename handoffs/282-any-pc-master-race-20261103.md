@@ -94,3 +94,9 @@ Record the merges below.
   (2) L3's note, his PC's parts as devices and his two tools working open on the page now, Open buttons as their own
   step after. Done in data only (changes/pc-master-rift-model-20261106.md). Still to do: Open buttons through a
   launcher on this PC (127.0.0.1 only, an Iron Gates grant).
+- 2026-11-06: Astra's OK in chat, "Merge both" (#294 and #296), then "can we just save this to my pc and end chat".
+  #294 merged as 368ffed0 (checks passed, clean against `main`). #296 was pointed at `main`, took `main`'s generated
+  pages and rebuilt PC Master Race's; `npm test` 387 tests, 383 pass, 3 skipped, 1 fails (the Windows farm-setup test,
+  as on `main`). Open PRs #36, #218 and #245 already conflict with `main` and also touch `pets.json` or
+  `system-map.json` near these lines. Merged by Claude Opus 5.5 right after this line. Still open from this card: Not
+  done 1 to 6, Open buttons, and registering PC Master when he is released.
