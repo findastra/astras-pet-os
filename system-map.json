@@ -3367,7 +3367,7 @@
       "label": "python-jungle-v1.0-eulers-identity-2d-3d-v1.0",
       "url": "https://claude.ai/artifact/3CfAdSghirhCxXedQhzTxa",
       "job": "A native program of Python Jungle (Astra, 2026-11-06: \"I want this Euler's Identity, in 2D & 3D to be a link on the Python Panther\"): two Python programs Astra made with Claude on 2026-11-03, with a # line above every line of code, that draw Euler's identity e^(iπ) + 1 = 0 as one turn of an arrow (2D) and as a spring, the helix (3D), using numpy, Pillow and OpenCV. The page shows both movies, both programs and a 3D model to turn by hand. It is a private claude.ai page that opens only for Astra; the programs and movies are on her PC (Desktop, the folder Euler's Identity, 2D & 3D), not in a repo yet.",
-      "does": "Euler's identity as a movie in 2D (an arrow turning once) and 3D (a spring), with both Python programs explained line by line and a 3D model to turn."
+      "does": "Euler's identity in 2D (an arrow turning once) and 3D (a spring), with both Python programs explained line by line. A private page: it opens only for Astra."
     },
     {
       "id": "red-jobs",
