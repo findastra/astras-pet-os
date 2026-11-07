@@ -62,14 +62,23 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 34 | [Raspberry Pi Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
 | 35 | [Chat Rat](chat-rat-20261019.md) | Chat Stack | Saves local AI conversations and imported exports, filed by model and YYYYMMDD date, with a button that opens each folder. | no app yet |
 | 36 | [Platform Platypus](platform-platypus-20261019.md) | Mirror Pool | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | no app yet |
+| 40 | [Skill Scout](lunas-log-20261019.md) | Luna's Log | Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why. | no app yet |
+| 46 | [Gatekeeper Goddess](iron-gates-20261019.md) | Iron Gates | Security and approvals: human-facing approvals and security monitoring. Issues the grants and the short-lived agent keys; never approves her own. | no app yet |
 | 48 | [Log Lynx](log-den-20261019.md) | Log Den | Observability: correlates logs, traces, health and failures. | no app yet |
 | 53 | [Packet Piranha](packet-river-20261019.md) | Packet River | Network: packet loss, DNS, latency, routing. | no app yet |
 | 58 | [Linux Penguin](linux-iceberg-20261019.md) | Linux Iceberg | Linux administration, SSH, systemd, packages. | no app yet |
+| 61 | [Journal Jellyfish](journal-lagoon-20261019.md) | Journal Lagoon | Private travel diary and itineraries. | no app yet |
 | 63 | [Kernel Koala](kernel-grove-20261019.md) | Kernel Grove | What runs on your PC: programs, memory and what starts at sign-in. | no app yet |
+| 67 | [White Hat Weasel](white-hat-lab-20261019.md) | White Hat Lab | Authorized security assessment and remediation. | no app yet |
+| 69 | [Cipher Owl](cipher-hollow-20261019.md) | Cipher Hollow | Encryption, keys, certificates and crypto education. | no app yet |
 | 70 | [Forensic Ferret](evidence-locker-20261019.md) | Evidence Locker | Incident timelines and log analysis. | no app yet |
 | 72 | [Inference Iguana](benchmark-rock-20261019.md) | Benchmark Rock | Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory. | no app yet |
+| 74 | [Roaming Raven](roam-map-20261019.md) | Roam Map | Travel connectivity, VPN/tailnet and remote access. | no app yet |
+| 78 | [Pet Police Officer](the-police-station-20261019.md) | The Police Station | Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach. | no app yet |
+| 79 | [AI Dashund](ai-doghouse-20261019.md) | AI Doghouse | Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper. | no app yet |
+| 82 | [Door Dormouse](the-threshold-20261019.md) | The Threshold | Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website. Browser prototype; L3 and Unity execution are not connected. | no app yet |
 | 83 | [Role Fairy](role-fairy-20261019.md) | Fairy Ring | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 | 86 | [PC Master](pc-master-race-20261019.md) | PC Master Race | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example. | no app yet |
 
-45 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.
+54 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.

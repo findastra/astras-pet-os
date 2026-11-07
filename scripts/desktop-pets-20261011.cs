@@ -483,6 +483,10 @@ namespace AstraDesktopPets {
       // Documents\Astra's PetOS Data\rift-rabbit\program, not the repo, and starts at sign-in: with it off, every Launch
       // button is dead (2026-11-01, after a restart).
       list.Add(new Entry{Repo="rift-rabbit",Pet="Rift Rabbit",Exe=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program","rift-rabbit-20261024.exe"),Folder=Path.Combine(DataRoot,"rift-rabbit"),StartArgs=new[]{"--startup"}});
+      // The pet chat helper, the seat behind every pet program page's chat window (card 283; Astra, 2026-11-03: "it
+      // should be Claude Code answering first and then Codex"). The Farm's own tool, built next to the star; it starts at
+      // sign-in, and its menu here says Stop pet chat.
+      list.Add(new Entry{Repo="pet-chat",Pet="Pet chat",Exe=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe"),Folder=Path.Combine(DataRoot,"pet-chat"),StartArgs=new[]{"--startup"}});
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -491,8 +495,8 @@ namespace AstraDesktopPets {
     // The star starts the crash watchers itself, so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
     // log-den, packet-river and evidence-locker "should not be here at all"; they were Startup-folder shortcuts). The Bug is
     // started as before; Kernel Koala's and Inference Iguana's watches start only when Astra asks. Rift Rabbit's launcher
-    // starts too, with no alarmed face.
-    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)||e.Repo=="rift-rabbit"); }
+    // and the pet chat helper start too, with no alarmed face (card 061, answer 4: at sign-in, quietly).
+    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)||e.Repo=="rift-rabbit"||e.Repo=="pet-chat"); }
     internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
     static Dictionary<string,object> Read(Entry e,string name,string schema) {
       try {
@@ -1072,9 +1076,11 @@ namespace AstraDesktopPets {
       var iguana=BackgroundPets.Find("benchmark-rock");
       if(iguana==null||iguana.Pet!="Inference Iguana"||iguana.StartArgs[0]!="--startup"||!iguana.Exe.EndsWith("benchmark-rock-20261023.exe")||BackgroundPets.Watches("benchmark-rock"))throw new Exception("Inference Iguana's watch must be in the star's menu, started quietly, with no alarmed face.");
       int signIn=testActions.Count;StartBackgroundPets();
-      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup,sign-in:rift-rabbit:--startup")throw new Exception("The star must start the three crash watchers and Rift Rabbit's launcher quietly, and only them.");
+      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup,sign-in:rift-rabbit:--startup,sign-in:pet-chat:--startup")throw new Exception("The star must start the three crash watchers, Rift Rabbit's launcher and the pet chat helper quietly, and only them.");
       var rabbit=BackgroundPets.Find("rift-rabbit");
       if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
+      var petChat=BackgroundPets.Find("pet-chat");
+      if(petChat==null||petChat.Pet!="Pet chat"||petChat.Exe!=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe")||BackgroundPets.Watches("pet-chat"))throw new Exception("The pet chat helper must start from the farm's bin, under Pet chat in the menu, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);
       string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
       try {

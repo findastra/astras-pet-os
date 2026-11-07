@@ -338,6 +338,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-19: \"a tool that tests the clickness of the buttons ... whether they don't go anywhere, whether they go to the wrong place\"): opens every pet program page and today's app in apps/ in the Edge or Chrome already on the computer, headless, with a throwaway profile, clicks every button and link, and says which go nowhere, land on a dead end, go to the wrong place by the registry, throw an error, forget what they saved, sit under something else or move when pressed, one row per cause with the file to fix (scripts/click-check-20261019.mjs; npm run click-check). It sends nothing: a click that would post, delete or call a program on this PC is stopped and reported."
     },
     {
+      "id": "pet-chat-helper",
+      "name": "pet-chat-helper",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-chat-helper-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-03: \"it should be Claude Code answering first and then Codex, most likely, unless dictated otherwise. The agents are supposed to be able to change stuff, read the plan\"; cards 061 and 283): the seat behind every pet program page's chat window. A background program with no window, started by Startup Star at sign-in, listening on this PC only with a code kept in the farm's data folder. It finds which agents are installed and signed in (Claude Code, then Codex; others are named but not seated yet), seats the chosen one in its own worktree of the pet's repo on a pet-chat branch, supervised: Claude Code restricted to file tools in that folder, Codex in its sandbox without her config's plugins; it commits each answer's changes itself, pushes only after Astra says yes in its own Windows box, never to main, never for a private pet, and logs every answer (scripts/pet-chat-helper-20261103.cs). On branch claude/pet-chat-helper-20261103, not merged."
+    },
+    {
       "id": "claude",
       "name": "Claude (Anthropic)",
       "type": "model",
@@ -1213,14 +1225,6 @@
       "category": "Device"
     },
     {
-      "id": "gatekeeper-goddess",
-      "name": "Gatekeeper Goddess",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Security and approvals: human-facing approvals and security monitoring. Pet program: Iron Gates. Issues the grants and the short-lived agent keys; never approves her own.",
-      "layer": 4
-    },
-    {
       "id": "queue-quokka",
       "name": "Queue Quokka",
       "type": "roadmap",
@@ -1325,27 +1329,11 @@
       "layer": 4
     },
     {
-      "id": "white-hat-weasel",
-      "name": "White Hat Weasel",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Authorized security assessment and remediation. Security role: the red team. Attacks your own farm, only inside the sandbox and with L4’s OK, and reports what got through.",
-      "layer": 4
-    },
-    {
       "id": "port-spider",
       "name": "Port Spider",
       "type": "roadmap",
       "state": "planned",
       "job": "Authorized port and service exposure checks.",
-      "layer": 4
-    },
-    {
-      "id": "cipher-owl",
-      "name": "Cipher Owl",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Encryption, keys, certificates and crypto education. Security role: checks signatures and provenance (PROVENANCE.md).",
       "layer": 4
     },
     {
@@ -1362,14 +1350,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Agent experiments and tool-use evaluation. Security role: records each AI that takes a seat (model, version, request patterns), so a stranger or a changed agent stands out.",
-      "layer": 4
-    },
-    {
-      "id": "roaming-raven",
-      "name": "Roaming Raven",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Travel connectivity, VPN/tailnet and remote access.",
       "layer": 4
     },
     {
@@ -1394,14 +1374,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Passport/ID metadata, visa research and deadlines, encrypted.",
-      "layer": 4
-    },
-    {
-      "id": "journal-jellyfish",
-      "name": "Journal Jellyfish",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Private travel diary and itineraries.",
       "layer": 4
     },
     {
@@ -2237,7 +2209,7 @@
       "does": "Gone Ghost's private controls for Ghost Protocol, with a copy of the site that runs only on the PC."
     },
     {
-      "id": "the-police-station",
+      "id": "program-78",
       "name": "The Police Station",
       "program": 78,
       "type": "own-program",
@@ -4653,7 +4625,7 @@
       "why": "The Goldfish checks each community pet's upstream releases against what is installed."
     },
     {
-      "from": "gatekeeper-goddess",
+      "from": "iron-gates",
       "to": "kennel",
       "carries": "findings",
       "state": "architecture",
@@ -4737,7 +4709,7 @@
       "why": "Catalogs the local models: downloads, storage, compatibility."
     },
     {
-      "from": "gatekeeper-goddess",
+      "from": "iron-gates",
       "to": "astra",
       "carries": "status",
       "state": "architecture",
@@ -4745,28 +4717,28 @@
     },
     {
       "from": "ghost-protocol",
-      "to": "gatekeeper-goddess",
+      "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
       "why": "Security actions need permission review."
     },
     {
       "from": "passport-pelican",
-      "to": "gatekeeper-goddess",
+      "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
       "why": "No submission or account action without approval."
     },
     {
-      "from": "white-hat-weasel",
-      "to": "gatekeeper-goddess",
+      "from": "white-hat-lab",
+      "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
       "why": "Security work stays in authorized scope."
     },
     {
       "from": "port-spider",
-      "to": "gatekeeper-goddess",
+      "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
       "why": "Scans only authorized targets."
@@ -4779,7 +4751,7 @@
       "why": "Tests every new pet before it is registered."
     },
     {
-      "from": "gatekeeper-goddess",
+      "from": "iron-gates",
       "to": "astras-pet-os",
       "carries": "findings",
       "state": "architecture",
@@ -4898,7 +4870,7 @@
       "why": "Reconciles what Cache Coyote queued offline."
     },
     {
-      "from": "roaming-raven",
+      "from": "roam-map",
       "to": "sync-mink",
       "carries": "status",
       "state": "architecture",
@@ -5080,7 +5052,7 @@
       "why": "Backups land on the storage Storage Stoat watches."
     },
     {
-      "from": "skill-scout",
+      "from": "lunas-log",
       "to": "unity-unicorn",
       "carries": "idea",
       "state": "suggested",
@@ -5108,7 +5080,7 @@
       "why": "The desktop host puts every pet with desktop art on the Windows desktop and shows its mood."
     },
     {
-      "from": "gatekeeper-goddess",
+      "from": "iron-gates",
       "to": "@pets",
       "carries": "findings",
       "state": "architecture",
@@ -5416,7 +5388,7 @@
       "why": "Codex runs on OpenAI's models."
     },
     {
-      "from": "white-hat-weasel",
+      "from": "white-hat-lab",
       "to": "flipper-zero",
       "carries": "opens",
       "state": "planned",
@@ -5438,7 +5410,7 @@
     },
     {
       "from": "security-key",
-      "to": "gatekeeper-goddess",
+      "to": "iron-gates",
       "carries": "status",
       "state": "suggested",
       "why": "Approve risky actions with a tap of the key, so an approval cannot be faked by a message or a prompt."
@@ -6858,28 +6830,28 @@
       "why": "Grant from Iron Gates: its own folder only, read only, 50 results per search."
     },
     {
-      "from": "pet-police-officer",
-      "to": "the-police-station",
+      "from": "the-police-station",
+      "to": "program-78",
       "carries": "opens",
       "state": "planned",
       "why": "The Police Station is this pet’s own program."
     },
     {
-      "from": "the-police-station",
-      "to": "gatekeeper-goddess",
+      "from": "program-78",
+      "to": "iron-gates",
       "carries": "reports",
       "state": "planned",
       "why": "Alerts her to unpermitted agent changes that could affect who she lets in."
     },
     {
-      "from": "the-police-station",
+      "from": "program-78",
       "to": "astra",
       "carries": "reports",
       "state": "planned",
       "why": "The alarm: the Officer on the desktop, red banners on every pet page and the map, a phone alert."
     },
     {
-      "from": "gatekeeper-goddess",
+      "from": "iron-gates",
       "to": "key-ring",
       "carries": "reports",
       "state": "planned",
@@ -6894,7 +6866,7 @@
     },
     {
       "from": "the-shed",
-      "to": "skill-scout",
+      "to": "lunas-log",
       "carries": "reports",
       "state": "planned",
       "why": "Skill Scout tracks every trick a farm adopts from the Shed."
@@ -7191,7 +7163,7 @@
       "why": "The Recovery Room is this pet’s own program."
     },
     {
-      "from": "the-police-station",
+      "from": "program-78",
       "to": "the-recovery-room",
       "carries": "reports",
       "state": "planned",
@@ -7827,6 +7799,82 @@
     "about": "Languages in each pet's repo, measured by file size like GitHub's language bar, on 2026-10-12 from the main branch, with why each pet uses each one. Re-measure when a repo changes.",
     "checked": "2026-10-12",
     "repos": {
+      "lunas-log": {
+        "languages": [
+          {
+            "language": "JavaScript",
+            "percent": 66.5,
+            "why": "Skill Scout's census (skill-scout-20261017.mjs) is a Node script that reads every agent and skill file and writes the catalog, with nothing to install. Measured from GitHub on 2026-11-02."
+          },
+          {
+            "language": "HTML",
+            "percent": 33.5,
+            "why": "The catalog page (index.html), which shows the census in any browser."
+          }
+        ]
+      },
+      "journal-lagoon": {
+        "languages": [
+          {
+            "language": "HTML",
+            "percent": 69,
+            "why": "The diary is one page (journal-lagoon-20261019.html) that opens in a browser and keeps the entries on the PC. Measured from GitHub on 2026-11-02."
+          },
+          {
+            "language": "JavaScript",
+            "percent": 26.4,
+            "why": "The worker behind the nightly reminder and the backups runs on Node (journal-worker-20261019.mjs), with its test."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 4.6,
+            "why": "Starts the diary and switches the Windows reminder on (start-journal-lagoon and enable-journal-reminders)."
+          }
+        ]
+      },
+      "ai-doghouse": {
+        "languages": [
+          {
+            "language": "HTML",
+            "percent": 66.7,
+            "why": "The claude-toolset-tool page, which lists every Claude tool, where it came from and which pet owns it. Measured from GitHub on 2026-11-02."
+          },
+          {
+            "language": "JavaScript",
+            "percent": 33.3,
+            "why": "The Node script that builds that list from the tool files, with its test (findastra/ai-doghouse#6)."
+          }
+        ]
+      },
+      "the-threshold": {
+        "languages": [
+          {
+            "language": "HTML",
+            "percent": 100,
+            "why": "The Threshold's found-floors page (index.html) and the tools tracker are plain pages, so they open from the PC or a website with nothing to install. Measured from GitHub on 2026-11-02."
+          }
+        ]
+      },
+      "white-hat-lab": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
+      },
+      "iron-gates": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the YubiKey enrollment list is a document; the spending approval is on design/yubikey-spend-approval-20261102."
+      },
+      "cipher-hollow": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first work is on design/yubikey-spend-approval-20261102."
+      },
+      "roam-map": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first work is on design/remote-access-inventory-20261102."
+      },
+      "the-police-station": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first work is on design/yubikey-spend-approval-20261102."
+      },
       "chat-rat": {
         "languages": [],
         "note": "No code on main yet (GitHub measures none): its archive and tools wait in open pull requests chat-rat#1, #2 and #8."
@@ -8481,19 +8529,19 @@
   },
   "hats": {
     "_about": "Security hats (Astra, 2026-10-14): blue defends, red attacks your own farm in the sandbox, purple checks both; every other pet wears white, community pets at the gate grey, intruders black.",
-    "gatekeeper-goddess": "blue",
-    "skill-scout": "blue",
+    "iron-gates": "blue",
+    "lunas-log": "blue",
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
     "port-spider": "blue",
-    "cipher-owl": "blue",
+    "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",
     "update-urchin": "blue",
     "patch-cat": "blue",
     "ghost-protocol": "blue",
-    "pet-police-officer": "blue",
+    "the-police-station": "blue",
     "agent-ant": "blue",
     "log-den": "blue",
     "token-toucan": "blue",
@@ -8502,7 +8550,7 @@
     "evidence-locker": "blue",
     "Triage Tapir": "blue",
     "backup-beaver": "blue",
-    "white-hat-weasel": "red",
+    "white-hat-lab": "red",
     "linux-iceberg": "red",
     "test-tortoise": "purple",
     "rescue-retriever": "blue"

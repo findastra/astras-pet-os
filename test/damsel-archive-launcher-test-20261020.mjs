@@ -9,10 +9,12 @@ test('Damsel archive remains a native program with a compact launcher and no pri
   assert.equal(node.type,'own-program'); assert.equal(node.of,'program-13');
   assert.equal(node.state,'planned');
   const html=spawnerFiles(sources)['apps/pet-programs/discord-tower-20261018.html'];
-  assert.match(html,/discord-damsel-dm-archive-tool-panel/);
+  // A tool box in L1 since 2026-11-02 (Astra: "No special panels"), not a panel above the levels.
+  assert.match(html,/<div class="toolbox pet-box dm-archive">/);
+  assert.ok(html.indexOf('<div class="toolbox pet-box dm-archive">') > html.indexOf('discord-damsel-L1-control-panel'));
   assert.match(html,/id="dm-archive-open"/);
   assert.match(html,/adoption pending/);
-  const launcher=html.slice(html.indexOf('<details class="panel dm-archive"'),html.indexOf('</fieldset></details>',html.indexOf('<details class="panel dm-archive"')));
+  const launcher=html.slice(html.indexOf('<div class="toolbox pet-box dm-archive">'),html.indexOf('</fieldset>',html.indexOf('<div class="toolbox pet-box dm-archive">')));
   assert.ok(launcher.includes('id="dm-archive-open"'));
   assert.doesNotMatch(launcher,/type="file"/);
 });
