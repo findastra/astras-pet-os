@@ -658,6 +658,12 @@ function petBoxes(d) {
   return { html: html ? `<div class="toolboxes">${html}</div>` : '', count: boxes.length, toolIds: boxes.map(({ t }) => t?.id).filter(Boolean) };
 }
 
+// Who answers in a pet's chat, in this order unless the farm's owner picks another (Astra, 2026-11-03): the AI seated in
+// the pet's harness on this PC (Claude Code, then Codex, then another AI the pet chat helper finds), then your own
+// Claude or ChatGPT in a new tab, or a note to the backlog. [key, name, where it answers].
+export const CHAT_SEATS = [['claude-code', 'Claude Code', 'on this PC'], ['codex', 'Codex', 'on this PC'], ['other-ai', 'Another AI', 'on this PC'],
+  ['claude', 'My Claude', 'new tab'], ['chatgpt', 'My ChatGPT', 'new tab'], ['note', 'Just leave a note', 'backlog']];
+
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
 // open. A typed ">" sat off centre (Astra, 2026-10-19: "the shape is a little awkward").
 const CHAT_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -790,7 +796,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
 ${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
-${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true });
+${about('From the System Map. Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works. ON/OFF and maintenance are saved in this browser only: the core does not enforce them yet (PET-PROGRAM-FRAMEWORK.md, section 4).')}`, { cls: 'level', light: true, id: `${d.petSlug}-L1-control-panel` });
 
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
@@ -823,7 +829,7 @@ ${about('From the System Map. Click a name to open it. Click a light to change i
 <section>${heading('L3 asks you', d.asks)}${itemList(asks, `l3-ask:${d.petSlug}`, `Nothing to ask you about ${d.home} right now.`)}</section>
 <section>${heading('Suggestions for you', l3Suggest)}${itemList(l3Suggest, `l3:${d.petSlug}`, '')}</section>
 <section>${heading('Seat', [])}${itemList(seat, `l3:${d.petSlug}`, '')}</section>
-</div>`, { cls: 'level', light: true });
+</div>`, { cls: 'level', light: true, id: `${d.petSlug}-L3-control-panel` });
 
   // L4's parts are tools of their own, each with its lights and a lowercase name (Astra, 2026-10-22, drawing
   // "oo approvals-waiting-on-you", "oo grants", "oo keys", "oo unity-unicorn-required-maintenance", "oo pet-id"):
@@ -848,7 +854,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>App</dt><dd>${appLink}</dd>
 <dt>Stamps</dt><dd>${petStamps}</dd>
 <dt>Vaccination card</dt><dd>no security patches recorded</dd>
-<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>`, { cls: 'level', light: true });
+<dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>`, { cls: 'level', light: true, id: `${d.petSlug}-L4-control-panel` });
 
   const levels = panel(`${d.petSlug}-intelligence-levels-panel`, `<p class="legend-key"><span class="key on"></span>on <span class="key off"></span>off <span class="key care"></span>checked, works <span class="key fix"></span>report issues <span class="key update"></span>update waiting for your OK <span class="key planned"></span>not created</p>${L1}${L2}${L3}${L4}`, { cls: 'levels' });
 
@@ -917,24 +923,45 @@ ${about(`Every pet ${esc(d.pet)} plays with on the System Map, hatched or not, m
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
 
-  // The chat window (Astra, 2026-10-19: "when I open up the chat, it needs to automatically open up the window"): it
-  // opens at once and asks who should answer. Your own Claude or ChatGPT open in a new tab with the message typed in;
-  // Claude Code or Codex on this PC need Startup Star's link (not built yet). The page keeps no keys.
-  const who = [['claude', 'My Claude'], ['chatgpt', 'My ChatGPT'], ['this-pc', 'Claude Code or Codex on this PC'], ['note', 'Just leave a note']];
-  // The box is `<pet>-chat-panel`, square like every panel and with no lights; the chat in it is a tool, `<pet>-chat`,
-  // drawn like one: its lights, its name and its open button (Astra, 2026-10-23).
+  // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
+  // way that it works on data dealer is the only one that works right. So this concept combined with that"): the pet's
+  // face and who is in its seat, a Needs you view built from this page, and an Ask view with quick questions and the
+  // conversation. Who answers is the AI seated in the pet's harness on this PC, Claude Code first, then Codex, then any
+  // other AI the pet chat helper finds (Astra, 2026-11-03: "it should be Claude Code answering first and then Codex ...
+  // unless dictated otherwise"; for everyone else: "auto recognize it or give you an option to choose which model");
+  // then your own Claude or ChatGPT in a new tab, or a note. The seated agent works supervised (ASTRAS_PET_OS 8.3; Astra:
+  // "The agents are supposed to be able to change stuff"): it reads the plan and the pet's repo, changes things on a
+  // branch, and asks here before anything bigger. The box is `<pet>-chat-panel`, square like every panel; the chat in it
+  // is a tool, `<pet>-chat`, drawn like one (Astra, 2026-10-23).
+  const allItems = [...d.tools, ...d.programs, ...d.thirdParty, ...d.shared, ...d.devices, ...d.tricks];
+  const itemName = (key) => { const id = key.replace(/^[a-z-]+:/, ''); return allItems.find((i) => i.id === id)?.name || id; };
+  const needsYou = [
+    ...d.needs.map((n) => ({ kind: 'your OK', text: n, where: `${d.petSlug}-L4-control-panel` })),
+    ...d.asks.map((a) => ({ kind: 'L3 asks you', text: a, where: `${d.petSlug}-L3-control-panel` })),
+    ...Object.entries(d.checks).filter(([, c]) => c.result === 'issues').map(([k, c]) => ({ kind: 'report issues', text: `${itemName(k)}: ${c.note || 'an issue was reported'}`, where: `${d.petSlug}-L1-control-panel` })),
+  ];
+  const chatFace = f.idle ? `<img class="chat-face" src="${esc(up(f.idle))}" alt="" width="44" height="44">` : '';
   const chat = `<aside class="chat" aria-label="${esc(d.petSlug)}-chat-panel"><span class="chat-label">${esc(d.petSlug)}-chat-panel</span>
-<div class="chat-tool">${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}<span class="chat-name">${esc(d.petSlug)}-chat</span>
+<div class="chat-tool">${lights(`chat:${d.petSlug}`, `${d.pet}'s chat`)}<span class="chat-name">${esc(d.petSlug)}-chat</span>${needsYou.length ? `<span class="chat-badge" title="${needsYou.length} need${needsYou.length === 1 ? 's' : ''} you">${needsYou.length}</span>` : ''}
 <button type="button" class="chat-open" id="chat-open" aria-expanded="false" aria-controls="chat-panel" aria-label="Open ${esc(d.pet)}'s chat">${CHAT_ARROW}</button></div>
 <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Talk to ${esc(d.pet)}" hidden>
-<p class="chat-ask">Who should answer?</p>
-<div class="chat-who" role="group" aria-label="Who should answer">${who.map(([k, label]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
-<p class="small" id="chat-who-says">Choose who answers. This page remembers it on this device.</p>
-<ol class="chat-log" id="chat-log" data-words-keep></ol>
+<div class="chat-head">${chatFace}<span class="chat-title"><b>${esc(d.pet)}</b><span class="small" id="chat-seat">Seat: empty</span></span><button type="button" class="chat-close" id="chat-close" aria-label="Close ${esc(d.pet)}'s chat">×</button></div>
+<div class="chat-tabs" role="group" aria-label="${esc(d.pet)}'s chat">${[['needs', `Needs you · ${needsYou.length}`], ['ask', `Ask ${d.pet}`]].map(([k, label]) => `<button type="button" class="button" data-view="${k}" aria-pressed="false">${esc(label)}</button>`).join('')}</div>
+<div class="chat-view" data-view-of="needs" hidden>${needsYou.length
+    ? `<ol class="chat-needs">${needsYou.map((n) => `<li><a href="#${esc(n.where)}" data-chat-goto><span class="tag">${esc(n.kind)}</span> ${esc(n.text)}</a></li>`).join('')}</ol>`
+    : '<p class="empty">Nothing needs you right now.</p>'}</div>
+<div class="chat-view" data-view-of="ask">
+<ol class="chat-log" id="chat-log" aria-live="polite" data-words-keep></ol>
+<div class="chat-quick" role="group" aria-label="Quick questions">${[['explain', 'Explain this page'], ['needs', 'What needs me?'], ['tools', 'How are my tools?']].map(([k, label]) => `<button type="button" class="button" data-quick="${k}">${esc(label)}</button>`).join('')}</div>
 <label class="small" for="chat-text">message</label>
-<textarea id="chat-text" rows="3" placeholder="Ask about ${esc(d.home)}"></textarea>
+<textarea id="chat-text" rows="2" placeholder="Ask ${esc(d.pet)} anything"></textarea>
 <p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
-${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: a message you send to Claude or ChatGPT leaves this PC. A note stays here.</p>` : ''}</div></aside>`;
+<details class="chat-seats"><summary>Who answers: <span id="chat-who-now">Claude Code</span></summary>
+<div class="chat-who" role="group" aria-label="Who answers">${CHAT_SEATS.map(([k, label, where]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)} <span class="small">${esc(where)}</span></button>`).join('')}</div>
+<p class="small" id="chat-who-says"></p>
+<p class="small">Supervised: the seated agent reads the plan and ${esc(d.pet)}'s repo, makes changes on a branch, and asks you here before anything bigger, such as a merge, a push, a key or an account.</p>
+${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: its data never leaves this PC, and a message to My Claude or My ChatGPT does. A note stays here.</p>` : ''}</details>
+</div></div></aside>`;
 
   return assertPublic(`<!doctype html>
 <html lang="en" data-pet="${esc(d.petSlug)}">

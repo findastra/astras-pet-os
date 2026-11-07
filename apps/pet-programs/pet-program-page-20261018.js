@@ -415,33 +415,82 @@
   }
   if (document.hidden) here('off'); else present();
 
-  // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
-  // no keys and sends nothing itself: your Claude or ChatGPT opens in a new tab with your message typed in (and copied,
-  // in case that tab's box is empty). Claude Code or Codex on this PC need Startup Star's link, so until it is built the
-  // message waits in the backlog. The chat's own left light switches it off. ----
+  // ---- The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20 and 2026-11-03): the button opens it at
+  // once, on Needs you when something waits on you, else on Ask. Questions about this page get an answer from the page
+  // itself straight away; anything else goes to who answers. Who answers is the AI seated in the pet's harness on this
+  // PC, Claude Code first, then Codex, then another AI the pet chat helper finds (Astra, 2026-11-03), or your own Claude
+  // or ChatGPT in a new tab, or a note. The pet chat helper that seats them is not built yet, so a message for the seat
+  // waits in the backlog and the pet says so. The page keeps no keys. The chat's own left light switches it off. ----
   var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
   var chatText = document.getElementById('chat-text'), chatSend = document.getElementById('chat-send');
   var chatStatus = document.getElementById('chat-status'), chatSays = document.getElementById('chat-who-says'), chatLog = document.getElementById('chat-log');
+  var chatSeat = document.getElementById('chat-seat'), chatNow = document.getElementById('chat-who-now');
   var whoButtons = panel ? panel.querySelectorAll('button[data-who]') : [];
+  var SEAT_SAYS = ' answers here as ' + config.pet + ', seated in ' + config.home + '\'s harness on this PC. Not connected yet: the pet chat helper that seats it is not built, so your message waits in the backlog.';
   var WHO = {
+    'claude-code': { name: 'Claude Code', seat: true, says: 'Claude Code' + SEAT_SAYS },
+    codex: { name: 'Codex', seat: true, says: 'Codex' + SEAT_SAYS },
+    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC (a local model, or another harness you choose)' + SEAT_SAYS },
     claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
       says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
     chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
       says: 'Opens your ChatGPT (chatgpt.com) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
-    'this-pc': { name: 'this PC (waiting in the backlog)',
-      says: 'Not built yet: Claude Code or Codex on this PC answer here once Startup Star\'s link is built (it waits on Astra\'s OK). Until then your message waits in the backlog, and the L3 seat stays empty.' },
     note: { name: 'the backlog', says: 'Your message goes to ' + STORE + ', like a session note.' },
   };
-  var chosen = read('chat-with', null), chatLines = read('chat', []);
+  var saved = read('chat-with', null);
+  var chosen = WHO[saved] ? saved : 'claude-code', chatLines = read('chat', []);
   function choose(k) {
-    chosen = WHO[k] ? k : null;
+    chosen = WHO[k] ? k : 'claude-code';
     for (var i = 0; i < whoButtons.length; i++) whoButtons[i].setAttribute('aria-pressed', whoButtons[i].dataset.who === chosen ? 'true' : 'false');
-    if (chatSays) chatSays.textContent = chosen ? WHO[chosen].says : 'Choose who answers. This page remembers it on this device.';
+    if (chatSays) chatSays.textContent = WHO[chosen].says;
+    if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another');
+    if (chatSeat) chatSeat.textContent = WHO[chosen].seat ? 'Seat: empty · ' + WHO[chosen].name + ' answers once seated' : 'Seat: empty';
   }
   function drawChat() {
     if (!chatLog) return;
     chatLog.textContent = '';
-    chatLines.slice(-20).forEach(function (m) { chatLog.appendChild(el('li', localTime(m.at) + ' · to ' + m.to + ': ' + m.text)); });
+    chatLines.slice(-20).forEach(function (m) {
+      var li = el('li', m.text);
+      li.className = m.from === 'pet' ? 'pet' : 'me';
+      li.title = localTime(m.at) + (m.to ? ' · to ' + m.to : '');
+      chatLog.appendChild(li);
+    });
+    chatLog.scrollTop = 1e9;
+  }
+  function say(from, text, to) {
+    chatLines.push({ at: new Date().toISOString(), from: from, to: to || null, text: text });
+    chatLines = chatLines.slice(-20);
+    write('chat', chatLines);
+    drawChat();
+  }
+  // Questions this page can answer from what it shows, the way Data Chip answered from its own dashboard.
+  function needsText() {
+    var items = panel ? panel.querySelectorAll('.chat-needs li') : [];
+    if (!items.length) return 'Nothing needs you right now.';
+    var lines = [];
+    for (var i = 0; i < items.length; i++) lines.push('• ' + items[i].textContent.trim());
+    return items.length + (items.length === 1 ? ' thing needs' : ' things need') + ' you:\n' + lines.join('\n');
+  }
+  function toolsText() {
+    var l1 = document.getElementById(config.petSlug + '-L1-control-panel');
+    var cares = l1 ? l1.querySelectorAll('.light.care') : [];
+    if (!cares.length) return 'I have no tools listed yet.';
+    var n = { works: 0, fix: 0, update: 0, unset: 0 };
+    for (var i = 0; i < cares.length; i++) {
+      var c = cares[i].classList;
+      if (c.contains('is-unset')) n.unset++; else if (c.contains('is-update')) n.update++; else if (c.contains('is-fix')) n.fix++; else n.works++;
+    }
+    return cares.length + ' things in L1: ' + n.works + ' checked and working, ' + n.fix + ' with an issue or not checked yet, ' + n.update + ' with an update waiting for your OK, ' + n.unset + ' not created yet.';
+  }
+  var QUICK = {
+    explain: function () { return config.summary + ' Its tools and programs are in L1, its tricks in L2, what L3 asks you in L3, and your approvals, grants and Pet ID in L4.'; },
+    needs: needsText,
+    tools: toolsText,
+  };
+  function showView(v) {
+    var views = panel ? panel.querySelectorAll('.chat-view') : [], tabs = panel ? panel.querySelectorAll('.chat-tabs button') : [];
+    for (var i = 0; i < views.length; i++) views[i].hidden = views[i].dataset.viewOf !== v;
+    for (var j = 0; j < tabs.length; j++) tabs[j].setAttribute('aria-pressed', tabs[j].dataset.view === v ? 'true' : 'false');
   }
   function chatOff() { var s = lights['chat:' + config.petSlug] || {}; return s.power ? s.power === 'off' : !!s.off; }
   function addNote(message) {
@@ -457,35 +506,55 @@
   function openChat(open) {
     panel.hidden = !open;
     chat.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open && chatText) chatText.focus();
+    if (open) {
+      showView(panel.querySelectorAll('.chat-needs li').length && !chatLines.length ? 'needs' : 'ask');
+      if (chatText) chatText.focus();
+    }
+  }
+  function send(message) {
+    if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return false; }
+    var to = WHO[chosen];
+    say('me', message, to.name);
+    if (to.url) {
+      var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
+        (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
+      try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
+      var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
+      if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
+      else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
+      return true;
+    }
+    if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return false; }
+    chatStatus.textContent = 'Saved to ' + STORE + '.';
+    if (to.seat) say('pet', 'Nobody is in my seat yet: the pet chat helper that seats ' + to.name + ' on this PC is not built. I put your message in ' + STORE + ', and ' + to.name + ' will pick it up from there. Ask me about this page (the buttons above) and I answer right away.');
+    return true;
   }
   if (chat && panel && chatText && chatSend) {
     chat.addEventListener('click', function () { openChat(panel.hidden); });
+    var close = document.getElementById('chat-close');
+    if (close) close.addEventListener('click', function () { openChat(false); chat.focus(); });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { openChat(false); chat.focus(); } });
     for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); });
+    var tabs = panel.querySelectorAll('.chat-tabs button');
+    for (var t = 0; t < tabs.length; t++) tabs[t].addEventListener('click', function () { showView(this.dataset.view); });
+    var quick = panel.querySelectorAll('.chat-quick button');
+    for (var q = 0; q < quick.length; q++) quick[q].addEventListener('click', function () {
+      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to ask.'; return; }
+      say('me', this.textContent);
+      say('pet', QUICK[this.dataset.quick]());
+    });
+    // A Needs you item takes you to its place on the page, with its panel open, and the chat steps aside.
+    var gotos = panel.querySelectorAll('[data-chat-goto]');
+    for (var g = 0; g < gotos.length; g++) gotos[g].addEventListener('click', function () {
+      var target = document.getElementById((this.getAttribute('href') || '').slice(1));
+      if (target && target.tagName === 'DETAILS') target.open = true;
+      openChat(false);
+    });
     chatText.addEventListener('input', function () { chatStatus.textContent = ''; });
     chatSend.addEventListener('click', function () {
       var message = chatText.value.trim();
       if (!message) { chatStatus.textContent = 'Type a message first.'; chatText.focus(); return; }
-      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return; }
-      if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
-      var to = WHO[chosen];
-      if (to.url) {
-        var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
-          (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
-        try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
-        var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
-        if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
-        else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
-      } else {
-        if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return; }
-        chatStatus.textContent = 'Saved to ' + STORE + '.';
-      }
-      chatLines.push({ at: new Date().toISOString(), to: to.name, text: message });
-      chatLines = chatLines.slice(-20);
-      write('chat', chatLines);
-      chatText.value = '';
-      drawChat();
+      if (send(message)) chatText.value = '';
     });
     choose(chosen);
     drawChat();
