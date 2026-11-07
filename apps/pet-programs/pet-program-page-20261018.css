@@ -408,6 +408,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .toolbox-body > :last-child { margin-bottom: 0; }
 .toolbox .button { border-radius: 14px; }
 .toolbox select { border-radius: 8px; }
+/* The boxes inside a tool (Discord Damsel's three presence apps and DM archive) look like Data Dealer's notes box,
+   not the browser's grey frame (Astra, 2026-11-06: "your buttons need to look like this for Discord Tower"). */
+fieldset.tool-box { margin: 12px 0 0; border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 4px 16px 14px; min-width: 0; }
+fieldset.tool-box > legend { font: 600 14px var(--label); color: var(--chalk); padding: 0 6px; }
+fieldset.tool-box .button { border-radius: 14px; }
 /* A tool panel inside a level (L2's update history): the same box, a little closer to the one above. */
 .panel.sub { margin-top: 26px; }
 .level > .panel.sub:first-of-type { margin-top: 18px; }
