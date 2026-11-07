@@ -7,14 +7,17 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
-import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS, CHAT_SEATS, PET_CHAT_JS } from '../scripts/pet-program-pages-20261018.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const src = readSpawnerSources(root);
 const files = spawnerFiles(src);
 const pages = spawnerPages(src);
 const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-const WHO = ['claude', 'chatgpt', 'this-pc', 'note'];
+const linkJs = readFileSync(`${root}/${DIR}/${PET_CHAT_JS}`, 'utf8');
+// Who answers, in Astra's order (2026-11-03): Claude Code, then Codex, then another AI on this PC; then the new tabs and a note.
+const WHO = CHAT_SEATS.map(([k]) => k);
+const at = (k) => WHO.indexOf(k);
 
 // Cut by plain string search: this reads the spawner's own pages, it does not filter HTML.
 const between = (text, open, close) => {
@@ -36,12 +39,17 @@ test('every page starts with an empty cyberhome, and no star door in it (Astra c
   assert.ok(css.includes('prefers-reduced-motion: reduce'), 'no flying for people who turned motion off');
 });
 
-test('every page has a chat window that asks who answers', () => {
+test('every page has a chat window like Data Chip\'s: the pet, Needs you, Ask, and who answers', () => {
+  assert.deepEqual(WHO.slice(0, 2), ['claude-code', 'codex'], 'Claude Code answers first, then Codex');
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
     assert.ok(html.includes(`aria-label="Open ${esc(d.pet)}'s chat"`), `${d.repo}: the chat button`);
     const box = between(html, '<div class="chat-panel" id="chat-panel"', '</aside>');
     for (const k of WHO) assert.ok(box.includes(`data-who="${k}"`), `${d.repo}: ${k}`);
+    for (const v of ['needs', 'ask']) assert.ok(box.includes(`data-view="${v}"`) && box.includes(`data-view-of="${v}"`), `${d.repo}: the ${v} view`);
+    for (const k of ['explain', 'needs', 'tools']) assert.ok(box.includes(`data-quick="${k}"`), `${d.repo}: quick question ${k}`);
+    assert.match(box, /Supervised: the seated agent reads the plan/, `${d.repo}: what the seated agent may do`);
+    for (const id of ['chat-close', 'chat-seat', 'chat-who-now']) assert.ok(box.includes(`id="${id}"`), `${d.repo}: ${id}`);
     for (const id of ['chat-text', 'chat-send', 'chat-status', 'chat-log', 'chat-who-says']) assert.ok(box.includes(`id="${id}"`), `${d.repo}: ${id}`);
     assert.equal(box.includes('leaves this PC'), d.isPrivate, `${d.repo}: private pets warn that a message to Claude or ChatGPT leaves the PC`);
   }
@@ -73,7 +81,28 @@ class El {
   set innerHTML(_) { throw new Error('Page text must never be rendered as HTML.'); }
 }
 
-function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
+// A pretend pet chat helper on this PC: its page data file, and an answer for each request the page sends to it.
+function pretendHelper(routes, agents) {
+  // A made-up port, so no real local service address is written in this public file.
+  const port = 40000 + Math.floor(Math.random() * 1000);
+  const data = { schema: 'astras-pet-os-pet-chat-v1', tool: 'the-farm-v1.0-pet-chat-helper-v1.0', on: true, url: `http://127.0.0.1:${port}/`, code: 'c0de', agents };
+  const sent = [];
+  const json = (o) => ({ headers: { get: () => 'application/json' }, json: async () => o });
+  const stream = (lines) => {
+    const chunks = lines.map((l) => new TextEncoder().encode(JSON.stringify(l) + '\n'));
+    return { headers: { get: () => 'application/x-ndjson; charset=utf-8' }, body: { getReader: () => ({ read: async () => (chunks.length ? { done: false, value: chunks.shift() } : { done: true }) }) } };
+  };
+  const fetch = async (url, opts) => {
+    const route = url.slice(data.url.length), body = JSON.parse(opts.body);
+    sent.push({ route, body, opts });
+    const r = await routes[route](body);
+    return Array.isArray(r) ? stream(r) : json(r);
+  };
+  return { data, sent, fetch };
+}
+const settle = async () => { for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r)); };
+
+function boot(d, { saved = {}, reduce = false, frames = [], panel: setupPanel = null, helper = null } = {}) {
   const html = files[pagePath(d.repo)];
   const config = between(html, '<script type="application/json" id="pet-program-data">', '</script>');
   let now = 0;
@@ -98,6 +127,7 @@ function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
   const moods = ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad'].map((m) => { const f = new El('figure'); f.dataset.mood = m; return f; });
   byId('chat-panel').hidden = true;
   byId('chat-panel').qa['button[data-who]'] = who;
+  if (setupPanel) setupPanel(byId('chat-panel'));
   const document = {
     hidden: false, listeners: {},
     getElementById: byId,
@@ -122,12 +152,21 @@ function boot(d, { saved = {}, reduce = false, frames = [] } = {}) {
     windowListeners: {}, addEventListener(type, f) { (this.windowListeners[type] ||= []).push(f); },
   };
   sandbox.window = sandbox;
+  // Opened from this PC, with the pet chat helper's page data file next to the farm.
+  const scripts = [];
+  if (helper) {
+    sandbox.location = { origin: 'null', protocol: 'file:', hostname: '' };
+    sandbox.fetch = helper.fetch; sandbox.TextDecoder = TextDecoder;
+    document.head = { appendChild: (s) => { scripts.push(s.getAttribute('src')); sandbox.petChatHelper = helper.data; setImmediate(() => s.onload()); } };
+  }
   vm.createContext(sandbox);
+  // Every page loads the chat's link to the helper first, then the page script.
+  vm.runInContext(linkJs, sandbox);
   vm.runInContext(js, sandbox);
   const read = (k) => JSON.parse(store.get(`astras-pet-os:${d.homeSlug}:${k}`) || 'null');
   const fireWindow = (type, e = {}) => { for (const f of sandbox.windowListeners[type] || []) f(e); };
   const lit = () => moods.filter((f) => f.cls.has('is-now')).map((f) => f.dataset.mood);
-  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, lit };
+  return { den, levels, who, byId, document, advance, opened, copied, read, fireWindow, lit, scripts };
 }
 
 const panther = pages.find((d) => d.repo === 'learn-python');
@@ -193,8 +232,8 @@ test('the chat button opens the window at once, ready to type', () => {
 
 test('My Claude opens claude.ai with the message typed in, and copies it; the choice is remembered', () => {
   const p = boot(panther);
-  p.who[0].click();
-  assert.equal(p.who[0].attrs['aria-pressed'], 'true');
+  p.who[at('claude')].click();
+  assert.equal(p.who[at('claude')].attrs['aria-pressed'], 'true');
   assert.equal(p.read('chat-with'), 'claude');
   p.byId('chat-text').value = 'Why is my lesson check failing?';
   p.byId('chat-send').click();
@@ -210,19 +249,23 @@ test('My Claude opens claude.ai with the message typed in, and copies it; the ch
   assert.equal(p.read('chat').at(-1).to, 'your Claude');
   // Opened again later: the window remembers who answers.
   const again = boot(panther, { saved: { 'chat-with': 'chatgpt' } });
-  assert.equal(again.who[1].attrs['aria-pressed'], 'true');
+  assert.equal(again.who[at('chatgpt')].attrs['aria-pressed'], 'true');
   again.byId('chat-text').value = 'hi';
   again.byId('chat-send').click();
   assert.ok(again.opened[0].startsWith('https://chatgpt.com/?q='));
 });
 
-test('Send asks for a message and a choice first, and a switched-off chat sends nothing', () => {
+test('Send asks for a message first; with no choice Claude Code answers; a switched-off chat sends nothing', () => {
   const p = boot(panther);
+  assert.equal(p.who[at('claude-code')].attrs['aria-pressed'], 'true', 'Claude Code is chosen until you pick another');
   p.byId('chat-send').click();
   assert.equal(p.byId('chat-status').textContent, 'Type a message first.');
   p.byId('chat-text').value = 'hello';
   p.byId('chat-send').click();
-  assert.equal(p.byId('chat-status').textContent, 'Choose who should answer first.');
+  assert.equal(p.opened.length, 0, 'nothing opens for the seat on this PC');
+  const lines = p.read('chat');
+  assert.deepEqual(lines.map((m) => m.from), ['me', 'pet']);
+  assert.match(lines[1].text, /^Nobody is in my seat yet\. The seat answers only on the page opened from the PC where the pet chat helper runs\./, 'the pet says honestly why it cannot answer');
   const off = boot(panther, { saved: { 'chat-with': 'claude', lights: { [`chat:${panther.petSlug}`]: { off: true } } } });
   off.byId('chat-text').value = 'hello';
   off.byId('chat-send').click();
@@ -234,8 +277,118 @@ test('Send asks for a message and a choice first, and a switched-off chat sends 
   assert.equal(off2.opened.length, 0, 'the newer light format switches it off too');
 });
 
-test('A note, or Claude Code or Codex on this PC until the link is built, goes to the backlog', () => {
-  for (const k of ['note', 'this-pc']) {
+const AGENTS = [
+  { id: 'claude-code', name: 'Claude Code', found: true, signed_in: false, seatable: true, ready: false, why: 'found on this PC; sign in once (claude auth login)' },
+  { id: 'codex', name: 'Codex', found: true, signed_in: true, seatable: true, ready: true, why: 'ready' },
+  { id: 'gemini', name: 'Gemini CLI', found: false, signed_in: false, seatable: false, ready: false, why: 'not on this PC' },
+  { id: 'copilot', name: 'GitHub Copilot CLI', found: true, signed_in: false, seatable: false, ready: false, why: 'found on this PC; the pet chat cannot seat it yet' },
+];
+const withStates = (p) => p.who.map((b) => { const s = new El('span'); b.q['[data-seat-state]'] = s; return s; });
+
+test('with the pet chat helper on this PC, each seat says what it found, and the first ready one answers when you have not chosen', async () => {
+  const h = pretendHelper({ hello: () => ({ ok: true, agents: AGENTS, pet_ok: true, pet_why: null, busy: false }) }, AGENTS);
+  const p = boot(panther, { helper: h });
+  const states = withStates(p);
+  p.byId('chat-open').click();
+  await settle();
+  assert.equal(p.scripts[0].split('?')[0], "../../../../Astra's PetOS Data/astras-pet-os/pet-chat/pet-chat-page-data.js", 'the page data file, next to the farm');
+  assert.deepEqual(h.sent.map((s) => s.route), ['hello']);
+  assert.deepEqual(h.sent[0].body, { code: 'c0de', pet: panther.repo });
+  assert.equal(h.sent[0].opts.headers['Content-Type'], 'text/plain', 'a simple request');
+  assert.equal(states[at('claude-code')].textContent, 'sign in once');
+  assert.equal(states[at('codex')].textContent, 'ready');
+  assert.equal(states[at('other-ai')].textContent, 'found, not yet');
+  assert.equal(p.who[at('codex')].attrs['aria-pressed'], 'true', 'Claude Code is not signed in, so Codex answers');
+  assert.equal(p.byId('chat-seat').textContent, 'Seat: Codex · ready');
+  // Her own choice stays hers.
+  const mine = boot(panther, { helper: h, saved: { 'chat-with': 'claude-code' } });
+  mine.byId('chat-open').click();
+  await settle();
+  assert.equal(mine.who[at('claude-code')].attrs['aria-pressed'], 'true');
+  assert.match(mine.byId('chat-who-says').textContent, /Claude Code: found on this PC; sign in once \(claude auth login\)\.$/);
+  mine.who[at('other-ai')].click();
+  assert.match(mine.byId('chat-who-says').textContent, /Found on this PC: GitHub Copilot CLI\. The pet chat cannot seat it yet; Claude Code and Codex can\.$/);
+});
+
+test('the seat\'s answer streams into the pet\'s bubble; its changes show, and Push asks the helper, which asks you on your PC', async () => {
+  const h = pretendHelper({
+    hello: () => ({ ok: true, agents: AGENTS, pet_ok: true }),
+    ask: () => [{ type: 'doing', text: 'Getting Codex seated' }, { type: 'seat', agent: 'Codex', branch: 'codex/pet-chat-learn-python-20261103' },
+      { type: 'say', text: 'Hel' }, { type: 'doing', text: 'Changing README.md' }, { type: 'say', text: 'lo.' },
+      { type: 'done', branch: 'codex/pet-chat-learn-python-20261103', changed: ['README.md'], unpushed: 1 }],
+    push: () => ({ ok: true, said: 'Pushed codex/pet-chat-learn-python-20261103.', branch: 'codex/pet-chat-learn-python-20261103', url: 'https://github.com/findastra/learn-python/compare/main...codex/pet-chat-learn-python-20261103?expand=1' }),
+  }, AGENTS);
+  const p = boot(panther, { helper: h });
+  p.byId('chat-open').click();
+  await settle();
+  p.byId('chat-text').value = 'Fix the README';
+  p.byId('chat-send').click();
+  assert.equal(p.byId('chat-send').textContent, 'Stop', 'while it answers, Send is Stop');
+  await settle();
+  assert.deepEqual(h.sent[1], { route: 'ask', body: { code: 'c0de', pet: panther.repo, agent: 'codex', text: 'Fix the README' }, opts: h.sent[1].opts });
+  const lines = p.read('chat');
+  assert.deepEqual(lines.map((m) => [m.from, m.text]), [['me', 'Fix the README'], ['pet', 'Hello.']]);
+  assert.equal(p.byId('chat-send').textContent, 'Send');
+  assert.equal(p.byId('chat-status').textContent, 'Changed on codex/pet-chat-learn-python-20261103: README.md.');
+  assert.equal(p.byId('chat-push').hidden, false);
+  assert.equal(p.byId('chat-push').textContent, 'Push 1 change for review');
+  assert.equal(p.opened.length, 0, 'nothing opens');
+  p.byId('chat-push').click();
+  assert.equal(p.byId('chat-status').textContent, 'Say yes or no in the box on your PC…');
+  await settle();
+  assert.equal(h.sent[2].route, 'push');
+  assert.equal(p.byId('chat-push').hidden, true);
+  const link = p.byId('chat-status').children.find((c) => c.tagName === 'A');
+  assert.equal(link.attrs.href, 'https://github.com/findastra/learn-python/compare/main...codex/pet-chat-learn-python-20261103?expand=1');
+  assert.equal(link.attrs.rel, 'noopener');
+});
+
+test('Stop asks the helper to stop the answer; Start over starts a new conversation', async () => {
+  let finish;
+  const h = pretendHelper({
+    hello: () => ({ ok: true, agents: AGENTS, pet_ok: true }),
+    ask: () => new Promise((r) => { finish = () => r([{ type: 'problem', text: 'Stopped. Anything already changed is kept on codex/pet-chat-learn-python-20261103.' }, { type: 'done', changed: [], unpushed: 0 }]); }),
+    stop: () => ({ ok: true, said: 'Stopped.' }),
+    new: () => ({ ok: true }),
+  }, AGENTS);
+  const p = boot(panther, { helper: h });
+  p.byId('chat-open').click();
+  await settle();
+  p.byId('chat-text').value = 'A long job';
+  p.byId('chat-send').click();
+  await settle();
+  p.byId('chat-send').click();
+  assert.equal(h.sent.at(-1).route, 'stop');
+  finish();
+  await settle();
+  assert.match(p.read('chat').at(-1).text, /^Stopped\./);
+  p.byId('chat-new').click();
+  assert.deepEqual(p.read('chat'), []);
+  assert.equal(h.sent.at(-1).route, 'new');
+});
+
+test('when the helper cannot seat this pet, or is not running, the message waits in the backlog and the pet says why', async () => {
+  const h = pretendHelper({ hello: () => ({ ok: true, agents: AGENTS, pet_ok: false, pet_why: 'Python Panther\'s folder is not on this PC.' }) }, AGENTS);
+  const p = boot(panther, { helper: h, saved: { 'chat-with': 'codex' } });
+  p.byId('chat-open').click();
+  await settle();
+  p.byId('chat-text').value = 'hello';
+  p.byId('chat-send').click();
+  assert.equal(h.sent.length, 1, 'only hello: nothing is asked');
+  assert.match(p.read('chat').at(-1).text, /^Nobody is in my seat yet\. Python Panther's folder is not on this PC\./);
+  assert.equal(p.read('backlog').entries.at(-1).text, 'hello');
+  const off = pretendHelper({}, AGENTS);
+  off.data.on = false;
+  const q = boot(panther, { helper: off });
+  q.byId('chat-open').click();
+  await settle();
+  q.byId('chat-text').value = 'hello';
+  q.byId('chat-send').click();
+  assert.match(q.read('chat').at(-1).text, /The pet chat helper is not running on this PC\. Startup Star starts it when you sign in/);
+});
+
+test('A note, or a message for the seat when no helper can answer, goes to the backlog', () => {
+  for (const k of ['note', 'claude-code', 'codex', 'other-ai']) {
     const p = boot(panther, { saved: { 'chat-with': k } });
     p.byId('chat-text').value = 'Add a lesson on loops';
     p.byId('chat-send').click();
@@ -245,6 +398,21 @@ test('A note, or Claude Code or Codex on this PC until the link is built, goes t
     assert.equal(entry.tool, `${panther.petSlug}-chat`);
     assert.match(entry.id, /^python-jungle-v1\.0-backlog-\d{8}-001$/);
   }
+});
+
+test('the page answers questions about itself straight away, like Data Chip did', () => {
+  const q = (k, label) => Object.assign(new El('button'), { textContent: label }, { dataset: { quick: k } });
+  const quick = [q('explain', 'Explain this page'), q('needs', 'What needs me?'), q('tools', 'How are my tools?')];
+  // A pretend page whose chat panel holds the quick buttons, so the script binds them.
+  const p = boot(panther, { panel: (panel) => { panel.qa['.chat-quick button'] = quick; } });
+  quick[0].click();
+  let lines = p.read('chat');
+  assert.deepEqual(lines.map((m) => m.from), ['me', 'pet']);
+  assert.ok(lines[1].text.startsWith(panther.summary), 'explain starts with the pet program\'s own summary');
+  quick[1].click();
+  lines = p.read('chat');
+  assert.equal(lines.at(-1).text, 'Nothing needs you right now.', 'with nothing waiting, it says so');
+  assert.equal(p.opened.length, 0, 'nothing leaves the page');
 });
 
 test('a pet with a private repo never names it in the message', () => {

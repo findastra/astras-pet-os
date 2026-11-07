@@ -53,7 +53,7 @@ test('pets.json follows with one changed line, and only for a pet that is not pr
 
 test('it refuses a repo that is not an animal, and changes GitHub only with --yes', () => {
   const run = (...a) => { try { execFileSync(process.execPath, [TOOL, ...a], { encoding: 'utf8', stdio: 'pipe' }); return { code: 0 }; } catch (e) { return { code: e.status, err: String(e.stderr) }; } };
-  const seed = run('plan', 'lunas-log');
+  const seed = run('plan', 'osc-sonar');
   assert.equal(seed.code, 1);
   assert.match(seed.err, /Animal guard: refusing/);
   assert.match(run('apply', 'meme-fiend').err, /add --yes when the farm owner says so/);
@@ -143,7 +143,7 @@ test('before going public, every commit of every branch is scanned; it names the
 
 test('both ways from the command line: animals only, --yes, and the art source refused before GitHub is asked', () => {
   const run = (...a) => { try { return { code: 0, out: execFileSync(process.execPath, [TOOL, ...a], { encoding: 'utf8', stdio: 'pipe' }) }; } catch (e) { return { code: e.status, err: String(e.stderr) }; } };
-  assert.match(run('plan', 'public', 'lunas-log').err, /Animal guard: refusing/);
+  assert.match(run('plan', 'public', 'osc-sonar').err, /Animal guard: refusing/);
   assert.match(run('apply', 'public', 'meme-fiend').err, /add --yes when the farm owner says so/);
   assert.match(run('apply', 'public', '--yes').err, /Name the repos to make public/);
   assert.match(run('copy', 'astras-pet-os', 'my-farm', '--yes').err, /Name the source as owner\/repo/);

@@ -112,6 +112,38 @@ The Farmer's Desk ([program page](https://findastra.github.io/astras-pet-os/apps
 
 Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](https://github.com/findastra/github-goldfish#project-image-generator); added with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 
+## Pet stages
+
+Every pet is at one stage on its way from an idea to a released pet. The chart is written by `npm run build` from
+[pet-programs.json](pet-programs.json) (each pet program's `stage`) and the gate in [pets.json](pets.json)
+(`candidates`); `npm test` fails when it is out of date.
+
+<!-- stages:start (generated from pet-programs.json and pets.json by scripts/pet-stages-20261102.mjs; do not edit by hand) -->
+```mermaid
+flowchart LR
+  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 11"]
+  candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
+  seed -->|real work in its repo| pipeline["Pipeline · 31"]
+  roadmap -->|real work in its repo| pipeline
+  pipeline -->|art registered| registered["Registered · 23"]
+```
+
+| Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
+|---|---|---|---|---|---|
+| **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
+| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 11 | 11 |
+| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
+| **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
+
+85 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
+<!-- stages:end -->
+
+**Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,
+a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-programs.json, and its pets.json entry
+when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
+into the pipeline goes through the gate, so nobody becomes an animal by saying so.
+
 ## Who lives here
 
 <!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->
@@ -169,8 +201,10 @@ app where it is portable, and a web stand-in where the original is a Windows app
 in that browser.
 
 **Every pet program's page:** the Friendly Farmer's [pet program spawner](apps/pet-programs/pet-program-spawner-20261018.html)
-gives each of the 38 registered and pipeline pets a page with every tool panel of Astra's sketch
+gives each registered and pipeline pet a page with every tool panel of Astra's sketch
 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3): the basics first, rebuilt by `npm run build`.
+**[The Model Pet Program](apps/pet-programs/model-pet-program-20261102.html)** is a made-up pet with every tool
+panel, every kind of item and every light, named Tool one, Tool two and so on.
 
 **The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 

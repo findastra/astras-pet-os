@@ -494,6 +494,13 @@
         "why": "The Farmer watches Log Lynx’s heartbeat, so a silent Log Lynx is noticed too (PET-PROGRAM-FRAMEWORK.md, section 8)."
       },
       {
+        "from": "the-threshold",
+        "to": "unity-unicorn",
+        "carries": "findings",
+        "state": "planned",
+        "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
+      },
+      {
         "from": "pc-master-race",
         "to": "kernel-grove",
         "carries": "findings",
@@ -1128,7 +1135,25 @@
             "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "repo-catcher",
+          "label": "pet-program-12-v1.0-repo-catcher-v1.0",
+          "use": "Read only: lists repos on this PC that were never pushed or hold unpushed work, newest first.",
+          "entry": "scripts/repo-catcher-20261013.ps1",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "new-programs-watch",
+          "label": "pet-program-12-v1.0-new-programs-watch-v1.0",
+          "use": "Read only: lists programs that are new on this PC, wherever they were installed.",
+          "entry": "scripts/new-programs-watch-20261013.ps1",
+          "visibility": "private",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "discord-tower",
@@ -1194,7 +1219,37 @@
             "why": "The typing-indicator trick looks in Discord Canary for settings desktop Stable does not have yet (Astra, 2026-11-03)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "openai-discord-presence",
+          "label": "discord-tower-v1.0-openai-discord-presence-v0.2",
+          "use": "Shows the OpenAI model, effort and active Codex projects on Discord. Reads Codex metadata read-only; names a chat by its user-given name, then its folder, then its saved Codex project.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
+          "name": "anthropic-discord-presence",
+          "label": "discord-tower-v1.0-anthropic-discord-presence-v0.2",
+          "use": "Shows the Anthropic model, effort and active Claude Code projects on Discord. Reads Claude Code transcript metadata only; names a session by its /rename name, then its folder. Always on covers Claude on the web and desktop chat.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
+          "name": "sticker-manager",
+          "label": "discord-tower-v1.0-sticker-manager-v1.0",
+          "use": "Shows every Discord server Astra is in, each opening to its stickers, and resets her favorite stickers to the ones she picks, after she confirms. Reads the Discord app's own server, sticker and favorites lists; changes only the favorite stickers, through Discord's own settings saver. No requests of ",
+          "visibility": "private",
+          "version": "1.0.5"
+        },
+        {
+          "name": "cli-proxy-api",
+          "label": "discord-tower-v1.0-cli-proxy-api-v1.0",
+          "use": "Looks after CLI Proxy API, a third-party program: installs only the verified v8.0.34 from quarantine, writes a config that keeps it on 127.0.0.1 with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder. Never signs a",
+          "visibility": "private",
+          "version": "1.0.0"
+        }
+      ]
     },
     {
       "repo": "portfolio-puffer",
@@ -1236,7 +1291,19 @@
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "Handwritten Message Manager",
+          "use": "Keeps Astra's hand lettering for the findastra.github.io hero slider: clears Procreate backgrounds, holds the words and order, exports the pictures and lettering-data.js.",
+          "entry": "handwritten-message-manager-20261019.html"
+        },
+        {
+          "name": "Astra's Window Star",
+          "label": "astras-star-window",
+          "use": "Keeps Astra's Window Star: one hosted picture (findastra.github.io/astras-star-window/star-window.svg) of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile. One page, also in its tool panel on Puffer's pet program: tap +, drag the ph"
+        }
+      ]
     },
     {
       "repo": "drum-dog",
@@ -1462,7 +1529,17 @@
             "why": "Voicemeeter Bug watches output A2."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "keep-voicemeeter-open",
+          "label": "audio-rescue-v1.0-keep-voicemeeter-open-v1.0",
+          "use": "Opens Voicemeeter again a few seconds after it closes (the same app the Bug last saw running) and closes its About / Registration info reminder in the first three minutes after Voicemeeter starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes or a failed launch. Never registers Voi",
+          "entry": "keep-open-20261018.cs",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "platform-platypus",
@@ -1553,7 +1630,37 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "crash-catcher",
+          "label": "log-den-v1.0-crash-catcher-v1.0",
+          "use": "Records every crash window when it appears: program, path, SHA-256, command line, parent, window text, stack trace (presses Details only on .NET dialogs) and a picture.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "windows-log-reader",
+          "label": "log-den-v1.0-windows-log-reader-v1.0",
+          "use": "Reads crash records from the Windows Application log (Application Error 1000, .NET Runtime 1026, Windows Error Reporting 1001).",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "heartbeat-checker",
+          "label": "log-den-v1.0-heartbeat-checker-v1.0",
+          "use": "Checks that every pet program writing farm events, and the desktop pets’ and Voicemeeter Bug’s logs, are still writing; writes Log Lynx’s heartbeat.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "farm-event-log",
+          "label": "log-den-v1.0-farm-event-log-v1.0",
+          "use": "The shared farm event record format (contracts/farm-event-v1-20261018.cs and .schema.json); other pet programs compile this one copy.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "packet-river",
@@ -1596,7 +1703,44 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "ping-sampler",
+          "label": "packet-river-v1.0-ping-sampler-v1.0",
+          "use": "Every minute: five pings each to the router and the DNS server; loss and latency.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "dns-checker",
+          "label": "packet-river-v1.0-dns-checker-v1.0",
+          "use": "Every minute: DNS answer time for each name in the targets file.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "reach-checker",
+          "label": "packet-river-v1.0-reach-checker-v1.0",
+          "use": "Every minute: one TCP connection to github.com:443, opened and closed with no data sent.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "route-tracer",
+          "label": "packet-river-v1.0-route-tracer-v1.0",
+          "use": "The hops to a host: on request, and once when the internet is lost while the router answers.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "link-watcher",
+          "label": "packet-river-v1.0-link-watcher-v1.0",
+          "use": "The adapter in use, its speed and router, and every change or drop.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "evidence-locker",
@@ -1644,7 +1788,37 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "case-opener",
+          "label": "evidence-locker-v1.0-case-opener-v1.0",
+          "use": "Opens a case two minutes after every crash Log Lynx catches, or for a moment Astra names.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "evidence-collector",
+          "label": "evidence-locker-v1.0-evidence-collector-v1.0",
+          "use": "Gathers farm events, crash pictures and stack traces, screenshots, file activity (names and times) and Windows log errors around the moment; read-only copies.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "custody-log",
+          "label": "evidence-locker-v1.0-custody-log-v1.0",
+          "use": "A hash-chained chain of custody per case; --verify re-checks every item and entry.",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "timeline-builder",
+          "label": "evidence-locker-v1.0-timeline-builder-v1.0",
+          "use": "One timeline and a plain report.md per case.",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     }
   ],
   "pipeline": [
@@ -2340,7 +2514,17 @@
             "why": "Rift Rabbit's launcher opens it as part of a VRChat setup (Astra, 2026-10-24)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "vr-launch",
+          "label": "wonderland-launchpad-v1.0-vr-launch-v1.0",
+          "use": "Starts a VRChat setup's programs in Astra's order when she presses Launch on Rift Rabbit's page opened from her PC: SteamVR's Space Override / Space Sync add-ons for the mode, the streamer, the headset (it waits), SteamVR, the programs SteamVR used to auto-start, the mode's own program, DoubleHip Do",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        }
+      ]
     },
     {
       "repo": "fuzzboi-friend",
@@ -2598,7 +2782,15 @@
             "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "chat-rat-v0.1.0-save-missing-v0.1.0",
+          "use": "Archive local and exported conversations",
+          "entry": "chat-rat-20261016.mjs",
+          "visibility": "private"
+        }
+      ]
     },
     {
       "repo": "workflow-whirlpool",
@@ -2632,7 +2824,16 @@
           }
         ],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "ipad-workflow-caster",
+          "use": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
+          "entry": "dist/ipad-workflow-caster/index.html",
+          "visibility": "private",
+          "version": "0.1.0"
+        }
+      ]
     },
     {
       "repo": "linux-iceberg",
@@ -2665,7 +2866,25 @@
             "why": "Planned: Linux Penguin manages MacAttack, the Kali drives that test this farm (Astra, 2026-10-18)."
           }
         ]
-      }
+      },
+      "tools": [
+        {
+          "name": "mac-prewipe-check",
+          "label": "linux-iceberg-v0.1-mac-prewipe-check-v1.0",
+          "use": "Read-only report on a Mac before it is wiped for Linux: model, T2, Wi-Fi card, Apple ID and Find My state, folder sizes and what to copy off. Changes nothing, sends nothing.",
+          "entry": "tools/mac-prewipe-check-20261018.sh",
+          "visibility": "public",
+          "version": "v1.0"
+        },
+        {
+          "name": "linux-check",
+          "label": "linux-iceberg-v0.1-linux-check-v1.0",
+          "use": "Read-only look at a Linux computer: distro and family (from /etc/os-release), the matching trick, desktop session, updates waiting, failed services, SSH server, disk, memory and anything listening beyond the computer. Changes nothing, sends nothing, never runs sudo.",
+          "entry": "tools/linux-check-20261019.sh",
+          "visibility": "public",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "kernel-grove",
@@ -2697,7 +2916,37 @@
         ],
         "core": [],
         "programs": []
-      }
+      },
+      "tools": [
+        {
+          "name": "process-sweep",
+          "label": "kernel-grove-v1.0-process-sweep-v1.0",
+          "use": "Shows every running program grouped by app, with what it is, why it runs and what to do, and stops the ones Astra picks. Never stops Windows, security, AI apps, pets, programs running as administrator or itself.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "startup-switch",
+          "label": "kernel-grove-v1.0-startup-switch-v1.0",
+          "use": "Lists what starts at sign-in with a suggestion for each, and switches Astra's own items on or off in Windows' StartupApproved list, the way Task Manager does. All-users items need administrator permission and are left to Windows' Startup apps.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "service-host-explainer",
+          "label": "kernel-grove-v1.0-service-host-explainer-v1.0",
+          "use": "Explains each Service Host row (Windows' own service descriptions) and lists other companies' background services. Read-only.",
+          "visibility": "private",
+          "version": "v1.0"
+        },
+        {
+          "name": "leftover-watch",
+          "label": "kernel-grove-v1.0-leftover-watch-v1.0",
+          "use": "In the background, a look every ten minutes for leftovers and memory above 85%; writes its last look to its menu in Startup Star's menu and its mood to its mood file. No tray icon, no pop-ups, never stops anything by itself.",
+          "visibility": "private",
+          "version": "v1.0"
+        }
+      ]
     },
     {
       "repo": "benchmark-rock",
@@ -2860,6 +3109,327 @@
             "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
           }
         ]
+      },
+      "tools": [
+        {
+          "name": "gpu-watch",
+          "label": "benchmark-rock-v1.0-gpu-watch-v1.0",
+          "use": "Shows each graphics card (its name, its own memory, how much of it is in use, how busy it is and on which engine) and every program using it: its graphics memory, what it borrows from the PC, how busy it keeps the card and whether it has a window. Live every three seconds while the window is open. R",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "busy-watch",
+          "label": "benchmark-rock-v1.0-busy-watch-v1.0",
+          "use": "In the background, a look every two minutes: curious when a card's own memory is 90% full, or when a program with no window has kept a card 80% busy for ten minutes. Writes its last look to its menu file and its mood to its mood file. No tray icon, no pop-ups, never stops anything.",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "program-watch",
+          "label": "benchmark-rock-v1.0-program-watch-v1.0",
+          "use": "Every five seconds while the watch runs: which of the 3rd party programs on the System Map are open, written for Startup Star and for the pet program pages opened on this PC. Closes one the way its window's X does, never forced, and opens one from its own shortcut. Moved here from Kernel Grove on 20",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        },
+        {
+          "name": "device-watch",
+          "label": "benchmark-rock-v1.0-device-watch-v1.0",
+          "use": "Which VR devices on the System Map are on (headsets, Index controllers, trackers, base stations), from SteamVR's own log of this session, written with program-watch's look for the same pages. Read only.",
+          "visibility": "private",
+          "version": "v1.0",
+          "planned": true
+        }
+      ]
+    },
+    {
+      "repo": "lunas-log",
+      "pet": "Skill Scout",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the agent and skill files of every assistant, and its skill catalog",
+        "needs": "your OK on which skills to adopt, fix or retire"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: the skill census (skill-scout-20261017.mjs), its catalog page (index.html) and three tricks. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/lunas-log-20261018.html",
+      "interface_local_url": "apps/pet-programs/lunas-log-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "journal-lagoon",
+      "pet": "Journal Jellyfish",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Private travel diary and itineraries.",
+      "added": "2026-11-02",
+      "version": "0.2.0",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the diary, its nightly reminder and its backups",
+        "needs": "a look at the diary on your PC"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; real work on main: the diary page, its worker and nightly reminder, six tools in its pet.json. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/journal-lagoon-20261018.html",
+      "interface_local_url": "apps/pet-programs/journal-lagoon-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      },
+      "tools": [
+        {
+          "name": "journal-lagoon-v0.2.0-mood-check-in-v1.0",
+          "use": "Record an explicitly selected daily mood and optional context",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-year-in-color-v1.0",
+          "use": "Display one latest self-reported mood per day; export counts",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-diary-entries-v1.0",
+          "use": "Save text and attachment bytes locally",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-my-diary-v1.0",
+          "use": "Browse submitted entries and committed panel interactions",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-nightly-reminder-v1.0",
+          "use": "Ask for a color at the configured time; snooze or skip",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        },
+        {
+          "name": "journal-lagoon-v0.2.0-backup-restore-v1.0",
+          "use": "Export complete diary and merge validated backups without deleting existing records",
+          "entry": "journal-lagoon-20261019.html",
+          "visibility": "private",
+          "version": "1.0"
+        }
+      ]
+    },
+    {
+      "repo": "ai-doghouse",
+      "pet": "AI Dashund",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the research library, its sources and the research paper plan",
+        "needs": "your review of the research paper plan"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: the research library and the research paper plan, four tools in its pet.json (claude-toolset-tool merged in findastra/ai-doghouse#6). No pet art registered yet.",
+      "interface_url": "apps/pet-programs/ai-doghouse-20261018.html",
+      "interface_local_url": "apps/pet-programs/ai-doghouse-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      },
+      "tools": [
+        {
+          "name": "research-library",
+          "label": "ai-doghouse-v0.1-research-library-v1.0",
+          "use": "Vetted sources with evidence levels and where each applies.",
+          "entry": "library/references-20261014.md",
+          "visibility": "public"
+        },
+        {
+          "name": "research-paper",
+          "label": "ai-doghouse-v0.1-research-paper-v0.1",
+          "use": "The plan for the research paper on Astra's PetOS.",
+          "entry": "docs/research-paper-plan-20261014.md",
+          "visibility": "public"
+        },
+        {
+          "name": "ai-tools-list",
+          "label": "ai-doghouse-v0.1-ai-tools-list-v1.0",
+          "use": "Teaches which tools and assets the pets' agents fetched, why, and how to use them safely; the record is Unity Unicorn's download ledger, reached by grant.",
+          "entry": "library/ai-tools-20261018.md",
+          "visibility": "public"
+        },
+        {
+          "name": "claude-toolset-tool",
+          "label": "ai-doghouse-v0.1-claude-toolset-tool-v0.1",
+          "use": "Sorts every / tool in Claude, and the skills Codex and the hub have, by where it came from, which pet should own it and whether it helps Astra now. --check flags new, missing or drifted skills.",
+          "entry": "tools/claude-toolset-tool/claude-toolset-tool-20261102.html",
+          "visibility": "private"
+        }
+      ]
+    },
+    {
+      "repo": "the-threshold",
+      "pet": "Door Dormouse",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website. Browser prototype; L3 and Unity execution are not connected.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "The Threshold's page, the Liminal Doors floors and the tools tracker",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; real work on main: The Threshold's found-floors page (index.html) and the tools tracker for Liminal Doors. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/the-threshold-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-threshold-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Door Dormouse on the desktop; The Threshold's page works without it."
+          }
+        ],
+        "programs": []
+      }
+    },
+    {
+      "repo": "white-hat-lab",
+      "pet": "White Hat Weasel",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Authorized security assessment and remediation.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "authorized security tests and their scan log",
+        "needs": "your OK before every test"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the private scan log is in findastra/white-hat-lab#3. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/white-hat-lab-20261018.html",
+      "interface_local_url": "apps/pet-programs/white-hat-lab-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "iron-gates",
+      "pet": "Gatekeeper Goddess",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Security and approvals: human-facing approvals and security monitoring. Issues the grants and the short-lived agent keys; never approves her own.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the grants, agent keys and YubiKey enrollment",
+        "needs": "the YubiKey steps only you can do"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo with the YubiKey enrollment list on main; the YubiKey spending approval is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/iron-gates-20261018.html",
+      "interface_local_url": "apps/pet-programs/iron-gates-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "cipher-hollow",
+      "pet": "Cipher Owl",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Encryption, keys, certificates and crypto education.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "encryption, keys and certificates",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; its YubiKey part is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/cipher-hollow-20261018.html",
+      "interface_local_url": "apps/pet-programs/cipher-hollow-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "roam-map",
+      "pet": "Roaming Raven",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Travel connectivity, VPN/tailnet and remote access.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "remote access, VPN and the tailnet",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the remote access list is on design/remote-access-inventory-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/roam-map-20261018.html",
+      "interface_local_url": "apps/pet-programs/roam-map-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "the-police-station",
+      "pet": "Pet Police Officer",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.",
+      "added": "2026-11-02",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every write and agent key use it watches",
+        "needs": "nothing yet"
+      },
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the seed to the pipeline; being built: a starter repo on main; its YubiKey part is on design/yubikey-spend-approval-20261102. No pet art registered yet.",
+      "interface_url": "apps/pet-programs/the-police-station-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-police-station-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
       }
     },
     {
@@ -3151,13 +3721,6 @@
         "note": "Named after Procreate. Takes the panda, so the v5.2 passport pet is now Passport Pelican."
       },
       {
-        "pet": "Skill Scout",
-        "program": "Luna's Log",
-        "repo": null,
-        "job": "Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.",
-        "note": "Job and look decided by Astra on 2026-10-12: an original sailor-style girl in the Mommies' design with very long braids (not a copy of any existing character)."
-      },
-      {
         "pet": "OSC Sealion",
         "program": "OSC Sonar",
         "repo": null,
@@ -3232,13 +3795,6 @@
         "note": "Named by Astra on 2026-10-12."
       },
       {
-        "pet": "Pet Police Officer",
-        "program": "The Police Station",
-        "repo": null,
-        "job": "Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.",
-        "note": "Approved by Astra on 2026-10-14. Pet program: The Police Station (repo findastra/the-police-station, created 2026-10-14). Moves to the pipeline when Astra lets it in at the gate."
-      },
-      {
         "pet": "Triage Tapir",
         "program": "The Triage Desk",
         "repo": null,
@@ -3264,25 +3820,14 @@
             "why": "Shares defensive findings; File Master retains file management ownership."
           }
         ]
-      },
-      {
-        "pet": "Door Dormouse",
-        "program": "The Threshold",
-        "repo": null,
-        "for": "liminal-doors",
-        "job": "Manages Liminal Doors: floor planning, tools, Unity project metadata and the preview website.",
-        "note": "Named and requested by Astra on 2026-10-16. Browser prototype is on Codex's branch; no independent repo, native desktop pet, automatic schedule, L3 connection or Unity execution grant.",
-        "works_with": [
-          {
-            "pet": "unity-unicorn",
-            "why": "The Threshold prepares world build requests; Unity Unicorn owns reusable editor tools. Exchanges are manual exports until an authorized bridge exists."
-          }
-        ]
       }
     ],
     "already_in_pipeline": [
       "claude-bot (Claude Bot)",
-      "spoonfed (Spoonfed Sugarcube)"
+      "spoonfed (Spoonfed Sugarcube)",
+      "lunas-log (Skill Scout)",
+      "the-police-station (Pet Police Officer)",
+      "the-threshold (Door Dormouse)"
     ],
     "renames": [
       {
