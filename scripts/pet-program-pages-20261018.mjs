@@ -36,6 +36,8 @@ export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-pa
 // Rift Rabbit's Launch buttons (2026-10-24): the only page script that sends anything, and only to Rift Rabbit's own
 // launcher on this PC, so it is its own file and only Rift Rabbit's page loads it (wherever its VRChat setups are drawn).
 export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
+// The chat window's link to the pet chat helper on this PC (card 283), on every page, before the page script.
+export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
@@ -955,11 +957,11 @@ ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : 
 <div class="chat-quick" role="group" aria-label="Quick questions">${[['explain', 'Explain this page'], ['needs', 'What needs me?'], ['tools', 'How are my tools?']].map(([k, label]) => `<button type="button" class="button" data-quick="${k}">${esc(label)}</button>`).join('')}</div>
 <label class="small" for="chat-text">message</label>
 <textarea id="chat-text" rows="2" placeholder="Ask ${esc(d.pet)} anything"></textarea>
-<p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><span class="small" id="chat-status" role="status"></span></p>
+<p class="chat-row"><button type="button" class="button" id="chat-send">Send</button><button type="button" class="button" id="chat-push" hidden>Push for review</button><button type="button" class="button" id="chat-new">Start over</button><span class="small" id="chat-status" role="status"></span></p>
 <details class="chat-seats"><summary>Who answers: <span id="chat-who-now">Claude Code</span></summary>
-<div class="chat-who" role="group" aria-label="Who answers">${CHAT_SEATS.map(([k, label, where]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)} <span class="small">${esc(where)}</span></button>`).join('')}</div>
+<div class="chat-who" role="group" aria-label="Who answers">${CHAT_SEATS.map(([k, label, where]) => `<button type="button" class="button" data-who="${k}" aria-pressed="false">${esc(label)} <span class="small"${where === 'on this PC' ? ` data-seat-state="${k}"` : ''}>${esc(where)}</span></button>`).join('')}</div>
 <p class="small" id="chat-who-says"></p>
-<p class="small">Supervised: the seated agent reads the plan and ${esc(d.pet)}'s repo, makes changes on a branch, and asks you here before anything bigger, such as a merge, a push, a key or an account.</p>
+<p class="small">Supervised: the seated agent reads the plan and ${esc(d.pet)}'s repo and changes files only on its own branch, in a copy of the repo; the pet chat helper saves each answer's changes there. Nothing reaches GitHub until you press Push and say yes in the box on your PC, and nothing goes to main from here. For anything bigger, such as a merge, a key or an account, it asks you here first.</p>
 ${d.isPrivate ? `<p class="small">${esc(d.pet)} is private: its data never leaves this PC, and a message to My Claude or My ChatGPT does. A note stays here.</p>` : ''}</details>
 </div></div></aside>`;
 
@@ -985,7 +987,8 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${ASSETS.js}"></script>
+${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
+<script src="${ASSETS.js}"></script>
 ${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>

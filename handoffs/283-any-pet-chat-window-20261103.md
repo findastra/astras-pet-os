@@ -1,4 +1,4 @@
-status: waiting for Astra's merge OK (#283 here, after #276, #278 and #279); the helper waits on her OK to build
+status: the window is #283; the helper is #285 (card 285); both wait for Astra's merge OK, after #276, #278 and #279
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-03, the "Friendly Farmer" chat
 needs: cards 279 and 061 (the pet chat in the page, on `claude/pet-chat-in-page-20261020`, #172), card 054 (task 4)
@@ -19,7 +19,7 @@ are supposed to be able to change stuff, read the plan."
 - `npm test` in an LF checkout: 364 pass, 2 fail, the same two as on `main`. The 14 chat tests pass. Headless Edge
   screenshots at 1280×900 and 390×844.
 
-## Next: the pet chat helper (waits on Astra's OK)
+## Next: the pet chat helper (Astra, 2026-11-03: "Yes, build it"; built in #285, card 285)
 
 It lets an agent change files from a page, so L4 approves it first.
 

@@ -419,18 +419,21 @@
   // once, on Needs you when something waits on you, else on Ask. Questions about this page get an answer from the page
   // itself straight away; anything else goes to who answers. Who answers is the AI seated in the pet's harness on this
   // PC, Claude Code first, then Codex, then another AI the pet chat helper finds (Astra, 2026-11-03), or your own Claude
-  // or ChatGPT in a new tab, or a note. The pet chat helper that seats them is not built yet, so a message for the seat
-  // waits in the backlog and the pet says so. The page keeps no keys. The chat's own left light switches it off. ----
+  // or ChatGPT in a new tab, or a note. The pet chat helper (scripts/pet-chat-helper-20261103.cs, card 283) seats them:
+  // it says what it found on this PC, the answer streams into the window, and the agent's changes stay on its own branch
+  // until you press Push and say yes in the helper's box on your PC. With no helper, a message for the seat waits in the
+  // backlog and the pet says why. The page keeps no keys. The chat's own left light switches it off. ----
   var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
   var chatText = document.getElementById('chat-text'), chatSend = document.getElementById('chat-send');
   var chatStatus = document.getElementById('chat-status'), chatSays = document.getElementById('chat-who-says'), chatLog = document.getElementById('chat-log');
   var chatSeat = document.getElementById('chat-seat'), chatNow = document.getElementById('chat-who-now');
+  var chatPush = document.getElementById('chat-push'), chatNew = document.getElementById('chat-new');
   var whoButtons = panel ? panel.querySelectorAll('button[data-who]') : [];
-  var SEAT_SAYS = ' answers here as ' + config.pet + ', seated in ' + config.home + '\'s harness on this PC. Not connected yet: the pet chat helper that seats it is not built, so your message waits in the backlog.';
+  var SEAT_SAYS = ' answers here as ' + config.pet + ', seated in ' + config.home + '\'s harness on this PC. It reads the plan and ' + config.pet + '\'s repo and changes files only on its own branch; nothing reaches GitHub until you press Push and say yes on your PC.';
   var WHO = {
     'claude-code': { name: 'Claude Code', seat: true, says: 'Claude Code' + SEAT_SAYS },
     codex: { name: 'Codex', seat: true, says: 'Codex' + SEAT_SAYS },
-    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC (a local model, or another harness you choose)' + SEAT_SAYS },
+    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC. It names what it found; only Claude Code and Codex can be seated so far.' },
     claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
       says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
     chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
@@ -439,12 +442,75 @@
   };
   var saved = read('chat-with', null);
   var chosen = WHO[saved] ? saved : 'claude-code', chatLines = read('chat', []);
+  // The pet chat helper on this PC, reached only through pet-chat-link-20261103.js (this script sends nothing itself).
+  var link = window.PetChatLink || null, onThisPC = !!(link && link.onThisPC);
+  var helper = false, agents = {}, order = [], petOk = false, petWhy = '', answering = false;
+  function agentOf(k) { return agents[k] || null; }
+  function ready(k) { var a = agentOf(k); return !!(helper && petOk && a && a.ready); }
+  // Why a seat cannot answer right now, in plain words; empty when it can.
+  function whyNot(k) {
+    if (!onThisPC) return 'The seat answers only on the page opened from the PC where the pet chat helper runs.';
+    if (!helper) return 'The pet chat helper is not running on this PC. Startup Star starts it when you sign in; its menu has Pet chat, then Start Pet chat.';
+    if (!petOk) return petWhy || 'No agent can be seated for ' + config.pet + ' here.';
+    if (k === 'other-ai') {
+      var others = order.filter(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }).map(function (id) { return agentOf(id).name; });
+      return others.length ? 'Found on this PC: ' + others.join(', ') + '. The pet chat cannot seat ' + (others.length === 1 ? 'it' : 'them') + ' yet; Claude Code and Codex can.' : 'The pet chat helper found no other AI on this PC.';
+    }
+    var a = agentOf(k);
+    return !a ? 'The pet chat helper does not know ' + WHO[k].name + '.' : a.ready ? '' : a.name + ': ' + a.why + '.';
+  }
+  function seatState(k) {
+    if (!helper) return onThisPC ? 'helper not running' : 'on this PC';
+    if (k === 'other-ai') return order.some(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }) ? 'found, not yet' : 'none found';
+    var a = agentOf(k);
+    return !a || !a.found ? 'not on this PC' : !a.seatable ? 'found, not yet' : !a.signed_in ? 'sign in once' : 'ready';
+  }
   function choose(k) {
     chosen = WHO[k] ? k : 'claude-code';
-    for (var i = 0; i < whoButtons.length; i++) whoButtons[i].setAttribute('aria-pressed', whoButtons[i].dataset.who === chosen ? 'true' : 'false');
-    if (chatSays) chatSays.textContent = WHO[chosen].says;
+    for (var i = 0; i < whoButtons.length; i++) {
+      var b = whoButtons[i], state = b.querySelector('[data-seat-state]');
+      b.setAttribute('aria-pressed', b.dataset.who === chosen ? 'true' : 'false');
+      if (state && WHO[b.dataset.who] && WHO[b.dataset.who].seat) state.textContent = seatState(b.dataset.who);
+    }
+    var why = WHO[chosen].seat ? whyNot(chosen) : '';
+    if (chatSays) chatSays.textContent = WHO[chosen].says + (why ? ' ' + why : '');
     if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another');
-    if (chatSeat) chatSeat.textContent = WHO[chosen].seat ? 'Seat: empty · ' + WHO[chosen].name + ' answers once seated' : 'Seat: empty';
+    if (chatSeat) chatSeat.textContent = !WHO[chosen].seat ? 'Seat: empty' : ready(chosen) ? 'Seat: ' + WHO[chosen].name + ' · ready' : 'Seat: empty · ' + WHO[chosen].name + ' answers once seated';
+  }
+  function askHelper(path, extra) {
+    var body = { pet: config.repo };
+    for (var k in extra || {}) body[k] = extra[k];
+    return link.ask(path, body);
+  }
+  // When the chat opens: who the helper found and whether this pet can have a seat. With nothing chosen yet, the first
+  // ready one in the farm's order answers (Claude Code, then Codex).
+  function hello() {
+    if (!link) { choose(chosen); return; }
+    link.load(function (found) {
+      helper = found;
+      if (!helper) { choose(chosen); return; }
+      askHelper('hello').then(function (r) { return r.json(); }).then(function (d) {
+        agents = {}; order = [];
+        (d.agents || []).forEach(function (a) { if (a && typeof a.id === 'string') { agents[a.id] = a; order.push(a.id); } });
+        petOk = d.pet_ok === true; petWhy = typeof d.pet_why === 'string' ? d.pet_why : '';
+        if (!WHO[saved]) for (var i = 0; i < order.length; i++) if (WHO[order[i]] && ready(order[i])) { chosen = order[i]; break; }
+        choose(chosen);
+        var seat = d.seat;
+        if (seat) {
+          showPush(seat.unpushed, seat.branch);
+          // An answer that finished after the page closed comes in now.
+          var last = chatLines[chatLines.length - 1];
+          if (typeof seat.last_said === 'string' && seat.last_said && last && last.from === 'me' && Date.parse(seat.last_at) > Date.parse(last.at)) say('pet', seat.last_said);
+        }
+        if (d.busy) chatStatus.textContent = config.pet + ' is still answering your last message.';
+      }).catch(function () { helper = false; choose(chosen); });
+    });
+  }
+  function showPush(n, branch) {
+    if (!chatPush) return;
+    chatPush.hidden = !(helper && n > 0);
+    chatPush.textContent = 'Push ' + n + ' change' + (n === 1 ? '' : 's') + ' for review';
+    chatPush.title = 'Sends ' + branch + ' to GitHub after you say yes in the box on your PC. Nothing is merged.';
   }
   function drawChat() {
     if (!chatLog) return;
@@ -509,12 +575,56 @@
     if (open) {
       showView(panel.querySelectorAll('.chat-needs li').length && !chatLines.length ? 'needs' : 'ask');
       if (chatText) chatText.focus();
+      hello();
     }
+  }
+  // The seated agent's answer, typed into the pet's bubble as it comes: one JSON line at a time from the helper.
+  function answer(message) {
+    answering = true; chatSend.textContent = 'Stop'; chatStatus.textContent = '';
+    var line = { at: new Date().toISOString(), from: 'pet', to: null, text: '' };
+    chatLines.push(line); drawChat();
+    var bubble = chatLog && chatLog.children[chatLog.children.length - 1];
+    function show() { if (bubble) bubble.textContent = line.text || '…'; if (chatLog) chatLog.scrollTop = 1e9; }
+    function onLine(text) {
+      var m; try { m = JSON.parse(text); } catch (e) { return; }
+      if (m.type === 'say' && typeof m.text === 'string') { line.text += m.text; show(); }
+      else if (m.type === 'doing' && typeof m.text === 'string') chatStatus.textContent = m.text + '…';
+      else if (m.type === 'seat' && chatSeat) chatSeat.textContent = 'Seat: ' + m.agent + ' · working on ' + m.branch;
+      else if (m.type === 'problem' && typeof m.text === 'string') { line.text += (line.text ? '\n\n' : '') + m.text; show(); }
+      else if (m.type === 'done') {
+        var changed = Array.isArray(m.changed) ? m.changed.filter(function (f) { return typeof f === 'string'; }) : [];
+        chatStatus.textContent = changed.length ? 'Changed on ' + m.branch + ': ' + changed.join(', ') + '.' : '';
+        showPush(m.unpushed, m.branch);
+      }
+    }
+    var buffer = '';
+    askHelper('ask', { agent: chosen, text: message }).then(function (r) {
+      if ((r.headers.get('Content-Type') || '').indexOf('ndjson') < 0) return r.json().then(function (d) { line.text = d.said || 'The pet chat helper said no.'; });
+      var reader = r.body.getReader(), decoder = new TextDecoder();
+      function pump() {
+        return reader.read().then(function (x) {
+          if (x.done) { if (buffer) onLine(buffer); return; }
+          buffer += decoder.decode(x.value, { stream: true });
+          var parts = buffer.split('\n'); buffer = parts.pop();
+          parts.forEach(onLine);
+          return pump();
+        });
+      }
+      return pump();
+    }).catch(function () {
+      line.text += (line.text ? '\n\n' : '') + 'I lost the pet chat helper while answering. Anything already changed is kept on my branch.';
+    }).then(function () {
+      answering = false; chatSend.textContent = 'Send';
+      if (!line.text) line.text = 'I have no answer this time.';
+      chatLines = chatLines.slice(-20); write('chat', chatLines); drawChat();
+      if (chatSeat && ready(chosen)) chatSeat.textContent = 'Seat: ' + WHO[chosen].name + ' · ready';
+    });
   }
   function send(message) {
     if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return false; }
     var to = WHO[chosen];
     say('me', message, to.name);
+    if (to.seat && ready(chosen)) { answer(message); return true; }
     if (to.url) {
       var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
         (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
@@ -526,7 +636,7 @@
     }
     if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return false; }
     chatStatus.textContent = 'Saved to ' + STORE + '.';
-    if (to.seat) say('pet', 'Nobody is in my seat yet: the pet chat helper that seats ' + to.name + ' on this PC is not built. I put your message in ' + STORE + ', and ' + to.name + ' will pick it up from there. Ask me about this page (the buttons above) and I answer right away.');
+    if (to.seat) say('pet', 'Nobody is in my seat yet. ' + whyNot(chosen) + ' I put your message in ' + STORE + ', and whoever sits here next picks it up from there. Ask me about this page (the buttons above) and I answer right away.');
     return true;
   }
   if (chat && panel && chatText && chatSend) {
@@ -552,9 +662,35 @@
     });
     chatText.addEventListener('input', function () { chatStatus.textContent = ''; });
     chatSend.addEventListener('click', function () {
+      // While the seat answers, Send is Stop.
+      if (answering) { if (helper) askHelper('stop').catch(function () {}); chatStatus.textContent = 'Stopping…'; return; }
       var message = chatText.value.trim();
       if (!message) { chatStatus.textContent = 'Type a message first.'; chatText.focus(); return; }
       if (send(message)) chatText.value = '';
+    });
+    if (chatPush) chatPush.addEventListener('click', function () {
+      if (!helper || answering) return;
+      chatStatus.textContent = 'Say yes or no in the box on your PC…';
+      askHelper('push').then(function (r) { return r.json(); }).then(function (d) {
+        chatStatus.textContent = d.said || '';
+        if (d.ok) {
+          showPush(0, d.branch);
+          var url = null; try { url = new URL(d.url); } catch (e) { url = null; }
+          if (url && url.protocol === 'https:' && url.hostname === 'github.com') {
+            var a = el('a', 'Open the pull request on GitHub');
+            a.setAttribute('href', url.href); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
+            chatStatus.appendChild(document.createTextNode(' '));
+            chatStatus.appendChild(a);
+          }
+        }
+      }).catch(function () { chatStatus.textContent = 'I lost the pet chat helper. Nothing was pushed.'; });
+    });
+    // Start over: a new conversation with the seat; the changes so far stay on the branch.
+    if (chatNew) chatNew.addEventListener('click', function () {
+      if (answering) return;
+      chatLines = []; write('chat', chatLines); drawChat();
+      chatStatus.textContent = 'Starting over.';
+      if (helper) askHelper('new').catch(function () {});
     });
     choose(chosen);
     drawChat();
