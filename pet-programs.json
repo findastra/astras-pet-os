@@ -1277,6 +1277,21 @@
         "text": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
         "reviewed": false
       }
+    },
+    {
+      "number": 87,
+      "program": "The Pilot Plant",
+      "assigned": true,
+      "icon": "Flowsheet Flamingo",
+      "idea": null,
+      "stage": "seed",
+      "repo": "the-pilot-plant",
+      "repo_exists": false,
+      "mini_descriptor": {
+        "label": "the-pilot-plant-v1.0-mini-descriptor-v1.0",
+        "text": "Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. Repo, runtime and art are planned.",
+        "reviewed": false
+      }
     }
   ]
 }

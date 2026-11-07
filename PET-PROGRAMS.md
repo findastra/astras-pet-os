@@ -3,7 +3,7 @@
 Every pet program in Astra's PetOS, numbered for good. Each **mini-descriptor** is one or two sentences on what the pet
 program actually does; it is shown in the pet's own repo, the findastra profile and the System Map. Its label follows
 the naming rules: `<pet-program>-v1.0-mini-descriptor-v1.0`. **Bold** program names are assigned; `pet-program-#`
-means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 85 reviewed.
+means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 86 reviewed.
 
 Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not edit this page; edit the JSON.
 
@@ -94,3 +94,4 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 83 | Role Fairy | **Fairy Ring** | [role-fairy](https://github.com/findastra/role-fairy) | Pipeline | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. *(draft)* |
 | 84 | Workflow Whale | **Workflow Whirlpool** | [workflow-whirlpool](https://github.com/findastra/workflow-whirlpool) | Pipeline | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. *(draft)* |
 | 86 | PC Master | **PC Master Race** | [pc-master-race](https://github.com/findastra/pc-master-race) | Pipeline | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example. *(draft)* |
+| 87 | Flowsheet Flamingo | **The Pilot Plant** | [the-pilot-plant](https://github.com/findastra/the-pilot-plant) | Seed | Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. Repo, runtime and art are planned. *(draft)* |
