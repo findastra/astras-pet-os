@@ -629,8 +629,7 @@
       "does": "Learn how a computer is organized, from the chip up, with your own PC’s parts as the example.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=learn",
       "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
+      "in_pill": true
     },
     {
       "id": "pc-look-tool",
@@ -648,7 +647,6 @@
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=look",
       "frame": "wide",
       "in_pill": true,
-      "start_closed": true,
       "cadence": "every 10 minutes"
     },
     
@@ -1184,6 +1182,92 @@
       "frame": "wide",
       "in_pill": true,
       "start_closed": true
+    },
+    {
+      "id": "desktop-pc-parts",
+      "name": "Desktop PC parts",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "job": "The parts inside Astra’s desktop PC (MSI MS-7E57), as PC Master Race’s look reads them from Windows every ten minutes: models only, never serial numbers. Each part is its own node in this group, and every line drawn to the group reaches each of them, the way Rift Rabbit’s devices are grouped (Astra, 2026-11-06, sending Rift Rabbit’s page: \"use this as a model Pet Program\", then \"All recommended\")."
+    },
+    {
+      "id": "desktop-cpu",
+      "name": "AMD Ryzen 7 7800X3D",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The processor: 8 cores and 16 threads, with AMD’s 3D V-Cache (96 MB of level 3 cache stacked on the chip) and a small Radeon graphics chip of its own.",
+      "does": "The processor: 8 cores, 16 threads, 96 MB of cache."
+    },
+    {
+      "id": "desktop-gpu",
+      "name": "AMD Radeon RX 9070 XT",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The graphics card: it draws the desktop, games and PC VR. Inference Iguana’s GPU watch (Benchmark Rock) is the one that watches what uses it.",
+      "does": "The graphics card: draws the desktop, games and VR."
+    },
+    {
+      "id": "desktop-memory-a2",
+      "name": "DDR5 memory, 16 GB (slot A2)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "One of two 16 GB DDR5 sticks (part UD5-6000), running at 4800 MT/s, below the 6000 in its part name. EXPO, a BIOS setting, is what runs a stick at its rated speed.",
+      "does": "16 GB of DDR5 memory, running at 4800."
+    },
+    {
+      "id": "desktop-memory-b2",
+      "name": "DDR5 memory, 16 GB (slot B2)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The other 16 GB DDR5 stick (part UD5-6000), running at 4800 MT/s, below the 6000 in its part name. EXPO, a BIOS setting, is what runs a stick at its rated speed.",
+      "does": "16 GB of DDR5 memory, running at 4800."
+    },
+    {
+      "id": "desktop-nvme-ssd",
+      "name": "Kingston NV3 1 TB NVMe SSD",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The drive inside the PC (C:): Windows, programs and Documents. PC Master Race reads its health from Windows; CrystalDiskInfo’s pill shows more.",
+      "does": "The main drive (C:): Windows and your programs."
+    },
+    {
+      "id": "wd-game-drive",
+      "name": "WD Game Drive (5 TB, USB)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "Astra’s external USB hard drive (D:), where her Unity projects live. Assistants only read it unless she OKs a change.",
+      "does": "Your external drive (D:), where your Unity projects live."
+    },
+    {
+      "id": "desktop-motherboard",
+      "name": "MSI PRO B840-VC WIFI",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The motherboard (MS-7E57): the processor, memory, graphics card and drives all plug into it, and its BIOS holds settings like EXPO.",
+      "does": "The motherboard: everything plugs into it."
     },
     {
       "id": "oscgoesbrrr",
@@ -4098,6 +4182,13 @@
       "carries": "manages",
       "state": "now",
       "why": "PC Master Race shows whether wpr.exe is there; recording needs administrator, so it runs only when Astra asks."
+    },
+    {
+      "from": "pc-master-race",
+      "to": "desktop-pc-parts",
+      "carries": "manages",
+      "state": "now",
+      "why": "PC Master Race reads each part from Windows every ten minutes (pc-look-tool), reading only, and its lessons use them as the example (learn-computer-organization-tool)."
     },
     {
       "from": "unity-unicorn",

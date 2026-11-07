@@ -3446,6 +3446,11 @@
         "needs": "your OK to accept a tool’s license or install one"
       },
       "note": "Astra, 2026-11-03: \"Maybe we should call this PC Master. And then we can call the pet program PC Master Race. And it's a race to be the PC Master\", and \"the PC master race one needs to just have the tools that are related to this stuff ... Organization, I guess, and PC education\". Then \"all recommended\" on the deck (new pet #86, Kernel Koala keeps Task Manager cleanup, the core PC tools plus a lesson tool, private repo, every download, portable tools in Program Files). Art generated the same day with her OK. Art approved by Astra on 2026-11-06: after a board of six other ideas she kept the tower (\"I like the original PC\", then \"Approve the tower\"), so it is redone only with --match.",
+      "editorial": {
+        "says": "Every core PC tool shows its live preview in its own pill, his two tools work right here, and your PC’s parts are under Devices it looks after: all from one look every ten minutes that only reads. Next: Open buttons through a launcher on this PC, the look at sign-in (it is started by hand now), Microsoft’s license for Autoruns, TCPView and Coreinfo (yours to accept), and LatencyMon (held).",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-06"
+      },
       "interface_url": "apps/pet-programs/pc-master-race-20261018.html",
       "interface_local_url": "apps/pet-programs/pc-master-race-20261018.html",
       "submitted": "2026-11-03",
@@ -3688,6 +3693,41 @@
           "result": "works",
           "note": "Drew on this PC from a real look on 2026-11-03.",
           "on": "2026-11-03"
+        },
+        "device:desktop-cpu": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it with 8 cores and 16 threads.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-gpu": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it, driver 32.0.32015.7029.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-memory-a2": {
+          "result": "works",
+          "note": "PC Master’s look: 16 GB in slot A2, running at 4800 MT/s (its part name says 6000).",
+          "on": "2026-11-06"
+        },
+        "device:desktop-memory-b2": {
+          "result": "works",
+          "note": "PC Master’s look: 16 GB in slot B2, running at 4800 MT/s (its part name says 6000).",
+          "on": "2026-11-06"
+        },
+        "device:desktop-nvme-ssd": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it Healthy, status OK.",
+          "on": "2026-11-06"
+        },
+        "device:wd-game-drive": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it Healthy, status OK.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-motherboard": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it (MS-7E57).",
+          "on": "2026-11-06"
         }
       }
     }
