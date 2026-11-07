@@ -86,3 +86,6 @@ Record the merges below.
 - 2026-11-06: Astra's OK in chat, "Merge #293". Before merging: `main` had not moved since the branch was cut
   (a729b436), #293's 4 checks passed, and a test merge with each open PR that touches the page CSS was clean (#276,
   #278, #283, #287, #289, #292); #247 already conflicts with `main`. Merged by Claude Opus 5.5 right after this line.
+- 2026-11-06: Astra, "Approve the tower": his art is approved, recorded in pets.json's note and beside
+  `DRAFT_PC_MASTER` (changes/pc-master-art-approved-20261106.md). He stays in the pipeline: registering him (roster,
+  pet table, desktop) is the Farmer's step when he is released, and from then on he is redone only with `--match`.
