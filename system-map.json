@@ -3356,6 +3356,20 @@
       "does": "Everything that waits on you on GitHub, in the order to act, and every pet in one chart."
     },
     {
+      "id": "eulers-identity-2d-3d",
+      "name": "Euler's Identity, in 2D & 3D",
+      "type": "own-program",
+      "of": "program-6",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v1.0",
+      "label": "python-jungle-v1.0-eulers-identity-2d-3d-v1.0",
+      "url": "https://claude.ai/artifact/3CfAdSghirhCxXedQhzTxa",
+      "job": "A native program of Python Jungle (Astra, 2026-11-06: \"I want this Euler's Identity, in 2D & 3D to be a link on the Python Panther\"): two Python programs Astra made with Claude on 2026-11-03, with a # line above every line of code, that draw Euler's identity e^(iπ) + 1 = 0 as one turn of an arrow (2D) and as a spring, the helix (3D), using numpy, Pillow and OpenCV. The page shows both movies, both programs and a 3D model to turn by hand. It is a private claude.ai page that opens only for Astra; the programs and movies are on her PC (Desktop, the folder Euler's Identity, 2D & 3D), not in a repo yet.",
+      "does": "Euler's identity as a movie in 2D (an arrow turning once) and 3D (a spring), with both Python programs explained line by line and a 3D model to turn."
+    },
+    {
       "id": "red-jobs",
       "name": "red-jobs",
       "type": "trick",
@@ -4433,6 +4447,13 @@
       "carries": "opens",
       "state": "now",
       "why": "GitHub Aquarium opens its Pets Board, the full list of what waits on you on GitHub (the Open button in its outstanding-items tool panel)."
+    },
+    {
+      "from": "program-6",
+      "to": "eulers-identity-2d-3d",
+      "carries": "opens",
+      "state": "now",
+      "why": "Python Jungle opens Astra's Euler's identity page: her Python programs that draw the math in 2D and 3D, every line explained (only Astra can open it: a private claude.ai page)."
     },
     {
       "from": "farm-pets",
