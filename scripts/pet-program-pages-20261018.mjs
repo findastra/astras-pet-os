@@ -39,6 +39,9 @@ export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // The chat window's link to the pet chat helper on this PC (card 283), on every page, before the page script.
 export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// A 3rd party program's ON/OFF light opens or closes it through Inference Iguana's watch (2026-11-06), on every page
+// with such a light; the page script itself sends nothing.
+export const PROGRAM_LIGHTS_JS = '../program-lights-control-20261106.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -473,8 +476,8 @@ const panel = (label, body, { cls = '', open = true, id = '' } = {}) =>
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
 // Every panel has one, the catch-all, with the same four lines in the same order (Astra, 2026-11-03, Flash Audit deck,
 // answer 8: A): how it works, where it comes from, your rules (dated, with a link to this framework) and what is not
-// built yet. In the two top squares and the chat box only the arrow shows until it is opened (2026-10-23: no words in
-// the squares). A tool box inside a panel keeps its one paragraph.
+// built yet. In the chat box only the arrow shows until it is opened. The three boxes at the top (the cyberhome, the
+// quick summary and the System Map box) have none (2026-11-06). A tool box inside a panel keeps its one paragraph.
 const FRAMEWORK_URL = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md#3-the-page-top-to-bottom`;
 const yourRules = (item, html) => `${html} (<a href="${FRAMEWORK_URL}">PET-PROGRAM-FRAMEWORK.md</a>, section 3${item === undefined ? '' : `, item ${item}`}).`;
 const ABOUT_LINES = [['how', 'How it works'], ['from', 'Where it comes from'], ['rules', 'Your rules'], ['notYet', 'Not built yet']];
@@ -794,13 +797,10 @@ ${about({
   const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>
-${about({
-    how: `${esc(d.pet)} moves in when this page opens, stands as tall as on the desktop and shows the mood it is in. Click ${esc(d.pet)} for the current reminder. The <code>${esc(render)}</code> tool is the little drawn cyberhome, off until it is drawn.`,
-    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), and the reminder from the Friendly Farmer’s last merged round.`,
-    rules: yourRules(1, '2026-10-19: empty until the page opens; 2026-10-21: no bubble, the mood lights up in the emotions panel; 2026-10-23: a square with no words, its tool a pill with its lights'),
-    notYet: `${esc(d.pet)} coming straight from the desktop (Startup Star’s link); the drawn cyberhome.`,
-  }, { arrow: true })}`, { cls: 'cyberhome' });
+<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
+  // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
+  // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
+  // in the summary panel too"). Every other panel keeps its More details.
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
   // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
@@ -814,13 +814,7 @@ ${about({
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>
-${about({
-    how: `One or two sentences on what ${esc(d.home)} does. The name above it gets smaller until it fits on one line with its version.`,
-    from: `${esc(d.home)}’s mini descriptor in pet-programs.json (or the pet’s job in pets.json), and the version from ${esc(d.repo)}’s pet.json.`,
-    rules: yourRules(3, '2026-10-20: the version always right of the title; 2026-10-21: nothing listed under the title, no buttons'),
-    notYet: 'Nothing planned.',
-  })}`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -839,13 +833,7 @@ ${about({
 <span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
 <div class="map-box"><a class="map-link" href="${esc(map)}" title="Open ${esc(d.home)} on the System Map" aria-label="Open ${esc(d.home)} on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-</a></div></div>
-${about({
-    how: `The rings are the link: they open ${esc(d.home)} on the System Map, with a dot on the ring it lives on. The <code>${esc(mapTool)}</code> tool’s left light says the link is open, its right light that the map’s information on ${esc(d.pet)} is wrong.`,
-    from: 'system-map.json: this pet program’s node and its ring (PROTECTION-RINGS.md).',
-    rules: yourRules(1, '2026-10-19: always top right, opposite the cyberhome (Flash Audit A60); 2026-10-23: a square with no words, its tool with its lights'),
-    notYet: 'Nothing planned.',
-  }, { arrow: true })}`, { cls: 'system-map' });
+</a></div></div>`, { cls: 'system-map' });
   // No words in the two squares, only their tools and the pictures (Astra, 2026-10-23: "get rid of all text in the
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
@@ -1125,7 +1113,7 @@ ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
 <script src="${ASSETS.js}"></script>
-${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
+${(d.thirdParty || []).length ? `<script src="${PROGRAM_LIGHTS_JS}"></script>\n` : ''}${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
 `, pagePath(d.repo));
