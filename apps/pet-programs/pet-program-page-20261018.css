@@ -56,6 +56,19 @@
   --tool-bg: rgba(120, 150, 255, .06); --tool-bg-hover: rgba(120, 150, 255, .11);
 }
 :root[data-pet="drum-dog"] .footer-group::before, :root[data-pet="drum-dog"] .footer-sparkle { color: #9fb4ff; }
+/* Discord Tower's own colours, Discord purple (Astra, 2026-11-06: "Change the color of this to the dicord purple"):
+   deep blurple background, Discord's blurple (#5865f2) lines, pale lavender links. */
+:root[data-pet="discord-damsel"] {
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #d994c6;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --slate: #1f2147; --slate-2: #171936; --chalk: #eef0ff; --chalk-dim: #b3b9ec; --line: #5865f2; --line-dim: #3a43a3;
+  --link: #c9cdfb; --connection: #8f97f7;
+  --tool-bg: rgba(88, 101, 242, .07); --tool-bg-hover: rgba(88, 101, 242, .13);
+}
+:root[data-pet="discord-damsel"] .footer-group::before, :root[data-pet="discord-damsel"] .footer-sparkle { color: #8f97f7; }
+/* Damsel 10% taller on her page, feet where they were (Astra, 2026-11-06: "make the damsel like 10% bigger, taller
+   from where she is standing"): her feet are 92.2% down her picture (row 236 of 256). */
+:root[data-pet="discord-damsel"] .den img.pet { scale: 1.1; transform-origin: 50% 92.2%; }
 /* The Farm's own colours, a night pasture (Astra, 2026-11-02: "I don't like the raspberry color of the farm. Let's
    change it to like dark green ... something interesting that we haven't already used for a pet program"): deep pine
    green, neon chartreuse lines, wheat-gold links, mint connections. */
