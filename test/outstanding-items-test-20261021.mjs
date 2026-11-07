@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { analyze, cardNeed, cardTitles, graphql, pageData, prState, toMarkdown, GROUPS, LABEL, PAGE_DATA_PATH, SCHEMA, STALE_DAYS } from '../scripts/outstanding-items-20261021.mjs';
-import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, PET_PANELS, OUTSTANDING_EXAMPLES, OUTSTANDING_GROUPS, OUTSTANDING_TOOL_IDS, OUTSTANDING_BOARD } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, PET_BOXES, OUTSTANDING_EXAMPLES, OUTSTANDING_GROUPS, OUTSTANDING_TOOL_IDS, OUTSTANDING_BOARD } from '../scripts/pet-program-pages-20261018.mjs';
 import { systemMapData } from '../scripts/system-map-20261012.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -156,7 +156,7 @@ test('GitHub Aquarium\'s five groups are tools in its L1 control panel; no other
   assert.doesNotMatch(page, /class="[^"]*\boutstanding-group (?:broken|you|chat|close|info)\b/, 'no bare group class: `chat` is the chat pill\'s');
   const at = page.indexOf('id="outstanding-items"');
   assert.ok(at > l1 && at < l2 && page.indexOf(`href="${OUTSTANDING_BOARD}"`) > at, 'the Open button goes to the Pets Board, next to the tools');
-  assert.equal(PET_PANELS['github-goldfish'], undefined, 'not a pet panel of its own any more');
+  assert.equal(PET_BOXES['github-goldfish'], undefined, 'not a pet panel of its own any more');
   for (const d of spawnerPages(readSpawnerSources(root))) if (d.repo !== 'github-goldfish') assert.ok(!files[pagePath(d.repo)].includes('id="outstanding-items"'), `${d.repo} has no outstanding items`);
   const m = page.match(/<script type="application\/json" id="outstanding-examples">([^<]*)<\/script>/);
   assert.deepEqual(JSON.parse(m[1]), OUTSTANDING_EXAMPLES);
