@@ -114,6 +114,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Cluster Crab** (Cluster Shore) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Data Dragonfly** (Data Marsh) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **Docker Dragon** (Container Hoard) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
+- **Flowsheet Flamingo** (The Pilot Plant) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Intel Owl** (Threat Observatory) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
 - **Llama Librarian** (Model Library) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
 - **OSC Sealion** (OSC Sonar) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
