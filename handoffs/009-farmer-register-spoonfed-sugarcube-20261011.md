@@ -171,6 +171,23 @@ The phone copy has both: findastra.github.io#40, squash-merged as 263454d on her
 there held a spoon photo she didn't want). GitHub Pages' deploy stuck on "updating pages" twice; a third publish
 request worked. Live and checked: the page serves the new script and spoon picture, and the old photo answers 404.
 
-**Still open:** the six questions in [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7)
-(private); the Google Places key (restaurants are still made up, so Feed me can't roll real places near her); her merge
-OK for spoonfed#9; the cuisine reel still cuts long types ("Indonesi…") on phones.
+## 2026-11-06: an even spoon, dark chocolate, a clean footer star (Claude Opus 5.5, `claude-opus-5-5`)
+
+From Astra's notes in chat, on spoonfed#9:
+- "spoon still looks bad", "I want it to be smooth, and your curvature consistent": the spoon's outline is refitted
+  with smooth curves that bend evenly, within about one pixel of her picture's edge, with a rounded tip and a round
+  handle end (8545703, `assets/spoon-photo-smooth-20261106.png`).
+- "make it lower, the sugar cube doesnt need to be in the spoon exactly", then "move the spoon a little to the left and
+  up so that the same amount sticks off each side from the sugar cube and the end of the D": the spoon hangs under him
+  and the word, 34 px past his cube and 34 px past the d (b98f67d).
+- "more of a chocolate, so I can see the black outline of the sugar cube", then "make the brown deeper more like dark
+  chocolate": the page is `#341F14`; the panels keep their colors.
+- "the unified footer star looks weird": its black outline was four shifted shadows that smeared the star's glow on the
+  brown page; it now follows the star's own edge.
+
+On her "Yes, make the PR", findastra.github.io#41 replaces the phone copy with this build. It waits for her merge OK.
+
+**Still open:** her merge OK for findastra.github.io#41; the six questions in
+[Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
+(restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
+reel still cuts long types ("Indonesi…") on phones.
