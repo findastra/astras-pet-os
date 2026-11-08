@@ -220,6 +220,23 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
 });
 
+// Astra, 2026-11-08, on the Farmer's page: "a lot of these pets and their descriptions are wrong and the images just
+// aren't there. So you need to go in and get the new stuff."
+test('every friend says what it does and has a picture: no line shared by three friends, review drawings when no other', () => {
+  for (const d of pages) {
+    const seen = new Map();
+    for (const r of d.related) if (r.why) seen.set(r.why, (seen.get(r.why) || 0) + 1);
+    assert.deepEqual([...seen].filter(([, n]) => n >= 3), [], `${d.repo}: no line shared by three friends`);
+  }
+  const farmer = pages.find((x) => x.repo === 'astras-pet-os');
+  assert.deepEqual(farmer.related.filter((r) => !r.idle).map((r) => r.id), [], 'every one of the Farmer\'s friends has a picture');
+  const goddess = farmer.related.find((r) => r.pet === 'Gatekeeper Goddess');
+  assert.match(goddess.idle, /^art\/drafts\/body-and-center-review-20261031\/normalized\/gatekeeper-goddess-sprite-20261031\.png$/, 'a pet with no drawing takes its newest review drawing');
+  assert.match(goddess.why, /^Security and approvals/, 'and says what it does');
+  assert.match(farmer.related.find((r) => r.pet === 'Rift Rabbit').idle, /^art\/moods\/rift-rabbit\//, 'a pet with a drawing keeps it');
+  assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
+});
+
 // Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on
 // there? And then everything else that we've built?"
 test('a 3rd party program one of its tricks runs on is listed; Discord Tower shows everything built for it', () => {
