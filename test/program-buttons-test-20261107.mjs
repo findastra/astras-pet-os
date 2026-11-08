@@ -10,6 +10,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { readSpawnerSources, spawnerFiles, spawnerPages, pagePath, DIR, ASSETS, PROGRAM_WATCH, WATCH_KINDS } from '../scripts/pet-program-pages-20261018.mjs';
+// Made-up port in the 400xx range (test/public-safety-test-20261014.mjs): no real local service.
+const MADE_UP_PORT = 40080;
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const src = readSpawnerSources(root);
@@ -197,13 +199,13 @@ test('a program not installed yet sends nothing and says not built yet, even wit
 });
 
 test('a page served from [::1] reads the list but never sends: program-watch lets in only file pages, 127.0.0.1 and localhost', async () => {
-  const p = boot(pcMaster, ['everything-search'], { link: LINK, here: { protocol: 'http:', hostname: '[::1]', origin: 'http://[::1]:8080' }, programs: [{ id: 'everything-search', kind: 'window', running: false, installed: true }] });
+  const p = boot(pcMaster, ['everything-search'], { link: LINK, here: { protocol: 'http:', hostname: '[::1]', origin: 'http://[::1]:' + MADE_UP_PORT }, programs: [{ id: 'everything-search', kind: 'window', running: false, installed: true }] });
   assert.equal(p.loads.length, 1, 'it reads the list');
   p.click('everything-search');
   await p.settle();
   assert.equal(p.sent.length, 0);
   assert.match(p.bubble(), /only on a page opened on this PC/);
-  const local = boot(pcMaster, ['everything-search'], { link: LINK, here: { protocol: 'http:', hostname: '127.0.0.1', origin: 'http://127.0.0.1:8080' }, programs: [{ id: 'everything-search', kind: 'window', running: false, installed: true }] });
+  const local = boot(pcMaster, ['everything-search'], { link: LINK, here: { protocol: 'http:', hostname: '127.0.0.1', origin: 'http://127.0.0.1:40080' }, programs: [{ id: 'everything-search', kind: 'window', running: false, installed: true }] });
   local.click('everything-search');
   await local.settle();
   assert.equal(local.sent.length, 1, '127.0.0.1 still sends');
@@ -301,8 +303,8 @@ test('the file may make a window a tool, never a tool a window', async () => {
 });
 
 test('a link that is not this PC, or a code that does not look like one, is ignored: nothing is sent', async () => {
-  const bad = [{ url: 'http://192.168.1.5:8080/', code: CODE }, { url: 'http://localhost:8080/', code: CODE }, { url: 'https://127.0.0.1:8080/', code: CODE },
-    { url: 'http://127.0.0.1.evil.example:80/', code: CODE }, { url: `http://127.0.0.1:${PORT}/x`, code: CODE }, { url: 'http://127.0.0.1:99999/', code: CODE },
+  const bad = [{ url: 'http://192.168.1.5:40080/', code: CODE }, { url: 'http://localhost:' + MADE_UP_PORT + '/', code: CODE }, { url: 'https://127.0.0.1:40080/', code: CODE },
+    { url: 'http://127.0.0.1.evil.example:80/', code: CODE }, { url: `http://127.0.0.1:${PORT}/x`, code: CODE }, { url: 'http://127.0.0.1:400000/', code: CODE },
     { url: LINK.url, code: 'short' }, { url: LINK.url, code: 'not hex not hex not hex not hex!!' }, { url: LINK.url }];
   for (const link of bad) {
     const p = boot(pcMaster, ['everything-search'], { link, programs: [{ id: 'everything-search', kind: 'window', running: false }] });
