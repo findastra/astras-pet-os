@@ -1912,6 +1912,16 @@
       "does": "The editor you build avatars and worlds in."
     },
     {
+      "id": "unity-mcp",
+      "name": "MCP for Unity 10.3.0",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Unity package",
+      "job": "Coplay's free MCP for Unity (MIT): a Unity package plus a small Python helper (run by uv) that lets Claude Code and Codex read and change the open Unity editor, through a connection on this PC only. Unity's own MCP needs Unity 6, which VRChat does not support, so this is the one for Astra's 2022.3 projects (Astra, 2026-11-08: all recommended). Set up 2026-11-08: in Liminal Doors (from OpenUPM, because Unity's git route fails on D:), uv on the PC, UnityMCP in Claude Code and Codex. Planned until the first check with Unity open.",
+      "does": "Lets Claude and Codex work inside the open Unity editor."
+    },
+    {
       "id": "vrchat-creator-companion",
       "name": "VRChat Creator Companion",
       "type": "program",
@@ -6366,6 +6376,34 @@
       "carries": "runs-on",
       "state": "now",
       "why": "The tools run inside the Unity editor."
+    },
+    {
+      "from": "unity-stable",
+      "to": "unity-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Unity Unicorn keeps the list of Unity projects that have MCP for Unity and checks the connection (Astra, 2026-11-08)."
+    },
+    {
+      "from": "unity-mcp",
+      "to": "unity-editor",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "A package inside each Unity project that has it; first one Liminal Doors (2026-11-08)."
+    },
+    {
+      "from": "claude-code",
+      "to": "unity-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "UnityMCP in Claude Code's user settings (2026-11-08); it answers only while Unity is open."
+    },
+    {
+      "from": "codex",
+      "to": "unity-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "UnityMCP in Codex's config.toml (2026-11-08); it answers only while Unity is open."
     },
     {
       "from": "voicemeeter-bug",
