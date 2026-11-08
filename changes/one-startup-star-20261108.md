@@ -30,4 +30,4 @@ Checks: the star's self-test passes, including the new sign-in list and each hel
 
 Not done:
 - The presence apps' own "start with Windows" switch would write their Startup file again if ticked.
-- The three crash watchers are still three programs (a separate change).
+- The three crash watchers were still three programs; `changes/one-crash-watch-20261108.md` makes them one.

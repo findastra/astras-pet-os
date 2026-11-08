@@ -414,6 +414,17 @@
       "category": "Desktop app"
     },
     {
+      "id": "ableton-live-discord-presence",
+      "name": "Ableton Live Discord Presence",
+      "url": "https://github.com/findastra/ableton-live-discord-presence",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that shows Ableton Live on Astra's Discord profile: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name and a timer. Reads only Ableton's window title and Windows' device names, never audio, MIDI notes or files. One of Discord Damsel's programs (discord-tower pet.json, v0.2.0, 2026-11-02).",
+      "does": "Shows what you are making in Ableton Live on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
       "id": "sticker-manager",
       "name": "Sticker Manager",
       "type": "tool",
@@ -3877,6 +3888,32 @@
       "job": "A tool of Chat Stack (Chat Rat): saves the Codex and Claude Code chats on this PC that are not in the archive yet, and imports official exports from the inbox. The chats stay on the PC, never in the repo (chat-rat chat-rat-20261016.mjs; its own label is chat-rat-v0.1.0-save-missing-v0.1.0)."
     },
     {
+      "id": "model-folders-tool",
+      "name": "model-folders-tool",
+      "type": "tool",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "chat-stack-v0.1.0-model-folders-tool-v0.1.0",
+      "job": "A tool of Chat Stack (Chat Rat), moved into its tool box on 2026-11-08 (findastra/chat-rat#16): one box for each AI model in the chat archive, with how many chats it holds and a button that opens its folder. Works on Chat Rat’s own copy of this page, which his program serves on this PC; the chats stay on the PC, never in the repo (chat-rat chat-rat-page-20261108.mjs).",
+      "does": "One folder for each AI model, with a button that opens it."
+    },
+    {
+      "id": "saved-conversations-tool",
+      "name": "saved-conversations-tool",
+      "type": "tool",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "chat-stack-v0.1.0-saved-conversations-tool-v0.1.0",
+      "job": "A tool of Chat Stack (Chat Rat), moved into its tool box on 2026-11-08 (findastra/chat-rat#16): search the saved chats by title, model, source or pet, read one on the page, or open its date folder. Works on Chat Rat’s own copy of this page, which his program serves on this PC; the chats stay on the PC, never in the repo (chat-rat chat-rat-page-20261108.mjs).",
+      "does": "Search every saved chat by title, model, source or pet, and read it here."
+    },
+    {
       "id": "handoff-trick",
       "name": "handoff",
       "type": "trick",
@@ -4633,6 +4670,13 @@
       "why": "Discord Damsel's app opens the Anthropic controls: Anthropic Discord Presence's control panel, which only answers on this PC."
     },
     {
+      "from": "discord-tower",
+      "to": "ableton-live-discord-presence",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops Ableton Live Discord Presence (hub #284); its control panel only answers on this PC."
+    },
+    {
       "from": "codex",
       "to": "openai-discord-presence",
       "carries": "status",
@@ -5289,6 +5333,20 @@
       "carries": "status",
       "state": "now",
       "why": "Shows Claude activity on your Discord profile."
+    },
+    {
+      "from": "ableton-live-discord-presence",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Shows what you are making in Ableton Live on your Discord profile."
+    },
+    {
+      "from": "ableton-live-discord-presence",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
     },
     {
       "from": "discord-tower",
