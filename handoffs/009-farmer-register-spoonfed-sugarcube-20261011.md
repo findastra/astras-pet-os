@@ -189,7 +189,24 @@ On her "Yes, make the PR", findastra.github.io#41 replaced the phone copy with t
 her "Yes, merge #41". The deploy step hung again, but the live page serves the new script, the new spoon picture
 answers 200 and the old one 404.
 
-**Still open:** the six questions in
+## 2026-11-06 to 08: the spot's card with Google's map, pink food types, Bar (Claude Opus 5.5, `claude-opus-5-5`)
+
+From Astra's notes in chat, on spoonfed#9 (36bdc3b):
+- "when you click on the picture of the restaurant it opens a card that shows it right on the map", "this card needs to
+  look like the others on the main page but with a map instead of pic", "put them side by side instead of stacked but i
+  like the squares", "use google maps please": tapping the pick's picture (or its name) opens a card like the pick card,
+  with the picture and Google's embedded map (no key) side by side as two squares. The old detail view is gone.
+  Made-up spots stand their own miles from the visitor, so the browser asks for a location (kept in memory only);
+  Google sees the made-up spot's place near them.
+- "I want the food type to have its own color too": food types are pink; the reels match (distance blue, food type
+  pink, money green).
+- "there needs to be "bar" as an option next to Veggie": a Bar choice; 12 sample spots have a bar.
+- "theres a weird white border": the page had no background of its own; it is chocolate now.
+
+On her "Yes, make the PR" (2026-11-08), findastra.github.io#42 puts this build on the phone link. It waits for her
+merge OK.
+
+**Still open:** her merge OK for findastra.github.io#42; the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
 (restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
 reel still cuts long types ("Indonesi…") on phones.
