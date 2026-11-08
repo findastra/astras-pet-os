@@ -133,6 +133,11 @@ html.live-site .panel.editorial { display: none; }
 .panel.editorial .editorial-by { color: var(--editorial-by, #7fe7f0); font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
+/* Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
+   ones or the bottom ones, and definitely not the unified footer"): L3's note, the cyberhome, the quick summary, the
+   System Map box, the friends list and the footer always stay open, with no arrow after the label. */
+details.panel[data-stays-open] > summary { cursor: default; }
+details.panel[data-stays-open] > summary .legend::after { content: none; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
 h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }

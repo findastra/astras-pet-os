@@ -469,8 +469,13 @@ function itemList(items, prefix, empty) {
 // Since 2026-10-23 no panel has lights: only tools do (Astra: "panels cant have lights. only tools can"). A panel's
 // label has a small arrow after it that shows it folds, like Halo List's ("see how these are collapsable and the dots
 // are not on them"). `light` and `key` are still accepted from older callers and do nothing.
-const panel = (label, body, { cls = '', open = true, id = '' } = {}) =>
-  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel"><span class="legend">${esc(label)}</span></summary>${body}</details>`;
+// Only the main body's panels fold (Astra, 2026-11-08: "there's some drop down arrows in every panel that it needs to
+// be on only like the main body panels, not the top ones or the bottom ones, and definitely not the unified footer").
+// The top ones (L3's note, the cyberhome, the quick summary, the System Map box) and the bottom ones (the friends list,
+// the unified footer) are made with `fold: false`: always open, no arrow after the label, and the label is no tab stop.
+// They stay <details> boxes marked `data-stays-open`, so they look exactly as before; the page script keeps them open.
+const panel = (label, body, { cls = '', open = true, id = '', fold = true } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${fold ? '' : ' data-stays-open'}${open || !fold ? ' open' : ''}><summary${fold ? ' title="Click the label to fold or unfold this tool panel"' : ' tabindex="-1"'}><span class="legend">${esc(label)}</span></summary>${body}</details>`;
 
 // The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
@@ -781,7 +786,7 @@ ${about({
     from: '<code>editorial</code> in pets.json (what it says, who wrote it, when), written by the AI working on this pet program.',
     rules: yourRules(0, '2026-10-23: first on the page, full width, L3 talking to you about this site; 2026-11-02: only on the working copy'),
     notYet: 'The seated agent writing it by itself: today a chat writes it in pets.json on a branch.',
-  })}`, { cls: 'editorial' });
+  })}`, { cls: 'editorial', fold: false });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -797,7 +802,7 @@ ${about({
   const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome' });
+<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -814,7 +819,7 @@ ${about({
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary', fold: false })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -833,7 +838,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
 <div class="map-box"><a class="map-link" href="${esc(map)}" title="Open ${esc(d.home)} on the System Map" aria-label="Open ${esc(d.home)} on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-</a></div></div>`, { cls: 'system-map' });
+</a></div></div>`, { cls: 'system-map', fold: false });
   // No words in the two squares, only their tools and the pictures (Astra, 2026-10-23: "get rid of all text in the
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
@@ -1015,7 +1020,7 @@ ${about({
     from: 'The System Map’s links between pets; a <code>plays_with</code> list in pets.json sets the order instead.',
     rules: yourRules(11, '2026-10-19: every page lists the pets it plays with at the bottom; 2026-10-22: each speaks in a cloud like the emotions'),
     notYet: 'Measuring use: until then the order is the map’s (links that work today, then planned, then ideas; within each, the pet they share the most with).',
-  })}`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel` });
+  })}`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel`, fold: false });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
@@ -1036,7 +1041,7 @@ ${about({
     rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
     notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
   })}
-<!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
+<!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer', fold: false });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
   // way that it works on data dealer is the only one that works right. So this concept combined with that"): the pet's
