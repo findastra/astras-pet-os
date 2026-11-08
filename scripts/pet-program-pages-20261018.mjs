@@ -198,7 +198,14 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // `embed`: a small tool page that works right on the pet program page, in its own tool panel inside L1 (Astra's Window
   // Star, 2026-10-20: "I want everything to be on the same page").
   // `desc`: what it does, on the pill itself; `why`: what this pet does with it, when it opens.
-  const item = (n, l) => ({ id: n.id, name: n.name, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  // What Inference Iguana's program-watch knows (Astra, 2026-11-07: "Fix all of the buttons in 3rd party programs"):
+  // every program its System Map links reach, as a window it opens and closes, or a tool or a driver it only finds
+  // (the node's `watch`). A website it does not watch has its own address, `site`, which its light opens in a new tab.
+  // A program not installed yet (its node is not `now`) is never watched, even if a link says so: it keeps its "not
+  // built yet" (Astra, 2026-11-07, "all recommended"), and Benchmark Rock's table leaves it out too.
+  const watched = new Map(map.links.filter((l) => l.from === PROGRAM_WATCH && l.carries === 'manages' && built(nodes.get(l.to)?.state))
+    .map((l) => [l.to, WATCH_KINDS.includes(nodes.get(l.to)?.watch) ? nodes.get(l.to).watch : 'window']));
+  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -343,10 +350,17 @@ const careOf = (key, planned, unseen) => {
   return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
-const lights = (key, name, { planned = false, unseen = false, presence = false } = {}) => {
+// A 3rd party program's ON/OFF light is also its button (Astra, 2026-11-07): `data-watch` says what program-watch does
+// with it (window: opens and closes it; tool or driver: says whether it is installed), `data-site` the website a press
+// opens in a new tab. The page script never takes either from anywhere but here.
+export const PROGRAM_WATCH = 'program-watch';
+export const WATCH_KINDS = ['window', 'tool', 'driver'];
+const isSite = (u) => typeof u === 'string' && /^https:\/\/[^\s"'<>\\]+$/.test(u);
+const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
+  const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : 'ON/OFF (kill switch): click to switch'}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${watch === 'tool' || watch === 'driver' ? 'not found' : presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : watch === 'window' ? 'Red: press to open it. Green: press to close it, after you say yes' : watch ? 'Green while it is installed: press to see what it is' : site ? 'A website: press to open it in a new tab' : 'ON/OFF (kill switch): click to switch'}"${button}></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -451,7 +465,7 @@ function itemList(items, prefix, empty) {
     // and no switch: it is a question, not a tool you turn on or off.
     const pillLights = i.waiting
       ? `<span class="lights"><span class="light care is-update" role="img" aria-label="${esc(i.name)}: waiting for your OK" title="Waiting for your OK"></span></span>`
-      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence'].includes(i.id) });
+      : lights(`${prefix}:${i.id}`, i.name, { planned: !built(i.state), unseen: prefix === 'third-party' || prefix === 'device', watch: prefix === 'third-party' ? i.watch : null, site: prefix === 'third-party' ? i.site : null, presence: prefix === 'program' && ['openai-discord-presence', 'anthropic-discord-presence'].includes(i.id) });
     // Its state ("planned" and so on) shows only once it is opened, in the line above (Astra, 2026-10-23: "the
     // "planned" should only show up upon expansion").
     return `<li class="pill">${pillLights}${name}${i.cadence ? ` <span class="tag cadence" title="How often it runs">${esc(i.cadence)}</span>` : ''}${desc}${i.label ? `<code class="label">${esc(i.label)}</code>` : ''}<details class="pill-more"${showPicture(i) || i.pillOpen ? ' open' : ''}><summary aria-label="More about ${esc(i.name)}"></summary><div class="pill-body">${more}</div></details></li>`;
@@ -1208,7 +1222,8 @@ export const modelProgramArt = () => ({
 export function modelProgramData(src) {
   const map = systemMapData(src.registry, src.extra, src.programs);
   const frames = Object.fromEntries(MOODS.map((m) => [m, `${MODEL_PROGRAM.art}/${m}-${MODEL_PROGRAM.date}.svg`]));
-  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
+  // Its 3rd party programs are placeholders, so program-watch knows neither (`watch`) and neither is a website (`site`).
+  const item = (id, name, desc, more = {}) => ({ id: `model-${id}`, name, watch: null, site: null, state: 'now', why: '', desc, url: null, picture: null, embed: null, frame: null,
     inL1: false, inPill: false, pillOpen: false, startClosed: false, panel: null, sharedWith: null, cadence: null, serial: null, group: null, groupName: null, ...more });
   const guide = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md`;
   const tool = (n, desc, more) => ({ ...item(`tool-${n}`, `tool-${n}`, desc, more), label: `pet-program-name-v1.0-tool-${n}-v1.0`, side: null });

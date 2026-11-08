@@ -100,6 +100,7 @@
     },
     {
       "id": "ableton-usb-audio-driver",
+      "watch": "driver",
       "name": "Ableton USB Audio Driver",
       "type": "program",
       "state": "now",
@@ -588,7 +589,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-program-watch-v1.0",
-      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/benchmark-rock#3, not merged."
+      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. Merged with findastra/benchmark-rock#8 (2026-10-25). Since Astra asked on 2026-11-07 (\"I should be able to press the red button, then it launches that program and the button turns green if its on and detected\"), a 3rd party program's light on the pet program pages opens it on a red press and closes it on a green one after she says yes, through a listener on this PC only (127.0.0.1, a new port and a random code at each start, written beside the list); tools and drivers it only finds, installed or not. The buttons are on a benchmark-rock branch, not merged, and not run on Windows yet."
     },
     {
       "id": "vr-launch",
@@ -907,6 +908,7 @@
     },
     {
       "id": "es-cli",
+      "watch": "tool",
       "name": "ES (Everything’s command line)",
       "type": "program",
       "state": "now",
@@ -1067,6 +1069,7 @@
     },
     {
       "id": "coreinfo",
+      "watch": "tool",
       "name": "Coreinfo",
       "type": "program",
       "state": "now",
@@ -1097,6 +1100,7 @@
     },
     {
       "id": "handle",
+      "watch": "tool",
       "name": "Handle",
       "type": "program",
       "state": "now",
@@ -1112,6 +1116,7 @@
     },
     {
       "id": "sigcheck",
+      "watch": "tool",
       "name": "Sigcheck",
       "type": "program",
       "state": "now",
@@ -1142,6 +1147,7 @@
     },
     {
       "id": "winget",
+      "watch": "tool",
       "name": "winget",
       "type": "program",
       "state": "now",
@@ -1172,6 +1178,7 @@
     },
     {
       "id": "windows-performance-recorder",
+      "watch": "tool",
       "name": "Windows Performance Recorder",
       "type": "program",
       "state": "now",
@@ -1414,6 +1421,7 @@
     },
     {
       "id": "betterdiscord",
+      "watch": "tool",
       "name": "BetterDiscord",
       "type": "program",
       "state": "now",
@@ -1424,6 +1432,7 @@
     },
     {
       "id": "cli-proxy-api",
+      "watch": "tool",
       "name": "CLI Proxy API",
       "type": "program",
       "state": "now",
@@ -1434,6 +1443,7 @@
     },
     {
       "id": "github",
+      "site": "https://github.com/",
       "name": "GitHub",
       "type": "program",
       "state": "now",
@@ -2633,6 +2643,7 @@
     },
     {
       "id": "steam-streaming-audio",
+      "watch": "driver",
       "name": "Steam Streaming audio",
       "type": "program",
       "state": "now",
@@ -2735,6 +2746,7 @@
     },
     {
       "id": "nodejs",
+      "watch": "tool",
       "name": "Node.js",
       "type": "program",
       "state": "now",
@@ -4455,6 +4467,314 @@
       "carries": "manages",
       "state": "planned",
       "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ableton-live",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "autoruns",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "canva",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "capcut",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "corsair-icue",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "cpu-z",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "crystaldiskinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "epic-games",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "everything-search",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "hwinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "logitech-g-hub",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "malwarebytes",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "msi-center",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "obs-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "overwolf",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "powertoys",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "process-explorer",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "process-monitor",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "rammap",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "razer-synapse",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "sharex",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "spacesniffer",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "spotify",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tcpview",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tikfinity",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tiktok-live-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "usbdeview",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "visual-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wallpaper-engine",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "winobj",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wireshark",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wiztree",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "betterdiscord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "cli-proxy-api",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "coreinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "es-cli",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "handle",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "nodejs",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "sigcheck",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "winget",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "windows-performance-recorder",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ableton-usb-audio-driver",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a driver, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "steam-streaming-audio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a driver, not a window, so it is never opened or closed (benchmark-rock, not merged)."
     },
     {
       "from": "discord-tower",
@@ -7644,6 +7964,27 @@
         "status": "written",
         "how": "Benchmark Rock reads Windows' GPU performance counters and DXGI, and writes only its own data folder (its farm event log, saved reports with names and numbers only, its menu and mood files); it never stops or changes a program, a driver or a card setting. Nothing enforces this: it runs as you. Asked for on 2026-10-23; Astra approves it by merging.",
         "next": "Iron Gates issues the grant; The Police Station watches that Benchmark Rock writes only its own folder."
+      },
+      {
+        "id": "inference-iguana-open-close",
+        "who": "Inference Iguana (Benchmark Rock: program-watch)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:benchmark-rock"
+        ],
+        "on": "the 3rd party programs in program-watch's own table that are windows: it opens one when Astra presses its red light on a pet program page opened on this PC, and asks one to close the way its X button does when she presses its green light and says yes. Never forced, never a tool or a driver, never a path or a command from the page",
+        "resources": [
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Program-watch's own code: its listener answers on 127.0.0.1 only, at a port and with a random code it picks at each start and writes only to its page file in Documents. The random code is what keeps web pages out: the listener also refuses any Origin that is not this PC or none, but a file page sends Origin null, and so can a sandboxed frame or a data: page on any website, so the Origin check alone keeps nothing out. It checks the Host header and opens or closes only an id in its own table whose kind is window; the pages send only that id, and only to the address in that file (test/program-buttons-test-20261107.mjs checks the page side only). Nothing enforces this: Benchmark Rock runs as you, so nothing outside its own code stops it doing more. Asked for by Astra on 2026-11-07; she approves it by merging. Not run on Windows yet: the listener is on a benchmark-rock branch, not merged.",
+        "next": "Iron Gates issues the grant; The Police Station watches every open and close."
       },
       {
         "id": "kernel-koala-stop",

@@ -59,7 +59,9 @@ test('the page reads the real list only from one fixed file on Astra\'s PC, and 
   assert.match(js, /if \(onThisPC\) \{\s*var script = document\.createElement\('script'\);/, 'loaded only on this PC');
   assert.match(js, /d\.schema !== 'api-fairy-key-requests-page-v1'/, 'the list is checked before it is shown');
   assert.match(js, /new URL\(u\)\.protocol === 'https:'/, 'only https links become links');
-  assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|fetch\(|XMLHttpRequest/);
+  assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|XMLHttpRequest/);
+  // The page script's one request is a program light's, to program-watch on this PC (test/program-buttons-test-20261107.mjs).
+  assert.equal((js.match(/fetch\(/g) || []).length, 1);
 });
 
 test('the rule and the skill say how a chat asks for a key, never the value', () => {

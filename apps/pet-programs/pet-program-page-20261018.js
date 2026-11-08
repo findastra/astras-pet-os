@@ -2,9 +2,11 @@
 // the live idle, awake and sad moods, the session notes that go to the backlog, export, the pet moving into its
 // cyberhome, the L4 activity light and the chat window. In developer mode (the installer's switch, or a page's words
 // switch) the agent is already home in its avatar panel, and one click on it says what it does.
-// Saved in this browser only (section 6): the page sends nothing itself. Text goes into the page with textContent only.
+// Saved in this browser only (section 6). The one thing it sends: a 3rd party program's light asks Inference Iguana's
+// program-watch on this PC to open or close that program, at the address and with the code read from its own file in
+// Documents, and only on a page opened on this PC (Astra, 2026-11-07). Text goes into the page with textContent only.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-18; cyberhome arrival, activity lights and chat window 2026-10-19;
-// developer mode 2026-10-19.
+// developer mode 2026-10-19; program buttons: Claude Opus 5.5, 2026-11-07.
 (function () {
   'use strict';
   var config = JSON.parse(document.getElementById('pet-program-data').textContent);
@@ -120,8 +122,21 @@
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
     // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise.
-    unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
-    running: 'open now: Inference Iguana’s program-watch saw it running. This light does not close it yet.',
+    unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC).',
+    running: 'open now: Inference Iguana’s program-watch saw it running.',
+    // Not one of program-watch's programs (another computer, the browser itself), so the light only shows.
+    unwatched: 'Inference Iguana’s program-watch does not look after it on this PC, so this light only shows whether it was seen; it cannot open or close it.',
+    // The buttons (Astra, 2026-11-07: "I should be able to press the red button, then it launches that program and
+    // the button turns green if its on and detected"; all recommended).
+    noLink: 'nothing was sent: Inference Iguana’s watch is not listening. Start it from Startup Star’s menu: Inference Iguana, Keep watch in the background. Then press the light again.',
+    notHere: 'nothing was sent: this light opens and closes programs only on a page opened on this PC.',
+    noAnswer: 'Inference Iguana’s watch did not answer. Start it from Startup Star’s menu: Inference Iguana, Keep watch in the background.',
+    tool: 'a command-line tool (or a mod): it does not open as a window, so this light shows whether it is installed. You use it from a terminal, or through the pet that runs it.',
+    driver: 'a driver: it does not open as a window, so this light shows whether it is installed. Windows loads it for the programs that use it.',
+    installed: ' Installed on this PC.',
+    missing: ' Not found on this PC.',
+    unchecked: ' Not checked yet: Inference Iguana’s watch has not reported it.',
+    site: 'opened in a new tab. It is a website, so there is no program on this PC to switch on or off.',
     // A VR device (2026-10-23): green while SteamVR has it on, from Inference Iguana's device-watch.
     deviceOn: 'on: SteamVR has it connected (Inference Iguana’s device-watch reads SteamVR’s log).',
     deviceOff: 'off: SteamVR does not have it connected right now, or SteamVR is not running.',
@@ -130,6 +145,22 @@
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
   var running = {}, runningSeen = null, updates = {};
+  // From the same file (2026-11-07): what kind each program is (window, tool, driver), whether a tool or driver is
+  // installed, and where program-watch listens, with its code, while its watch runs (`watchLink`).
+  var installed = {}, kinds = {}, watchLink = null;
+  var watchHere = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  // Pressing asks only from a page program-watch's listener lets in: a file page, 127.0.0.1 or localhost. It refuses
+  // http://[::1] (its OriginOk and --self-test), so a page there reads the list but never sends (found 2026-11-07).
+  var askHere = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  function itemId(b) { return (b.dataset.item || '').replace(/^(third-party|device):/, ''); }
+  // The page's own mark (data-watch, from the System Map's program-watch links) decides; the file may only make a
+  // window a tool or a driver, never the other way round.
+  function kindOf(b) {
+    var w = b.dataset.watch || '', k = kinds[itemId(b)];
+    if (!w || !/^third-party:/.test(b.dataset.item || '')) return '';
+    return !k || k === w ? w : k === 'tool' || k === 'driver' ? k : '';
+  }
+  function notWindow(kd) { return kd === 'tool' || kd === 'driver'; }
   // A 3rd party program's second light: does it need an update? true, false, or not known (Astra, 2026-10-23).
   function isProgram(b) { return /^third-party:/.test(b.dataset.item || '') && !!b.dataset.unseen; }
   function update(b) { var u = updates[(b.dataset.item || '').replace(/^third-party:/, '')]; return u === true ? 'fix' : u === false ? 'ok' : ''; }
@@ -143,10 +174,13 @@
       names[k] = name; planned[k] = !!b.dataset.planned;
       if (b.classList.contains('onoff')) {
         if (b.dataset.presenceManaged) { managed[k] = true; continue; }
-        var p = b.dataset.unseen ? (seen(b) ? 'on' : 'off') : power(k, planned[k]);
+        // A tool or a driver is green while it is installed (2026-11-07); everything else in a 3rd party pill while it runs.
+        var kd = kindOf(b);
+        var p = b.dataset.unseen ? (notWindow(kd) ? (installed[itemId(b)] === true ? 'on' : 'off') : seen(b) ? 'on' : 'off') : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
-        b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
+        b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (notWindow(kd) ? (p === 'on' ? 'installed' : 'not found') : p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
+        if (b.dataset.unseen) { if (notWindow(kd)) b.dataset.kind = kd; else delete b.dataset.kind; }
       } else {
         var h = care(b);
         b.classList.toggle('is-fix', h === 'fix');
@@ -175,7 +209,7 @@
     for (var lv = 0; lv < levels.length; lv++) {
       var lg = levels[lv].querySelector(':scope > summary .legend');
       if (lg && /-L4-[a-z-]*panel$/.test(lg.textContent)) continue;
-      var inUse = levels[lv].querySelector('button.light.onoff[data-unseen]:not(.is-off)');
+      var inUse = levels[lv].querySelector('button.light.onoff[data-unseen]:not(.is-off):not([data-kind])'); // installed is not in use
       if (inUse) levels[lv].dataset.activity = 'live'; else delete levels[lv].dataset.activity;
     }
   }
@@ -184,7 +218,9 @@
   tip.setAttribute('role', 'status');
   tip.hidden = true;
   document.body.appendChild(tip);
-  function say(b, text) { sayAt(b, b.dataset.name + ': ' + text); }
+  // Its own name: the chat window's say() below is another function, and two declarations of one name in this scope
+  // meant every light's bubble went into the chat instead (found 2026-11-07).
+  function sayLight(b, text) { sayAt(b, b.dataset.name + ': ' + text); }
   function sayAt(b, text) {
     tip.textContent = text;
     tip.hidden = false;
@@ -194,28 +230,70 @@
     clearTimeout(tipTimer);
     tipTimer = setTimeout(function () { tip.hidden = true; }, 4000);
   }
+  // A 3rd party program's ON/OFF light (Astra, 2026-11-07, "Fix all of the buttons in 3rd party programs", all
+  // recommended): a window opens on a red press and closes on a green one, after you say yes, the way its X button
+  // closes it (never forced; if it asks to save, you answer it). A tool or a driver says what it is and whether it is
+  // installed. A website opens in a new tab, from the page's own address (the System Map's `site`), never the file's.
+  // Anything else only shows.
+  function pressed(b) {
+    var kd = kindOf(b), desc = b.closest && b.closest('li.pill') && b.closest('li.pill').querySelector('.item-desc');
+    if (isDevice(b)) { sayLight(b, seen(b) ? SAYS.deviceOn : SAYS.deviceOff); return; }
+    if (kd === 'window') { openOrClose(b); return; }
+    if (notWindow(kd)) {
+      var have = installed[itemId(b)];
+      sayLight(b, SAYS[kd] + (have === true ? SAYS.installed : have === false ? SAYS.missing : SAYS.unchecked) + (desc && desc.textContent && !desc.classList.contains('empty') ? ' ' + desc.textContent : ''));
+      return;
+    }
+    var site = b.dataset.site || '';
+    if (/^https:\/\/[^\s"'<>\\]+$/.test(site)) { window.open(site, '_blank', 'noopener,noreferrer'); sayLight(b, SAYS.site); return; }
+    if (seen(b)) { sayLight(b, SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '')); return; }
+    sayLight(b, b.dataset.planned || !b.dataset.watch && /^third-party:model-/.test(b.dataset.item || '') ? SAYS.planned : SAYS.unwatched);
+  }
+  function openOrClose(b) {
+    var name = b.dataset.name;
+    if (!askHere) { sayLight(b, SAYS.notHere); return; }
+    if (!watchLink) { sayLight(b, SAYS.noLink); return; }
+    if (seen(b)) {
+      if (!window.confirm(T('Close ' + name + '? It closes like its X button; if it asks to save, answer it there.'))) return;
+      ask(b, 'close', 'Asking ' + name + ' to close…');
+    } else ask(b, 'open', 'Opening ' + name + '…');
+  }
+  // The one request this page makes: text/plain keeps it a simple request, and program-watch checks the code, where the
+  // page was opened from, and that the id is one in its own table. The page sends only the id, never a path or command.
+  function ask(b, path, first) {
+    var to = watchLink, id = itemId(b), name = b.dataset.name;
+    sayAt(b, first);
+    fetch(to.url + path, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ code: to.code, id: id }), cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' })
+      .then(function (r) { return r.json().then(function (a) { return { status: r.status, a: a }; }, function () { return { status: r.status, a: null }; }); })
+      .then(function (x) {
+        var said = x.a && typeof x.a.said === 'string' && x.a.said.trim() ? x.a.said.trim().slice(0, 300) : null;
+        if (x.status === 403) said = said || 'program-watch refused the request: the page has an old code. Wait five seconds and press again.';
+        sayAt(b, said || name + ': program-watch answered ' + x.status + '.');
+        if (x.status === 200 && x.a && x.a.ok === true) watchClosely();
+      }, function () { watchLink = null; sayAt(b, name + ': ' + SAYS.noAnswer); });
+  }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('button.light[data-item]');
     if (!b) return;
     if (b.dataset.presenceManaged) return; // Damsel's local controls own these two live power lights.
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
-    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
+    if (b.dataset.unseen && b.classList.contains('onoff')) { pressed(b); return; }
     if (b.classList.contains('care')) {
       // The second light: what the check found, and a click reports an issue or takes your report back.
       var h = care(b), note = b.dataset.checkNote ? ' ' + b.dataset.checkNote : '';
-      if (h === 'none') { say(b, 'not created yet.' + note); return; }
+      if (h === 'none') { sayLight(b, 'not created yet.' + note); return; }
       var r = lights[k] || (lights[k] = {});
       if (reported(k)) { delete r.health; delete r.fix; delete r.fixed_on; } else { r.health = 'fix'; r.fixed_on = localDay(); }
       write('lights', lights);
       paint();
       var now = care(b);
-      say(b, reported(k) ? 'report issues: you reported one. It is listed in L4; click again to take it back.'
+      sayLight(b, reported(k) ? 'report issues: you reported one. It is listed in L4; click again to take it back.'
         : now === 'update' ? (isProgram(b) && update(b) === 'fix' ? 'update waiting for your approval: Steam has a newer version.' : 'update waiting for your approval.' + note) + ' L3 asks you in L4 before anything is updated.'
         : now === 'ok' ? 'checked, works.' + note : now === 'fix' && b.dataset.check === 'issues' ? 'report issues: the check found one.' + note : 'report issues: not checked yet.');
       return;
     }
-    if (planned) { say(b, SAYS.planned); return; }
+    if (planned) { sayLight(b, SAYS.planned); return; }
     var s = lights[k] || (lights[k] = {});
     var p = power(k, planned);
     if (p === 'off' && !window.confirm(T('Turn ' + b.dataset.name + ' back on? After a security OFF, only you (L4) may turn it on.'))) return;
@@ -223,40 +301,61 @@
     s.power = next; delete s.off;
     write('lights', lights);
     paint();
-    say(b, SAYS[next]);
+    sayLight(b, SAYS[next]);
   });
   paint();
 
-  // Inference Iguana's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
-  // means the watch stopped, so nothing counts as open.
-  (function () {
-    if (!document.querySelector('button.light[data-unseen]')) return;
-    if (!(location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))) return;
+  // Inference Iguana's list, loaded again every five seconds while the page is open on this PC, and every second for 30
+  // seconds after a light asked it to open or close something, so the light turns as soon as it is seen. A list older
+  // than a minute means the watch stopped, so nothing counts as open and there is nobody to ask.
+  var LINK_URL = /^http:\/\/127\.0\.0\.1:(\d{1,5})\/$/, CODE = /^[0-9a-f]{32,128}$/i;
+  function linkFrom(l) {
+    var m = l && typeof l.url === 'string' && LINK_URL.exec(l.url);
+    if (!m || +m[1] < 1 || +m[1] > 65535 || typeof l.code !== 'string' || !CODE.test(l.code)) return null;
+    return { url: l.url, code: l.code };
+  }
+  var fastUntil = 0, watchTimer = null, watching = false;
+  function watchClosely() {
+    if (!watching) return;
+    fastUntil = Date.now() + 30000;
+    clearTimeout(watchTimer);
+    watchTimer = setTimeout(tick, 1000);
+  }
+  function tick() {
+    if (!document.hidden || Date.now() < fastUntil) loadPrograms();
+    watchTimer = setTimeout(tick, Date.now() < fastUntil ? 1000 : 5000);
+  }
+  function loadPrograms() {
     // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents.
     var LOCAL_PROGRAMS = "../../../../Astra's PetOS Data/benchmark-rock/programs-page-data.js";
-    function load() {
-      var script = document.createElement('script');
-      script.setAttribute('src', LOCAL_PROGRAMS + '?t=' + Date.now());
-      script.onload = function () {
-        script.remove();
-        var d = window.benchmarkRockPrograms, now = {};
-        if (d && d.schema === 'benchmark-rock-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
-          d.programs.forEach(function (p) { if (p && p.running && typeof p.id === 'string') now[p.id] = true; });
-          (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) { if (v && v.on === true && typeof v.id === 'string') now[v.id] = true; });
-          var ups = {};
-          d.programs.forEach(function (p) { if (p && typeof p.id === 'string' && (p.update === true || p.update === false)) ups[p.id] = p.update; });
-          updates = ups;
-          runningSeen = d.time;
-        }
-        running = now;
-        paint();
-      };
-      script.onerror = function () { script.remove(); running = {}; paint(); };
-      document.head.appendChild(script);
-    }
-    load();
-    setInterval(function () { if (!document.hidden) load(); }, 5000);
-  })();
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_PROGRAMS + '?t=' + Date.now());
+    script.onload = function () {
+      script.remove();
+      var d = window.benchmarkRockPrograms, now = {}, ups = {}, have = {}, kind = {}, to = null;
+      if (d && d.schema === 'benchmark-rock-programs-v1' && Array.isArray(d.programs) && Date.now() - new Date(d.time).getTime() < 60000) {
+        d.programs.forEach(function (p) {
+          if (!p || typeof p.id !== 'string') return;
+          if (p.running) now[p.id] = true;
+          if (p.update === true || p.update === false) ups[p.id] = p.update;
+          if (p.installed === true || p.installed === false) have[p.id] = p.installed;
+          if (p.kind === 'window' || p.kind === 'tool' || p.kind === 'driver') kind[p.id] = p.kind;
+        });
+        (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) { if (v && v.on === true && typeof v.id === 'string') now[v.id] = true; });
+        to = linkFrom(d.link);
+        runningSeen = d.time;
+      }
+      running = now; updates = ups; installed = have; kinds = kind; watchLink = to;
+      paint();
+    };
+    script.onerror = function () { script.remove(); running = {}; installed = {}; watchLink = null; paint(); };
+    document.head.appendChild(script);
+  }
+  if (document.querySelector('button.light[data-unseen]') && watchHere) {
+    watching = true;
+    loadPrograms();
+    watchTimer = setTimeout(tick, 5000);
+  }
 
   // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (its own
   // drawing, the `blink` frame with the twinkles: Astra, 2026-11-03, Flash Audit deck, answer 1: A) after you use the

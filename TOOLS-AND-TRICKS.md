@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-298 rows: 12 native programs, 136 native tools, 20 native tricks, 130 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+342 rows: 12 native programs, 136 native tools, 20 native tricks, 174 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -377,31 +377,75 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | native tool | Busy watch | `benchmark-rock-v1.0-busy-watch-v1.0` | Works today |
 | 72 | Inference Iguana | Benchmark Rock | native tool | GPU watch | `benchmark-rock-v1.0-gpu-watch-v1.0` | Works today |
 | 72 | Inference Iguana | Benchmark Rock | native tool | Program watch | `benchmark-rock-v1.0-program-watch-v1.0` | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Ableton Live |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Ableton USB Audio Driver |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Autoruns |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Base Station FOV Viewer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | BetterDiscord |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Blender |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | BS Manager |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Canva |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CapCut |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CLI Proxy API |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Coreinfo |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Corsair iCUE |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CPU-Z |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CrystalDiskInfo |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Discord |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | DoubleHip DoubleChest Tracker |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Epic Games Launcher |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | ES (Everything’s command line) |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Everything |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Handle |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | HWiNFO64 |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Logitech G HUB |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Magic Chatbox |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Malwarebytes |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Meta Horizon Link |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | MSI Center |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Node.js |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | OBS Studio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OSCGoesBrrr |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Overwolf |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Advanced Settings |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Dynamic Resolution |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Pager |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Smooth Tracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Toolkit |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | PowerToys |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Process Explorer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Process Monitor |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | RAMMap |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Razer Synapse |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | ShareX |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Sigcheck |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Calibrator |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Override |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Sync |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | SpaceSniffer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Spotify |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Steam |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Steam Streaming audio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | SteamVR |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TCPView |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TikFinity |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TikTok LIVE Studio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity 2022.3.22f1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity Hub 3.21.1 |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | USBDeview |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Virtual Desktop |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Visual Studio Community 2022 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Voicemeeter |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VR Pole Overlay |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRCFaceTracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat Creator Companion |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Wallpaper Engine |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Windows Performance Recorder |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | winget |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | WinObj |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Wireshark |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | WizTree |  | Planned |
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
