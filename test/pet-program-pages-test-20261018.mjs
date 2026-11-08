@@ -488,15 +488,16 @@ test('the editorial status panel marks the working copy and is hidden on the liv
 
 // Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
 // all other reccd").
-test('every panel ends with More details, the same four lines in order; the two squares and the chat show only the arrow', () => {
+// Astra, 2026-11-06: no dropdown arrows in the cyberhome, the quick summary or the System Map box.
+test('every panel but the three top boxes ends with More details, the same four lines in order; the chat shows only the arrow', () => {
   const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.equal((html.match(lines) || []).length, PANELS.length, `${d.repo}: one More details with four lines per panel`);
-    assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 3, `${d.repo}: the cyberhome, the System Map box and the chat show the arrow only`);
-    for (const square of ['cyberhome', 'system-map']) {
-      const start = html.indexOf(`<details class="panel ${square}"`);
-      assert.ok(html.slice(start, html.indexOf('</details>\n', html.indexOf('about arrow-only', start)) + 10).includes('about arrow-only'), `${d.repo}: ${square}'s arrow is inside its square`);
+    assert.equal((html.match(lines) || []).length, PANELS.length - 3, `${d.repo}: one More details with four lines per panel, none in the three top boxes`);
+    assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 1, `${d.repo}: only the chat shows the arrow only`);
+    for (const box of ['cyberhome', 'summary', 'system-map']) {
+      const start = html.indexOf(`<details class="panel ${box}"`);
+      assert.ok(start > 0 && !html.slice(start, html.indexOf('</details>', start)).includes('class="about'), `${d.repo}: no More details in the ${box} box`);
     }
   }
 });

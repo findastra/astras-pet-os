@@ -21,5 +21,6 @@ program page and the Model Pet Program; the bottom ones are the friends list and
 Checks: in the browser pane, on the Farmer's page and the Model Pet Program (served from this branch on 127.0.0.1),
 the six have no arrow and stay open when their label is clicked; every body panel shows its arrow and folds.
 
-Overlaps #298 (not merged): it takes More details out of the three top boxes and hides their arrows with CSS. Both can
-merge; the second one to merge takes main's generated pages, rebuilds and runs the tests.
+#298 merged first (More details out of the three top boxes, their arrows hidden with CSS): main merged in, main's
+generated pages taken, the spawner's three top boxes kept as #298 left them with `fold: false` added, rebuilt and
+tested again.

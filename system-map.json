@@ -1659,8 +1659,18 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Razer lighting and device control. Installed.",
-      "does": "Controls Razer devices and their lighting."
+      "job": "Razer device control: Synapse 4. It sets the Viper V3 Pro, Kraken Ultimate and Seiren V3 Chroma (2026-11-08). Lighting moved to the separate Razer Chroma App. Razer Central and Razer Services run in the background for it.",
+      "does": "Sets Razer devices: buttons, DPI, mic gain and mute."
+    },
+    {
+      "id": "razer-chroma",
+      "name": "Razer Chroma App",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Razer’s lighting app, separate from Synapse 4 (Chroma for Windows 4.0.63, installed from Synapse 2026-11-08). It lights the Kraken Ultimate and Seiren V3 Chroma together; Chroma Studio, Visualizer and Connect came with it. Connect is how other brands’ lights join Razer effects; a Philips Hue module is offered.",
+      "does": "Syncs lighting effects across Razer devices, and other brands through Chroma Connect."
     },
     {
       "id": "logitech-g-hub",
@@ -2647,7 +2657,16 @@
       "state": "now",
       "layer": 6,
       "category": "Mouse",
-      "job": "Mouse, connected to the Desktop PC."
+      "job": "Mouse, connected to the Desktop PC. It has no RGB lights (Razer left them out to keep it light), so it can never match the other lights; Razer Synapse sets its buttons and DPI."
+    },
+    {
+      "id": "razer-seiren-v3-chroma",
+      "name": "Razer Seiren V3 Chroma",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Audio",
+      "job": "Astra’s desk microphone (2026-11-08): USB, with a headphone jack and Chroma RGB lights. Windows sees it as Razer Seiren V3 Chroma 32-Bit DSP and uses it as the default mic. Razer Synapse sets its gain, mute and lights."
     },
     {
       "id": "dell-monitor",
@@ -6526,14 +6545,71 @@
       "to": "razer-viper",
       "carries": "opens",
       "state": "now",
-      "why": "Razer Synapse sets the mouse’s lighting and buttons."
+      "why": "Razer Synapse sets the mouse’s buttons and DPI (the Viper V3 Pro has no lights)."
+    },
+    {
+      "from": "razer-synapse",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "opens",
+      "state": "now",
+      "why": "Razer Synapse sets the mic’s gain, mute and monitoring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the mic’s Chroma ring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-kraken",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the headset’s Chroma ear cups."
     },
     {
       "from": "rgbee",
-      "to": "razer-viper",
+      "to": "razer-chroma",
       "carries": "manages",
       "state": "planned",
-      "why": "RGBee’s job includes the mouse’s lights."
+      "why": "The Razer lights sync through the Chroma App; RGBee’s scenes would go to it."
+    },
+    {
+      "from": "rgbee",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The mic’s Chroma ring is one of the room’s RGB lights."
+    },
+    {
+      "from": "rgbee",
+      "to": "razer-kraken",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The headset’s Chroma ear cups are one of the room’s RGB lights."
+    },
+    {
+      "from": "drum-dog",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "manages",
+      "state": "now",
+      "why": "The desk mic records vocals and samples for Ableton Live."
+    },
+    {
+      "from": "drum-dog",
+      "to": "razer-synapse",
+      "carries": "manages",
+      "state": "now",
+      "why": "Synapse sets the desk mic’s gain, mute and headphone monitoring before Ableton Live hears it."
+    },
+    {
+      "from": "razer-seiren-v3-chroma",
+      "to": "windows-pc",
+      "carries": "network",
+      "medium": "usb",
+      "state": "now",
+      "why": "USB cable to the Desktop PC (seen 2026-11-08)."
     },
     {
       "from": "desktop-host",
@@ -7151,8 +7227,8 @@
       "to": "windows-pc",
       "carries": "network",
       "medium": "usb",
-      "state": "suggested",
-      "why": "USB, or a 2.4 GHz dongle on the wireless models. To confirm."
+      "state": "now",
+      "why": "USB cable to the Desktop PC (the Kraken Ultimate is wired only; seen 2026-11-08)."
     },
     {
       "from": "logitech-brio",

@@ -1,7 +1,7 @@
-status: waiting for Astra's merge OK (#301)
+status: done, merged with Astra's OK in chat (2026-11-08: "Yes, merge #301")
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, a side chat of the "PC Master Race" chat
-needs: nothing; overlaps #298 (same spawner, CSS, test and pages)
+needs: nothing (#298 merged first; main merged in)
 ---
 ## Task
 
@@ -27,4 +27,10 @@ footer; More details stays). She also asked to see the blueprint page (the Model
 
 ## Receipt and review
 
-Pending.
+- Astra saw the deck ("All recommended") and gave her OK in chat: "Yes, merge #301".
+- Before the merge, #298 and #300 had reached `main`: `main` merged in, main's generated pages taken, the spawner's
+  three top boxes kept as #298 left them (no More details) with `fold: false` added, `npm run build`, `npm test`: 384
+  pass, 1 fail (installed farm from scratch, Windows), the same as on `main`. The merged Farmer's page checked again in
+  the pane: the six stay open with no arrow, the body panels fold, #298's program lights script is there.
+- Open PRs that touch the same spawner, CSS, test or framework and will need `main` merged in: #289, #281, #256, #247,
+  #218.
