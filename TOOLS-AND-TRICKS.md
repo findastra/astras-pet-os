@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-299 rows: 12 native programs, 136 native tools, 20 native tricks, 131 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+300 rows: 12 native programs, 136 native tools, 20 native tricks, 132 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -303,6 +303,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 22 | RGBee | Light Hive | third-party program | Corsair iCUE |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Logitech G HUB |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | MSI Center |  | Planned |
+| 22 | RGBee | Light Hive | third-party program | Razer Chroma App |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |

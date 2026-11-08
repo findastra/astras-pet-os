@@ -1659,8 +1659,18 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Razer lighting and device control: Synapse 4 (4.0.827). It sees the Viper V3 Pro, Kraken Ultimate and Seiren V3 Chroma (2026-11-08). Lighting effects moved to Razer’s separate Chroma App, which is not installed yet; without it the Razer lights cannot sync. Razer Central and Razer Services run in the background for it.",
-      "does": "Controls Razer devices and their lighting."
+      "job": "Razer device control: Synapse 4. It sets the Viper V3 Pro, Kraken Ultimate and Seiren V3 Chroma (2026-11-08). Lighting moved to the separate Razer Chroma App. Razer Central and Razer Services run in the background for it.",
+      "does": "Sets Razer devices: buttons, DPI, mic gain and mute."
+    },
+    {
+      "id": "razer-chroma",
+      "name": "Razer Chroma App",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Razer’s lighting app, separate from Synapse 4 (Chroma for Windows 4.0.63, installed from Synapse 2026-11-08). It lights the Kraken Ultimate and Seiren V3 Chroma together; Chroma Studio, Visualizer and Connect came with it. Connect is how other brands’ lights join Razer effects; a Philips Hue module is offered.",
+      "does": "Syncs lighting effects across Razer devices, and other brands through Chroma Connect."
     },
     {
       "id": "logitech-g-hub",
@@ -6542,7 +6552,28 @@
       "to": "razer-seiren-v3-chroma",
       "carries": "opens",
       "state": "now",
-      "why": "Razer Synapse sets the mic’s gain, mute, monitoring and Chroma lights."
+      "why": "Razer Synapse sets the mic’s gain, mute and monitoring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the mic’s Chroma ring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-kraken",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the headset’s Chroma ear cups."
+    },
+    {
+      "from": "rgbee",
+      "to": "razer-chroma",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Razer lights sync through the Chroma App; RGBee’s scenes would go to it."
     },
     {
       "from": "rgbee",

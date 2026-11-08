@@ -1941,6 +1941,11 @@
             "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
           },
           {
+            "node": "razer-chroma",
+            "how": "optional",
+            "why": "Planned: the Razer lights (mic and headset) sync through the Chroma App, so RGBee's scenes would go to it."
+          },
+          {
             "node": "logitech-g-hub",
             "how": "optional",
             "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
