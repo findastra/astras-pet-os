@@ -1,4 +1,4 @@
-status: waiting for Astra's merge OK (#303)
+status: done, merged with Astra's OK in chat (2026-11-08: "Yes, merge both", #303 then #304)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, a side chat of the "PC Master Race" chat
 needs: nothing
@@ -26,4 +26,7 @@ the corner, so make sure they're the right size."
 
 ## Receipt and review
 
-Pending.
+- Astra saw the working copy in the pane and gave her OK in chat: "Yes, merge both" (#303, then #304).
+- `main` had not moved since the branch was cut (484166da); checks passed (CodeQL).
+- Open PRs that touch the same spawner, CSS, test, framework or data files and will need `main` merged in: #299, #290,
+  #289, #281, #256, #254, #247, #245, #218, #61, #36.
