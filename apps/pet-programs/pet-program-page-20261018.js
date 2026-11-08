@@ -920,6 +920,17 @@
     if (more) more.open = !more.open;
   });
 
+  // ---- Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not
+  // the top ones or the bottom ones, and definitely not the unified footer"). The top and bottom panels are marked
+  // data-stays-open: a click on their label does nothing, and anything that closes one opens it again. ----
+  document.addEventListener('click', function (e) {
+    var head = e.target.closest && e.target.closest('summary');
+    if (head && head.parentElement && head.parentElement.matches('details.panel[data-stays-open]')) e.preventDefault();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('details.panel[data-stays-open]'), function (box) {
+    box.addEventListener('toggle', function () { if (!box.open) box.open = true; });
+  });
+
   // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes
   // on each try are saved in this browser; the page shows what a launch would start and which try went best. ----
   (function () {

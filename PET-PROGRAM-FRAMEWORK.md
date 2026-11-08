@@ -116,7 +116,12 @@ set into the top border, in lowercase-with-hyphens, starting with the pet's name
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
 or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
 window narrows, 16px on a phone. CSS inches are not real inches on every screen.
-**Every tool panel can collapse**, so the page works on a phone. **The page stays wide** (Astra, 2026-11-03, Flash
+**Every tool panel in the page's body can collapse**, so the page works on a phone: the intelligence levels (L1 to L4
+inside), R W X, the session notes, the emotions and clicker training. **The top and bottom panels always stay open**,
+with no fold arrow after the label (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
+ones or the bottom ones, and definitely not the unified footer"; deck answers all recommended: every page): L3's note,
+the cyberhome, the quick summary, the System Map box, the friends list and the unified footer. Their More details
+stays. **The page stays wide** (Astra, 2026-11-03, Flash
 Audit deck, answer 7: A): up to 1180 px inside the frame, with no sideways scroll on any screen (Platform Platypus's
 `fit-check`). **Every panel ends with More details**, folded behind its arrow (2026-10-22), the same four lines in the
 same order (2026-11-03, answer 8: A): **How it works**, **Where it comes from**, **Your rules** (her dated decisions for

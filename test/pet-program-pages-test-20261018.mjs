@@ -51,6 +51,28 @@ test('every page has every panel of the sketch, in its order, and every panel co
   }
 });
 
+// Astra, 2026-11-08: "there's some drop down arrows in every panel that it needs to be on only like the main body
+// panels, not the top ones or the bottom ones, and definitely not the unified footer" (deck: all recommended).
+test('only the main body panels fold; the top and bottom panels always stay open with no arrow', () => {
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /details\.panel\[data-stays-open\] > summary \.legend::after \{ content: none; \}/, 'no arrow after a label that does not fold');
+  assert.match(readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8'), /details\.panel\[data-stays-open\]/, 'the page script keeps them open');
+  const stays = ['cyberhome', 'editorial', 'footer', 'related-pets', 'summary', 'system-map'];
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const boxes = [...html.matchAll(/<details class="panel ([^"]*)"([^>]*)><summary([^>]*)>/g)];
+    assert.deepEqual(boxes.filter((b) => b[2].includes(' data-stays-open')).map((b) => b[1].trim()).sort(), stays, `${d.repo}: the top and bottom panels stay open`);
+    for (const [, cls, attrs, summary] of boxes) {
+      if (attrs.includes(' data-stays-open')) {
+        assert.match(attrs, / open$/, `${d.repo}: ${cls} is open`);
+        assert.equal(summary, ' tabindex="-1"', `${d.repo}: ${cls}'s label does not fold it`);
+      } else assert.equal(summary, ' title="Click the label to fold or unfold this tool panel"', `${d.repo}: ${cls} folds`);
+    }
+    for (const body of ['levels', 'rwx-panel', 'session-notes', 'emotions', 'clicker'])
+      assert.ok(boxes.some((b) => b[1].trim() === body && !b[2].includes('data-stays-open')), `${d.repo}: the ${body} panel folds`);
+  }
+});
+
 test('labels sit in the top border with nothing after them, and every emotion bubble is labelled the same way', () => {
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.doesNotMatch(css, /summary::(after|before)\s*\{[^}]*content:\s*'[^']/, 'no mark (a dash, a plus) after a panel label');
