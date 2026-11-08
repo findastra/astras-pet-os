@@ -26,7 +26,9 @@ shows up as a tool and I can click it".
    drawing, so that also means new desktop art and a star rebuild.
 2. The native tools' ON/OFF lights only switch in the browser (nothing on the PC reads them). What should each really
    do? 3rd party program lights work through Inference Iguana's watch, when it runs.
-3. The Flash Audit as tools on The Farm, each check clickable, run over every pet program: its own task.
+3. The Flash Audit as tools on The Farm, each check clickable, run over every pet program: asked on the deck "The Farm:
+   art and lights", questions 3 to 5 (where the 61 checks go, what a click does, who owns it). The auditor that runs
+   37 of the 61 checks over every pet program exists (`scripts/idle-flash-audit-20261017.mjs`); the page part does not.
 
 ## Receipt and review
 
