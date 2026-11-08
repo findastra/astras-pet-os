@@ -203,10 +203,11 @@ From Astra's notes in chat, on spoonfed#9 (36bdc3b):
 - "there needs to be "bar" as an option next to Veggie": a Bar choice; 12 sample spots have a bar.
 - "theres a weird white border": the page had no background of its own; it is chocolate now.
 
-On her "Yes, make the PR" (2026-11-08), findastra.github.io#42 puts this build on the phone link. It waits for her
-merge OK.
+On her "Yes, make the PR" (2026-11-08), findastra.github.io#42 put this build on the phone link; squash-merged as
+fe2c15a on her "Yes, merge #42". Live and checked: Pages built fe2c15a, the page serves the new script and the old one
+answers 404; the reels show their colors and the Bar choice.
 
-**Still open:** her merge OK for findastra.github.io#42; the six questions in
+**Still open:** the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
 (restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
 reel still cuts long types ("Indonesi…") on phones.
