@@ -149,8 +149,13 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    pet is hidden) needs a live link between the page and Startup Star, which waits on Astra's OK (card 054). **The pet
    looks as it does on the desktop**: the page uses its drawing in `desktop-art/<art>/` when it has one, and its
    registered frames only when it has none (Astra crossed out Drum Dog's older drawing while his desktop pet sat beside
-   it, 2026-10-20); a private drawing (Claude Bot's) is never used. Room art people can change is planned. **The
-   cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
+   it, 2026-10-20); a private drawing (Claude Bot's) is never used. **Every pet picture on the page is the size the
+   desktop pet is** (Astra, 2026-10-23: "needs to be small like the desktop. same size"; 2026-11-08: "the pets are not
+   the sizes they would appear on the screen in the corner, so make sure they're the right size"): in the cyberhome, the
+   nine emotions and the friends list, each pet is drawn by Startup Star's own sizing rules (LayoutPets: NormalHeight,
+   MaxPetWidth, each pet's own size, the five pets cropped from the soles, the Farmer at 0.9), its empty margin cut off,
+   never squeezed into a fixed slot (`scripts/pet-size-20261023.mjs`; a test reads the rules back from the star's code).
+   Room art people can change is planned. **The cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
    the system map box"). **Both are always squares** (Astra, 2026-10-21: "should always be a square ... they can push
    together or stack, but when this happens the title goes below them both"): beside the title, their side is the
    title column's height, so **the header ends at the bottom of the title's buttons** (Astra, 2026-10-20), between 210

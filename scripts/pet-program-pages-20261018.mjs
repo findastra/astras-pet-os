@@ -19,7 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
-import { drawnBox, pictureHeight } from './pet-size-20261023.mjs';
+import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
@@ -129,6 +129,24 @@ export function versionOf(reg) {
 const ymd = (iso) => (iso ? String(iso).slice(0, 10).replace(/-/g, '') : null);
 const day = (iso) => (iso ? String(iso).slice(0, 10) : null);
 const up = (p) => `../../${p}`; // from apps/pet-programs/ back to the hub's root
+
+/** The pet's id on the desktop, as Startup Star names it: its `art` in pets.json, else its draft's id, else its repo. */
+export function desktopId(reg, drafts) {
+  if (reg.art) return reg.art;
+  return (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet))?.id || reg.repo;
+}
+
+/** The pet at the size the star draws it (Astra, 2026-11-08: "the pets are not the sizes they would appear on the
+ *  screen in the corner, so make sure they're the right size"; scripts/pet-size-20261023.mjs): the star crops its idle
+ *  and awake drawings together, crisp drawings at alpha 128; the picture is cut to what is drawn in `shown`, the
+ *  pictures shown in that place, so they all line up. The CSS variables for img.fit, or null. */
+export function fitOf(reg, art, { drafts, measure = () => null }, shown) {
+  const plain = art.plain || art.frames;
+  if (!plain?.idle) return null;
+  const crisp = art.source === 'desktop' || art.source === 'draft' ? 127 : 0;
+  const k = desktopScale(desktopId(reg, drafts), unionBox([plain.idle, plain.blink].filter(Boolean).map((p) => measure(p, crisp))));
+  return fitVars(k, unionBox(shown.filter(Boolean).map((p) => measure(p, 0))));
+}
 
 /** Every picture of the pet, from the hub only: its desktop drawing, then registered frames, then the desktop draft
  *  list, then art/drafts, then its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
@@ -266,8 +284,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const related = [...plays.values()].map(({ id, o, links, state, why }) => {
     const r = regs.find((x) => x.repo === id);
     const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
+    const who = r || { repo: id, pet: o.name }, its = petFrames(who, { frameIndex, drafts, exists, list });
     return { id, pet: o.name, home, state, why, links,
-      page: r ? `${id}-${DATE}.html` : null, idle: petFrames(r || { repo: id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
+      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, fit: fitOf(who, its, { drafts, measure }, [its.frames.idle]) };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
@@ -291,8 +310,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const appPrivate = app && isUrl(app) && !app.startsWith(`${PAGES}/apps/`) ? privateTarget(registry, app) : null;
   const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
-  // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"): scripts/pet-size-20261023.mjs.
-  const petHeight = art.frames.idle ? pictureHeight(reg.repo, measure((art.plain || art.frames).idle)) : null;
+  // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"; 2026-11-08: "make sure
+  // they're the right size"): the cyberhome's faces and the nine emotions share one cut, so they all line up.
+  const petFit = fitOf(reg, art, { drafts, measure }, Object.values(art.frames));
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
   // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
@@ -306,7 +326,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
-    art, petHeight, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
+    art, petFit, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
     shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
@@ -490,11 +510,12 @@ const about = (html, { arrow = false } = {}) => (typeof html === 'string'
   ? `<details class="about"><summary>More details</summary><p class="small">${html}</p></details>`
   : `<details class="about${arrow ? ' arrow-only' : ''}"><summary${arrow ? ' title="More details" aria-label="More details"' : ''}>${arrow ? '' : 'More details'}</summary><dl class="small about-lines">${ABOUT_LINES.map(([k, name]) => `<dt>${name}</dt><dd>${html[k]}</dd>`).join('')}</dl></details>`);
 
-const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
+// `fit`: the CSS variables that draw the pet at its desktop size (fitOf), or nothing for a picture that is not one.
+const img = (path, alt, cls = '', fit = null) => (path ? `<img${cls || fit ? ` class="${[cls, fit ? 'fit' : ''].filter(Boolean).join(' ')}"` : ''}${fit ? ` style="${fit}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
 // The faces the page script switches between (idle first and shown; the others hidden until the script shows them).
-const faces = (f, pet, moods, cls) => moods.filter((m) => f[m]).map((m, i) =>
-  `<img class="${cls}" data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+const faces = (f, pet, moods, cls, fit = null) => moods.filter((m) => f[m]).map((m, i) =>
+  `<img class="${cls}${fit ? ' fit' : ''}"${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
 
 // ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
 // "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
@@ -802,7 +823,7 @@ ${about({
   const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
+<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -974,7 +995,7 @@ ${about({
   // Awake always shows its own drawing, the `blink` frame with the two yellow twinkles (Astra, 2026-11-03, Flash Audit
   // deck, answer 1: A); it was the idle face, wearing idle's three dots. A pet with no awake drawing shows idle's.
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
-    const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`);
+    const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`, '', d.petFit);
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div>
 ${about({
@@ -1009,7 +1030,7 @@ ${about({
   // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
   // manage ..."). The whole bubble opens that pet's program.
   const relatedCard = (r) => {
-    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
+    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`, '', r.fit)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
   const related = panel(`${d.petSlug}-friends-list-panel`, `${d.related.length
@@ -1180,9 +1201,12 @@ const MODEL_FACES = {
 // Each drawing carries the same mood sticker as every pet (Astra, 2026-10-24: the nine mood symbols "stay the same
 // across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
 // it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
-const stickerSvg = (mood) => {
+const stickerAt = (mood) => {
   const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
-  const ox = Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy = Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55)));
+  return { art, px, sw, sh, ox: Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy: Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55))) };
+};
+const stickerSvg = (mood) => {
+  const { art, px, ox, oy } = stickerAt(mood);
   return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
@@ -1190,6 +1214,12 @@ const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" v
   + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
   + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
   + `${MODEL_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
+// Where a placeholder drawing is drawn, in its own pixels, for its desktop size (fitOf measures real drawings from
+// their pixels; these are SVG, so it is worked out from the shapes): the body with its outline and the legs' round
+// ends, which is what the star would crop, and each mood's sticker, which the page shows too.
+const MODEL_BODY = { width: 256, height: 256, left: 39, top: 43, right: 216, bottom: 226 };
+const stickerBox = (mood) => { const { sw, sh, ox, oy } = stickerAt(mood); return { ...MODEL_BODY, left: ox, top: oy, right: ox + sw - 1, bottom: oy + sh - 1 }; };
+export const modelFit = (moods) => fitVars(desktopScale('model-pet-program', MODEL_BODY), unionBox([MODEL_BODY, ...moods.map(stickerBox)]));
 // Pet Name's nine moods, and an idle drawing for each of the two made-up friends.
 export const MODEL_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
 export const modelProgramArt = () => ({
@@ -1215,7 +1245,7 @@ export function modelProgramData(src) {
     job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
     visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
     appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
-    art: { frames, plain: frames, source: 'model-pet-program' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
+    art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'],
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
@@ -1242,8 +1272,8 @@ export function modelProgramData(src) {
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` },
-      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
@@ -1325,7 +1355,7 @@ export function readSpawnerSources(root = '.') {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
     status: opt('status/pets-status.json', null),
-    measure: (p) => { try { return drawnBox(`${root}/${p}`); } catch (e) { return null; } },
+    measure: (p, over) => { try { return drawnBox(`${root}/${p}`, over); } catch (e) { return null; } },
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
 }
