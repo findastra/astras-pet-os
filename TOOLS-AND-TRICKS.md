@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-300 rows: 12 native programs, 136 native tools, 20 native tricks, 132 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+301 rows: 12 native programs, 136 native tools, 20 native tricks, 133 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -251,6 +251,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | Unity 2022.3.22f1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | Unity Hub 3.21.1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat Creator Companion |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | MCP for Unity 10.3.0 |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
