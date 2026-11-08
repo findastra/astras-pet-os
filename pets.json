@@ -1358,6 +1358,11 @@
             "node": "ableton-usb-audio-driver",
             "how": "optional",
             "why": "Installed with Live; the APC64 does not need it."
+          },
+          {
+            "node": "razer-synapse",
+            "how": "optional",
+            "why": "Sets the desk mic’s (Razer Seiren V3 Chroma) gain, mute and headphone monitoring; the mic records without it."
           }
         ]
       }

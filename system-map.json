@@ -1659,7 +1659,7 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Razer lighting and device control. Installed.",
+      "job": "Razer lighting and device control: Synapse 4 (4.0.827), with Chroma Studio and Chroma Connect built in. Installed; it must be running for the Razer lights to sync. Razer Central and Razer Services run in the background for it.",
       "does": "Controls Razer devices and their lighting."
     },
     {
@@ -6564,6 +6564,13 @@
       "carries": "manages",
       "state": "now",
       "why": "The desk mic records vocals and samples for Ableton Live."
+    },
+    {
+      "from": "drum-dog",
+      "to": "razer-synapse",
+      "carries": "manages",
+      "state": "now",
+      "why": "Synapse sets the desk mic’s gain, mute and headphone monitoring before Ableton Live hears it."
     },
     {
       "from": "razer-seiren-v3-chroma",
