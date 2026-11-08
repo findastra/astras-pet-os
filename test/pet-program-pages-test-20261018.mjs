@@ -4,7 +4,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
+import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -174,10 +175,49 @@ test('lights: the ON/OFF light is never grey, and only tools have lights, never 
     const mapTool = `${d.petSlug}-system-map`;
     assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
   }
-  const rabbit = files[pagePath('rift-rabbit')];
-  assert.match(rabbit, /<div class="den" data-arrival="waiting" style="--pet-height: 73\.6px">/, 'Rift Rabbit stands as tall as on the desktop');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /function power\(k, planned\) \{ if \(planned\) return 'off';/, 'something not built yet is off, never grey');
+});
+
+// Astra, 2026-11-08: "the pets are not the sizes they would appear on the screen in the corner, so make sure they're
+// the right size".
+test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-20261011.cs)', () => {
+  const cs = readFileSync(`${root}/scripts/desktop-pets-20261011.cs`, 'utf8');
+  const layout = cs.slice(cs.indexOf('void LayoutPets()'), cs.indexOf('void CreatePetWindows('));
+  assert.match(cs, new RegExp(`NormalHeight=${NORMAL_HEIGHT}f,BugHeight=${NORMAL_HEIGHT}f,MaxPetWidth=${MAX_PET_WIDTH};`), 'NormalHeight and MaxPetWidth');
+  assert.match(cs, new RegExp(`SameSize=\\{${SAME_SIZE.map((id) => `"${id}"`).join(',')}\\};`), 'the pets that share one crop height');
+  assert.match(cs, new RegExp(`SameSizeCrop=${SAME_SIZE_CROP};`), 'their crop height');
+  assert.match(layout, new RegExp(`float fh=NormalHeight\\*${FARMER_SIZE}f,fw=fh\\*farmer\\.Crop\\.Width/farmer\\.Crop\\.Height;`), 'the Friendly Farmer\'s height');
+  const star = {};
+  for (const [, cases, size] of layout.matchAll(/((?:case "[a-z-]+":)+)(?:h=NormalHeight;w=h\*pet\.Crop\.Width\/pet\.Crop\.Height;)?size=([\d.]+)f;break;/g))
+    for (const [, id] of cases.matchAll(/case "([a-z-]+)":/g)) star[id] = Number(size);
+  assert.deepEqual(Object.keys(star).sort(), Object.keys(SIZE).sort(), 'the same pets have a size of their own');
+  for (const id of Object.keys(star)) assert.equal(SIZE[id], star[id], `${id}'s size`);
+  const full = [...layout.matchAll(/case "([a-z-]+)":h=NormalHeight;/g)].map((m) => m[1]).sort();
+  assert.deepEqual(full, [...FULL_HEIGHT].sort(), 'the pets that keep NormalHeight when wide');
+});
+
+test('every pet picture is as big as on the desktop, its empty margin cut off, never squeezed into 60px', () => {
+  // Rift Rabbit: 0.9 of NormalHeight on the desktop, measured from his drawings the way the star crops them.
+  const rabbit = pages.find((x) => x.repo === 'rift-rabbit');
+  const crop = unionBox([rabbit.art.plain.idle, rabbit.art.plain.blink].map((p) => drawnBox(`${root}/${p}`, 127)));
+  assert.equal(desktopHeight('rift-rabbit', crop), Math.round(NORMAL_HEIGHT * 0.9 * 10) / 10, 'Rift Rabbit stands 52.9px tall');
+  // The Friendly Farmer is "farmer" on the desktop, 0.9 of NormalHeight; Spoonfed's Sugarcube is a draft, 0.7.
+  const farmer = pages.find((x) => x.repo === 'astras-pet-os');
+  const fc = unionBox([farmer.art.plain.idle, farmer.art.plain.blink].filter(Boolean).map((p) => drawnBox(`${root}/${p}`, 127)));
+  assert.equal(desktopHeight('farmer', fc), Math.round(NORMAL_HEIGHT * FARMER_SIZE * 10) / 10, 'the Farmer at his desktop height');
+  const spoonfed = [...src.registry.pets, ...(src.registry.pipeline || [])].find((r) => r.repo === 'spoonfed');
+  assert.equal(desktopId(spoonfed, src.drafts), 'spoonfed-sugarcube', 'a draft pet goes by its desktop id, so its own size (0.7) counts');
+  for (const [name, html] of [...pages.map((d) => [d.repo, files[pagePath(d.repo)]]), ['the Model Pet Program', files[MODEL_PROGRAM.page]]]) {
+    const den = (html.match(/<div class="den"[^]*?<\/div>/) || [''])[0];
+    const places = [den, ...(html.match(/<figure class="mood"[^]*?<\/figure>/g) || []), ...(html.match(/<li class="mood related-pet">[^]*?<\/li>/g) || [])];
+    for (const place of places) for (const pic of place.match(/<img[^>]*>/g) || [])
+      assert.match(pic, /class="[^"]*\bfit\b[^"]*" style="--fit-w: [\d.]+px; --fit-h: [\d.]+px; --fit-t: [\d.]+px; --fit-r: [\d.]+px; --fit-b: [\d.]+px; --fit-l: [\d.]+px"/, `${name}: ${pic.slice(0, 120)} is drawn at its desktop size`);
+  }
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.doesNotMatch(css, /--pet-height|\.den \{[^}]*[{;] ?height: 60px/, 'no 60px slot shrinks the pet');
+  assert.doesNotMatch(css, /discord-damsel"\] \.den img\.pet \{ scale/, 'Damsel needs no size of her own');
+  assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
 });
 
 test('headings count what they hold, and the pet\'s own things are native (Astra, 2026-10-21)', () => {
