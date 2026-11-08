@@ -25,8 +25,8 @@ there? And then everything else that we've built?"
 
 ## Not done
 
-The hub's copy of a private pet's `pet.json` stays behind until the Farmer's round has `FARMER_TOKEN` (card on
-`round-prs-held`): anything new in Discord Tower needs adding by hand until then.
+The hub's copy of a private pet's `pet.json` stays behind until the Farmer's round has a `FARMER_TOKEN` secret that
+can read private repos: anything new in Discord Tower needs adding by hand until then.
 
 ## Receipt and review
 
