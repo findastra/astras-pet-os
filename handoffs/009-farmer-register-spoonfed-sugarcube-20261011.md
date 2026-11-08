@@ -207,7 +207,29 @@ On her "Yes, make the PR" (2026-11-08), findastra.github.io#42 put this build on
 fe2c15a on her "Yes, merge #42". Live and checked: Pages built fe2c15a, the page serves the new script and the old one
 answers 404; the reels show their colors and the Bar choice.
 
-**Still open:** the six questions in
+### 2026-11-08 (later): the map without a location, one row, Cocktail bar
+
+"So is this working yet or what?": the live card's map was empty, because the browser she used blocks location.
+spoonfed 9d53172: a made-up spot's map is Google's "<food type> near me" search (Google places it from the
+connection), so it shows real places of that type nearby; the page no longer asks for a location. Then, on the card:
+
+- "Make all that one row when it's on a focus card like this": under the name, food type, ratings, miles, price,
+  Save and Send to phone in one row (wraps on a phone).
+- "I don't want the X. I don't want the open in maps", "start it in the city view": no X (click outside or Esc
+  closes), Google's "Open in Maps" box trimmed off, the map starts in satellite with street names. Google's logo and
+  map-data line stay (Google requires them). Plain-scroll zoom is not possible on the keyless map; it needs Google's
+  Maps JavaScript API and its own key (not asked for yet).
+- "Get rid of the option of the type of food that's a bar, unless it's just a cocktail bar": the food type is
+  Cocktail bar; the Bar choice under the reels stays for restaurants with a bar.
+- "a more like distinct like white border around all of these cards": every card has a light edge.
+
+spoonfed ef79d01 has all of it. On her "Yes, make the PR", findastra.github.io#43 puts it on the phone link; it
+waits for her merge OK.
+
+She also asked for ideas to texture the plain brown page (maybe changing with each roll), how rolling should work
+with real places in a big area, and where things are saved: answered in chat, nothing built yet.
+
+**Still open:** her merge OK for findastra.github.io#43; the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
 (restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
 reel still cuts long types ("Indonesi…") on phones.
