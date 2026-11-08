@@ -7,7 +7,7 @@ $petsCheck = Join-Path $PSScriptRoot 'bin\desktop-pets-check-20261011.exe'
 $petsSource = Join-Path $PSScriptRoot 'scripts\desktop-pets-20261011.cs'
 $petsTracker = Join-Path $PSScriptRoot 'scripts\pet-dock-tracker-20261011.cs'
 $petsManifest = Join-Path $PSScriptRoot 'scripts\desktop-pets-20261011.manifest'
-$petsArgs = @('/nologo','/platform:x64','/optimize+','/reference:System.dll','/reference:System.Core.dll','/reference:System.Drawing.dll','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll',('/win32manifest:' + $petsManifest))
+$petsArgs = @('/nologo','/platform:x64','/optimize+','/reference:System.dll','/reference:System.Core.dll','/reference:System.Drawing.dll','/reference:System.Windows.Forms.dll','/reference:System.Web.Extensions.dll','/reference:System.Management.dll',('/win32manifest:' + $petsManifest))
 # Startup Star's own star, shown in Windows' Startup apps list (Astra, 2026-10-23); drawn by the program's --write-star-icon.
 $petsIcon = Join-Path $PSScriptRoot 'art\app-icons\startup-star\startup-star-icon-20261023.ico'
 if (Test-Path $petsIcon) { $petsArgs += ('/win32icon:' + $petsIcon) }
