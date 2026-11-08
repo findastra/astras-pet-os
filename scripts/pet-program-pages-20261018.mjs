@@ -240,6 +240,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // BetterDiscord does for Discord Damsel's Sticker Manager.
   const toolIds = new Set(tools.map((t) => t.id));
   const viaTools = map.links.filter((l) => toolIds.has(l.from) && !mine.has(l.to) && !toolIds.has(l.to) && l.state !== 'architecture');
+  // And when one of its tricks runs on them (Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on
+  // here"): Discord Damsel's typing-indicator trick runs on Discord Canary.
+  const trickIds = new Set(map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => n.id));
+  const viaTricks = map.links.filter((l) => trickIds.has(l.from) && !mine.has(l.to) && !trickIds.has(l.to) && l.state !== 'architecture');
 
   // L2: its native tricks, from the map data (Astra, 2026-10-19: native programs, tools and tricks; never drawn on the map).
   const tricks = map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-trick-v1.0` }));
@@ -328,8 +332,8 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
     art, petFit, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
-    thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
-    shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
+    thirdParty: ofType(['program'], [...from, ...viaTools, ...viaTricks]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
+    shared: [...ofType(['program'], [...from, ...viaTools, ...viaTricks]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
     skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
     devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related, plays_with: chosen,

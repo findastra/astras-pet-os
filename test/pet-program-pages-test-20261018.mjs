@@ -220,6 +220,16 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
 });
 
+// Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on
+// there? And then everything else that we've built?"
+test('a 3rd party program one of its tricks runs on is listed; Discord Tower shows everything built for it', () => {
+  const html = files[pagePath('discord-tower')];
+  const names = (h3) => { const m = new RegExp(`<h3>${h3} · \\d+</h3><ul class="items">([^]*?)</ul>`).exec(html); return m ? [...m[1].matchAll(/class="item-name">([^<]*)</g)].map((x) => x[1]) : []; };
+  assert.deepEqual(names('3rd party programs').sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord', 'Discord Canary'], 'Discord Canary, through the typing-indicator trick');
+  for (const n of ['OpenAI Discord Presence', 'Anthropic Discord Presence', 'Ableton Live Discord Presence']) assert.ok(names('Native programs').includes(n), `${n} is one of Discord Damsel's programs`);
+  assert.match(html, /Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls/, 'the quick summary names all three');
+});
+
 test('headings count what they hold, and the pet\'s own things are native (Astra, 2026-10-21)', () => {
   const unicorn = files[pagePath('unity-unicorn')];
   const d = pages.find((x) => x.repo === 'unity-unicorn');
@@ -443,9 +453,9 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   for (const d of pages) for (let i = 1; i < d.related.length; i++) if (!(d.plays_with || []).length) assert.ok(rank[d.related[i - 1].state] <= rank[d.related[i].state], `${d.repo}: most used first`);
 });
 
-test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
+test('third-party programs include those a tool or a trick of the pet runs or looks after (Flash Audit A54; 2026-11-08)', () => {
   const damsel = pages.find((d) => d.repo === 'discord-tower');
-  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
+  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord', 'Discord Canary']);
 });
 
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {

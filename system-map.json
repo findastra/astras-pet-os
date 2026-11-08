@@ -414,6 +414,17 @@
       "category": "Desktop app"
     },
     {
+      "id": "ableton-live-discord-presence",
+      "name": "Ableton Live Discord Presence",
+      "url": "https://github.com/findastra/ableton-live-discord-presence",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that shows Ableton Live on Astra's Discord profile: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name and a timer. Reads only Ableton's window title and Windows' device names, never audio, MIDI notes or files. One of Discord Damsel's programs (discord-tower pet.json, v0.2.0, 2026-11-02).",
+      "does": "Shows what you are making in Ableton Live on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
       "id": "sticker-manager",
       "name": "Sticker Manager",
       "type": "tool",
@@ -4623,6 +4634,13 @@
       "why": "Discord Damsel's app opens the Anthropic controls: Anthropic Discord Presence's control panel, which only answers on this PC."
     },
     {
+      "from": "discord-tower",
+      "to": "ableton-live-discord-presence",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops Ableton Live Discord Presence (hub #284); its control panel only answers on this PC."
+    },
+    {
       "from": "codex",
       "to": "openai-discord-presence",
       "carries": "status",
@@ -5279,6 +5297,20 @@
       "carries": "status",
       "state": "now",
       "why": "Shows Claude activity on your Discord profile."
+    },
+    {
+      "from": "ableton-live-discord-presence",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Shows what you are making in Ableton Live on your Discord profile."
+    },
+    {
+      "from": "ableton-live-discord-presence",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
     },
     {
       "from": "discord-tower",
