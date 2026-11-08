@@ -26,7 +26,8 @@ the corner, so make sure they're the right size."
 
 ## Receipt and review
 
-- Astra saw the working copy in the pane and gave her OK in chat: "Yes, merge both" (#303, then #304).
+- Astra gave her OK in chat: "Yes, merge both" (#303, then #304). The working copy was open in the side chat's browser
+  pane, but that chat was not on her screen, so whether she looked at it there is not known.
 - `main` had not moved since the branch was cut (484166da); checks passed (CodeQL).
 - Open PRs that touch the same spawner, CSS, test, framework or data files and will need `main` merged in: #299, #290,
   #289, #281, #256, #254, #247, #245, #218, #61, #36.

@@ -1,4 +1,4 @@
-status: waiting for Astra's merge OK (#304, after #303)
+status: done, merged with Astra's OK in chat (2026-11-08: "Yes, merge both", after #303)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, a side chat of the "PC Master Race" chat
 needs: card 303 (#304 is stacked on #303)
@@ -30,4 +30,6 @@ can read private repos: anything new in Discord Tower needs adding by hand until
 
 ## Receipt and review
 
-Pending.
+- Astra gave her OK in chat: "Yes, merge both". #303 merged first; #304 retargeted to `main`, `main` merged in
+  (no conflicts), `npm run build` (nothing changed), `npm test` again before the merge: 387 pass, 1 fail (installed farm from
+  scratch, Windows), the same as on `main`.
