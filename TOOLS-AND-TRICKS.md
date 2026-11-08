@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-304 rows: 13 native programs, 138 native tools, 20 native tricks, 133 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+308 rows: 13 native programs, 138 native tools, 20 native tricks, 137 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -344,6 +344,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 35 | Chat Rat | Chat Stack | native tool | saved-conversations-tool | `chat-stack-v0.1.0-saved-conversations-tool-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | ask-chat-rat | `chat-stack-v0.1.0-ask-chat-rat-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | save-chats | `chat-stack-v0.1.0-save-chats-trick-v1.0` | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | ChatGPT website |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Claude app |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Claude website |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Codex app |  | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.0` | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | fit-any-screen | `mirror-pool-v1.0-fit-any-screen-v1.0` | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.0` | Works today |
