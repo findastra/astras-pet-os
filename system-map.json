@@ -99,6 +99,54 @@
       "in_pill": true
     },
     {
+      "id": "sync-my-lights-tool",
+      "name": "sync-my-lights-tool",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI wait on OpenRGB (card 002 in findastra/rgbee).",
+      "does": "One colour and brightness for every light in the apartment that Light Hive reaches.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "rainforest-storm-tool",
+      "name": "rainforest-storm-tool",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
+      "job": "A rainforest made live in the page (rain, wind, forest life, thunder) with lightning that flashes the screen and every light light-hive-helper reaches, thunder after the flash. Never more than three flashes a second; soft glows under reduced motion. Two screens with the same storm level strike together (Astra, 2026-11-08).",
+      "does": "Rainforest sounds with lightning across every light and screen.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "light-hive-helper",
+      "name": "light-hive-helper",
+      "type": "own-program",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-light-hive-helper-v1.0",
+      "url": "https://github.com/findastra/rgbee/tree/main/helper",
+      "job": "The small Windows program that sends Light Hive’s colours to the real lights, listening on this PC only: Razer through the Razer Chroma App, Govee over the Wi-Fi (LAN Control). Never more than three flashes a second, in code. Answers only pages on this PC and the farm owner’s GitHub Pages site. Not started at sign-in yet.",
+      "does": "Sends Light Hive’s colours and lightning to the real lights, from this PC only."
+    },
+    {
       "id": "ableton-usb-audio-driver",
       "name": "Ableton USB Audio Driver",
       "type": "program",
@@ -2688,6 +2736,42 @@
       "layer": 6,
       "category": "Audio",
       "job": "Astra’s desk microphone (2026-11-08): USB, with a headphone jack and Chroma RGB lights. Windows sees it as Razer Seiren V3 Chroma 32-Bit DSP and uses it as the default mic. Razer Synapse sets its gain, mute and lights."
+    },
+    {
+      "id": "govee-mirror",
+      "name": "Mirror (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light Astra named Mirror, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "govee-squiggle",
+      "name": "Squiggle (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light Astra named Squiggle, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "govee-lightstrip",
+      "name": "Lightstrip (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light strip Astra named Lightstrip, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "corsair-k65-plus",
+      "name": "Corsair K65 PLUS Wireless",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Keyboard",
+      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights today; Light Hive reaches it once OpenRGB is set up (card 002 in findastra/rgbee)."
     },
     {
       "id": "dell-monitor",
@@ -6668,8 +6752,57 @@
       "from": "rgbee",
       "to": "razer-chroma",
       "carries": "manages",
+      "state": "now",
+      "why": "Light Hive’s colours and lightning reach the Razer lights through the Chroma App’s local API (light-hive-helper, 2026-11-08)."
+    },
+    {
+      "from": "rgbee",
+      "to": "light-hive-helper",
+      "carries": "opens",
+      "state": "now",
+      "why": "Light Hive’s two tools send colours and lightning through it; it answers only pages on this PC."
+    },
+    {
+      "from": "light-hive-helper",
+      "to": "razer-chroma",
+      "carries": "manages",
+      "state": "now",
+      "why": "Sets the Razer lights through the Chroma App’s local API, and gives them back to its own effect after a minute unused."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-mirror",
+      "carries": "manages",
       "state": "planned",
-      "why": "The Razer lights sync through the Chroma App; RGBee’s scenes would go to it."
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-squiggle",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-lightstrip",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "corsair-k65-plus",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The keyboard joins Light Hive’s colours once OpenRGB is set up (card 002 in findastra/rgbee)."
+    },
+    {
+      "from": "corsair-icue",
+      "to": "corsair-k65-plus",
+      "carries": "opens",
+      "state": "now",
+      "why": "Corsair iCUE sets the keyboard’s lights today."
     },
     {
       "from": "rgbee",

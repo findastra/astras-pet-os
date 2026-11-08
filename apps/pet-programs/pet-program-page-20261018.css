@@ -1095,3 +1095,35 @@ input[type="checkbox"] { accent-color: var(--line); }
 .dongle-root > .dongle-node > .dongle-line b { color: var(--wire); text-shadow: 0 0 8px var(--wire); }
 .dongle-branches .dongle-branches { border-left: 2px solid var(--wire, var(--line-dim)); box-shadow: -2px 0 8px -3px var(--wire, transparent); }
 .dongle-branches .dongle-branches > .dongle-node::before { border-top: 2px solid var(--wire, var(--line-dim)); box-shadow: 0 0 7px var(--wire, transparent); }
+
+/* Light Hive's own look (Astra, 2026-11-08: "Make the light hive a really dark background and different LED border
+   panels. This one will be special"): a near-black page, and every panel framed like an RGB light strip, each in its
+   own LED colour, glowing, the colours slowly running through the rainbow at different points so no two panels match.
+   The working-copy box keeps its dashed cyan. Still, never animated, under reduced motion. */
+@property --rgbee-led { syntax: '<color>'; inherits: true; initial-value: #39ff88; }
+:root[data-pet="rgbee"] {
+  --slate: #050507; --slate-2: #020203; --chalk: #eef2f6; --chalk-dim: #9aa6b2; --line: #39ff88; --line-dim: #1d4a39;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ff2bd6;
+  --editorial: #00e5ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(0, 229, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #00e5ff;
+  --link: #00e5ff; --connection: #ffb800;
+  --tool-bg: rgba(255, 255, 255, .03); --tool-bg-hover: rgba(57, 255, 136, .07);
+}
+:root[data-pet="rgbee"] .footer-group::before, :root[data-pet="rgbee"] .footer-sparkle { color: #ff2bd6; }
+@keyframes rgbee-led-run {
+  0% { --rgbee-led: #39ff88; } 17% { --rgbee-led: #00e5ff; } 33% { --rgbee-led: #7a5cff; }
+  50% { --rgbee-led: #ff2bd6; } 67% { --rgbee-led: #ff3b3b; } 83% { --rgbee-led: #ffb800; } 100% { --rgbee-led: #39ff88; }
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) {
+  border: 2px solid var(--rgbee-led);
+  box-shadow: 0 0 4px var(--rgbee-led), 0 0 16px color-mix(in srgb, var(--rgbee-led) 50%, transparent), inset 0 0 14px color-mix(in srgb, var(--rgbee-led) 16%, transparent);
+  animation: rgbee-led-run 18s linear infinite;
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) > summary .legend { color: var(--rgbee-led); text-shadow: 0 0 6px color-mix(in srgb, var(--rgbee-led) 70%, transparent); }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+2) { animation-delay: -3s; --rgbee-led: #00e5ff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+3) { animation-delay: -6s; --rgbee-led: #7a5cff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+4) { animation-delay: -9s; --rgbee-led: #ff2bd6; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+5) { animation-delay: -12s; --rgbee-led: #ff3b3b; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n) { animation-delay: -15s; --rgbee-led: #ffb800; }
+:root[data-pet="rgbee"] .panel .panel { animation-duration: 24s; }
+:root[data-pet="rgbee"] fieldset.tool-box { border-color: color-mix(in srgb, var(--rgbee-led) 55%, #1d2228); }
+@media (prefers-reduced-motion: reduce) { :root[data-pet="rgbee"] .panel { animation: none; } }

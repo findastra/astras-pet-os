@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-304 rows: 13 native programs, 138 native tools, 20 native tricks, 133 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+307 rows: 14 native programs, 140 native tools, 20 native tricks, 133 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -302,10 +302,13 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 19 | Voicemeeter Bug | Audio Rescue | native tool | Keep Voicemeeter open | `audio-rescue-v1.0-keep-voicemeeter-open-v1.0` | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Steam Streaming audio |  | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Voicemeeter |  | Works today |
+| 22 | RGBee | Light Hive | native program | light-hive-helper | `light-hive-v1.0-light-hive-helper-v1.0` | Works today |
+| 22 | RGBee | Light Hive | native tool | rainforest-storm-tool | `light-hive-v1.0-rainforest-storm-tool-v1.0` | Works today |
+| 22 | RGBee | Light Hive | native tool | sync-my-lights-tool | `light-hive-v1.0-sync-my-lights-tool-v1.0` | Works today |
+| 22 | RGBee | Light Hive | third-party program | Razer Chroma App |  | Works today |
 | 22 | RGBee | Light Hive | third-party program | Corsair iCUE |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Logitech G HUB |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | MSI Center |  | Planned |
-| 22 | RGBee | Light Hive | third-party program | Razer Chroma App |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |
