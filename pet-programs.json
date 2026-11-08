@@ -192,7 +192,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "discord-tower-v1.0-mini-descriptor-v1.0",
-        "text": "Opens the installed OpenAI and Anthropic Discord presence controls, with a manual setup checklist.",
+        "text": "Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls, with a manual setup checklist.",
         "reviewed": false
       }
     },

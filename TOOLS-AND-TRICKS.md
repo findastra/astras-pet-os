@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-300 rows: 12 native programs, 136 native tools, 20 native tricks, 132 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+301 rows: 13 native programs, 136 native tools, 20 native tricks, 132 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -269,6 +269,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | native tool | mass-delete | `file-master-v1.0-mass-delete-v1.0` | Planned |
 | 12 | File Master | File Kingdom | third-party program | Everything |  | Planned |
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
+| 13 | Discord Damsel | Discord Tower | native program | Ableton Live Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | DM archive review | `discord-tower-v1.0-dm-archive-v0.1` | Planned |
