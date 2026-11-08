@@ -120,8 +120,9 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 Audit deck, answer 7: A): up to 1180 px inside the frame, with no sideways scroll on any screen (Platform Platypus's
 `fit-check`). **Every panel ends with More details**, folded behind its arrow (2026-10-22), the same four lines in the
 same order (2026-11-03, answer 8: A): **How it works**, **Where it comes from**, **Your rules** (her dated decisions for
-it, with a link to this section) and **Not built yet**. The two top squares and the chat show only the arrow until it
-is opened (2026-10-23: no words in the squares); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
+it, with a link to this section) and **Not built yet**. The chat shows only the arrow until it is opened; the three
+boxes at the top (the cyberhome, the quick summary and the System Map box) have no More details and no fold arrow on
+their labels (2026-11-06: "get rid of the dropdown arrows"); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
