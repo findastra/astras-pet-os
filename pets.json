@@ -798,6 +798,11 @@
             "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in."
           },
           {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (Astra, 2026-11-08)."
+          },
+          {
             "node": "unity-editor",
             "how": "required",
             "why": "Unity Unicorn’s tools run inside this Unity editor, and its tool library covers VRChat Creator Companion packages."
