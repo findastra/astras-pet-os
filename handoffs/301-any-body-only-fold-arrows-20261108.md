@@ -28,7 +28,7 @@ footer; More details stays). She also asked to see the blueprint page (the Model
 ## Receipt and review
 
 - Astra saw the deck ("All recommended") and gave her OK in chat: "Yes, merge #301".
-- Before the merge, #298 and #300 had reached `main`: `main` merged in, main's generated pages taken, the spawner's
+- Before the merge, #298, #300 and #302 had reached `main`: `main` merged in, main's generated pages taken, the spawner's
   three top boxes kept as #298 left them (no More details) with `fold: false` added, `npm run build`, `npm test`: 384
   pass, 1 fail (installed farm from scratch, Windows), the same as on `main`. The merged Farmer's page checked again in
   the pane: the six stay open with no arrow, the body panels fold, #298's program lights script is there.
