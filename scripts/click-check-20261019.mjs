@@ -470,7 +470,9 @@ const IN_PAGE = String.raw`(() => {
   cc.pathOf = pathOf;
   cc.SELECT = 'a[href],area[href],button,summary,input[type=button],input[type=submit],input[type=reset],input[type=image],input[type=file],[role=button],[role=link],[role=tab],[role=menuitem],[role=switch],[onclick]';
   cc.items = () => {
-    const set = new Set(document.querySelectorAll(cc.SELECT));
+    // The label of a panel that always stays open is a name, not a button (hub #301, Astra, 2026-11-08: the fold arrow
+    // only on the main body's panels): it is not clicked, so it is never reported as going nowhere.
+    const set = new Set([...document.querySelectorAll(cc.SELECT)].filter((e) => !e.matches('details[data-stays-open] > summary')));
     for (const e of document.querySelectorAll('body *')) {
       if (!cc.own.has(e) || set.has(e)) continue;
       const up = e.parentElement && e.parentElement.closest(cc.SELECT);

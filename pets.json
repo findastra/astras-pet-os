@@ -761,7 +761,7 @@
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.3.0-20261011",
       "source_commit": "ce0d2eb811569ecdaedfc087b42ae8a387ada6f1",
       "audit": {
@@ -796,6 +796,11 @@
             "node": "unity-hub",
             "how": "optional",
             "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in."
+          },
+          {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (Astra, 2026-11-08)."
           },
           {
             "node": "unity-editor",
@@ -1236,6 +1241,13 @@
           "version": "0.2.0"
         },
         {
+          "name": "ableton-live-discord-presence",
+          "label": "discord-tower-v1.0-ableton-live-discord-presence-v0.2",
+          "use": "Shows Ableton Live on Discord: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name (never Untitled) and a timer. Reads only Ableton's window title and Windows device names; never audio, MIDI notes or files.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
           "name": "sticker-manager",
           "label": "discord-tower-v1.0-sticker-manager-v1.0",
           "use": "Shows every Discord server Astra is in, each opening to its stickers, and resets her favorite stickers to the ones she picks, after she confirms. Reads the Discord app's own server, sticker and favorites lists; changes only the favorite stickers, through Discord's own settings saver. No requests of ",
@@ -1358,6 +1370,11 @@
             "node": "ableton-usb-audio-driver",
             "how": "optional",
             "why": "Installed with Live; the APC64 does not need it."
+          },
+          {
+            "node": "razer-synapse",
+            "how": "optional",
+            "why": "Sets the desk mic’s (Razer Seiren V3 Chroma) gain, mute and headphone monitoring; the mic records without it."
           }
         ]
       }
@@ -1934,6 +1951,11 @@
             "node": "razer-synapse",
             "how": "optional",
             "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          },
+          {
+            "node": "razer-chroma",
+            "how": "optional",
+            "why": "Planned: the Razer lights (mic and headset) sync through the Chroma App, so RGBee's scenes would go to it."
           },
           {
             "node": "logitech-g-hub",
@@ -2780,6 +2802,26 @@
             "node": "nodejs",
             "how": "required",
             "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
+          },
+          {
+            "node": "codex-app",
+            "how": "optional",
+            "why": "Chat Rat saves Codex’s chats when Codex is on this PC."
+          },
+          {
+            "node": "claude-app",
+            "how": "optional",
+            "why": "Chat Rat saves Claude Code’s chats when the Claude app (or Claude Code) is on this PC."
+          },
+          {
+            "node": "chatgpt-website",
+            "how": "optional",
+            "why": "ChatGPT’s data export, put in the import inbox, is saved too."
+          },
+          {
+            "node": "claude-website",
+            "how": "optional",
+            "why": "Claude’s data export, put in the import inbox, is saved too."
           }
         ]
       },
@@ -3451,6 +3493,18 @@
         "by": "Claude Opus 5.5",
         "on": "2026-11-06"
       },
+      "waiting_on_you": [
+        {
+          "need": "Accept Microsoft’s Sysinternals license for Autoruns, TCPView and Coreinfo, so their previews show here. Only you can: PC Master Race never accepts a license for you.",
+          "card": "282",
+          "on": "2026-11-08"
+        },
+        {
+          "need": "LatencyMon: install version 7.40 from its maker’s site (signed by SOFTREV LABS S.R.L.S.; winget lists 7.31, and its maker reports a Windows driver block from June 2026), or keep it held.",
+          "card": "282",
+          "on": "2026-11-08"
+        }
+      ],
       "interface_url": "apps/pet-programs/pc-master-race-20261018.html",
       "interface_local_url": "apps/pet-programs/pc-master-race-20261018.html",
       "submitted": "2026-11-03",

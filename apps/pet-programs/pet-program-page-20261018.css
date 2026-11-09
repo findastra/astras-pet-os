@@ -46,6 +46,18 @@
   --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(157, 255, 58, .08);
 }
 :root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
+/* Chat Stack’s own colours, Chat Rat’s (Astra, 2026-11-08: "some kind of gray and pink. Like, I want these to kind of
+   match the colors of the animal so that we can make the star on the GitHub profile the same color"): a graphite page,
+   panel lines in his fur gray (#c1c0c0, sampled from his picture), and his ear pink (#fc8086) for links, marks and the
+   working-copy box. These two are the colours for his star too. */
+:root[data-pet="chat-rat"] {
+  --slate: #232225; --slate-2: #19181a; --chalk: #f2f0f0; --chalk-dim: #a9a6a7; --line: #c1c0c0; --line-dim: #6e6b6d;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fc8086;
+  --editorial: #fc8086; --editorial-ink: #ffd9db; --editorial-glow: rgba(252, 128, 134, .22); --grid: none; --editorial-by: #ffb3b7; --serial: #fc8086;
+  --link: #fc8086; --connection: #ffb3b7;
+  --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
+}
+:root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
@@ -66,11 +78,8 @@
   --tool-bg: rgba(88, 101, 242, .07); --tool-bg-hover: rgba(88, 101, 242, .13);
 }
 :root[data-pet="discord-damsel"] .footer-group::before, :root[data-pet="discord-damsel"] .footer-sparkle { color: #8f97f7; }
-/* Damsel bigger on her page, feet where they were (Astra, 2026-11-06: "make the damsel like 10% bigger, taller from
-   where she is standing", then "Make her 25% bigger": 1.1 x 1.25): her feet are 92.2% down her picture (row 236 of
-   256). Her head now rises above the den, so the den shows it instead of cutting it off. */
-:root[data-pet="discord-damsel"] .den { overflow: visible; }
-:root[data-pet="discord-damsel"] .den img.pet { scale: 1.375; transform-origin: 50% 92.2%; }
+/* Damsel was made 1.375 times bigger here on 2026-11-06 ("Make her 25% bigger"): the 60px slot had shrunk her. Since
+   2026-11-08 every pet is drawn at its desktop size (img.fit, below), so she needs nothing of her own. */
 /* The Farm's own colours, a night pasture (Astra, 2026-11-02: "I don't like the raspberry color of the farm. Let's
    change it to like dark green ... something interesting that we haven't already used for a pet program"): deep pine
    green, neon chartreuse lines, wheat-gold links, mint connections. */
@@ -115,6 +124,9 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel > summary .legend::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
 .panel[open] > summary .legend::after { content: "\00A0\00A0\25BE"; }
 .panel > summary:hover .legend::after { color: var(--fix); }
+/* No arrow on the three boxes at the top (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the
+   system map panels", "and get rid of it in the summary panel too"). */
+.panel.cyberhome > summary .legend::after, .panel.system-map > summary .legend::after, .panel.summary > summary .legend::after { content: none; }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
 /* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
    neon color and much shorter"). */
@@ -130,6 +142,11 @@ html.live-site .panel.editorial { display: none; }
 .panel.editorial .editorial-by { color: var(--editorial-by, #7fe7f0); font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
+/* Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
+   ones or the bottom ones, and definitely not the unified footer"): L3's note, the cyberhome, the quick summary, the
+   System Map box, the friends list and the footer always stay open, with no arrow after the label. */
+details.panel[data-stays-open] > summary { cursor: default; }
+details.panel[data-stays-open] > summary .legend::after { content: none; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
 h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }
@@ -233,9 +250,17 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
   min-height: 32px; padding: 2px 12px 2px 9.5px; border: 1px solid var(--line-dim); border-radius: 16px; background: var(--tool-bg); }
 .habitat > .render-label .lights { margin: 0; }
 .render-name { font: 10.5px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; min-width: 0; text-align: left; }
-.den { flex: none; height: 60px; margin-top: var(--pad); min-height: 0; border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
-/* The pet as tall as on the desktop: the page builder works out --pet-height from its drawing. */
-.den img.pet { width: auto; height: var(--pet-height, auto); max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
+.den { flex: none; min-height: 60px; margin-top: var(--pad); border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
+/* A pet with no measured drawing (an icon) keeps the old 60px slot. */
+.den img.pet { width: auto; height: 60px; max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
+/* Every pet at the size Startup Star draws it on the desktop (Astra, 2026-11-08: "the pets are not the sizes they would
+   appear on the screen in the corner, so make sure they're the right size"): the page builder works out, from the
+   drawing and the star's own rules (scripts/pet-size-20261023.mjs), how big the whole picture is drawn (--fit-w,
+   --fit-h) and how much empty margin is around what is drawn (--fit-t, -r, -b, -l). The margin is cut off, so the
+   picture takes only the room the pet takes, and nothing shrinks it. */
+img.fit, .den img.pet.fit, .mood img.fit { width: var(--fit-w); height: var(--fit-h); max-width: none; max-height: none;
+  margin: calc(-1 * var(--fit-t)) calc(-1 * var(--fit-r)) calc(-1 * var(--fit-b)) calc(-1 * var(--fit-l));
+  clip-path: inset(var(--fit-t) var(--fit-r) var(--fit-b) var(--fit-l)); image-rendering: pixelated; }
 .den .no-art { width: auto; height: 80%; max-height: 100%; }
 /* The emotion bubbles are clouds (Astra, 2026-10-20: "make both the emotions and the idle bubble actually bubble border
    like it looks like a cloud"): a scalloped edge from one small drawing, repeated along each side, and a thought
@@ -277,6 +302,10 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .light:active { transform: scale(.9); box-shadow: inset 0 2px 2px rgba(0, 0, 0, .4); }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
+/* A 3rd party program opening or closing after its light was clicked (2026-11-06): it blinks until the watch answers. */
+.light.onoff.is-busy { animation: light-busy .6s ease-in-out infinite alternate; }
+@keyframes light-busy { to { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .light.onoff.is-busy { animation: none; opacity: .6; } }
 .light.care { background: var(--care); }
 /* Report issues orange, update waiting yellow (Astra, 2026-10-26: "switch update color and report issues color"). */
 .light.care.is-fix { background: var(--update); }
@@ -463,7 +492,9 @@ label.file { position: relative; }
 .pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
 /* Three to a row, as in the sketch, when there is room for a cloud and its pet; fewer on a narrow window. */
 .moods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(215px, calc((100% - 28px) / 3))), 1fr)); gap: 18px 14px; }
-.mood { margin: 0; display: grid; grid-template-columns: minmax(min-content, 1fr) 60px; gap: 22px; align-items: center; }
+.mood { margin: 0; display: grid; grid-template-columns: minmax(min-content, 1fr) minmax(60px, auto); gap: 22px; align-items: center; }
+/* The picture's column is as wide as the pet at its desktop size, at least the old 60px, the pet in its middle. */
+.mood img, .mood .no-art { justify-self: center; }
 /* Room inside the rounded corners, so a long first line never runs into the top corner (Astra, 2026-10-20). */
 .mood-bubble { position: relative; padding: 2px 12px 8px; margin: 0; min-width: min-content; font-size: 12.5px; } /* its edge: .cloud, above (no puffy cloud since 2026-10-22) */
 .mood-bubble legend { font: 13px var(--label); padding: 0 5px; white-space: nowrap; }
@@ -1076,3 +1107,35 @@ input[type="checkbox"] { accent-color: var(--line); }
 .dongle-root > .dongle-node > .dongle-line b { color: var(--wire); text-shadow: 0 0 8px var(--wire); }
 .dongle-branches .dongle-branches { border-left: 2px solid var(--wire, var(--line-dim)); box-shadow: -2px 0 8px -3px var(--wire, transparent); }
 .dongle-branches .dongle-branches > .dongle-node::before { border-top: 2px solid var(--wire, var(--line-dim)); box-shadow: 0 0 7px var(--wire, transparent); }
+
+/* Light Hive's own look (Astra, 2026-11-08: "Make the light hive a really dark background and different LED border
+   panels. This one will be special"): a near-black page, and every panel framed like an RGB light strip, each in its
+   own LED colour, glowing, the colours slowly running through the rainbow at different points so no two panels match.
+   The working-copy box keeps its dashed cyan. Still, never animated, under reduced motion. */
+@property --rgbee-led { syntax: '<color>'; inherits: true; initial-value: #39ff88; }
+:root[data-pet="rgbee"] {
+  --slate: #050507; --slate-2: #020203; --chalk: #eef2f6; --chalk-dim: #9aa6b2; --line: #39ff88; --line-dim: #1d4a39;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ff2bd6;
+  --editorial: #00e5ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(0, 229, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #00e5ff;
+  --link: #00e5ff; --connection: #ffb800;
+  --tool-bg: rgba(255, 255, 255, .03); --tool-bg-hover: rgba(57, 255, 136, .07);
+}
+:root[data-pet="rgbee"] .footer-group::before, :root[data-pet="rgbee"] .footer-sparkle { color: #ff2bd6; }
+@keyframes rgbee-led-run {
+  0% { --rgbee-led: #39ff88; } 17% { --rgbee-led: #00e5ff; } 33% { --rgbee-led: #7a5cff; }
+  50% { --rgbee-led: #ff2bd6; } 67% { --rgbee-led: #ff3b3b; } 83% { --rgbee-led: #ffb800; } 100% { --rgbee-led: #39ff88; }
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) {
+  border: 2px solid var(--rgbee-led);
+  box-shadow: 0 0 4px var(--rgbee-led), 0 0 16px color-mix(in srgb, var(--rgbee-led) 50%, transparent), inset 0 0 14px color-mix(in srgb, var(--rgbee-led) 16%, transparent);
+  animation: rgbee-led-run 18s linear infinite;
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) > summary .legend { color: var(--rgbee-led); text-shadow: 0 0 6px color-mix(in srgb, var(--rgbee-led) 70%, transparent); }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+2) { animation-delay: -3s; --rgbee-led: #00e5ff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+3) { animation-delay: -6s; --rgbee-led: #7a5cff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+4) { animation-delay: -9s; --rgbee-led: #ff2bd6; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+5) { animation-delay: -12s; --rgbee-led: #ff3b3b; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n) { animation-delay: -15s; --rgbee-led: #ffb800; }
+:root[data-pet="rgbee"] .panel .panel { animation-duration: 24s; }
+:root[data-pet="rgbee"] fieldset.tool-box { border-color: color-mix(in srgb, var(--rgbee-led) 55%, #1d2228); }
+@media (prefers-reduced-motion: reduce) { :root[data-pet="rgbee"] .panel { animation: none; } }

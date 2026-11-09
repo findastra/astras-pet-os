@@ -19,10 +19,12 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
-import { drawnBox, pictureHeight } from './pet-size-20261023.mjs';
+import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
+import { readMatrix } from './flash-matrix-20261018.mjs';
+import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -39,6 +41,11 @@ export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // The chat window's link to the pet chat helper on this PC (card 283), on every page, before the page script.
 export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// A 3rd party program's ON/OFF light opens or closes it through Inference Iguana's watch (2026-11-06), on every page
+// with such a light; the page script itself sends nothing.
+export const PROGRAM_LIGHTS_JS = '../program-lights-control-20261106.js';
+// The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
+export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -127,6 +134,24 @@ const ymd = (iso) => (iso ? String(iso).slice(0, 10).replace(/-/g, '') : null);
 const day = (iso) => (iso ? String(iso).slice(0, 10) : null);
 const up = (p) => `../../${p}`; // from apps/pet-programs/ back to the hub's root
 
+/** The pet's id on the desktop, as Startup Star names it: its `art` in pets.json, else its draft's id, else its repo. */
+export function desktopId(reg, drafts) {
+  if (reg.art) return reg.art;
+  return (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet))?.id || reg.repo;
+}
+
+/** The pet at the size the star draws it (Astra, 2026-11-08: "the pets are not the sizes they would appear on the
+ *  screen in the corner, so make sure they're the right size"; scripts/pet-size-20261023.mjs): the star crops its idle
+ *  and awake drawings together, crisp drawings at alpha 128; the picture is cut to what is drawn in `shown`, the
+ *  pictures shown in that place, so they all line up. The CSS variables for img.fit, or null. */
+export function fitOf(reg, art, { drafts, measure = () => null }, shown) {
+  const plain = art.plain || art.frames;
+  if (!plain?.idle) return null;
+  const crisp = art.source === 'desktop' || art.source === 'draft' ? 127 : 0;
+  const k = desktopScale(desktopId(reg, drafts), unionBox([plain.idle, plain.blink].filter(Boolean).map((p) => measure(p, crisp))));
+  return fitVars(k, unionBox(shown.filter(Boolean).map((p) => measure(p, 0))));
+}
+
 /** Every picture of the pet, from the hub only: its desktop drawing, then registered frames, then the desktop draft
  *  list, then art/drafts, then its icon. Returns { frames: { mood: hub path }, source } with only the moods that exist. */
 export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) {
@@ -165,7 +190,16 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
     const frames = newest(`art/drafts/${folder}`);
     if (frames.idle) return { frames, source: 'draft' };
   }
-  const icon = list('art/icons').filter((n) => new RegExp(`^${reg.repo}-\\d{8}\\.png$`).test(n)).sort().pop();
+  // A pet with no drawing of its own yet takes its newest one from the art review (Astra, 2026-11-08: "a lot of these
+  // pets ... the images just aren't there. So you need to go in and get the new stuff"): that round's 256px neutral
+  // picture, art/drafts/<review round>/normalized/<pet>-sprite-YYYYMMDD.png (hub #267, round 6 of 2026-10-31). It is a
+  // draft until she approves it there, and a pet that has a drawing keeps it.
+  const ids = [...new Set([reg.art, draft?.id, reg.pet && slug(reg.pet), reg.repo].filter(Boolean))];
+  const reviewed = list('art/drafts').flatMap((round) => list(`art/drafts/${round}/normalized`).map((n) => ({ round, n, m: /^(.+)-sprite-(\d{8})\.png$/.exec(n) })))
+    .filter((x) => x.m && ids.includes(x.m[1])).sort((a, b) => a.m[2].localeCompare(b.m[2]) || a.round.localeCompare(b.round)).pop();
+  if (reviewed) return { frames: { idle: `art/drafts/${reviewed.round}/normalized/${reviewed.n}` }, source: 'review' };
+  // Its icon, by its repo or its pet's name (Skill Scout's icon is skill-scout-*, its repo lunas-log).
+  const icon = list('art/icons').filter((n) => [reg.repo, reg.pet && slug(reg.pet)].filter(Boolean).some((id) => new RegExp(`^${id}-\\d{8}\\.png$`).test(n))).sort().pop();
   if (icon) return { frames: { idle: `art/icons/${icon}` }, source: 'icon' };
   return { frames: {}, source: 'none' };
 }
@@ -219,6 +253,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // BetterDiscord does for Discord Damsel's Sticker Manager.
   const toolIds = new Set(tools.map((t) => t.id));
   const viaTools = map.links.filter((l) => toolIds.has(l.from) && !mine.has(l.to) && !toolIds.has(l.to) && l.state !== 'architecture');
+  // And when one of its tricks runs on them (Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on
+  // here"): Discord Damsel's typing-indicator trick runs on Discord Canary.
+  const trickIds = new Set(map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => n.id));
+  const viaTricks = map.links.filter((l) => trickIds.has(l.from) && !mine.has(l.to) && !trickIds.has(l.to) && l.state !== 'architecture');
 
   // L2: its native tricks, from the map data (Astra, 2026-10-19: native programs, tools and tricks; never drawn on the map).
   const tricks = map.nodes.filter((n) => n.type === 'trick' && mine.has(n.of)).map((n) => ({ ...item(n), label: n.label || `${homeSlug}-v1.0-${n.id}-trick-v1.0` }));
@@ -263,9 +301,22 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const related = [...plays.values()].map(({ id, o, links, state, why }) => {
     const r = regs.find((x) => x.repo === id);
     const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
+    const who = r || { repo: id, pet: o.name }, its = petFrames(who, { frameIndex, drafts, exists, list });
     return { id, pet: o.name, home, state, why, links,
-      page: r ? `${id}-${DATE}.html` : null, idle: petFrames(r || { repo: id, pet: o.name }, { frameIndex, drafts, exists, list }).frames.idle || null };
+      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, fit: fitOf(who, its, { drafts, measure }, [its.frames.idle]) };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
+  // A line every friend shares says nothing about each one (Astra, 2026-11-08, on the Farmer's page: "a lot of these pets
+  // and their descriptions are wrong"): the Friendly Farmer's links to every pet, every roadmap pet and every seed each
+  // carry one why. When three or more friends would show the same line, each says what it does instead, the first
+  // sentence of its own job: in pets.json, as a seed there, or on the System Map.
+  const sameWhy = new Map();
+  for (const r of related) if (r.why) sameWhy.set(r.why, (sameWhy.get(r.why) || 0) + 1);
+  for (const r of related) {
+    if (!r.why || sameWhy.get(r.why) < 3) continue;
+    const own = regs.find((x) => x.repo === r.id)?.job || (registry.seeds?.pets || []).find((s) => slug(s.pet) === r.id)?.job || nodes.get(r.id)?.job || '';
+    const first = own.split(/(?<=[.!?])\s+/)[0].trim();
+    if (first) r.why = first;
+  }
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
   // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
@@ -274,8 +325,14 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     self: g.resources.includes('self'), level: g.level || [], r: g.r, w: g.w, x: g.x, status: g.status, how: g.how, next: g.next || null, evidence: g.evidence || [] }));
 
   const round = lastRound(status, reg);
-  const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
-    ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
+  const roundNeeds = [...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
+    ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean);
+  // A pet's own approvals, from pets.json `waiting_on_you` (Astra, 2026-11-08: "Yes, add them", PC Master Race's
+  // licenses and LatencyMon): decisions only you can make that the Farmer's round can't see yet, because the pet's repo
+  // is private. Each names the hub card that records it.
+  const ownNeeds = (reg.waiting_on_you || []).filter((n) => n && n.need);
+  const needs = [...new Set([...roundNeeds, ...ownNeeds.map((n) => n.need)])];
+  const needsFrom = [...new Set(ownNeeds.map((n) => (n.card ? `card ${n.card}` : null)).filter(Boolean))];
   // What L3 asks you (L3 control panel): an update the update audit found waits for L4's yes (Astra, 2026-10-24: "have L3
   // ask me if L4 wants to approve update"); nothing is installed until then.
   const asks = Object.entries(reg.checks || {}).filter(([, c]) => c.result === 'update').map(([k, c]) =>
@@ -288,8 +345,9 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   const appPrivate = app && isUrl(app) && !app.startsWith(`${PAGES}/apps/`) ? privateTarget(registry, app) : null;
   const appHref = !app || appPrivate ? null : app.startsWith(`${PAGES}/apps/`) ? `../${app.slice(`${PAGES}/apps/`.length)}` : isUrl(app) ? app : `../${app.replace(/^apps\//, '')}`;
   const art = petFrames(reg, { frameIndex, drafts, exists, list });
-  // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"): scripts/pet-size-20261023.mjs.
-  const petHeight = art.frames.idle ? pictureHeight(reg.repo, measure((art.plain || art.frames).idle)) : null;
+  // As big as on the desktop (Astra, 2026-10-23: "needs to be small like the desktop. same size"; 2026-11-08: "make sure
+  // they're the right size"): the cyberhome's faces and the nine emotions share one cut, so they all line up.
+  const petFit = fitOf(reg, art, { drafts, measure }, Object.values(art.frames));
   const lines = moodKey(registry, reg);
   const code = map.nodes.find((n) => n.id === reg.repo)?.code;
   // The Pet ID's vet records link the vet-clinic's tickets only while its repo is public: a private repo opens for
@@ -303,10 +361,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
-    art, petHeight, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
+    art, petFit, lines, audit: reg.audit || {}, round, needs, needsFrom, needsFromRound: roundNeeds.length > 0, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
-    thirdParty: ofType(['program'], [...from, ...viaTools]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
-    shared: [...ofType(['program'], [...from, ...viaTools]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
+    thirdParty: ofType(['program'], [...from, ...viaTools, ...viaTricks]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
+    shared: [...ofType(['program'], [...from, ...viaTools, ...viaTricks]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
     skills: (reg.harness_skills || []).map((s) => ({ id: s.name, name: s.name, state: 'now', desc: s.does, why: `${s.harness}, matched in Skill Scout’s catalog`, url: null })),
     devices: ofType(['host-machine']), tools, tricks,
     connections: [...talks.values()], related, plays_with: chosen,
@@ -343,10 +401,16 @@ const careOf = (key, planned, unseen) => {
   return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
+// What the ON/OFF light does today, said on the light itself (Astra, 2026-11-08, deck "The Farm: art and lights", answer
+// 2: A, "say so on the light now, real switches tool by tool"): a 3rd party program's opens and closes it through
+// Inference Iguana's watch, a device's shows what SteamVR sees, and any other only keeps her choice in this browser,
+// because nothing on the PC reads it yet.
+export const ONOFF_SAYS = 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.';
+const onoffTip = (key, unseen) => (/^device:/.test(key) ? 'ON/OFF: green while SteamVR has it on' : unseen ? 'ON/OFF: green while it is open on this PC. Click to open or close it' : ONOFF_SAYS);
 const lights = (key, name, { planned = false, unseen = false, presence = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : 'ON/OFF (kill switch): click to switch'}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : onoffTip(key, unseen)}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };
@@ -466,15 +530,20 @@ function itemList(items, prefix, empty) {
 // Since 2026-10-23 no panel has lights: only tools do (Astra: "panels cant have lights. only tools can"). A panel's
 // label has a small arrow after it that shows it folds, like Halo List's ("see how these are collapsable and the dots
 // are not on them"). `light` and `key` are still accepted from older callers and do nothing.
-const panel = (label, body, { cls = '', open = true, id = '' } = {}) =>
-  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${open ? ' open' : ''}><summary title="Click the label to fold or unfold this tool panel"><span class="legend">${esc(label)}</span></summary>${body}</details>`;
+// Only the main body's panels fold (Astra, 2026-11-08: "there's some drop down arrows in every panel that it needs to
+// be on only like the main body panels, not the top ones or the bottom ones, and definitely not the unified footer").
+// The top ones (L3's note, the cyberhome, the quick summary, the System Map box) and the bottom ones (the friends list,
+// the unified footer) are made with `fold: false`: always open, no arrow after the label, and the label is no tab stop.
+// They stay <details> boxes marked `data-stays-open`, so they look exactly as before; the page script keeps them open.
+const panel = (label, body, { cls = '', open = true, id = '', fold = true } = {}) =>
+  `<details class="panel ${cls}"${id ? ` id="${esc(id)}"` : ''}${fold ? '' : ' data-stays-open'}${open || !fold ? ' open' : ''}><summary${fold ? ' title="Click the label to fold or unfold this tool panel"' : ' tabindex="-1"'}><span class="legend">${esc(label)}</span></summary>${body}</details>`;
 
 // The words at the end of a panel that say how it works fold away behind an arrow, closed until you open them (Astra,
 // 2026-10-22: "each of these blurbs at the end of each panel need arrows that show/hide it as a drop down").
 // Every panel has one, the catch-all, with the same four lines in the same order (Astra, 2026-11-03, Flash Audit deck,
 // answer 8: A): how it works, where it comes from, your rules (dated, with a link to this framework) and what is not
-// built yet. In the two top squares and the chat box only the arrow shows until it is opened (2026-10-23: no words in
-// the squares). A tool box inside a panel keeps its one paragraph.
+// built yet. In the chat box only the arrow shows until it is opened. The three boxes at the top (the cyberhome, the
+// quick summary and the System Map box) have none (2026-11-06). A tool box inside a panel keeps its one paragraph.
 const FRAMEWORK_URL = `https://github.com/${OWNER}/${HUB}/blob/main/PET-PROGRAM-FRAMEWORK.md#3-the-page-top-to-bottom`;
 const yourRules = (item, html) => `${html} (<a href="${FRAMEWORK_URL}">PET-PROGRAM-FRAMEWORK.md</a>, section 3${item === undefined ? '' : `, item ${item}`}).`;
 const ABOUT_LINES = [['how', 'How it works'], ['from', 'Where it comes from'], ['rules', 'Your rules'], ['notYet', 'Not built yet']];
@@ -482,11 +551,12 @@ const about = (html, { arrow = false } = {}) => (typeof html === 'string'
   ? `<details class="about"><summary>More details</summary><p class="small">${html}</p></details>`
   : `<details class="about${arrow ? ' arrow-only' : ''}"><summary${arrow ? ' title="More details" aria-label="More details"' : ''}>${arrow ? '' : 'More details'}</summary><dl class="small about-lines">${ABOUT_LINES.map(([k, name]) => `<dt>${name}</dt><dd>${html[k]}</dd>`).join('')}</dl></details>`);
 
-const img = (path, alt, cls = '') => (path ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
+// `fit`: the CSS variables that draw the pet at its desktop size (fitOf), or nothing for a picture that is not one.
+const img = (path, alt, cls = '', fit = null) => (path ? `<img${cls || fit ? ` class="${[cls, fit ? 'fit' : ''].filter(Boolean).join(' ')}"` : ''}${fit ? ` style="${fit}"` : ''} src="${esc(up(path))}" alt="${esc(alt)}" width="256" height="256">` : `<span class="no-art${cls ? ` ${cls}` : ''}">no picture yet</span>`);
 
 // The faces the page script switches between (idle first and shown; the others hidden until the script shows them).
-const faces = (f, pet, moods, cls) => moods.filter((m) => f[m]).map((m, i) =>
-  `<img class="${cls}" data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+const faces = (f, pet, moods, cls, fit = null) => moods.filter((m) => f[m]).map((m, i) =>
+  `<img class="${cls}${fit ? ' fit' : ''}"${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
 
 // ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
 // "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
@@ -662,7 +732,38 @@ ${about('The live status distinguishes an app running, sharing off, waiting for 
 // A pet's own tool boxes, in L1 under Native tools (Astra, 2026-11-02, all recommended: "No special panels"; they were
 // panels above the levels since 2026-10-24). `tool` names the System Map tool the box is, so its pill is not listed
 // twice; a box without one is named <pet>-<name>.
+// The Flash Audit on The Farm (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those
+// shows up as a tool and I can click it and it will go through ... all the other pet programs and check to see if those
+// components of those other programs are up to standard"; deck "The Farm: art and lights", "All recommended"): a tool
+// box in L1, its 61 checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
+// run over every pet program at once (docs/flash-audit-rounds-<date>/ledger-main.json); Run asks the Flash Audit helper
+// on this PC to run it again (apps/flash-audit-control-20261108.js, scripts/flash-audit-helper-20261108.mjs). The
+// checks the auditor does not run by itself say so; GitHub Goldfish's word checks are marked as Goldfish's.
+const FLASH_DOC = `https://github.com/${OWNER}/${HUB}/blob/main/docs/flash-audit-20261014.md`;
+export function flashAuditBody(d) {
+  const fa = d.flashAudit;
+  if (!fa?.matrix?.length) return '';
+  const run = fa.ledger ? `${fa.ledger.date.slice(0, 4)}-${fa.ledger.date.slice(4, 6)}-${fa.ledger.date.slice(6)}` : null;
+  const pill = (r) => {
+    const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
+    const how = r.dot === '🔵' ? 'blue: waits for your answer' : 'grey: fixed without you';
+    const now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
+      : auto ? 'not run yet' : 'an assistant checks it';
+    const counts = res ? FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ') : '';
+    const body = res
+      ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counts ? ` · ${esc(counts)}` : ''}.</p>${res.findings.length
+        ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
+        : '<p class="empty" data-flash-findings>Every pet program passes.</p>'}`
+      : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
+    const runIt = auto ? `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>` : '';
+    return `<li class="pill flash-check" data-check="${r.id}">${lights(`flash:${r.id}`, `${r.id} ${r.title}`)}<span class="item-name">${r.dot} ${esc(r.id)} ${esc(r.title)}</span><span class="item-desc" data-flash-desc>${esc(`${how}${GOLDFISH_WORDS.includes(r.id) ? ' · GitHub Goldfish’s check' : ''} · ${now}`)}</span><details class="pill-more"><summary aria-label="More about ${esc(r.id)}"></summary><div class="pill-body">${body}${runIt}</div></details></li>`;
+  };
+  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. ${run ? `Each shows the last run over every pet program (${esc(run)}); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again. <a href="${FLASH_DOC}">The checklist</a>.</p>
+<ul class="items flash-checks" data-flash-run-date="${esc(run || '')}">${fa.matrix.map(pill).join('')}</ul>`;
+}
 export const PET_BOXES = {
+  // Folded to its name until clicked: 61 checks are long (deck "The Farm: art and lights", answer 3: A).
+  'astras-pet-os': [{ tool: 'flash-audit', body: flashAuditBody, open: false }],
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
   'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
@@ -670,7 +771,7 @@ export const PET_BOXES = {
 function petBoxes(d) {
   const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
   const html = boxes.map(({ b, body, t }) => toolBox(t ? t.id : `${d.petSlug}-${b.name}`, t ? t.name : `${d.petSlug}-${b.name}`,
-    `${t?.desc ? `<p class="small">${esc(t.desc)}</p>` : ''}${t?.label ? `<code class="label">${esc(t.label)}</code>` : ''}${body}`, { cls: `pet-box ${b.tool || b.name}` })).join('\n');
+    `${t?.desc ? `<p class="small">${esc(t.desc)}</p>` : ''}${t?.label ? `<code class="label">${esc(t.label)}</code>` : ''}${body}`, { cls: `pet-box ${b.tool || b.name}`, open: b.open !== false })).join('\n');
   return { html: html ? `<div class="toolboxes">${html}</div>` : '', count: boxes.length, toolIds: boxes.map(({ t }) => t?.id).filter(Boolean) };
 }
 
@@ -778,7 +879,7 @@ ${about({
     from: '<code>editorial</code> in pets.json (what it says, who wrote it, when), written by the AI working on this pet program.',
     rules: yourRules(0, '2026-10-23: first on the page, full width, L3 talking to you about this site; 2026-11-02: only on the working copy'),
     notYet: 'The seated agent writing it by itself: today a chat writes it in pets.json on a branch.',
-  })}`, { cls: 'editorial' });
+  })}`, { cls: 'editorial', fold: false });
   const aboutOptions = [`<option value="">the whole program</option>`, ...[...d.tools, ...d.programs, ...d.thirdParty].map((i) => `<option value="${esc(i.label || i.id)}">${esc(i.name)}</option>`)].join('');
 
   // The cyberhome (Astra, 2026-10-19): empty until the page opens, then the pet moves in from the top corner. The page
@@ -794,13 +895,10 @@ ${about({
   const render = `${d.petSlug}-cyberhome`;
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting"${d.petHeight ? ` style="--pet-height: ${d.petHeight}px"` : ''}>${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet') : img(null, idleAlt, 'pet')}</div></div>
-${about({
-    how: `${esc(d.pet)} moves in when this page opens, stands as tall as on the desktop and shows the mood it is in. Click ${esc(d.pet)} for the current reminder. The <code>${esc(render)}</code> tool is the little drawn cyberhome, off until it is drawn.`,
-    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), and the reminder from the Friendly Farmer’s last merged round.`,
-    rules: yourRules(1, '2026-10-19: empty until the page opens; 2026-10-21: no bubble, the mood lights up in the emotions panel; 2026-10-23: a square with no words, its tool a pill with its lights'),
-    notYet: `${esc(d.pet)} coming straight from the desktop (Startup Star’s link); the drawn cyberhome.`,
-  }, { arrow: true })}`, { cls: 'cyberhome' });
+<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
+  // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
+  // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
+  // in the summary panel too"). Every other panel keeps its More details.
 
   // The title is one line between the cyberhome and the System Map box, the version always to its right; the page
   // script makes the name smaller until it fits (Astra, 2026-10-20: "that version number and that date need to always
@@ -814,13 +912,7 @@ ${about({
   const versionTip = v.core ? (v.assigned ? `Version ${v.core}: the starting version, assigned by the hub. ${d.repo}'s pet.json has no version yet.` : `Version ${v.full}, from ${d.repo}'s pet.json`) : 'No version recorded in the hub yet';
   const title = `<div class="title">
 <h1><span class="title-name">${esc(d.home)}</span> <span class="version" title="${esc(versionTip)}">${v.core ? `v${esc(v.core)}` : 'v?'} // ${esc(ymd(d.added) || DATE)}</span></h1>
-${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>
-${about({
-    how: `One or two sentences on what ${esc(d.home)} does. The name above it gets smaller until it fits on one line with its version.`,
-    from: `${esc(d.home)}’s mini descriptor in pet-programs.json (or the pet’s job in pets.json), and the version from ${esc(d.repo)}’s pet.json.`,
-    rules: yourRules(3, '2026-10-20: the version always right of the title; 2026-10-21: nothing listed under the title, no buttons'),
-    notYet: 'Nothing planned.',
-  })}`, { cls: 'summary' })}</div>`;
+${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 'summary', fold: false })}</div>`;
   // No buttons under the title (Astra, 2026-10-21: an X over "Open today's app" and one over "Repo" on her screenshot,
   // then "1. A" in her slides): the app and the repo are linked in the footer and in L4's Pet ID.
   const appLink = d.appHref ? `<a href="${esc(d.appHref)}">the app it had before</a>` : d.appPrivate ? `its app (private: ${esc(d.appPrivate)})` : 'no app wired up yet';
@@ -839,13 +931,7 @@ ${about({
 <span class="render-label">${lights(`tool:${mapTool}`, mapTool)}<span class="render-name">${esc(mapTool)}</span></span>
 <div class="map-box"><a class="map-link" href="${esc(map)}" title="Open ${esc(d.home)} on the System Map" aria-label="Open ${esc(d.home)} on the System Map">
 <svg class="rings" viewBox="-6 -6 132 132" role="img" aria-label="The System Map's rings, with ${esc(d.home)} on ring ${esc(d.ring ?? '3')}"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="24"/><circle class="core" cx="60" cy="60" r="8"/><circle class="node" cx="${60 + ringR}" cy="60" r="7"/></svg>
-</a></div></div>
-${about({
-    how: `The rings are the link: they open ${esc(d.home)} on the System Map, with a dot on the ring it lives on. The <code>${esc(mapTool)}</code> tool’s left light says the link is open, its right light that the map’s information on ${esc(d.pet)} is wrong.`,
-    from: 'system-map.json: this pet program’s node and its ring (PROTECTION-RINGS.md).',
-    rules: yourRules(1, '2026-10-19: always top right, opposite the cyberhome (Flash Audit A60); 2026-10-23: a square with no words, its tool with its lights'),
-    notYet: 'Nothing planned.',
-  }, { arrow: true })}`, { cls: 'system-map' });
+</a></div></div>`, { cls: 'system-map', fold: false });
   // No words in the two squares, only their tools and the pictures (Astra, 2026-10-23: "get rid of all text in the
   // cyberhome panel and system map pane"): the map's rings are the link, its words are its tooltip, and the pets it
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
@@ -931,7 +1017,12 @@ ${about({
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
-  const L4 = panel(`${d.petSlug}-L4-control-panel`, `<div class="toolboxes">${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
+  // Where the approvals come from: the hub cards that record a pet's own (pets.json `waiting_on_you`), and the Friendly
+  // Farmer's last merged round (the model page's example is one of the round's).
+  const roundSource = `the Friendly Farmer's last merged round${d.statusUpdated ? ` (${day(d.statusUpdated)})` : ''}`;
+  const sources = [...(d.needsFrom || []).map((c) => `${c} in the hub`), ...(d.needsFromRound !== false || !(d.needsFrom || []).length ? [roundSource] : [])];
+  const needsFrom = sources.length > 1 ? `${sources.slice(0, -1).join(', ')} and ${sources.at(-1)}` : sources[0];
+  const L4 = panel(`${d.petSlug}-L4-control-panel`, `<div class="toolboxes">${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From ${esc(needsFrom)}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
 ${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing yellow or orange.</li></ul><ul class="plain" id="switched-off"></ul>')}
@@ -944,7 +1035,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>
 ${about({
     how: 'Your part, the verified human: approvals waiting on you, grants, keys, required maintenance and the Pet ID, each a tool box that folds to its name.',
-    from: 'The Friendly Farmer’s last merged round, the grants on the R W X panel, the lights you marked in this browser, and the pet’s repo and versions.',
+    from: 'The Friendly Farmer’s last merged round and the pet’s own approvals in pets.json (each names its hub card), the grants on the R W X panel, the lights you marked in this browser, and the pet’s repo and versions.',
     rules: yourRules(4, '2026-10-22: five tool boxes with lowercase names; 2026-10-24: round boxes, the update history in the Pet ID’s stamps; Pet ID, not passport'),
     notYet: 'Approve and decline buttons and agent keys (Iron Gates, shown by API Fairy); the microchip signature; security patches.',
   })}`, { cls: 'level', light: true, id: `${d.petSlug}-L4-control-panel` });
@@ -981,7 +1072,7 @@ ${about({
   // Awake always shows its own drawing, the `blink` frame with the two yellow twinkles (Astra, 2026-11-03, Flash Audit
   // deck, answer 1: A); it was the idle face, wearing idle's three dots. A pet with no awake drawing shows idle's.
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
-    const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`);
+    const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`, '', d.petFit);
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
   }).join('')}</div>
 ${about({
@@ -1016,7 +1107,7 @@ ${about({
   // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
   // manage ..."). The whole bubble opens that pet's program.
   const relatedCard = (r) => {
-    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`)}`;
+    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`, '', r.fit)}`;
     return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
   const related = panel(`${d.petSlug}-friends-list-panel`, `${d.related.length
@@ -1027,7 +1118,7 @@ ${about({
     from: 'The System Map’s links between pets; a <code>plays_with</code> list in pets.json sets the order instead.',
     rules: yourRules(11, '2026-10-19: every page lists the pets it plays with at the bottom; 2026-10-22: each speaks in a cloud like the emotions'),
     notYet: 'Measuring use: until then the order is the map’s (links that work today, then planned, then ideas; within each, the pet they share the most with).',
-  })}`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel` });
+  })}`, { cls: 'related-pets', id: `${d.petSlug}-friends-list-panel`, fold: false });
 
   // The footer (Astra, 2026-10-22, her marked-up screenshot, then "move the languages to the right of the icons" and "put
   // the photostar in the right corner of the unified border"): a whole box like every panel; no license, signature, date
@@ -1048,7 +1139,7 @@ ${about({
     rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
     notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
   })}
-<!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer' });
+<!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer', fold: false });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
   // way that it works on data dealer is the only one that works right. So this concept combined with that"): the pet's
@@ -1125,7 +1216,7 @@ ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
 <script src="${ASSETS.js}"></script>
-${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
+${(d.thirdParty || []).length ? `<script src="${PROGRAM_LIGHTS_JS}"></script>\n` : ''}${d.flashAudit?.matrix?.length ? `<script src="${FLASH_AUDIT_JS}"></script>\n` : ''}${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
 `, pagePath(d.repo));
@@ -1187,9 +1278,12 @@ const MODEL_FACES = {
 // Each drawing carries the same mood sticker as every pet (Astra, 2026-10-24: the nine mood symbols "stay the same
 // across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
 // it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
-const stickerSvg = (mood) => {
+const stickerAt = (mood) => {
   const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
-  const ox = Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy = Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55)));
+  return { art, px, sw, sh, ox: Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy: Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55))) };
+};
+const stickerSvg = (mood) => {
+  const { art, px, ox, oy } = stickerAt(mood);
   return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
@@ -1197,6 +1291,12 @@ const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" v
   + '<path class="body" d="M128 46c52 0 86 38 86 92 0 50-36 76-86 76s-86-26-86-76c0-54 34-92 86-92z"/>'
   + '<path class="line thin" d="M84 206l-8 18M172 206l8 18"/>'
   + `${MODEL_FACES[mood]}${stickerSvg(mood)}</svg>\n`;
+// Where a placeholder drawing is drawn, in its own pixels, for its desktop size (fitOf measures real drawings from
+// their pixels; these are SVG, so it is worked out from the shapes): the body with its outline and the legs' round
+// ends, which is what the star would crop, and each mood's sticker, which the page shows too.
+const MODEL_BODY = { width: 256, height: 256, left: 39, top: 43, right: 216, bottom: 226 };
+const stickerBox = (mood) => { const { sw, sh, ox, oy } = stickerAt(mood); return { ...MODEL_BODY, left: ox, top: oy, right: ox + sw - 1, bottom: oy + sh - 1 }; };
+export const modelFit = (moods) => fitVars(desktopScale('model-pet-program', MODEL_BODY), unionBox([MODEL_BODY, ...moods.map(stickerBox)]));
 // Pet Name's nine moods, and an idle drawing for each of the two made-up friends.
 export const MODEL_FRIENDS = { 'pet-two': ['Pet Two', '#9fd8c4'], 'pet-three': ['Pet Three', '#f2c3a0'] };
 export const modelProgramArt = () => ({
@@ -1222,9 +1322,9 @@ export function modelProgramData(src) {
     job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
     visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
     appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
-    art: { frames, plain: frames, source: 'model-pet-program' }, petHeight: 72, lines: moodKey(src.registry, reg), audit: reg.audit,
+    art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), flashAudit: null, lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
-    needs: ['Example: a decision only you can make.'],
+    needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
     statusUpdated: '2026-11-02T08:00:00.000Z',
     thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
@@ -1249,8 +1349,8 @@ export function modelProgramData(src) {
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` },
-      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
@@ -1332,7 +1432,9 @@ export function readSpawnerSources(root = '.') {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
     status: opt('status/pets-status.json', null),
-    measure: (p) => { try { return drawnBox(`${root}/${p}`); } catch (e) { return null; } },
+    // The Flash Audit's checks and its last saved run, for The Farm's flash-audit tool box (2026-11-08).
+    flashAudit: { matrix: existsSync(`${root}/docs/flash-audit-20261014.md`) ? readMatrix(`${root}/docs/flash-audit-20261014.md`).rows : [], ledger: latestLedger(root) },
+    measure: (p, over) => { try { return drawnBox(`${root}/${p}`, over); } catch (e) { return null; } },
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
 }
@@ -1346,7 +1448,10 @@ export function spawnerPages(src) {
   for (const prog of animals) {
     const reg = regs.find((r) => r.repo === prog.repo);
     if (!reg) throw new Error(`Pet program #${prog.number} (${prog.program}) is ${prog.stage} but ${prog.repo} is not in pets.json (Flash Audit A59).`);
-    out.push(pageData({ reg, prog, registry: src.registry, map, ...src }));
+    const d = pageData({ reg, prog, registry: src.registry, map, ...src });
+    // Only The Farm's page has the Flash Audit's checks (its flash-audit tool box); every other page has none.
+    d.flashAudit = d.repo === HUB ? src.flashAudit : null;
+    out.push(d);
   }
   for (const r of regs) if (!animals.some((p) => p.repo === r.repo)) throw new Error(`${r.repo} is in pets.json but has no registered or pipeline pet program in pet-programs.json.`);
   return out;

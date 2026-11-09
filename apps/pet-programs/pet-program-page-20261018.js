@@ -114,14 +114,19 @@
   }
   function reported(k) { var s = lights[k] || {}; return s.health === 'fix' || !!s.fix; }
   var SAYS = {
-    on: 'on. Click again to switch it off.',
-    off: 'off (the kill switch). Turning it back on asks you first.',
+    // Only her choice, kept in this browser: nothing on the PC reads it yet (Astra, 2026-11-08, answer 2: A).
+    on: 'on: your choice, saved in this browser. Nothing on the PC switches yet. Click again to switch it off.',
+    off: 'off: your choice, saved in this browser. Nothing on the PC is stopped yet. Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
-    // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise.
-    unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
-    running: 'open now: Inference Iguana’s program-watch saw it running. This light does not close it yet.',
+    // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise. A click
+    // on red opens it and a click on green closes it (asking first), through the watch (Astra, 2026-11-06: "press the
+    // red button, then it launches that program and the button turns green if its on and detected").
+    opening: 'opening… The light turns green once Inference Iguana sees it running.',
+    closing: 'closing… (never forced: if it asks to save, answer it in its own window).',
+    noWatch: 'Inference Iguana’s watch is not running, so this light cannot open it or see it. Open Benchmark Rock and click Keep watch in the background, then click the light again.',
+    farAway: 'this light opens programs only on a page this PC serves (an address starting with localhost or 127.0.0.1), not one opened from its file or from the web.',
     // A VR device (2026-10-23): green while SteamVR has it on, from Inference Iguana's device-watch.
     deviceOn: 'on: SteamVR has it connected (Inference Iguana’s device-watch reads SteamVR’s log).',
     deviceOff: 'off: SteamVR does not have it connected right now, or SteamVR is not running.',
@@ -130,6 +135,8 @@
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
   var running = {}, runningSeen = null, updates = {};
+  // From the same file: where the watch takes "open" and "close" (only on this PC), and the programs it never opens.
+  var control = null, cannotOpen = {}, busy = {}, loadPrograms = function () {};
   // A 3rd party program's second light: does it need an update? true, false, or not known (Astra, 2026-10-23).
   function isProgram(b) { return /^third-party:/.test(b.dataset.item || '') && !!b.dataset.unseen; }
   function update(b) { var u = updates[(b.dataset.item || '').replace(/^third-party:/, '')]; return u === true ? 'fix' : u === false ? 'ok' : ''; }
@@ -145,6 +152,7 @@
         if (b.dataset.presenceManaged) { managed[k] = true; continue; }
         var p = b.dataset.unseen ? (seen(b) ? 'on' : 'off') : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
+        b.classList.toggle('is-busy', !!busy[k]);
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
         b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
       } else {
@@ -200,7 +208,11 @@
     if (b.dataset.presenceManaged) return; // Damsel's local controls own these two live power lights.
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
-    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
+    if (b.dataset.unseen && b.classList.contains('onoff')) {
+      if (isDevice(b)) { say(b, seen(b) ? SAYS.deviceOn : SAYS.deviceOff); return; }
+      switchProgram(b);
+      return;
+    }
     if (b.classList.contains('care')) {
       // The second light: what the check found, and a click reports an issue or takes your report back.
       var h = care(b), note = b.dataset.checkNote ? ' ' + b.dataset.checkNote : '';
@@ -225,6 +237,34 @@
     paint();
     say(b, SAYS[next]);
   });
+  // A 3rd party program's ON/OFF light: red opens it, green closes it (asking first), through Inference Iguana's watch.
+  // This script sends nothing: program-lights-control-20261106.js does, asked with an event, and answers with one.
+  document.addEventListener('pet-program-switched', function (e) {
+    var d = e.detail || {}, b = document.querySelector('button.light.onoff[data-item="' + String(d.item).replace(/["\\]/g, '') + '"]');
+    if (!busy[d.item]) return;
+    delete busy[d.item];
+    if (!d.ok) control = null;
+    loadPrograms();
+    paint();
+    if (b) { if (d.ok) sayAt(b, d.message || b.dataset.name + ': done.'); else say(b, SAYS.noWatch); }
+  });
+  function switchProgram(b) {
+    var id = b.dataset.item.replace(/^third-party:/, ''), k = b.dataset.item, on = seen(b);
+    if (busy[k]) { say(b, SAYS[busy[k]]); return; }
+    if (cannotOpen[id] && !on) { say(b, cannotOpen[id]); return; }
+    if (!localPage()) { say(b, SAYS.farAway); return; }
+    if (!control) { say(b, SAYS.noWatch); return; }
+    if (on && !window.confirm(T('Close ' + b.dataset.name + '? It closes the way its window’s X does, never forced.'))) return;
+    var job = on ? 'closing' : 'opening';
+    busy[k] = job;
+    paint();
+    say(b, SAYS[job]);
+    document.dispatchEvent(new CustomEvent('pet-program-switch', { detail: { item: k, id: id, open: !on, control: control } }));
+    // Opening waits up to 45 seconds for a window; past a minute with no answer, the light stops blinking.
+    setTimeout(function () { if (busy[k] === job) { delete busy[k]; paint(); } }, 60000);
+  }
+  // A page opened straight from its file has no address of its own, so the watch cannot tell it from any other page.
+  function localPage() { return /^https?:$/.test(location.protocol) && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname); }
   paint();
 
   // Inference Iguana's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
@@ -247,13 +287,16 @@
           d.programs.forEach(function (p) { if (p && typeof p.id === 'string' && (p.update === true || p.update === false)) ups[p.id] = p.update; });
           updates = ups;
           runningSeen = d.time;
-        }
+          control = typeof d.control === 'string' && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null;
+          cannotOpen = d.cannot_open && typeof d.cannot_open === 'object' ? d.cannot_open : {};
+        } else control = null;
         running = now;
         paint();
       };
-      script.onerror = function () { script.remove(); running = {}; paint(); };
+      script.onerror = function () { script.remove(); running = {}; control = null; paint(); };
       document.head.appendChild(script);
     }
+    loadPrograms = load;
     load();
     setInterval(function () { if (!document.hidden) load(); }, 5000);
   })();
@@ -746,7 +789,7 @@
         var b = el('button', null, 'light ' + kind);
         b.type = 'button';
         b.dataset.item = item; b.dataset.name = name;
-        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
+        b.title = kind === 'onoff' ? 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.' : 'Working correctly or requires maintenance: click to mark';
         b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
         pair.appendChild(b);
       });
@@ -918,6 +961,17 @@
     if (pill.querySelector('.pill-body').contains(e.target) && String(window.getSelection())) return;
     var more = pill.querySelector(':scope > .pill-more');
     if (more) more.open = !more.open;
+  });
+
+  // ---- Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not
+  // the top ones or the bottom ones, and definitely not the unified footer"). The top and bottom panels are marked
+  // data-stays-open: a click on their label does nothing, and anything that closes one opens it again. ----
+  document.addEventListener('click', function (e) {
+    var head = e.target.closest && e.target.closest('summary');
+    if (head && head.parentElement && head.parentElement.matches('details.panel[data-stays-open]')) e.preventDefault();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('details.panel[data-stays-open]'), function (box) {
+    box.addEventListener('toggle', function () { if (!box.open) box.open = true; });
   });
 
   // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes
