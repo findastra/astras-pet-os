@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
 import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
@@ -605,4 +605,22 @@ test('awake shows its own drawing with the twinkles; L2 has play-with and care-f
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
+});
+
+// Astra, 2026-11-08, "Yes, add them" (PC Master Race's waiting OKs, where the Model Pet Program has them): a pet's own
+// approvals in pets.json `waiting_on_you` show in L4's approvals-waiting-on-you, say which hub card they come from, and
+// count in the chat's Needs you, even when the Farmer's round can't see the pet's private repo.
+test('a pet\'s own waiting_on_you shows in approvals-waiting-on-you with its hub card', () => {
+  const entry = [...src.registry.pets, ...src.registry.pipeline].find((p) => p.repo === 'pc-master-race');
+  assert.ok(entry.waiting_on_you?.length >= 2, 'PC Master Race has his licenses and LatencyMon waiting');
+  const d = pages.find((x) => x.repo === 'pc-master-race');
+  for (const n of entry.waiting_on_you) assert.ok(d.needs.includes(n.need), `L4 lists: ${n.need.slice(0, 40)}`);
+  assert.deepEqual(d.needsFrom, ['card 282']);
+  const html = files[pagePath('pc-master-race')];
+  const l4 = html.slice(html.indexOf(`${d.petSlug}-approvals-waiting-on-you`));
+  assert.match(l4.slice(0, 2000), /From card 282 in the hub\. Approve and decline buttons come with Iron Gates\./);
+  assert.ok(!l4.slice(0, 2000).includes('Nothing from the Friendly Farmer'), 'not the empty line');
+  // The Model Pet Program's example still comes from the round.
+  const model = buildPetProgramPage(modelProgramData(src));
+  assert.match(model, /From the Friendly Farmer(?:'|&#39;)s last merged round \(2026-11-02\)\./);
 });

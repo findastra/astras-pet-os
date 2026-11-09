@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rainforest storm · Light Hive</title>
+<!-- Light Hive's rainforest-storm-tool (Astra, 2026-11-08: "a section where I can play ambient music like a rainforest
+     and have lightning flashing"). The sound is made live in the page (rain, wind, forest life, thunder): no files,
+     no loops, no copyright. Each lightning strike flashes this screen and, through Light Hive's helper on this PC,
+     every light it reaches; the thunder follows the flash like a real storm. Never more than three flashes a second
+     (RGBee's light-safety rule; the helper enforces it too), and soft glows instead of flashes under reduced motion.
+     Two screens with the same storm level strike at the same seconds (the storm is worked out from the clock), so the
+     desktop and the laptop flash together. Claude Opus 5.5 (claude-opus-5-5), 2026-11-08. -->
+<style>
+:root{color-scheme:dark;--bg:#050507;--ink:#e8f1ec;--dim:#8fa49a;--led1:#39ff88;--led2:#00e5ff;--led3:#ff2bd6;--led4:#ffb800}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+.wrap{position:relative;min-height:100vh;display:grid;grid-template-rows:1fr auto;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.flash{position:absolute;inset:0;background:#dfe9ff;opacity:0;pointer-events:none}
+.panel{position:relative;z-index:2;margin:16px;padding:16px 18px;border-radius:16px;background:rgba(5,6,8,.78);border:1px solid rgba(57,255,136,.45);box-shadow:0 0 14px rgba(57,255,136,.25),inset 0 0 10px rgba(0,229,255,.08);backdrop-filter:blur(4px);align-self:end}
+h1{font-size:18px;margin:0 0 6px;letter-spacing:.02em}
+p{margin:0 0 10px;color:var(--dim)}
+.row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+label{display:grid;gap:2px;font-size:13px;color:var(--dim);min-width:140px;flex:1}
+input[type=range]{width:100%;accent-color:var(--led1)}
+button{font:inherit;color:var(--bg);background:var(--led1);border:0;border-radius:999px;padding:8px 18px;font-weight:650;cursor:pointer;box-shadow:0 0 12px rgba(57,255,136,.55)}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--led2);box-shadow:0 0 8px rgba(0,229,255,.35)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--led2);outline-offset:3px}
+.lights{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:12.5px}
+.pill{border-radius:999px;padding:2px 10px;border:1px solid #2a3330;color:var(--dim)}
+.pill.on{border-color:var(--led1);color:var(--ink)}
+.pill.wait{border-color:var(--led4)}
+.said{min-height:1.5em;font-size:13px;color:var(--led2)}
+@media (max-width:520px){.panel{margin:10px;padding:14px}label{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <section class="panel" aria-labelledby="t">
+    <h1 id="t">Rainforest storm</h1>
+    <p>Rain, wind and the forest, made live as it plays. Lightning flashes this screen and every light Light Hive reaches; the thunder follows.</p>
+    <div class="row">
+      <button id="play" type="button">Play the storm</button>
+      <button id="full" type="button" class="ghost">Full screen</button>
+      <label>Rain <input id="rain" type="range" min="0" max="100" value="70"></label>
+      <label>Wind <input id="wind" type="range" min="0" max="100" value="35"></label>
+      <label>Forest life <input id="life" type="range" min="0" max="100" value="45"></label>
+      <label>Storms <input id="storm" type="range" min="0" max="6" step="1" value="3" aria-describedby="stormSaid"></label>
+      <label>Volume <input id="vol" type="range" min="0" max="100" value="70"></label>
+    </div>
+    <div class="said" id="stormSaid" role="status"></div>
+    <div class="lights" id="lights" aria-label="Lights"></div>
+  </section>
+</div>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+// Light Hive's helper is found the house way (like program-watch): only a page opened on this PC reads the address it
+// writes in Documents\Astra's PetOS Data\rgbee, so the live site never reaches the lights and no address is published.
+const ON_THIS_PC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js"; // from apps/ up to Documents
+let HELPER = null;
+function findHelper() {
+  return new Promise((done) => {
+    if (!ON_THIS_PC) { HELPER = null; done(); return; }
+    const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
+    s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
+    s.onerror = () => { s.remove(); HELPER = null; done(); };
+    document.head.appendChild(s);
+  });
+}
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+const AMBIENT = { r: 18, g: 120, b: 60, bright: 35 };   // rainforest green between strikes
+const STRIKE = { r: 205, g: 220, b: 255 };               // lightning's blue-white
+const save = (k, v) => { try { localStorage.setItem('light-hive-storm:' + k, v); } catch (e) {} };
+const load = (k) => { try { return localStorage.getItem('light-hive-storm:' + k); } catch (e) { return null; } };
+for (const id of ['rain', 'wind', 'life', 'storm', 'vol']) { const v = load(id); if (v !== null) $(id).value = v; }
+
+/* ---------- the lights, through Light Hive's helper ---------- */
+let helperUp = false;
+function pill(text, cls) { const s = document.createElement('span'); s.className = 'pill ' + (cls || ''); s.textContent = text; return s; }
+async function ask(path, body) {
+  if (!HELPER) await findHelper();
+  if (!HELPER) { helperUp = false; return null; }
+  try {
+    const r = await fetch(HELPER + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {});
+    helperUp = true; return await r.json();
+  } catch (e) { helperUp = false; return null; }
+}
+async function lookLights() {
+  const box = $('lights'); const a = await ask('/lights');
+  box.replaceChildren(pill('This screen', 'on'));
+  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: Light Hive’s helper is not running on this PC' : 'Real lights: open this page from your PC’s copy', 'wait')); return; }
+  box.append(pill(a.razer && a.razer.ok ? 'Razer mic + headset' : 'Razer: Chroma App not running', a.razer && a.razer.ok ? 'on' : 'wait'));
+  const g = (a.govee || []).length;
+  box.append(pill(g ? 'Govee: ' + g + ' light' + (g === 1 ? '' : 's') : 'Govee: turn on LAN Control in the Govee Home app', g ? 'on' : 'wait'));
+  box.append(pill('Corsair + MSI: not connected yet', ''));
+}
+lookLights();
+
+/* ---------- the sound, made live ---------- */
+let ctx = null, master, rainGain, windGain, lifeGain, windFilter, playing = false;
+function noiseBuffer(kind, seconds) {
+  const b = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate), d = b.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < d.length; i++) {
+    const w = Math.random() * 2 - 1;
+    if (kind === 'brown') { last = (last + 0.02 * w) / 1.02; d[i] = last * 3.5; } else d[i] = w;
+  }
+  return b;
+}
+function loop(buffer) { const s = ctx.createBufferSource(); s.buffer = buffer; s.loop = true; s.loopStart = Math.random(); return s; }
+function startSound() {
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  master = ctx.createGain(); master.connect(ctx.destination);
+  const white = noiseBuffer('white', 4), brown = noiseBuffer('brown', 6);
+  // Rain: a hiss band plus a softer low patter.
+  rainGain = ctx.createGain();
+  const hiss = loop(white), hp = ctx.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 2400; hp.Q.value = 0.4;
+  const patter = loop(brown), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+  const hissG = ctx.createGain(); hissG.gain.value = 0.22; const patG = ctx.createGain(); patG.gain.value = 0.5;
+  hiss.connect(hp).connect(hissG).connect(rainGain); patter.connect(lp).connect(patG).connect(rainGain); rainGain.connect(master);
+  hiss.start(); patter.start();
+  // Wind: brown noise through a slowly sweeping low-pass.
+  windGain = ctx.createGain(); windFilter = ctx.createBiquadFilter(); windFilter.type = 'lowpass'; windFilter.frequency.value = 380;
+  const gust = loop(brown); gust.connect(windFilter).connect(windGain).connect(master); gust.start();
+  const lfo = ctx.createOscillator(), lfoG = ctx.createGain(); lfo.frequency.value = 0.07; lfoG.gain.value = 220; lfo.connect(lfoG).connect(windFilter.frequency); lfo.start();
+  // Forest life: a soft insect shimmer, plus birds called by the clock below.
+  lifeGain = ctx.createGain(); lifeGain.connect(master);
+  const buzz = loop(white), bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 5200; bp.Q.value = 8;
+  const am = ctx.createGain(), amOsc = ctx.createOscillator(), amDepth = ctx.createGain(); am.gain.value = 0.04; amOsc.frequency.value = 23; amDepth.gain.value = 0.035;
+  amOsc.connect(amDepth).connect(am.gain); buzz.connect(bp).connect(am).connect(lifeGain); buzz.start(); amOsc.start();
+  setLevels();
+}
+function setLevels() {
+  if (!ctx) return;
+  const v = (id) => $(id).value / 100, t = ctx.currentTime;
+  master.gain.setTargetAtTime(v('vol') * 0.9, t, 0.2);
+  rainGain.gain.setTargetAtTime(v('rain') * 0.9, t, 0.3);
+  windGain.gain.setTargetAtTime(v('wind') * 0.7, t, 0.3);
+  lifeGain.gain.setTargetAtTime(v('life') * 1.0, t, 0.3);
+}
+function bird() {
+  if (!ctx || !playing || $('life').value == 0) return;
+  const t = ctx.currentTime, notes = 2 + Math.floor(Math.random() * 4), base = 2200 + Math.random() * 2400;
+  for (let i = 0; i < notes; i++) {
+    const o = ctx.createOscillator(), g = ctx.createGain(), at = t + i * (0.09 + Math.random() * 0.08);
+    o.type = 'sine'; o.frequency.setValueAtTime(base * (0.9 + Math.random() * 0.25), at); o.frequency.exponentialRampToValueAtTime(base * (1.15 + Math.random() * 0.3), at + 0.07);
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(0.05 * $('life').value / 100, at + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
+    o.connect(g).connect(lifeGain); o.start(at); o.stop(at + 0.1);
+  }
+}
+function thunder(distance, delay) {
+  if (!ctx) return;
+  const at = ctx.currentTime + delay, len = 3 + distance * 4;
+  const s = ctx.createBufferSource(); s.buffer = noiseBuffer('brown', len + 0.5);
+  const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.setValueAtTime(distance < 0.35 ? 1600 : 700, at); f.frequency.exponentialRampToValueAtTime(90, at + len);
+  const g = ctx.createGain(), loud = (1.2 - distance * 0.8);
+  g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(loud, at + (distance < 0.35 ? 0.04 : 0.5));
+  g.gain.setValueAtTime(loud * 0.8, at + 0.6); g.gain.exponentialRampToValueAtTime(0.0001, at + len);
+  s.connect(f).connect(g).connect(master); s.start(at); s.stop(at + len + 0.2);
+}
+
+/* ---------- the storm, worked out from the clock so two screens strike together ---------- */
+function rand(seed) { let x = (seed ^ 0x9e3779b9) >>> 0; x = Math.imul(x ^ (x >>> 16), 0x85ebca6b) >>> 0; x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35) >>> 0; return ((x ^ (x >>> 16)) >>> 0) / 4294967296; }
+function strikesAt(second, level) {
+  // A strike may start at this second; at most one every five seconds, and `level` storms a minute on average.
+  if (level <= 0) return null;
+  const chance = level / 60 * 1.2;
+  if (rand(second * 7 + level) >= chance) return null;
+  for (let back = 1; back < 5; back++) if (rand((second - back) * 7 + level) < chance) return null;
+  const r = (n) => rand(second * 131 + n);
+  return { flashes: 1 + Math.floor(r(1) * 3), distance: r(2), at: Math.floor(r(3) * 600) };
+}
+let lastSecond = 0;
+function tick() {
+  const now = Date.now(), second = Math.floor(now / 1000), level = +$('storm').value;
+  if (playing && second !== lastSecond) {
+    lastSecond = second;
+    const s = strikesAt(second, level);
+    if (s) setTimeout(() => strike(s), Math.max(0, s.at - (now % 1000)));
+    if (Math.random() < 0.18) bird();
+  }
+}
+setInterval(tick, 100);
+
+const flash = $('flash');
+function strike(s) {
+  // Flashes 380 ms apart: never more than three in any second.
+  for (let i = 0; i < s.flashes; i++) setTimeout(() => one(i === 0 ? 0.95 : 0.6), i * 380);
+  const delay = 0.25 + s.distance * 3.5;     // light first, sound later
+  thunder(s.distance, delay);
+  lightning = { until: performance.now() + 220 + s.flashes * 380, x: 0.15 + Math.random() * 0.7 };
+}
+function one(strength) {
+  if (calm.matches) {
+    flash.style.transition = 'opacity .6s ease'; flash.style.opacity = (strength * 0.35).toFixed(2);
+    setTimeout(() => { flash.style.opacity = '0'; }, 700);
+    if (helperUp) ask('/color', { ...STRIKE, bright: 55 }).then(() => setTimeout(() => ask('/color', AMBIENT), 900));
+    return;
+  }
+  flash.style.transition = 'none'; flash.style.opacity = strength.toFixed(2);
+  requestAnimationFrame(() => { flash.style.transition = 'opacity .16s ease-out'; flash.style.opacity = '0'; });
+  if (helperUp) ask('/flash', { ...STRIKE, ms: 110 });
+}
+
+/* ---------- the screen: dark canopy, rain streaks, the bolt ---------- */
+const cv = $('sky'), g2 = cv.getContext('2d'); let drops = [], lightning = null, W = 0, H = 0;
+function size() { W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio; drops = Array.from({ length: Math.round(W * H / 9000) }, () => ({ x: Math.random() * W, y: Math.random() * H, v: 0.6 + Math.random() })); }
+addEventListener('resize', size); size();
+function canopy() {
+  g2.fillStyle = '#020403';
+  for (let layer = 0; layer < 3; layer++) {
+    g2.globalAlpha = 0.55 + layer * 0.2; g2.beginPath(); g2.moveTo(0, H);
+    for (let x = 0; x <= W; x += W / 40) g2.lineTo(x, H * (0.55 + layer * 0.12) + Math.sin(x / (90 + layer * 40) + layer) * H * 0.05 + Math.sin(x / 23) * H * 0.012);
+    g2.lineTo(W, H); g2.fill();
+  }
+  g2.globalAlpha = 1;
+}
+function bolt(x0) {
+  let x = x0 * W, y = 0; g2.strokeStyle = 'rgba(220,232,255,.9)'; g2.lineWidth = 2 * devicePixelRatio; g2.shadowColor = '#9fc4ff'; g2.shadowBlur = 18; g2.beginPath(); g2.moveTo(x, y);
+  while (y < H * 0.6) { x += (Math.random() - 0.5) * W * 0.05; y += H * (0.03 + Math.random() * 0.05); g2.lineTo(x, y); }
+  g2.stroke(); g2.shadowBlur = 0;
+}
+function draw() {
+  const sky = g2.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, '#05080a'); sky.addColorStop(1, '#071410');
+  g2.fillStyle = sky; g2.fillRect(0, 0, W, H);
+  if (lightning && performance.now() < lightning.until && !calm.matches) bolt(lightning.x);
+  const amount = playing ? $('rain').value / 100 : 0.15;
+  g2.strokeStyle = 'rgba(150,200,190,.28)'; g2.lineWidth = devicePixelRatio;
+  g2.beginPath();
+  const n = Math.round(drops.length * amount);
+  for (let i = 0; i < n; i++) { const d = drops[i]; g2.moveTo(d.x, d.y); g2.lineTo(d.x - 2 * devicePixelRatio, d.y + 14 * d.v * devicePixelRatio); if (!calm.matches) { d.y += 22 * d.v * devicePixelRatio; d.x -= 2; if (d.y > H) { d.y = -20; d.x = Math.random() * W; } } }
+  g2.stroke(); canopy(); requestAnimationFrame(draw);
+}
+draw();
+
+/* ---------- controls ---------- */
+function stormWords() { const n = +$('storm').value; $('stormSaid').textContent = n ? 'About ' + n + ' storm' + (n === 1 ? '' : 's') + ' a minute' + (calm.matches ? ', as soft glows (reduce motion is on).' : '. Never more than three flashes a second.') : 'Rain only, no lightning.'; }
+for (const id of ['rain', 'wind', 'life', 'storm', 'vol']) $(id).addEventListener('input', () => { save(id, $(id).value); setLevels(); stormWords(); });
+stormWords();
+$('play').addEventListener('click', async () => {
+  if (!ctx) startSound();
+  if (playing) { playing = false; await ctx.suspend(); $('play').textContent = 'Play the storm'; return; }
+  await ctx.resume(); playing = true; $('play').textContent = 'Pause';
+  await lookLights(); if (helperUp) ask('/color', AMBIENT);
+});
+$('full').addEventListener('click', () => { const el = document.documentElement; if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().catch(() => {}); });
+</script>
+</body>
+</html>
