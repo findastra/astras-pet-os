@@ -3493,6 +3493,18 @@
         "by": "Claude Opus 5.5",
         "on": "2026-11-06"
       },
+      "waiting_on_you": [
+        {
+          "need": "Accept Microsoft’s Sysinternals license for Autoruns, TCPView and Coreinfo, so their previews show here. Only you can: PC Master Race never accepts a license for you.",
+          "card": "282",
+          "on": "2026-11-08"
+        },
+        {
+          "need": "LatencyMon: install version 7.40 from its maker’s site (signed by SOFTREV LABS S.R.L.S.; winget lists 7.31, and its maker reports a Windows driver block from June 2026), or keep it held.",
+          "card": "282",
+          "on": "2026-11-08"
+        }
+      ],
       "interface_url": "apps/pet-programs/pc-master-race-20261018.html",
       "interface_local_url": "apps/pet-programs/pc-master-race-20261018.html",
       "submitted": "2026-11-03",
