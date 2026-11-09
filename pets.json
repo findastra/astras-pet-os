@@ -761,7 +761,7 @@
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.3.0-20261011",
       "source_commit": "ce0d2eb811569ecdaedfc087b42ae8a387ada6f1",
       "audit": {
