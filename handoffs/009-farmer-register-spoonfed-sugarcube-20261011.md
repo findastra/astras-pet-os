@@ -247,9 +247,11 @@ opens it ("I want this app to be able to work for anybody on their phone or thei
 key from 2026-11-03 has nowhere to live there. "I'm seeing the same restaurants over and over" is the 26 made-up
 spots plus no repeats in a day.
 
-On "Can you give me a link", findastra.github.io#44 puts f68c90d on the phone link; it waits for her merge OK.
+On "Can you give me a link", findastra.github.io#44 puts f68c90d on the phone link. 2026-11-09, "Yes, merge #44":
+squash-merged as bdca0c4 (head dd4cc3c checked, no other open PR). The live link serves
+`index-5174f2c266183f8cbdc0285dae3a7cc2.js` (the old `index-d18a31d2…` is 404) and fits a 375-wide phone view with
+no sideways scroll; not yet opened on a real phone.
 
-**Still open:** her merge OK for findastra.github.io#44; the browser key (then: real restaurants near the visitor and
-the scroll-zoom map); the six questions in
+**Still open:** the browser key (then: real restaurants near the visitor and the scroll-zoom map); the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); her merge OK for spoonfed#9;
 the cuisine reel still cuts long types ("Indonesi…") on phones.
