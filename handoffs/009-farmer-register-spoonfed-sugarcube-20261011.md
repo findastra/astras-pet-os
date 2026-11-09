@@ -230,7 +230,26 @@ script and the old one answers 404; a rolled card shows the satellite map, one r
 She also asked for ideas to texture the plain brown page (maybe changing with each roll), how rolling should work
 with real places in a big area, and where things are saved: answered in chat, nothing built yet.
 
-**Still open:** the six questions in
-[Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
-(restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
-reel still cuts long types ("Indonesi…") on phones.
+### 2026-11-08 (night): food behind the page, clearer locks and buttons
+
+On "Yes, try it": the pick's photo, blurred into the chocolate, fills the page and fades with every roll; "I don't
+like how it starts plain brown": a shuffled patchwork of blurred dishes before the first roll. Then: the pick card's
+food type moved into the line under the name; Save and Send to phone centered with the filter chips' tan icons; the
+History and Saved tabs cream-white; a locked lock fills with its reel's colour; no black rim on the footer star
+("I shouldn't see any black outline at all anywhere except the sugar cube"); the "long brown strip" at the sides was
+the oversize background letting the page scroll sideways, now clipped. spoonfed f68c90d.
+
+The map's plain-scroll zoom and bare look ("The only thing that should be on there is the map, real life to map view
+switcher") are impossible on Google's keyless map, so a key request went to API Fairy:
+`SPOONFED_GOOGLE_MAPS_BROWSER_KEY` (Maps JavaScript API + Places API New, locked to the phone link and this PC's
+preview). The phone link has no server, so this one browser key is also what brings real restaurants near whoever
+opens it ("I want this app to be able to work for anybody on their phone or their computer"); the server-side Places
+key from 2026-11-03 has nowhere to live there. "I'm seeing the same restaurants over and over" is the 26 made-up
+spots plus no repeats in a day.
+
+On "Can you give me a link", findastra.github.io#44 puts f68c90d on the phone link; it waits for her merge OK.
+
+**Still open:** her merge OK for findastra.github.io#44; the browser key (then: real restaurants near the visitor and
+the scroll-zoom map); the six questions in
+[Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); her merge OK for spoonfed#9;
+the cuisine reel still cuts long types ("Indonesi…") on phones.
