@@ -2000,6 +2000,46 @@
       "does": "Music production software for making, recording and performing music."
     },
     {
+      "id": "codex-app",
+      "name": "Codex app",
+      "type": "program",
+      "state": "now",
+      "does": "OpenAI’s Codex on this PC; it keeps every chat in its own folder.",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "OpenAI’s Codex as installed on Astra’s PC. It keeps each chat as a file in its sessions and archived sessions folders, which Chat Rat reads (never changes) and saves into the chat archive."
+    },
+    {
+      "id": "claude-app",
+      "name": "Claude app",
+      "type": "program",
+      "state": "now",
+      "does": "Anthropic’s Claude app on this PC, with Claude Code inside; it keeps every Claude Code chat as a file.",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Anthropic’s Claude desktop app on Astra’s PC, with Claude Code in its Code tab. Claude Code keeps each chat as a file in its projects folder, which Chat Rat reads (never changes) and saves into the chat archive."
+    },
+    {
+      "id": "chatgpt-website",
+      "name": "ChatGPT website",
+      "type": "program",
+      "state": "now",
+      "does": "OpenAI’s ChatGPT on the web; its data export brings those chats to this PC.",
+      "layer": 6,
+      "category": "Cloud service",
+      "job": "ChatGPT in the browser. Its chats stay with OpenAI until Astra downloads her data export (a ZIP) and puts it in Chat Rat’s import inbox; Chat Rat then saves them into the chat archive, keeping every branch."
+    },
+    {
+      "id": "claude-website",
+      "name": "Claude website",
+      "type": "program",
+      "state": "now",
+      "does": "Anthropic’s Claude on the web; its data export brings those chats to this PC.",
+      "layer": 6,
+      "category": "Cloud service",
+      "job": "Claude in the browser (claude.ai). Its chats stay with Anthropic until Astra downloads her data export and puts it in Chat Rat’s import inbox; Chat Rat then saves them into the chat archive."
+    },
+    {
       "id": "spotify",
       "name": "Spotify",
       "type": "program",
@@ -5944,6 +5984,34 @@
       "why": "Kits and Astra’s own sound files are kept in the browser; it plays them with Web Audio."
     },
     {
+      "from": "chat-rat",
+      "to": "codex-app",
+      "carries": "manages",
+      "state": "now",
+      "why": "Chat Rat saves Codex’s chats from this PC into the chat archive, by model and date; he only reads Codex’s folders."
+    },
+    {
+      "from": "chat-rat",
+      "to": "claude-app",
+      "carries": "manages",
+      "state": "now",
+      "why": "Chat Rat saves Claude Code’s chats from this PC into the chat archive, by model and date; he only reads its folder."
+    },
+    {
+      "from": "chat-rat",
+      "to": "chatgpt-website",
+      "carries": "manages",
+      "state": "now",
+      "why": "ChatGPT’s data export, put in Chat Rat’s import inbox, is saved into the chat archive."
+    },
+    {
+      "from": "chat-rat",
+      "to": "claude-website",
+      "carries": "manages",
+      "state": "now",
+      "why": "Claude’s data export, put in Chat Rat’s import inbox, is saved into the chat archive."
+    },
+    {
       "from": "drum-dog",
       "to": "akai-apc64",
       "carries": "manages",
@@ -8272,8 +8340,33 @@
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first work is on design/yubikey-spend-approval-20261102."
       },
       "chat-rat": {
-        "languages": [],
-        "note": "No code on main yet (GitHub measures none): its archive and tools wait in open pull requests chat-rat#1, #2 and #8."
+        "languages": [
+          {
+            "language": "JavaScript",
+            "percent": 94.3,
+            "why": "The saver, the word index behind Ask Chat Rat, and the little server that shows his pet program page with his tools in it are Node scripts with nothing to install; the page’s tool script is plain JavaScript too. Measured from GitHub on 2026-11-08."
+          },
+          {
+            "language": "CSS",
+            "percent": 2.4,
+            "why": "How his tools look inside their tool boxes, in the Farmer’s blueprint colours."
+          },
+          {
+            "language": "Shell",
+            "percent": 2,
+            "why": "The launcher for Linux and macOS."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.1,
+            "why": "The Windows launcher: starts the server if it is not running and opens the page."
+          },
+          {
+            "language": "Batchfile",
+            "percent": 0.1,
+            "why": "The double-click start file on Windows."
+          }
+        ]
       },
       "anthropic-discord-presence": {
         "languages": [
