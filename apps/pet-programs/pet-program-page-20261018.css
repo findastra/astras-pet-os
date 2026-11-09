@@ -46,6 +46,18 @@
   --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(157, 255, 58, .08);
 }
 :root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
+/* Chat Stack’s own colours, Chat Rat’s (Astra, 2026-11-08: "some kind of gray and pink. Like, I want these to kind of
+   match the colors of the animal so that we can make the star on the GitHub profile the same color"): a graphite page,
+   panel lines in his fur gray (#c1c0c0, sampled from his picture), and his ear pink (#fc8086) for links, marks and the
+   working-copy box. These two are the colours for his star too. */
+:root[data-pet="chat-rat"] {
+  --slate: #232225; --slate-2: #19181a; --chalk: #f2f0f0; --chalk-dim: #a9a6a7; --line: #c1c0c0; --line-dim: #6e6b6d;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fc8086;
+  --editorial: #fc8086; --editorial-ink: #ffd9db; --editorial-glow: rgba(252, 128, 134, .22); --grid: none; --editorial-by: #ffb3b7; --serial: #fc8086;
+  --link: #fc8086; --connection: #ffb3b7;
+  --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
+}
+:root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {

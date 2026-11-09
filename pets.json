@@ -2802,6 +2802,26 @@
             "node": "nodejs",
             "how": "required",
             "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
+          },
+          {
+            "node": "codex-app",
+            "how": "optional",
+            "why": "Chat Rat saves Codex’s chats when Codex is on this PC."
+          },
+          {
+            "node": "claude-app",
+            "how": "optional",
+            "why": "Chat Rat saves Claude Code’s chats when the Claude app (or Claude Code) is on this PC."
+          },
+          {
+            "node": "chatgpt-website",
+            "how": "optional",
+            "why": "ChatGPT’s data export, put in the import inbox, is saved too."
+          },
+          {
+            "node": "claude-website",
+            "how": "optional",
+            "why": "Claude’s data export, put in the import inbox, is saved too."
           }
         ]
       },
