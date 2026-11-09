@@ -106,3 +106,8 @@ Record the merges below.
   has them?", she said "Yes, add them": pets.json `waiting_on_you` (the three licenses, LatencyMon) now shows in L4's
   approvals-waiting-on-you, "From card 282 in the hub" (changes/pc-master-waiting-oks-20261108.md). L3 asks you stays
   empty: it is for updates, and neither is one.
+- 2026-11-08: Astra's OK in chat, "Merge #314". Before merging: `main` had not moved since the branch was cut
+  (9d3ac39b), #314's 4 checks passed, and every open PR that touches the same files (#36, #218, #245, #247, #256, #281,
+  #289, #290, #299, #313) already conflicts with `main`, so #314 makes none newly conflict. Merged by Claude Opus 5.5
+  right after this line. Still open from this card: Not done 1 to 6, Open buttons, her two OKs (now on his page), and
+  registering PC Master when he is released.
