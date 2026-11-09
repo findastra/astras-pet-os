@@ -8,9 +8,11 @@
   'use strict';
   var list = document.querySelector('.flash-checks');
   if (!list) return;
-  var HELPER = 'http://127.0.0.1:38778';
+  // Where the helper answers comes from the file it writes when it starts, so no published file names a local address.
+  var HELPER = null;
   // From apps/pet-programs/ in Documents\Astra's PetOS\astras-pet-os up to Documents, as the program lights do.
-  var DATA = "../../../../Astra's PetOS Data/astras-pet-os/flash-audit/flash-audit-page-data.js";
+  var FOLDER = "../../../../Astra's PetOS Data/astras-pet-os/flash-audit/";
+  var DATA = FOLDER + 'flash-audit-page-data.js', HELPER_DATA = FOLDER + 'flash-audit-helper-page-data.js';
   var STATUSES = ['Missing', 'Incorrect', 'Not verified', 'On a branch'];
   var words = window.PetOSWords;
   function T(s) { return words ? words.swap(s) : s; }
@@ -79,6 +81,24 @@
   }
   loadLocal();
 
+  // The helper's address on this PC, read again before each run (it may have started since the page opened).
+  function findHelper(then) {
+    var script = document.createElement('script');
+    script.setAttribute('src', HELPER_DATA + '?t=' + Date.now());
+    script.onload = function () {
+      script.remove();
+      var c = window.flashAuditHelper && window.flashAuditHelper.control;
+      HELPER = typeof c === 'string' && /^http:\/\/(127\.0\.0\.1|localhost):\d{2,5}$/.test(c) ? c : null;
+      then();
+    };
+    script.onerror = function () { script.remove(); HELPER = null; then(); };
+    document.head.appendChild(script);
+  }
+  function notRunning(id, button) {
+    button.disabled = false;
+    say(id, 'The Flash Audit helper is not running on this PC. Startup Star starts it at sign-in; its menu has Flash Audit, Start.');
+  }
+
   function finished(id, button) {
     fetch(HELPER + '/status').then(function (r) { return r.json(); }).then(function (s) {
       if (s.running) { setTimeout(function () { finished(id, button); }, 5000); return; }
@@ -94,16 +114,16 @@
     var id = button.getAttribute('data-flash-run');
     if (!served()) { say(id, 'Run works on a page this PC serves (an address starting with localhost or 127.0.0.1). Here the check shows the last run.'); return; }
     button.disabled = true;
-    say(id, 'Checking every pet program again… This takes a few minutes; every check updates when it is done.');
-    fetch(HELPER + '/run', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ check: id }) })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (!j.ok && !j.running) throw new Error(j.error || 'refused');
-        finished(id, button);
-      })
-      .catch(function () {
-        button.disabled = false;
-        say(id, 'The Flash Audit helper is not running on this PC. Startup Star starts it at sign-in; its menu has Flash Audit, Start.');
-      });
+    findHelper(function () {
+      if (!HELPER) { notRunning(id, button); return; }
+      say(id, 'Checking every pet program again… This takes a few minutes; every check updates when it is done.');
+      fetch(HELPER + '/run', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ check: id }) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j.ok && !j.running) throw new Error(j.error || 'refused');
+          finished(id, button);
+        })
+        .catch(function () { notRunning(id, button); });
+    });
   });
 })();

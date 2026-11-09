@@ -19,7 +19,8 @@ GitHub Goldfish keeps the checks about words on GitHub).
   Flash Audit helper to check every pet program again and shows the newest run in every check when it is done.
 - **The helper** (`scripts/flash-audit-helper-20261108.mjs`, port 38778): runs the auditor, one run at a time, and
   writes the newest run to `Documents\Astra's PetOS Data\astras-pet-os\flash-audit`. It answers only on 127.0.0.1 and
-  takes a run only from a page this PC serves. Startup Star starts it at sign-in (`scripts/desktop-pets-20261011.cs`,
+  takes a run only from a page this PC serves. Where it answers goes into a file there when it starts, so no published
+  file names a local address (the saved run's few local addresses were cleaned the same way). Startup Star starts it at sign-in (`scripts/desktop-pets-20261011.cs`,
   its self-test now counts six helpers; the candidate build's self-test passes).
 - **Ownership**: the `flash-audit` tool is The Farm's on the System Map (`the-farm-v1.0-flash-audit-v1.0`), and
   `docs/flash-audit-20261014.md` and `docs/idle-flash-audit-20261017.md` say so.

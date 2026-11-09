@@ -11,7 +11,7 @@ import { spawn } from 'node:child_process';
 import { appendFileSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { AUDITOR, DATA_FOLDER, HELPER_PORT, PAGE_DATA } from './flash-audit-checks-20261108.mjs';
+import { AUDITOR, DATA_FOLDER, HELPER_PORT, HELPER_PAGE_DATA, PAGE_DATA } from './flash-audit-checks-20261108.mjs';
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Two folders above the farm, as the other helpers keep their files.
@@ -73,6 +73,13 @@ export function createHelper({ root = ROOT, data = DATA, node = process.execPath
       return;
     }
     send(404, { ok: false });
+  });
+  // Where it answers, for The Farm's page on this PC (written when it starts listening; never committed).
+  server.on('listening', () => {
+    try {
+      mkdirSync(data, { recursive: true });
+      writeFileSync(join(data, HELPER_PAGE_DATA), `window.flashAuditHelper = ${JSON.stringify({ control: `http://127.0.0.1:${server.address().port}` })};\n`);
+    } catch (e) { log(`could not write ${HELPER_PAGE_DATA}: ${e.message}`); }
   });
   return { server, state, run };
 }

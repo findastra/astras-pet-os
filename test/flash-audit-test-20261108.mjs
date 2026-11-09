@@ -7,7 +7,7 @@ import { mkdtempSync, readFileSync, writeFileSync, mkdirSync, rmSync, existsSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { AUTOMATED, GOLDFISH_WORDS, AUDITOR, HELPER, HELPER_PORT, checkResults, latestLedger, LABEL } from '../scripts/flash-audit-checks-20261108.mjs';
+import { AUTOMATED, GOLDFISH_WORDS, AUDITOR, HELPER, HELPER_PORT, HELPER_PAGE_DATA, checkResults, latestLedger, LABEL } from '../scripts/flash-audit-checks-20261108.mjs';
 import { createHelper, LOCAL } from '../scripts/flash-audit-helper-20261108.mjs';
 import { readMatrix } from '../scripts/flash-matrix-20261018.mjs';
 import { readSpawnerSources, spawnerFiles, pagePath } from '../scripts/pet-program-pages-20261018.mjs';
@@ -67,7 +67,7 @@ test('the Flash Audit is The Farm\'s tool on the System Map; Goldfish keeps the 
 });
 
 test('the helper takes a run only from a page this PC serves, one run at a time, and writes the page data', async () => {
-  for (const ok of ['http://127.0.0.1:8803', 'http://localhost:3000', 'http://[::1]:80']) assert.match(ok, LOCAL);
+  for (const ok of ['http://127.0.0.1:40080', 'http://localhost', 'http://[::1]']) assert.match(ok, LOCAL);
   for (const bad of ['https://findastra.github.io', 'http://127.0.0.1.evil.com', 'null', 'http://localhost.evil.com:1']) assert.doesNotMatch(bad, LOCAL);
   const dir = mkdtempSync(join(tmpdir(), 'flash-helper-'));
   try {
@@ -81,16 +81,18 @@ test('the helper takes a run only from a page this PC serves, one run at a time,
     const post = (origin) => fetch(`${base}/run`, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(origin ? { Origin: origin } : {}) }, body: JSON.stringify({ check: 'A55' }) });
     assert.equal((await post('https://findastra.github.io')).status, 403, 'another site cannot start a run');
     assert.equal((await post(null)).status, 403, 'a request with no page behind it cannot either');
-    const first = await post('http://127.0.0.1:8803');
+    const first = await post('http://127.0.0.1:40080');
     assert.equal(first.status, 202);
-    assert.equal(first.headers.get('access-control-allow-origin'), 'http://127.0.0.1:8803');
-    assert.equal((await post('http://127.0.0.1:8803')).status, 409, 'one run at a time');
+    assert.equal(first.headers.get('access-control-allow-origin'), 'http://127.0.0.1:40080');
+    assert.equal((await post('http://127.0.0.1:40080')).status, 409, 'one run at a time');
     for (let i = 0; i < 100 && state.running; i++) await new Promise((r) => setTimeout(r, 50));
     const status = await (await fetch(`${base}/status`)).json();
     assert.equal(status.exit, 0, status.error || 'the run finished');
     const page = readFileSync(join(data, 'flash-audit-page-data.js'), 'utf8');
     assert.match(page, /^window\.flashAuditLedger = \{"date":"\d{8}","pets":\[\{"icon":"One"/);
     assert.ok(existsSync(join(data, 'ledger-latest.json')));
+    // Where it answers is written on this PC only, for the page to read (no committed file names a local address).
+    assert.equal(readFileSync(join(data, HELPER_PAGE_DATA), 'utf8'), `window.flashAuditHelper = {"control":"${base}"};\n`);
     server.close();
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
@@ -100,6 +102,8 @@ test('Startup Star starts the Flash Audit helper at sign-in, on its own port', (
   assert.match(cs, /list\.Add\(new Entry\{Repo="flash-audit",Pet="Flash Audit",Exe=node,Marker="flash-audit-helper",Needs=Path\.Combine\(PetFiles\.Root,"scripts","flash-audit-helper-20261108\.mjs"\)\}\);/);
   assert.match(cs, /AlsoAtSignIn=\{[^}]*"flash-audit"\}/);
   assert.equal(HELPER, 'scripts/flash-audit-helper-20261108.mjs');
+  assert.equal(HELPER_PORT, 38778);
   const js = readFileSync(`${root}/apps/flash-audit-control-20261108.js`, 'utf8');
-  assert.ok(js.includes(`'http://127.0.0.1:${HELPER_PORT}'`), 'the page asks the helper on its port');
+  assert.ok(js.includes(HELPER_PAGE_DATA), 'the page finds the helper through the file it writes');
+  assert.doesNotMatch(js, new RegExp(`:${HELPER_PORT}\\b`), 'and never names its address');
 });

@@ -2658,10 +2658,10 @@
      "version": "0.2.0",
      "intended_use": "Shows the OpenAI model, effort and active Codex projects on Discord. Reads Codex metadata read-only; names a chat by its user-given name, then its folder, then its saved Codex project.",
      "visibility": "public",
-     "runs_on": "Windows, this PC only (control page http://127.0.0.1:38761/)",
+     "runs_on": "Windows, this PC only (control page a local service on this PC)",
      "links": {
       "source": "https://github.com/findastra/ai-discord-presence/tree/main/openai-discord-presence",
-      "controls": "http://127.0.0.1:38761/",
+      "controls": "a local service on this PC",
       "local_launcher": "open-discord-damsel-20261030.cmd",
       "download": "https://github.com/findastra/ai-discord-presence/raw/main/downloads/openai-discord-presence.zip"
      }
@@ -2672,10 +2672,10 @@
      "version": "0.2.0",
      "intended_use": "Shows the Anthropic model, effort and active Claude Code projects on Discord. Reads Claude Code transcript metadata only; names a session by its /rename name, then its folder. Always on covers Claude on the web and desktop chat.",
      "visibility": "public",
-     "runs_on": "Windows, this PC only (control page http://127.0.0.1:38762/)",
+     "runs_on": "Windows, this PC only (control page a local service on this PC)",
      "links": {
       "source": "https://github.com/findastra/ai-discord-presence/tree/main/anthropic-discord-presence",
-      "controls": "http://127.0.0.1:38762/",
+      "controls": "a local service on this PC",
       "local_launcher": "open-discord-damsel-20261030.cmd",
       "download": "https://github.com/findastra/ai-discord-presence/raw/main/downloads/anthropic-discord-presence.zip"
      }
@@ -2686,12 +2686,12 @@
      "version": "0.2.0",
      "intended_use": "Shows Ableton Live on Discord: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name (never Untitled) and a timer. Reads only Ableton's window title and Windows device names; never audio, MIDI notes or files.",
      "visibility": "public",
-     "runs_on": "Windows, this PC only (control page http://127.0.0.1:38765/)",
+     "runs_on": "Windows, this PC only (control page a local service on this PC)",
      "added": "2026-11-02",
      "built_with": "Claude Opus 5.5 (claude-opus-5-5), 2026-11-02",
      "links": {
       "source": "https://github.com/findastra/ableton-live-discord-presence",
-      "controls": "http://127.0.0.1:38765/",
+      "controls": "a local service on this PC",
       "local_launcher": "open-discord-damsel-20261030.cmd",
       "download": "https://github.com/findastra/ableton-live-discord-presence/archive/refs/heads/main.zip"
      }
@@ -2721,7 +2721,7 @@
      "version": "1.0.0",
      "intended_use": "Looks after CLI Proxy API, a third-party program: installs only the verified v8.0.34 from quarantine, writes a config that keeps it on 127.0.0.1 with plugins and discovery off, and starts and stops it from a control page on this PC. Refuses to start with a Claude sign-in in its folder. Never signs anything in; Start is Astra's click.",
      "visibility": "private",
-     "runs_on": "Windows, this PC only (controls http://127.0.0.1:38763/, proxy and console http://127.0.0.1:8317/)",
+     "runs_on": "Windows, this PC only (controls a local service on this PC, proxy and console a local service on this PC)",
      "third_party": [
       "CLI Proxy API"
      ],

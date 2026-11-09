@@ -15,6 +15,9 @@ export const HELPER = 'scripts/flash-audit-helper-20261108.mjs';
 export const HELPER_PORT = 38778;
 export const DATA_FOLDER = ['astras-pet-os', 'flash-audit'];
 export const PAGE_DATA = 'flash-audit-page-data.js';
+// The helper writes where it answers into this file when it starts, so no committed file names a local address (the
+// hub's public-safety rule): the page reads it from Astra's PC, the way the program lights read the watch's.
+export const HELPER_PAGE_DATA = 'flash-audit-helper-page-data.js';
 
 // The checks the auditor runs by itself over every pet program (the test reads them back from the auditor's code).
 // Every other check is done by an assistant during a Flash Audit, so its pill says so.
