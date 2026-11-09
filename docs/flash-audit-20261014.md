@@ -1,13 +1,21 @@
 # Flash Audit: pet onboarding and review instruction sheet
 
-Working name: **Flash Audit**. Owner: **GitHub Goldfish**, program **GitHub Aquarium**.
-Tool label: `github-aquarium-v1.0-flash-audit-v1.0`.
+Working name: **Flash Audit**. Owner: **Friendly Farmer**, program **The Farm** (since 2026-11-08; GitHub Goldfish's,
+program GitHub Aquarium, from 2026-10-14).
+Tool label: `the-farm-v1.0-flash-audit-v1.0` (was `github-aquarium-v1.0-flash-audit-v1.0`).
 By Astra. Compiled with OpenAI Codex (GPT-6), 2026-10-14.
 
 This is a usable manual audit procedure and a specification for a future tool interface.
 Goldfish now also has a read-only local metadata preflight at `scripts/flash-audit-local-20261015.mjs`. It is not a complete automated auditor, deployed service, or security certification.
 Use it for new pets, existing pets, and the restarted rapid-question review of every pet.
-Goldfish owns the audit; the Farmer owns registry/admission coordination. No new pet is needed.
+**On The Farm** (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those shows up as
+a tool and I can click it"; deck "The Farm: art and lights", "All recommended"): The Farm's L1 has a `flash-audit` tool
+box with every check below as a tool, in this order. Each shows the last saved run over every pet program
+(`docs/flash-audit-rounds-<date>/ledger-main.json`); Run asks the Flash Audit helper on Astra's PC
+(`scripts/flash-audit-helper-20261108.mjs`, started by Startup Star) to run the read-only auditor again. The auditor
+checks the rows listed in `scripts/flash-audit-checks-20261108.mjs` by itself; the others say an assistant checks them.
+The Farm owns the audit and registry/admission coordination; **GitHub Goldfish keeps the checks about words on GitHub**
+(A15 README and credit, A31 Status and link labels, A57 Current names only), marked as Goldfish's in the tool box.
 
 ## 1. Source rules and precedence
 
