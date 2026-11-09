@@ -506,6 +506,10 @@ namespace AstraDesktopPets {
       list.Add(new Entry{Repo="desktop-commander",Pet="Desktop Commander",Exe=Path.Combine(system,"wscript.exe"),Marker="desktop-commander",
         Needs=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),".desktop-commander-device","desktop-commander-remote-autostart-20261101.vbs")});
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs)};
+      // The Flash Audit helper (Astra, 2026-11-08, "All recommended"): Run on a check in The Farm's flash-audit tool box
+      // asks it to check every pet program again. The Farm's own script, run by node from the farm's scripts folder.
+      list.Add(new Entry{Repo="flash-audit",Pet="Flash Audit",Exe=node,Marker="flash-audit-helper",Needs=Path.Combine(PetFiles.Root,"scripts","flash-audit-helper-20261108.mjs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -516,8 +520,9 @@ namespace AstraDesktopPets {
     // started as before; Kernel Koala's watch starts only when Astra asks. Rift Rabbit's launcher and the pet chat helper
     // start too, with no alarmed face (card 061, answer 4: at sign-in, quietly). Since 2026-11-08 so do Inference Iguana's
     // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
-    // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it").
-    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander"};
+    // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
+    // behind the Run buttons on The Farm's flash-audit checks.
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit"};
     // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
     // star starts one crash watch, not three.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
@@ -1125,10 +1130,10 @@ namespace AstraDesktopPets {
       int signIn=testActions.Count;StartBackgroundPets();
       var started=new List<string>();bool quiet=true;
       foreach(var a in testActions.GetRange(signIn,testActions.Count-signIn)){started.Add(a.Split(':')[1]);if(started.Count<=4&&!a.EndsWith(":--startup"))quiet=false;}
-      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences and Desktop Commander quietly, and only them.");
+      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander and the Flash Audit helper quietly, and only them.");
       int helpers=0;
       foreach(var x in BackgroundPets.AtSignIn()){if(x.Marker==null)continue;helpers++;if(x.Needs==null||Array.IndexOf(x.StartArgs,BackgroundPets.Quote(x.Needs))<0)throw new Exception("Each helper run by node, PowerShell or wscript starts its own script.");}
-      if(helpers!=5)throw new Exception("Five helpers are found by their command line.");
+      if(helpers!=6)throw new Exception("Six helpers are found by their command line.");
       var rabbit=BackgroundPets.Find("rift-rabbit");
       if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
       var petChat=BackgroundPets.Find("pet-chat");

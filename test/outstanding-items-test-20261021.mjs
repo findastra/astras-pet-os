@@ -178,7 +178,8 @@ test('the five are GitHub Aquarium\'s important tools: on the map, first under N
   const tools = map.nodes.filter((n) => n.of === 'program-2' && n.type === 'tool').length;
   const head = page.indexOf(`<h3>Native tools · ${tools}</h3>`);
   assert.ok(head > 0, `Native tools counts all ${tools}, the five included`);
-  assert.ok(page.indexOf('id="outstanding-items"') > head && page.indexOf('id="outstanding-items"') < page.indexOf('data-item="tool:flash-audit"'), 'the five come before the other tools');
+  // The Flash Audit moved to The Farm (2026-11-08), so another of Goldfish's tools marks where the others start.
+  assert.ok(page.indexOf('id="outstanding-items"') > head && page.indexOf('id="outstanding-items"') < page.indexOf('data-item="tool:project-image-generator"'), 'the five come before the other tools');
   for (const id of OUTSTANDING_TOOL_IDS) assert.equal(page.split(`data-item="tool:${id}"`).length - 1, 2, `${id} is listed once (two lights)`);
 });
 

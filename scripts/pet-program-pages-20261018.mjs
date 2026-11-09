@@ -23,6 +23,8 @@ import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.m
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
+import { readMatrix } from './flash-matrix-20261018.mjs';
+import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -42,6 +44,8 @@ export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
 // A 3rd party program's ON/OFF light opens or closes it through Inference Iguana's watch (2026-11-06), on every page
 // with such a light; the page script itself sends nothing.
 export const PROGRAM_LIGHTS_JS = '../program-lights-control-20261106.js';
+// The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
+export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
 // knows its words before it is drawn (scripts/developer-words-20261019.mjs).
 export const WORDS = ['../words-mode-20261019.js', '../developer-words-20261019.js'];
@@ -728,7 +732,38 @@ ${about('The live status distinguishes an app running, sharing off, waiting for 
 // A pet's own tool boxes, in L1 under Native tools (Astra, 2026-11-02, all recommended: "No special panels"; they were
 // panels above the levels since 2026-10-24). `tool` names the System Map tool the box is, so its pill is not listed
 // twice; a box without one is named <pet>-<name>.
+// The Flash Audit on The Farm (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those
+// shows up as a tool and I can click it and it will go through ... all the other pet programs and check to see if those
+// components of those other programs are up to standard"; deck "The Farm: art and lights", "All recommended"): a tool
+// box in L1, its 61 checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
+// run over every pet program at once (docs/flash-audit-rounds-<date>/ledger-main.json); Run asks the Flash Audit helper
+// on this PC to run it again (apps/flash-audit-control-20261108.js, scripts/flash-audit-helper-20261108.mjs). The
+// checks the auditor does not run by itself say so; GitHub Goldfish's word checks are marked as Goldfish's.
+const FLASH_DOC = `https://github.com/${OWNER}/${HUB}/blob/main/docs/flash-audit-20261014.md`;
+export function flashAuditBody(d) {
+  const fa = d.flashAudit;
+  if (!fa?.matrix?.length) return '';
+  const run = fa.ledger ? `${fa.ledger.date.slice(0, 4)}-${fa.ledger.date.slice(4, 6)}-${fa.ledger.date.slice(6)}` : null;
+  const pill = (r) => {
+    const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
+    const how = r.dot === '🔵' ? 'blue: waits for your answer' : 'grey: fixed without you';
+    const now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
+      : auto ? 'not run yet' : 'an assistant checks it';
+    const counts = res ? FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ') : '';
+    const body = res
+      ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counts ? ` · ${esc(counts)}` : ''}.</p>${res.findings.length
+        ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
+        : '<p class="empty" data-flash-findings>Every pet program passes.</p>'}`
+      : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
+    const runIt = auto ? `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>` : '';
+    return `<li class="pill flash-check" data-check="${r.id}">${lights(`flash:${r.id}`, `${r.id} ${r.title}`)}<span class="item-name">${r.dot} ${esc(r.id)} ${esc(r.title)}</span><span class="item-desc" data-flash-desc>${esc(`${how}${GOLDFISH_WORDS.includes(r.id) ? ' · GitHub Goldfish’s check' : ''} · ${now}`)}</span><details class="pill-more"><summary aria-label="More about ${esc(r.id)}"></summary><div class="pill-body">${body}${runIt}</div></details></li>`;
+  };
+  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. ${run ? `Each shows the last run over every pet program (${esc(run)}); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again. <a href="${FLASH_DOC}">The checklist</a>.</p>
+<ul class="items flash-checks" data-flash-run-date="${esc(run || '')}">${fa.matrix.map(pill).join('')}</ul>`;
+}
 export const PET_BOXES = {
+  // Folded to its name until clicked: 61 checks are long (deck "The Farm: art and lights", answer 3: A).
+  'astras-pet-os': [{ tool: 'flash-audit', body: flashAuditBody, open: false }],
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
   'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
@@ -736,7 +771,7 @@ export const PET_BOXES = {
 function petBoxes(d) {
   const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
   const html = boxes.map(({ b, body, t }) => toolBox(t ? t.id : `${d.petSlug}-${b.name}`, t ? t.name : `${d.petSlug}-${b.name}`,
-    `${t?.desc ? `<p class="small">${esc(t.desc)}</p>` : ''}${t?.label ? `<code class="label">${esc(t.label)}</code>` : ''}${body}`, { cls: `pet-box ${b.tool || b.name}` })).join('\n');
+    `${t?.desc ? `<p class="small">${esc(t.desc)}</p>` : ''}${t?.label ? `<code class="label">${esc(t.label)}</code>` : ''}${body}`, { cls: `pet-box ${b.tool || b.name}`, open: b.open !== false })).join('\n');
   return { html: html ? `<div class="toolboxes">${html}</div>` : '', count: boxes.length, toolIds: boxes.map(({ t }) => t?.id).filter(Boolean) };
 }
 
@@ -1181,7 +1216,7 @@ ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
 ${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
 <script src="${ASSETS.js}"></script>
-${(d.thirdParty || []).length ? `<script src="${PROGRAM_LIGHTS_JS}"></script>\n` : ''}${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
+${(d.thirdParty || []).length ? `<script src="${PROGRAM_LIGHTS_JS}"></script>\n` : ''}${d.flashAudit?.matrix?.length ? `<script src="${FLASH_AUDIT_JS}"></script>\n` : ''}${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>
 </html>
 `, pagePath(d.repo));
@@ -1287,7 +1322,7 @@ export function modelProgramData(src) {
     job: 'What Pet Name does, in one sentence.', status: 'hatching', added: 'YYYY-MM-DD', version: { core: '0.0.0', full: '0.0.0', assigned: false },
     visibility: 'private', isPrivate: false, publicRepo: false, host: false, owner: OWNER, repoUrl: `https://github.com/${OWNER}/${reg.repo}`,
     appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
-    art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), lines: moodKey(src.registry, reg), audit: reg.audit,
+    art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), flashAudit: null, lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
@@ -1397,6 +1432,8 @@ export function readSpawnerSources(root = '.') {
     registry: j('pets.json'), programs: j('pet-programs.json').programs, extra: j('system-map.json'),
     frameIndex: opt('art/frames/index.json', { pets: {} }), drafts: opt('desktop-art/desktop-drafts-20261018.json', { pets: [] }),
     status: opt('status/pets-status.json', null),
+    // The Flash Audit's checks and its last saved run, for The Farm's flash-audit tool box (2026-11-08).
+    flashAudit: { matrix: existsSync(`${root}/docs/flash-audit-20261014.md`) ? readMatrix(`${root}/docs/flash-audit-20261014.md`).rows : [], ledger: latestLedger(root) },
     measure: (p, over) => { try { return drawnBox(`${root}/${p}`, over); } catch (e) { return null; } },
     exists: (p) => existsSync(`${root}/${p}`), list: (p) => (existsSync(`${root}/${p}`) ? readdirSync(`${root}/${p}`) : []),
   };
@@ -1411,7 +1448,10 @@ export function spawnerPages(src) {
   for (const prog of animals) {
     const reg = regs.find((r) => r.repo === prog.repo);
     if (!reg) throw new Error(`Pet program #${prog.number} (${prog.program}) is ${prog.stage} but ${prog.repo} is not in pets.json (Flash Audit A59).`);
-    out.push(pageData({ reg, prog, registry: src.registry, map, ...src }));
+    const d = pageData({ reg, prog, registry: src.registry, map, ...src });
+    // Only The Farm's page has the Flash Audit's checks (its flash-audit tool box); every other page has none.
+    d.flashAudit = d.repo === HUB ? src.flashAudit : null;
+    out.push(d);
   }
   for (const r of regs) if (!animals.some((p) => p.repo === r.repo)) throw new Error(`${r.repo} is in pets.json but has no registered or pipeline pet program in pet-programs.json.`);
   return out;
