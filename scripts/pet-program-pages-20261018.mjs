@@ -300,8 +300,14 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     self: g.resources.includes('self'), level: g.level || [], r: g.r, w: g.w, x: g.x, status: g.status, how: g.how, next: g.next || null, evidence: g.evidence || [] }));
 
   const round = lastRound(status, reg);
-  const needs = [...new Set([...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
-    ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean))];
+  const roundNeeds = [...(round?.needs || []).map((n) => (typeof n === 'string' ? n : n.need || n.label || '')),
+    ...(status?.needs_astra || []).filter((n) => n.repo === reg.repo || n.repo === round?.key).map((n) => n.need)].filter(Boolean);
+  // A pet's own approvals, from pets.json `waiting_on_you` (Astra, 2026-11-08: "Yes, add them", PC Master Race's
+  // licenses and LatencyMon): decisions only you can make that the Farmer's round can't see yet, because the pet's repo
+  // is private. Each names the hub card that records it.
+  const ownNeeds = (reg.waiting_on_you || []).filter((n) => n && n.need);
+  const needs = [...new Set([...roundNeeds, ...ownNeeds.map((n) => n.need)])];
+  const needsFrom = [...new Set(ownNeeds.map((n) => (n.card ? `card ${n.card}` : null)).filter(Boolean))];
   // What L3 asks you (L3 control panel): an update the update audit found waits for L4's yes (Astra, 2026-10-24: "have L3
   // ask me if L4 wants to approve update"); nothing is installed until then.
   const asks = Object.entries(reg.checks || {}).filter(([, c]) => c.result === 'update').map(([k, c]) =>
@@ -330,7 +336,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
-    art, petFit, lines, audit: reg.audit || {}, round, needs, asks, statusUpdated: status?.updated || null,
+    art, petFit, lines, audit: reg.audit || {}, round, needs, needsFrom, needsFromRound: roundNeeds.length > 0, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools, ...viaTricks]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
     shared: [...ofType(['program'], [...from, ...viaTools, ...viaTricks]), ...ofType(['own-program'])].filter((i) => i.sharedWith),
@@ -949,7 +955,12 @@ ${about({
 <dt>Seat</dt><dd>empty</dd>
 <dt>Last check</dt><dd>${roundLine}</dd>
 <dt>On the map</dt><dd><a href="${esc(map)}">${esc(d.mapNode)}</a></dd></dl>`;
-  const L4 = panel(`${d.petSlug}-L4-control-panel`, `<div class="toolboxes">${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From the Friendly Farmer's last merged round${d.statusUpdated ? ` (${esc(day(d.statusUpdated))})` : ''}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
+  // Where the approvals come from: the hub cards that record a pet's own (pets.json `waiting_on_you`), and the Friendly
+  // Farmer's last merged round (the model page's example is one of the round's).
+  const roundSource = `the Friendly Farmer's last merged round${d.statusUpdated ? ` (${day(d.statusUpdated)})` : ''}`;
+  const sources = [...(d.needsFrom || []).map((c) => `${c} in the hub`), ...(d.needsFromRound !== false || !(d.needsFrom || []).length ? [roundSource] : [])];
+  const needsFrom = sources.length > 1 ? `${sources.slice(0, -1).join(', ')} and ${sources.at(-1)}` : sources[0];
+  const L4 = panel(`${d.petSlug}-L4-control-panel`, `<div class="toolboxes">${sub('approvals-waiting-on-you', d.needs.length ? `<ul class="plain">${d.needs.map((n) => `<li>${esc(n)}</li>`).join('')}</ul><p class="small">From ${esc(needsFrom)}. Approve and decline buttons come with Iron Gates.</p>` : '<p class="empty">Nothing from the Friendly Farmer\'s last merged round.</p>')}
 ${sub('grants', `<p class="small">Grants are permissions: what each level may read (R), write (W) and run (X) on ${esc(d.home)}. They are listed in <a href="#${esc(d.petSlug)}-rwx-panel">${esc(d.petSlug)}-rwx-panel</a>, below, with whether each one is in code.</p>`)}
 ${sub('keys', '<p class="empty">No agent keys yet: Iron Gates will issue them and API Fairy will show them (planned).</p>')}
 ${sub(`${d.petSlug}-required-maintenance`, '<ul class="plain" id="maintenance"><li class="empty">Nothing yellow or orange.</li></ul><ul class="plain" id="switched-off"></ul>')}
@@ -962,7 +973,7 @@ ${sub('pet-id', `<dl class="status">
 <dt>Vet records</dt><dd>${d.vetClinicPrivate ? 'vet-clinic tickets (private repo)' : `<a href="https://github.com/${OWNER}/vet-clinic/issues?q=${encodeURIComponent(d.homeSlug)}">vet-clinic tickets</a>`}</dd></dl>`)}</div>
 ${about({
     how: 'Your part, the verified human: approvals waiting on you, grants, keys, required maintenance and the Pet ID, each a tool box that folds to its name.',
-    from: 'The Friendly Farmer’s last merged round, the grants on the R W X panel, the lights you marked in this browser, and the pet’s repo and versions.',
+    from: 'The Friendly Farmer’s last merged round and the pet’s own approvals in pets.json (each names its hub card), the grants on the R W X panel, the lights you marked in this browser, and the pet’s repo and versions.',
     rules: yourRules(4, '2026-10-22: five tool boxes with lowercase names; 2026-10-24: round boxes, the update history in the Pet ID’s stamps; Pet ID, not passport'),
     notYet: 'Approve and decline buttons and agent keys (Iron Gates, shown by API Fairy); the microchip signature; security patches.',
   })}`, { cls: 'level', light: true, id: `${d.petSlug}-L4-control-panel` });
@@ -1251,7 +1262,7 @@ export function modelProgramData(src) {
     appHref: null, appPrivate: null, vetClinicPrivate: true, mapNode: 'astras-pet-os', ring: '3',
     art: { frames, plain: frames, source: 'model-pet-program' }, petFit: modelFit(MOODS), lines: moodKey(src.registry, reg), audit: reg.audit,
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
-    needs: ['Example: a decision only you can make.'],
+    needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
     statusUpdated: '2026-11-02T08:00:00.000Z',
     thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
