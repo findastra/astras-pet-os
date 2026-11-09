@@ -57,6 +57,12 @@ Whichever merges second takes `main`'s generated files and rebuilds.
   used either name.
 - **Tests:** `npm test` in an LF worktree passed 379 of 387, with 3 skipped. The 5 failures are 4 pet chat helper tests
   and `farm-setup-test` ("hub copy (git)"); they fail the same way on unchanged `main` (368ffed0) in a worktree.
+- **Draft art, 2026-11-09** (Astra: "Yes, make the art"): one paid image (gpt-image-2, 1024x1024, high) on her OpenAI
+  account. It shows a lime-green flamingo on one leg, in an orange hard hat, holding a flask of cyan liquid. Nine mood
+  frames are in `art/drafts/flowsheet-flamingo/` and the icon is `art/icons/the-pilot-plant-20261109.png`. The prompt
+  is `DRAFT_FLOWSHEET_FLAMINGO` in `generate-pets.mjs`, and `changes/flowsheet-flamingo-draft-art-20261109.md` has the
+  details. It fixed the 11-08 test "every one of the Farmer's friends has a picture". `npm test` then passed 398 of
+  400, with 1 skipped. The only failure is `farm-setup-test` ("hub copy (git)"), the known worktree failure.
 
 ## Not done (the build)
 
@@ -72,7 +78,7 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 3. Build the look tool, the only native tool, and make it work on the page.
 4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
 5. Add Rift Rabbit's parts: L3's note, devices if any.
-6. Make the art: one paid image, a draft until she approves it.
+6. Astra approves the draft art, or asks for changes. It was made on 2026-11-09 (see What I did).
 7. Do the four downloads, each checked first.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 

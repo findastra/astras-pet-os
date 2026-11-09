@@ -104,6 +104,13 @@ export const DRAFT_ROLE_FAIRY = { id: 'role-fairy', what: 'a tiny cheerful fairy
 // art/sheets/pc-master.png; from then on redo him only with --match.
 export const DRAFT_PC_MASTER = { id: 'pc-master', what: 'a chubby little gaming PC tower creature: a tall rounded computer case standing on two small feet with two little arms, its face on the front panel, a clear glass side panel showing three round glowing fans, a round power button on its top, two racing stripes running down its front, holding a tiny checkered racing flag, no other props and no lettering', colours: 'gunmetal graphite-grey case, neon green glowing fans, hot magenta racing stripes, electric cyan power button, black and white checkered flag' };
 
+// Flowsheet Flamingo (The Pilot Plant, #87), draft: generated 2026-11-09 with Astra's OK ("Yes, make the art"), one
+// sheet in art/drafts/flowsheet-flamingo/. The engineering pet: a flamingo in a site hard hat with a lab flask, for her
+// home engineering and study programs. Lime, not pink, so it never reads as Portfolio Puffer's magenta; the pink stays
+// only on the beak and legs. A draft until she approves it. When the Farmer registers it, move this line into PETS and
+// copy the sheet to art/sheets/flowsheet-flamingo.png; from then on redo it only with --match. Claude Opus 5.5.
+export const DRAFT_FLOWSHEET_FLAMINGO = { id: 'flowsheet-flamingo', what: 'a chubby little flamingo bird standing on ONE long thin leg with the other leg tucked up, a short curved S-shaped neck, a bent flamingo beak, wearing a small safety hard hat, holding a tiny round glass laboratory flask in one wing, no other props and no lettering', colours: 'neon lime-green feathers with black wing tips, safety-orange hard hat, hot pink beak with a black tip, hot pink leg, clear glass flask with glowing electric cyan liquid' };
+
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;
 export const promptFor = prompt;
 
