@@ -186,7 +186,16 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
     const frames = newest(`art/drafts/${folder}`);
     if (frames.idle) return { frames, source: 'draft' };
   }
-  const icon = list('art/icons').filter((n) => new RegExp(`^${reg.repo}-\\d{8}\\.png$`).test(n)).sort().pop();
+  // A pet with no drawing of its own yet takes its newest one from the art review (Astra, 2026-11-08: "a lot of these
+  // pets ... the images just aren't there. So you need to go in and get the new stuff"): that round's 256px neutral
+  // picture, art/drafts/<review round>/normalized/<pet>-sprite-YYYYMMDD.png (hub #267, round 6 of 2026-10-31). It is a
+  // draft until she approves it there, and a pet that has a drawing keeps it.
+  const ids = [...new Set([reg.art, draft?.id, reg.pet && slug(reg.pet), reg.repo].filter(Boolean))];
+  const reviewed = list('art/drafts').flatMap((round) => list(`art/drafts/${round}/normalized`).map((n) => ({ round, n, m: /^(.+)-sprite-(\d{8})\.png$/.exec(n) })))
+    .filter((x) => x.m && ids.includes(x.m[1])).sort((a, b) => a.m[2].localeCompare(b.m[2]) || a.round.localeCompare(b.round)).pop();
+  if (reviewed) return { frames: { idle: `art/drafts/${reviewed.round}/normalized/${reviewed.n}` }, source: 'review' };
+  // Its icon, by its repo or its pet's name (Skill Scout's icon is skill-scout-*, its repo lunas-log).
+  const icon = list('art/icons').filter((n) => [reg.repo, reg.pet && slug(reg.pet)].filter(Boolean).some((id) => new RegExp(`^${id}-\\d{8}\\.png$`).test(n))).sort().pop();
   if (icon) return { frames: { idle: `art/icons/${icon}` }, source: 'icon' };
   return { frames: {}, source: 'none' };
 }
@@ -292,6 +301,18 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     return { id, pet: o.name, home, state, why, links,
       page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, fit: fitOf(who, its, { drafts, measure }, [its.frames.idle]) };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
+  // A line every friend shares says nothing about each one (Astra, 2026-11-08, on the Farmer's page: "a lot of these pets
+  // and their descriptions are wrong"): the Friendly Farmer's links to every pet, every roadmap pet and every seed each
+  // carry one why. When three or more friends would show the same line, each says what it does instead, the first
+  // sentence of its own job: in pets.json, as a seed there, or on the System Map.
+  const sameWhy = new Map();
+  for (const r of related) if (r.why) sameWhy.set(r.why, (sameWhy.get(r.why) || 0) + 1);
+  for (const r of related) {
+    if (!r.why || sameWhy.get(r.why) < 3) continue;
+    const own = regs.find((x) => x.repo === r.id)?.job || (registry.seeds?.pets || []).find((s) => slug(s.pet) === r.id)?.job || nodes.get(r.id)?.job || '';
+    const first = own.split(/(?<=[.!?])\s+/)[0].trim();
+    if (first) r.why = first;
+  }
 
   // The R W X panel: grants from system-map.json, as the map shows them on this pet's card. "on" are the grants that
   // reach the pet or its program, "by" the grants it holds; each keeps its levels, R W X, status and evidence.
@@ -376,10 +397,16 @@ const careOf = (key, planned, unseen) => {
   return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
+// What the ON/OFF light does today, said on the light itself (Astra, 2026-11-08, deck "The Farm: art and lights", answer
+// 2: A, "say so on the light now, real switches tool by tool"): a 3rd party program's opens and closes it through
+// Inference Iguana's watch, a device's shows what SteamVR sees, and any other only keeps her choice in this browser,
+// because nothing on the PC reads it yet.
+export const ONOFF_SAYS = 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.';
+const onoffTip = (key, unseen) => (/^device:/.test(key) ? 'ON/OFF: green while SteamVR has it on' : unseen ? 'ON/OFF: green while it is open on this PC. Click to open or close it' : ONOFF_SAYS);
 const lights = (key, name, { planned = false, unseen = false, presence = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : 'ON/OFF (kill switch): click to switch'}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : onoffTip(key, unseen)}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };

@@ -51,89 +51,89 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Pets it works with
 
-- **File Master** (File Kingdom): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **GitHub Goldfish** (GitHub Aquarium): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Project Parrot** (Idea Perch): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Gatekeeper Goddess** (Iron Gates): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Log Lynx** (Log Den): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Portfolio Puffer** (Iced Out Iceberg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **AI Dashund** (AI Doghouse): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **API Fairy** (API Fairy Ring): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Astra Wisp** (The Astral Plane): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Backup Beaver** (Backup Dam): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Chat Rat** (Chat Stack): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Cipher Owl** (Cipher Hollow): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Claude Bot** (Claude Dock): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Data Chip** (Data Dealer): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Deck Duck** (Deck Pond): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Discord Damsel** (Discord Tower): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Door Dormouse** (The Threshold): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Drum Dog** (Bass & Biscuits): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Finance Finch** (Nest Egg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Forensic Ferret** (Evidence Locker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Fuzzboi Friend** (Fuzzboi Factory): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Gif Giraffe** (Astra's GIF Maker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Gone Ghost** (Am I a Ghost?): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Health Hummy** (The Nectar Nest): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Inference Iguana** (Benchmark Rock): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Journal Jellyfish** (Journal Lagoon): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Kernel Koala** (Kernel Grove): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Linux Penguin** (Linux Iceberg): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Mail Snail** (Mail Shell): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Meme Fiend** (Cursed Archive): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Mesh Moth** (Mesh Lantern): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Mine Mole** (Crypto Burrow): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Mommy's Mommies** (Mommy’s HQ): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Packet Piranha** (Packet River): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Paper Patty** (Paper Girl): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Patch Cat** (The Litter Box): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **PC Master** (PC Master Race): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Pet Police Officer** (The Police Station): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Platform Platypus** (Mirror Pool): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Python Panther** (Python Jungle): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Raspberry Pi Berry** (Raspberry Pi Maker): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **RGBee** (Light Hive): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Rift Rabbit** (Wonderland Launchpad): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Roaming Raven** (Roam Map): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Role Fairy** (Fairy Ring): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Skill Scout** (Luna's Log): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Spoonfed Sugarcube** (Spoonfed): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Unity Unicorn** (Unity Stable): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Voicemeeter Bug** (Audio Rescue): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **VSCode Angel** (Halo List): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **White Hat Weasel** (White Hat Lab): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Wifi Butterfly** (Signal Garden): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
-- **Workflow Whale** (Workflow Whirlpool): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
+- **File Master** (File Kingdom): Organizes your files and finds systemic errors.
+- **GitHub Goldfish** (GitHub Aquarium): Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors.
+- **Project Parrot** (Idea Perch): Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.
+- **Gatekeeper Goddess** (Iron Gates): Security and approvals: human-facing approvals and security monitoring.
+- **Log Lynx** (Log Den): Observability: correlates logs, traces, health and failures.
+- **Portfolio Puffer** (Iced Out Iceberg): Drafts and tracks portfolio updates locally.
+- **AI Dashund** (AI Doghouse): Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper.
+- **API Fairy** (API Fairy Ring): Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get.
+- **Astra Wisp** (The Astral Plane): Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.
+- **Backup Beaver** (Backup Dam): Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.
+- **Chat Rat** (Chat Stack): Saves local AI conversations and imported exports by recorded model and YYYYMMDD, with direct folder buttons.
+- **Cipher Owl** (Cipher Hollow): Encryption, keys, certificates and crypto education.
+- **Claude Bot** (Claude Dock): Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.
+- **Data Chip** (Data Dealer): Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.
+- **Deck Duck** (Deck Pond): Helps you manage your Elgato Stream Deck: what every button does, on every profile.
+- **Discord Damsel** (Discord Tower): Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.
+- **Door Dormouse** (The Threshold): Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website.
+- **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
+- **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
+- **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
+- **Gif Giraffe** (Astra's GIF Maker): Placeholder for a pet app that will make GIFs.
+- **Gone Ghost** (Am I a Ghost?): Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.
+- **Health Hummy** (The Nectar Nest): Personal health tracker: weight lifting by body group and sets, cardio, and pole plans.
+- **Inference Iguana** (Benchmark Rock): Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.
+- **Journal Jellyfish** (Journal Lagoon): Private travel diary and itineraries.
+- **Kernel Koala** (Kernel Grove): What runs on your PC: programs, memory and what starts at sign-in.
+- **Linux Penguin** (Linux Iceberg): Linux administration, SSH, systemd, packages.
+- **Mail Snail** (Mail Shell): Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch.
+- **Meme Fiend** (Cursed Archive): Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet).
+- **Mesh Moth** (Mesh Lantern): Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.
+- **Mine Mole** (Crypto Burrow): Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.
+- **Mommy's Mommies** (Mommy’s HQ): A local planning room for Mommy's classes and events, with session details, readiness and notes.
+- **Packet Piranha** (Packet River): Network: packet loss, DNS, latency, routing.
+- **Paper Patty** (Paper Girl): Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.
+- **Patch Cat** (The Litter Box): Placeholder.
+- **PC Master** (PC Master Race): Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.
+- **Pet Police Officer** (The Police Station): Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.
+- **Platform Platypus** (Mirror Pool): Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.
+- **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
+- **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
+- **RGBee** (Light Hive): Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard.
+- **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
+- **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
+- **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
+- **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.
+- **Unity Unicorn** (Unity Stable): A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
+- **Voicemeeter Bug** (Audio Rescue): Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.
+- **VSCode Angel** (Halo List): Records code-review findings and next steps, then exports a Markdown worklist.
+- **White Hat Weasel** (White Hat Lab): Authorized security assessment and remediation.
+- **Wifi Butterfly** (Signal Garden): Placeholder: a monarch butterfly pet.
+- **Workflow Whale** (Workflow Whirlpool): Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.
 - **Browser Bat** (Browser Belfry) (architecture): Website QA and publishing for the Farmer.
 - **Queue Quokka** (Task Island) (architecture): Stalled jobs and handoffs.
 - **Test Tortoise** (Test Track) (architecture): Tests every new pet before it is registered.
-- **Agent Ant** (Agent Colony) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Cache Coyote** (Cache Canyon) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Calendar Crow** (Crow's Nest) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Closet Cat** (The Cat's Closet) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Cluster Crab** (Cluster Shore) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Data Dragonfly** (Data Marsh) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Docker Dragon** (Container Hoard) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Intel Owl** (Threat Observatory) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Llama Librarian** (Model Library) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **OSC Sealion** (OSC Sonar) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Passport Pelican** (Passport Harbor) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Photo Dodo** (Photo Roost) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Piranesi Nessi** (Nessi's Ocean) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Pole Puff** (Infinite Studio) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Port Spider** (Port Web) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Procreate Panda** (Bamboo Studio) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Proxy Axolotl** (Proxy Lake) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Rescue Retriever** (The Recovery Room) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Server Salamander** (Server Hearth) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Shell Squid** (Shell Trench) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Stock Fox** (Market Meadow) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Storage Stoat** (Storage Warren) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Sync Mink** (Sync Stream) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Token Toucan** (Token Canopy) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Triage Tapir** (The Triage Desk) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
-- **Update Urchin** (Update Tidepool) (architecture): The Farmer incubates every roadmap pet when its turn comes (ASTRAS_PET_OS, Farmer grows new pets).
-- **Video Vulture** (Video Vault) (architecture): The Farmer incubates every seed: requirements, scaffold, tests, approval, registration (ASTRAS_PET_OS, Farmer grows new pets).
+- **Agent Ant** (Agent Colony) (architecture): Agent experiments and tool-use evaluation.
+- **Cache Coyote** (Cache Canyon) (architecture): Offline-first documents, caches and queued actions.
+- **Calendar Crow** (Crow's Nest) (architecture): Calendar: scheduling, conflicts and reminders.
+- **Closet Cat** (The Cat's Closet) (architecture): Organizes your closet (what you own and what goes together) and keeps your favourite places to shop.
+- **Cluster Crab** (Cluster Shore) (architecture): Distributed services and orchestration.
+- **Data Dragonfly** (Data Marsh) (architecture): Data engineering: data integrity, schemas, pipelines.
+- **Docker Dragon** (Container Hoard) (architecture): Containers: Docker health and authorized management.
+- **Intel Owl** (Threat Observatory) (architecture): Researches emerging cyber threats, CVEs, adversary tactics and public advisories, including lawful Tor-based intelligence sources when separately authorized.
+- **Llama Librarian** (Model Library) (architecture): Local model inventory, downloads and compatibility.
+- **OSC Sealion** (OSC Sonar) (architecture): Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.
+- **Passport Pelican** (Passport Harbor) (architecture): Passport/ID metadata, visa research and deadlines, encrypted.
+- **Photo Dodo** (Photo Roost) (architecture): Keeps track of all your saved pictures: where each one is, what it shows, and whether it is backed up.
+- **Piranesi Nessi** (Nessi's Ocean) (architecture): Manages Piranesi House.
+- **Pole Puff** (Infinite Studio) (architecture): Manages Astra's Infinite Pole.
+- **Port Spider** (Port Web) (architecture): Authorized port and service exposure checks.
+- **Procreate Panda** (Bamboo Studio) (architecture): Handles the redlines Astra makes in Procreate and manages her Procreate tools and drawings.
+- **Proxy Axolotl** (Proxy Lake) (architecture): Reverse proxies, TLS and secure private remote access.
+- **Rescue Retriever** (The Recovery Room) (architecture): Runs The Recovery Room: after a shutdown, rebuilds the farm from the verified release, restores clean backups from before the incident, and restarts everything in the safe order, isolated and with no farmhand in its seat.
+- **Server Salamander** (Server Hearth) (architecture): Hosts: home servers, uptime, service health.
+- **Shell Squid** (Shell Trench) (architecture): Bash, terminal scripting and guarded automation.
+- **Stock Fox** (Market Meadow) (architecture): Named as an established pet in ASTRAS_PET_OS v5.2; no repo in the registry.
+- **Storage Stoat** (Storage Warren) (architecture): NAS, ZFS, snapshots and capacity health.
+- **Sync Mink** (Sync Stream) (architecture): Cross-device sync and conflict resolution.
+- **Token Toucan** (Token Canopy) (architecture): AI cost: model tokens, budgets and inference usage.
+- **Triage Tapir** (The Triage Desk) (architecture): Triages the vet-clinic: labels tickets, checks them for leaked secrets, and tests offered cures in isolation.
+- **Update Urchin** (Update Tidepool) (architecture): Dependency updates: packages, compatibility, rollback prep.
+- **Video Vulture** (Video Vault) (architecture): Keeps track of all your saved videos, the same way Photo Dodo does for pictures: where each one is, what it shows, and whether it is backed up.
 
 ## Picture
 
