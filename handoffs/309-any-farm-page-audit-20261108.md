@@ -1,4 +1,4 @@
-status: waiting for Astra's merge OK (#309)
+status: done, merged with Astra's OK in chat (2026-11-08: "Yes, merge both", #309 then #316)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, a side chat of the "PC Master Race" chat
 needs: nothing to merge; #267 (Codex's art review) stays the place to approve the drawings
@@ -31,8 +31,11 @@ shows up as a tool and I can click it".
    every pet program again.
 5. The Farm owns the Flash Audit; GitHub Goldfish keeps the checks about words on GitHub.
 
-Answers 3 to 5 are built in the next pull request, stacked on this one.
+Answers 3 to 5 are built in #316, stacked on this one.
 
 ## Receipt and review
 
-Pending.
+- Astra gave her OK in chat: "Yes, merge both" (#309, then #316).
+- `main` had not moved since #314 was merged in; checks passed (CodeQL). `npm test` then: 392 pass, 1 fail (installed farm
+  from scratch, Windows), the same as on `main`.
+- Open PRs on the same files that will need `main` merged in: #313, #290, #289, #281, #256, #254, #247, #218, #143, #36.
