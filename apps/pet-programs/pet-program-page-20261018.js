@@ -114,8 +114,9 @@
   }
   function reported(k) { var s = lights[k] || {}; return s.health === 'fix' || !!s.fix; }
   var SAYS = {
-    on: 'on. Click again to switch it off.',
-    off: 'off (the kill switch). Turning it back on asks you first.',
+    // Only her choice, kept in this browser: nothing on the PC reads it yet (Astra, 2026-11-08, answer 2: A).
+    on: 'on: your choice, saved in this browser. Nothing on the PC switches yet. Click again to switch it off.',
+    off: 'off: your choice, saved in this browser. Nothing on the PC is stopped yet. Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
@@ -788,7 +789,7 @@
         var b = el('button', null, 'light ' + kind);
         b.type = 'button';
         b.dataset.item = item; b.dataset.name = name;
-        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
+        b.title = kind === 'onoff' ? 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.' : 'Working correctly or requires maintenance: click to mark';
         b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
         pair.appendChild(b);
       });

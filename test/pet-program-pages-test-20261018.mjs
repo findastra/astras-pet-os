@@ -220,6 +220,17 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
 });
 
+// Astra, 2026-11-08: "I think a lot of these buttons aren't really working on the farm. We should know how they're
+// supposed to work"; deck "The Farm: art and lights", answer 2: A ("All recommended").
+test('a native ON/OFF light says it only keeps the choice in this browser; a program\'s says it opens and closes it', () => {
+  const farm = files[pagePath('astras-pet-os')];
+  assert.doesNotMatch(farm, /kill switch\): click to switch/, 'no light promises a kill switch that nothing reads');
+  assert.match(farm, /data-item="tool:click-check"[^>]*title="ON\/OFF: your choice, saved in this browser\. Nothing on the PC switches yet\."/, 'a native tool');
+  assert.match(farm, /data-item="third-party:github"[^>]*title="ON\/OFF: green while it is open on this PC\. Click to open or close it"/, 'a 3rd party program');
+  const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
+  assert.match(js, /on: 'on: your choice, saved in this browser\. Nothing on the PC switches yet\./, 'its words when clicked');
+});
+
 // Astra, 2026-11-08, on the Farmer's page: "a lot of these pets and their descriptions are wrong and the images just
 // aren't there. So you need to go in and get the new stuff."
 test('every friend says what it does and has a picture: no line shared by three friends, review drawings when no other', () => {

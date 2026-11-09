@@ -391,10 +391,16 @@ const careOf = (key, planned, unseen) => {
   return r === 'missing' || (planned && !unseen && !r) ? ['is-unset', 'not created'] : r === 'works' ? ['', 'checked, works']
     : r === 'update' ? ['is-update', 'update waiting for your approval'] : ['is-fix', 'report issues'];
 };
+// What the ON/OFF light does today, said on the light itself (Astra, 2026-11-08, deck "The Farm: art and lights", answer
+// 2: A, "say so on the light now, real switches tool by tool"): a 3rd party program's opens and closes it through
+// Inference Iguana's watch, a device's shows what SteamVR sees, and any other only keeps her choice in this browser,
+// because nothing on the PC reads it yet.
+export const ONOFF_SAYS = 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.';
+const onoffTip = (key, unseen) => (/^device:/.test(key) ? 'ON/OFF: green while SteamVR has it on' : unseen ? 'ON/OFF: green while it is open on this PC. Click to open or close it' : ONOFF_SAYS);
 const lights = (key, name, { planned = false, unseen = false, presence = false } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
-  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : 'ON/OFF (kill switch): click to switch'}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
+  return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : onoffTip(key, unseen)}"></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
 
 export const SIDES = { avatar: 'Avatar tools', world: 'World tools' };

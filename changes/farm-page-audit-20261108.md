@@ -24,10 +24,14 @@ Farm's click-check):
   names, not buttons, so click-check no longer clicks them.
 - Not page errors: the request for `Astra's PetOS Data/.../programs-page-data.js` and the chat's helper file only fail
   when the page is opened outside Astra's farm folder; the live site never asks for them.
+- **The ON/OFF lights** of native tools only keep Astra's choice in this browser; nothing on the PC reads them. They now
+  say so on the light (tooltip and words), as she chose on the deck "The Farm: art and lights" ("All recommended",
+  answer 2: A); a 3rd party program's says it opens and closes it, a device's that it shows what SteamVR sees.
 
-Files: `scripts/pet-program-pages-20261018.mjs`, `scripts/click-check-20261019.mjs`, 41 drawings in
+Files: `scripts/pet-program-pages-20261018.mjs`, `scripts/click-check-20261019.mjs`,
+`apps/pet-programs/pet-program-page-20261018.js`, `PET-PROGRAM-FRAMEWORK.md`, 41 drawings in
 `art/drafts/body-and-center-review-20261031/normalized/`, and what `npm run build` made from them (pages, Markdown
 pets, `art/latest`).
 
-Not done here: how every button on the page is meant to work (many lights only switch in the browser, and the 3rd
-party lights need Inference Iguana's watch), and the Flash Audit as tools on The Farm.
+Not done here: real switches for native tools (one at a time, later), and the Flash Audit as tools on The Farm (the
+next pull request, stacked on this one).

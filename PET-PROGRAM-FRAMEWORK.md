@@ -226,7 +226,7 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
 
    | Button | Colours | Clicking it |
    |---|---|---|
-   | **Left: ON/OFF** (the kill switch) | **green** on · **red** off | Turns the item off at once. Turning it back on after a security OFF needs L4 (section 4). The state lives in the core, not in the item. |
+   | **Left: ON/OFF** (the kill switch) | **green** on · **red** off | Turns the item off at once. Turning it back on after a security OFF needs L4 (section 4). The state lives in the core, not in the item. **Today** a native item's ON/OFF only keeps her choice in this browser, and its tooltip and its words say so; each tool gets a real switch one at a time (Astra, 2026-11-08: "All recommended", answer 2: A). A 3rd party program's opens and closes it through Inference Iguana's watch (2026-11-06). |
    | **Right: maintenance** | **blue** checked, and it works · **orange** report issues (you reported one, a check found one, or nobody has checked it yet) · **yellow** an update is waiting for your OK · **grey** not created | Marks it as reporting an issue: your report that it is broken from your point of view. It goes to the Farmer's `broken-tools-on-the-farm` and the backlog, and only you clear it. Its colour comes from a check recorded in pets.json `checks`, never a default (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work or not by you"; 2026-10-26: "switch update color and report issues color"). |
 
    Each button has a tooltip, keyboard focus and a name a screen reader reads ("copyright-auditor: on",
