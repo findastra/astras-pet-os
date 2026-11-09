@@ -17,6 +17,9 @@ import { checkPack, codeDifferences, codeFolder, folderChanges, readPack } from 
 import { MANIFEST, buildPack, repoAt, unzip, zip } from '../scripts/pet-packs-20261020.mjs';
 import { readSpawnerSources } from '../scripts/pet-program-pages-20261018.mjs';
 
+// These tests stand in for Astra's Windows farm, so they read the same on GitHub's Linux runner (2026-11-08).
+process.env.PETOS_OS = 'windows';
+
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const read = (rel) => readFileSync(join(root, rel), 'utf8').replace(/^﻿/, '');
 const json = (path) => JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, ''));
