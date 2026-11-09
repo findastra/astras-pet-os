@@ -1,6 +1,6 @@
 # 305 · One crash watch at sign-in (for Astra)
 
-Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-08. Status: four PRs open, waiting for Astra's OK on each.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-08. Status: **done** (merged and rebuilt on the PC, 2026-11-08).
 
 ## What I did
 
@@ -18,12 +18,14 @@ Astra answered the three questions on 2026-11-08: "All recommended".
 
 Details and checks are in `changes/one-crash-watch-20261108.md`.
 
-## What is left
-- Astra's OK for each PR, merged in the order above. Retarget #305 to main before #302 merges (stacked PRs).
-- On the PC after the merges:
-  1. Quit the three pets from the star's menu.
-  2. Pull and build packet-river and evidence-locker, then log-den.
-  3. Rebuild and restart the star.
-  4. Check that Task Manager shows one `log-den-20261018.exe` and no `packet-river-` or `evidence-locker-` program.
-- Until log-den is rebuilt, the old star still starts all three. That stays safe: Packet River and Evidence Locker see
-  their watch running in Log Den and exit.
+## Done, 2026-11-08
+- Astra: "Yes, merge all four".
+  - Merged packet-river#15, evidence-locker#15 and log-den#15.
+  - #305 was moved to main (after #302 had merged), test-merged with main (#298, #301) and re-tested: the star's self-test
+    passes, and hub tests have 384 passing and the known failure. Then merged.
+- Rebuilt on the PC, after Astra's "Yes, rebuild now":
+  - The three old watchers were quit; Packet River, Evidence Locker and Log Den were built (self-tests 36, 37 and 64).
+  - The star was quit, rebuilt and started again through its scheduled task.
+  - Task Manager now has one `log-den-20261018.exe` (Packet River and Evidence Locker have none). All three pets' mood
+    files were written at 15:32.
+- Not rebuilt: the pet chat helper was running, so the star's build skipped it (unchanged code).
