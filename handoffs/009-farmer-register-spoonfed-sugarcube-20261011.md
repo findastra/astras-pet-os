@@ -223,13 +223,14 @@ connection), so it shows real places of that type nearby; the page no longer ask
   Cocktail bar; the Bar choice under the reels stays for restaurants with a bar.
 - "a more like distinct like white border around all of these cards": every card has a light edge.
 
-spoonfed ef79d01 has all of it. On her "Yes, make the PR", findastra.github.io#43 puts it on the phone link; it
-waits for her merge OK.
+spoonfed ef79d01 has all of it. On her "Yes, make the PR", findastra.github.io#43 put it on the phone link;
+squash-merged as 4494a2f on her "Yes, merge #43". Live and checked: Pages built 4494a2f, the page serves the new
+script and the old one answers 404; a rolled card shows the satellite map, one row and no X.
 
 She also asked for ideas to texture the plain brown page (maybe changing with each roll), how rolling should work
 with real places in a big area, and where things are saved: answered in chat, nothing built yet.
 
-**Still open:** her merge OK for findastra.github.io#43; the six questions in
+**Still open:** the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); the Google Places key
 (restaurants are still made up, so Feed me can't roll real places near her); her merge OK for spoonfed#9; the cuisine
 reel still cuts long types ("Indonesi…") on phones.
