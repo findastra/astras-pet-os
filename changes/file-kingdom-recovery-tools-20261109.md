@@ -41,4 +41,4 @@ file-master on made-up folders (22, 25 and 30 checks).
 File Master's look was not run, so on Astra's PC the tool boxes still show the save map as it was until the look runs
 with file-master pull request 14. The three tool names were picked without Astra.
 
-By Claude Fable 5.2 (`claude-fable-5-2`), 2026-11-09.
+By Claude Fable 5.2 (`claude-fable-5-2`), 2026-11-09. Pull request 321, card 321; file-master pull request 14.
