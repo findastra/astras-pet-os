@@ -9,7 +9,7 @@ Whatever you use, make sure it shows up as a tool (in a pill) on the pet program
 
 - **system-map.json:** File Kingdom's first toolset, `save-map`, with four tools that work on the page
   (`where-to-save`, `where-things-live`, `out-of-place`, `save-map-look`), and six tools that had no node:
-  `folder-blockers`, `project-mover`, `project-gatherer` (file-master pull request 13, not merged; each node says so)
+  `folder-blockers`, `project-mover`, `project-gatherer` (file-master pull request 13, merged the same day)
   and the three older scripts card 044 left off the map for want of names, `file-scan`, `cleanup-plan` and `undo-plan`
   (names picked here: Astra may change them). `everything-search`, File Kingdom's connector to Everything, works now
   (it was planned) and runs on ES. Two 3rd party programs every File Kingdom tool runs on are new nodes: Git for

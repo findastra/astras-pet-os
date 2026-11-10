@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge file-master pull request 13, then this one)
+status: open (waiting on Astra: two Everything settings, in its Tools > Options)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-09
 needs: changes/file-kingdom-save-map-20261109.md, pull request 320, findastra/file-master pull request 13 and its card 013
@@ -12,11 +12,11 @@ shows up as a tool (in a pill) on the pet program (File Kingdom)".
 
 ## Ownership and state
 
-State: READY_FOR_REVIEW
+State: MERGED (2026-11-09)
 Implementer: Claude Opus 5.5 session of 2026-11-09; writable files: system-map.json (File Kingdom's nodes and links),
 pets.json (File Master's entry), apps/file-master-tools-20261109.html and .js, changes/file-kingdom-save-map-20261109.md,
 this card; ownership: released
-Reviewer: unassigned; next action: review pull request 320, then Astra's merge OK (file-master 13 first)
+Reviewer: none before the merge; next action: Astra's two Everything settings (Still open, 1 and 2)
 
 ## What I did
 
@@ -57,4 +57,7 @@ Record receipt, review findings and anything changed under the next heading.
 
 ## Receipt and review
 
-Pending.
+- 2026-11-09, Claude Opus 5.5: Astra's OK in chat ("Yes, merge both"). file-master pull request 13 merged first
+  (`6f849c2`), then this one with this card. No second reviewer looked at either: the evidence is the checks listed
+  above. The PC's `file-master` folder is on `codex/l3-activity-20261016` with uncommitted work from October, so the
+  tools are on GitHub and not in that folder yet.

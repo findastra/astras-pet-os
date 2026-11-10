@@ -2373,7 +2373,7 @@
       "category": "Tool (shared)",
       "version": "v1.0",
       "label": "pet-program-12-v1.0-everything-search-v1.0",
-      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search), through Everything’s command line, es.exe. Works since 2026-11-09 (file-master scripts/lib/file-master-everything-20261109.ps1; in file-master’s pull request 13, not merged yet): File Kingdom’s looks ask Everything’s index first and walk only what it does not cover. Read only; it never starts or configures Everything. One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search (planned).",
+      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search), through Everything’s command line, es.exe. Works since 2026-11-09 (file-master scripts/lib/file-master-everything-20261109.ps1): File Kingdom’s looks ask Everything’s index first and walk only what it does not cover. Read only; it never starts or configures Everything. One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search (planned).",
       "does": "File Kingdom’s one connector to Everything: asks its index for files, sizes and dates."
     },
     {
@@ -2457,7 +2457,7 @@
       "version": "v1.0",
       "label": "file-kingdom-v1.0-save-map-look-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
-      "job": "A tool of File Kingdom (file-master scripts/save-map-look-20261109.ps1; in file-master’s pull request 13, not merged yet): asks Everything about every place on the save map and looks for things saved in the wrong place (programs’ settings folders that left the user folder, repos outside the PetOS folder, installers, files named like secrets, folders at the top of C:). About 20 seconds. Read only. Its box shows the last look, Everything’s state, the cleanup plans waiting for your approval and when each tool last ran.",
+      "job": "A tool of File Kingdom (file-master scripts/save-map-look-20261109.ps1): asks Everything about every place on the save map and looks for things saved in the wrong place (programs’ settings folders that left the user folder, repos outside the PetOS folder, installers, files named like secrets, folders at the top of C:). About 20 seconds. Read only. Its box shows the last look, Everything’s state, the cleanup plans waiting for your approval and when each tool last ran.",
       "does": "Looks at every place on the save map and at what is out of place, through Everything. Read only.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
       "frame": "wide",
@@ -2474,7 +2474,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-folder-blockers-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/folder-blockers-20261109.ps1; in file-master’s pull request 13, not merged yet): when Windows says a folder is open in another program, it names the programs started from it, working in it or holding a file in it, and File Explorer’s windows and Quick access pins. Read only.",
+      "job": "A tool of File Kingdom (file-master scripts/folder-blockers-20261109.ps1): when Windows says a folder is open in another program, it names the programs started from it, working in it or holding a file in it, and File Explorer’s windows and Quick access pins. Read only.",
       "does": "Says which programs hold a folder when Windows will not move it. Read only."
     },
     {
@@ -2487,7 +2487,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-project-mover-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/project-mover-20261109.ps1; in file-master’s pull request 13, not merged yet): moves or renames a project folder on one drive. Dry run unless told to apply; stops and restarts what holds the folder only with your yes; repoints scheduled tasks, Run keys, shortcuts and pins; repairs every git working copy; leaves no link under the old name; writes an undo line.",
+      "job": "A tool of File Kingdom (file-master scripts/project-mover-20261109.ps1): moves or renames a project folder on one drive. Dry run unless told to apply; stops and restarts what holds the folder only with your yes; repoints scheduled tasks, Run keys, shortcuts and pins; repairs every git working copy; leaves no link under the old name; writes an undo line.",
       "does": "Moves or renames a project folder without breaking it: startup entries, shortcuts, pins and git follow."
     },
     {
@@ -2500,7 +2500,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-project-gatherer-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/project-gatherer-20261109.ps1; in file-master’s pull request 13, not merged yet): finds repos, duplicate clones, repos with no remote, commits that exist only on this PC, assistants’ working copies and files hidden in the Claude or Codex app’s private storage, and writes a plan. It asks Everything for every .git on the drives Everything indexes. Read only.",
+      "job": "A tool of File Kingdom (file-master scripts/project-gatherer-20261109.ps1): finds repos, duplicate clones, repos with no remote, commits that exist only on this PC, assistants’ working copies and files hidden in the Claude or Codex app’s private storage, and writes a plan. It asks Everything for every .git on the drives Everything indexes. Read only.",
       "does": "Finds project work outside the PetOS folder and writes a plan to bring it home. Read only."
     },
     {
