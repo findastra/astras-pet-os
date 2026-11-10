@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-325 rows: 14 native programs, 151 native tools, 20 native tricks, 140 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+326 rows: 14 native programs, 152 native tools, 20 native tricks, 140 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -145,6 +145,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | astras-pet-os-mcp | `the-farm-v1.0-astras-pet-os-mcp-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
