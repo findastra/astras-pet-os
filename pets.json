@@ -1162,7 +1162,17 @@
           {
             "node": "windows-powershell",
             "how": "required",
-            "why": "Every File Kingdom tool is a Windows PowerShell script. It is part of Windows."
+            "why": "Every File Kingdom tool but one is a Windows PowerShell script. It is part of Windows."
+          },
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "claude-chat-repointer runs on Node.js (20 or newer). Every other File Kingdom tool works without it."
+          },
+          {
+            "node": "github-cli",
+            "how": "optional",
+            "why": "temp-copies-check asks GitHub through it whether a commit that is on no remote here is on GitHub anyway. Without it the check says so and skips that question."
           }
         ]
       },
@@ -1258,6 +1268,31 @@
         "tool:undo-plan": {
           "result": "works",
           "note": "Moved the test plan’s items back and repaired the git links.",
+          "on": "2026-11-09"
+        },
+        "third-party:nodejs": {
+          "result": "works",
+          "note": "Node 24.20.0 ran claude-chat-repointer’s 25 checks on made-up chat records.",
+          "on": "2026-11-09"
+        },
+        "third-party:github-cli": {
+          "result": "works",
+          "note": "gh 2.102.0 answered two commit look-ups for temp-copies-check: one commit GitHub has, one it has never seen.",
+          "on": "2026-11-09"
+        },
+        "tool:program-home-restorer": {
+          "result": "works",
+          "note": "Tested on a made-up user folder: 22 of 22 checks (dry run, apply, a second run, undo, a project’s own .claude left alone). Not run on the real user folder in this form; the two scripts it comes from moved 19 program homes back on 2026-11-09.",
+          "on": "2026-11-09"
+        },
+        "tool:claude-chat-repointer": {
+          "result": "issues",
+          "note": "It passed 25 of 25 checks on made-up chat records (dry run, refusing while the app runs, apply, undo byte for byte). Two things to know: the Claude app does not support it, and its records step has never run on the app’s real records, only on copies. Treat it as untried until its first real run.",
+          "on": "2026-11-09"
+        },
+        "tool:temp-copies-check": {
+          "result": "works",
+          "note": "Tested on a made-up Temp folder: 30 of 30 checks (every verdict, the git index left untouched, two look-ups on GitHub). Not run on the real Temp in this form; the script it comes from checked 1,330 copies on 2026-11-09.",
           "on": "2026-11-09"
         }
       }

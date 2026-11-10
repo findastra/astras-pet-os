@@ -18,9 +18,14 @@
   var inTool = false;
   try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
   if (inTool) document.documentElement.classList.add('in-tool');
+  // The height told is the content's, not the window's (the window is never shorter than its box, so a box once told
+  // too tall could never come back down), and nothing is told while the box has no width: a page loaded in a hidden
+  // pane wraps every word onto its own line and would ask for the tallest box there is.
   function tell() {
-    if (!inTool) return;
-    try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ }
+    if (!inTool || !document.documentElement.clientWidth) return;
+    var cs = getComputedStyle(document.body);
+    var h = Math.ceil(document.body.getBoundingClientRect().height + (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0));
+    try { window.parent.postMessage({ type: 'tool-panel-height', height: h }, '*'); } catch (e) { /* no page around it */ }
   }
   if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
 
@@ -58,7 +63,7 @@
     row.appendChild(b);
     return row;
   }
-  var ROLE_KIND = { home: 'ok', data: 'ok', inbox: 'cool', keep: '', hold: 'no', auto: '', temp: 'no' };
+  var ROLE_KIND = { start: 'ok', home: 'ok', data: 'ok', inbox: 'cool', keep: '', hold: 'no', auto: '', temp: 'no' };
 
   // ---- what each tool box shows ----
   function whereToSave(d) {
@@ -175,15 +180,25 @@
       { ask: 'Big or private files for a project: art originals, renders, recordings', save_in: ["%USERPROFILE%\\Documents\\Astra's PetOS Data\\<repo>\\<kind>"], note: 'Kept out of git on purpose.' },
       { ask: 'An installer', save_in: ['%USERPROFILE%\\Downloads\\installers'], note: 'One copy each.' },
       { ask: 'A secret: an API key, token or password', save_in: ['A password manager; keys through API Fairy'], note: 'Never a plain file.' },
+      { ask: 'A program’s own home: its settings folder or file, the kind whose name starts with a dot (.claude, .codex, .gitconfig)', save_in: ['%USERPROFILE%'], note: 'It already lives in your user folder, and it stays there. Never move it: the program stops finding its chats and its sign-in. If one was moved, program-home-restorer puts it back.' },
+      { ask: 'A new Claude chat: the folder it works in', save_in: ['%USERPROFILE%\\Documents'], note: 'Every Claude chat works from Documents, so no chat starts in the wrong spot. The chat then saves each thing in its place from this list.' },
+      { ask: 'Something a chat or a test needs only while it runs', save_in: ['%LOCALAPPDATA%\\Temp'], note: 'Never anything you want to keep: Windows deletes old files in Temp by itself.' },
       { ask: 'Not sure, or only for now', save_in: ['%USERPROFILE%\\Downloads'], note: 'Temporary.' }
     ],
-    groups: [{ id: 'documents', title: 'Documents: everything we make' }, { id: 'user-folder', title: 'Your user folder' }],
-    roles: { home: 'Projects live here', data: 'Project files kept out of git', inbox: 'Drop things here; they get sorted', auto: 'A program’s own; leave it' },
+    groups: [{ id: 'documents', title: 'Documents: everything we make' }, { id: 'user-folder', title: 'Your user folder' }, { id: 'c-drive', title: 'C: drive' },
+      { id: 'not-storage', title: 'Not storage: places programs and assistants write to' }],
+    roles: { start: 'Every Claude chat works from here', home: 'Projects live here', data: 'Project files kept out of git', inbox: 'Drop things here; they get sorted',
+      hold: 'Held for you to empty', auto: 'A program’s own; leave it', temp: 'Throwaway; nothing is kept here' },
     places: [
+      { group: 'documents', path: '%USERPROFILE%\\Documents', role: 'start', holds: 'The working folder of every Claude chat, so no chat has to guess where things go.', who: 'you and every Claude chat' },
       { group: 'documents', path: "%USERPROFILE%\\Documents\\Astra's PetOS", role: 'home', holds: 'Every project repo, one folder per repo.', who: 'you and every assistant' },
       { group: 'documents', path: "%USERPROFILE%\\Documents\\Astra's PetOS Data", role: 'data', holds: 'Project files that stay out of git.', who: 'you and every assistant' },
-      { group: 'user-folder', path: '%USERPROFILE%', role: 'auto', holds: 'Each program’s own settings folder, the ones whose names start with a dot. They stay here.', who: 'the programs' },
-      { group: 'user-folder', path: '%USERPROFILE%\\Downloads', role: 'inbox', holds: 'Anything not sorted yet.', who: 'you' }
+      { group: 'user-folder', path: '%USERPROFILE%', role: 'auto', holds: 'Program homes: each program’s own settings folder or file, the ones whose names start with a dot. They stay here; nothing moves them.', who: 'the programs' },
+      { group: 'user-folder', path: '%USERPROFILE%\\Downloads', role: 'inbox', holds: 'Anything not sorted yet.', who: 'you' },
+      { group: 'c-drive', path: 'C:\\_file-master-holding', role: 'hold', holds: 'File Master’s quarantine: things it moved out of the way instead of deleting. It only grows until you empty it.', who: 'File Master; you empty it' },
+      { group: 'not-storage', path: '%LOCALAPPDATA%\\Temp', role: 'temp', holds: 'Windows’ Temp folder. Chats and test runs make copies of projects here. Not a place to keep work: Windows deletes old files by itself. temp-copies-check lists every copy and which hold work saved nowhere else.', who: 'programs and assistants' },
+      { group: 'not-storage', path: '%LOCALAPPDATA%\\Packages\\<the Claude app>\\LocalCache\\Local', role: 'auto', holds: 'The Claude app’s private copy of Local app data. What a program started inside the app writes to AppData lands here, and other programs do not see it. Leave it alone: nothing is moved or rearranged inside it.', who: 'the Claude app' },
+      { group: 'not-storage', path: '%LOCALAPPDATA%\\Packages\\<the Codex app>\\LocalCache\\Local', role: 'auto', holds: 'The Codex app’s private copy of Local app data, the same way. Leave it alone.', who: 'the Codex app' }
     ]
   };
 
