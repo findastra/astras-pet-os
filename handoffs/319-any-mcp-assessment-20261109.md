@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the eight questions in the deck "MCP Server Questions")
+status: open (answered 2026-11-09: all recommended; each yes is being done, one pull request at a time)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-09
 needs: docs/mcp-assessment-20261109.md, card 306, #254, #255
@@ -47,6 +47,15 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
 6. Turn off the ten plugin servers that were never signed in to (the plugins' skills stay). Recommended: yes.
 7. Serena in #255. Recommended: keep it off and take it out, with the second Context7.
 8. Which mail and calendar Astra uses (decides Mail Snail, Calendar Crow, Mommy's Mommies). No recommendation.
+
+**Astra's answers, 2026-11-09:** "All recommended, but I use iCloud and Android, so I guess both google and iCloud."
+
+- 1 to 7: the recommended answer each (yes to #254 after the fix, Microsoft Learn in Claude Code and Codex, MCP
+  Inspector kept by White Hat Weasel, alphaXiv and PubMed, Yelp, the ten plugin servers off with their skills kept,
+  Serena off and out of #255).
+- 8: both. The Google side (her Android phone) can use the Gmail and Google Calendar connectors already connected,
+  read-only first, when Mail Snail, Calendar Crow or Mommy's Mommies are built; the iCloud side waits for a safe
+  Windows option.
 
 ## Found on the PC while checking (not changed here)
 
