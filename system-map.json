@@ -973,6 +973,26 @@
       "does": "Everything’s command line: asks Everything for files from a script."
     },
     {
+      "id": "git-for-windows",
+      "name": "Git for Windows",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Command-line tool",
+      "job": "Third-party program (the Git for Windows project, GPL v2): git 2.55 on this PC (checked 2026-11-09). File Kingdom’s tools ask it what each repo holds that GitHub does not, and have it repair working-copy links after a folder moves.",
+      "does": "Git: keeps each project’s history and says what was never pushed."
+    },
+    {
+      "id": "windows-powershell",
+      "name": "Windows PowerShell",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Command-line tool",
+      "job": "Third-party program (Microsoft): Windows PowerShell 5.1, part of Windows (checked 2026-11-09). Every File Kingdom tool is a PowerShell script that runs on it.",
+      "does": "Windows’ own script runner: File Kingdom’s tools run on it."
+    },
+    {
       "id": "wiztree",
       "name": "WizTree",
       "type": "program",
@@ -2348,12 +2368,179 @@
       "name": "everything-search",
       "type": "tool",
       "of": "file-kingdom",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool (shared)",
       "version": "v1.0",
       "label": "pet-program-12-v1.0-everything-search-v1.0",
-      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search). One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search."
+      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search), through Everything’s command line, es.exe. Works since 2026-11-09 (file-master scripts/lib/file-master-everything-20261109.ps1; in file-master’s pull request 13, not merged yet): File Kingdom’s looks ask Everything’s index first and walk only what it does not cover. Read only; it never starts or configures Everything. One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search (planned).",
+      "does": "File Kingdom’s one connector to Everything: asks its index for files, sizes and dates."
+    },
+    {
+      "id": "save-map",
+      "name": "save-map",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-save-map-v1.0",
+      "job": "A toolset of File Kingdom (Astra, 2026-11-09: “some kind of flow tree that shows me where everything is saved and where I should save things”; “I need the File Kingdom (Pet Program) to have this information in panels”): the save map, one place for each kind of thing, as tools on this page. They show what File Master’s last look wrote on this PC (Documents\\Astra's PetOS Data\\file-master\\file-kingdom-page-data.js) and nothing about any PC anywhere else.",
+      "does": "The save map: where each kind of thing is saved, where everything lives, and what is out of place."
+    },
+    {
+      "id": "where-to-save",
+      "name": "where-to-save",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-where-to-save-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-to-save",
+      "job": "A tool of File Kingdom: the save map’s questions. Ask them in order, the first yes wins, and each answer is one folder with its path to copy. The questions are file-master’s config/save-map-20261109.json.",
+      "does": "Answers “where do I save this?”: find the kind of thing, get the one folder it goes in.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-to-save",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "where-things-live",
+      "name": "where-things-live",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-where-things-live-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-things-live",
+      "job": "A tool of File Kingdom: every place on the save map, drive by drive, with what lives there, who saves there, how many files, how big and when it last changed (from Everything’s index), and a search box.",
+      "does": "Every place on the save map, drive by drive: what lives there, how much, and its path to copy.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-things-live",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "out-of-place",
+      "name": "out-of-place",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-out-of-place-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=out-of-place",
+      "job": "A tool of File Kingdom: what save-map-look found saved in the wrong place, most serious first: why it matters, examples, and which tool or step fixes it. Read only; nothing is moved from here.",
+      "does": "What the last look found saved in the wrong place, most serious first, and what fixes each.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=out-of-place",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "save-map-look",
+      "name": "save-map-look",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-save-map-look-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
+      "job": "A tool of File Kingdom (file-master scripts/save-map-look-20261109.ps1; in file-master’s pull request 13, not merged yet): asks Everything about every place on the save map and looks for things saved in the wrong place (programs’ settings folders that left the user folder, repos outside the PetOS folder, installers, files named like secrets, folders at the top of C:). About 20 seconds. Read only. Its box shows the last look, Everything’s state, the cleanup plans waiting for your approval and when each tool last ran.",
+      "does": "Looks at every place on the save map and at what is out of place, through Everything. Read only.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "folder-blockers",
+      "name": "folder-blockers",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-folder-blockers-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/folder-blockers-20261109.ps1; in file-master’s pull request 13, not merged yet): when Windows says a folder is open in another program, it names the programs started from it, working in it or holding a file in it, and File Explorer’s windows and Quick access pins. Read only.",
+      "does": "Says which programs hold a folder when Windows will not move it. Read only."
+    },
+    {
+      "id": "project-mover",
+      "name": "project-mover",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-project-mover-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/project-mover-20261109.ps1; in file-master’s pull request 13, not merged yet): moves or renames a project folder on one drive. Dry run unless told to apply; stops and restarts what holds the folder only with your yes; repoints scheduled tasks, Run keys, shortcuts and pins; repairs every git working copy; leaves no link under the old name; writes an undo line.",
+      "does": "Moves or renames a project folder without breaking it: startup entries, shortcuts, pins and git follow."
+    },
+    {
+      "id": "project-gatherer",
+      "name": "project-gatherer",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-project-gatherer-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/project-gatherer-20261109.ps1; in file-master’s pull request 13, not merged yet): finds repos, duplicate clones, repos with no remote, commits that exist only on this PC, assistants’ working copies and files hidden in the Claude or Codex app’s private storage, and writes a plan. It asks Everything for every .git on the drives Everything indexes. Read only.",
+      "does": "Finds project work outside the PetOS folder and writes a plan to bring it home. Read only."
+    },
+    {
+      "id": "file-scan",
+      "name": "file-scan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-file-scan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Invoke-FileMasterScan.ps1): duplicates, half downloads, files with no extension, piles of installers and logs, empty folders, repos with unpushed work, new and stale projects. Writes a report and a plan. Read only.",
+      "does": "The audit of your folders and projects: duplicates, half downloads, piles, broken projects. Read only."
+    },
+    {
+      "id": "cleanup-plan",
+      "name": "cleanup-plan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-cleanup-plan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Invoke-FileMasterPlan.ps1): carries out only the rows of a plan you marked yes. Dry run first; moves and renames; quarantines into _file-master-holding instead of deleting; skips a folder a program holds; writes an undo log.",
+      "does": "Carries out the plan rows you approved: moves and renames, never deletes, writes an undo log."
+    },
+    {
+      "id": "undo-plan",
+      "name": "undo-plan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-undo-plan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Undo-FileMasterPlan.ps1): puts back what a plan run moved, from its undo log, and repairs git working-copy links.",
+      "does": "Puts back everything a plan run moved, from its undo log."
     },
     {
       "id": "footprint-meter",
@@ -5861,8 +6048,8 @@
       "from": "file-master",
       "to": "everything-search",
       "carries": "manages",
-      "state": "planned",
-      "why": "File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+      "state": "now",
+      "why": "File Master owns file organization and indexing (ASTRAS_PET_OS). Since 2026-11-09 File Kingdom’s looks ask Everything’s index for the whole PC (Astra: “a major tool here is Everything Search, I want you to be using that to create these organizational assessments”)."
     },
     {
       "from": "file-master",
@@ -7171,14 +7358,14 @@
       "from": "file-kingdom",
       "to": "new-programs-watch",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "The new-programs watch is a tool of File Master’s pet program."
     },
     {
       "from": "new-programs-watch",
       "to": "everything-search",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Asks Everything (voidtools) for programs added anywhere on the PC, when it is installed."
     },
     {
@@ -7227,7 +7414,7 @@
       "from": "file-kingdom",
       "to": "repo-catcher",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "repo-catcher is a tool of File Master’s pet program."
     },
     {
@@ -7276,14 +7463,14 @@
       "from": "file-kingdom",
       "to": "everything-search-tool",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "everything-search is a shared tool owned by File Master’s pet program."
     },
     {
       "from": "everything-search-tool",
       "to": "everything-search",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Asks Everything (voidtools) to search the PC."
     },
     {
@@ -7292,6 +7479,146 @@
       "carries": "opens",
       "state": "planned",
       "why": "Grant from Iron Gates: its own folder only, read only, 50 results per search."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "save-map",
+      "carries": "opens",
+      "state": "now",
+      "why": "save-map is a toolset of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "where-to-save",
+      "carries": "opens",
+      "state": "now",
+      "why": "where-to-save is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "where-things-live",
+      "carries": "opens",
+      "state": "now",
+      "why": "where-things-live is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "out-of-place",
+      "carries": "opens",
+      "state": "now",
+      "why": "out-of-place is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "save-map-look",
+      "carries": "opens",
+      "state": "now",
+      "why": "save-map-look is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "folder-blockers",
+      "carries": "opens",
+      "state": "now",
+      "why": "folder-blockers is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "project-mover",
+      "carries": "opens",
+      "state": "now",
+      "why": "project-mover is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "project-gatherer",
+      "carries": "opens",
+      "state": "now",
+      "why": "project-gatherer is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "file-scan",
+      "carries": "opens",
+      "state": "now",
+      "why": "file-scan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "cleanup-plan",
+      "carries": "opens",
+      "state": "now",
+      "why": "cleanup-plan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "undo-plan",
+      "carries": "opens",
+      "state": "now",
+      "why": "undo-plan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "everything-search-tool",
+      "to": "es-cli",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything through its command line, es.exe."
+    },
+    {
+      "from": "save-map-look",
+      "to": "everything-search",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything about every place on the save map and for what is out of place."
+    },
+    {
+      "from": "project-gatherer",
+      "to": "everything-search",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything for every .git on the drives it indexes."
+    },
+    {
+      "from": "project-gatherer",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks git what each repo holds that GitHub does not."
+    },
+    {
+      "from": "project-mover",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Has git repair every working copy’s link after a folder moves."
+    },
+    {
+      "from": "repo-catcher",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks git about unpushed commits and branches."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "windows-powershell",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Every File Kingdom tool is a Windows PowerShell script."
+    },
+    {
+      "from": "git-for-windows",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed on the Desktop PC (git 2.55, checked 2026-11-09)."
+    },
+    {
+      "from": "windows-powershell",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Part of Windows on the Desktop PC (5.1, checked 2026-11-09)."
     },
     {
       "from": "the-police-station",

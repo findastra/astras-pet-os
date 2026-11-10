@@ -1132,12 +1132,27 @@
           {
             "node": "everything-search",
             "how": "optional",
-            "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+            "why": "File Master’s looks ask Everything’s index for the whole PC (since 2026-11-09). Without Everything they walk the folders, slowly."
           },
           {
             "node": "spacesniffer",
             "how": "optional",
             "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+          },
+          {
+            "node": "es-cli",
+            "how": "optional",
+            "why": "Everything’s command line: File Kingdom’s everything-search connector asks Everything through it."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "optional",
+            "why": "File Kingdom’s tools ask git what each repo holds that GitHub does not, and have it repair working-copy links after a folder moves. Without git those checks are skipped."
+          },
+          {
+            "node": "windows-powershell",
+            "how": "required",
+            "why": "Every File Kingdom tool is a Windows PowerShell script. It is part of Windows."
           }
         ]
       },
@@ -1158,7 +1173,84 @@
           "visibility": "private",
           "version": "v1.0"
         }
-      ]
+      ],
+      "checks": {
+        "third-party:everything-search": {
+          "result": "issues",
+          "note": "It answered every search today (Everything 1.4.1.1032, 2.2 million items, C: indexed). Two things to fix: it is set to run as administrator with no service, so it does not start by itself at sign-in and Windows asks each time; and D: (exFAT) is not in its index, so File Kingdom walks D: slowly and cannot search it.",
+          "on": "2026-11-09"
+        },
+        "third-party:es-cli": {
+          "result": "works",
+          "note": "es.exe 1.1.0.37, signed by voidtools PTY LTD, answered File Kingdom’s searches: every .git on C: (1,529) in about 60 ms.",
+          "on": "2026-11-09"
+        },
+        "third-party:git-for-windows": {
+          "result": "works",
+          "note": "git 2.55.0.windows.3 answered project-gatherer for 77 folders.",
+          "on": "2026-11-09"
+        },
+        "third-party:windows-powershell": {
+          "result": "works",
+          "note": "Windows PowerShell 5.1.26100 ran every File Kingdom tool today.",
+          "on": "2026-11-09"
+        },
+        "tool:everything-search-tool": {
+          "result": "works",
+          "note": "Tested against the live index: counts, sizes, the newest change, either/or searches; it returns nothing, not a guess, for a drive Everything does not index.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map-look": {
+          "result": "works",
+          "note": "Ran on the PC: 27 places, 9 kinds of thing out of place, 22 seconds; wrote the page data this page shows.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map": {
+          "result": "works",
+          "note": "Seen in the working copy with this PC’s look: the toolset and its four tools draw.",
+          "on": "2026-11-09"
+        },
+        "tool:where-to-save": {
+          "result": "works",
+          "note": "Seen in the working copy: the 11 questions, each path with its Copy button.",
+          "on": "2026-11-09"
+        },
+        "tool:where-things-live": {
+          "result": "works",
+          "note": "Seen in the working copy: 27 places in 5 groups with their counts from Everything; the D: places say not counted.",
+          "on": "2026-11-09"
+        },
+        "tool:out-of-place": {
+          "result": "works",
+          "note": "Seen in the working copy: the 9 findings of the 20:57 look, most serious first.",
+          "on": "2026-11-09"
+        },
+        "tool:folder-blockers": {
+          "result": "works",
+          "note": "Ran on the PetOS folder: listed the 10 PetOS services, both Quick access pins and the startup entries (7 seconds).",
+          "on": "2026-11-09"
+        },
+        "tool:project-mover": {
+          "result": "works",
+          "note": "Moved a test repo with one worktree inside, one outside and a program working in it: 3 of 3 worktrees repaired, the program restarted, an undo line written. Its steps renamed the PetOS folder today.",
+          "on": "2026-11-09"
+        },
+        "tool:project-gatherer": {
+          "result": "works",
+          "note": "Ran across the PC in 96 seconds: 77 git folders outside the PetOS folder, 68 plan rows. C: from Everything; D: walked for 60 seconds and stopped, so D: is not looked at in full until it is in Everything’s index.",
+          "on": "2026-11-09"
+        },
+        "tool:cleanup-plan": {
+          "result": "works",
+          "note": "Ran a test plan with %USERPROFILE% rows: a file and a repo folder moved, worktrees repaired, a missing source skipped.",
+          "on": "2026-11-09"
+        },
+        "tool:undo-plan": {
+          "result": "works",
+          "note": "Moved the test plan’s items back and repaired the git links.",
+          "on": "2026-11-09"
+        }
+      }
     },
     {
       "repo": "discord-tower",
