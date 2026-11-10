@@ -18,9 +18,14 @@
   var inTool = false;
   try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
   if (inTool) document.documentElement.classList.add('in-tool');
+  // The height told is the content's, not the window's (the window is never shorter than its box, so a box once told
+  // too tall could never come back down), and nothing is told while the box has no width: a page loaded in a hidden
+  // pane wraps every word onto its own line and would ask for the tallest box there is.
   function tell() {
-    if (!inTool) return;
-    try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ }
+    if (!inTool || !document.documentElement.clientWidth) return;
+    var cs = getComputedStyle(document.body);
+    var h = Math.ceil(document.body.getBoundingClientRect().height + (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0));
+    try { window.parent.postMessage({ type: 'tool-panel-height', height: h }, '*'); } catch (e) { /* no page around it */ }
   }
   if (window.ResizeObserver) new ResizeObserver(tell).observe(document.body);
 
