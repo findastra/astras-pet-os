@@ -87,4 +87,21 @@ Record receipt, review findings and anything changed under the next heading.
 
 ## Receipt and review
 
-Pending. No reviewer has read this revision.
+- 2026-11-09, Claude Fable 5.2 (`claude-fable-5-2`), the session that asked for this revision. Not an independent
+  review: I wrote the brief. What I checked: both worktrees clean and pushed, both pull requests open and mergeable,
+  no personal names or paths in either diff, every file-master script parses, `delete-temp-remains` is not committed,
+  `system-map.json` parses, and the page from this branch in the browser pane (served on 127.0.0.1 with the PC's hub
+  folder layout): the working-copy banner, 3rd party programs · 7 with Node.js and GitHub CLI, the three new tools,
+  and the save-map boxes drawing the PC's look of 2026-11-09 23:28 (13 questions, 32 places, 5 findings; the look
+  was run from file-master's branch with Everything not running, which it reports).
+- **One fix added here** (`apps/file-master-tools-20261109.js`, `tell()`, commit `46a7e971`): the tool box was told
+  the window's height (`documentElement.scrollHeight`), which is never less than the box itself, so a box once told
+  too tall never came back down. Loaded while the browser pane was hidden (no width, every word on its own line),
+  where-to-save asked for 17,281 px and stayed at the 12,000 px cap after the pane was shown. It now tells the
+  content's height and says nothing while it has no width. Seen at 1100 x 900: where-to-save 1,384 px for 1,384 px
+  of content. The same `tell()` is in `apps/pc-master-race-tools-20261103.js`, unchanged here.
+- `npm run check` OK. `npm test` after the fix: 5 fail, 1 skipped. One is the farm-setup failure this card already
+  names. The other four are pet-chat-helper cases (Claude Code answers as the pet; Stop ends an answer at once; Codex
+  can sit in the seat too; a push happens only after her yes): card 320 recorded the same four failing on `main`
+  that evening, and they passed in the run recorded above, so they come and go on this PC. None reads the file changed.
+- Not done: fit-check and click-check; no second reviewer.
