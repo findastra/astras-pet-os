@@ -1089,6 +1089,16 @@
             "node": "github",
             "how": "optional",
             "why": "Published on GitHub Pages."
+          },
+          {
+            "node": "alphaxiv-mcp",
+            "how": "optional",
+            "why": "arXiv papers for Paper Girl (hub card 319)."
+          },
+          {
+            "node": "pubmed-mcp",
+            "how": "optional",
+            "why": "PubMed papers for Paper Girl (hub card 319)."
           }
         ]
       }
@@ -1959,7 +1969,13 @@
             "why": "Startup Star runs it on a farm; Spoonfed Sugarcube works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "yelp-mcp",
+            "how": "optional",
+            "why": "Real restaurants while Spoonfed is built (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -3389,7 +3405,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "context7",
+            "how": "optional",
+            "why": "Current library docs for every coding chat (hub card 319)."
+          }
+        ]
       },
       "tools": [
         {
@@ -3471,7 +3493,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "mcp-inspector",
+            "how": "optional",
+            "why": "The checker for every new MCP server before any chat gets it (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -3716,6 +3744,11 @@
             "node": "windows-performance-recorder",
             "how": "optional",
             "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "microsoft-learn-mcp",
+            "how": "optional",
+            "why": "Microsoft's own Windows, PowerShell and C# docs for chats writing Windows code (hub card 319)."
           }
         ]
       },

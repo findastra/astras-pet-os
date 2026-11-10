@@ -12,6 +12,9 @@ on #299), the 93 programs on the System Map, Anthropic's connector directory, an
 GitHub stars and release dates are from the GitHub API on 2026-11-09. Nothing here is installed: each server waits
 for Astra's yes (the decision deck named on this document's card).
 
+**Where each server stands now is the [MCP Roadmap](mcp-roadmap-20261109.md)**, which is kept up to date. This page is
+the research as it was on 2026-11-09. Astra answered "All recommended" the same day.
+
 ## The short answer
 
 - **One rule decides most of it.** Claude Code and Codex already have a shell. A server that only wraps a
