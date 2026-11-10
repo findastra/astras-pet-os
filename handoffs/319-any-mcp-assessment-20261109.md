@@ -57,6 +57,21 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
   read-only first, when Mail Snail, Calendar Crow or Mommy's Mommies are built; the iCloud side waits for a safe
   Windows option.
 
+## Done after her answers (2026-11-09)
+
+| # | Answer | Where it stands |
+|---|---|---|
+| 1 | #254 after the fix | Main merged in, generated files rebuilt, map node `planned`; register script stops inside a Claude chat and finds the Claude app's `claude.exe`; on her PC `npm ci` and the server's tests 13 of 13, full `npm test` 407 of 413 (the same 5 fail on `main`). Waits on her merge OK, then she runs the register script from her own PowerShell. |
+| 2 | Microsoft Learn | MCP Inspector listed its 3 tools, all marked read-only. Codex: added to its `config.toml` (backup beside it); `codex mcp list` shows it enabled. Claude: a Connect button from Claude's connector directory, which she clicks. |
+| 3 | MCP Inspector | Used for 2, 4 and 5 (version 2.12.0, 19 days old, run with `npx`; nothing installed). |
+| 4 | alphaXiv and PubMed | PubMed: 7 tools, all marked read-only. alphaXiv asks for a sign-in before any check, so its directory list (6 search and read tools) stands in. Connect buttons shown. |
+| 5 | Yelp | Its endpoint answers only Claude's own connector (403 to the Inspector); the directory lists one search tool. Connect button shown. |
+| 6 | Plugin servers off | Not done: Claude Code has no setting that turns off one plugin server everywhere. The only switch is per project, in `~/.claude.json`, which the "Restore Claude Sessions" chat owns. Back to Astra. |
+| 7 | Serena out of #255 | Done: main merged in, `.mcp.json` and `.serena/` removed, the install script fetches no Serena, items 2 and 7 recorded as not adopted; 19 of 19 tests pass; the script's `-DryRun` ran on Windows for the first time. |
+| 8 | Both | Recorded above. |
+
+Still to do: put the new servers on the System Map (each `planned` until checked from a new chat), in a pull request after #254 merges.
+
 ## Found on the PC while checking (not changed here)
 
 - Claude Code's user settings lost the `UnityMCP` entry on 2026-11-09; a backup taken that morning still has it. The
