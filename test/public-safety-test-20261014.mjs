@@ -31,6 +31,12 @@ test('a secret stops the build instead of being hidden', () => {
   assert.doesNotThrow(() => assertPublic('nothing to see', 'page.html'));
 });
 
+// Tests that drive a page's local controls need loopback addresses. They use made-up ports (400xx), never the real
+// ones, which stay in each PC's gitignored local services list (docs/local-services-20261014.md). Secrets and
+// personal folder paths are still checked in these files. Claude Opus 5.5 (claude-opus-5-5), 2026-11-03.
+const LOOPBACK_FIXTURES = ['test/damsel-presence-control-test-20261030.mjs', 'test/flash-audit-test-20261108.mjs'];
+const MADE_UP = /(?:https?:\/\/)?\b127\.0\.0\.1:400\d\d\/?/g;
+
 test('no committed file publishes a secret, a local service address or a personal folder path', () => {
   const files = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' }).split('\0').filter(Boolean)
     .filter((f) => !/\.(png|gif|jpe?g|ico|webp|zip|exe|wav|mp3|ogg|ttf|woff2?)$/i.test(f))
@@ -40,7 +46,12 @@ test('no committed file publishes a secret, a local service address or a persona
     let text; try { text = readFileSync(`${root}/${f}`, 'utf8'); } catch { continue; }
     // Teaching material may name a local network address (Ghost Protocol's router tips), so that kind is only
     // checked in generated data, where the build removes it.
-    for (const hit of findSensitive(text)) if (hit.kind !== 'local network address') problems.push(`${f}: ${hit.count} ${hit.kind}`);
+    for (const hit of findSensitive(text)) {
+      if (hit.kind === 'local network address') continue;
+      // A test of local controls may name loopback addresses, but only on made-up 400xx ports.
+      if (hit.kind === 'local service address' && LOOPBACK_FIXTURES.includes(f) && hit.count === (text.match(MADE_UP) || []).length) continue;
+      problems.push(`${f}: ${hit.count} ${hit.kind}`);
+    }
   }
   assert.deepEqual(problems, []);
 });

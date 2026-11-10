@@ -4,7 +4,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, privateTarget } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
+import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -24,7 +25,12 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.ok(existsSync(`${root}/${path}`), `${path} is missing: run npm run build`);
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
   }
-  const expected = new Set([...Object.keys(files).map((p) => p.split('/').pop()), ASSETS.css, ASSETS.js, LAUNCHER_JS]);
+  // A moved pet's old page sends you on to its new one (Astra, 2026-10-28).
+  for (const [path, html] of Object.entries(movedFiles())) {
+    assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
+    assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
+  }
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS]));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -43,6 +49,28 @@ test('every page has every panel of the sketch, in its order, and every panel co
     const panels = (html.match(/<details class="panel/g) || []).length;
     assert.ok(panels >= PANELS.length - 1, `${d.repo}: every panel is a <details> that collapses (${panels})`);
     assert.doesNotMatch(html, /-module<|class="module/, `${d.repo}: panels, not modules (Astra, 2026-10-19)`);
+  }
+});
+
+// Astra, 2026-11-08: "there's some drop down arrows in every panel that it needs to be on only like the main body
+// panels, not the top ones or the bottom ones, and definitely not the unified footer" (deck: all recommended).
+test('only the main body panels fold; the top and bottom panels always stay open with no arrow', () => {
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /details\.panel\[data-stays-open\] > summary \.legend::after \{ content: none; \}/, 'no arrow after a label that does not fold');
+  assert.match(readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8'), /details\.panel\[data-stays-open\]/, 'the page script keeps them open');
+  const stays = ['cyberhome', 'editorial', 'footer', 'related-pets', 'summary', 'system-map'];
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const boxes = [...html.matchAll(/<details class="panel ([^"]*)"([^>]*)><summary([^>]*)>/g)];
+    assert.deepEqual(boxes.filter((b) => b[2].includes(' data-stays-open')).map((b) => b[1].trim()).sort(), stays, `${d.repo}: the top and bottom panels stay open`);
+    for (const [, cls, attrs, summary] of boxes) {
+      if (attrs.includes(' data-stays-open')) {
+        assert.match(attrs, / open$/, `${d.repo}: ${cls} is open`);
+        assert.equal(summary, ' tabindex="-1"', `${d.repo}: ${cls}'s label does not fold it`);
+      } else assert.equal(summary, ' title="Click the label to fold or unfold this tool panel"', `${d.repo}: ${cls} folds`);
+    }
+    for (const body of ['levels', 'rwx-panel', 'session-notes', 'emotions', 'clicker'])
+      assert.ok(boxes.some((b) => b[1].trim() === body && !b[2].includes('data-stays-open')), `${d.repo}: the ${body} panel folds`);
   }
 });
 
@@ -147,10 +175,87 @@ test('lights: the ON/OFF light is never grey, and only tools have lights, never 
     const mapTool = `${d.petSlug}-system-map`;
     assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
   }
-  const rabbit = files[pagePath('rift-rabbit')];
-  assert.match(rabbit, /<div class="den" data-arrival="waiting" style="--pet-height: 73\.6px">/, 'Rift Rabbit stands as tall as on the desktop');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /function power\(k, planned\) \{ if \(planned\) return 'off';/, 'something not built yet is off, never grey');
+});
+
+// Astra, 2026-11-08: "the pets are not the sizes they would appear on the screen in the corner, so make sure they're
+// the right size".
+test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-20261011.cs)', () => {
+  const cs = readFileSync(`${root}/scripts/desktop-pets-20261011.cs`, 'utf8');
+  const layout = cs.slice(cs.indexOf('void LayoutPets()'), cs.indexOf('void CreatePetWindows('));
+  assert.match(cs, new RegExp(`NormalHeight=${NORMAL_HEIGHT}f,BugHeight=${NORMAL_HEIGHT}f,MaxPetWidth=${MAX_PET_WIDTH};`), 'NormalHeight and MaxPetWidth');
+  assert.match(cs, new RegExp(`SameSize=\\{${SAME_SIZE.map((id) => `"${id}"`).join(',')}\\};`), 'the pets that share one crop height');
+  assert.match(cs, new RegExp(`SameSizeCrop=${SAME_SIZE_CROP};`), 'their crop height');
+  assert.match(layout, new RegExp(`float fh=NormalHeight\\*${FARMER_SIZE}f,fw=fh\\*farmer\\.Crop\\.Width/farmer\\.Crop\\.Height;`), 'the Friendly Farmer\'s height');
+  const star = {};
+  for (const [, cases, size] of layout.matchAll(/((?:case "[a-z-]+":)+)(?:h=NormalHeight;w=h\*pet\.Crop\.Width\/pet\.Crop\.Height;)?size=([\d.]+)f;break;/g))
+    for (const [, id] of cases.matchAll(/case "([a-z-]+)":/g)) star[id] = Number(size);
+  assert.deepEqual(Object.keys(star).sort(), Object.keys(SIZE).sort(), 'the same pets have a size of their own');
+  for (const id of Object.keys(star)) assert.equal(SIZE[id], star[id], `${id}'s size`);
+  const full = [...layout.matchAll(/case "([a-z-]+)":h=NormalHeight;/g)].map((m) => m[1]).sort();
+  assert.deepEqual(full, [...FULL_HEIGHT].sort(), 'the pets that keep NormalHeight when wide');
+});
+
+test('every pet picture is as big as on the desktop, its empty margin cut off, never squeezed into 60px', () => {
+  // Rift Rabbit: 0.9 of NormalHeight on the desktop, measured from his drawings the way the star crops them.
+  const rabbit = pages.find((x) => x.repo === 'rift-rabbit');
+  const crop = unionBox([rabbit.art.plain.idle, rabbit.art.plain.blink].map((p) => drawnBox(`${root}/${p}`, 127)));
+  assert.equal(desktopHeight('rift-rabbit', crop), Math.round(NORMAL_HEIGHT * 0.9 * 10) / 10, 'Rift Rabbit stands 52.9px tall');
+  // The Friendly Farmer is "farmer" on the desktop, 0.9 of NormalHeight; Spoonfed's Sugarcube is a draft, 0.7.
+  const farmer = pages.find((x) => x.repo === 'astras-pet-os');
+  const fc = unionBox([farmer.art.plain.idle, farmer.art.plain.blink].filter(Boolean).map((p) => drawnBox(`${root}/${p}`, 127)));
+  assert.equal(desktopHeight('farmer', fc), Math.round(NORMAL_HEIGHT * FARMER_SIZE * 10) / 10, 'the Farmer at his desktop height');
+  const spoonfed = [...src.registry.pets, ...(src.registry.pipeline || [])].find((r) => r.repo === 'spoonfed');
+  assert.equal(desktopId(spoonfed, src.drafts), 'spoonfed-sugarcube', 'a draft pet goes by its desktop id, so its own size (0.7) counts');
+  for (const [name, html] of [...pages.map((d) => [d.repo, files[pagePath(d.repo)]]), ['the Model Pet Program', files[MODEL_PROGRAM.page]]]) {
+    const den = (html.match(/<div class="den"[^]*?<\/div>/) || [''])[0];
+    const places = [den, ...(html.match(/<figure class="mood"[^]*?<\/figure>/g) || []), ...(html.match(/<li class="mood related-pet">[^]*?<\/li>/g) || [])];
+    for (const place of places) for (const pic of place.match(/<img[^>]*>/g) || [])
+      assert.match(pic, /class="[^"]*\bfit\b[^"]*" style="--fit-w: [\d.]+px; --fit-h: [\d.]+px; --fit-t: [\d.]+px; --fit-r: [\d.]+px; --fit-b: [\d.]+px; --fit-l: [\d.]+px"/, `${name}: ${pic.slice(0, 120)} is drawn at its desktop size`);
+  }
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.doesNotMatch(css, /--pet-height|\.den \{[^}]*[{;] ?height: 60px/, 'no 60px slot shrinks the pet');
+  assert.doesNotMatch(css, /discord-damsel"\] \.den img\.pet \{ scale/, 'Damsel needs no size of her own');
+  assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
+});
+
+// Astra, 2026-11-08: "I think a lot of these buttons aren't really working on the farm. We should know how they're
+// supposed to work"; deck "The Farm: art and lights", answer 2: A ("All recommended").
+test('a native ON/OFF light says it only keeps the choice in this browser; a program\'s says it opens and closes it', () => {
+  const farm = files[pagePath('astras-pet-os')];
+  assert.doesNotMatch(farm, /kill switch\): click to switch/, 'no light promises a kill switch that nothing reads');
+  assert.match(farm, /data-item="tool:click-check"[^>]*title="ON\/OFF: your choice, saved in this browser\. Nothing on the PC switches yet\."/, 'a native tool');
+  assert.match(farm, /data-item="third-party:github"[^>]*title="ON\/OFF: green while it is open on this PC\. Click to open or close it"/, 'a 3rd party program');
+  const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
+  assert.match(js, /on: 'on: your choice, saved in this browser\. Nothing on the PC switches yet\./, 'its words when clicked');
+});
+
+// Astra, 2026-11-08, on the Farmer's page: "a lot of these pets and their descriptions are wrong and the images just
+// aren't there. So you need to go in and get the new stuff."
+test('every friend says what it does and has a picture: no line shared by three friends, review drawings when no other', () => {
+  for (const d of pages) {
+    const seen = new Map();
+    for (const r of d.related) if (r.why) seen.set(r.why, (seen.get(r.why) || 0) + 1);
+    assert.deepEqual([...seen].filter(([, n]) => n >= 3), [], `${d.repo}: no line shared by three friends`);
+  }
+  const farmer = pages.find((x) => x.repo === 'astras-pet-os');
+  assert.deepEqual(farmer.related.filter((r) => !r.idle).map((r) => r.id), [], 'every one of the Farmer\'s friends has a picture');
+  const goddess = farmer.related.find((r) => r.pet === 'Gatekeeper Goddess');
+  assert.match(goddess.idle, /^art\/drafts\/body-and-center-review-20261031\/normalized\/gatekeeper-goddess-sprite-20261031\.png$/, 'a pet with no drawing takes its newest review drawing');
+  assert.match(goddess.why, /^Security and approvals/, 'and says what it does');
+  assert.match(farmer.related.find((r) => r.pet === 'Rift Rabbit').idle, /^art\/moods\/rift-rabbit\//, 'a pet with a drawing keeps it');
+  assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
+});
+
+// Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on
+// there? And then everything else that we've built?"
+test('a 3rd party program one of its tricks runs on is listed; Discord Tower shows everything built for it', () => {
+  const html = files[pagePath('discord-tower')];
+  const names = (h3) => { const m = new RegExp(`<h3>${h3} · \\d+</h3><ul class="items">([^]*?)</ul>`).exec(html); return m ? [...m[1].matchAll(/class="item-name">([^<]*)</g)].map((x) => x[1]) : []; };
+  assert.deepEqual(names('3rd party programs').sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord', 'Discord Canary'], 'Discord Canary, through the typing-indicator trick');
+  for (const n of ['OpenAI Discord Presence', 'Anthropic Discord Presence', 'Ableton Live Discord Presence']) assert.ok(names('Native programs').includes(n), `${n} is one of Discord Damsel's programs`);
+  assert.match(html, /Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls/, 'the quick summary names all three');
 });
 
 test('headings count what they hold, and the pet\'s own things are native (Astra, 2026-10-21)', () => {
@@ -158,8 +263,9 @@ test('headings count what they hold, and the pet\'s own things are native (Astra
   const d = pages.find((x) => x.repo === 'unity-unicorn');
   assert.ok(unicorn.includes(`<h3>3rd party programs · ${d.thirdParty.length}</h3>`), '3rd party programs · #');
   assert.ok(unicorn.includes(`<h3>Native programs · ${d.programs.length}</h3>`), 'Native programs · #');
-  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22).
-  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0)}</h3>`), 'Native tricks · #');
+  // The self-audit is a trick pill since the Schedule list went (Astra, 2026-10-22), and play-with and care-for are
+  // two more on every page (2026-11-03).
+  assert.ok(unicorn.includes(`<h3>Native tricks · ${d.tricks.length + (d.audit.cadence ? 1 : 0) + 2}</h3>`), 'Native tricks · #');
   assert.ok(!unicorn.includes('<h3>Schedule</h3>') && unicorn.includes('>self-audit</span> <span class="tag cadence"'), 'no Schedule list: the self-audit is a trick with its cadence');
   for (const p of pages) assert.ok(!/<h3>Your (programs|tools|tricks|other tools)/.test(files[pagePath(p.repo)]), `${p.repo}: native, not "your"`);
 });
@@ -240,24 +346,28 @@ test('every program, tool and trick is a pill: its two lights on the oval, and a
       assert.match(p, /<details class="pill-more"( open)?><summary aria-label="More about [^"]+"><\/summary>/, `${d.repo}: the pill opens`);
       assert.match(p, /<span class="item-desc( empty)?">/, `${d.repo}: one line on what it does, on the pill`);
       assert.match(p, /<div class="pill-body">/, `${d.repo}: something to open`);
-      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19)
-      assert.equal(p.includes('<details class="pill-more" open>'), p.includes('class="pill-picture"'), `${d.repo}: open only to show a picture`);
+      // only an item with a live picture starts open, so the page shows it (Astra's Star Window, 2026-10-19), or one that
+      // works inside its own tool box (Astra, 2026-11-02, use-my-apc64-tool: "that board needs to be within a tool")
+      // A tool in its own tool box may start closed (start_closed) so a page with several stays short (2026-11-02).
+      const open = p.includes('<details class="pill-more" open>');
+      if (p.includes('class="pill-picture"')) assert.ok(open, `${d.repo}: a live picture starts open`);
+      if (open) assert.ok(p.includes('class="pill-picture"') || p.includes('class="pill-tool"'), `${d.repo}: open only to show a picture or a working tool`);
     }
   }
   const puffer = files[pagePath('portfolio-puffer')];
   // Astra, 2026-10-20: "I want everything to be on the same page": the Window Star works right on the page. Since
-  // 2026-10-22 its panel is its own ("astras-photostar-panel is its own and the tool is listed too just separately"),
-  // and its pill in L1 points there. Since 2026-10-24 a pet's own panels come first, before the four levels.
+  // 2026-11-02 it works inside its own tool box in L1, like every tool that works on the page ("No special panels").
   const levelsStart = puffer.indexOf(">portfolio-puffer-intelligence-levels-panel<");
   const levelsEnd = puffer.indexOf(">portfolio-puffer-rwx-panel<");
-  const at = puffer.indexOf("<details class=\"panel tool-embed\" id=\"astras-star-window-tool-panel\" open>");
-  assert.ok(at > -1 && at < levelsStart, "its own panel, before the four levels");
-  assert.match(puffer.slice(at), /^<details class="panel tool-embed" id="astras-star-window-tool-panel" open><summary[^>]*><span class="legend">astras-photostar-panel<\/span><\/summary><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
+  const at = puffer.indexOf('<div class="pill-tool" id="astras-star-window">');
+  assert.ok(at > levelsStart && at < levelsEnd, "in its own tool box in L1");
+  assert.ok(!puffer.includes('astras-star-window-tool-panel'), "no panel of its own");
+  assert.match(puffer.slice(at), /^<div class="pill-tool" id="astras-star-window"><iframe class="tool-frame" src="https:\/\/findastra\.github\.io\/astras-star-window\/\?embed"/);
   assert.ok(puffer.slice(puffer.indexOf(">portfolio-puffer-L1-control-panel<"), levelsEnd).includes('<span class="item-name">Astra&#39;s Window Star</span>'), "the tool is still listed in L1");
-  assert.match(puffer, /<a class="button" href="#astras-star-window-tool-panel">Use it below<\/a>/, 'its pill opens its panel');
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  assert.match(puffer, /<a class="button" href="https:\/\/findastra\.github\.io\/astras-star-window\/" target="_blank" rel="noopener">Open it full screen<\/a>/, 'its own page opens full screen');
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
   const html = files[pagePath(damsel.repo)];
-  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/findastra-discord-presence/tree/main/discord-tower/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
+  for (const name of ['Sticker Manager', 'CLI Proxy API manager']) assert.match(html, new RegExp(`<span class="item-name">${name}</span>[\\s\\S]*?<a class="button" href="https://github\\.com/findastra/discord-tower/tree/main/tools/[a-z-]+">Open it</a>`), `${name}: its pill links its folder`);
 });
 
 test('every local picture, stylesheet and script a page uses is in the hub', () => {
@@ -360,7 +470,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
       assert.ok(html.includes(`href="${r.page}"`), `${d.repo}: ${r.pet} is a link`);
     }
   }
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
   assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
   // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
@@ -371,9 +481,9 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   for (const d of pages) for (let i = 1; i < d.related.length; i++) if (!(d.plays_with || []).length) assert.ok(rank[d.related[i - 1].state] <= rank[d.related[i].state], `${d.repo}: most used first`);
 });
 
-test('third-party programs include those a tool of the pet runs or looks after (Flash Audit A54)', () => {
-  const damsel = pages.find((d) => d.repo === 'findastra-discord-presence');
-  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord']);
+test('third-party programs include those a tool or a trick of the pet runs or looks after (Flash Audit A54; 2026-11-08)', () => {
+  const damsel = pages.find((d) => d.repo === 'discord-tower');
+  assert.deepEqual(damsel.thirdParty.map((p) => p.name).sort(), ['BetterDiscord', 'CLI Proxy API', 'Discord', 'Discord Canary']);
 });
 
 test('the R W X panel: each level says what it should be, then whether that is in code, with proof (Astra, 2026-10-19)', () => {
@@ -433,4 +543,84 @@ test('redlines 2 answers: pets it talks to as bubbles, L3 pills, two R W X rows,
   assert.ok(unicorn.includes('<span class="gwho">you, the verified human</span>'), '5: one row for L4');
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.match(css, /\.top \{ --square: 180px; display: grid;[^}]*align-items: start; \}/, '6: the squares start at the same height as the title (Astra, 2026-10-23)');
+});
+
+// Astra, 2026-11-02: "the editorial status panel on the one we're working on, but we don't have it on the live one...
+// That way I know if I'm looking at the most recent push or if I'm looking at the one I'm working on."
+test('the editorial status panel marks the working copy and is hidden on the live site', () => {
+  const css = readFileSync(new URL(`../apps/pet-programs/${ASSETS.css}`, import.meta.url), 'utf8');
+  assert.match(css, /html\.live-site \.panel\.editorial \{ display: none; \}/, 'the stylesheet hides it on the live site');
+  const check = readFileSync(new URL('../apps/live-site-20261102.js', import.meta.url), 'utf8');
+  assert.ok(check.includes('/\\.github\\.io$/i.test(location.hostname)'), 'the live site is any <owner>.github.io address');
+  assert.ok(LIVE_CHECK.includes('live-site-20261102.js'), 'every page loads the live check');
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const head = html.slice(0, html.indexOf('</head>'));
+    assert.ok(head.includes(LIVE_CHECK), `${d.repo}: the live check is in <head>`);
+    assert.ok(head.indexOf(LIVE_CHECK) < head.indexOf('<link rel="stylesheet"'), `${d.repo}: the live check runs before anything is drawn`);
+    const ed = html.indexOf('-editorial-status-panel<');
+    assert.ok(ed > 0 && ed < html.indexOf('<header class="top">'), `${d.repo}: the editorial status panel comes first`);
+    assert.ok(html.slice(ed, ed + 600).includes('<p class="working-copy">Working copy: not the live site.</p>'), `${d.repo}: it says it is the working copy`);
+  }
+});
+
+// Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
+// all other reccd").
+// Astra, 2026-11-06: no dropdown arrows in the cyberhome, the quick summary or the System Map box.
+test('every panel but the three top boxes ends with More details, the same four lines in order; the chat shows only the arrow', () => {
+  const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    assert.equal((html.match(lines) || []).length, PANELS.length - 3, `${d.repo}: one More details with four lines per panel, none in the three top boxes`);
+    assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 1, `${d.repo}: only the chat shows the arrow only`);
+    for (const box of ['cyberhome', 'summary', 'system-map']) {
+      const start = html.indexOf(`<details class="panel ${box}"`);
+      assert.ok(start > 0 && !html.slice(start, html.indexOf('</details>', start)).includes('class="about'), `${d.repo}: no More details in the ${box} box`);
+    }
+  }
+});
+
+test('Data Dealer\'s chat is Data Chip\'s yellow phone; every other pet keeps the arrow', () => {
+  const dd = files[pagePath('data-dealer')];
+  assert.match(dd, /<aside class="chat chat-phone" aria-label="data-chip-chat-panel" style="--phone-name: 'DATA CHIP'">/);
+  assert.match(dd, /<button type="button" class="chat-open" id="chat-open"[^>]*><span class="phone-mini" aria-hidden="true"><span class="phone-screen"><svg class="chip-face"/, 'the little phone is the open button');
+  assert.match(dd, /<div class="chat-head"><span class="phone-screen"><svg class="chip-face"/, 'his face on the phone\'s screen');
+  for (const id of ['chat-panel', 'chat-log', 'chat-text', 'chat-send', 'chat-push', 'chat-new', 'chat-seat']) assert.ok(dd.includes(`id="${id}"`), `the phone is the same chat: #${id}`);
+  for (const d of pages.filter((p) => p.repo !== 'data-dealer')) assert.ok(!files[pagePath(d.repo)].includes('chat-phone'), `${d.repo} has no phone`);
+  const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
+  assert.match(css, /\.chat-phone \{ --neon: #d9e25a;/, 'Data Dealer\'s own neon');
+  assert.match(css, /\.chat-phone \.chat-log li\.pet::before \{ content: var\(--phone-name\) "> "/, 'DATA CHIP> before his lines');
+});
+
+test('awake shows its own drawing with the twinkles; L2 has play-with and care-for, off until L3 runs them', () => {
+  for (const d of pages) {
+    const html = files[pagePath(d.repo)];
+    const awake = html.slice(html.indexOf('<figure class="mood" data-mood="blink">'));
+    const pic = awake.slice(0, awake.indexOf('</figure>'));
+    const own = d.art.frames.blink || d.art.frames.idle;
+    if (own) assert.ok(pic.includes(`src="../../${own}"`), `${d.repo}: awake shows ${own}`);
+    assert.ok(!html.includes('awake-faces'), `${d.repo}: awake is no longer the idle face`);
+    const l2 = html.slice(html.indexOf(`${d.petSlug}-L2-control-panel`), html.indexOf(`${d.petSlug}-L3-control-panel`));
+    for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
+  }
+  const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
+  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
+});
+
+// Astra, 2026-11-08, "Yes, add them" (PC Master Race's waiting OKs, where the Model Pet Program has them): a pet's own
+// approvals in pets.json `waiting_on_you` show in L4's approvals-waiting-on-you, say which hub card they come from, and
+// count in the chat's Needs you, even when the Farmer's round can't see the pet's private repo.
+test('a pet\'s own waiting_on_you shows in approvals-waiting-on-you with its hub card', () => {
+  const entry = [...src.registry.pets, ...src.registry.pipeline].find((p) => p.repo === 'pc-master-race');
+  assert.ok(entry.waiting_on_you?.length >= 2, 'PC Master Race has his licenses and LatencyMon waiting');
+  const d = pages.find((x) => x.repo === 'pc-master-race');
+  for (const n of entry.waiting_on_you) assert.ok(d.needs.includes(n.need), `L4 lists: ${n.need.slice(0, 40)}`);
+  assert.deepEqual(d.needsFrom, ['card 282']);
+  const html = files[pagePath('pc-master-race')];
+  const l4 = html.slice(html.indexOf(`${d.petSlug}-approvals-waiting-on-you`));
+  assert.match(l4.slice(0, 2000), /From card 282 in the hub\. Approve and decline buttons come with Iron Gates\./);
+  assert.ok(!l4.slice(0, 2000).includes('Nothing from the Friendly Farmer'), 'not the empty line');
+  // The Model Pet Program's example still comes from the round.
+  const model = buildPetProgramPage(modelProgramData(src));
+  assert.match(model, /From the Friendly Farmer(?:'|&#39;)s last merged round \(2026-11-02\)\./);
 });

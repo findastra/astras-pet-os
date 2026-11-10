@@ -42,3 +42,12 @@ Record adoption commits and validation, update this card and its index, and comm
 ## Final review receipt
 
 The separate read-only `archive_panel_review` checker received and reviewed source revision `d1093b79` on 2026-10-20 and found no merge blockers. It passed both archive tests and confirmed all generated program pages match after newline normalization. After integrating current main, all 49 archive, spawner, System Map, API Fairy and handoff-number checks passed with tracked newline styles preserved. The broader three browser/installer failures remain explicitly unverified, not baseline or passing. Subsequent changes to this delivery only record review and resolve the card number.
+
+## 2026-10-28: the source PR was closed (Claude Opus 5.5, `claude-opus-5-5`)
+
+Astra, 2026-10-28: findastra-discord-presence is only about the two presence apps, and everything else of Discord
+Damsel's lives in her own private repo, `findastra/discord-tower`. On her OK, findastra-discord-presence#35 (this
+card's viewer source, branch `codex/dm-archive-tool-panel-20261020`) was closed unmerged; the branch is kept. The hub
+side here now points at `discord-tower` (astras-pet-os#259): the map node's link and the launcher's local path name
+`discord-tower/discord-damsel-archive-review-20261020.html`, which does not exist yet. Adopting the viewer means a PR
+into `discord-tower` (its card numbers continue from 011), not into findastra-discord-presence.

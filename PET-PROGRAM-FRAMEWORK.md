@@ -50,6 +50,15 @@ What each one means: section 3, `<pet>-emotions`.
 
 ## 3. The page, top to bottom
 
+**See it first: the Model Pet Program** (Astra, 2026-11-02:
+[apps/pet-programs/model-pet-program-20261102.html](apps/pet-programs/model-pet-program-20261102.html)). A made-up pet, Pet Name, in
+Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
+(tool-one, tool-two, 3rd party program one ...) and the version as its format, v0.0.0 // YYYYMMDD. The pet program spawner draws it with the same code as every real
+page, so it always shows today's rules; `test/model-pet-program-test-20261102.mjs` fails when a real page can show something
+the Model Pet Program does not. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
+screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
+platform-platypus): on 2026-11-02, 19 of 19 screens fit.
+
 ### A pet program is a control panel (Astra, 2026-10-19)
 
 A pet program page is a **control panel**: it shows at a glance how the pet's programs, tools and tricks are doing,
@@ -65,6 +74,27 @@ and gives you the switches (the paired lights, short lists, buttons, a note box)
   change, anything that needs you) and an **Open** button. The panel manages the website; it does not hold it.
 - Small tools stay on the page: a tool box with its lights, one line on what it does, and its button.
 
+**On the page first, no breakouts (Astra, 2026-11-02):** "I never wanted to do any breakouts to begin with, so I think
+we should try our hardest to put it on the actual page." Where the rule above would make a tool its own website, try
+first to make it work **inside its own tool box** in L1 (`in_pill: true` on its System Map node, with `frame: "wide"`).
+The rounded box takes the whole row and holds the working tool. The box grows to fit the tool, so there is no scroll
+bar inside: the tool page sends its height, as `apps/drum-dog-in-tool-20261102.js` does. The tool's own page stays
+only as an "Open it full screen" button. A box can start closed (`start_closed: true`) when the page holds several.
+Bass & Biscuits is the first: use-my-apc64-tool (starts open), apc64-drum-kit-tool and learn-apc64-tool. A real
+breakout, its own website with only a summary tool panel, needs Astra's OK.
+
+**No special panels** (Astra, 2026-11-02: "No special panels"). Nothing sits between the header and the four levels:
+a pet's own tool (API Fairy's key requests, Discord Damsel's presence controls and DM archive, Portfolio Puffer's social
+row) is a rounded tool box in L1 under Native tools (`PET_BOXES` in the spawner), and every tool that works on the page
+(an `embed` on its System Map node, like Astra's Window Star) is held in its own tool box there. The 2026-10-24 rule
+that put such panels at the top is replaced.
+
+**Toolsets, from data** (Astra, 2026-10-24: "control panels have tools and toolsets in side them"; 2026-11-02, all
+recommended): a tool whose own tools name it with `in` on the System Map (as a device names its group) is a toolset.
+The spawner draws it as one rounded tool box with its lights, its name, its one line and its label, and its tools as
+pills inside; it takes the whole row after the other tools and starts closed with `start_closed: true`. The Model Pet
+Program shows one, toolset-one.
+
 ### Layout (Astra's sketch, 2026-10-18): this order wins over the list below
 
 ![Astra's sketch of a pet program page, 2026-10-18, drawn for the Unity Unicorn](docs/images/pet-program-page-sketch-20261018.webp)
@@ -75,26 +105,57 @@ levels are **four stacked tool panels**, one per level, and the lights are **but
 example; [docs/unity-unicorn-page-modules-20261018.md](docs/unity-unicorn-page-modules-20261018.md) puts every one of
 its tools and tricks in its tool panel.
 
-Dark slate stationery and light, hand-lettered text. Every group is a **tool panel**: a thin bordered box with its label
+**The colours every page gets** unless it has its own: **a classic blueprint** (Astra, 2026-11-03: "do it like a
+blueprint color, blue and white and yellow. Like, make it very classical"; raspberry until 2026-11-02): Prussian blue
+paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
+changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
+boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
+midnight indigo), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
+deck, answer 6: A); Data Chip's phone on Data Dealer keeps his neon and LCD greens (item 10). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
 or the 0.75-inch margin thing? Do that"): about 0.75 inch (72 CSS pixels) of outer margin on a big screen, less as the
 window narrows, 16px on a phone. CSS inches are not real inches on every screen.
-**Every tool panel can collapse**, so the page works on a phone. The tool, notes and connection boxes from the list below
+**Every tool panel in the page's body can collapse**, so the page works on a phone: the intelligence levels (L1 to L4
+inside), R W X, the session notes, the emotions and clicker training. **The top and bottom panels always stay open**,
+with no fold arrow after the label (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
+ones or the bottom ones, and definitely not the unified footer"; deck answers all recommended: every page): L3's note,
+the cyberhome, the quick summary, the System Map box, the friends list and the unified footer. L3's note, the friends
+list and the footer keep their More details. **The page stays wide** (Astra, 2026-11-03, Flash
+Audit deck, answer 7: A): up to 1180 px inside the frame, with no sideways scroll on any screen (Platform Platypus's
+`fit-check`). **Every panel ends with More details**, folded behind its arrow (2026-10-22), the same four lines in the
+same order (2026-11-03, answer 8: A): **How it works**, **Where it comes from**, **Your rules** (her dated decisions for
+it, with a link to this section) and **Not built yet**. The chat shows only the arrow until it is opened; the three
+boxes at the top (the cyberhome, the quick summary and the System Map box) have no More details and no fold arrow on
+their labels (2026-11-06: "get rid of the dropdown arrows"); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 
+0. **`<home>-editorial-status-panel`** (first, full width): L3's note to you on how the site is coming along, and
+   **the sign that you are looking at the working copy** (Astra, 2026-11-02: "the editorial status panel on the one
+   we're working on, but we don't have it on the live one... That way I know if I'm looking at the most recent push or
+   if I'm looking at the one I'm working on"). Its first line says "Working copy: not the live site." On the live site
+   (any `<owner>.github.io` address) it is never shown: a check in the page's `<head>` hides it before anything is
+   drawn. **No editorial panel means live; the editorial panel means the working copy.** Assistants show Astra the
+   working copy, one page at a time (AGENTS.md, "Show the working copy").
 1. **`<pet>-cyberhome`** (top left): the pet's habitat. The desktop pet comes to live here while the page is
-   open. Its paired lights sit inside its top corner, off the border line (Astra,
-   2026-10-20: "Move those indicator lights down. They are in the way of the line"). **It is empty until the page
+   open. The box inside it is a tool, `<pet>-cyberhome`, a pill with its paired lights and its name, like every tool
+   (Astra, 2026-10-23: "the tool inside the rift-rabbit-cyberhome (panel) is ... similar to how other tools work"); it is
+   not built yet, so it is off. No words in the square (2026-10-23: "get rid of all text in the cyberhome panel and
+   system map pane"). **It is empty until the page
    opens; then the pet moves in** from the top corner (Astra, 2026-10-19: "It's not just square, it's going to be the
    cyber home"). **No star door in it** (Astra crossed Startup Star's door out, 2026-10-20). The page plays this
    arrival itself today. Flying in from the desktop (from roaming, from the lineup, or out of the star when the desktop
    pet is hidden) needs a live link between the page and Startup Star, which waits on Astra's OK (card 054). **The pet
    looks as it does on the desktop**: the page uses its drawing in `desktop-art/<art>/` when it has one, and its
    registered frames only when it has none (Astra crossed out Drum Dog's older drawing while his desktop pet sat beside
-   it, 2026-10-20); a private drawing (Claude Bot's) is never used. Room art people can change is planned. **The
-   cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
+   it, 2026-10-20); a private drawing (Claude Bot's) is never used. **Every pet picture on the page is the size the
+   desktop pet is** (Astra, 2026-10-23: "needs to be small like the desktop. same size"; 2026-11-08: "the pets are not
+   the sizes they would appear on the screen in the corner, so make sure they're the right size"): in the cyberhome, the
+   nine emotions and the friends list, each pet is drawn by Startup Star's own sizing rules (LayoutPets: NormalHeight,
+   MaxPetWidth, each pet's own size, the five pets cropped from the soles, the Farmer at 0.9), its empty margin cut off,
+   never squeezed into a fixed slot (`scripts/pet-size-20261023.mjs`; a test reads the rules back from the star's code).
+   Room art people can change is planned. **The cyberhome and the System Map box are the same size** (Astra, 2026-10-19: "the cyber home box be the same length as
    the system map box"). **Both are always squares** (Astra, 2026-10-21: "should always be a square ... they can push
    together or stack, but when this happens the title goes below them both"): beside the title, their side is the
    title column's height, so **the header ends at the bottom of the title's buttons** (Astra, 2026-10-20), between 210
@@ -125,9 +186,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    Astra, 2026-10-21): the way back to the System Map, on every page, always (Astra, 2026-10-19: "There's always going
    to be a system map link back"). It opens the map on the pet program's own node
    (`system-map-20261012.html#node=<node id>`); the node's id is not printed under it (crossed out, 2026-10-21). Always a
-   square, like the cyberhome. The first three related pets show under the node only when the square has room for
-   them (300px or more); `<pet>-related-pets` has all of them (Astra, 2026-10-20: "reserved for other agent links,
-   relative, full list below"). Flash Audit A60.
+   square, like the cyberhome. The box inside is a tool too, `<pet>-system-map`, with its paired lights (Astra,
+   2026-10-23), and nothing else is written in the square (the same day: "get rid of all text in the cyberhome panel
+   and system map pane"): the pets it plays with are in `<pet>-friends-list-panel` (item 11). Flash Audit A60.
 4. **The four intelligence-level tool panels, stacked**, L1 at the top. Each tool panel's **paired lights sit left of
    its label, in the border line** (Astra, 2026-10-21, drawn before `unity-unicorn-L1-tool-panel`), and nothing after the
    label (the same screenshot moves the activity light after it left, to the pair). Inside, the sections stack and
@@ -141,9 +202,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | Tool panel | Level | What goes in it |
    |---|---|---|
    | **`<pet>-L1-tool-panel`** | L1 Programs: code and programs, no AI needed | **3rd party programs** (made by others, the pet runs them: Unity, VCC, VRChat) · **native programs** (made by you, the pet looks after them: Piranesi House) · **native tools** (code the pet program owns and runs without AI). **Every tool is listed**: each tool on `main`, and each tool on a branch or in an open pull request, marked "not merged". |
-   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list) · the **status line** (item 2 of the list below), a tool panel of its own, `<pet>-update-history` · **connection boxes** for the pets it talks to (item 6 below). |
-   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | **the seat**: which farmhand (Claude Code, Codex, a local model), its task and since when, or "Seat: empty" · the read-only **`<home> program activity`** bubble, which names the pet program (Astra, 2026-10-22) · the **tricks running now** · the **harness skills** the seat brings for this pet (installed in Claude Code or Codex on this PC, not owned by the pet) · **suggestions** it has for you · its **token use** (from Token Toucan). |
-   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | Five tool panels of their own, each with its paired lights and a lowercase label (Astra, 2026-10-22): **`approvals-waiting-on-you`**, each with approve and decline · **`grants`**, what grants are (permissions: what each level may read, write and run) and a pointer to their own panel (item 12 below) · **`keys`** agents hold for it (API Fairy shows them) · **`<pet>-required-maintenance`**, items marked requires maintenance and their vet-clinic tickets · **`pet-id`**, the Pet ID (item 9 below). |
+   | **`<pet>-L2-tool-panel`** | L2 Pet program: what it does by itself | **native tricks** (the pet's own skills, in its repo, kept by Skill Scout: where each came from, which tools it uses, ON/OFF) each with **how often it runs** when it repeats; the self-audit is one of them (Astra, 2026-10-22: "anything to do w/ schedule is under 'tricks'", so there is no Schedule list), and so are **`play-with` and `care-for`**, the Play with and Care for tutorials every pet has, off until L3 can run them in the chat (2026-11-03, Flash Audit deck, answer 4: A). Nothing else: the update history is in L4's Pet ID (2026-10-24, answer 4), and the pets it talks to are in the friends list. |
+   | **`<pet>-L3-tool-panel`** | L3 Agentic harness and your AI model | Only L3 talking with you about this pet program (Astra, 2026-10-24: "L3 control panel should be about L3 to L4 discussions, regarding the pet program only"), in three sections of pills: **L3 asks you** (an update the update audit found waits for your yes, with the yellow light) · **suggestions for you** (a weekly trick) · **the seat** (which farmhand, or empty). |
+   | **`<pet>-L4-tool-panel`** | L4 You, the verified human | Five rounded tool boxes that fold to their name, each with its paired lights and a lowercase name (Astra, 2026-10-22; round since 2026-10-24: "control panels have tools and toolsets in side them"): **`approvals-waiting-on-you`**, each with approve and decline (from the Friendly Farmer's last merged round, and the pet's own `waiting_on_you` in pets.json, each naming its hub card, for decisions the round can't see in a private repo; Astra, 2026-11-08) · **`grants`**, what grants are (permissions: what each level may read, write and run) and a pointer to their own panel (item 12 below) · **`keys`** agents hold for it (API Fairy shows them) · **`<pet>-required-maintenance`**, items marked requires maintenance and their vet-clinic tickets · **`pet-id`**, the Pet ID (item 9 below). |
 
    Tricks and skills, divided: a **trick is a way of using the pet's 3rd party programs, native programs, native tools
    and native tricks** (Astra, 2026-10-21: "a way of using all the 3rd Party Programs, Native Programs, Native Tricks,
@@ -161,15 +222,15 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    program's `does` in system-map.json (every program on the map has one, checked 2026-10-21), a tool's or trick's job
    without its "A tool of …" start. Opening it shows what the pet does with it and its link. **The ON/OFF light is
    only ever green or red, never grey** (Astra, 2026-10-21: "those are either on or off"): something not built yet is
-   off and stays off, and only its maintenance light is grey, "not checked yet"; clicking either says why.
+   off and stays off, and its second light is grey, "not created"; clicking either says why.
 
    | Button | Colours | Clicking it |
    |---|---|---|
-   | **Left: ON/OFF** (the kill switch) | **green** on · **red** off | Turns the item off at once. Turning it back on after a security OFF needs L4 (section 4). The state lives in the core, not in the item. |
-   | **Right: maintenance** | **blue** working correctly · **yellow** requires maintenance | Marks it as requiring maintenance: your report that it is broken from your point of view. It goes to the Farmer's `broken-tools-on-the-farm` and the backlog, and only you clear it. Automatic health checks are shown apart from it (Flash Audit A20). |
+   | **Left: ON/OFF** (the kill switch) | **green** on · **red** off | Turns the item off at once. Turning it back on after a security OFF needs L4 (section 4). The state lives in the core, not in the item. **Today** a native item's ON/OFF only keeps her choice in this browser, and its tooltip and its words say so; each tool gets a real switch one at a time (Astra, 2026-11-08: "All recommended", answer 2: A). A 3rd party program's opens and closes it through Inference Iguana's watch (2026-11-06). |
+   | **Right: maintenance** | **blue** checked, and it works · **orange** report issues (you reported one, a check found one, or nobody has checked it yet) · **yellow** an update is waiting for your OK · **grey** not created | Marks it as reporting an issue: your report that it is broken from your point of view. It goes to the Farmer's `broken-tools-on-the-farm` and the backlog, and only you clear it. Its colour comes from a check recorded in pets.json `checks`, never a default (Astra, 2026-10-24: "the gray should be 'not created' ... they need to all be checked if they work or not by you"; 2026-10-26: "switch update color and report issues color"). |
 
-   Yellow replaces the orange of 2026-10-16. Each button has a tooltip, keyboard focus and a name a screen reader
-   reads ("copyright-auditor: on", "copyright-auditor: working correctly").
+   Each button has a tooltip, keyboard focus and a name a screen reader reads ("copyright-auditor: on",
+   "copyright-auditor: checked, and it works"). The Model Pet Program has one of each.
 6. **`<pet>-session-notes`**: a notes text box with **submit** and **add file**. Every submission goes to the backlog
    (section 7) straight away, before anything else happens. This is the notes tool box from the list below.
 7. **`<pet>-emotions`**: the nine moods, each drawn as the pet beside a cloud that says when it shows, three to a row
@@ -193,8 +254,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    | awake | `blink` | the program is open and you have interacted with it recently | the open page (to build) |
    | sleepy | `sleep` | it is running in the background | the Farmer's round (nothing else applies) |
 
-   Awake uses the `blink` mood frame, whose eyes are shut; until a frame with open eyes is drawn for awake, the page
-   shows the idle frame blinking every few seconds.
+   Awake always shows its own drawing, the `blink` mood frame with its two yellow twinkles (Astra, 2026-11-03, Flash
+   Audit deck, answer 1: A), in this panel and in the cyberhome; nothing blinks (2026-10-24: "just want to see it
+   static"). The Model Pet Program's awake drawing has open eyes; a real pet's keeps its own until Astra OKs new art.
 8. **`<pet>-clicker-training`** (beside the emotions): what clicking the desktop pet does. **One and two clicks are the
    same for every pet; from three clicks on, each can be assigned a tool** (Astra, 2026-10-18, which matches Flash Audit
    A41). One click: show the current reminder in a dialog box, a blurb like BSOD's (that dialog is not built yet). Two
@@ -208,18 +270,60 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
    (Flash Audit A51), in a whole box like every panel. Since Astra's marked-up screenshot of 2026-10-22: two groups on
    one line, each after a ✦: By Astra, and Find Out More with her GitHub and the same socials as her GitHub profile
-   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram); then the languages of the pet's repo as
-   small bubbles. The license, signature, date (it is beside the title), Take Me Home!, the list of links, the words
-   switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
-10. **`<pet>-chat`** (fixed, bottom right): the paired lights and the circle-arrow button that opens the pet's chat
-    bot. **The button opens the chat window at once** (Astra, 2026-10-19), and it asks who should answer: your own
-    Claude or ChatGPT (a new tab opens claude.ai or chatgpt.com with your message and the pet program's name typed in,
-    and the message is copied too), Claude Code or Codex on this PC (needs Startup Star's link; until then the message
-    waits in the backlog), or just a note to the backlog. The page keeps no keys, sends nothing itself and remembers
-    the choice on this device. The chat's own left light switches it off. Closed, it is one rounded pill with its
-   label in the top border; open, a rounded card whose window opens above the lights and the button (Astra,
-   2026-10-19: "The shape is a little awkward. Make it better").
-11. **`<pet>-related-pets`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
+   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram), with Astra's photostar between them
+   (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). No languages (2026-10-24: "get rid of the
+   code on the unified footer"). The license, signature, date (it is beside the title), Take Me Home!, the list of
+   links, the words switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
+10. **`<pet>-chat`** (fixed, bottom right): **the pet's chat, like Data Chip's on Data Dealer** (Astra, 2026-10-20: "he
+    was fully interactive"; 2026-11-03: "the way that it works on data dealer is the only one that works right. So this
+    concept combined with that"). The `<pet>-chat` tool, a pill with its paired lights, its name, a count of what
+    needs you and the open button, opens the window at once (2026-10-19) in its square `<pet>-chat-panel` box
+    (2026-10-20: "no round edges!!"). **Data Dealer's is Data Chip's own phone** (2026-11-03, Flash Audit deck, answer
+    2: "i like the phone on data dealer, its program needs its own chat"): the open button is the little yellow phone
+    from Data Dealer's dashboard, his face from its original drawing on the screen, and the window opens as the phone,
+    its screens LCD green, with "DATA CHIP>" before his lines. It is the same chat as every pet's; every other page
+    keeps the arrow and the plain window. The window:
+    - **The pet and its seat:** its face, its name, and who is in its seat right now (L3), or "Seat: empty".
+    - **Needs you:** what waits on you on this page (L4's approvals, what L3 asks you, tools with an issue), each a
+      link to its place.
+    - **Ask:** the conversation as bubbles, quick questions (Explain this page, What needs me?, How are my tools?)
+      that the page answers itself from what it shows, as Data Chip answered from his dashboard, and a message box.
+    - **Who answers:** the AI seated in the pet's harness on this PC, found by the **pet chat helper**: **Claude Code
+      first, then Codex** (Astra, 2026-11-03: "I pay for a premium subscription to Claude, so it should be Claude Code
+      answering first and then Codex, most likely, unless dictated otherwise"), then any other AI the helper finds (a
+      local model, another harness). On anyone else's farm the helper finds what they have, and they choose which
+      (2026-11-03: "it needs to auto recognize it or give you an option to choose which model to use"). Then your own
+      Claude or ChatGPT in a new tab (the message typed in and copied), or a note to the backlog.
+    - **What the seated agent may do: supervised** (ASTRAS_PET_OS 8.3; 2026-11-03: "The agents are supposed to be able
+      to change stuff, read the plan"): it reads the plan (a fresh copy of this framework, AGENTS.md, ASTRAS_PET_OS.md,
+      PET-WORDS.md, TOOLS-AND-TRICKS.md, PROTECTION-RINGS.md and pet-programs.json, and the pet's own AGENTS.md and
+      pet.json) and changes files in its own copy of the pet's repo, on its own branch. It asks you in this window
+      before anything bigger: a push, anything outside the pet's folder, a key, an account or money. A private pet
+      (`relations.private` in pets.json) gets no seat. The grants it holds are on the R W X panel.
+    - **The pet chat helper** (`the-farm-v1.0-pet-chat-helper-v1.0`, `scripts/pet-chat-helper-20261103.cs`, card 283;
+      Astra chose it on 2026-11-03, "I guess recommended"): a small program with no window, built next to Startup
+      Star and started by it at sign-in, with **Pet chat** in the star's menu (Stop pet chat, and the folder with its
+      log). It listens on this PC only, on a port it picks, and answers only a page that sends the code from its page
+      data file (`Astra's PetOS Data\astras-pet-os\pet-chat\`, two folders above the farm, where only a page opened
+      from this PC can read it). Approval is enforced by its code, not by the agent's instructions (8.3):
+      - it finds what is installed and signed in, in the farm's order (Claude Code, Codex; Gemini CLI and GitHub
+        Copilot CLI are named but not seated yet), and the window shows each seat as ready, sign in once, not on this
+        PC or found, not yet; with nothing chosen, the first ready one answers;
+      - it makes a worktree of the pet's repo from origin's main in its data folder, on `claude/pet-chat-<repo>-YYYYMMDD`
+        (or `codex/…`), so your own copy is never touched;
+      - Claude Code runs `--restricted` (file tools only, confined to that folder and the plan's copy, none of your
+        settings, plugins or MCP servers); Codex runs in its workspace-write sandbox with `--ignore-user-config` (its
+        plugins, computer use and browser stay out; your model choice comes along); no API key and no Claude app
+        session reach either;
+      - your message goes in on stdin, never on a command line; the answer streams into the pet's bubble, with what it
+        is doing under it; Send becomes Stop while it answers; at most 15 minutes, one answer at a time;
+      - the helper commits each answer's changes on the branch itself (hooks off), and the window offers **Push N
+        changes for review**: a push happens only after you say yes in the helper's own Windows box, which a page
+        cannot click, and never to main; then the window links to the pull request on GitHub;
+      - every answer is written to its log; Start over begins a new conversation and keeps the branch.
+      With no helper, or on the public site, a message for the seat waits in the backlog and the pet says why. The page
+      keeps no keys, and the chat's own left light switches it off.
+11. **`<pet>-friends-list-panel`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),
     just above the unified footer: every pet it talks to or is planned to, from the same relations as its connection
     boxes and the System Map. Each speaks in a cloud like the emotion bubbles, its name in the cloud's border ("I
     manage <its pet program>", then what it sends or receives), its picture beside it, and the whole of it opens that
@@ -255,7 +359,7 @@ report broken.
   people (WCAG 2.1, success criterion 1.4.1). Grey is decided for the maintenance light only, "not checked yet"; the
   ON/OFF light is never grey (Astra, 2026-10-21), so a third-party program missing from a PC needs another way to say
   so (proposed before: grey, which no longer fits).
-- **The order of the moods** above, and a frame with open eyes for awake.
+- **The order of the moods** above, and awake drawings with open eyes for the real pets (new art, hers to OK).
 - **Who owns the unified footer.** Proposed: The Farm, like the System Map.
 
 **One source for the page:** each pet's `pet.json` holds an `intelligence_levels` block, with `L1` (`third_party`,
@@ -505,19 +609,24 @@ copies a request for the user's own AI to start a seed like it on their farm.
 
 ## 14. Checklist for a new or updated pet program
 
+- [ ] It looks like the Model Pet Program (section 3), and a change to how pages look was made on the Model Pet Program
+      first and checked on every screen with Platform Platypus's fit-check.
 - [ ] Names and versions follow section 2 everywhere: repo, files, icons, tool box labels, backlog.
 - [ ] `pet.json` lists `framework`, every tool (name, version, intended use, public or private) and its links by kind.
 - [ ] Page has every tool panel of Astra's 2026-10-18 sketch (section 3), in that order, with the four L1 to L4 tool panels
       stacked, then the R W X panel (should be, then in code, with the proof of every In code), and every tool panel
       collapses on a phone. The paired lights are two buttons side by side before every
-      item, and every tool the pet owns is in its L1 tool panel. Every tool box has ON/OFF and sick; every connection box has its own border colour, the other pet's icon
-      name as its title, sends and receives, and ON/OFF.
+      item, and every tool the pet owns is in its L1 tool panel. Every tool has ON/OFF and the maintenance light; a
+      tool that works on the page is in its own tool box in L1, never a panel above the levels. The pets it talks to
+      are in the friends list, each in a bubble with its picture.
 - [ ] Data is outside the code, with a schema version, a migration, export and import (section 6).
 - [ ] Backlog and the weekly run work, and backlog health shows (section 7).
-- [ ] The `<pet>-system-map` panel sits top right and opens the map on its own node (A60). Languages show in the footer.
+- [ ] The `<pet>-system-map` panel sits top right and opens the map on its own node (A60).
 - [ ] Its tricks are in trick boxes and known to Skill Scout; any shared tool it uses has a grant from Iron Gates.
 - [ ] Every agent that operates it uses a short-lived key from Iron Gates; it reports every W to the Police Station.
 - [ ] Plain developer language throughout; no marketing.
 - [ ] Follows [PROTECTION-RINGS.md](PROTECTION-RINGS.md): it is an animal only once L4 lets it in.
 - [ ] The page is a control panel (section 3): anything too big for a tool panel is its own website the pet program
       manages, with one tool panel that shows how it is doing and opens it.
+- [ ] The editorial status panel shows on the working copy, with "Working copy: not the live site.", and is hidden on
+      the live site (section 3, item 0).

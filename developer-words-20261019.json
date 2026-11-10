@@ -123,7 +123,7 @@
     "mommys-mommies": { "agent": "Event Planning Agent" },
     "paper-girl": { "agent": "Science News Agent", "keep_home": true },
     "file-master": { "agent": "File Agent" },
-    "findastra-discord-presence": { "agent": "Discord Presence Agent" },
+    "discord-tower": { "agent": "Discord Presence Agent" },
     "portfolio-puffer": { "agent": "Portfolio Agent" },
     "drum-dog": { "agent": "Music Agent" },
     "vscode-angel": { "agent": "Code Review Agent" },
@@ -194,6 +194,7 @@
     "threat-observatory": { "agent": "Threat Intelligence Agent" },
     "the-threshold": { "agent": "Liminal Doors Agent" },
     "role-fairy": { "agent": "Discord Bot Agent" },
-    "workflow-whirlpool": { "agent": "Screen Markup Agent" }
+    "workflow-whirlpool": { "agent": "Screen Markup Agent" },
+    "pc-master-race": { "agent": "System Utilities Agent" }
   }
 }

@@ -5,7 +5,7 @@
   const open = document.getElementById('dm-archive-open');
   const note = document.getElementById('dm-archive-open-note');
   if (!open || !note || location.protocol !== 'file:') return;
-  open.href = '../../../findastra-discord-presence/discord-damsel-archive-review-20261020.html';
+  open.href = '../../../discord-tower/discord-damsel-archive-review-20261020.html';
   open.textContent = 'Open local archive review';
   note.textContent = 'Requires the archive viewer in the Damsel repository beside this hub. This link does not check whether it is installed. No files are loaded until you choose them in the viewer.';
 })();

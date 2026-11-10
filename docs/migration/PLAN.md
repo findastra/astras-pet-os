@@ -148,3 +148,28 @@ Status today: **not started** for every row.
 | R | Passport Pelican alerts on synthetic deadlines without leaking; Journal Jellyfish stays private; nothing submitted without approval | Synthetic data only | 8 |
 
 The existing tests (64 on 2026-10-11, 101 on 2026-10-18) keep running as regression throughout.
+
+## Security control integration (2026-11-03; design only)
+
+This migration plan remains the **master cross-pet dependency roadmap**. The detailed, evolving security backlog is maintained in Gatekeeper Goddess's existing **private** [Iron Gates security-controls roadmap](https://github.com/findastra/iron-gates/blob/main/docs/security-controls-roadmap-20261103.md). The public PetOS [security model](../security-model-20261018.md) and [Protection Rings](../../PROTECTION-RINGS.md) remain the architectural sources of truth for roles and grants. Do not duplicate sensitive device inventories, purchase details, approval assertions, credentials or local machine configuration in this public repository.
+
+### Controls and dependencies
+
+| Control | Integration with existing migration phases | Owning pet | Gate / acceptance evidence | Status |
+|---|---|---|---|---|
+| SEC-001: transaction-specific YubiKey approval before **every agent purchase** | Phase 1: authorization and receipt contract; Phase 4: durable approval queue; Phase 5: agent harness cannot purchase without independent approval; Phase 6: pet-to-pet authorization envelope | Gatekeeper Goddess (Iron Gates); Cipher Owl verifies FIDO2; Police Station observes | Amount, currency, merchant and reason shown to L4; explicit transaction-bound verification; replay/amount-change/agent-bypass tests; actual purchasing path independently enforces authorization | Planned, not enforced |
+| SEC-002: unknown USB device admission, inventory, timeline and YubiKey enrollment | Phase 1: device/event/decision schemas; Phase 2: tool records; Phase 4: durable event service; Phase 5: approval broker; Phase 7: Windows-host policy and UI integration; Phase 8: additional hosts only after Windows tests | Gatekeeper Goddess (Iron Gates); Cipher Owl authenticates; Police Station detects/contains; Log Lynx preserves events | Read-only baseline first; safe unknown-device denial and key-authorized enrollment tests; reconnect/disconnect logs; USBDeview history labeled as historical, not live enforcement; rollback and trusted input/key recovery proven | Planned, not enforced |
+| SEC-003+: future security policies | Reuse Phase 1 versioned policy/decision schema, Phase 5 independent enforcement and Phase 7 evidence/status reporting | L4 policy owner; Gatekeeper Goddess routes grants | New control gets threat model, least-privilege boundary, owner, acceptance tests, rollback and proof before status changes | Framework planned |
+
+### Cross-cutting implementation order
+
+1. **Audit first:** inspect current Windows edition, installed policies, all trusted YubiKeys and USB devices, existing pet repositories and actual grant enforcement. No installation or system policy changes during the audit.
+2. **Specify contracts:** versioned security-control IDs, scoped approval requests, deny reasons, audit receipts, device identities and timestamps. Preserve L4 as the only human approval authority.
+3. **Build the trusted approval boundary:** YubiKey/FIDO2 user verification and explicit human confirmation, independent of an agent that requested the action. Never equate key insertion or a touch alone with permission.
+4. **Enforce agent purchasing at the execution boundary:** agents must not retain a bypass route to spending. Prove transaction scope, one-time use, revocation and failure-closed behavior before calling it enforced.
+5. **Build USB observability:** Iron Gates device registry, USB event timeline, USBDeview read-only adapter, and Police Station alerts; distinguish observed connection events from historical reconstructed records.
+6. **Test USB admission on a recoverable Windows test setup:** allowlist unknown device interfaces where supported; require explicit YubiKey approval to enroll; account for spoofable IDs, composite/HID devices and hardware/firmware limits. Preserve backup YubiKey, keyboard/mouse, offline admin access and rollback before enabling any default-deny policy.
+7. **Integrate the System Map and pet dashboards:** show ownership, tool links, status as Planned / Rule only / In code, and concrete evidence. Do not mark a planned security pet or policy as operational.
+8. **Extend the policy registry:** add future controls under stable IDs without rewriting the migration plan each time.
+
+**Security boundaries:** A pet's monitoring or UI is not an enforcement mechanism. The actual denial must occur in the trusted payment execution path or OS/privileged device policy. No new repo, paid service, purchases, key provisioning, or PC policy changes are authorized by this documentation update. Existing Phase 5 acceptance test F (unapproved destructive action blocked, injection-resistant permissions, budgets) must include SEC-001 denial cases; Phase 7 Windows testing and the host acceptance matrix must include SEC-002 denial/recovery evidence before claiming completion.
