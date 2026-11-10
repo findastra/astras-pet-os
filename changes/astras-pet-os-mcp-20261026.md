@@ -22,3 +22,11 @@ Review fixes (2026-10-26): handoff card file names may hold capitals (open card
 `011-any-claude-session-012RaHVD-wrapup-20261012.md` was left out of `list_open_handoffs` and the resources); still no
 dots, slashes or backslashes. Tests check every numbered card on disk is read and that card 011 is listed and readable.
 Claude Opus 5.5 (`claude-opus-5-5`).
+
+**2026-11-09, before the merge (Astra: "All recommended", hub card 319, question 1: "Yes, after the fix").** Main
+merged in (228 commits behind): the three generated files that conflicted took main's version and were rebuilt with
+`npm run build -- --metadata-only`; the decision table in `skills/new-pet-or-tool` keeps both sides' rows. The map node
+is `planned` until a new chat checks it (like `unity-mcp`). The register script stops when it runs inside a Claude chat
+(AppData there is the app's private copy) and finds the Claude app's own `claude.exe` when `claude` is not on PATH.
+Checked on Astra's PC: `npm ci` and the server's tests with the SDK required, 13 of 13. Claude Opus 5.5
+(`claude-opus-5-5`).

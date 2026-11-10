@@ -52,6 +52,12 @@ It runs `npm ci` in `mcp\`, runs the tests with the SDK required, then registers
 each client it finds, backing up each config file first. `-Clients ClaudeCode,Codex` limits it; `-SkipInstall` and
 `-SkipTest` skip those steps. Afterwards, quit and reopen Claude Desktop, and start a new Claude Code or Codex session.
 
+**Run it from your own PowerShell window** (Start menu, Windows PowerShell), never from a Claude or Codex chat: inside
+those apps, AppData writes land in the app's private copy, so Claude Desktop would never see its entry. The script stops
+with that message when it finds itself in a Claude Code chat (2026-11-09). When `claude` is not on PATH (Astra's PC
+has only the Claude app's copy), it uses `%USERPROFILE%\.local\bin\claude.exe` or the newest `claude.exe` under
+`%LOCALAPPDATA%\Claude-Data`, the places the pet chat helper looks.
+
 By hand instead (after `npm ci` in `mcp\`):
 
 **Claude Code** (PowerShell; `$env:USERPROFILE` is filled in when you run it):
@@ -109,6 +115,9 @@ install fail instead (the register script sets it). `npm test` in `mcp\` runs th
 
 ## Not done yet
 
-- Not registered on Astra's PC, and the PowerShell script has not been run on Windows yet.
+- Not registered on Astra's PC yet. Its System Map node is `planned` until a new chat lists the server and one call
+  answers, like `unity-mcp` (card 306); then it goes to `now`.
+- Checked on Astra's PC, 2026-11-09 (hub card 319): `npm ci` in `mcp\` and the tests with the SDK required, 13 of 13;
+  PowerShell's parser finds no error in the register script, and run from a Claude chat it stops at its first check.
 - The client config details (Claude Desktop's file, `claude mcp add`, Codex's `config.toml`, `${USERPROFILE}` in
   `.mcp.json`) were written from the clients' documented behaviour and are checked only when the script runs on her PC.

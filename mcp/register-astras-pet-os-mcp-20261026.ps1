@@ -28,6 +28,10 @@
 .NOTES
   Claude Opus 5.5 (claude-opus-5-5), 2026-10-26, Astra's Cung List item 3. Written for Windows PowerShell 5.1 and
   PowerShell 7. Not run on Windows yet when it was written.
+  2026-11-09 (hub card 319): run it from your own PowerShell window, never from a Claude or Codex chat. Inside those apps
+  AppData writes land in the app's private copy, so Claude Desktop would never see them; the script now stops there.
+  Claude Code: when "claude" is not on PATH it uses the Claude app's own copy (%LOCALAPPDATA%\Claude-Data\...\claude.exe),
+  the same places the pet chat helper looks.
 #>
 [CmdletBinding()]
 param(
@@ -43,6 +47,11 @@ $Stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
 
 function Say([string]$Text) { Write-Host "[astras-pet-os-mcp] $Text" }
+
+# Inside a Claude Code chat (the desktop app or the CLI) this shell's AppData writes go to the app's private copy.
+if ($env:CLAUDECODE -eq '1') {
+  throw 'Run this from your own PowerShell window (Start menu, Windows PowerShell), not from a Claude chat: inside the Claude app, AppData writes go to the app''s private copy and Claude Desktop would never see them.'
+}
 function Backup([string]$Path) {
   if (Test-Path -LiteralPath $Path) { Copy-Item -LiteralPath $Path -Destination "$Path.bak-$Stamp" -Force; Say "backed up $Path" }
 }
@@ -85,6 +94,16 @@ $Done = @()
 if ($Clients -contains 'ClaudeCode') {
   # The native program (claude.exe) or npm's claude.cmd; never claude.ps1, whose argument handling differs.
   $Claude = Get-Command claude -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+  if (-not $Claude) {
+    # No claude on PATH: Claude Code's own install folder, then the Claude app's copy (newest version), like the pet
+    # chat helper (scripts/pet-chat-helper-20261103.cs).
+    $tries = @(Join-Path $env:USERPROFILE '.local\bin\claude.exe')
+    $appCopy = Get-ChildItem -LiteralPath (Join-Path $env:LOCALAPPDATA 'Claude-Data') -Recurse -Depth 4 -Filter 'claude.exe' -ErrorAction SilentlyContinue |
+      Sort-Object LastWriteTime | Select-Object -Last 1
+    if ($appCopy) { $tries += $appCopy.FullName }
+    $found = $tries | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+    if ($found) { $Claude = [PSCustomObject]@{ Source = $found }; Say "Claude Code: using $found" }
+  }
   if (-not $Claude) {
     Say 'Claude Code: claude command not found; skipped.'
   } else {
