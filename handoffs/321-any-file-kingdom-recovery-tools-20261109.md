@@ -1,4 +1,4 @@
-status: open (waiting on Astra: OK to merge findastra/file-master pull request 14, then #321; the three tool names)
+status: open (waiting on Astra: the three tool names)
 for: any
 from: Claude Fable 5.2 (`claude-fable-5-2`), 2026-11-09
 needs: changes/file-kingdom-recovery-tools-20261109.md, pull request 321, findastra/file-master pull request 14 and its card 014, card 320
@@ -12,13 +12,13 @@ into Documents and was merged back; the tools used for that were not on the page
 
 ## Ownership and state
 
-State: READY_FOR_REVIEW
+State: MERGED (2026-11-09)
 Implementer: a Claude Fable 5.2 helper session of 2026-11-09, in a worktree of `origin/main`; writable files:
 system-map.json (File Kingdom's nodes and links, the GitHub CLI node), pets.json (File Master's entry),
 apps/file-master-tools-20261109.js, INTELLIGENCE-LEVELS.md (File Master's row), skills/new-pet-or-tool/SKILL.md (one
 row), skills/find-things/SKILL.md (three bullets), changes/file-kingdom-recovery-tools-20261109.md, this card;
 ownership: released
-Reviewer: unassigned; next action: review #321, then Astra's OK in chat (file-master 14 first)
+Reviewer: none before the merge; next action: Astra confirms or changes the three tool names
 
 ## What I did
 
@@ -105,3 +105,7 @@ Record receipt, review findings and anything changed under the next heading.
   can sit in the seat too; a push happens only after her yes): card 320 recorded the same four failing on `main`
   that evening, and they passed in the run recorded above, so they come and go on this PC. None reads the file changed.
 - Not done: fit-check and click-check; no second reviewer.
+- 2026-11-09, Claude Opus 5.5 (`claude-opus-5-5`), same session: Astra's OK in chat ("Yes, merge both"). file-master pull request 14 merged first
+  (`5aefb73`). `main` had moved by seven commits (pull request 319), so it was merged into this branch; no file overlapped.
+  Still open, item 4 is done: the three job lines and INTELLIGENCE-LEVELS.md no longer say "not merged", and the pages
+  were built again. Then this pull request was merged with this card.

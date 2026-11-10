@@ -6,8 +6,8 @@ it in the wrong spot", then "Please also revise the File Kingdom pet program pag
 page, the same day: "a major tool here is Everything Search ... Whatever you use, make sure it shows up as a tool (in a
 pill) on the pet program (File Kingdom)".
 
-- **system-map.json:** three tools of File Kingdom, from the scripts used that night (file-master pull request 14, not
-  merged yet, and their job lines say so): `program-home-restorer` (moves a program's home back into the user folder:
+- **system-map.json:** three tools of File Kingdom, from the scripts used that night (file-master pull request 14, merged
+  the same day): `program-home-restorer` (moves a program's home back into the user folder:
   merges, never overwrites, has an undo), `claude-chat-repointer` (points Claude chats at a renamed folder; **the
   Claude app does not support it**, and its line and its light say so) and `temp-copies-check` (read only: the project
   copies left in Temp, and which hold work saved nowhere else). One new 3rd party program, **GitHub CLI**; **Node.js**
@@ -40,5 +40,9 @@ file-master on made-up folders (22, 25 and 30 checks).
 **Not done:** the page was not looked at in a browser by this session, and fit-check and click-check were not run.
 File Master's look was not run, so on Astra's PC the tool boxes still show the save map as it was until the look runs
 with file-master pull request 14. The three tool names were picked without Astra.
+
+**After review, the same day:** the page was looked at in the browser pane from the branch; File Master's look was run on
+Astra's PC at 23:28 (13 questions, 32 places); and one fix was added: a tool box is now told the height of its content, not
+of its window, so a box loaded in a hidden pane no longer stays 12,000 px tall (card 321, receipt and review).
 
 By Claude Fable 5.2 (`claude-fable-5-2`), 2026-11-09. Pull request 321, card 321; file-master pull request 14.

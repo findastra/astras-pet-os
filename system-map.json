@@ -326,6 +326,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
     },
     {
+      "id": "astras-pet-os-mcp",
+      "name": "astras-pet-os-mcp",
+      "type": "tool",
+      "of": "farm",
+      "state": "planned",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-astras-pet-os-mcp-v1.0",
+      "job": "A tool of The Farm (Astra's Cung List, item 3, 2026-10-26): an MCP server that lets the agent in the seat (Claude Code, Claude Desktop or Codex) read the farm from this repo's own files: list_pets, get_pet, search_pets, list_open_handoffs, get_rule and list_rules, plus the name list, the rules files and the handoff cards as resources. Read only: no tool writes, runs a program or reaches the network, and a write tool would need its own opt-in switch, off by default, and Astra's OK. It runs on Node.js with the MCP SDK and zod, installed only in its own folder (mcp/, npm ci), so the hub stays dependency-free (mcp/server-20261026.mjs; docs/astras-pet-os-mcp-20261026.md)."
+    },
+    {
       "id": "farm-pets",
       "name": "farm-pets",
       "type": "tool",
@@ -2562,7 +2574,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-program-home-restorer-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/program-home-restorer-20261109.ps1; in file-master’s pull request 14, not merged yet): moves program homes, the dot folders and dot files a program keeps in your user folder (.claude, .codex, .gitconfig, .vscode), back there after they were moved. Where the program already made a fresh home, the two are merged: nothing is overwritten, the old copy of a same-name file is held inside that home, and every change goes into an undo file. Dry run unless told to apply; it reads names only. Made from the scripts that moved 19 program homes back on 2026-11-09, after they had all been moved into Documents. The rule it keeps: program homes stay in the user folder.",
+      "job": "A tool of File Kingdom (file-master scripts/program-home-restorer-20261109.ps1): moves program homes, the dot folders and dot files a program keeps in your user folder (.claude, .codex, .gitconfig, .vscode), back there after they were moved. Where the program already made a fresh home, the two are merged: nothing is overwritten, the old copy of a same-name file is held inside that home, and every change goes into an undo file. Dry run unless told to apply; it reads names only. Made from the scripts that moved 19 program homes back on 2026-11-09, after they had all been moved into Documents. The rule it keeps: program homes stay in the user folder.",
       "does": "Moves a program’s home folder back into your user folder after it was moved: merges, never overwrites, has an undo."
     },
     {
@@ -2575,7 +2587,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-claude-chat-repointer-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/claude-chat-repointer-20261109.js, with its check; in file-master’s pull request 14, not merged yet): after a folder that Claude chats work in is renamed, points those chats at the new folder so they can be continued. The Claude app does not support this: its own way is “Choose folder” in each chat, one at a time. This tool edits the app’s private chat records instead, whose format can change with any app update, so it runs only with Claude closed, backs every file up first, changes only the fields that say where a chat lives, refuses a file it does not recognise, and has an undo. It also renames Claude’s history folders so the chats’ histories and memory notes follow. Dry run unless told to apply. Its records step has only ever run on copies of the records.",
+      "job": "A tool of File Kingdom (file-master scripts/claude-chat-repointer-20261109.js, with its check): after a folder that Claude chats work in is renamed, points those chats at the new folder so they can be continued. The Claude app does not support this: its own way is “Choose folder” in each chat, one at a time. This tool edits the app’s private chat records instead, whose format can change with any app update, so it runs only with Claude closed, backs every file up first, changes only the fields that say where a chat lives, refuses a file it does not recognise, and has an undo. It also renames Claude’s history folders so the chats’ histories and memory notes follow. Dry run unless told to apply. Its records step has only ever run on copies of the records.",
       "does": "Points Claude chats at a renamed folder. Not supported by the Claude app: it edits the app’s own records, with backups and an undo."
     },
     {
@@ -2588,7 +2600,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "file-kingdom-v1.0-temp-copies-check-v1.0",
-      "job": "A tool of File Kingdom (file-master scripts/temp-copies-check-20261109.ps1; in file-master’s pull request 14, not merged yet): lists every copy of a project left in the Windows Temp folder and gives each a verdict: in use now, broken link, remains (Windows cleaned its git files away), unknown (git gave no answer, never taken as clean), unsaved work, only copy, or nothing unsaved. It can ask GitHub, through GitHub CLI, whether a commit that is on no remote here is on GitHub anyway. Read only: it leaves each copy’s git index untouched and deletes nothing. It walks Temp itself and does not ask Everything, because a shell started by a Claude chat sees that app’s private copy of Local app data merged over the real one. Temp is not a place to keep work: Windows deletes old files there. On 2026-11-09 the check it comes from found 1,330 copies; 1,083 were remains.",
+      "job": "A tool of File Kingdom (file-master scripts/temp-copies-check-20261109.ps1): lists every copy of a project left in the Windows Temp folder and gives each a verdict: in use now, broken link, remains (Windows cleaned its git files away), unknown (git gave no answer, never taken as clean), unsaved work, only copy, or nothing unsaved. It can ask GitHub, through GitHub CLI, whether a commit that is on no remote here is on GitHub anyway. Read only: it leaves each copy’s git index untouched and deletes nothing. It walks Temp itself and does not ask Everything, because a shell started by a Claude chat sees that app’s private copy of Local app data merged over the real one. Temp is not a place to keep work: Windows deletes old files there. On 2026-11-09 the check it comes from found 1,330 copies; 1,083 were remains.",
       "does": "Lists the project copies left in Temp and says which hold work that is saved nowhere else. Read only."
     },
     {
