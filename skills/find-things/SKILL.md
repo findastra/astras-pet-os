@@ -29,6 +29,16 @@ and how fresh it was.
 3. **The places things hide on this PC:**
    - Assistants' private copies. AppData written by Claude or Codex lands in
      `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\` or `OpenAI.Codex_*\LocalCache\`, not in the real AppData.
+     **A shell started by a Claude chat sees the Claude app's private copy merged over the real `%LOCALAPPDATA%`**
+     (found 2026-11-09), so a folder can look as if it were in Local app data when only the Claude app sees it. To list
+     the real folder, start the listing outside the app (`Invoke-CimMethod -ClassName Win32_Process -MethodName Create`);
+     Everything's index holds the real paths. Look in these two folders; never move or rearrange anything inside them.
+   - Program homes: a program's own dot folder or dot file (`.claude`, `.codex`, `.gitconfig`, `.vscode`) lives in the
+     user folder and stays there. One found in Documents was moved by mistake: File Kingdom's program-home-restorer
+     puts it back (file-master `scripts/program-home-restorer-20261109.ps1`, in its pull request 14 until that merges).
+   - Temp (`%LOCALAPPDATA%\Temp`): chats and test runs leave copies of projects there, and Windows deletes old files in
+     it, leaving folders whose `.git` is empty. File Kingdom's temp-copies-check says which copies still hold work
+     (file-master `scripts/temp-copies-check-20261109.ps1`, in the same pull request). Found there is not kept there.
    - Codex task folders: `%USERPROFILE%\Documents\Codex\<date>\<task>\outputs` (downloads, installers, tools).
    - Claude scratchpads: `%LOCALAPPDATA%\Temp\claude\<project>\<session>\scratchpad`.
    - A stray `C:\c\` folder, made by Git Bash paths that were never converted.
