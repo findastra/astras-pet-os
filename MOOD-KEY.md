@@ -66,5 +66,15 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
 | **Kernel Koala** * | what runs on the PC: leftovers, memory and what starts at sign-in | weekly, Sunday | your OK to stop a leftover or switch a sign-in item off |
 | **Inference Iguana** * | the graphics cards: their memory, how busy they are and what is using them | weekly, Monday | a look at a program that keeps the graphics card busy with no window, or at what fills its memory |
+| **Skill Scout** * | the agent and skill files of every assistant, and its skill catalog | weekly, Tuesday | your OK on which skills to adopt, fix or retire |
+| **Journal Jellyfish** * | the diary, its nightly reminder and its backups | weekly, Wednesday | a look at the diary on your PC |
+| **AI Dashund** * | the research library, its sources and the research paper plan | weekly, Thursday | your review of the research paper plan |
+| **Door Dormouse** * | The Threshold's page, the Liminal Doors floors and the tools tracker | weekly, Friday | nothing yet |
+| **White Hat Weasel** * | authorized security tests and their scan log | weekly, Saturday | your OK before every test |
+| **Gatekeeper Goddess** * | the grants, agent keys and YubiKey enrollment | weekly, Sunday | the YubiKey steps only you can do |
+| **Cipher Owl** * | encryption, keys and certificates | weekly, Monday | nothing yet |
+| **Roaming Raven** * | remote access, VPN and the tailnet | weekly, Tuesday | nothing yet |
+| **Pet Police Officer** * | every write and agent key use it watches | weekly, Wednesday | nothing yet |
+| **PC Master** * | your PC’s core tools: which are on the PC, signed and up to date | weekly, Thursday | your OK to accept a tool’s license or install one |
 
 \* in the pipeline: on GitHub, not registered yet.

@@ -98,6 +98,12 @@ namespace AstraDesktopPets {
     internal static bool Signal(string action,string suffix="") { try { using(var handle=EventWaitHandle.OpenExisting(Identity+suffix+"-"+action))handle.Set();return true; } catch(WaitHandleCannotBeOpenedException) { return false; } }
     internal static void WriteStatus(object value,bool test=false) { Directory.CreateDirectory(Path.GetDirectoryName(StateFile));File.WriteAllText(test?TestStateFile:StateFile,Json.Serialize(value)); }
     internal static void Open(string relative) { string file=SafePath(relative);if(File.Exists(file))Process.Start(new ProcessStartInfo(file) { UseShellExecute=true }); }
+    internal static string DamselStart { get { return Path.Combine(Path.GetDirectoryName(Root),"discord-tower","open-discord-damsel-20261030.cmd"); } }
+    internal static ProcessStartInfo DamselStartInfo() {
+      return new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),"cmd.exe"),"/d /c \"\""+DamselStart+"\"\"") {
+        UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(DamselStart)
+      };
+    }
     internal static void StartBug(string argument) { if(!File.Exists(BugExe))return;Process.Start(new ProcessStartInfo(BugExe,argument) { UseShellExecute=false,WindowStyle=argument=="--status"?ProcessWindowStyle.Normal:ProcessWindowStyle.Hidden,WorkingDirectory=Path.GetDirectoryName(BugExe) }); }
   }
 
@@ -458,7 +464,11 @@ namespace AstraDesktopPets {
   // its program writes the items to menu-20261021.json in its data folder, each one a command of that program, and the
   // star runs the program with it. Its mood is in mood-20261021.json there (log-den's contracts/background-pet-20261021.cs).
   internal static class BackgroundPets {
-    internal sealed class Entry { internal string Repo,Pet,Exe,Folder;internal string[] StartArgs; }
+    // A helper run by a shared program (node.exe, powershell.exe, wscript.exe) is told apart by Marker, a piece of its
+    // command line, since its program's name is not its own.
+    // Host: the background pet whose program runs this one's watch (Astra, 2026-11-08, one crash watch instead of three:
+    // "All recommended"). The star never starts it by itself; its Start runs the host's program with --startup.
+    internal sealed class Entry { internal string Repo,Pet,Exe,Folder,Marker,Needs,Host;internal string[] StartArgs; }
     internal const string MenuFile="menu-20261021.json",MoodFile="mood-20261021.json";
     static readonly string[] Watched={"log-den","packet-river","evidence-locker"};
     // A menu file can only ask for its own program's commands: plain words, never a path, a quote or a command break.
@@ -468,21 +478,76 @@ namespace AstraDesktopPets {
     internal static List<Entry> All() {
       var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
       foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
-        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"}});
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
       // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet.
       list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
       // Inference Iguana's busy-watch (Astra, 2026-10-23: the graphics card watch is hers); no desktop pet yet.
       list.Add(new Entry{Repo="benchmark-rock",Pet="Inference Iguana",Exe=Path.Combine(parent,"benchmark-rock","bin","benchmark-rock-20261023.exe"),Folder=Path.Combine(DataRoot,"benchmark-rock"),StartArgs=new[]{"--startup"}});
+      // Rift Rabbit's launcher, behind the Launch buttons on its page (rift-rabbit#8, card 239's step 4). It runs from
+      // Documents\Astra's PetOS Data\rift-rabbit\program, not the repo, and starts at sign-in: with it off, every Launch
+      // button is dead (2026-11-01, after a restart).
+      list.Add(new Entry{Repo="rift-rabbit",Pet="Rift Rabbit",Exe=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program","rift-rabbit-20261024.exe"),Folder=Path.Combine(DataRoot,"rift-rabbit"),StartArgs=new[]{"--startup"}});
+      // The pet chat helper, the seat behind every pet program page's chat window (card 283; Astra, 2026-11-03: "it
+      // should be Claude Code answering first and then Codex"). The Farm's own tool, built next to the star; it starts at
+      // sign-in, and its menu here says Stop pet chat.
+      list.Add(new Entry{Repo="pet-chat",Pet="Pet chat",Exe=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe"),Folder=Path.Combine(DataRoot,"pet-chat"),StartArgs=new[]{"--startup"}});
+      // The helpers that had their own entries in Windows' Startup list (Astra, 2026-11-08: "can we simplify this",
+      // then "Yes, simplify it"): the star starts them now, so Startup Star is the only PetOS entry there.
+      string node=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"nodejs","node.exe");
+      string system=Environment.GetFolderPath(Environment.SpecialFolder.System);
+      list.Add(new Entry{Repo="live-sync",Pet="Live Sync",Exe=Path.Combine(system,"WindowsPowerShell","v1.0","powershell.exe"),Marker="live-sync-20261017.ps1",
+        Needs=Path.Combine(parent,"startup-star","scripts","live-sync-20261017.ps1")});
+      list[list.Count-1].StartArgs=new[]{"-NoProfile","-WindowStyle","Hidden","-ExecutionPolicy","Bypass","-File",Quote(list[list.Count-1].Needs)};
+      foreach(var p in new[]{new[]{"openai-discord-presence","OpenAI Discord Presence",Path.Combine(parent,"ai-discord-presence","openai-discord-presence","src","launch.js")},
+                             new[]{"anthropic-discord-presence","Anthropic Discord Presence",Path.Combine(parent,"ai-discord-presence","anthropic-discord-presence","src","launch.js")},
+                             new[]{"ableton-live-discord-presence","Ableton Live Discord Presence",Path.Combine(parent,"ableton-live-discord-presence","src","launch-20261102.js")}})
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=node,Marker=p[0],Needs=p[2],StartArgs=new[]{Quote(p[2]),"--background"}});
+      // Desktop Commander Remote (the iPad's way in): its own script finds it in npm's cache and skips a second copy.
+      list.Add(new Entry{Repo="desktop-commander",Pet="Desktop Commander",Exe=Path.Combine(system,"wscript.exe"),Marker="desktop-commander",
+        Needs=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),".desktop-commander-device","desktop-commander-remote-autostart-20261101.vbs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs)};
+      // The Flash Audit helper (Astra, 2026-11-08, "All recommended"): Run on a check in The Farm's flash-audit tool box
+      // asks it to check every pet program again. The Farm's own script, run by node from the farm's scripts folder.
+      list.Add(new Entry{Repo="flash-audit",Pet="Flash Audit",Exe=node,Marker="flash-audit-helper",Needs=Path.Combine(PetFiles.Root,"scripts","flash-audit-helper-20261108.mjs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
     }
     internal static Entry Find(string repo) { return All().Find(e=>e.Repo==repo); }
-    // The star starts the crash watchers itself, so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
+    // The star starts the crash watch itself (one program since 2026-11-08: Log Den's runs all three), so Windows' Startup apps list has only Startup Star (Astra, 2026-10-23:
     // log-den, packet-river and evidence-locker "should not be here at all"; they were Startup-folder shortcuts). The Bug is
-    // started as before; Kernel Koala's and Inference Iguana's watches start only when Astra asks.
-    internal static List<Entry> AtSignIn() { return All().FindAll(e=>Watches(e.Repo)); }
-    internal static bool Running(Entry e) { try { return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(e.Exe)).Length>0; }catch(Exception){return false;} }
+    // started as before; Kernel Koala's watch starts only when Astra asks. Rift Rabbit's launcher and the pet chat helper
+    // start too, with no alarmed face (card 061, answer 4: at sign-in, quietly). Since 2026-11-08 so do Inference Iguana's
+    // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
+    // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
+    // behind the Run buttons on The Farm's flash-audit checks.
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit"};
+    // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
+    // star starts one crash watch, not three.
+    internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
+    // A hosted watch has no process of its own: it runs while its single-copy name is held (log-den's Hosted, and each
+    // program's MutexName: "Local\astras-pet-os-<repo>-" and the first 12 hex of the SHA-256 of the data folder, lower case).
+    internal static string MutexName(string repo,string dataRoot) {
+      using(var sha=System.Security.Cryptography.SHA256.Create()) {
+        var sb=new System.Text.StringBuilder();
+        foreach(byte b in sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(dataRoot.ToLowerInvariant())))sb.Append(b.ToString("x2",CultureInfo.InvariantCulture));
+        return "Local\\astras-pet-os-"+repo+"-"+sb.ToString().Substring(0,12);
+      }
+    }
+    internal static bool Held(string name) { System.Threading.Mutex m;if(!System.Threading.Mutex.TryOpenExisting(name,out m))return false;m.Dispose();return true; }
+    internal static string Quote(string path) { return "\""+path+"\""; }
+    internal static bool Running(Entry e) {
+      try {
+        if(e.Host!=null)return Held(MutexName(e.Repo,DataRoot));
+        string name=Path.GetFileNameWithoutExtension(e.Exe);
+        if(e.Marker==null)return Process.GetProcessesByName(name).Length>0;
+        // Its program's copies, by command line (node, PowerShell and wscript run many things on this PC).
+        using(var search=new System.Management.ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE Name='"+name+".exe' OR Name='node.exe' OR Name='cmd.exe'"))
+          foreach(System.Management.ManagementObject p in search.Get()) using(p) { var line=p["CommandLine"] as string;if(line!=null&&line.IndexOf(e.Marker,StringComparison.OrdinalIgnoreCase)>=0)return true; }
+        return false;
+      }catch(Exception){return false;}
+    }
     static Dictionary<string,object> Read(Entry e,string name,string schema) {
       try {
         string path=Path.Combine(e.Folder,name);if(!File.Exists(path))return null;
@@ -500,7 +565,9 @@ namespace AstraDesktopPets {
       parent.DropDownItems.Clear();
       if(!running) {
         parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" is not running") { Enabled=false });
-        parent.DropDownItems.Add("Start "+e.Pet,null,delegate { run(e,e.StartArgs); });
+        // A hosted watch starts in its host's program (log-den.exe --startup starts whichever hosted watch is not running).
+        var host=e.Host==null?e:Find(e.Host);
+        parent.DropDownItems.Add("Start "+e.Pet,null,delegate { run(host,host.StartArgs); });
       }
       var file=Read(e,MenuFile,"astras-pet-os-menu-v1");object raw;
       if(file==null||!file.TryGetValue("items",out raw)||!(raw is ArrayList)) { if(running)parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" has not written its menu yet") { Enabled=false });return; }
@@ -620,17 +687,17 @@ namespace AstraDesktopPets {
     void RunBackground(BackgroundPets.Entry e,string[] args) {
       testActions.Add("background:"+e.Repo+":"+String.Join(" ",args));
       if(test)return;
-      try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }
+      try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(e.Needs??e.Exe) }); }
       catch(Exception error) { MessageBox.Show(e.Pet+" could not start: "+error.Message,"Astra's desktop pets"); }
     }
     // When the star starts: each crash watcher that is installed and not running yet, quietly (--startup: a second copy
     // exits and opens nothing). No pop-up when one cannot start; its menu then says it is not running.
     void StartBackgroundPets() {
       foreach(var e in BackgroundPets.AtSignIn()) {
-        if(!test&&(!File.Exists(e.Exe)||BackgroundPets.Running(e)))continue;
+        if(!test&&(!File.Exists(e.Exe)||(e.Needs!=null&&!File.Exists(e.Needs))||BackgroundPets.Running(e)))continue;
         testActions.Add("sign-in:"+e.Repo+":"+String.Join(" ",e.StartArgs));
         if(test)continue;
-        try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",e.StartArgs)) { UseShellExecute=false,WorkingDirectory=Path.GetDirectoryName(e.Exe) }); }catch(Exception){}
+        try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",e.StartArgs)) { UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(e.Needs??e.Exe) }); }catch(Exception){}
       }
     }
     // Every five seconds: a background pet whose program says alarmed shows its alarmed face.
@@ -866,7 +933,17 @@ namespace AstraDesktopPets {
     // One and two clicks are the same for every pet; a pet with a tool on three clicks waits for a possible third.
     int MostClicks(string id) { var pet=pets.Find(p=>p.Id==id);return pet!=null&&pet.ThreeClicks!=null?3:2; }
     internal void OpenPet(PetSprite pet) {
-      testActions.Add("open:"+pet.Id);if(test){WriteStatus();return;}
+      testActions.Add("open:"+pet.Id);
+      if(pet.Id=="discord-damsel") {
+        if(test){testActions.Add("start:discord-tower-controls");return;}
+        // The pet owns its launcher and only its two presence programs. It opens the same generated page,
+        // keeping that page's notes and reported issues, and supplies its fixed start/status buttons.
+        if(File.Exists(PetFiles.DamselStart)) {
+          try { Process.Start(PetFiles.DamselStartInfo());return; }
+          catch(Exception error) { MessageBox.Show("Discord Damsel's launcher could not start: "+error.Message,"Discord Tower"); }
+        }
+      }
+      if(test){WriteStatus();return;}
       // Voicemeeter Bug too: his own status window stays in his tray menu (Status and help).
       Uri url;if(Uri.TryCreate(pet.Interface,UriKind.Absolute,out url)) { if(url.Scheme=="https"||url.Scheme=="http")Process.Start(new ProcessStartInfo(url.AbsoluteUri){UseShellExecute=true}); }
       else if(!String.IsNullOrWhiteSpace(pet.Interface))PetFiles.Open(pet.Interface);
@@ -955,6 +1032,11 @@ namespace AstraDesktopPets {
       if(pets.Count<1||farmer==null)throw new Exception("Roster test failed.");
       foreach(var pet in pets)pet.ValidateEffects();
       if(BugHeight!=NormalHeight)throw new Exception("Bug standard size test failed.");
+      var damsel=pets.Find(p=>p.Id=="discord-damsel");if(damsel!=null) {
+        ResolveClicks(damsel.Id,2);if(testActions[testActions.Count-1]!="start:discord-tower-controls")throw new Exception("Damsel must open her presence controls launcher.");
+        var start=PetFiles.DamselStartInfo();if(start.UseShellExecute||!start.CreateNoWindow||start.WindowStyle!=ProcessWindowStyle.Hidden||!start.Arguments.EndsWith("open-discord-damsel-20261030.cmd\"\""))throw new Exception("Damsel launcher must be fixed and hidden.");
+        testActions.Clear();
+      }
       if(StarBounds.Right>LogicalWidth||StarBounds.Bottom>LogicalHeight)throw new Exception("Star layout overflow.");
       foreach(var pet in pets)if(pet.Hit.Height>(pet.Id=="claude-bot"?NormalHeight*1.5f:NormalHeight)+.01f||pet.Hit.Width>MaxPetWidth+.01f||pet.Hit.Width<1)throw new Exception("Pet size out of range: "+pet.Name);
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
@@ -1018,7 +1100,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the crash watchers started by the star and Log Lynx's alarmed face.");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the one crash watch started by the star (Log Den's program runs all three) and Log Lynx's alarmed face.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -1046,8 +1128,30 @@ namespace AstraDesktopPets {
       var iguana=BackgroundPets.Find("benchmark-rock");
       if(iguana==null||iguana.Pet!="Inference Iguana"||iguana.StartArgs[0]!="--startup"||!iguana.Exe.EndsWith("benchmark-rock-20261023.exe")||BackgroundPets.Watches("benchmark-rock"))throw new Exception("Inference Iguana's watch must be in the star's menu, started quietly, with no alarmed face.");
       int signIn=testActions.Count;StartBackgroundPets();
-      if(String.Join(",",testActions.GetRange(signIn,testActions.Count-signIn).ToArray())!="sign-in:log-den:--startup,sign-in:packet-river:--startup,sign-in:evidence-locker:--startup")throw new Exception("The star must start the three crash watchers quietly, and only them.");
+      var started=new List<string>();bool quiet=true;
+      foreach(var a in testActions.GetRange(signIn,testActions.Count-signIn)){started.Add(a.Split(':')[1]);if(started.Count<=4&&!a.EndsWith(":--startup"))quiet=false;}
+      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander and the Flash Audit helper quietly, and only them.");
+      int helpers=0;
+      foreach(var x in BackgroundPets.AtSignIn()){if(x.Marker==null)continue;helpers++;if(x.Needs==null||Array.IndexOf(x.StartArgs,BackgroundPets.Quote(x.Needs))<0)throw new Exception("Each helper run by node, PowerShell or wscript starts its own script.");}
+      if(helpers!=6)throw new Exception("Six helpers are found by their command line.");
+      var rabbit=BackgroundPets.Find("rift-rabbit");
+      if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
+      var petChat=BackgroundPets.Find("pet-chat");
+      if(petChat==null||petChat.Pet!="Pet chat"||petChat.Exe!=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe")||BackgroundPets.Watches("pet-chat"))throw new Exception("The pet chat helper must start from the farm's bin, under Pet chat in the menu, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);
+      // One crash watch (2026-11-08): Packet Piranha's and Forensic Ferret's watches run in Log Den's program.
+      foreach(var repo in new[]{"packet-river","evidence-locker"}) {
+        var hosted=BackgroundPets.Find(repo);
+        if(hosted==null||hosted.Host!="log-den"||!BackgroundPets.Watches(repo)||!hosted.Exe.EndsWith(repo+"-20261018.exe"))throw new Exception(repo+"'s watch must run in Log Den's program, with its own menu and alarmed face.");
+        var item=new ToolStripMenuItem(hosted.Pet);BackgroundPets.Fill(item,hosted,RunBackground,false);
+        ((ToolStripMenuItem)item.DropDownItems[1]).PerformClick();
+        if(testActions[testActions.Count-1]!="background:log-den:--startup")throw new Exception("Start "+hosted.Pet+" must run Log Den's program with --startup.");
+      }
+      if(BackgroundPets.Find("log-den").Host!=null)throw new Exception("Log Lynx's watch is the host.");
+      if(BackgroundPets.MutexName("packet-river","C:\\Example\\astras-pet-os")!="Local\\astras-pet-os-packet-river-932e39dc287c")throw new Exception("A hosted watch is found by its program's own single-copy name.");
+      string held=BackgroundPets.MutexName("evidence-locker",Path.Combine(Path.GetTempPath(),"star-hosted-test-"+Guid.NewGuid().ToString("N")));
+      if(BackgroundPets.Held(held))throw new Exception("A watch that is not running must not look running.");
+      using(new System.Threading.Mutex(true,held)) { if(!BackgroundPets.Held(held))throw new Exception("A hosted watch that runs must look running."); }
       string folder=Path.Combine(Path.GetTempPath(),"star-menu-test-"+Guid.NewGuid().ToString("N").Substring(0,8));
       try {
         Directory.CreateDirectory(folder);

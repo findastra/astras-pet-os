@@ -205,10 +205,19 @@ export function petIcons(index) {
   return icons;
 }
 
+/** A pet's picture for the Pets view's card (Astra, 2026-10-27): its newest drawing at an address that never changes
+    (art/latest, made earlier in the same build), found by its art name, repo or name: desktop art, then its mood and
+    web frames, then its small icon. Null when it has none yet. */
+export function petPicture(n) {
+  const names = [...new Set([n.art, n.repo, n.name && n.name.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')].filter(Boolean))];
+  const tries = names.flatMap((a) => ['desktop-art', 'moods', 'frames'].map((d) => `art/latest/${d}/${a}/idle.png`)).concat(names.map((a) => `art/latest/icons/${a}.png`));
+  return tries.find((p) => inRepo(p)) || null;
+}
+
 export function buildSystemMap(registry, extra, template, icons = {}, programs = []) {
   const data = systemMapData(registry, extra, programs);
   // A pet's own icon in art/icons/ (its newest look) wins over its older mood frame.
-  for (const n of data.nodes) { n.icon = icons['node:' + n.id] || (n.art && icons[n.art]) || null; delete n.art; }
+  for (const n of data.nodes) { if (['host', 'pet', 'pipeline'].includes(n.type)) n.pic = petPicture(n); n.icon = icons['node:' + n.id] || (n.art && icons[n.art]) || null; delete n.art; }
   return template.replace('__DATA__', () => JSON.stringify(data).replaceAll('<', '\\u003c'));
 }
 

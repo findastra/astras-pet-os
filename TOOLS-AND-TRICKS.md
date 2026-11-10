@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-254 rows: 12 native programs, 121 native tools, 18 native tricks, 103 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+325 rows: 14 native programs, 151 native tools, 20 native tricks, 140 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -137,8 +137,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | click-check | `the-farm-v1.0-click-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | farm-pets | `the-farm-v1.0-farm-pets-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | flash-audit | `the-farm-v1.0-flash-audit-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | make-it-yours | `the-farm-v1.0-make-it-yours-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | pet-chat-helper | `the-farm-v1.0-pet-chat-helper-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
@@ -162,14 +164,18 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | third-party program | TikTok LIVE Studio |  | Missing: needs planning |
 | 1 | Friendly Farmer | The Farm | third-party program | Wallpaper Engine |  | Missing: needs planning |
 | 2 | GitHub Goldfish | GitHub Aquarium | native program | Pets Board | `github-aquarium-v1.0-pets-board-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | being-checked-or-drafts | `github-aquarium-v1.0-being-checked-or-drafts-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | blatant-checker | `github-aquarium-v1.0-blatant-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | broken-on-main | `github-aquarium-v1.0-broken-on-main-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | close-or-keep | `github-aquarium-v1.0-close-or-keep-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | document-control-checker | `github-aquarium-v1.0-document-control-checker-v1.0` | Works today |
-| 2 | GitHub Goldfish | GitHub Aquarium | native tool | flash-audit | `github-aquarium-v1.0-flash-audit-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | organizational-checker | `github-aquarium-v1.0-organizational-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | outstanding-items | `github-aquarium-v1.0-outstanding-items-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | project-image-generator | `github-aquarium-v1.0-project-image-generator-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | showcase-checker | `github-aquarium-v1.0-showcase-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | systemic-checker | `github-aquarium-v1.0-systemic-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-a-chat | `github-aquarium-v1.0-waiting-on-a-chat-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-you | `github-aquarium-v1.0-waiting-on-you-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
@@ -245,30 +251,60 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | Unity 2022.3.22f1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | Unity Hub 3.21.1 |  | Works today |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat Creator Companion |  | Works today |
+| 5 | Unity Unicorn | Unity Stable | third-party program | MCP for Unity 10.3.0 |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native tool | Reaction learner | `the-astral-plane-v1.0-reaction-learner-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | VRChat connector | `the-astral-plane-v1.0-vrchat-connector-v1.0` | Works today |
+| 7 | Astra Wisp | The Astral Plane | native trick | clone-session | `the-astral-plane-v1.0-clone-session-trick-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
 | 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
+| 12 | File Master | File Kingdom | native tool | cleanup-plan | `file-kingdom-v1.0-cleanup-plan-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | file-scan | `file-kingdom-v1.0-file-scan-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | folder-blockers | `file-kingdom-v1.0-folder-blockers-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | New-programs watch | `pet-program-12-v1.0-new-programs-watch-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | out-of-place | `file-kingdom-v1.0-out-of-place-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | project-gatherer | `file-kingdom-v1.0-project-gatherer-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | project-mover | `file-kingdom-v1.0-project-mover-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | repo-catcher | `pet-program-12-v1.0-repo-catcher-v1.0` | Works today |
-| 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Planned |
+| 12 | File Master | File Kingdom | native tool | save-map | `file-kingdom-v1.0-save-map-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | save-map-look | `file-kingdom-v1.0-save-map-look-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | undo-plan | `file-kingdom-v1.0-undo-plan-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | where-things-live | `file-kingdom-v1.0-where-things-live-v1.0` | Works today |
+| 12 | File Master | File Kingdom | native tool | where-to-save | `file-kingdom-v1.0-where-to-save-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | mass-delete | `file-master-v1.0-mass-delete-v1.0` | Planned |
-| 12 | File Master | File Kingdom | third-party program | Everything |  | Planned |
+| 12 | File Master | File Kingdom | third-party program | ES (Everything’s command line) |  | Works today |
+| 12 | File Master | File Kingdom | third-party program | Everything |  | Works today |
+| 12 | File Master | File Kingdom | third-party program | Git for Windows |  | Works today |
+| 12 | File Master | File Kingdom | third-party program | Windows PowerShell |  | Works today |
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
+| 13 | Discord Damsel | Discord Tower | native program | Ableton Live Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | DM archive review | `discord-tower-v1.0-dm-archive-v0.1` | Planned |
 | 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Works today |
-| 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Planned |
+| 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Works today |
 | 13 | Discord Damsel | Discord Tower | native trick | dm-cleanup | `discord-tower-v1.0-dm-cleanup-trick-v1.0` | Works today |
+| 13 | Discord Damsel | Discord Tower | native trick | typing-indicator | `discord-tower-v1.0-typing-indicator-trick-v1.0` | Works today |
+| 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
-| 13 | Discord Damsel | Discord Tower | third-party program | BetterDiscord |  | Planned |
+| 13 | Discord Damsel | Discord Tower | third-party program | Discord Canary |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
+| 15 | Drum Dog | Bass & Biscuits | native tool | apc64-drum-kit-tool | `bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0` | Works today |
+| 15 | Drum Dog | Bass & Biscuits | native tool | learn-apc64-tool | `bass-biscuits-v1.0-learn-apc64-tool-v1.0` | Works today |
+| 15 | Drum Dog | Bass & Biscuits | native tool | use-my-apc64-tool | `bass-biscuits-v1.0-use-my-apc64-tool-v1.0` | Works today |
+| 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton USB Audio Driver |  | Works today |
+| 15 | Drum Dog | Bass & Biscuits | third-party program | Razer Synapse |  | Works today |
+| 15 | Drum Dog | Bass & Biscuits | third-party program | Voicemeeter |  | Works today |
+| 15 | Drum Dog | Bass & Biscuits | third-party program | Web browser (WebGL) |  | Works today |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Ableton Live |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | third-party program | Spotify |  | Idea |
 | 16 | VSCode Angel | Halo List | third-party program | Visual Studio Community 2022 |  | Idea |
@@ -280,6 +316,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 19 | Voicemeeter Bug | Audio Rescue | native tool | Keep Voicemeeter open | `audio-rescue-v1.0-keep-voicemeeter-open-v1.0` | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Steam Streaming audio |  | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Voicemeeter |  | Works today |
+| 22 | RGBee | Light Hive | native program | light-hive-helper | `light-hive-v1.0-light-hive-helper-v1.0` | Works today |
+| 22 | RGBee | Light Hive | native tool | rainforest-storm-tool | `light-hive-v1.0-rainforest-storm-tool-v1.0` | Works today |
+| 22 | RGBee | Light Hive | native tool | sync-my-lights-tool | `light-hive-v1.0-sync-my-lights-tool-v1.0` | Works today |
+| 22 | RGBee | Light Hive | third-party program | Razer Chroma App |  | Works today |
 | 22 | RGBee | Light Hive | third-party program | Corsair iCUE |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Logitech G HUB |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | MSI Center |  | Planned |
@@ -300,6 +340,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Space Sync |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Steam |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | SteamVR |  | Works today |
+| 29 | Rift Rabbit | Wonderland Launchpad | third-party program | USBDeview |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Virtual Desktop |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | Voicemeeter |  | Works today |
 | 29 | Rift Rabbit | Wonderland Launchpad | third-party program | VRCFaceTracking |  | Works today |
@@ -315,9 +356,15 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 30 | Fuzzboi Friend | Fuzzboi Factory | native program | Fuzzbois |  | Works today |
 | 30 | Fuzzboi Friend | Fuzzboi Factory | third-party program | GitHub |  | Works today |
 | 32 | Deck Duck | Deck Pond | third-party program | Elgato Stream Deck |  | Planned |
+| 35 | Chat Rat | Chat Stack | native tool | model-folders-tool | `chat-stack-v0.1.0-model-folders-tool-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native tool | save-missing | `chat-stack-v0.1.0-save-missing-v0.1.0` | Works today |
+| 35 | Chat Rat | Chat Stack | native tool | saved-conversations-tool | `chat-stack-v0.1.0-saved-conversations-tool-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | ask-chat-rat | `chat-stack-v0.1.0-ask-chat-rat-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | save-chats | `chat-stack-v0.1.0-save-chats-trick-v1.0` | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | ChatGPT website |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Claude app |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Claude website |  | Works today |
+| 35 | Chat Rat | Chat Stack | third-party program | Codex app |  | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.0` | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | fit-any-screen | `mirror-pool-v1.0-fit-any-screen-v1.0` | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.0` | Works today |
@@ -385,4 +432,28 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
+| 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Autoruns |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Coreinfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CPU-Z |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | CrystalDiskInfo |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | ES (Everything’s command line) |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Everything |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Handle |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | HWiNFO64 |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | PowerToys |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Explorer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Process Monitor |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | RAMMap |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Sigcheck |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | SpaceSniffer |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | TCPView |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | USBDeview |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Windows Performance Recorder |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | winget |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WinObj |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | Wireshark |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
+| 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 <!-- registry:end -->

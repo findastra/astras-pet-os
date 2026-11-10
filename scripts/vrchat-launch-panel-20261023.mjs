@@ -13,17 +13,21 @@ export const TOOL = 'wonderland-launchpad-v1.0-vrchat-launch-panel-v0.1';
 export const STREAMERS = [
   ['virtual-desktop', 'Virtual Desktop'],
   ['steam-link', 'Steam Link'],
-  ['meta-horizon-link', 'Meta Horizon Link (cable or Air Link)'],
+  ['meta-horizon-link', 'Meta Horizon (Link Cable)'],
+  ['air-link', 'Meta Horizon (Air Link)'],
 ];
 
 // DoubleHip DoubleChest Tracker's three uses, plus off (the empty value).
 export const DOUBLE = [['', 'Off'], ['hip', 'Double Hip'], ['chest', 'Double Chest'], ['both', 'Both']];
 
+// Her Lovense toys (Astra, 2026-10-26).
+export const LOVENSE = [['nora', 'Nora'], ['domi-2', 'Domi 2'], ['lush-3', 'Lush 3'], ['vulse', 'Vulse']];
+
 // Object Track VR's objects, plus off (Astra, 2026-10-24: "Also will eventually have Object Track VR, for tracking the
 // Small Hoop, Large Hoop, and Dance Pole ... its also a choice between the 4 objects being tracked, like the DoubleHip
 // DoubleChest Tracker drop down"). She counts 4; the fourth is hers to name. The program is not out yet (Steam: coming
 // soon), so a launch only says so.
-export const OBJECTS = [['', 'Off'], ['small-hoop', 'Small Hoop'], ['large-hoop', 'Large Hoop'], ['dance-pole', 'Dance Pole']];
+export const OBJECTS = [['', 'Off'], ['large-hoop', 'Big Dance Hoop'], ['small-hoop', 'Little Dance Hoop'], ['dance-pole', 'Dance Pole']];
 
 export const HEADSETS = [
   { id: 'quest-pro', n: 1, name: 'VRChat on Quest Pro', device: 'Quest Pro', face: true, about: 'Face and eye tracking through VRCFaceTracking.' },
@@ -115,8 +119,8 @@ export function launchOrder(headset, mode) {
     { streamer: true, name: STREAMERS[0][1] },
     { name: headset.device },
     { streamer: true, name: STREAMERS[0][1], after: ` on the ${headset.device}` },
-    { name: 'SteamVR', note: 'which opens', opens: [...(headset.face ? [{ name: 'VRCFaceTracking' }] : []), { name: 'OVR Advanced Settings' }, { name: 'OVR Dynamic Resolution' }, ...mode.runs.map((r) => ({ name: r }))] },
-    { name: 'Then open', opens: [{ name: 'DoubleHip DoubleChest Tracker', extra: 'double-hip' }, { name: 'Object Track VR', extra: 'object-track' }, { name: 'OVR Smooth Tracking' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }, { name: 'Woojer vest (Voicemeeter)', extra: 'woojer' }] },
+    { name: 'SteamVR', note: 'which opens', opens: [...(headset.face ? [{ name: 'VRCFaceTracking', extra: 'face' }] : []), { name: 'OVR Advanced Settings' }, { name: 'OVR Dynamic Resolution' }, ...mode.runs.map((r) => ({ name: r }))] },
+    { name: 'Then open', opens: [{ name: 'DoubleHip DoubleChest Tracker', extra: 'double-hip' }, { name: 'Object Track VR', extra: 'object-track' }, { name: 'OVR Smooth Tracking' }, { name: 'Base Station FOV Viewer', extra: 'fov' }, { name: 'VR Pole Overlay', extra: 'pole' }, { name: 'OSCGoesBrrr', extra: 'oscgoesbrrr' }, { name: 'Woojer vest (Voicemeeter)', extra: 'woojer' }, ...LOVENSE.map(([id, name]) => ({ name: `Lovense ${name} (connect it in its app)`, extra: `lovense-${id}` }))] },
     { wait: 'Wait until all of those are connected and the trackers look smooth.' },
     { name: 'VRChat' },
   ];
@@ -124,19 +128,25 @@ export function launchOrder(headset, mode) {
 
 function switchRow(h) {
   const sw = (key, label, on) => `<label class="launch-switch"><input type="checkbox" data-launch-switch="${esc(key)}"${on ? ' checked' : ''}> ${esc(label)}</label>`;
+  // Devices first, in their own colour, then software (Astra, 2026-10-26: "there needs to be distinction here between
+  // device vs. software"; then "I just need these to look like they were but 2 different colors").
+  const dev = (key, label) => `<label class="launch-switch launch-device"><input type="checkbox" data-launch-switch="${esc(key)}"> ${esc(label)}</label>`;
   return `<div class="launch-switches">
-${h.face
-    // Face tracking is a box like the others, but one that cannot be unticked: always on with the Quest Pro, never on
-    // the Quest 3 (Astra, 2026-10-24: "these need to look similar but the only caveat is the first one cant turn off
-    // its always on ... maybe box you cant uncheck").
-    ? '<label class="launch-switch launch-fixed" title="Always on with the Quest Pro"><input type="checkbox" checked aria-disabled="true" data-launch-locked> VRCFaceTracking (always on)</label>'
-    : '<label class="launch-switch launch-fixed" title="The Quest 3 has no face tracking"><input type="checkbox" aria-disabled="true" data-launch-locked> VRCFaceTracking (no face tracking)</label>'}
-${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
-${/* Mode x.4 needs the headset rooted with Magisk (Astra, 2026-10-25); she ticks this once it is. */ ''}${sw('rooted', 'Rooted with Magisk', false)}
 ${/* The haptic vest (Astra, 2026-10-24: "We also need an option for Woojer vest (similar to OSCGoesBrrr)"). It has
-   no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${sw('woojer', 'Woojer vest', false)}
+   no program of its own: it is a Bluetooth audio device that Voicemeeter plays to, so the launch opens Voicemeeter. */ ''}${dev('woojer', 'Woojer vest')}
+${/* Which of her Lovense toys (2026-10-26: "need to select which if not all of the Lovense Toys"). They connect in their
+   own app, so a launch lists them as a reminder. */ ''}<span class="launch-switch launch-group launch-device"><span class="launch-group-name">Lovense</span>${LOVENSE.map(([id, name]) => `<label><input type="checkbox" data-launch-switch="lovense-${esc(id)}"> ${esc(name)}</label>`).join(' ')}</span>
+${/* Face tracking is a choice on the Quest Pro, and the Quest 3 has none, so no box there (Astra, 2026-10-26: "I also do
+   have the option of using facetracking or not on Quest Pro, its just Quest 3 doesnt have it, so you can remove it from
+   there"). */ ''}${h.face ? sw('face', 'VRCFaceTracking', true) : ''}
+${/* Her two overlays: a tick adds it to the launch, which opens it in order (2026-10-26: "I just need this to add to the
+   sequence until launched"). */ ''}${sw('fov', 'Base Station FOV Viewer', false)}
+${sw('pole', 'VR Pole Overlay', false)}
+${sw('oscgoesbrrr', 'OSCGoesBrrr', true)}
+${/* Mode x.4 needs the headset rooted with Magisk (Astra, 2026-10-25); she ticks this once it is. A headset setting, so
+   it is in the software colour (2026-10-26: "the root one is wrong color too"). */ ''}${sw('rooted', 'Rooted with Magisk', false)}
 ${/* One program, three ways to use it (Astra, 2026-10-24: "DoubleHip and DoubleChest can be used independently, or
-   together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch">DoubleHip DoubleChest Tracker <select data-launch-switch="double-hip">${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
+   together. that would be 3 options but 1 software"): a menu like the streamer's. */ ''}<label class="launch-switch" hidden>DoubleHip DoubleChest Tracker <select data-launch-switch="double-hip" data-auto>${DOUBLE.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch" title="Not out yet: a launch only says so">Object Track VR <select data-launch-switch="object-track">${OBJECTS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 <label class="launch-switch">Streamer <select data-launch-switch="streamer">${STREAMERS.map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('')}</select></label>
 </div>`;
@@ -173,7 +183,7 @@ function modeCard(h, m, i) {
 </fieldset>`;
 }
 
-// tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots where tracking can happen, and which device is on
+// tracker-strapper (Astra, 2026-10-25): her drawing of the 29 spots where tracking can happen, and which device is on
 // each. "Should be so we can select which device is tracking which spot, then your launch options become available
 // below"; "I only want to see this diagram once but it's not a launch tool". Her answers: named tracker-strapper; kept
 // in Rift Rabbit's launcher settings on her PC (the page there changes them; anywhere else it shows today's spots);
@@ -182,36 +192,60 @@ function modeCard(h, m, i) {
 // the left and the toys on the right in a spacious and proportional way", "I want to just click the spot on him, then
 // drop down assign a device from there", and a shorter list. Numbers, names and codes are hers. Facing you, so her right
 // is on the left.
-// `x`, `y`: the spot on the drawing (2.4 px a centimetre: 5′7″ with slightly long arms and torso, her build); `back`:
-// on the back half of its ring, drawn dashed; `kind`: what may go on it.
+// Then (2026-10-26): "Redo these designs they still are not ergonomic or look good (person, objects)", and "The person
+// is hard to understand, you can break away from the conventional design I had as long as you can tell front to back":
+// she is drawn twice now, from the front and from the back, side by side, at 3 px a centimetre, as a natural outline.
+// Each spot sits on the view it belongs to; the side and front-side spots on the front view, the back ones on the back
+// view, where her right is on your right. The pole's tracker sits on its top plate, the X-Pole's neon-green dome,
+// facing down (2026-10-26: "make sure to put the tracker on the top plate"); the hoops' trackers
+// sit on the outside of the rings, facing out.
+// `view`, `x`, `y`: the spot on that view's figure (drawn 190 wide-centre, 930 floor, then placed); `kind`: what may go
+// on it; `down`: drawn upside down.
+const SCALE = 3 / 3.2, FLOOR = 860, VIEW_X = { front: 140, back: 380 };
+// The waist spots sit on her hip bones, the sternum spots high on her chest and between her shoulder blades (2026-10-26).
+// Her legs are two inches longer than drawn (2026-10-26: "make the models legs like 2 inches longer"): everything above
+// the hips rises 16 (5 cm), the legs stretch from there to the floor.
+const LIFT = 16, HIPS = 722;
+const lift = (y) => y <= HIPS ? y - LIFT : 930 - (930 - y) * (930 - HIPS + LIFT) / (930 - HIPS);
+const place = (s) => s.view ? { ...s, x: Math.round(VIEW_X[s.view] + (s.x - 190) * SCALE), y: Math.round(FLOOR - (930 - lift(s.y)) * SCALE) } : s;
 export const SPOTS = [
-  { code: 'RF', n: 1, name: 'Right Foot', x: 158, y: 694 }, { code: 'LF', n: 2, name: 'Left Foot', x: 242, y: 694 },
-  { code: 'RA', n: 3, name: 'Right Ankle', x: 172, y: 668 }, { code: 'LA', n: 4, name: 'Left Ankle', x: 228, y: 668 },
-  { code: 'RK', n: 5, name: 'Right Knee', x: 176, y: 600 }, { code: 'LK', n: 6, name: 'Left Knee', x: 224, y: 600 },
-  { code: 'FW', n: 7, name: 'Front Waist', x: 200, y: 500 }, { code: 'BW', n: 8, name: 'Back Waist', x: 200, y: 472, back: true },
-  { code: 'RS', n: 9, name: 'Right Side', x: 148, y: 486 }, { code: 'LS', n: 10, name: 'Left Side', x: 252, y: 486 },
-  { code: 'RFS', n: 11, name: 'Right Front-Side', x: 174, y: 497 }, { code: 'LFS', n: 12, name: 'Left Front-Side', x: 226, y: 497 },
-  { code: 'RBS', n: 13, name: 'Right Back-Side', x: 174, y: 475, back: true }, { code: 'LBS', n: 14, name: 'Left Back-Side', x: 226, y: 475, back: true },
-  { code: 'FS', n: 15, name: 'Front Sternum', x: 200, y: 450 }, { code: 'BS', n: 16, name: 'Back Sternum', x: 200, y: 426, back: true },
-  { code: 'FC', n: 17, name: 'Front Chest', x: 200, y: 405 }, { code: 'BC', n: 18, name: 'Back Chest', x: 200, y: 379, back: true },
-  { code: 'RE', n: 19, name: 'Right Elbow', x: 136, y: 448 }, { code: 'LE', n: 20, name: 'Left Elbow', x: 264, y: 448 },
-  { code: 'RH', n: 21, name: 'Right Hand', x: 122, y: 540, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', x: 278, y: 540, kind: 'left-hand' },
-  { code: 'F', n: 23, name: 'Face', x: 200, y: 322, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', x: 200, y: 288 },
-  { code: 'DP', n: 25, name: 'Dance Pole', x: 955, y: 62, object: 'dance-pole' },
-  { code: 'BDH', n: 26, name: 'Big Dance Hoop', x: 555, y: 495, object: 'large-hoop' },
-  { code: 'LDH', n: 27, name: 'Little Dance Hoop', x: 488, y: 342, object: 'small-hoop' },
-];
+  { code: 'RF', n: 1, name: 'Right Foot', view: 'front', x: 146, y: 916 }, { code: 'LF', n: 2, name: 'Left Foot', view: 'front', x: 234, y: 916 },
+  { code: 'RA', n: 3, name: 'Right Ankle', view: 'front', x: 162, y: 884 }, { code: 'LA', n: 4, name: 'Left Ankle', view: 'front', x: 218, y: 884 },
+  { code: 'RK', n: 5, name: 'Right Knee', view: 'front', x: 166, y: 800 }, { code: 'LK', n: 6, name: 'Left Knee', view: 'front', x: 214, y: 800 },
+  // 24 Head is the tracker clipped on top of the headset, so it shows on her front (2026-10-26: "tracker on the head is
+  // on the front always attached to top of headset").
+  // The waist spots at belt height (2026-10-26: "waist trackers need to be lower down like where belt would be"), each
+  // once: front and sides on her front, back ones on her back.
+  { code: 'FW', n: 7, name: 'Front Waist', view: 'front', x: 190, y: 670 }, { code: 'BW', n: 8, name: 'Back Waist', view: 'back', x: 190, y: 670 },
+  { code: 'RS', n: 9, name: 'Right Side', view: 'front', x: 139, y: 666 }, { code: 'LS', n: 10, name: 'Left Side', view: 'front', x: 241, y: 666 },
+  { code: 'RFS', n: 11, name: 'Right Front-Side', view: 'front', x: 161, y: 669 }, { code: 'LFS', n: 12, name: 'Left Front-Side', view: 'front', x: 219, y: 669 },
+  { code: 'RBS', n: 13, name: 'Right Back-Side', view: 'back', x: 219, y: 669 }, { code: 'LBS', n: 14, name: 'Left Back-Side', view: 'back', x: 161, y: 669 },
+  { code: 'FD', n: 15, name: 'Front Diaphragm', view: 'front', x: 190, y: 594 }, { code: 'BD', n: 16, name: 'Back Diaphragm', view: 'back', x: 190, y: 594 },
+  { code: 'FS', n: 17, name: 'Front Sternum', view: 'front', x: 190, y: 512 }, { code: 'BS', n: 18, name: 'Back Sternum', view: 'back', x: 190, y: 512 },
+  { code: 'RE', n: 19, name: 'Right Elbow', view: 'front', x: 112, y: 600 }, { code: 'LE', n: 20, name: 'Left Elbow', view: 'front', x: 268, y: 600 },
+  { code: 'RH', n: 21, name: 'Right Hand', view: 'front', x: 93, y: 724, kind: 'right-hand' }, { code: 'LH', n: 22, name: 'Left Hand', view: 'front', x: 287, y: 724, kind: 'left-hand' },
+  { code: 'F', n: 23, name: 'Face', view: 'front', x: 190, y: 418, kind: 'headset' }, { code: 'H', n: 24, name: 'Head', view: 'front', x: 190, y: 380 },
+  { code: 'DP', n: 25, name: 'Dance Pole', x: 1012, y: 54, object: 'dance-pole', side: true },
+  // Each hoop's two spots (2026-10-26): on the side at 3 o'clock and high on the ring at half past one. Both stay off the
+  // bottom, where she sits and hangs, and off the top tab, where the rigging and her hands are; either one is enough.
+  { code: 'BDH', n: 26, name: 'Big Dance Hoop Side', x: 770, y: 410, object: 'large-hoop' },
+  { code: 'BDT', n: 27, name: 'Big Dance Hoop Top', x: 716, y: 295, object: 'large-hoop' },
+  { code: 'LDH', n: 28, name: 'Little Dance Hoop Side', x: 938, y: 328, object: 'small-hoop' },
+  { code: 'LDT', n: 29, name: 'Little Dance Hoop Top', x: 904, y: 269, object: 'small-hoop' },
+].map(place);
 
 // Double Hip's pair is any two of the eight waist spots, usually Front and Back Waist (Astra, 2026-10-25: "the double hip
-// can be made from any of the 8 on the waist, but typical is FW, BW"); Double Chest's any two of the four chest spots.
-export const PAIR_SPOTS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FS', 'BS', 'FC', 'BC'] };
+// can be made from any of the 8 on the waist, but typical is FW, BW"); Double Chest's any two of the four chest and
+// sternum spots, front with back crossed too (2026-10-26: "the front chest and back sternum can be combined for a
+// doublechest, and front sternum back chest"). When exactly two spots of a group have trackers, they are the pair.
+export const PAIR_SPOTS = { hip: ['FW', 'BW', 'RS', 'LS', 'RFS', 'LFS', 'RBS', 'LBS'], chest: ['FD', 'BD', 'FS', 'BS'] };
 
 // Her devices, by the launcher's ids (findastra/rift-rabbit, its device table): [id, name in the picker, short name in
 // the list]. Trackers by their number, sticker and serial ("HTC Vive 3.0 #1: (serial #)").
 export const DEVICES = {
   headset: [['quest-pro', 'Meta Quest Pro', 'Quest Pro'], ['quest-3', 'Meta Quest 3', 'Quest 3']],
-  'right-hand': [['index-controller-right', 'Valve Index Knuckles (right)', 'Index Knuckles'], ['hand-tracking', 'The headset’s hand tracking', 'Hand tracking']],
-  'left-hand': [['index-controller-left', 'Valve Index Knuckles (left)', 'Index Knuckles'], ['hand-tracking', 'The headset’s hand tracking', 'Hand tracking']],
+  'right-hand': [['index-controller-right', 'Valve Index Knuckles (right)', 'Index Knuckles'], ['quest-pro-controller-right', 'Meta Quest Touch Pro controller (right)', 'Quest Pro controller'], ['quest-3-controller-right', 'Meta Quest Touch Plus controller (right)', 'Quest 3 controller'], ['hand-tracking', 'The headset’s hand tracking', 'Hand tracking']],
+  'left-hand': [['index-controller-left', 'Valve Index Knuckles (left)', 'Index Knuckles'], ['quest-pro-controller-left', 'Meta Quest Touch Pro controller (left)', 'Quest Pro controller'], ['quest-3-controller-left', 'Meta Quest Touch Plus controller (left)', 'Quest 3 controller'], ['hand-tracking', 'The headset’s hand tracking', 'Hand tracking']],
   tracker: [
     ['vive-tracker-01', 'HTC Vive 3.0 #1 [RF] · LHR-F3DF780D', 'Vive #1 [RF]'], ['vive-tracker-02', 'HTC Vive 3.0 #2 [L] · LHR-B2105741', 'Vive #2 [L]'],
     ['vive-tracker-03', 'HTC Vive 3.0 #3 [M] · LHR-91D63DB2', 'Vive #3 [M]'], ['vive-tracker-04', 'HTC Vive 3.0 #4 [C] · LHR-6BA0C57A', 'Vive #4 [C]'],
@@ -223,80 +257,248 @@ export const DEVICES = {
 
 // Today's spots (Astra, 2026-10-25: "the body spots guess is right"), the same as the launcher's first settings.
 export const WORN = {
-  F: 'quest-pro', H: 'vive-tracker-08', FC: 'vive-tracker-05', BC: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04',
+  F: 'quest-pro', H: 'vive-tracker-08', FS: 'vive-tracker-05', BS: 'vive-tracker-03', FW: 'vive-tracker-09', BW: 'vive-tracker-04',
   RK: 'vive-tracker-06', LK: 'vive-tracker-02', RF: 'vive-tracker-01', LF: 'vive-tracker-07', RH: 'index-controller-right', LH: 'index-controller-left',
 };
-export const PAIRS = { hip: ['FW', 'BW'], chest: ['FC', 'BC'] };
+export const PAIRS = { hip: ['FW', 'BW'], chest: ['FS', 'BS'] };
 
 // What a spot's colour says (the key she kept from the first drawing).
 export const SPOT_STATES = [
   ['used', 'VRChat tracks it'],
-  ['joined', 'Double Hip or Double Chest pair: joined by DoubleHip DoubleChest Tracker when that Double is on (VRChat ignores it)'],
+  ['joined', 'Joined into one by DoubleHip DoubleChest Tracker, set for you from your spots (VRChat ignores it)'],
   ['head', 'Lines up the Lighthouse space in x.1 to x.3 (VRChat ignores it)'],
   ['off', 'No device on this spot'],
 ];
 
-// Her five toys (Astra, 2026-10-25: "forgot about 5 toys, they dont track though", "look up those devices for better
-// sketches", "make them look realistic"): drawn from the makers' product photos, standing on the floor, with no spot.
-// The Woojer Vest 3 is to her scale (about 51 cm: a harness with a handle loop, two big transducers high on the chest,
-// a mesh spine with a chest strap, and a waist belt with two more transducers and a round buckle). The four Lovense
-// toys are drawn twice their size so their shapes read: Nora a 24.4 cm rotating rabbit, Domi 2 a 23 cm mini wand, Lush 3
-// an 18 cm egg with a thin tail, Vulse a 21 cm thrusting egg with a ribbed neck and a long tail. `x`, `y`: the drawing's
-// top left; `label`: where its name sits.
+// Her five toys (Astra, 2026-10-25: "forgot about 5 toys, they dont track though"; 2026-10-26: "none of these look like
+// real life models of the actual equipment"): traced from the makers' product photos, true size at 3 to a centimetre,
+// standing on the floor with no spot.
+// - Woojer Vest 3, about 51 cm: two padded shoulder straps with a big round transducer high on each, the control box with
+//   its screen on her left strap, the mesh spine with its chest strap, and the winged waist belt with two more transducers
+//   and a round buckle between red-trimmed webbing.
+// - Lovense Nora, 24.4 cm: a pink curved shaft with its rabbit arm, a silver band and a white handle.
+// - Domi 2, 23 cm: a black mini wand, a round head on a short neck, a silver band and a long body.
+// - Lush 3, 18 cm: a pink egg lying on its side, its thin tail arching up and over it.
+// - Vulse, 21 cm: a coral egg with a ribbed end, its tail arching up and over it.
+// `x`, `y`: the drawing's top left; `scale`: from the outline's own units; `label`: where its name goes.
 const shine = (cx, cy, rx, ry) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#ffffff" opacity=".28"/>`;
-const pod = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#toy-pod)" stroke="#55555e" stroke-width="1.2"/><circle cx="${cx}" cy="${cy}" r="${r * 0.55}" fill="none" stroke="#2c2c33" stroke-width="1"/>`;
+const pod = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r + 1}" fill="#0c0c0f"/><circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#toy-pod)" stroke="#55555f" stroke-width=".6"/><circle cx="${cx}" cy="${cy}" r="${r * 0.62}" fill="none" stroke="#24242a" stroke-width=".9"/><path d="M${cx - r * 0.62} ${cy - r * 0.42} A ${r * 0.78} ${r * 0.78} 0 0 1 ${cx + r * 0.28} ${cy - r * 0.74}" fill="none" stroke="#9a9aa6" stroke-width=".7" opacity=".6"/>`;
+const stitch = (d) => `<path d="${d}" fill="none" stroke="#4a4a54" stroke-width=".45" stroke-dasharray="1.1 .9"/>`;
+const STRAP = 'M6.4 1.3 C14 0 26 2 31.9 6.4 C31 18 29.5 30 29.8 40.4 C30 52 32 62 34 70.2 L13 72.3 C9 62 3 52 2.1 40.4 C1 30 0 20 0.9 14.9 C1.5 8 3.5 3 6.4 1.3 Z';
+const BELT = 'M0 80.9 C10 77 22 75.5 29.8 76.6 C38 78 44 84 50 85 C56 84 62 78 70.2 76.6 C78 75.5 90 77 100 80.9 C101.5 92 101.5 104 100 114.9 C90 118.5 80 119.5 70.2 119 C62 118 56 113 50 112.8 C44 113 38 118 29.8 119 C20 119.5 10 118.5 0 114.9 C-1.5 104 -1.5 92 0 80.9 Z';
 export const TOYS = [
-  { name: 'Woojer Vest 3', x: 596, y: 578, label: [654, 716], svg: `<path d="M38 6 Q58 0 78 6 L74 15 Q58 10 42 15 Z" fill="#2e2e35"/><rect x="50" y="1" width="16" height="5" rx="2.5" fill="none" stroke="#6a6a74" stroke-width="1.4"/>
-<path d="M38 6 Q20 6 11 22 Q3 40 9 58 Q20 67 35 60 L45 44 L46 14 Z" fill="url(#toy-vest)"/><path d="M78 6 Q96 6 105 22 Q113 40 107 58 Q96 67 81 60 L71 44 L70 14 Z" fill="url(#toy-vest)"/>
-<path d="M44 38 L72 38 L70 94 L46 94 Z" fill="url(#toy-mesh)" stroke="#1d1d22" stroke-width="1"/>
-<rect x="38" y="52" width="40" height="4" rx="1.5" fill="#1b1b20"/><rect x="54" y="50" width="8" height="8" rx="1.5" fill="#44444c"/>
-<path d="M46 78 Q24 73 8 84 Q0 97 6 112 Q20 122 46 112 Z" fill="url(#toy-vest)"/><path d="M70 78 Q92 73 108 84 Q116 97 110 112 Q96 122 70 112 Z" fill="url(#toy-vest)"/>
-<rect x="44" y="88" width="28" height="22" rx="4" fill="#232329"/><circle cx="58" cy="99" r="6.5" fill="#3b3b43" stroke="#7a7a84" stroke-width="1.2"/><circle cx="58" cy="99" r="2" fill="#9a9aa4"/>
-${pod(26, 33, 11)}${pod(90, 33, 11)}${pod(21, 99, 11)}${pod(95, 99, 11)}
-<rect x="84" y="44" width="10" height="13" rx="2" fill="#15151a" stroke="#4a4a52" stroke-width=".8"/><circle cx="89" cy="49" r="2.2" fill="none" stroke="#7fd3ff" stroke-width=".8"/>
-<path d="M50 60 V68 M66 60 V68 M48 112 V118 M68 112 V118" stroke="#c4313c" stroke-width="2" stroke-linecap="round"/>
-<text x="20" y="48" font-size="5" fill="#8a8a94" transform="rotate(-18 20 48)">woojer</text>` },
-  { name: 'Nora', x: 724, y: 583, label: [742, 716], svg: `<path d="M27 74 C36 72 43 64 43 52 C43 45 38 43 36 48 C35 58 32 63 27 64 Z" fill="url(#toy-pink)"/>
-<path d="M8 110 Q8 117 18 117 Q28 117 28 110 L28 84 C28 60 28 40 30 24 C32 12 30 2 22 2 C16 2 12 10 10 22 C6 40 8 60 8 84 Z" fill="url(#toy-pink)"/>
-<rect x="8" y="81" width="20" height="4" rx="1" fill="url(#toy-silver)"/><circle cx="18" cy="96" r="2.2" fill="#f7c3d6"/><circle cx="18" cy="104" r="2.2" fill="#f7c3d6"/>
-${shine(13, 30, 2.2, 14)}${shine(13, 98, 1.8, 9)}` },
-  { name: 'Domi 2', x: 776, y: 588, label: [791, 716], svg: `<path d="M8 34 Q15 31 22 34 L21 104 Q15 112 9 104 Z" fill="url(#toy-pink)"/>
-<path d="M9 25 Q15 30 21 25 L20 35 Q15 37 10 35 Z" fill="url(#toy-silver)"/>
-<ellipse cx="15" cy="14" rx="14" ry="13" fill="url(#toy-head)"/>
-<circle cx="15" cy="50" r="2.2" fill="#f7c3d6"/><circle cx="15" cy="58" r="2.2" fill="#f7c3d6"/><rect x="13" y="64" width="4" height="7" rx="2" fill="#f7c3d6"/>
-${shine(9, 9, 3.5, 4.5)}${shine(11, 70, 1.6, 22)}` },
-  { name: 'Lush 3', x: 814, y: 614, label: [830, 716], svg: `<path d="M12 50 C12 30 22 14 38 8" fill="none" stroke="url(#toy-pink-line)" stroke-width="5.5" stroke-linecap="round"/><circle cx="39" cy="8" r="4.2" fill="#e8508f"/>
-<ellipse cx="12" cy="66" rx="10" ry="19" fill="url(#toy-pink)"/>${shine(8, 60, 2.4, 9)}` },
-  { name: 'Vulse', x: 864, y: 599, label: [880, 716], svg: `<path d="M12 62 C12 38 26 18 44 10" fill="none" stroke="url(#toy-coral-line)" stroke-width="7" stroke-linecap="round"/><circle cx="45" cy="9.5" r="5" fill="#ff5a68"/>
-<rect x="3.5" y="58" width="17" height="6" rx="3" fill="url(#toy-coral)"/><rect x="3" y="64" width="18" height="6" rx="3" fill="url(#toy-coral)"/><rect x="2.5" y="70" width="19" height="6" rx="3" fill="url(#toy-coral)"/><rect x="2.5" y="76" width="19" height="6" rx="3" fill="url(#toy-coral)"/>
-<ellipse cx="12" cy="88" rx="9.5" ry="12" fill="url(#toy-coral)"/>${shine(8, 86, 2.2, 6)}` },
+  { name: 'Woojer Vest 3', short: 'Vest 3', x: 556, y: 707, w: 129, scale: 1.29, label: [620, 932], svg: `<path d="${BELT}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>${stitch('M3 83 C12 80 22 79 29.8 80 C38 81 44 87 50 88 C56 87 62 81 70.2 80 C78 79 88 80 97 83')}
+<path d="M27 68 h7 v12 h-7 Z M66 68 h7 v12 h-7 Z" fill="#111114"/><path d="M28 71 h5 M67 71 h5" stroke="#c4313c" stroke-width="1"/>
+<path d="${STRAP}" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/><path d="${STRAP}" transform="translate(100 0) scale(-1 1)" fill="url(#toy-vest)" stroke="#3a3a44" stroke-width=".8"/>
+${stitch('M7 4 C2 12 2.6 30 3.6 40 C4.5 52 9 62 14 70')}${stitch('M93 4 C98 12 97.4 30 96.4 40 C95.5 52 91 62 86 70')}
+<path d="M31.9 6.4 Q50 2.5 68.1 6.4 L67 16 Q50 13 33 16 Z" fill="#18181c" stroke="#3a3a44" stroke-width=".6"/><rect x="46" y="7" width="8" height="2.6" rx="1.3" fill="none" stroke="#a0a0aa" stroke-width=".7"/>
+<path d="M42 16 L58 16 L59 92 L41 92 Z" fill="url(#toy-mesh)" stroke="#2a2a31" stroke-width=".6"/><text x="0" y="0" font-size="3.2" fill="#8a8a94" transform="translate(51.2 78) rotate(-90)">born to feel</text>
+<rect x="30" y="53.6" width="40" height="2.6" fill="#0e0e11"/><rect x="34" y="52" width="5.4" height="5.8" rx="1" fill="#24242a" stroke="#6a6a74" stroke-width=".5"/><rect x="60.6" y="52" width="5.4" height="5.8" rx="1" fill="#24242a" stroke="#6a6a74" stroke-width=".5"/>
+${pod(20.5, 27.5, 10.5)}${pod(79.5, 27.5, 10.5)}
+<g transform="rotate(-8 73 52)"><rect x="64.5" y="42.5" width="17" height="19" rx="2.2" fill="#0d0d10" stroke="#55555f" stroke-width=".6"/><rect x="66.4" y="44.4" width="9.6" height="14" rx="1" fill="#071820"/><circle cx="71.2" cy="49.4" r="2.2" fill="none" stroke="#39c6ff" stroke-width=".6"/><rect x="67.6" y="53.6" width="7" height=".8" fill="#39c6ff" opacity=".8"/><rect x="67.6" y="55.6" width="4.6" height=".8" fill="#ffffff" opacity=".6"/><circle cx="78.6" cy="47" r=".9" fill="#55555f"/><circle cx="78.6" cy="51" r=".9" fill="#55555f"/></g>
+<text x="0" y="0" font-size="4.6" fill="#d6d6de" letter-spacing=".2" transform="translate(7.5 60) rotate(-13)">woojer</text>
+<rect x="31" y="96" width="38" height="6" fill="#121216"/><path d="M36.4 94.4 v9.2 M63.6 94.4 v9.2" stroke="#c4313c" stroke-width="1.2"/>
+${pod(12.8, 99, 9.2)}${pod(87.2, 99, 9.2)}
+<circle cx="50" cy="99" r="5.4" fill="#26262c" stroke="#a0a0aa" stroke-width=".8"/><circle cx="50" cy="99" r="2.6" fill="none" stroke="#c8c8d0" stroke-width=".6"/><circle cx="50" cy="99" r=".9" fill="#e0e0e8"/>` },
+  { name: 'Nora', x: 752, y: 787, w: 24, scale: 1, label: [764, 932], svg: `<path d="M8.4 37 C3.6 34 1.6 28 2.2 22.4 C2.6 19.6 5 19.4 5.6 22.2 C6.4 26.8 7.6 29.8 10 31 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
+<path d="M7.6 45.5 C7 34 8 22 11 12 C12.6 6 15 2.6 17.6 3 C20.6 3.6 20.6 8 19.6 13 C18 22 17 34 16.6 45.5 Z" fill="url(#toy-pink)" stroke="#8e0f3c" stroke-width=".5"/>
+<rect x="7.2" y="45" width="9.8" height="2.4" rx=".6" fill="url(#toy-silver)"/><path d="M7.2 47.4 L7.2 69 Q7.2 73 12.1 73 Q17 73 17 69 L17 47.4 Z" fill="url(#toy-white)" stroke="#a7a7b2" stroke-width=".4"/>
+${shine(12.3, 22, 1, 9)}${shine(9.6, 59, .9, 8)}` },
+  { name: 'Domi 2', x: 814, y: 791, w: 17, scale: 1, label: [822, 932], svg: `<path d="M5.8 13.6 Q8.5 15 11.2 13.6 L12 19.6 Q8.5 21 5 19.6 Z" fill="url(#toy-black)"/>
+<circle cx="8.5" cy="7.5" r="7.5" fill="url(#toy-black-head)"/><path d="M2.4 21 Q8.5 18.4 14.6 21 L15 66.6 Q15 69 12.8 69 L4.2 69 Q2 69 2 66.6 Z" fill="url(#toy-black)" stroke="#3a3a42" stroke-width=".4"/>
+<rect x="2.3" y="25.6" width="12.4" height="1.6" fill="url(#toy-silver)"/><circle cx="8.5" cy="33" r=".9" fill="#55555f"/><circle cx="8.5" cy="37" r=".9" fill="#55555f"/>
+${shine(5.4, 4.6, 1.8, 2.2)}${shine(5.4, 46, .8, 16)}` },
+  { name: 'Lush 3', x: 864, y: 830, w: 34, scale: 1, label: [881, 932], svg: `<path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="#9c0f4a" stroke-width="4.2" stroke-linecap="round"/><path d="M11 25 C2 22 .5 9 9.6 3.4 C17.6 -1.2 27.6 1.6 30 8.6" fill="none" stroke="url(#toy-pink-line)" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="30.4" cy="10.6" rx="2.8" ry="1.8" fill="#ec3a85" stroke="#9c0f4a" stroke-width=".5" transform="rotate(62 30.4 10.6)"/>
+<path d="M9.6 25 C11.6 19.6 21 17.6 27.6 19.2 C33.4 20.6 33.6 28 28 29.6 C21.6 31.4 11.6 30.4 9.6 25 Z" fill="url(#toy-pink-v)" stroke="#9c0f4a" stroke-width=".5"/>${shine(22, 21.6, 6, 1.1)}` },
+  { name: 'Vulse', x: 926, y: 828, w: 38, scale: 1, label: [945, 932], svg: `<path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="#9e1622" stroke-width="4.6" stroke-linecap="round"/><path d="M12.6 26 C4 24 .6 12 7.6 5 C13.6 -.4 24 1.4 26.4 8" fill="none" stroke="url(#toy-coral-line)" stroke-width="3.4" stroke-linecap="round"/>
+<ellipse cx="26.8" cy="10" rx="2.8" ry="2" fill="#ff5a68" stroke="#9e1622" stroke-width=".5" transform="rotate(60 26.8 10)"/>
+<path d="M20 20.6 C31 19.6 38 22.6 38 26.4 C38 30 31 32.6 20 31.8 Z" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".5"/>
+${[12, 14.2, 16.4, 18.6].map((x, i) => `<rect x="${x}" y="${20.6 + i * .1}" width="2.4" height="${11.2 - i * .2}" rx="1.2" fill="url(#toy-coral-v)" stroke="#9e1622" stroke-width=".45"/>`).join('')}${shine(29, 22.6, 5, 1)}` },
 ];
 const TOY_DEFS = `<defs>
-<linearGradient id="toy-pink" x1="0" x2="1"><stop offset="0" stop-color="#b8164f"/><stop offset=".45" stop-color="#f0609a"/><stop offset="1" stop-color="#a8124a"/></linearGradient>
+<linearGradient id="toy-pink" x1="0" x2="1"><stop offset="0" stop-color="#7d0a33"/><stop offset=".22" stop-color="#d6346f"/><stop offset=".4" stop-color="#ff8fbd"/><stop offset=".58" stop-color="#e44a86"/><stop offset="1" stop-color="#8e0f3c"/></linearGradient>
 <linearGradient id="toy-pink-line" x1="0" x2="1"><stop offset="0" stop-color="#c81c5c"/><stop offset="1" stop-color="#f06a9e"/></linearGradient>
-<linearGradient id="toy-coral" x1="0" x2="1"><stop offset="0" stop-color="#c8202f"/><stop offset=".45" stop-color="#ff6b76"/><stop offset="1" stop-color="#b81a28"/></linearGradient>
+<linearGradient id="toy-coral" x1="0" x2="1"><stop offset="0" stop-color="#7a0d17"/><stop offset=".25" stop-color="#e0303f"/><stop offset=".42" stop-color="#ff9aa2"/><stop offset=".6" stop-color="#f04452"/><stop offset="1" stop-color="#8a121e"/></linearGradient>
 <linearGradient id="toy-coral-line" x1="0" x2="1"><stop offset="0" stop-color="#d22636"/><stop offset="1" stop-color="#ff7480"/></linearGradient>
+<linearGradient id="toy-pink-v" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff7fb4"/><stop offset=".45" stop-color="#ec3a85"/><stop offset="1" stop-color="#9c0f4a"/></linearGradient>
+<linearGradient id="toy-coral-v" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9aa2"/><stop offset=".45" stop-color="#f2404f"/><stop offset="1" stop-color="#8a121e"/></linearGradient>
+<linearGradient id="toy-white" x1="0" x2="1"><stop offset="0" stop-color="#c9c9d2"/><stop offset=".45" stop-color="#ffffff"/><stop offset="1" stop-color="#b4b4be"/></linearGradient>
+<linearGradient id="toy-black" x1="0" x2="1"><stop offset="0" stop-color="#08080a"/><stop offset=".4" stop-color="#3a3a42"/><stop offset="1" stop-color="#0a0a0c"/></linearGradient>
+<radialGradient id="toy-black-head" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#55555f"/><stop offset=".6" stop-color="#1c1c21"/><stop offset="1" stop-color="#050506"/></radialGradient>
 <linearGradient id="toy-silver" x1="0" x2="1"><stop offset="0" stop-color="#8d8d96"/><stop offset=".5" stop-color="#e6e6ec"/><stop offset="1" stop-color="#8d8d96"/></linearGradient>
 <radialGradient id="toy-head" cx=".38" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f6d3e1"/><stop offset="1" stop-color="#d79ab4"/></radialGradient>
-<linearGradient id="toy-vest" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#3c3c45"/><stop offset="1" stop-color="#1f1f25"/></linearGradient>
+<linearGradient id="toy-vest" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#4a4a55"/><stop offset=".35" stop-color="#2b2b33"/><stop offset="1" stop-color="#141418"/></linearGradient>
 <pattern id="toy-mesh" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#2a2a31"/><circle cx="1.5" cy="1.5" r=".7" fill="#3d3d46"/></pattern>
 <radialGradient id="toy-pod" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#4a4a54"/><stop offset="1" stop-color="#141418"/></radialGradient>
 </defs>`;
 
+// What each device looks like on its spot (Astra, 2026-10-26: "Lets make the tracker spots actually look like HTC Vive
+// 3.0, and Index Controller, etc. depending on selection", then "You need the index controllers, Qpro controllers, q3
+// controllers, too"): a Vive Tracker 3.0 is a rounded three-lobed puck with its round centre and light; an Index
+// controller its handle and ring; a Touch Pro controller a ringless grip with its cameras; a Touch Plus a ringless grip;
+// a Quest Pro a slim visor; a Quest 3 a deeper front with its three sensor slots; hand tracking an open hand. An empty
+// spot is a dashed ring. The spot's number rides on a badge at its corner, its colour halo says what it does.
+const DEVICE_SYMBOLS = `<symbol id="ico-tracker" viewBox="-12 -12 24 24"><path d="M0 -10.5 C3.5 -10.5 7 -5 9.6 0.5 C11.6 4.8 9.8 9 5.6 9.4 C2 9.8 -2 9.8 -5.6 9.4 C-9.8 9 -11.6 4.8 -9.6 0.5 C-7 -5 -3.5 -10.5 0 -10.5 Z" fill="#30323c" stroke="#dfe5f2" stroke-width="1"/><path d="M-6.6 -3.4 C-4.6 -7.6 -2.2 -9.2 0 -9.2 C2.2 -9.2 4.6 -7.6 6.6 -3.4" fill="none" stroke="#ffffff" stroke-width=".7" opacity=".35"/>
+<ellipse cx="-7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(-30 -7.6 4.6)"/><ellipse cx="7.6" cy="4.6" rx="1" ry="1.6" fill="#16161b" transform="rotate(30 7.6 4.6)"/><ellipse cx="0" cy="8.2" rx="1.8" ry=".8" fill="#16161b"/><ellipse cx="-3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(30 -3.6 -6.4)"/><ellipse cx="3.6" cy="-6.4" rx=".8" ry="1.3" fill="#16161b" transform="rotate(-30 3.6 -6.4)"/>
+<circle cy="1" r="4.8" fill="#1a1a1f" stroke="#6a6f80" stroke-width=".8"/><circle cy="1" r="3" fill="none" stroke="#3a3d48" stroke-width=".7"/><circle cy="1" r="1.3" fill="#4a4e5c"/><circle cy="-6.4" r="1" fill="#6cc7e8"/></symbol>
+<symbol id="ico-tracker-side" viewBox="-12 -12 24 24"><rect x="-6" y="-11" width="12" height="3" rx="1" fill="#55555f" stroke="#c9d1e0" stroke-width=".6"/><rect x="-1.4" y="-8.2" width="2.8" height="2.4" fill="#8a8f9c"/><path d="M-11 -4.6 Q-11 -6 -9.4 -6 H9.4 Q11 -6 11 -4.6 L10.2 1.6 Q8.4 6.6 0 7.2 Q-8.4 6.6 -10.2 1.6 Z" fill="#30323c" stroke="#dfe5f2" stroke-width="1"/><path d="M-9 -3.4 H9" stroke="#ffffff" stroke-width=".6" opacity=".35"/><ellipse cx="-6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><ellipse cx="6" cy="1.6" rx="1.4" ry=".8" fill="#16161b"/><circle cx="0" cy="1.8" r="1" fill="#6cc7e8"/></symbol>
+<symbol id="ico-index" viewBox="-12 -12 24 24"><path d="M-2.4 -2.6 L-3.2 10.6 Q0 12.2 3.2 10.6 L2.4 -2.6 Z" fill="#2b2d36" stroke="#dfe5f2" stroke-width=".9"/><path d="M-1 0 V9" stroke="#16161b" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M-3 -2.4 C-10.5 -1 -10.5 9.6 -3.2 10.6" fill="none" stroke="#c8ced9" stroke-width="2.4" stroke-linecap="round"/><path d="M-3 -2.4 C-10.5 -1 -10.5 9.6 -3.2 10.6" fill="none" stroke="#2b2d36" stroke-width=".8" stroke-dasharray="1.2 1"/>
+<path d="M-4.4 -11 Q2 -12.6 5.6 -8.6 Q7 -5 4.4 -2.4 L-2.6 -2 Q-6.2 -5.4 -4.4 -11 Z" fill="#3b3d48" stroke="#dfe5f2" stroke-width=".9"/><ellipse cx=".6" cy="-6.8" rx="2.6" ry="2" fill="#16161b" stroke="#8a90a0" stroke-width=".5" transform="rotate(-20 .6 -6.8)"/><circle cx="4" cy="-4.4" r=".7" fill="#8a90a0"/></symbol>
+<symbol id="ico-qpro-ctrl" viewBox="-12 -12 24 24"><path d="M-6.4 -7 Q-6.4 -11 0 -11 Q6.4 -11 6.4 -7 Q6.4 -3.4 3.2 -2 Q3 5 1.8 10 Q0 11.4 -1.8 10 Q-3 5 -3.2 -2 Q-6.4 -3.4 -6.4 -7 Z" fill="#121318" stroke="#dfe5f2" stroke-width=".9"/>
+<circle cx="-3.6" cy="-8.4" r="1.1" fill="#f2f5fb"/><circle cx="3.6" cy="-8.4" r="1.1" fill="#f2f5fb"/><circle cx="0" cy="-3.4" r="1.1" fill="#f2f5fb"/><circle cx="0" cy="-7" r="1.9" fill="#2b2d36" stroke="#8a90a0" stroke-width=".5"/><circle cx="3.4" cy="-5.4" r=".7" fill="#55555f"/><circle cx="-3.4" cy="-5.4" r=".7" fill="#55555f"/></symbol>
+<symbol id="ico-q3-ctrl" viewBox="-12 -12 24 24"><path d="M-5.4 -10 Q0 -12 5.4 -10 Q7.6 -6.6 5.2 -3 Q3.8 5 2.2 9.6 Q0 11 -2.2 9.6 Q-3.8 5 -5.2 -3 Q-7.6 -6.6 -5.4 -10 Z" fill="#f2f2f5" stroke="#7a7a86" stroke-width=".9"/><path d="M-4 -10.2 Q0 -11.4 4 -10.2" fill="none" stroke="#ffffff" stroke-width=".8"/>
+<circle cx="-1.6" cy="-6.6" r="2" fill="#2a2a32"/><circle cx="2.8" cy="-7.8" r=".9" fill="#b0b0bc"/><circle cx="2.8" cy="-4.8" r=".9" fill="#b0b0bc"/><path d="M-3 0 Q0 1.4 3 0" fill="none" stroke="#c4c4cc" stroke-width=".6"/></symbol>
+<symbol id="ico-qpro" viewBox="-12 -12 24 24"><path d="M-11 -4 Q0 -8.5 11 -4 L10 3.5 Q0 6 -10 3.5 Z" fill="#1b1b20" stroke="#8a8a96" stroke-width="1"/></symbol>
+<symbol id="ico-q3" viewBox="-12 -12 24 24"><path d="M-11 -6 Q0 -9 11 -6 L11 5 Q0 8 -11 5 Z" fill="#ececf0" stroke="#7a7a86" stroke-width="1"/></symbol>
+<symbol id="ico-hand" viewBox="-12 -12 24 24"><path d="M-3.6 -7.6 Q0 -9 3.6 -7.6 L4.2 2.6 Q3.6 7.8 0 8.2 Q-3.6 7.8 -4.2 2.6 Z" fill="#b4dcff" fill-opacity=".35" stroke="#b4dcff" stroke-width="1.1"/></symbol>`;
+export const SPOT_KINDS = ['tracker', 'index', 'qpro-ctrl', 'q3-ctrl', 'qpro', 'q3', 'hand'];
+const KIND_SIZE = { tracker: 23, index: 46, 'qpro-ctrl': 34, 'q3-ctrl': 34, qpro: 0, q3: 0, hand: 36 };
+
 const spotName = (s) => `${s.n} ${s.name} [${s.code}]`;
 
+// A smooth closed outline through points (Catmull-Rom as cubic curves).
+function smooth(points) {
+  const n = points.length, p = (i) => points[(i + n) % n];
+  let d = `M${p(0)[0]} ${p(0)[1]}`;
+  for (let i = 0; i < n; i++) {
+    const [a, b, c, e] = [p(i - 1), p(i), p(i + 1), p(i + 2)];
+    const c1 = [b[0] + (c[0] - a[0]) / 6, b[1] + (c[1] - a[1]) / 6], c2 = [c[0] - (e[0] - b[0]) / 6, c[1] - (e[1] - b[1]) / 6];
+    d += ` C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${c[0]} ${c[1]}`;
+  }
+  return d + ' Z';
+}
+
+// Her body as one natural outline, head to feet in one line (2026-10-26: "body still looks weird, just make it a natural female body outline"):
+// her right half from the neck, down the arm and round the hand, up to the armpit, down the bust, waist, hip and leg to
+// the foot, and up the inner leg; the left half is its mirror. Drawn 190 wide-centre, 930 floor.
+// Fuller arms and thighs and booted feet (2026-10-26: "the feet look like flippers. make them look like boots. make the
+// figure not look like a skeleton").
+const HALF = [[176, 392], [167, 404], [165, 421], [168, 438], [175, 449], [179, 457], [178, 474], [160, 484], [138, 491],
+  [125, 503], [116, 540], [101, 598], [91, 662], [86, 700], [82, 716], [84, 734], [93, 743], [101, 731], [102, 710],
+  [108, 680], [119, 630], [127, 590], [135, 550], [140, 538], [141, 556], [148, 574], [154, 612], [147, 636], [139, 656],
+  [136, 672], [137, 700], [141, 740], [147, 778], [149, 806], [148, 846], [150, 880], [149, 904], [146, 918], [145, 927],
+  [150, 931], [176, 931], [180, 926], [180, 904], [179, 884], [180, 850], [182, 806], [183, 760], [186, 716], [189, 692]];
+// Her boots over her feet: a shaft to mid-calf, the foot turned out to her side, a rounded toe and a flat sole.
+const BOOT = [[149, 858], [158, 855], [175, 855], [181, 858], [181, 904], [182, 922], [179, 931], [133, 932], [125, 928], [125, 920], [132, 913], [146, 906], [148, 884]];
+const BOOTS = [BOOT, BOOT.slice().reverse().map(([x, y]) => [380 - x, y])].map((pts) => smooth(pts.map(([x, y]) => [x, Math.round(lift(y) * 10) / 10])));
+const BODY = smooth([[190, 388], ...HALF, ...HALF.slice().reverse().map(([x, y]) => [380 - x, y])].map(([x, y]) => [x, Math.round(lift(y) * 10) / 10]));
+
+// Her hair, black like a galaxy, up in a bun over her head (2026-10-26: "show the hair as black and galaxy like, its in
+// a bun over the head"). A few stars twinkle in it.
+const STARS = (pts) => pts.map(([x, y, r]) => `<circle class="strap-star" cx="${x}" cy="${y}" r="${r}"/>`).join('');
+const HAIR_FRONT = `<path class="strap-hair" d="M166 418 C163 392 178 386 190 386 C202 386 217 392 214 418 C212 430 211 438 209 445 L205.5 445 C207 430 206 412 200 404 C194 398 186 398 180 404 C174 412 173 430 174.5 445 L171 445 C169 438 168 430 166 418 Z"/>
+<path class="strap-face" d="M186.5 438.5 Q190 440.5 193.5 438.5 M184 444.5 Q190 448 196 444.5"/>`;
+const HAIR_BACK = `<path class="strap-hair" d="M165 418 C160 380 220 380 215 418 C214 440 204 452 190 454 C176 452 166 440 165 418 Z"/>`;
+const BUN = `<ellipse class="strap-hair" cx="190" cy="378" rx="19" ry="15"/><path class="strap-hair-tie" d="M176 388 Q190 394 204 388"/>${STARS([[184, 372, 1.3], [197, 381, .9], [190, 368, .8], [176, 384, .7], [205, 375, .8]])}`;
+
+// The headset on her face, Quest Pro or Quest 3 as 23 Face says ("make the Quest Pro or Quest 3 cutouts"): the page
+// shows the one that is on.
+// The headsets at their real size on her face (Meta's cut sheets: Quest Pro 196 mm wide; Quest 3 about 184 mm), 3.2 to a
+// centimetre in her drawing.
+const HEADSETS_FRONT = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-band" d="M159 408 C152 392 160 376 178 371 C196 367 216 372 224 386 C228 394 226 402 221 408"/>
+<path class="strap-headset" d="M158.5 405 Q190 396 221.5 405 L220.5 423 Q219.5 431 210 431.5 Q190 434 170 431.5 Q160.5 431 159.5 423 Z"/><path d="M161 407.5 Q190 399.5 219 407.5" fill="none" stroke="#e8eefc" stroke-width=".9" opacity=".55"/>
+<path d="M163 416 Q190 410 217 416" fill="none" stroke="#3a3d4a" stroke-width="5" opacity=".7"/><circle cx="166" cy="425" r="1.4" fill="#4a4e5c"/><circle cx="214" cy="425" r="1.4" fill="#4a4e5c"/><circle cx="178" cy="428" r="1.1" fill="#4a4e5c"/><circle cx="202" cy="428" r="1.1" fill="#4a4e5c"/><circle cx="190" cy="429" r="1.1" fill="#4a4e5c"/></g>
+<g class="strap-hs strap-hs-quest-3"><path class="strap-band-soft" d="M161 410 C152 398 157 380 176 374 M219 410 C228 398 223 380 204 374 M176 374 Q190 366 204 374"/>
+<path class="strap-headset-q3" d="M160.5 402 Q190 395 219.5 402 L219.5 428 Q219.5 434 212 434 Q190 437 168 434 Q160.5 434 160.5 428 Z"/><rect x="167" y="410" width="9" height="17" rx="4.5" fill="#24242c"/><rect x="185.5" y="410" width="9" height="17" rx="4.5" fill="#24242c"/><rect x="204" y="410" width="9" height="17" rx="4.5" fill="#24242c"/></g>`;
+// From the back: the Quest Pro's halo band round her head and its battery at the back; the Quest 3's soft strap.
+const HEADSETS_BACK = `<g class="strap-hs strap-hs-quest-pro"><path class="strap-band" d="M166 414 Q190 406 214 414"/><rect class="strap-headset" x="180" y="408" width="20" height="15" rx="5"/><path d="M184 412 h12" stroke="#a8b3d0" stroke-width=".8" opacity=".6"/></g>
+<g class="strap-hs strap-hs-quest-3"><path class="strap-band-soft" d="M165 410 Q190 400 215 410 M167 426 Q190 418 213 426"/></g>`;
+
+function figure(view) {
+  const front = view === 'front';
+  return `<g class="strap-figure strap-${view}" transform="translate(${VIEW_X[view] - 190 * SCALE} ${FLOOR - 930 * SCALE}) scale(${SCALE})">
+<ellipse class="strap-shadow" cx="190" cy="930" rx="62" ry="6"/>
+<path class="strap-skin" d="${BODY}"/>${BOOTS.map((d) => `<path class="strap-boot" d="${d}"/>`).join('')}
+<g transform="translate(0 -${LIFT})">
+${front ? '<path class="strap-crease" d="M160 552 Q172 566 186 558 M194 558 Q208 566 220 552 M190 626 v2"/>' : ''}
+${front ? HAIR_FRONT : HAIR_BACK}${BUN}
+${front ? HEADSETS_FRONT : HEADSETS_BACK}</g>
+</g>`;
+}
+
+// The aerial hoops (lyra) hang from her 9 ft ceiling at the same height (2026-10-26: "hoops are suspended at the same
+// height, and both by black ropes"), each on a black spanset to a black figure-8 and the lyra's tab. The tube (25 mm)
+// is black with a random galaxy glitter, as hers are (her photos; "the hoop needs to be a random galaxy material not the
+// pattern you are showing"): soft clouds of violet, blue, magenta and teal, holographic flakes of every size and colour
+// scattered at random, and a few bright white sparks. A fixed seed keeps the same sparkle on every build.
+const GALAXY_CLOUDS = ['#5a2bd6', '#2a4fd0', '#7b3cff', '#3a3ccf'];
+const HOLO = ['#ffffff', '#ffffff', '#ffffff', '#e6e2ff', '#c6a8ff', '#9fd0ff', '#7ef9ff', '#ff8fd0', '#d9b8ff'];
+const seeded = (seed) => () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const lyra = (cx, cy, r, seed) => {
+  const rnd = seeded(seed), at = (a, rr) => `${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)}`;
+  // Faint violet and blue clouds at an even step round the ring, the tube black between them.
+  const many = Math.round(r / 6);
+  const clouds = Array.from({ length: many }, (_, i) => {
+    const a = ((i + 0.2 * rnd()) / many) * Math.PI * 2, len = (Math.PI * 2 / many) * 0.55;
+    return `<path d="M${at(a, r)} A ${r} ${r} 0 0 1 ${at(a + len, r)}" stroke="${GALAXY_CLOUDS[i % GALAXY_CLOUDS.length]}" stroke-width="5" opacity=".3"/>`;
+  }).join('');
+  // Small stars spread evenly: one in each short stretch of the ring, at a random spot across the tube.
+  const count = Math.round(r * 4);
+  const flakes = Array.from({ length: count }, (_, i) => {
+    const a = ((i + rnd()) / count) * Math.PI * 2, rr = r + (rnd() - 0.5) * 6.4, big = rnd() > 0.96;
+    return `<circle cx="${at(a, rr).replace(' ', '" cy="')}" r="${(big ? 0.75 : 0.22 + rnd() * 0.3).toFixed(2)}" fill="${HOLO[Math.floor(rnd() * HOLO.length)]}" opacity="${(0.6 + rnd() * 0.4).toFixed(2)}"/>`;
+  }).join('');
+  const sparkCount = Math.round(r / 18);
+  const sparks = Array.from({ length: sparkCount }, (_, i) => {
+    const [x, y] = at(((i + 0.5) / sparkCount) * Math.PI * 2, r).split(' ').map(Number), k = 1.6;
+    return `<path d="M${x - k} ${y} H${x + k} M${x} ${y - k} V${y + k}" stroke="#ffffff" stroke-width=".45"/>`;
+  }).join('');
+  const top = cy - r;
+  return `<g class="strap-lyra"><path class="strap-rope" d="M${cx} ${CEILING} V${top - 30}"/><circle class="strap-fig8" cx="${cx}" cy="${top - 24}" r="5"/><circle class="strap-fig8" cx="${cx}" cy="${top - 14}" r="6.5"/><path class="strap-rope" d="M${cx} ${top - 8} V${top}"/>
+<circle class="strap-hoop" cx="${cx}" cy="${cy}" r="${r}"/><g fill="none" class="strap-galaxy">${clouds}</g><g>${flakes}${sparks}</g><path class="strap-hoop-gloss" d="M${at(Math.PI * 1.22, r - 2.4)} A ${r - 2.4} ${r - 2.4} 0 0 1 ${at(Math.PI * 1.5, r - 2.4)}"/></g>`;
+};
+
+// Her ceiling is 9 ft (2.74 m) over the floor at 3 to a centimetre.
+const CEILING = Math.round(FLOOR - 274.3 * 3);
+
+// The X-Pole XPERT Pro (X-POLE's parts list and FAQ, "What's the size of the upper dome/base?": upper dome 280 mm (11"),
+// base 120 mm; 45 mm pole), in her neon green and black (2026-10-26: "make the x pole geometry real life accurate";
+// "the Dome looks too thick, and the bottom too"). From the ceiling down: the rubber pad, the shallow upper dome, the
+// chrome adjuster and its cover, the 45 mm black pole, the X-LOCK sleeve with its black band, and the small domed base.
+// Her tracker sits under the left of the upper dome, facing down.
+const POLE_X = 1040;
+const xpole = (x = POLE_X, c = CEILING, f = FLOOR) => `<g class="strap-pole"><rect x="${x - 41}" y="${c}" width="82" height="1.6" fill="#101012"/>
+<path d="M${x - 42} ${c + 1.6} H${x + 42} Q${x + 41} ${c + 4.6} ${x + 30} ${c + 6.6} Q${x + 16} ${c + 9.4} ${x + 9} ${c + 10} H${x - 9} Q${x - 16} ${c + 9.4} ${x - 30} ${c + 6.6} Q${x - 41} ${c + 4.6} ${x - 42} ${c + 1.6} Z" fill="url(#strap-dome)" class="strap-dome"/>
+<rect x="${x - 9}" y="${c + 10}" width="18" height="2.4" rx="1" fill="url(#strap-chrome-x)"/><rect x="${x - 4.6}" y="${c + 12.4}" width="9.2" height="34" fill="url(#strap-chrome-x)"/><path d="M${x - 4.6} ${c + 16} h9.2 M${x - 4.6} ${c + 19} h9.2 M${x - 4.6} ${c + 22} h9.2 M${x - 4.6} ${c + 25} h9.2" stroke="#7a8392" stroke-width=".5"/>
+<rect x="${x - 7.6}" y="${c + 46}" width="15.2" height="9" rx="1.5" fill="url(#strap-chrome-x)"/>
+<rect x="${x - 6.75}" y="${c + 55}" width="13.5" height="${f - c - 55 - 44}" fill="url(#strap-pole)"/><path d="M${x - 6.75} ${(c + f) / 2} h13.5" stroke="#2a2a30" stroke-width=".6"/>
+<rect x="${x - 8}" y="${f - 44}" width="16" height="30" rx="1.5" fill="url(#strap-chrome-x)"/><rect x="${x - 8}" y="${f - 33}" width="16" height="7" fill="#0b0b0e"/><text x="${x}" y="${f - 27.6}" text-anchor="middle" font-size="4.4" font-weight="700" fill="#e8e8ee">X</text><circle cx="${x}" cy="${f - 39}" r=".9" fill="#3a3f48"/>
+<rect x="${x - 5.5}" y="${f - 14}" width="11" height="8" fill="url(#strap-chrome-x)"/>
+<path d="M${x - 18} ${f} H${x + 18} Q${x + 17.5} ${f - 4} ${x + 9} ${f - 5.6} Q${x} ${f - 6.6} ${x - 9} ${f - 5.6} Q${x - 17.5} ${f - 4} ${x - 18} ${f} Z" fill="url(#strap-dome)" class="strap-dome"/></g>`;
+
 function strapperDrawing() {
-  const spot = (s) => `<g class="strap-spot${s.back ? ' strap-back' : ''}" data-strap-dot="${esc(s.code)}" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title><circle cx="${s.x}" cy="${s.y}" r="10"/><text x="${s.x}" y="${s.y + 3.6}" text-anchor="middle">${s.n}</text></g>`;
-  const toy = (t) => `<g class="strap-toy"><g transform="translate(${t.x} ${t.y})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.name)}</text></g>`;
-  return `<svg class="strap-drawing" viewBox="0 0 990 724" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, facing you, with her 27 tracking spots; the dance hoops, her five toys and the dance pole beside her, to scale</title>
-<path class="strap-floor" d="M8 704 H982"/>
+  // Every spot carries each device's drawing; the page shows the one for the device on it.
+  const spot = (s) => `<g class="strap-spot" data-strap-dot="${esc(s.code)}"${s.view ? ` data-view="${s.view}"` : ''} data-kind="" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title>
+<circle class="strap-halo" cx="${s.x}" cy="${s.y}" r="18"/><circle class="strap-empty" cx="${s.x}" cy="${s.y}" r="8"/>
+${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" href="#ico-${k}${k === 'tracker' && s.side ? '-side' : ''}" x="${s.x - KIND_SIZE[k] / 2}" y="${s.y - KIND_SIZE[k] / 2}" width="${KIND_SIZE[k]}" height="${KIND_SIZE[k]}"${s.down ? ` transform="rotate(180 ${s.x} ${s.y})"` : ''}/>`).join('')}
+<circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
+  // Each toy stands on the floor with a soft shadow under it.
+  const toy = (t) => `<g class="strap-toy"><ellipse class="strap-toy-shadow" cx="${t.x + t.w / 2}" cy="861" rx="${t.w / 2 + 4}" ry="3.5"/><g transform="translate(${t.x} ${t.y}) scale(${t.scale})">${t.svg}</g><text x="${t.label[0]}" y="${t.label[1]}" text-anchor="middle">${esc(t.short || t.name)}</text></g>`;
+  return `<svg class="strap-drawing" data-headset="quest-pro" viewBox="0 0 1110 1020" role="img" aria-labelledby="strap-title"><title id="strap-title">Astra, 5′7″, from the front and from the back, with her 29 tracking spots; the aerial hoops hanging from the ceiling, her five toys and the dance pole beside her, to scale</title>
+<defs>${DEVICE_SYMBOLS}<linearGradient id="strap-skin" x1="0" x2="1"><stop offset="0" stop-color="#7f8fb8"/><stop offset=".5" stop-color="#b9c6e6"/><stop offset="1" stop-color="#7f8fb8"/></linearGradient>
+<radialGradient id="strap-galaxy" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#3a2a6a"/><stop offset=".45" stop-color="#160f2c"/><stop offset="1" stop-color="#050409"/></radialGradient>
+<linearGradient id="strap-hoop" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#1a1030"/><stop offset=".25" stop-color="#2a0f3a"/><stop offset=".5" stop-color="#0b1a33"/><stop offset=".75" stop-color="#14261c"/><stop offset="1" stop-color="#1a1030"/></linearGradient>
+<linearGradient id="strap-pole" x1="0" x2="1"><stop offset="0" stop-color="#050506"/><stop offset=".4" stop-color="#3a3a42"/><stop offset=".55" stop-color="#121216"/><stop offset="1" stop-color="#050506"/></linearGradient>
+<linearGradient id="strap-chrome-x" x1="0" x2="1"><stop offset="0" stop-color="#6f7887"/><stop offset=".4" stop-color="#f1f4fa"/><stop offset="1" stop-color="#596273"/></linearGradient>
+<radialGradient id="strap-dome" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#d8ffb0"/><stop offset=".5" stop-color="#5dff3a"/><stop offset="1" stop-color="#1e9a10"/></radialGradient>
+<radialGradient id="strap-glow" cx=".5" cy=".55" r=".5"><stop offset="0" stop-color="#9fc4ff" stop-opacity=".14"/><stop offset="1" stop-color="#9fc4ff" stop-opacity="0"/></radialGradient></defs>
 ${TOY_DEFS}
-<g class="strap-body"><path class="strap-hair" d="M176 322 Q174 292 200 290 Q226 292 224 322 M177 330 Q170 352 166 376 M223 330 Q230 352 234 376"/><ellipse cx="200" cy="320" rx="22" ry="28"/><path d="M200 348 V368 M152 368 L248 368 L236 486 L254 528 L146 528 L164 486 Z M152 368 L136 448 L124 534 M248 368 L264 448 L276 534 M180 528 L176 600 L172 680 L154 698 M220 528 L224 600 L228 680 L246 698"/><ellipse class="strap-band" cx="200" cy="322" rx="34" ry="9"/><ellipse class="strap-ring" cx="200" cy="392" rx="42" ry="13"/><ellipse class="strap-ring strap-ring-dashed" cx="200" cy="438" rx="38" ry="12"/><ellipse class="strap-ring" cx="200" cy="486" rx="52" ry="14"/></g>
-<g class="strap-props"><circle cx="450" cy="380" r="54"/><circle cx="470" cy="580" r="120"/><path d="M955 52 V700"/></g>
-<g class="strap-prop-names"><text x="450" y="454" text-anchor="middle">Little Dance Hoop</text><text x="470" y="718" text-anchor="middle">Big Dance Hoop</text><text x="955" y="718" text-anchor="middle">Dance Pole</text></g>
+<path class="strap-ceiling" d="M470 ${CEILING} H1100"/><text class="strap-prop-names" x="476" y="${CEILING + 20}">9 ft ceiling</text><path class="strap-floor" d="M8 862 H1102"/>
+<ellipse cx="260" cy="560" rx="260" ry="330" fill="url(#strap-glow)"/>
+${figure('front')}${figure('back')}
+${/* What she is wearing, under her (2026-10-26: "need to see the headset name, tracker names, controller names, show up
+   below the people ... you can separate them and put the total trackers too"); the page fills it in from her spots. */ ''}<g class="strap-devices" data-strap-devices><text class="strap-dev-head" x="16" y="910">Headset</text><g data-strap-dev="headset"></g>
+<text class="strap-dev-head" x="100" y="910">Controllers</text><g data-strap-dev="controllers"></g>
+<text class="strap-dev-head" x="250" y="910" data-strap-dev-count>Trackers</text><g data-strap-dev="trackers"></g></g>
+${lyra(620, 410, 150, 26)}${lyra(870, 328, 68, 27)}
+${xpole()}
+<text class="strap-prop-names" x="992" y="58" text-anchor="end">faces down</text>
+<g class="strap-prop-names"><text x="620" y="416" text-anchor="middle">Big Dance Hoop</text><text x="870" y="316" text-anchor="middle">Little</text><text x="870" y="334" text-anchor="middle">Dance</text><text x="870" y="352" text-anchor="middle">Hoop</text></g>
+${/* Under the floor, the props by maker like her devices (2026-10-26: "move down all the woojer text to start with the
+   quest pro text, give Lovense a Category like Headset ... put the brands in different colors like Lovense in pink"). */ ''}<g class="strap-brands"><text class="strap-dev-head brand-woojer" x="620" y="910" text-anchor="middle">Woojer</text><text class="strap-dev-head brand-lovense" x="855" y="910" text-anchor="middle">Lovense</text><text class="strap-dev-head brand-xpole" x="${POLE_X}" y="910" text-anchor="middle">X-Pole</text><text class="strap-dev" x="${POLE_X}" y="932" text-anchor="middle">XPERT Pro</text></g>
 ${TOYS.map(toy).join('\n')}
-<text class="strap-toy-group" x="819" y="568" text-anchor="middle">Lovense, drawn 2× size</text>
-<text class="strap-toy-note" x="760" y="548" text-anchor="middle">Toys don’t track</text>
 ${SPOTS.map(spot).join('\n')}
 </svg>`;
 }
@@ -312,22 +514,28 @@ function strapperStore() {
   return `<div class="strap-store" hidden>${SPOTS.map(row).join('\n')}</div>`;
 }
 
-function strapperPairs() {
-  const pair = (p, label) => `<label class="strap-pair">${esc(label)} <span class="strap-pair-picks">${[0, 1].map((i) => `<select data-strap-pair="${p}" data-strap-i="${i}" disabled>${PAIR_SPOTS[p].map((code) => { const s = SPOTS.find((x) => x.code === code); return `<option value="${esc(code)}"${PAIRS[p][i] === code ? ' selected' : ''}>${esc(`${s.n} ${s.code}`)}</option>`; }).join('')}</select>`).join(' + ')}</span></label>`;
-  return `<div class="strap-pairs">${pair('hip', 'Double Hip pair')}
-${pair('chest', 'Double Chest pair')}</div>`;
-}
-
 export function trackerStrapper(lights = () => '') {
   return `<div class="launch-headset strapper" data-strapper><div class="launch-head">${lights('tool:tracker-strapper', 'rift-rabbit-tracker-strapper')}<button type="button" class="launch-fold launch-name" aria-expanded="true">rift-rabbit-tracker-strapper</button></div>
 <div class="strap-stage" data-strap-stage>${strapperDrawing()}
 <div class="strap-pop" data-strap-pop hidden role="dialog" aria-label="Pick the device on this spot"><b data-strap-pop-name></b><button type="button" class="strap-pop-close" data-strap-pop-close aria-label="Close">×</button><select data-strap-pop-select></select><span class="small" data-strap-pop-note hidden>Change it on the page opened on your PC.</span></div></div>
-<ul class="small strap-key">${SPOT_STATES.map(([id, text]) => `<li data-state="${id}">${esc(text)}</li>`).join('')}</ul>
-<ul class="strap-worn" data-strap-worn></ul>
-${strapperPairs()}
+${/* The key in a box, one row each (2026-10-26: "make this a key in a box, stacked rows"; then "get rid of 'all 27
+   positions' and the other 27 possible locations thing, I dont want to have to mess with double hip"). */ ''}<div class="strap-legend">
+<div class="strap-box"><p class="strap-box-title">Key</p><ul class="small strap-key">${SPOT_STATES.map(([id, text]) => `<li data-state="${id}">${esc(text)}</li>`).join('')}</ul>
+<p class="small strap-said" data-strap-said>Change these on the page opened on your PC while Rift Rabbit’s launcher runs; here they show today’s spots.</p></div>
+</div>
 ${strapperStore()}
-<p class="small strap-said" data-strap-said>Change these on the page opened on your PC while Rift Rabbit’s launcher runs; here they show today’s spots.</p>
-<p class="strap-footer">27 locations tracking can occur, devices may vary</p>
+</div>`;
+}
+
+// The dongle map (Astra, 2026-10-26: "make a tool for us to run it and show a branch where each dongle is? There are so
+// many ways to plug them in, we want to optimize it"): Rift Rabbit's launcher runs USBDeview and walks Windows' device
+// tree; the page draws each USB controller as a branch, its hubs under it, and every dongle where it is plugged in.
+export function dongleMap(lights = () => '') {
+  return `<div class="launch-headset dongle-map" data-dongle-map><div class="launch-head">${lights('tool:dongle-map', 'rift-rabbit-dongle-map')}<button type="button" class="launch-fold launch-name" aria-expanded="true">rift-rabbit-dongle-map</button></div>
+<p class="small dongle-about">Where each Watchman dongle is plugged in today, read by USBDeview, and where it would work best for the launch you plan.</p>
+<p class="dongle-run"><button type="button" class="button off" disabled data-dongle-scan>Scan USB</button> <span class="small" data-dongle-said>Works on the page opened on your PC while Rift Rabbit’s launcher runs.</span></p>
+${/* Current on the left, recommended on the right (Astra, 2026-10-26). */ ''}<div class="dongle-cols"><section class="dongle-col"><h4 class="dongle-col-name">Current layout</h4><div class="dongle-tree" data-dongle-tree><p class="small">Scan USB to see it.</p></div></section>
+<section class="dongle-col"><h4 class="dongle-col-name">Recommended layout</h4><label class="launch-switch dongle-for">Plan for <select data-dongle-for>${HEADSETS.map((h) => MODES.map((m, i) => `<option value="${esc(h.id)}|${esc(m.id)}">${h.n}.${i} ${esc(h.device)} · ${esc(m.name)}</option>`).join('')).join('')}</select></label><div class="dongle-suggest" data-dongle-suggest></div></section></div>
 </div>`;
 }
 
@@ -335,7 +543,7 @@ ${strapperStore()}
 // of it like every tool's (Astra, 2026-10-24: "title needs to be down inside and with indicator light buttons, its a
 // tool"). `lights(key, name)` is the page spawner's. tracker-strapper comes first: the launches below follow it.
 export function vrchatLaunchBody(lights = () => '') {
-  return trackerStrapper(lights) + '\n' + HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
+  return trackerStrapper(lights) + '\n' + dongleMap(lights) + '\n' + HEADSETS.map((h) => `<div class="launch-headset" data-launch-headset="${esc(h.id)}"><div class="launch-head">${lights(`tool:vrchat-launch-${h.id}`, `${h.n}. ${h.name}`)}<button type="button" class="launch-fold launch-name" aria-expanded="true">${esc(h.n)}. ${esc(h.name)}</button></div>
 ${switchRow(h)}
 <div class="launch-modes">${MODES.map((m, i) => modeCard(h, m, i)).join('\n')}</div>
 </div>`).join('\n');

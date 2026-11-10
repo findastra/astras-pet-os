@@ -2,21 +2,101 @@
    structure, not a finished look (Astra, 2026-10-18): thin light lines on slate, each panel's label set into its top
    border with no marks after it, the emotion bubbles labelled the same way, every panel collapsible.
    One copy for every page spawned by the Friendly Farmer's pet program spawner. Claude Opus 5.5, 2026-10-18. */
-/* Dark raspberry pink with raspberry-purple pink lines (Astra, 2026-10-23: "make the background color dark pink and
-   the line colors change aesthetically please, like a raspberrypurply pink"). */
+/* A classic blueprint (Astra, 2026-11-03: "we need to use the dark color. Go back to that and do it like a blueprint
+   color, blue and white and yellow. Like, make it very classical"; it was dark raspberry from 2026-10-23, and on
+   2026-11-02 she asked for no raspberry): Prussian blue paper with its faint drafting grid, white lines and lettering,
+   yellow for links, marks and L3's note. The same layout as always: open panels with thin lines (2026-11-03: "the exact
+   same formatting as we've been"), so --box stays transparent; --surface sits behind each label in its border line,
+   --grid is the paper's grid, which a page with colours of its own leaves out. */
 :root {
-  --slate: #3d1530; --slate-2: #2f0f25; --chalk: #fbe9f2; --chalk-dim: #d9a9c4; --line: #c94f93; --line-dim: #8a3a6f;
+  --slate: #173f78; --slate-2: #11335f; --chalk: #f4f8ff; --chalk-dim: #c3d5ef; --line: #e8f0ff; --line-dim: #7d9fcf;
+  --box: transparent; --surface: #173f78; --page-ink: #f4f8ff; --page-ink-dim: #c3d5ef; --accent: #ffd84d;
+  --editorial: #ffd84d; --editorial-ink: #fff3c4; --editorial-glow: rgba(255, 216, 77, .2); --editorial-by: #ffe58a; --serial: #ffd84d;
+  --grid: linear-gradient(rgba(255, 255, 255, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .09) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
   --on: #4fb35a; --off: #d9534f; --care: #6cc7e8; --fix: #e8c547; --planned: #8c8a80; --update: #ff9a3c;
-  --link: #ffd9a0; --connection: #f2a07b;
+  --link: #ffd84d; --connection: #ffe58a;
   --label: ui-monospace, Consolas, 'Cascadia Mono', monospace;
   --text: system-ui, -apple-system, 'Segoe UI', sans-serif;
   /* The outer margin (Astra's quiet page frame, 2026-10-14): about 0.75 inch (72 CSS px) on a big screen, less as the
      window narrows, 16px on a phone. CSS inches are not real inches on every screen. */
   --gutter: clamp(20px, 6vw, 72px);
 }
+/* Wonderland Launchpad's own colours, a dark stormy sky (Astra, 2026-10-26: "I want the Wonderland Launchpad to be a
+   Dark Stormy vibe, so change the color theme"): storm-cloud navy and graphite, steel-blue lines, pale lightning-blue
+   links; every other pet page keeps the raspberry one. */
+:root[data-pet="rift-rabbit"] {
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #d994c6;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --slate: #10141c; --slate-2: #0a0d13; --chalk: #e3e9f3; --chalk-dim: #98a6bd; --line: #5b7aa6; --line-dim: #2f4058;
+  --link: #b4dcff; --connection: #8fb3d9;
+  --tool-bg: rgba(160, 190, 230, .05); --tool-bg-hover: rgba(160, 190, 230, .09);
+}
+:root[data-pet="rift-rabbit"] .launch-points li::marker, :root[data-pet="rift-rabbit"] .launch-order li::marker,
+:root[data-pet="rift-rabbit"] .footer-group::before, :root[data-pet="rift-rabbit"] .footer-sparkle { color: #8fb3d9; }
+/* PC Master Race's own colours, PC Master's (Astra, 2026-11-06: "lets make the website gray and green and pink like him
+   also"): his graphite case for the page, hot pink panel lines like his racing stripes, neon green links and pill edges
+   like his fans, his cyan power button for the working-copy box. The second line keeps them on pages that use those
+   names (hub #278). */
+:root[data-pet="pc-master"] {
+  --slate: #1b1d21; --slate-2: #131417; --chalk: #eef1ec; --chalk-dim: #a4aba6; --line: #ff4fb0; --line-dim: #5fae2a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #9dff3a;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --link: #9dff3a; --connection: #c4ff86;
+  --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(157, 255, 58, .08);
+}
+:root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
+/* Chat Stack’s own colours, Chat Rat’s (Astra, 2026-11-08: "some kind of gray and pink. Like, I want these to kind of
+   match the colors of the animal so that we can make the star on the GitHub profile the same color"): a graphite page,
+   panel lines in his fur gray (#c1c0c0, sampled from his picture), and his ear pink (#fc8086) for links, marks and the
+   working-copy box. These two are the colours for his star too. */
+:root[data-pet="chat-rat"] {
+  --slate: #232225; --slate-2: #19181a; --chalk: #f2f0f0; --chalk-dim: #a9a6a7; --line: #c1c0c0; --line-dim: #6e6b6d;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fc8086;
+  --editorial: #fc8086; --editorial-ink: #ffd9db; --editorial-glow: rgba(252, 128, 134, .22); --grid: none; --editorial-by: #ffb3b7; --serial: #fc8086;
+  --link: #fc8086; --connection: #ffb3b7;
+  --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
+}
+:root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
+/* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
+   biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
+:root[data-pet="drum-dog"] {
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #d994c6;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --slate: #12132b; --slate-2: #0b0c1d; --chalk: #e8ecff; --chalk-dim: #a5aed6; --line: #3d6bff; --line-dim: #27357a;
+  --link: #7fe7ff; --connection: #9fb4ff;
+  --tool-bg: rgba(120, 150, 255, .06); --tool-bg-hover: rgba(120, 150, 255, .11);
+}
+:root[data-pet="drum-dog"] .footer-group::before, :root[data-pet="drum-dog"] .footer-sparkle { color: #9fb4ff; }
+/* Discord Tower's own colours, Discord purple (Astra, 2026-11-06: "Change the color of this to the dicord purple"):
+   deep blurple background, Discord's blurple (#5865f2) lines, pale lavender links. */
+:root[data-pet="discord-damsel"] {
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #d994c6;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --slate: #1f2147; --slate-2: #171936; --chalk: #eef0ff; --chalk-dim: #b3b9ec; --line: #5865f2; --line-dim: #3a43a3;
+  --link: #c9cdfb; --connection: #8f97f7;
+  --tool-bg: rgba(88, 101, 242, .07); --tool-bg-hover: rgba(88, 101, 242, .13);
+}
+:root[data-pet="discord-damsel"] .footer-group::before, :root[data-pet="discord-damsel"] .footer-sparkle { color: #8f97f7; }
+/* Damsel was made 1.375 times bigger here on 2026-11-06 ("Make her 25% bigger"): the 60px slot had shrunk her. Since
+   2026-11-08 every pet is drawn at its desktop size (img.fit, below), so she needs nothing of her own. */
+/* The Farm's own colours, a night pasture (Astra, 2026-11-02: "I don't like the raspberry color of the farm. Let's
+   change it to like dark green ... something interesting that we haven't already used for a pet program"): deep pine
+   green, neon chartreuse lines, wheat-gold links, mint connections. */
+:root[data-pet="friendly-farmer"] {
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #d994c6;
+  --editorial: #3ff0ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(63, 240, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #3ff0ff;
+  --slate: #0c1f18; --slate-2: #071510; --chalk: #e9f7ee; --chalk-dim: #9fc8b0; --line: #8fe04a; --line-dim: #35663f;
+  --link: #ffe39a; --connection: #7fe7c4;
+  --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
+}
+:root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
 * { box-sizing: border-box; }
+/* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
+   tracker choice menu still doesnt work"). */
+[hidden] { display: none !important; }
 html { background: var(--slate); }
-body { margin: 0; color: var(--chalk); background: var(--slate); font: 15px/1.5 var(--text); }
+body { margin: 0; color: var(--chalk); background-color: var(--slate); background-image: var(--grid, none); background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px; font: 15px/1.5 var(--text); }
 a { color: var(--link); }
 a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible, textarea:focus-visible, label.file:focus-within { outline: 2px solid var(--fix); outline-offset: 2px; }
 code { font: 12px var(--label); color: var(--chalk-dim); }
@@ -28,8 +108,8 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 :root { --pad: 20px;
   /* One background for every tool: pills, the cyberhome and System Map tools, the chat (Astra, 2026-10-23: "the
      'tool' background color needs to be unified"). */
-  --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(255, 255, 255, .08); }
-.panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; }
+  --tool-bg: rgba(255, 255, 255, .06); --tool-bg-hover: rgba(255, 255, 255, .1); }
+.panel { position: relative; border: 1px solid var(--line); border-radius: 0; padding: var(--pad); margin: 30px 0 0; background: var(--box); }
 /* The label and its lights are centred on the border line, whatever the label's size (Astra, 2026-10-23: "check for
    alignment issues", on rift-rabbit-update-history sitting above its line). A label that wraps grows upward, its last
    line on the border, so it never runs into the panel's words (Astra, 2026-10-23: "still an awkward lack of space
@@ -37,25 +117,36 @@ code { font: 12px var(--label); color: var(--chalk-dim); }
 .panel > summary { position: absolute; top: 0; transform: translateY(calc(-100% + 8.45px)); left: 14px; list-style: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 28px); }
 .panel > summary::-webkit-details-marker { display: none; }
 /* Only the label cuts the border, a space each side; its lights sit on the line with nothing behind them (2026-10-22). */
-.panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--slate); padding: 0 6px; }
+.panel > summary .legend { font: 13px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; background: var(--surface); padding: 0 6px; }
 /* No lights on a panel, only on tools (Astra, 2026-10-23). A small arrow after the label shows the panel folds, like
    Halo List's: right while folded, down while open. No-break spaces join it to the last word, so it never wraps onto a
    line of its own. */
 .panel > summary .legend::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
 .panel[open] > summary .legend::after { content: "\00A0\00A0\25BE"; }
 .panel > summary:hover .legend::after { color: var(--fix); }
+/* No arrow on the three boxes at the top (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the
+   system map panels", "and get rid of it in the summary panel too"). */
+.panel.cyberhome > summary .legend::after, .panel.system-map > summary .legend::after, .panel.summary > summary .legend::after { content: none; }
 /* <home>-editorial-status-panel (Astra, 2026-10-23): a dashed pink box at the top, like Halo List's header alert. */
 /* Its own neon, so L3's note never reads as part of the page (Astra, 2026-10-23: "status panel needs to be a distinct
    neon color and much shorter"). */
 /* It starts at the page's gutter, like the sides, and sits as far above the header as the header sits above the next
    panel, 30px border to border (Astra, 2026-10-24: "1 and 2 seem different sizes ... 3 and 4 should be same distance"). */
-.panel.editorial { border: 1px dashed #3ff0ff; color: #c9fbff; margin: 0 0 37px; box-shadow: 0 0 10px rgba(63, 240, 255, .25), inset 0 0 10px rgba(63, 240, 255, .08); font-size: 13.5px; line-height: 1.45; }
-.panel.editorial > summary .legend { color: #3ff0ff; }
+.panel.editorial { border: 1px dashed var(--editorial); color: var(--editorial-ink); margin: 0 0 37px; box-shadow: 0 0 10px var(--editorial-glow), inset 0 0 10px var(--editorial-glow); font-size: 13.5px; line-height: 1.45; }
+.panel.editorial > summary .legend { color: var(--editorial); }
 .panel.editorial p { margin: 0; }
+/* Only on a working copy (Astra, 2026-11-02): never on the live site, so the panel itself says which one you are on. */
+html.live-site .panel.editorial { display: none; }
+.panel.editorial .working-copy { color: var(--editorial); font-weight: 700; }
 .panel.editorial p + p { margin-top: 4px; }
-.panel.editorial .editorial-by { color: #7fe7f0; font-size: 12px; }
+.panel.editorial .editorial-by { color: var(--editorial-by, #7fe7f0); font-size: 12px; }
 .panel:not([open]) { padding: 14px var(--pad) 0; }
 .panel .panel { margin-top: 26px; }
+/* Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
+   ones or the bottom ones, and definitely not the unified footer"): L3's note, the cyberhome, the quick summary, the
+   System Map box, the friends list and the footer always stay open, with no arrow after the label. */
+details.panel[data-stays-open] > summary { cursor: default; }
+details.panel[data-stays-open] > summary .legend::after { content: none; }
 
 h1 { font: 700 clamp(30px, 5vw, 48px)/1.15 var(--text); margin: 0 0 6px; }
 h2, h3, h4 { font-weight: 600; margin: 0 0 6px; }
@@ -66,8 +157,8 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    smaller, down to 20px, until both fit between the cyberhome and the System Map box; past that the version goes on
    its own line below the name (Astra, 2026-10-21: "these always stay together on one line until too collapsed,
    version line then goes below"). Nothing else is listed under it. */
-.title h1 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; font-size: clamp(24px, 3vw, 34px); }
-.title .version { font-size: clamp(13px, 1.4vw, 16px); }
+.title h1 { color: var(--page-ink); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; font-size: clamp(24px, 3vw, 34px); }
+.title .version { font-size: clamp(13px, 1.4vw, 16px); color: var(--page-ink-dim); }
 .title-name { min-width: 0; overflow-wrap: anywhere; }
 .title h1.fits .title-name { white-space: nowrap; flex: none; }
 .title h1.fits.stacked .title-name { flex: 0 0 100%; }
@@ -159,9 +250,17 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
   min-height: 32px; padding: 2px 12px 2px 9.5px; border: 1px solid var(--line-dim); border-radius: 16px; background: var(--tool-bg); }
 .habitat > .render-label .lights { margin: 0; }
 .render-name { font: 10.5px/1.3 var(--label); color: var(--chalk); overflow-wrap: anywhere; min-width: 0; text-align: left; }
-.den { flex: none; height: 60px; margin-top: var(--pad); min-height: 0; border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
-/* The pet as tall as on the desktop: the page builder works out --pet-height from its drawing. */
-.den img.pet { width: auto; height: var(--pet-height, auto); max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
+.den { flex: none; min-height: 60px; margin-top: var(--pad); border: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0; }
+/* A pet with no measured drawing (an icon) keeps the old 60px slot. */
+.den img.pet { width: auto; height: 60px; max-width: 86%; max-height: 100%; image-rendering: pixelated; cursor: pointer; }
+/* Every pet at the size Startup Star draws it on the desktop (Astra, 2026-11-08: "the pets are not the sizes they would
+   appear on the screen in the corner, so make sure they're the right size"): the page builder works out, from the
+   drawing and the star's own rules (scripts/pet-size-20261023.mjs), how big the whole picture is drawn (--fit-w,
+   --fit-h) and how much empty margin is around what is drawn (--fit-t, -r, -b, -l). The margin is cut off, so the
+   picture takes only the room the pet takes, and nothing shrinks it. */
+img.fit, .den img.pet.fit, .mood img.fit { width: var(--fit-w); height: var(--fit-h); max-width: none; max-height: none;
+  margin: calc(-1 * var(--fit-t)) calc(-1 * var(--fit-r)) calc(-1 * var(--fit-b)) calc(-1 * var(--fit-l));
+  clip-path: inset(var(--fit-t) var(--fit-r) var(--fit-b) var(--fit-l)); image-rendering: pixelated; }
 .den .no-art { width: auto; height: 80%; max-height: 100%; }
 /* The emotion bubbles are clouds (Astra, 2026-10-20: "make both the emotions and the idle bubble actually bubble border
    like it looks like a cloud"): a scalloped edge from one small drawing, repeated along each side, and a thought
@@ -169,7 +268,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
    --line, written out for the drawing. */
 .cloud, .mood-bubble { border: 1px solid var(--line); border-radius: 16px; }
 .mood-bubble::after { content: ''; position: absolute; width: 11px; height: 11px; right: -7px; top: calc(50% - 6px);
-  border: 1px solid var(--line); border-left: 0; border-bottom: 0; background: var(--slate); transform: rotate(45deg); }
+  border: 1px solid var(--line); border-left: 0; border-bottom: 0; background: var(--surface); transform: rotate(45deg); }
 .bubble { position: relative; padding: 8px 12px; border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
 .small-bubble { display: inline-block; margin: 0; padding: 2px 10px; font-size: 13px; }
 /* Too narrow for the title between them: the two squares side by side at the top, the title below both. The page
@@ -203,19 +302,24 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .light:active { transform: scale(.9); box-shadow: inset 0 2px 2px rgba(0, 0, 0, .4); }
 .light.onoff { background: var(--on); }
 .light.onoff.is-off { background: var(--off); }
+/* A 3rd party program opening or closing after its light was clicked (2026-11-06): it blinks until the watch answers. */
+.light.onoff.is-busy { animation: light-busy .6s ease-in-out infinite alternate; }
+@keyframes light-busy { to { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .light.onoff.is-busy { animation: none; opacity: .6; } }
 .light.care { background: var(--care); }
-.light.care.is-fix { background: var(--fix); }
+/* Report issues orange, update waiting yellow (Astra, 2026-10-26: "switch update color and report issues color"). */
+.light.care.is-fix { background: var(--update); }
 .light.is-unset { background: var(--planned); }
 /* An update waiting for your approval (Astra, 2026-10-24: "if it happens to be found on updater audit, make the light
    orange, then have L3 ask me if L4 wants to approve update"). */
-.light.care.is-update { background: var(--update); }
+.light.care.is-update { background: var(--fix); }
 /* The bubble that says what a light now means, under the light that was clicked. */
 .light-bubble { position: absolute; z-index: 40; max-width: 280px; padding: 6px 12px; border: 1px solid var(--chalk); border-radius: 14px;
   background: var(--slate-2); color: var(--chalk); font-size: 13px; line-height: 1.4; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); pointer-events: none; }
 .light-bubble[hidden] { display: none; }
 .legend-key { font-size: 12.5px; color: var(--chalk-dim); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin: 0; }
 .key { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid #111; margin-right: 2px; vertical-align: -1px; }
-.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--fix); } .key.planned { background: var(--planned); } .key.update { background: var(--update); }
+.key.on { background: var(--on); } .key.off { background: var(--off); } .key.care { background: var(--care); } .key.fix { background: var(--update); } .key.planned { background: var(--planned); } .key.update { background: var(--fix); }
 
 /* Inside the intelligence-level panels. */
 /* The sections stack, each across the whole tool panel, and the pills in them go three to a row, then two, then one as
@@ -256,7 +360,7 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 /* A device's serial, first when it is opened (Astra, 2026-10-24: "I need the first thing I see to be the tracker
    serial #"). */
 .item-serial { margin: 6px 0 0; font-size: 14px; color: var(--chalk); }
-.item-serial code { font: 600 15px var(--label); color: #3ff0ff; letter-spacing: .03em; }
+.item-serial code { font: 600 15px var(--label); color: var(--serial, #3ff0ff); letter-spacing: .03em; }
 .pill:not(:has(> .pill-more[open])) > .item-serial { display: none; }
 .pill:not(:has(> .pill-more[open])) > .item-desc, .pill:not(:has(> .pill-more[open])) > .label { display: none; }
 /* How often it runs shows once it is opened too, like its state, so every closed tool is one line (Astra, 2026-10-23:
@@ -264,6 +368,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill:not(:has(> .pill-more[open])) > .cadence { display: none; }
 .pill-more > summary { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; list-style: none; }
 .pill-more > summary::-webkit-details-marker { display: none; }
+/* Every pill that opens shows the same fold arrow as the panels and tool boxes (Astra, 2026-10-26: "all of these should
+   have the drop down arrow like rift-rabbit-tracker-strapper"). */
+.items li.pill:has(> .pill-more) > .item-name::after { content: "\00A0\00A0\25B8"; font-size: 10px; color: var(--chalk-dim); }
+.items li.pill:has(> .pill-more[open]) > .item-name::after { content: "\00A0\00A0\25BE"; }
+.items li.pill:has(> .pill-more):hover > .item-name::after { color: var(--fix); }
 .items li.pill:has(> .pill-more > summary:focus-visible) { outline: 2px solid var(--fix); outline-offset: 2px; }
 .item-desc { margin: 4px 0 2px; font-size: 13px; line-height: 1.4; color: var(--chalk); overflow-wrap: anywhere; }
 .item-desc.empty { color: var(--chalk-dim); }
@@ -273,6 +382,11 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .pill-picture img { display: block; width: 160px; max-width: 100%; height: auto; }
 /* a tool that works right on the page, in its own tool panel inside L1 (Astra's Window Star, 2026-10-20) */
 .tool-frame { display: block; width: 100%; max-width: 480px; height: 600px; margin: 0 auto; border: 0; background: transparent; }
+/* A wide tool fills the panel (Bass & Biscuits' APC64 deck): about the deck's own shape plus its two short rows. */
+.tool-frame.wide { max-width: none; height: auto; aspect-ratio: 1370 / 1150; min-height: 420px; }
+/* A tool that works inside its own rounded tool box (`in_pill`) takes the whole row, and its tool fills the box. */
+.items li.pill:has(> .pill-more[open] .pill-tool) { grid-column: 1 / -1; }   /* a tool that works in its pill sits in the columns like the rest, and takes the whole row only once it is opened (Astra, 2026-11-03: "I like the width that they are under third party. And then if you expand them, they can take up the whole page, but not until you do that") */
+.pill-tool { margin: 8px 0 4px; }
 .plain li { margin: 5px 0; }
 .about { margin-top: 10px; font-size: 12.5px; color: var(--chalk-dim); }
 .about > summary { cursor: pointer; width: fit-content; }
@@ -283,6 +397,22 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .about > summary:hover::before, .may-use > summary:hover::before, .backlog > summary:hover::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2.5 2.2 14 9 2.5 15.8Z' fill='%2346463f' stroke='%23e8c547' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .about[open] > summary::before, .may-use[open] > summary::before, .backlog[open] > summary::before { transform: rotate(90deg); }
 .about > p { margin: 4px 0 0 16px; }
+/* More details is the same four lines on every panel (Astra, 2026-11-03, Flash Audit deck, answer 8: A): how it works,
+   where it comes from, your rules, not built yet. */
+.about-lines { margin: 4px 0 0 16px; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 12px; }
+.about-lines dt { color: var(--chalk); font-weight: 600; }
+.about-lines dd { margin: 0; overflow-wrap: anywhere; }
+.about-lines a { color: var(--accent); }
+/* In the two top squares only the arrow shows, in the bottom corner; opened, its lines lie over the page below the
+   square (2026-10-23: no words in the squares). */
+.top > .panel > .about.arrow-only { position: absolute; bottom: 6px; margin: 0; z-index: 3; }
+.top > .cyberhome > .about.arrow-only { left: 8px; }
+.top > .system-map > .about.arrow-only { right: 8px; }
+.top > .panel > .about.arrow-only[open] > .about-lines { position: absolute; top: calc(100% + 4px); width: min(340px, calc(100vw - 48px));
+  margin: 0; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); }
+.top > .cyberhome > .about.arrow-only[open] > .about-lines { left: -8px; }
+.top > .system-map > .about.arrow-only[open] > .about-lines { right: -8px; }
+@media (max-width: 560px) { .about-lines { grid-template-columns: minmax(0, 1fr); gap: 0; } .about-lines dd + dt { margin-top: 4px; } }
 /* A tool with parts of its own inside a control panel (L4's parts, the session notes): drawn like the VRChat setups'
    headset boxes, round with the tool background, its lights and name inside on the first row, folding to that row
    (Astra, 2026-10-24: "control panels have tools and toolsets in side them"). Its menus and buttons are round like a
@@ -299,10 +429,21 @@ h3 { font-size: 15px; } h4 { font-size: 13.5px; margin-top: 10px; }
 .toolbox-fold::after { content: "\00A0\00A0\25BE"; font-size: 10px; color: var(--chalk-dim); }
 .toolbox.is-folded .toolbox-fold::after { content: "\00A0\00A0\25B8"; }
 .toolbox-fold:hover::after { color: var(--fix); }
+/* A folded tool opens when clicked anywhere, like a pill (Astra, 2026-11-02); open, its name line folds it again. */
+.toolbox.is-folded, .toolbox-head:has(.toolbox-fold), .launch-headset.is-folded, .launch-head, .launch-mode.is-folded, .launch-mode > legend { cursor: pointer; }
+.toolbox.is-folded:hover, .launch-headset.is-folded:hover, .launch-mode.is-folded:hover { border-color: var(--line); background: var(--tool-bg-hover); }
+.toolbox.is-folded:hover .toolbox-fold, .toolbox-head:hover .toolbox-fold,
+.launch-headset.is-folded:hover > .launch-head .launch-fold, .launch-head:hover .launch-fold,
+.launch-mode.is-folded:hover > legend .launch-fold, .launch-mode > legend:hover .launch-fold { text-decoration: underline; text-underline-offset: 3px; }
 .toolbox-body > :first-child { margin-top: 0; }
 .toolbox-body > :last-child { margin-bottom: 0; }
 .toolbox .button { border-radius: 14px; }
 .toolbox select { border-radius: 8px; }
+/* The boxes inside a tool (Discord Damsel's three presence apps and DM archive) look like Data Dealer's notes box,
+   not the browser's grey frame (Astra, 2026-11-06: "your buttons need to look like this for Discord Tower"). */
+fieldset.tool-box { margin: 12px 0 0; border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 4px 16px 14px; min-width: 0; }
+fieldset.tool-box > legend { font: 600 14px var(--label); color: var(--chalk); padding: 0 6px; }
+fieldset.tool-box .button { border-radius: 14px; }
 /* A tool panel inside a level (L2's update history): the same box, a little closer to the one above. */
 .panel.sub { margin-top: 26px; }
 .level > .panel.sub:first-of-type { margin-top: 18px; }
@@ -351,7 +492,9 @@ label.file { position: relative; }
 .pair { display: grid; grid-template-columns: 1fr minmax(240px, 330px); gap: 0 28px; align-items: start; }
 /* Three to a row, as in the sketch, when there is room for a cloud and its pet; fewer on a narrow window. */
 .moods { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, max(215px, calc((100% - 28px) / 3))), 1fr)); gap: 18px 14px; }
-.mood { margin: 0; display: grid; grid-template-columns: minmax(min-content, 1fr) 60px; gap: 22px; align-items: center; }
+.mood { margin: 0; display: grid; grid-template-columns: minmax(min-content, 1fr) minmax(60px, auto); gap: 22px; align-items: center; }
+/* The picture's column is as wide as the pet at its desktop size, at least the old 60px, the pet in its middle. */
+.mood img, .mood .no-art { justify-self: center; }
 /* Room inside the rounded corners, so a long first line never runs into the top corner (Astra, 2026-10-20). */
 .mood-bubble { position: relative; padding: 2px 12px 8px; margin: 0; min-width: min-content; font-size: 12.5px; } /* its edge: .cloud, above (no puffy cloud since 2026-10-22) */
 .mood-bubble legend { font: 13px var(--label); padding: 0 5px; white-space: nowrap; }
@@ -384,7 +527,7 @@ label.file { position: relative; }
 .footer-status { color: var(--chalk-dim); }
 .footer-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px; }
 .footer-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 0; }
-.footer-group::before, .footer-sparkle { content: "✦"; color: #d994c6; font-size: 12px; line-height: 1; margin-right: 8px; }
+.footer-group::before, .footer-sparkle { content: "✦"; color: var(--accent); font-size: 12px; line-height: 1; margin-right: 8px; }
 /* By Astra, ✦, the photostar, ✦, Find Out More, the links (Astra, 2026-10-24): no ✦ before By Astra. */
 .footer-by::before { content: none; }
 .footer-sparkle { margin: 0 -8px 0 0; }
@@ -416,7 +559,7 @@ label.file { position: relative; }
    lights, its name and its open button in a pill. */
 .chat { position: fixed; right: 16px; bottom: 16px; z-index: 5; display: grid; grid-template-columns: auto; grid-template-areas: "label" "panel" "tool";
   justify-content: end; align-items: center; padding: 0 10px 10px; border: 1px solid var(--line); border-radius: 0;
-  background: var(--slate); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
+  background: var(--surface); box-shadow: 0 8px 22px rgba(0, 0, 0, .45); max-width: min(400px, calc(100vw - 32px)); }
 .chat:has(.chat-panel:not([hidden])) { padding: 0 12px 12px; }
 /* Centred in its panel (Astra, 2026-10-24: "center the rift-rabbit-chat (tool) inside its tool panel"). As much room
    right of the open button as left of the first light, 11.5px each (2026-10-24: "there needs to
@@ -425,7 +568,7 @@ label.file { position: relative; }
   border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); }
 .chat-tool > .lights { margin: 0; }
 .chat-name { font: 14px/1.35 var(--text); color: var(--chalk); white-space: nowrap; }
-.chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--slate); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
+.chat-label { grid-area: label; justify-self: start; margin: -0.75em 0 0 -6px; background: var(--surface); padding: 0 6px; font: 13px/1.5 var(--label); white-space: nowrap; }
 .chat-panel:not([hidden]) { margin-top: 8px; }
 /* The open button is the arrow alone, no circle: click it and it turns down as the chat drops open (Astra, 2026-10-24:
    "no circle just a icon that you can click that icon, and it rotates for the dropdown"). */
@@ -481,7 +624,6 @@ label.file { position: relative; }
 }
 /* Faces the page script switches between: a hidden one never shows. */
 img[hidden] { display: none !important; }
-.awake-faces { display: inline-block; }
 /* API Fairy's key requests (Astra, 2026-10-19): three groups, each labelled in its top border. Waiting on you, the one
    she acts on, runs the full width with its requests side by side; has a key and declined sit below it. One column on
    a phone. */
@@ -496,50 +638,92 @@ img[hidden] { display: none !important; }
 /* tracker-strapper (Astra, 2026-10-25): her drawing of the 27 spots, a tool like the headset boxes below it. She is on
    the left, the hoops, toys and pole on the right. Clicking a spot opens its picker on the drawing; the list under it
    shows only the spots with a device. On a phone the drawing keeps its size and scrolls sideways. */
-.strap-stage { position: relative; overflow-x: auto; overflow-y: hidden; margin: 4px 0 0; }
-.strap-drawing { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
-.strap-floor { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
-.strap-body ellipse, .strap-body path { fill: none; stroke: #a99be8; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.strap-body .strap-band, .strap-body .strap-ring { stroke-width: 2; }
-.strap-body .strap-ring-dashed { stroke-dasharray: 5 4; }
-.strap-body .strap-hair { stroke: #c9a8f0; stroke-width: 3; }
-.strap-props circle, .strap-props path { fill: none; stroke: #e8a8d8; stroke-width: 5; stroke-linecap: round; }
-.strap-prop-names text { font: 13px var(--text); fill: var(--chalk-dim); }
-.strap-toy text { font: 11px var(--text); fill: var(--chalk-dim); }
-.strap-toy-group { font: 600 13px var(--label); fill: var(--chalk-dim); }
-.strap-toy-note { font: italic 12px var(--text); fill: var(--planned); }
+/* The whole scene always fits, Poppy and every toy, with no scroll bar (Astra, 2026-10-26). */
+.strap-stage { position: relative; overflow: hidden; margin: 4px 0 0; }
+.strap-drawing { display: block; width: 100%; height: auto; margin: 0 auto; }
+.strap-floor, .strap-ceiling { stroke: var(--line-dim); stroke-width: 1; stroke-dasharray: 3 5; }
+.strap-ceiling { stroke-width: 3; stroke-dasharray: none; }
+/* Her body: a dark silhouette with a pale storm-light edge (2026-10-26: "redo the blue body too"). */
+.strap-skin { fill: #2a3552; stroke: #b9c8ea; stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(160, 200, 255, .25)); }
+.strap-boot { fill: #0e1119; stroke: #b9c8ea; stroke-width: 1.6; }
+.strap-limb-edge { fill: none; stroke: #4d5b80; stroke-linecap: round; }
+.strap-limb { fill: none; stroke: #a3b1d6; stroke-linecap: round; }
+.strap-hair { fill: url(#strap-galaxy); stroke: #2a2440; stroke-width: 1.2; }
+.strap-belt { fill: none; stroke: var(--link); stroke-width: 2.4; stroke-dasharray: 5 3; opacity: .85; }
+.strap-belt-link { display: none; }
+/* Hand tracking: her own hand lights up. */
+.strap-spot .ico-hand { filter: drop-shadow(0 0 5px #b4dcff); }
+.strap-dev-head { font: 600 16px var(--label); fill: var(--chalk); }
+.strap-dev { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-face { fill: none; stroke: #c9d6f2; stroke-width: 1.1; stroke-linecap: round; opacity: .75; }
+.strap-hair-tie { fill: none; stroke: #6a5aa8; stroke-width: 2; stroke-linecap: round; }
+.strap-star { fill: #fff6d8; opacity: .9; }
+.strap-headset-q3 { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.4; }
+.strap-band { fill: none; stroke: #15171f; stroke-width: 4; stroke-linecap: round; }
+.strap-band-wide { fill: #ececf0; stroke: #7a7a86; stroke-width: 1.2; }
+.strap-drawing:not([data-headset="quest-pro"]) .strap-hs-quest-pro, .strap-drawing:not([data-headset="quest-3"]) .strap-hs-quest-3 { display: none; }
+.strap-crease { fill: none; stroke: #8fa0c4; stroke-width: 1.3; stroke-linecap: round; opacity: .7; }
+.strap-band-soft { fill: none; stroke: #d9d9e0; stroke-width: 5; stroke-linecap: round; }
+.strap-headset { fill: #101015; stroke: #a8b3d0; stroke-width: 1.6; }
+.strap-shadow { fill: #000; opacity: .3; }
+/* Labels on the drawing as big as the words under it (2026-10-26: "The font is a little small on the labels"). */
+.strap-view { font: 700 18px var(--label); fill: var(--chalk); letter-spacing: 2px; }
+.strap-rope { stroke: #050506; stroke-width: 5; stroke-linecap: butt; }
+.strap-rope-wrap { fill: none; stroke: #050506; stroke-width: 4; stroke-linecap: round; }
+.strap-hoop { fill: none; stroke: #0a0820; stroke-width: 7.5; }
+.strap-galaxy { filter: blur(1.2px); }
+.strap-hoop-gloss { fill: none; stroke: #ffffff; stroke-width: 1.6; opacity: .35; stroke-linecap: round; }
+.strap-fig8 { fill: none; stroke: #0b0b10; stroke-width: 4; }
+.strap-glitter { opacity: .95; }
+.strap-glitter-0 { fill: #ff6ad5; } .strap-glitter-1 { fill: #ffd25a; } .strap-glitter-2 { fill: #5affc8; } .strap-glitter-3 { fill: #6ab4ff; } .strap-glitter-4 { fill: #c58aff; }
+.strap-dome { filter: drop-shadow(0 0 4px #5dff3a); }
+.strap-prop-names, .strap-prop-names text { font: 16px var(--text); fill: var(--chalk-dim); }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
+.strap-toy-shadow { fill: #000; opacity: .45; }
+.strap-toy-group { font: 600 16px var(--label); fill: var(--chalk-dim); }
+.strap-toy-note { font: italic 15px var(--text); fill: var(--planned); }
+/* A spot: its colour halo, the device drawn on it (or a small ring when it is empty), its number on a corner badge. */
 .strap-spot { cursor: pointer; }
-.strap-spot circle { stroke-width: 2.2; stroke: #47d16a; fill: var(--slate-2); }
-.strap-spot text { font: 700 10px var(--text); fill: var(--fix); pointer-events: none; }
-.strap-back circle { stroke-dasharray: 2.5 2; }
-.strap-spot[data-state="used"] circle { fill: var(--care); }
-.strap-spot[data-state="joined"] circle { fill: #d994c6; }
-.strap-spot[data-state="head"] circle { fill: var(--fix); }
-.strap-spot:not([data-state="off"]) text { fill: var(--slate-2); }
-.strap-spot[data-state="off"] circle { stroke: var(--planned); }
-.strap-spot[data-state="off"] text { fill: var(--chalk-dim); }
-.strap-spot:focus-visible circle, .strap-spot:hover circle, .strap-spot.is-open circle { stroke: var(--chalk); stroke-width: 3.2; }
 .strap-spot:focus { outline: none; }
+.strap-halo { fill: none; stroke-width: 2.4; stroke: transparent; }
+.strap-spot[data-state="used"] .strap-halo { stroke: var(--care); fill: rgba(108, 199, 232, .15); }
+.strap-spot[data-state="joined"] .strap-halo { stroke: var(--accent); fill: rgba(217, 148, 198, .15); }
+.strap-spot[data-state="head"] .strap-halo { stroke: var(--fix); fill: rgba(232, 197, 71, .15); }
+.strap-empty { fill: rgba(255, 255, 255, .06); stroke: var(--chalk-dim); stroke-width: 1.6; stroke-dasharray: 2.5 2; }
+.strap-spot:not([data-kind=""]) .strap-empty { display: none; }
+.strap-spot .ico { display: none; }
+.strap-spot[data-kind="tracker"] .ico-tracker, .strap-spot[data-kind="index"] .ico-index, .strap-spot[data-kind="qpro-ctrl"] .ico-qpro-ctrl, .strap-spot[data-kind="q3-ctrl"] .ico-q3-ctrl,
+.strap-spot[data-kind="qpro"] .ico-qpro, .strap-spot[data-kind="q3"] .ico-q3, .strap-spot[data-kind="hand"] .ico-hand { display: inline; }
+.strap-badge { fill: var(--slate-2); stroke: var(--chalk-dim); stroke-width: 1; }
+.strap-spot text { font: 700 10px var(--text); fill: var(--chalk); pointer-events: none; }
+.strap-spot:hover .strap-halo, .strap-spot:focus-visible .strap-halo, .strap-spot.is-open .strap-halo { stroke: var(--chalk); stroke-width: 3; }
 .strap-pop { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr auto; gap: 6px 8px; align-items: center; width: max-content; max-width: 300px; padding: 8px 10px; background: var(--slate-2); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 18px rgba(0, 0, 0, .5); font-size: 13px; }
 .strap-pop b { font: 600 13px var(--label); color: var(--chalk); }
 .strap-pop select { grid-column: 1 / -1; font: 13px var(--text); color: var(--chalk); background: var(--slate); border: 1px solid var(--line); border-radius: 8px; padding: 3px 6px; max-width: 100%; }
 .strap-pop [data-strap-pop-note] { grid-column: 1 / -1; color: var(--chalk-dim); }
 .strap-pop-close { font: 16px var(--text); line-height: 1; color: var(--chalk-dim); background: none; border: 0; padding: 0 2px; cursor: pointer; }
 .strap-pop-close:hover { color: var(--fix); }
-.strap-key { list-style: none; margin: 8px 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+/* The key and her devices, each in a box of stacked rows, side by side or one under the other (2026-10-26). */
+.strap-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px 18px; margin: 10px 0 0; align-items: start; }
+.strap-column { display: grid; gap: 12px; min-width: 0; }
+.strap-box { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 14px 12px; min-width: 0; }
+.strap-box-title { margin: 0 0 6px; font: 600 13px var(--label); color: var(--chalk); }
+.strap-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .strap-key li::before, .strap-worn li::before { content: "\25CF\00A0"; }
 .strap-key [data-state="used"]::before, .strap-worn [data-state="used"]::before { color: var(--care); }
-.strap-key [data-state="joined"]::before, .strap-worn [data-state="joined"]::before { color: #d994c6; }
+.strap-key [data-state="joined"]::before, .strap-worn [data-state="joined"]::before { color: var(--accent); }
 .strap-key [data-state="head"]::before, .strap-worn [data-state="head"]::before { color: var(--fix); }
 .strap-key [data-state="off"]::before { color: var(--planned); }
-.strap-worn { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 3px 18px; font-size: 13.5px; }
+.strap-worn { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 13.5px; }
 .strap-worn b { font-family: var(--label); color: var(--fix); }
-.strap-dev { color: var(--link); }
-.strap-pairs { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 10px 0 0; font-size: 13.5px; }
+.strap-worn [data-state="off"] { color: var(--chalk-dim); }
+.strap-worn [data-state="off"]::before { color: var(--planned); }
+.strap-dev { color: var(--care); }
+.strap-pairs { display: grid; gap: 8px; margin: 0; font-size: 13.5px; }
 .strap-pair-picks { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 .strap-pairs select { font: 12.5px var(--text); color: var(--chalk); background: var(--slate-2); border: 1px solid var(--line); border-radius: 8px; padding: 2px 4px; }
 .strap-said { margin: 10px 0 2px; color: var(--chalk-dim); }
-.strap-footer { margin: 6px 0 0; text-align: center; font: 600 14px var(--label); color: #47d16a; }
+.strap-footer { margin: 10px 0 0; font: 600 13px var(--label); color: #47d16a; }
 .launch-mode.is-blocked { opacity: .7; }
 .launch-needs { color: var(--fix); margin: 6px 0 0; }
 .launch-headset { border: 1px solid var(--line-dim); border-radius: 18px; background: var(--tool-bg); padding: 7px 16px 16px; margin: 0 0 18px; min-width: 0; }
@@ -559,6 +743,40 @@ img[hidden] { display: none !important; }
 /* Checkboxes in the page's own pink, not the browser's blue (Astra, 2026-10-24: "make the check boxes the right color
    themes"). */
 input[type="checkbox"] { accent-color: var(--line); }
+/* The switch rows in the page's own colours (Astra, 2026-10-26: "these look plain, make them match the rest of the pages
+   color themes too"): each switch a framed chip that lights up when ticked, the tick box and menus drawn in the theme. */
+.launch-switches { gap: 8px; }
+.launch-switch { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1px solid var(--line-dim); border-radius: 8px; background: var(--tool-bg, rgba(255, 255, 255, .04)); color: var(--chalk-dim); cursor: pointer; transition: border-color .15s, background .15s, color .15s, box-shadow .15s; }
+.launch-switch[hidden] { display: none; }
+/* Devices in violet, software in the page's steel blue (2026-10-26). */
+.launch-switch.launch-device { --chip: #9d7bd8; --chip-dim: #4a3a6e; --chip-glow: #c9b2ff; border-color: var(--chip-dim); }
+.launch-switch.launch-device:hover, .launch-switch.launch-device:has(> input:checked), .launch-device > label:has(input:checked) { border-color: var(--chip); }
+.launch-switch.launch-device:has(> input:checked) { box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
+.launch-device input[type="checkbox"] { border-color: var(--chip) !important; }
+.launch-device input[type="checkbox"]:checked { border-color: var(--chip-glow) !important; background: linear-gradient(135deg, var(--chip-glow), var(--chip)) !important; }
+.launch-device .launch-group-name { border-right-color: var(--chip); }
+.launch-switch:has(> input:disabled) { opacity: .5; cursor: not-allowed; }
+.launch-switch:hover { border-color: var(--line); color: var(--chalk); }
+.launch-switch:has(> input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-group { gap: 4px; cursor: default; }
+/* A group lights up as a whole when anything in it is ticked (2026-10-26: "when any of the lovense are selected, the
+   whole bubble needs to light up"). */
+.launch-switch.launch-group:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); box-shadow: 0 0 0 1px var(--line-dim) inset, 0 0 10px -3px var(--link); }
+.launch-switch.launch-device.launch-group:has(input:checked) { border-color: var(--chip); box-shadow: 0 0 0 1px var(--chip-dim) inset, 0 0 10px -3px var(--chip-glow); }
+/* Its name set off by a bar from its toys (Astra, 2026-10-26: "separate the lovense somehow to look different, maybe a
+   bar divider"). */
+.launch-group-name { font-weight: 600; color: var(--chalk); padding-right: 10px; margin-right: 4px; border-right: 2px solid var(--line); }
+.launch-group > label { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+.launch-group > label:has(input:checked) { border-color: var(--line); color: var(--chalk); background: var(--tool-bg-hover, rgba(255, 255, 255, .08)); }
+.launch-switches input[type="checkbox"] { appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 15px; height: 15px; margin: 0; border: 1.5px solid var(--line); border-radius: 4px; background: var(--slate-2); cursor: pointer; }
+.launch-switches input[type="checkbox"]::after { content: ''; position: absolute; left: 3.6px; top: .6px; width: 4px; height: 8px; border: solid var(--slate-2); border-width: 0 2px 2px 0; transform: rotate(45deg); opacity: 0; }
+.launch-switches input[type="checkbox"]:checked { border-color: var(--link); background: linear-gradient(135deg, var(--link), var(--line)); }
+.launch-switches input[type="checkbox"]:checked::after { opacity: 1; }
+.launch-switches input[type="checkbox"]:disabled { opacity: .55; cursor: not-allowed; }
+.launch-switch select { appearance: none; -webkit-appearance: none; padding: 3px 26px 3px 9px; border-color: var(--line-dim); border-radius: 6px; background: linear-gradient(45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 13px) 55% / 5px 5px, linear-gradient(-45deg, transparent 50%, var(--link) 50%) no-repeat calc(100% - 8px) 55% / 5px 5px, var(--slate-2); cursor: pointer; }
+.launch-switch select:hover, .launch-switch select:focus { border-color: var(--line); }
+
+.launch-switch select option { background: var(--slate-2); color: var(--chalk); }
 .launch-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; align-items: start; }   /* a folded mode shrinks to its name (Astra, 2026-10-24: "arrow needs to shrink the border up") */
 .launch-mode { border: 1px solid var(--line-dim); border-radius: 14px; padding: 4px 12px 10px; margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .launch-mode .button { border-radius: 14px; }
@@ -572,17 +790,22 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-headset.is-folded > :not(.launch-head), .launch-mode.is-folded > :not(legend) { display: none; }
 .launch-headset.is-folded { padding-bottom: 7px; }
 .launch-headset.is-folded > .launch-head { margin-bottom: 0; }
-.launch-mode legend { font: 13px var(--label); padding: 0 6px; }
+/* Each launch option's name sits inside its rounded box at the top, as on every tool, not in the border (Astra,
+   2026-10-26: "Tools, Toolsets, 3rd Party Programs all follow the round border, button, drop down arrow rule, but there
+   are a couple that have numbers"). */
+.launch-mode { padding-top: 10px; }
+.launch-mode > legend { float: left; width: 100%; font: 600 13.5px var(--label); color: var(--chalk); padding: 0; margin: 0 0 6px; }
+.launch-mode > legend + * { clear: both; }
 .launch-mode[data-rating="best"] { border-color: var(--on); box-shadow: 0 0 10px var(--on); }
 .launch-mode[data-rating="bad"] { border-color: var(--off); }
 .launch-tracker { margin: 4px 0; color: var(--link); font-size: 14px; }
 /* How it works and what to expect, as bullets right under the yellow line (Astra, 2026-10-24). */
 .launch-points { margin: 6px 0 10px; padding-left: 18px; display: grid; gap: 3px; }
-.launch-points li::marker { color: #d994c6; }
+.launch-points li::marker { color: var(--accent); }
 /* What a mode starts, one program per line, in order (Astra, 2026-10-24). */
 .launch-label { margin: 8px 0 2px; }
 .launch-order { margin: 0 0 8px; padding-left: 22px; display: grid; gap: 2px; }
-.launch-order li::marker { color: #d994c6; font-family: var(--label); }
+.launch-order li::marker { color: var(--accent); font-family: var(--label); }
 /* What SteamVR opens and what she opens next sit under their step (Astra, 2026-10-24, her order); the wait is a step. */
 .launch-order ul { margin: 2px 0 2px; padding-left: 18px; display: grid; gap: 1px; }
 .launch-order ul li::marker { color: var(--line-dim); }
@@ -606,12 +829,12 @@ input[type="checkbox"] { accent-color: var(--line); }
 .launch-said { margin: 4px 0; }
 .launch-run-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
 .vrchat-launch .button:disabled { opacity: .45; cursor: not-allowed; }   /* a Launch button that is off looks off */
-.request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+.request-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 16px; }
 .request-group { border: 1px solid var(--line); padding: 4px 12px 10px; margin: 0; min-width: 0; }
 .request-group legend { font: 13px var(--label); padding: 0 6px; }
 .request-group.waiting { border-color: var(--fix); grid-column: 1 / -1; }
 .request-group.waiting legend { color: var(--fix); }
-.request-group.waiting .requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 24px; }
+.request-group.waiting .requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 0 24px; }
 .request-group.waiting .request, .request-group.waiting .request:first-child { border-top: 0; border-bottom: 1px solid var(--line-dim); }
 .requests { list-style: none; margin: 0; padding: 0; }
 .request { border-top: 1px solid var(--line-dim); padding: 8px 0 6px; overflow-wrap: anywhere; }
@@ -624,13 +847,13 @@ input[type="checkbox"] { accent-color: var(--line); }
 .example-tag { border-style: dashed; }
 .request-count { margin: 0 0 2px; }
 .request-problems { margin: 4px 0 0; }
-/* GitHub Aquarium's outstanding items (Astra, 2026-10-21): the same groups, each labelled in its top border. Broken on
-   main and waiting on you, the two she acts on, run the full width; the others sit below them. */
-.outstanding-group.g-broken, .outstanding-group.g-you { grid-column: 1 / -1; }
+/* GitHub Aquarium's outstanding items (Astra, 2026-10-21), tools in its L1 control panel since 2026-10-29: broken on
+   main and waiting on you, the two she acts on, keep their colours. */
+.outstanding-tools > .toolboxes { margin: 6px 0 12px; }
 .outstanding-group.g-broken { border-color: var(--off); }
-.outstanding-group.g-broken legend { color: var(--off); }
+.outstanding-group.g-broken .toolbox-name { color: var(--off); }
 .outstanding-group.g-you { border-color: var(--fix); }
-.outstanding-group.g-you legend { color: var(--fix); }
+.outstanding-group.g-you .toolbox-name { color: var(--fix); }
 /* related-pets (Astra, 2026-10-19): the pets it talks to, at the bottom of every page. */
 .moods.related { list-style: none; margin: 0; padding: 0; align-items: start; }
 /* No dashed line between "I manage ..." and the quote (Astra, 2026-10-23, crossing it out). */
@@ -692,10 +915,90 @@ input[type="checkbox"] { accent-color: var(--line); }
 .chat-log li { margin: 4px 0; padding: 4px 8px; border: 1px solid var(--line); border-radius: 10px; overflow-wrap: anywhere; }
 .chat-panel textarea { font-size: 14px; margin-top: 2px; }
 .chat-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+/* The chat window like Data Chip's (Astra, 2026-11-03): the pet's face and its seat, two views, the conversation as
+   bubbles (yours on the right, the pet's on the left), quick questions, and who answers folded under the box. */
+.chat-badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--update); color: #111;
+  font: 700 11px/18px var(--label); text-align: center; }
+.chat-head { display: flex; align-items: center; gap: 10px; margin: 2px 0 8px; }
+.chat-face { width: 44px; height: 44px; object-fit: contain; flex: none; }
+.chat-title { display: grid; flex: 1; min-width: 0; }
+.chat-title b { font: 600 15px var(--text); color: var(--chalk); }
+.chat-close { flex: none; width: 26px; height: 26px; border: 1px solid var(--line-dim); background: transparent; color: var(--chalk);
+  font: 18px/1 var(--text); cursor: pointer; }
+.chat-close:hover { color: var(--fix); border-color: var(--fix); }
+.chat-tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+.chat-tabs .button[aria-pressed="true"], .chat-who .button[aria-pressed="true"] { background: var(--slate-2); border-color: var(--fix); color: var(--fix); }
+.chat-needs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.chat-needs a { display: block; padding: 6px 8px; border: 1px solid var(--line-dim); color: var(--chalk); text-decoration: none; overflow-wrap: anywhere; }
+.chat-needs a:hover { border-color: var(--fix); }
+.chat-needs .tag { margin-right: 4px; }
+.chat-log li.me { margin-left: 18%; border-radius: 10px 10px 2px 10px; background: var(--tool-bg); }
+.chat-log li.pet { margin-right: 18%; border-radius: 10px 10px 10px 2px; white-space: pre-line; }
+.chat-quick { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.chat-quick .button { font-size: 12.5px; }
+.chat-seats { margin-top: 8px; border-top: 1px solid var(--line-dim); padding-top: 6px; }
+.chat-seats > summary { cursor: pointer; font-size: 13px; color: var(--chalk-dim); }
+.chat-seats > summary span { color: var(--chalk); font-weight: 600; }
+.chat-who .button .small { color: var(--chalk-dim); font-size: 11px; }
+.chat .about.arrow-only { margin-top: 8px; }
+
+/* Data Chip's phone (Astra, 2026-11-03, Flash Audit deck, answer 2: "i like the phone on data dealer, its program needs
+   its own chat"): his yellow shell from Data Dealer's dashboard, its heavy outline, the antenna and the LCD screens, in
+   its own colours. The little phone is the chat tool's open button; the window is the phone. */
+.chat-phone { --neon: #d9e25a; --neon-ink: #0a0b05; --lcd: #c3d39b; --lcd-ink: #1f2b0e; --lcd-mid: #56662f; --pixel: 'Silkscreen', var(--label); }
+.phone-screen { display: block; flex: none; background: var(--lcd); border: 3px solid var(--neon-ink); border-radius: 12px; overflow: hidden; }
+.chip-face { display: block; width: 100%; height: 100%; }
+.chat-phone .chat-open { width: auto; height: auto; padding: 0; border-radius: 12px; }
+.chat-phone .chat-open svg, .chat-phone .chat-open[aria-expanded="true"] svg { width: 100%; height: 100%; transform: none; transition: none; }
+.phone-mini { position: relative; display: grid; justify-items: center; gap: 3px; margin-top: 7px; padding: 5px 6px 4px; background: var(--neon);
+  border: 2px solid var(--neon-ink); border-radius: 11px 11px 13px 13px; box-shadow: 0 0 0 2px var(--neon); }
+.phone-mini::before { content: ""; position: absolute; top: -9px; left: 7px; width: 5px; height: 7px; background: var(--neon); border: 2px solid var(--neon-ink);
+  border-bottom: 0; border-radius: 3px 3px 0 0; }
+.phone-mini .phone-screen { width: 36px; height: 27px; border-width: 2px; border-radius: 6px; }
+.phone-name { font: 700 7px/1 var(--pixel); color: var(--neon-ink); letter-spacing: .02em; white-space: nowrap; }
+.chat-open:hover .phone-mini { transform: translateY(-1px); }
+.chat-open[aria-expanded="true"] .phone-mini { background: #c6cf45; }
+.chat-phone .chat-panel { overflow: visible; max-height: none; position: relative; padding: 14px 14px 12px; background: var(--neon); color: var(--neon-ink);
+  border: 3px solid var(--neon-ink); border-radius: 30px 30px 34px 34px; box-shadow: 0 0 0 3px var(--neon); }
+.chat-phone .chat-panel:not([hidden]) { margin-top: 24px; }
+.chat-phone .chat-panel::before { content: ""; position: absolute; top: -18px; left: 30px; width: 10px; height: 15px; background: var(--neon);
+  border: 3px solid var(--neon-ink); border-bottom: 0; border-radius: 6px 6px 0 0; }
+.chat-phone .chat-head { gap: 12px; margin: 0 0 10px; }
+.chat-phone .chat-head .phone-screen { width: 96px; height: 72px; border-radius: 14px; }
+.chat-phone .chat-title b { font: 700 16px/1.15 var(--pixel); letter-spacing: .08em; text-transform: uppercase; color: var(--neon-ink); }
+.chat-phone .chat-title .small { font: 11px/1.3 var(--pixel); color: var(--neon-ink); }
+.chat-phone .chat-close { width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--neon-ink); color: var(--neon); align-self: flex-start; }
+.chat-phone .chat-close:hover { color: #fff; }
+.chat-phone .chat-tabs .button { flex: 1; padding: 7px 4px; background: transparent; color: var(--neon-ink); border: 3px solid var(--neon-ink); border-radius: 10px;
+  font: 700 10px/1.1 var(--pixel); letter-spacing: .06em; text-transform: uppercase; }
+.chat-phone .chat-tabs .button[aria-pressed="true"] { background: var(--neon-ink); color: var(--neon); border-color: var(--neon-ink); }
+.chat-phone .chat-view { padding: 8px 10px; background: var(--lcd); color: var(--lcd-ink); border: 3px solid var(--neon-ink); border-radius: 16px;
+  box-shadow: inset 0 0 0 3px rgba(31, 43, 14, .12); }
+.chat-phone .chat-needs { max-height: 40vh; overflow-y: auto; }
+.chat-phone .chat-needs a { padding: 7px 0; color: var(--lcd-ink); border: 0; border-bottom: 2px dotted rgba(31, 43, 14, .3); font: 15px/1.2 var(--label); }
+.chat-phone .chat-needs li:last-child a { border-bottom: 0; }
+.chat-phone .chat-needs .tag, .chat-phone .chat-view .tag { color: var(--lcd-ink); border-color: var(--lcd-ink); }
+.chat-phone .chat-view .empty, .chat-phone .chat-view .small, .chat-phone .chat-view label { color: var(--lcd-ink); }
+.chat-phone .chat-log { max-height: min(200px, 30vh); }
+.chat-phone .chat-log li { margin: 6px 0; padding: 0; border: 0; border-radius: 0; color: var(--lcd-ink); font: 15px/1.25 var(--label); }
+.chat-phone .chat-log li.pet { margin-right: 6%; }
+.chat-phone .chat-log li.pet::before { content: var(--phone-name) "> "; color: var(--lcd-mid); font-weight: 700; }
+.chat-phone .chat-log li.me { margin-left: 18%; padding: 3px 9px; background: var(--lcd-ink); color: var(--lcd); border-radius: 10px 10px 2px 10px; }
+.chat-phone .chat-view .button { background: var(--lcd-ink); color: var(--lcd); border: 0; border-radius: 8px; padding: 6px 9px; font: 700 10px/1.2 var(--pixel);
+  letter-spacing: .05em; text-transform: uppercase; }
+.chat-phone .chat-view .button:hover { background: #33461a; }
+.chat-phone .chat-view .button[aria-pressed="true"] { background: var(--neon-ink); color: var(--neon); }
+.chat-phone .chat-who .button .small { color: inherit; font: 10px var(--pixel); text-transform: none; }
+.chat-phone textarea { background: #eef0cf; color: var(--neon-ink); border: 3px solid var(--neon-ink); border-radius: 12px; font: 16px/1.2 var(--label); }
+.chat-phone .chat-seats { border-top: 2px dotted rgba(31, 43, 14, .35); }
+.chat-phone .chat-seats > summary, .chat-phone .chat-seats > summary span { color: var(--lcd-ink); }
+.chat-phone .chat-panel > .about { color: var(--neon-ink); }
+.chat-phone .chat-panel > .about .about-lines dt, .chat-phone .chat-panel > .about .about-lines a { color: var(--neon-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .den .pet { animation: none !important; }
   .chat-open svg { transition: none; }
+  .chat-open:hover .phone-mini { transform: none; }
   .panel.level[data-activity="live"] { animation: none; }
 }
 
@@ -721,7 +1024,7 @@ input[type="checkbox"] { accent-color: var(--line); }
   .footer-more { display: contents; }
   .footer-more::before { content: none; }
   .footer-more > .footer-title { grid-area: more; }
-  .footer-more > .footer-title::before { content: "✦"; color: #d994c6; font-size: 12px; margin-right: 10px; }
+  .footer-more > .footer-title::before { content: "✦"; color: var(--accent); font-size: 12px; margin-right: 10px; }
   .footer-icons { grid-area: icons; display: grid; grid-template-columns: repeat(5, minmax(0, 56px)); gap: 4px; width: 100%; justify-content: center; }
   .footer-icons a { width: 100%; max-width: 56px; height: auto; aspect-ratio: 1; }
   .footer-icons svg { width: 32px; height: 32px; }
@@ -736,3 +1039,103 @@ input[type="checkbox"] { accent-color: var(--line); }
 }
 /* Each group of devices under its own small heading (Astra, 2026-10-24: "group the trackers, base stations, headsets"). */
 .device-group { margin: 12px 0 0; font-size: 13px; color: var(--chalk-dim); font-weight: 600; }
+/* The dongle map (Astra, 2026-10-26): each USB controller a branch, its hubs and devices under it on drawn lines;
+   Watchman dongles and Valve VR Radios stand out, with how many dongles each branch carries. */
+.dongle-about { margin: 2px 0 8px; color: var(--chalk-dim); }
+.dongle-run { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 8px; }
+.dongle-tree { overflow-x: auto; }
+.dongle-branches { list-style: none; margin: 0; padding: 0 0 0 18px; font-size: 13.5px; }
+.dongle-root { padding-left: 0; display: grid; gap: 10px; }
+.dongle-branches .dongle-branches { border-left: 1px solid var(--line-dim); margin-left: 6px; }
+.dongle-node { position: relative; padding: 2px 0; }
+.dongle-branches .dongle-branches > .dongle-node::before { content: ""; position: absolute; left: -18px; top: 13px; width: 14px; border-top: 1px solid var(--line-dim); }
+.dongle-node b { font-weight: 500; }
+.dongle-node[data-kind="controller"] > .dongle-line b { font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line b { color: var(--care); }
+.dongle-node[data-kind="tracker-dongle"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--care); }
+.dongle-node[data-kind="radio"] > .dongle-line b { color: var(--fix); }
+.dongle-node[data-kind="radio"] > .dongle-line::before { content: "\25C6\00A0"; color: var(--fix); }
+.dongle-node[data-kind="device"] > .dongle-line, .dongle-node[data-kind="root-hub"] > .dongle-line { color: var(--chalk-dim); }
+.dongle-port, .dongle-serial { color: var(--chalk-dim); font-family: var(--label); font-size: 12px; }
+.dongle-tracker { color: var(--care); font-family: var(--label); font-size: 12px; }
+.dongle-count { color: var(--fix); font-size: 12.5px; }
+
+/* No plain white in the switch rows (Astra, 2026-10-26: "the white text isnt following the general color theming"; then
+   "the items in the drop downs need to be the same color text as the options above, and Lovense"): menu values and group
+   names take the tick labels' colour. Last in the file, so nothing above overrides it. */
+.launch-switches .launch-switch select, .launch-switches .launch-switch select option { color: var(--chalk-dim); background-color: var(--slate-2); }
+.launch-switches .launch-switch .launch-group-name { color: var(--chalk-dim); }
+
+/* Each maker in its own colour under the floor (2026-10-26: "put the brands in different colors like Lovense in pink"). */
+.strap-drawing .brand-lovense { fill: #ff4fa3; }
+.strap-drawing .brand-woojer { fill: #ff8a3d; }
+.strap-drawing .brand-xpole { fill: #5dff3a; }
+.strap-drawing .brand-meta { fill: #5fa8ff; }
+.strap-drawing .brand-valve { fill: #ff6b5a; }
+.strap-drawing .brand-vive { fill: #39d0e8; }
+.strap-toy > text { font: 15px var(--text); fill: var(--chalk-dim); }
+
+/* The dongle map in two columns: today's plugs on the left, the recommended layout on the right (2026-10-26). */
+.dongle-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; align-items: start; }
+.dongle-col { border: 1px solid var(--line-dim); border-radius: 14px; padding: 10px 12px; min-width: 0; }
+.dongle-col-name { margin: 0 0 8px; font: 600 13.5px var(--label); color: var(--chalk); }
+.dongle-for { margin-bottom: 8px; }
+.dongle-pick { font: 13px var(--text); color: var(--chalk-dim); background: var(--slate-2); border: 1px solid var(--line-dim); border-radius: 6px; padding: 1px 4px; }
+.dongle-flag, .dongle-flags li { color: var(--update); }
+.dongle-other { color: var(--chalk-dim); opacity: .75; }
+.dongle-hub { margin: 6px 0 8px; }
+.dongle-hub > b { color: var(--link); font-weight: 600; }
+.dongle-items, .dongle-rules, .dongle-flags { margin: 4px 0 6px; padding-left: 18px; }
+.dongle-rules { color: var(--chalk-dim); }
+
+.dongle-dev { color: var(--link); }
+
+/* Poppy in 3D over the drawn figures when her copy is on this PC (2026-10-26); the figures and their spots step aside but
+   stay in place, so a picker still opens where the spot is. */
+.strap-mini { position: absolute; cursor: grab; touch-action: none; }
+.strap-mini:active { cursor: grabbing; }
+.strap-drawing.has-mini .strap-figure, .strap-drawing.has-mini [data-view] { visibility: hidden; }
+/* On this PC the figures stay hidden while Poppy loads (Astra, 2026-11-02: "It should always be Poppy"); they come back
+   only if her copy cannot load. */
+.strap-drawing.mini-wait .strap-figure, .strap-drawing.mini-wait [data-view] { visibility: hidden; }
+.strap-mini-modes { position: absolute; display: flex; gap: 6px; z-index: 2; }
+.strap-mini-modes .button { font-size: 12.5px; padding: 2px 10px; }
+.strap-mini-modes .button[aria-pressed="true"] { border-color: var(--link); color: var(--link); box-shadow: 0 0 8px -3px var(--link); }
+
+/* Neon wires (Astra, 2026-10-26: "i wanna see neon wires"): each USB controller's cables glow in its own colour, from
+   the controller through its hubs to every dongle, in both the current and the recommended layout. */
+.dongle-root > .dongle-node > .dongle-line b { color: var(--wire); text-shadow: 0 0 8px var(--wire); }
+.dongle-branches .dongle-branches { border-left: 2px solid var(--wire, var(--line-dim)); box-shadow: -2px 0 8px -3px var(--wire, transparent); }
+.dongle-branches .dongle-branches > .dongle-node::before { border-top: 2px solid var(--wire, var(--line-dim)); box-shadow: 0 0 7px var(--wire, transparent); }
+
+/* Light Hive's own look (Astra, 2026-11-08: "Make the light hive a really dark background and different LED border
+   panels. This one will be special"): a near-black page, and every panel framed like an RGB light strip, each in its
+   own LED colour, glowing, the colours slowly running through the rainbow at different points so no two panels match.
+   The working-copy box keeps its dashed cyan. Still, never animated, under reduced motion. */
+@property --rgbee-led { syntax: '<color>'; inherits: true; initial-value: #39ff88; }
+:root[data-pet="rgbee"] {
+  --slate: #050507; --slate-2: #020203; --chalk: #eef2f6; --chalk-dim: #9aa6b2; --line: #39ff88; --line-dim: #1d4a39;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ff2bd6;
+  --editorial: #00e5ff; --editorial-ink: #c9fbff; --editorial-glow: rgba(0, 229, 255, .25); --grid: none; --editorial-by: #7fe7f0; --serial: #00e5ff;
+  --link: #00e5ff; --connection: #ffb800;
+  --tool-bg: rgba(255, 255, 255, .03); --tool-bg-hover: rgba(57, 255, 136, .07);
+}
+:root[data-pet="rgbee"] .footer-group::before, :root[data-pet="rgbee"] .footer-sparkle { color: #ff2bd6; }
+@keyframes rgbee-led-run {
+  0% { --rgbee-led: #39ff88; } 17% { --rgbee-led: #00e5ff; } 33% { --rgbee-led: #7a5cff; }
+  50% { --rgbee-led: #ff2bd6; } 67% { --rgbee-led: #ff3b3b; } 83% { --rgbee-led: #ffb800; } 100% { --rgbee-led: #39ff88; }
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) {
+  border: 2px solid var(--rgbee-led);
+  box-shadow: 0 0 4px var(--rgbee-led), 0 0 16px color-mix(in srgb, var(--rgbee-led) 50%, transparent), inset 0 0 14px color-mix(in srgb, var(--rgbee-led) 16%, transparent);
+  animation: rgbee-led-run 18s linear infinite;
+}
+:root[data-pet="rgbee"] .panel:not(.editorial) > summary .legend { color: var(--rgbee-led); text-shadow: 0 0 6px color-mix(in srgb, var(--rgbee-led) 70%, transparent); }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+2) { animation-delay: -3s; --rgbee-led: #00e5ff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+3) { animation-delay: -6s; --rgbee-led: #7a5cff; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+4) { animation-delay: -9s; --rgbee-led: #ff2bd6; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n+5) { animation-delay: -12s; --rgbee-led: #ff3b3b; }
+:root[data-pet="rgbee"] .panel:nth-of-type(6n) { animation-delay: -15s; --rgbee-led: #ffb800; }
+:root[data-pet="rgbee"] .panel .panel { animation-duration: 24s; }
+:root[data-pet="rgbee"] fieldset.tool-box { border-color: color-mix(in srgb, var(--rgbee-led) 55%, #1d2228); }
+@media (prefers-reduced-motion: reduce) { :root[data-pet="rgbee"] .panel { animation: none; } }

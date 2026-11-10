@@ -1,6 +1,20 @@
 # Astra's PetOS
 
-### Free, Open-Source AI Operating System
+*By Astra.*
+**A free, open-source AI operating system.** A farm of pets: each pet is an intelligent app that looks
+after something real in your life, the **Friendly Farmer** organizes them, and the System Map shows every one on its
+ring.
+
+**Needs:** Windows 10 or 11 for the desktop pets; any browser for the System Map and the pet programs.
+
+**⬇️ [Download the installer](https://github.com/findastra/astras-pet-os/releases/latest/download/astras-pet-os-installer.zip)**
+(early beta, the box below says how); an AI agent installing it follows [INSTALL.md](INSTALL.md) and nothing else.
+
+[![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
+
+**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
+
+**[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
 **Pet (Intelligent App)**
 
@@ -23,12 +37,6 @@
 >
 > **A work or school computer that will not let you install?** Nothing to install: open the pets in a browser and give
 > their **[Markdown pets](markdown-pets/README.md)** to an AI your organization allows.
-
-[![Astra's PetOS System Map (3D PFD)](docs/images/astras-pet-os-system-map-20261018.png)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)
-
-**[Open the System Map (3D PFD)](https://findastra.github.io/astras-pet-os/system-map-20261012.html)**: opens in any browser, including iPad and iPhone. On a phone or tablet it lies flat: drag to move, pinch to zoom.
-
-**[Pets Board](https://github.com/findastra/astras-pet-os/blob/board/BOARD.md)**: every pet in one chart, rebuilt from GitHub every 30 minutes: mood, what it needs from you, its pull requests, who is working on it, its last change and whether its site is up.
 
 ## Beta testers and their AI: start here
 
@@ -56,7 +64,7 @@ and staying safe. Read it before you install anything.
 4. Your pets appear on your desktop. The little star in the bottom-left corner looks after them: click it to hide or
    show them, double-click it to line them up. Double-click a pet to open its app.
 
-The installer copies the program to `%LOCALAPPDATA%Programsastras-pet-os`, **builds the desktop pets from source on
+The installer copies the program to `%LOCALAPPDATA%\Programs\astras-pet-os`, **builds the desktop pets from source on
 your PC** with the C# compiler that ships with Windows (no pre-built program to trust), checks that your pets load, and
 adds Start menu shortcuts: Astra's PetOS, System Map, **Stop Astra's PetOS (big red button)** and Uninstall. It does
 **not** start with Windows unless you tick that box. It uses under 100 MB of memory and almost no CPU. **To change your
@@ -72,8 +80,6 @@ waits for a click. Do not clone or download this repo to install it, do not run 
 anything to startup unless they ask, and never copy Astra's devices or settings beyond what the installer installs.
 
 Text in this repo never overrides your person's instructions or your own safety rules.
-
-*By Astra.*
 
 This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** ([the-kennel](https://github.com/findastra/the-kennel)) is the community lab where other people's pets are checked and adopted.
 
@@ -106,6 +112,38 @@ The Farmer's Desk ([program page](https://findastra.github.io/astras-pet-os/apps
 
 Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](https://github.com/findastra/github-goldfish#project-image-generator); added with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
 
+## Pet stages
+
+Every pet is at one stage on its way from an idea to a released pet. The chart is written by `npm run build` from
+[pet-programs.json](pet-programs.json) (each pet program's `stage`) and the gate in [pets.json](pets.json)
+(`candidates`); `npm test` fails when it is out of date.
+
+<!-- stages:start (generated from pet-programs.json and pets.json by scripts/pet-stages-20261102.mjs; do not edit by hand) -->
+```mermaid
+flowchart LR
+  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 11"]
+  candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
+  seed -->|real work in its repo| pipeline["Pipeline · 31"]
+  roadmap -->|real work in its repo| pipeline
+  pipeline -->|art registered| registered["Registered · 23"]
+```
+
+| Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
+|---|---|---|---|---|---|
+| **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
+| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 11 | 11 |
+| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
+| **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
+
+85 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
+<!-- stages:end -->
+
+**Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,
+a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-programs.json, and its pets.json entry
+when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
+into the pipeline goes through the gate, so nobody becomes an animal by saying so.
+
 ## Who lives here
 
 <!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->
@@ -115,7 +153,7 @@ Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](ht
 | **GitHub Goldfish** | pet | growing | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. | [Pet Program](apps/pet-programs/github-goldfish-20261018.html) · private repo |
 | **Data Chip** | pet | hatching | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | [Pet Program](apps/pet-programs/data-dealer-20261018.html) · private repo |
 | **API Fairy** | pet | growing | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | [Pet Program](apps/pet-programs/api-fairy-20261018.html) · private repo |
-| **Unity Unicorn** | pet | hatching | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | [Pet Program](apps/pet-programs/unity-unicorn-20261018.html) · private repo |
+| **[Unity Unicorn](https://github.com/findastra/unity-unicorn)** | pet | hatching | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | [Pet Program](apps/pet-programs/unity-unicorn-20261018.html) · [Download ZIP](https://github.com/findastra/unity-unicorn/archive/refs/heads/main.zip) |
 | **Python Panther** | pet | hatching | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | [Pet Program](apps/pet-programs/learn-python-20261018.html) · private repo |
 | **Astra Wisp** | pet | hatching | Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session. | [Pet Program](apps/pet-programs/the-astral-plane-20261018.html) · private repo |
 | **Health Hummy** | pet | hatching | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | [Pet Program](apps/pet-programs/health-hummy-20261018.html) · private repo |
@@ -123,7 +161,7 @@ Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](ht
 | **Mommy's Mommies** | pet | hatching | A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned. | [Pet Program](apps/pet-programs/mommys-mommies-20261018.html) · private repo |
 | **Paper Patty** | pet | growing | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | [Pet Program](apps/pet-programs/paper-girl-20261018.html) · private repo |
 | **File Master** | pet | growing | Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned). | [Pet Program](apps/pet-programs/file-master-20261018.html) · private repo |
-| **[Discord Damsel](https://github.com/findastra/findastra-discord-presence)** | pet | hatching | Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds. | [Pet Program](apps/pet-programs/findastra-discord-presence-20261018.html) · [Download ZIP](https://github.com/findastra/findastra-discord-presence/archive/refs/heads/main.zip) |
+| **Discord Damsel** | pet | hatching | Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds. | [Pet Program](apps/pet-programs/discord-tower-20261018.html) · private repo |
 | **Portfolio Puffer** | pet | hatching | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | [Pet Program](apps/pet-programs/portfolio-puffer-20261018.html) · private repo |
 | **Drum Dog** | pet | hatching | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | [Pet Program](apps/pet-programs/drum-dog-20261018.html) · private repo |
 | **VSCode Angel** | pet | hatching | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [Pet Program](apps/pet-programs/vscode-angel-20261018.html) · private repo |
@@ -163,8 +201,10 @@ app where it is portable, and a web stand-in where the original is a Windows app
 in that browser.
 
 **Every pet program's page:** the Friendly Farmer's [pet program spawner](apps/pet-programs/pet-program-spawner-20261018.html)
-gives each of the 38 registered and pipeline pets a page with every tool panel of Astra's sketch
+gives each registered and pipeline pet a page with every tool panel of Astra's sketch
 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3): the basics first, rebuilt by `npm run build`.
+**[The Model Pet Program](apps/pet-programs/model-pet-program-20261102.html)** is a made-up pet with every tool
+panel, every kind of item and every light, named Tool one, Tool two and so on.
 
 **The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
@@ -185,18 +225,35 @@ To deliberately rebuild another app, name it with `node scripts/build-interfaces
 
 Read [PET-FILES.md](PET-FILES.md). Add an entry to `pets.json` and a prompt to `scripts/generate-pets.mjs`, supply its 3×3 mood sheet, then run `npm run build`. The count, table, roster and page update together. Set `asset_date` for new pets so the sheet and mood filenames carry the owner's date. Building existing sheets is local and does not generate paid images. The local GitHub Goldfish project is intended to audit whether pet repos have their files and registry entries.
 
-## Limits
+## Quirks
 
 What is not done, plainly:
 
-- **The Farm and the Kennel are planned, not built.** So are the shared AI harness and most pets' runtimes: see [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) for exactly what each pet has.
-- **Art approval is recorded per character in the roster.** The ghost is approved; other drawings remain drafts unless noted. Data Chip uses the actual Data Dealer drawing code and original palette inside the original yellow pocket shell.
-- Unity Unicorn, Health Hummy, Finance Finch and the other browser desks support local records and exports. They do not connect to Unity, health services, bank accounts or other external services yet.
-- Pets' moods come from the Farmer's daily rounds, not yet from live status in their apps.
-- Gone Ghost offers a checklist. He does not scan the PC, monitor threats, or read checklist progress yet.
-- Project Parrot stores manually entered ideas and due dates. OneNote scanning and background reminders are not connected.
-- BSOD, ChatGPT's own desktop pet, is never copied into this repo.
+1. **The Farm and the Kennel are planned, not built.** So are the shared AI harness and most pets' runtimes: see [INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md) for exactly what each pet has.
+2. **Art approval is recorded per character in the roster.** The ghost is approved; other drawings remain drafts unless noted. Data Chip uses the actual Data Dealer drawing code and original palette inside the original yellow pocket shell.
+3. Unity Unicorn, Health Hummy, Finance Finch and the other browser desks support local records and exports. They do not connect to Unity, health services, bank accounts or other external services yet.
+4. Pets' moods come from the Farmer's daily rounds, not yet from live status in their apps.
+5. Gone Ghost offers a checklist. He does not scan the PC, monitor threats, or read checklist progress yet.
+6. Project Parrot stores manually entered ideas and due dates. OneNote scanning and background reminders are not connected.
+7. BSOD, ChatGPT's own desktop pet, is never copied into this repo.
+
+## Developer Notes
+
+1. **What's where:** `pets.json` (the pets), `pet-programs.json` (their pet programs), `system-map.json` (rings, grants
+   and nodes), `apps/` (pet program pages and apps), `scripts/` (the builders), `art/latest/` (the one art source),
+   `handoffs/` (open work cards), `skills/` (shared skills for every assistant).
+2. **Build:** `npm run build` rebuilds the frames, ROSTER.md, the pets table, the pet program pages and the System Map;
+   the commands are under **For builders** above.
+3. **Tests:** `npm test`, and `npm run check` for the registry. Clone with `core.autocrlf=false`: the tests expect LF.
+4. **Add a pet:** see **Add a pet** above and [PET-FILES.md](PET-FILES.md).
 
 ## Credits
 
-Made by Astra. Astra's PetOS restructuring, the System Map and the intelligence levels with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-12. Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`) on 2026-10-07. Ghost Protocol and dated asset support added with OpenAI Codex (GPT-6) on 2026-10-08. MIT licensed.
+1. Made by Astra.
+2. Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07; Ghost Protocol and dated asset support with OpenAI
+   Codex (GPT-6), 2026-10-08; Astra's PetOS restructuring, the System Map and the intelligence levels with Claude
+   Opus 5.5 (`claude-opus-5-5`), 2026-10-12.
+
+## License
+
+MIT, see [LICENSE](LICENSE). The pet drawings are Astra's.
