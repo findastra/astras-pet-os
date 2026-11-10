@@ -27,9 +27,14 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
   Questions": eight questions, recommendations marked, last slide for "all recommended".
 - Research: each server's own repo or page, GitHub stars and dates from the GitHub API on 2026-11-09, and Anthropic's
   connector directory.
+- Astra asked, 2026-11-09: "Did you make sure to cover when ChatGPT is seated? Or later, Kimi, Qwen, or Copilot, etc.
+  or my local models use it?" Added "Which seats can use them" to the doc and the page: MCP belongs to the harness,
+  not the model; which seats can use servers on the PC and on the internet; ChatGPT stays an adviser with no access
+  unless she changes that rule. Also said who Serena is (Oraios AI's coding tool from #255, not a pet).
 - Nothing installed, no config changed, no map node or page changed.
-- Tests on this branch: `changes-folder`, `handoff-numbers` and `public-safety`: 12 of 12 pass. Full `npm test`: see
-  the pull request's comment.
+- Tests on this branch: `changes-folder`, `handoff-numbers` and `public-safety`: 12 of 12 pass. Full `npm test`:
+  394 of 400 pass, 1 skipped; the same 5 fail on `main` (the Windows farm-setup test and four pet chat helper tests),
+  listed in the pull request.
 
 ## The eight questions
 

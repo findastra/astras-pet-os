@@ -43,6 +43,33 @@ no AI deciding, so it is a **tool at L1**, never a trick. It is what `skills/dev
 The grant sits on the server, never on the trick: "a trick's text holds nothing; only the grants on the tools it uses
 do" (ASTRAS_PET_OS.md, amendment of 2026-10-18).
 
+## Which seats can use them
+
+**MCP belongs to the harness, not the model.** The MCP host, "an AI application", creates one MCP client for each MCP
+server, and MCP "does not dictate how AI applications use LLMs" (modelcontextprotocol.io, architecture). Any
+farmhand can use these servers when the program it sits in is an MCP client. Checked in each app's own docs on
+2026-11-09:
+
+| Seat (harness) | Servers on this PC | Servers on the internet | On this farm |
+|---|---|---|---|
+| Claude Code | Yes | Yes, plus the owner's Claude connectors | Everything in the chart |
+| Codex | Yes | Yes; Claude connectors do not reach it | Same servers, in its own config |
+| ChatGPT (website and app) | Only through OpenAI's Secure MCP Tunnel; localhost does not work | Yes; write tools on Business, Enterprise and Edu, read only on Pro | An adviser with no access (AGENTS.md, "How the agents work"): it gets none unless L4 changes that rule. OpenAI's seat on the farm is Codex. |
+| GitHub Copilot (VS Code agent mode, Copilot CLI) | Yes | Yes | Same servers, in its own config |
+| Gemini CLI | Yes | Yes | Same servers; the pet chat helper already names it |
+| Qwen Code | Yes | Yes | Same servers, in its own config |
+| Kimi Code CLI | Yes | Yes | Same servers (the Kimi chat app: not confirmed) |
+| Local farmhands | Through an MCP client app (LM Studio, Goose, Open WebUI with mcpo); Ollama alone has none | The same apps | No harness of their own yet (the Astra Pet SDK, migration Phase 5); read-only servers only |
+| The pet chat helper's seat | None | None | By design today: Claude Code `--restricted`, Codex `--ignore-user-config` |
+
+- **A grant names the seat, not the brand:** harness, farmhand and pet together, issued by Gatekeeper Goddess.
+- **Prefer servers every seat can use.** The Farm's own server, Microsoft Learn and MCP Inspector work for all of
+  them. Claude connectors (Yelp, alphaXiv, PubMed, Canva, Hugging Face) are tied to the owner's Claude account; another
+  seat uses the maker's own server instead (for example Yelp's `yelp-mcp`, or an arXiv server).
+- **Smaller farmhands choose tools less reliably** and are easier to steer with planted text, so a local model gets
+  read-only servers and the smallest grants ("Ask who an agent takes orders from", AGENTS.md).
+- **One list of approved servers**, copied into each seat's config, never a different list per seat.
+
 ## A. Shared by many pets (keeper first; the others use it by grant)
 
 | # | MCP server | Keeper → users | Made by | Verdict and why |
@@ -90,7 +117,7 @@ do" (ASTRAS_PET_OS.md, amendment of 2026-10-18).
 | 26 | VRChat API and OSC servers | Astra Wisp, OSC Sealion | Unmaintained or brand new; a long-lived login token; the OSC ones only send, and OSC Sealion needs to listen. |
 | 27 | LinkedIn servers | Portfolio Puffer | All drive a logged-in browser; LinkedIn's terms ban automated access. |
 | 28 | OBS, Spotify, Stream Deck, Meshtastic, RGB, ffmpeg | Deck Duck, Mesh Moth, RGBee, Gif Giraffe | No pet needs it, it cannot read what the pet needs (Elgato's server only presses chosen buttons), or the shell does it. |
-| 29 | Kali, Wireshark, Tailscale, Sentry, memory, Serena | White Hat Weasel, Packet Piranha, Roaming Raven, Log Lynx | Open shells, stale, or the command line covers it; Serena changes how agents edit code (#255 keeps it off until L4 says yes). |
+| 29 | Kali, Wireshark, Tailscale, Sentry, memory, Serena | White Hat Weasel, Packet Piranha, Roaming Raven, Log Lynx | Open shells, stale, or the command line covers it. Serena (Oraios AI's open-source coding tool, from #255; not a pet) lets an agent find and rewrite one function by name and asks agents to prefer it over their own edit tools; #255 keeps it off until L4 says yes. |
 
 ## E. No MCP server needed (44 pets)
 
