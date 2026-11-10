@@ -53,9 +53,10 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
 - Claude Code's user settings lost the `UnityMCP` entry on 2026-11-09; a backup taken that morning still has it. The
   "Restore Claude Sessions" chat was working on that file, so it stays that chat's to put back. Card 306's first check
   with Unity open is still owed after that.
-- The global git settings file and Codex's settings folder are no longer in the home folder (they are in Documents
-  since the 2026-11-09 move). Git commits fail with "Author identity unknown" until git finds its settings again; this
-  card's commits name the noreply identity on the command line. Codex may not find its MCP servers.
+- For a few hours on 2026-11-09 the global git settings file and Codex's settings folder were only in Documents, and
+  git commits failed with "Author identity unknown" (this card's first commits named the noreply identity on the
+  command line). By 21:30 both were back in the home folder, git's identity answered again and Codex's config still
+  listed node_repl and unityMCP. The "Restore Claude Sessions" chat was told, at Astra's OK ("Yes, tell it").
 - #254 and #255 install scripts write Codex's old settings path and the Claude app's private AppData copy.
 
 ## Done when
