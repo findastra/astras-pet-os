@@ -23,3 +23,9 @@ Review fixes (2026-10-26): Serena pinned to the tested commit `9e1cced0c34ed48d6
 the `claude-code` context (its prompt forbids Claude's built-in Read and Edit on code files) to `ide` (forbids nothing),
 re-checked with the MCP handshake (23 tools); the install script names its real test file, and the test now checks every
 repo path the script names and the Serena pin. Claude Opus 5.5 (`claude-opus-5-5`).
+
+**2026-11-09: Serena and the second Context7 taken out.** Astra answered the deck "MCP Server Questions" (hub card
+319) with "All recommended", question 7 being "Keep Serena off and take it out of #255". So `.mcp.json`, `.serena/` and
+the `.gitignore` lines are gone. The install script no longer fetches Serena; it keeps the uv check, because MCP for
+Unity runs on uv (card 306). The Cung List records items 2 and 7 as not adopted, and the test now checks that they stay
+out. Main was merged in first (the branch was 228 commits behind). Claude Opus 5.5 (`claude-opus-5-5`).

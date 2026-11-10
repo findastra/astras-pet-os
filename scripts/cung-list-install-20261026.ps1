@@ -13,7 +13,7 @@
   What it installs (all free; docs/cung-list-20261026.md says why each one):
     1. Ollama            winget Ollama.Ollama           (your user only, no administrator)
     2. Node.js LTS       winget OpenJS.NodeJS.LTS       (only when node is missing; Windows asks for administrator)
-    3. uv                winget astral-sh.uv            (your user only), then a first download of Serena
+    3. uv                winget astral-sh.uv            (your user only; MCP for Unity's server runs on it)
     4. Docker Desktop    winget Docker.DockerDesktop    (only if you answer y; its own installer window opens)
     5. Gemini CLI        npm install -g @google/gemini-cli
     6. Dyad              winget Dyad.Dyad               (your user only; prints the download page if winget fails)
@@ -23,7 +23,8 @@
   anything to Startup apps, and never runs itself as administrator. Only Node.js and Docker Desktop need
   administrator rights, and for those Windows itself asks you.
 
-  Cung List items 6, 7, 13, 14 and 15, ideas from Tyson Cung's public GitHub. By Astra.
+  Cung List items 6, 13, 14 and 15, ideas from Tyson Cung's public GitHub. By Astra. Item 7 (Serena) is not adopted
+  (Astra, 2026-11-09, hub card 319), so nothing here fetches it.
   Written by Claude Opus 5.5 (claude-opus-5-5), 2026-10-26. Tested on Linux by test/cung-list-dev-tools-test-20261026.mjs
   (a text check: it has not run on Windows yet).
 
@@ -164,7 +165,7 @@ if ($nodeVersion) {
   }
 }
 
-# 3. uv (item 7): runs Serena for Claude Code and Codex (.mcp.json). Then fetch Serena once so the first session is quick.
+# 3. uv: MCP for Unity's server runs on it (hub card 306). Already on Astra's PC since 2026-11-08, so this only checks.
 $step = 'uv'
 if (Test-Command 'uv') {
   Add-Result $step 'already there' (Get-FirstLine 'uv' @('--version'))
@@ -175,19 +176,6 @@ if (Test-Command 'uv') {
   else { Add-Result $step 'installed' (Get-FirstLine 'uv' @('--version')) }
 } else {
   Add-Result $step 'failed' 'winget could not install astral-sh.uv; see https://docs.astral.sh/uv/getting-started/installation/'
-}
-
-$step = 'Serena'
-if (-not (Test-Command 'git')) {
-  Add-Result $step 'needs you' 'uvx fetches Serena with git; install Git (winget install --id Git.Git) and run this again'
-} elseif ($DryRun) {
-  Add-Result $step 'would run' 'uvx --from git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3 serena --version'
-} elseif (Test-Command 'uvx') {
-  $serena = Get-FirstLine 'uvx' @('--from', 'git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3', 'serena', '--version')
-  if ($serena) { Add-Result $step 'ok' ("{0}; Claude Code starts it from .mcp.json" -f $serena) }
-  else { Add-Result $step 'failed' 'uvx could not start Serena; run the command by hand to see why' }
-} else {
-  Add-Result $step 'needs you' 'uvx is not on PATH yet; open a new PowerShell window and run this again'
 }
 
 # 4. Docker Desktop: only when you say so (it is big, needs WSL 2 and administrator rights). Never silent.
@@ -263,7 +251,6 @@ if (-not (Test-Command 'npx')) {
 
 # What only you can do, inside Claude Code (no script can type these for you).
 Add-Result 'Superpowers' 'manual' 'In Claude Code, type: /plugin install superpowers@claude-plugins-official (skills/pet-app/SKILL.md)'
-Add-Result 'Context7 and Serena' 'manual' 'Open Claude Code in this folder and approve context7 when it asks; approve serena only if you want it (it adds code-editing tools: docs/cung-list-20261026.md)'
 
 Write-Host ''
 Write-Host 'Summary' -ForegroundColor Cyan

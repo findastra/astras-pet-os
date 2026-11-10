@@ -1,4 +1,5 @@
 // The Cung List, items 2, 4, 7 and the PC install script (docs/cung-list-20261026.md). Node's built-in modules only.
+// Items 2 (Context7 here) and 7 (Serena) were taken out on 2026-11-09 with Astra's answer (hub card 319).
 // The PowerShell script cannot run here, so this checks its text: it parses, every package and command it uses is in
 // the docs, Docker only on a yes and never silent, no administrator of its own, nothing near Claude's credentials.
 // When PowerShell (pwsh) is on PATH, its own parser checks the script too.
@@ -13,8 +14,6 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (p) => readFileSync(`${root}/${p}`, 'utf8');
 const SCRIPT = 'scripts/cung-list-install-20261026.ps1';
 const DOC = 'docs/cung-list-20261026.md';
-// The Serena commit tested on 2026-10-26; every command that fetches Serena uses exactly this (review fix).
-const SERENA = 'git+https://github.com/oraios/serena@9e1cced0c34ed48d668e179f7c56c77b4d14a3e3';
 const ps1 = read(SCRIPT);
 const doc = read(DOC);
 
@@ -82,7 +81,6 @@ test('every command the script runs is in the docs, and each step skips what is 
   for (const words of [
     'npm install -g @google/gemini-cli',
     'npx -y ccusage@latest daily --since',
-    `uvx --from ${SERENA} serena --version`,
     '/plugin install superpowers@claude-plugins-official',
   ]) {
     const flat = ps1.replace(/'/g, '').replace(/@\(|\)|,/g, ' ').replace(/\s+/g, ' ');
@@ -113,24 +111,18 @@ test('no administrator of its own, no startup entries, nothing near Claude crede
   }
 });
 
-test('.mcp.json wires Context7 (remote) and Serena (uvx, pinned commit, ide context, this project) with no secrets', () => {
-  const cfg = JSON.parse(read('.mcp.json'));
-  assert.deepEqual(Object.keys(cfg.mcpServers).sort(), ['context7', 'serena']);
-  assert.deepEqual(cfg.mcpServers.context7, { type: 'http', url: 'https://mcp.context7.com/mcp' });
-  const s = cfg.mcpServers.serena;
-  assert.equal(s.command, 'uvx');
-  assert.deepEqual(s.args.slice(0, 4), ['--from', SERENA, 'serena', 'start-mcp-server']);
-  const arg = (flag) => s.args[s.args.indexOf(flag) + 1];
-  // claude-code's context prompt forbids Claude's built-in Read and Edit on code files; ide forbids nothing.
-  assert.equal(arg('--context'), 'ide');
-  assert.equal(arg('--project'), '${CLAUDE_PROJECT_DIR:-.}');
-  assert.equal(arg('--agent-interface'), 'tools');
-  assert.equal(arg('--open-web-dashboard'), 'false');
-  assert.doesNotMatch(read('.mcp.json'), /authorization|bearer|api[_-]?key|token/i);
-  assert.match(read('.serena/project.yml'), /^language_servers:\n- typescript$/m);
-  assert.match(read('.gitignore'), /^\.serena\/memories\/$/m);
-  for (const words of ['--context codex', 'bearer_token_env_var = "CONTEXT7_API_KEY"', '[mcp_servers.serena]', '[mcp_servers.context7]'])
-    assert.ok(doc.includes(words.replace('--context codex', '"--context", "codex"')) || doc.includes(words), `the Codex snippet has ${words}`);
+test('Serena and the second Context7 are out (Astra, 2026-11-09, hub card 319: "Keep it off")', () => {
+  assert.ok(!existsSync(`${root}/.mcp.json`), 'no project .mcp.json: Context7 is already a Claude connector, Serena stays off');
+  assert.ok(!existsSync(`${root}/.serena`), 'no .serena folder');
+  assert.doesNotMatch(read('.gitignore'), /\.serena/, 'nothing about Serena in .gitignore');
+  for (const [name, text] of [[SCRIPT, ps1], [DOC, doc]]) {
+    assert.doesNotMatch(text, /oraios\/serena|uvx --from|\[mcp_servers\.serena\]/, `${name} fetches or configures no Serena`);
+  }
+  const items = doc.slice(doc.indexOf('## The 15 items'), doc.indexOf('## Run once on the PC'));
+  for (const n of [2, 7]) {
+    const row = items.split('\n').find((l) => l.startsWith(`| ${n} |`));
+    assert.match(row, /2026-11-09, card 319/, `item ${n} records Astra's answer`);
+  }
 });
 
 test('the pet-app skill keeps every earlier section and adds the six stages, in order', () => {
@@ -166,21 +158,11 @@ test('the Cung List index names all 15 items, each with a repo and a cung-list b
   assert.match(doc, /By Astra\./);
 });
 
-test('Serena is pinned to the tested commit everywhere, never GitHub HEAD (review fix, 2026-10-26)', () => {
-  for (const file of ['.mcp.json', SCRIPT, DOC]) {
-    const text = read(file);
-    const refs = [...text.matchAll(/git\+https:\/\/github\.com\/oraios\/serena[^\s"',]*/g)].map((m) => m[0]);
-    assert.ok(refs.length > 0, `${file} fetches Serena`);
-    for (const ref of refs) assert.equal(ref, SERENA, `${file} pins Serena: ${ref}`);
-  }
-  assert.doesNotMatch(read(DOC), /--context claude-code|"--context", "claude-code"/, 'no command in the docs uses the claude-code context');
-});
-
 test('every repo path the install script names exists (review fix, 2026-10-26)', () => {
-  // Paths like test/x.mjs, docs/y.md, skills/z/SKILL.md, scripts\w.ps1, .mcp.json, written with / or \.
+  // Paths like test/x.mjs, docs/y.md, skills/z/SKILL.md, scripts\w.ps1, written with / or \.
   const paths = new Set([...ps1.matchAll(/(?:^|[\s'"(`])((?:\.mcp\.json)|(?:(?:test|docs|scripts|skills|changes|apps|mcp|\.serena)[\\/][A-Za-z0-9._\\/-]+\.[a-z0-9]+))/gm)]
     .map((m) => m[1].replace(/\\/g, '/').replace(/[.,;:)]+$/, '')));
-  for (const must of [SCRIPT, 'test/cung-list-dev-tools-test-20261026.mjs', DOC, 'skills/pet-app/SKILL.md', '.mcp.json'])
+  for (const must of [SCRIPT, 'test/cung-list-dev-tools-test-20261026.mjs', DOC, 'skills/pet-app/SKILL.md'])
     assert.ok(paths.has(must), `the path check finds ${must} in the script (found: ${[...paths].join(', ')})`);
   for (const p of paths) assert.ok(existsSync(`${root}/${p}`), `${SCRIPT} names ${p}, which exists`);
 });
