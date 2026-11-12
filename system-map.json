@@ -2451,6 +2451,58 @@
       "in_pill": true
     },
     {
+      "id": "api-fairy-app",
+      "name": "API Fairy app",
+      "type": "own-program",
+      "of": "api-fairy",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v0.1.0",
+      "label": "api-fairy-ring-v1.0-api-fairy-app-v0.1.0",
+      "job": "API Fairy's Windows program (findastra/api-fairy, private): a tray icon and a window with everything she knows about every key (provider, where it lives, age, what uses it, risks). Built on this PC by Start API Fairy.cmd with the C# compiler Windows already has; no packages, no network code. Her notes are encrypted for this Windows account (DPAPI). Running on Astra's PC since 2026-10-17; Start with Windows is not turned on yet.",
+      "does": "The tray icon and the key window: every key's provider, place, age, users and risks. Never the key itself."
+    },
+    {
+      "id": "key-watch",
+      "name": "key-watch",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-key-watch-v1.0",
+      "job": "A tool of API Fairy Ring, inside the API Fairy app: every 2 seconds she looks at Windows environment variables (yours and the whole PC's), the .env files in the folders you choose (6 levels deep) and your PowerShell and Git Bash history, and speaks up when a key is added, changed or removed. Only while the app is running.",
+      "does": "Watches environment variables, .env files and shell history, and tells you when a key is added, changed or removed."
+    },
+    {
+      "id": "risk-flags",
+      "name": "risk-flags",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-risk-flags-v1.0",
+      "job": "A tool of API Fairy Ring, inside the API Fairy app: red flags for a .env file git is not ignoring or has already committed, a real-looking key in an example file, and a key saved in shell history (with a button to clean it out); gentler warnings for keys older than 6 months, the same key in two places, .env files that sync to OneDrive, and keys in system-wide settings.",
+      "does": "Flags risky keys: committed or unignored .env files, keys in examples or shell history, old or repeated keys."
+    },
+    {
+      "id": "desktop-signal",
+      "name": "desktop-signal",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-desktop-signal-v1.0",
+      "job": "A tool of API Fairy Ring, inside the API Fairy app: writes what she wants to say (mood, badge, bubble; key names only) to %LOCALAPPDATA%\\astras-pet-os\\api-fairy-ring\\desktop-signal.json and shows a Windows notification. Startup Star reading that file to put her bubble on the desktop pet is card 021, not done yet.",
+      "does": "Tells the desktop what to say (mood and key names only); for now a Windows notification, Startup Star's bubble later."
+    },
+    {
       "id": "ai-astra",
       "name": "The Astral Plane",
       "program": 7,
@@ -7856,6 +7908,55 @@
       "carries": "opens",
       "state": "now",
       "why": "key-requests is a tool of API Fairy Ring."
+    },
+    {
+      "from": "api-fairy",
+      "to": "api-fairy-app",
+      "carries": "opens",
+      "state": "now",
+      "why": "API Fairy's Windows program: the tray icon and the key window."
+    },
+    {
+      "from": "api-fairy-app",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Built and running on the Desktop PC since 2026-10-17."
+    },
+    {
+      "from": "key-ring",
+      "to": "key-notebook",
+      "carries": "opens",
+      "state": "now",
+      "why": "key-notebook is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "key-watch",
+      "carries": "opens",
+      "state": "now",
+      "why": "key-watch is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "risk-flags",
+      "carries": "opens",
+      "state": "now",
+      "why": "risk-flags is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "desktop-signal",
+      "carries": "opens",
+      "state": "now",
+      "why": "desktop-signal is a tool of API Fairy Ring."
+    },
+    {
+      "from": "desktop-signal",
+      "to": "desktop-host",
+      "carries": "reports",
+      "state": "planned",
+      "why": "Startup Star will show API Fairy's bubbles from desktop-signal.json (card 021)."
     },
     {
       "from": "file-kingdom",

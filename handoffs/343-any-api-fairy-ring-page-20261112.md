@@ -22,6 +22,28 @@ Reviewer: unassigned; next action: Astra merges #343
 - `npm run build`. Shown to Astra in the browser pane from the branch, 127.0.0.1: desktop and 375 px fit.
 - Tests in a worktree: 416 pass, 6 skipped, 1 fail (known worktree trap, `test/farm-setup-test-20261018.mjs`).
 
+## Her colours, the buttons, what was missing (Astra, 2026-11-12)
+Astra: "Give this fairy like a background color that matches her, maybe her hair. And then check that all the buttons
+work and everything's on here that should be. It might be missing a lot of stuff."
+- `apps/pet-programs/pet-program-page-20261018.css`: `:root[data-pet="api-fairy"]`, a deep mint page from her hair
+  (#23c06a darkened to #0f3a2a), her light mint hair (#a6fbb1) for lines, her wings' lilac (#ddc8fa) for links and marks,
+  her peach for connections; sampled from `art/frames/api-fairy/idle.png`. The notebook's tool box follows.
+  PET-PROGRAM-FRAMEWORK.md section 3 lists it.
+- Missing, now on the map (`system-map.json`): her Windows program `api-fairy-app` (Native programs was 0), and its
+  tools `key-watch`, `risk-flags`, `desktop-signal` (its link to Startup Star planned, card 021); links for
+  `key-notebook` too. No link to findastra/api-fairy: it is private.
+- `pets.json`: her note said "pink hair, mint wings"; it is mint hair, lilac wings.
+- The notebook's Source repository link is hidden inside the box (private repo; L4's Pet ID names it).
+- click-check (with a GitHub token): 2 pages, 179 work, 0 broken; 2 need sign-in (the private repo), 4 not clicked
+  (Send, Push for review, two files only on Astra's PC).
+- Tests: 417 pass, 6 skipped, 1 fail (the known worktree trap).
+
+## Still missing (not done here)
+- Version: the page says v0.1.0 // 20261007 (pets.json `version`, release v0.1.0-20261008). Her repo has moved on
+  (approved art, desktop-signal, 2026-10-17) with no new release.
+- L3's seat is empty and the editorial note has no L3 note yet.
+- `api-fairy-mushroom-circle` stays planned (Iron Gates does not exist).
+
 ## Not done
 - The api-fairy repo's own copy of the notebook page (its `pet.json` entry) still has the old look.
 - `apps/drum-dog-in-tool-20261102.js` has the same first-load race for every tool box; fixed here only for API Fairy.
