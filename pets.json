@@ -1569,7 +1569,7 @@
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
       "interface_live_url": "https://findastra.github.io/ghost-protocol/",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "1b2ba2723b4508891281fe2e8a3bced0cb3e3b6a",
       "audit": {
