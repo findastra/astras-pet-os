@@ -376,6 +376,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
+    // A colour behind the pet's own pictures, for a pet that is hard to see on the blueprint (Astra, 2026-11-12, Gone
+    // Ghost: "give like a background color for the ghosts. Maybe it's like spooky green"). `backdrop` in pets.json, a
+    // #rrggbb colour only.
+    backdrop: /^#[0-9a-f]{6}$/i.test(reg.backdrop || '') ? reg.backdrop : null,
     art, petFit, lines, audit: reg.audit || {}, round, needs, needsFrom, needsFromRound: roundNeeds.length > 0, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools, ...viaTricks]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
@@ -1091,7 +1095,7 @@ ${about({
   // deck, answer 1: A); it was the idle face, wearing idle's three dots. A pet with no awake drawing shows idle's.
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`, '', d.petFit);
-    return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
+    return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${d.backdrop ? `<span class="pet-backdrop">${picture}</span>` : picture}</figure>`;
   }).join('')}</div>
 ${about({
     how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up; the page knows idle, awake and sad so far. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
@@ -1207,7 +1211,7 @@ ${about({
 </div></aside>`;
 
   return assertPublic(`<!doctype html>
-<html lang="en" data-pet="${esc(d.petSlug)}">
+<html lang="en" data-pet="${esc(d.petSlug)}"${d.backdrop ? ` class="has-backdrop" style="--pet-backdrop: ${d.backdrop}"` : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1341,7 +1345,7 @@ export function modelProgramData(src) {
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
-    statusUpdated: '2026-11-02T08:00:00.000Z',
+    statusUpdated: '2026-11-02T08:00:00.000Z', backdrop: null,
     thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
       item('third-party-two', '3rd party program two', 'Another program made by someone else, planned.', { state: 'planned' })],
     programs: [item('native-program-one', 'Native program one', 'A program Astra made that Pet Name looks after, opened on its own.', { url: guide }),
