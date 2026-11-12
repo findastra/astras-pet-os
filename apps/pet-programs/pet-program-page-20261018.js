@@ -487,12 +487,15 @@
   var chosen = WHO[saved] ? saved : 'claude-code', chatLines = read('chat', []);
   // The pet chat helper on this PC, reached only through pet-chat-link-20261103.js (this script sends nothing itself).
   var link = window.PetChatLink || null, onThisPC = !!(link && link.onThisPC);
-  var helper = false, agents = {}, order = [], petOk = false, petWhy = '', answering = false;
+  // `checking`: the helper was asked who is on this PC and has not answered yet. Until it does, a seat says so, never
+  // "not on this PC" (Astra, 2026-11-12, "make sure all these buttons work": the first answer can take a few seconds).
+  var helper = false, checking = false, agents = {}, order = [], petOk = false, petWhy = '', answering = false;
   function agentOf(k) { return agents[k] || null; }
   function ready(k) { var a = agentOf(k); return !!(helper && petOk && a && a.ready); }
   // Why a seat cannot answer right now, in plain words; empty when it can.
   function whyNot(k) {
     if (!onThisPC) return 'The seat answers only on the page opened from the PC where the pet chat helper runs.';
+    if (checking) return 'The pet chat helper is still looking at what is on this PC.';
     if (!helper) return 'The pet chat helper is not running on this PC. Startup Star starts it when you sign in; its menu has Pet chat, then Start Pet chat.';
     if (!petOk) return petWhy || 'No agent can be seated for ' + config.pet + ' here.';
     if (k === 'other-ai') {
@@ -503,6 +506,7 @@
     return !a ? 'The pet chat helper does not know ' + WHO[k].name + '.' : a.ready ? '' : a.name + ': ' + a.why + '.';
   }
   function seatState(k) {
+    if (checking) return 'checking…';
     if (!helper) return onThisPC ? 'helper not running' : 'on this PC';
     if (k === 'other-ai') return order.some(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }) ? 'found, not yet' : 'none found';
     var a = agentOf(k);
@@ -518,7 +522,7 @@
     var why = WHO[chosen].seat ? whyNot(chosen) : '';
     if (chatSays) chatSays.textContent = WHO[chosen].says + (why ? ' ' + why : '');
     if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another');
-    if (chatSeat) chatSeat.textContent = !WHO[chosen].seat ? 'Seat: empty' : ready(chosen) ? 'Seat: ' + WHO[chosen].name + ' · ready' : 'Seat: empty · ' + WHO[chosen].name + ' answers once seated';
+    if (chatSeat) chatSeat.textContent = !WHO[chosen].seat ? 'Seat: empty' : checking ? 'Seat: checking…' : ready(chosen) ? 'Seat: ' + WHO[chosen].name + ' · ready' : 'Seat: empty · ' + WHO[chosen].name + ' answers once seated';
   }
   function askHelper(path, extra) {
     var body = { pet: config.repo };
@@ -529,10 +533,12 @@
   // ready one in the farm's order answers (Claude Code, then Codex).
   function hello() {
     if (!link) { choose(chosen); return; }
+    checking = true; choose(chosen);
     link.load(function (found) {
       helper = found;
-      if (!helper) { choose(chosen); return; }
+      if (!helper) { checking = false; choose(chosen); return; }
       askHelper('hello').then(function (r) { return r.json(); }).then(function (d) {
+        checking = false;
         agents = {}; order = [];
         (d.agents || []).forEach(function (a) { if (a && typeof a.id === 'string') { agents[a.id] = a; order.push(a.id); } });
         petOk = d.pet_ok === true; petWhy = typeof d.pet_why === 'string' ? d.pet_why : '';
@@ -546,7 +552,7 @@
           if (typeof seat.last_said === 'string' && seat.last_said && last && last.from === 'me' && Date.parse(seat.last_at) > Date.parse(last.at)) say('pet', seat.last_said);
         }
         if (d.busy) chatStatus.textContent = config.pet + ' is still answering your last message.';
-      }).catch(function () { helper = false; choose(chosen); });
+      }).catch(function () { checking = false; helper = false; choose(chosen); });
     });
   }
   function showPush(n, branch) {
@@ -687,9 +693,16 @@
     var close = document.getElementById('chat-close');
     if (close) close.addEventListener('click', function () { openChat(false); chat.focus(); });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { openChat(false); chat.focus(); } });
-    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); });
+    // Your pick stays when the chat is closed and opened again; before 2026-11-12 the next hello() picked the first
+    // ready seat over it.
+    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); saved = chosen; });
     var tabs = panel.querySelectorAll('.chat-tabs button');
-    for (var t = 0; t < tabs.length; t++) tabs[t].addEventListener('click', function () { showView(this.dataset.view); });
+    for (var t = 0; t < tabs.length; t++) {
+      // Each tab names the view it shows (aria-controls), for screen readers and for The Farm's click-check.
+      var view = panel.querySelector('.chat-view[data-view-of="' + tabs[t].dataset.view + '"]');
+      if (view) { if (!view.id) view.id = config.petSlug + '-chat-' + tabs[t].dataset.view; tabs[t].setAttribute('aria-controls', view.id); }
+      tabs[t].addEventListener('click', function () { showView(this.dataset.view); });
+    }
     var quick = panel.querySelectorAll('.chat-quick button');
     for (var q = 0; q < quick.length; q++) quick[q].addEventListener('click', function () {
       if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to ask.'; return; }
