@@ -58,6 +58,17 @@
   --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
 }
 :root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
+/* Luna's Log's own colours, Skill Scout's (Astra, 2026-11-11: "give this like a pink but dark pink background that
+   matches her"): a dark pink page, panel lines in her hair lavender (#cda1e5, sampled from her picture), and her bow
+   pink (#f57666, sampled the same way) for links, marks and the working-copy box. */
+:root[data-pet="skill-scout"] {
+  --slate: #3d1234; --slate-2: #2c0c26; --chalk: #fdeef7; --chalk-dim: #e2bcd6; --line: #cda1e5; --line-dim: #7d4f86;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #f57666;
+  --editorial: #f57666; --editorial-ink: #ffd9d3; --editorial-glow: rgba(245, 118, 102, .22); --grid: none; --editorial-by: #ffb1a6; --serial: #f57666;
+  --link: #ff9a8c; --connection: #e7c4f4;
+  --tool-bg: rgba(205, 161, 229, .06); --tool-bg-hover: rgba(245, 118, 102, .1);
+}
+:root[data-pet="skill-scout"] .footer-group::before, :root[data-pet="skill-scout"] .footer-sparkle { color: #f57666; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {

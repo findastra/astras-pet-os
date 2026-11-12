@@ -251,7 +251,9 @@
   function switchProgram(b) {
     var id = b.dataset.item.replace(/^third-party:/, ''), k = b.dataset.item, on = seen(b);
     if (busy[k]) { say(b, SAYS[busy[k]]); return; }
-    if (cannotOpen[id] && !on) { say(b, cannotOpen[id]); return; }
+    // A program the watch cannot open has no window to close either (Luna's Log's button audit, 2026-11-11: Node.js is
+    // green while scripts run, and a click asked "Close Node.js?" for nothing), so its light only says why.
+    if (cannotOpen[id]) { say(b, cannotOpen[id]); return; }
     if (!localPage()) { say(b, SAYS.farAway); return; }
     if (!control) { say(b, SAYS.noWatch); return; }
     if (on && !window.confirm(T('Close ' + b.dataset.name + '? It closes the way its window’s X does, never forced.'))) return;
