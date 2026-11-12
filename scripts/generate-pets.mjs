@@ -89,10 +89,11 @@ export const PETS = [
   { id: 'packet-piranha', what: 'a chubby round piranha fish seen face on, with a big jutting underbite showing a neat row of small white triangle teeth, a forked tail and spiky fins, cute rather than scary, no props and no lettering', colours: 'neon aqua-cyan body with a few silver scale glints, crimson-red belly and jaw, bright lemon-yellow fins and tail, white teeth' },
   { id: 'forensic-ferret', what: 'a slim ferret standing upright on its hind legs with a long body, a dark bandit eye mask, small round ears and a long tail, holding a big round magnifying glass up beside its face, no hat, no other props and no lettering', colours: 'neon golden-yellow fur, deep violet bandit mask, paws and tail tip, hot pink magnifying glass rim, pale cyan lens' },
   // Role Fairy (The Fairy Court, #83): drafted 2026-10-18 with Astra's OK (art/seeds/role-fairy-sheet-20261018.png), then
-  // redrawn once with --match on 2026-11-11 so her star wand is in all nine faces, and registered (Astra in chat, 2026-11-11:
-  // "just do all recommended"). Her wings carry the five Discord role colours she hands out, so she never reads as API Fairy.
+  // redrawn on 2026-11-12 from Codex's newest drawing of her (hub #267, 2026-10-31, the Scout body; copied unchanged to
+  // art/seeds/role-fairy-idle-20261031.png) so her nine moods keep that body (Astra in chat, 2026-11-12: "A"), and registered.
+  // Her wings carry the five Discord role colours she hands out, so she never reads as API Fairy.
   // From now on redo her only with --match. Claude Opus 5.5.
-  { id: 'role-fairy', what: 'a tiny cheerful fairy girl with LARGE butterfly wings made of five clearly separate coloured panels, a short ruffled tutu dress, hair in two round buns, holding a small gold star wand topped with a round badge in her hand in EVERY one of the nine cells, the wand always clearly visible, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink tutu, snow-white hair, gold wand and star' },
+  { id: 'role-fairy', ref: 'art/seeds/role-fairy-idle-20261031.png', what: 'EXACTLY the fairy girl in the reference image, same slim full-body proportions from head to boots: white hair in two round buns with pink scrunchies, large rainbow butterfly wings, a pink sweetheart dress with a ruffled pink skirt, white gloves, tall pink boots, holding her small gold and pink star wand in front of her in EVERY one of the nine cells, the wand always clearly visible, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink dress and boots, snow-white hair, gold and pink star wand' },
 ];
 
 // PC Master (PC Master Race, #86), draft: generated 2026-11-03 with Astra's OK ("He's going to need art, too"), sheet
@@ -107,9 +108,10 @@ export const DRAFT_PC_MASTER = { id: 'pc-master', what: 'a chubby little gaming 
 // her home engineering and study programs. First made 2026-11-09 ("Yes, make the art") as a tall lime flamingo with a
 // lab flask; Astra, 2026-11-11: "That flamingo's terrible. Make it pink and like small and cute. It needs to be like
 // kawaii." So it is now a tiny round pink chibi flamingo, keeping only a tiny hard hat for engineering. Its shape (a
-// round puffball on two stubby legs with a curved beak) keeps it apart from Portfolio Puffer's magenta penguin. A draft
-// until she approves it. When the Farmer registers it, move this line into PETS and copy the sheet to
-// art/sheets/flowsheet-flamingo.png; from then on redo it only with --match. Claude Opus 5.5.
+// round puffball on two stubby legs with a curved beak) keeps it apart from Portfolio Puffer's magenta penguin. Art
+// approved by Astra on 2026-11-12 ("Approve it"). It is not registered yet: when the Farmer registers it, move this
+// line into PETS and copy the sheet to art/sheets/flowsheet-flamingo.png; from then on redo it only with --match.
+// Claude Opus 5.5.
 export const DRAFT_FLOWSHEET_FLAMINGO = { id: 'flowsheet-flamingo', what: 'a tiny chubby kawaii baby flamingo, chibi proportions with a big round head as wide as its body, a soft round puffball body, a very short little curved neck, a small curved flamingo beak with a black tip, a tiny curl of feathers on top of its head, tiny round wings at its sides, two short stubby legs standing on both small webbed feet, wearing a tiny round safety hard hat, no other props and no lettering', colours: 'bubblegum pink and hot pink feathers, pale blush-pink belly, white beak with a black tip, hot pink legs and feet, rosy pink cheeks, tiny sunshine-yellow hard hat' };
 
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;

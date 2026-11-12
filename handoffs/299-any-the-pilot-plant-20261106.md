@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her OK to merge #299; then the build, below)
+status: open (#299 merged; the build, below, is next)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -68,6 +68,8 @@ Whichever merges second takes `main`'s generated files and rebuilds.
   yellow hard hat. The lime files are gone from the branch. The frames are `*-20261111.png`, the icon is
   `art/icons/the-pilot-plant-20261111.png`, and the cut script is `build-flowsheet-flamingo-draft-20261111.mjs`.
   `main` (cc44db9e) was merged in at the same time, with the generated System Map taken from `main` and rebuilt.
+- **Art approved, 2026-11-12** (Astra: "Approve it"). The approval is recorded in the pets.json seed note, beside
+  `DRAFT_FLOWSHEET_FLAMINGO`, and in `changes/flowsheet-flamingo-art-approved-20261112.md`. No picture changed.
 
 ## Not done (the build)
 
@@ -83,17 +85,23 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 3. Build the look tool, the only native tool, and make it work on the page.
 4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
 5. Add Rift Rabbit's parts: L3's note, devices if any.
-6. Astra approves the draft art, or asks for changes. It was redone on 2026-11-11 (see What I did).
+6. ~~Astra approves the draft art.~~ Done: approved on 2026-11-12 ("Approve it"). Registering it is the Farmer's step
+   once the pet is built.
 7. Do the four downloads, each checked first.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 
 ## Done when
 
-1. Astra OKs #299 in chat and it merges.
+1. ~~Astra OKs #299 in chat and it merges.~~ Done: merged 2026-11-12 (see Return).
 2. The build above is done and shown to her as a working copy.
 
 ## Return
 
 Record the merge below.
+
+- **#299 merged** by Astra's account (findastra) on GitHub, 2026-11-12 06:06 UTC (2026-11-11 23:06 Denver), as
+  bdce21da. The pink flamingo (102273a3) is in it. Her "Approve it" for the art came in chat at about the same time.
+  Recording that approval missed #299 (fabe83ca was pushed to the branch after the merge), so it went in its own
+  follow-up PR with this note.
 
 ## Receipt and review
