@@ -1,7 +1,7 @@
-status: READY_FOR_REVIEW, waits for Astra's merge OK in chat
+status: DONE, merged with Astra's OK in chat ("Yes, merge #338", 2026-11-12)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-12
-needs: Astra's OK to merge #338; then the farm on her PC fast-forwarded and rebuilt (npm run build)
+needs: the farm on her PC fast-forwarded and rebuilt (npm run build); #318 then needs main merged in
 ---
 ## Task
 
@@ -50,4 +50,8 @@ program."
   followed the template with no code change).
 - The Farm's page served from the branch in the pane: 71 checks; the page checks show the build's result and link the
   template; no Run on them.
-- Not yet reviewed by a second assistant. Astra has not given her merge OK.
+- Main merged in four more times before the merge (after #333, #330, #346, #339): each time only the generated
+  System Map page conflicted; took main's and rebuilt. `npm test` in Git Bash: 429 tests, 423 pass, 0 fail, 6 skipped
+  (run from PowerShell, the pet chat helper tests fail on a BOM PowerShell puts on stdin; not this change).
+  CodeQL's checks passed.
+- Not reviewed by a second assistant. Astra's merge OK in chat: "Yes, merge #338" (2026-11-12).
