@@ -2322,10 +2322,10 @@
       "id": "microsoft-learn-mcp",
       "name": "Microsoft Learn MCP",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; in Claude through the connector directory once Astra clicks Connect. Astra, 2026-11-09: \"All recommended\" (hub card 319). Planned until a new chat calls it once.",
+      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; Astra connected it in Claude on 2026-11-12, and one docs search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319).",
       "does": "Gives chats Microsoft's own Windows and PowerShell docs."
     },
     {
@@ -2342,30 +2342,30 @@
       "id": "alphaxiv-mcp",
       "name": "alphaXiv",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory: search and full text, 6 read tools. It asks for a sign-in before MCP Inspector can look, so its directory list stands in. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too. Planned until Astra connects it and a new chat calls it once.",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory. Astra connected it in Claude on 2026-11-12 (with her alphaXiv sign-in), and one paper search answered in a chat. Connected, it offers 23 tools, not the 6 its directory listing showed: 14 read (search, full text, feeds, her library and notes) and 9 that write to her alphaXiv account (library folders, saving and moving papers, private paper notes, following researchers). Paper Patty's grant is read only. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too.",
       "does": "Lets chats search and read arXiv papers."
     },
     {
       "id": "pubmed-mcp",
       "name": "PubMed",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it. Planned until Astra connects it and a new chat calls it once.",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra connected it in Claude on 2026-11-12, and one article search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it.",
       "does": "Lets chats search and read PubMed papers."
     },
     {
       "id": "yelp-mcp",
       "name": "Yelp",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider. Planned until Astra connects it and a new chat calls it once.",
+      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra connected it in Claude on 2026-11-12, and one restaurant search answered in a chat; the chat gets only the search tool (Yelp's results card can offer a quote or booking button, which only Astra presses). Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider.",
       "does": "Lets chats look up real restaurants for Spoonfed."
     },
     {
@@ -7302,15 +7302,15 @@
       "from": "claude-code",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "codex",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
       "state": "planned",
-      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled."
+      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled. Planned until a Codex chat calls it once."
     },
     {
       "from": "white-hat-lab",
@@ -7330,8 +7330,8 @@
       "from": "claude-code",
       "to": "alphaxiv-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "paper-girl-site",
@@ -7344,8 +7344,8 @@
       "from": "claude-code",
       "to": "pubmed-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "spoonfed-app",
@@ -7358,8 +7358,8 @@
       "from": "claude-code",
       "to": "yelp-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "voicemeeter-bug",
