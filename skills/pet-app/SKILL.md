@@ -114,4 +114,4 @@ A pet program is a control panel (Astra, 2026-10-19): its page shows how things 
 
 ## Both providers
 
-The maintained source is `astras-pet-os/skills/pet-app/SKILL.md`. Install the same file in `%USERPROFILE%/.codex/skills/pet-app/SKILL.md` and `%USERPROFILE%/.claude/skills/pet-app/SKILL.md`. Do not edit bundled or cached skills. Verify the copies match and validate the frontmatter. A newly installed skill may need a new provider session to appear in its skill catalog; direct file reading still works.
+The maintained source is `astras-pet-os/skills/pet-app/SKILL.md`. Luna's Log's `skill-install-tool` installs it in `%USERPROFILE%/.agents/skills/pet-app/SKILL.md` (Codex) and `%USERPROFILE%/.claude/skills/pet-app/SKILL.md` (Claude); never hand-copy it. Do not edit bundled or cached skills. Verify the copies match and validate the frontmatter. A newly installed skill may need a new provider session to appear in its skill catalog; direct file reading still works.

@@ -93,6 +93,7 @@ Still found, not done:
   will need main merged in.
 - 2026-11-12: Astra in chat, "Merge #10, #8, #350". Merged in that order: liminal-doors#10 (`82dd066`; its Pages built
   from it, and https://findastra.github.io/liminal-doors/, its tracker and the floor pictures answer), the-threshold#8
-  (`5385a46`), then hub #350 with this card. Main (#353) was merged into #350 first; `npm run build` changed nothing.
+  (`5385a46`), then hub #350 with this card. Main (#353, #352) was merged into #350 first; `npm run build` changed nothing, and
+  `npm test` passed (427 pass, 0 fail, 6 skipped).
   Before the merges, no other open pull request did the same job; the others touching the same files change only
   generated pages and lists.

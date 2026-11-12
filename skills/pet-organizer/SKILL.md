@@ -43,7 +43,9 @@ N. **[Pet](https://github.com/findastra/repo)** -- what the pet does [status]
 
 ## Steps
 1. Read the profile README and list every line that breaks the shape above. Say which ones are right too.
-2. Run the **pet-finder** trick (`skills/pet-finder`) so missing pets are fixed in the same pass.
+2. Run the **pet-finder** trick (`skills/pet-finder`) so missing pets are fixed in the same pass, and tell it that
+   pet-organizer started it, so it skips its own last step (running pet-organizer again would loop). When pet-finder
+   started you, skip this step.
 3. Fix the source:
    - a pet's name, home or job → its entry in `pet-programs.json` (`icon`, `program` + `assigned`, `mini_descriptor.text`);
    - the line shape itself → `scripts/farmer-profile-20261009.mjs`, plus the Goldfish's `PET_LINE` and its style doc,
