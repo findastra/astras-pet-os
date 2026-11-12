@@ -255,3 +255,31 @@ no sideways scroll; not yet opened on a real phone.
 **Still open:** the browser key (then: real restaurants near the visitor and the scroll-zoom map); the six questions in
 [Spoonfed: on your phone](https://claude.ai/artifact/KVVegsVrjctxAp2VTHUBp7) (private); her merge OK for spoonfed#9;
 the cuisine reel still cuts long types ("Indonesi…") on phones.
+
+## 2026-11-12: real spots from Google (Claude Opus 5.5, `claude-opus-5-5`)
+
+Astra set up Spoonfed's Google browser key on 2026-11-12. She made the Google Cloud project's free trial and the key
+herself. The key works only on Spoonfed's two addresses (the phone link and this PC's preview) and only for the Maps
+JavaScript API and Places API (New). Its request is filed with API Fairy, on her PC only. She chose "Free only ($0)";
+Google's daily caps can't be set during the free trial, so they must be set before any upgrade.
+
+[spoonfed#12](https://github.com/findastra/spoonfed/pull/12) (draft, on #9) builds on it:
+- Feed me finds real restaurants near whoever opens Spoonfed, from their own browser.
+- A small "Where are you?" card takes a town or ZIP when the browser keeps its location to itself.
+- A spot's card shows Google's own map: plain-scroll zoom, one Map / Satellite switch bottom left.
+- Rolls and saves keep only Google place ids, as Google's terms ask.
+- Each browser is capped at 30 searches and 40 look-ups a day.
+- Checked in the browser pane at 127.0.0.1:4173 (test town Denver), and at phone width.
+- **Not on the phone link yet:** the published build needs the key, a decision for Astra.
+
+[spoonfed#11](https://github.com/findastra/spoonfed/pull/11) (Claude Fable 5.2, draft) is a separate route to the same
+places: a Cloudflare Worker, not deployed, which needs a Cloudflare sign-in. #12 shares its food-type table and does
+not need it.
+
+**Still open:**
+- her OK on #12;
+- how the phone link gets the key;
+- Google's daily caps before any upgrade;
+- the questions deck;
+- her merge OK for spoonfed#9;
+- "Indonesi…" cut off on phones.
