@@ -127,12 +127,11 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-339 rows: 14 native programs, 157 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+355 rows: 17 native programs, 161 native tools, 25 native tricks, 152 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
 | 1 | Friendly Farmer | The Farm | native program | Astra’s PetOS System Map | `the-farm-v1.0-astras-pet-os-system-map-v1.0` | Works today |
-| 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
 | 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | astras-pet-os-mcp | `the-farm-v1.0-astras-pet-os-mcp-v1.0` | Works today |
@@ -304,8 +303,14 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord Canary |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | findastra.github.io |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | GitHub profile |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | Portfolio Review Desk |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-pictures-refresh | `iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0` | Planned |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-update-round | `iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | LinkedIn |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | native tool | apc64-drum-kit-tool | `bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | learn-apc64-tool | `bass-biscuits-v1.0-learn-apc64-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | use-my-apc64-tool | `bass-biscuits-v1.0-use-my-apc64-tool-v1.0` | Works today |
@@ -385,6 +390,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 38 | Pole Puff | Infinite Studio | native program | Astra's Infinite Pole (world) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
+| 40 | Skill Scout | Luna's Log | native program | Skill catalog | `lunas-log-v0.1-skill-catalog-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | public-snapshot | `lunas-log-v0.1-public-snapshot-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-census | `lunas-log-v0.1-skill-census-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-diff | `lunas-log-v0.1-skill-diff-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-lint | `lunas-log-v0.1-skill-lint-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-census | `lunas-log-v0.1-skill-census-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-fix | `lunas-log-v0.1-skill-fix-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | write-a-skill | `lunas-log-v0.1-write-a-skill-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Git for Windows |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | GitHub CLI |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Node.js |  | Works today |
 | 41 | OSC Sealion | OSC Sonar | third-party program | OSCGoesBrrr |  | Planned |
 | 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
