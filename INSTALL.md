@@ -113,14 +113,17 @@ rules.
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File $installer -Developer -Farm Example
    ```
-5. **Never** clone or download the repo to install, run any other script from it, or copy Astra's devices or settings
-   beyond what the installer installs.
+5. **Never** clone or download this repo to install, run any other script from it, or copy Astra's devices or settings
+   beyond what the installer installs. The one exception is your person's **own** copy of Astra's PetOS, once it has a
+   pet of their own and they ask you to install from it ([MAKE-IT-YOURS.md](MAKE-IT-YOURS.md), section 5, step 7).
 6. **Afterwards:** show your person the star in the bottom-left corner and the Start menu entries; open the System Map
    together (Start menu, **System Map**) and let them name their system; point them to
-   [MAKE-IT-YOURS.md](MAKE-IT-YOURS.md) and the community ([vet-clinic](https://github.com/findastra/vet-clinic) for
-   sick pets, [the-shed](https://github.com/findastra/the-shed) for tools and tricks,
-   [the-kennel](https://github.com/findastra/the-kennel) for pets). To follow updates, **Watch → Releases** on this
-   repo. Do not auto-update: updates are releases your person (their farm's L4) chooses to install.
+   [MAKE-IT-YOURS.md](MAKE-IT-YOURS.md): their own copy on GitHub and their first pet (section 5, "Make your first
+   pet"). On their farm, they are its L4. The community places (the vet-clinic for sick pets, the Shed for tools and
+   tricks, the Kennel for pets) are not open yet; until then, problems go to this repo's
+   [issues](https://github.com/findastra/astras-pet-os/issues), never with keys or private data in them. To follow
+   updates, **Watch → Releases** on this repo. Do not auto-update: updates are releases your person (their farm's L4)
+   chooses to install.
 
 ## What the installer does
 
