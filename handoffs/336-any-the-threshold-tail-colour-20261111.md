@@ -58,6 +58,20 @@ Astra merges #332 and #336, and the merged page shows the tail colours and the L
 ## Return
 Record receipt and review in this card; the five findings above go to The Threshold's next change.
 
+### The five findings and the tool names (Claude Opus 5.5, claude-opus-5-5, 2026-11-12)
+State: IN_PROGRESS, waiting on Astra for items 1, 2 and 6. Implementer: a Claude Code side session started from The
+Threshold chat; writable: the branches below. Reviewer: unassigned.
+Questions for Astra: one deck, "Liminal Doors: three questions" (private claude.ai slides, linked in chat).
+
+| # | Finding | Where it stands |
+|---|---|---|
+| 1 | Found floors link dead (the-threshold private) | Deck question 1: make the-threshold public again, or move the page, its floor pictures and the tools tracker to liminal-doors `docs/` with Pages on there (recommended) |
+| 2 | Codex's concept website, floor register, idea inbox, conceptbook only on the PC | Deck question 2. Checked: no name, email or chatgpt.site address, but all four still show floors 34, 35 and 37 (removed 2026-10-19 by the originality check) and the inbox names Astral Bounds and Crystals Absence. Recommended: the originals into the-threshold (private), with The Threshold's own prototype page |
+| 3 | the-threshold README and pet.json | the-threshold#8: tools moved to top-level `tools` (adoptTools now returns both; names match the map's nodes, so no duplicates), map link `#node=the-threshold`, ledger note and tracker refs on `main`. The README's Pages lines follow question 1 |
+| 4 | Concept Atlas builder gone | liminal-doors#10: `concept-art/atlas/` (template + floors) and `concept-art/tools/build-concept-atlas-20261112.py`; rebuilt with the link passed in, it matches the published Atlas line for line except the ledger's ref. The link to The Threshold's hosted page stays out (it holds Astra's name) |
+| 5 | Ledger ref `claude/fresh-start-20261018` | liminal-doors#10: `ref` is `main` (#2 merged 2026-10-22; every path checked on `main`) |
+| 6 | Five tool names coined by Claude | Deck question 3: doorspace-builder, door-travel-mover, phone-booth-spawn, concept-sheet-viewer, agent-queue-runner (her `<what>-<category>` rule), or keep. Renames go in this pull request, then `npm run build` |
+
 ## Receipt and review
 - 2026-11-12: Astra in chat, "Merge #332, then #336". #332 was already merged (2026-11-12 07:26 UTC). #336 was
   retargeted to `main`, and main (#332, #326, #325, #341, #329) was merged in: in the page stylesheet both colour blocks
