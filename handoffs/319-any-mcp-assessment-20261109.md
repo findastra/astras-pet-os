@@ -70,7 +70,13 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
 | 7 | Serena out of #255 | Done: main merged in, `.mcp.json` and `.serena/` removed, the install script fetches no Serena, items 2 and 7 recorded as not adopted; 19 of 19 tests pass; the script's `-DryRun` ran on Windows for the first time. |
 | 8 | Both | Recorded above. |
 
-Still to do: put the new servers on the System Map (each `planned` until checked from a new chat), in a pull request after #254 merges.
+Merged with Astra's OK in chat ("Yes, all three", 2026-11-09): #319 (`53b961cf`), #254 (`eb9522f0`), #255
+(`a1a10d68`).
+
+Then Astra: "Maybe it's just a separate MCP Roadmap and it goes with the other roadmaps. I like the table." So #322
+adds `docs/mcp-roadmap-20261109.md` (the living list, linked from the README after "Pet stages") and puts the approved
+servers on the System Map like `unity-mcp`: Context7 and MCP Inspector `now`, the rest `planned` until she connects
+them and a new chat calls each once. From here on, the roadmap is where each server's stage is kept.
 
 ## Found on the PC while checking (not changed here)
 

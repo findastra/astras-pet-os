@@ -144,6 +144,15 @@ a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-pr
 when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
 into the pipeline goes through the gate, so nobody becomes an animal by saying so.
 
+## MCP Roadmap
+
+MCP servers are the plugs that let the agent in a pet's seat reach a program or a web account: Unity, Microsoft's
+docs, research papers, restaurants. Each one moves from **found** to **checked** (MCP Inspector lists its tools) to
+**approved** (Astra's yes) to **connected** (Claude Code and Codex) to **on the map** (a new chat called it once).
+**[The MCP Roadmap](docs/mcp-roadmap-20261109.md)** lists every server the pets use, the ones next, the ones for later
+and the ones left out, each with its keeper pet and the reason. The research behind it, all 87 pets checked, is
+[docs/mcp-assessment-20261109.md](docs/mcp-assessment-20261109.md).
+
 ## Who lives here
 
 <!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->

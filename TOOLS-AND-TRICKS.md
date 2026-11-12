@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-331 rows: 14 native programs, 155 native tools, 20 native tricks, 142 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+337 rows: 14 native programs, 155 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -265,6 +265,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
 | 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
+| 11 | Paper Patty | Paper Girl | third-party program | alphaXiv |  | Planned |
+| 11 | Paper Patty | Paper Girl | third-party program | PubMed |  | Planned |
 | 12 | File Master | File Kingdom | native tool | claude-chat-repointer | `file-kingdom-v1.0-claude-chat-repointer-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | cleanup-plan | `file-kingdom-v1.0-cleanup-plan-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Works today |
@@ -322,6 +324,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 19 | Voicemeeter Bug | Audio Rescue | native tool | Keep Voicemeeter open | `audio-rescue-v1.0-keep-voicemeeter-open-v1.0` | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Steam Streaming audio |  | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Voicemeeter |  | Works today |
+| 20 | Spoonfed Sugarcube | Spoonfed | third-party program | Yelp |  | Planned |
 | 22 | RGBee | Light Hive | native program | light-hive-helper | `light-hive-v1.0-light-hive-helper-v1.0` | Works today |
 | 22 | RGBee | Light Hive | native tool | rainforest-storm-tool | `light-hive-v1.0-rainforest-storm-tool-v1.0` | Works today |
 | 22 | RGBee | Light Hive | native tool | sync-my-lights-tool | `light-hive-v1.0-sync-my-lights-tool-v1.0` | Works today |
@@ -403,6 +406,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Process sweep | `kernel-grove-v1.0-process-sweep-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | MCP Inspector |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Evidence collector | `evidence-locker-v1.0-evidence-collector-v1.0` | Works today |
@@ -435,6 +439,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRCFaceTracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat Creator Companion |  | Planned |
+| 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
@@ -462,4 +467,5 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 86 | PC Master | PC Master Race | third-party program | Wireshark |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
+| 86 | PC Master | PC Master Race | third-party program | Microsoft Learn MCP |  | Planned |
 <!-- registry:end -->

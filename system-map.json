@@ -2012,6 +2012,66 @@
       "does": "Lets Claude and Codex work inside the open Unity editor."
     },
     {
+      "id": "context7",
+      "name": "Context7",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Upstash's hosted MCP server for current library and framework docs (https://mcp.context7.com/mcp). Connected to Claude as a connector; Codex has none (a new decision). Astra, 2026-11-09: \"All recommended\" (hub card 319). AI Dashund keeps it; every coding chat uses it.",
+      "does": "Gives coding chats current library docs."
+    },
+    {
+      "id": "microsoft-learn-mcp",
+      "name": "Microsoft Learn MCP",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; in Claude through the connector directory once Astra clicks Connect. Astra, 2026-11-09: \"All recommended\" (hub card 319). Planned until a new chat calls it once.",
+      "does": "Gives chats Microsoft's own Windows and PowerShell docs."
+    },
+    {
+      "id": "mcp-inspector",
+      "name": "MCP Inspector",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP checker",
+      "job": "The MCP project's own checker (@modelcontextprotocol/inspector, run with npx, nothing installed): it lists every tool an MCP server offers and which ones write, before any chat gets the server. The Shed's checker review for MCP servers. Used on 2026-11-09 (version 2.12.0) for Microsoft Learn, PubMed, alphaXiv and Yelp. Astra, 2026-11-09: \"All recommended\" (hub card 319). White Hat Weasel keeps it; Agent Ant takes it over when it hatches.",
+      "does": "Lists a new MCP server's tools before any chat trusts it."
+    },
+    {
+      "id": "alphaxiv-mcp",
+      "name": "alphaXiv",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory: search and full text, 6 read tools. It asks for a sign-in before MCP Inspector can look, so its directory list stands in. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats search and read arXiv papers."
+    },
+    {
+      "id": "pubmed-mcp",
+      "name": "PubMed",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats search and read PubMed papers."
+    },
+    {
+      "id": "yelp-mcp",
+      "name": "Yelp",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats look up real restaurants for Spoonfed."
+    },
+    {
       "id": "vrchat-creator-companion",
       "name": "VRChat Creator Companion",
       "type": "program",
@@ -6804,6 +6864,90 @@
       "carries": "directs",
       "state": "planned",
       "why": "UnityMCP in Codex's config.toml (2026-11-08); it answers only while Unity is open."
+    },
+    {
+      "from": "ai-doghouse",
+      "to": "context7",
+      "carries": "manages",
+      "state": "planned",
+      "why": "AI Dashund keeps Context7 for every coding chat (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "context7",
+      "carries": "directs",
+      "state": "now",
+      "why": "Context7 is a Claude connector, so Claude Code sessions get it."
+    },
+    {
+      "from": "pc-master-race",
+      "to": "microsoft-learn-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "PC Master keeps Microsoft Learn; every chat writing Windows code uses it by grant (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "microsoft-learn-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "codex",
+      "to": "microsoft-learn-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "mcp-inspector",
+      "carries": "manages",
+      "state": "planned",
+      "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "paper-girl-site",
+      "to": "alphaxiv-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Paper Patty keeps alphaXiv for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "alphaxiv-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "paper-girl-site",
+      "to": "pubmed-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Paper Patty keeps PubMed for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "pubmed-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "spoonfed-app",
+      "to": "yelp-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Spoonfed Sugarcube keeps Yelp for real restaurants while the app is built (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "yelp-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
     },
     {
       "from": "voicemeeter-bug",
