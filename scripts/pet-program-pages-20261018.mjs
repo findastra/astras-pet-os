@@ -19,6 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { roadmapBody, waitingBody, researchBody } from './astral-plane-boxes-20261112.mjs';
 import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
@@ -783,6 +784,8 @@ export const PET_BOXES = {
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
   'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
+  // AI Astra's face: her roadmap, what waits on her, the research (Astra, 2026-11-12).
+  'the-astral-plane': [{ name: 'roadmap', body: () => roadmapBody() }, { name: 'waiting-on-you', body: () => waitingBody() }, { name: 'research', body: () => researchBody() }],
 };
 function petBoxes(d) {
   const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
