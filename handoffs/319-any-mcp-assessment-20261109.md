@@ -1,4 +1,4 @@
-status: open (answered 2026-11-09: all recommended; each yes is being done, one pull request at a time)
+status: open (waiting on Astra: connect Microsoft Learn, alphaXiv, PubMed and Yelp in Claude; plug in the D: drive for the Unity check)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-09
 needs: docs/mcp-assessment-20261109.md, card 306, #254, #255
@@ -69,6 +69,21 @@ Reviewer: unassigned; next action: Astra answers the deck, then one pull request
 | 6 | Plugin servers off | Not done: Claude Code has no setting that turns off one plugin server everywhere. The only switch is per project, in `~/.claude.json`, which the "Restore Claude Sessions" chat owns. Back to Astra. |
 | 7 | Serena out of #255 | Done: main merged in, `.mcp.json` and `.serena/` removed, the install script fetches no Serena, items 2 and 7 recorded as not adopted; 19 of 19 tests pass; the script's `-DryRun` ran on Windows for the first time. |
 | 8 | Both | Recorded above. |
+
+**2026-11-11**, after #322 merged (`cc44db9e`, Astra: "Yes, merge #322"), she asked "Can you just do all this stuff
+for me?":
+- The Farm's own server is registered and works. The "Restore Claude Sessions" chat released `~/.claude.json` for this
+  one write ("free").
+  - Its script ran outside the Claude app (a `.cmd` started by Explorer); the log ended with exit 0.
+  - Claude Code got it at user scope through the app's `claude.exe`, and Codex through `config.toml` (backup beside
+    it). Claude Desktop was skipped: no `%APPDATA%\Claude` outside the app.
+  - Checks: `claude mcp list` says Connected, `codex mcp list` says enabled, and one `get_pet` call answered. Map node
+    now `now`.
+- The ten plugin servers stay as they are, the recommended choice.
+- Still hers:
+  - The four connectors need a claude.ai sign-in. The browser pane was signed out, and this chat was not open in a
+    window to show her the form.
+  - The Unity check waits for the D: drive (Liminal Doors), which was not plugged in.
 
 Merged with Astra's OK in chat ("Yes, all three", 2026-11-09): #319 (`53b961cf`), #254 (`eb9522f0`), #255
 (`a1a10d68`).

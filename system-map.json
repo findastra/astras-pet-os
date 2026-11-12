@@ -330,7 +330,7 @@
       "name": "astras-pet-os-mcp",
       "type": "tool",
       "of": "farm",
-      "state": "planned",
+      "state": "now",
       "layer": 2,
       "category": "Tool",
       "version": "v1.0",
@@ -4541,6 +4541,23 @@
       "version": "v1.0",
       "label": "mirror-pool-v1.0-device-shots-v1.0",
       "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere (platform-platypus tools/device-shots/device-shots-20261019.mjs)."
+    },
+    {
+      "id": "page-check",
+      "name": "page-check",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-page-check-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-page-check-20261111.html",
+      "job": "A tool of Mirror Pool (Platform Platypus; Astra, 2026-11-11: its pet program on the model of Wonderland Launchpad, its tool working on the page): the page checker from findastra/platform-platypus index.html. Check a page shows a pasted or opened page on iPhone SE, iPhone 16 Pro, Pixel 9, Galaxy S24, iPad mini and a desktop at their screen sizes, with their bars and notches drawn on, measures sideways scrolling, tap targets, small text, iPhone input zoom and content under the notch, and reads its code for cross-platform mistakes; Compare screenshots shows where two platforms' screenshots differ; Sites I watch lists Astra's pages and what each still needs. It runs in this browser and sends nothing anywhere (apps/platform-platypus-page-check-20261111.html).",
+      "does": "Shows a page on six phones, an iPad and a desktop at once, says what to fix, and compares screenshots.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-page-check-20261111.html",
+      "frame": "wide",
+      "in_pill": true
     },
     {
       "id": "make-a-page-fit-any-screen",
