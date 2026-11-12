@@ -36,7 +36,7 @@ test('a check over every pet program: who passes and each finding', () => {
   assert.ok(saved && /^\d{8}$/.test(saved.date) && saved.pets.length > 50, 'the newest saved run is found');
 });
 
-test("The Farm's L1 has the flash-audit tool box: 61 checks in the matrix's order, Run only where the auditor checks", () => {
+test("The Farm's L1 has the flash-audit tool box: every check in the matrix's order, Run only where the auditor checks", () => {
   const html = spawnerFiles(readSpawnerSources(root))[pagePath('astras-pet-os')];
   const box = html.slice(html.indexOf('<div class="toolbox pet-box flash-audit'), html.indexOf('>friendly-farmer-L2-control-panel<'));
   assert.ok(box.length > 1000, 'the tool box is on the page');

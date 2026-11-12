@@ -55,7 +55,11 @@ What each one means: section 3, `<pet>-emotions`.
 Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
 (tool-one, tool-two, 3rd party program one ...) and the version as its format, v0.0.0 // YYYYMMDD. The pet program spawner draws it with the same code as every real
 page, so it always shows today's rules; `test/model-pet-program-test-20261102.mjs` fails when a real page can show something
-the Model Pet Program does not. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
+the Model Pet Program does not. **The Flash Audit checks pages against it** (Astra, 2026-11-12: "when we do audits and
+we're looking at user interface, that we're auditing it based off of what's on the template"): each part of the Model
+Pet Program is one check in [docs/flash-audit-20261014.md](docs/flash-audit-20261014.md) ("6. The page"), in its order,
+and `npm run build` compares every pet program page with it part by part (`scripts/flash-template-20261112.mjs`),
+shown on The Farm's flash-audit checks. A new part here gets its Flash Audit check in the same change. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
 screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
 platform-platypus): on 2026-11-02, 19 of 19 screens fit.
 
