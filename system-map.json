@@ -514,6 +514,64 @@
       "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
+      "id": "findastra-portfolio",
+      "name": "findastra.github.io",
+      "type": "own-program",
+      "state": "now",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://findastra.github.io/",
+      "job": "Astra's portfolio (findastra/findastra.github.io, public, GitHub Pages from main): about, worlds, every project live from GitHub, every pet and a small arcade. Portfolio Puffer looks after it: its hand lettering (Handwritten Message Manager), its project pictures (GitHub Goldfish's project-image-generator, by grant) and its employer pages, which publish only what Astra has read word for word (card 019). Merging to main publishes it.",
+      "does": "Your portfolio: about, worlds, every project live from GitHub, every pet and the arcade."
+    },
+    {
+      "id": "portfolio-review-desk",
+      "name": "Portfolio Review Desk",
+      "type": "own-program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "url": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-20261008.html",
+      "job": "Portfolio Puffer's first page (portfolio-puffer-20261008.html, prepared with Codex GPT-6, 2026-10-08; the pet's app_url): add an update worth sharing, move it from draft to ready to published, search and filter, and export a JSON backup or a Markdown worklist. Records stay in that browser only; it connects to nothing.",
+      "does": "Your desk for updates worth sharing: draft each one, mark when it is ready, export a worklist."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://www.linkedin.com/",
+      "job": "The professional network. Card 019 plans Portfolio Puffer's loop: read Astra's LinkedIn profile from her own signed-in browser (no stored password), compare it with the portfolio's profile-data.js, and show her each change for her OK. Not built.",
+      "does": "The professional network where your work history and skills are listed."
+    },
+    {
+      "id": "portfolio-update-round",
+      "name": "portfolio-update-round",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Iced Out Iceberg (card 019, from the plan of 2026-10-08): once a week, read LinkedIn and GitHub, compare them with the portfolio's profile-data.js and project list, and propose each change, old to new, for Astra to approve. Only what she approves is written, on a branch; it never pushes by itself and says plainly when LinkedIn was not read that week. Not written yet."
+    },
+    {
+      "id": "portfolio-pictures-refresh",
+      "name": "portfolio-pictures-refresh",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0",
+      "job": "A trick of Iced Out Iceberg: run GitHub Goldfish's project-image-generator (by grant) over Astra's repos, rebuild the portfolio's project-images.js and art/projects/, and open a pull request for her. Done by hand so far, from the steps in findastra.github.io's AGENTS.md; not a skill in Puffer's repo yet."
+    },
+    {
       "id": "cli-proxy-api-manager",
       "name": "CLI Proxy API manager",
       "type": "tool",
@@ -7842,6 +7900,41 @@
       "carries": "runs-on",
       "state": "now",
       "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "findastra-portfolio",
+      "carries": "manages",
+      "state": "now",
+      "why": "Puffer looks after your portfolio: its hand lettering, its project pictures and its employer pages (card 019)."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "portfolio-review-desk",
+      "carries": "opens",
+      "state": "now",
+      "why": "Portfolio Review Desk is this pet's own first program."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "profile",
+      "carries": "manages",
+      "state": "now",
+      "why": "Astra's Window Star and the social row sit on your GitHub profile; the Farmer's profile round keeps the rest of it matched to the repos."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "github",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Your portfolio is published from findastra/findastra.github.io on GitHub Pages: merging to main publishes it."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "linkedin",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Card 019: read your LinkedIn profile from your own signed-in browser and propose each change for your OK. Not built."
     },
     {
       "from": "fuzzboi-friend",
