@@ -53,7 +53,7 @@ The tool it feeds is API Fairy Ring's `api-fairy-ring-v1.0-key-requests-v1.0` (`
      "provider": "Anthropic",
      "key_name": "ROLE_FAIRY_ANTHROPIC_API_KEY",
      "where": "user-env",
-     "for": "Answers for Fairy Ring's Discord bots, through Fairy Ring's own key, never the Max plan.",
+     "for": "Answers for The Fairy Court's Discord bots, through The Fairy Court's own key, never the Max plan.",
      "spend_limit": "a monthly spend limit, set first",
      "link": "https://github.com/findastra/role-fairy/blob/main/handoffs/001-any-mommys-helper-bot-20261019.md",
      "status": "requested"

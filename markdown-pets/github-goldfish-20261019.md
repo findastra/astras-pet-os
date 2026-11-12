@@ -93,7 +93,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **RGBee** (Light Hive): Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard.
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
-- **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Role Fairy** (The Fairy Court): Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel.
 - **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
 - **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.
 - **Unity Unicorn** (Unity Stable): A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.

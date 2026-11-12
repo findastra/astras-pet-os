@@ -521,6 +521,28 @@
     "blink": "art/frames/forensic-ferret/plain-blink-20261019.png"
    },
    "sheet": "art/sheets/forensic-ferret-20261019.png"
+  },
+  "role-fairy": {
+   "size": [
+    256,
+    256
+   ],
+   "frames": {
+    "idle": "art/frames/role-fairy/idle-20261111.png",
+    "blink": "art/frames/role-fairy/blink-20261111.png",
+    "happy": "art/frames/role-fairy/happy-20261111.png",
+    "curious": "art/frames/role-fairy/curious-20261111.png",
+    "worried": "art/frames/role-fairy/worried-20261111.png",
+    "sad": "art/frames/role-fairy/sad-20261111.png",
+    "sick": "art/frames/role-fairy/sick-20261111.png",
+    "alarmed": "art/frames/role-fairy/alarmed-20261111.png",
+    "sleep": "art/frames/role-fairy/sleep-20261111.png"
+   },
+   "plain": {
+    "idle": "art/frames/role-fairy/plain-idle-20261111.png",
+    "blink": "art/frames/role-fairy/plain-blink-20261111.png"
+   },
+   "sheet": "art/sheets/role-fairy-20261111.png"
   }
  }
 }

@@ -2,7 +2,7 @@
 
 *The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
 
-**23 pet apps so far, drawn as 23 characters (23 app pets, 0 companions, 0 mascots). 23 of the 23 pet apps have a repo on GitHub.**
+**24 pet apps so far, drawn as 24 characters (24 app pets, 0 companions, 0 mascots). 24 of the 24 pet apps have a repo on GitHub.**
 
 Whether each of those repos carries its `pet.json` and the `pet-app` topic is not recorded here. Run `npm run check -- --online` to ask GitHub.
 
@@ -10,7 +10,7 @@ Last updated 2026-10-19. Drawings below are **drafts** unless their notes record
 
 ![Every character in every mood](art/roster.png)
 
-Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
+Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret, Role Fairy; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
 ## Pet apps
 
@@ -39,6 +39,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 21 | **Log Lynx** | pet | hatching | private repo | Observability: correlates logs, traces, health and failures. | <img src="art/frames/log-lynx/idle-20261019.png" width="48" height="48" alt="log-lynx idle"> |
 | 22 | **Packet Piranha** | pet | hatching | private repo | Network: packet loss, DNS, latency, routing. | <img src="art/frames/packet-piranha/idle-20261019.png" width="48" height="48" alt="packet-piranha idle"> |
 | 23 | **Forensic Ferret** | pet | hatching | private repo | Incident timelines and log analysis. | <img src="art/frames/forensic-ferret/idle-20261019.png" width="48" height="48" alt="forensic-ferret idle"> |
+| 24 | **Role Fairy** | pet | hatching | private repo | Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or  | <img src="art/frames/role-fairy/idle-20261111.png" width="48" height="48" alt="role-fairy idle"> |
 
 ## Every mood
 
@@ -225,6 +226,14 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/forensic-ferret/idle-20261019.png" width="56" height="56" alt="forensic-ferret idle"> | <img src="art/frames/forensic-ferret/blink-20261019.png" width="56" height="56" alt="forensic-ferret blink"> | <img src="art/frames/forensic-ferret/happy-20261019.png" width="56" height="56" alt="forensic-ferret happy"> | <img src="art/frames/forensic-ferret/curious-20261019.png" width="56" height="56" alt="forensic-ferret curious"> | <img src="art/frames/forensic-ferret/worried-20261019.png" width="56" height="56" alt="forensic-ferret worried"> | <img src="art/frames/forensic-ferret/sad-20261019.png" width="56" height="56" alt="forensic-ferret sad"> | <img src="art/frames/forensic-ferret/sick-20261019.png" width="56" height="56" alt="forensic-ferret sick"> | <img src="art/frames/forensic-ferret/alarmed-20261019.png" width="56" height="56" alt="forensic-ferret alarmed"> | <img src="art/frames/forensic-ferret/sleep-20261019.png" width="56" height="56" alt="forensic-ferret sleep"> |
+
+### Role Fairy
+
+*Astra, 2026-10-17: Role Fairy is a pet; her pet program is The Fairy Court (#83, renamed from Fairy Ring on 2026-11-11 so it no longer reads like API Fairy Ring). Art drafted 2026-10-18 with Astra's OK, redrawn once with --match on 2026-11-11 so the wand is in every face, and registered the same day (Astra in chat: "just do all recommended"). Claude Opus 5.5.*
+
+| idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| <img src="art/frames/role-fairy/idle-20261111.png" width="56" height="56" alt="role-fairy idle"> | <img src="art/frames/role-fairy/blink-20261111.png" width="56" height="56" alt="role-fairy blink"> | <img src="art/frames/role-fairy/happy-20261111.png" width="56" height="56" alt="role-fairy happy"> | <img src="art/frames/role-fairy/curious-20261111.png" width="56" height="56" alt="role-fairy curious"> | <img src="art/frames/role-fairy/worried-20261111.png" width="56" height="56" alt="role-fairy worried"> | <img src="art/frames/role-fairy/sad-20261111.png" width="56" height="56" alt="role-fairy sad"> | <img src="art/frames/role-fairy/sick-20261111.png" width="56" height="56" alt="role-fairy sick"> | <img src="art/frames/role-fairy/alarmed-20261111.png" width="56" height="56" alt="role-fairy alarmed"> | <img src="art/frames/role-fairy/sleep-20261111.png" width="56" height="56" alt="role-fairy sleep"> |
 
 ## Candidates (not counted until Astra says yes)
 
