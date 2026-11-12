@@ -70,6 +70,17 @@
   --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
 }
 :root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* Halo List's own colours, VS Code Angel's (Astra, 2026-11-12: "pick a background for her, make it like blue"): a sky
+   azure page, her pale sky blue (#a0e0f0, sampled from her dress and wings) for the panel lines, her white for the
+   lettering, and halo gold for links, marks and the working-copy box. */
+:root[data-pet="vscode-angel"] {
+  --slate: #1d5f9e; --slate-2: #174d82; --chalk: #ffffff; --chalk-dim: #d6ecfa; --line: #a0e0f0; --line-dim: #5f9fcb;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffe08a;
+  --editorial: #ffe08a; --editorial-ink: #fff6d6; --editorial-glow: rgba(255, 224, 138, .22); --grid: none; --editorial-by: #fff0b8; --serial: #ffe08a;
+  --link: #ffe08a; --connection: #c8f0ff;
+  --tool-bg: rgba(255, 255, 255, .07); --tool-bg-hover: rgba(160, 224, 240, .14);
+}
+:root[data-pet="vscode-angel"] .footer-group::before, :root[data-pet="vscode-angel"] .footer-sparkle { color: #ffe08a; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
