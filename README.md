@@ -144,6 +144,15 @@ a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-pr
 when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
 into the pipeline goes through the gate, so nobody becomes an animal by saying so.
 
+## MCP Roadmap
+
+MCP servers are the plugs that let the agent in a pet's seat reach a program or a web account: Unity, Microsoft's
+docs, research papers, restaurants. Each one moves from **found** to **checked** (MCP Inspector lists its tools) to
+**approved** (Astra's yes) to **connected** (Claude Code and Codex) to **on the map** (a new chat called it once).
+**[The MCP Roadmap](docs/mcp-roadmap-20261109.md)** lists every server the pets use, the ones next, the ones for later
+and the ones left out, each with its keeper pet and the reason. The research behind it, all 87 pets checked, is
+[docs/mcp-assessment-20261109.md](docs/mcp-assessment-20261109.md).
+
 ## Who lives here
 
 <!-- pets:start (generated from pets.json by scripts/update-readme.mjs; do not edit by hand) -->
@@ -165,7 +174,7 @@ into the pipeline goes through the gate, so nobody becomes an animal by saying s
 | **Portfolio Puffer** | pet | hatching | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | [Pet Program](apps/pet-programs/portfolio-puffer-20261018.html) · private repo |
 | **Drum Dog** | pet | hatching | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | [Pet Program](apps/pet-programs/drum-dog-20261018.html) · private repo |
 | **VSCode Angel** | pet | hatching | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [Pet Program](apps/pet-programs/vscode-angel-20261018.html) · private repo |
-| **Gone Ghost** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · private repo |
+| **[Gone Ghost](https://github.com/findastra/ghost-protocol)** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · [Download ZIP](https://github.com/findastra/ghost-protocol/archive/refs/heads/main.zip) |
 | **Project Parrot** | pet | hatching | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | [Pet Program](apps/pet-programs/project-parrot-20261018.html) · private repo |
 | **Voicemeeter Bug** | pet | growing | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | [Pet Program](apps/pet-programs/voicemeeter-bug-20261018.html) · private repo |
 | **Platform Platypus** | pet | hatching | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [Pet Program](apps/pet-programs/platform-platypus-20261018.html) · private repo |

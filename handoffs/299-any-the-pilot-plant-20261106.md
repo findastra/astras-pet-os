@@ -63,6 +63,11 @@ Whichever merges second takes `main`'s generated files and rebuilds.
   is `DRAFT_FLOWSHEET_FLAMINGO` in `generate-pets.mjs`, and `changes/flowsheet-flamingo-draft-art-20261109.md` has the
   details. It fixed the 11-08 test "every one of the Farmer's friends has a picture". `npm test` then passed 398 of
   400, with 1 skipped. The only failure is `farm-setup-test` ("hub copy (git)"), the known worktree failure.
+- **Art redone, 2026-11-11** (Astra: "That flamingo's terrible. Make it pink and like small and cute. It needs to be
+  like kawaii."): one more paid image. It is now a tiny round pink chibi baby flamingo with rosy cheeks and a tiny
+  yellow hard hat. The lime files are gone from the branch. The frames are `*-20261111.png`, the icon is
+  `art/icons/the-pilot-plant-20261111.png`, and the cut script is `build-flowsheet-flamingo-draft-20261111.mjs`.
+  `main` (cc44db9e) was merged in at the same time, with the generated System Map taken from `main` and rebuilt.
 
 ## Not done (the build)
 
@@ -78,7 +83,7 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 3. Build the look tool, the only native tool, and make it work on the page.
 4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
 5. Add Rift Rabbit's parts: L3's note, devices if any.
-6. Astra approves the draft art, or asks for changes. It was made on 2026-11-09 (see What I did).
+6. Astra approves the draft art, or asks for changes. It was redone on 2026-11-11 (see What I did).
 7. Do the four downloads, each checked first.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 
