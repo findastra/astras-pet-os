@@ -1,0 +1,25 @@
+{
+  "pet": "ghost-protocol",
+  "creator": "Astra",
+  "assistant": "Claude Opus 5.5 (claude-opus-5-5)",
+  "date": "2026-11-12",
+  "status": "approved",
+  "approved": "2026-10-08",
+  "chosen_again": "2026-11-12",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-os/scripts/desktop-pets-20261011.cs",
+  "source_sheet": "art/sheets/ghost-protocol-20261008.png",
+  "art_files": [
+    "idle-20261112.png",
+    "blink-20261112.png",
+    "happy-20261112.png",
+    "curious-20261112.png",
+    "worried-20261112.png",
+    "sad-20261112.png",
+    "sick-20261112.png",
+    "alarmed-20261112.png",
+    "sleep-20261112.png"
+  ],
+  "notes": "Astra's approved design of 2026-10-08: the ghost with arms and a scalloped hem. On 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft (\"I want the ghost on the left, number letter A.\"). The nine plain frames (no mood stickers) are cut from the approved sheet with the hub's own converter (scripts/sheet-to-sprites.mjs, as scripts/build-frames.mjs does, 256px, 24 colours); idle and blink are byte-identical to art/frames/ghost-protocol/plain-idle-20261008.png and plain-blink-20261008.png. No image generation. The 2026-10-11 draft files stay in this folder as a record. Original body, 38% opacity."
+}

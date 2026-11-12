@@ -81,6 +81,31 @@
   --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
 }
 :root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* Halo List's own colours, VS Code Angel's (Astra, 2026-11-12: "pick a background for her, make it like blue"; she
+   picked "B, bright sky" from four blues): a bright sky blue page (#2470b5, a touch deeper than #2a78c0 so every text
+   colour reads at 4.5:1 or more), white lettering, a pale sky blue (#c8f0ff) for the panel lines, pale halo gold for
+   links and text marks, and her halo gold (#ffe08a) for the working-copy box's edge and the footer sparkles. */
+:root[data-pet="vscode-angel"] {
+  --slate: #2470b5; --slate-2: #1d5f9e; --chalk: #ffffff; --chalk-dim: #e6f4fd; --line: #c8f0ff; --line-dim: #8cc4ec;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fff0b8;
+  --editorial: #ffe08a; --editorial-ink: #fff6d6; --editorial-glow: rgba(255, 224, 138, .22); --grid: none; --editorial-by: #fff6d6; --serial: #fff0b8;
+  --link: #fff6d6; --connection: #c8f0ff;
+  --tool-bg: rgba(255, 255, 255, .08); --tool-bg-hover: rgba(200, 240, 255, .16);
+}
+:root[data-pet="vscode-angel"] .footer-group::before, :root[data-pet="vscode-angel"] .footer-sparkle { color: #ffe08a; }
+/* The Threshold's own colours, Door Dormouse's (Astra, 2026-11-11: "I like that color of his tail. Can we make the
+   background of the pet program that color?"): the page is his tail tip's indigo (#31316f, sampled from his desktop
+   drawing), with the deeper indigo inside his ears for the darker parts, his belly cream for lettering, his orange fur
+   (#fda674) for the panel lines, his key's gold for links, his ear pink for connections and the footer's sparkles, and
+   the blue gem in his key for the working-copy box. */
+:root[data-pet="door-dormouse"] {
+  --slate: #31316f; --slate-2: #26255b; --chalk: #fff4e8; --chalk-dim: #d9cfe2; --line: #fda674; --line-dim: #9a6a78;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fd8891;
+  --editorial: #aaeffd; --editorial-ink: #e3faff; --editorial-glow: rgba(170, 239, 253, .22); --grid: none; --editorial-by: #c9f5ff; --serial: #aaeffd;
+  --link: #ffd36b; --connection: #fd8891;
+  --tool-bg: rgba(255, 244, 232, .05); --tool-bg-hover: rgba(253, 166, 116, .09);
+}
+:root[data-pet="door-dormouse"] .footer-group::before, :root[data-pet="door-dormouse"] .footer-sparkle { color: #fd8891; }
 /* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
    that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
    bill for links, marks and pill edges, and his cyan phone for L3's note. */
@@ -578,6 +603,11 @@ label.file { position: relative; }
 .mood ul { margin: 2px 0; padding-left: 16px; }
 .mood q { display: block; color: var(--link); font-style: italic; margin-top: 6px; padding-top: 5px; border-top: 1px dashed var(--line-dim); }
 .mood img, .mood .no-art { width: 60px; height: 60px; image-rendering: pixelated; }
+/* A colour behind a pet's own pictures, for a pet that is hard to see on the blueprint (Astra, 2026-11-12, Gone Ghost:
+   "spooky green"). The page sets --pet-backdrop from `backdrop` in pets.json; the cyberhome and the nine moods get it. */
+.has-backdrop .den { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--pet-backdrop), #fff 18%) 0%, var(--pet-backdrop) 45%, color-mix(in srgb, var(--pet-backdrop), #000 55%) 100%); border-radius: 10px; padding: 8px 0; align-self: center; width: 112px; max-width: 100%; }
+.mood .pet-backdrop { justify-self: center; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--pet-backdrop), #fff 18%) 0%, var(--pet-backdrop) 45%, color-mix(in srgb, var(--pet-backdrop), #000 55%) 100%); }
 .no-art { display: grid; place-items: center; text-align: center; font-size: 12px; color: var(--chalk-dim); border: 1px dashed var(--chalk-dim); aspect-ratio: 1 / 1; }
 .den .no-art { width: 70%; }
 .clicks { display: grid; grid-template-columns: max-content 1fr; gap: 14px 18px; margin: 0; }

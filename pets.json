@@ -1612,13 +1612,14 @@
       "role": "pet",
       "art": "ghost-protocol",
       "kind": "ghost",
+      "backdrop": "#1f8a4c",
       "asset_date": "20261008",
       "status": "hatching",
       "published": true,
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "version": "0.1.0-20261008-pets",
-      "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
+      "note": "Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
@@ -3584,7 +3585,38 @@
             "why": "Startup Star shows Door Dormouse on the desktop; The Threshold's page works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-editor",
+            "how": "required",
+            "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "required",
+            "why": "Liminal Doors' VRChat Worlds SDK and UdonSharp come from the Creator Companion's World template."
+          },
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Unity Hub opens the Liminal Doors project."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "The phone booth is modelled and baked in Blender (phone-booth-maker); only needed to remake it."
+          },
+          {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "Planned: MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (liminal-agent-queue)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: Liminal Doors goes up on VRChat; not uploaded yet."
+          }
+        ]
       }
     },
     {
