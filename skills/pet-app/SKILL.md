@@ -10,7 +10,7 @@ were added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-26.
 
 ## Read the complete current rules before work
 
-Claude in the desktop app: keep the pet's program page open in the browser pane on the right for the whole task (skill `show-pet-panel`, Astra 2026-10-19).
+Claude in the desktop app: keep the pet's program page open in the browser pane on the right for the whole task (skill `show-pet-panel`, Astra 2026-10-19). Show the version you are changing, never the live page, until it is merged: open it yourself before the first edit with skill `show-working-copy` (the EDITORIAL bar; Astra, 2026-11-02 and 2026-11-12), one page at a time, in the pane only.
 
 Locate the canonical `astras-pet-os` repo under `%USERPROFILE%/Documents/Astra's PetOS` and the target pet repo. Fetch their remotes without changing active work. Read **every top-level `.md` file in both repos in full**, including AGENTS.md and CLAUDE.md. Enumerate the files; do not substitute this skill, memory, a fixed filename list, excerpts or a summary. Chunk long reads until complete and account for truncated output.
 
