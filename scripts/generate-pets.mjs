@@ -104,6 +104,15 @@ export const DRAFT_ROLE_FAIRY = { id: 'role-fairy', what: 'a tiny cheerful fairy
 // art/sheets/pc-master.png; from then on redo him only with --match.
 export const DRAFT_PC_MASTER = { id: 'pc-master', what: 'a chubby little gaming PC tower creature: a tall rounded computer case standing on two small feet with two little arms, its face on the front panel, a clear glass side panel showing three round glowing fans, a round power button on its top, two racing stripes running down its front, holding a tiny checkered racing flag, no other props and no lettering', colours: 'gunmetal graphite-grey case, neon green glowing fans, hot magenta racing stripes, electric cyan power button, black and white checkered flag' };
 
+// Flowsheet Flamingo (The Pilot Plant, #87), draft, sheet in art/drafts/flowsheet-flamingo/. The engineering pet, for
+// her home engineering and study programs. First made 2026-11-09 ("Yes, make the art") as a tall lime flamingo with a
+// lab flask; Astra, 2026-11-11: "That flamingo's terrible. Make it pink and like small and cute. It needs to be like
+// kawaii." So it is now a tiny round pink chibi flamingo, keeping only a tiny hard hat for engineering. Its shape (a
+// round puffball on two stubby legs with a curved beak) keeps it apart from Portfolio Puffer's magenta penguin. A draft
+// until she approves it. When the Farmer registers it, move this line into PETS and copy the sheet to
+// art/sheets/flowsheet-flamingo.png; from then on redo it only with --match. Claude Opus 5.5.
+export const DRAFT_FLOWSHEET_FLAMINGO = { id: 'flowsheet-flamingo', what: 'a tiny chubby kawaii baby flamingo, chibi proportions with a big round head as wide as its body, a soft round puffball body, a very short little curved neck, a small curved flamingo beak with a black tip, a tiny curl of feathers on top of its head, tiny round wings at its sides, two short stubby legs standing on both small webbed feet, wearing a tiny round safety hard hat, no other props and no lettering', colours: 'bubblegum pink and hot pink feathers, pale blush-pink belly, white beak with a black tip, hot pink legs and feet, rosy pink cheeks, tiny sunshine-yellow hard hat' };
+
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;
 export const promptFor = prompt;
 

@@ -116,6 +116,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Cluster Crab** (Cluster Shore) (architecture): Distributed services and orchestration.
 - **Data Dragonfly** (Data Marsh) (architecture): Data engineering: data integrity, schemas, pipelines.
 - **Docker Dragon** (Container Hoard) (architecture): Containers: Docker health and authorized management.
+- **Flowsheet Flamingo** (The Pilot Plant) (architecture): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Intel Owl** (Threat Observatory) (architecture): Researches emerging cyber threats, CVEs, adversary tactics and public advisories, including lawful Tor-based intelligence sources when separately authorized.
 - **Llama Librarian** (Model Library) (architecture): Local model inventory, downloads and compatibility.
 - **OSC Sealion** (OSC Sonar) (architecture): Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.
