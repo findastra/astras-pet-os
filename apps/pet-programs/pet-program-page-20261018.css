@@ -103,6 +103,17 @@
   --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
 }
 :root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
+/* Audio Rescue's own colours, Voicemeeter Bug's (Astra, 2026-11-11: "pick out like a red color for this page, the
+   background of the page"): a deep oxblood page from his signal-red shell, panel lines in his silver-grey body, his
+   pink cheeks for links and the working-copy box, and his signal red for marks. */
+:root[data-pet="voicemeeter-bug"] {
+  --slate: #3a0b12; --slate-2: #2a070d; --chalk: #fbeff0; --chalk-dim: #d9b3b8; --line: #d6d9df; --line-dim: #8a4a53;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ff4757;
+  --editorial: #ff9db4; --editorial-ink: #ffe1e8; --editorial-glow: rgba(255, 157, 180, .22); --grid: none; --editorial-by: #ffc2cf; --serial: #ff9db4;
+  --link: #ffb0c2; --connection: #ff8f9c;
+  --tool-bg: rgba(214, 217, 223, .05); --tool-bg-hover: rgba(255, 71, 87, .1);
+}
+:root[data-pet="voicemeeter-bug"] .footer-group::before, :root[data-pet="voicemeeter-bug"] .footer-sparkle { color: #ff4757; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */

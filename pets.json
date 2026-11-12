@@ -1692,6 +1692,14 @@
           "entry": "keep-open-20261018.cs",
           "visibility": "public",
           "version": "v1.0"
+        },
+        {
+          "name": "listen-for-robotic-sound",
+          "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+          "use": "Compares the loudness Voicemeeter sends to each selected output with what Windows’ meter for that speaker shows arriving, about 50 times a second. When sound keeps going out without arriving, it writes a ROBOTIC notice to his log and marks Fix audio now in his menu. Tell first: it never restarts audio on its own yet. Reads two numbers only; records no sound (Astra, 2026-11-08).",
+          "entry": "robotic-listener-20261108.cs",
+          "visibility": "public",
+          "version": "v0.1"
         }
       ]
     },
