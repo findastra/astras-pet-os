@@ -1963,6 +1963,111 @@
       "does": "Checks the VR programs from GitHub against their newest release and asks you before any update."
     },
     {
+      "id": "skill-census",
+      "name": "skill-census",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-census-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs census, findastra/lunas-log#2): finds every agent and skill sheet (AGENTS.md, CLAUDE.md, SKILL.md) in the PetOS folder, ~/.claude, ~/.codex and ~/.agents, on every branch and on GitHub, and records what each says, who last changed it and why. Read-only on every sheet; the full catalog stays on the PC.",
+      "does": "Finds every agent and skill sheet and records what it says and who last changed it."
+    },
+    {
+      "id": "skill-lint",
+      "name": "skill-lint",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-lint-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs lint): checks sheets against the house rules SS001 to SS062 (retired names, old folders, broken links, hidden control characters, missing dates). Exits 1 on an error, so it can guard a commit. Every rule has a test with a does-not-fire case.",
+      "does": "Checks sheets against the house rules (SS001 to SS062)."
+    },
+    {
+      "id": "skill-diff",
+      "name": "skill-diff",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-diff-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs diff): compares two censuses: sheets added, changed (with who and why from the commit) and removed.",
+      "does": "Shows which sheets were added, changed or removed between two censuses."
+    },
+    {
+      "id": "public-snapshot",
+      "name": "public-snapshot",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-public-snapshot-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs public): writes data/catalog-public-*.js, the catalog its skill catalog page shows. Text only for public repos; sheets on the PC and in private repos become counts and finding ids.",
+      "does": "Writes the catalog the skill catalog page shows, without private text."
+    },
+    {
+      "id": "skill-census-trick",
+      "name": "skill-census",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-census-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/skill-census/SKILL.md): the steps to run skill-census, skill-diff and public-snapshot, look at the snapshot before it is committed, and file what it finds as fix batches (hub card 027).",
+      "does": "Runs the census, compares it with the last one and writes the public catalog."
+    },
+    {
+      "id": "skill-fix",
+      "name": "skill-fix",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-fix-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/skill-fix/SKILL.md): fixes what skill-lint found, on a branch, one repo at a time, never in a checkout with someone else's uncommitted work, and lints the sheet again before the pull request.",
+      "does": "Fixes a sheet the lint flagged, on a branch, one repo at a time."
+    },
+    {
+      "id": "write-a-skill",
+      "name": "write-a-skill",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-write-a-skill-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/write-a-skill/SKILL.md): the house standard for a new SKILL.md or AGENTS.md (the templates in templates/), checked with skill-lint before it is committed.",
+      "does": "The house standard for writing any new skill sheet."
+    },
+    {
+      "id": "skill-catalog",
+      "name": "Skill catalog",
+      "type": "own-program",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-catalog-v0.1",
+      "url": "https://github.com/findastra/lunas-log/blob/main/skill-catalog-20261111.html",
+      "job": "A native program of Luna's Log (Astra, 2026-11-11: the pet program page takes the Farmer's template; the catalog was the old page's main part): every sheet the census found, too big for a tool panel: the counts, the findings across sheets, a searchable table of every sheet with its findings, and the changes only on a branch. It reads data/catalog-public-*.js and works by double-click; text only from public repos.",
+      "does": "Every agent and skill sheet the census found, with what is wrong with each, in one searchable list."
+    },
+    {
       "id": "bs-manager",
       "name": "BS Manager",
       "type": "program",
@@ -5698,7 +5803,35 @@
       "to": "unity-unicorn",
       "carries": "idea",
       "state": "suggested",
-      "why": "Unity Unicorn learns and sorts the skills it uses; Skill Scout's job is undecided but its name fits."
+      "why": "Unity Unicorn learns and sorts the skills it uses; Skill Scout catalogs and checks every skill sheet, Unity Stable's included."
+    },
+    {
+      "from": "lunas-log",
+      "to": "skill-catalog",
+      "carries": "opens",
+      "state": "now",
+      "why": "Skill Scout opens its skill catalog from its own tool panel."
+    },
+    {
+      "from": "skill-census",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The census is a Node.js script with built-in modules only."
+    },
+    {
+      "from": "skill-census",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "It reads each sheet's last commit and every branch with git, read-only."
+    },
+    {
+      "from": "skill-census",
+      "to": "github-cli",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "It lists the repos and branches on GitHub with read-only gh calls."
     },
     {
       "from": "calendar-crow",
