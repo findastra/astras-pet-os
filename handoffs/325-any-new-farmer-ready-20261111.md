@@ -53,5 +53,8 @@ Record answers, the merge and the release here, under "Receipt and review".
 
 - 2026-11-12, deck answered: Astra, "All recommended". The vet-clinic, the Shed and the Kennel stay private and
   the docs say "not open yet" (already on the branch); the release is v0.4.0-beta (already on the branch).
-- 2026-11-12: main (after #328 and #332) merged into the branch with no conflicts; `npm run build` changed nothing.
+- 2026-11-12: main (after #328, #332, #333 and #335) merged into the branch with no conflicts; `npm run build`
+  changed nothing; on fresh LF clones Astra's farm, Dev's after make-it-yours and Dev's with a first pet each pass
+  417 of 423 (0 fail, 6 skipped). Of the 19 open pull requests that share files with #325, none goes from merging
+  cleanly with main to conflicting after #325 (`git merge-tree`).
 - Merge: pending Astra's OK. Release: pending her OK after the merge.
