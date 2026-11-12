@@ -70,6 +70,19 @@
   --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
 }
 :root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* The Threshold's own colours, Door Dormouse's (Astra, 2026-11-11: "I like that color of his tail. Can we make the
+   background of the pet program that color?"): the page is his tail tip's indigo (#31316f, sampled from his desktop
+   drawing), with the deeper indigo inside his ears for the darker parts, his belly cream for lettering, his orange fur
+   (#fda674) for the panel lines, his key's gold for links, his ear pink for connections and the footer's sparkles, and
+   the blue gem in his key for the working-copy box. */
+:root[data-pet="door-dormouse"] {
+  --slate: #31316f; --slate-2: #26255b; --chalk: #fff4e8; --chalk-dim: #d9cfe2; --line: #fda674; --line-dim: #9a6a78;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fd8891;
+  --editorial: #aaeffd; --editorial-ink: #e3faff; --editorial-glow: rgba(170, 239, 253, .22); --grid: none; --editorial-by: #c9f5ff; --serial: #aaeffd;
+  --link: #ffd36b; --connection: #fd8891;
+  --tool-bg: rgba(255, 244, 232, .05); --tool-bg-hover: rgba(253, 166, 116, .09);
+}
+:root[data-pet="door-dormouse"] .footer-group::before, :root[data-pet="door-dormouse"] .footer-sparkle { color: #fd8891; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
