@@ -1410,6 +1410,18 @@
       "published": true,
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
+      "editorial": {
+        "says": "Iced Out Iceberg now lists what Puffer really looks after: your portfolio (findastra.github.io), the Portfolio Review Desk, your GitHub profile and its Window Star, the hand lettering, and LinkedIn as planned. Next: the weekly portfolio-update-round (card 019), and the employer pages, which wait on you.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-11"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Read each employer page word for word before it goes on your portfolio; until you do, the Work list there stays empty.",
+          "card": "019",
+          "on": "2026-10-17"
+        }
+      ],
       "version": "0.1.1-20261009",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
@@ -1438,6 +1450,11 @@
             "node": "github",
             "how": "optional",
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+          },
+          {
+            "node": "linkedin",
+            "how": "optional",
+            "why": "Card 019: the weekly portfolio-update-round will read your LinkedIn profile from your own signed-in browser. Not built."
           }
         ]
       },
