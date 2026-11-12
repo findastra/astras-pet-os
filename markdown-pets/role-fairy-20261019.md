@@ -1,12 +1,12 @@
 # Role Fairy
 
-*A Markdown pet from Astra's PetOS. Pet program #83: Fairy Ring. Status: hatching (an idea or a first draft).*
+*A Markdown pet from Astra's PetOS. Pet program #83: The Fairy Court. Status: hatching (an idea or a first draft).*
 
 ## What it does
 
-Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.
+Runs The Fairy Court: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.
 
-Its job in the registry: Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or
+Its job in the registry: Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or
 
 ## Open it with nothing to install
 
@@ -31,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **PetOS feedback (ask-astra-bot)** (planned, not built yet): A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed.
+- **PetOS feedback (ask-astra-bot)** (planned, not built yet): A tool of The Fairy Court's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through The Fairy Court's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
@@ -45,6 +45,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Role Fairy](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/drafts/body-and-center-review-20261031/normalized/role-fairy-sprite.png)
+![Role Fairy](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/frames/role-fairy/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

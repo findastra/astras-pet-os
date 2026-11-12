@@ -125,9 +125,9 @@ Every pet is at one stage on its way from an idea to a released pet. The chart i
 flowchart LR
   candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 12"]
   candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
-  seed -->|real work in its repo| pipeline["Pipeline · 31"]
+  seed -->|real work in its repo| pipeline["Pipeline · 30"]
   roadmap -->|real work in its repo| pipeline
-  pipeline -->|art registered| registered["Registered · 23"]
+  pipeline -->|art registered| registered["Registered · 24"]
 ```
 
 | Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
@@ -135,8 +135,8 @@ flowchart LR
 | **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
 | **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 12 | 11 |
 | **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
-| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
-| **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 30 | 30 |
+| **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 24 | 24 |
 
 86 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
 <!-- stages:end -->
@@ -183,6 +183,7 @@ and the ones left out, each with its keeper pet and the reason. The research beh
 | **Log Lynx** | pet | hatching | Observability: correlates logs, traces, health and failures. | [Pet Program](apps/pet-programs/log-den-20261018.html) · private repo |
 | **Packet Piranha** | pet | hatching | Network: packet loss, DNS, latency, routing. | [Pet Program](apps/pet-programs/packet-river-20261018.html) · private repo |
 | **Forensic Ferret** | pet | hatching | Incident timelines and log analysis. | [Pet Program](apps/pet-programs/evidence-locker-20261018.html) · private repo |
+| **Role Fairy** | pet | hatching | Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or  | [Pet Program](apps/pet-programs/role-fairy-20261018.html) · private repo |
 <!-- pets:end -->
 
 The generated count and running list, with every mood of every character, are in [ROSTER.md](ROSTER.md). Gone Ghost's website, [Ghost Protocol](https://findastra.github.io/ghost-protocol/), is already live; Astra approved the ghost artwork on 2026-10-08.

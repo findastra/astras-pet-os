@@ -1234,16 +1234,16 @@
     },
     {
       "number": 83,
-      "program": "Fairy Ring",
+      "program": "The Fairy Court",
       "assigned": true,
       "icon": "Role Fairy",
       "idea": null,
-      "stage": "pipeline",
+      "stage": "registered",
       "repo": "role-fairy",
       "repo_exists": true,
       "mini_descriptor": {
-        "label": "fairy-ring-v1.0-mini-descriptor-v1.0",
-        "text": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
+        "label": "the-fairy-court-v1.0-mini-descriptor-v1.0",
+        "text": "Runs The Fairy Court: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
         "reviewed": false
       }
     },

@@ -472,7 +472,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   }
   const damsel = pages.find((d) => d.repo === 'discord-tower');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
-  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'The Fairy Court');
   // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
   const rabbit = pages.find((d) => d.repo === 'rift-rabbit');
   assert.ok(rabbit.related.some((r) => r.id === 'osc-sealion'), 'Rift Rabbit plays with OSC Sealion, a seed');

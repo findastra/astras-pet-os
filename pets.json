@@ -175,7 +175,7 @@
     "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
-    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
+    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program The Fairy Court on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
     "hidden": [
       "led-message-board"
     ],
@@ -2037,6 +2037,53 @@
           "version": "v1.0"
         }
       ]
+    },
+    {
+      "repo": "role-fairy",
+      "pet": "Role Fairy",
+      "role": "pet",
+      "art": "role-fairy",
+      "kind": "fairy",
+      "asset_date": "20261112",
+      "status": "hatching",
+      "published": true,
+      "job": "Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
+      "added": "2026-10-17",
+      "version": "0.1.0",
+      "version_assigned": true,
+      "note": "Astra, 2026-10-17: Role Fairy is a pet; her pet program is The Fairy Court (#83, renamed from Fairy Ring on 2026-11-11 so it no longer reads like API Fairy Ring). Art drafted 2026-10-18 with Astra's OK, redrawn once with --match on 2026-11-11 so the wand is in every face, and registered the same day (Astra in chat: \"just do all recommended\"). Claude Opus 5.5.",
+      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
+      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every Discord bot: its servers, roles, permissions and health",
+        "needs": "a bot's access to its server, or your OK for a new bot"
+      },
+      "visibility": "private",
+      "submitted": "2026-10-19",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs her desktop pet on a farm; her Discord bots run without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "discord",
+            "how": "required",
+            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+          },
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "The Fairy Court’s bots run on Node 24.17 or newer (its pet.json)."
+          }
+        ]
+      }
     }
   ],
   "pipeline": [
@@ -2936,42 +2983,6 @@
           }
         ],
         "programs": []
-      }
-    },
-    {
-      "repo": "role-fairy",
-      "pet": "Role Fairy",
-      "visibility": "private",
-      "status": "hatching",
-      "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
-      "added": "2026-10-17",
-      "version": "0.1.0",
-      "version_assigned": true,
-      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
-      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "every Discord bot: its servers, roles, permissions and health",
-        "needs": "a bot's access to its server, or your OK for a new bot"
-      },
-      "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered.",
-      "submitted": "2026-10-19",
-      "needs": {
-        "os": [],
-        "pets": [],
-        "core": [],
-        "programs": [
-          {
-            "node": "discord",
-            "how": "required",
-            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
-          },
-          {
-            "node": "nodejs",
-            "how": "required",
-            "why": "Fairy Ring’s bots run on Node 24.17 or newer (its pet.json)."
-          }
-        ]
       }
     },
     {
