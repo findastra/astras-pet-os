@@ -1,0 +1,10 @@
+{
+  "browser": {
+    "browserName": "webkit",
+    "isolated": true,
+    "launchOptions": { "headless": true }
+  },
+  "network": {
+    "allowedOrigins": ["http://127.0.0.1:*", "https://findastra.github.io"]
+  }
+}

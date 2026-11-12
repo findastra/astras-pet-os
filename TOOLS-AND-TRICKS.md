@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-370 rows: 20 native programs, 167 native tools, 25 native tricks, 158 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+371 rows: 20 native programs, 168 native tools, 25 native tricks, 158 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -380,10 +380,11 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 35 | Chat Rat | Chat Stack | third-party program | Claude app |  | Works today |
 | 35 | Chat Rat | Chat Stack | third-party program | Claude website |  | Works today |
 | 35 | Chat Rat | Chat Stack | third-party program | Codex app |  | Works today |
-| 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | device-shots | `mirror-pool-v1.0-device-shots-v1.1` | Works today |
 | 36 | Platform Platypus | Mirror Pool | native tool | fit-any-screen | `mirror-pool-v1.0-fit-any-screen-v1.0` | Works today |
-| 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.0` | Works today |
-| 36 | Platform Platypus | Mirror Pool | native tool | page-check | `mirror-pool-v1.0-page-check-v1.0` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | fit-check | `mirror-pool-v1.0-fit-check-v1.1` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | page-check | `mirror-pool-v1.0-page-check-v1.1` | Works today |
+| 36 | Platform Platypus | Mirror Pool | native tool | site-watch | `mirror-pool-v1.0-site-watch-v1.0` | Planned |
 | 36 | Platform Platypus | Mirror Pool | native trick | make-a-page-fit-any-screen | `mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0` | Works today |
 | 36 | Platform Platypus | Mirror Pool | third-party program | Node.js |  | Works today |
 | 36 | Platform Platypus | Mirror Pool | third-party program | Web browser (WebGL) |  | Works today |

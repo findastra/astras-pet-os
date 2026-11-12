@@ -466,8 +466,90 @@ function measure(frame, d, standaloneCover) {
     });
   }
   out.unsafe = { count: under.length, items: under, na: !(standaloneCover && (d.safeTop || d.safeBottom)) };
+  // 6 to 8. Accessibility (Astra's "all recommended", 2026-11-12: written here, no library). Claude Opus 5.5.
+  Object.assign(out, a11yChecks(doc, win, visible));
   out.pageHeight = doc.documentElement.scrollHeight;
   return out;
+}
+
+// Contrast (WCAG 2.2 1.4.3: 4.5:1, or 3:1 for large text), names (4.1.2, 1.1.1) and keyboard reach (2.1.1, 2.4.3).
+function parseColor(s) {
+  const m = String(s).match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:\s*[,/]\s*([\d.]+%?))?\s*\)/);
+  if (!m) return null;
+  let a = m[4] === undefined ? 1 : parseFloat(m[4]) / (m[4].endsWith('%') ? 100 : 1);
+  return [+m[1], +m[2], +m[3], a];
+}
+function luminance([r, g, b]) {
+  const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+}
+function contrastRatio(a, b) { const x = luminance(a), y = luminance(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+function over(top, under) { const a = top[3]; return [0, 1, 2].map((i) => top[i] * a + under[i] * (1 - a)).concat(1); }
+/** The colour behind an element: its own and its ancestors' backgrounds, blended down to white. Null over a picture. */
+function backgroundOf(el, win) {
+  const layers = [];
+  for (let e = el; e; e = e.parentElement) {
+    const cs = win.getComputedStyle(e);
+    if (cs.backgroundImage && cs.backgroundImage !== 'none') return null;
+    const c = parseColor(cs.backgroundColor);
+    if (c && c[3] > 0) { layers.push(c); if (c[3] >= 1) break; }
+  }
+  return layers.reverse().reduce((acc, c) => over(c, acc), [255, 255, 255, 1]);
+}
+function nameOf(el, doc) {
+  const by = el.getAttribute('aria-labelledby');
+  if (by && by.split(/\s+/).some((id) => (doc.getElementById(id)?.textContent || '').trim())) return true;
+  if ((el.getAttribute('aria-label') || '').trim() || (el.getAttribute('title') || '').trim()) return true;
+  if (/^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) {
+    if (/^(submit|reset|button)$/i.test(el.type || '') && (el.value || '').trim()) return true;
+    if (el.type === 'image' && (el.getAttribute('alt') || '').trim()) return true;
+    if (el.id && [...doc.querySelectorAll('label[for]')].some((l) => l.htmlFor === el.id && l.textContent.trim())) return true;
+    return !!(el.closest('label') && el.closest('label').textContent.trim());
+  }
+  if ((el.textContent || '').trim()) return true;
+  return [...el.querySelectorAll('img[alt],svg[aria-label],[aria-label]')].some((i) => (i.getAttribute('alt') || i.getAttribute('aria-label') || '').trim());
+}
+function a11yChecks(doc, win, visible) {
+  // Contrast: each piece of visible text against what is behind it.
+  const low = [], seen = new Set();
+  const tw = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  let n, scanned = 0, unknown = 0;
+  while ((n = tw.nextNode()) && scanned++ < 4000) {
+    if (!n.textContent.trim()) continue;
+    const el = n.parentElement; if (!el || seen.has(el)) continue; seen.add(el);
+    if (/^(SCRIPT|STYLE|NOSCRIPT|OPTION)$/.test(el.tagName) || !visible(el)) continue;
+    const cs = win.getComputedStyle(el);
+    const fg = parseColor(cs.color), bg = backgroundOf(el, win);
+    if (!fg || !bg) { unknown++; continue; }
+    const ratio = contrastRatio(over(fg, bg), bg);
+    const size = parseFloat(cs.fontSize), bold = (parseInt(cs.fontWeight, 10) || 400) >= 700;
+    const need = size >= 24 || (bold && size >= 18.66) ? 3 : 4.5;
+    if (ratio < need - 0.005) low.push({ el, text: `${describe(el)}: ${ratio.toFixed(2)}:1, needs ${need}:1` });
+  }
+  // Names: buttons, links, fields and pictures a screen reader cannot name.
+  const nameless = [];
+  doc.querySelectorAll('a[href],button,input:not([type=hidden]),select,textarea,[role=button],[role=link]').forEach((el) => {
+    if (!visible(el) || nameOf(el, doc)) return;
+    nameless.push({ el, text: `${describe(el)} has no name a screen reader can read` });
+  });
+  doc.querySelectorAll('img:not([alt])').forEach((el) => {
+    if (visible(el) && el.getAttribute('role') !== 'presentation') nameless.push({ el, text: `${describe(el)} has no alt text (alt="" if it is decoration)` });
+  });
+  // Keyboard: things that react to a click but cannot be reached with Tab, and a Tab order forced out of reading order.
+  const unreachable = [];
+  doc.querySelectorAll('[onclick],[role=button],[role=link],[role=tab],[role=checkbox],[role=menuitem]').forEach((el) => {
+    if (!visible(el) || el.matches('a[href],button,input,select,textarea,summary,[contenteditable=""],[contenteditable=true]')) return;
+    const t = el.getAttribute('tabindex');
+    if (t === null || +t < 0) unreachable.push({ el, text: `${describe(el)} reacts to a click but Tab never reaches it` });
+  });
+  doc.querySelectorAll('[tabindex]').forEach((el) => {
+    if (+el.getAttribute('tabindex') > 0 && visible(el)) unreachable.push({ el, text: `${describe(el)} has tabindex="${el.getAttribute('tabindex')}", which changes the Tab order` });
+  });
+  return {
+    contrast: { count: low.length, items: low, unknown },
+    names: { count: nameless.length, items: nameless },
+    keyboard: { count: unreachable.length, items: unreachable },
+  };
 }
 const RENDER_CHECKS = [
   ['overflow', 'Scrolls sideways', 'Something is wider than the screen, so the whole page wobbles left and right.', 'Find the wide element below; use max-width: 100% on images and avoid fixed pixel widths.'],
@@ -475,6 +557,9 @@ const RENDER_CHECKS = [
   ['text', 'Text smaller than 12px', 'Hard to read on a phone, and each platform renders tiny text a little differently.', 'Use at least 12px, ideally 14 to 16px for body text.'],
   ['zoom', 'iPhone zooms in when you tap a field', 'iOS Safari zooms the page when an input with text under 16px gets focus. Android does not, so the two feel different.', 'Give inputs font-size: 16px or more.'],
   ['unsafe', 'Content under the notch or home bar', 'On a home-screen app drawn edge to edge, these sit behind the Dynamic Island, the camera hole or the home bar.', 'Pad with env(safe-area-inset-top/bottom).'],
+  ['contrast', 'Text too faint to read', 'WCAG 2.2 asks for a contrast of 4.5:1 for text, 3:1 for large text (24px, or 19px bold). Text over a picture is not measured.', 'Darken the text or lighten what is behind it (or the other way round).'],
+  ['names', 'Buttons, links, fields or pictures without a name', 'A screen reader (VoiceOver on iPhone, TalkBack on Android) says only "button" or "image" for these.', 'Give each one text, a <label>, aria-label, or alt text on pictures (alt="" for decoration).'],
+  ['keyboard', 'Not reachable with the keyboard', 'Someone using Tab (a keyboard, a switch, or an iPad with a keyboard) cannot reach these, or meets them out of order.', 'Use a real <button> or <a href>, or add tabindex="0"; avoid tabindex above 0.'],
 ];
 
 // ---------------------------------------------------------------- build the frames

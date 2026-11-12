@@ -1759,7 +1759,7 @@
       ]
     },
     {
-      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
+      "editorial": { "says": "page-check now also checks text contrast, names a screen reader can read, and keyboard reach. In Platypus's own tools, fit-check and device-shots run in Safari's engine (WebKit) as well as Chrome's, and site-watch checks Astra's 78 public pages every week once it is installed. Playwright MCP is checked and approved, held to her own pages. Next: install site-watch's weekly run and show its mood here.", "by": "Claude Opus 5.5", "on": "2026-11-12" },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
@@ -1775,8 +1775,8 @@
       "note": "DRAFT art until Astra approves it: a purple platypus with a yellow bill and a cyan phone, the seed sheet generated 2026-10-12 (art/seeds/platform-platypus-sheet-20261012.png). Registered with that sheet on Astra's OK, 2026-10-17, by Claude Opus 5.5. Kind 'penguin' only borrows a plain ground walk; a platypus-specific kind is the Farmer's call.",
       "interface_local_url": "apps/pet-programs/platform-platypus-20261018.html",
       "interface_url": "apps/pet-programs/platform-platypus-20261018.html",
-      "app_url": "https://findastra.github.io/platform-platypus/",
-      "interface_live_url": "https://findastra.github.io/platform-platypus/",
+      "app_url": "https://findastra.github.io/astras-pet-os/apps/pet-programs/platform-platypus-20261018.html",
+      "interface_live_url": "https://findastra.github.io/astras-pet-os/apps/pet-programs/platform-platypus-20261018.html",
       "audit": {
         "cadence": "weekly",
         "subject": "how Astra's pages look across iPhone, Android, iPad and desktop",

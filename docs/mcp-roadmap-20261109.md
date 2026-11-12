@@ -6,7 +6,8 @@ An MCP server is a plug that lets the agent in a pet's seat (Claude Code, Codex,
 reach a program or a web account. It is a tool at L1: a 3rd party program, or a native tool when the farm made it.
 The seat at L3 calls it, the steps for using it are a trick at L2, and its grant (who may use it, with what R W X) is
 L4's. The research behind every row, all 87 pets checked, is in [mcp-assessment-20261109.md](mcp-assessment-20261109.md)
-(hub card 319). Astra answered its questions on 2026-11-09: "All recommended".
+(hub card 319). Astra answered its questions on 2026-11-09: "All recommended". Row 14 moved up on 2026-11-12 (Astra's
+"all rec" to the Mirror Pool deck; platform-platypus card 003).
 
 ## How a server moves
 
@@ -38,6 +39,7 @@ flowchart LR
 | 5 | MCP Inspector (the checker, run, never connected) | White Hat Weasel → every new server | On the map: now | Used for rows 4, 6 and 7 on 2026-11-09 |
 | 6 | alphaXiv and PubMed | Paper Patty → Flowsheet Flamingo, AI Dashund | Checked and approved | Astra clicks Connect in Claude |
 | 7 | Yelp | Spoonfed Sugarcube | Checked and approved | Astra clicks Connect in Claude |
+| 14 | Playwright MCP 0.0.83 (Safari's WebKit engine) | Platform Platypus → Browser Bat, Test Tortoise | Checked and approved (2026-11-12) | Astra runs `mcp\register-playwright-mcp-20261112.ps1` from her own PowerShell window (Claude Code and Codex). Held to 127.0.0.1 and findastra.github.io by `mcp\playwright-mcp-config-20261112.json`; WebKit, headless, an isolated profile. MCP Inspector 2.13.0 listed 25 tools, 7 read-only; example.com was blocked, the Pocket Message Board opened. |
 
 ## Later: when that pet's work starts
 
@@ -49,7 +51,6 @@ flowchart LR
 | 11 | ableton-mcp | Drum Dog | A test on Live Lite next to the APC64 |
 | 12 | ElevenLabs (hosted) | Astra Wisp | The Astral Plane starting again; it costs credits |
 | 13 | ssh-mcp | Raspberry Pi Berry, Linux Penguin | Their Linux work |
-| 14 | Playwright MCP (Safari's WebKit engine) | Platform Platypus → Browser Bat, Test Tortoise | iPhone and iPad Safari checks |
 | 15 | Docker MCP Toolkit | Docker Dragon → Pet Police Officer | Three or more local third-party servers |
 | 16 | Hugging Face | Llama Librarian | Llama Librarian leaving the roadmap |
 | 17 | Gmail and Google Calendar (already connected through a plugin) | Mail Snail, Calendar Crow, Mommy's Mommies | Those pets being built; read-only first. Astra uses Google (Android) and iCloud; iCloud waits for a safe Windows option |
