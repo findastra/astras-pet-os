@@ -1696,6 +1696,7 @@
       ]
     },
     {
+      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
