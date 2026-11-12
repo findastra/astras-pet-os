@@ -3350,7 +3350,23 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "skill-scout-20261017.mjs runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "required",
+            "why": "The census reads each sheet's last commit and every branch with git, read-only."
+          },
+          {
+            "node": "github-cli",
+            "how": "required",
+            "why": "The census lists repos and branches on GitHub with read-only gh calls (--github)."
+          }
+        ]
       }
     },
     {
