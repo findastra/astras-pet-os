@@ -68,6 +68,8 @@ Whichever merges second takes `main`'s generated files and rebuilds.
   yellow hard hat. The lime files are gone from the branch. The frames are `*-20261111.png`, the icon is
   `art/icons/the-pilot-plant-20261111.png`, and the cut script is `build-flowsheet-flamingo-draft-20261111.mjs`.
   `main` (cc44db9e) was merged in at the same time, with the generated System Map taken from `main` and rebuilt.
+- **Art approved, 2026-11-12** (Astra: "Approve it"). The approval is recorded in the pets.json seed note, beside
+  `DRAFT_FLOWSHEET_FLAMINGO`, and in `changes/flowsheet-flamingo-art-approved-20261112.md`. No picture changed.
 
 ## Not done (the build)
 
@@ -83,7 +85,8 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 3. Build the look tool, the only native tool, and make it work on the page.
 4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
 5. Add Rift Rabbit's parts: L3's note, devices if any.
-6. Astra approves the draft art, or asks for changes. It was redone on 2026-11-11 (see What I did).
+6. ~~Astra approves the draft art.~~ Done: approved on 2026-11-12 ("Approve it"). Registering it is the Farmer's step
+   once the pet is built.
 7. Do the four downloads, each checked first.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 
