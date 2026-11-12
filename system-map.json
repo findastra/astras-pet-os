@@ -2187,6 +2187,128 @@
       "does": "Lets Claude and Codex work inside the open Unity editor."
     },
     {
+      "id": "liminal-doors-world",
+      "name": "Liminal Doors (world)",
+      "type": "own-program",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "VRChat world",
+      "url": "https://github.com/findastra/liminal-doors",
+      "picture": "https://raw.githubusercontent.com/findastra/liminal-doors/main/docs/renders/stop-02-02-rose-door.jpg",
+      "job": "Astra's VRChat world of doors (findastra/liminal-doors, public). You spawn in the phone booth, and stepping out through its door sends you to a random door. One Unity scene (Unity 2022.3.22f1, VRChat Worlds SDK 3.10.5) holds every Doorspace, 3 km apart: all 34 are built (2026-10-19) and the local desktop test passes. Not uploaded to VRChat yet. Door Dormouse looks after it: the floors, the tools that made each one (docs/tools-by-floor-20261019.json), the episodes (docs/episodes-20261019.md) and the VRChat description (docs/vrchat-world-description-20261019.md). Unity Stable's world-spawn-tool, shaders-shop, unity-asset-creator and vine tool helped make it.",
+      "does": "Your VRChat world of doors: 34 Doorspaces built in Unity, not uploaded yet."
+    },
+    {
+      "id": "liminal-doors-concept-atlas",
+      "name": "Liminal Doors Concept Atlas",
+      "type": "own-program",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://claude.ai/artifact/XvXm6nJ3BQq8XPxukPVKJ2",
+      "picture": "https://raw.githubusercontent.com/findastra/liminal-doors/main/concept-art/floors/01-fox-pinkscape-20261020.png",
+      "job": "The concept art for every floor of Liminal Doors, one door at a time, where Astra reviews the floors (a claude.ai page that opens only for Astra, signed in). The pictures themselves are public in liminal-doors concept-art/floors (34 floors), with the contact sheet, the redline sheet and the imagebook in concept-art/. The found floors page is a public copy of it.",
+      "does": "Every floor's concept art: the doors you review."
+    },
+    {
+      "id": "found-floors-page",
+      "name": "Found floors",
+      "type": "own-program",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://github.com/findastra/the-threshold/blob/main/index.html",
+      "job": "The Threshold's public page (the-threshold index.html, the-threshold#3) where visitors tick the floors of Liminal Doors they have found; the ticks stay in their own browser. It was on GitHub Pages at findastra.github.io/the-threshold, and Liminal Doors' VRChat description links it, but the-threshold has been private since 2026-10-20, so that address is off until the repo is public again.",
+      "does": "Where visitors tick the floors they have found; offline while The Threshold is private."
+    },
+    {
+      "id": "tools-tracker",
+      "name": "tools-tracker",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-tools-tracker-v1.0",
+      "url": "https://github.com/findastra/the-threshold/blob/main/tools-tracker-20261019.html",
+      "job": "A tool of The Threshold (the-threshold#2): a page that reads Liminal Doors' tools ledger (liminal-doors docs/tools-by-floor-20261019.json, 36 tools) and shows which tools made which floor, and which are ready to package.",
+      "does": "Shows which tools made which floors."
+    },
+    {
+      "id": "doorspaces",
+      "name": "doorspaces",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-doorspaces-v1.0",
+      "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Editor",
+      "job": "A tool of The Threshold in Liminal Doors' Unity project (Assets/LiminalDoors/Editor: LiminalDoorspaceKit.cs, LiminalDoorspaces*.cs, LiminalStop01/02/03.cs): builds every Doorspace from code, rebuilds the ones listed in Review/doorspaces-build/rebuild.txt and renders review shots. Its window (LiminalDoors > Doorspaces > Window, Ctrl+Shift+D; Ctrl+Shift+] and [ step) jumps between them.",
+      "does": "Builds the Doorspaces in Unity and jumps between them (Ctrl+Shift+D)."
+    },
+    {
+      "id": "door-travel",
+      "name": "door-travel",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-door-travel-v1.0",
+      "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Scripts",
+      "job": "A tool of The Threshold in Liminal Doors (UdonSharp: LiminalTraveler.cs and LiminalDoor.cs; menus LiminalDoors > World > Make door scripts, Wire doors and Door trip test): you spawn in the phone booth, and stepping through a door sends you to a random Doorspace, never one of the last few, with a door back. Checked in ClientSim by the door trip test (docs/door-trip-test-fresh-20261018.md).",
+      "does": "Stepping through a door sends you to a random Doorspace, and back."
+    },
+    {
+      "id": "phone-booth-maker",
+      "name": "phone-booth-maker",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-phone-booth-maker-v1.0",
+      "url": "https://github.com/findastra/liminal-doors/blob/main/Tools/Blender/make_phone_booth.py",
+      "job": "A tool of The Threshold: models and bakes the phone booth you spawn in, in Blender with no window (Tools/Blender/make_phone_booth.py, about two minutes), then LiminalDoors > Booth > Import Blender model and Build prefab make its Unity prefab (LiminalBooth.cs). The booth went into the Unity asset library as v1.0.0.",
+      "does": "Models the phone booth in Blender and builds its Unity prefab."
+    },
+    {
+      "id": "concept-art-sheets",
+      "name": "concept-art-sheets",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-concept-art-sheets-v1.0",
+      "url": "https://github.com/findastra/liminal-doors/tree/main/concept-art/tools",
+      "job": "A tool of The Threshold (liminal-doors concept-art/tools): cuts the concept plates into one picture per floor (cut-floors.ps1, PlateCutter.cs), makes the contact sheet and the redline sheet (contact-sheet.ps1, redline-sheet.ps1), painted floor 01 all clouds (cloud-floor-20261020.cs), cleans the imagebook and makes the neon colourways (neon-pools-20261029.py, ref-colorways-20261029.py).",
+      "does": "Cuts the concept art into floors and makes the review sheets."
+    },
+    {
+      "id": "liminal-agent-queue",
+      "name": "liminal-agent-queue",
+      "type": "tool",
+      "of": "program-82",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-threshold-v1.0-liminal-agent-queue-v1.0",
+      "url": "https://github.com/findastra/liminal-doors/blob/main/Assets/LiminalDoors/Editor/LiminalAgentQueue.cs",
+      "job": "A tool of The Threshold in Liminal Doors' Unity project: lets Claude and Codex run the LiminalDoors menus in the Unity editor that is already open, one job file at a time (Review/agent-queue), so nobody restarts or batch-builds the editor while Astra has it open. The local desktop test (LiminalDoors > Desktop test: Build & Test, no upload) runs through it.",
+      "does": "Lets Claude and Codex run Liminal Doors' menus in the open Unity editor."
+    },
+    {
       "id": "context7",
       "name": "Context7",
       "type": "program",
@@ -2200,10 +2322,10 @@
       "id": "microsoft-learn-mcp",
       "name": "Microsoft Learn MCP",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; in Claude through the connector directory once Astra clicks Connect. Astra, 2026-11-09: \"All recommended\" (hub card 319). Planned until a new chat calls it once.",
+      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; Astra connected it in Claude on 2026-11-12, and one docs search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319).",
       "does": "Gives chats Microsoft's own Windows and PowerShell docs."
     },
     {
@@ -2220,30 +2342,30 @@
       "id": "alphaxiv-mcp",
       "name": "alphaXiv",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory: search and full text, 6 read tools. It asks for a sign-in before MCP Inspector can look, so its directory list stands in. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too. Planned until Astra connects it and a new chat calls it once.",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory. Astra connected it in Claude on 2026-11-12 (with her alphaXiv sign-in), and one paper search answered in a chat. Connected, it offers 23 tools, not the 6 its directory listing showed: 14 read (search, full text, feeds, her library and notes) and 9 that write to her alphaXiv account (library folders, saving and moving papers, private paper notes, following researchers). Paper Patty's grant is read only. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too.",
       "does": "Lets chats search and read arXiv papers."
     },
     {
       "id": "pubmed-mcp",
       "name": "PubMed",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it. Planned until Astra connects it and a new chat calls it once.",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra connected it in Claude on 2026-11-12, and one article search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it.",
       "does": "Lets chats search and read PubMed papers."
     },
     {
       "id": "yelp-mcp",
       "name": "Yelp",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider. Planned until Astra connects it and a new chat calls it once.",
+      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra connected it in Claude on 2026-11-12, and one restaurant search answered in a chat; the chat gets only the search tool (Yelp's results card can offer a quote or booking button, which only Astra presses). Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider.",
       "does": "Lets chats look up real restaurants for Spoonfed."
     },
     {
@@ -4720,6 +4842,76 @@
   ],
   "links": [
     {
+      "from": "program-82",
+      "to": "liminal-doors-world",
+      "carries": "manages",
+      "state": "now",
+      "why": "Door Dormouse looks after Liminal Doors: its floors, its tools and its build (Astra, 2026-11-11: \"this is about the Unity world that we're going to make\")."
+    },
+    {
+      "from": "program-82",
+      "to": "liminal-doors-concept-atlas",
+      "carries": "opens",
+      "state": "now",
+      "why": "The concept art for every floor, where Astra reviews the doors."
+    },
+    {
+      "from": "program-82",
+      "to": "found-floors-page",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Threshold's public page of found floors, offline while the repo is private."
+    },
+    {
+      "from": "program-82",
+      "to": "unity-editor",
+      "carries": "manages",
+      "state": "now",
+      "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+    },
+    {
+      "from": "program-82",
+      "to": "unity-hub",
+      "carries": "manages",
+      "state": "now",
+      "why": "Unity Hub opens the Liminal Doors project."
+    },
+    {
+      "from": "program-82",
+      "to": "vrchat-creator-companion",
+      "carries": "manages",
+      "state": "now",
+      "why": "Liminal Doors' VRChat Worlds SDK 3.10.5 and UdonSharp come from the Creator Companion's World template."
+    },
+    {
+      "from": "program-82",
+      "to": "blender",
+      "carries": "opens",
+      "state": "now",
+      "why": "The phone booth is modelled and baked in Blender (phone-booth-maker)."
+    },
+    {
+      "from": "program-82",
+      "to": "unity-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "MCP for Unity was set up in Liminal Doors first (2026-11-08); planned until its first check with Unity open."
+    },
+    {
+      "from": "program-82",
+      "to": "vrchat",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Liminal Doors goes up on VRChat with the description in docs/vrchat-world-description-20261019.md; not uploaded yet."
+    },
+    {
+      "from": "liminal-doors-world",
+      "to": "vrchat",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "Liminal Doors will be published on VRChat; not uploaded yet."
+    },
+    {
       "from": "pc-master-race",
       "to": "everything-search",
       "carries": "manages",
@@ -7110,15 +7302,15 @@
       "from": "claude-code",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "codex",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
       "state": "planned",
-      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled."
+      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled. Planned until a Codex chat calls it once."
     },
     {
       "from": "white-hat-lab",
@@ -7138,8 +7330,8 @@
       "from": "claude-code",
       "to": "alphaxiv-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "paper-girl-site",
@@ -7152,8 +7344,8 @@
       "from": "claude-code",
       "to": "pubmed-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "spoonfed-app",
@@ -7166,8 +7358,8 @@
       "from": "claude-code",
       "to": "yelp-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "voicemeeter-bug",
@@ -9897,6 +10089,7 @@
   "examples": {
     "infinite-pole-world": "astras-infinite-pole",
     "piranesi-house-world": "piranesi-house",
+    "liminal-doors-world": "liminal-doors",
     "unity-unicorn": "unity-unicorn",
     "rift-rabbit": "rift-rabbit",
     "health-hummy": "health-hummy",
