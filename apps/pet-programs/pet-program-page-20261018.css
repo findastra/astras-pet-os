@@ -731,6 +731,9 @@ img[hidden] { display: none !important; }
 .strap-spot { cursor: pointer; }
 .strap-spot:focus { outline: none; }
 .strap-halo { fill: none; stroke-width: 2.4; stroke: transparent; }
+/* Only the hit circle takes the click, so close spots never cover each other (Astra, 2026-11-12). */
+.strap-spot > * { pointer-events: none; }
+.strap-spot > .strap-hit { fill: transparent; stroke: none; pointer-events: all; }
 .strap-spot[data-state="used"] .strap-halo { stroke: var(--care); fill: rgba(108, 199, 232, .15); }
 .strap-spot[data-state="joined"] .strap-halo { stroke: var(--accent); fill: rgba(217, 148, 198, .15); }
 .strap-spot[data-state="head"] .strap-halo { stroke: var(--fix); fill: rgba(232, 197, 71, .15); }

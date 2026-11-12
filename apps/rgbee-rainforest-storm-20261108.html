@@ -25,6 +25,7 @@ p{margin:0 0 10px;color:var(--dim)}
 label{display:grid;gap:2px;font-size:13px;color:var(--dim);min-width:140px;flex:1}
 input[type=range]{width:100%;accent-color:var(--led1)}
 button{font:inherit;color:var(--bg);background:var(--led1);border:0;border-radius:999px;padding:8px 18px;font-weight:650;cursor:pointer;box-shadow:0 0 12px rgba(57,255,136,.55)}
+body.big-view{position:fixed;inset:0;z-index:9999;overflow:auto;margin:0}
 button.ghost{background:transparent;color:var(--ink);border:1px solid var(--led2);box-shadow:0 0 8px rgba(0,229,255,.35)}
 button:focus-visible,input:focus-visible{outline:2px solid var(--led2);outline-offset:3px}
 .lights{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:12.5px}
@@ -248,7 +249,14 @@ $('play').addEventListener('click', async () => {
   await ctx.resume(); playing = true; $('play').textContent = 'Pause';
   await lookLights(); if (helperUp) ask('/color', AMBIENT);
 });
-$('full').addEventListener('click', () => { const el = document.documentElement; if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().catch(() => {}); });
+// Full screen, or when the browser refuses it (a frame without permission, a locked-down browser), fill the window
+// instead of doing nothing (Astra, 2026-11-12: click-check found the button did nothing).
+$('full').addEventListener('click', () => {
+  const el = document.documentElement, big = () => document.body.classList.toggle('big-view');
+  if (document.fullscreenElement) { document.exitFullscreen(); return; }
+  if (document.body.classList.contains('big-view')) { big(); return; }
+  if (el.requestFullscreen) el.requestFullscreen().catch(big); else big();
+});
 </script>
 </body>
 </html>
