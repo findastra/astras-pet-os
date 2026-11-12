@@ -68,7 +68,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### API Fairy
 
-*Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).*
+*Redrawn in the Cage style from her 32x24 LCD original (mint hair, lilac wings, a purple dress, holding a key).*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
