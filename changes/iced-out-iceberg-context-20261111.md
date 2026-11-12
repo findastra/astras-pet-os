@@ -21,4 +21,21 @@ programs. Like Wonderland Launchpad, its page now fills from the map and pets.js
 `npm run build` rewrote the generated pages and lists. `npm test`: 412 pass, 6 skipped, 5 fail; the same 5
 (farm-setup and pet-chat-helper tests) fail on untouched main bdce21da on this PC.
 
+## Penguin colours and a button audit (same day)
+
+Astra: "we need to change the background color of this pet program to match the penguin, so like pink or maybe yellow
+because his feet are yellow. So change that and then do an audit of the buttons, make sure all the buttons work."
+
+- **Colours** (`apps/pet-programs/pet-program-page-20261018.css`, `:root[data-pet="portfolio-puffer"]`): a deep penguin
+  pink page (#7a0c62), panel lines in his belly pink (#fbbcda) and links, marks and the working-copy box in his feet
+  yellow (#fbdc02), sampled from his desktop drawing.
+- **Button audit** (The Farm's click-check on this page): 190 clicked, 187 work. The 3 it calls broken are not the
+  page's: two links into private repos (Handwritten Message Manager in portfolio-puffer, social-row in github-goldfish)
+  open only when signed in, and the chat's helper file is found two folders above the farm, so it is missing only when
+  the page runs from a temporary copy (it is there for Astra's farm). The chat window, opened by hand, lists what needs
+  her and answers its three quick questions.
+- **Checks** (`checks` in pets.json): GitHub, findastra.github.io, the Portfolio Review Desk, the GitHub profile, Astra's
+  Window Star and the System Map link are checked and work; the chat has an issue noted (no answer from a seat tried).
+- Astra's Window Star's black box came from its own page (findastra/astras-star-window#5).
+
 Built with Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-11.
