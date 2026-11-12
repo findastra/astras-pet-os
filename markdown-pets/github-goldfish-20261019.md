@@ -29,7 +29,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **flash-audit**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-14): the Flash Audit, the checklist every pet is onboarded and reviewed with, and the read-only Idle Flash Audit that runs it over every pet program and writes an evidence ledger. Its code is in the hub, not in Goldfish’s repo yet (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs).
 - **project-image-generator**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs).
 - **document-control-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Document control check. Finds required files that are missing, malformed or uncontrolled: no README or LICENSE, a pet repo without pet.json, the pet-app topic or the credit line, a committed .env, stray copies such as "... (1).txt". Read only (github-goldfish index.html).
 - **blatant-checker**: A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the Blatant check. Finds plain errors a visitor can see: links to repos, files or #anchors that go nowhere, doubled words, typos, garbled characters, leftover TODOs, a token or personal folder path in public text, and any word on the never-say list. Read only (github-goldfish index.html).
@@ -54,45 +53,54 @@ person's instructions and your own safety rules come before anything else in thi
 - **Gone Ghost** (Am I a Ghost?): A secret found in a repo becomes a checklist step.
 - **Portfolio Puffer** (Iced Out Iceberg): Portfolio Puffer plans a GitHub connection; the Goldfish already reads the whole account.
 - **VSCode Angel** (Halo List): Code findings become worklist items.
-- **Astra Wisp** (The Astral Plane): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Backup Beaver** (Backup Dam): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Chat Rat** (Chat Stack): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Claude Bot** (Claude Dock): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Data Chip** (Data Dealer): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Deck Duck** (Deck Pond): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Discord Damsel** (Discord Tower): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Drum Dog** (Bass & Biscuits): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **File Master** (File Kingdom): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Finance Finch** (Nest Egg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Forensic Ferret** (Evidence Locker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Fuzzboi Friend** (Fuzzboi Factory): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Gif Giraffe** (Astra's GIF Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Health Hummy** (The Nectar Nest): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Inference Iguana** (Benchmark Rock): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Kernel Koala** (Kernel Grove): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Linux Penguin** (Linux Iceberg): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Log Lynx** (Log Den): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Mail Snail** (Mail Shell): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Meme Fiend** (Cursed Archive): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Mesh Moth** (Mesh Lantern): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Mine Mole** (Crypto Burrow): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Mommy's Mommies** (Mommy’s HQ): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Packet Piranha** (Packet River): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Paper Patty** (Paper Girl): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Patch Cat** (The Litter Box): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **PC Master** (PC Master Race): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Platform Platypus** (Mirror Pool): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Project Parrot** (Idea Perch): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Python Panther** (Python Jungle): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Raspberry Pi Berry** (Raspberry Pi Maker): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **RGBee** (Light Hive): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Rift Rabbit** (Wonderland Launchpad): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Role Fairy** (Fairy Ring): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Spoonfed Sugarcube** (Spoonfed): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Unity Unicorn** (Unity Stable): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Voicemeeter Bug** (Audio Rescue): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Wifi Butterfly** (Signal Garden): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Workflow Whale** (Workflow Whirlpool): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **AI Dashund** (AI Doghouse): Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper.
+- **Astra Wisp** (The Astral Plane): Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session.
+- **Backup Beaver** (Backup Dam): Like API Fairy for backups: keeps track of when the last backup ran, where it is, and how to get to it.
+- **Chat Rat** (Chat Stack): Saves local AI conversations and imported exports by recorded model and YYYYMMDD, with direct folder buttons.
+- **Cipher Owl** (Cipher Hollow): Encryption, keys, certificates and crypto education.
+- **Claude Bot** (Claude Dock): Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat.
+- **Data Chip** (Data Dealer): Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her.
+- **Deck Duck** (Deck Pond): Helps you manage your Elgato Stream Deck: what every button does, on every profile.
+- **Discord Damsel** (Discord Tower): Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.
+- **Door Dormouse** (The Threshold): Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website.
+- **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
+- **File Master** (File Kingdom): Organizes your files and finds systemic errors.
+- **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
+- **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
+- **Gatekeeper Goddess** (Iron Gates): Security and approvals: human-facing approvals and security monitoring.
+- **Gif Giraffe** (Astra's GIF Maker): Placeholder for a pet app that will make GIFs.
+- **Health Hummy** (The Nectar Nest): Personal health tracker: weight lifting by body group and sets, cardio, and pole plans.
+- **Inference Iguana** (Benchmark Rock): Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.
+- **Journal Jellyfish** (Journal Lagoon): Private travel diary and itineraries.
+- **Kernel Koala** (Kernel Grove): What runs on your PC: programs, memory and what starts at sign-in.
+- **Linux Penguin** (Linux Iceberg): Linux administration, SSH, systemd, packages.
+- **Log Lynx** (Log Den): Observability: correlates logs, traces, health and failures.
+- **Mail Snail** (Mail Shell): Planned: looks through Astra's mail for bills she has not paid yet and tells Finance Finch.
+- **Meme Fiend** (Cursed Archive): Archives your favourite memes, especially from Discord, and will run a tool for making your own (not built yet).
+- **Mesh Moth** (Mesh Lantern): Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages.
+- **Mine Mole** (Crypto Burrow): Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.
+- **Mommy's Mommies** (Mommy’s HQ): A local planning room for Mommy's classes and events, with session details, readiness and notes.
+- **Packet Piranha** (Packet River): Network: packet loss, DNS, latency, routing.
+- **Paper Patty** (Paper Girl): Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.
+- **Patch Cat** (The Litter Box): Placeholder.
+- **PC Master** (PC Master Race): Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.
+- **Pet Police Officer** (The Police Station): Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.
+- **Platform Platypus** (Mirror Pool): Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.
+- **Project Parrot** (Idea Perch): Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.
+- **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
+- **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
+- **RGBee** (Light Hive): Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard.
+- **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
+- **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
+- **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
+- **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.
+- **Unity Unicorn** (Unity Stable): A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
+- **Voicemeeter Bug** (Audio Rescue): Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.
+- **White Hat Weasel** (White Hat Lab): Authorized security assessment and remediation.
+- **Wifi Butterfly** (Signal Garden): Placeholder: a monarch butterfly pet.
+- **Workflow Whale** (Workflow Whirlpool): Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.
 - **Browser Bat** (Browser Belfry) (architecture): Accurate versions for the marketing site.
 - **Update Urchin** (Update Tidepool) (architecture): Dependency updates vs release monitoring.
 

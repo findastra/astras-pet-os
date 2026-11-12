@@ -114,14 +114,19 @@
   }
   function reported(k) { var s = lights[k] || {}; return s.health === 'fix' || !!s.fix; }
   var SAYS = {
-    on: 'on. Click again to switch it off.',
-    off: 'off (the kill switch). Turning it back on asks you first.',
+    // Only her choice, kept in this browser: nothing on the PC reads it yet (Astra, 2026-11-08, answer 2: A).
+    on: 'on: your choice, saved in this browser. Nothing on the PC switches yet. Click again to switch it off.',
+    off: 'off: your choice, saved in this browser. Nothing on the PC is stopped yet. Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
-    // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise.
-    unseen: 'not seen running. Inference Iguana’s program-watch has not seen it open on this PC (it only reports while its watch runs, and only to a page opened on this PC). This light does not open or close it yet.',
-    running: 'open now: Inference Iguana’s program-watch saw it running. This light does not close it yet.',
+    // A 3rd party program: green while Inference Iguana's program-watch sees it open on this PC, red otherwise. A click
+    // on red opens it and a click on green closes it (asking first), through the watch (Astra, 2026-11-06: "press the
+    // red button, then it launches that program and the button turns green if its on and detected").
+    opening: 'opening… The light turns green once Inference Iguana sees it running.',
+    closing: 'closing… (never forced: if it asks to save, answer it in its own window).',
+    noWatch: 'Inference Iguana’s watch is not running, so this light cannot open it or see it. Open Benchmark Rock and click Keep watch in the background, then click the light again.',
+    farAway: 'this light opens programs only on a page this PC serves (an address starting with localhost or 127.0.0.1), not one opened from its file or from the web.',
     // A VR device (2026-10-23): green while SteamVR has it on, from Inference Iguana's device-watch.
     deviceOn: 'on: SteamVR has it connected (Inference Iguana’s device-watch reads SteamVR’s log).',
     deviceOff: 'off: SteamVR does not have it connected right now, or SteamVR is not running.',
@@ -130,6 +135,8 @@
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
   // System Map's, as in `third-party:<id>`.
   var running = {}, runningSeen = null, updates = {};
+  // From the same file: where the watch takes "open" and "close" (only on this PC), and the programs it never opens.
+  var control = null, cannotOpen = {}, busy = {}, loadPrograms = function () {};
   // A 3rd party program's second light: does it need an update? true, false, or not known (Astra, 2026-10-23).
   function isProgram(b) { return /^third-party:/.test(b.dataset.item || '') && !!b.dataset.unseen; }
   function update(b) { var u = updates[(b.dataset.item || '').replace(/^third-party:/, '')]; return u === true ? 'fix' : u === false ? 'ok' : ''; }
@@ -145,6 +152,7 @@
         if (b.dataset.presenceManaged) { managed[k] = true; continue; }
         var p = b.dataset.unseen ? (seen(b) ? 'on' : 'off') : power(k, planned[k]);
         b.classList.toggle('is-off', p === 'off');
+        b.classList.toggle('is-busy', !!busy[k]);
         b.setAttribute('aria-pressed', p === 'on' ? 'true' : 'false');
         b.setAttribute('aria-label', name + ': ' + (b.dataset.unseen ? (p === 'on' ? 'open now' : 'not seen running') : planned[k] ? 'off, not built yet' : p));
       } else {
@@ -200,7 +208,11 @@
     if (b.dataset.presenceManaged) return; // Damsel's local controls own these two live power lights.
     e.preventDefault();
     var k = b.dataset.item, planned = !!b.dataset.planned, next;
-    if (b.dataset.unseen && b.classList.contains('onoff')) { say(b, isDevice(b) ? (seen(b) ? SAYS.deviceOn : SAYS.deviceOff) : seen(b) ? SAYS.running + (runningSeen ? ' (' + localTime(runningSeen) + ')' : '') : SAYS.unseen); return; }
+    if (b.dataset.unseen && b.classList.contains('onoff')) {
+      if (isDevice(b)) { say(b, seen(b) ? SAYS.deviceOn : SAYS.deviceOff); return; }
+      switchProgram(b);
+      return;
+    }
     if (b.classList.contains('care')) {
       // The second light: what the check found, and a click reports an issue or takes your report back.
       var h = care(b), note = b.dataset.checkNote ? ' ' + b.dataset.checkNote : '';
@@ -225,6 +237,36 @@
     paint();
     say(b, SAYS[next]);
   });
+  // A 3rd party program's ON/OFF light: red opens it, green closes it (asking first), through Inference Iguana's watch.
+  // This script sends nothing: program-lights-control-20261106.js does, asked with an event, and answers with one.
+  document.addEventListener('pet-program-switched', function (e) {
+    var d = e.detail || {}, b = document.querySelector('button.light.onoff[data-item="' + String(d.item).replace(/["\\]/g, '') + '"]');
+    if (!busy[d.item]) return;
+    delete busy[d.item];
+    if (!d.ok) control = null;
+    loadPrograms();
+    paint();
+    if (b) { if (d.ok) sayAt(b, d.message || b.dataset.name + ': done.'); else say(b, SAYS.noWatch); }
+  });
+  function switchProgram(b) {
+    var id = b.dataset.item.replace(/^third-party:/, ''), k = b.dataset.item, on = seen(b);
+    if (busy[k]) { say(b, SAYS[busy[k]]); return; }
+    // A program the watch cannot open has no window to close either (Luna's Log's button audit, 2026-11-11: Node.js is
+    // green while scripts run, and a click asked "Close Node.js?" for nothing), so its light only says why.
+    if (cannotOpen[id]) { say(b, cannotOpen[id]); return; }
+    if (!localPage()) { say(b, SAYS.farAway); return; }
+    if (!control) { say(b, SAYS.noWatch); return; }
+    if (on && !window.confirm(T('Close ' + b.dataset.name + '? It closes the way its window’s X does, never forced.'))) return;
+    var job = on ? 'closing' : 'opening';
+    busy[k] = job;
+    paint();
+    say(b, SAYS[job]);
+    document.dispatchEvent(new CustomEvent('pet-program-switch', { detail: { item: k, id: id, open: !on, control: control } }));
+    // Opening waits up to 45 seconds for a window; past a minute with no answer, the light stops blinking.
+    setTimeout(function () { if (busy[k] === job) { delete busy[k]; paint(); } }, 60000);
+  }
+  // A page opened straight from its file has no address of its own, so the watch cannot tell it from any other page.
+  function localPage() { return /^https?:$/.test(location.protocol) && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname); }
   paint();
 
   // Inference Iguana's list, loaded again every five seconds while the page is open on this PC. A list older than a minute
@@ -247,19 +289,23 @@
           d.programs.forEach(function (p) { if (p && typeof p.id === 'string' && (p.update === true || p.update === false)) ups[p.id] = p.update; });
           updates = ups;
           runningSeen = d.time;
-        }
+          control = typeof d.control === 'string' && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null;
+          cannotOpen = d.cannot_open && typeof d.cannot_open === 'object' ? d.cannot_open : {};
+        } else control = null;
         running = now;
         paint();
       };
-      script.onerror = function () { script.remove(); running = {}; paint(); };
+      script.onerror = function () { script.remove(); running = {}; control = null; paint(); };
       document.head.appendChild(script);
     }
+    loadPrograms = load;
     load();
     setInterval(function () { if (!document.hidden) load(); }, 5000);
   })();
 
-  // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (the idle
-  // face blinking) after you use the page, idle again after two quiet minutes. The mood it is in lights up in the
+  // ---- The pet's mood while this page is open: sad when it was not opened for two weeks, then idle; awake (its own
+  // drawing, the `blink` frame with the twinkles: Astra, 2026-11-03, Flash Audit deck, answer 1: A) after you use the
+  // page, idle again after two quiet minutes. The mood it is in lights up in the
   // emotions tool panel (Astra, 2026-10-21: "get rid of this entirely; select from 9 emotions at bottom what to 'light
   // up'"); the cyberhome has no bubble any more. ----
   // Every face is already in the page; the script only shows one and hides the others (no picture address passes
@@ -285,7 +331,7 @@
   var quiet, blinker;
   function show(next) {
     mood = next;
-    face(den, mood === 'sad' ? 'sad' : 'idle');
+    face(den, mood === 'sad' ? 'sad' : mood === 'awake' && has(den, 'blink') ? 'blink' : 'idle');
     lightUp(mood === 'awake' ? 'blink' : mood);
     // No blinking: the pet stays still (Astra, 2026-10-24: "make the animation of the rabbit moving go away on the pet
     // program, just want to see it static").
@@ -304,7 +350,6 @@
     sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
   });
 
-  // The awake picture in the emotions tool panel stays still too (2026-10-24: "just want to see it static").
 
   // ---- Session notes: every submission goes to the backlog first (section 7). ----
   var backlog = read('backlog', { schema: 'pet-program-backlog-v1', store: STORE, entries: [] });
@@ -415,33 +460,154 @@
   }
   if (document.hidden) here('off'); else present();
 
-  // ---- The chat window (Astra, 2026-10-19): the button opens it at once, and you choose who answers. The page keeps
-  // no keys and sends nothing itself: your Claude or ChatGPT opens in a new tab with your message typed in (and copied,
-  // in case that tab's box is empty). Claude Code or Codex on this PC need Startup Star's link, so until it is built the
-  // message waits in the backlog. The chat's own left light switches it off. ----
+  // ---- The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20 and 2026-11-03): the button opens it at
+  // once, on Needs you when something waits on you, else on Ask. Questions about this page get an answer from the page
+  // itself straight away; anything else goes to who answers. Who answers is the AI seated in the pet's harness on this
+  // PC, Claude Code first, then Codex, then another AI the pet chat helper finds (Astra, 2026-11-03), or your own Claude
+  // or ChatGPT in a new tab, or a note. The pet chat helper (scripts/pet-chat-helper-20261103.cs, card 283) seats them:
+  // it says what it found on this PC, the answer streams into the window, and the agent's changes stay on its own branch
+  // until you press Push and say yes in the helper's box on your PC. With no helper, a message for the seat waits in the
+  // backlog and the pet says why. The page keeps no keys. The chat's own left light switches it off. ----
   var chat = document.getElementById('chat-open'), panel = document.getElementById('chat-panel');
   var chatText = document.getElementById('chat-text'), chatSend = document.getElementById('chat-send');
   var chatStatus = document.getElementById('chat-status'), chatSays = document.getElementById('chat-who-says'), chatLog = document.getElementById('chat-log');
+  var chatSeat = document.getElementById('chat-seat'), chatNow = document.getElementById('chat-who-now');
+  var chatPush = document.getElementById('chat-push'), chatNew = document.getElementById('chat-new');
   var whoButtons = panel ? panel.querySelectorAll('button[data-who]') : [];
+  var SEAT_SAYS = ' answers here as ' + config.pet + ', seated in ' + config.home + '\'s harness on this PC. It reads the plan and ' + config.pet + '\'s repo and changes files only on its own branch; nothing reaches GitHub until you press Push and say yes on your PC.';
   var WHO = {
+    'claude-code': { name: 'Claude Code', seat: true, says: 'Claude Code' + SEAT_SAYS },
+    codex: { name: 'Codex', seat: true, says: 'Codex' + SEAT_SAYS },
+    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC. It names what it found; only Claude Code and Codex can be seated so far.' },
     claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
       says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
     chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
       says: 'Opens your ChatGPT (chatgpt.com) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
-    'this-pc': { name: 'this PC (waiting in the backlog)',
-      says: 'Not built yet: Claude Code or Codex on this PC answer here once Startup Star\'s link is built (it waits on Astra\'s OK). Until then your message waits in the backlog, and the L3 seat stays empty.' },
     note: { name: 'the backlog', says: 'Your message goes to ' + STORE + ', like a session note.' },
   };
-  var chosen = read('chat-with', null), chatLines = read('chat', []);
+  var saved = read('chat-with', null);
+  var chosen = WHO[saved] ? saved : 'claude-code', chatLines = read('chat', []);
+  // The pet chat helper on this PC, reached only through pet-chat-link-20261103.js (this script sends nothing itself).
+  var link = window.PetChatLink || null, onThisPC = !!(link && link.onThisPC);
+  // `checking`: the helper was asked who is on this PC and has not answered yet. Until it does, a seat says so, never
+  // "not on this PC" (Astra, 2026-11-12, "make sure all these buttons work": the first answer can take a few seconds).
+  var helper = false, checking = false, agents = {}, order = [], petOk = false, petWhy = '', answering = false;
+  function agentOf(k) { return agents[k] || null; }
+  function ready(k) { var a = agentOf(k); return !!(helper && petOk && a && a.ready); }
+  // Why a seat cannot answer right now, in plain words; empty when it can.
+  function whyNot(k) {
+    if (!onThisPC) return 'The seat answers only on the page opened from the PC where the pet chat helper runs.';
+    if (checking) return 'The pet chat helper is still looking at what is on this PC.';
+    if (!helper) return 'The pet chat helper is not running on this PC. Startup Star starts it when you sign in; its menu has Pet chat, then Start Pet chat.';
+    if (!petOk) return petWhy || 'No agent can be seated for ' + config.pet + ' here.';
+    if (k === 'other-ai') {
+      var others = order.filter(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }).map(function (id) { return agentOf(id).name; });
+      return others.length ? 'Found on this PC: ' + others.join(', ') + '. The pet chat cannot seat ' + (others.length === 1 ? 'it' : 'them') + ' yet; Claude Code and Codex can.' : 'The pet chat helper found no other AI on this PC.';
+    }
+    var a = agentOf(k);
+    return !a ? 'The pet chat helper does not know ' + WHO[k].name + '.' : a.ready ? '' : a.name + ': ' + a.why + '.';
+  }
+  function seatState(k) {
+    if (checking) return 'checking…';
+    if (!helper) return onThisPC ? 'helper not running' : 'on this PC';
+    if (k === 'other-ai') return order.some(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }) ? 'found, not yet' : 'none found';
+    var a = agentOf(k);
+    return !a || !a.found ? 'not on this PC' : !a.seatable ? 'found, not yet' : !a.signed_in ? 'sign in once' : 'ready';
+  }
   function choose(k) {
-    chosen = WHO[k] ? k : null;
-    for (var i = 0; i < whoButtons.length; i++) whoButtons[i].setAttribute('aria-pressed', whoButtons[i].dataset.who === chosen ? 'true' : 'false');
-    if (chatSays) chatSays.textContent = chosen ? WHO[chosen].says : 'Choose who answers. This page remembers it on this device.';
+    chosen = WHO[k] ? k : 'claude-code';
+    for (var i = 0; i < whoButtons.length; i++) {
+      var b = whoButtons[i], state = b.querySelector('[data-seat-state]');
+      b.setAttribute('aria-pressed', b.dataset.who === chosen ? 'true' : 'false');
+      if (state && WHO[b.dataset.who] && WHO[b.dataset.who].seat) state.textContent = seatState(b.dataset.who);
+    }
+    var why = WHO[chosen].seat ? whyNot(chosen) : '';
+    if (chatSays) chatSays.textContent = WHO[chosen].says + (why ? ' ' + why : '');
+    if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another');
+    if (chatSeat) chatSeat.textContent = !WHO[chosen].seat ? 'Seat: empty' : checking ? 'Seat: checking…' : ready(chosen) ? 'Seat: ' + WHO[chosen].name + ' · ready' : 'Seat: empty · ' + WHO[chosen].name + ' answers once seated';
+  }
+  function askHelper(path, extra) {
+    var body = { pet: config.repo };
+    for (var k in extra || {}) body[k] = extra[k];
+    return link.ask(path, body);
+  }
+  // When the chat opens: who the helper found and whether this pet can have a seat. With nothing chosen yet, the first
+  // ready one in the farm's order answers (Claude Code, then Codex).
+  function hello() {
+    if (!link) { choose(chosen); return; }
+    checking = true; choose(chosen);
+    link.load(function (found) {
+      helper = found;
+      if (!helper) { checking = false; choose(chosen); return; }
+      askHelper('hello').then(function (r) { return r.json(); }).then(function (d) {
+        checking = false;
+        agents = {}; order = [];
+        (d.agents || []).forEach(function (a) { if (a && typeof a.id === 'string') { agents[a.id] = a; order.push(a.id); } });
+        petOk = d.pet_ok === true; petWhy = typeof d.pet_why === 'string' ? d.pet_why : '';
+        if (!WHO[saved]) for (var i = 0; i < order.length; i++) if (WHO[order[i]] && ready(order[i])) { chosen = order[i]; break; }
+        choose(chosen);
+        var seat = d.seat;
+        if (seat) {
+          showPush(seat.unpushed, seat.branch);
+          // An answer that finished after the page closed comes in now.
+          var last = chatLines[chatLines.length - 1];
+          if (typeof seat.last_said === 'string' && seat.last_said && last && last.from === 'me' && Date.parse(seat.last_at) > Date.parse(last.at)) say('pet', seat.last_said);
+        }
+        if (d.busy) chatStatus.textContent = config.pet + ' is still answering your last message.';
+      }).catch(function () { checking = false; helper = false; choose(chosen); });
+    });
+  }
+  function showPush(n, branch) {
+    if (!chatPush) return;
+    chatPush.hidden = !(helper && n > 0);
+    chatPush.textContent = 'Push ' + n + ' change' + (n === 1 ? '' : 's') + ' for review';
+    chatPush.title = 'Sends ' + branch + ' to GitHub after you say yes in the box on your PC. Nothing is merged.';
   }
   function drawChat() {
     if (!chatLog) return;
     chatLog.textContent = '';
-    chatLines.slice(-20).forEach(function (m) { chatLog.appendChild(el('li', localTime(m.at) + ' · to ' + m.to + ': ' + m.text)); });
+    chatLines.slice(-20).forEach(function (m) {
+      var li = el('li', m.text);
+      li.className = m.from === 'pet' ? 'pet' : 'me';
+      li.title = localTime(m.at) + (m.to ? ' · to ' + m.to : '');
+      chatLog.appendChild(li);
+    });
+    chatLog.scrollTop = 1e9;
+  }
+  function chatSay(from, text, to) {
+    chatLines.push({ at: new Date().toISOString(), from: from, to: to || null, text: text });
+    chatLines = chatLines.slice(-20);
+    write('chat', chatLines);
+    drawChat();
+  }
+  // Questions this page can answer from what it shows, the way Data Chip answered from its own dashboard.
+  function needsText() {
+    var items = panel ? panel.querySelectorAll('.chat-needs li') : [];
+    if (!items.length) return 'Nothing needs you right now.';
+    var lines = [];
+    for (var i = 0; i < items.length; i++) lines.push('• ' + items[i].textContent.trim());
+    return items.length + (items.length === 1 ? ' thing needs' : ' things need') + ' you:\n' + lines.join('\n');
+  }
+  function toolsText() {
+    var l1 = document.getElementById(config.petSlug + '-L1-control-panel');
+    var cares = l1 ? l1.querySelectorAll('.light.care') : [];
+    if (!cares.length) return 'I have no tools listed yet.';
+    var n = { works: 0, fix: 0, update: 0, unset: 0 };
+    for (var i = 0; i < cares.length; i++) {
+      var c = cares[i].classList;
+      if (c.contains('is-unset')) n.unset++; else if (c.contains('is-update')) n.update++; else if (c.contains('is-fix')) n.fix++; else n.works++;
+    }
+    return cares.length + ' things in L1: ' + n.works + ' checked and working, ' + n.fix + ' with an issue or not checked yet, ' + n.update + ' with an update waiting for your OK, ' + n.unset + ' not created yet.';
+  }
+  var QUICK = {
+    explain: function () { return config.summary + ' Its tools and programs are in L1, its tricks in L2, what L3 asks you in L3, and your approvals, grants and Pet ID in L4.'; },
+    needs: needsText,
+    tools: toolsText,
+  };
+  function showView(v) {
+    var views = panel ? panel.querySelectorAll('.chat-view') : [], tabs = panel ? panel.querySelectorAll('.chat-tabs button') : [];
+    for (var i = 0; i < views.length; i++) views[i].hidden = views[i].dataset.viewOf !== v;
+    for (var j = 0; j < tabs.length; j++) tabs[j].setAttribute('aria-pressed', tabs[j].dataset.view === v ? 'true' : 'false');
   }
   function chatOff() { var s = lights['chat:' + config.petSlug] || {}; return s.power ? s.power === 'off' : !!s.off; }
   function addNote(message) {
@@ -457,35 +623,132 @@
   function openChat(open) {
     panel.hidden = !open;
     chat.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open && chatText) chatText.focus();
+    if (open) {
+      showView(panel.querySelectorAll('.chat-needs li').length && !chatLines.length ? 'needs' : 'ask');
+      if (chatText) chatText.focus();
+      hello();
+    }
+  }
+  // The seated agent's answer, typed into the pet's bubble as it comes: one JSON line at a time from the helper.
+  function answer(message) {
+    answering = true; chatSend.textContent = 'Stop'; chatStatus.textContent = '';
+    var line = { at: new Date().toISOString(), from: 'pet', to: null, text: '' };
+    chatLines.push(line); drawChat();
+    var bubble = chatLog && chatLog.children[chatLog.children.length - 1];
+    function show() { if (bubble) bubble.textContent = line.text || '…'; if (chatLog) chatLog.scrollTop = 1e9; }
+    function onLine(text) {
+      var m; try { m = JSON.parse(text); } catch (e) { return; }
+      if (m.type === 'say' && typeof m.text === 'string') { line.text += m.text; show(); }
+      else if (m.type === 'doing' && typeof m.text === 'string') chatStatus.textContent = m.text + '…';
+      else if (m.type === 'seat' && chatSeat) chatSeat.textContent = 'Seat: ' + m.agent + ' · working on ' + m.branch;
+      else if (m.type === 'problem' && typeof m.text === 'string') { line.text += (line.text ? '\n\n' : '') + m.text; show(); }
+      else if (m.type === 'done') {
+        var changed = Array.isArray(m.changed) ? m.changed.filter(function (f) { return typeof f === 'string'; }) : [];
+        chatStatus.textContent = changed.length ? 'Changed on ' + m.branch + ': ' + changed.join(', ') + '.' : '';
+        showPush(m.unpushed, m.branch);
+      }
+    }
+    var buffer = '';
+    askHelper('ask', { agent: chosen, text: message }).then(function (r) {
+      if ((r.headers.get('Content-Type') || '').indexOf('ndjson') < 0) return r.json().then(function (d) { line.text = d.said || 'The pet chat helper said no.'; });
+      var reader = r.body.getReader(), decoder = new TextDecoder();
+      function pump() {
+        return reader.read().then(function (x) {
+          if (x.done) { if (buffer) onLine(buffer); return; }
+          buffer += decoder.decode(x.value, { stream: true });
+          var parts = buffer.split('\n'); buffer = parts.pop();
+          parts.forEach(onLine);
+          return pump();
+        });
+      }
+      return pump();
+    }).catch(function () {
+      line.text += (line.text ? '\n\n' : '') + 'I lost the pet chat helper while answering. Anything already changed is kept on my branch.';
+    }).then(function () {
+      answering = false; chatSend.textContent = 'Send';
+      if (!line.text) line.text = 'I have no answer this time.';
+      chatLines = chatLines.slice(-20); write('chat', chatLines); drawChat();
+      if (chatSeat && ready(chosen)) chatSeat.textContent = 'Seat: ' + WHO[chosen].name + ' · ready';
+    });
+  }
+  function send(message) {
+    if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return false; }
+    var to = WHO[chosen];
+    chatSay('me', message, to.name);
+    if (to.seat && ready(chosen)) { answer(message); return true; }
+    if (to.url) {
+      var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
+        (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
+      try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
+      var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
+      if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
+      else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
+      return true;
+    }
+    if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return false; }
+    chatStatus.textContent = 'Saved to ' + STORE + '.';
+    if (to.seat) chatSay('pet', 'Nobody is in my seat yet. ' + whyNot(chosen) + ' I put your message in ' + STORE + ', and whoever sits here next picks it up from there. Ask me about this page (the buttons above) and I answer right away.');
+    return true;
   }
   if (chat && panel && chatText && chatSend) {
     chat.addEventListener('click', function () { openChat(panel.hidden); });
+    var close = document.getElementById('chat-close');
+    if (close) close.addEventListener('click', function () { openChat(false); chat.focus(); });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { openChat(false); chat.focus(); } });
-    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); });
+    // Your pick stays when the chat is closed and opened again; before 2026-11-12 the next hello() picked the first
+    // ready seat over it.
+    for (var w = 0; w < whoButtons.length; w++) whoButtons[w].addEventListener('click', function () { choose(this.dataset.who); write('chat-with', chosen); saved = chosen; });
+    var tabs = panel.querySelectorAll('.chat-tabs button');
+    for (var t = 0; t < tabs.length; t++) {
+      // Each tab names the view it shows (aria-controls), for screen readers and for The Farm's click-check.
+      var view = panel.querySelector('.chat-view[data-view-of="' + tabs[t].dataset.view + '"]');
+      if (view) { if (!view.id) view.id = config.petSlug + '-chat-' + tabs[t].dataset.view; tabs[t].setAttribute('aria-controls', view.id); }
+      tabs[t].addEventListener('click', function () { showView(this.dataset.view); });
+    }
+    var quick = panel.querySelectorAll('.chat-quick button');
+    for (var q = 0; q < quick.length; q++) quick[q].addEventListener('click', function () {
+      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to ask.'; return; }
+      chatSay('me', this.textContent);
+      chatSay('pet', QUICK[this.dataset.quick]());
+    });
+    // A Needs you item takes you to its place on the page, with its panel open, and the chat steps aside.
+    var gotos = panel.querySelectorAll('[data-chat-goto]');
+    for (var g = 0; g < gotos.length; g++) gotos[g].addEventListener('click', function () {
+      var target = document.getElementById((this.getAttribute('href') || '').slice(1));
+      if (target && target.tagName === 'DETAILS') target.open = true;
+      openChat(false);
+    });
     chatText.addEventListener('input', function () { chatStatus.textContent = ''; });
     chatSend.addEventListener('click', function () {
+      // While the seat answers, Send is Stop.
+      if (answering) { if (helper) askHelper('stop').catch(function () {}); chatStatus.textContent = 'Stopping…'; return; }
       var message = chatText.value.trim();
       if (!message) { chatStatus.textContent = 'Type a message first.'; chatText.focus(); return; }
-      if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return; }
-      if (!chosen) { chatStatus.textContent = 'Choose who should answer first.'; return; }
-      var to = WHO[chosen];
-      if (to.url) {
-        var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
-          (config.repoUrl ? ' (' + config.repoUrl + ')' : '') + '.\n\n' + message;
-        try { if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function () {}); } catch (e) { /* the new tab still has it */ }
-        var tab = window.open(to.url + encodeURIComponent(prompt), '_blank');
-        if (tab) { tab.opener = null; chatStatus.textContent = 'Opened ' + to.name + ' in a new tab. Your message is on the clipboard too, in case its box is empty.'; }
-        else chatStatus.textContent = 'Your browser blocked the new tab. Your message is on the clipboard: open ' + to.name + ' and paste it.';
-      } else {
-        if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return; }
-        chatStatus.textContent = 'Saved to ' + STORE + '.';
-      }
-      chatLines.push({ at: new Date().toISOString(), to: to.name, text: message });
-      chatLines = chatLines.slice(-20);
-      write('chat', chatLines);
-      chatText.value = '';
-      drawChat();
+      if (send(message)) chatText.value = '';
+    });
+    if (chatPush) chatPush.addEventListener('click', function () {
+      if (!helper || answering) return;
+      chatStatus.textContent = 'Say yes or no in the box on your PC…';
+      askHelper('push').then(function (r) { return r.json(); }).then(function (d) {
+        chatStatus.textContent = d.said || '';
+        if (d.ok) {
+          showPush(0, d.branch);
+          var url = null; try { url = new URL(d.url); } catch (e) { url = null; }
+          if (url && url.protocol === 'https:' && url.hostname === 'github.com') {
+            var a = el('a', 'Open the pull request on GitHub');
+            a.setAttribute('href', url.href); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
+            chatStatus.appendChild(document.createTextNode(' '));
+            chatStatus.appendChild(a);
+          }
+        }
+      }).catch(function () { chatStatus.textContent = 'I lost the pet chat helper. Nothing was pushed.'; });
+    });
+    // Start over: a new conversation with the seat; the changes so far stay on the branch.
+    if (chatNew) chatNew.addEventListener('click', function () {
+      if (answering) return;
+      chatLines = []; write('chat', chatLines); drawChat();
+      chatStatus.textContent = 'Starting over.';
+      if (helper) askHelper('new').catch(function () {});
     });
     choose(chosen);
     drawChat();
@@ -541,7 +804,7 @@
         var b = el('button', null, 'light ' + kind);
         b.type = 'button';
         b.dataset.item = item; b.dataset.name = name;
-        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
+        b.title = kind === 'onoff' ? 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.' : 'Working correctly or requires maintenance: click to mark';
         b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
         pair.appendChild(b);
       });
@@ -713,6 +976,17 @@
     if (pill.querySelector('.pill-body').contains(e.target) && String(window.getSelection())) return;
     var more = pill.querySelector(':scope > .pill-more');
     if (more) more.open = !more.open;
+  });
+
+  // ---- Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not
+  // the top ones or the bottom ones, and definitely not the unified footer"). The top and bottom panels are marked
+  // data-stays-open: a click on their label does nothing, and anything that closes one opens it again. ----
+  document.addEventListener('click', function (e) {
+    var head = e.target.closest && e.target.closest('summary');
+    if (head && head.parentElement && head.parentElement.matches('details.panel[data-stays-open]')) e.preventDefault();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('details.panel[data-stays-open]'), function (box) {
+    box.addEventListener('toggle', function () { if (!box.open) box.open = true; });
   });
 
   // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes

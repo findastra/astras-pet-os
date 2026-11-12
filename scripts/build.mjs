@@ -5,7 +5,8 @@
 //   art/moods/<folder>/<mood>.png  each desktop-art pet's moods with the shared mood stickers (build-mood-stickers-20261024.mjs)
 //   art/latest/                  every dated picture at a name that never changes, the newest drawing (one-picture-home-20261024.mjs)
 //   ROSTER.md                    the running list of who lives here
-//   README.md                    the pet table between the pets:start / pets:end markers
+//   README.md                    the pet table between the pets:start / pets:end markers, and the pet stages chart
+//                                between stages:start / stages:end (pet-stages-20261102.mjs)
 //   art/roster.png               every pet in every mood on one labelled sheet
 //   RELATIONS.md, MOOD-KEY.md   how the pets relate, and what each mood means for each pet (relations-20261009.mjs)
 //   system-map-20261012.html       the 3D map of Astra's PetOS, from pets.json, pet-programs.json and system-map.json (system-map-20261012.mjs)
@@ -32,6 +33,7 @@ import { redactData, assertPublic } from './public-safety-20261014.mjs';
 import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
 import { writeMarkdownPets } from './markdown-pets-20261019.mjs';
 import { writeDeveloperWords } from './developer-words-20261019.mjs';
+import { applyStages } from './pet-stages-20261102.mjs';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -81,7 +83,8 @@ writeMarkdownPets('.');
 for (const { path, kind } of redacted) console.log(`Public safety: left out a ${kind} at ${path}; keep it on this PC (docs/local-services-20261014.md).`);
 
 const readme = readFileSync('README.md', 'utf8');
-const nextReadme = applyTable(readme, registry);
+// The pet stages chart, from each pet program's stage (Astra, 2026-11-02).
+const nextReadme = applyStages(applyTable(readme, registry), JSON.parse(readFileSync('pet-programs.json', 'utf8')).programs, registry);
 if (nextReadme !== readme) writeFileSync('README.md', nextReadme);
 
 if (!metadataOnly) execFileSync(process.execPath, ['scripts/frames-sheet.mjs', '--thumb', '96'], { stdio: 'ignore' });

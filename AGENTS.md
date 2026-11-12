@@ -61,6 +61,10 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
   Pets and pet programs (rings 2 and 3) are worked on branches too.
 - Nobody becomes an animal by saying so. New pets wait in `candidates` until Astra moves them in; scripts that act
   on a repo call `scripts/animal-guard-20261013.mjs` first.
+- **A pet's stage follows its repo** (Astra, 2026-11-02). When the Friendly Farmer hatches a pet, or an audit (his
+  round, `skills/pet-finder`'s `wrong-stage`, a Flash Audit) finds a repo at the wrong stage, he updates its `stage` in
+  `pet-programs.json` (and its pets.json entry when it becomes an animal or stops being one), runs `npm run build`, and
+  opens a pull request for Astra. The stages and their counts are the README's [Pet stages](README.md#pet-stages) chart.
 - Farms never connect to each other; GitHub is the only shared place. Local models change only through Astra.
 - Warn Astra plainly when a word or structure she uses is a blatant programming error, with the standard term.
 - **L1 to L4:** L1 Programs (the third-party programs it runs, plus the programs and tools it creates), L2 Pet program (dashboard and runtime),

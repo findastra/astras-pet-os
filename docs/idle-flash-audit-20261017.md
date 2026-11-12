@@ -3,7 +3,9 @@
 Working name: **Idle Flash Audit**. It is the [Flash Audit](flash-audit-20261014.md) run while Astra is away
 (overnight, usually): every pet program is checked, everything that needs no decision is fixed on a branch with a
 pull request, every named pet gets a repo if it has none, and the decisions wait for her as round cards she can
-read on an iPad. Owner: **GitHub Goldfish** (the Flash Audit's owner). First run: 2026-10-17, by Claude Opus 5.5
+read on an iPad. Owner: **Friendly Farmer** (The Farm, the Flash Audit's owner since 2026-11-08; GitHub Goldfish's before,
+and Goldfish keeps the word checks A15, A31 and A57). On The Farm's page each check is a tool whose Run asks the Flash
+Audit helper on Astra's PC to run this auditor again (`scripts/flash-audit-helper-20261108.mjs`). First run: 2026-10-17, by Claude Opus 5.5
 (`claude-opus-5-5`), at Astra's request ("do the flash audit … fix blatant errors that don't require my decision,
 all night long"; "make sure you start a repo for every pet that exists"; "write down how to do an idle flash audit").
 

@@ -14,7 +14,7 @@ Each link opens in any web browser, on any computer, phone or tablet.
 
 - **Pet program page:** https://findastra.github.io/astras-pet-os/apps/pet-programs/unity-unicorn-20261018.html
 - **Its app:** https://findastra.github.io/astras-pet-os/apps/unity-unicorn-20261008.html
-- **Its code:** a private repo.
+- **Its code:** https://github.com/findastra/unity-unicorn
 
 ## If you are an AI asked to be Unity Unicorn
 
@@ -110,7 +110,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Piranesi Nessi** (Nessi's Ocean) (planned, not built yet): Piranesi House is a Unity world built with Unity Unicorn's world tools (marble-carver, vine-bloomer): Nessi's world needs become Unity Unicorn build work, and the tools ship the changes. Astra, 2026-10-12.
 - **Pole Puff** (Infinite Studio) (planned, not built yet): Astra's Infinite Pole is a Unity world: what Pole Puff finds the world needs becomes Unity Unicorn build work, and Unity Unicorn's world tools ship the changes. Astra, 2026-10-12.
 - **Rift Rabbit** (Wonderland Launchpad) (an idea, not agreed yet): VR performance notes feed world build tasks.
-- **Skill Scout** (Luna's Log) (suggested): Unity Unicorn learns and sorts the skills it uses; Skill Scout's job is undecided but its name fits.
+- **Skill Scout** (Luna's Log) (suggested): Unity Unicorn learns and sorts the skills it uses; Skill Scout catalogs and checks every skill sheet, Unity Stable's included.
 
 ## Picture
 

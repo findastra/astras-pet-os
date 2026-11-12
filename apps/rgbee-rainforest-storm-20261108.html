@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rainforest storm · Light Hive</title>
+<!-- Light Hive's rainforest-storm-tool (Astra, 2026-11-08: "a section where I can play ambient music like a rainforest
+     and have lightning flashing"). The sound is made live in the page (rain, drops, wind, forest life, frogs, falls,
+     thunder): no files, no copyright. Each lightning strike flashes the screen and, through Light Hive's helper on
+     this PC, every light it reaches; the thunder follows the flash like a real storm. Never more than three flashes a
+     second (RGBee's light-safety rule; the helper enforces it too), and soft glows instead of flashes under reduced
+     motion. Two screens with the same storm level strike at the same seconds (the storm is worked out from the clock),
+     so the desktop and the laptop flash together.
+     2026-11-11 (Astra: "I like being able to change the rainstorm, but that one's going to need a lot of presets...
+     it seems kind of unrealistic. Like it needs to be more variable"; "neither of them have the more details in the
+     tool"): twelve presets, each with its own sound and its own colour for the lights between strikes; the rain, wind
+     and life keep shifting by themselves (Keeps changing); close strikes crack before they rumble; the controls sit
+     under the picture, not on it; no background of its own inside its tool box; More details.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-08 and 2026-11-11. -->
+<style>
+:root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
+  --green:#39ff88;--cyan:#00e5ff;--amber:#ffc23d;--p:#39ff88}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+html.in-tool,html.in-tool body{background:transparent}
+main{padding:20px;display:grid;gap:18px}
+html.in-tool main{padding:4px 2px 8px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:600}
+p{margin:0}
+
+/* The picture: the canopy in the rain, the bolt, the flash. Play sits in the middle of it. */
+.stage{position:relative;height:min(62vh,520px);border-radius:18px;overflow:hidden;background:#05080a;border:1px solid var(--card-line)}
+html.in-tool .stage{height:320px}
+.stage:fullscreen{height:100vh;border-radius:0;border:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.flash{position:absolute;inset:0;background:#dfe9ff;opacity:0;pointer-events:none}
+.over{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.play{pointer-events:auto;font:inherit;font-size:18px;font-weight:700;cursor:pointer;border:0;border-radius:999px;padding:14px 30px;background:var(--p);color:#050507;
+  box-shadow:0 0 26px color-mix(in srgb,var(--p) 60%,transparent)}
+.stage.playing .play{background:rgba(5,7,9,.55);color:var(--ink);border:1px solid rgba(255,255,255,.25);box-shadow:none;backdrop-filter:blur(4px);font-size:15px;padding:9px 20px;align-self:end;margin-bottom:16px}
+.now{position:absolute;left:16px;top:12px;font-size:15px;color:var(--soft);text-shadow:0 1px 6px #000}
+.now b{color:var(--ink)}
+.full{position:absolute;right:12px;top:10px;font:inherit;font-size:14px;cursor:pointer;border-radius:999px;padding:6px 14px;background:rgba(5,7,9,.55);color:var(--ink);border:1px solid rgba(255,255,255,.25)}
+
+/* Presets */
+.presets{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.preset{font:inherit;text-align:left;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:0 10px;align-items:center;padding:10px 12px;border-radius:14px;
+  background:var(--card);border:1px solid var(--card-line);color:var(--ink)}
+.preset i{grid-row:1/3;width:18px;height:18px;border-radius:50%;background:var(--s);box-shadow:0 0 10px color-mix(in srgb,var(--s) 70%,transparent)}
+.preset b{font-weight:650;font-size:15.5px}
+.preset span{color:var(--soft);font-size:13.5px;line-height:1.35}
+.preset[aria-pressed=true]{border-color:var(--s);background:color-mix(in srgb,var(--s) 14%,rgba(255,255,255,.03))}
+
+/* The mix */
+.mix{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px 22px;padding:16px 18px;border-radius:18px;background:var(--card);border:1px solid var(--card-line)}
+.mix label{display:grid;grid-template-columns:1fr auto;gap:4px 10px;color:var(--soft);font-size:15px}
+.mix label input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--p)}
+.mix output{color:var(--ink);font-variant-numeric:tabular-nums}
+.check{display:flex !important;align-items:center;gap:10px;grid-template-columns:none !important}
+.check input{width:20px;height:20px;accent-color:var(--p)}
+.said{color:var(--cyan);font-size:15px;min-height:1.5em}
+.lights{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border-radius:999px;padding:4px 12px;font-size:14px;border:1px solid var(--card-line);color:var(--soft)}
+.pill.on{border-color:color-mix(in srgb,var(--green) 70%,transparent);color:var(--ink)}
+.pill.wait{border-color:color-mix(in srgb,var(--amber) 70%,transparent)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+/* More details: the same four lines as every panel on the pet program page. */
+.about{color:var(--soft);font-size:15px}
+.about summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.about summary::-webkit-details-marker{display:none}
+.about summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent;transition:transform .15s}
+.about[open] summary::before{transform:rotate(90deg)}
+.about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
+.about dt{color:var(--ink);font-weight:600}
+.about dd{margin:0}
+@media (max-width:560px){.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}html.in-tool .stage{height:240px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="stage" id="stage">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="flash" id="flash" aria-hidden="true"></div>
+    <p class="now" id="now"></p>
+    <button class="full" id="full" type="button">Full screen</button>
+    <div class="over"><button class="play" id="play" type="button">Play the storm</button></div>
+  </div>
+
+  <section aria-labelledby="presetsT">
+    <h2 id="presetsT">Presets</h2>
+    <div class="presets" id="presets" role="group" aria-labelledby="presetsT"></div>
+  </section>
+
+  <section aria-labelledby="mixT">
+    <h2 id="mixT">Your mix</h2>
+    <div class="mix">
+      <label>Rain <output id="rainSaid"></output><input id="rain" type="range" min="0" max="100"></label>
+      <label>Wind <output id="windSaid"></output><input id="wind" type="range" min="0" max="100"></label>
+      <label>Forest life <output id="lifeSaid"></output><input id="life" type="range" min="0" max="100"></label>
+      <label>Lightning <output id="stormSaid"></output><input id="storm" type="range" min="0" max="6" step="1"></label>
+      <label>Volume <output id="volSaid"></output><input id="vol" type="range" min="0" max="100"></label>
+      <label class="check"><input id="drift" type="checkbox"> Keeps changing by itself</label>
+    </div>
+  </section>
+
+  <p class="said" id="said" role="status"></p>
+  <div class="lights" id="lights" aria-label="What the lightning reaches"></div>
+
+  <details class="about">
+    <summary>More details</summary>
+    <dl>
+      <dt>How it works</dt><dd>Pick a preset, then press Play. The rain, wind and forest are made live as it plays, so it never loops; with Keeps changing on, they drift by themselves like real weather. Lightning flashes the picture and every light Light Hive reaches, and the thunder follows: the closer the strike, the sooner and louder. Between strikes your lights hold the preset’s colour. Full screen turns the screen itself into a light.</dd>
+      <dt>Where it comes from</dt><dd>The sound is made in this page by your browser, so there are no recordings and nothing to download. The lights go through Light Hive’s helper on this PC (findastra/rgbee), only from your PC’s copy of the page. Two screens on the same lightning level strike at the same seconds, so the desktop and the laptop flash together.</dd>
+      <dt>Your rules</dt><dd>2026-11-08: a rainforest with lightning across every light; never more than three flashes a second, soft glows when your computer asks for less motion; 2026-11-11: lots of presets, more variable, easy to read, details in here.</dd>
+      <dt>Not built yet</dt><dd>Real recorded rainforest sound (the choice is on the deck); the laptop’s own lights; the helper starting by itself at sign-in (rgbee card 002).</dd>
+    </dl>
+  </details>
+</main>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+// Inside its tool box on the pet program page: no background of its own, and the box is told how tall it is.
+let inTool = false; try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
+if (inTool) document.documentElement.classList.add('in-tool');
+function tell() { if (inTool) try { parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.querySelector('main').getBoundingClientRect().height) + 2 }, '*'); } catch (e) {} }
+if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('main'));
+document.querySelector('.about').addEventListener('toggle', tell);
+
+// Light Hive's helper is found the house way (like program-watch): only a page opened on this PC reads the address it
+// writes in Documents\Astra's PetOS Data\rgbee, so the live site never reaches the lights and no address is published.
+const ON_THIS_PC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js"; // from apps/ up to Documents
+let HELPER = null;
+function findHelper() {
+  return new Promise((done) => {
+    if (!ON_THIS_PC) { HELPER = null; done(); return; }
+    const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
+    s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
+    s.onerror = () => { s.remove(); HELPER = null; done(); };
+    document.head.appendChild(s);
+  });
+}
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+const STRIKE = { r: 205, g: 220, b: 255 };               // lightning's blue-white
+
+/* ---------- the presets: the mix, the sound's character, and the lights' colour between strikes ----------
+   hiss: how bright the rain sounds (Hz); drops: big single drops on leaves or a roof (0-1) and their pitch;
+   insects, birds, frogs: forest life (0-1 each, scaled by Forest life); falls: a waterfall's roar (0-1);
+   near/far: how close the strikes come (0 overhead, 1 far off); light: the lights between strikes. */
+const PRESETS = [
+  { id: 'drizzle', name: 'Light drizzle', say: 'Soft rain, birds still singing', rain: 25, wind: 15, life: 60, storm: 0, vol: 65,
+    hiss: 3600, drops: .25, dropHz: 1800, insects: .5, birds: .8, frogs: 0, falls: 0, near: .6, far: 1, light: '#3fd17a', bright: 30 },
+  { id: 'steady', name: 'Steady rain', say: 'An even, all-day rain', rain: 60, wind: 25, life: 35, storm: 0, vol: 70,
+    hiss: 2600, drops: .35, dropHz: 1500, insects: .5, birds: .3, frogs: .1, falls: 0, near: .5, far: 1, light: '#1f9e58', bright: 35 },
+  { id: 'leaves', name: 'Rain on big leaves', say: 'Fat drops tapping the canopy', rain: 50, wind: 20, life: 40, storm: 1, vol: 70,
+    hiss: 2200, drops: .9, dropHz: 1100, insects: .4, birds: .4, frogs: .2, falls: 0, near: .5, far: 1, light: '#2bbf5a', bright: 35 },
+  { id: 'roof', name: 'Under a tin roof', say: 'Ringing drops overhead', rain: 65, wind: 20, life: 20, storm: 1, vol: 65,
+    hiss: 4200, drops: 1, dropHz: 3200, insects: .3, birds: 0, frogs: .2, falls: 0, near: .45, far: 1, light: '#c9a46a', bright: 30 },
+  { id: 'distant', name: 'Distant storm', say: 'Thunder rolling far away', rain: 50, wind: 35, life: 35, storm: 2, vol: 70,
+    hiss: 2600, drops: .35, dropHz: 1400, insects: .5, birds: .2, frogs: .3, falls: 0, near: .6, far: 1, light: '#1d7f6a', bright: 30 },
+  { id: 'overhead', name: 'Storm overhead', say: 'Cracks right above you', rain: 85, wind: 60, life: 15, storm: 5, vol: 75,
+    hiss: 2400, drops: .5, dropHz: 1300, insects: .2, birds: 0, frogs: .2, falls: 0, near: 0, far: .45, light: '#2a4dbf', bright: 30 },
+  { id: 'monsoon', name: 'Monsoon downpour', say: 'Heavy, roaring, gusting', rain: 100, wind: 75, life: 10, storm: 3, vol: 75,
+    hiss: 2000, drops: .6, dropHz: 1200, insects: .1, birds: 0, frogs: .1, falls: .35, near: .15, far: .8, light: '#0f6b52', bright: 35 },
+  { id: 'night', name: 'Night jungle', say: 'Frogs and insects in the rain', rain: 30, wind: 15, life: 85, storm: 1, vol: 65,
+    hiss: 2800, drops: .4, dropHz: 1500, insects: 1, birds: 0, frogs: 1, falls: 0, near: .6, far: 1, light: '#123d6e', bright: 25 },
+  { id: 'dawn', name: 'Dawn after rain', say: 'Dripping leaves, a bird chorus', rain: 10, wind: 10, life: 95, storm: 0, vol: 65,
+    hiss: 3800, drops: .7, dropHz: 1700, insects: .4, birds: 1, frogs: .2, falls: 0, near: .7, far: 1, light: '#ffb46b', bright: 35 },
+  { id: 'falls', name: 'Waterfall pool', say: 'Falling water and light rain', rain: 35, wind: 20, life: 50, storm: 0, vol: 70,
+    hiss: 3000, drops: .3, dropHz: 1500, insects: .5, birds: .5, frogs: .2, falls: 1, near: .6, far: 1, light: '#11a7a0', bright: 35 },
+  { id: 'sleep', name: 'Sleep', say: 'Gentle and dim, no lightning', rain: 45, wind: 10, life: 15, storm: 0, vol: 45,
+    hiss: 2200, drops: .3, dropHz: 1300, insects: .4, birds: 0, frogs: .2, falls: 0, near: 1, far: 1, light: '#0d3326', bright: 12 },
+  { id: 'wild', name: 'Surprise me', say: 'A new storm every time', wild: true, light: '#ff2bd6' }
+];
+const save = (k, v) => { try { localStorage.setItem('light-hive-storm:' + k, v); } catch (e) {} };
+const load = (k) => { try { return localStorage.getItem('light-hive-storm:' + k); } catch (e) { return null; } };
+let preset = null;          // the preset in use (its sound and light); the sliders may have moved from it
+const MIX = ['rain', 'wind', 'life', 'storm', 'vol'];
+function pick(p) {
+  if (p.wild) {
+    const r = (a, b) => Math.round(a + Math.random() * (b - a)), base = PRESETS[Math.floor(Math.random() * (PRESETS.length - 1))];
+    p = { ...base, id: 'wild', name: 'Surprise: ' + base.name.toLowerCase(), rain: r(15, 100), wind: r(5, 80), life: r(10, 95), storm: r(0, 5),
+      drops: Math.random(), dropHz: r(1000, 3400), near: Math.random() * .6, light: '#' + [r(0, 80), r(60, 200), r(60, 220)].map((n) => n.toString(16).padStart(2, '0')).join('') };
+  }
+  preset = p;
+  for (const k of MIX) $(k).value = p[k];
+  save('preset', p.id === 'wild' ? 'wild' : p.id); MIX.forEach((k) => save(k, $(k).value));
+  for (const b of $('presets').children) b.setAttribute('aria-pressed', String(b.dataset.id === (p.id === 'wild' ? 'wild' : p.id)));
+  document.documentElement.style.setProperty('--p', p.light);
+  words(); setLevels(); if (playing && helperUp) ask('/color', ambient());
+}
+for (const p of PRESETS) {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'preset'; b.dataset.id = p.id; b.style.setProperty('--s', p.light);
+  const i = document.createElement('i'), n = document.createElement('b'), s = document.createElement('span'); n.textContent = p.name; s.textContent = p.say;
+  b.append(i, n, s); b.addEventListener('click', () => pick(p)); $('presets').append(b);
+}
+function ambient() { const n = parseInt(preset.light.slice(1), 16); return { r: n >> 16 & 255, g: n >> 8 & 255, b: n & 255, bright: preset.bright || 30 }; }
+
+/* ---------- the lights, through Light Hive's helper ---------- */
+let helperUp = false;
+function pill(text, cls) { const s = document.createElement('span'); s.className = 'pill ' + (cls || ''); s.textContent = text; return s; }
+async function ask(path, body) {
+  if (!HELPER) await findHelper();
+  if (!HELPER) { helperUp = false; return null; }
+  try {
+    const r = await fetch(HELPER + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {});
+    helperUp = true; return await r.json();
+  } catch (e) { helperUp = false; return null; }
+}
+async function lookLights() {
+  const box = $('lights'); const a = await ask('/lights');
+  box.replaceChildren(pill('This screen', 'on'));
+  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: Light Hive’s helper isn’t running' : 'Real lights: open your PC’s copy', 'wait')); tell(); return; }
+  box.append(pill(a.razer && a.razer.ok ? 'Razer mic and headset' : 'Razer: open the Chroma App', a.razer && a.razer.ok ? 'on' : 'wait'));
+  const g = (a.govee || []).length;
+  box.append(pill(g ? 'Govee: ' + g + ' light' + (g === 1 ? '' : 's') : 'Govee: LAN Control is off', g ? 'on' : 'wait'));
+  tell();
+}
+lookLights();
+
+/* ---------- the sound, made live ---------- */
+let ctx = null, master, rainGain, hissFilter, windGain, windFilter, lifeGain, insectGain, fallsGain, playing = false;
+let white, brown;
+function noiseBuffer(kind, seconds) {
+  const b = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate), d = b.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < d.length; i++) {
+    const w = Math.random() * 2 - 1;
+    if (kind === 'brown') { last = (last + 0.02 * w) / 1.02; d[i] = last * 3.5; } else d[i] = w;
+  }
+  return b;
+}
+function loop(buffer) { const s = ctx.createBufferSource(); s.buffer = buffer; s.loop = true; s.loopStart = Math.random(); return s; }
+function startSound() {
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  master = ctx.createGain(); master.connect(ctx.destination);
+  white = noiseBuffer('white', 5); brown = noiseBuffer('brown', 7);
+  // Rain: a hiss band (its brightness set by the preset) plus a softer low patter.
+  rainGain = ctx.createGain(); rainGain.connect(master);
+  const hiss = loop(white); hissFilter = ctx.createBiquadFilter(); hissFilter.type = 'bandpass'; hissFilter.Q.value = 0.45;
+  const patter = loop(brown), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+  const hissG = ctx.createGain(); hissG.gain.value = 0.22; const patG = ctx.createGain(); patG.gain.value = 0.5;
+  hiss.connect(hissFilter).connect(hissG).connect(rainGain); patter.connect(lp).connect(patG).connect(rainGain); hiss.start(); patter.start();
+  // Wind: brown noise through a low-pass the gusts move.
+  windGain = ctx.createGain(); windFilter = ctx.createBiquadFilter(); windFilter.type = 'lowpass'; windFilter.frequency.value = 380;
+  const gust = loop(brown); gust.connect(windFilter).connect(windGain).connect(master); gust.start();
+  // Forest life: an insect shimmer; birds, frogs and drops are called by the clock below.
+  lifeGain = ctx.createGain(); lifeGain.connect(master); insectGain = ctx.createGain(); insectGain.connect(lifeGain);
+  const buzz = loop(white), bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 5200; bp.Q.value = 8;
+  const am = ctx.createGain(), amOsc = ctx.createOscillator(), amDepth = ctx.createGain(); am.gain.value = 0.04; amOsc.frequency.value = 23; amDepth.gain.value = 0.035;
+  amOsc.connect(amDepth).connect(am.gain); buzz.connect(bp).connect(am).connect(insectGain); buzz.start(); amOsc.start();
+  // A waterfall: a steady low roar.
+  fallsGain = ctx.createGain(); const roar = loop(brown), rf = ctx.createBiquadFilter(); rf.type = 'lowpass'; rf.frequency.value = 1400;
+  const roarHi = loop(white), rh = ctx.createBiquadFilter(); rh.type = 'bandpass'; rh.frequency.value = 1800; rh.Q.value = 0.3; const rhG = ctx.createGain(); rhG.gain.value = 0.06;
+  roar.connect(rf).connect(fallsGain); roarHi.connect(rh).connect(rhG).connect(fallsGain); fallsGain.connect(master); roar.start(); roarHi.start();
+  setLevels();
+}
+// Keeps changing: slow, smooth wandering of the rain, wind and life around the mix (like weather, not a loop).
+const wander = { rain: 1, wind: 1, life: 1, t: 0 };
+function smooth(seed, t) { const a = Math.floor(t), f = t - a, s = f * f * (3 - 2 * f); const r = (n) => { let x = Math.imul(n ^ 0x9e3779b9, 0x85ebca6b) >>> 0; x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35) >>> 0; return ((x ^ (x >>> 16)) >>> 0) / 4294967296; }; return r(seed * 9973 + a) * (1 - s) + r(seed * 9973 + a + 1) * s; }
+function setLevels() {
+  if (!ctx || !preset) return;
+  const v = (id) => $(id).value / 100, t = ctx.currentTime, d = $('drift').checked;
+  const rainNow = v('rain') * (d ? wander.rain : 1), windNow = v('wind') * (d ? wander.wind : 1), lifeNow = v('life') * (d ? wander.life : 1);
+  master.gain.setTargetAtTime(v('vol') * 0.9, t, 0.3);
+  rainGain.gain.setTargetAtTime(Math.min(1, rainNow) * 0.9, t, 0.8);
+  hissFilter.frequency.setTargetAtTime(preset.hiss * (0.85 + 0.3 * rainNow), t, 1);
+  windGain.gain.setTargetAtTime(Math.min(1, windNow) * 0.75, t, 0.8);
+  windFilter.frequency.setTargetAtTime(220 + 700 * Math.min(1, windNow) * (d ? wander.wind : 1), t, 1.2);
+  lifeGain.gain.setTargetAtTime(Math.min(1, lifeNow), t, 0.8);
+  insectGain.gain.setTargetAtTime(preset.insects, t, 0.8);
+  fallsGain.gain.setTargetAtTime(preset.falls * 0.55, t, 1);
+}
+function drop() {
+  // One big drop on a leaf or a roof: a short ring at the preset's pitch.
+  const at = ctx.currentTime, s = ctx.createBufferSource(); s.buffer = white; s.loopStart = Math.random();
+  const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = preset.dropHz * (0.7 + Math.random() * 0.6); f.Q.value = preset.id === 'roof' ? 18 : 6;
+  const g = ctx.createGain(), loud = 0.12 + Math.random() * 0.25;
+  g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(loud, at + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, at + (preset.id === 'roof' ? 0.18 : 0.07));
+  s.connect(f).connect(g).connect(rainGain); s.start(at, Math.random() * 4); s.stop(at + 0.2);
+}
+function bird() {
+  const t = ctx.currentTime, notes = 2 + Math.floor(Math.random() * 5), base = 1800 + Math.random() * 2800, kind = Math.random();
+  for (let i = 0; i < notes; i++) {
+    const o = ctx.createOscillator(), g = ctx.createGain(), at = t + i * (0.08 + Math.random() * 0.1);
+    o.type = 'sine'; o.frequency.setValueAtTime(base * (0.9 + Math.random() * 0.25), at);
+    o.frequency.exponentialRampToValueAtTime(base * (kind < 0.5 ? 1.2 + Math.random() * 0.3 : 0.7 + Math.random() * 0.2), at + 0.07);
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(0.05, at + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
+    o.connect(g).connect(lifeGain); o.start(at); o.stop(at + 0.1);
+  }
+}
+function frog() {
+  // A croak: a buzzy low tone pulsed a few times.
+  const t = ctx.currentTime, pulses = 2 + Math.floor(Math.random() * 5), hz = 220 + Math.random() * 380;
+  for (let i = 0; i < pulses; i++) {
+    const at = t + i * (0.11 + Math.random() * 0.03), o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    o.type = 'sawtooth'; o.frequency.setValueAtTime(hz, at); o.frequency.linearRampToValueAtTime(hz * 0.85, at + 0.08);
+    f.type = 'bandpass'; f.frequency.value = hz * 2.2; f.Q.value = 3;
+    g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(0.045, at + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, at + 0.08);
+    o.connect(f).connect(g).connect(lifeGain); o.start(at); o.stop(at + 0.1);
+  }
+}
+function thunder(distance, delay) {
+  if (!ctx) return;
+  const at = ctx.currentTime + delay, len = 3 + distance * 4 + Math.random() * 2;
+  if (distance < 0.3) {
+    // A close strike cracks before it rumbles.
+    const c = ctx.createBufferSource(); c.buffer = white; const hf = ctx.createBiquadFilter(); hf.type = 'highpass'; hf.frequency.value = 900;
+    const cg = ctx.createGain(); cg.gain.setValueAtTime(0.0001, at); cg.gain.exponentialRampToValueAtTime(0.9, at + 0.005); cg.gain.exponentialRampToValueAtTime(0.0001, at + 0.35);
+    c.connect(hf).connect(cg).connect(master); c.start(at); c.stop(at + 0.4);
+  }
+  const rolls = 1 + Math.floor(Math.random() * 3);
+  for (let k = 0; k < rolls; k++) {
+    const st = at + k * (0.5 + Math.random() * 1.2), l = len * (1 - k * 0.2);
+    const s = ctx.createBufferSource(); s.buffer = noiseBuffer('brown', l + 0.5);
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.setValueAtTime(distance < 0.35 ? 1500 : 650, st); f.frequency.exponentialRampToValueAtTime(80, st + l);
+    const g = ctx.createGain(), loud = (1.2 - distance * 0.8) * (k ? 0.6 : 1);
+    g.gain.setValueAtTime(0.0001, st); g.gain.exponentialRampToValueAtTime(loud, st + (distance < 0.35 ? 0.05 : 0.5));
+    g.gain.setValueAtTime(loud * 0.8, st + 0.6); g.gain.exponentialRampToValueAtTime(0.0001, st + l);
+    s.connect(f).connect(g).connect(master); s.start(st); s.stop(st + l + 0.2);
+  }
+}
+
+/* ---------- the storm, worked out from the clock so two screens strike together ---------- */
+function rand(seed) { let x = (seed ^ 0x9e3779b9) >>> 0; x = Math.imul(x ^ (x >>> 16), 0x85ebca6b) >>> 0; x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35) >>> 0; return ((x ^ (x >>> 16)) >>> 0) / 4294967296; }
+function strikesAt(second, level) {
+  // A strike may start at this second; at most one every five seconds, and `level` storms a minute on average.
+  if (level <= 0) return null;
+  const chance = level / 60 * 1.2;
+  if (rand(second * 7 + level) >= chance) return null;
+  for (let back = 1; back < 5; back++) if (rand((second - back) * 7 + level) < chance) return null;
+  const r = (n) => rand(second * 131 + n);
+  return { flashes: 1 + Math.floor(r(1) * 3), distance: r(2), at: Math.floor(r(3) * 600) };
+}
+let lastSecond = 0;
+function tick() {
+  const now = Date.now(), second = Math.floor(now / 1000), level = +$('storm').value;
+  if (!playing || !preset) return;
+  // Drops, birds and frogs, at rates the preset and the mix set (several times a second).
+  const life = $('life').value / 100, rain = $('rain').value / 100;
+  if (Math.random() < preset.drops * (0.25 + rain) * 0.5) drop();
+  if (Math.random() < preset.birds * life * 0.025) bird();
+  if (Math.random() < preset.frogs * life * 0.05) frog();
+  if (second !== lastSecond) {
+    lastSecond = second;
+    wander.t += 1 / 20;
+    wander.rain = 0.55 + 0.75 * smooth(1, wander.t); wander.wind = 0.4 + 1.1 * smooth(2, wander.t * 1.7); wander.life = 0.5 + 0.8 * smooth(3, wander.t * 0.8);
+    setLevels();
+    const s = strikesAt(second, level);
+    if (s) { s.distance = preset.near + s.distance * (preset.far - preset.near); setTimeout(() => strike(s), Math.max(0, s.at - (now % 1000))); }
+  }
+}
+setInterval(tick, 100);
+
+const flash = $('flash');
+function strike(s) {
+  // Flashes 380 ms apart: never more than three in any second.
+  for (let i = 0; i < s.flashes; i++) setTimeout(() => one((i === 0 ? 0.95 : 0.6) * (1 - s.distance * 0.45)), i * 380);
+  thunder(s.distance, 0.25 + s.distance * 3.5);     // light first, sound later
+  lightning = { until: performance.now() + 220 + s.flashes * 380, x: 0.15 + Math.random() * 0.7, far: s.distance };
+}
+function one(strength) {
+  if (calm.matches) {
+    flash.style.transition = 'opacity .6s ease'; flash.style.opacity = (strength * 0.35).toFixed(2);
+    setTimeout(() => { flash.style.opacity = '0'; }, 700);
+    if (helperUp) ask('/color', { ...STRIKE, bright: 55 }).then(() => setTimeout(() => ask('/color', ambient()), 900));
+    return;
+  }
+  flash.style.transition = 'none'; flash.style.opacity = strength.toFixed(2);
+  requestAnimationFrame(() => { flash.style.transition = 'opacity .16s ease-out'; flash.style.opacity = '0'; });
+  if (helperUp) ask('/flash', { ...STRIKE, ms: 110 });
+}
+
+/* ---------- the picture: dark canopy, rain streaks, the bolt ---------- */
+const cv = $('sky'), g2 = cv.getContext('2d'); let drops = [], lightning = null, W = 0, H = 0;
+function size() { const r = cv.getBoundingClientRect(); W = cv.width = Math.max(1, r.width * devicePixelRatio); H = cv.height = Math.max(1, r.height * devicePixelRatio); drops = Array.from({ length: Math.round(W * H / 9000) }, () => ({ x: Math.random() * W, y: Math.random() * H, v: 0.6 + Math.random() })); }
+if (window.ResizeObserver) new ResizeObserver(size).observe($('stage')); else addEventListener('resize', size);
+size();
+function canopy() {
+  for (let layer = 0; layer < 3; layer++) {
+    g2.fillStyle = ['#030806', '#020604', '#010302'][layer]; g2.globalAlpha = 0.7 + layer * 0.15; g2.beginPath(); g2.moveTo(0, H);
+    for (let x = 0; x <= W; x += W / 48) g2.lineTo(x, H * (0.55 + layer * 0.12) + Math.sin(x / (90 + layer * 40) + layer) * H * 0.05 + Math.sin(x / 23) * H * 0.012);
+    g2.lineTo(W, H); g2.fill();
+  }
+  g2.globalAlpha = 1;
+}
+function bolt(x0, far) {
+  let x = x0 * W, y = 0; g2.strokeStyle = `rgba(220,232,255,${(0.95 - far * 0.5).toFixed(2)})`; g2.lineWidth = (2.6 - far * 1.6) * devicePixelRatio; g2.shadowColor = '#9fc4ff'; g2.shadowBlur = 18; g2.beginPath(); g2.moveTo(x, y);
+  while (y < H * (0.62 - far * 0.2)) { x += (Math.random() - 0.5) * W * 0.05; y += H * (0.03 + Math.random() * 0.05); g2.lineTo(x, y); }
+  g2.stroke(); g2.shadowBlur = 0;
+}
+function draw() {
+  const tint = preset ? preset.light : '#39ff88';
+  const sky = g2.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, '#05080a'); sky.addColorStop(1, tint + '22');
+  g2.fillStyle = '#05080a'; g2.fillRect(0, 0, W, H); g2.fillStyle = sky; g2.fillRect(0, 0, W, H);
+  if (lightning && performance.now() < lightning.until && !calm.matches) bolt(lightning.x, lightning.far);
+  const amount = playing ? ($('rain').value / 100) * ($('drift').checked ? Math.min(1.2, wander.rain) : 1) : 0.15;
+  const slant = ($('wind').value / 100) * 6;
+  g2.strokeStyle = 'rgba(160,210,200,.30)'; g2.lineWidth = devicePixelRatio;
+  g2.beginPath();
+  const n = Math.min(drops.length, Math.round(drops.length * amount));
+  for (let i = 0; i < n; i++) { const d = drops[i]; g2.moveTo(d.x, d.y); g2.lineTo(d.x - (2 + slant) * devicePixelRatio, d.y + 14 * d.v * devicePixelRatio); if (!calm.matches) { d.y += 22 * d.v * devicePixelRatio; d.x -= 2 + slant; if (d.y > H) { d.y = -20; d.x = Math.random() * (W + 200); } } }
+  g2.stroke(); canopy(); requestAnimationFrame(draw);
+}
+draw();
+
+/* ---------- controls ---------- */
+function words() {
+  const n = +$('storm').value;
+  $('rainSaid').textContent = $('rain').value + '%'; $('windSaid').textContent = $('wind').value + '%'; $('lifeSaid').textContent = $('life').value + '%'; $('volSaid').textContent = $('vol').value + '%';
+  $('stormSaid').textContent = n ? 'about ' + n + ' a minute' : 'off';
+  $('now').replaceChildren(document.createTextNode(playing ? 'Playing ' : ''), Object.assign(document.createElement('b'), { textContent: preset ? preset.name : '' }));
+  $('said').textContent = n ? (calm.matches ? 'Lightning shows as soft glows, because your computer asks for less motion.' : 'Never more than three flashes a second.') : 'Rain only, no lightning.';
+}
+for (const id of MIX) $(id).addEventListener('input', () => { save(id, $(id).value); setLevels(); words(); });
+$('drift').addEventListener('change', () => { save('drift', $('drift').checked ? '1' : '0'); setLevels(); });
+$('play').addEventListener('click', async () => {
+  if (!ctx) startSound();
+  if (playing) { playing = false; await ctx.suspend(); $('play').textContent = 'Play the storm'; $('stage').classList.remove('playing'); words(); return; }
+  await ctx.resume(); playing = true; $('play').textContent = 'Pause'; $('stage').classList.add('playing'); words();
+  await lookLights(); if (helperUp) ask('/color', ambient());
+});
+$('full').addEventListener('click', () => { const el = $('stage'); if (document.fullscreenElement) document.exitFullscreen(); else if (el.requestFullscreen) el.requestFullscreen().catch(() => {}); });
+
+// Start on the last preset used (or Steady rain), with the mix as it was left.
+$('drift').checked = load('drift') !== '0';
+const last = PRESETS.find((p) => p.id === load('preset') && !p.wild) || PRESETS[1];
+pick(last);
+for (const k of MIX) { const v = load(k); if (v !== null) $(k).value = v; }
+words(); tell();
+</script>
+</body>
+</html>

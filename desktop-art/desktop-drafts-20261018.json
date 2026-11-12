@@ -10021,7 +10021,7 @@
   {
    "id": "door-dormouse",
    "name": "Door Dormouse",
-   "interface": "https://github.com/findastra/the-threshold",
+   "interface": "apps/pet-programs/the-threshold-20261018.html",
    "idle": "desktop-art/door-dormouse/idle-20261018.png",
    "blink": "desktop-art/door-dormouse/blink-20261018.png"
   }

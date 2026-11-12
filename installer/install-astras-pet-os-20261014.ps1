@@ -51,7 +51,7 @@ param(
     [string]$SetupWindowPicture
 )
 $ErrorActionPreference = 'Stop'
-$Version = 'v0.3.0-beta'
+$Version = 'v0.4.0-beta'
 
 # A locked-down computer (Astra, 2026-10-19): when its administrator does not allow what this installer needs, stop
 # before anything is copied and say how to use Astra's PetOS with nothing to install. Never work around its security.

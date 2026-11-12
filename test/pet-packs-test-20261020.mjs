@@ -11,6 +11,7 @@ import { tmpdir } from 'node:os';
 import { join, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readSpawnerSources } from '../scripts/pet-program-pages-20261018.mjs';
+import { asAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 import { systemMapData } from '../scripts/system-map-20261012.mjs';
 import { buildPack, needsProblems, packRefusal, planPack, repoAt, resolveNeeds, unzip, zip, crc32,
   HUB_DIR, MANIFEST, OPENER, TOOL_LABEL, packName } from '../scripts/pet-packs-20261020.mjs';
@@ -22,7 +23,7 @@ const read = (p) => readFileSync(`${root}/${p}`, 'utf8');
 // the registry in which he is public; packing a private repo has its own test below.
 const src = (() => {
   const s = readSpawnerSources(root);
-  const r = JSON.parse(JSON.stringify(s.registry));
+  const r = asAstrasFarm(s.registry); // Astra's farm, also on someone else's copy (fixtures/astras-farm-20261111.mjs)
   for (const p of [...r.pets, ...r.pipeline]) if (p.repo === 'evidence-locker') p.visibility = 'public';
   return { ...s, registry: r };
 })();

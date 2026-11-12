@@ -16,10 +16,21 @@ export const SIZE = {
   'backup-beaver': 0.85, 'patch-cat': 0.85, 'file-master': 0.72,
 };
 // These keep NormalHeight even when wide (they are not fitted into MaxPetWidth first).
-const FULL_HEIGHT = new Set(['paper-girl', 'claude-bot', 'file-master']);
+export const FULL_HEIGHT = new Set(['paper-girl', 'claude-bot', 'file-master']);
 
-/** The drawn part of an 8-bit RGBA PNG (alpha over 20, as the star counts it), or null for any other kind. */
-export function drawnBox(file) {
+// Since 2026-11-08 (Astra: "the pets are not the sizes they would appear on the screen in the corner, so make sure
+// they're the right size"): every pet picture on a pet program page (the cyberhome, the nine emotions, the friends list)
+// is drawn at the size the star draws that pet, with the empty margin around the drawing cut off, and nothing caps it
+// at the old 60px slot. The rules below follow LayoutPets exactly; the test reads them back from the star's own code.
+// The five pets that share Mommy's Mommies' body use one crop height, measured up from the soles (SameSize).
+export const SAME_SIZE = ['mommys-mommies', 'discord-damsel', 'api-fairy', 'astra-wisp', 'vscode-angel'];
+export const SAME_SIZE_CROP = 202;
+// The Friendly Farmer stands 0.9 of NormalHeight, his width from his drawing, never fitted into MaxPetWidth.
+export const FARMER_SIZE = 0.9;
+
+/** The drawn part of an 8-bit RGBA PNG (alpha over `over`), or null for any other kind. The star crops a drawing of its
+ *  own (desktop art and drafts, made crisp first) at alpha 128 and up, any other at alpha over 0. */
+export function drawnBox(file, over = 20) {
   const b = readFileSync(file);
   if (b.readUInt32BE(12) !== 0x49484452) return null;
   const width = b.readUInt32BE(16), height = b.readUInt32BE(20);
@@ -43,17 +54,42 @@ export function drawnBox(file) {
   }
   let left = width, top = height, right = -1, bottom = -1;
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
-    if (px[y * row + x * 4 + 3] > 20) { if (x < left) left = x; if (x > right) right = x; if (y < top) top = y; if (y > bottom) bottom = y; }
+    if (px[y * row + x * 4 + 3] > over) { if (x < left) left = x; if (x > right) right = x; if (y < top) top = y; if (y > bottom) bottom = y; }
   }
   return right < 0 ? null : { width, height, left, top, right, bottom };
 }
 
-/** How tall the whole picture is drawn on the page, in CSS pixels, for the pet to stand as tall as on the desktop. */
-export function pictureHeight(id, box) {
-  if (!box) return null;
-  const cropW = box.right - box.left + 1, cropH = box.bottom - box.top + 1;
-  let h = NORMAL_HEIGHT, w = h * cropW / cropH;
+/** One box around several drawn boxes of pictures the same size (the star crops idle and awake together). */
+export function unionBox(boxes) {
+  const b = boxes.filter(Boolean);
+  if (!b.length) return null;
+  return { width: b[0].width, height: b[0].height, left: Math.min(...b.map((x) => x.left)), top: Math.min(...b.map((x) => x.top)),
+    right: Math.max(...b.map((x) => x.right)), bottom: Math.max(...b.map((x) => x.bottom)) };
+}
+
+/** CSS pixels per drawing pixel, so the pet comes out as big as the star draws it (LayoutPets). `id` is the desktop
+ *  pet's id (its `art`, or its draft's id), `crop` the drawn box of its idle and awake drawings together. */
+export function desktopScale(id, crop) {
+  if (!crop) return null;
+  const cropW = crop.right - crop.left + 1, cropH = crop.bottom - crop.top + 1;
+  if (id === 'farmer') return NORMAL_HEIGHT * FARMER_SIZE / cropH;
+  if (SAME_SIZE.includes(id)) return NORMAL_HEIGHT / SAME_SIZE_CROP;
+  let h = NORMAL_HEIGHT;
+  const w = h * cropW / cropH;
   if (w > MAX_PET_WIDTH && !FULL_HEIGHT.has(id)) h *= MAX_PET_WIDTH / w;
-  const drawn = h * (SIZE[id] || 1);
-  return Math.round(drawn * box.height / cropH * 10) / 10;
+  return h * (SIZE[id] || 1) / cropH;
+}
+
+/** How tall the pet's own drawing stands on the desktop, in CSS pixels (SameSize pets: their 202-pixel crop). */
+export function desktopHeight(id, crop) {
+  const k = desktopScale(id, crop);
+  return k === null ? null : Math.round(k * (SAME_SIZE.includes(id) ? SAME_SIZE_CROP : crop.bottom - crop.top + 1) * 10) / 10;
+}
+
+/** The picture drawn at scale `k`, cut to `show` (the drawn box of every picture shown in that place): the CSS
+ *  variables img.fit reads (pet-program-page-20261018.css). */
+export function fitVars(k, show) {
+  if (!k || !show) return null;
+  const px = (n) => `${Math.round(n * k * 100) / 100}px`;
+  return `--fit-w: ${px(show.width)}; --fit-h: ${px(show.height)}; --fit-t: ${px(show.top)}; --fit-r: ${px(show.width - 1 - show.right)}; --fit-b: ${px(show.height - 1 - show.bottom)}; --fit-l: ${px(show.left)}`;
 }

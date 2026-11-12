@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assess, farmRepos, markPrivate, markVisibility, refusal, scanHistory, describeScan } from '../scripts/pet-privatizer-20261018.mjs';
+import { asAstrasFarm, isAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const TOOL = fileURLToPath(new URL('../scripts/pet-privatizer-20261018.mjs', import.meta.url));
@@ -53,7 +54,7 @@ test('pets.json follows with one changed line, and only for a pet that is not pr
 
 test('it refuses a repo that is not an animal, and changes GitHub only with --yes', () => {
   const run = (...a) => { try { execFileSync(process.execPath, [TOOL, ...a], { encoding: 'utf8', stdio: 'pipe' }); return { code: 0 }; } catch (e) { return { code: e.status, err: String(e.stderr) }; } };
-  const seed = run('plan', 'lunas-log');
+  const seed = run('plan', 'osc-sonar');
   assert.equal(seed.code, 1);
   assert.match(seed.err, /Animal guard: refusing/);
   assert.match(run('apply', 'meme-fiend').err, /add --yes when the farm owner says so/);
@@ -84,7 +85,7 @@ test('plan public says what becomes visible; a public repo or a fork does not ch
 });
 
 test('the one art source never goes private, and another account\'s pet is copied, not changed', () => {
-  const astra = JSON.parse(read('pets.json'));
+  const astra = asAstrasFarm(JSON.parse(read('pets.json'))); // also on someone else's copy (fixtures/astras-farm-20261111.mjs)
   assert.match(refusal(astra, 'astras-pet-os', 'private'), /one art source \(findastra\/astras-pet-os\)/);
   assert.equal(refusal(astra, 'astras-pet-os', 'public'), '');
   assert.equal(refusal(astra, 'meme-fiend', 'private'), '');
@@ -143,13 +144,17 @@ test('before going public, every commit of every branch is scanned; it names the
 
 test('both ways from the command line: animals only, --yes, and the art source refused before GitHub is asked', () => {
   const run = (...a) => { try { return { code: 0, out: execFileSync(process.execPath, [TOOL, ...a], { encoding: 'utf8', stdio: 'pipe' }) }; } catch (e) { return { code: e.status, err: String(e.stderr) }; } };
-  assert.match(run('plan', 'public', 'lunas-log').err, /Animal guard: refusing/);
+  assert.match(run('plan', 'public', 'osc-sonar').err, /Animal guard: refusing/);
   assert.match(run('apply', 'public', 'meme-fiend').err, /add --yes when the farm owner says so/);
   assert.match(run('apply', 'public', '--yes').err, /Name the repos to make public/);
   assert.match(run('copy', 'astras-pet-os', 'my-farm', '--yes').err, /Name the source as owner\/repo/);
-  const hub = run('plan', 'private', 'astras-pet-os');
-  assert.equal(hub.code, 0);
-  assert.match(hub.out, /^astras-pet-os: no change; it is the one art source/);
+  // The tool reads this copy's own pets.json. On someone else's farm their hub copy is theirs, not the one art source,
+  // so it may go private like any of their pets (the refusal itself is tested on Astra's farm above).
+  if (isAstrasFarm(JSON.parse(read('pets.json')))) {
+    const hub = run('plan', 'private', 'astras-pet-os');
+    assert.equal(hub.code, 0);
+    assert.match(hub.out, /^astras-pet-os: no change; it is the one art source/);
+  }
 });
 
 test('it runs through a junction too (Documents\\Astra\'s PetOS), not only from the real folder', (t) => {

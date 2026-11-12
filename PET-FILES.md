@@ -214,6 +214,12 @@ Every pet checks itself on a schedule and reports in the same nine moods, so Ast
 4. Writes `status/pets-status.json`: each pet's mood, a one-line bubble, and what it needs from Astra. The old pets page rests each pet in that mood and shows the bubble when clicked; the Farmer's desk lists everyone who **Needs you**.
 5. Rebuilds, runs `npm test`, and opens a **pull request** as the Friendly Farmer, from the branch `farmer/rounds-YYYYMMDD`. It never pushes to `main`: Astra reads the changes and merges them (known gap 11, closed 2026-10-17). A newer round's pull request replaces an older one that is still open.
 
+**A pet's stage follows its repo** (Astra, 2026-11-02). When the Farmer hatches a pet, or a round or audit finds a repo
+at the wrong stage (a seed or roadmap pet whose repo now has a tool or a page, or a pet whose own pet.json names
+another stage), he updates its `stage` in `pet-programs.json`, adds or moves its pets.json entry when it becomes an
+animal, runs `npm run build` (which rewrites the README's [Pet stages](README.md#pet-stages) chart and the pet program
+pages), and opens a pull request. Moving into the pipeline goes through the gate, so Astra merges it.
+
 **What a self-audit checks:** the pet files above (pet.json, the README credit "By Astra.", "how to run it" and "Limits", AGENTS.md pointing at the hub, CLAUDE.md, LICENSE and the `pet-app` topic for public repos), plus anything only Astra can answer.
 
 **How the round chooses the mood, the same way for every pet** (Astra's sketch, 2026-10-18; most urgent first). The

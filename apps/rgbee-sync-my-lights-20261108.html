@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sync my lights · Light Hive</title>
+<!-- Light Hive's sync-my-lights-tool (Astra, 2026-11-08: "I want all my RGBs, as many as I can in my entire apartment,
+     to be synchronized to this"). Every light Light Hive knows, with what reaches it today, and one colour and
+     brightness sent to all of them at once through Light Hive's helper on this PC. Lights the helper
+     cannot reach yet say why, plainly.
+     2026-11-11 (Astra: "I don't like the extra black panel behind the sync my lights, and it's kind of like hard to
+     read... make it more like aesthetically pleasing and user friendly"; "neither of them have the more details in
+     the tool"): inside its tool box it has no background of its own and tells the box how tall it is (the house way,
+     like PC Master Race's tools); bigger, lighter text; the lights grouped by what reaches them; the explanations
+     moved into More details. Claude Opus 5.5 (claude-opus-5-5), 2026-11-08 and 2026-11-11. -->
+<style>
+:root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
+  --green:#39ff88;--cyan:#00e5ff;--pink:#ff2bd6;--amber:#ffc23d;--c:#39ff88}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+html.in-tool,html.in-tool body{background:transparent}
+main{padding:20px;display:grid;gap:18px;max-width:1100px}
+html.in-tool main{padding:4px 2px 8px}
+html.in-tool .alone{display:none}
+h1{font-size:22px;margin:0 0 2px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:600}
+p{margin:0}
+.lead{color:var(--soft)}
+
+/* The colour: a big preview of what the lights will show, the scenes, brightness and Send. */
+.mixer{display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center;padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--card-line)}
+.preview{width:112px;height:112px;border-radius:50%;position:relative;background:var(--c);
+  box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 36px color-mix(in srgb,var(--c) 70%,transparent);opacity:var(--o,1)}
+.preview input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.side{display:grid;gap:14px;min-width:0}
+.scenes{display:flex;flex-wrap:wrap;gap:8px}
+.scene{font:inherit;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px 7px 8px;
+  border:1px solid var(--card-line);background:rgba(255,255,255,.03);color:var(--ink)}
+.scene i{width:20px;height:20px;border-radius:50%;background:var(--s);box-shadow:0 0 10px color-mix(in srgb,var(--s) 60%,transparent)}
+.scene[aria-pressed=true]{border-color:var(--s);background:color-mix(in srgb,var(--s) 14%,transparent)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.bright{display:flex;align-items:center;gap:12px;color:var(--soft);flex:1;min-width:220px}
+.bright input{flex:1;accent-color:var(--c)}
+.bright output{min-width:3.2em;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.go{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:999px;padding:11px 24px;background:var(--c);color:#050507;
+  box-shadow:0 0 18px color-mix(in srgb,var(--c) 55%,transparent)}
+.said{min-height:1.5em;color:var(--cyan);font-size:15px}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+/* The lights, grouped: reaching now, waiting, no lights to set. */
+.groups{display:grid;gap:16px}
+.lights{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.light{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
+.light .dot{grid-row:1/3;width:16px;height:16px;border-radius:50%;background:#2c333a}
+.light.on{border-color:color-mix(in srgb,var(--c) 70%,transparent)}
+.light.on .dot{background:var(--c);box-shadow:0 0 12px var(--c)}
+.light b{font-weight:650;font-size:16px}
+.light span{color:var(--soft);font-size:14.5px}
+.light .why{grid-column:2;color:var(--amber);font-size:14.5px}
+.light.on .why{color:var(--green)}
+.light.none .why{color:var(--dim)}
+
+/* More details: the same four lines as every panel on the pet program page. */
+.about{color:var(--soft);font-size:15px}
+.about summary{cursor:pointer;width:fit-content;list-style:none;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.about summary::-webkit-details-marker{display:none}
+.about summary::before{content:"";width:0;height:0;border-left:9px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent;transition:transform .15s}
+.about[open] summary::before{transform:rotate(90deg)}
+.about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
+.about dt{color:var(--ink);font-weight:600}
+.about dd{margin:0}
+@media (max-width:560px){.mixer{grid-template-columns:1fr;justify-items:center}.side{justify-items:stretch;width:100%}.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}}
+@media (prefers-reduced-motion:no-preference){.light,.preview{transition:box-shadow .4s,border-color .4s,background-color .4s}}
+</style>
+</head>
+<body>
+<main>
+  <header class="alone">
+    <h1>Sync my lights</h1>
+    <p class="lead">One colour and brightness for every light Light Hive reaches.</p>
+  </header>
+
+  <section class="mixer" aria-label="Colour for every light">
+    <label class="preview" id="preview" title="Click to pick any colour"><input id="color" type="color" value="#39ff88" aria-label="Pick any colour"></label>
+    <div class="side">
+      <div class="scenes" id="scenes" role="group" aria-label="Scenes"></div>
+      <div class="row">
+        <label class="bright">Brightness <input id="bright" type="range" min="5" max="100" value="80"><output id="brightSaid">80%</output></label>
+        <button class="go" id="send" type="button">Send to every light</button>
+      </div>
+    </div>
+  </section>
+  <p class="said" id="said" role="status"></p>
+
+  <div class="groups" id="groups" aria-label="Your lights"></div>
+
+  <details class="about">
+    <summary>More details</summary>
+    <dl>
+      <dt>How it works</dt><dd>Pick a scene or click the big circle for any colour, set the brightness, and press Send. Every light Light Hive reaches takes it at once; the others say what they are waiting for.</dd>
+      <dt>Where it comes from</dt><dd>Light Hive’s helper on this PC (findastra/rgbee, <code>helper/</code>): Razer through the Razer Chroma App, Govee over your Wi-Fi once LAN Control is on. Only a page opened from your PC’s copy reaches it; the live site only shows what the lights would do.</dd>
+      <dt>Your rules</dt><dd>2026-11-08: every RGB light in the apartment, as many as can be reached; 2026-11-11: no black box behind the tool, easy to read, details in here.</dd>
+      <dt>Not built yet</dt><dd>The Corsair K65 PLUS keyboard and the MSI motherboard: OpenRGB 1.1 cannot set either (checked on your PC, 2026-11-11), so they need Corsair iCUE and MSI Center. The mouse pad: not found on this PC. The helper starting by itself at sign-in (rgbee card 002).</dd>
+    </dl>
+  </details>
+</main>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+// Inside its tool box on the pet program page: no background or header of its own, and the box is told how tall it is.
+let inTool = false; try { inTool = window.self !== window.top; } catch (e) { inTool = true; }
+if (inTool) document.documentElement.classList.add('in-tool');
+function tell() { if (inTool) try { parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.querySelector('main').getBoundingClientRect().height) + 2 }, '*'); } catch (e) {} }
+if (window.ResizeObserver) new ResizeObserver(tell).observe(document.querySelector('main'));
+document.querySelector('.about').addEventListener('toggle', tell);
+
+// Light Hive's helper is found the house way (like program-watch): only a page opened on this PC reads the address it
+// writes in Documents\Astra's PetOS Data\rgbee, so the live site never reaches the lights and no address is published.
+const ON_THIS_PC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js"; // from apps/ up to Documents
+let HELPER = null;
+function findHelper() {
+  return new Promise((done) => {
+    if (!ON_THIS_PC) { HELPER = null; done(); return; }
+    const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
+    s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
+    s.onerror = () => { s.remove(); HELPER = null; done(); };
+    document.head.appendChild(s);
+  });
+}
+const SCENES = [['Neon green', '#39ff88'], ['Astra purple', '#aa3cff'], ['Ice cyan', '#00e5ff'], ['Hot pink', '#ff2bd6'], ['Sunset', '#ff7a1a'], ['Rainforest', '#127a3c'], ['Warm white', '#ffd9a8']];
+// Every light Light Hive knows. `via`: how it is reached; the helper's answer decides whether it is on.
+const LIGHTS = [
+  { name: 'Razer Seiren V3 Chroma', what: 'Desk mic', via: 'razer' },
+  { name: 'Razer Kraken Ultimate', what: 'Headset ear cups', via: 'razer' },
+  { name: 'Mirror', what: 'Govee light', via: 'govee' },
+  { name: 'Squiggle', what: 'Govee light', via: 'govee' },
+  { name: 'Lightstrip', what: 'Govee light strip', via: 'govee' },
+  { name: 'Corsair K65 PLUS Wireless', what: 'Keyboard', via: 'brand' },
+  { name: 'MSI Mystic Light', what: 'PC motherboard', via: 'brand' },
+  { name: 'Razer Viper V3 Pro', what: 'Mouse', via: 'none', why: 'Has no lights' },
+  { name: 'Mouse pad', what: 'Not found on this PC', via: 'none', why: 'Plugged in?' }
+];
+const save = (k, v) => { try { localStorage.setItem('light-hive-sync:' + k, v); } catch (e) {} };
+const load = (k) => { try { return localStorage.getItem('light-hive-sync:' + k); } catch (e) { return null; } };
+if (load('color')) $('color').value = load('color');
+if (load('bright')) $('bright').value = load('bright');
+
+let answer = null;
+async function ask(path, body) {
+  if (!HELPER) await findHelper();
+  if (!HELPER) return null;
+  try { const r = await fetch(HELPER + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}); return await r.json(); }
+  catch (e) { return null; }
+}
+function stateOf(l) {
+  if (l.via === 'none') return ['none', l.why];
+  if (l.via === 'brand') return ['wait', 'Needs its own app (' + (l.name.startsWith('Corsair') ? 'Corsair iCUE' : 'MSI Center') + ')'];
+  if (!answer) return ['wait', ON_THIS_PC ? 'Waiting for Light Hive’s helper' : 'Open your PC’s copy to reach it'];
+  if (l.via === 'razer') return answer.razer && answer.razer.ok ? ['on', 'Reached now'] : ['wait', 'Open the Razer Chroma App'];
+  return (answer.govee || []).length ? ['on', 'Reached now'] : ['wait', 'Turn on LAN Control in Govee Home'];
+}
+const GROUPS = [['on', 'Reaching now'], ['wait', 'Waiting'], ['none', 'No lights to set']];
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function draw() {
+  const color = $('color').value, bright = +$('bright').value;
+  document.documentElement.style.setProperty('--c', color);
+  $('preview').style.setProperty('--o', (0.35 + 0.65 * bright / 100).toFixed(2));
+  $('brightSaid').textContent = bright + '%';
+  for (const b of $('scenes').children) b.setAttribute('aria-pressed', String(b.dataset.hex === color.toLowerCase()));
+  const box = $('groups'); box.replaceChildren();
+  for (const [key, title] of GROUPS) {
+    const mine = LIGHTS.map((l) => [l, stateOf(l)]).filter(([, s]) => s[0] === key);
+    if (!mine.length) continue;
+    const sec = el('section'); sec.append(el('h2', null, title + ' · ' + mine.length));
+    const ul = el('ul', 'lights');
+    for (const [l, [cls, why]] of mine) {
+      const li = el('li', 'light ' + cls); li.append(el('i', 'dot'), el('b', null, l.name), el('span', null, l.what), el('p', 'why', why)); ul.append(li);
+    }
+    sec.append(ul); box.append(sec);
+  }
+  tell();
+}
+for (const [name, hex] of SCENES) {
+  const b = el('button', 'scene'); b.type = 'button'; b.dataset.hex = hex; b.style.setProperty('--s', hex); b.setAttribute('aria-pressed', 'false');
+  b.append(el('i'), document.createTextNode(name));
+  b.addEventListener('click', () => { $('color').value = hex; save('color', hex); draw(); send(); });
+  $('scenes').append(b);
+}
+async function send() {
+  const hex = $('color').value, n = parseInt(hex.slice(1), 16);
+  const r = await ask('/color', { r: n >> 16 & 255, g: n >> 8 & 255, b: n & 255, bright: +$('bright').value });
+  $('said').textContent = !r ? (ON_THIS_PC ? 'Light Hive’s helper isn’t running on this PC, so only the preview changed.' : 'This is the live page: it never reaches your lights. Open your PC’s copy.')
+    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + '; ' + r.govee + ' Govee light' + (r.govee === 1 ? '' : 's') + '.';
+}
+$('color').addEventListener('input', () => { save('color', $('color').value); draw(); });
+$('bright').addEventListener('input', () => { save('bright', $('bright').value); draw(); });
+$('send').addEventListener('click', send);
+(async () => {
+  draw(); answer = await ask('/lights'); draw();
+  if (!answer) $('said').textContent = ON_THIS_PC ? 'Light Hive’s helper isn’t running on this PC: the lights show what they would do.' : 'This is the live page: the lights show what they would do. Open your PC’s copy to reach them.';
+})();
+</script>
+</body>
+</html>

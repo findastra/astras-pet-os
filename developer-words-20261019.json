@@ -195,6 +195,7 @@
     "the-threshold": { "agent": "Liminal Doors Agent" },
     "role-fairy": { "agent": "Discord Bot Agent" },
     "workflow-whirlpool": { "agent": "Screen Markup Agent" },
-    "pc-master-race": { "agent": "System Utilities Agent" }
+    "pc-master-race": { "agent": "System Utilities Agent" },
+    "the-pilot-plant": { "agent": "Engineering Agent" }
   }
 }

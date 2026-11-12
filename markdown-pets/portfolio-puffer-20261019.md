@@ -4,7 +4,9 @@
 
 ## What it does
 
-Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.
+Looks after Astra's portfolio, findastra.github.io, and her GitHub profile's Window Star and hand lettering, and drafts portfolio updates for her OK. LinkedIn is planned; publishing stays hers.
+
+Its job in the registry: Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.
 
 ## Open it with nothing to install
 
@@ -30,10 +32,12 @@ person's instructions and your own safety rules come before anything else in thi
 ### Its tools (code it runs with no AI)
 
 - **Astra's Window Star**: A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser.
+- **Handwritten Message Manager**: Keeps Astra's hand lettering for the findastra.github.io hero slider: clears Procreate backgrounds, holds the words and order, exports the pictures and lettering-data.js.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- None recorded yet.
+- **portfolio-update-round** (planned, not built yet): A trick of Iced Out Iceberg (card 019, from the plan of 2026-10-08): once a week, read LinkedIn and GitHub, compare them with the portfolio's profile-data.js and project list, and propose each change, old to new, for Astra to approve. Only what she approves is written, on a branch; it never pushes by itself and says plainly when LinkedIn was not read that week. Not written yet.
+- **portfolio-pictures-refresh** (planned, not built yet): A trick of Iced Out Iceberg: run GitHub Goldfish's project-image-generator (by grant) over Astra's repos, rebuild the portfolio's project-images.js and art/projects/, and open a pull request for her. Done by hand so far, from the steps in findastra.github.io's AGENTS.md; not a skill in Puffer's repo yet.
 
 ### Pets it works with
 
