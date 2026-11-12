@@ -58,6 +58,40 @@
   --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
 }
 :root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
+/* Luna's Log's own colours, Skill Scout's (Astra, 2026-11-11: "give this like a pink but dark pink background that
+   matches her"): a dark pink page, panel lines in her hair lavender (#cda1e5, sampled from her picture), and her bow
+   pink (#f57666, sampled the same way) for links, marks and the working-copy box. */
+:root[data-pet="skill-scout"] {
+  --slate: #3d1234; --slate-2: #2c0c26; --chalk: #fdeef7; --chalk-dim: #e2bcd6; --line: #cda1e5; --line-dim: #7d4f86;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #f57666;
+  --editorial: #f57666; --editorial-ink: #ffd9d3; --editorial-glow: rgba(245, 118, 102, .22); --grid: none; --editorial-by: #ffb1a6; --serial: #f57666;
+  --link: #ff9a8c; --connection: #e7c4f4;
+  --tool-bg: rgba(205, 161, 229, .06); --tool-bg-hover: rgba(245, 118, 102, .1);
+}
+:root[data-pet="skill-scout"] .footer-group::before, :root[data-pet="skill-scout"] .footer-sparkle { color: #f57666; }
+/* Spoonfed's own colours, Spoonfed Sugarcube's (Astra, 2026-11-11: "Give him like a background. Maybe we can make this
+   one like blackish or grayish, or like pretty gray for the pet program"): a soft charcoal page with a hint of lilac,
+   sugar white lettering (#f6f3ea, his cube's lit side), his spoon's silver (#c8c4cc) for the panel lines, a neon lilac
+   for links, marks and the working-copy box, and his blush pink for connections. Sampled from his picture. */
+:root[data-pet="spoonfed-sugarcube"] {
+  --slate: #2b2a30; --slate-2: #212026; --chalk: #f6f3ea; --chalk-dim: #b7b2b9; --line: #c8c4cc; --line-dim: #6b6770;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #cfa8ff;
+  --editorial: #cfa8ff; --editorial-ink: #efe2ff; --editorial-glow: rgba(207, 168, 255, .22); --grid: none; --editorial-by: #e2ccff; --serial: #cfa8ff;
+  --link: #cfa8ff; --connection: #f4b8c8;
+  --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
+}
+:root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
+   that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
+   bill for links, marks and pill edges, and his cyan phone for L3's note. */
+:root[data-pet="platform-platypus"] {
+  --slate: #1e1030; --slate-2: #150a22; --chalk: #f4eefc; --chalk-dim: #bba9d1; --line: #a57be0; --line-dim: #4f3175;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffd23f;
+  --editorial: #3ff0e8; --editorial-ink: #c9fbf8; --editorial-glow: rgba(63, 240, 232, .22); --grid: none; --editorial-by: #7fe9e3; --serial: #ffd23f;
+  --link: #ffd23f; --connection: #d7b8ff;
+  --tool-bg: rgba(165, 123, 224, .07); --tool-bg-hover: rgba(255, 210, 63, .08);
+}
+:root[data-pet="platform-platypus"] .footer-group::before, :root[data-pet="platform-platypus"] .footer-sparkle { color: #ffd23f; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
@@ -91,6 +125,28 @@
   --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
 }
 :root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
+/* Audio Rescue's own colours, Voicemeeter Bug's (Astra, 2026-11-11: "pick out like a red color for this page, the
+   background of the page"): a deep oxblood page from his signal-red shell, panel lines in his silver-grey body, his
+   pink cheeks for links and the working-copy box, and his signal red for marks. */
+:root[data-pet="voicemeeter-bug"] {
+  --slate: #3a0b12; --slate-2: #2a070d; --chalk: #fbeff0; --chalk-dim: #d9b3b8; --line: #d6d9df; --line-dim: #8a4a53;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ff4757;
+  --editorial: #ff9db4; --editorial-ink: #ffe1e8; --editorial-glow: rgba(255, 157, 180, .22); --grid: none; --editorial-by: #ffc2cf; --serial: #ff9db4;
+  --link: #ffb0c2; --connection: #ff8f9c;
+  --tool-bg: rgba(214, 217, 223, .05); --tool-bg-hover: rgba(255, 71, 87, .1);
+}
+:root[data-pet="voicemeeter-bug"] .footer-group::before, :root[data-pet="voicemeeter-bug"] .footer-sparkle { color: #ff4757; }
+/* File Kingdom's own colours, File Master's (Astra, 2026-11-11: "Let's change the background color of the pet program";
+   she picked his folder colours): a dark espresso page, panel lines in his folder orange (#f09000, sampled from his
+   picture), his yellow (#f0d848) for links, marks and the working-copy box, his cheek pink for connections. */
+:root[data-pet="file-master"] {
+  --slate: #1e140b; --slate-2: #150e07; --chalk: #fbf3e6; --chalk-dim: #c9b59a; --line: #f09000; --line-dim: #7a4a10;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #f0d848;
+  --editorial: #f0d848; --editorial-ink: #fff4c2; --editorial-glow: rgba(240, 216, 72, .22); --grid: none; --editorial-by: #ffe58a; --serial: #f0d848;
+  --link: #f0d848; --connection: #f7a8bb;
+  --tool-bg: rgba(240, 144, 0, .06); --tool-bg-hover: rgba(240, 144, 0, .11);
+}
+:root[data-pet="file-master"] .footer-group::before, :root[data-pet="file-master"] .footer-sparkle { color: #f0d848; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
