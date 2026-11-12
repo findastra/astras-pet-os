@@ -26,6 +26,7 @@ import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
 import { readMatrix } from './flash-matrix-20261018.mjs';
 import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
+import { TEMPLATE_CHECKS, templateAudit } from './flash-template-20261112.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -754,34 +755,49 @@ ${about('The live status distinguishes an app running, sharing off, waiting for 
 // The Flash Audit on The Farm (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those
 // shows up as a tool and I can click it and it will go through ... all the other pet programs and check to see if those
 // components of those other programs are up to standard"; deck "The Farm: art and lights", "All recommended"): a tool
-// box in L1, its 61 checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
+// box in L1, its checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
 // run over every pet program at once (docs/flash-audit-rounds-<date>/ledger-main.json); Run asks the Flash Audit helper
 // on this PC to run it again (apps/flash-audit-control-20261108.js, scripts/flash-audit-helper-20261108.mjs). The
 // checks the auditor does not run by itself say so; GitHub Goldfish's word checks are marked as Goldfish's.
+// The page checks follow the Model Pet Program (Astra, 2026-11-12: "when we do audits and we're looking at user
+// interface, that we're auditing it based off of what's on the template, and then those are items on the Flash audit"):
+// one check per part of the template, each comparing every pet program page with the template as built
+// (scripts/flash-template-20261112.mjs). Their results come with the build (`fa.template`), so they need no Run.
 const FLASH_DOC = `https://github.com/${OWNER}/${HUB}/blob/main/docs/flash-audit-20261014.md`;
+const findingsList = (res, passes) => (res.findings.length
+  ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
+  : `<p class="empty" data-flash-findings>${passes}</p>`);
 export function flashAuditBody(d) {
   const fa = d.flashAudit;
   if (!fa?.matrix?.length) return '';
   const run = fa.ledger ? `${fa.ledger.date.slice(0, 4)}-${fa.ledger.date.slice(4, 6)}-${fa.ledger.date.slice(6)}` : null;
+  const template = `<a href="${MODEL_PROGRAM.page.split('/').pop()}">the Model Pet Program</a>`;
   const pill = (r) => {
-    const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
     const how = r.dot === '🔵' ? 'blue: waits for your answer' : 'grey: fixed without you';
-    const now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
-      : auto ? 'not run yet' : 'an assistant checks it';
-    const counts = res ? FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ') : '';
-    const body = res
-      ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counts ? ` · ${esc(counts)}` : ''}.</p>${res.findings.length
-        ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
-        : '<p class="empty" data-flash-findings>Every pet program passes.</p>'}`
-      : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
-    const runIt = auto ? `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>` : '';
+    const counted = (res) => FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ');
+    let now, body, runIt = '';
+    if (TEMPLATE_CHECKS.includes(r.id)) {
+      const res = fa.template ? checkResults(fa.template, r.id) : null;
+      now = !res ? 'compared with the template at every build' : res.findings.length ? `${res.audited - res.passing} of ${res.audited} pages differ from the template` : `all ${res.audited} pages match the template`;
+      body = res
+        ? `<p class="small">Compared with ${template} when these pages were built: ${res.passing} of ${res.audited} pet program pages match${counted(res) ? ` · ${esc(counted(res))}` : ''}.</p>${findingsList(res, 'Every pet program page matches the template here.')}`
+        : `<p class="small">Compared with ${template} each time the pages are built.</p>`;
+    } else {
+      const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
+      now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
+        : auto ? 'not run yet' : 'an assistant checks it';
+      body = res
+        ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counted(res) ? ` · ${esc(counted(res))}` : ''}.</p>${findingsList(res, 'Every pet program passes.')}`
+        : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
+      if (auto) runIt = `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>`;
+    }
     return `<li class="pill flash-check" data-check="${r.id}">${lights(`flash:${r.id}`, `${r.id} ${r.title}`)}<span class="item-name">${r.dot} ${esc(r.id)} ${esc(r.title)}</span><span class="item-desc" data-flash-desc>${esc(`${how}${GOLDFISH_WORDS.includes(r.id) ? ' · GitHub Goldfish’s check' : ''} · ${now}`)}</span><details class="pill-more"><summary aria-label="More about ${esc(r.id)}"></summary><div class="pill-body">${body}${runIt}</div></details></li>`;
   };
-  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. ${run ? `Each shows the last run over every pet program (${esc(run)}); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again. <a href="${FLASH_DOC}">The checklist</a>.</p>
+  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. The page checks follow ${template}, one check per part, top to bottom, and compare every pet program page with it each time the pages are built. ${run ? `The others show the last run over every pet program (${esc(run)}); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again. <a href="${FLASH_DOC}">The checklist</a>.</p>
 <ul class="items flash-checks" data-flash-run-date="${esc(run || '')}">${fa.matrix.map(pill).join('')}</ul>`;
 }
 export const PET_BOXES = {
-  // Folded to its name until clicked: 61 checks are long (deck "The Farm: art and lights", answer 3: A).
+  // Folded to its name until clicked: the checks are long (deck "The Farm: art and lights", answer 3: A).
   'astras-pet-os': [{ tool: 'flash-audit', body: flashAuditBody, open: false }],
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
@@ -1489,8 +1505,17 @@ export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).m
 
 export function spawnerFiles(src) {
   const pages = spawnerPages(src);
-  return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages),
-    [MODEL_PROGRAM.page]: buildPetProgramPage(modelProgramData(src)), [MODEL_PROGRAM.tool]: buildModelProgramTool() };
+  const model = buildPetProgramPage(modelProgramData(src));
+  const built = Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)]));
+  // The Flash Audit's page checks (2026-11-12): every page as built, part by part, against the Model Pet Program as
+  // built. The Farm's page is drawn again with the results; the checks read only the pages' parts, which the results in
+  // its flash-audit tool box do not change.
+  const farm = pages.find((d) => d.repo === HUB);
+  if (farm?.flashAudit?.matrix?.length) {
+    const template = templateAudit(model, pages.map((d) => ({ repo: d.repo, pet: d.pet, home: d.home, page: pagePath(d.repo), html: built[pagePath(d.repo)] })));
+    built[pagePath(HUB)] = buildPetProgramPage({ ...farm, flashAudit: { ...farm.flashAudit, template } });
+  }
+  return { ...built, [INDEX]: buildSpawnerIndex(pages), [MODEL_PROGRAM.page]: model, [MODEL_PROGRAM.tool]: buildModelProgramTool() };
 }
 
 export function writePetProgramPages(root = '.') {

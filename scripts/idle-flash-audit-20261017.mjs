@@ -14,6 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { a59ForPet, a59ForCatalog, parseProfileHomes, pagesOf } from './pet-program-link-20261018.mjs';
 import { systemMapData } from './system-map-20261012.mjs';
 import { GREY, BLUE } from './flash-matrix-20261018.mjs';
+import { PREFLIGHT_LEFT_OUT } from './flash-audit-checks-20261108.mjs';
 
 // Goldfish's local preflight (github-goldfish/scripts/flash-audit-local-20261015.mjs) adds the
 // framework checks. Without it those checks are reported Not verified.
@@ -231,8 +232,9 @@ for (const prog of catalog) {
 
   // ---- 2. Where the work lives
   const pre = inspectSnapshot({ files: t, metadata: pet, entry });
-  // A52: "⚪ A bubble missing from the page is named on the round card for the pet's chat" (its live check stays 🔵).
-  for (const r of pre) if (r.status !== 'Pass' && !['A19', 'A20', 'A21', 'A22', 'A25', 'A26', 'A27', 'A28', 'A29', 'A30', 'A32', 'A39', 'A43', 'A46', 'A47', 'A48', 'A49', 'A50', 'A51'].includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight', ...(r.check === 'A52' && r.status === 'Missing' ? { dot: GREY } : {}) });
+  // The preflight's rows it can only mark Not verified, and its page rows, are left out: since 2026-11-12 the page checks
+  // compare every pet program page with the Model Pet Program instead (flash-template-20261112.mjs, PREFLIGHT_LEFT_OUT).
+  for (const r of pre) if (r.status !== 'Pass' && !PREFLIGHT_LEFT_OUT.includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight' });
   const required = ['LICENSE', 'AGENTS.md', 'CLAUDE.md'].filter((f) => !t.includes(f));
   if (required.length) rec.fixes.push({ type: 'add-files', files: required });
   if (!meta.private && !(meta.topics || []).includes('pet-app')) add('A14', 'Missing', 'Public pet repo without the pet-app topic.', { fix: { type: 'topic' } });
