@@ -330,7 +330,7 @@
       "name": "astras-pet-os-mcp",
       "type": "tool",
       "of": "farm",
-      "state": "planned",
+      "state": "now",
       "layer": 2,
       "category": "Tool",
       "version": "v1.0",
