@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge #347)
+status: done (merged with Astra's OK in chat, 2026-11-12)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-12
 needs: pull request #347; GitHub Goldfish branch `claude/achievements-20261017` (its PR waits on Astra's review)
@@ -12,9 +12,9 @@ Cyberhome ... give it like a cute little antenna" (her drawing: `docs/images/pet
 side and then the antenna on the right because it would match the other tools."
 
 ## Ownership and state
-State: READY_FOR_REVIEW
+State: DONE
 Implementer: Claude Code session (GitHub Goldfish chat); writable files: the files below; ownership: released
-Reviewer: unassigned; next action: Astra merges #347
+Reviewer: unassigned; next action: none; Astra said "Yes, merge #347" on 2026-11-12
 
 ## What I did
 - Branch `claude/goldfish-mini-aquarium-20261111`, pull request #347. Main merged in at `e3652851`; this card is in
@@ -44,3 +44,4 @@ Reviewer: unassigned; next action: Astra merges #347
 Astra merges #347, and the merged Goldfish page shows the pink case with its antenna in the top-left square.
 
 ## Return
+Merged by Claude Opus 5.5 with Astra's OK in chat ("Yes, merge #347"), 2026-11-12, after main was merged in and rebuilt.
