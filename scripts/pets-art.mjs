@@ -1,4 +1,4 @@
-// The Cage's characters, drawn in code so every pet shares one style and one set of moods.
+// The hub's characters, drawn in code so every pet shares one style and one set of moods.
 // DRAFTS for Astra's approval. Chip and the Farmer in particular are best guesses.
 import {
   Cv, W, H, mirror, ellipse, ellipseRot, rrect, union, minus, cells, mirrored, poly, paint, outline, tint, stamp, put,

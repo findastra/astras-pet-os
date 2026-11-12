@@ -1,12 +1,12 @@
 {
-  "cage": "astras-pet-os",
+  "hub": "astras-pet-os",
   "owner": "Astra",
   "github_owner": "findastra",
   "topic": "pet-app",
   "updated": "2026-10-19",
   "mascots": [],
-  "cage_life": {
-    "about": "How the pets move in the Cage. Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
+  "pet_life": {
+    "about": "How the pets move, by kind (the old pets page used these; the desktop pets do not read them yet). Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
     "kinds": {
       "bird": {
         "zone": "sky",
@@ -583,7 +583,7 @@
       "visibility": "public",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
-      "version": "0.3.0-beta",
+      "version": "0.4.0-beta",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
       "interface_local_url": "apps/pet-programs/astras-pet-os-20261018.html",
       "interface_url": "apps/pet-programs/astras-pet-os-20261018.html",
@@ -719,7 +719,7 @@
       "job": "Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop.",
       "added": "2026-10-07",
       "version": "0.1.0-20261008",
-      "note": "Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).",
+      "note": "Redrawn in the shared pet style from her 32x24 LCD original (pink hair, mint wings).",
       "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
       "interface_url": "apps/pet-programs/api-fairy-20261018.html",
       "app_url": "apps/api-fairy-20261008.html",
@@ -1089,6 +1089,16 @@
             "node": "github",
             "how": "optional",
             "why": "Published on GitHub Pages."
+          },
+          {
+            "node": "alphaxiv-mcp",
+            "how": "optional",
+            "why": "arXiv papers for Paper Girl (hub card 319)."
+          },
+          {
+            "node": "pubmed-mcp",
+            "how": "optional",
+            "why": "PubMed papers for Paper Girl (hub card 319)."
           }
         ]
       }
@@ -1132,12 +1142,37 @@
           {
             "node": "everything-search",
             "how": "optional",
-            "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+            "why": "File Master’s looks ask Everything’s index for the whole PC (since 2026-11-09). Without Everything they walk the folders, slowly."
           },
           {
             "node": "spacesniffer",
             "how": "optional",
             "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+          },
+          {
+            "node": "es-cli",
+            "how": "optional",
+            "why": "Everything’s command line: File Kingdom’s everything-search connector asks Everything through it."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "optional",
+            "why": "File Kingdom’s tools ask git what each repo holds that GitHub does not, and have it repair working-copy links after a folder moves. Without git those checks are skipped."
+          },
+          {
+            "node": "windows-powershell",
+            "how": "required",
+            "why": "Every File Kingdom tool but one is a Windows PowerShell script. It is part of Windows."
+          },
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "claude-chat-repointer runs on Node.js (20 or newer). Every other File Kingdom tool works without it."
+          },
+          {
+            "node": "github-cli",
+            "how": "optional",
+            "why": "temp-copies-check asks GitHub through it whether a commit that is on no remote here is on GitHub anyway. Without it the check says so and skips that question."
           }
         ]
       },
@@ -1158,7 +1193,109 @@
           "visibility": "private",
           "version": "v1.0"
         }
-      ]
+      ],
+      "checks": {
+        "third-party:everything-search": {
+          "result": "issues",
+          "note": "It answered every search today (Everything 1.4.1.1032, 2.2 million items, C: indexed). Two things to fix: it is set to run as administrator with no service, so it does not start by itself at sign-in and Windows asks each time; and D: (exFAT) is not in its index, so File Kingdom walks D: slowly and cannot search it.",
+          "on": "2026-11-09"
+        },
+        "third-party:es-cli": {
+          "result": "works",
+          "note": "es.exe 1.1.0.37, signed by voidtools PTY LTD, answered File Kingdom’s searches: every .git on C: (1,529) in about 60 ms.",
+          "on": "2026-11-09"
+        },
+        "third-party:git-for-windows": {
+          "result": "works",
+          "note": "git 2.55.0.windows.3 answered project-gatherer for 77 folders.",
+          "on": "2026-11-09"
+        },
+        "third-party:windows-powershell": {
+          "result": "works",
+          "note": "Windows PowerShell 5.1.26100 ran every File Kingdom tool today.",
+          "on": "2026-11-09"
+        },
+        "tool:everything-search-tool": {
+          "result": "works",
+          "note": "Tested against the live index: counts, sizes, the newest change, either/or searches; it returns nothing, not a guess, for a drive Everything does not index.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map-look": {
+          "result": "works",
+          "note": "Ran on the PC: 27 places, 9 kinds of thing out of place, 22 seconds; wrote the page data this page shows.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map": {
+          "result": "works",
+          "note": "Seen in the working copy with this PC’s look: the toolset and its four tools draw.",
+          "on": "2026-11-09"
+        },
+        "tool:where-to-save": {
+          "result": "works",
+          "note": "Seen in the working copy: the 11 questions, each path with its Copy button.",
+          "on": "2026-11-09"
+        },
+        "tool:where-things-live": {
+          "result": "works",
+          "note": "Seen in the working copy: 27 places in 5 groups with their counts from Everything; the D: places say not counted.",
+          "on": "2026-11-09"
+        },
+        "tool:out-of-place": {
+          "result": "works",
+          "note": "Seen in the working copy: the 9 findings of the 20:57 look, most serious first.",
+          "on": "2026-11-09"
+        },
+        "tool:folder-blockers": {
+          "result": "works",
+          "note": "Ran on the PetOS folder: listed the 10 PetOS services, both Quick access pins and the startup entries (7 seconds).",
+          "on": "2026-11-09"
+        },
+        "tool:project-mover": {
+          "result": "works",
+          "note": "Moved a test repo with one worktree inside, one outside and a program working in it: 3 of 3 worktrees repaired, the program restarted, an undo line written. Its steps renamed the PetOS folder today.",
+          "on": "2026-11-09"
+        },
+        "tool:project-gatherer": {
+          "result": "works",
+          "note": "Ran across the PC in 96 seconds: 77 git folders outside the PetOS folder, 68 plan rows. C: from Everything; D: walked for 60 seconds and stopped, so D: is not looked at in full until it is in Everything’s index.",
+          "on": "2026-11-09"
+        },
+        "tool:cleanup-plan": {
+          "result": "works",
+          "note": "Ran a test plan with %USERPROFILE% rows: a file and a repo folder moved, worktrees repaired, a missing source skipped.",
+          "on": "2026-11-09"
+        },
+        "tool:undo-plan": {
+          "result": "works",
+          "note": "Moved the test plan’s items back and repaired the git links.",
+          "on": "2026-11-09"
+        },
+        "third-party:nodejs": {
+          "result": "works",
+          "note": "Node 24.20.0 ran claude-chat-repointer’s 25 checks on made-up chat records.",
+          "on": "2026-11-09"
+        },
+        "third-party:github-cli": {
+          "result": "works",
+          "note": "gh 2.102.0 answered two commit look-ups for temp-copies-check: one commit GitHub has, one it has never seen.",
+          "on": "2026-11-09"
+        },
+        "tool:program-home-restorer": {
+          "result": "works",
+          "note": "Tested on a made-up user folder: 22 of 22 checks (dry run, apply, a second run, undo, a project’s own .claude left alone). Not run on the real user folder in this form; the two scripts it comes from moved 19 program homes back on 2026-11-09.",
+          "on": "2026-11-09"
+        },
+        "tool:claude-chat-repointer": {
+          "result": "issues",
+          "note": "It passed 25 of 25 checks on made-up chat records (dry run, refusing while the app runs, apply, undo byte for byte). Two things to know: the Claude app does not support it, and its records step has never run on the app’s real records, only on copies. Treat it as untried until its first real run.",
+          "on": "2026-11-09"
+        },
+        "tool:temp-copies-check": {
+          "result": "works",
+          "note": "Tested on a made-up Temp folder: 30 of 30 checks (every verdict, the git index left untouched, two look-ups on GitHub). Not run on the real Temp in this form; the script it comes from checked 1,330 copies on 2026-11-09.",
+          "on": "2026-11-09"
+        }
+      }
     },
     {
       "repo": "discord-tower",
@@ -1273,6 +1410,55 @@
       "published": true,
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
+      "editorial": {
+        "says": "Iced Out Iceberg now lists what Puffer really looks after: your portfolio (findastra.github.io), the Portfolio Review Desk, your GitHub profile and its Window Star, the hand lettering, and LinkedIn as planned. Next: the weekly portfolio-update-round (card 019), and the employer pages, which wait on you.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-11"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Read each employer page word for word before it goes on your portfolio; until you do, the Work list there stays empty.",
+          "card": "019",
+          "on": "2026-10-17"
+        }
+      ],
+      "checks": {
+        "third-party:github": {
+          "result": "works",
+          "note": "Your portfolio and Astra's Window Star are published from GitHub Pages; both answer (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:findastra-portfolio": {
+          "result": "works",
+          "note": "findastra.github.io answers and its link here opens it (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:portfolio-review-desk": {
+          "result": "works",
+          "note": "The hub's copy of the desk answers and opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:profile": {
+          "result": "works",
+          "note": "Your GitHub profile opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:astras-star-window": {
+          "result": "works",
+          "note": "The star and its editor load inside its tool box, and Open it full screen opens its page (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:portfolio-puffer-system-map": {
+          "result": "works",
+          "note": "Its link opens the System Map on Portfolio Puffer's own node (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "chat:portfolio-puffer": {
+          "result": "issues",
+          "note": "The window opens, Needs you lists the employer pages, and its three quick questions answer from the page; an answer from the seat was not tried (button audit).",
+          "on": "2026-11-11"
+        }
+      },
       "version": "0.1.1-20261009",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
@@ -1301,6 +1487,11 @@
             "node": "github",
             "how": "optional",
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+          },
+          {
+            "node": "linkedin",
+            "how": "optional",
+            "why": "Card 019: the weekly portfolio-update-round will read your LinkedIn profile from your own signed-in browser. Not built."
           }
         ]
       },
@@ -1421,18 +1612,19 @@
       "role": "pet",
       "art": "ghost-protocol",
       "kind": "ghost",
+      "backdrop": "#1f8a4c",
       "asset_date": "20261008",
       "status": "hatching",
       "published": true,
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "version": "0.1.0-20261008-pets",
-      "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
+      "note": "Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the pet character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
       "interface_live_url": "https://findastra.github.io/ghost-protocol/",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "1b2ba2723b4508891281fe2e8a3bced0cb3e3b6a",
       "audit": {
@@ -1555,10 +1747,19 @@
           "entry": "keep-open-20261018.cs",
           "visibility": "public",
           "version": "v1.0"
+        },
+        {
+          "name": "listen-for-robotic-sound",
+          "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+          "use": "Compares the loudness Voicemeeter sends to each selected output with what Windows’ meter for that speaker shows arriving, about 50 times a second. When sound keeps going out without arriving, it writes a ROBOTIC notice to his log and marks Fix audio now in his menu. Tell first: it never restarts audio on its own yet. Reads two numbers only; records no sound (Astra, 2026-11-08).",
+          "entry": "robotic-listener-20261108.cs",
+          "visibility": "public",
+          "version": "v0.1"
         }
       ]
     },
     {
+      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
@@ -1867,7 +2068,13 @@
             "why": "Startup Star runs it on a farm; Spoonfed Sugarcube works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "yelp-mcp",
+            "how": "optional",
+            "why": "Real restaurants while Spoonfed is built (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -2564,7 +2771,7 @@
       "audit": {
         "cadence": "weekly",
         "subject": "the Fuzzboi maker and its live site",
-        "needs": "your OK to register me in the Cage"
+        "needs": "your OK to register me in the hub"
       },
       "note": "Card 006: patch and paid sheet ready.",
       "clicks": {
@@ -2783,7 +2990,7 @@
         "subject": "the chats it has filed and their index",
         "needs": "where your Claude and OpenAI chats are saved"
       },
-      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit.",
+      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through hub.submit.",
       "submitted": "2026-10-16",
       "needs": {
         "os": [
@@ -3207,7 +3414,23 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "skill-scout-20261017.mjs runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "required",
+            "why": "The census reads each sheet's last commit and every branch with git, read-only."
+          },
+          {
+            "node": "github-cli",
+            "how": "required",
+            "why": "The census lists repos and branches on GitHub with read-only gh calls (--github)."
+          }
+        ]
       }
     },
     {
@@ -3297,7 +3520,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "context7",
+            "how": "optional",
+            "why": "Current library docs for every coding chat (hub card 319)."
+          }
+        ]
       },
       "tools": [
         {
@@ -3356,7 +3585,38 @@
             "why": "Startup Star shows Door Dormouse on the desktop; The Threshold's page works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-editor",
+            "how": "required",
+            "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "required",
+            "why": "Liminal Doors' VRChat Worlds SDK and UdonSharp come from the Creator Companion's World template."
+          },
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Unity Hub opens the Liminal Doors project."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "The phone booth is modelled and baked in Blender (phone-booth-maker); only needed to remake it."
+          },
+          {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "Planned: MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (liminal-agent-queue)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: Liminal Doors goes up on VRChat; not uploaded yet."
+          }
+        ]
       }
     },
     {
@@ -3379,7 +3639,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "mcp-inspector",
+            "how": "optional",
+            "why": "The checker for every new MCP server before any chat gets it (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -3624,6 +3890,11 @@
             "node": "windows-performance-recorder",
             "how": "optional",
             "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "microsoft-learn-mcp",
+            "how": "optional",
+            "why": "Microsoft's own Windows, PowerShell and C# docs for chats writing Windows code (hub card 319)."
           }
         ]
       },
@@ -3784,6 +4055,52 @@
           "on": "2026-11-06"
         }
       }
+    },
+    {
+      "repo": "port-web",
+      "pet": "Port Spider",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Authorized port and service exposure checks.",
+      "added": "2026-11-12",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "which ports on each of your devices answer, and who can reach them",
+        "needs": "your OK before every check of a device"
+      },
+      "note": "Astra, 2026-11-12: \"I think the port spider is probably the right one for this ... let's make programs for both\": moved from the roadmap to the pipeline. Its first check, the desktop PC's listening ports and firewall, was done by hand on 2026-11-12 (report in findastra/port-web#4). No program of its own yet; no pet art registered yet.",
+      "interface_url": "apps/pet-programs/port-web-20261018.html",
+      "interface_local_url": "apps/pet-programs/port-web-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "server-hearth",
+      "pet": "Server Salamander",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Hosts: home servers, uptime, service health.",
+      "added": "2026-11-12",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your home servers: what runs on each, whether it is up, and its health",
+        "needs": "a server to look after"
+      },
+      "note": "Astra, 2026-11-12: \"I'm about to buy one [a server] ... let's make programs for both\": moved from the roadmap to the pipeline for the server she is buying. He is the farm's server pet: Astra, 2026-11-12: \"selfless sweetheart is not a thing and server salamander is the thing\" (no Self-host Sweetheart pet, no rename). A starter repo; no pet art registered yet.",
+      "interface_url": "apps/pet-programs/server-hearth-20261018.html",
+      "interface_local_url": "apps/pet-programs/server-hearth-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {
@@ -3912,6 +4229,23 @@
           {
             "pet": "file-master",
             "why": "Shares defensive findings; File Master retains file management ownership."
+          }
+        ]
+      },
+      {
+        "pet": "Flowsheet Flamingo",
+        "program": "The Pilot Plant",
+        "repo": null,
+        "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
+        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
+        "works_with": [
+          {
+            "pet": "learn-python",
+            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
+          },
+          {
+            "pet": "ai-doghouse",
+            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
           }
         ]
       }

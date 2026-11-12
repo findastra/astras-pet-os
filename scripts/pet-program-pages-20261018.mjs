@@ -19,12 +19,14 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { roadmapBody, waitingBody, researchBody } from './astral-plane-boxes-20261112.mjs';
 import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
 import { readMatrix } from './flash-matrix-20261018.mjs';
 import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, RUN_MINUTES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
+import { TEMPLATE_CHECKS, templateAudit } from './flash-template-20261112.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
 // (Source, Pedigree, the Repo button) is on its own account instead: ownerOf (card 058, Part 3).
@@ -40,6 +42,20 @@ export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-pa
 export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // The chat window's link to the pet chat helper on this PC (card 283), on every page, before the page script.
 export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
+// Drawn cyberhomes (Astra, 2026-11-11, on the GitHub Aquarium app: "this aquarium ... is gonna be the template for the
+// cyber home, but much smaller. And every pet program will have one", then "make a little mini version of the cyber home
+// in that top left square that fits in that panel"). A pet listed here gets its drawing in the den, behind the pet, and
+// its page loads the drawing's own stylesheet; the `<pet>-cyberhome` tool is then built, so its ON/OFF light is on.
+// The tool is the cyberhome itself (Astra, the same night: "the tool that is the GitHub Goldfish Cyberhome with the
+// buttons on it, that one is going to be the Cyberhome ... essentially just where the pink border is", "give it like a
+// cute little antenna"): its frame is the case, its lights in the top edge on the left and an antenna on the right like
+// a walkie-talkie's (2026-11-12), and `frame` holds the parts drawn outside the room.
+// Every other pet keeps the plain den until its cyberhome is drawn.
+export const CYBERHOMES = {
+  'github-goldfish': { kind: 'aquarium', css: 'cyberhome-aquarium-20261111.css',
+    frame: '<span class="ch-antenna" aria-hidden="true"></span>',
+    decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
+};
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
 // A 3rd party program's ON/OFF light opens or closes it through Inference Iguana's watch (2026-11-06), on every page
 // with such a light; the page script itself sends nothing.
@@ -361,6 +377,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     visibility: reg.visibility || null, isPrivate, publicRepo, host: reg.role === 'host',
     owner, repoUrl: `https://github.com/${owner}/${reg.repo}`, appHref, appPrivate, vetClinicPrivate, mapNode: homeNode && !homeNode.private ? homeNode.id : reg.repo,
     ring: (homeNode && !homeNode.private ? homeNode : petNode)?.ring || null,
+    // A colour behind the pet's own pictures, for a pet that is hard to see on the blueprint (Astra, 2026-11-12, Gone
+    // Ghost: "give like a background color for the ghosts. Maybe it's like spooky green"). `backdrop` in pets.json, a
+    // #rrggbb colour only.
+    backdrop: /^#[0-9a-f]{6}$/i.test(reg.backdrop || '') ? reg.backdrop : null,
     art, petFit, lines, audit: reg.audit || {}, round, needs, needsFrom, needsFromRound: roundNeeds.length > 0, asks, statusUpdated: status?.updated || null,
     // A program made with someone else is "Shared" (Astra, 2026-10-22, answer 4: A: My Avatar Closet is "technically both").
     thirdParty: ofType(['program'], [...from, ...viaTools, ...viaTricks]).filter((i) => !i.sharedWith), programs: ofType(['own-program']).filter((i) => !i.sharedWith),
@@ -735,40 +755,57 @@ ${about('The live status distinguishes an app running, sharing off, waiting for 
 // The Flash Audit on The Farm (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those
 // shows up as a tool and I can click it and it will go through ... all the other pet programs and check to see if those
 // components of those other programs are up to standard"; deck "The Farm: art and lights", "All recommended"): a tool
-// box in L1, its 61 checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
+// box in L1, its checks as tools in the matrix's order, each with its grey or blue dot. A check shows the last saved
 // run over every pet program at once (docs/flash-audit-rounds-<date>/ledger-main.json); Run asks the Flash Audit helper
 // on this PC to run it again (apps/flash-audit-control-20261108.js, scripts/flash-audit-helper-20261108.mjs). The
 // checks the auditor does not run by itself say so; GitHub Goldfish's word checks are marked as Goldfish's.
+// The page checks follow the Model Pet Program (Astra, 2026-11-12: "when we do audits and we're looking at user
+// interface, that we're auditing it based off of what's on the template, and then those are items on the Flash audit"):
+// one check per part of the template, each comparing every pet program page with the template as built
+// (scripts/flash-template-20261112.mjs). Their results come with the build (`fa.template`), so they need no Run.
 const FLASH_DOC = `https://github.com/${OWNER}/${HUB}/blob/main/docs/flash-audit-20261014.md`;
+const findingsList = (res, passes) => (res.findings.length
+  ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
+  : `<p class="empty" data-flash-findings>${passes}</p>`);
 export function flashAuditBody(d) {
   const fa = d.flashAudit;
   if (!fa?.matrix?.length) return '';
   const run = fa.ledger ? `${fa.ledger.date.slice(0, 4)}-${fa.ledger.date.slice(4, 6)}-${fa.ledger.date.slice(6)}` : null;
+  const template = `<a href="${MODEL_PROGRAM.page.split('/').pop()}">the Model Pet Program</a>`;
   const pill = (r) => {
-    const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
     const how = r.dot === '🔵' ? 'blue: waits for your answer' : 'grey: fixed without you';
-    const now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
-      : auto ? 'not run yet' : 'an assistant checks it';
-    const counts = res ? FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ') : '';
-    const body = res
-      ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counts ? ` · ${esc(counts)}` : ''}.</p>${res.findings.length
-        ? `<ul class="flash-findings" data-flash-findings>${res.findings.map((f) => `<li><b>${esc(f.pet)}</b> <span class="tag">${esc(f.status)}</span> ${esc(f.detail)}</li>`).join('')}</ul>`
-        : '<p class="empty" data-flash-findings>Every pet program passes.</p>'}`
-      : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
-    const runIt = auto ? `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>` : '';
+    const counted = (res) => FLASH_STATUSES.filter((s) => res.counts[s]).map((s) => `${res.counts[s]} ${s.toLowerCase()}`).join(' · ');
+    let now, body, runIt = '';
+    if (TEMPLATE_CHECKS.includes(r.id)) {
+      const res = fa.template ? checkResults(fa.template, r.id) : null;
+      now = !res ? 'compared with the template at every build' : res.findings.length ? `${res.audited - res.passing} of ${res.audited} pages differ from the template` : `all ${res.audited} pages match the template`;
+      body = res
+        ? `<p class="small">Compared with ${template} when these pages were built: ${res.passing} of ${res.audited} pet program pages match${counted(res) ? ` · ${esc(counted(res))}` : ''}.</p>${findingsList(res, 'Every pet program page matches the template here.')}`
+        : `<p class="small">Compared with ${template} each time the pages are built.</p>`;
+    } else {
+      const auto = FLASH_AUTOMATED.includes(r.id), res = auto && fa.ledger ? checkResults(fa.ledger, r.id) : null;
+      now = res ? (res.findings.length ? `${res.audited - res.passing} of ${res.audited} pet programs need work` : `all ${res.audited} pet programs pass`)
+        : auto ? 'not run yet' : 'an assistant checks it';
+      body = res
+        ? `<p class="small" data-flash-summary>Last run ${esc(run)}: ${res.passing} of ${res.audited} pass${counted(res) ? ` · ${esc(counted(res))}` : ''}.</p>${findingsList(res, 'Every pet program passes.')}`
+        : `<p class="small"${auto ? ' data-flash-summary' : ''}>${auto ? 'Not run yet.' : `The auditor does not run this one by itself: an assistant checks it during a Flash Audit (<a href="${FLASH_DOC}">the checklist</a>).`}</p>`;
+      if (auto) runIt = `<p><button type="button" class="button" data-flash-run="${r.id}">Run ${esc(r.id)} again</button> <span class="small" data-flash-status="${r.id}" role="status"></span></p>`;
+    }
     return `<li class="pill flash-check" data-check="${r.id}">${lights(`flash:${r.id}`, `${r.id} ${r.title}`)}<span class="item-name">${r.dot} ${esc(r.id)} ${esc(r.title)}</span><span class="item-desc" data-flash-desc>${esc(`${how}${GOLDFISH_WORDS.includes(r.id) ? ' · GitHub Goldfish’s check' : ''} · ${now}`)}</span><details class="pill-more"><summary aria-label="More about ${esc(r.id)}"></summary><div class="pill-body">${body}${runIt}</div></details></li>`;
   };
   // The date sits in its own span, so a newer run on this PC changes it with the pills (Astra, 2026-11-09: "Yes, fix
   // them"). A run took 19 minutes on 2026-11-09 (it asks GitHub about every pet's branches), so it says about 20.
-  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. ${run ? `Each shows the last run over every pet program (<span data-flash-run-shown>${esc(run)}</span>); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again, which takes about ${RUN_MINUTES} minutes. <a href="${FLASH_DOC}">The checklist</a>.</p>
+  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. The page checks follow ${template}, one check per part, top to bottom, and compare every pet program page with it each time the pages are built. ${run ? `The others show the last run over every pet program (<span data-flash-run-shown>${esc(run)}</span>); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again, which takes about ${RUN_MINUTES} minutes. <a href="${FLASH_DOC}">The checklist</a>.</p>
 <ul class="items flash-checks" data-flash-run-date="${esc(run || '')}" data-flash-run-minutes="${RUN_MINUTES}">${fa.matrix.map(pill).join('')}</ul>`;
 }
 export const PET_BOXES = {
-  // Folded to its name until clicked: 61 checks are long (deck "The Farm: art and lights", answer 3: A).
+  // Folded to its name until clicked: the checks are long (deck "The Farm: art and lights", answer 3: A).
   'astras-pet-os': [{ tool: 'flash-audit', body: flashAuditBody, open: false }],
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
   'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
+  // AI Astra's face: her roadmap, what waits on her, the research (Astra, 2026-11-12).
+  'the-astral-plane': [{ name: 'roadmap', body: () => roadmapBody() }, { name: 'waiting-on-you', body: () => waitingBody() }, { name: 'research', body: () => researchBody() }],
 };
 function petBoxes(d) {
   const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
@@ -895,9 +932,10 @@ ${about({
   // the correct tool name, and we dont have one so idk why its green"). It is not built, so it is off, never a guessed
   // green. The pet stands as tall as on the desktop.
   const render = `${d.petSlug}-cyberhome`;
-  const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
-<span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
+  const drawn = CYBERHOMES[d.repo];
+  const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat${drawn ? ` drawn-home ${drawn.kind}-home` : ''}" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
+<span class="render-label">${lights(`tool:${render}`, render, { planned: !drawn })}<span class="render-name">${esc(render)}</span></span>
+<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting">${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div>${drawn ? drawn.frame : ''}</div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -1075,7 +1113,7 @@ ${about({
   // deck, answer 1: A); it was the idle face, wearing idle's three dots. A pet with no awake drawing shows idle's.
   const emotions = panel(`${d.petSlug}-emotions-panel`, `<div class="moods">${EMOTIONS.map(([mood, name, bullets]) => {
     const picture = img(mood === 'blink' ? f.blink || f.idle : f[mood], `${d.pet}, ${name}`, '', d.petFit);
-    return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${picture}</figure>`;
+    return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${d.backdrop ? `<span class="pet-backdrop">${picture}</span>` : picture}</figure>`;
   }).join('')}</div>
 ${about({
     how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up; the page knows idle, awake and sad so far. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
@@ -1127,7 +1165,9 @@ ${about({
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
   // Out More on one line. Since 2026-10-24 (Astra: "make sure there is no sparkle before By Astra ... the codes go below
   // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line.
-  // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer").
+  // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer"), and so is its More
+  // details (Astra, 2026-11-11: "get rid of the more details on the unified footer"): who owns the footer, the one thing
+  // it said was not built, waits on her in PET-PROGRAM-FRAMEWORK.md ("Waiting on Astra").
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
@@ -1135,12 +1175,6 @@ ${about({
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
-${about({
-    how: 'By Astra, her photostar and Find Out More with her links, the same on every pet program.',
-    from: 'The links on her GitHub profile README, and Iced Out Iceberg’s photostar (astras-star-window).',
-    rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
-    notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
-  })}
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer', fold: false });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
@@ -1195,14 +1229,15 @@ ${about({
 </div></aside>`;
 
   return assertPublic(`<!doctype html>
-<html lang="en" data-pet="${esc(d.petSlug)}">
+<html lang="en" data-pet="${esc(d.petSlug)}"${d.backdrop ? ` class="has-backdrop" style="--pet-backdrop: ${d.backdrop}"` : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(d.home)} · ${esc(d.pet)}</title>
 ${LIVE_CHECK}
 <link rel="stylesheet" href="${ASSETS.css}">
-${wordScripts}
+${CYBERHOMES[d.repo] ? `<link rel="stylesheet" href="${CYBERHOMES[d.repo].css}">
+` : ''}${wordScripts}
 </head>
 <body>
 <main class="page">
@@ -1328,7 +1363,7 @@ export function modelProgramData(src) {
     round: { checked: '2026-11-02T08:00:00.000Z', says: 'Example: what the Farmer\'s round found.' },
     needs: ['Example: a decision only you can make.'], needsFrom: [], needsFromRound: true,
     asks: ['Approve the update of tool-three to v1.1? Example: the update audit found a newer version; nothing is installed until you say yes.'],
-    statusUpdated: '2026-11-02T08:00:00.000Z',
+    statusUpdated: '2026-11-02T08:00:00.000Z', backdrop: null,
     thirdParty: [item('third-party-one', '3rd party program one', 'A program made by someone else that Pet Name runs. Its light turns green while it is open on this PC.'),
       item('third-party-two', '3rd party program two', 'Another program made by someone else, planned.', { state: 'planned' })],
     programs: [item('native-program-one', 'Native program one', 'A program Astra made that Pet Name looks after, opened on its own.', { url: guide }),
@@ -1472,8 +1507,17 @@ export const movedFiles = () => Object.fromEntries(Object.entries(MOVED_PAGES).m
 
 export function spawnerFiles(src) {
   const pages = spawnerPages(src);
-  return { ...Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)])), [INDEX]: buildSpawnerIndex(pages),
-    [MODEL_PROGRAM.page]: buildPetProgramPage(modelProgramData(src)), [MODEL_PROGRAM.tool]: buildModelProgramTool() };
+  const model = buildPetProgramPage(modelProgramData(src));
+  const built = Object.fromEntries(pages.map((d) => [pagePath(d.repo), buildPetProgramPage(d)]));
+  // The Flash Audit's page checks (2026-11-12): every page as built, part by part, against the Model Pet Program as
+  // built. The Farm's page is drawn again with the results; the checks read only the pages' parts, which the results in
+  // its flash-audit tool box do not change.
+  const farm = pages.find((d) => d.repo === HUB);
+  if (farm?.flashAudit?.matrix?.length) {
+    const template = templateAudit(model, pages.map((d) => ({ repo: d.repo, pet: d.pet, home: d.home, page: pagePath(d.repo), html: built[pagePath(d.repo)] })));
+    built[pagePath(HUB)] = buildPetProgramPage({ ...farm, flashAudit: { ...farm.flashAudit, template } });
+  }
+  return { ...built, [INDEX]: buildSpawnerIndex(pages), [MODEL_PROGRAM.page]: model, [MODEL_PROGRAM.tool]: buildModelProgramTool() };
 }
 
 export function writePetProgramPages(root = '.') {

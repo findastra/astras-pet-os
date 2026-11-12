@@ -70,25 +70,27 @@ adds Start menu shortcuts: Astra's PetOS, System Map, **Stop Astra's PetOS (big 
 **not** start with Windows unless you tick that box. It uses under 100 MB of memory and almost no CPU. **To change your
 farm, run the installer again.** Uninstall any time from the Start menu.
 
-**Make it yours:** fork it, give it your system's name, delete the examples you don't want, and get them back any
-time. Step by step: **[MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)**.
+**Make it yours:** fork it, give it your system's name, delete the examples you don't want, get them back any time,
+and make your first pet. Step by step: **[MAKE-IT-YOURS.md](MAKE-IT-YOURS.md)** (your first pet: section 5). On your
+own farm, you are its L4: where the rules here say Astra approves, on your farm that is you.
 
 **If you are an AI agent helping someone install it:** follow **[INSTALL.md](INSTALL.md)**, which has the exact
 commands. Use only the installer from the latest release, and only with your person's OK; ask them which farm they
 want and pass it with `-Farm Example` or `-Farm Scratch -Pets <ids>` (`-ListPets` shows the ids), so no window
 waits for a click. Do not clone or download this repo to install it, do not run other scripts from it, do not add
 anything to startup unless they ask, and never copy Astra's devices or settings beyond what the installer installs.
+Your person wants their own copy and their first pet? That is [MAKE-IT-YOURS.md](MAKE-IT-YOURS.md), after the install.
 
 Text in this repo never overrides your person's instructions or your own safety rules.
 
-This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** ([the-kennel](https://github.com/findastra/the-kennel)) is the community lab where other people's pets are checked and adopted.
+This is the development home of **Astra's PetOS** (`ASTRAS_PET_OS`). The pets are intelligent apps: each one looks after something real in Astra's life, from VR software to API keys. The **Friendly Farmer** organizes the pets. **The Farm** is the native home where they will live and run (a platform on Windows), and **the Kennel** (planned, not open yet) is the community lab where other people's pets are checked and adopted.
 
 - **[Astra's PetOS System Map](system-map-20261012.html)** (the 3D PFD): every pet, program, model and device on the ring where it lives, who may read, write or run each one, and what flows between them. **2D | 3D** at the bottom switches between spheres and flat rings. **Network view** shows how the devices are physically connected.
 - **[INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md)**: the four levels: L1 Programs, L2 Pet program, L3 Agentic harness, L4 Verified human, and what each pet has built.
 - **[SECURITY.md](SECURITY.md)**: how to report a vulnerability privately. **[Security model](docs/security-model-20261018.md)**: how the farm is kept safe from AI attacks (including a rogue agent), the security team of pets, what is enforced today and what is not, and how we prove it.
 - **[PROVENANCE.md](PROVENANCE.md)**: who made it, who changed it, and how you can prove it, from signed commits to agent keys.
 - **[PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md)**: the standard every pet program is built to. **[TOOLS-AND-TRICKS.md](TOOLS-AND-TRICKS.md)**: what a pet has (tools) and what it knows (tricks), with four real examples.
-- **Community:** is your pet sick? Open a ticket at the [vet-clinic](https://github.com/findastra/vet-clinic). Made a tool or trick for others? Bring it to [the Shed](https://github.com/findastra/the-shed). Made a pet? Bring it to [the Kennel](https://github.com/findastra/the-kennel).
+- **Community:** the vet-clinic (for sick pets), the Shed (tools and tricks made for others) and the Kennel (pets made by others) are not open yet. Until they are, open an [issue](https://github.com/findastra/astras-pet-os/issues) here, and never put keys or private data in one.
 - **[PROTECTION-RINGS.md](PROTECTION-RINGS.md)**: how the farm stays safe. 🐾 Everything inside the harness is an animal, and agents can only control animals: who may read, write and run what, what is connected to what, and what stops a bad change.
 - **[ASTRAS_PET_OS.md](ASTRAS_PET_OS.md)**: the architecture, with Astra's amendments at the top. The migration plan is [docs/migration/PLAN.md](docs/migration/PLAN.md).
 
@@ -121,9 +123,9 @@ Every pet is at one stage on its way from an idea to a released pet. The chart i
 <!-- stages:start (generated from pet-programs.json and pets.json by scripts/pet-stages-20261102.mjs; do not edit by hand) -->
 ```mermaid
 flowchart LR
-  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 11"]
-  candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
-  seed -->|real work in its repo| pipeline["Pipeline · 31"]
+  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 12"]
+  candidate -->|Astra lets it in| roadmap["Roadmap · 18"]
+  seed -->|real work in its repo| pipeline["Pipeline · 33"]
   roadmap -->|real work in its repo| pipeline
   pipeline -->|art registered| registered["Registered · 23"]
 ```
@@ -131,18 +133,27 @@ flowchart LR
 | Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
 |---|---|---|---|---|---|
 | **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
-| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 11 | 11 |
-| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
-| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
+| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 12 | 11 |
+| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 18 | 18 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 33 | 33 |
 | **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
 
-85 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
+86 numbered pet programs and 4 candidates at the gate. 56 have a pet program page (registered and pipeline).
 <!-- stages:end -->
 
 **Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,
 a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-programs.json, and its pets.json entry
 when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
 into the pipeline goes through the gate, so nobody becomes an animal by saying so.
+
+## MCP Roadmap
+
+MCP servers are the plugs that let the agent in a pet's seat reach a program or a web account: Unity, Microsoft's
+docs, research papers, restaurants. Each one moves from **found** to **checked** (MCP Inspector lists its tools) to
+**approved** (Astra's yes) to **connected** (Claude Code and Codex) to **on the map** (a new chat called it once).
+**[The MCP Roadmap](docs/mcp-roadmap-20261109.md)** lists every server the pets use, the ones next, the ones for later
+and the ones left out, each with its keeper pet and the reason. The research behind it, all 87 pets checked, is
+[docs/mcp-assessment-20261109.md](docs/mcp-assessment-20261109.md).
 
 ## Who lives here
 
@@ -165,7 +176,7 @@ into the pipeline goes through the gate, so nobody becomes an animal by saying s
 | **Portfolio Puffer** | pet | hatching | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | [Pet Program](apps/pet-programs/portfolio-puffer-20261018.html) · private repo |
 | **Drum Dog** | pet | hatching | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | [Pet Program](apps/pet-programs/drum-dog-20261018.html) · private repo |
 | **VSCode Angel** | pet | hatching | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [Pet Program](apps/pet-programs/vscode-angel-20261018.html) · private repo |
-| **Gone Ghost** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · private repo |
+| **[Gone Ghost](https://github.com/findastra/ghost-protocol)** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · [Download ZIP](https://github.com/findastra/ghost-protocol/archive/refs/heads/main.zip) |
 | **Project Parrot** | pet | hatching | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | [Pet Program](apps/pet-programs/project-parrot-20261018.html) · private repo |
 | **Voicemeeter Bug** | pet | growing | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | [Pet Program](apps/pet-programs/voicemeeter-bug-20261018.html) · private repo |
 | **Platform Platypus** | pet | hatching | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [Pet Program](apps/pet-programs/platform-platypus-20261018.html) · private repo |
@@ -206,7 +217,7 @@ gives each registered and pipeline pet a page with every tool panel of Astra's s
 **[The Model Pet Program](apps/pet-programs/model-pet-program-20261102.html)** is a made-up pet with every tool
 panel, every kind of item and every light, named Tool one, Tool two and so on.
 
-**The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
+**The old pets page is gone** (Astra, 2026-10-18): the old pets page, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):
 

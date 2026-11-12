@@ -23,7 +23,8 @@
 // click as it happens.
 //
 // Hidden buttons get a second pass: the tester clicks what opens them first (the chat button, a folded section's
-// header). It goes one level deep; a button folded inside something folded is listed as not clicked.
+// header), and what opens that, up to three deep (the chat button, then its Ask tab; 2026-11-12). A button nothing
+// opens is listed as not clicked.
 //
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-19.
 
@@ -586,25 +587,37 @@ const IN_PAGE = String.raw`(() => {
     return seen ? { state: 'covered', by: cc.describe(seen), box } : { state: 'offscreen', box };
   };
   // What opens a hidden button: the control naming its box (aria-controls), else a closed header beside it
-  // (aria-expanded="false"). Its place in the list, or -1.
-  cc.opener = (i, sig) => {
+  // (aria-expanded="false"). When that control is hidden too (the chat's Ask tab, inside the closed chat), what opens
+  // it comes first, up to three deep (Astra, 2026-11-12: "make sure all these buttons work"; the chat's Ask buttons
+  // were never clicked). Their places in the list, outermost first; empty when nothing opens it.
+  cc.opener = (i, sig, depth = 0) => {
     const e = cc.find(i, sig);
-    if (!e) return -1;
+    if (!e || depth > 2) return [];
     const all = cc.items();
-    const usable = (o) => !!o && o !== e && !o.contains(e) && all.includes(o) && cc.prepare(all.indexOf(o), null).state === 'ok';
+    const found = (o) => !!o && o !== e && !o.contains(e) && all.includes(o);
+    const chain = (o) => {
+      const n = all.indexOf(o);
+      if (cc.prepare(n, null).state === 'ok') return [n];
+      const outer = cc.opener(n, null, depth + 1);
+      return outer.length ? outer.concat(n) : null;
+    };
     for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
       if (a.id) {
         const o = all.find((x) => (x.getAttribute('aria-controls') || '').split(/\s+/).includes(a.id));
-        if (usable(o)) return all.indexOf(o);
+        const c = found(o) && chain(o);
+        if (c) return c;
       }
       if (a.parentElement) {
         for (const c of a.parentElement.children) {
           if (c === a) continue;
-          for (const o of c.matches('[aria-expanded="false"]') ? [c] : c.querySelectorAll('[aria-expanded="false"]')) if (usable(o)) return all.indexOf(o);
+          for (const o of c.matches('[aria-expanded="false"]') ? [c] : c.querySelectorAll('[aria-expanded="false"]')) {
+            const ch = found(o) && chain(o);
+            if (ch) return ch;
+          }
         }
       }
     }
-    return -1;
+    return [];
   };
   cc.fillForm = (i, sig) => {
     const e = cc.find(i, sig), form = e && (e.form || e.closest('form'));
@@ -859,9 +872,11 @@ export function judge(raw, noise) {
   // not proof, the same as for a link.
   // A file the page reads on Astra's PC only (outside the repo, already noted when the page opened) is the page's own
   // timer reading it again, not the click: Rift Rabbit's page reloads its program lights every five seconds, and the
-  // same file with a fresh ?t= was blamed on whichever button was clicked then (2026-10-25).
+  // same file with a fresh ?t= was blamed on whichever button was clicked then (2026-10-25). A file outside the repo
+  // that only a click reads (the pet chat helper's address, read when the chat opens) is the same kind of data: on
+  // Astra's PC it is there, elsewhere the page says the helper is not running (2026-11-12).
   const farmData = noise.farmData || new Set();
-  const failed = ev.failed.filter((f) => f.during && !farmData.has(String(f.url).split('#')[0].split('?')[0]));
+  const failed = ev.failed.filter((f) => f.during && !farmData.has(String(f.url).split('#')[0].split('?')[0]) && !(noise.outsideRepo && noise.outsideRepo(f.url)));
   if (failed.length) {
     const status = /^\d+$/.test(failed[0].text) ? Number(failed[0].text) : 0;
     const c = status ? classifyHttp({ status }) : { verdict: 'dead-end' };
@@ -992,7 +1007,8 @@ export async function checkPage(browser, pageAbs, ctx) {
 
     // What the page does by itself, and what any click anywhere does: never counted for a button.
     const noise = { paths: new Set(await tab.evaluate('__cc.noise(3800)', 10000).catch(() => [])), values: new Map(),
-      farmData: new Set(first.seen.failed.filter((f) => f.url.startsWith('file:') && !inRepo(f.url)).map((f) => f.url.split('#')[0].split('?')[0])) };
+      farmData: new Set(first.seen.failed.filter((f) => f.url.startsWith('file:') && !inRepo(f.url)).map((f) => f.url.split('#')[0].split('?')[0])),
+      outsideRepo: (u) => String(u).startsWith('file:') && !inRepo(String(u)) };
     const spot = await tab.evaluate('__cc.controlPoint()').catch(() => null);
     if (spot) {
       const before = await tab.evaluate('__cc.tops()').catch(() => []);
@@ -1023,7 +1039,8 @@ export async function checkPage(browser, pageAbs, ctx) {
     const persistChecked = new Map();
     let sinceReset = 0, opener = null;
     // The page, ready for the next click: opened fresh after a click that left it (and every 15 clicks), and with
-    // `opener` clicked first when the button sits behind it (the second pass, below).
+    // `opener` clicked first when the button sits behind it (the second pass, below). `opener.chain` holds every
+    // control to click, outermost first (the chat button, then its Ask tab); `opener.label` names them all.
     const ready = async (force = false) => {
       if (!(force || dirty || sinceReset >= 15)) return true;
       await reset(); dirty = false; sinceReset = 0;
@@ -1031,12 +1048,14 @@ export async function checkPage(browser, pageAbs, ctx) {
     };
     const openIt = async () => {
       if (!opener) return true;
-      await tab.evaluate('__cc.calm(1500)').catch(() => {});
-      await tab.evaluate('__cc.wake()').catch(() => {});
-      const o = await tab.evaluate(`__cc.prepare(${opener.i}, ${sig(opener)})`).catch(() => ({ state: 'missing' }));
-      if (o.state !== 'ok') return false;
-      await clickAt(tab, o.x, o.y).catch(() => {});
-      await sleep(ctx.wait);
+      for (const step of opener.chain) {
+        await tab.evaluate('__cc.calm(1500)').catch(() => {});
+        await tab.evaluate('__cc.wake()').catch(() => {});
+        const o = await tab.evaluate(`__cc.prepare(${step.i}, ${sig(step)})`).catch(() => ({ state: 'missing' }));
+        if (o.state !== 'ok') return false;
+        await clickAt(tab, o.x, o.y).catch(() => {});
+        await sleep(ctx.wait);
+      }
       await tab.evaluate('__cc.calm(1500)').catch(() => {});
       return true;
     };
@@ -1056,7 +1075,7 @@ export async function checkPage(browser, pageAbs, ctx) {
         dirty = true;
         if (pass === 1 && prep.state !== 'missing') { hidden.push(item); return; }
         const why = prep.state === 'missing' ? 'it was gone after a reload'
-          : pass === 2 ? `still hidden after clicking "${String(opener.label).slice(0, 40)}"` : prep.folded ? 'folded away until its section is opened' : 'hidden until something else is clicked';
+          : pass === 2 ? `still hidden after clicking "${String(opener.label).slice(0, 80)}"` : prep.folded ? 'folded away until its section is opened' : 'hidden until something else is clicked';
         finding({ ...base, verdict: 'skipped', target: '', why, effects: [] });
         return;
       }
@@ -1116,16 +1135,18 @@ export async function checkPage(browser, pageAbs, ctx) {
       await ready(true);
       const groups = new Map();
       for (const item of hidden) {
-        const o = await tab.evaluate(`__cc.opener(${item.i}, ${sig(item)})`).catch(() => -1);
-        if (!groups.has(o)) groups.set(o, []);
-        groups.get(o).push(item);
+        const o = await tab.evaluate(`__cc.opener(${item.i}, ${sig(item)})`).catch(() => []);
+        const key = (Array.isArray(o) ? o : []).join(',');
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(item);
       }
-      for (const [o, group] of groups) {
-        opener = o >= 0 ? items[o] : null;
+      for (const [key, group] of groups) {
+        const chain = key ? key.split(',').map((n) => items[Number(n)]).filter(Boolean) : [];
+        opener = chain.length ? { chain, i: chain[chain.length - 1].i, label: chain.map((c) => c.label).join(' → ') } : null;
         const open = opener ? await ready(true) : false;
         for (const item of group) {
-          if (!open) { skip(item, opener ? `hidden, and "${String(opener.label).slice(0, 40)}" did not open` : 'hidden until something else is clicked (the tester found nothing that opens it)'); continue; }
-          if (!(await ready())) { skip(item, `"${String(opener.label).slice(0, 40)}" did not open again`); continue; }
+          if (!open) { skip(item, opener ? `hidden, and "${String(opener.label).slice(0, 80)}" did not open` : 'hidden until something else is clicked (the tester found nothing that opens it)'); continue; }
+          if (!(await ready())) { skip(item, `"${String(opener.label).slice(0, 80)}" did not open again`); continue; }
           await tryItem(item, 2);
         }
       }

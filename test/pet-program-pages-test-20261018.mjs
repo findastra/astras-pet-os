@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, CYBERHOMES, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
 import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
@@ -30,7 +30,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
     assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
   }
-  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS]));
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS], Object.values(CYBERHOMES).map((h) => h.css)));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -169,8 +169,10 @@ test('lights: the ON/OFF light is never grey, and only tools have lights, never 
     assert.ok(!html.includes('data-item="panel:'), `${d.repo}: no panel has lights`);
     assert.ok(!/<summary[^>]*><span class="lights">/.test(html), `${d.repo}: no lights in a panel's label`);
     // The cyberhome's box is the tool <pet>-cyberhome, a pill with its lights; not built yet, so off, never green.
+    // A drawn cyberhome (CYBERHOMES, 2026-11-11) is built, so its ON/OFF light is on like any built tool's.
     const render = `${d.petSlug}-cyberhome`;
-    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
+    if (CYBERHOMES[d.repo]) assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${render}" data-name="${render}" aria-label="${render}: on"`), `${d.repo}: ${render} is drawn, so it is on`);
+    else assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
     // The map panel's tool, <pet>-system-map: its lights live (the link exists).
     const mapTool = `${d.petSlug}-system-map`;
     assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
@@ -567,13 +569,14 @@ test('the editorial status panel marks the working copy and is hidden on the liv
 // Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
 // all other reccd").
 // Astra, 2026-11-06: no dropdown arrows in the cyberhome, the quick summary or the System Map box.
-test('every panel but the three top boxes ends with More details, the same four lines in order; the chat shows only the arrow', () => {
+// Astra, 2026-11-11: "get rid of the more details on the unified footer".
+test('every panel but the three top boxes and the footer ends with More details, the same four lines in order; the chat shows only the arrow', () => {
   const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.equal((html.match(lines) || []).length, PANELS.length - 3, `${d.repo}: one More details with four lines per panel, none in the three top boxes`);
+    assert.equal((html.match(lines) || []).length, PANELS.length - 4, `${d.repo}: one More details with four lines per panel, none in the three top boxes or the footer`);
     assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 1, `${d.repo}: only the chat shows the arrow only`);
-    for (const box of ['cyberhome', 'summary', 'system-map']) {
+    for (const box of ['cyberhome', 'summary', 'system-map', 'footer']) {
       const start = html.indexOf(`<details class="panel ${box}"`);
       assert.ok(start > 0 && !html.slice(start, html.indexOf('</details>', start)).includes('class="about'), `${d.repo}: no More details in the ${box} box`);
     }

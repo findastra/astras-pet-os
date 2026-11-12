@@ -55,7 +55,11 @@ What each one means: section 3, `<pet>-emotions`.
 Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
 (tool-one, tool-two, 3rd party program one ...) and the version as its format, v0.0.0 // YYYYMMDD. The pet program spawner draws it with the same code as every real
 page, so it always shows today's rules; `test/model-pet-program-test-20261102.mjs` fails when a real page can show something
-the Model Pet Program does not. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
+the Model Pet Program does not. **The Flash Audit checks pages against it** (Astra, 2026-11-12: "when we do audits and
+we're looking at user interface, that we're auditing it based off of what's on the template"): each part of the Model
+Pet Program is one check in [docs/flash-audit-20261014.md](docs/flash-audit-20261014.md) ("6. The page"), in its order,
+and `npm run build` compares every pet program page with it part by part (`scripts/flash-template-20261112.mjs`),
+shown on The Farm's flash-audit checks. A new part here gets its Flash Audit check in the same change. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
 screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
 platform-platypus): on 2026-11-02, 19 of 19 screens fit.
 
@@ -110,7 +114,7 @@ blueprint color, blue and white and yellow. Like, make it very classical"; raspb
 paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
 changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
 boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
-midnight indigo), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
+midnight indigo, Spoonfed's pretty gray, The Threshold's Door Dormouse tail indigo, Halo List's bright sky blue), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
 deck, answer 6: A); Data Chip's phone on Data Dealer keeps his neon and LCD greens (item 10). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
@@ -120,14 +124,15 @@ window narrows, 16px on a phone. CSS inches are not real inches on every screen.
 inside), R W X, the session notes, the emotions and clicker training. **The top and bottom panels always stay open**,
 with no fold arrow after the label (Astra, 2026-11-08: "it needs to be on only like the main body panels, not the top
 ones or the bottom ones, and definitely not the unified footer"; deck answers all recommended: every page): L3's note,
-the cyberhome, the quick summary, the System Map box, the friends list and the unified footer. L3's note, the friends
-list and the footer keep their More details. **The page stays wide** (Astra, 2026-11-03, Flash
+the cyberhome, the quick summary, the System Map box, the friends list and the unified footer. L3's note and the
+friends list keep their More details; the unified footer has none (Astra, 2026-11-11: "get rid of the more details on
+the unified footer"). **The page stays wide** (Astra, 2026-11-03, Flash
 Audit deck, answer 7: A): up to 1180 px inside the frame, with no sideways scroll on any screen (Platform Platypus's
 `fit-check`). **Every panel ends with More details**, folded behind its arrow (2026-10-22), the same four lines in the
 same order (2026-11-03, answer 8: A): **How it works**, **Where it comes from**, **Your rules** (her dated decisions for
 it, with a link to this section) and **Not built yet**. The chat shows only the arrow until it is opened; the three
 boxes at the top (the cyberhome, the quick summary and the System Map box) have no More details and no fold arrow on
-their labels (2026-11-06: "get rid of the dropdown arrows"); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
+their labels (2026-11-06: "get rid of the dropdown arrows"), and neither has the unified footer (2026-11-11); a tool box inside a panel keeps its one paragraph. The tool, notes and connection boxes from the list below
 go inside the matching tool panel here. **Panels, not modules** (Astra, 2026-10-19): these were called modules until then,
 but to a developer a module is a file of code (every `.mjs` script in this repo is one), so a box on a page is a panel. Since the same day every panel is a **tool panel** (Astra, 2026-10-19: "I do want all of it to say tool panel instead of just panel").
 

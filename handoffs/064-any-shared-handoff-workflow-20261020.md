@@ -30,7 +30,7 @@ Next action: publish, merge the reviewed source and record the verified merge be
 - Updated the existing handoff skill, retaining the card reader's status format and first-six-line
   metadata. Added bounded claims, one writer per file, recipient acknowledgment, exact revision
   delivery, review/acceptance, interrupted-work recovery and evidence-based reuse.
-- Kept dynamic assignments in project records. Removed stale Cage UI references and replaced
+- Kept dynamic assignments in project records. Removed stale old pets page references and replaced
   public personal-path requirements with private evidence records and portable locators.
 - Added short routing to AGENTS.md and CLAUDE.md; no new workflow name, taxonomy change,
   runtime, registry, permission grant or generated file changes.

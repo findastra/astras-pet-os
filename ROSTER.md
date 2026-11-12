@@ -32,7 +32,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 14 | **Portfolio Puffer** | pet | hatching | private repo | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | <img src="art/frames/portfolio-puffer/idle.png" width="48" height="48" alt="portfolio-puffer idle"> |
 | 15 | **Drum Dog** | pet | hatching | private repo | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | <img src="art/frames/drum-dog/idle.png" width="48" height="48" alt="drum-dog idle"> |
 | 16 | **VSCode Angel** | pet | hatching | private repo | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | <img src="art/frames/vscode-angel/idle.png" width="48" height="48" alt="vscode-angel idle"> |
-| 17 | **Gone Ghost** | pet | hatching | private repo | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | <img src="art/frames/ghost-protocol/idle-20261008.png" width="48" height="48" alt="ghost-protocol idle"> |
+| 17 | **Gone Ghost** | pet | hatching | [ghost-protocol](https://github.com/findastra/ghost-protocol) | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | <img src="art/frames/ghost-protocol/idle-20261008.png" width="48" height="48" alt="ghost-protocol idle"> |
 | 18 | **Project Parrot** | pet | hatching | private repo | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | <img src="art/frames/project-parrot/idle-20261008.png" width="48" height="48" alt="project-parrot idle"> |
 | 19 | **Voicemeeter Bug** | pet | growing | private repo | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | <img src="art/frames/voicemeeter-bug/idle-20261008.png" width="48" height="48" alt="voicemeeter-bug idle"> |
 | 20 | **Platform Platypus** | pet | hatching | private repo | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | <img src="art/frames/platform-platypus/idle-20261012.png" width="48" height="48" alt="platform-platypus idle"> |
@@ -68,7 +68,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### API Fairy
 
-*Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).*
+*Redrawn in the shared pet style from her 32x24 LCD original (pink hair, mint wings).*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -172,7 +172,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### Gone Ghost
 
-*Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.*
+*Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the pet character is not connected to checklist progress or security monitoring.*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|

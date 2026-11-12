@@ -28,7 +28,7 @@ Rank, most important first:
 3. **What other pull requests build on**: the base before the pull requests stacked on it, and of two that touch the
    same lines, the bigger one first, so the smaller one's chat fixes the conflict.
 4. **Everything else**, oldest first.
-5. **Stale pull requests** (the Cage is retired, superseded, or a month old with no chat): listed last as
+5. **Stale pull requests** (the old pets page is retired, superseded, or a month old with no chat): listed last as
    "close?", for Astra to close or keep.
 
 Same pull request in two repos (a hub copy and a live site): they sit next to each other.

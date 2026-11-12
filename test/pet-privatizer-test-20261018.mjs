@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assess, farmRepos, markPrivate, markVisibility, refusal, scanHistory, describeScan } from '../scripts/pet-privatizer-20261018.mjs';
+import { asAstrasFarm, isAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
 const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
 const TOOL = fileURLToPath(new URL('../scripts/pet-privatizer-20261018.mjs', import.meta.url));
@@ -33,7 +34,7 @@ test('the whole farm is every animal: registered and pipeline pets and the hub, 
   const all = farmRepos(registry);
   assert.ok(all.includes('astras-pet-os') && all.includes('data-dealer') && all.includes('meme-fiend'));
   for (const c of registry.candidates || []) assert.ok(!all.includes(c.repo), `${c.repo} is a candidate`);
-  assert.equal(all.length, new Set([...registry.pets, ...registry.pipeline].map((p) => p.repo).concat(registry.cage)).size);
+  assert.equal(all.length, new Set([...registry.pets, ...registry.pipeline].map((p) => p.repo).concat(registry.hub)).size);
 });
 
 // A pet that is public today, never one named here: most of Astra's repos went private on 2026-10-20.
@@ -68,7 +69,7 @@ test('a farm\'s new repos start private; public is asked for', () => {
 
 // Both ways, on any farm's own account (Astra, 2026-10-20: "privatize and unprivatize"; card 058).
 const dev = {
-  cage: 'devs-pet-os', github_owner: 'XxdevilishxX',
+  hub: 'devs-pet-os', github_owner: 'XxdevilishxX',
   pets: [{ repo: 'devs-pet-os', role: 'host' }, { repo: 'meme-fiend', github_owner: 'findastra' }, { repo: 'dev-diary', visibility: 'private' }],
   pipeline: [],
 };
@@ -84,7 +85,7 @@ test('plan public says what becomes visible; a public repo or a fork does not ch
 });
 
 test('the one art source never goes private, and another account\'s pet is copied, not changed', () => {
-  const astra = JSON.parse(read('pets.json'));
+  const astra = asAstrasFarm(JSON.parse(read('pets.json'))); // also on someone else's copy (fixtures/astras-farm-20261111.mjs)
   assert.match(refusal(astra, 'astras-pet-os', 'private'), /one art source \(findastra\/astras-pet-os\)/);
   assert.equal(refusal(astra, 'astras-pet-os', 'public'), '');
   assert.equal(refusal(astra, 'meme-fiend', 'private'), '');
@@ -147,9 +148,13 @@ test('both ways from the command line: animals only, --yes, and the art source r
   assert.match(run('apply', 'public', 'meme-fiend').err, /add --yes when the farm owner says so/);
   assert.match(run('apply', 'public', '--yes').err, /Name the repos to make public/);
   assert.match(run('copy', 'astras-pet-os', 'my-farm', '--yes').err, /Name the source as owner\/repo/);
-  const hub = run('plan', 'private', 'astras-pet-os');
-  assert.equal(hub.code, 0);
-  assert.match(hub.out, /^astras-pet-os: no change; it is the one art source/);
+  // The tool reads this copy's own pets.json. On someone else's farm their hub copy is theirs, not the one art source,
+  // so it may go private like any of their pets (the refusal itself is tested on Astra's farm above).
+  if (isAstrasFarm(JSON.parse(read('pets.json')))) {
+    const hub = run('plan', 'private', 'astras-pet-os');
+    assert.equal(hub.code, 0);
+    assert.match(hub.out, /^astras-pet-os: no change; it is the one art source/);
+  }
 });
 
 test('it runs through a junction too (Documents\\Astra\'s PetOS), not only from the real folder', (t) => {

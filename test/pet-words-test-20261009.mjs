@@ -1,4 +1,4 @@
-// Pet words: pets.json `words` and PET-WORDS.md agree, and the Cage's own docs use them.
+// Pet words: pets.json `words` and PET-WORDS.md agree, and the hub's own docs use them.
 // Claude Opus 5.5 (claude-opus-5-5), 2026-10-09.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -45,7 +45,7 @@ test('every word in pets.json is in PET-WORDS.md, and the reverse', () => {
   for (const b of bold) assert.ok(words.parts.some((p) => p.say === b), `PET-WORDS.md names **${b}** but pets.json words does not`);
 });
 
-test('the Cage\'s own docs and registry text use the current words', () => {
+test('the hub\'s own docs and registry text use the current words', () => {
   const docs = ['README.md', 'PET-FILES.md', 'AGENTS.md', 'CLAUDE.md', 'ROSTER.md', 'docs/farmer-dock-20261008.md'];
   const registryText = registry.pets.flatMap((p) => [p.job, p.note || '']).join('\n');
   for (const [name, text] of [...docs.map((f) => [f, read(f)]), ['pets.json jobs and notes', registryText]]) {

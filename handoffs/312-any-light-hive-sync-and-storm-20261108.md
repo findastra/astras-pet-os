@@ -1,4 +1,4 @@
-status: READY_FOR_REVIEW (waits on Astra's merge OK for #312 here and findastra/rgbee#11)
+status: DONE (merged with Astra's OK in chat, 2026-11-08; Govee and card 002 stay open in findastra/rgbee)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-08
 needs: findastra/rgbee cards 001 and 002, card 061
@@ -26,4 +26,12 @@ lights; Light Hive's page "really dark" with "different LED border panels". Deck
 
 ## Receipt and review
 
-Pending.
+- Astra, 2026-11-08, in chat: "Yes, merge both".
+- findastra/rgbee#11 merged first (8077658); #312 merged second (d57bfec7) after taking `main`'s
+  `TOOLS-AND-TRICKS.md` and `system-map-20261012.html` and rebuilding. Tests on the merged tree: 387 pass, 1 fail
+  (the farm-setup install test, which also fails on clean `main` on this PC). CodeQL passed.
+- Her PC hub copy fast-forwarded to d57bfec7; GitHub Pages built d57bfec7 and the live Light Hive page shows both
+  tools and the LED look.
+- The helper was built from merged rgbee into `Documents\Astra's PetOS Data\rgbee\helper\` and is running; Razer
+  answered. It does not start at sign-in yet (rgbee card 002).
+- Still open: Govee waits on LAN Control in the Govee Home app; Corsair and MSI wait on OpenRGB (rgbee card 002).
