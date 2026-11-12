@@ -173,7 +173,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### Gone Ghost
 
-*Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.*
+*Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
