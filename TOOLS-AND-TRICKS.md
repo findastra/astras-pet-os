@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-337 rows: 14 native programs, 155 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+338 rows: 14 native programs, 156 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -322,6 +322,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 17 | Gone Ghost | Am I a Ghost? | third-party program | GitHub |  | Works today |
 | 17 | Gone Ghost | Am I a Ghost? | third-party program | Malwarebytes |  | Idea |
 | 19 | Voicemeeter Bug | Audio Rescue | native tool | Keep Voicemeeter open | `audio-rescue-v1.0-keep-voicemeeter-open-v1.0` | Works today |
+| 19 | Voicemeeter Bug | Audio Rescue | native tool | Listen for robotic sound | `audio-rescue-v1.0-listen-for-robotic-sound-v0.1` | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Steam Streaming audio |  | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Voicemeeter |  | Works today |
 | 20 | Spoonfed Sugarcube | Spoonfed | third-party program | Yelp |  | Planned |
