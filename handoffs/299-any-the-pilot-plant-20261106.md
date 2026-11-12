@@ -1,4 +1,4 @@
-status: open (#299 merged; the build, below, is next)
+status: open (the build is in a PR, waiting on Astra: her merge OK and her OK for the four downloads)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -73,8 +73,12 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 
 ## Not done (the build)
 
-1. Make the private `findastra/the-pilot-plant` repo (topic `pet-app`) and move the seed to the pipeline.
-2. Build its page with the seven pills. What each pill can really show:
+**Built 2026-11-12** (Astra: "Yes, build it"), by the PC Master Race chat, which owns the build now: steps 1 to 5 below are
+done in the build PR and `findastra/the-pilot-plant` (private, f55cd9c). Left: 7 (the downloads, waiting on her OK) and
+8 (Open buttons, after the launcher).
+
+1. ~~Make the private `findastra/the-pilot-plant` repo (topic `pet-app`) and move the seed to the pipeline.~~ Done.
+2. ~~Build its page with the seven pills.~~ Done: GeoGebra, the game and WebPlotDigitizer 4 run in their pills (checked in the pane); JupyterLab refuses to be shown inside a page, so its pill links to it. What each pill can really show:
    - **Live:** Jupyter (JupyterLab is a local web page), GeoGebra (it embeds without a key under its non-commercial
      licence) and Zotero. Zotero needs its read-only local API on port 23119, which works after her tick on "Allow
      other applications on this computer to communicate with Zotero".
@@ -82,9 +86,9 @@ Whichever merges second takes `main`'s generated files and rebuilds.
    - **Not checked yet:** whether the Natural Number Game's and WebPlotDigitizer's sites allow being shown inside a
      page. The game keeps its progress in browser storage and can export a file. WebPlotDigitizer v5 is closed
      source; v4 is AGPL 3.
-3. Build the look tool, the only native tool, and make it work on the page.
-4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
-5. Add Rift Rabbit's parts: L3's note, devices if any.
+3. ~~Build the look tool, the only native tool, and make it work on the page.~~ Done: `pilot-plant-look-tool`, 13 self-test checks.
+4. ~~Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).~~ Done.
+5. ~~Add Rift Rabbit's parts: L3's note, devices if any.~~ Done: L3's note; it looks after no devices.
 6. ~~Astra approves the draft art.~~ Done: approved on 2026-11-12 ("Approve it"). Registering it is the Farmer's step
    once the pet is built.
 7. Do the four downloads, each checked first.
@@ -105,3 +109,6 @@ Record the merge below.
   follow-up PR with this note.
 
 ## Receipt and review
+
+- 2026-11-12, PC Master Race chat (Claude Opus 5.5): received the build after the flamingo chat's note that it makes no
+  more changes; Astra said "Yes, build it". Built as above; the four downloads wait in L4 (`waiting_on_you`, card 299).

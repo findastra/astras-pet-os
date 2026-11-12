@@ -4524,6 +4524,129 @@
       "version": "v1.0",
       "label": "mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0",
       "job": "A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots."
+    },
+    {
+      "id": "dwsim",
+      "name": "DWSIM",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Daniel Medeiros, GPL 3): DWSIM 9.0.5, a chemical process simulator. To be downloaded through winget from its GitHub release (273 MB, SHA-256 checked first) once Astra OKs it.",
+      "does": "Draw a flowsheet and solve its mass and energy balances with real thermodynamics.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=dwsim",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=dwsim",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "qalculate",
+      "name": "Qalculate!",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Hanna Knutsson, GPL 2): Qalculate! 5.13.2, a calculator with units. To be downloaded through winget from its GitHub release (63 MB, SHA-256 checked first) once Astra OKs it.",
+      "does": "A calculator that understands units, algebra and constants.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=qalculate",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=qalculate",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "jupyterlab",
+      "name": "Jupyter",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party programs (Project Jupyter, NumPy, SymPy and Matplotlib, all open source): Python 3.13.17 from python.org in its own folder (29 MB, SHA-256 checked first; her Store Python stays), then JupyterLab, NumPy, SymPy and Matplotlib from PyPI, once Astra OKs it.",
+      "does": "Notebooks for working things out: numbers, algebra and plots.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=jupyterlab",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=jupyterlab",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "geogebra",
+      "name": "GeoGebra",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web app (International GeoGebra Institute), free for non-commercial use. Runs in its pill from geogebra.org; nothing is installed. Chosen over Desmos, which needs its own API key (Astra, 2026-11-06).",
+      "does": "Graph functions, solve equations and do geometry.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=geogebra",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=geogebra",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "natural-number-game",
+      "name": "Natural Number Game",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web game (Lean community, Apache 2): proofs about the natural numbers in the Lean proof assistant. Runs in its pill from its own site; progress stays in the browser and can be exported.",
+      "does": "Prove facts about numbers, level by level, in Lean.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=natural-number-game",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=natural-number-game",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "zotero",
+      "name": "Zotero",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Corporation for Digital Scholarship, AGPL 3): Zotero 10.0.8. To be downloaded through winget from zotero.org (104 MB, SHA-256 checked first) once Astra OKs it. Its pill reads Zotero’s read-only local API on this PC after her tick on “Allow other applications on this computer to communicate with Zotero”.",
+      "does": "Your paper library: save, note and cite articles and books.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=zotero",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=zotero",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "webplotdigitizer",
+      "name": "WebPlotDigitizer",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web app (Ankit Rohatgi): version 4, open source (AGPL 3), runs in its pill from apps.automeris.io/wpd4. Version 5 is closed source and not used.",
+      "does": "Pull the numbers back out of a chart picture.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=webplotdigitizer",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=webplotdigitizer",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "pilot-plant-look-tool",
+      "name": "pilot-plant-look-tool",
+      "type": "tool",
+      "of": "program-87",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
+      "job": "A tool of The Pilot Plant (Astra, 2026-11-12: \"Yes, build it\"): the-pilot-plant-20261112.mjs --watch: one look every ten minutes, reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\the-pilot-plant). Not started at sign-in yet.",
+      "does": "Looks at your engineering and study programs every 10 minutes and fills these pills.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
+      "frame": "wide",
+      "in_pill": true,
+      "cadence": "every 10 minutes"
     }
   ],
   "links": [
@@ -8220,6 +8343,69 @@
       "carries": "reports",
       "state": "planned",
       "why": "Asks for the newest clean backup from before the incident."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "dwsim",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether DWSIM is on the PC, its version and signer, whether it runs, and your newest flowsheets through Everything. Home and learning only (Astra, 2026-11-06)."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "qalculate",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether Qalculate! is on the PC and your last calculations from its own saved history."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "jupyterlab",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows the four packages and their versions, whether JupyterLab runs (its port, never its token) and your newest notebooks through Everything."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "geogebra",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs GeoGebra’s calculator inside its pill."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "natural-number-game",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs the game inside its pill."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "zotero",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether Zotero is on the PC and, while it is open, how many items your library has and the newest ones (titles only)."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "webplotdigitizer",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs WebPlotDigitizer 4 inside its pill."
+    },
+    {
+      "from": "learn-python",
+      "to": "jupyterlab",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06). The Pilot Plant keeps it."
+    },
+    {
+      "from": "ai-doghouse",
+      "to": "zotero",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06). The Pilot Plant keeps it."
     }
   ],
   "rings": {
@@ -9472,6 +9658,20 @@
             "language": "VBScript",
             "percent": 2,
             "why": "start-watch-20261103.vbs starts the watch with no window, the way Windows runs a script hidden. Measured from main on 2026-11-03 (29ee987)."
+          }
+        ]
+      },
+      "the-pilot-plant": {
+        "languages": [
+          {
+            "language": "JavaScript",
+            "percent": 96,
+            "why": "The look and the watch (the-pilot-plant-20261112.mjs): Node's built-in modules read what Windows, Everything, Python and Zotero report, the same language as the hub's tool page that shows it."
+          },
+          {
+            "language": "VBScript",
+            "percent": 4,
+            "why": "start-watch-20261112.vbs starts the watch with no window, the way Windows runs a script hidden. Measured from main on 2026-11-12 (f55cd9c)."
           }
         ]
       },

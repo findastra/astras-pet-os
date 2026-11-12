@@ -1284,12 +1284,12 @@
       "assigned": true,
       "icon": "Flowsheet Flamingo",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "the-pilot-plant",
-      "repo_exists": false,
+      "repo_exists": true,
       "mini_descriptor": {
         "label": "the-pilot-plant-v1.0-mini-descriptor-v1.0",
-        "text": "Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. Repo, runtime and art are planned.",
+        "text": "Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill.",
         "reviewed": false
       }
     }
