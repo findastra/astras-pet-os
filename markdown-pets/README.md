@@ -80,5 +80,6 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 83 | [Role Fairy](role-fairy-20261019.md) | Fairy Ring | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 | 86 | [PC Master](pc-master-race-20261019.md) | PC Master Race | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example. | no app yet |
+| 87 | [Flowsheet Flamingo](the-pilot-plant-20261019.md) | The Pilot Plant | Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. | no app yet |
 
-54 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.
+55 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.

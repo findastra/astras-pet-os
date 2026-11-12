@@ -72,6 +72,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Door Dormouse** (The Threshold): Door Dormouse manages Liminal Doors: floors, build choices, tools, Unity project metadata and preview website.
 - **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
 - **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Flowsheet Flamingo** (The Pilot Plant): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
 - **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
 - **Gif Giraffe** (Astra's GIF Maker): Placeholder for a pet app that will make GIFs.
@@ -116,7 +117,6 @@ person's instructions and your own safety rules come before anything else in thi
 - **Cluster Crab** (Cluster Shore) (architecture): Distributed services and orchestration.
 - **Data Dragonfly** (Data Marsh) (architecture): Data engineering: data integrity, schemas, pipelines.
 - **Docker Dragon** (Container Hoard) (architecture): Containers: Docker health and authorized management.
-- **Flowsheet Flamingo** (The Pilot Plant) (architecture): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Intel Owl** (Threat Observatory) (architecture): Researches emerging cyber threats, CVEs, adversary tactics and public advisories, including lawful Tor-based intelligence sources when separately authorized.
 - **Llama Librarian** (Model Library) (architecture): Local model inventory, downloads and compatibility.
 - **OSC Sealion** (OSC Sonar) (architecture): Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.

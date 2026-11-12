@@ -875,7 +875,13 @@
             "why": "Startup Star runs it on a farm; Python Panther works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06); The Pilot Plant keeps it."
+          }
+        ]
       }
     },
     {
@@ -3445,6 +3451,11 @@
             "node": "context7",
             "how": "optional",
             "why": "Current library docs for every coding chat (hub card 319)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06); The Pilot Plant keeps it."
           }
         ]
       },
@@ -3944,6 +3955,132 @@
           "on": "2026-11-06"
         }
       }
+    },
+    {
+      "repo": "the-pilot-plant",
+      "pet": "Flowsheet Flamingo",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
+      "added": "2026-11-12",
+      "version": "0.1.0-20261112",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your engineering, maths and study programs: which are on the PC, signed and up to date",
+        "needs": "your OK to download or update a program"
+      },
+      "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\"). Built on 2026-11-12 after \"Yes, build it\": the private repo, the look and the tool page.",
+      "editorial": {
+        "says": "GeoGebra, the Natural Number Game and WebPlotDigitizer work right in their pills. DWSIM, Qalculate!, Jupyter and Zotero wait for your OK to download them; once they are on the PC, my look fills their pills every ten minutes. Next: the look at sign-in (it is started by hand now) and Open buttons through a launcher on this PC.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-12"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Download DWSIM 9.0.5 (273 MB), Qalculate! 5.13.2 (63 MB), Python 3.13.17 with JupyterLab, NumPy, SymPy and Matplotlib (29 MB plus packages) and Zotero 10.0.8 (104 MB), each checked against winget’s SHA-256 first, or keep some of them out.",
+          "card": "299",
+          "on": "2026-11-12"
+        }
+      ],
+      "works_with": [
+        {
+          "pet": "learn-python",
+          "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
+        },
+        {
+          "pet": "ai-doghouse",
+          "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
+        }
+      ],
+      "interface_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "submitted": "2026-11-12",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "dwsim",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "qalculate",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "geogebra",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "natural-number-game",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "webplotdigitizer",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          }
+        ]
+      },
+      "checks": {
+        "third-party:dwsim": {
+          "result": "missing",
+          "note": "Not on this PC yet: DWSIM 9.0.5, waiting for Astra’s OK to download it.",
+          "on": "2026-11-12"
+        },
+        "third-party:qalculate": {
+          "result": "missing",
+          "note": "Not on this PC yet: Qalculate! 5.13.2, waiting for Astra’s OK to download it.",
+          "on": "2026-11-12"
+        },
+        "third-party:jupyterlab": {
+          "result": "missing",
+          "note": "Not on this PC yet: Python 3.13.17 with JupyterLab, NumPy, SymPy and Matplotlib, waiting for Astra’s OK to download it.",
+          "on": "2026-11-12"
+        },
+        "third-party:zotero": {
+          "result": "missing",
+          "note": "Not on this PC yet: Zotero 10.0.8, waiting for Astra’s OK to download it.",
+          "on": "2026-11-12"
+        },
+        "third-party:geogebra": {
+          "result": "works",
+          "note": "GeoGebra’s calculator runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:natural-number-game": {
+          "result": "works",
+          "note": "The Natural Number Game runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:webplotdigitizer": {
+          "result": "works",
+          "note": "WebPlotDigitizer 4 runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "tool:pilot-plant-look-tool": {
+          "result": "works",
+          "note": "Ran on this PC on 2026-11-12: it found none of the four programs yet (they wait for her OK), as expected; 13 self-test checks pass.",
+          "on": "2026-11-12"
+        }
+      }
     }
   ],
   "seeds": {
@@ -4074,23 +4211,6 @@
             "why": "Shares defensive findings; File Master retains file management ownership."
           }
         ]
-      },
-      {
-        "pet": "Flowsheet Flamingo",
-        "program": "The Pilot Plant",
-        "repo": null,
-        "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
-        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
-        "works_with": [
-          {
-            "pet": "learn-python",
-            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
-          },
-          {
-            "pet": "ai-doghouse",
-            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
-          }
-        ]
       }
     ],
     "already_in_pipeline": [
@@ -4098,7 +4218,8 @@
       "spoonfed (Spoonfed Sugarcube)",
       "lunas-log (Skill Scout)",
       "the-police-station (Pet Police Officer)",
-      "the-threshold (Door Dormouse)"
+      "the-threshold (Door Dormouse)",
+      "the-pilot-plant (Flowsheet Flamingo)"
     ],
     "renames": [
       {

@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-337 rows: 14 native programs, 155 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+347 rows: 14 native programs, 156 native tools, 20 native tricks, 157 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -256,6 +256,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 6 | Python Panther | Python Jungle | third-party program | Jupyter |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
@@ -440,6 +441,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat Creator Companion |  | Planned |
 | 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
+| 79 | AI Dashund | AI Doghouse | third-party program | Zotero |  | Planned |
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
@@ -468,4 +470,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 | 86 | PC Master | PC Master Race | third-party program | Microsoft Learn MCP |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | native tool | pilot-plant-look-tool | `the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0` | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | GeoGebra |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Natural Number Game |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | WebPlotDigitizer |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | DWSIM |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Jupyter |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Qalculate! |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Zotero |  | Planned |
 <!-- registry:end -->

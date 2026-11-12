@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pilot Plant tools · Flowsheet Flamingo</title>
+<!-- The Pilot Plant's tool page (Astra, 2026-11-06: "all recommended", the PC Master Race way; 2026-11-12: "Yes, build
+     it"). Each of The Pilot Plant's program pills in L1 shows this page with ?tool=<id>; opened on its own with no ?tool
+     it shows every program. GeoGebra, the Natural Number Game and WebPlotDigitizer run right here from their own sites.
+     The rest comes from what The Pilot Plant's look wrote on this PC,
+     Documents\Astra's PetOS Data\the-pilot-plant\pilot-plant-page-data.js, and shows nothing about any PC anywhere else.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-12. -->
+<style>
+:root{
+  --bg:#17161a; --panel:#211f25; --panel2:#2c2931; --line:#433d48; --ink:#f1edf2; --dim:#b3a9b7;
+  --pink:#ff6fb5; --green:#3dff9a; --cyan:#2ef2ff; --amber:#ffd23b; --red:#ff6b6b;
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:0 0 6px}
+html.in-tool header{display:none}
+main{max-width:1100px;margin:0 auto;padding:20px 14px 48px}
+header h1{margin:0 0 4px;font-size:1.6rem;color:var(--pink)}
+.sub{color:var(--dim)}
+.tool{background:var(--panel);border:1px solid var(--line);padding:14px 16px;margin:12px 0}
+html.in-tool .tool{margin:0;border:0;background:var(--panel)}
+.tool h2{margin:0 0 8px;font-size:1.15rem;color:var(--pink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chip{border:1px solid var(--line);background:var(--panel2);padding:1px 8px;font-size:.85rem;white-space:nowrap}
+.chip.ok{border-color:var(--green);color:var(--green)}
+.chip.no{border-color:var(--amber);color:var(--amber)}
+.chip.bad{border-color:var(--red);color:var(--red)}
+.chip.run{border-color:var(--cyan);color:var(--cyan)}
+h3{margin:12px 0 4px;font-size:.98rem;color:var(--green)}
+p{margin:4px 0}
+a{color:var(--cyan)}
+a:visited{color:var(--pink)}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--panel2);border:1px solid var(--line);padding:0 4px;font-size:.88em;overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:4px 0}
+th,td{border:1px solid var(--line);padding:3px 7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{background:var(--panel2);color:var(--cyan);font-weight:600}
+tr.off td{color:var(--dim)}
+.note{border-left:3px solid var(--amber);padding:3px 10px;margin:8px 0;background:var(--panel2)}
+.use{border-left:3px solid var(--pink);padding:3px 10px;margin:8px 0;background:var(--panel2)}
+.frame{width:100%;height:640px;border:1px solid var(--line);background:#fff;display:block}
+.empty{color:var(--dim);font-style:italic}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Pilot Plant tools</h1>
+<p class="sub">Flowsheet Flamingo’s look at your home engineering, maths and study programs. <span data-looked></span></p>
+</header>
+<div data-tools><p class="empty">Reading The Pilot Plant’s last look…</p></div>
+</main>
+<script src="the-pilot-plant-tools-20261112.js"></script>
+</body>
+</html>

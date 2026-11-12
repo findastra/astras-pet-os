@@ -66,6 +66,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
 - **File Master** (File Kingdom): Organizes your files and finds systemic errors.
 - **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Flowsheet Flamingo** (The Pilot Plant): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
 - **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
 - **Gatekeeper Goddess** (Iron Gates): Security and approvals: human-facing approvals and security monitoring.
