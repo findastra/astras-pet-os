@@ -282,7 +282,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "audio-rescue-v1.0-mini-descriptor-v1.0",
-        "text": "A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.",
+        "text": "Looks after Voicemeeter on Windows: restarts its audio engine when sound needs repair, opens it again if it closes, and listens for robotic sound.",
         "reviewed": false
       }
     },
