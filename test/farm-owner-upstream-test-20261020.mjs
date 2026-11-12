@@ -25,11 +25,13 @@ import { findPets } from '../scripts/pet-finder-20261016.mjs';
 import { runRound } from '../scripts/farmer-rounds-20261009.mjs';
 import { farmPets } from '../scripts/farm-setup-20261019.mjs';
 import { petOf, wrongPlace } from '../scripts/click-check-20261019.mjs';
+import { asAstrasFarm, isAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const read = (p) => readFileSync(join(root, p), 'utf8').replace(/\r\n/g, '\n');
 const json = (p) => JSON.parse(read(p));
-const astra = json('pets.json');
+// Astra's farm, also when this copy is someone else's farm after make-it-yours (fixtures/astras-farm-20261111.mjs).
+const astra = asAstrasFarm(json('pets.json'));
 const catalog = json('pet-programs.json');
 const DEV = 'XxdevilishxX';
 
@@ -260,7 +262,9 @@ test('make-it-yours from the command line: --dry-run changes nothing, then it wr
   const dir = mkdtempSync(join(tmpdir(), 'mine-'));
   try {
     const file = join(dir, 'pets.json');
-    const raw = read('pets.json');
+    // Astra's own pets.json in its own layout; on another farm's copy, Astra's farm as asAstrasFarm writes it.
+    const raw = isAstrasFarm(json('pets.json')) ? read('pets.json') : `${JSON.stringify(astra, null, 2)}
+`;
     writeFileSync(file, raw);
     const run = (...a) => execFileSync(process.execPath, [join(root, 'scripts/make-it-yours-20261020.mjs'), ...a, '--registry', file], { encoding: 'utf8' });
     assert.match(run(DEV, '--dry-run'), /would make the farm XxdevilishxX's/);

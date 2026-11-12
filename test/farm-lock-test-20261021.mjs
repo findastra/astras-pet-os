@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { DRAFTS_LIST, choosePets, farmPets, writeFarm, writeFarmFiles } from '../scripts/farm-setup-20261019.mjs';
 import { CATALOG, LOCK, SCHEMA, buildLock, canonicalJson, coreParts, denverNow, entryHash, missingNeeds, requiredClosure } from '../scripts/farm-lock-20261021.mjs';
 import { TOOL_LABEL, applyPlan, checkFarm, planAdd, planRemove, readFarm, writeLock } from '../scripts/farm-pets-20261021.mjs';
-import { ownerOf, upstream } from '../scripts/farm-owner-20261020.mjs';
+import { farmOwner, ownerOf, upstream } from '../scripts/farm-owner-20261020.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (rel) => readFileSync(join(root, rel), 'utf8').replace(/^﻿/, '');
@@ -78,7 +78,7 @@ test('setting up a farm from scratch (Linux) brings the needed pets and writes t
     assert.deepEqual(pet('voicemeeter-bug').missing.map((m) => m.name), ['Voicemeeter']);
     assert.equal(pet('forensic-ferret').entry.sha256, entryHash(json(join(dir, 'pets.json')).pets.find((p) => p.art === 'forensic-ferret')));
     assert.equal(pet('forensic-ferret').account, upstream().owner);
-    assert.equal(lock.farm.github_owner, upstream().owner);
+    assert.equal(lock.farm.github_owner, farmOwner(json(join(root, 'pets.json'))), 'the farm owner pets.json names (Astra on her farm)');
     assert.ok(!JSON.stringify(lock).includes(tmpdir()), 'no folder path of this computer in the farm lock');
     writeFarm(root, dir, choosePets(all, { farm: 'scratch', pets: ['goldfish'] }), { version: 'v-test', now: NOW });
     const again = json(join(dir, LOCK));
