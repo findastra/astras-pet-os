@@ -11,3 +11,5 @@ details on the unified footer".
 - **Unified footer.** No More details under it on any pet program page, nor on Ghost Protocol's copies
   (`apps/ghost-protocol-20261008.html` here; `index.html`, `content.html` and `ghost-protocol-20261008.html` in
   findastra/ghost-protocol). PET-PROGRAM-FRAMEWORK.md and the page test say so.
+- **Ghost Protocol footer box.** No fill, so the page shows through (Astra, 2026-11-12: "get rid of the background
+  behind it. Make it like match the rest of the page"); merged in findastra/ghost-protocol#13 and copied here.
