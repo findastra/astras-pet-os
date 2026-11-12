@@ -60,7 +60,7 @@ code runs when you press a button are a native tool, not a trick (Rift Rabbit's 
 |---|---|---|---|
 | What it is | Code a pet program owns: a script, page, program or section. The pet's hands. | Written steps for doing the pet's job with its tools. The pet's training. | Written steps that help an AI work on a pet (build it, test it, hand it off) |
 | Developer word | Program, module, utility | **Skill** (a `SKILL.md` file), prompt, workflow (runtime skill) | **Skill**, agent instructions (development skill) |
-| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.codex\skills`) |
+| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.agents\skills`; installed from their masters by Luna's Log's skill-install-tool) |
 | Who runs it | The computer | The AI in the pet's seat (L3) | The AI in the seat, on every pet it works on |
 | Needs AI to run | No | Yes; without an agent it does nothing | Yes |
 | Same result every time | Yes | No: a model reads it and decides | No |

@@ -144,9 +144,9 @@ prepare the reviewed result first, then obtain that approval and perform the app
 ## Maintain the two provider installs
 
 The maintained source is `findastra/astras-pet-os`, `skills/handoff/SKILL.md`, normally under
-`%USERPROFILE%/Documents/Astra's PetOS/astras-pet-os`. Install the same file at
-`%USERPROFILE%/.codex/skills/handoff/SKILL.md` and
-`%USERPROFILE%/.claude/skills/handoff/SKILL.md`; never edit bundled/cached plugin skills.
+`%USERPROFILE%/Documents/Astra's PetOS/astras-pet-os`. Luna's Log's `skill-install-tool` installs it at
+`%USERPROFILE%/.agents/skills/handoff/SKILL.md` (Codex) and
+`%USERPROFILE%/.claude/skills/handoff/SKILL.md` (Claude); never hand-copy it, and never edit bundled/cached plugin skills.
 When updating, compare the source revision and installed contents, preserve unrelated local
 changes, validate frontmatter and verify both copies match. Report pending source merge
 separately from local installation. New sessions can discover the installed skill; an existing
