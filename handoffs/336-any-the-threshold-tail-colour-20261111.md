@@ -59,8 +59,8 @@ Astra merges #332 and #336, and the merged page shows the tail colours and the L
 Record receipt and review in this card; the five findings above go to The Threshold's next change.
 
 ### The five findings and the tool names (Claude Opus 5.5, claude-opus-5-5, 2026-11-12)
-State: REVIEW, every item is in a pull request; merges wait on Astra naming each one. Implementer: a Claude Code side
-session started from The Threshold chat; writable: the three branches below. Reviewer: Astra.
+State: DONE (Astra's merge OK in chat, 2026-11-12: "Merge #10, #8, #350"). Implementer: a Claude Code side session
+started from The Threshold chat; ownership: released. Reviewer: Astra.
 Questions for Astra: one deck, "Liminal Doors: three questions" (private claude.ai slides). Astra, 2026-11-12: "All
 recommended".
 
@@ -91,3 +91,8 @@ Still found, not done:
   which fails only in a git worktree and passes in a clean LF clone of the branch.
 - Before the merge, no other open pull request did the same job. Several others change the same generated files and
   will need main merged in.
+- 2026-11-12: Astra in chat, "Merge #10, #8, #350". Merged in that order: liminal-doors#10 (`82dd066`; its Pages built
+  from it, and https://findastra.github.io/liminal-doors/, its tracker and the floor pictures answer), the-threshold#8
+  (`5385a46`), then hub #350 with this card. Main (#353) was merged into #350 first; `npm run build` changed nothing.
+  Before the merges, no other open pull request did the same job; the others touching the same files change only
+  generated pages and lists.

@@ -62,12 +62,12 @@ test('the needs check finds every kind of mistake', () => {
   const pet = r.pets.find((p) => p.repo === 'evidence-locker');
   pet.needs.os.push('beos');
   pet.needs.pets.push({ repo: 'no-such-pet', how: 'required', why: 'x' }, { repo: 'evidence-locker', how: 'optional', why: 'itself' }, { repo: 'log-den', how: 'required', why: 'twice' });
-  pet.needs.core.push({ part: 'the-cage', how: 'required', why: 'gone' });
+  pet.needs.core.push({ part: 'the-old-page', how: 'required', why: 'gone' });
   pet.needs.programs.push({ node: 'github-goldfish', how: 'sometimes', why: '' });
   pet.needs.feelings = [];
   const problems = needsProblems(r, extra).join('\n');
   for (const want of ['unknown os "beos"', '"no-such-pet", which is not a registered or pipeline pet', 'evidence-locker: needs itself', 'needs.pets names one twice',
-    '"the-cage", which is not a part of the core', '"github-goldfish", which is not a third-party program', 'unknown how "sometimes"', 'say why', 'unknown kind of need "feelings"']) {
+    '"the-old-page", which is not a part of the core', '"github-goldfish", which is not a third-party program', 'unknown how "sometimes"', 'say why', 'unknown kind of need "feelings"']) {
     assert.ok(problems.includes(want), `missing: ${want}\n${problems}`);
   }
   delete r.pipeline[0].needs;

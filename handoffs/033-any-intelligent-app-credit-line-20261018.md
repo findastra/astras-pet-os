@@ -10,7 +10,7 @@ needs: PET-FILES.md, AGENTS.md, skills/handoff/SKILL.md
 - Astra, 2026-10-18: the public credit line is now `*An Intelligent App, or Pet, by Astra.*`. Never say "pet app".
 - On branch `claude/intelligent-app-credit-20261018` in astras-pet-os, changed the rule in `PET-FILES.md`,
   `AGENTS.md`, `README.md` and Flash Audit check A15 (`docs/flash-audit-20261014.md`), the visible credit in
-  `cage.html`, `apps/github-goldfish-20261008.html`, `apps/platform-platypus-20261017.html` and
+  the old pets page, `apps/github-goldfish-20261008.html`, `apps/platform-platypus-20261017.html` and
   `drafts/pole-puff/`, and the test fixture in `test/rounds-test-20261009.mjs`.
 - The two checkers, the Farmer's round (`scripts/farmer-rounds-20261009.mjs`) and the Goldfish page copy in
   `apps/github-goldfish-20261008.html`, now ask for the new line but **still accept the old one**, so no pet is

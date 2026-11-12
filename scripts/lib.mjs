@@ -88,7 +88,7 @@ export function validate(registry, readme, art) {
   }
   const hosts = registry.pets.filter((p) => p.role === 'host');
   if (hosts.length !== 1) problems.push(`there must be exactly one host (this hub's own pet, the Friendly Farmer); found ${hosts.length}`);
-  else if (hosts[0].repo !== registry.cage) problems.push(`the host's repo must be this hub, "${registry.cage}"`);
+  else if (hosts[0].repo !== registry.hub) problems.push(`the host's repo must be this hub, "${registry.hub}"`);
   for (const m of registry.mascots || []) { if (!m.art || !m.name) problems.push('a mascot needs "name" and "art"'); arts.add(m.art); }
   if (art) for (const id of arts) if (!art.pets[id]) problems.push(`no art drawn for "${id}" (add its prompt to scripts/generate-pets.mjs, generate it, then npm run build)`);
   if (art) for (const id of Object.keys(art.pets)) if (!arts.has(id)) problems.push(`art "${id}" is drawn but not listed in pets.json`);

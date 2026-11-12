@@ -135,8 +135,8 @@ The catalog assigns this existing trick to The Farm; provider copies are install
 not a change of ownership, runtime capability or permissions.
 For pet development, use the current `pet-app` skill and the hub's full reading requirements,
 including its architecture, migration plan and ownership assignments. Its registration,
-framework, security and `cage.submit` rules remain authoritative; do not revive the retired
-Cage UI. Resolve these references from the hub root, not this installed skill's folder.
+framework, security and `hub.submit` rules remain authoritative; do not revive the retired
+old pets page. Resolve these references from the hub root, not this installed skill's folder.
 
 Follow branch/PR and merge rules. Where Astra's explicit merge approval is required,
 prepare the reviewed result first, then obtain that approval and perform the approved merge.

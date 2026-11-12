@@ -256,7 +256,7 @@ function Get-PetAccount($Registry, [string]$Repo) {
     $farm = [string](Get-Field $Registry 'github_owner'); if (-not $farm) { $farm = $upstreamOwner }
     foreach ($p in @(Get-Field $Registry 'pets') + @(Get-Field $Registry 'pipeline')) {
         if ($p -and [string](Get-Field $p 'repo') -eq $Repo) { $o = Get-Field $p 'github_owner'; if ($null -ne $o) { return [string]$o }; return $farm } }
-    if ($Repo -and $Repo -eq [string](Get-Field $Registry 'cage')) { return $farm }
+    if ($Repo -and $Repo -eq [string](Get-Field $Registry 'hub')) { return $farm }
     foreach ($c in @(Get-Field $Registry 'candidates')) {
         if ($c -and [string](Get-Field $c 'repo') -eq $Repo) { $o = Get-Field $c 'github_owner'; if ($null -ne $o) { return [string]$o }; return $farm } }
     $upstreamOwner
