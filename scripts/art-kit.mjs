@@ -161,7 +161,9 @@ export const STICKERS = {
   note:  { rows: ['..###', '..#.#', '..#.#', '..#..', '###..', '###..'], pal: { '#': '#ff8fc8' } },
   dots:  { rows: ['#.#.#'], pal: { '#': '#f6dbe9' } },
   twinkle: { rows: ['.y....', 'yyy...', '.y..y.', '...yyy', '....y.'], pal: { y: '#ffe14d' } },
-  waves: { rows: ['b..b..b.', '.b..b..b', 'b..b..b.', '.b..b..b', 'b..b..b.'], pal: { b: '#6fb7ff' } },
+  // Each line steps over every two rows, so it reads as a squiggle; stepping every row read as a checkerboard
+  // (Astra, 2026-11-03: "I don't know where the wavy lines went").
+  waves: { rows: ['.b..b..b', 'b..b..b.', 'b..b..b.', '.b..b..b', '.b..b..b', 'b..b..b.'], pal: { b: '#6fb7ff' } },
   cloud: { rows: ['..##...', '.####.#', '#######', '.#####.'], pal: { '#': '#a7a3b3' } },
   heart: { rows: ['.r.r.', 'rrrrr', '.rrr.', '..r..'], pal: { r: '#ff5d8f' } },
   spark: { rows: ['.y.', 'yyy', '.y.'], pal: { y: '#fff0a0' } },
