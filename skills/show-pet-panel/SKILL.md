@@ -26,8 +26,8 @@ getting a bunch of conflated programs opening at once."
   "How" also puts an **EDITORIAL** bar across the top of the page (repo, branch, commit, merged or not); the live site
   never has it.
 
-The maintained source is `astras-pet-os/skills/show-pet-panel/SKILL.md`; the same file is installed at
-`%USERPROFILE%/.claude/skills/show-pet-panel/SKILL.md` and `%USERPROFILE%/.codex/skills/show-pet-panel/SKILL.md`.
+The maintained source is `astras-pet-os/skills/show-pet-panel/SKILL.md`; Luna's Log's `skill-install-tool` installs it at
+`%USERPROFILE%/.claude/skills/show-pet-panel/SKILL.md` and `%USERPROFILE%/.agents/skills/show-pet-panel/SKILL.md`.
 
 ## When
 - At the start of any work on a pet, before or alongside reading its repo. If the work involves several pets, open the
