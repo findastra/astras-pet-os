@@ -4421,7 +4421,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-flash-audit-v1.0",
-      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 61 checks as tools: each shows the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 37 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
+      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 71 checks as tools. The page checks follow the Model Pet Program, one per part of the template, and every build compares every pet program page with it (scripts/flash-template-20261112.mjs, Astra 2026-11-12); the others show the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 18 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
     },
     {
       "id": "project-image-generator",
