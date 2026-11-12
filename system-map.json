@@ -1488,14 +1488,6 @@
       "layer": 4
     },
     {
-      "id": "server-salamander",
-      "name": "Server Salamander",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Hosts: home servers, uptime, service health.",
-      "layer": 4
-    },
-    {
       "id": "docker-dragon",
       "name": "Docker Dragon",
       "type": "roadmap",
@@ -1581,14 +1573,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "NAS, ZFS, snapshots and capacity health.",
-      "layer": 4
-    },
-    {
-      "id": "port-spider",
-      "name": "Port Spider",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Authorized port and service exposure checks.",
       "layer": 4
     },
     {
@@ -4421,7 +4405,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-flash-audit-v1.0",
-      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 61 checks as tools: each shows the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 37 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
+      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 71 checks as tools. The page checks follow the Model Pet Program, one per part of the template, and every build compares every pet program page with it (scripts/flash-template-20261112.mjs, Astra 2026-11-12); the others show the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 18 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
     },
     {
       "id": "project-image-generator",
@@ -4434,6 +4418,66 @@
       "version": "v1.0",
       "label": "github-aquarium-v1.0-project-image-generator-v1.0",
       "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs)."
+    },
+    {
+      "id": "naming-corrections",
+      "name": "naming-corrections",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-naming-corrections-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-08): remembers the naming corrections the owner asks for, one repo at a time (repo, mistaken name, preferred name), and flags the mistaken name in later audits. Rules stay in the browser or a private file outside Git, never in the repo (github-goldfish index.html, Remember correction)."
+    },
+    {
+      "id": "never-say-checker",
+      "name": "never-say-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-never-say-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the owner’s own list of words that must never appear in public text; the Blatant check flags each one it finds. The list stays in the browser (github-goldfish index.html)."
+    },
+    {
+      "id": "report-exporter",
+      "name": "report-exporter",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-report-exporter-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): copies the current audit report or downloads it as Markdown, to paste into a chat or a handoff card (github-goldfish index.html, Copy and Download)."
+    },
+    {
+      "id": "achievement-tracker",
+      "name": "achievement-tracker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-achievement-tracker-v1.0",
+      "job": "A tool of GitHub Aquarium (Astra, 2026-10-17: \"it helps me track my GitHub achievements, lists suggestions on how to get the rest in order of easiest next\"): estimates GitHub achievements from public GitHub data, ranks the easiest next ones, lets the owner set what the profile really shows, and offers Start Project ideas for her cyber security, AI and nomad course tracks. Built on github-goldfish branch claude/achievements-20261017, not merged yet."
+    },
+    {
+      "id": "findastra-readme-auditor",
+      "name": "findastra-readme-auditor",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-findastra-readme-auditor-v1.0",
+      "job": "A tool of GitHub Aquarium (Codex, 2026-10-15): audits and revises the owner’s GitHub profile README with a local maker and checker, then waits for her review before it pushes a branch. Built on github-goldfish codex branches, not merged yet."
     },
     {
       "id": "document-control-checker",
@@ -5717,7 +5761,7 @@
       "why": "Security work stays in authorized scope."
     },
     {
-      "from": "port-spider",
+      "from": "port-web",
       "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
@@ -5802,14 +5846,14 @@
     },
     {
       "from": "docker-dragon",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Containers run on registered hosts."
     },
     {
       "from": "proxy-axolotl",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Secure private access to home servers."
@@ -9365,6 +9409,14 @@
         "languages": [],
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
       },
+      "port-web": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first port check of the desktop PC was done by hand on 2026-11-12 (report in findastra/port-web#4)."
+      },
+      "server-hearth": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); waits on Astra's answer about the server she is buying (2026-11-12)."
+      },
       "iron-gates": {
         "languages": [],
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the YubiKey enrollment list is a document; the spending approval is on design/yubikey-spend-approval-20261102."
@@ -10065,7 +10117,7 @@
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
-    "port-spider": "blue",
+    "port-web": "blue",
     "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",

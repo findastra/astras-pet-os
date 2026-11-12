@@ -727,7 +727,7 @@
       "assigned": true,
       "icon": "Server Salamander",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "server-hearth",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1012,7 +1012,7 @@
       "assigned": true,
       "icon": "Port Spider",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "port-web",
       "repo_exists": true,
       "mini_descriptor": {

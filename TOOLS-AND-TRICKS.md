@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-370 rows: 20 native programs, 167 native tools, 25 native tricks, 158 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+375 rows: 20 native programs, 172 native tools, 25 native tricks, 158 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -169,13 +169,18 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | broken-on-main | `github-aquarium-v1.0-broken-on-main-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | close-or-keep | `github-aquarium-v1.0-close-or-keep-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | document-control-checker | `github-aquarium-v1.0-document-control-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | naming-corrections | `github-aquarium-v1.0-naming-corrections-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | never-say-checker | `github-aquarium-v1.0-never-say-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | organizational-checker | `github-aquarium-v1.0-organizational-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | outstanding-items | `github-aquarium-v1.0-outstanding-items-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | project-image-generator | `github-aquarium-v1.0-project-image-generator-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | report-exporter | `github-aquarium-v1.0-report-exporter-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | showcase-checker | `github-aquarium-v1.0-showcase-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | systemic-checker | `github-aquarium-v1.0-systemic-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-a-chat | `github-aquarium-v1.0-waiting-on-a-chat-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-you | `github-aquarium-v1.0-waiting-on-you-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | achievement-tracker | `github-aquarium-v1.0-achievement-tracker-v1.0` | Planned |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | findastra-readme-auditor | `github-aquarium-v1.0-findastra-readme-auditor-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
