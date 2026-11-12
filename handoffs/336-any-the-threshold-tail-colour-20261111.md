@@ -1,4 +1,4 @@
-status: open (waiting on Astra: merge #332, then #336)
+status: done (Astra's merge OK in chat, 2026-11-12: "Merge #332, then #336")
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-11
 needs: PET-PROGRAM-FRAMEWORK.md section 3; pull request #332 (base); pull request #336
@@ -11,9 +11,9 @@ think we made a page that's the doors, that's like the context art or the concep
 world that we're going to make."
 
 ## Ownership and state
-State: READY_FOR_REVIEW
+State: DONE
 Implementer: Claude Code session (The Threshold chat); writable files: the files below; ownership: released
-Reviewer: unassigned; next action: Astra looks at the working copy, merges #332, then #336 (retargeted to `main`)
+Reviewer: Astra (looked at the working copy in the browser pane); next action: the five findings below
 
 ## What I did
 - Branch `claude/the-threshold-tail-colour-20261111`, stacked on `claude/spoonfed-gray-page-20261111` (#332, which
@@ -59,4 +59,10 @@ Astra merges #332 and #336, and the merged page shows the tail colours and the L
 Record receipt and review in this card; the five findings above go to The Threshold's next change.
 
 ## Receipt and review
-Pending.
+- 2026-11-12: Astra in chat, "Merge #332, then #336". #332 was already merged (2026-11-12 07:26 UTC). #336 was
+  retargeted to `main`, and main (#332, #326, #325, #341, #329) was merged in: in the page stylesheet both colour blocks
+  stay (The Threshold's, then Mirror Pool's); TOOLS-AND-TRICKS.md and the System Map page were taken from main and
+  rebuilt with `npm run build`. `npm test` on the merged branch: 417 pass, 6 skipped, 1 fail, the farm-setup file,
+  which fails only in a git worktree and passes in a clean LF clone of the branch.
+- Before the merge, no other open pull request did the same job. Several others change the same generated files and
+  will need main merged in.
