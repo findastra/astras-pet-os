@@ -110,7 +110,7 @@ blueprint color, blue and white and yellow. Like, make it very classical"; raspb
 paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
 changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
 boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
-midnight indigo, Spoonfed's pretty gray, Halo List's bright sky blue), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
+midnight indigo, Spoonfed's pretty gray, The Threshold's Door Dormouse tail indigo, Halo List's bright sky blue), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
 deck, answer 6: A); Data Chip's phone on Data Dealer keeps his neon and LCD greens (item 10). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,

@@ -583,7 +583,7 @@
       "visibility": "public",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
-      "version": "0.3.0-beta",
+      "version": "0.4.0-beta",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
       "interface_local_url": "apps/pet-programs/astras-pet-os-20261018.html",
       "interface_url": "apps/pet-programs/astras-pet-os-20261018.html",
@@ -1410,6 +1410,55 @@
       "published": true,
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
+      "editorial": {
+        "says": "Iced Out Iceberg now lists what Puffer really looks after: your portfolio (findastra.github.io), the Portfolio Review Desk, your GitHub profile and its Window Star, the hand lettering, and LinkedIn as planned. Next: the weekly portfolio-update-round (card 019), and the employer pages, which wait on you.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-11"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Read each employer page word for word before it goes on your portfolio; until you do, the Work list there stays empty.",
+          "card": "019",
+          "on": "2026-10-17"
+        }
+      ],
+      "checks": {
+        "third-party:github": {
+          "result": "works",
+          "note": "Your portfolio and Astra's Window Star are published from GitHub Pages; both answer (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:findastra-portfolio": {
+          "result": "works",
+          "note": "findastra.github.io answers and its link here opens it (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:portfolio-review-desk": {
+          "result": "works",
+          "note": "The hub's copy of the desk answers and opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:profile": {
+          "result": "works",
+          "note": "Your GitHub profile opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:astras-star-window": {
+          "result": "works",
+          "note": "The star and its editor load inside its tool box, and Open it full screen opens its page (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:portfolio-puffer-system-map": {
+          "result": "works",
+          "note": "Its link opens the System Map on Portfolio Puffer's own node (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "chat:portfolio-puffer": {
+          "result": "issues",
+          "note": "The window opens, Needs you lists the employer pages, and its three quick questions answer from the page; an answer from the seat was not tried (button audit).",
+          "on": "2026-11-11"
+        }
+      },
       "version": "0.1.1-20261009",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
@@ -1438,6 +1487,11 @@
             "node": "github",
             "how": "optional",
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+          },
+          {
+            "node": "linkedin",
+            "how": "optional",
+            "why": "Card 019: the weekly portfolio-update-round will read your LinkedIn profile from your own signed-in browser. Not built."
           }
         ]
       },
@@ -1558,13 +1612,14 @@
       "role": "pet",
       "art": "ghost-protocol",
       "kind": "ghost",
+      "backdrop": "#1f8a4c",
       "asset_date": "20261008",
       "status": "hatching",
       "published": true,
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "version": "0.1.0-20261008-pets",
-      "note": "Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
+      "note": "Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
@@ -1692,10 +1747,19 @@
           "entry": "keep-open-20261018.cs",
           "visibility": "public",
           "version": "v1.0"
+        },
+        {
+          "name": "listen-for-robotic-sound",
+          "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+          "use": "Compares the loudness Voicemeeter sends to each selected output with what Windows’ meter for that speaker shows arriving, about 50 times a second. When sound keeps going out without arriving, it writes a ROBOTIC notice to his log and marks Fix audio now in his menu. Tell first: it never restarts audio on its own yet. Reads two numbers only; records no sound (Astra, 2026-11-08).",
+          "entry": "robotic-listener-20261108.cs",
+          "visibility": "public",
+          "version": "v0.1"
         }
       ]
     },
     {
+      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
@@ -3350,7 +3414,23 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "skill-scout-20261017.mjs runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "required",
+            "why": "The census reads each sheet's last commit and every branch with git, read-only."
+          },
+          {
+            "node": "github-cli",
+            "how": "required",
+            "why": "The census lists repos and branches on GitHub with read-only gh calls (--github)."
+          }
+        ]
       }
     },
     {
@@ -3505,7 +3585,38 @@
             "why": "Startup Star shows Door Dormouse on the desktop; The Threshold's page works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "unity-editor",
+            "how": "required",
+            "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+          },
+          {
+            "node": "vrchat-creator-companion",
+            "how": "required",
+            "why": "Liminal Doors' VRChat Worlds SDK and UdonSharp come from the Creator Companion's World template."
+          },
+          {
+            "node": "unity-hub",
+            "how": "optional",
+            "why": "Unity Hub opens the Liminal Doors project."
+          },
+          {
+            "node": "blender",
+            "how": "optional",
+            "why": "The phone booth is modelled and baked in Blender (phone-booth-maker); only needed to remake it."
+          },
+          {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "Planned: MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (liminal-agent-queue)."
+          },
+          {
+            "node": "vrchat",
+            "how": "optional",
+            "why": "Planned: Liminal Doors goes up on VRChat; not uploaded yet."
+          }
+        ]
       }
     },
     {

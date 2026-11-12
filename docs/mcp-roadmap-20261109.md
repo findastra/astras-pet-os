@@ -31,13 +31,13 @@ flowchart LR
 
 | # | MCP server | Keeper → users | Stage | Next step |
 |---|---|---|---|---|
-| 1 | The Farm's own read-only server (`astras-pet-os-mcp`, #254) | Friendly Farmer → every pet's chats | Approved; merged 2026-11-09 | Astra runs `mcp\register-astras-pet-os-mcp-20261026.ps1` from her own PowerShell, after the "Restore Claude Sessions" chat is done with `~/.claude.json` |
-| 2 | MCP for Unity (Coplay) | Unity Unicorn → Astra Wisp, Dubstep Gunsmith, Pole Puff, Piranesi Nessi, Door Dormouse, Reactor Raccoon | Connected | Card 306's first check with Unity open |
+| 1 | The Farm's own read-only server (`astras-pet-os-mcp`, #254) | Friendly Farmer → every pet's chats | On the map: now (2026-11-11) | Registered in Claude Code and Codex by its script, run outside the Claude app. `claude mcp list`: Connected; Codex lists it enabled; one `get_pet` call answered. New chats get it. |
+| 2 | MCP for Unity (Coplay) | Unity Unicorn → Astra Wisp, Dubstep Gunsmith, Pole Puff, Piranesi Nessi, Door Dormouse, Reactor Raccoon | Connected | Card 306's first check with Unity open; Liminal Doors is on the D: drive, which was not plugged in on 2026-11-11 |
 | 3 | Context7 (library docs) | AI Dashund → every coding chat | On the map: now | Codex has none (a new decision) |
-| 4 | Microsoft Learn (Windows, PowerShell, C#) | PC Master → every chat writing Windows code | Connected in Codex | Astra clicks Connect in Claude |
+| 4 | Microsoft Learn (Windows, PowerShell, C#) | PC Master → every chat writing Windows code | On the map: now (2026-11-12) | Astra connected it in Claude; one docs search answered. In Codex's `config.toml` too; not yet called from a Codex chat |
 | 5 | MCP Inspector (the checker, run, never connected) | White Hat Weasel → every new server | On the map: now | Used for rows 4, 6 and 7 on 2026-11-09 |
-| 6 | alphaXiv and PubMed | Paper Patty → Flowsheet Flamingo, AI Dashund | Checked and approved | Astra clicks Connect in Claude |
-| 7 | Yelp | Spoonfed Sugarcube | Checked and approved | Astra clicks Connect in Claude |
+| 6 | alphaXiv and PubMed | Paper Patty → Flowsheet Flamingo, AI Dashund | On the map: now (2026-11-12), Claude only | Astra connected both; one search each answered. alphaXiv offers 23 tools, not the 6 its directory listing showed: 9 of them write to her alphaXiv account (folders, saved papers, private notes, follows), and Paper Patty's grant is read only. Astra decides whether to switch those 9 off in the connector's settings |
+| 7 | Yelp | Spoonfed Sugarcube | On the map: now (2026-11-12), Claude only | Astra connected it; one restaurant search answered. The chat gets only the search tool |
 
 ## Later: when that pet's work starts
 
@@ -72,9 +72,10 @@ flowchart LR
 | 29 | Kali, Wireshark, Tailscale, Sentry, memory | Open shells, stale, or the command line covers it |
 | 30 | Serena (Oraios AI's coding tool) | "Keep it off" (Astra, 2026-11-09); taken out of #255 |
 
-Still open: the ten plugin servers that wait for a sign-in (Asana, Atlassian, Datadog, Linear, Notion, PagerDuty,
-Slack, Figma, Intercom, GitHub). Claude Code has no setting that turns off one plugin server everywhere, so they stay
-until Astra picks a way (hub card 319).
+The ten plugin servers that wait for a sign-in (Asana, Atlassian, Datadog, Linear, Notion, PagerDuty, Slack, Figma,
+Intercom, GitHub) are **left as they are** (Astra, 2026-11-11: "Can you just do all this stuff for me?", which took the
+recommended choice). Claude Code has no setting that turns off one plugin server everywhere. Without her sign-in they
+cannot connect or offer a tool, so all they cost is the "needs sign-in" notices.
 
 ## Keeping it true
 
