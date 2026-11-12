@@ -9,9 +9,9 @@ cute. I think the color of him is weird though ... We can just make it orange."
   its link and its blue hat), and `npm run build` made its pet program page and Markdown pet. Its first check (the
   desktop PC's listening ports and firewall, by hand) is in its own repo, findastra/port-web#4; White Hat Weasel's scan log links to it (findastra/white-hat-lab#5).
 - **Server Salamander (#49, Server Hearth)** moves the same way (`server-salamander` → `server-hearth` in two links),
-  for the server Astra is buying. **Self-host Sweetheart is not a pet yet:** no repo, branch, file or list on GitHub or
-  the PC names it (searched 2026-11-12). Whether it is Server Salamander's new name or a separate pet waits on Astra;
-  names change only in pet-programs.json.
+  for the server Astra is buying. **There is no Self-host Sweetheart:** no repo, branch, file or list on GitHub or the
+  PC names it (searched 2026-11-12), and Astra settled it the same day: "selfless sweetheart is not a thing and server
+  salamander is the thing." Server Salamander keeps his name, so pet-programs.json names no new pet.
 - **White Hat Weasel** gets an orange draft picture,
   `art/drafts/white-hat-weasel-orange-20261112/normalized/white-hat-weasel-sprite-20261112.png`: his red fur moved by
   20° of hue to orange; his white hat, cream belly, pink cheeks, mint shield and outline are unchanged. Recoloured

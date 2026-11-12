@@ -70,6 +70,17 @@
   --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
 }
 :root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
+   that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
+   bill for links, marks and pill edges, and his cyan phone for L3's note. */
+:root[data-pet="platform-platypus"] {
+  --slate: #1e1030; --slate-2: #150a22; --chalk: #f4eefc; --chalk-dim: #bba9d1; --line: #a57be0; --line-dim: #4f3175;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffd23f;
+  --editorial: #3ff0e8; --editorial-ink: #c9fbf8; --editorial-glow: rgba(63, 240, 232, .22); --grid: none; --editorial-by: #7fe9e3; --serial: #ffd23f;
+  --link: #ffd23f; --connection: #d7b8ff;
+  --tool-bg: rgba(165, 123, 224, .07); --tool-bg-hover: rgba(255, 210, 63, .08);
+}
+:root[data-pet="platform-platypus"] .footer-group::before, :root[data-pet="platform-platypus"] .footer-sparkle { color: #ffd23f; }
 /* Bass & Biscuits' own colours, a midnight studio (Astra, 2026-11-02: "Need a different color theme for bass &
    biscuits too"): deep indigo, electric-blue lines like Drum Dog's headphones, neon cyan links. */
 :root[data-pet="drum-dog"] {
