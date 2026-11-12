@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-339 rows: 14 native programs, 157 native tools, 20 native tricks, 148 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+350 rows: 15 native programs, 161 native tools, 23 native tricks, 151 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -385,6 +385,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 38 | Pole Puff | Infinite Studio | native program | Astra's Infinite Pole (world) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
+| 40 | Skill Scout | Luna's Log | native program | Skill catalog | `lunas-log-v0.1-skill-catalog-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | public-snapshot | `lunas-log-v0.1-public-snapshot-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-census | `lunas-log-v0.1-skill-census-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-diff | `lunas-log-v0.1-skill-diff-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-lint | `lunas-log-v0.1-skill-lint-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-census | `lunas-log-v0.1-skill-census-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-fix | `lunas-log-v0.1-skill-fix-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | write-a-skill | `lunas-log-v0.1-write-a-skill-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Git for Windows |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | GitHub CLI |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Node.js |  | Works today |
 | 41 | OSC Sealion | OSC Sonar | third-party program | OSCGoesBrrr |  | Planned |
 | 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
