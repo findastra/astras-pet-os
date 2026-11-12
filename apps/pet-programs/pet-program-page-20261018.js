@@ -572,7 +572,7 @@
     });
     chatLog.scrollTop = 1e9;
   }
-  function say(from, text, to) {
+  function chatSay(from, text, to) {
     chatLines.push({ at: new Date().toISOString(), from: from, to: to || null, text: text });
     chatLines = chatLines.slice(-20);
     write('chat', chatLines);
@@ -672,7 +672,7 @@
   function send(message) {
     if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to send.'; return false; }
     var to = WHO[chosen];
-    say('me', message, to.name);
+    chatSay('me', message, to.name);
     if (to.seat && ready(chosen)) { answer(message); return true; }
     if (to.url) {
       var prompt = T('This is about ' + config.home + ', ' + config.pet + '\'s pet program in Astra\'s PetOS') +
@@ -685,7 +685,7 @@
     }
     if (!addNote(message)) { chatStatus.textContent = 'This browser would not save it (storage is full or blocked). Copy it somewhere safe.'; return false; }
     chatStatus.textContent = 'Saved to ' + STORE + '.';
-    if (to.seat) say('pet', 'Nobody is in my seat yet. ' + whyNot(chosen) + ' I put your message in ' + STORE + ', and whoever sits here next picks it up from there. Ask me about this page (the buttons above) and I answer right away.');
+    if (to.seat) chatSay('pet', 'Nobody is in my seat yet. ' + whyNot(chosen) + ' I put your message in ' + STORE + ', and whoever sits here next picks it up from there. Ask me about this page (the buttons above) and I answer right away.');
     return true;
   }
   if (chat && panel && chatText && chatSend) {
@@ -706,8 +706,8 @@
     var quick = panel.querySelectorAll('.chat-quick button');
     for (var q = 0; q < quick.length; q++) quick[q].addEventListener('click', function () {
       if (chatOff()) { chatStatus.textContent = 'The chat is switched off (its left light). Switch it on to ask.'; return; }
-      say('me', this.textContent);
-      say('pet', QUICK[this.dataset.quick]());
+      chatSay('me', this.textContent);
+      chatSay('pet', QUICK[this.dataset.quick]());
     });
     // A Needs you item takes you to its place on the page, with its panel open, and the chat steps aside.
     var gotos = panel.querySelectorAll('[data-chat-goto]');
