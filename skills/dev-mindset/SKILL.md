@@ -1,6 +1,6 @@
 ---
 name: dev-mindset
-description: Keep Astra's PetOS in a software-engineering mindset. Warn Astra plainly when a term or structure she uses is a blatant programming nomenclature or structure error, give the standard term, and keep the glossary below in sync. Use in every conversation about Astra's PetOS design, naming, docs or code.
+description: Keep Astra's PetOS in a software-engineering mindset. Warn Astra plainly when a term or structure she uses is a blatant programming nomenclature or structure error, give the standard term, and keep the glossary below in sync. Use when a conversation is about Astra's PetOS design, naming, docs or code (every such conversation). Not for everyday words that are not programming terms.
 ---
 
 # Dev mindset (Astra, 2026-10-13)
