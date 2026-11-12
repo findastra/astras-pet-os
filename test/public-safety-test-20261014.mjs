@@ -34,7 +34,7 @@ test('a secret stops the build instead of being hidden', () => {
 // Tests that drive a page's local controls need loopback addresses. They use made-up ports (400xx), never the real
 // ones, which stay in each PC's gitignored local services list (docs/local-services-20261014.md). Secrets and
 // personal folder paths are still checked in these files. Claude Opus 5.5 (claude-opus-5-5), 2026-11-03.
-const LOOPBACK_FIXTURES = ['test/damsel-presence-control-test-20261030.mjs', 'test/program-buttons-test-20261107.mjs'];
+const LOOPBACK_FIXTURES = ['test/damsel-presence-control-test-20261030.mjs', 'test/flash-audit-test-20261108.mjs'];
 const MADE_UP = /(?:https?:\/\/)?\b127\.0\.0\.1:400\d\d\/?/g;
 
 test('no committed file publishes a secret, a local service address or a personal folder path', () => {

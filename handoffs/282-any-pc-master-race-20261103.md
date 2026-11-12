@@ -86,3 +86,28 @@ Record the merges below.
 - 2026-11-06: Astra's OK in chat, "Merge #293". Before merging: `main` had not moved since the branch was cut
   (a729b436), #293's 4 checks passed, and a test merge with each open PR that touches the page CSS was clean (#276,
   #278, #283, #287, #289, #292); #247 already conflicts with `main`. Merged by Claude Opus 5.5 right after this line.
+- 2026-11-06: Astra, "Approve the tower": his art is approved, recorded in pets.json's note and beside
+  `DRAFT_PC_MASTER` (changes/pc-master-art-approved-20261106.md). He stays in the pipeline: registering him (roster,
+  pet table, desktop) is the Farmer's step when he is released, and from then on he is redone only with `--match`.
+- 2026-11-06: Astra sent Rift Rabbit's page, "use this as a model Pet Program", then "All recommended" on the deck
+  "Rift Rabbit as the model": (1) both PC Master Race now and the engineering pet when it is built (that chat was told);
+  (2) L3's note, his PC's parts as devices and his two tools working open on the page now, Open buttons as their own
+  step after. Done in data only (changes/pc-master-rift-model-20261106.md). Still to do: Open buttons through a
+  launcher on this PC (127.0.0.1 only, an Iron Gates grant).
+- 2026-11-06: Astra's OK in chat, "Merge both" (#294 and #296), then "can we just save this to my pc and end chat".
+  #294 merged as 368ffed0 (checks passed, clean against `main`). #296 was pointed at `main`, took `main`'s generated
+  pages and rebuilt PC Master Race's; `npm test` 387 tests, 383 pass, 3 skipped, 1 fails (the Windows farm-setup test,
+  as on `main`). Open PRs #36, #218 and #245 already conflict with `main` and also touch `pets.json` or
+  `system-map.json` near these lines. Merged by Claude Opus 5.5 right after this line. Still open from this card: Not
+  done 1 to 6, Open buttons, and registering PC Master when he is released.
+- 2026-11-08: Astra, "The Friendly Farmer has some kind of repo somewhere that is a template pet program page. That's
+  the one you should be following. And if you needed another example, then Rift Rabbit." Compared with the Model Pet
+  Program, his page had every panel; only his waiting OKs were missing. Asked "Show his waiting OKs where the template
+  has them?", she said "Yes, add them": pets.json `waiting_on_you` (the three licenses, LatencyMon) now shows in L4's
+  approvals-waiting-on-you, "From card 282 in the hub" (changes/pc-master-waiting-oks-20261108.md). L3 asks you stays
+  empty: it is for updates, and neither is one.
+- 2026-11-08: Astra's OK in chat, "Merge #314". Before merging: `main` had not moved since the branch was cut
+  (9d3ac39b), #314's 4 checks passed, and every open PR that touches the same files (#36, #218, #245, #247, #256, #281,
+  #289, #290, #299, #313) already conflicts with `main`, so #314 makes none newly conflict. Merged by Claude Opus 5.5
+  right after this line. Still open from this card: Not done 1 to 6, Open buttons, her two OKs (now on his page), and
+  registering PC Master when he is released.

@@ -121,7 +121,7 @@ Every pet is at one stage on its way from an idea to a released pet. The chart i
 <!-- stages:start (generated from pet-programs.json and pets.json by scripts/pet-stages-20261102.mjs; do not edit by hand) -->
 ```mermaid
 flowchart LR
-  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 11"]
+  candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 12"]
   candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
   seed -->|real work in its repo| pipeline["Pipeline · 31"]
   roadmap -->|real work in its repo| pipeline
@@ -131,18 +131,27 @@ flowchart LR
 | Stage | What it means | Kept in | Pet program page | Pets | With a GitHub repo |
 |---|---|---|---|---|---|
 | **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
-| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 11 | 11 |
+| **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 12 | 11 |
 | **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
 | **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
 | **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 23 | 23 |
 
-85 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
+86 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
 <!-- stages:end -->
 
 **Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,
 a Flash Audit) finds a repo at the wrong stage, he changes its `stage` in pet-programs.json, and its pets.json entry
 when it becomes an animal or stops being one, runs `npm run build`, and opens a pull request. Astra merges it: moving
 into the pipeline goes through the gate, so nobody becomes an animal by saying so.
+
+## MCP Roadmap
+
+MCP servers are the plugs that let the agent in a pet's seat reach a program or a web account: Unity, Microsoft's
+docs, research papers, restaurants. Each one moves from **found** to **checked** (MCP Inspector lists its tools) to
+**approved** (Astra's yes) to **connected** (Claude Code and Codex) to **on the map** (a new chat called it once).
+**[The MCP Roadmap](docs/mcp-roadmap-20261109.md)** lists every server the pets use, the ones next, the ones for later
+and the ones left out, each with its keeper pet and the reason. The research behind it, all 87 pets checked, is
+[docs/mcp-assessment-20261109.md](docs/mcp-assessment-20261109.md).
 
 ## Who lives here
 
@@ -153,7 +162,7 @@ into the pipeline goes through the gate, so nobody becomes an animal by saying s
 | **GitHub Goldfish** | pet | growing | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. | [Pet Program](apps/pet-programs/github-goldfish-20261018.html) · private repo |
 | **Data Chip** | pet | hatching | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | [Pet Program](apps/pet-programs/data-dealer-20261018.html) · private repo |
 | **API Fairy** | pet | growing | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | [Pet Program](apps/pet-programs/api-fairy-20261018.html) · private repo |
-| **Unity Unicorn** | pet | hatching | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | [Pet Program](apps/pet-programs/unity-unicorn-20261018.html) · private repo |
+| **[Unity Unicorn](https://github.com/findastra/unity-unicorn)** | pet | hatching | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | [Pet Program](apps/pet-programs/unity-unicorn-20261018.html) · [Download ZIP](https://github.com/findastra/unity-unicorn/archive/refs/heads/main.zip) |
 | **Python Panther** | pet | hatching | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | [Pet Program](apps/pet-programs/learn-python-20261018.html) · private repo |
 | **Astra Wisp** | pet | hatching | Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session. | [Pet Program](apps/pet-programs/the-astral-plane-20261018.html) · private repo |
 | **Health Hummy** | pet | hatching | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | [Pet Program](apps/pet-programs/health-hummy-20261018.html) · private repo |
@@ -165,7 +174,7 @@ into the pipeline goes through the gate, so nobody becomes an animal by saying s
 | **Portfolio Puffer** | pet | hatching | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | [Pet Program](apps/pet-programs/portfolio-puffer-20261018.html) · private repo |
 | **Drum Dog** | pet | hatching | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | [Pet Program](apps/pet-programs/drum-dog-20261018.html) · private repo |
 | **VSCode Angel** | pet | hatching | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [Pet Program](apps/pet-programs/vscode-angel-20261018.html) · private repo |
-| **Gone Ghost** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · private repo |
+| **[Gone Ghost](https://github.com/findastra/ghost-protocol)** | pet | hatching | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | [Pet Program](apps/pet-programs/ghost-protocol-20261018.html) · [Download ZIP](https://github.com/findastra/ghost-protocol/archive/refs/heads/main.zip) |
 | **Project Parrot** | pet | hatching | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | [Pet Program](apps/pet-programs/project-parrot-20261018.html) · private repo |
 | **Voicemeeter Bug** | pet | growing | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | [Pet Program](apps/pet-programs/voicemeeter-bug-20261018.html) · private repo |
 | **Platform Platypus** | pet | hatching | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | [Pet Program](apps/pet-programs/platform-platypus-20261018.html) · private repo |
