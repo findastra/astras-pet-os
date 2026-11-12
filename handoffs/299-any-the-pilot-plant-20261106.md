@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her OK to merge #299; then the build, below)
+status: open (#299 merged; the build, below, is next)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -92,11 +92,16 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 
 ## Done when
 
-1. Astra OKs #299 in chat and it merges.
+1. ~~Astra OKs #299 in chat and it merges.~~ Done: merged 2026-11-12 (see Return).
 2. The build above is done and shown to her as a working copy.
 
 ## Return
 
 Record the merge below.
+
+- **#299 merged** by Astra's account (findastra) on GitHub, 2026-11-12 06:06 UTC (2026-11-11 23:06 Denver), as
+  bdce21da. The pink flamingo (102273a3) is in it. Her "Approve it" for the art came in chat at about the same time.
+  Recording that approval missed #299 (fabe83ca was pushed to the branch after the merge), so it went in its own
+  follow-up PR with this note.
 
 ## Receipt and review
