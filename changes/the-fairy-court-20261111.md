@@ -25,3 +25,8 @@ Tests: 417, 416 pass; the one failure (`farm-setup-test`, "from scratch, the ins
 unchanged main in a git worktree, because the installer refuses a hub copy.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-11; art 2026-11-12.
+
+**Her colours (Astra in chat, 2026-11-12: "She needs like a red background"):** her pet program page is ruby red
+(`:root[data-pet="role-fairy"]` in `apps/pet-programs/pet-program-page-20261018.css`), brighter than Audio Rescue's
+oxblood, with the five Discord role colours her wings carry: butter yellow lines, an ice blue working-copy box,
+bubblegum pink links, lavender connections and her gold wand for marks. Her repo's page uses the same stylesheet.

@@ -148,6 +148,18 @@
   --tool-bg: rgba(214, 217, 223, .05); --tool-bg-hover: rgba(255, 71, 87, .1);
 }
 :root[data-pet="voicemeeter-bug"] .footer-group::before, :root[data-pet="voicemeeter-bug"] .footer-sparkle { color: #ff4757; }
+/* The Fairy Court's own colours, Role Fairy's (Astra, 2026-11-12: "She needs like a red background"): a ruby page,
+   brighter than Audio Rescue's oxblood so the two never read alike, with the five Discord role colours her wings carry
+   (README of findastra/role-fairy): butter yellow lines, ice blue working-copy box, bubblegum pink links, lavender
+   connections, and her gold wand for marks. */
+:root[data-pet="role-fairy"] {
+  --slate: #7a0f22; --slate-2: #5a0a18; --chalk: #fff3f5; --chalk-dim: #f3c6cf; --line: #fff2ad; --line-dim: #c0566b;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffd23f;
+  --editorial: #a7dfff; --editorial-ink: #e3f5ff; --editorial-glow: rgba(167, 223, 255, .22); --grid: none; --editorial-by: #cdeeff; --serial: #ffd23f;
+  --link: #ffb3d1; --connection: #d9bdf7;
+  --tool-bg: rgba(255, 242, 173, .06); --tool-bg-hover: rgba(245, 154, 194, .12);
+}
+:root[data-pet="role-fairy"] .footer-group::before, :root[data-pet="role-fairy"] .footer-sparkle { color: #ffd23f; }
 /* File Kingdom's own colours, File Master's (Astra, 2026-11-11: "Let's change the background color of the pet program";
    she picked his folder colours): a dark espresso page, panel lines in his folder orange (#f09000, sampled from his
    picture), his yellow (#f0d848) for links, marks and the working-copy box, his cheek pink for connections. */
