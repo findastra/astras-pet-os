@@ -46,12 +46,12 @@ export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
 // its page loads the drawing's own stylesheet; the `<pet>-cyberhome` tool is then built, so its ON/OFF light is on.
 // The tool is the cyberhome itself (Astra, the same night: "the tool that is the GitHub Goldfish Cyberhome with the
 // buttons on it, that one is going to be the Cyberhome ... essentially just where the pink border is", "give it like a
-// cute little antenna"): its frame is the case, its lights sit on top like her 2026-10-18 sketch
-// (docs/images/pet-program-page-sketch-20261018.webp), and `frame` holds the parts drawn outside the room.
+// cute little antenna"): its frame is the case, its lights in the top edge on the left and an antenna on the right like
+// a walkie-talkie's (2026-11-12), and `frame` holds the parts drawn outside the room.
 // Every other pet keeps the plain den until its cyberhome is drawn.
 export const CYBERHOMES = {
   'github-goldfish': { kind: 'aquarium', css: 'cyberhome-aquarium-20261111.css',
-    frame: '<span class="ch-antenna" aria-hidden="true"></span><span class="ch-feet" aria-hidden="true"></span>',
+    frame: '<span class="ch-antenna" aria-hidden="true"></span>',
     decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
 };
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';

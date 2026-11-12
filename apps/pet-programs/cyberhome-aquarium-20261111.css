@@ -1,22 +1,18 @@
 /* github-goldfish-cyberhome: the GitHub Aquarium, drawn small inside the cyberhome (Astra, 2026-11-11: "make a little
    mini version of the cyber home in that top left square that fits in that panel").
    The tool is the cyberhome itself (the same night: "the tool that is the GitHub Goldfish Cyberhome with the buttons on
-   it, that one is going to be the Cyberhome ... essentially just where the pink border is", "give it like a cute little
-   antenna"). Its look follows her hand-drawn cyberhome in docs/images/pet-program-page-sketch-20261018.webp: a thick
-   glittery pink frame, its two lights up on stalks along the top, pipes on the other side, little feet. The room inside
-   is the Aquarium app's tank: striped water, dotted sand, dark seaweed, bubbles. The Goldfish stays at its desktop size
-   in front. Only pages whose pet has this cyberhome load this file (CYBERHOMES in scripts/pet-program-pages-20261018.mjs).
-   By Astra; Claude Opus 5.5, 2026-11-11. */
+   it, that one is going to be the Cyberhome ... essentially just where the pink border is"). A plain pink case (2026-11-12:
+   "get rid of all the weird details"), its two lights inside the top edge on the left, like every tool's lights, and on
+   the right an antenna like a walkie-talkie's ("I don't want the buttons to be like sticking out like that. It should look
+   like an antenna on a walkie-talkie almost ... buttons on the left side and then the antenna on the right because it
+   would match the other tools"). The room inside is the Aquarium app's tank: striped water, dotted sand, dark seaweed,
+   bubbles. The Goldfish stays at its desktop size in front. Only pages whose pet has this cyberhome load this file
+   (CYBERHOMES in scripts/pet-program-pages-20261018.mjs). By Astra; Claude Opus 5.5, 2026-11-11 and 2026-11-12. */
 .habitat.aquarium-home {
   --aq-case: #f2a7d0; --aq-case-edge: #805872; --aq-glass: #3c3b5a; --aq-water: #bfe6f6; --aq-stripe: #d6f0fa;
-  --aq-weed: #24503a; --aq-sand: #3a3550; --aq-bubble: #ffffff; --aq-glow: #ff6ec7;
-  position: relative; margin-top: 18px; padding: 7px 7px 3px; box-sizing: border-box;
-  border: 2px solid var(--aq-case-edge); border-radius: 12px; box-shadow: 0 3px 0 var(--aq-case-edge);
-  /* The glitter in her drawing: neon specks on the pink. */
-  background-color: var(--aq-case);
-  background-image: radial-gradient(circle, #3ff3ff 0 .8px, transparent 1.3px), radial-gradient(circle, #46ff9a 0 .8px, transparent 1.3px),
-    radial-gradient(circle, #ffffff 0 .7px, transparent 1.2px), radial-gradient(circle, #b36bff 0 .8px, transparent 1.3px);
-  background-size: 13px 11px, 17px 19px, 11px 15px, 23px 17px; background-position: 0 0, 7px 4px, 4px 9px, 15px 12px;
+  --aq-weed: #24503a; --aq-sand: #3a3550; --aq-bubble: #ffffff;
+  position: relative; margin-top: 16px; padding: 18px 7px 3px; box-sizing: border-box;
+  border: 2px solid var(--aq-case-edge); border-radius: 12px; box-shadow: 0 3px 0 var(--aq-case-edge); background: var(--aq-case);
 }
 /* The tool's name is printed on the case's bottom edge, like the app's status line. */
 .habitat.aquarium-home > .render-label {
@@ -24,35 +20,17 @@
   border: 0; border-radius: 0; background: none;
 }
 .habitat.aquarium-home > .render-label .render-name { font-size: 8px; line-height: 1.2; white-space: nowrap; letter-spacing: -.1px; color: #4a2340; font-weight: 700; text-align: center; }
-/* Its lights are the case's two buttons, up on stalks along the top, as in her drawing. */
-.habitat.aquarium-home > .render-label .lights { position: absolute; top: -17px; right: 16px; gap: 7px; margin: 0; z-index: 3; }
-.habitat.aquarium-home > .render-label .light { position: relative; border-color: var(--aq-case-edge); box-shadow: 0 0 5px rgba(255, 255, 255, .55); }
-.habitat.aquarium-home > .render-label .light::after {
-  content: ''; position: absolute; left: 50%; top: 100%; width: 3px; height: 5px; margin-left: -1.5px; background: var(--aq-case-edge);
-}
-/* A cute little antenna with a glowing tip, and a short pipe beside it (the two pipes in her drawing). */
+/* Its lights are the case's two buttons, set into the top edge on the left, where every tool keeps its lights. */
+.habitat.aquarium-home > .render-label .lights { position: absolute; top: 4px; left: 9px; gap: 6px; margin: 0; z-index: 3; }
+.habitat.aquarium-home > .render-label .light { border-color: var(--aq-case-edge); }
+/* The antenna on the right, like a walkie-talkie's: a short, thick, rounded rod on a little collar. */
 .habitat.aquarium-home > .ch-antenna {
-  position: absolute; top: -17px; left: 16px; width: 2px; height: 15px; background: var(--aq-case-edge);
-  transform: rotate(-14deg); transform-origin: bottom center;
-}
-.habitat.aquarium-home > .ch-antenna::before {
-  content: ''; position: absolute; top: -5px; left: -3px; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--aq-glow); border: 1px solid var(--aq-case-edge); box-shadow: 0 0 6px var(--aq-glow);
-  animation: ch-blink 2.8s ease-in-out infinite;
+  position: absolute; top: -16px; right: 14px; width: 7px; height: 16px; box-sizing: border-box;
+  background: #4a2340; border-radius: 4px 4px 1px 1px;
 }
 .habitat.aquarium-home > .ch-antenna::after {
-  content: ''; position: absolute; bottom: 0; left: 9px; width: 4px; height: 7px; background: var(--aq-case-edge);
-  border-radius: 1px 1px 0 0; transform: rotate(14deg); transform-origin: bottom center;
+  content: ''; position: absolute; bottom: -2px; left: -2px; width: 11px; height: 4px; background: var(--aq-case-edge); border-radius: 2px 2px 0 0;
 }
-@keyframes ch-blink { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-/* Two little feet under the case. */
-.habitat.aquarium-home > .ch-feet { position: absolute; left: 14px; right: 14px; bottom: -8px; height: 5px; pointer-events: none; }
-.habitat.aquarium-home > .ch-feet::before, .habitat.aquarium-home > .ch-feet::after {
-  content: ''; position: absolute; top: 0; width: 9px; height: 5px; background: var(--aq-case-edge); border-radius: 0 0 4px 4px;
-}
-.habitat.aquarium-home > .ch-feet::before { left: 0; }
-.habitat.aquarium-home > .ch-feet::after { right: 0; }
-
 /* The room: the Aquarium's glass. */
 .habitat.aquarium-home > .den.aquarium {
   order: 1; margin-top: 0; height: 68px; min-height: 68px; box-sizing: border-box; overflow: hidden; isolation: isolate;
@@ -88,5 +66,4 @@
 .den.aquarium img.pet { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   .den.aquarium .aq-bubble { animation: none; opacity: .8; } .den.aquarium .aq-bubble.b2 { transform: translateY(-18px); } .den.aquarium .aq-bubble.b3 { transform: translateY(-30px); }
-  .habitat.aquarium-home > .ch-antenna::before { animation: none; }
 }
