@@ -1,4 +1,4 @@
-status: open, waits for Astra's OK in chat to merge #318
+status: open, main merged in 2026-11-12 (after #338); waits for Astra's OK in chat to merge #318
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-09, a side chat of the "PC Master Race" chat
 needs: Astra's OK to merge #318
@@ -29,3 +29,9 @@ line still said 2026-11-08.
 - `npm run build`: only The Farm's page changed. `npm test`: 399 pass, 1 skipped, 1 fails: the installed farm from
   scratch (Windows), which fails only in a git worktree (`.git` is a file there, and the installer skips only a `.git`
   folder). The same test passes on `main`'s own checkout, 5 of 5.
+- 2026-11-12, Claude Opus 5.5 (claude-opus-5-5), the Flash Audit template chat (Astra: "Yes, update #318"): main merged
+  in after #338. `flashAuditBody` conflicted: kept #338's top line (the page checks follow the Model Pet Program) with
+  this branch's date span and "which takes about 20 minutes"; both imports kept; generated files taken from main and
+  rebuilt. `npm test` in an LF clone (Git Bash): 434 tests, 428 pass, 0 fail, 6 skipped. In the pane, served from this
+  branch with the EDITORIAL bar: 71 checks, 18 Run buttons, the top line's date moved to the newer run (2026-11-09) by
+  itself, no console errors.
