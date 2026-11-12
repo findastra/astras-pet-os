@@ -40,6 +40,15 @@ export const ASSETS = { css: `pet-program-page-${DATE}.css`, js: `pet-program-pa
 export const LAUNCHER_JS = 'vrchat-launcher-20261024.js';
 // The chat window's link to the pet chat helper on this PC (card 283), on every page, before the page script.
 export const PET_CHAT_JS = 'pet-chat-link-20261103.js';
+// Drawn cyberhomes (Astra, 2026-11-11, on the GitHub Aquarium app: "this aquarium ... is gonna be the template for the
+// cyber home, but much smaller. And every pet program will have one", then "make a little mini version of the cyber home
+// in that top left square that fits in that panel"). A pet listed here gets its drawing in the den, behind the pet, and
+// its page loads the drawing's own stylesheet; the `<pet>-cyberhome` tool is then built, so its ON/OFF light is on.
+// Every other pet keeps the plain den until its cyberhome is drawn.
+export const CYBERHOMES = {
+  'github-goldfish': { kind: 'aquarium', css: 'cyberhome-aquarium-20261111.css',
+    decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
+};
 export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
 // A 3rd party program's ON/OFF light opens or closes it through Inference Iguana's watch (2026-11-06), on every page
 // with such a light; the page script itself sends nothing.
@@ -893,9 +902,10 @@ ${about({
   // the correct tool name, and we dont have one so idk why its green"). It is not built, so it is off, never a guessed
   // green. The pet stands as tall as on the desktop.
   const render = `${d.petSlug}-cyberhome`;
+  const drawn = CYBERHOMES[d.repo];
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
-<span class="render-label">${lights(`tool:${render}`, render, { planned: true })}<span class="render-name">${esc(render)}</span></span>
-<div class="den" data-arrival="waiting">${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
+<span class="render-label">${lights(`tool:${render}`, render, { planned: !drawn })}<span class="render-name">${esc(render)}</span></span>
+<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting">${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div></div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -1200,7 +1210,8 @@ ${about({
 <title>${esc(d.home)} · ${esc(d.pet)}</title>
 ${LIVE_CHECK}
 <link rel="stylesheet" href="${ASSETS.css}">
-${wordScripts}
+${CYBERHOMES[d.repo] ? `<link rel="stylesheet" href="${CYBERHOMES[d.repo].css}">
+` : ''}${wordScripts}
 </head>
 <body>
 <main class="page">

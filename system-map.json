@@ -4139,6 +4139,66 @@
       "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs)."
     },
     {
+      "id": "naming-corrections",
+      "name": "naming-corrections",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-naming-corrections-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-08): remembers the naming corrections the owner asks for, one repo at a time (repo, mistaken name, preferred name), and flags the mistaken name in later audits. Rules stay in the browser or a private file outside Git, never in the repo (github-goldfish index.html, Remember correction)."
+    },
+    {
+      "id": "never-say-checker",
+      "name": "never-say-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-never-say-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the owner’s own list of words that must never appear in public text; the Blatant check flags each one it finds. The list stays in the browser (github-goldfish index.html)."
+    },
+    {
+      "id": "report-exporter",
+      "name": "report-exporter",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-report-exporter-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): copies the current audit report or downloads it as Markdown, to paste into a chat or a handoff card (github-goldfish index.html, Copy and Download)."
+    },
+    {
+      "id": "achievement-tracker",
+      "name": "achievement-tracker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-achievement-tracker-v1.0",
+      "job": "A tool of GitHub Aquarium (Astra, 2026-10-17: \"it helps me track my GitHub achievements, lists suggestions on how to get the rest in order of easiest next\"): estimates GitHub achievements from public GitHub data, ranks the easiest next ones, lets the owner set what the profile really shows, and offers Start Project ideas for her cyber security, AI and nomad course tracks. Built on github-goldfish branch claude/achievements-20261017, not merged yet."
+    },
+    {
+      "id": "findastra-readme-auditor",
+      "name": "findastra-readme-auditor",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-findastra-readme-auditor-v1.0",
+      "job": "A tool of GitHub Aquarium (Codex, 2026-10-15): audits and revises the owner’s GitHub profile README with a local maker and checker, then waits for her review before it pushes a branch. Built on github-goldfish codex branches, not merged yet."
+    },
+    {
       "id": "document-control-checker",
       "name": "document-control-checker",
       "type": "tool",
