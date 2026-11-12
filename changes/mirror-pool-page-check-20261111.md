@@ -21,6 +21,15 @@ then Check it shows 5 screens and "8 things to fix", and the box grows to fit th
 `npm test`: 423 tests, 416 pass, 6 skipped, 1 fails: the Windows farm-setup test, which fails on `main` the same way
 (run on main, 2026-11-11).
 
+## Later the same day (Astra: "Pick like a dark purple color for the background that matches him ... and get rid of the more details in the unified footer")
+
+- **Mirror Pool's own colours**, taken from his drawing: a dark plum page and lighter violet panel lines from his fur, his
+  banana-yellow bill for links, marks and pill edges, his cyan phone for L3's note (`:root[data-pet="platform-platypus"]`
+  in pet-program-page-20261018.css). page-check's own panels are a neutral dark now, so it fits his page.
+- **No More details in the unified footer**, on every pet program page: the footer is the same on all of them, so the
+  spawner drops it for everyone. The test that every panel ends with More details now leaves out the footer too.
+  `npm run build` rewrote every pet program page; each one loses only that footer line.
+
 Not done: Platypus's own repo still has its old `index.html`; whether it should become this page or link to it is a
 separate step.
 
