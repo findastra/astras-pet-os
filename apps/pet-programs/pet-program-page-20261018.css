@@ -91,6 +91,17 @@
   --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
 }
 :root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
+/* File Kingdom's own colours, File Master's (Astra, 2026-11-11: "Let's change the background color of the pet program";
+   she picked his folder colours): a dark espresso page, panel lines in his folder orange (#f09000, sampled from his
+   picture), his yellow (#f0d848) for links, marks and the working-copy box, his cheek pink for connections. */
+:root[data-pet="file-master"] {
+  --slate: #1e140b; --slate-2: #150e07; --chalk: #fbf3e6; --chalk-dim: #c9b59a; --line: #f09000; --line-dim: #7a4a10;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #f0d848;
+  --editorial: #f0d848; --editorial-ink: #fff4c2; --editorial-glow: rgba(240, 216, 72, .22); --grid: none; --editorial-by: #ffe58a; --serial: #f0d848;
+  --link: #f0d848; --connection: #f7a8bb;
+  --tool-bg: rgba(240, 144, 0, .06); --tool-bg-hover: rgba(240, 144, 0, .11);
+}
+:root[data-pet="file-master"] .footer-group::before, :root[data-pet="file-master"] .footer-sparkle { color: #f0d848; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */

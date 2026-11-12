@@ -1126,6 +1126,8 @@ ${about({
   // Out More on one line. Since 2026-10-24 (Astra: "make sure there is no sparkle before By Astra ... the codes go below
   // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line.
   // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer").
+  // No More details under it (Astra, 2026-11-11: "Get rid of the more details on the unified footer panel", on every
+  // pet program page). Still open there: who owns the footer (proposed: The Farm, like the System Map).
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
@@ -1133,12 +1135,6 @@ ${about({
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
-${about({
-    how: 'By Astra, her photostar and Find Out More with her links, the same on every pet program.',
-    from: 'The links on her GitHub profile README, and Iced Out Iceberg’s photostar (astras-star-window).',
-    rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
-    notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
-  })}
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer', fold: false });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the
