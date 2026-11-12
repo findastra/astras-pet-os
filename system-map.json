@@ -99,6 +99,54 @@
       "in_pill": true
     },
     {
+      "id": "sync-my-lights-tool",
+      "name": "sync-my-lights-tool",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI wait on OpenRGB (card 002 in findastra/rgbee).",
+      "does": "One colour and brightness for every light in the apartment that Light Hive reaches.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "rainforest-storm-tool",
+      "name": "rainforest-storm-tool",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
+      "job": "A rainforest made live in the page (rain, wind, forest life, thunder) with lightning that flashes the screen and every light light-hive-helper reaches, thunder after the flash. Never more than three flashes a second; soft glows under reduced motion. Two screens with the same storm level strike together (Astra, 2026-11-08).",
+      "does": "Rainforest sounds with lightning across every light and screen.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "light-hive-helper",
+      "name": "light-hive-helper",
+      "type": "own-program",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-light-hive-helper-v1.0",
+      "url": "https://github.com/findastra/rgbee/tree/main/helper",
+      "job": "The small Windows program that sends Light Hive’s colours to the real lights, listening on this PC only: Razer through the Razer Chroma App, Govee over the Wi-Fi (LAN Control). Never more than three flashes a second, in code. Answers only pages on this PC and the farm owner’s GitHub Pages site. Not started at sign-in yet.",
+      "does": "Sends Light Hive’s colours and lightning to the real lights, from this PC only."
+    },
+    {
       "id": "ableton-usb-audio-driver",
       "watch": "driver",
       "name": "Ableton USB Audio Driver",
@@ -279,6 +327,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-20: every farm’s own pets, card 058): tells a new farm whose it is, so a beginner never edits pets.json by hand. In your own copy of Astra’s PetOS, with your GitHub name, it sets the farm owner (github_owner in pets.json), marks every pet that came with Astra’s PetOS as Astra’s so it stays hers, and rebuilds the pages; --dry-run shows the change first. It changes only that copy’s files and asks GitHub nothing; you commit the change (scripts/make-it-yours-20261020.mjs)."
     },
     {
+      "id": "astras-pet-os-mcp",
+      "name": "astras-pet-os-mcp",
+      "type": "tool",
+      "of": "farm",
+      "state": "planned",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-astras-pet-os-mcp-v1.0",
+      "job": "A tool of The Farm (Astra's Cung List, item 3, 2026-10-26): an MCP server that lets the agent in the seat (Claude Code, Claude Desktop or Codex) read the farm from this repo's own files: list_pets, get_pet, search_pets, list_open_handoffs, get_rule and list_rules, plus the name list, the rules files and the handoff cards as resources. Read only: no tool writes, runs a program or reaches the network, and a write tool would need its own opt-in switch, off by default, and Astra's OK. It runs on Node.js with the MCP SDK and zod, installed only in its own folder (mcp/, npm ci), so the hub stays dependency-free (mcp/server-20261026.mjs; docs/astras-pet-os-mcp-20261026.md)."
+    },
+    {
       "id": "farm-pets",
       "name": "farm-pets",
       "type": "tool",
@@ -411,6 +471,17 @@
       "state": "now",
       "job": "Windows app that shows Claude activity on Astra's Discord profile. One of Discord Damsel's programs.",
       "does": "Shows what Claude is working on in your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
+      "id": "ableton-live-discord-presence",
+      "name": "Ableton Live Discord Presence",
+      "url": "https://github.com/findastra/ableton-live-discord-presence",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that shows Ableton Live on Astra's Discord profile: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name and a timer. Reads only Ableton's window title and Windows' device names, never audio, MIDI notes or files. One of Discord Damsel's programs (discord-tower pet.json, v0.2.0, 2026-11-02).",
+      "does": "Shows what you are making in Ableton Live on your Discord profile.",
       "layer": 6,
       "category": "Desktop app"
     },
@@ -630,8 +701,7 @@
       "does": "Learn how a computer is organized, from the chip up, with your own PC’s parts as the example.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=learn",
       "frame": "wide",
-      "in_pill": true,
-      "start_closed": true
+      "in_pill": true
     },
     {
       "id": "pc-look-tool",
@@ -649,7 +719,6 @@
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=look",
       "frame": "wide",
       "in_pill": true,
-      "start_closed": true,
       "cadence": "every 10 minutes"
     },
     
@@ -822,6 +891,18 @@
       "job": "A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC."
     },
     {
+      "id": "listen-for-robotic-sound",
+      "name": "Listen for robotic sound",
+      "type": "tool",
+      "of": "audio-rescue",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+      "job": "A tool of Audio Rescue (Astra, 2026-11-08): Voicemeeter Bug compares the loudness Voicemeeter sends to each selected output with what Windows’ meter shows arriving. When sound keeps going out without arriving it writes a ROBOTIC notice and marks Fix audio now in his menu; tell first, it never restarts audio on its own yet. Merged (voicemeeter-bug PR #13) and running on Astra’s PC. Not yet proven: on 2026-11-08 a real robotic episode happened past Windows’ meter, which stayed equal to Voicemeeter’s."
+    },
+    {
       "id": "voicemeeter",
       "name": "Voicemeeter",
       "type": "program",
@@ -916,6 +997,36 @@
       "category": "Command-line tool",
       "job": "Third-party program (voidtools, MIT license): es.exe 1.1.0.37, downloaded 2026-11-03 from voidtools' GitHub release (SHA-256 matches winget's manifest, signed by voidtools PTY LTD) and put next to Everything in C:\\Program Files (x86)\\Everything. It answers only while Everything runs.",
       "does": "Everything’s command line: asks Everything for files from a script."
+    },
+    {
+      "id": "git-for-windows",
+      "name": "Git for Windows",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Command-line tool",
+      "job": "Third-party program (the Git for Windows project, GPL v2): git 2.55 on this PC (checked 2026-11-09). File Kingdom’s tools ask it what each repo holds that GitHub does not, and have it repair working-copy links after a folder moves.",
+      "does": "Git: keeps each project’s history and says what was never pushed."
+    },
+    {
+      "id": "windows-powershell",
+      "name": "Windows PowerShell",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Command-line tool",
+      "job": "Third-party program (Microsoft): Windows PowerShell 5.1, part of Windows (checked 2026-11-09). Every File Kingdom tool but one is a PowerShell script that runs on it; claude-chat-repointer runs on Node.js.",
+      "does": "Windows’ own script runner: File Kingdom’s tools run on it."
+    },
+    {
+      "id": "github-cli",
+      "name": "GitHub CLI",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Command-line tool",
+      "job": "Third-party program (GitHub, MIT license): gh 2.102 on this PC (checked 2026-11-09). File Kingdom’s temp-copies-check asks GitHub through it, read only, whether a commit that is on no remote in a copy on this PC is on GitHub anyway (gh api repos/<owner>/<repo>/commits/<id>). On 2026-11-09 that question was asked by hand for 95 commits: 93 were there.",
+      "does": "GitHub’s command line: asks GitHub about repos, commits and pull requests from a script."
     },
     {
       "id": "wiztree",
@@ -1191,6 +1302,92 @@
       "frame": "wide",
       "in_pill": true,
       "start_closed": true
+    },
+    {
+      "id": "desktop-pc-parts",
+      "name": "Desktop PC parts",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "job": "The parts inside Astra’s desktop PC (MSI MS-7E57), as PC Master Race’s look reads them from Windows every ten minutes: models only, never serial numbers. Each part is its own node in this group, and every line drawn to the group reaches each of them, the way Rift Rabbit’s devices are grouped (Astra, 2026-11-06, sending Rift Rabbit’s page: \"use this as a model Pet Program\", then \"All recommended\")."
+    },
+    {
+      "id": "desktop-cpu",
+      "name": "AMD Ryzen 7 7800X3D",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The processor: 8 cores and 16 threads, with AMD’s 3D V-Cache (96 MB of level 3 cache stacked on the chip) and a small Radeon graphics chip of its own.",
+      "does": "The processor: 8 cores, 16 threads, 96 MB of cache."
+    },
+    {
+      "id": "desktop-gpu",
+      "name": "AMD Radeon RX 9070 XT",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The graphics card: it draws the desktop, games and PC VR. Inference Iguana’s GPU watch (Benchmark Rock) is the one that watches what uses it.",
+      "does": "The graphics card: draws the desktop, games and VR."
+    },
+    {
+      "id": "desktop-memory-a2",
+      "name": "DDR5 memory, 16 GB (slot A2)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "One of two 16 GB DDR5 sticks (part UD5-6000), running at 4800 MT/s, below the 6000 in its part name. EXPO, a BIOS setting, is what runs a stick at its rated speed.",
+      "does": "16 GB of DDR5 memory, running at 4800."
+    },
+    {
+      "id": "desktop-memory-b2",
+      "name": "DDR5 memory, 16 GB (slot B2)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The other 16 GB DDR5 stick (part UD5-6000), running at 4800 MT/s, below the 6000 in its part name. EXPO, a BIOS setting, is what runs a stick at its rated speed.",
+      "does": "16 GB of DDR5 memory, running at 4800."
+    },
+    {
+      "id": "desktop-nvme-ssd",
+      "name": "Kingston NV3 1 TB NVMe SSD",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The drive inside the PC (C:): Windows, programs and Documents. PC Master Race reads its health from Windows; CrystalDiskInfo’s pill shows more.",
+      "does": "The main drive (C:): Windows and your programs."
+    },
+    {
+      "id": "wd-game-drive",
+      "name": "WD Game Drive (5 TB, USB)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "Astra’s external USB hard drive (D:), where her Unity projects live. Assistants only read it unless she OKs a change.",
+      "does": "Your external drive (D:), where your Unity projects live."
+    },
+    {
+      "id": "desktop-motherboard",
+      "name": "MSI PRO B840-VC WIFI",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "PC hardware",
+      "in": "desktop-pc-parts",
+      "job": "The motherboard (MS-7E57): the processor, memory, graphics card and drives all plug into it, and its BIOS holds settings like EXPO.",
+      "does": "The motherboard: everything plugs into it."
     },
     {
       "id": "oscgoesbrrr",
@@ -1585,8 +1782,18 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Razer lighting and device control. Installed.",
-      "does": "Controls Razer devices and their lighting."
+      "job": "Razer device control: Synapse 4. It sets the Viper V3 Pro, Kraken Ultimate and Seiren V3 Chroma (2026-11-08). Lighting moved to the separate Razer Chroma App. Razer Central and Razer Services run in the background for it.",
+      "does": "Sets Razer devices: buttons, DPI, mic gain and mute."
+    },
+    {
+      "id": "razer-chroma",
+      "name": "Razer Chroma App",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Razer’s lighting app, separate from Synapse 4 (Chroma for Windows 4.0.63, installed from Synapse 2026-11-08). It lights the Kraken Ultimate and Seiren V3 Chroma together; Chroma Studio, Visualizer and Connect came with it. Connect is how other brands’ lights join Razer effects; a Philips Hue module is offered.",
+      "does": "Syncs lighting effects across Razer devices, and other brands through Chroma Connect."
     },
     {
       "id": "logitech-g-hub",
@@ -1817,6 +2024,76 @@
       "does": "The editor you build avatars and worlds in."
     },
     {
+      "id": "unity-mcp",
+      "name": "MCP for Unity 10.3.0",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Unity package",
+      "job": "Coplay's free MCP for Unity (MIT): a Unity package plus a small Python helper (run by uv) that lets Claude Code and Codex read and change the open Unity editor, through a connection on this PC only. Unity's own MCP needs Unity 6, which VRChat does not support, so this is the one for Astra's 2022.3 projects (Astra, 2026-11-08: all recommended). Set up 2026-11-08: in Liminal Doors (from OpenUPM, because Unity's git route fails on D:), uv on the PC, UnityMCP in Claude Code and Codex. Planned until the first check with Unity open.",
+      "does": "Lets Claude and Codex work inside the open Unity editor."
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Upstash's hosted MCP server for current library and framework docs (https://mcp.context7.com/mcp). Connected to Claude as a connector; Codex has none (a new decision). Astra, 2026-11-09: \"All recommended\" (hub card 319). AI Dashund keeps it; every coding chat uses it.",
+      "does": "Gives coding chats current library docs."
+    },
+    {
+      "id": "microsoft-learn-mcp",
+      "name": "Microsoft Learn MCP",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; in Claude through the connector directory once Astra clicks Connect. Astra, 2026-11-09: \"All recommended\" (hub card 319). Planned until a new chat calls it once.",
+      "does": "Gives chats Microsoft's own Windows and PowerShell docs."
+    },
+    {
+      "id": "mcp-inspector",
+      "name": "MCP Inspector",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "MCP checker",
+      "job": "The MCP project's own checker (@modelcontextprotocol/inspector, run with npx, nothing installed): it lists every tool an MCP server offers and which ones write, before any chat gets the server. The Shed's checker review for MCP servers. Used on 2026-11-09 (version 2.12.0) for Microsoft Learn, PubMed, alphaXiv and Yelp. Astra, 2026-11-09: \"All recommended\" (hub card 319). White Hat Weasel keeps it; Agent Ant takes it over when it hatches.",
+      "does": "Lists a new MCP server's tools before any chat trusts it."
+    },
+    {
+      "id": "alphaxiv-mcp",
+      "name": "alphaXiv",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory: search and full text, 6 read tools. It asks for a sign-in before MCP Inspector can look, so its directory list stands in. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats search and read arXiv papers."
+    },
+    {
+      "id": "pubmed-mcp",
+      "name": "PubMed",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats search and read PubMed papers."
+    },
+    {
+      "id": "yelp-mcp",
+      "name": "Yelp",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "MCP server",
+      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider. Planned until Astra connects it and a new chat calls it once.",
+      "does": "Lets chats look up real restaurants for Spoonfed."
+    },
+    {
       "id": "vrchat-creator-companion",
       "name": "VRChat Creator Companion",
       "type": "program",
@@ -1845,6 +2122,46 @@
       "category": "Desktop app",
       "job": "Music production. Ableton Live 12 Trial (12.4.16) has been installed on the Desktop PC since 2026-10-31. Live Lite, which comes with the APC64, waits on its registration. Not connected to Drum Dog yet.",
       "does": "Music production software for making, recording and performing music."
+    },
+    {
+      "id": "codex-app",
+      "name": "Codex app",
+      "type": "program",
+      "state": "now",
+      "does": "OpenAI’s Codex on this PC; it keeps every chat in its own folder.",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "OpenAI’s Codex as installed on Astra’s PC. It keeps each chat as a file in its sessions and archived sessions folders, which Chat Rat reads (never changes) and saves into the chat archive."
+    },
+    {
+      "id": "claude-app",
+      "name": "Claude app",
+      "type": "program",
+      "state": "now",
+      "does": "Anthropic’s Claude app on this PC, with Claude Code inside; it keeps every Claude Code chat as a file.",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Anthropic’s Claude desktop app on Astra’s PC, with Claude Code in its Code tab. Claude Code keeps each chat as a file in its projects folder, which Chat Rat reads (never changes) and saves into the chat archive."
+    },
+    {
+      "id": "chatgpt-website",
+      "name": "ChatGPT website",
+      "type": "program",
+      "state": "now",
+      "does": "OpenAI’s ChatGPT on the web; its data export brings those chats to this PC.",
+      "layer": 6,
+      "category": "Cloud service",
+      "job": "ChatGPT in the browser. Its chats stay with OpenAI until Astra downloads her data export (a ZIP) and puts it in Chat Rat’s import inbox; Chat Rat then saves them into the chat archive, keeping every branch."
+    },
+    {
+      "id": "claude-website",
+      "name": "Claude website",
+      "type": "program",
+      "state": "now",
+      "does": "Anthropic’s Claude on the web; its data export brings those chats to this PC.",
+      "layer": 6,
+      "category": "Cloud service",
+      "job": "Claude in the browser (claude.ai). Its chats stay with Anthropic until Astra downloads her data export and puts it in Chat Rat’s import inbox; Chat Rat then saves them into the chat archive."
     },
     {
       "id": "spotify",
@@ -2155,12 +2472,218 @@
       "name": "everything-search",
       "type": "tool",
       "of": "file-kingdom",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Tool (shared)",
       "version": "v1.0",
       "label": "pet-program-12-v1.0-everything-search-v1.0",
-      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search). One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search."
+      "job": "A shared tool of File Master’s pet program: its connector to Everything (third-party search), through Everything’s command line, es.exe. Works since 2026-11-09 (file-master scripts/lib/file-master-everything-20261109.ps1): File Kingdom’s looks ask Everything’s index first and walk only what it does not cover. Read only; it never starts or configures Everything. One copy; other pets get grants from Iron Gates. File Master: the whole PC, read only. Wifi Butterfly: its own folder only, read only, 50 results per search (planned).",
+      "does": "File Kingdom’s one connector to Everything: asks its index for files, sizes and dates."
+    },
+    {
+      "id": "save-map",
+      "name": "save-map",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-save-map-v1.0",
+      "job": "A toolset of File Kingdom (Astra, 2026-11-09: “some kind of flow tree that shows me where everything is saved and where I should save things”; “I need the File Kingdom (Pet Program) to have this information in panels”): the save map, one place for each kind of thing, as tools on this page. They show what File Master’s last look wrote on this PC (Documents\\Astra's PetOS Data\\file-master\\file-kingdom-page-data.js) and nothing about any PC anywhere else.",
+      "does": "The save map: where each kind of thing is saved, where everything lives, and what is out of place."
+    },
+    {
+      "id": "where-to-save",
+      "name": "where-to-save",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-where-to-save-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-to-save",
+      "job": "A tool of File Kingdom: the save map’s questions. Ask them in order, the first yes wins, and each answer is one folder with its path to copy. The questions are file-master’s config/save-map-20261109.json.",
+      "does": "Answers “where do I save this?”: find the kind of thing, get the one folder it goes in.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-to-save",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "where-things-live",
+      "name": "where-things-live",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-where-things-live-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-things-live",
+      "job": "A tool of File Kingdom: every place on the save map, drive by drive, with what lives there, who saves there, how many files, how big and when it last changed (from Everything’s index), and a search box.",
+      "does": "Every place on the save map, drive by drive: what lives there, how much, and its path to copy.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=where-things-live",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "out-of-place",
+      "name": "out-of-place",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-out-of-place-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=out-of-place",
+      "job": "A tool of File Kingdom: what save-map-look found saved in the wrong place, most serious first: why it matters, examples, and which tool or step fixes it. Read only; nothing is moved from here.",
+      "does": "What the last look found saved in the wrong place, most serious first, and what fixes each.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=out-of-place",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "save-map-look",
+      "name": "save-map-look",
+      "type": "tool",
+      "of": "file-kingdom",
+      "in": "save-map",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-save-map-look-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
+      "job": "A tool of File Kingdom (file-master scripts/save-map-look-20261109.ps1): asks Everything about every place on the save map and looks for things saved in the wrong place (programs’ settings folders that left the user folder, repos outside the PetOS folder, installers, files named like secrets, folders at the top of C:). About 20 seconds. Read only. Its box shows the last look, Everything’s state, the cleanup plans waiting for your approval and when each tool last ran.",
+      "does": "Looks at every place on the save map and at what is out of place, through Everything. Read only.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/file-master-tools-20261109.html?tool=save-map-look",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "folder-blockers",
+      "name": "folder-blockers",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-folder-blockers-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/folder-blockers-20261109.ps1): when Windows says a folder is open in another program, it names the programs started from it, working in it or holding a file in it, and File Explorer’s windows and Quick access pins. Read only.",
+      "does": "Says which programs hold a folder when Windows will not move it. Read only."
+    },
+    {
+      "id": "project-mover",
+      "name": "project-mover",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-project-mover-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/project-mover-20261109.ps1): moves or renames a project folder on one drive. Dry run unless told to apply; stops and restarts what holds the folder only with your yes; repoints scheduled tasks, Run keys, shortcuts and pins; repairs every git working copy; leaves no link under the old name; writes an undo line.",
+      "does": "Moves or renames a project folder without breaking it: startup entries, shortcuts, pins and git follow."
+    },
+    {
+      "id": "project-gatherer",
+      "name": "project-gatherer",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-project-gatherer-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/project-gatherer-20261109.ps1): finds repos, duplicate clones, repos with no remote, commits that exist only on this PC, assistants’ working copies and files hidden in the Claude or Codex app’s private storage, and writes a plan. It asks Everything for every .git on the drives Everything indexes. Read only.",
+      "does": "Finds project work outside the PetOS folder and writes a plan to bring it home. Read only."
+    },
+    {
+      "id": "file-scan",
+      "name": "file-scan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-file-scan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Invoke-FileMasterScan.ps1): duplicates, half downloads, files with no extension, piles of installers and logs, empty folders, repos with unpushed work, new and stale projects. Writes a report and a plan. Read only.",
+      "does": "The audit of your folders and projects: duplicates, half downloads, piles, broken projects. Read only."
+    },
+    {
+      "id": "cleanup-plan",
+      "name": "cleanup-plan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-cleanup-plan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Invoke-FileMasterPlan.ps1): carries out only the rows of a plan you marked yes. Dry run first; moves and renames; quarantines into _file-master-holding instead of deleting; skips a folder a program holds; writes an undo log.",
+      "does": "Carries out the plan rows you approved: moves and renames, never deletes, writes an undo log."
+    },
+    {
+      "id": "undo-plan",
+      "name": "undo-plan",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-undo-plan-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/Undo-FileMasterPlan.ps1): puts back what a plan run moved, from its undo log, and repairs git working-copy links.",
+      "does": "Puts back everything a plan run moved, from its undo log."
+    },
+    {
+      "id": "program-home-restorer",
+      "name": "program-home-restorer",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-program-home-restorer-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/program-home-restorer-20261109.ps1): moves program homes, the dot folders and dot files a program keeps in your user folder (.claude, .codex, .gitconfig, .vscode), back there after they were moved. Where the program already made a fresh home, the two are merged: nothing is overwritten, the old copy of a same-name file is held inside that home, and every change goes into an undo file. Dry run unless told to apply; it reads names only. Made from the scripts that moved 19 program homes back on 2026-11-09, after they had all been moved into Documents. The rule it keeps: program homes stay in the user folder.",
+      "does": "Moves a program’s home folder back into your user folder after it was moved: merges, never overwrites, has an undo."
+    },
+    {
+      "id": "claude-chat-repointer",
+      "name": "claude-chat-repointer",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-claude-chat-repointer-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/claude-chat-repointer-20261109.js, with its check): after a folder that Claude chats work in is renamed, points those chats at the new folder so they can be continued. The Claude app does not support this: its own way is “Choose folder” in each chat, one at a time. This tool edits the app’s private chat records instead, whose format can change with any app update, so it runs only with Claude closed, backs every file up first, changes only the fields that say where a chat lives, refuses a file it does not recognise, and has an undo. It also renames Claude’s history folders so the chats’ histories and memory notes follow. Dry run unless told to apply. Its records step has only ever run on copies of the records.",
+      "does": "Points Claude chats at a renamed folder. Not supported by the Claude app: it edits the app’s own records, with backups and an undo."
+    },
+    {
+      "id": "temp-copies-check",
+      "name": "temp-copies-check",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-temp-copies-check-v1.0",
+      "job": "A tool of File Kingdom (file-master scripts/temp-copies-check-20261109.ps1): lists every copy of a project left in the Windows Temp folder and gives each a verdict: in use now, broken link, remains (Windows cleaned its git files away), unknown (git gave no answer, never taken as clean), unsaved work, only copy, or nothing unsaved. It can ask GitHub, through GitHub CLI, whether a commit that is on no remote here is on GitHub anyway. Read only: it leaves each copy’s git index untouched and deletes nothing. It walks Temp itself and does not ask Everything, because a shell started by a Claude chat sees that app’s private copy of Local app data merged over the real one. Temp is not a place to keep work: Windows deletes old files there. On 2026-11-09 the check it comes from found 1,330 copies; 1,083 were remains.",
+      "does": "Lists the project copies left in Temp and says which hold work that is saved nowhere else. Read only."
     },
     {
       "id": "footprint-meter",
@@ -2573,7 +3096,52 @@
       "state": "now",
       "layer": 6,
       "category": "Mouse",
-      "job": "Mouse, connected to the Desktop PC."
+      "job": "Mouse, connected to the Desktop PC. It has no RGB lights (Razer left them out to keep it light), so it can never match the other lights; Razer Synapse sets its buttons and DPI."
+    },
+    {
+      "id": "razer-seiren-v3-chroma",
+      "name": "Razer Seiren V3 Chroma",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Audio",
+      "job": "Astra’s desk microphone (2026-11-08): USB, with a headphone jack and Chroma RGB lights. Windows sees it as Razer Seiren V3 Chroma 32-Bit DSP and uses it as the default mic. Razer Synapse sets its gain, mute and lights."
+    },
+    {
+      "id": "govee-mirror",
+      "name": "Mirror (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light Astra named Mirror, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "govee-squiggle",
+      "name": "Squiggle (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light Astra named Squiggle, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "govee-lightstrip",
+      "name": "Lightstrip (Govee)",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Lights",
+      "job": "A Govee light strip Astra named Lightstrip, set up in the Govee Home app on her phone (card 061). Model not checked. Light Hive reaches it once LAN Control is on for it in the Govee Home app."
+    },
+    {
+      "id": "corsair-k65-plus",
+      "name": "Corsair K65 PLUS Wireless",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "Keyboard",
+      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights today; Light Hive reaches it once OpenRGB is set up (card 002 in findastra/rgbee)."
     },
     {
       "id": "dell-monitor",
@@ -3574,13 +4142,13 @@
       "id": "flash-audit",
       "name": "flash-audit",
       "type": "tool",
-      "of": "program-2",
+      "of": "farm",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "github-aquarium-v1.0-flash-audit-v1.0",
-      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-14): the Flash Audit, the checklist every pet is onboarded and reviewed with, and the read-only Idle Flash Audit that runs it over every pet program and writes an evidence ledger. Its code is in the hub, not in Goldfish’s repo yet (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs)."
+      "label": "the-farm-v1.0-flash-audit-v1.0",
+      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 61 checks as tools: each shows the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 37 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
     },
     {
       "id": "project-image-generator",
@@ -3774,6 +4342,32 @@
       "version": "v0.1.0",
       "label": "chat-stack-v0.1.0-save-missing-v0.1.0",
       "job": "A tool of Chat Stack (Chat Rat): saves the Codex and Claude Code chats on this PC that are not in the archive yet, and imports official exports from the inbox. The chats stay on the PC, never in the repo (chat-rat chat-rat-20261016.mjs; its own label is chat-rat-v0.1.0-save-missing-v0.1.0)."
+    },
+    {
+      "id": "model-folders-tool",
+      "name": "model-folders-tool",
+      "type": "tool",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "chat-stack-v0.1.0-model-folders-tool-v0.1.0",
+      "job": "A tool of Chat Stack (Chat Rat), moved into its tool box on 2026-11-08 (findastra/chat-rat#16): one box for each AI model in the chat archive, with how many chats it holds and a button that opens its folder. Works on Chat Rat’s own copy of this page, which his program serves on this PC; the chats stay on the PC, never in the repo (chat-rat chat-rat-page-20261108.mjs).",
+      "does": "One folder for each AI model, with a button that opens it."
+    },
+    {
+      "id": "saved-conversations-tool",
+      "name": "saved-conversations-tool",
+      "type": "tool",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "chat-stack-v0.1.0-saved-conversations-tool-v0.1.0",
+      "job": "A tool of Chat Stack (Chat Rat), moved into its tool box on 2026-11-08 (findastra/chat-rat#16): search the saved chats by title, model, source or pet, read one on the page, or open its date folder. Works on Chat Rat’s own copy of this page, which his program serves on this PC; the chats stay on the PC, never in the repo (chat-rat chat-rat-page-20261108.mjs).",
+      "does": "Search every saved chat by title, model, source or pet, and read it here."
     },
     {
       "id": "handoff-trick",
@@ -4110,6 +4704,13 @@
       "carries": "manages",
       "state": "now",
       "why": "PC Master Race shows whether wpr.exe is there; recording needs administrator, so it runs only when Astra asks."
+    },
+    {
+      "from": "pc-master-race",
+      "to": "desktop-pc-parts",
+      "carries": "manages",
+      "state": "now",
+      "why": "PC Master Race reads each part from Windows every ten minutes (pc-look-tool), reading only, and its lessons use them as the example (learn-computer-organization-tool)."
     },
     {
       "from": "unity-unicorn",
@@ -4638,6 +5239,13 @@
     },
     {
       "from": "program-watch",
+      "to": "web-browser",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open when any browser is (Brave, Edge, Chrome, Firefox or Opera); a red press opens Brave and a green one closes the browser like its X, never forced (Astra, 2026-11-12, on Bass & Biscuits' page: \"audit this page for the buttons that are working and not working and fix them\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
       "to": "tcpview",
       "carries": "manages",
       "state": "planned",
@@ -4831,6 +5439,13 @@
       "carries": "opens",
       "state": "now",
       "why": "Discord Damsel's app opens the Anthropic controls: Anthropic Discord Presence's control panel, which only answers on this PC."
+    },
+    {
+      "from": "discord-tower",
+      "to": "ableton-live-discord-presence",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops Ableton Live Discord Presence (hub #284); its control panel only answers on this PC."
     },
     {
       "from": "codex",
@@ -5491,6 +6106,20 @@
       "why": "Shows Claude activity on your Discord profile."
     },
     {
+      "from": "ableton-live-discord-presence",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Shows what you are making in Ableton Live on your Discord profile."
+    },
+    {
+      "from": "ableton-live-discord-presence",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
+    },
+    {
       "from": "discord-tower",
       "to": "discord",
       "carries": "manages",
@@ -5879,8 +6508,8 @@
       "from": "file-master",
       "to": "everything-search",
       "carries": "manages",
-      "state": "planned",
-      "why": "File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+      "state": "now",
+      "why": "File Master owns file organization and indexing (ASTRAS_PET_OS). Since 2026-11-09 File Kingdom’s looks ask Everything’s index for the whole PC (Astra: “a major tool here is Everything Search, I want you to be using that to create these organizational assessments”)."
     },
     {
       "from": "file-master",
@@ -6000,6 +6629,34 @@
       "carries": "runs-on",
       "state": "now",
       "why": "Kits and Astra’s own sound files are kept in the browser; it plays them with Web Audio."
+    },
+    {
+      "from": "chat-rat",
+      "to": "codex-app",
+      "carries": "manages",
+      "state": "now",
+      "why": "Chat Rat saves Codex’s chats from this PC into the chat archive, by model and date; he only reads Codex’s folders."
+    },
+    {
+      "from": "chat-rat",
+      "to": "claude-app",
+      "carries": "manages",
+      "state": "now",
+      "why": "Chat Rat saves Claude Code’s chats from this PC into the chat archive, by model and date; he only reads its folder."
+    },
+    {
+      "from": "chat-rat",
+      "to": "chatgpt-website",
+      "carries": "manages",
+      "state": "now",
+      "why": "ChatGPT’s data export, put in Chat Rat’s import inbox, is saved into the chat archive."
+    },
+    {
+      "from": "chat-rat",
+      "to": "claude-website",
+      "carries": "manages",
+      "state": "now",
+      "why": "Claude’s data export, put in Chat Rat’s import inbox, is saved into the chat archive."
     },
     {
       "from": "drum-dog",
@@ -6520,6 +7177,118 @@
       "why": "The tools run inside the Unity editor."
     },
     {
+      "from": "unity-stable",
+      "to": "unity-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Unity Unicorn keeps the list of Unity projects that have MCP for Unity and checks the connection (Astra, 2026-11-08)."
+    },
+    {
+      "from": "unity-mcp",
+      "to": "unity-editor",
+      "carries": "runs-on",
+      "state": "planned",
+      "why": "A package inside each Unity project that has it; first one Liminal Doors (2026-11-08)."
+    },
+    {
+      "from": "claude-code",
+      "to": "unity-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "UnityMCP in Claude Code's user settings (2026-11-08); it answers only while Unity is open."
+    },
+    {
+      "from": "codex",
+      "to": "unity-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "UnityMCP in Codex's config.toml (2026-11-08); it answers only while Unity is open."
+    },
+    {
+      "from": "ai-doghouse",
+      "to": "context7",
+      "carries": "manages",
+      "state": "planned",
+      "why": "AI Dashund keeps Context7 for every coding chat (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "context7",
+      "carries": "directs",
+      "state": "now",
+      "why": "Context7 is a Claude connector, so Claude Code sessions get it."
+    },
+    {
+      "from": "pc-master-race",
+      "to": "microsoft-learn-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "PC Master keeps Microsoft Learn; every chat writing Windows code uses it by grant (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "microsoft-learn-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "codex",
+      "to": "microsoft-learn-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "mcp-inspector",
+      "carries": "manages",
+      "state": "planned",
+      "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "paper-girl-site",
+      "to": "alphaxiv-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Paper Patty keeps alphaXiv for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "alphaxiv-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "paper-girl-site",
+      "to": "pubmed-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Paper Patty keeps PubMed for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "pubmed-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
+      "from": "spoonfed-app",
+      "to": "yelp-mcp",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Spoonfed Sugarcube keeps Yelp for real restaurants while the app is built (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "claude-code",
+      "to": "yelp-mcp",
+      "carries": "directs",
+      "state": "planned",
+      "why": "Through the Claude connector directory, once Astra clicks Connect."
+    },
+    {
       "from": "voicemeeter-bug",
       "to": "audio-rescue",
       "carries": "opens",
@@ -6588,6 +7357,20 @@
       "carries": "opens",
       "state": "now",
       "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-10-18)."
+    },
+    {
+      "from": "audio-rescue",
+      "to": "listen-for-robotic-sound",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-11-08)."
+    },
+    {
+      "from": "listen-for-robotic-sound",
+      "to": "voicemeeter",
+      "carries": "status",
+      "state": "now",
+      "why": "Reads two numbers per output, Voicemeeter’s level and Windows’ meter; records no sound."
     },
     {
       "from": "keep-voicemeeter-open",
@@ -6755,14 +7538,120 @@
       "to": "razer-viper",
       "carries": "opens",
       "state": "now",
-      "why": "Razer Synapse sets the mouse’s lighting and buttons."
+      "why": "Razer Synapse sets the mouse’s buttons and DPI (the Viper V3 Pro has no lights)."
+    },
+    {
+      "from": "razer-synapse",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "opens",
+      "state": "now",
+      "why": "Razer Synapse sets the mic’s gain, mute and monitoring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the mic’s Chroma ring."
+    },
+    {
+      "from": "razer-chroma",
+      "to": "razer-kraken",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Chroma App lights the headset’s Chroma ear cups."
     },
     {
       "from": "rgbee",
-      "to": "razer-viper",
+      "to": "razer-chroma",
+      "carries": "manages",
+      "state": "now",
+      "why": "Light Hive’s colours and lightning reach the Razer lights through the Chroma App’s local API (light-hive-helper, 2026-11-08)."
+    },
+    {
+      "from": "rgbee",
+      "to": "light-hive-helper",
+      "carries": "opens",
+      "state": "now",
+      "why": "Light Hive’s two tools send colours and lightning through it; it answers only pages on this PC."
+    },
+    {
+      "from": "light-hive-helper",
+      "to": "razer-chroma",
+      "carries": "manages",
+      "state": "now",
+      "why": "Sets the Razer lights through the Chroma App’s local API, and gives them back to its own effect after a minute unused."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-mirror",
       "carries": "manages",
       "state": "planned",
-      "why": "RGBee’s job includes the mouse’s lights."
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-squiggle",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "govee-lightstrip",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Light Hive sends it colours and lightning over the Wi-Fi once LAN Control is on in the Govee Home app."
+    },
+    {
+      "from": "rgbee",
+      "to": "corsair-k65-plus",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The keyboard joins Light Hive’s colours once OpenRGB is set up (card 002 in findastra/rgbee)."
+    },
+    {
+      "from": "corsair-icue",
+      "to": "corsair-k65-plus",
+      "carries": "opens",
+      "state": "now",
+      "why": "Corsair iCUE sets the keyboard’s lights today."
+    },
+    {
+      "from": "rgbee",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The mic’s Chroma ring is one of the room’s RGB lights."
+    },
+    {
+      "from": "rgbee",
+      "to": "razer-kraken",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The headset’s Chroma ear cups are one of the room’s RGB lights."
+    },
+    {
+      "from": "drum-dog",
+      "to": "razer-seiren-v3-chroma",
+      "carries": "manages",
+      "state": "now",
+      "why": "The desk mic records vocals and samples for Ableton Live."
+    },
+    {
+      "from": "drum-dog",
+      "to": "razer-synapse",
+      "carries": "manages",
+      "state": "now",
+      "why": "Synapse sets the desk mic’s gain, mute and headphone monitoring before Ableton Live hears it."
+    },
+    {
+      "from": "razer-seiren-v3-chroma",
+      "to": "windows-pc",
+      "carries": "network",
+      "medium": "usb",
+      "state": "now",
+      "why": "USB cable to the Desktop PC (seen 2026-11-08)."
     },
     {
       "from": "desktop-host",
@@ -7027,14 +7916,14 @@
       "from": "file-kingdom",
       "to": "new-programs-watch",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "The new-programs watch is a tool of File Master’s pet program."
     },
     {
       "from": "new-programs-watch",
       "to": "everything-search",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Asks Everything (voidtools) for programs added anywhere on the PC, when it is installed."
     },
     {
@@ -7083,7 +7972,7 @@
       "from": "file-kingdom",
       "to": "repo-catcher",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "repo-catcher is a tool of File Master’s pet program."
     },
     {
@@ -7132,14 +8021,14 @@
       "from": "file-kingdom",
       "to": "everything-search-tool",
       "carries": "opens",
-      "state": "planned",
+      "state": "now",
       "why": "everything-search is a shared tool owned by File Master’s pet program."
     },
     {
       "from": "everything-search-tool",
       "to": "everything-search",
       "carries": "runs-on",
-      "state": "planned",
+      "state": "now",
       "why": "Asks Everything (voidtools) to search the PC."
     },
     {
@@ -7148,6 +8037,195 @@
       "carries": "opens",
       "state": "planned",
       "why": "Grant from Iron Gates: its own folder only, read only, 50 results per search."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "save-map",
+      "carries": "opens",
+      "state": "now",
+      "why": "save-map is a toolset of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "where-to-save",
+      "carries": "opens",
+      "state": "now",
+      "why": "where-to-save is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "where-things-live",
+      "carries": "opens",
+      "state": "now",
+      "why": "where-things-live is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "out-of-place",
+      "carries": "opens",
+      "state": "now",
+      "why": "out-of-place is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "save-map-look",
+      "carries": "opens",
+      "state": "now",
+      "why": "save-map-look is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "folder-blockers",
+      "carries": "opens",
+      "state": "now",
+      "why": "folder-blockers is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "project-mover",
+      "carries": "opens",
+      "state": "now",
+      "why": "project-mover is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "project-gatherer",
+      "carries": "opens",
+      "state": "now",
+      "why": "project-gatherer is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "file-scan",
+      "carries": "opens",
+      "state": "now",
+      "why": "file-scan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "cleanup-plan",
+      "carries": "opens",
+      "state": "now",
+      "why": "cleanup-plan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "undo-plan",
+      "carries": "opens",
+      "state": "now",
+      "why": "undo-plan is a tool of File Master’s pet program."
+    },
+    {
+      "from": "everything-search-tool",
+      "to": "es-cli",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything through its command line, es.exe."
+    },
+    {
+      "from": "save-map-look",
+      "to": "everything-search",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything about every place on the save map and for what is out of place."
+    },
+    {
+      "from": "project-gatherer",
+      "to": "everything-search",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks Everything for every .git on the drives it indexes."
+    },
+    {
+      "from": "project-gatherer",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks git what each repo holds that GitHub does not."
+    },
+    {
+      "from": "project-mover",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Has git repair every working copy’s link after a folder moves."
+    },
+    {
+      "from": "repo-catcher",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks git about unpushed commits and branches."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "windows-powershell",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Every File Kingdom tool but one is a Windows PowerShell script; claude-chat-repointer runs on Node.js."
+    },
+    {
+      "from": "git-for-windows",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed on the Desktop PC (git 2.55, checked 2026-11-09)."
+    },
+    {
+      "from": "windows-powershell",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Part of Windows on the Desktop PC (5.1, checked 2026-11-09)."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "program-home-restorer",
+      "carries": "opens",
+      "state": "now",
+      "why": "program-home-restorer is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "claude-chat-repointer",
+      "carries": "opens",
+      "state": "now",
+      "why": "claude-chat-repointer is a tool of File Master’s pet program."
+    },
+    {
+      "from": "file-kingdom",
+      "to": "temp-copies-check",
+      "carries": "opens",
+      "state": "now",
+      "why": "temp-copies-check is a tool of File Master’s pet program."
+    },
+    {
+      "from": "claude-chat-repointer",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "claude-chat-repointer and its check run with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "temp-copies-check",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Asks git about each copy in Temp: changed files, new files, commits on no remote. Read only; the copy’s git index is left untouched."
+    },
+    {
+      "from": "temp-copies-check",
+      "to": "github-cli",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "With -AskGitHub, asks GitHub by commit id whether a commit that is on no remote here is on GitHub anyway. Read only, with the PC’s own sign-in."
+    },
+    {
+      "from": "github-cli",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed on the Desktop PC (gh 2.102, checked 2026-11-09)."
     },
     {
       "from": "the-police-station",
@@ -7380,8 +8458,8 @@
       "to": "windows-pc",
       "carries": "network",
       "medium": "usb",
-      "state": "suggested",
-      "why": "USB, or a 2.4 GHz dongle on the wireless models. To confirm."
+      "state": "now",
+      "why": "USB cable to the Desktop PC (the Kraken Ultimate is wired only; seen 2026-11-08)."
     },
     {
       "from": "logitech-brio",
@@ -8217,8 +9295,33 @@
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first work is on design/yubikey-spend-approval-20261102."
       },
       "chat-rat": {
-        "languages": [],
-        "note": "No code on main yet (GitHub measures none): its archive and tools wait in open pull requests chat-rat#1, #2 and #8."
+        "languages": [
+          {
+            "language": "JavaScript",
+            "percent": 94.3,
+            "why": "The saver, the word index behind Ask Chat Rat, and the little server that shows his pet program page with his tools in it are Node scripts with nothing to install; the page’s tool script is plain JavaScript too. Measured from GitHub on 2026-11-08."
+          },
+          {
+            "language": "CSS",
+            "percent": 2.4,
+            "why": "How his tools look inside their tool boxes, in the Farmer’s blueprint colours."
+          },
+          {
+            "language": "Shell",
+            "percent": 2,
+            "why": "The launcher for Linux and macOS."
+          },
+          {
+            "language": "PowerShell",
+            "percent": 1.1,
+            "why": "The Windows launcher: starts the server if it is not running and opens the page."
+          },
+          {
+            "language": "Batchfile",
+            "percent": 0.1,
+            "why": "The double-click start file on Windows."
+          }
+        ]
       },
       "anthropic-discord-presence": {
         "languages": [

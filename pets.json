@@ -761,7 +761,7 @@
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.3.0-20261011",
       "source_commit": "ce0d2eb811569ecdaedfc087b42ae8a387ada6f1",
       "audit": {
@@ -796,6 +796,11 @@
             "node": "unity-hub",
             "how": "optional",
             "why": "Unity Hub opens the Unity projects Unity Unicorn's tools work in."
+          },
+          {
+            "node": "unity-mcp",
+            "how": "optional",
+            "why": "MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (Astra, 2026-11-08)."
           },
           {
             "node": "unity-editor",
@@ -1084,6 +1089,16 @@
             "node": "github",
             "how": "optional",
             "why": "Published on GitHub Pages."
+          },
+          {
+            "node": "alphaxiv-mcp",
+            "how": "optional",
+            "why": "arXiv papers for Paper Girl (hub card 319)."
+          },
+          {
+            "node": "pubmed-mcp",
+            "how": "optional",
+            "why": "PubMed papers for Paper Girl (hub card 319)."
           }
         ]
       }
@@ -1127,12 +1142,37 @@
           {
             "node": "everything-search",
             "how": "optional",
-            "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+            "why": "File Master’s looks ask Everything’s index for the whole PC (since 2026-11-09). Without Everything they walk the folders, slowly."
           },
           {
             "node": "spacesniffer",
             "how": "optional",
             "why": "Planned: File Master owns file organization and indexing (ASTRAS_PET_OS); Everything finds files and SpaceSniffer shows what fills the disks."
+          },
+          {
+            "node": "es-cli",
+            "how": "optional",
+            "why": "Everything’s command line: File Kingdom’s everything-search connector asks Everything through it."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "optional",
+            "why": "File Kingdom’s tools ask git what each repo holds that GitHub does not, and have it repair working-copy links after a folder moves. Without git those checks are skipped."
+          },
+          {
+            "node": "windows-powershell",
+            "how": "required",
+            "why": "Every File Kingdom tool but one is a Windows PowerShell script. It is part of Windows."
+          },
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "claude-chat-repointer runs on Node.js (20 or newer). Every other File Kingdom tool works without it."
+          },
+          {
+            "node": "github-cli",
+            "how": "optional",
+            "why": "temp-copies-check asks GitHub through it whether a commit that is on no remote here is on GitHub anyway. Without it the check says so and skips that question."
           }
         ]
       },
@@ -1153,7 +1193,109 @@
           "visibility": "private",
           "version": "v1.0"
         }
-      ]
+      ],
+      "checks": {
+        "third-party:everything-search": {
+          "result": "issues",
+          "note": "It answered every search today (Everything 1.4.1.1032, 2.2 million items, C: indexed). Two things to fix: it is set to run as administrator with no service, so it does not start by itself at sign-in and Windows asks each time; and D: (exFAT) is not in its index, so File Kingdom walks D: slowly and cannot search it.",
+          "on": "2026-11-09"
+        },
+        "third-party:es-cli": {
+          "result": "works",
+          "note": "es.exe 1.1.0.37, signed by voidtools PTY LTD, answered File Kingdom’s searches: every .git on C: (1,529) in about 60 ms.",
+          "on": "2026-11-09"
+        },
+        "third-party:git-for-windows": {
+          "result": "works",
+          "note": "git 2.55.0.windows.3 answered project-gatherer for 77 folders.",
+          "on": "2026-11-09"
+        },
+        "third-party:windows-powershell": {
+          "result": "works",
+          "note": "Windows PowerShell 5.1.26100 ran every File Kingdom tool today.",
+          "on": "2026-11-09"
+        },
+        "tool:everything-search-tool": {
+          "result": "works",
+          "note": "Tested against the live index: counts, sizes, the newest change, either/or searches; it returns nothing, not a guess, for a drive Everything does not index.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map-look": {
+          "result": "works",
+          "note": "Ran on the PC: 27 places, 9 kinds of thing out of place, 22 seconds; wrote the page data this page shows.",
+          "on": "2026-11-09"
+        },
+        "tool:save-map": {
+          "result": "works",
+          "note": "Seen in the working copy with this PC’s look: the toolset and its four tools draw.",
+          "on": "2026-11-09"
+        },
+        "tool:where-to-save": {
+          "result": "works",
+          "note": "Seen in the working copy: the 11 questions, each path with its Copy button.",
+          "on": "2026-11-09"
+        },
+        "tool:where-things-live": {
+          "result": "works",
+          "note": "Seen in the working copy: 27 places in 5 groups with their counts from Everything; the D: places say not counted.",
+          "on": "2026-11-09"
+        },
+        "tool:out-of-place": {
+          "result": "works",
+          "note": "Seen in the working copy: the 9 findings of the 20:57 look, most serious first.",
+          "on": "2026-11-09"
+        },
+        "tool:folder-blockers": {
+          "result": "works",
+          "note": "Ran on the PetOS folder: listed the 10 PetOS services, both Quick access pins and the startup entries (7 seconds).",
+          "on": "2026-11-09"
+        },
+        "tool:project-mover": {
+          "result": "works",
+          "note": "Moved a test repo with one worktree inside, one outside and a program working in it: 3 of 3 worktrees repaired, the program restarted, an undo line written. Its steps renamed the PetOS folder today.",
+          "on": "2026-11-09"
+        },
+        "tool:project-gatherer": {
+          "result": "works",
+          "note": "Ran across the PC in 96 seconds: 77 git folders outside the PetOS folder, 68 plan rows. C: from Everything; D: walked for 60 seconds and stopped, so D: is not looked at in full until it is in Everything’s index.",
+          "on": "2026-11-09"
+        },
+        "tool:cleanup-plan": {
+          "result": "works",
+          "note": "Ran a test plan with %USERPROFILE% rows: a file and a repo folder moved, worktrees repaired, a missing source skipped.",
+          "on": "2026-11-09"
+        },
+        "tool:undo-plan": {
+          "result": "works",
+          "note": "Moved the test plan’s items back and repaired the git links.",
+          "on": "2026-11-09"
+        },
+        "third-party:nodejs": {
+          "result": "works",
+          "note": "Node 24.20.0 ran claude-chat-repointer’s 25 checks on made-up chat records.",
+          "on": "2026-11-09"
+        },
+        "third-party:github-cli": {
+          "result": "works",
+          "note": "gh 2.102.0 answered two commit look-ups for temp-copies-check: one commit GitHub has, one it has never seen.",
+          "on": "2026-11-09"
+        },
+        "tool:program-home-restorer": {
+          "result": "works",
+          "note": "Tested on a made-up user folder: 22 of 22 checks (dry run, apply, a second run, undo, a project’s own .claude left alone). Not run on the real user folder in this form; the two scripts it comes from moved 19 program homes back on 2026-11-09.",
+          "on": "2026-11-09"
+        },
+        "tool:claude-chat-repointer": {
+          "result": "issues",
+          "note": "It passed 25 of 25 checks on made-up chat records (dry run, refusing while the app runs, apply, undo byte for byte). Two things to know: the Claude app does not support it, and its records step has never run on the app’s real records, only on copies. Treat it as untried until its first real run.",
+          "on": "2026-11-09"
+        },
+        "tool:temp-copies-check": {
+          "result": "works",
+          "note": "Tested on a made-up Temp folder: 30 of 30 checks (every verdict, the git index left untouched, two look-ups on GitHub). Not run on the real Temp in this form; the script it comes from checked 1,330 copies on 2026-11-09.",
+          "on": "2026-11-09"
+        }
+      }
     },
     {
       "repo": "discord-tower",
@@ -1232,6 +1374,13 @@
           "name": "anthropic-discord-presence",
           "label": "discord-tower-v1.0-anthropic-discord-presence-v0.2",
           "use": "Shows the Anthropic model, effort and active Claude Code projects on Discord. Reads Claude Code transcript metadata only; names a session by its /rename name, then its folder. Always on covers Claude on the web and desktop chat.",
+          "visibility": "public",
+          "version": "0.2.0"
+        },
+        {
+          "name": "ableton-live-discord-presence",
+          "label": "discord-tower-v1.0-ableton-live-discord-presence-v0.2",
+          "use": "Shows Ableton Live on Discord: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name (never Untitled) and a timer. Reads only Ableton's window title and Windows device names; never audio, MIDI notes or files.",
           "visibility": "public",
           "version": "0.2.0"
         },
@@ -1358,6 +1507,11 @@
             "node": "ableton-usb-audio-driver",
             "how": "optional",
             "why": "Installed with Live; the APC64 does not need it."
+          },
+          {
+            "node": "razer-synapse",
+            "how": "optional",
+            "why": "Sets the desk mic’s (Razer Seiren V3 Chroma) gain, mute and headphone monitoring; the mic records without it."
           }
         ]
       }
@@ -1415,7 +1569,7 @@
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
       "interface_live_url": "https://findastra.github.io/ghost-protocol/",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "1b2ba2723b4508891281fe2e8a3bced0cb3e3b6a",
       "audit": {
@@ -1538,6 +1692,14 @@
           "entry": "keep-open-20261018.cs",
           "visibility": "public",
           "version": "v1.0"
+        },
+        {
+          "name": "listen-for-robotic-sound",
+          "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+          "use": "Compares the loudness Voicemeeter sends to each selected output with what Windows’ meter for that speaker shows arriving, about 50 times a second. When sound keeps going out without arriving, it writes a ROBOTIC notice to his log and marks Fix audio now in his menu. Tell first: it never restarts audio on its own yet. Reads two numbers only; records no sound (Astra, 2026-11-08).",
+          "entry": "robotic-listener-20261108.cs",
+          "visibility": "public",
+          "version": "v0.1"
         }
       ]
     },
@@ -1850,7 +2012,13 @@
             "why": "Startup Star runs it on a farm; Spoonfed Sugarcube works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "yelp-mcp",
+            "how": "optional",
+            "why": "Real restaurants while Spoonfed is built (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -1934,6 +2102,11 @@
             "node": "razer-synapse",
             "how": "optional",
             "why": "Planned: RGBee plans lighting scenes for every RGB light in the room; these are the apps that control those lights."
+          },
+          {
+            "node": "razer-chroma",
+            "how": "optional",
+            "why": "Planned: the Razer lights (mic and headset) sync through the Chroma App, so RGBee's scenes would go to it."
           },
           {
             "node": "logitech-g-hub",
@@ -2780,6 +2953,26 @@
             "node": "nodejs",
             "how": "required",
             "why": "Chat Stack runs on Node.js 20 or newer (its pet.json)."
+          },
+          {
+            "node": "codex-app",
+            "how": "optional",
+            "why": "Chat Rat saves Codex’s chats when Codex is on this PC."
+          },
+          {
+            "node": "claude-app",
+            "how": "optional",
+            "why": "Chat Rat saves Claude Code’s chats when the Claude app (or Claude Code) is on this PC."
+          },
+          {
+            "node": "chatgpt-website",
+            "how": "optional",
+            "why": "ChatGPT’s data export, put in the import inbox, is saved too."
+          },
+          {
+            "node": "claude-website",
+            "how": "optional",
+            "why": "Claude’s data export, put in the import inbox, is saved too."
           }
         ]
       },
@@ -3229,6 +3422,11 @@
             "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
           },
           {
+            "node": "web-browser",
+            "how": "optional",
+            "why": "program-watch shows whether a browser is open, opens Brave when Astra presses its red light and closes the browser the way its window's X does when she presses its green one and says yes (Astra, 2026-11-12)."
+          },
+          {
             "node": "tcpview",
             "how": "optional",
             "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
@@ -3475,7 +3673,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "context7",
+            "how": "optional",
+            "why": "Current library docs for every coding chat (hub card 319)."
+          }
+        ]
       },
       "tools": [
         {
@@ -3557,7 +3761,13 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "mcp-inspector",
+            "how": "optional",
+            "why": "The checker for every new MCP server before any chat gets it (hub card 319)."
+          }
+        ]
       }
     },
     {
@@ -3665,7 +3875,24 @@
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",
         "needs": "your OK to accept a tool’s license or install one"
       },
-      "note": "Astra, 2026-11-03: \"Maybe we should call this PC Master. And then we can call the pet program PC Master Race. And it's a race to be the PC Master\", and \"the PC master race one needs to just have the tools that are related to this stuff ... Organization, I guess, and PC education\". Then \"all recommended\" on the deck (new pet #86, Kernel Koala keeps Task Manager cleanup, the core PC tools plus a lesson tool, private repo, every download, portable tools in Program Files). Draft art generated the same day with her OK.",
+      "note": "Astra, 2026-11-03: \"Maybe we should call this PC Master. And then we can call the pet program PC Master Race. And it's a race to be the PC Master\", and \"the PC master race one needs to just have the tools that are related to this stuff ... Organization, I guess, and PC education\". Then \"all recommended\" on the deck (new pet #86, Kernel Koala keeps Task Manager cleanup, the core PC tools plus a lesson tool, private repo, every download, portable tools in Program Files). Art generated the same day with her OK. Art approved by Astra on 2026-11-06: after a board of six other ideas she kept the tower (\"I like the original PC\", then \"Approve the tower\"), so it is redone only with --match.",
+      "editorial": {
+        "says": "Every core PC tool shows its live preview in its own pill, his two tools work right here, and your PC’s parts are under Devices it looks after: all from one look every ten minutes that only reads. Next: Open buttons through a launcher on this PC, the look at sign-in (it is started by hand now), Microsoft’s license for Autoruns, TCPView and Coreinfo (yours to accept), and LatencyMon (held).",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-06"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Accept Microsoft’s Sysinternals license for Autoruns, TCPView and Coreinfo, so their previews show here. Only you can: PC Master Race never accepts a license for you.",
+          "card": "282",
+          "on": "2026-11-08"
+        },
+        {
+          "need": "LatencyMon: install version 7.40 from its maker’s site (signed by SOFTREV LABS S.R.L.S.; winget lists 7.31, and its maker reports a Windows driver block from June 2026), or keep it held.",
+          "card": "282",
+          "on": "2026-11-08"
+        }
+      ],
       "interface_url": "apps/pet-programs/pc-master-race-20261018.html",
       "interface_local_url": "apps/pet-programs/pc-master-race-20261018.html",
       "submitted": "2026-11-03",
@@ -3785,6 +4012,11 @@
             "node": "windows-performance-recorder",
             "how": "optional",
             "why": "PC Master Race shows it in its pill, with a live preview (Astra, 2026-11-03)."
+          },
+          {
+            "node": "microsoft-learn-mcp",
+            "how": "optional",
+            "why": "Microsoft's own Windows, PowerShell and C# docs for chats writing Windows code (hub card 319)."
           }
         ]
       },
@@ -3908,6 +4140,41 @@
           "result": "works",
           "note": "Drew on this PC from a real look on 2026-11-03.",
           "on": "2026-11-03"
+        },
+        "device:desktop-cpu": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it with 8 cores and 16 threads.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-gpu": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it, driver 32.0.32015.7029.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-memory-a2": {
+          "result": "works",
+          "note": "PC Master’s look: 16 GB in slot A2, running at 4800 MT/s (its part name says 6000).",
+          "on": "2026-11-06"
+        },
+        "device:desktop-memory-b2": {
+          "result": "works",
+          "note": "PC Master’s look: 16 GB in slot B2, running at 4800 MT/s (its part name says 6000).",
+          "on": "2026-11-06"
+        },
+        "device:desktop-nvme-ssd": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it Healthy, status OK.",
+          "on": "2026-11-06"
+        },
+        "device:wd-game-drive": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it Healthy, status OK.",
+          "on": "2026-11-06"
+        },
+        "device:desktop-motherboard": {
+          "result": "works",
+          "note": "PC Master’s look: Windows reports it (MS-7E57).",
+          "on": "2026-11-06"
         }
       }
     }
@@ -4038,6 +4305,23 @@
           {
             "pet": "file-master",
             "why": "Shares defensive findings; File Master retains file management ownership."
+          }
+        ]
+      },
+      {
+        "pet": "Flowsheet Flamingo",
+        "program": "The Pilot Plant",
+        "repo": null,
+        "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
+        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
+        "works_with": [
+          {
+            "pet": "learn-python",
+            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
+          },
+          {
+            "pet": "ai-doghouse",
+            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
           }
         ]
       }

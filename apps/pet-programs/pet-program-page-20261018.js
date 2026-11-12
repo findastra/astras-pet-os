@@ -116,8 +116,9 @@
   }
   function reported(k) { var s = lights[k] || {}; return s.health === 'fix' || !!s.fix; }
   var SAYS = {
-    on: 'on. Click again to switch it off.',
-    off: 'off (the kill switch). Turning it back on asks you first.',
+    // Only her choice, kept in this browser: nothing on the PC reads it yet (Astra, 2026-11-08, answer 2: A).
+    on: 'on: your choice, saved in this browser. Nothing on the PC switches yet. Click again to switch it off.',
+    off: 'off: your choice, saved in this browser. Nothing on the PC is stopped yet. Turning it back on asks you first.',
     ok: 'working correctly. Click again if it is broken.',
     fix: 'requires maintenance. It is listed under "Requires maintenance" in L4.',
     planned: 'not built yet, so it is off and there is nothing to check. Its lights work once it is built.',
@@ -140,6 +141,9 @@
     // A VR device (2026-10-23): green while SteamVR has it on, from Inference Iguana's device-watch.
     deviceOn: 'on: SteamVR has it connected (Inference Iguana’s device-watch reads SteamVR’s log).',
     deviceOff: 'off: SteamVR does not have it connected right now, or SteamVR is not running.',
+    // A desk USB device (2026-11-12, the APC64 and the desk mic): green while Windows has it plugged in.
+    usbOn: 'on: plugged in. Windows sees it on USB (Inference Iguana’s device-watch).',
+    usbOff: 'off: Windows does not see it plugged in right now, or Inference Iguana’s watch is not running.',
   };
   // Which 3rd party programs are open (Astra, 2026-10-23): Inference Iguana's program-watch writes them every five seconds
   // to one file in her Documents folder, and a page opened on this PC reads it again every five seconds. Ids are the
@@ -237,7 +241,7 @@
   // Anything else only shows.
   function pressed(b) {
     var kd = kindOf(b), desc = b.closest && b.closest('li.pill') && b.closest('li.pill').querySelector('.item-desc');
-    if (isDevice(b)) { sayLight(b, seen(b) ? SAYS.deviceOn : SAYS.deviceOff); return; }
+    if (isDevice(b)) { sayLight(b, b.dataset.usb ? (seen(b) ? SAYS.usbOn : SAYS.usbOff) : seen(b) ? SAYS.deviceOn : SAYS.deviceOff); return; }
     if (kd === 'window') { openOrClose(b); return; }
     if (notWindow(kd)) {
       var have = installed[itemId(b)];
@@ -845,7 +849,7 @@
         var b = el('button', null, 'light ' + kind);
         b.type = 'button';
         b.dataset.item = item; b.dataset.name = name;
-        b.title = kind === 'onoff' ? 'ON/OFF (kill switch): click to switch' : 'Working correctly or requires maintenance: click to mark';
+        b.title = kind === 'onoff' ? 'ON/OFF: your choice, saved in this browser. Nothing on the PC switches yet.' : 'Working correctly or requires maintenance: click to mark';
         b.setAttribute('aria-label', name + (kind === 'onoff' ? ': on' : ': working correctly'));
         pair.appendChild(b);
       });
@@ -1017,6 +1021,17 @@
     if (pill.querySelector('.pill-body').contains(e.target) && String(window.getSelection())) return;
     var more = pill.querySelector(':scope > .pill-more');
     if (more) more.open = !more.open;
+  });
+
+  // ---- Only the main body's panels fold (Astra, 2026-11-08: "it needs to be on only like the main body panels, not
+  // the top ones or the bottom ones, and definitely not the unified footer"). The top and bottom panels are marked
+  // data-stays-open: a click on their label does nothing, and anything that closes one opens it again. ----
+  document.addEventListener('click', function (e) {
+    var head = e.target.closest && e.target.closest('summary');
+    if (head && head.parentElement && head.parentElement.matches('details.panel[data-stays-open]')) e.preventDefault();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('details.panel[data-stays-open]'), function (box) {
+    box.addEventListener('toggle', function () { if (!box.open) box.open = true; });
   });
 
   // ---- Rift Rabbit's VRChat launch panel (only on its page; Astra, 2026-10-23). Each headset's switches and the notes

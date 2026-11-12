@@ -42,9 +42,10 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Flowsheet Flamingo** (The Pilot Plant) (planned, not built yet): Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06).
 
 ## Picture
 
-No picture yet.
+![AI Dashund](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/drafts/body-and-center-review-20261031/normalized/ai-dashund-sprite.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*
