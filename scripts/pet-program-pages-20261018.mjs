@@ -19,6 +19,7 @@ import { systemMapData } from './system-map-20261012.mjs';
 import { assertPublic } from './public-safety-20261014.mjs';
 import { ownerOf, upstream } from './farm-owner-20261020.mjs';
 import { socialRowBody } from './social-row-preview-20261022.mjs';
+import { roadmapBody, waitingBody, researchBody } from './astral-plane-boxes-20261112.mjs';
 import { drawnBox, desktopScale, unionBox, fitVars } from './pet-size-20261023.mjs';
 import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-panel-20261023.mjs';
 import { STICKERS } from './art-kit.mjs';
@@ -781,6 +782,8 @@ export const PET_BOXES = {
   'api-fairy': [{ tool: 'key-requests', body: keyRequestsBody }],
   'portfolio-puffer': [{ name: 'social-row', body: () => socialRowBody() }],
   'discord-tower': [{ name: 'presence-control', body: presenceBody }, { name: 'dm-archive', body: dmArchiveBody }],
+  // AI Astra's face: her roadmap, what waits on her, the research (Astra, 2026-11-12).
+  'the-astral-plane': [{ name: 'roadmap', body: () => roadmapBody() }, { name: 'waiting-on-you', body: () => waitingBody() }, { name: 'research', body: () => researchBody() }],
 };
 function petBoxes(d) {
   const boxes = (PET_BOXES[d.repo] || []).map((b) => ({ b, body: b.body(d), t: b.tool ? d.tools.find((x) => x.id === b.tool) : null })).filter((x) => x.body);
@@ -1140,7 +1143,9 @@ ${about({
   // (it is beside the title), Take Me Home!, link list, words switch or spawner line, all crossed out; By Astra and Find
   // Out More on one line. Since 2026-10-24 (Astra: "make sure there is no sparkle before By Astra ... the codes go below
   // that in their own section"; then "By Astra, sparkle, star, sparkle, Find Out More, links"): that order on one line.
-  // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer").
+  // The languages are gone from it (Astra, 2026-10-24: "get rid of the code on the unified footer"), and so is its More
+  // details (Astra, 2026-11-11: "get rid of the more details on the unified footer"): who owns the footer, the one thing
+  // it said was not built, waits on her in PET-PROGRAM-FRAMEWORK.md ("Waiting on Astra").
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
@@ -1148,12 +1153,6 @@ ${about({
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
-${about({
-    how: 'By Astra, her photostar and Find Out More with her links, the same on every pet program.',
-    from: 'The links on her GitHub profile README, and Iced Out Iceberg’s photostar (astras-star-window).',
-    rules: yourRules(9, '2026-10-22: one box, By Astra and Find Out More on one line; 2026-10-24: By Astra, sparkle, photostar, sparkle, Find Out More, links, and no code languages'),
-    notYet: 'Who owns the footer waits on you (proposed: The Farm, like the System Map).',
-  })}
 <!-- Spawned by the Friendly Farmer's pet program spawner (${TOOL_LABEL}) from pets.json, pet-programs.json and the System Map, ${DATE}. npm run build rewrites this page; do not edit it by hand. -->`, { cls: 'footer', fold: false });
 
   // The chat window, like Data Chip's on Data Dealer (Astra, 2026-10-20: "he was fully interactive"; 2026-11-03: "the

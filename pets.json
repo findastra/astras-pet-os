@@ -583,7 +583,7 @@
       "visibility": "public",
       "job": "Organizes the pets (intelligent apps). His daily rounds keep every pet’s status and mood, the roster, the System Map and the profile README up to date, and list what needs Astra. The Farmer’s desk opens every app. He will run the Farm, the native OS of Astra’s PetOS.",
       "added": "2026-10-07",
-      "version": "0.3.0-beta",
+      "version": "0.4.0-beta",
       "note": "DRAFT. Repaired faces, visible blond hair and a different fruit or vegetable in each mood, requested by Astra on 2026-10-08. Original lime overalls, coral shirt and straw hat retained.",
       "interface_local_url": "apps/pet-programs/astras-pet-os-20261018.html",
       "interface_url": "apps/pet-programs/astras-pet-os-20261018.html",
@@ -1692,10 +1692,19 @@
           "entry": "keep-open-20261018.cs",
           "visibility": "public",
           "version": "v1.0"
+        },
+        {
+          "name": "listen-for-robotic-sound",
+          "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+          "use": "Compares the loudness Voicemeeter sends to each selected output with what Windows’ meter for that speaker shows arriving, about 50 times a second. When sound keeps going out without arriving, it writes a ROBOTIC notice to his log and marks Fix audio now in his menu. Tell first: it never restarts audio on its own yet. Reads two numbers only; records no sound (Astra, 2026-11-08).",
+          "entry": "robotic-listener-20261108.cs",
+          "visibility": "public",
+          "version": "v0.1"
         }
       ]
     },
     {
+      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
@@ -3350,7 +3359,23 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "skill-scout-20261017.mjs runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "required",
+            "why": "The census reads each sheet's last commit and every branch with git, read-only."
+          },
+          {
+            "node": "github-cli",
+            "how": "required",
+            "why": "The census lists repos and branches on GitHub with read-only gh calls (--github)."
+          }
+        ]
       }
     },
     {
@@ -4080,7 +4105,7 @@
         "program": "The Pilot Plant",
         "repo": null,
         "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
-        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher.",
+        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
         "works_with": [
           {
             "pet": "learn-python",

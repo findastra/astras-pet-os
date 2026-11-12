@@ -5,8 +5,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { GITHUB_OWNER, farmOwner, petOwner, isAnimal, assertAnimal, assertOwnPet, assertSignedInAsOwner, sameAccount, animalRepos } from '../scripts/animal-guard-20261013.mjs';
+import { asAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
-const astra = JSON.parse(readFileSync(new URL('../pets.json', import.meta.url), 'utf8'));
+// Astra's farm, also when this copy is someone else's farm after make-it-yours (fixtures/astras-farm-20261111.mjs).
+const astra = asAstrasFarm(JSON.parse(readFileSync(new URL('../pets.json', import.meta.url), 'utf8')));
 // Dev's farm, as it will look: her hub copy and her own pet on her account, two of Astra's example pets kept as hers.
 const dev = {
   cage: 'devs-pet-os', github_owner: 'XxdevilishxX',

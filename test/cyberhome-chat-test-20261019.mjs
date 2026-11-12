@@ -439,3 +439,11 @@ test('a tool panel\'s page sets its height only from the site its panel opened, 
   p.fireWindow('message', { data: { type: 'tool-panel-height', height: 900 }, origin: 'https://findastra.github.io', source: {} });
   assert.equal(astras.style.height, '500px', 'nor one from a window that is not in a tool panel');
 });
+
+test('the page script names each of its functions once, so the chat never takes over the lights\' bubble (2026-11-12)', () => {
+  // A second `function say` (the chat's) silently replaced the lights' one: a light's message went into the chat log
+  // instead of its bubble (Unity Stable button audit, 2026-11-12: MCP for Unity's light said nothing).
+  const names = [...js.matchAll(/^  function (\w+)\(/gm)].map((m) => m[1]);
+  const twice = names.filter((n, i) => names.indexOf(n) !== i);
+  assert.deepEqual(twice, [], `declared twice in ${ASSETS.js}: ${twice.join(', ')}`);
+});
