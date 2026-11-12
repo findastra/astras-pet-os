@@ -890,6 +890,18 @@
       "job": "A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC."
     },
     {
+      "id": "listen-for-robotic-sound",
+      "name": "Listen for robotic sound",
+      "type": "tool",
+      "of": "audio-rescue",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "audio-rescue-v1.0-listen-for-robotic-sound-v0.1",
+      "job": "A tool of Audio Rescue (Astra, 2026-11-08): Voicemeeter Bug compares the loudness Voicemeeter sends to each selected output with what Windows’ meter shows arriving. When sound keeps going out without arriving it writes a ROBOTIC notice and marks Fix audio now in his menu; tell first, it never restarts audio on its own yet. Merged (voicemeeter-bug PR #13) and running on Astra’s PC. Not yet proven: on 2026-11-08 a real robotic episode happened past Windows’ meter, which stayed equal to Voicemeeter’s."
+    },
+    {
       "id": "voicemeeter",
       "name": "Voicemeeter",
       "type": "program",
@@ -7018,6 +7030,20 @@
       "carries": "opens",
       "state": "now",
       "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-10-18)."
+    },
+    {
+      "from": "audio-rescue",
+      "to": "listen-for-robotic-sound",
+      "carries": "opens",
+      "state": "now",
+      "why": "The Bug runs this tool; its ON/OFF switch is in the Bug’s menu (Astra, 2026-11-08)."
+    },
+    {
+      "from": "listen-for-robotic-sound",
+      "to": "voicemeeter",
+      "carries": "status",
+      "state": "now",
+      "why": "Reads two numbers per output, Voicemeeter’s level and Windows’ meter; records no sound."
     },
     {
       "from": "keep-voicemeeter-open",
