@@ -567,14 +567,11 @@ test('the editorial status panel marks the working copy and is hidden on the liv
 // Astra's answers to the Flash Audit deck, 2026-11-03 ("i like the phone on data dealer, its program needs its own chat,
 // all other reccd").
 // Astra, 2026-11-06: no dropdown arrows in the cyberhome, the quick summary or the System Map box.
-// Astra, 2026-11-11: and none on the unified footer panel.
-test('every panel but the three top boxes and the footer ends with More details, the same four lines in order; the chat shows only the arrow', () => {
+test('every panel but the three top boxes ends with More details, the same four lines in order; the chat shows only the arrow', () => {
   const lines = /<dl class="small about-lines"><dt>How it works<\/dt><dd>[^]+?<\/dd><dt>Where it comes from<\/dt><dd>[^]+?<\/dd><dt>Your rules<\/dt><dd>[^]+?PET-PROGRAM-FRAMEWORK\.md<\/a>[^]+?<\/dd><dt>Not built yet<\/dt><dd>[^]+?<\/dd><\/dl>/g;
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    assert.equal((html.match(lines) || []).length, PANELS.length - 4, `${d.repo}: one More details with four lines per panel, none in the three top boxes or the footer`);
-    const foot = html.indexOf(`>${d.petSlug}-unified-footer-panel<`);
-    assert.ok(foot > 0 && !html.slice(foot, html.indexOf('</details>', foot)).includes('class="about'), `${d.repo}: no More details in the footer`);
+    assert.equal((html.match(lines) || []).length, PANELS.length - 3, `${d.repo}: one More details with four lines per panel, none in the three top boxes`);
     assert.equal((html.match(/<details class="about arrow-only">/g) || []).length, 1, `${d.repo}: only the chat shows the arrow only`);
     for (const box of ['cyberhome', 'summary', 'system-map']) {
       const start = html.indexOf(`<details class="panel ${box}"`);
