@@ -2209,7 +2209,7 @@
       "category": "Website",
       "url": "https://claude.ai/artifact/XvXm6nJ3BQq8XPxukPVKJ2",
       "picture": "https://raw.githubusercontent.com/findastra/liminal-doors/main/concept-art/floors/01-fox-pinkscape-20261020.png",
-      "job": "The concept art for every floor of Liminal Doors, one door at a time, where Astra reviews the floors (a claude.ai page that opens only for Astra, signed in). The pictures themselves are public in liminal-doors concept-art/floors (34 floors), with the contact sheet, the redline sheet and the imagebook in concept-art/. The found floors page is a public copy of it.",
+      "job": "The concept art for every floor of Liminal Doors, one door at a time, where Astra reviews the floors (a claude.ai page that opens only for Astra, signed in). The pictures themselves are public in liminal-doors concept-art/floors (34 floors), with the contact sheet, the redline sheet and the imagebook in concept-art/. The found floors page is a public copy of it. Its source and builder are in liminal-doors concept-art/atlas and concept-art/tools (2026-11-12).",
       "does": "Every floor's concept art: the doors you review."
     },
     {
@@ -2220,9 +2220,9 @@
       "state": "now",
       "layer": 6,
       "category": "Website",
-      "url": "https://github.com/findastra/the-threshold/blob/main/index.html",
-      "job": "The Threshold's public page (the-threshold index.html, the-threshold#3) where visitors tick the floors of Liminal Doors they have found; the ticks stay in their own browser. It was on GitHub Pages at findastra.github.io/the-threshold, and Liminal Doors' VRChat description links it, but the-threshold has been private since 2026-10-20, so that address is off until the repo is public again.",
-      "does": "Where visitors tick the floors they have found; offline while The Threshold is private."
+      "url": "https://findastra.github.io/liminal-doors/",
+      "job": "The Threshold's public page (liminal-doors docs/index.html; on the-threshold until 2026-11-12, the-threshold#3) where visitors tick the floors of Liminal Doors they have found; the ticks stay in their own browser. It is on liminal-doors' GitHub Pages, findastra.github.io/liminal-doors, the address for the world's VRChat description (docs/vrchat-world-description-20261019.md). It moved there because the-threshold has been private since 2026-10-20 (Astra, 2026-11-12, hub card 336).",
+      "does": "Where visitors tick the floors they have found."
     },
     {
       "id": "tools-tracker",
@@ -2234,76 +2234,76 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-threshold-v1.0-tools-tracker-v1.0",
-      "url": "https://github.com/findastra/the-threshold/blob/main/tools-tracker-20261019.html",
-      "job": "A tool of The Threshold (the-threshold#2): a page that reads Liminal Doors' tools ledger (liminal-doors docs/tools-by-floor-20261019.json, 36 tools) and shows which tools made which floor, and which are ready to package.",
+      "url": "https://findastra.github.io/liminal-doors/tools-tracker-20261019.html",
+      "job": "A tool of The Threshold (the-threshold#2; in liminal-doors docs/ since 2026-11-12, on its GitHub Pages): a page that reads Liminal Doors' tools ledger (liminal-doors docs/tools-by-floor-20261019.json, 36 tools) and shows which tools made which floor, and which are ready to package.",
       "does": "Shows which tools made which floors."
     },
     {
-      "id": "doorspaces",
-      "name": "doorspaces",
+      "id": "doorspace-builder",
+      "name": "doorspace-builder",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-doorspaces-v1.0",
+      "label": "the-threshold-v1.0-doorspace-builder-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Editor",
       "job": "A tool of The Threshold in Liminal Doors' Unity project (Assets/LiminalDoors/Editor: LiminalDoorspaceKit.cs, LiminalDoorspaces*.cs, LiminalStop01/02/03.cs): builds every Doorspace from code, rebuilds the ones listed in Review/doorspaces-build/rebuild.txt and renders review shots. Its window (LiminalDoors > Doorspaces > Window, Ctrl+Shift+D; Ctrl+Shift+] and [ step) jumps between them.",
       "does": "Builds the Doorspaces in Unity and jumps between them (Ctrl+Shift+D)."
     },
     {
-      "id": "door-travel",
-      "name": "door-travel",
+      "id": "door-travel-mover",
+      "name": "door-travel-mover",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-door-travel-v1.0",
+      "label": "the-threshold-v1.0-door-travel-mover-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Scripts",
       "job": "A tool of The Threshold in Liminal Doors (UdonSharp: LiminalTraveler.cs and LiminalDoor.cs; menus LiminalDoors > World > Make door scripts, Wire doors and Door trip test): you spawn in the phone booth, and stepping through a door sends you to a random Doorspace, never one of the last few, with a door back. Checked in ClientSim by the door trip test (docs/door-trip-test-fresh-20261018.md).",
       "does": "Stepping through a door sends you to a random Doorspace, and back."
     },
     {
-      "id": "phone-booth-maker",
-      "name": "phone-booth-maker",
+      "id": "phone-booth-spawn",
+      "name": "phone-booth-spawn",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-phone-booth-maker-v1.0",
+      "label": "the-threshold-v1.0-phone-booth-spawn-v1.0",
       "url": "https://github.com/findastra/liminal-doors/blob/main/Tools/Blender/make_phone_booth.py",
       "job": "A tool of The Threshold: models and bakes the phone booth you spawn in, in Blender with no window (Tools/Blender/make_phone_booth.py, about two minutes), then LiminalDoors > Booth > Import Blender model and Build prefab make its Unity prefab (LiminalBooth.cs). The booth went into the Unity asset library as v1.0.0.",
       "does": "Models the phone booth in Blender and builds its Unity prefab."
     },
     {
-      "id": "concept-art-sheets",
-      "name": "concept-art-sheets",
+      "id": "concept-sheet-viewer",
+      "name": "concept-sheet-viewer",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-concept-art-sheets-v1.0",
+      "label": "the-threshold-v1.0-concept-sheet-viewer-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/concept-art/tools",
       "job": "A tool of The Threshold (liminal-doors concept-art/tools): cuts the concept plates into one picture per floor (cut-floors.ps1, PlateCutter.cs), makes the contact sheet and the redline sheet (contact-sheet.ps1, redline-sheet.ps1), painted floor 01 all clouds (cloud-floor-20261020.cs), cleans the imagebook and makes the neon colourways (neon-pools-20261029.py, ref-colorways-20261029.py).",
       "does": "Cuts the concept art into floors and makes the review sheets."
     },
     {
-      "id": "liminal-agent-queue",
-      "name": "liminal-agent-queue",
+      "id": "agent-queue-runner",
+      "name": "agent-queue-runner",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-liminal-agent-queue-v1.0",
+      "label": "the-threshold-v1.0-agent-queue-runner-v1.0",
       "url": "https://github.com/findastra/liminal-doors/blob/main/Assets/LiminalDoors/Editor/LiminalAgentQueue.cs",
       "job": "A tool of The Threshold in Liminal Doors' Unity project: lets Claude and Codex run the LiminalDoors menus in the Unity editor that is already open, one job file at a time (Review/agent-queue), so nobody restarts or batch-builds the editor while Astra has it open. The local desktop test (LiminalDoors > Desktop test: Build & Test, no upload) runs through it.",
       "does": "Lets Claude and Codex run Liminal Doors' menus in the open Unity editor."
@@ -4860,14 +4860,14 @@
       "to": "found-floors-page",
       "carries": "opens",
       "state": "now",
-      "why": "The Threshold's public page of found floors, offline while the repo is private."
+      "why": "The Threshold's public page of found floors, on liminal-doors' GitHub Pages."
     },
     {
       "from": "program-82",
       "to": "unity-editor",
       "carries": "manages",
       "state": "now",
-      "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+      "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspace-builder, door-travel-mover and phone-booth-spawn tools run inside it."
     },
     {
       "from": "program-82",
@@ -4888,7 +4888,7 @@
       "to": "blender",
       "carries": "opens",
       "state": "now",
-      "why": "The phone booth is modelled and baked in Blender (phone-booth-maker)."
+      "why": "The phone booth is modelled and baked in Blender (phone-booth-spawn)."
     },
     {
       "from": "program-82",

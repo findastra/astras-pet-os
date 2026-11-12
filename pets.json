@@ -3589,7 +3589,7 @@
           {
             "node": "unity-editor",
             "how": "required",
-            "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+            "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspace-builder, door-travel-mover and phone-booth-spawn tools run inside it."
           },
           {
             "node": "vrchat-creator-companion",
@@ -3604,12 +3604,12 @@
           {
             "node": "blender",
             "how": "optional",
-            "why": "The phone booth is modelled and baked in Blender (phone-booth-maker); only needed to remake it."
+            "why": "The phone booth is modelled and baked in Blender (phone-booth-spawn); only needed to remake it."
           },
           {
             "node": "unity-mcp",
             "how": "optional",
-            "why": "Planned: MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (liminal-agent-queue)."
+            "why": "Planned: MCP for Unity lets Claude Code and Codex work inside the open Unity editor; without it they use the agent queue (agent-queue-runner)."
           },
           {
             "node": "vrchat",

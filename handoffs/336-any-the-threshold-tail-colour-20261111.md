@@ -59,18 +59,29 @@ Astra merges #332 and #336, and the merged page shows the tail colours and the L
 Record receipt and review in this card; the five findings above go to The Threshold's next change.
 
 ### The five findings and the tool names (Claude Opus 5.5, claude-opus-5-5, 2026-11-12)
-State: IN_PROGRESS, waiting on Astra for items 1, 2 and 6. Implementer: a Claude Code side session started from The
-Threshold chat; writable: the branches below. Reviewer: unassigned.
-Questions for Astra: one deck, "Liminal Doors: three questions" (private claude.ai slides, linked in chat).
+State: REVIEW, every item is in a pull request; merges wait on Astra naming each one. Implementer: a Claude Code side
+session started from The Threshold chat; writable: the three branches below. Reviewer: Astra.
+Questions for Astra: one deck, "Liminal Doors: three questions" (private claude.ai slides). Astra, 2026-11-12: "All
+recommended".
 
 | # | Finding | Where it stands |
 |---|---|---|
-| 1 | Found floors link dead (the-threshold private) | Deck question 1: make the-threshold public again, or move the page, its floor pictures and the tools tracker to liminal-doors `docs/` with Pages on there (recommended) |
-| 2 | Codex's concept website, floor register, idea inbox, conceptbook only on the PC | Deck question 2. Checked: no name, email or chatgpt.site address, but all four still show floors 34, 35 and 37 (removed 2026-10-19 by the originality check) and the inbox names Astral Bounds and Crystals Absence. Recommended: the originals into the-threshold (private), with The Threshold's own prototype page |
-| 3 | the-threshold README and pet.json | the-threshold#8: tools moved to top-level `tools` (adoptTools now returns both; names match the map's nodes, so no duplicates), map link `#node=the-threshold`, ledger note and tracker refs on `main`. The README's Pages lines follow question 1 |
+| 1 | Found floors link dead (the-threshold private) | Answered: move. liminal-doors#10 adds the page, its 34 floor pictures and the tools tracker to `docs/` (the tracker reads its settings there), and the VRChat description's link becomes findastra.github.io/liminal-doors. GitHub Pages is on for liminal-doors (`main`, `/docs`, turned on 2026-11-12 with that answer); the page is live once #10 merges. the-threshold#8 removes the moved files there |
+| 2 | Codex's concept website, floor register, idea inbox, conceptbook only on the PC | Answered: originals, private. the-threshold#8 `codex-originals/`: the concept website with its seven plates and the conceptbook, the floor register, the idea inbox and The Threshold's prototype page with Door Dormouse's picture, unchanged (Codex's hosting settings left out), with `about-codex-originals-20261112.md` |
+| 3 | the-threshold README and pet.json | the-threshold#8: tools in top-level `tools` (adoptTools returns both; names match the map's nodes, so no duplicates), now public and without `entry` since they live in liminal-doors; README map link `#node=the-threshold`, Run it and the two sections point to liminal-doors |
 | 4 | Concept Atlas builder gone | liminal-doors#10: `concept-art/atlas/` (template + floors) and `concept-art/tools/build-concept-atlas-20261112.py`; rebuilt with the link passed in, it matches the published Atlas line for line except the ledger's ref. The link to The Threshold's hosted page stays out (it holds Astra's name) |
 | 5 | Ledger ref `claude/fresh-start-20261018` | liminal-doors#10: `ref` is `main` (#2 merged 2026-10-22; every path checked on `main`) |
-| 6 | Five tool names coined by Claude | Deck question 3: doorspace-builder, door-travel-mover, phone-booth-spawn, concept-sheet-viewer, agent-queue-runner (her `<what>-<category>` rule), or keep. Renames go in this pull request, then `npm run build` |
+| 6 | Five tool names coined by Claude | Answered: renamed in hub #350 to doorspace-builder, door-travel-mover, phone-booth-spawn, concept-sheet-viewer and agent-queue-runner (`system-map.json`, `pets.json`, `pet-programs.json`, then `npm run build`); the found floors and tools tracker nodes open their liminal-doors pages |
+
+Merge order: liminal-doors#10 first (the map's two links open its Pages site), then the-threshold#8, then hub #350.
+Still found, not done:
+- Codex's site source on Astra's PC
+  (`Documents\Codex\2026-10-15\we-re-going-to-create-a\work\liminal-doors-site-20261016`, a local git folder, newest
+  commit `da161f0`, 2026-10-20) has 12 later commits that were never on GitHub: its own `index.html` (the hosted copy of
+  the Collection page), its floor pictures and redline sheets. Its concept website and prototype page match the copies
+  in `codex-originals/`, apart from line endings. Keeping that folder is Astra's call.
+- The Farmer's page still reports the old the-threshold Pages links as broken until its next round after
+  the-threshold#8 merges.
 
 ## Receipt and review
 - 2026-11-12: Astra in chat, "Merge #332, then #336". #332 was already merged (2026-11-12 07:26 UTC). #336 was
