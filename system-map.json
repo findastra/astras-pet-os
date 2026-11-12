@@ -514,6 +514,64 @@
       "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
+      "id": "findastra-portfolio",
+      "name": "findastra.github.io",
+      "type": "own-program",
+      "state": "now",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://findastra.github.io/",
+      "job": "Astra's portfolio (findastra/findastra.github.io, public, GitHub Pages from main): about, worlds, every project live from GitHub, every pet and a small arcade. Portfolio Puffer looks after it: its hand lettering (Handwritten Message Manager), its project pictures (GitHub Goldfish's project-image-generator, by grant) and its employer pages, which publish only what Astra has read word for word (card 019). Merging to main publishes it.",
+      "does": "Your portfolio: about, worlds, every project live from GitHub, every pet and the arcade."
+    },
+    {
+      "id": "portfolio-review-desk",
+      "name": "Portfolio Review Desk",
+      "type": "own-program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "url": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-20261008.html",
+      "job": "Portfolio Puffer's first page (portfolio-puffer-20261008.html, prepared with Codex GPT-6, 2026-10-08; the pet's app_url): add an update worth sharing, move it from draft to ready to published, search and filter, and export a JSON backup or a Markdown worklist. Records stay in that browser only; it connects to nothing.",
+      "does": "Your desk for updates worth sharing: draft each one, mark when it is ready, export a worklist."
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "Website",
+      "url": "https://www.linkedin.com/",
+      "job": "The professional network. Card 019 plans Portfolio Puffer's loop: read Astra's LinkedIn profile from her own signed-in browser (no stored password), compare it with the portfolio's profile-data.js, and show her each change for her OK. Not built.",
+      "does": "The professional network where your work history and skills are listed."
+    },
+    {
+      "id": "portfolio-update-round",
+      "name": "portfolio-update-round",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of Iced Out Iceberg (card 019, from the plan of 2026-10-08): once a week, read LinkedIn and GitHub, compare them with the portfolio's profile-data.js and project list, and propose each change, old to new, for Astra to approve. Only what she approves is written, on a branch; it never pushes by itself and says plainly when LinkedIn was not read that week. Not written yet."
+    },
+    {
+      "id": "portfolio-pictures-refresh",
+      "name": "portfolio-pictures-refresh",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0",
+      "job": "A trick of Iced Out Iceberg: run GitHub Goldfish's project-image-generator (by grant) over Astra's repos, rebuild the portfolio's project-images.js and art/projects/, and open a pull request for her. Done by hand so far, from the steps in findastra.github.io's AGENTS.md; not a skill in Puffer's repo yet."
+    },
+    {
       "id": "cli-proxy-api-manager",
       "name": "CLI Proxy API manager",
       "type": "tool",
@@ -1961,6 +2019,111 @@
       "cadence": "weekly",
       "job": "A trick of Wonderland Launchpad (skills/update-audit; Astra, 2026-10-24: \"no auto github updates. if it happens to be found on updater audit, make the light orange, then have L3 ask me if L4 wants to approve update\"): once a week, scripts/update-audit-20261024.mjs compares the GitHub-released VR programs on the PC with GitHub's newest release; a newer one turns its light orange and L3 asks L4 before anything is updated.",
       "does": "Checks the VR programs from GitHub against their newest release and asks you before any update."
+    },
+    {
+      "id": "skill-census",
+      "name": "skill-census",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-census-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs census, findastra/lunas-log#2): finds every agent and skill sheet (AGENTS.md, CLAUDE.md, SKILL.md) in the PetOS folder, ~/.claude, ~/.codex and ~/.agents, on every branch and on GitHub, and records what each says, who last changed it and why. Read-only on every sheet; the full catalog stays on the PC.",
+      "does": "Finds every agent and skill sheet and records what it says and who last changed it."
+    },
+    {
+      "id": "skill-lint",
+      "name": "skill-lint",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-lint-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs lint): checks sheets against the house rules SS001 to SS062 (retired names, old folders, broken links, hidden control characters, missing dates). Exits 1 on an error, so it can guard a commit. Every rule has a test with a does-not-fire case.",
+      "does": "Checks sheets against the house rules (SS001 to SS062)."
+    },
+    {
+      "id": "skill-diff",
+      "name": "skill-diff",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-diff-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs diff): compares two censuses: sheets added, changed (with who and why from the commit) and removed.",
+      "does": "Shows which sheets were added, changed or removed between two censuses."
+    },
+    {
+      "id": "public-snapshot",
+      "name": "public-snapshot",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-public-snapshot-v0.1",
+      "job": "A tool of Luna's Log (skill-scout-20261017.mjs public): writes data/catalog-public-*.js, the catalog its skill catalog page shows. Text only for public repos; sheets on the PC and in private repos become counts and finding ids.",
+      "does": "Writes the catalog the skill catalog page shows, without private text."
+    },
+    {
+      "id": "skill-census-trick",
+      "name": "skill-census",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-census-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/skill-census/SKILL.md): the steps to run skill-census, skill-diff and public-snapshot, look at the snapshot before it is committed, and file what it finds as fix batches (hub card 027).",
+      "does": "Runs the census, compares it with the last one and writes the public catalog."
+    },
+    {
+      "id": "skill-fix",
+      "name": "skill-fix",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-fix-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/skill-fix/SKILL.md): fixes what skill-lint found, on a branch, one repo at a time, never in a checkout with someone else's uncommitted work, and lints the sheet again before the pull request.",
+      "does": "Fixes a sheet the lint flagged, on a branch, one repo at a time."
+    },
+    {
+      "id": "write-a-skill",
+      "name": "write-a-skill",
+      "type": "trick",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-write-a-skill-trick-v0.1",
+      "job": "A trick of Luna's Log (skills/write-a-skill/SKILL.md): the house standard for a new SKILL.md or AGENTS.md (the templates in templates/), checked with skill-lint before it is committed.",
+      "does": "The house standard for writing any new skill sheet."
+    },
+    {
+      "id": "skill-catalog",
+      "name": "Skill catalog",
+      "type": "own-program",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Made by Astra",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-catalog-v0.1",
+      "url": "https://github.com/findastra/lunas-log/blob/main/skill-catalog-20261111.html",
+      "job": "A native program of Luna's Log (Astra, 2026-11-11: the pet program page takes the Farmer's template; the catalog was the old page's main part): every sheet the census found, too big for a tool panel: the counts, the findings across sheets, a searchable table of every sheet with its findings, and the changes only on a branch. It reads data/catalog-public-*.js and works by double-click; text only from public repos.",
+      "does": "Every agent and skill sheet the census found, with what is wrong with each, in one searchable list."
     },
     {
       "id": "bs-manager",
@@ -5681,7 +5844,35 @@
       "to": "unity-unicorn",
       "carries": "idea",
       "state": "suggested",
-      "why": "Unity Unicorn learns and sorts the skills it uses; Skill Scout's job is undecided but its name fits."
+      "why": "Unity Unicorn learns and sorts the skills it uses; Skill Scout catalogs and checks every skill sheet, Unity Stable's included."
+    },
+    {
+      "from": "lunas-log",
+      "to": "skill-catalog",
+      "carries": "opens",
+      "state": "now",
+      "why": "Skill Scout opens its skill catalog from its own tool panel."
+    },
+    {
+      "from": "skill-census",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The census is a Node.js script with built-in modules only."
+    },
+    {
+      "from": "skill-census",
+      "to": "git-for-windows",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "It reads each sheet's last commit and every branch with git, read-only."
+    },
+    {
+      "from": "skill-census",
+      "to": "github-cli",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "It lists the repos and branches on GitHub with read-only gh calls."
     },
     {
       "from": "calendar-crow",
@@ -7517,6 +7708,41 @@
       "carries": "runs-on",
       "state": "now",
       "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "findastra-portfolio",
+      "carries": "manages",
+      "state": "now",
+      "why": "Puffer looks after your portfolio: its hand lettering, its project pictures and its employer pages (card 019)."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "portfolio-review-desk",
+      "carries": "opens",
+      "state": "now",
+      "why": "Portfolio Review Desk is this pet's own first program."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "profile",
+      "carries": "manages",
+      "state": "now",
+      "why": "Astra's Window Star and the social row sit on your GitHub profile; the Farmer's profile round keeps the rest of it matched to the repos."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "github",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Your portfolio is published from findastra/findastra.github.io on GitHub Pages: merging to main publishes it."
+    },
+    {
+      "from": "portfolio-puffer",
+      "to": "linkedin",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Card 019: read your LinkedIn profile from your own signed-in browser and propose each change for your OK. Not built."
     },
     {
       "from": "fuzzboi-friend",

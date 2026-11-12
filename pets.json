@@ -1410,6 +1410,55 @@
       "published": true,
       "job": "Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.",
       "added": "2026-10-08",
+      "editorial": {
+        "says": "Iced Out Iceberg now lists what Puffer really looks after: your portfolio (findastra.github.io), the Portfolio Review Desk, your GitHub profile and its Window Star, the hand lettering, and LinkedIn as planned. Next: the weekly portfolio-update-round (card 019), and the employer pages, which wait on you.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-11"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Read each employer page word for word before it goes on your portfolio; until you do, the Work list there stays empty.",
+          "card": "019",
+          "on": "2026-10-17"
+        }
+      ],
+      "checks": {
+        "third-party:github": {
+          "result": "works",
+          "note": "Your portfolio and Astra's Window Star are published from GitHub Pages; both answer (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:findastra-portfolio": {
+          "result": "works",
+          "note": "findastra.github.io answers and its link here opens it (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:portfolio-review-desk": {
+          "result": "works",
+          "note": "The hub's copy of the desk answers and opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "program:profile": {
+          "result": "works",
+          "note": "Your GitHub profile opens from its link here (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:astras-star-window": {
+          "result": "works",
+          "note": "The star and its editor load inside its tool box, and Open it full screen opens its page (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "tool:portfolio-puffer-system-map": {
+          "result": "works",
+          "note": "Its link opens the System Map on Portfolio Puffer's own node (button audit, click-check).",
+          "on": "2026-11-11"
+        },
+        "chat:portfolio-puffer": {
+          "result": "issues",
+          "note": "The window opens, Needs you lists the employer pages, and its three quick questions answer from the page; an answer from the seat was not tried (button audit).",
+          "on": "2026-11-11"
+        }
+      },
       "version": "0.1.1-20261009",
       "note": "DRAFT. A penguin, electric magenta and cyan.",
       "interface_local_url": "apps/pet-programs/portfolio-puffer-20261018.html",
@@ -1438,6 +1487,11 @@
             "node": "github",
             "how": "optional",
             "why": "The star and its editor are published on GitHub Pages, and Capture commits to findastra/astras-star-window."
+          },
+          {
+            "node": "linkedin",
+            "how": "optional",
+            "why": "Card 019: the weekly portfolio-update-round will read your LinkedIn profile from your own signed-in browser. Not built."
           }
         ]
       },
@@ -3370,7 +3424,23 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "skill-scout-20261017.mjs runs with Node 20 or newer, its built-in modules only."
+          },
+          {
+            "node": "git-for-windows",
+            "how": "required",
+            "why": "The census reads each sheet's last commit and every branch with git, read-only."
+          },
+          {
+            "node": "github-cli",
+            "how": "required",
+            "why": "The census lists repos and branches on GitHub with read-only gh calls (--github)."
+          }
+        ]
       }
     },
     {
