@@ -217,7 +217,7 @@ gives each registered and pipeline pet a page with every tool panel of Astra's s
 **[The Model Pet Program](apps/pet-programs/model-pet-program-20261102.html)** is a made-up pet with every tool
 panel, every kind of item and every light, named Tool one, Tool two and so on.
 
-**The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
+**The old pets page is gone** (Astra, 2026-10-18): the old pets page, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):
 

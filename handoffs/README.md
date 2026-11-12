@@ -39,7 +39,7 @@ their pull request and are found in this folder ("Card numbers", below).
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, started at sign-in, registered with draft art](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: approving the drafts |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 done with #110 except pet.json `entry` (waits on Astra) and the map card (`claude/map-card-program-page-20261019`); task 2 done with #106 and #114; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: the doc's questions 1, 2 and 4 (3 answered by #114; counts on `claude/unity-unicorn-tricks-20261019`) |
-| [042: The Cage removed; the installer zip is the one download](042-any-no-cage-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, Cage releases deleted) |
+| [042: The old pets page removed; the installer zip is the one download](042-any-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, old pets page releases deleted) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | taken 2026-10-19: decisions 1 to 4 answered; step (a) on `claude/linux-package-20261019`, waits on Astra's OK and the Kali MacBook install |
 | [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
 | [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
@@ -64,13 +64,13 @@ their pull request and are found in this folder ("Card numbers", below).
 | [012: Pet-first profile list and missing pets](012-farmer-pet-first-list-and-missing-pets-20261016.md) | Farmer | open, waits on Astra: #77's name, homes, Chat Rat, Workflow Whale |
 | [010: Register Platform Platypus](010-farmer-register-platform-platypus-20261011.md) | Farmer | done 2026-10-17: registered with the existing seed sheet |
 | [009: Register Spoonfed Sugarcube](009-farmer-register-spoonfed-sugarcube-20261011.md) | Farmer | open, art waits on Astra's OK; local only |
-| [001: Register Claude Bot in the Cage](001-farmer-register-claude-bot.md) | Farmer | open |
+| [001: Register Claude Bot in the hub](001-farmer-register-claude-bot.md) | Farmer | open |
 | [002: Build Claude Bot v0](002-any-build-claude-bot.md) | any | open |
 | [003: Goldfish audit of Claude Bot](003-goldfish-audit-claude-bot.md) | Goldfish | open |
-| [004: Register RGBee in the Cage](004-farmer-register-rgbee.md) | Farmer | open, art waits on Astra's OK |
+| [004: Register RGBee in the hub](004-farmer-register-rgbee.md) | Farmer | open, art waits on Astra's OK |
 | [005: Goldfish audit of RGBee and old pet words](005-goldfish-audit-rgbee-and-pet-words.md) | Goldfish | open |
-| [006: Register Fuzzboi Friend in the Cage](006-farmer-register-fuzzboi-friend.md) | Farmer | open, ready: apply the patch in fuzzboi-friend/cage/ |
-| [007: Register Mail Snail in the Cage](007-farmer-register-mail-snail.md) | Farmer | open, waits on Astra's OK for the art |
+| [006: Register Fuzzboi Friend in the hub](006-farmer-register-fuzzboi-friend.md) | Farmer | open, ready: apply the patch in fuzzboi-friend/hub-registration/ |
+| [007: Register Mail Snail in the hub](007-farmer-register-mail-snail.md) | Farmer | open, waits on Astra's OK for the art |
 | [008: Voicemeeter Bug to GitHub, then scrambled-audio detection](008-any-voicemeeter-bug-github-and-detection.md) | any | open: repo done; detection waits on the next failure |
 | [011: Wrap-up of Claude session 012RaHVD (movement merge WIP, README screenshots)](011-any-claude-session-012RaHVD-wrapup-20261012.md) | any | open, waits on Astra |
 
@@ -133,7 +133,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 | 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `main` (merged with #85) |
 | 041 | `041-any-linux-readiness-20261018.md` | `main` (PR #95); step (a) on `claude/linux-package-20261019` |
-| 042 | `042-any-no-cage-installer-zip-20261018.md` | `claude/no-cage-installer-20261018` |
+| 042 | `042-any-installer-zip-20261018.md` | `claude/installer-20261018` |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106) |
 | 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105); the sign-in start on `claude/crash-watch-sign-in-20261019` |

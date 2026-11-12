@@ -1,12 +1,12 @@
 {
-  "cage": "astras-pet-os",
+  "hub": "astras-pet-os",
   "owner": "Astra",
   "github_owner": "findastra",
   "topic": "pet-app",
   "updated": "2026-10-19",
   "mascots": [],
-  "cage_life": {
-    "about": "How the pets move in the Cage. Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
+  "pet_life": {
+    "about": "How the pets move, by kind (the old pets page used these; the desktop pets do not read them yet). Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
     "kinds": {
       "bird": {
         "zone": "sky",
@@ -719,7 +719,7 @@
       "job": "Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop.",
       "added": "2026-10-07",
       "version": "0.1.0-20261008",
-      "note": "Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).",
+      "note": "Redrawn in the shared pet style from her 32x24 LCD original (pink hair, mint wings).",
       "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
       "interface_url": "apps/pet-programs/api-fairy-20261018.html",
       "app_url": "apps/api-fairy-20261008.html",
@@ -1619,7 +1619,7 @@
       "job": "Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed.",
       "added": "2026-10-08",
       "version": "0.1.0-20261008-pets",
-      "note": "Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.",
+      "note": "Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the pet character is not connected to checklist progress or security monitoring.",
       "interface_local_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "interface_url": "apps/pet-programs/ghost-protocol-20261018.html",
       "app_url": "https://findastra.github.io/ghost-protocol/",
@@ -2771,7 +2771,7 @@
       "audit": {
         "cadence": "weekly",
         "subject": "the Fuzzboi maker and its live site",
-        "needs": "your OK to register me in the Cage"
+        "needs": "your OK to register me in the hub"
       },
       "note": "Card 006: patch and paid sheet ready.",
       "clicks": {
@@ -2990,7 +2990,7 @@
         "subject": "the chats it has filed and their index",
         "needs": "where your Claude and OpenAI chats are saved"
       },
-      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through cage.submit.",
+      "note": "Registered as a pipeline pet at Astra’s OK, 2026-10-18: a pet shows on the System Map and The Farm only when pets.json lists it (Flash Audit A59). Job from its own pet.json; the audit block was written from that job, and the pet can change it through hub.submit.",
       "submitted": "2026-10-16",
       "needs": {
         "os": [

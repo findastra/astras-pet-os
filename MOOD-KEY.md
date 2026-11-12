@@ -18,7 +18,7 @@ Every pet uses the same meanings, so a face reads the same everywhere. `{subject
 
 ## Each pet
 
-A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).
+A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).
 
 | Pet | Checks | How often | When it is curious it needs |
 |---|---|---|---|
@@ -55,7 +55,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit`
 | **Gif Giraffe** * | my plan | weekly, Tuesday | a job: what kind of GIFs should I make |
 | **Backup Beaver** * | my plan | weekly, Wednesday | a job: what should Backup Beaver back up |
 | **Rift Rabbit** * | your VR software and performance notes | weekly, Thursday | your headset and PC details |
-| **Fuzzboi Friend** * | the Fuzzboi maker and its live site | weekly, Friday | your OK to register me in the Cage |
+| **Fuzzboi Friend** * | the Fuzzboi maker and its live site | weekly, Friday | your OK to register me in the hub |
 | **Wifi Butterfly** * | my plan | weekly, Saturday | a job: what should Wifi Butterfly do |
 | **Deck Duck** * | my plan | weekly, Sunday | a job: what should Deck Duck do |
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Monday | a job: what should Mesh Moth watch |

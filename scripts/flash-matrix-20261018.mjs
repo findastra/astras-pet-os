@@ -49,7 +49,7 @@ export const rowDot = (row, matrix) => row.dot || matrix.dot[row.check] || BLUE;
 export const DECISIONS = {
   'Pet name': { check: 'A06', dot: BLUE }, // A06: "🔵 A placeholder or a new name is Astra's"
   'Program name': { check: 'A07' },
-  Job: { check: 'A16', dot: BLUE }, // A16: "🔵 A field the pet submitted itself (cage.submit) ... is a decision"
+  Job: { check: 'A16', dot: BLUE }, // A16: "🔵 A field the pet submitted itself (hub.submit) ... is a decision"
   Branches: { check: 'A17', dot: BLUE }, // idle-flash-audit doc: merges are hers, other assistants' branches included
   Visibility: { check: 'A13', dot: BLUE }, // A13: "🔵 Public or private is Astra's"
   Art: { check: 'A01' },

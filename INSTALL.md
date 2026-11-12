@@ -11,7 +11,7 @@ It is about 100 MB, from the [latest release](https://github.com/findastra/astra
 
 Do **not** use the green **Code** button, `git clone`, or a release's **Source code (zip)**: those are the developer
 repo, not the installer. The two old releases from 2026-10-08 (`v0.2.0-20261008` and `v0.2.1-20261008`) were the
-retired Cage and the old desktop Farmer: never install them.
+retired pets page and the old desktop Farmer: never install them.
 
 ## On a locked-down computer (work or school)
 

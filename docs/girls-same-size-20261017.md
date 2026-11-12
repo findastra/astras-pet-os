@@ -141,7 +141,7 @@ None is merged. mommys-mommies#3 (a record note) was closed: Mommy's Mommies are
   the girls; the other three girls' web frames are still fitted (older designs, above).
 - The API Fairy app embeds her frames: it shows them after `build.cmd`. Folder icons on Astra's PC refresh with
   `set-folder-icons-20261017.ps1`.
-- Generated files (`cage-data.js`, `system-map-20261012.html`, `art/roster.png`) conflict with any other branch that
+- Generated files (the old pets page's data file, `system-map-20261012.html`, `art/roster.png`) conflict with any other branch that
   rebuilt them: whoever merges second runs `npm run build` again.
 - `npm test`: all pass on a checkout with LF line endings. On a Windows checkout with `core.autocrlf=true`, two tests
   that compare generated docs fail on `main` too (line endings, not content).
