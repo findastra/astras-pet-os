@@ -1430,14 +1430,6 @@
       "layer": 4
     },
     {
-      "id": "server-salamander",
-      "name": "Server Salamander",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Hosts: home servers, uptime, service health.",
-      "layer": 4
-    },
-    {
       "id": "docker-dragon",
       "name": "Docker Dragon",
       "type": "roadmap",
@@ -1523,14 +1515,6 @@
       "type": "roadmap",
       "state": "planned",
       "job": "NAS, ZFS, snapshots and capacity health.",
-      "layer": 4
-    },
-    {
-      "id": "port-spider",
-      "name": "Port Spider",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Authorized port and service exposure checks.",
       "layer": 4
     },
     {
@@ -5345,7 +5329,7 @@
       "why": "Security work stays in authorized scope."
     },
     {
-      "from": "port-spider",
+      "from": "port-web",
       "to": "iron-gates",
       "carries": "findings",
       "state": "architecture",
@@ -5430,14 +5414,14 @@
     },
     {
       "from": "docker-dragon",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Containers run on registered hosts."
     },
     {
       "from": "proxy-axolotl",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Secure private access to home servers."
@@ -8930,6 +8914,14 @@
         "languages": [],
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
       },
+      "port-web": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first port check of the desktop PC was done by hand on 2026-11-12 (report in findastra/port-web#4)."
+      },
+      "server-hearth": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); waits on Astra's answer about the server she is buying (2026-11-12)."
+      },
       "iron-gates": {
         "languages": [],
         "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the YubiKey enrollment list is a document; the spending approval is on design/yubikey-spend-approval-20261102."
@@ -9630,7 +9622,7 @@
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
-    "port-spider": "blue",
+    "port-web": "blue",
     "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",

@@ -57,7 +57,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 46 | Gatekeeper Goddess | **Iron Gates** | [iron-gates](https://github.com/findastra/iron-gates) | Pipeline | Security and approvals: human-facing approvals and security monitoring. Issues the grants and the short-lived agent keys; never approves her own. *(draft)* |
 | 47 | Queue Quokka | **Task Island** | [task-island](https://github.com/findastra/task-island) | Roadmap | Tasks: watches retries, stalled jobs and agent handoffs. *(draft)* |
 | 48 | Log Lynx | **Log Den** | [log-den](https://github.com/findastra/log-den) | Registered | Observability: correlates logs, traces, health and failures. *(draft)* |
-| 49 | Server Salamander | **Server Hearth** | [server-hearth](https://github.com/findastra/server-hearth) | Roadmap | Hosts: home servers, uptime, service health. *(draft)* |
+| 49 | Server Salamander | **Server Hearth** | [server-hearth](https://github.com/findastra/server-hearth) | Pipeline | Hosts: home servers, uptime, service health. *(draft)* |
 | 50 | Docker Dragon | **Container Hoard** | [container-hoard](https://github.com/findastra/container-hoard) | Roadmap | Containers: Docker health and authorized management. *(draft)* |
 | 51 | Test Tortoise | **Test Track** | [test-track](https://github.com/findastra/test-track) | Roadmap | Quality: tests and release verification. *(draft)* |
 | 52 | Token Toucan | **Token Canopy** | [token-canopy](https://github.com/findastra/token-canopy) | Roadmap | AI cost: model tokens, budgets and inference usage. *(draft)* |
@@ -76,7 +76,7 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 65 | Cluster Crab | **Cluster Shore** | [cluster-shore](https://github.com/findastra/cluster-shore) | Roadmap | Distributed services and orchestration. *(draft)* |
 | 66 | Storage Stoat | **Storage Warren** | [storage-warren](https://github.com/findastra/storage-warren) | Roadmap | NAS, ZFS, snapshots and capacity health. *(draft)* |
 | 67 | White Hat Weasel | **White Hat Lab** | [white-hat-lab](https://github.com/findastra/white-hat-lab) | Pipeline | Authorized security assessment and remediation. *(draft)* |
-| 68 | Port Spider | **Port Web** | [port-web](https://github.com/findastra/port-web) | Roadmap | Authorized port and service exposure checks. *(draft)* |
+| 68 | Port Spider | **Port Web** | [port-web](https://github.com/findastra/port-web) | Pipeline | Authorized port and service exposure checks. *(draft)* |
 | 69 | Cipher Owl | **Cipher Hollow** | [cipher-hollow](https://github.com/findastra/cipher-hollow) | Pipeline | Encryption, keys, certificates and crypto education. *(draft)* |
 | 70 | Forensic Ferret | **Evidence Locker** | [evidence-locker](https://github.com/findastra/evidence-locker) | Registered | Incident timelines and log analysis. *(draft)* |
 | 71 | Llama Librarian | **Model Library** | [model-library](https://github.com/findastra/model-library) | Roadmap | Local model inventory, downloads and compatibility. *(draft)* |
