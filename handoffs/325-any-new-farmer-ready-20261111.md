@@ -1,4 +1,4 @@
-status: open (waiting on Astra: the two questions in the deck, then the merge OK, then the v0.4.0-beta release)
+status: open (waiting on Astra: the merge OK, then the v0.4.0-beta release)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-11
 needs: changes/new-farmer-ready-20261111.md, MAKE-IT-YOURS.md section 5, INSTALL.md, scripts/installer-zip-20261018.mjs
@@ -12,7 +12,7 @@ Make everything on GitHub make sense to a brand-new user and her AI, walking it 
 
 State: READY_FOR_REVIEW
 Implementer: Claude Opus 5.5 desktop session; writable files: the files of pull request #325; ownership: released
-Reviewer: unassigned; next action: Astra answers the deck, then reviews and OKs the merge
+Reviewer: unassigned; next action: Astra reviews and OKs the merge
 
 ## What I did
 
@@ -51,4 +51,7 @@ Record answers, the merge and the release here, under "Receipt and review".
 
 ## Receipt and review
 
-Pending.
+- 2026-11-12, deck answered: Astra, "All recommended". The vet-clinic, the Shed and the Kennel stay private and
+  the docs say "not open yet" (already on the branch); the release is v0.4.0-beta (already on the branch).
+- 2026-11-12: main (after #328 and #332) merged into the branch with no conflicts; `npm run build` changed nothing.
+- Merge: pending Astra's OK. Release: pending her OK after the merge.
