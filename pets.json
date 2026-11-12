@@ -1558,6 +1558,7 @@
       "role": "pet",
       "art": "ghost-protocol",
       "kind": "ghost",
+      "backdrop": "#1f8a4c",
       "asset_date": "20261008",
       "status": "hatching",
       "published": true,
