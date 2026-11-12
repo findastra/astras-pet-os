@@ -4055,6 +4055,52 @@
           "on": "2026-11-06"
         }
       }
+    },
+    {
+      "repo": "port-web",
+      "pet": "Port Spider",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Authorized port and service exposure checks.",
+      "added": "2026-11-12",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "which ports on each of your devices answer, and who can reach them",
+        "needs": "your OK before every check of a device"
+      },
+      "note": "Astra, 2026-11-12: \"I think the port spider is probably the right one for this ... let's make programs for both\": moved from the roadmap to the pipeline. Its first check, the desktop PC's listening ports and firewall, was done by hand on 2026-11-12 (report in findastra/port-web#4). No program of its own yet; no pet art registered yet.",
+      "interface_url": "apps/pet-programs/port-web-20261018.html",
+      "interface_local_url": "apps/pet-programs/port-web-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
+    },
+    {
+      "repo": "server-hearth",
+      "pet": "Server Salamander",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Hosts: home servers, uptime, service health.",
+      "added": "2026-11-12",
+      "version": "v0.1",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your home servers: what runs on each, whether it is up, and its health",
+        "needs": "a server to look after"
+      },
+      "note": "Astra, 2026-11-12: \"I'm about to buy one [a server] ... let's make programs for both\": moved from the roadmap to the pipeline for the server she is buying. He is the farm's server pet: Astra, 2026-11-12: \"selfless sweetheart is not a thing and server salamander is the thing\" (no Self-host Sweetheart pet, no rename). A starter repo; no pet art registered yet.",
+      "interface_url": "apps/pet-programs/server-hearth-20261018.html",
+      "interface_local_url": "apps/pet-programs/server-hearth-20261018.html",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [],
+        "programs": []
+      }
     }
   ],
   "seeds": {

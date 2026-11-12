@@ -92,6 +92,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **PC Master** (PC Master Race): Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.
 - **Pet Police Officer** (The Police Station): Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.
 - **Platform Platypus** (Mirror Pool): Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.
+- **Port Spider** (Port Web): Authorized port and service exposure checks.
 - **Project Parrot** (Idea Perch): Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.
 - **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
 - **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
@@ -99,6 +100,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
 - **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Server Salamander** (Server Hearth): Hosts: home servers, uptime, service health.
 - **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
 - **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.
 - **Unity Unicorn** (Unity Stable): A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.
