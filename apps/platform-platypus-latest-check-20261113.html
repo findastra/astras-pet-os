@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latest check · Mirror Pool</title>
+<!-- Mirror Pool's latest check, shown small inside device-shots' pill on its pet program page (Astra, 2026-11-13: "this
+     should be on that page. It can be smaller than it is, but it should be on that page"). One page checked on all 19
+     screens in Chromium (Brave, Chrome, Edge, Android) and WebKit (Safari, every iPhone and iPad browser), side by side.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-13. -->
+<style>
+  :root { --bg: #1d1424; --panel: #271b30; --ink: #f1e9f4; --soft: #c9b8d2; --line: #4a3757; --ok: #7fd99a; --open: #f2b45a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 10px; background: var(--bg); color: var(--ink); font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: 16px; margin: 0 0 2px; }
+  .sub { color: var(--soft); font-size: 12px; margin: 0 0 10px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  figure { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+  figure a { display: block; }
+  figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+  figcaption { font-size: 12px; color: var(--soft); margin-top: 4px; }
+  figcaption b { color: var(--ink); }
+  ul { margin: 10px 0 0; padding-left: 18px; }
+  li { margin: 2px 0; }
+  .ok { color: var(--ok); }
+  .open { color: var(--open); }
+  .small { color: var(--soft); font-size: 12px; margin: 8px 0 0; }
+</style>
+</head>
+<body>
+<h1>Latest check: Spoonfed</h1>
+<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, 0f10713), not the live site · 19 screens, upright and on their side · tap a sheet to see it full size</p>
+<div class="pair">
+  <figure>
+    <a href="platform-platypus-latest-check/spoonfed-chromium-0f10713-20261113.jpg" target="_blank" rel="noopener"><img src="platform-platypus-latest-check/spoonfed-chromium-0f10713-20261113.jpg" width="1100" height="1310" alt="Spoonfed on 19 screens in Chromium"></a>
+    <figcaption><b>Chromium</b>: Brave, Chrome, Edge, Android</figcaption>
+  </figure>
+  <figure>
+    <a href="platform-platypus-latest-check/spoonfed-webkit-0f10713-20261113.jpg" target="_blank" rel="noopener"><img src="platform-platypus-latest-check/spoonfed-webkit-0f10713-20261113.jpg" width="1100" height="1310" alt="Spoonfed on 19 screens in WebKit"></a>
+    <figcaption><b>WebKit</b>: Safari, every iPhone and iPad browser</figcaption>
+  </figure>
+</div>
+<ul>
+  <li class="ok">Same font in both engines (it fell back to Times New Roman in Chromium before).</li>
+  <li class="ok">Footer: By Astra, the star, Find Out More and GitHub only; it never covers Feed me.</li>
+  <li class="ok">The two cards sit side by side, the same height, on every screen except upright phones (Astra: "Phones stay stacked").</li>
+  <li class="ok">Bigger on computers, with the whole page on the first screen.</li>
+  <li class="open">Open: on the two shortest sideways phones (iPhone SE, Galaxy S24) the pick card's own Feed me is cut by the bottom edge.</li>
+  <li class="open">To look at: on upright iPads and the tall window the cards are small, with a lot of room around them.</li>
+</ul>
+<p class="small">Made with Mirror Pool's device-shots v1.1. Every picture, and each screen on its own, is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
+<script>
+  // Tell the pet program page how tall this is, so its tool box fits (the 'tool-panel-height' message every embedded tool sends).
+  (function () {
+    var tell = function () { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ } };
+    window.addEventListener('load', tell); window.addEventListener('resize', tell); tell();
+  })();
+</script>
+</body>
+</html>
