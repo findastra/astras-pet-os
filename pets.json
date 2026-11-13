@@ -2115,7 +2115,7 @@
       "pet": "RGBee",
       "visibility": "private",
       "status": "hatching",
-      "job": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
+      "job": "Plans lighting scenes for every RGB light in the room and sends them to the lights it reaches: the Razer mic and headset today. Govee lights wait on LAN Control; the Corsair keyboard and MSI board need their own apps.",
       "added": "2026-10-09",
       "version": "0.1.0",
       "version_assigned": true,
