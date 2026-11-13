@@ -1,7 +1,7 @@
-status: open, main merged in 2026-11-12 (after #338); waits for Astra's OK in chat to merge #318
+status: DONE, merged with Astra's OK in chat ("Yes, merge #318", 2026-11-12)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-09, a side chat of the "PC Master Race" chat
-needs: Astra's OK to merge #318
+needs: her PC hub copy fast-forwarded and rebuilt (npm run build)
 ---
 ## Task
 
@@ -35,3 +35,5 @@ line still said 2026-11-08.
   rebuilt. `npm test` in an LF clone (Git Bash): 434 tests, 428 pass, 0 fail, 6 skipped. In the pane, served from this
   branch with the EDITORIAL bar: 71 checks, 18 Run buttons, the top line's date moved to the newer run (2026-11-09) by
   itself, no console errors.
+- 2026-11-12: main merged in again (after #352, #350, #355), no conflicts, rebuild changed nothing; `npm test` 434
+  tests, 428 pass, 0 fail, 6 skipped; CodeQL passed. Astra's merge OK in chat: "Yes, merge #318".
