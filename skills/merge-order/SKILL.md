@@ -81,6 +81,22 @@ first. They merged while she answered, so the branches were rebased on the new `
   both sides' meaning, runs `npm test`, pushes, and tells her when it is ready.
 - To keep conflicts rare: merge one at a time, top of the chart first, and wait for the next chat's "ready" before the
   next merge when it touches the same files.
+- **In the hub, generated files** (TOOLS-AND-TRICKS.md, `system-map-20261012.html`, the pet program pages) conflict
+  after almost every merge (2026-10-19). Merge `origin/main`, take main's copy of them (`git checkout --theirs`), then
+  `npm run build` and `npm test`, push, and merge in the same turn if Astra already said OK.
+
+## Right before you merge (Astra's corrections, 2026-10-18 to 2026-10-29)
+- **Her own message names the pull requests.** "Merge rows 1–5" names the rows of your chart; a general "do it" or
+  "merge what you can" is not an OK. Closing counts too: a row that says "Merge, then close #26" does not approve the
+  close, so a close gets its own row. Never push to another assistant's branch, and after one refusal don't try
+  another route.
+- **Re-scan every open pull request in that repo** just before `gh pr merge`: fetch, list `gh pr list --state open`,
+  and compare each one's files with yours. Checking once when yours was opened is not enough (2026-10-21: hub #200
+  and #201 did the same job; #201 merged and #200 went to conflicts). If another one does the same job, stop and tell
+  Astra and its chat first.
+- **Stacked pull requests:** before you merge the base, point the stacked one at `main` (`gh pr edit <n> --base
+  main`). Merging the base with `--delete-branch` makes GitHub close the stacked one, and it can't be reopened onto
+  `main` (2026-10-18).
 
 ## Steps
 1. **When your chat opens a pull request for Astra:** work out its rank from the open pull requests (rules above) and say
