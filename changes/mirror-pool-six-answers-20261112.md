@@ -31,6 +31,12 @@ I need?", then **"all rec"** to the six-slide deck. The answers are recorded on 
 - **Who checks what:** Mirror Pool owns how a page looks and fits on each screen. Browser Bat owns links, uptime and
   publishing. This is written in platform-platypus AGENTS.md.
 
+- **Latest check on Mirror Pool's page** (Astra, 2026-11-13: "this should be on that page. It can be smaller than
+  it is, but it should be on that page"): `apps/platform-platypus-latest-check-20261113.html` sits in device-shots'
+  pill (its System Map `embed`). It shows the last page checked, Spoonfed's working copy, as two small contact sheets:
+  Chromium (taken in Brave) and WebKit. Tap one to see it full size. Below them, what was fixed and what is still open.
+  The pictures are shrunk JPEGs in `apps/platform-platypus-latest-check/`. Every full-size picture stays on Astra's PC.
+
 ## In findastra/platform-platypus (#11)
 
 - fit-check and device-shots v1.1 take `--engine chromium|webkit|firefox|all`. WebKit and Firefox come from Playwright
