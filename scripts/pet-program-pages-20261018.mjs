@@ -25,7 +25,7 @@ import { vrchatLaunchBody, TOOL as VRCHAT_LAUNCH_TOOL } from './vrchat-launch-pa
 import { STICKERS } from './art-kit.mjs';
 import { INDICATORS } from './indicators.mjs';
 import { readMatrix } from './flash-matrix-20261018.mjs';
-import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
+import { AUTOMATED as FLASH_AUTOMATED, GOLDFISH_WORDS, STATUSES as FLASH_STATUSES, RUN_MINUTES, latestLedger, checkResults } from './flash-audit-checks-20261108.mjs';
 import { TEMPLATE_CHECKS, templateAudit } from './flash-template-20261112.mjs';
 
 // Astra's PetOS itself (upstream): its site, docs and vet-clinic, which every farm's pages link to. A pet's own repo
@@ -793,8 +793,10 @@ export function flashAuditBody(d) {
     }
     return `<li class="pill flash-check" data-check="${r.id}">${lights(`flash:${r.id}`, `${r.id} ${r.title}`)}<span class="item-name">${r.dot} ${esc(r.id)} ${esc(r.title)}</span><span class="item-desc" data-flash-desc>${esc(`${how}${GOLDFISH_WORDS.includes(r.id) ? ' · GitHub Goldfish’s check' : ''} · ${now}`)}</span><details class="pill-more"><summary aria-label="More about ${esc(r.id)}"></summary><div class="pill-body">${body}${runIt}</div></details></li>`;
   };
-  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. The page checks follow ${template}, one check per part, top to bottom, and compare every pet program page with it each time the pages are built. ${run ? `The others show the last run over every pet program (${esc(run)}); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again. <a href="${FLASH_DOC}">The checklist</a>.</p>
-<ul class="items flash-checks" data-flash-run-date="${esc(run || '')}">${fa.matrix.map(pill).join('')}</ul>`;
+  // The date sits in its own span, so a newer run on this PC changes it with the pills (Astra, 2026-11-09: "Yes, fix
+  // them"). A run took 19 minutes on 2026-11-09 (it asks GitHub about every pet's branches), so it says about 20.
+  return `<p class="small">The Flash Audit’s ${fa.matrix.length} checks, most important first: ⚪ grey ones are fixed without you, 🔵 blue ones wait for your answer. The page checks follow ${template}, one check per part, top to bottom, and compare every pet program page with it each time the pages are built. ${run ? `The others show the last run over every pet program (<span data-flash-run-shown>${esc(run)}</span>); ` : ''}Run asks the Flash Audit helper on this PC to check every pet program again, which takes about ${RUN_MINUTES} minutes. <a href="${FLASH_DOC}">The checklist</a>.</p>
+<ul class="items flash-checks" data-flash-run-date="${esc(run || '')}" data-flash-run-minutes="${RUN_MINUTES}">${fa.matrix.map(pill).join('')}</ul>`;
 }
 export const PET_BOXES = {
   // Folded to its name until clicked: the checks are long (deck "The Farm: art and lights", answer 3: A).

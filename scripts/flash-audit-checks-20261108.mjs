@@ -18,6 +18,9 @@ export const PAGE_DATA = 'flash-audit-page-data.js';
 // The helper writes where it answers into this file when it starts, so no committed file names a local address (the
 // hub's public-safety rule): the page reads it from Astra's PC, the way the program lights read the watch's.
 export const HELPER_PAGE_DATA = 'flash-audit-helper-page-data.js';
+// How long Run takes, said on the page while it runs: the first real run from The Farm took 19 minutes on 2026-11-09,
+// because the auditor asks GitHub about every pet's branches one at a time (Astra, 2026-11-09: "Yes, fix them").
+export const RUN_MINUTES = 20;
 
 // The checks the auditor runs by itself over every pet program (the test reads them back from the auditor's code).
 // The page checks are compared with the Model Pet Program at every build instead (scripts/flash-template-20261112.mjs,
