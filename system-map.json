@@ -109,7 +109,7 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
-      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI wait on OpenRGB (card 002 in findastra/rgbee).",
+      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI need their own apps (Corsair iCUE, MSI Center); OpenRGB can’t reach them (tried 2026-11-11, card 002 in findastra/rgbee).",
       "does": "One colour and brightness for every light in the apartment that Light Hive reaches.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
       "frame": "wide",
@@ -3400,7 +3400,7 @@
       "state": "now",
       "layer": 6,
       "category": "Keyboard",
-      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights today; Light Hive reaches it once OpenRGB is set up (card 002 in findastra/rgbee)."
+      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights; OpenRGB can’t reach it (tried 2026-11-11), so Light Hive can’t yet (card 002 in findastra/rgbee)."
     },
     {
       "id": "dell-monitor",
@@ -7725,7 +7725,7 @@
       "to": "corsair-k65-plus",
       "carries": "manages",
       "state": "planned",
-      "why": "The keyboard joins Light Hive’s colours once OpenRGB is set up (card 002 in findastra/rgbee)."
+      "why": "The keyboard can join Light Hive’s colours only through Corsair iCUE; OpenRGB can’t reach it (tried 2026-11-11, card 002 in findastra/rgbee)."
     },
     {
       "from": "corsair-icue",
