@@ -4809,6 +4809,7 @@
       "version": "v1.1",
       "label": "mirror-pool-v1.0-device-shots-v1.1",
       "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-latest-check-20261113.html",
+      "frame": "full",
       "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere; one sheet per engine (Chromium, WebKit, Firefox) since v1.1, 2026-11-12 (platform-platypus tools/device-shots/device-shots-20261019.mjs)."
     },
     {
