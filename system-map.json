@@ -8969,6 +8969,24 @@
         "next": "The Police Station watches every write and every key use."
       },
       {
+        "id": "farm-own-tools",
+        "who": "The Farm's own tools (the build and the pet program spawner, the Flash Audit's auditor and helper, click-check, Startup Star)",
+        "level": ["L1"],
+        "subjects": [
+          "type:host"
+        ],
+        "on": "its own folder (the hub's copy on this PC) and its declared data folder (Astra's PetOS Data, astras-pet-os)",
+        "resources": [
+          "self"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "written",
+        "how": "farm-security, sections 1 and 2. The Farm's tools run as you on this PC: the build writes the generated pages, the Flash Audit's auditor and helper write its ledger and page data, click-check only reads the pages. Nothing stops one writing outside these folders. A change to the hub reaches main only by a pull request merged after Astra's OK in chat (AGENTS.md; the seat-core grant).",
+        "next": "The Police Station watches every write and every key use."
+      },
+      {
         "id": "pet-elsewhere",
         "who": "Each pet",
         "level": ["L1","L2"],

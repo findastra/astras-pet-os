@@ -154,10 +154,15 @@ const RULES = {
     // A level may take more than one row (the template's L3 has two: its own folder and everything else); every level
     // has at least one, L1 at the top.
     const levels = (s) => [...new Set(all(/<details class="rwx-row"><summary><span class="lv">([^<]+)<\/span>/g, s))];
-    const want = levels(t.own), have = levels(p.own), gone = want.filter((l) => !have.includes(l));
+    // A level no grant reaches still has its row, saying "nothing here" (2026-11-13: The Farm's L1 was reported as
+    // having no row when its row said nothing here). That is still missing: the template has a grant at every level.
+    const rows = (s) => [...new Set(all(/<(?:details|div) class="rwx-row(?: none)?"><(?:summary><)?span class="lv">([^<]+)<\/span>/g, s))];
+    const want = levels(t.own), have = levels(p.own), shown = rows(p.own);
+    const gone = want.filter((l) => !shown.includes(l)), bare = want.filter((l) => shown.includes(l) && !have.includes(l));
     return [!same(marks(p.own), marks(t.own)) && `its key shows ${list(marks(p.own))}; the template’s shows ${list(marks(t.own))}`,
       gone.length > 0 && { missing: `no row for ${list(gone)} (the template has one for each level)` },
-      !gone.length && !same(have, want) && `its levels run ${list(have)}; the template’s run ${list(want)}`];
+      bare.length > 0 && { missing: `${list(bare)} says nothing here: no grant reaches it (the template has one at each level; a new grant is Astra’s to approve)` },
+      !gone.length && !bare.length && !same(have, want) && `its levels run ${list(have)}; the template’s run ${list(want)}`];
   },
   'session-notes-panel': (p) => [!p.own.includes('<span class="toolbox-name">notes</span>') && 'no notes tool box', !/<textarea/.test(p.own) && 'no text box',
     !/type="file"/.test(p.own) && 'no add file', !/>submit</.test(p.own) && 'no submit'],
