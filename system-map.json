@@ -4624,6 +4624,18 @@
       "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows drafts and pull requests whose checks are still running, as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
     },
     {
+      "id": "branch-sweeper",
+      "name": "branch-sweeper",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-branch-sweeper-v1.0",
+      "job": "A tool of GitHub Aquarium (Astra, 2026-11-14: \"a branch deleter, assessor and deleter\", then \"Plan is fine, build it\", card 364): sorts every branch on every repo the farm owner owns into safe to delete (all its work is on the main branch, or its pull request merged with nothing added after), ask Astra (closed without merging, more added after a merge, or old work with no pull request) and keep (the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and work from the last week). Checking is read only. It deletes only from a plan file, only the rows marked to delete, only with --yes while signed in as the farm owner, after checking each branch again; each delete is written to an undo log on her PC first, and --undo puts it back (scripts/branch-sweeper-20261114.mjs, npm run branch-sweeper). Its list names private repos, so it stays on her PC."
+    },
+    {
       "id": "pets-board",
       "name": "Pets Board",
       "type": "own-program",
@@ -9622,6 +9634,27 @@
         "status": "written",
         "how": "packet-river-20261018.cs contacts only the router, the DNS server and its targets file; it never scans ports or changes the network. Nothing enforces this: it runs as you. Asked for on 2026-10-18; Astra approves it by merging.",
         "next": "Iron Gates issues the grant with its targets as the limit."
+      },
+      {
+        "id": "goldfish-branch-sweeper-delete",
+        "who": "GitHub Goldfish (GitHub Aquarium: branch-sweeper)",
+        "level": ["L1","L2"],
+        "subjects": [
+          "id:branch-sweeper"
+        ],
+        "on": "branches on GitHub repos the farm owner owns, never the main branch, a protected or release branch, one with an open pull request, or one an open handoff card names: delete one (from a plan Astra okayed), and put it back from the undo log",
+        "resources": [
+          "ring:0",
+          "animal:2",
+          "animal:3",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "no",
+        "status": "written",
+        "how": "scripts/branch-sweeper-20261114.mjs checks read only; it deletes only rows a plan marks, never a \"keep\" row, at most 200 at once, only with --yes while signed in as the farm owner (animal-guard), after checking each branch again (same commit, still not keep), and writes the undo line before each delete (test/branch-sweeper-test-20261114.mjs). Nothing stops someone who runs other code with the same token. Asked for on 2026-11-14; Astra approves it by merging.",
+        "next": "Iron Gates issues a token that can only delete branches (a fine-grained token with contents write on the farm's repos), and The Police Station watches the deletes."
       },
       {
         "id": "forensic-ferret-read",

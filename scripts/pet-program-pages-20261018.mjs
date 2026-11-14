@@ -715,11 +715,34 @@ export const OUTSTANDING_EXAMPLES = [
 // They are tools on the System Map too, and come first (Astra, 2026-10-29: "make these important tools for the
 // goldfish"), so the plain tool list leaves them out instead of listing them twice.
 export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label);
+
+// GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
+// build it", card 364): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
+// five tools above it is filled only on Astra's PC (scripts/branch-sweeper-20261114.mjs writes the list there); the
+// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log.
+export const SWEEPER_TOOL_ID = 'branch-sweeper';
+export const SWEEPER_GROUPS = [
+  ['delete', 'Safe to delete', 'No branch is ready to delete.'],
+  ['ask', 'Ask Astra', 'Nothing needs your decision.'],
+  ['keep', 'Keep', 'No branch has to be kept.'],
+];
+export const SWEEPER_EXAMPLES = [
+  { group: 'delete', repo: 'example-pet', branch: 'claude/example-done', why: 'Example: its pull request #3 was merged, and nothing was added after.', url: MERGE_ORDER_SKILL, example: true },
+  { group: 'ask', repo: 'example-site', branch: 'codex/example-old', why: 'Example: 4 commits not on main, no pull request, untouched for 40 days.', url: MERGE_ORDER_SKILL, example: true },
+  { group: 'keep', repo: 'example-pet', branch: 'claude/example-open', why: 'Example: its pull request #5 is still open.', url: MERGE_ORDER_SKILL, example: true },
+];
+function branchSweeperBox() {
+  const groups = SWEEPER_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group sweep-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-sweep-count="${id}"></p><ul class="requests" data-sweep-group="${id}"></ul><p class="empty" data-sweep-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
+  return toolBox(SWEEPER_TOOL_ID, SWEEPER_TOOL_ID, `<p class="small" id="branch-sweeper-source" aria-live="polite">Looking for the Goldfish's branch list on this PC.</p>
+<div class="request-groups" id="branch-sweeper">${groups}</div>
+${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. The list names private repos, so it stays on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
+}
 function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
   const boxes = OUTSTANDING_GROUPS.map(([id, label, empty]) => toolBox(label, label, `<p class="small request-count" data-count="${id}"></p><ul class="requests" data-group="${id}"></ul><p class="empty" data-empty="${id}">${esc(empty)}</p>`, { cls: `outstanding-group g-${id}` })).join('\n');
   return `<div class="outstanding-tools" id="outstanding-items"><p class="small" id="outstanding-source" aria-live="polite">Looking for the Goldfish's list on this PC.</p>
-<div class="toolboxes">${boxes}</div>
+<div class="toolboxes">${boxes}
+${branchSweeperBox()}</div>
 <p><a class="button" href="${esc(OUTSTANDING_BOARD)}">Open the Pets Board</a> <span class="small">the full list, in the order to act (<a href="${esc(MERGE_ORDER_SKILL)}">skills/merge-order</a>), and every pet in one chart</span></p>
 ${about('outstanding-items (<code>github-aquarium-v1.0-outstanding-items-v1.0</code>) fills these five tools. It reads every repo the farm owner owns on GitHub, read only: pull requests ready for your OK, conflicts and failing checks, jobs failing on a main branch, handoff cards that wait on you, branches with work and no pull request, and pull requests nobody has touched for a month. It runs when asked: <code>npm run outstanding-items</code> in the hub folder, or a chat runs it before it gives you a merge chart. The list names private repos, so it stays on this PC and fills these tools only when the page is opened there. Anywhere else they show made-up examples.')}</div>`;
 }
@@ -991,7 +1014,7 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
 <section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
 ${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id)), outstandingTools(d), OUTSTANDING_GROUPS.length, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
+${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about({
     how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
@@ -1261,7 +1284,7 @@ ${footer}
 </main>
 ${chat}
 <script type="application/json" id="pet-program-data">${json}</script>
-${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
+${(PET_BOXES[d.repo] || []).some((b) => b.body === keyRequestsBody) ? `<script type="application/json" id="key-request-examples">${JSON.stringify(KEY_REQUEST_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}${d.repo === 'github-goldfish' ? `<script type="application/json" id="outstanding-examples">${JSON.stringify(OUTSTANDING_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n<script type="application/json" id="branch-sweeper-examples">${JSON.stringify(SWEEPER_EXAMPLES).replaceAll('<', '\\u003c')}</script>\n` : ''}<script src="${PET_CHAT_JS}"></script>
 <script src="${ASSETS.js}"></script>
 ${d.flashAudit?.matrix?.length ? `<script src="${FLASH_AUDIT_JS}"></script>\n` : ''}${d.repo === 'discord-tower' ? `<script src="${PRESENCE_JS}"></script>\n` : ''}${d.repo === 'rift-rabbit' ? `<script src="${LAUNCHER_JS}"></script>
 ` : ''}</body>

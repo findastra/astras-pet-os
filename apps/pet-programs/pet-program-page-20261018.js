@@ -1013,6 +1013,63 @@
   }
   })();
 
+  // ---- GitHub Aquarium's branch-sweeper (Astra, 2026-11-14): every branch as safe to delete, ask Astra or keep, the
+  // first few of each. Like outstanding-items, its list stays on Astra's PC in one fixed file and is read only there;
+  // anywhere else the page shows made-up examples. The page only shows the list: it never deletes anything. ----
+  (function () {
+  if (config.repo !== 'github-goldfish') return;
+  var box = document.getElementById('branch-sweeper');
+  if (!box) return;
+  var LOCAL_SWEEPER = "../../../../Astra's PetOS Data/github-aquarium/branch-sweeper-page-data.js";
+  var FIRST = 3;
+  var source = document.getElementById('branch-sweeper-source');
+  var onThisPC = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var https = function (u) { try { return new URL(u).protocol === 'https:' ? new URL(u).href : null; } catch (e) { return null; } };
+  var row = function (i) {
+    var li = el('li', null, 'request' + (i.example ? ' example' : ''));
+    var head = el('div', null, 'request-head');
+    var text = i.repo + ': ' + i.branch;
+    var href = https(i.url);
+    if (href) { var a = el('a', text); a.href = href; a.rel = 'noopener'; a.target = '_blank'; head.appendChild(a); } else head.appendChild(el('b', text));
+    if (i.example) head.appendChild(el('span', 'EXAMPLE', 'tag example-tag'));
+    li.appendChild(head);
+    li.appendChild(el('div', i.why || '', 'small'));
+    return li;
+  };
+  var show = function (items, message) {
+    if (source) source.textContent = message;
+    ['delete', 'ask', 'keep'].forEach(function (g) {
+      var list = box.querySelector('ul[data-sweep-group="' + g + '"]');
+      var empty = box.querySelector('[data-sweep-empty="' + g + '"]');
+      var count = box.querySelector('[data-sweep-count="' + g + '"]');
+      if (!list || !empty || !count) return;
+      var mine = items.filter(function (i) { return i && i.group === g; });
+      list.textContent = '';
+      mine.slice(0, FIRST).forEach(function (i) { list.appendChild(row(i)); });
+      empty.hidden = mine.length > 0;
+      count.textContent = mine.length ? mine.length + (mine.length > FIRST ? ', the first ' + FIRST + ' here, all of them with npm run branch-sweeper -- --md' : '') : '';
+    });
+  };
+  var examples = function (why) {
+    var list = [];
+    try { list = JSON.parse(document.getElementById('branch-sweeper-examples').textContent); } catch (e) { list = []; }
+    show(list, why);
+  };
+  if (onThisPC) {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_SWEEPER);
+    script.onload = function () {
+      var d = window.githubAquariumBranchSweeper;
+      if (!d || d.schema !== 'github-aquarium-branch-sweeper-v1' || !Array.isArray(d.items)) return examples('The Goldfish\'s branch list on this PC is not one this page can read. These are made-up examples.');
+      show(d.items, 'The Goldfish\'s branch list on this PC, checked ' + localTime(d.checked) + ': ' + d.repos + ' repos. Safe to delete ' + d.counts.delete + ', ask Astra ' + d.counts.ask + ', keep ' + d.counts.keep + '.');
+    };
+    script.onerror = function () { examples('The Goldfish has not written its branch list on this PC yet (run npm run branch-sweeper in the hub folder). These are made-up examples.'); };
+    document.head.appendChild(script);
+  } else {
+    examples('Made-up examples. The real list stays on Astra\'s PC and shows here only when this page is opened there.');
+  }
+  })();
+
   // ---- A folded tool opens when it is clicked anywhere, like a pill (Astra, 2026-11-02: "all you have to do is click on
   // the tool itself to open it"); open, it folds again from its name line, so clicks inside it stay its own. Its lights,
   // links, buttons and fields keep their own clicks, and selecting text in it does nothing. ----
