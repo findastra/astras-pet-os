@@ -277,7 +277,8 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    one line, each after a ✦: By Astra, and Find Out More with her GitHub, and only her GitHub (Astra, 2026-11-13:
    "on the unified footer, remove all of the social media links except for the GitHub one"; from 2026-10-22 it also
    held Mommy's Discord, VR TikTok, Pole Dance TikTok and VRChat Instagram), with Astra's photostar between them
-   (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). No languages (2026-10-24: "get rid of the
+   (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). The photostar is a picture only, never a link,
+   with no pointer and no hover (2026-11-13: "also the star shouldnt be a link. ever."). No languages (2026-10-24: "get rid of the
    code on the unified footer"). The license, signature, date (it is beside the title), Take Me Home!, the list of
    links, the words switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
 10. **`<pet>-chat`** (fixed, bottom right): **the pet's chat, like Data Chip's on Data Dealer** (Astra, 2026-10-20: "he
