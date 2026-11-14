@@ -274,8 +274,9 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    grant (section 11). It holds item 10 of the list below. **It is a footer, not a list** (Astra, 2026-10-20: "It
    looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
    (Flash Audit A51), in a whole box like every panel. Since Astra's marked-up screenshot of 2026-10-22: two groups on
-   one line, each after a ✦: By Astra, and Find Out More with her GitHub and the same socials as her GitHub profile
-   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram), with Astra's photostar between them
+   one line, each after a ✦: By Astra, and Find Out More with her GitHub, and only her GitHub (Astra, 2026-11-13:
+   "on the unified footer, remove all of the social media links except for the GitHub one"; from 2026-10-22 it also
+   held Mommy's Discord, VR TikTok, Pole Dance TikTok and VRChat Instagram), with Astra's photostar between them
    (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). No languages (2026-10-24: "get rid of the
    code on the unified footer"). The license, signature, date (it is beside the title), Take Me Home!, the list of
    links, the words switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.

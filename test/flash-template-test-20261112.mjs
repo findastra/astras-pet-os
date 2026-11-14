@@ -57,6 +57,14 @@ test('a page unlike the template fails the check of the part that differs', () =
   assert.deepEqual(ids(checks(page.replace(/<span class="item-name">play-with<\/span>/, '<span class="item-name">play</span>'), 'rift-rabbit')), ['A67'], 'no play-with trick');
   assert.deepEqual(ids(checks(page.replace('footer-title">Find Out More<', 'footer-title">More<'), 'rift-rabbit')), ['A51']);
   assert.deepEqual(ids(checks(page.replace(/<span class="key update"><\/span>/, ''), 'rift-rabbit')), ['A65'], 'the key to the lights without yellow');
+  // A level no grant reaches keeps its row, saying nothing here: still missing, and the check says so instead of "no
+  // row" (Astra, 2026-11-13: "ok fix them"; The Farm's L1 said nothing here). The Farm's own tools now hold an L1 grant.
+  const bareL1 = page.replace(/<details class="rwx-row"><summary><span class="lv">L1<\/span>[\s\S]*?<\/details>(?=<details class="rwx-row"><summary><span class="lv">L2<)/,
+    '<div class="rwx-row none"><span class="lv">L1</span><span class="should">Should be</span><span class="gwho">a program or tool · nothing here</span></div>');
+  const bare = checks(bareL1, 'rift-rabbit');
+  assert.deepEqual(bare.map((r) => [r.check, r.status]), [['A70', 'Missing']], 'L1 with nothing here');
+  assert.match(bare[0].detail, /says nothing here: no grant reaches it/);
+  assert.ok(!ids(checks(files[pagePath(HUB)], HUB)).includes('A70'), 'The Farm\'s R W X has a row with a grant at every level');
   // Data Chip's phone is Data Dealer's only.
   assert.deepEqual(checks(files[pagePath(PHONE_PAGE)], PHONE_PAGE), []);
   assert.deepEqual(ids(checks(files[pagePath(PHONE_PAGE)], 'rift-rabbit')), ['A44'], 'the phone on another pet\'s page');
