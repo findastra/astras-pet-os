@@ -5,7 +5,7 @@
   "title": "Spoonfed",
   "url": "http://127.0.0.1:4173/spoonfed/",
   "version": "e65e480",
-  "about": "Its working copy (findastra/spoonfed#12), not the live site",
+  "about": "Its working copy (findastra/spoonfed#12), not the live site; pictured without the EDITORIAL bar",
   "checked": "20261113",
   "engines": [
     "chromium",
@@ -21,9 +21,45 @@
       "h": 667,
       "css_per_inch": 163,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 375,
+          "h": 667,
+          "sh": 1145
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 375,
+          "h": 667,
+          "sh": 1143
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-iphone-se-upright-375x667-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-iphone-se-upright-375x667-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-iphone-se-upright-375x667-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-iphone-se-upright-375x667-01-e65e480-20261113.jpg",
+            "pos": 478
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-iphone-se-upright-375x667-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-iphone-se-upright-375x667-01-e65e480-20261113.jpg",
+            "pos": 476
+          }
+        ]
       }
     },
     {
@@ -35,9 +71,45 @@
       "h": 375,
       "css_per_inch": 163,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 667,
+          "h": 375,
+          "sh": 601
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 667,
+          "h": 375,
+          "sh": 599
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-iphone-se-side-667x375-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-iphone-se-side-667x375-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-iphone-se-side-667x375-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-iphone-se-side-667x375-01-e65e480-20261113.jpg",
+            "pos": 226
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-iphone-se-side-667x375-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-iphone-se-side-667x375-01-e65e480-20261113.jpg",
+            "pos": 224
+          }
+        ]
       }
     },
     {
@@ -49,9 +121,45 @@
       "h": 874,
       "css_per_inch": 153.3,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 402,
+          "h": 874,
+          "sh": 1145
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 402,
+          "h": 874,
+          "sh": 1143
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-iphone-pro-upright-402x874-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-iphone-pro-upright-402x874-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-iphone-pro-upright-402x874-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-iphone-pro-upright-402x874-01-e65e480-20261113.jpg",
+            "pos": 271
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-iphone-pro-upright-402x874-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-iphone-pro-upright-402x874-01-e65e480-20261113.jpg",
+            "pos": 269
+          }
+        ]
       }
     },
     {
@@ -63,9 +171,45 @@
       "h": 402,
       "css_per_inch": 153.3,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 874,
+          "h": 402,
+          "sh": 560
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 874,
+          "h": 402,
+          "sh": 559
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-iphone-pro-side-874x402-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-iphone-pro-side-874x402-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-iphone-pro-side-874x402-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-iphone-pro-side-874x402-01-e65e480-20261113.jpg",
+            "pos": 158
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-iphone-pro-side-874x402-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-iphone-pro-side-874x402-01-e65e480-20261113.jpg",
+            "pos": 157
+          }
+        ]
       }
     },
     {
@@ -77,9 +221,45 @@
       "h": 923,
       "css_per_inch": 160.8,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 923,
+          "sh": 1145
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 412,
+          "h": 923,
+          "sh": 1143
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-pixel-upright-412x923-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-pixel-upright-412x923-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-pixel-upright-412x923-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-pixel-upright-412x923-01-e65e480-20261113.jpg",
+            "pos": 222
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-pixel-upright-412x923-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-pixel-upright-412x923-01-e65e480-20261113.jpg",
+            "pos": 220
+          }
+        ]
       }
     },
     {
@@ -91,9 +271,45 @@
       "h": 412,
       "css_per_inch": 160.8,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 923,
+          "h": 412,
+          "sh": 560
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 923,
+          "h": 412,
+          "sh": 559
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-pixel-side-923x412-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-pixel-side-923x412-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-pixel-side-923x412-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-pixel-side-923x412-01-e65e480-20261113.jpg",
+            "pos": 148
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-pixel-side-923x412-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-pixel-side-923x412-01-e65e480-20261113.jpg",
+            "pos": 147
+          }
+        ]
       }
     },
     {
@@ -105,9 +321,45 @@
       "h": 780,
       "css_per_inch": 138.7,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "h": 780,
+          "sh": 1145
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 360,
+          "h": 780,
+          "sh": 1143
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-galaxy-upright-360x780-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-galaxy-upright-360x780-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-galaxy-upright-360x780-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-galaxy-upright-360x780-01-e65e480-20261113.jpg",
+            "pos": 365
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-galaxy-upright-360x780-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-galaxy-upright-360x780-01-e65e480-20261113.jpg",
+            "pos": 363
+          }
+        ]
       }
     },
     {
@@ -119,9 +371,45 @@
       "h": 360,
       "css_per_inch": 138.7,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 780,
+          "h": 360,
+          "sh": 601
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 780,
+          "h": 360,
+          "sh": 599
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-galaxy-side-780x360-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-galaxy-side-780x360-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-galaxy-side-780x360-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-galaxy-side-780x360-01-e65e480-20261113.jpg",
+            "pos": 241
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-galaxy-side-780x360-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-galaxy-side-780x360-01-e65e480-20261113.jpg",
+            "pos": 239
+          }
+        ]
       }
     },
     {
@@ -133,9 +421,23 @@
       "h": 1133,
       "css_per_inch": 163,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-mini-upright-744x1133-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-mini-upright-744x1133-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-mini-upright-744x1133-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-mini-upright-744x1133-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -147,9 +449,23 @@
       "h": 744,
       "css_per_inch": 163,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-mini-side-1133x744-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-mini-side-1133x744-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-mini-side-1133x744-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-mini-side-1133x744-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -161,9 +477,23 @@
       "h": 1112,
       "css_per_inch": 132,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-pro-10-upright-834x1112-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-pro-10-upright-834x1112-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-pro-10-upright-834x1112-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-pro-10-upright-834x1112-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -175,9 +505,23 @@
       "h": 834,
       "css_per_inch": 132,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-pro-10-side-1112x834-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-pro-10-side-1112x834-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-pro-10-side-1112x834-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-pro-10-side-1112x834-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -189,9 +533,23 @@
       "h": 1366,
       "css_per_inch": 132,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-pro-12-upright-1024x1366-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-pro-12-upright-1024x1366-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-pro-12-upright-1024x1366-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-pro-12-upright-1024x1366-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -203,9 +561,23 @@
       "h": 1024,
       "css_per_inch": 132,
       "picture_scale": 1,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-ipad-pro-12-side-1366x1024-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-ipad-pro-12-side-1366x1024-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-ipad-pro-12-side-1366x1024-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-ipad-pro-12-side-1366x1024-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -217,9 +589,45 @@
       "h": 800,
       "css_per_inch": 113.5,
       "picture_scale": 2,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800,
+          "sh": 826
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800,
+          "sh": 824
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-laptop-fixed-1280x800-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-laptop-fixed-1280x800-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-laptop-fixed-1280x800-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-laptop-fixed-1280x800-01-e65e480-20261113.jpg",
+            "pos": 26
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-laptop-fixed-1280x800-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-laptop-fixed-1280x800-01-e65e480-20261113.jpg",
+            "pos": 24
+          }
+        ]
       }
     },
     {
@@ -231,9 +639,23 @@
       "h": 1080,
       "css_per_inch": null,
       "picture_scale": 2,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-desktop-fixed-1920x1080-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-desktop-fixed-1920x1080-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-desktop-fixed-1920x1080-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-desktop-fixed-1920x1080-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     },
     {
@@ -245,9 +667,45 @@
       "h": 420,
       "css_per_inch": null,
       "picture_scale": 2,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 640,
+          "h": 420,
+          "sh": 601
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 640,
+          "h": 420,
+          "sh": 599
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-window-small-fixed-640x420-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-window-small-fixed-640x420-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-window-small-fixed-640x420-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-window-small-fixed-640x420-01-e65e480-20261113.jpg",
+            "pos": 181
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-window-small-fixed-640x420-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-window-small-fixed-640x420-01-e65e480-20261113.jpg",
+            "pos": 179
+          }
+        ]
       }
     },
     {
@@ -259,9 +717,45 @@
       "h": 360,
       "css_per_inch": null,
       "picture_scale": 2,
+      "scroll": {
+        "chromium": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 1600,
+          "h": 360,
+          "sh": 646
+        },
+        "webkit": {
+          "page": false,
+          "x": 0,
+          "y": 0,
+          "w": 1600,
+          "h": 360,
+          "sh": 645
+        }
+      },
       "files": {
-        "chromium": "spoonfed-chromium-window-wide-fixed-1600x360-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-window-wide-fixed-1600x360-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-window-wide-fixed-1600x360-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-chromium-window-wide-fixed-1600x360-01-e65e480-20261113.jpg",
+            "pos": 286
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-window-wide-fixed-1600x360-00-e65e480-20261113.jpg",
+            "pos": 0
+          },
+          {
+            "file": "spoonfed-webkit-window-wide-fixed-1600x360-01-e65e480-20261113.jpg",
+            "pos": 285
+          }
+        ]
       }
     },
     {
@@ -273,9 +767,23 @@
       "h": 1000,
       "css_per_inch": null,
       "picture_scale": 2,
+      "scroll": {
+        "chromium": null,
+        "webkit": null
+      },
       "files": {
-        "chromium": "spoonfed-chromium-window-tall-fixed-520x1000-e65e480-20261113.jpg",
-        "webkit": "spoonfed-webkit-window-tall-fixed-520x1000-e65e480-20261113.jpg"
+        "chromium": [
+          {
+            "file": "spoonfed-chromium-window-tall-fixed-520x1000-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ],
+        "webkit": [
+          {
+            "file": "spoonfed-webkit-window-tall-fixed-520x1000-00-e65e480-20261113.jpg",
+            "pos": 0
+          }
+        ]
       }
     }
   ],

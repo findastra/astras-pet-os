@@ -45,7 +45,20 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
 .shot .group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#ffd84d}
 .pair{display:flex;gap:12px;align-items:flex-start}
 .pair p{margin:4px 0 0;font-size:13px}
-.shot img{display:block;max-width:none;border:1px solid rgba(232,240,255,.35);border-radius:4px}
+/* Each screen is a window that scrolls like the device (Astra, 2026-11-13: "the windows also need the ability to
+   scroll, you can make that arrows/mouse scroll wheel"): the first picture behind, and over the part that scrolls on
+   the device, a box that scrolls through the pictures taken further down. */
+.win{position:relative;overflow:hidden;border:1px solid rgba(232,240,255,.35);border-radius:4px;flex:none}
+.dev{position:absolute;left:0;top:0;transform-origin:0 0}
+.dev img{display:block;max-width:none}
+.scroller{position:absolute;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
+.scroller::-webkit-scrollbar{display:none}
+.tall{position:relative}
+.seg{position:absolute;left:0;overflow:hidden}
+.seg img{position:absolute}
+.screen{display:flex;gap:6px;align-items:flex-start}
+.ud{display:flex;flex-direction:column;gap:6px}
+.ud button{padding:4px 9px;font-size:13px;line-height:1}
 .ruler{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 10px;font-size:13px;color:#c3d5ef}
 .card{height:14px;border:1px solid #e8f0ff;border-radius:3px;background:rgba(255,255,255,.12)}
 .ruler input{width:64px;font:inherit;color:inherit;background:rgba(255,255,255,.06);border:1px solid #e8f0ff;border-radius:8px;padding:2px 6px}
@@ -69,7 +82,8 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
   <button type="button" class="arrow" id="next" aria-label="Next screen">&#9654;</button>
   <output id="where" aria-live="polite"></output>
 </div>
-<div class="strip" id="strip" tabindex="0" aria-label="Every screen; use the left and right arrow keys" hidden></div>
+<p class="nav-help" hidden>Scroll a screen with the mouse wheel, its ▲ ▼ buttons, or the up and down arrow keys; the left and right arrow keys go to the next screen.</p>
+<div class="strip" id="strip" tabindex="0" aria-label="Every screen; left and right arrow keys move between screens, up and down scroll one" hidden></div>
 <h2 id="found-title" hidden>What the check found</h2>
 <ul id="found" hidden></ul>
 <p>Made with Mirror Pool's device-shots and device-shots-spawner. Every round of pictures is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
@@ -103,22 +117,67 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
   function sizeAll() {
     document.getElementById('card').style.width = (3.370 * cssPerInchHere()) + 'px';
     if (!data) return;
-    var imgs = strip.querySelectorAll('img');
-    for (var i = 0; i < imgs.length; i++) {
-      var s = data.screens[Number(imgs[i].dataset.n)], w = shown(s);
-      imgs[i].style.width = w + 'px'; imgs[i].style.height = (w * s.h / s.w) + 'px';
+    var wins = strip.querySelectorAll('.win');
+    for (var i = 0; i < wins.length; i++) {
+      var s = data.screens[Number(wins[i].dataset.n)], k = shown(s) / s.w;
+      wins[i].style.width = (s.w * k) + 'px'; wins[i].style.height = (s.h * k) + 'px';
+      wins[i].firstChild.style.transform = 'scale(' + k + ')';
     }
     tell();
   }
   function tell() { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ } }
   function label(s) { return s.name + (s.turn === 'upright' ? ', upright' : s.turn === 'on its side' ? ', on its side' : ''); }
-  function picture(engine, s, dir, n) {
-    var file = s.files && s.files[engine]; if (!file) return document.createTextNode('No ' + NAMES[engine] + ' picture.');
-    var i = document.createElement('img'), w = shown(s);
-    i.src = dir + file; i.dataset.n = n; i.style.width = w + 'px'; i.style.height = (w * s.h / s.w) + 'px'; i.decoding = 'async';
-    i.alt = data.title + ', ' + label(s) + ', in ' + NAMES[engine];
-    i.addEventListener('load', tell);
+  function img(src, s) {
+    var i = document.createElement('img'); i.src = src; i.style.width = s.w + 'px'; i.style.height = s.h + 'px'; i.decoding = 'async'; i.alt = '';
     return i;
+  }
+  // One screen as a window: the first picture fills it; over the part of the page that scrolls on the device sits a box
+  // that scrolls through the pictures taken further down, each showing its own slice. Laid out in the device's own
+  // pixels, then scaled to real size.
+  function picture(engine, s, dir, n) {
+    var frames = s.files && s.files[engine];
+    if (typeof frames === 'string') frames = [{ file: frames, pos: 0 }];
+    if (!frames || !frames.length) return document.createTextNode('No ' + NAMES[engine] + ' picture.');
+    var k = shown(s) / s.w;
+    var win = document.createElement('div'); win.className = 'win'; win.dataset.n = n;
+    win.style.width = (s.w * k) + 'px'; win.style.height = (s.h * k) + 'px';
+    win.setAttribute('role', 'img'); win.setAttribute('aria-label', data.title + ', ' + label(s) + ', in ' + NAMES[engine]);
+    var dev = document.createElement('div'); dev.className = 'dev'; dev.style.width = s.w + 'px'; dev.style.height = s.h + 'px'; dev.style.transform = 'scale(' + k + ')';
+    var first = img(dir + frames[0].file, s); first.addEventListener('load', tell); dev.appendChild(first);
+    var sc = s.scroll && s.scroll[engine];
+    if (sc && frames.length > 1) {
+      var box = document.createElement('div'); box.className = 'scroller';
+      box.style.left = sc.x + 'px'; box.style.top = sc.y + 'px'; box.style.width = sc.w + 'px'; box.style.height = sc.h + 'px';
+      var tall = document.createElement('div'); tall.className = 'tall'; tall.style.height = sc.sh + 'px';
+      frames.forEach(function (f, j) {
+        var end = j < frames.length - 1 ? frames[j + 1].pos : f.pos + sc.h;
+        var seg = document.createElement('div'); seg.className = 'seg';
+        seg.style.top = f.pos + 'px'; seg.style.height = Math.max(0, end - f.pos) + 'px'; seg.style.width = sc.w + 'px';
+        var pic = img(dir + f.file, s); pic.style.left = -sc.x + 'px'; pic.style.top = -sc.y + 'px'; pic.loading = j ? 'lazy' : 'eager';
+        seg.appendChild(pic); tall.appendChild(seg);
+      });
+      box.appendChild(tall); dev.appendChild(box);
+      win.scroller = box;
+    }
+    win.appendChild(dev);
+    var wrap = document.createElement('div'); wrap.className = 'screen'; wrap.appendChild(win);
+    if (win.scroller) {
+      var ud = document.createElement('div'); ud.className = 'ud';
+      [['▲', -1, 'Scroll up'], ['▼', 1, 'Scroll down']].forEach(function (b) {
+        var btn = document.createElement('button'); btn.type = 'button'; btn.textContent = b[0]; btn.setAttribute('aria-label', b[2] + ': ' + label(s));
+        btn.addEventListener('click', function () { win.scroller.scrollTop += b[1] * win.scroller.clientHeight * 0.6; });
+        ud.appendChild(btn);
+      });
+      wrap.appendChild(ud);
+    }
+    return wrap;
+  }
+  // Up and down scroll the screen the counter names (both of its windows when both engines show).
+  function scrollCurrent(dir) {
+    var fig = strip.children[at]; if (!fig) return;
+    var s = data.screens[at], sc = null;
+    fig.querySelectorAll('.win').forEach(function (w) { if (w.scroller) { w.scroller.scrollTop += dir * w.scroller.clientHeight * 0.6; sc = true; } });
+    return sc;
   }
   function draw(engine) {
     var dir = DIR + data.name + '/';
@@ -183,6 +242,7 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
       if (e.altKey || e.ctrlKey || e.metaKey) return;
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
+      else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { if (scrollCurrent(e.key === 'ArrowUp' ? -1 : 1)) e.preventDefault(); }
     });
     document.querySelectorAll('.row button').forEach(function (b) {
       b.addEventListener('click', function () {
