@@ -1,7 +1,7 @@
-status: READY_FOR_REVIEW, waits for Astra's merge OK in chat (#357 and the 11 pet repo PRs together)
+status: DONE, merged with Astra's OK in chat ("Yes, merge all 12", 2026-11-13: #357 and the 11 pet PRs; her L4 OK for farm-own-tools)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-13, the Flash Audit template chat
-needs: Astra's OK to merge #357 and the 11 pet PRs (the grant farm-own-tools is an L4 decision); then the farm on her PC fast-forwarded and rebuilt
+needs: the farm on her PC fast-forwarded and rebuilt; A49's art and the grants for the reaches outside farm-own-tools wait on Astra
 ---
 ## Task
 
@@ -40,4 +40,7 @@ Astra, 2026-11-13: "ok fix them": the findings of the Flash Audit's template che
 - Each pet branch changes one line of `pet.json` (GitHub compare).
 - Maker-checker: a separate read-only checker agent reviewed the grant. Verdict "needs change": the first wording said
   click-check only reads and named one data folder; corrected to the wording above. It found type:host matches only
-  astras-pet-os, no conflict with seat-core or farmer-round, and no widening. Astra has not given her merge OK.
+  astras-pet-os, no conflict with seat-core or farmer-round, and no widening.
+- Astra's merge OK in chat: "Yes, merge all 12" (2026-11-13). Right before the merge: main had not moved, CodeQL
+  passed, all 12 mergeable, no other open PR in the 11 pet repos touches `pet.json`. The 11 pet PRs merged first, so
+  no round could copy `v0.1` back between them.
