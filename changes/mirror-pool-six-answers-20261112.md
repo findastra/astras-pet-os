@@ -31,16 +31,22 @@ I need?", then **"all rec"** to the six-slide deck. The answers are recorded on 
 - **Who checks what:** Mirror Pool owns how a page looks and fits on each screen. Browser Bat owns links, uptime and
   publishing. This is written in platform-platypus AGENTS.md.
 
-- **Latest check on Mirror Pool's page** (Astra, 2026-11-13: "this should be on that page. It can be smaller than
-  it is, but it should be on that page"): `apps/platform-platypus-latest-check-20261113.html` sits in device-shots'
-  pill (its System Map `embed`). It shows the last page checked, Spoonfed's working copy (85dd303), with every screen
-  at its real size (Astra, 2026-11-13: "I want each screen to be like the actual size you would see it in real life on
-  my pc monitor. I dont care if this pet program has to be wider than normal"). One picture pixel is one CSS pixel. It
-  can show Brave/Chrome, Safari, or both side by side, with what was fixed and what is still open. The 38 pictures
-  (2 MB of JPEGs) are in `apps/platform-platypus-latest-check/`.
-- **A new tool frame, `full`** (System Map `"frame": "full"`): the tool
-   stays in its pill and fills it; the page holding one has no width limit, and what is still wider scrolls sideways inside the tool. Only
-  device-shots uses it today.
+- **`<name>-device-shots` pills, made by device-shots-spawner** (Astra, 2026-11-13: "this should be on that page";
+  "I want each screen to be like the actual size you would see it in real life on my pc monitor"; "it should be
+  spoonfed-device-shots, and then we can add more and more. There should be a device-shots-spawner tool too that adds
+  more pills like spoonfed-device-shots"):
+  - The first pill is `spoonfed-device-shots`: Spoonfed's working copy (85dd303). One page,
+    `apps/platform-platypus-device-shots-20261113.html?data=<name>/<file>.json`, shows any pill's pictures. Every
+    screen is at its real size (one picture pixel to one CSS pixel) in one row that scrolls sideways. The scroll bar is
+    on top, with arrows to click and the left and right arrow keys. It can show Brave/Chrome, Safari or both, and lists
+    what the check found. It is styled like the Model Pet Program's tool page.
+  - Each pill's pictures and data file are in `apps/platform-platypus-device-shots/<name>/`; Spoonfed's 38 JPEGs are
+    2 MB.
+  - New System Map nodes: `device-shots-spawner` (the tool, in platform-platypus #11) and `spoonfed-device-shots`
+    (written by it). Plain device-shots no longer holds a picture panel.
+- **A new tool frame, `full`** (System Map `"frame": "full"`): the tool stays in its pill and fills it. The page that
+  holds one has no width limit, and anything still wider scrolls sideways inside the tool. Only the device-shots pills
+  use it today.
 
 ## In findastra/platform-platypus (#11)
 

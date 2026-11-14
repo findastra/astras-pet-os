@@ -4808,9 +4808,35 @@
       "category": "Tool",
       "version": "v1.1",
       "label": "mirror-pool-v1.0-device-shots-v1.1",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-latest-check-20261113.html",
-      "frame": "full",
       "job": "A tool of Mirror Pool (Platform Platypus): a picture of a page on every screen in its device list, upright and on its side, and a contact sheet of them all, so a person can see that the page looks right everywhere; one sheet per engine (Chromium, WebKit, Firefox) since v1.1, 2026-11-12 (platform-platypus tools/device-shots/device-shots-20261019.mjs)."
+    },
+    {
+      "id": "device-shots-spawner",
+      "name": "device-shots-spawner",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-device-shots-spawner-v1.0",
+      "job": "A tool of Mirror Pool (Platform Platypus; Astra, 2026-11-13: \"There should be a device-shots-spawner tool too that adds more pills like spoonfed-device-shots\"): given a name and a page, it pictures the page with device-shots on every screen in Chromium (Brave or Chrome) and WebKit, keeps every picture on Astra's PC (Astra's PetOS Data\\platform-platypus\\<name>-device-shots), copies them at real size into the hub (apps/platform-platypus-device-shots/<name>) and adds or updates the <name>-device-shots pill on this page; then npm run build, a branch and a pull request, as for every hub change (platform-platypus tools/device-shots-spawner/device-shots-spawner-20261113.mjs).",
+      "does": "Adds a <name>-device-shots pill for any page: every screen at real size, in Brave's and Safari's engines."
+    },
+    {
+      "id": "spoonfed-device-shots",
+      "name": "spoonfed-device-shots",
+      "type": "tool",
+      "of": "program-36",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "mirror-pool-v1.0-spoonfed-device-shots-v1.0",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-device-shots-20261113.html?data=spoonfed%2Fspoonfed-device-shots-85dd303-20261113.json",
+      "frame": "full",
+      "job": "A pill of Mirror Pool (Platform Platypus), made by device-shots-spawner: Spoonfed on every screen in device-shots' list, upright and on its side, in Chromium (Brave, Chrome, Edge, Android) and WebKit (Safari, every iPhone and iPad browser), each picture at its real size in one row that scrolls sideways, with what the last check found (platform-platypus tools/device-shots-spawner/device-shots-spawner-20261113.mjs).",
+      "does": "Shows Spoonfed on every phone, iPad and computer screen at its real size, in Brave's and Safari's engines."
     },
     {
       "id": "site-watch",

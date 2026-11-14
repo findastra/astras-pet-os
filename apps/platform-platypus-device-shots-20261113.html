@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Device shots · Mirror Pool</title>
+<script src="words-mode-20261019.js"></script>
+<script src="developer-words-20261019.js"></script>
+<!-- One <name>-device-shots pill of Mirror Pool (Platform Platypus): a page on every screen at its real size, one
+     picture pixel to one CSS pixel, in one row that scrolls sideways with the scroll bar on top, arrows to click and
+     the left and right arrow keys, and what the last check found. Which page it shows comes from ?data=<name>/<file>.json
+     in platform-platypus-device-shots/, written by device-shots-spawner (Astra, 2026-11-13: "it should be
+     spoonfed-device-shots, and then we can add more and more. There should be a device-shots-spawner tool too that adds
+     more pills like spoonfed-device-shots"). Styled like the Model Pet Program's tool page.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-13. -->
+<style>
+html,body{margin:0;background:transparent;color:#f4f8ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+main{padding:4px 0}
+p{margin:0 0 10px;color:#c3d5ef}
+h2{font-size:15px;font-weight:600;margin:16px 0 6px;color:#f4f8ff}
+ul{list-style:none;margin:0 0 12px;padding:0;max-width:760px}
+li{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid rgba(232,240,255,.35)}
+li span:last-child{color:#c3d5ef;text-align:right;flex:none}
+li .fixed,li .done{color:#7fe0a8} li .open,li .not-checked{color:#ffd84d}
+button{border-radius:999px;border:1px solid #e8f0ff;background:rgba(255,255,255,.06);color:inherit;font:inherit;padding:4px 14px;cursor:pointer}
+button:hover{background:rgba(255,255,255,.1)}
+button[aria-pressed="true"]{background:rgba(255,255,255,.18)}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.nav{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
+.nav .arrow{font-size:18px;line-height:1;padding:6px 14px}
+.nav output{font-size:14px;color:#c3d5ef}
+.nav output b{color:#f4f8ff;font-weight:600}
+/* The scroll bar sits on top: the row is flipped upside down and each screen flipped back. */
+.strip{display:flex;gap:28px;align-items:flex-end;overflow-x:auto;transform:scaleY(-1);padding:14px 2px 2px;
+  scrollbar-color:#c3d5ef rgba(255,255,255,.08)}
+.strip::-webkit-scrollbar{height:12px}
+.strip::-webkit-scrollbar-thumb{background:#c3d5ef;border-radius:6px}
+.strip::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:6px}
+.shot{margin:0;flex:none;transform:scaleY(-1)}
+.shot figcaption{display:flex;gap:10px;align-items:baseline;margin:0 0 6px;font-size:14px}
+.shot figcaption b{font-weight:600}
+.shot figcaption span{color:#c3d5ef;font-size:13px}
+.shot .group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#ffd84d}
+.pair{display:flex;gap:12px;align-items:flex-start}
+.pair p{margin:4px 0 0;font-size:13px}
+.shot img{display:block;max-width:none;border:1px solid rgba(232,240,255,.35);border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+<p id="about">Loading the pictures…</p>
+<div class="row" role="group" aria-label="Which engine" hidden>
+  <button type="button" data-engine="chromium" aria-pressed="true">Brave / Chrome</button>
+  <button type="button" data-engine="webkit" aria-pressed="false">Safari (iPhone, iPad)</button>
+  <button type="button" data-engine="both" aria-pressed="false">Both</button>
+</div>
+<div class="nav" hidden>
+  <button type="button" class="arrow" id="prev" aria-label="Previous screen">&#9664;</button>
+  <button type="button" class="arrow" id="next" aria-label="Next screen">&#9654;</button>
+  <output id="where" aria-live="polite"></output>
+</div>
+<div class="strip" id="strip" tabindex="0" aria-label="Every screen; use the left and right arrow keys" hidden></div>
+<h2 id="found-title" hidden>What the check found</h2>
+<ul id="found" hidden></ul>
+<p>Made with Mirror Pool's device-shots and device-shots-spawner. Every round of pictures is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
+</main>
+<script>
+(function () {
+  var DIR = 'platform-platypus-device-shots/';
+  var NAMES = { chromium: 'Brave / Chrome', webkit: 'Safari' };
+  var GROUP = { phone: 'Phones', tablet: 'iPads', computer: 'Computers', window: 'Computers' };
+  var SAY = { fixed: 'fixed', done: 'done', open: 'open', 'not-checked': 'not checked yet' };
+  var about = document.getElementById('about'), strip = document.getElementById('strip'), where = document.getElementById('where');
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+  var data = null, at = 0;
+  function tell() { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ } }
+  function label(s) { return s.name + (s.turn === 'upright' ? ', upright' : s.turn === 'on its side' ? ', on its side' : ''); }
+  function picture(engine, s, dir) {
+    var file = s.files && s.files[engine]; if (!file) return document.createTextNode('No ' + NAMES[engine] + ' picture.');
+    var i = document.createElement('img');
+    i.src = dir + file; i.width = s.w; i.height = s.h; i.loading = 'lazy'; i.alt = data.title + ', ' + label(s) + ', in ' + NAMES[engine];
+    i.addEventListener('load', tell);
+    return i;
+  }
+  function draw(engine) {
+    var dir = DIR + data.name + '/';
+    strip.textContent = '';
+    var last = null;
+    data.screens.forEach(function (s) {
+      var fig = document.createElement('figure'); fig.className = 'shot';
+      var cap = document.createElement('figcaption');
+      var g = document.createElement('span'); g.className = 'group'; var grp = GROUP[s.kind] || ''; g.textContent = grp !== last ? grp : ''; last = grp;
+      var b = document.createElement('b'); b.textContent = label(s);
+      var z = document.createElement('span'); z.textContent = s.w + ' × ' + s.h;
+      cap.append(g, b, z); fig.appendChild(cap);
+      if (engine === 'both') {
+        var pair = document.createElement('div'); pair.className = 'pair';
+        ['chromium', 'webkit'].forEach(function (e) {
+          var d = document.createElement('div'), p = document.createElement('p');
+          d.appendChild(picture(e, s, dir)); p.textContent = NAMES[e]; d.appendChild(p); pair.appendChild(d);
+        });
+        fig.appendChild(pair);
+      } else fig.appendChild(picture(engine, s, dir));
+      strip.appendChild(fig);
+    });
+    go(at);
+    tell();
+  }
+  function current() {
+    var shots = strip.children, best = 0, d = Infinity;
+    for (var i = 0; i < shots.length; i++) { var x = Math.abs(shots[i].offsetLeft - strip.offsetLeft - strip.scrollLeft); if (x < d) { d = x; best = i; } }
+    return best;
+  }
+  function say(n) {
+    var s = data.screens[n];
+    where.innerHTML = '<b></b> · ' + s.w + ' × ' + s.h + ' · ' + (n + 1) + ' of ' + data.screens.length;
+    where.firstChild.textContent = label(s);
+    prev.disabled = n === 0; next.disabled = n === data.screens.length - 1;
+  }
+  function go(n) {
+    at = Math.max(0, Math.min(data.screens.length - 1, n));
+    var shot = strip.children[at]; if (!shot) return;
+    strip.scrollLeft = shot.offsetLeft - strip.offsetLeft;
+    say(at);
+  }
+  function start(d) {
+    data = d;
+    about.textContent = d.title + (d.version ? ' (' + d.version + ')' : '') + ', checked ' + String(d.checked).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3') + (d.about ? '. ' + d.about : '') + '. Each screen is shown at its real size, as big as it would be on this monitor.';
+    document.querySelectorAll('[hidden]').forEach(function (x) { if (x.id !== 'found' && x.id !== 'found-title') x.hidden = false; });
+    var found = document.getElementById('found');
+    (d.findings || []).forEach(function (f) {
+      var li = document.createElement('li'), a = document.createElement('span'), b = document.createElement('span');
+      a.textContent = f.text; b.textContent = SAY[f.state] || f.state || ''; b.className = f.state || '';
+      li.append(a, b); found.appendChild(li);
+    });
+    if ((d.findings || []).length) { found.hidden = false; document.getElementById('found-title').hidden = false; }
+    prev.addEventListener('click', function () { go(at - 1); });
+    next.addEventListener('click', function () { go(at + 1); });
+    var settle;
+    strip.addEventListener('scroll', function () { clearTimeout(settle); settle = setTimeout(function () { at = current(); say(at); }, 120); });
+    document.addEventListener('keydown', function (e) {
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
+    });
+    document.querySelectorAll('.row button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.row button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        draw(b.dataset.engine);
+      });
+    });
+    draw('chromium');
+  }
+  // Only a data file in this pet's own folder: <name>/<file>.json, lowercase words and hyphens.
+  var ask = new URLSearchParams(location.search).get('data') || '';
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+\.json$/.test(ask)) { about.textContent = 'Which page? This pill needs ?data=<name>/<file>.json, made by device-shots-spawner.'; tell(); return; }
+  fetch(DIR + ask).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(start).catch(function () {
+    about.textContent = 'The pictures for this pill are not here (' + ask + '). Run device-shots-spawner again.'; tell();
+  });
+  window.addEventListener('resize', tell);
+})();
+</script>
+</body>
+</html>
