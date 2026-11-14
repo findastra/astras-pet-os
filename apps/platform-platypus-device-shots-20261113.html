@@ -46,6 +46,10 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
 .pair{display:flex;gap:12px;align-items:flex-start}
 .pair p{margin:4px 0 0;font-size:13px}
 .shot img{display:block;max-width:none;border:1px solid rgba(232,240,255,.35);border-radius:4px}
+.ruler{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 10px;font-size:13px;color:#c3d5ef}
+.card{height:14px;border:1px solid #e8f0ff;border-radius:3px;background:rgba(255,255,255,.12)}
+.ruler input{width:64px;font:inherit;color:inherit;background:rgba(255,255,255,.06);border:1px solid #e8f0ff;border-radius:8px;padding:2px 6px}
+.ruler input:focus-visible{outline:2px solid #ffd84d;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -55,6 +59,10 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
   <button type="button" data-engine="chromium" aria-pressed="true">Brave / Chrome</button>
   <button type="button" data-engine="webkit" aria-pressed="false">Safari (iPhone, iPad)</button>
   <button type="button" data-engine="both" aria-pressed="false">Both</button>
+</div>
+<div class="ruler" hidden>
+  <span>Real size check: this bar should be as wide as a bank card</span><span class="card" id="card"></span>
+  <label>monitor <input type="number" id="ppi" min="60" max="400" step="1"> pixels per inch</label>
 </div>
 <div class="nav" hidden>
   <button type="button" class="arrow" id="prev" aria-label="Previous screen">&#9664;</button>
@@ -75,12 +83,40 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
   var about = document.getElementById('about'), strip = document.getElementById('strip'), where = document.getElementById('where');
   var prev = document.getElementById('prev'), next = document.getElementById('next');
   var data = null, at = 0;
+  // Real, physical size (Astra, 2026-11-13: "I want them to appear on my screen the same size as they would in real
+  // life"). A phone or iPad has its own CSS pixels per inch (css_per_inch in the data); this monitor has its pixels per
+  // inch over the browser's pixel ratio (Windows scaling and zoom). Astra's monitor, a Dell U3225QE (31.5 inches,
+  // 3840 wide), is 140 pixels per inch; a viewer can change it, and the bank-card bar (3.37 inches) shows when it is
+  // right. Desktop and windows are drawn as they would be on this monitor: one CSS pixel each.
+  var PPI_KEY = 'mirror-pool-monitor-ppi', ppi = 140;
+  try { var saved = Number(localStorage.getItem(PPI_KEY)); if (saved >= 60 && saved <= 400) ppi = saved; } catch (e) { /* no storage */ }
+  // The page around this one sends its own pixel ratio: a frame can read 1 for its own (the Claude app's browser does).
+  var ratio = window.devicePixelRatio || 1;
+  window.addEventListener('message', function (e) {
+    var m = e.data;
+    if (e.source !== window.parent || !m || m.type !== 'pixel-ratio' || !(Number(m.ratio) > 0)) return;
+    if (Math.abs(Number(m.ratio) - ratio) > 0.01) { ratio = Number(m.ratio); sizeAll(); }
+  });
+  function cssPerInchHere() { return ppi / Math.max(ratio, window.devicePixelRatio || 1); }
+  function shown(s) { return s.css_per_inch ? s.w / s.css_per_inch * cssPerInchHere() : s.w; }
+  function inches(s) { return s.css_per_inch ? (Math.round(s.w / s.css_per_inch * 10) / 10) + ' × ' + (Math.round(s.h / s.css_per_inch * 10) / 10) + ' in' : ''; }
+  function sizeAll() {
+    document.getElementById('card').style.width = (3.370 * cssPerInchHere()) + 'px';
+    if (!data) return;
+    var imgs = strip.querySelectorAll('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var s = data.screens[Number(imgs[i].dataset.n)], w = shown(s);
+      imgs[i].style.width = w + 'px'; imgs[i].style.height = (w * s.h / s.w) + 'px';
+    }
+    tell();
+  }
   function tell() { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ } }
   function label(s) { return s.name + (s.turn === 'upright' ? ', upright' : s.turn === 'on its side' ? ', on its side' : ''); }
-  function picture(engine, s, dir) {
+  function picture(engine, s, dir, n) {
     var file = s.files && s.files[engine]; if (!file) return document.createTextNode('No ' + NAMES[engine] + ' picture.');
-    var i = document.createElement('img');
-    i.src = dir + file; i.width = s.w; i.height = s.h; i.loading = 'lazy'; i.alt = data.title + ', ' + label(s) + ', in ' + NAMES[engine];
+    var i = document.createElement('img'), w = shown(s);
+    i.src = dir + file; i.dataset.n = n; i.style.width = w + 'px'; i.style.height = (w * s.h / s.w) + 'px'; i.decoding = 'async';
+    i.alt = data.title + ', ' + label(s) + ', in ' + NAMES[engine];
     i.addEventListener('load', tell);
     return i;
   }
@@ -88,21 +124,21 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
     var dir = DIR + data.name + '/';
     strip.textContent = '';
     var last = null;
-    data.screens.forEach(function (s) {
+    data.screens.forEach(function (s, n) {
       var fig = document.createElement('figure'); fig.className = 'shot';
       var cap = document.createElement('figcaption');
       var g = document.createElement('span'); g.className = 'group'; var grp = GROUP[s.kind] || ''; g.textContent = grp !== last ? grp : ''; last = grp;
       var b = document.createElement('b'); b.textContent = label(s);
-      var z = document.createElement('span'); z.textContent = s.w + ' × ' + s.h;
+      var z = document.createElement('span'); z.textContent = s.w + ' × ' + s.h + (inches(s) ? ' · ' + inches(s) : ' · as on this monitor');
       cap.append(g, b, z); fig.appendChild(cap);
       if (engine === 'both') {
         var pair = document.createElement('div'); pair.className = 'pair';
         ['chromium', 'webkit'].forEach(function (e) {
           var d = document.createElement('div'), p = document.createElement('p');
-          d.appendChild(picture(e, s, dir)); p.textContent = NAMES[e]; d.appendChild(p); pair.appendChild(d);
+          d.appendChild(picture(e, s, dir, n)); p.textContent = NAMES[e]; d.appendChild(p); pair.appendChild(d);
         });
         fig.appendChild(pair);
-      } else fig.appendChild(picture(engine, s, dir));
+      } else fig.appendChild(picture(engine, s, dir, n));
       strip.appendChild(fig);
     });
     go(at);
@@ -127,7 +163,10 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
   }
   function start(d) {
     data = d;
-    about.textContent = d.title + (d.version ? ' (' + d.version + ')' : '') + ', checked ' + String(d.checked).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3') + (d.about ? '. ' + d.about : '') + '. Each screen is shown at its real size, as big as it would be on this monitor.';
+    about.textContent = d.title + (d.version ? ' (' + d.version + ')' : '') + ', checked ' + String(d.checked).replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3') + (d.about ? '. ' + d.about : '') + '. Phones, iPads and the laptop are shown at their real size, as big as the device in your hand; the desktop and windows as they would be on this monitor.';
+    var box = document.getElementById('ppi'); box.value = ppi;
+    box.addEventListener('change', function () { var v = Number(box.value); if (v >= 60 && v <= 400) { ppi = v; try { localStorage.setItem(PPI_KEY, String(v)); } catch (e) { /* no storage */ } sizeAll(); } });
+    window.addEventListener('resize', sizeAll); // zoom changes the pixel ratio
     document.querySelectorAll('[hidden]').forEach(function (x) { if (x.id !== 'found' && x.id !== 'found-title') x.hidden = false; });
     var found = document.getElementById('found');
     (d.findings || []).forEach(function (f) {
@@ -152,6 +191,7 @@ button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offs
       });
     });
     draw('chromium');
+    sizeAll();
   }
   // Only a data file in this pet's own folder: <name>/<file>.json, lowercase words and hyphens.
   var ask = new URLSearchParams(location.search).get('data') || '';

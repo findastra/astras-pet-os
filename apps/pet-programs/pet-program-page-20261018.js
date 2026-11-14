@@ -1212,6 +1212,11 @@
     for (var i = 0; i < frames.length; i++) {
       // A wide tool in its own tool box (Bass & Biscuits' APC64 board, kits and lessons) may be long: its box grows to
       // fit it, with no scroll bar inside (Astra, 2026-11-02: "get rid of like the scroll bar on it").
-      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(frames[i].classList.contains('wide') || frames[i].classList.contains('full') ? 12000 : 1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) {
+        frames[i].style.height = Math.min(frames[i].classList.contains('wide') || frames[i].classList.contains('full') ? 12000 : 1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+        // A full tool (Mirror Pool's device-shots pills) draws things at their real, physical size, so it needs this
+        // page's pixel ratio: a frame inside the Claude app's browser reads 1 for its own (2026-11-13).
+        if (frames[i].classList.contains('full')) { try { e.source.postMessage({ type: 'pixel-ratio', ratio: window.devicePixelRatio || 1 }, e.origin); } catch (err) { /* gone */ } }
+      }
     }
   });})();

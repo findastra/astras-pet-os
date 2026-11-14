@@ -4833,7 +4833,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "mirror-pool-v1.0-spoonfed-device-shots-v1.0",
-      "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-device-shots-20261113.html?data=spoonfed%2Fspoonfed-device-shots-85dd303-20261113.json",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/platform-platypus-device-shots-20261113.html?data=spoonfed%2Fspoonfed-device-shots-e65e480-20261113.json",
       "frame": "full",
       "job": "A pill of Mirror Pool (Platform Platypus), made by device-shots-spawner: Spoonfed on every screen in device-shots' list, upright and on its side, in Chromium (Brave, Chrome, Edge, Android) and WebKit (Safari, every iPhone and iPad browser), each picture at its real size in one row that scrolls sideways, with what the last check found (platform-platypus tools/device-shots-spawner/device-shots-spawner-20261113.mjs).",
       "does": "Shows Spoonfed on every phone, iPad and computer screen at its real size, in Brave's and Safari's engines."
