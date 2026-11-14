@@ -109,8 +109,8 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
-      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI need their own apps (Corsair iCUE, MSI Center); OpenRGB can’t reach them (tried 2026-11-11, card 002 in findastra/rgbee).",
-      "does": "One colour and brightness for every light in the apartment that Light Hive reaches.",
+      "job": "Your scenes, effects and a desk preview for every light Light Hive knows, sent through light-hive-helper.",
+      "does": "Scenes for every light Light Hive reaches.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
       "frame": "wide",
       "in_pill": true
@@ -126,8 +126,8 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
-      "job": "A rainforest made live in the page (rain, wind, forest life, thunder) with lightning that flashes the screen and every light light-hive-helper reaches, thunder after the flash. Never more than three flashes a second; soft glows under reduced motion. Two screens with the same storm level strike together (Astra, 2026-11-08).",
-      "does": "Rainforest sounds with lightning across every light and screen.",
+      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches. Never more than three flashes a second.",
+      "does": "A rainforest storm across every light and screen.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
       "frame": "wide",
       "in_pill": true
