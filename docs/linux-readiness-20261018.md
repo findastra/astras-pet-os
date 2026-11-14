@@ -1,7 +1,7 @@
 # Linux readiness check for Astra's PetOS
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. **A document only: no code, setting or repo was changed.** Card 041
-holds what is left. Brought up to date the same evening, after `main` gained #85 (Workflow Whale) and #96 (the Cage
+holds what is left. Brought up to date the same evening, after `main` gained #85 (Workflow Whale) and #96 (the hub
 removed, the installer zip made the one download, v0.3.0-beta).
 
 Astra is putting Kali Linux on her old MacBook Pro so she can test Astra's PetOS the way an outside attacker would, as
@@ -30,7 +30,7 @@ the next section)
 Pet runtimes come from `runs_on` in each repo's `pet.json` on `main`, read from GitHub on 2026-10-18. `pets.json` has
 no `runs_on` field. Code was read on GitHub, not cloned to the PC. The hub's own `pet.json` (the Friendly Farmer) now
 says: "Windows 10 and 11: the installer builds the desktop pets from source. The Farmer's desk and the System Map open
-in any browser. Node 20 or newer for builds and checks." The Cage (`cage.html`, `cage-data.js`) and the old Farmer
+in any browser. Node 20 or newer for builds and checks." The old pets page (with its data file) and the old Farmer
 dock were deleted in #96, so they are not in the table.
 
 | Component | Linux | Evidence | What it depends on, or what has to change |
@@ -127,7 +127,7 @@ across every monitor. Windows allows all of that. Linux desktops do not agree:
 **GNOME on Wayland** has three ways, none a sure one: run the pets as an X11 program under XWayland (it may partly
 work: test it, especially above full-screen apps and on monitors with different scaling); write a GNOME Shell
 extension (JavaScript inside GNOME, a second program to keep); or log in to GNOME on Xorg, which recent GNOME releases
-are removing. The Cage is gone (#96) and is **not** the fallback: no browser roaming (AGENTS.md, CLAUDE.md). On a
+are removing. The old pets page is gone (#96) and is **not** the fallback: no browser roaming (AGENTS.md, CLAUDE.md). On a
 desktop without pets, the Farm page still shows every pet.
 
 ### A toolkit path for the port (for Astra to choose; not chosen here)

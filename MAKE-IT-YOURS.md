@@ -19,16 +19,21 @@ change your mind. Choosing changes only your installed copy; the steps below cha
 
 ## 1. Make your own copy (once)
 
+**What you need for this page:** a GitHub account, and on your PC [Git](https://git-scm.com),
+[Node.js](https://nodejs.org) 20 or newer and the [GitHub CLI](https://cli.github.com) (`gh`), signed in as you
+(`gh auth login`). The Friendly Farmer's tools below are Node scripts. The installer itself needs none of them.
+
 1. Make a free account at [github.com](https://github.com). A handle is enough; you do not need your real name.
 2. Open [github.com/findastra/astras-pet-os](https://github.com/findastra/astras-pet-os) and press **Fork**, then
    **Create fork**. You now have `github.com/<you>/astras-pet-os`.
 3. Give it your system's name: your fork → **Settings** → **Repository name**, for example `jordans-pet-os`
    (lowercase words joined by hyphens).
-4. Install from **your** copy: your fork → **Code** → **Download ZIP**, unzip it, and run the installer
-   (see the [README](README.md#beta-testers-and-their-ai-start-here)).
+4. Install Astra's PetOS with the installer from the latest release, as everyone does ([INSTALL.md](INSTALL.md)). Your
+   copy on GitHub is where your farm's own changes live: clone it to your PC to work on it (`gh repo clone
+   <you>/<name>`). Once your copy has a pet of your own, install from your copy instead (section 5, step 7).
 
-Or ask your AI: *"Help me fork findastra/astras-pet-os, rename it to `<name>`, and install it from my fork with its
-installer. Show me each step before you do it."*
+Or ask your AI: *"Help me fork findastra/astras-pet-os, rename it to `<name>` and clone it to my PC. Show me each step
+before you do it."*
 
 **Want your whole farm private? (Astra, 2026-10-18)** GitHub always keeps a fork of a public repo public, so a private
 farm is a **private copy** instead of a fork. The Friendly Farmer's `pet-privatizer` tool makes one on your account,
@@ -63,6 +68,14 @@ node scripts/make-it-yours-20261020.mjs XxdevilishxX
 Then the Friendly Farmer's tools act on your pets, and only while you are signed in to GitHub as you (`gh auth status`
 shows who that is). They never change Astra's pets: to change one of hers, make your own copy first. Her pets' links,
 the pictures and this guide still come from Astra's PetOS (the **upstream**); your own pets link to your account.
+
+**On your farm, you are L4.** The verified human who approves everything that matters on a farm is its owner
+([INTELLIGENCE-LEVELS.md](INTELLIGENCE-LEVELS.md): "on another user's farm, that user"). This repo's rules were written on
+Astra's farm, so they say "Astra" approves a change, merges a pull request or lets a pet in at the gate: in your copy,
+for your farm and your own pets, that is you. Astra's example pets stay hers.
+
+`npm test` passes in your copy before and after make-it-yours. If it fails right after, that is a bug in Astra's PetOS,
+not in your farm: report it (section 4) instead of changing the tests.
 
 Or ask your AI: *"Make my copy of Astra's PetOS mine with the Friendly Farmer's make-it-yours command
 (node scripts/make-it-yours-20261020.mjs with my GitHub name, as MAKE-IT-YOURS.md says). Run it with --dry-run first and
@@ -125,13 +138,56 @@ farm; on your map they are examples only.
 
 Your fork → **Sync fork** → **Update branch**, when you want them (look at **Compare** first to see what changes).
 Things you deleted stay deleted; new examples Astra adds may appear, and you can delete those too. If GitHub reports a
-conflict, ask your AI for help or open a ticket at the [vet-clinic](https://github.com/findastra/vet-clinic).
+conflict, ask your AI for help, or open an issue on [Astra's PetOS](https://github.com/findastra/astras-pet-os/issues)
+(never with keys or private data in it). The community places, the vet-clinic for sick pets, the Shed for tools and
+tricks and the Kennel for pets, are not open yet.
 
 ## 5. Your own pets
 
-- Ask your AI to make a pet for whatever you use: it follows the
-  [Pet Program Framework](PET-PROGRAM-FRAMEWORK.md), gives the pet program its own repo (`<you>/<pet-program>`), and
-  adds it to your `pets.json`. The Friendly Farmer will do this for you once his spawning tool is built.
+### Make your first pet
+
+The Friendly Farmer's spawning tool is not built yet (acceptance test G in [docs/migration/PLAN.md](docs/migration/PLAN.md)),
+so your AI makes the pet with you by hand. These steps were tried on a fresh copy on 2026-11-11, after make-it-yours,
+until `npm test` passed. Work in your own copy, on a branch, and look at each change before it is saved.
+
+1. **Say what it is for.** One line: what it looks after and what it does. Check that no pet you already have does it
+   ([skills/new-pet-or-tool](skills/new-pet-or-tool/SKILL.md)): a job that needs no program, data or schedule of its
+   own is a tool of that pet, not a new pet.
+2. **Name it, once.** Three names: the pet (its character, like Unity Unicorn), its pet program (its home, like Unity
+   Stable) and its repo (lowercase words joined by hyphens, like `unity-unicorn`). Names are written in
+   `pet-programs.json` only ([AGENTS.md](AGENTS.md), "One list of names"): add an entry with the next free `number`,
+   `program`, `icon` (the pet's name), `"assigned": true`, `"stage": "pipeline"`, `repo`, `"repo_exists": true` and a
+   `mini_descriptor` (`label` `<repo>-v1.0-mini-descriptor-v1.0`, `text` your one line, `"reviewed": false`).
+3. **Give it its repo**, private to start, on your account: `<you>/<repo>`, with `pet.json`, `README.md`, `AGENTS.md`,
+   `CLAUDE.md` and a `LICENSE` ([PET-FILES.md](PET-FILES.md)). Its program (a page, a script, an app) goes there,
+   built to the [Pet Program Framework](PET-PROGRAM-FRAMEWORK.md).
+4. **Put it on your farm** in `pets.json` `pipeline`: `repo`, `pet`, `"visibility": "private"`,
+   `"status": "hatching"`, `job`, `added` (today's date), `version`, an `audit` block, `needs` (what it needs to work,
+   in the kinds `needs_key` lists) and `interface_url` and `interface_local_url`, both
+   `apps/pet-programs/<repo>-20261018.html` (that file name is the same for every pet; the build writes the page).
+   Leave out `github_owner`: a pet you add is yours.
+5. **Three more lines the tests ask for:** its developer-mode name in `developer-words-20261019.json`
+   (`names.<repo>.agent`, like `"Unity Agent"`); its code list in `system-map.json` (`code.repos.<repo>.languages`:
+   each language with its `percent` and a `why` of a sentence); and a picture,
+   `art/icons/<repo>-<date>.png`, 256 by 256 with a clear background: your own drawing, or one you have the rights to.
+   Astra's art generator needs her image bridge and an OpenAI key, so on your farm it is your own drawing for now.
+6. **Build and check:** `npm run build` writes its pet program page and its Markdown pet; `npm test` must pass. Open
+   `apps/pet-programs/<repo>-20261018.html` in a browser to see it.
+7. **Save it and install your farm from your copy:** commit on the branch, push, open a pull request in your copy and
+   merge it when you are happy (you are your farm's L4). Then install from your copy: your copy → **Code** →
+   **Download ZIP**, unzip it and double-click `install-astras-pet-os-20261014.cmd`. This is the one time the green
+   **Code** button is right: it is your own repo, with your own pet in it. Your pet comes with its page, its place on
+   the System Map and the Farmer's desk; walking on your desktop needs its nine mood drawings
+   ([PET-FILES.md](PET-FILES.md), "The pet's art").
+
+Or ask your AI: *"Help me make my first pet in my copy of Astra's PetOS, following MAKE-IT-YOURS.md section 5, 'Make
+your first pet'. My idea: `<what it does>`. Ask me for the names first, work on a branch, show me each change before you
+save it, and run npm test at the end."*
+
+If an update from Astra later brings a pet program with the same number as yours, give yours the next free one.
+
+### Keep your pets yours
+
 - **Your pets' repos start private** (Astra, 2026-10-18). Making one public, or private again, is your choice, any
   time (Astra, 2026-10-20), with the Friendly Farmer's `pet-privatizer` or in the repo's **Settings** → **Danger
   Zone** → **Change visibility**:
@@ -144,7 +200,8 @@ conflict, ask your AI for help or open a ticket at the [vet-clinic](https://gith
   - It works only on your own pets (step 1, "Tell your farm it's yours") while you are signed in as you, never makes
     the hub that serves every farm's pictures private (Astra's `astras-pet-os`), and never makes public a pet whose
     `pets.json` entry says `stays_private`.
-- Proud of it? Bring it to [the Kennel](https://github.com/findastra/the-kennel) so other farmers can adopt it.
+- Proud of it? The Kennel, where other farmers will adopt it, is not open yet. Until then, make its repo public and
+  share the link.
 
 ## 6. Just one pet: a pet pack
 

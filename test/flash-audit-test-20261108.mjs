@@ -7,7 +7,7 @@ import { mkdtempSync, readFileSync, writeFileSync, mkdirSync, rmSync, existsSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { AUTOMATED, GOLDFISH_WORDS, AUDITOR, HELPER, HELPER_PORT, HELPER_PAGE_DATA, checkResults, latestLedger, LABEL } from '../scripts/flash-audit-checks-20261108.mjs';
+import { AUTOMATED, GOLDFISH_WORDS, AUDITOR, HELPER, HELPER_PORT, HELPER_PAGE_DATA, RUN_MINUTES, checkResults, latestLedger, LABEL } from '../scripts/flash-audit-checks-20261108.mjs';
 import { createHelper, LOCAL } from '../scripts/flash-audit-helper-20261108.mjs';
 import { readMatrix } from '../scripts/flash-matrix-20261018.mjs';
 import { readSpawnerSources, spawnerFiles, pagePath } from '../scripts/pet-program-pages-20261018.mjs';
@@ -36,7 +36,7 @@ test('a check over every pet program: who passes and each finding', () => {
   assert.ok(saved && /^\d{8}$/.test(saved.date) && saved.pets.length > 50, 'the newest saved run is found');
 });
 
-test("The Farm's L1 has the flash-audit tool box: 61 checks in the matrix's order, Run only where the auditor checks", () => {
+test("The Farm's L1 has the flash-audit tool box: every check in the matrix's order, Run only where the auditor checks", () => {
   const html = spawnerFiles(readSpawnerSources(root))[pagePath('astras-pet-os')];
   const box = html.slice(html.indexOf('<div class="toolbox pet-box flash-audit'), html.indexOf('>friendly-farmer-L2-control-panel<'));
   assert.ok(box.length > 1000, 'the tool box is on the page');
@@ -106,4 +106,21 @@ test('Startup Star starts the Flash Audit helper at sign-in, on its own port', (
   const js = readFileSync(`${root}/apps/flash-audit-control-20261108.js`, 'utf8');
   assert.ok(js.includes(HELPER_PAGE_DATA), 'the page finds the helper through the file it writes');
   assert.doesNotMatch(js, new RegExp(`:${HELPER_PORT}\\b`), 'and never names its address');
+});
+
+// Astra, 2026-11-09: "Yes, fix them" (the first real run took 19 minutes while the page said "a few minutes", and the
+// box's top line kept the old run's date after a newer one). Claude Opus 5.5 (claude-opus-5-5), 2026-11-09.
+test('Run says how long it takes, and a newer run changes the date in the top line too', () => {
+  assert.ok(RUN_MINUTES >= 15 && RUN_MINUTES <= 60, 'about as long as a real run (19 minutes on 2026-11-09)');
+  const html = spawnerFiles(readSpawnerSources(root))[pagePath('astras-pet-os')];
+  const box = html.slice(html.indexOf('<div class="toolbox pet-box flash-audit'), html.indexOf('<li class="pill flash-check"'));
+  const saved = latestLedger(root);
+  const day = `${saved.date.slice(0, 4)}-${saved.date.slice(4, 6)}-${saved.date.slice(6)}`;
+  assert.ok(box.includes(`(<span data-flash-run-shown>${day}</span>)`), 'the top line\'s date sits where a newer run can change it');
+  assert.ok(box.includes(`which takes about ${RUN_MINUTES} minutes`), 'the top line says how long Run takes');
+  assert.ok(box.includes(`data-flash-run-minutes="${RUN_MINUTES}"`), 'the Run buttons read the same number');
+  const js = readFileSync(`${root}/apps/flash-audit-control-20261108.js`, 'utf8');
+  assert.doesNotMatch(js, /few minutes/, 'no "a few minutes"');
+  assert.match(js, /This takes about ' \+ minutes \+ ' minutes\./,'while it runs, it says about how long');
+  assert.match(js, /querySelector\('\[data-flash-run-shown\]'\)[\s\S]*?textContent = run;/, 'a newer run changes the top line\'s date');
 });

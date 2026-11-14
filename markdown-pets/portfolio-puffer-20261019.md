@@ -4,7 +4,9 @@
 
 ## What it does
 
-Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.
+Looks after Astra's portfolio, findastra.github.io, and her GitHub profile's Window Star and hand lettering, and drafts portfolio updates for her OK. LinkedIn is planned; publishing stays hers.
+
+Its job in the registry: Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.
 
 ## Open it with nothing to install
 
@@ -34,7 +36,8 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- None recorded yet.
+- **portfolio-update-round** (planned, not built yet): A trick of Iced Out Iceberg (card 019, from the plan of 2026-10-08): once a week, read LinkedIn and GitHub, compare them with the portfolio's profile-data.js and project list, and propose each change, old to new, for Astra to approve. Only what she approves is written, on a branch; it never pushes by itself and says plainly when LinkedIn was not read that week. Not written yet.
+- **portfolio-pictures-refresh** (planned, not built yet): A trick of Iced Out Iceberg: run GitHub Goldfish's project-image-generator (by grant) over Astra's repos, rebuild the portfolio's project-images.js and art/projects/, and open a pull request for her. Done by hand so far, from the steps in findastra.github.io's AGENTS.md; not a skill in Puffer's repo yet.
 
 ### Pets it works with
 

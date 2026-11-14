@@ -58,6 +58,17 @@
   --tool-bg: rgba(193, 192, 192, .05); --tool-bg-hover: rgba(252, 128, 134, .08);
 }
 :root[data-pet="chat-rat"] .footer-group::before, :root[data-pet="chat-rat"] .footer-sparkle { color: #fc8086; }
+/* Luna's Log's own colours, Skill Scout's (Astra, 2026-11-11: "give this like a pink but dark pink background that
+   matches her"): a dark pink page, panel lines in her hair lavender (#cda1e5, sampled from her picture), and her bow
+   pink (#f57666, sampled the same way) for links, marks and the working-copy box. */
+:root[data-pet="skill-scout"] {
+  --slate: #3d1234; --slate-2: #2c0c26; --chalk: #fdeef7; --chalk-dim: #e2bcd6; --line: #cda1e5; --line-dim: #7d4f86;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #f57666;
+  --editorial: #f57666; --editorial-ink: #ffd9d3; --editorial-glow: rgba(245, 118, 102, .22); --grid: none; --editorial-by: #ffb1a6; --serial: #f57666;
+  --link: #ff9a8c; --connection: #e7c4f4;
+  --tool-bg: rgba(205, 161, 229, .06); --tool-bg-hover: rgba(245, 118, 102, .1);
+}
+:root[data-pet="skill-scout"] .footer-group::before, :root[data-pet="skill-scout"] .footer-sparkle { color: #f57666; }
 /* Spoonfed's own colours, Spoonfed Sugarcube's (Astra, 2026-11-11: "Give him like a background. Maybe we can make this
    one like blackish or grayish, or like pretty gray for the pet program"): a soft charcoal page with a hint of lilac,
    sugar white lettering (#f6f3ea, his cube's lit side), his spoon's silver (#c8c4cc) for the panel lines, a neon lilac
@@ -70,6 +81,31 @@
   --tool-bg: rgba(246, 243, 234, .05); --tool-bg-hover: rgba(207, 168, 255, .08);
 }
 :root[data-pet="spoonfed-sugarcube"] .footer-group::before, :root[data-pet="spoonfed-sugarcube"] .footer-sparkle { color: #cfa8ff; }
+/* Halo List's own colours, VS Code Angel's (Astra, 2026-11-12: "pick a background for her, make it like blue"; she
+   picked "B, bright sky" from four blues): a bright sky blue page (#2470b5, a touch deeper than #2a78c0 so every text
+   colour reads at 4.5:1 or more), white lettering, a pale sky blue (#c8f0ff) for the panel lines, pale halo gold for
+   links and text marks, and her halo gold (#ffe08a) for the working-copy box's edge and the footer sparkles. */
+:root[data-pet="vscode-angel"] {
+  --slate: #2470b5; --slate-2: #1d5f9e; --chalk: #ffffff; --chalk-dim: #e6f4fd; --line: #c8f0ff; --line-dim: #8cc4ec;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fff0b8;
+  --editorial: #ffe08a; --editorial-ink: #fff6d6; --editorial-glow: rgba(255, 224, 138, .22); --grid: none; --editorial-by: #fff6d6; --serial: #fff0b8;
+  --link: #fff6d6; --connection: #c8f0ff;
+  --tool-bg: rgba(255, 255, 255, .08); --tool-bg-hover: rgba(200, 240, 255, .16);
+}
+:root[data-pet="vscode-angel"] .footer-group::before, :root[data-pet="vscode-angel"] .footer-sparkle { color: #ffe08a; }
+/* The Threshold's own colours, Door Dormouse's (Astra, 2026-11-11: "I like that color of his tail. Can we make the
+   background of the pet program that color?"): the page is his tail tip's indigo (#31316f, sampled from his desktop
+   drawing), with the deeper indigo inside his ears for the darker parts, his belly cream for lettering, his orange fur
+   (#fda674) for the panel lines, his key's gold for links, his ear pink for connections and the footer's sparkles, and
+   the blue gem in his key for the working-copy box. */
+:root[data-pet="door-dormouse"] {
+  --slate: #31316f; --slate-2: #26255b; --chalk: #fff4e8; --chalk-dim: #d9cfe2; --line: #fda674; --line-dim: #9a6a78;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fd8891;
+  --editorial: #aaeffd; --editorial-ink: #e3faff; --editorial-glow: rgba(170, 239, 253, .22); --grid: none; --editorial-by: #c9f5ff; --serial: #aaeffd;
+  --link: #ffd36b; --connection: #fd8891;
+  --tool-bg: rgba(255, 244, 232, .05); --tool-bg-hover: rgba(253, 166, 116, .09);
+}
+:root[data-pet="door-dormouse"] .footer-group::before, :root[data-pet="door-dormouse"] .footer-sparkle { color: #fd8891; }
 /* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
    that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
    bill for links, marks and pill edges, and his cyan phone for L3's note. */
@@ -114,6 +150,18 @@
   --tool-bg: rgba(150, 230, 120, .05); --tool-bg-hover: rgba(150, 230, 120, .09);
 }
 :root[data-pet="friendly-farmer"] .footer-group::before, :root[data-pet="friendly-farmer"] .footer-sparkle { color: #b8f06a; }
+/* Iced Out Iceberg's own colours, Portfolio Puffer's (Astra, 2026-11-11: "change the background color of this pet
+   program to match the penguin, so like pink or maybe yellow because his feet are yellow"): a deep penguin pink page,
+   panel lines in his belly pink (#fbbcda, sampled from his desktop drawing), and his feet yellow (#fbdc02) for links,
+   marks and the working-copy box. His body is #f902ca. */
+:root[data-pet="portfolio-puffer"] {
+  --slate: #7a0c62; --slate-2: #5c0849; --chalk: #fff5fb; --chalk-dim: #fbbcda; --line: #fbbcda; --line-dim: #d65cb4;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fbdc02;
+  --editorial: #fbdc02; --editorial-ink: #fff3b0; --editorial-glow: rgba(251, 220, 2, .22); --grid: none; --editorial-by: #ffe96b; --serial: #fbdc02;
+  --link: #fbdc02; --connection: #ffe96b;
+  --tool-bg: rgba(251, 188, 218, .07); --tool-bg-hover: rgba(251, 220, 2, .1);
+}
+:root[data-pet="portfolio-puffer"] .footer-group::before, :root[data-pet="portfolio-puffer"] .footer-sparkle { color: #fbdc02; }
 /* Audio Rescue's own colours, Voicemeeter Bug's (Astra, 2026-11-11: "pick out like a red color for this page, the
    background of the page"): a deep oxblood page from his signal-red shell, panel lines in his silver-grey body, his
    pink cheeks for links and the working-copy box, and his signal red for marks. */
@@ -555,6 +603,11 @@ label.file { position: relative; }
 .mood ul { margin: 2px 0; padding-left: 16px; }
 .mood q { display: block; color: var(--link); font-style: italic; margin-top: 6px; padding-top: 5px; border-top: 1px dashed var(--line-dim); }
 .mood img, .mood .no-art { width: 60px; height: 60px; image-rendering: pixelated; }
+/* A colour behind a pet's own pictures, for a pet that is hard to see on the blueprint (Astra, 2026-11-12, Gone Ghost:
+   "spooky green"). The page sets --pet-backdrop from `backdrop` in pets.json; the cyberhome and the nine moods get it. */
+.has-backdrop .den { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--pet-backdrop), #fff 18%) 0%, var(--pet-backdrop) 45%, color-mix(in srgb, var(--pet-backdrop), #000 55%) 100%); border-radius: 10px; padding: 8px 0; align-self: center; width: 112px; max-width: 100%; }
+.mood .pet-backdrop { justify-self: center; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--pet-backdrop), #fff 18%) 0%, var(--pet-backdrop) 45%, color-mix(in srgb, var(--pet-backdrop), #000 55%) 100%); }
 .no-art { display: grid; place-items: center; text-align: center; font-size: 12px; color: var(--chalk-dim); border: 1px dashed var(--chalk-dim); aspect-ratio: 1 / 1; }
 .den .no-art { width: 70%; }
 .clicks { display: grid; grid-template-columns: max-content 1fr; gap: 14px 18px; margin: 0; }

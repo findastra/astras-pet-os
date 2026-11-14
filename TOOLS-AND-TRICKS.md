@@ -60,7 +60,7 @@ code runs when you press a button are a native tool, not a trick (Rift Rabbit's 
 |---|---|---|---|
 | What it is | Code a pet program owns: a script, page, program or section. The pet's hands. | Written steps for doing the pet's job with its tools. The pet's training. | Written steps that help an AI work on a pet (build it, test it, hand it off) |
 | Developer word | Program, module, utility | **Skill** (a `SKILL.md` file), prompt, workflow (runtime skill) | **Skill**, agent instructions (development skill) |
-| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.codex\skills`) |
+| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.agents\skills`; installed from their masters by Luna's Log's skill-install-tool) |
 | Who runs it | The computer | The AI in the pet's seat (L3) | The AI in the seat, on every pet it works on |
 | Needs AI to run | No | Yes; without an agent it does nothing | Yes |
 | Same result every time | Yes | No: a model reads it and decides | No |
@@ -127,12 +127,11 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-384 rows: 14 native programs, 157 native tools, 20 native tricks, 193 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+420 rows: 20 native programs, 172 native tools, 25 native tricks, 203 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
 | 1 | Friendly Farmer | The Farm | native program | Astra’s PetOS System Map | `the-farm-v1.0-astras-pet-os-system-map-v1.0` | Works today |
-| 1 | Friendly Farmer | The Farm | native program | GitHub profile |  | Works today |
 | 1 | Friendly Farmer | The Farm | native program | How to Take Care of Your Farm! | `the-farm-v1.0-beginner-guide-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | astras-pet-os-mcp | `the-farm-v1.0-astras-pet-os-mcp-v1.0` | Works today |
@@ -170,13 +169,18 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | broken-on-main | `github-aquarium-v1.0-broken-on-main-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | close-or-keep | `github-aquarium-v1.0-close-or-keep-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | document-control-checker | `github-aquarium-v1.0-document-control-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | naming-corrections | `github-aquarium-v1.0-naming-corrections-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | never-say-checker | `github-aquarium-v1.0-never-say-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | organizational-checker | `github-aquarium-v1.0-organizational-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | outstanding-items | `github-aquarium-v1.0-outstanding-items-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | project-image-generator | `github-aquarium-v1.0-project-image-generator-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | report-exporter | `github-aquarium-v1.0-report-exporter-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | showcase-checker | `github-aquarium-v1.0-showcase-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | systemic-checker | `github-aquarium-v1.0-systemic-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-a-chat | `github-aquarium-v1.0-waiting-on-a-chat-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-you | `github-aquarium-v1.0-waiting-on-you-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | achievement-tracker | `github-aquarium-v1.0-achievement-tracker-v1.0` | Planned |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | findastra-readme-auditor | `github-aquarium-v1.0-findastra-readme-auditor-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
@@ -304,8 +308,14 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 13 | Discord Damsel | Discord Tower | third-party program | CLI Proxy API |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord |  | Works today |
 | 13 | Discord Damsel | Discord Tower | third-party program | Discord Canary |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | findastra.github.io |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | GitHub profile |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native program | Portfolio Review Desk |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-pictures-refresh | `iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0` | Planned |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-update-round | `iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | LinkedIn |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | native tool | apc64-drum-kit-tool | `bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | learn-apc64-tool | `bass-biscuits-v1.0-learn-apc64-tool-v1.0` | Works today |
 | 15 | Drum Dog | Bass & Biscuits | native tool | use-my-apc64-tool | `bass-biscuits-v1.0-use-my-apc64-tool-v1.0` | Works today |
@@ -385,6 +395,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 38 | Pole Puff | Infinite Studio | native program | Astra's Infinite Pole (world) |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VRChat |  | Works today |
 | 38 | Pole Puff | Infinite Studio | third-party program | VR Pole Overlay |  | Idea |
+| 40 | Skill Scout | Luna's Log | native program | Skill catalog | `lunas-log-v0.1-skill-catalog-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | public-snapshot | `lunas-log-v0.1-public-snapshot-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-census | `lunas-log-v0.1-skill-census-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-diff | `lunas-log-v0.1-skill-diff-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native tool | skill-lint | `lunas-log-v0.1-skill-lint-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-census | `lunas-log-v0.1-skill-census-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | skill-fix | `lunas-log-v0.1-skill-fix-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | native trick | write-a-skill | `lunas-log-v0.1-write-a-skill-trick-v0.1` | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Git for Windows |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | GitHub CLI |  | Works today |
+| 40 | Skill Scout | Luna's Log | third-party program | Node.js |  | Works today |
 | 41 | OSC Sealion | OSC Sonar | third-party program | OSCGoesBrrr |  | Planned |
 | 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
@@ -487,6 +508,21 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Wireshark |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | WizTree |  | Planned |
 | 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
+| 82 | Door Dormouse | The Threshold | native program | Found floors |  | Works today |
+| 82 | Door Dormouse | The Threshold | native program | Liminal Doors (world) |  | Works today |
+| 82 | Door Dormouse | The Threshold | native program | Liminal Doors Concept Atlas |  | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | agent-queue-runner | `the-threshold-v1.0-agent-queue-runner-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | concept-sheet-viewer | `the-threshold-v1.0-concept-sheet-viewer-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | door-travel-mover | `the-threshold-v1.0-door-travel-mover-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | doorspace-builder | `the-threshold-v1.0-doorspace-builder-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | phone-booth-spawn | `the-threshold-v1.0-phone-booth-spawn-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | tools-tracker | `the-threshold-v1.0-tools-tracker-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | third-party program | Blender |  | Works today |
+| 82 | Door Dormouse | The Threshold | third-party program | Unity 2022.3.22f1 |  | Works today |
+| 82 | Door Dormouse | The Threshold | third-party program | Unity Hub 3.21.1 |  | Works today |
+| 82 | Door Dormouse | The Threshold | third-party program | VRChat Creator Companion |  | Works today |
+| 82 | Door Dormouse | The Threshold | third-party program | MCP for Unity 10.3.0 |  | Planned |
+| 82 | Door Dormouse | The Threshold | third-party program | VRChat |  | Planned |
 | 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |

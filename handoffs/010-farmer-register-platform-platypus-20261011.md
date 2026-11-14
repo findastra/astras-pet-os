@@ -27,7 +27,7 @@ needs: PET-FILES.md, pets.json, platform-platypus pet.json
   seed sheet was generated on 2026-10-12 (`art/seeds/platform-platypus-sheet-20261012.png`).
 - Added the `pet-app` topic to findastra/platform-platypus (Astra's OK, 2026-10-17).
 - Fixed the stale README "Limits" lines in platform-platypus on branch `claude/readme-limits-20261017`.
-  Its AGENTS.md still points at the Cage; that waits until Codex's branches `codex/yellow-phone-20261015`
+  Its AGENTS.md still points at the hub; that waits until Codex's branches `codex/yellow-phone-20261015`
   and `codex/l3-activity-20261016` are merged, because they edit the same file.
 - Updated this card and its row in handoffs/README.md on branch `claude/platypus-and-folder-rule-20261017`.
 - Registered on branch `claude/register-platypus-20261017`: Astra chose the existing seed sheet over a new
@@ -52,4 +52,4 @@ swim with the fish.
 
 ## Done when
 
-Platform Platypus is in `pets`, its nine frames are approved, and the Cage build, check and tests pass.
+Platform Platypus is in `pets`, its nine frames are approved, and the hub build, check and tests pass.

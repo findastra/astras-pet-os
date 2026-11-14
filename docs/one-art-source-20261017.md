@@ -139,7 +139,7 @@ reads only the hub.
 - **Claude Bot** (Astra, 2026-10-17): his exact copy of ChatGPT's BSOD stays only in the private `claude-bot` repo.
   The hub keeps the earlier orange-screen twin icon (`art/icons/claude-bot-20261012.png`) and says so. The desktop
   draft list's Claude Bot entry is the one path outside the hub, marked `"private": true`.
-- **Build outputs inside the hub** (`cage-data.js`, `system-map-20261012.html`, `apps/*.html`, `art/roster.png`,
+- **Build outputs inside the hub** (the old pets page's data file, `system-map-20261012.html`, `apps/*.html`, `art/roster.png`,
   `art/frames/`) carry pictures made from the one source by `npm run build`. They are rebuilt, never edited: not copies.
 
 ## Decisions for Astra

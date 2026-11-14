@@ -41,24 +41,24 @@ So: the pet floating on the desktop is the **desktop pet** (an *icon* is the sti
 | The marks | **mood stickers** | status badges (overlay icons) | `?`, `!`, `Z`, the tear, the sweat drop and the bandage, composited from one set. |
 | Frames plus their list | **sprite** | sprite with its JSON manifest | The pet's nine mood frames and the JSON file that lists them. |
 
-## Who lives in the Cage
+## Who lives at The Farm
 
 | Call it | Programmer word | Meaning |
 |---|---|---|
 | **host** | host: the coordinator app (`role: "host"`) | The Friendly Farmer. Exactly one. |
 | **companion** | secondary character (a second sprite in the same app) | A second character drawn with a pet app (registry `companions`). Only this meaning: what used to be called a desktop companion is a desktop pet, and a browser companion is a web app. |
 | **mascot** | mascot with no app | A character with no app of its own (registry `mascots`). |
-| **guest** | third-party character (someone else's, never copied) | A visitor from outside the Cage, such as BSOD. |
+| **guest** | third-party character (someone else's, never copied) | A visitor from outside The Farm, such as BSOD. |
 
-## The Cage
+## The Farm
 
 *Simpler since 2026-10-14 (Astra): the Friendly Farmer is the pet program icon and The Farm is his pet program. The
-Cage is a retired name for the old pets page, and "the Farmer's desk" is now The Farm's page. AI models are called
+old pets page is gone, and "the Farmer's desk" is now The Farm's page. AI models are called
 farmhands; they are not pets.*
 
 | Call it | Programmer word | Meaning |
 |---|---|---|
-| **the Cage** | removed web page (deprecated, then deleted) | Gone: the old browser page where the pets lived (`cage.html`), removed 2026-10-18 (Astra). The word survives only in data keys (`cage`, `cage.submit`, `cage_life`). |
+| **the hub** | the development repository (`findastra/astras-pet-os`) | Where `pets.json` and every rule live; `hub` in pets.json and in a pet's pet.json names it. The old browser pets page was removed 2026-10-18, and its old name is retired everywhere (Astra, 2026-11-02). |
 | **the Farmer's desk** | main dashboard: a launcher plus a to-do list | The Farmer's app: every app plus a follow-up list. |
 | **registry** | registry (the app catalog, a JSON manifest) | `pets.json`. |
 | **roster** | generated catalog page | `ROSTER.md`. |
@@ -146,7 +146,7 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **daily round** | scheduled job (cron) that opens a pull request | The Farmer's morning check of every pet: status, moods, roster. |
 | **profile round** | scheduled job that regenerates the profile README | Rewrites the pet list on Astra's GitHub profile from `pet-programs.json`. |
 | **self-audit** | scheduled check (a lint run) | The Farmer's round checks each pet's own files on that pet's day of the week. |
-| **submission** (`cage.submit`) | change request picked up by the next round | A pet asks the Farmer to update its job, lines or audit in pets.json. |
+| **submission** (`hub.submit`) | change request picked up by the next round | A pet asks the Farmer to update its job, lines or audit in pets.json. |
 | **mood key** | status legend | What each mood means for each pet ([MOOD-KEY.md](MOOD-KEY.md)). |
 | **sick** | failing health check (degraded) | A broken pet program, or too many broken tools. |
 | **not on this PC** | feature detection (graceful degradation) | A program a pet looks after is not installed: no error, the pet sleeps. |
