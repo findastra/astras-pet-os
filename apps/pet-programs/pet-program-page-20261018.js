@@ -345,7 +345,15 @@
           if (p.installed === true || p.installed === false) have[p.id] = p.installed;
           if (p.kind === 'window' || p.kind === 'tool' || p.kind === 'driver') kind[p.id] = p.kind;
         });
-        (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) { if (v && v.on === true && typeof v.id === 'string') now[v.id] = true; });
+        (Array.isArray(d.devices) ? d.devices : []).forEach(function (v) {
+          if (!v || typeof v.id !== 'string') return;
+          if (v.on === true) now[v.id] = true;
+          // A USB device a pet lists in its own parts file (Drum Dog's APC64 and mic): its light says "plugged in".
+          if (v.how === 'usb') {
+            var u = document.querySelector('button.light.onoff[data-item="device:' + v.id.replace(/["\\]/g, '') + '"]');
+            if (u && !u.dataset.usb) { u.dataset.usb = '1'; u.title = 'ON/OFF: green while it is plugged in'; }
+          }
+        });
         to = linkFrom(d.link);
         runningSeen = d.time;
       }

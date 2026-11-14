@@ -436,14 +436,13 @@ export const ONOFF_SAYS = 'ON/OFF: your choice, saved in this browser. Nothing o
 export const PROGRAM_WATCH = 'program-watch';
 export const WATCH_KINDS = ['window', 'tool', 'driver'];
 const isSite = (u) => typeof u === 'string' && /^https:\/\/[^\s"'<>\\]+$/.test(u);
-// A device's light (Astra, 2026-11-12): a VR device is green while SteamVR has it on; the desk's USB devices (the
-// same list as Benchmark Rock's UsbDevices) are green while Windows has them plugged in.
-export const USB_DEVICES = ['akai-apc64', 'razer-seiren-v3-chroma'];
-const deviceTip = (key) => (USB_DEVICES.includes(key.replace(/^device:/, '')) ? 'ON/OFF: green while it is plugged in' : 'ON/OFF: green while SteamVR has it on');
+// A device's light (Astra, 2026-11-12): a VR device is green while SteamVR has it on. A USB device is green while
+// Windows has it plugged in; which devices are USB is each pet's own to say (Drum Dog's parts file, Astra 2026-11-13),
+// so the page learns it from the watch's file ("how": "usb") and says "plugged in" then.
+const deviceTip = () => 'ON/OFF: green while SteamVR has it on, or while it is plugged in';
 const lights = (key, name, { planned = false, unseen = false, presence = false, watch = null, site = null } = {}) => {
   const p = (planned ? ' data-planned="1"' : '') + (unseen ? ' data-unseen="1"' : '');
-  const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '') +
-    (/^device:/.test(key) && USB_DEVICES.includes(key.replace(/^device:/, '')) ? ' data-usb="1"' : '');
+  const button = (watch ? ` data-watch="${esc(watch)}"` : '') + (site ? ` data-site="${esc(site)}"` : '');
   const [careClass, careSays] = careOf(key, planned, unseen);
   return `<span class="lights"><button type="button" class="light onoff${planned || unseen || presence ? ' is-off' : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${presence ? ' data-presence-managed="1"' : ''} aria-label="${esc(name)}: ${watch === 'tool' || watch === 'driver' ? 'not found' : presence || unseen ? 'not seen running' : planned ? 'off, not built yet' : 'on'}" title="${presence ? 'Live Discord sharing: use the presence controls above' : watch === 'window' ? 'Red: press to open it. Green: press to close it, after you say yes' : watch ? 'Green while it is installed: press to see what it is' : site ? 'A website: press to open it in a new tab' : /^device:/.test(key) ? deviceTip(key) : ONOFF_SAYS}"${button}></button><button type="button" class="light care${careClass ? ` ${careClass}` : ''}" data-item="${esc(key)}" data-name="${esc(name)}"${p}${checkAttrs(key)} aria-label="${esc(name)}: ${careSays}" title="Checked and works, report issues, update waiting, or not created: click to report an issue"></button></span>`;
 };
