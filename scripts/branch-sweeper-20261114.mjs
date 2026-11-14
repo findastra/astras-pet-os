@@ -1,7 +1,7 @@
 // GitHub Aquarium's branch-sweeper (`github-aquarium-v1.0-branch-sweeper-v1.0`, a tool of GitHub Aquarium).
 // Astra, 2026-11-14: "I'm kind of worried that there's a bunch of branches out there on GitHub that are not deleted
 // that I should have been deleting ... a branch deleter, assessor and deleter", then "Plan is fine, build it" and
-// "make this tool the way that any other GitHub Goldfish tool is made" (beside outstanding-items, card 363).
+// "make this tool the way that any other GitHub Goldfish tool is made" (beside outstanding-items, card 364).
 //
 // It sorts every branch on every repo the farm owner owns into three groups:
 //   delete  its work is already on the default branch (nothing ahead), or its pull request was merged and nothing was

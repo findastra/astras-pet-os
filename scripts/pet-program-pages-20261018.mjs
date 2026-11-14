@@ -717,7 +717,7 @@ export const OUTSTANDING_EXAMPLES = [
 export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label);
 
 // GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
-// build it", card 363): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
+// build it", card 364): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
 // five tools above it is filled only on Astra's PC (scripts/branch-sweeper-20261114.mjs writes the list there); the
 // page never deletes anything: deleting runs in the hub folder from a plan, with an undo log.
 export const SWEEPER_TOOL_ID = 'branch-sweeper';
