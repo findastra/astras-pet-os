@@ -38,8 +38,8 @@ I need?", then **"all rec"** to the six-slide deck. The answers are recorded on 
   my pc monitor. I dont care if this pet program has to be wider than normal"). One picture pixel is one CSS pixel. It
   can show Brave/Chrome, Safari, or both side by side, with what was fixed and what is still open. The 38 pictures
   (2 MB of JPEGs) are in `apps/platform-platypus-latest-check/`.
-- **A new tool frame, `full`** (System Map `"frame": "full"`): the tool's frame spans the whole window, 16px from each
-  edge, past the page's 1180px column, and grows to its page's height. The page script fits it (`fitFull`). Only
+- **A new tool frame, `full`** (System Map `"frame": "full"`): the tool
+   stays in its pill and fills it; the page holding one has no width limit, and what is still wider scrolls sideways inside the tool. Only
   device-shots uses it today.
 
 ## In findastra/platform-platypus (#11)

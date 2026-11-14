@@ -25,9 +25,14 @@
   ul.notes { margin: 6px 0 0; padding-left: 18px; }
   ul.notes li { margin: 2px 0; }
   .ok { color: var(--ok); } .open { color: var(--open); }
-  /* Real size: the pictures are never scaled. A screen wider than this frame scrolls sideways inside its row. */
-  .row { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
-  .shot { margin: 0; flex: none; max-width: 100%; overflow-x: auto; }
+  /* Real size: the pictures are never scaled. Every screen sits in one row that scrolls sideways, as tall as the
+     tallest screen (Astra, 2026-11-13: "go back to the horizontal scroll, using the largest screen to determine the
+     size"). */
+  .strip { display: flex; flex-wrap: nowrap; gap: 22px; align-items: flex-start; overflow-x: auto; padding: 4px 2px 14px; margin-top: 12px;
+    scrollbar-color: var(--soft) var(--panel); }
+  .strip::-webkit-scrollbar { height: 12px; } .strip::-webkit-scrollbar-thumb { background: var(--soft); border-radius: 6px; } .strip::-webkit-scrollbar-track { background: var(--panel); }
+  .shot { margin: 0; flex: none; }
+  .shot .group { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--open); margin: 0; }
   .pair { display: flex; gap: 10px; align-items: flex-start; }
   .shot img { display: block; max-width: none; border: 1px solid var(--line); border-radius: 4px; }
   .shot figcaption { font-size: 12.5px; color: var(--soft); margin: 0 0 4px; }
@@ -38,7 +43,7 @@
 </head>
 <body>
 <h1>Latest check: Spoonfed, every screen at its real size</h1>
-<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, cc3872d), not the live site · each picture is exactly as big as that screen or window would be on this monitor; a wide one scrolls sideways</p>
+<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, cc3872d), not the live site · each picture is exactly as big as that screen or window would be on this monitor · scroll the row sideways for the rest (phones, then iPads, then computers)</p>
 <div class="bar" role="group" aria-label="Which engine">
   <button type="button" data-engine="chromium" aria-pressed="true">Brave / Chrome</button>
   <button type="button" data-engine="webkit" aria-pressed="false">Safari (iPhone, iPad)</button>
@@ -79,11 +84,11 @@
   }
   function draw(engine) {
     box.textContent = '';
+    var row = document.createElement('div'); row.className = 'strip';
     GROUPS.forEach(function (g) {
-      var h = document.createElement('h2'); h.textContent = g[0]; box.appendChild(h);
-      var row = document.createElement('div'); row.className = 'row';
-      g[1].forEach(function (s) {
+      g[1].forEach(function (s, n) {
         var wh = size(s[0]), fig = document.createElement('figure'); fig.className = 'shot';
+        var grp = document.createElement('p'); grp.className = 'group'; grp.textContent = n === 0 ? g[0] : ' '; fig.appendChild(grp);
         var cap = document.createElement('figcaption'); cap.innerHTML = '<b></b> · ' + wh[0] + '×' + wh[1]; cap.firstChild.textContent = s[1];
         fig.appendChild(cap);
         if (engine === 'both') {
@@ -96,8 +101,8 @@
         } else fig.appendChild(img(engine, s[0], s[1]));
         row.appendChild(fig);
       });
-      box.appendChild(row);
     });
+    box.appendChild(row);
     tell();
   }
   document.querySelectorAll('.bar button').forEach(function (b) {

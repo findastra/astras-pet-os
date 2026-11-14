@@ -1212,25 +1212,6 @@
     for (var i = 0; i < frames.length; i++) {
       // A wide tool in its own tool box (Bass & Biscuits' APC64 board, kits and lessons) may be long: its box grows to
       // fit it, with no scroll bar inside (Astra, 2026-11-02: "get rid of like the scroll bar on it").
-      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(frames[i].classList.contains('full') ? 60000 : frames[i].classList.contains('wide') ? 12000 : 1400, Math.max(200, Number(msg.height) || 0)) + 'px';
+      if (frames[i].contentWindow === e.source && e.origin === originOf(frames[i].getAttribute('src'))) frames[i].style.height = Math.min(frames[i].classList.contains('wide') || frames[i].classList.contains('full') ? 12000 : 1400, Math.max(200, Number(msg.height) || 0)) + 'px';
     }
-  });
-
-  // ---- A full tool spans the whole window, past the page's width (Astra, 2026-11-13: "I dont care if this pet
-  // program has to be wider than normal"), 16px from each edge, whatever column its pill sits in. ----
-  function fitFull() {
-    var full = document.querySelectorAll('iframe.tool-frame.full');
-    if (!full.length || !document.documentElement) return;
-    var edge = 16, vw = document.documentElement.clientWidth || window.innerWidth;
-    for (var i = 0; i < full.length; i++) {
-      var box = full[i].parentElement.getBoundingClientRect();
-      if (!box.width) continue; // in a closed pill: fitted when it opens
-      full[i].style.setProperty('--full-w', (vw - 2 * edge) + 'px');
-      full[i].style.setProperty('--full-left', (edge - box.left) + 'px');
-    }
-  }
-  window.addEventListener('resize', fitFull);
-  window.addEventListener('load', fitFull);
-  document.addEventListener('toggle', function () { setTimeout(fitFull, 0); }, true);
-  fitFull();
-})();
+  });})();
