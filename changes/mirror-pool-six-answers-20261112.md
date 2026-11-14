@@ -33,7 +33,7 @@ I need?", then **"all rec"** to the six-slide deck. The answers are recorded on 
 
 - **Latest check on Mirror Pool's page** (Astra, 2026-11-13: "this should be on that page. It can be smaller than
   it is, but it should be on that page"): `apps/platform-platypus-latest-check-20261113.html` sits in device-shots'
-  pill (its System Map `embed`). It shows the last page checked, Spoonfed's working copy (cc3872d), with every screen
+  pill (its System Map `embed`). It shows the last page checked, Spoonfed's working copy (85dd303), with every screen
   at its real size (Astra, 2026-11-13: "I want each screen to be like the actual size you would see it in real life on
   my pc monitor. I dont care if this pet program has to be wider than normal"). One picture pixel is one CSS pixel. It
   can show Brave/Chrome, Safari, or both side by side, with what was fixed and what is still open. The 38 pictures

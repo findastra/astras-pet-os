@@ -43,7 +43,7 @@
 </head>
 <body>
 <h1>Latest check: Spoonfed, every screen at its real size</h1>
-<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, cc3872d), not the live site · each picture is exactly as big as that screen or window would be on this monitor · scroll the row sideways for the rest (phones, then iPads, then computers)</p>
+<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, 85dd303), not the live site · each picture is exactly as big as that screen or window would be on this monitor · scroll the row sideways for the rest (phones, then iPads, then computers)</p>
 <div class="bar" role="group" aria-label="Which engine">
   <button type="button" data-engine="chromium" aria-pressed="true">Brave / Chrome</button>
   <button type="button" data-engine="webkit" aria-pressed="false">Safari (iPhone, iPad)</button>
@@ -53,13 +53,13 @@
   <li class="ok">Same font in both engines; footer is By Astra, the star, Find Out More and GitHub only, and never covers Feed me.</li>
   <li class="ok">The two cards sit side by side, the same height, everywhere except upright phones (Astra: "Phones stay stacked").</li>
   <li class="ok">Sideways phones: both Feed me buttons are on the first screen.</li>
-  <li class="open">To look at: on upright iPads and the tall window the cards are small, with a lot of room around them.</li>
+  <li class="ok">Upright iPads zoom like computers now (Astra: "Yes, zoom iPads"); the 520-wide tall window stays unzoomed.</li>
 </ul>
 <div id="screens"></div>
 <p class="small">Made with Mirror Pool's device-shots v1.1: Chromium pictures taken in Brave, WebKit with Playwright. Every round of pictures is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
 <script>
 (function () {
-  var COMMIT = 'cc3872d';
+  var COMMIT = '85dd303';
   var GROUPS = [
     ['Phones', [['iphone-se-upright-375x667', 'iPhone SE, upright'], ['iphone-se-side-667x375', 'iPhone SE, on its side'],
       ['iphone-pro-upright-402x874', 'iPhone 16 Pro, upright'], ['iphone-pro-side-874x402', 'iPhone 16 Pro, on its side'],
