@@ -2,116 +2,162 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Latest check · Mirror Pool</title>
-<!-- Mirror Pool's latest check, inside device-shots' pill on its pet program page (Astra, 2026-11-13: "this should be
-     on that page"). Every screen at its real size (Astra, 2026-11-13: "I want each screen to be like the actual size you
-     would see it in real life on my pc monitor. I dont care if this pet program has to be wider than normal"): one
-     picture pixel is one CSS pixel, so a 1280x800 laptop is 1280x800 here, as in a browser window of that size. The
-     pet page stretches this frame across the whole window (its System Map frame is "full").
+<script src="words-mode-20261019.js"></script>
+<script src="developer-words-20261019.js"></script>
+<!-- Mirror Pool's latest check, inside device-shots' tool box on its pet program page (Astra, 2026-11-13: "this should
+     be on that page"). Every screen at its real size, one picture pixel to one CSS pixel ("I want each screen to be
+     like the actual size you would see it in real life on my pc monitor"), in one row that scrolls sideways, with the
+     scroll bar on top, arrows to click and the left and right arrow keys ("put the scroll bar ... at the top instead of
+     bottom, and give arrows I can click, also make it work with left/right arrow keys ... make it easier to read and
+     follow the general formatting we decided in the template"): the Model Pet Program tool page's look.
      Claude Opus 5.5 (claude-opus-5-5), 2026-11-13. -->
 <style>
-  :root { --bg: #1d1424; --panel: #271b30; --ink: #f1e9f4; --soft: #c9b8d2; --line: #4a3757; --ok: #7fd99a; --open: #f2b45a; --on: #3a2a46; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  body { padding: 12px; }
-  h1 { font-size: 17px; margin: 0 0 2px; }
-  h2 { font-size: 15px; margin: 22px 0 8px; color: var(--soft); font-weight: 600; }
-  .sub { color: var(--soft); font-size: 12.5px; margin: 0 0 10px; }
-  .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 6px; }
-  .bar button { font: inherit; font-size: 13px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
-  .bar button[aria-pressed="true"] { background: var(--on); border-color: var(--soft); }
-  .bar button:focus-visible { outline: 2px solid var(--open); outline-offset: 2px; }
-  ul.notes { margin: 6px 0 0; padding-left: 18px; }
-  ul.notes li { margin: 2px 0; }
-  .ok { color: var(--ok); } .open { color: var(--open); }
-  /* Real size: the pictures are never scaled. Every screen sits in one row that scrolls sideways, as tall as the
-     tallest screen (Astra, 2026-11-13: "go back to the horizontal scroll, using the largest screen to determine the
-     size"). */
-  .strip { display: flex; flex-wrap: nowrap; gap: 22px; align-items: flex-start; overflow-x: auto; padding: 4px 2px 14px; margin-top: 12px;
-    scrollbar-color: var(--soft) var(--panel); }
-  .strip::-webkit-scrollbar { height: 12px; } .strip::-webkit-scrollbar-thumb { background: var(--soft); border-radius: 6px; } .strip::-webkit-scrollbar-track { background: var(--panel); }
-  .shot { margin: 0; flex: none; }
-  .shot .group { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--open); margin: 0; }
-  .pair { display: flex; gap: 10px; align-items: flex-start; }
-  .shot img { display: block; max-width: none; border: 1px solid var(--line); border-radius: 4px; }
-  .shot figcaption { font-size: 12.5px; color: var(--soft); margin: 0 0 4px; }
-  .shot figcaption b { color: var(--ink); }
-  .eng { font-size: 11.5px; color: var(--soft); margin: 2px 0 0; }
-  .small { color: var(--soft); font-size: 12px; margin: 18px 0 0; }
+html,body{margin:0;background:transparent;color:#f4f8ff;font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}
+main{padding:4px 0}
+p{margin:0 0 10px;color:#c3d5ef}
+h2{font-size:15px;font-weight:600;margin:16px 0 6px;color:#f4f8ff}
+ul{list-style:none;margin:0 0 12px;padding:0;max-width:760px}
+li{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid rgba(232,240,255,.35)}
+li span:last-child{color:#c3d5ef;text-align:right;flex:none}
+li .ok{color:#7fe0a8} li .open{color:#ffd84d}
+button{border-radius:999px;border:1px solid #e8f0ff;background:rgba(255,255,255,.06);color:inherit;font:inherit;padding:4px 14px;cursor:pointer}
+button:hover{background:rgba(255,255,255,.1)}
+button[aria-pressed="true"]{background:rgba(255,255,255,.18)}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible,.strip:focus-visible{outline:2px solid #ffd84d;outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.nav{display:flex;gap:10px;align-items:center;margin:4px 0 6px}
+.nav .arrow{font-size:18px;line-height:1;padding:6px 14px}
+.nav output{font-size:14px;color:#c3d5ef}
+.nav output b{color:#f4f8ff;font-weight:600}
+/* The scroll bar sits on top: the row is flipped upside down and each screen flipped back. */
+.strip{display:flex;gap:28px;align-items:flex-end;overflow-x:auto;transform:scaleY(-1);padding:14px 2px 2px;
+  scrollbar-color:#c3d5ef rgba(255,255,255,.08)}
+.strip::-webkit-scrollbar{height:12px}
+.strip::-webkit-scrollbar-thumb{background:#c3d5ef;border-radius:6px}
+.strip::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:6px}
+.shot{margin:0;flex:none;transform:scaleY(-1)}
+.shot figcaption{display:flex;gap:10px;align-items:baseline;margin:0 0 6px;font-size:14px}
+.shot figcaption b{font-weight:600}
+.shot figcaption span{color:#c3d5ef;font-size:13px}
+.shot .group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#ffd84d}
+.pair{display:flex;gap:12px;align-items:flex-start}
+.pair p{margin:4px 0 0;font-size:13px}
+.shot img{display:block;max-width:none;border:1px solid rgba(232,240,255,.35);border-radius:4px}
 </style>
 </head>
 <body>
-<h1>Latest check: Spoonfed, every screen at its real size</h1>
-<p class="sub">2026-11-13 · its working copy (findastra/spoonfed#12, 85dd303), not the live site · each picture is exactly as big as that screen or window would be on this monitor · scroll the row sideways for the rest (phones, then iPads, then computers)</p>
-<div class="bar" role="group" aria-label="Which engine">
+<main>
+<p>Spoonfed's working copy (findastra/spoonfed#12, <span id="commit"></span>), checked 2026-11-13. Not the live site. Each screen is shown at its real size, as big as it would be on this monitor.</p>
+<div class="row" role="group" aria-label="Which engine">
   <button type="button" data-engine="chromium" aria-pressed="true">Brave / Chrome</button>
   <button type="button" data-engine="webkit" aria-pressed="false">Safari (iPhone, iPad)</button>
-  <button type="button" data-engine="both" aria-pressed="false">Both, side by side</button>
+  <button type="button" data-engine="both" aria-pressed="false">Both</button>
 </div>
-<ul class="notes">
-  <li class="ok">Same font in both engines; footer is By Astra, the star, Find Out More and GitHub only, and never covers Feed me.</li>
-  <li class="ok">The two cards sit side by side, the same height, everywhere except upright phones (Astra: "Phones stay stacked").</li>
-  <li class="ok">Sideways phones: both Feed me buttons are on the first screen.</li>
-  <li class="ok">Upright iPads zoom like computers now (Astra: "Yes, zoom iPads"); the 520-wide tall window stays unzoomed.</li>
+<div class="nav">
+  <button type="button" class="arrow" id="prev" aria-label="Previous screen">&#9664;</button>
+  <button type="button" class="arrow" id="next" aria-label="Next screen">&#9654;</button>
+  <output id="where" aria-live="polite"></output>
+</div>
+<div class="strip" id="strip" tabindex="0" aria-label="Every screen; use the left and right arrow keys"></div>
+<h2>What the check found</h2>
+<ul>
+  <li><span>Same font in Brave and Safari</span><span class="ok">fixed</span></li>
+  <li><span>Footer: By Astra, the star, Find Out More, GitHub; never covers Feed me</span><span class="ok">fixed</span></li>
+  <li><span>Cards side by side, same height, except upright phones ("Phones stay stacked")</span><span class="ok">done</span></li>
+  <li><span>Sideways phones: both Feed me buttons on the first screen</span><span class="ok">fixed</span></li>
+  <li><span>Upright iPads zoom like computers ("Yes, zoom iPads")</span><span class="ok">done</span></li>
+  <li><span>The map after Feed me, in Safari on an iPad</span><span class="open">not checked yet</span></li>
 </ul>
-<div id="screens"></div>
-<p class="small">Made with Mirror Pool's device-shots v1.1: Chromium pictures taken in Brave, WebKit with Playwright. Every round of pictures is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
+<p>Made with Mirror Pool's device-shots v1.1: Brave for Chromium, Playwright for WebKit. Every round is kept on Astra's PC in Astra's PetOS Data\platform-platypus.</p>
+</main>
 <script>
 (function () {
   var COMMIT = '85dd303';
-  var GROUPS = [
-    ['Phones', [['iphone-se-upright-375x667', 'iPhone SE, upright'], ['iphone-se-side-667x375', 'iPhone SE, on its side'],
-      ['iphone-pro-upright-402x874', 'iPhone 16 Pro, upright'], ['iphone-pro-side-874x402', 'iPhone 16 Pro, on its side'],
-      ['pixel-upright-412x923', 'Pixel 9, upright'], ['pixel-side-923x412', 'Pixel 9, on its side'],
-      ['galaxy-upright-360x780', 'Galaxy S24, upright'], ['galaxy-side-780x360', 'Galaxy S24, on its side']]],
-    ['iPads', [['ipad-mini-upright-744x1133', 'iPad mini, upright'], ['ipad-mini-side-1133x744', 'iPad mini, on its side'],
-      ['ipad-pro-10-upright-834x1112', 'iPad Pro 10.5-inch, upright'], ['ipad-pro-10-side-1112x834', 'iPad Pro 10.5-inch, on its side'],
-      ['ipad-pro-12-upright-1024x1366', 'iPad Pro 12.9-inch, upright'], ['ipad-pro-12-side-1366x1024', 'iPad Pro 12.9-inch, on its side']]],
-    ['Computers', [['laptop-fixed-1280x800', 'Laptop'], ['desktop-fixed-1920x1080', 'Desktop'],
-      ['window-small-fixed-640x420', 'Window dragged small'], ['window-wide-fixed-1600x360', 'Window stretched wide'],
-      ['window-tall-fixed-520x1000', 'Window stretched tall']]]
+  document.getElementById('commit').textContent = COMMIT;
+  var SCREENS = [
+    ['Phones', 'iphone-se-upright-375x667', 'iPhone SE, upright'], ['Phones', 'iphone-se-side-667x375', 'iPhone SE, on its side'],
+    ['Phones', 'iphone-pro-upright-402x874', 'iPhone 16 Pro, upright'], ['Phones', 'iphone-pro-side-874x402', 'iPhone 16 Pro, on its side'],
+    ['Phones', 'pixel-upright-412x923', 'Pixel 9, upright'], ['Phones', 'pixel-side-923x412', 'Pixel 9, on its side'],
+    ['Phones', 'galaxy-upright-360x780', 'Galaxy S24, upright'], ['Phones', 'galaxy-side-780x360', 'Galaxy S24, on its side'],
+    ['iPads', 'ipad-mini-upright-744x1133', 'iPad mini, upright'], ['iPads', 'ipad-mini-side-1133x744', 'iPad mini, on its side'],
+    ['iPads', 'ipad-pro-10-upright-834x1112', 'iPad Pro 10.5-inch, upright'], ['iPads', 'ipad-pro-10-side-1112x834', 'iPad Pro 10.5-inch, on its side'],
+    ['iPads', 'ipad-pro-12-upright-1024x1366', 'iPad Pro 12.9-inch, upright'], ['iPads', 'ipad-pro-12-side-1366x1024', 'iPad Pro 12.9-inch, on its side'],
+    ['Computers', 'laptop-fixed-1280x800', 'Laptop'], ['Computers', 'desktop-fixed-1920x1080', 'Desktop'],
+    ['Computers', 'window-small-fixed-640x420', 'Window dragged small'], ['Computers', 'window-wide-fixed-1600x360', 'Window stretched wide'],
+    ['Computers', 'window-tall-fixed-520x1000', 'Window stretched tall']
   ];
   var NAMES = { chromium: 'Brave / Chrome', webkit: 'Safari' };
-  var box = document.getElementById('screens');
+  var strip = document.getElementById('strip'), where = document.getElementById('where');
+  var prev = document.getElementById('prev'), next = document.getElementById('next');
+  var at = 0;
   function size(id) { var m = id.match(/(\d+)x(\d+)$/); return [Number(m[1]), Number(m[2])]; }
-  function img(engine, id, label) {
-    var wh = size(id), i = document.createElement('img');
-    i.src = 'platform-platypus-latest-check/spoonfed-' + engine + '-' + id + '-' + COMMIT + '-20261113.jpg';
-    i.width = wh[0]; i.height = wh[1]; i.loading = 'lazy'; i.alt = 'Spoonfed, ' + label + ', in ' + NAMES[engine];
+  function picture(engine, s) {
+    var wh = size(s[1]), i = document.createElement('img');
+    i.src = 'platform-platypus-latest-check/spoonfed-' + engine + '-' + s[1] + '-' + COMMIT + '-20261113.jpg';
+    i.width = wh[0]; i.height = wh[1]; i.loading = 'lazy'; i.alt = 'Spoonfed, ' + s[2] + ', in ' + NAMES[engine];
     i.addEventListener('load', tell);
     return i;
   }
   function draw(engine) {
-    box.textContent = '';
-    var row = document.createElement('div'); row.className = 'strip';
-    GROUPS.forEach(function (g) {
-      g[1].forEach(function (s, n) {
-        var wh = size(s[0]), fig = document.createElement('figure'); fig.className = 'shot';
-        var grp = document.createElement('p'); grp.className = 'group'; grp.textContent = n === 0 ? g[0] : ' '; fig.appendChild(grp);
-        var cap = document.createElement('figcaption'); cap.innerHTML = '<b></b> · ' + wh[0] + '×' + wh[1]; cap.firstChild.textContent = s[1];
-        fig.appendChild(cap);
-        if (engine === 'both') {
-          var pair = document.createElement('div'); pair.className = 'pair';
-          ['chromium', 'webkit'].forEach(function (e) {
-            var d = document.createElement('div'); d.appendChild(img(e, s[0], s[1]));
-            var p = document.createElement('p'); p.className = 'eng'; p.textContent = NAMES[e]; d.appendChild(p); pair.appendChild(d);
-          });
-          fig.appendChild(pair);
-        } else fig.appendChild(img(engine, s[0], s[1]));
-        row.appendChild(fig);
-      });
+    strip.textContent = '';
+    SCREENS.forEach(function (s, n) {
+      var wh = size(s[1]), fig = document.createElement('figure'); fig.className = 'shot';
+      var cap = document.createElement('figcaption');
+      var g = document.createElement('span'); g.className = 'group'; g.textContent = s[0];
+      var b = document.createElement('b'); b.textContent = s[2];
+      var z = document.createElement('span'); z.textContent = wh[0] + ' × ' + wh[1];
+      cap.append(g, b, z); fig.appendChild(cap);
+      if (engine === 'both') {
+        var pair = document.createElement('div'); pair.className = 'pair';
+        ['chromium', 'webkit'].forEach(function (e) {
+          var d = document.createElement('div'), p = document.createElement('p');
+          d.appendChild(picture(e, s)); p.textContent = NAMES[e]; d.appendChild(p); pair.appendChild(d);
+        });
+        fig.appendChild(pair);
+      } else fig.appendChild(picture(engine, s));
+      strip.appendChild(fig);
     });
-    box.appendChild(row);
+    go(at, true);
     tell();
   }
-  document.querySelectorAll('.bar button').forEach(function (b) {
+  // Which screen is first in view: the one whose left edge is nearest the row's left edge.
+  function current() {
+    var shots = strip.children, best = 0, d = Infinity;
+    for (var i = 0; i < shots.length; i++) { var x = Math.abs(shots[i].offsetLeft - strip.scrollLeft); if (x < d) { d = x; best = i; } }
+    return best;
+  }
+  function say(n) {
+    var s = SCREENS[n], wh = size(s[1]);
+    where.innerHTML = '<b></b> · ' + wh[0] + ' × ' + wh[1] + ' · ' + (n + 1) + ' of ' + SCREENS.length;
+    where.firstChild.textContent = s[2];
+    prev.disabled = n === 0; next.disabled = n === SCREENS.length - 1;
+  }
+  function go(n, now) {
+    at = Math.max(0, Math.min(SCREENS.length - 1, n));
+    var shot = strip.children[at]; if (!shot) return;
+    if (now) { strip.style.scrollBehavior = 'auto'; strip.scrollLeft = shot.offsetLeft - strip.offsetLeft; strip.style.scrollBehavior = ''; }
+    else strip.scrollLeft = shot.offsetLeft - strip.offsetLeft;
+    say(at);
+  }
+  prev.addEventListener('click', function () { go(at - 1); });
+  next.addEventListener('click', function () { go(at + 1); });
+  var settle;
+  strip.addEventListener('scroll', function () { clearTimeout(settle); settle = setTimeout(function () { at = current(); say(at); }, 120); });
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
+  });
+  document.querySelectorAll('.row button').forEach(function (b) {
     b.addEventListener('click', function () {
-      document.querySelectorAll('.bar button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.querySelectorAll('.row button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       draw(b.dataset.engine);
     });
   });
-  // Tell the pet program page how tall this is, so its tool box fits (the 'tool-panel-height' message every embedded tool sends).
+  // Tell the pet program page how tall this is, so its tool box fits with no scroll bar inside.
   function tell() { try { window.parent.postMessage({ type: 'tool-panel-height', height: Math.ceil(document.documentElement.scrollHeight) }, '*'); } catch (e) { /* no page around it */ } }
   window.addEventListener('resize', tell);
   draw('chromium');
