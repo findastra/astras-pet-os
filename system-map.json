@@ -5658,7 +5658,7 @@
       "to": "web-browser",
       "carries": "manages",
       "state": "planned",
-      "why": "Open when any browser is (Brave, Edge, Chrome, Firefox or Opera); a red press opens Brave and a green one closes the browser like its X, never forced (Astra, 2026-11-12, on Bass & Biscuits' page: \"audit this page for the buttons that are working and not working and fix them\"; benchmark-rock, not merged)."
+      "why": "Open when any browser is (Brave, Edge, Chrome, Firefox or Opera); a red press opens Brave and a green one closes the browser like its X, never forced (Astra, 2026-11-12, on Bass & Biscuits' page: \"audit this page for the buttons that are working and not working and fix them\"). Drum Dog lists it in its own parts file, drum-dog's program-watch-parts-20261113.json, and program-watch runs it (Astra, 2026-11-13: Drum Dog's parts are Drum Dog's)."
     },
     {
       "from": "program-watch",

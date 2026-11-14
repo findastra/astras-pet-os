@@ -232,10 +232,13 @@ test('a native ON/OFF light says it only keeps the choice in this browser; a pro
   assert.match(farm, /data-item="third-party:obs-studio"[^>]*title="Red: press to open it\. Green: press to close it, after you say yes"/, 'a 3rd party program');
   assert.match(farm, /data-item="third-party:github"[^>]*title="A website: press to open it in a new tab"/, 'a website');
   const drums = files[pagePath('drum-dog')];
-  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while it is plugged in"[^>]*data-usb="1"/, 'a desk USB device');
+  // Since 2026-11-13: which devices are USB is Drum Dog's to say (its parts file); the page learns it from the watch.
+  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while SteamVR has it on, or while it is plugged in"/, 'a device light');
+  assert.doesNotMatch(drums, /data-usb=/, 'no USB list kept in the hub');
   assert.match(drums || '', /data-item="third-party:web-browser"[^>]*data-watch="window"/, 'the web browser opens');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /on: 'on: your choice, saved in this browser\. Nothing on the PC switches yet\./, 'its words when clicked');
+  assert.match(js, /if \(v\.how === 'usb'\)[\s\S]{0,300}u\.dataset\.usb = '1'; u\.title = 'ON\/OFF: green while it is plugged in'/, 'a USB device learns it from the watch');
 });
 
 // Astra, 2026-11-08, on the Farmer's page: "a lot of these pets and their descriptions are wrong and the images just
