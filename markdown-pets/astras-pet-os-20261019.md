@@ -95,7 +95,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Port Spider** (Port Web): Authorized port and service exposure checks.
 - **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
 - **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
-- **RGBee** (Light Hive): Plans lighting scenes for every RGB light in the room and sends them to the lights it reaches: the Razer mic and headset today.
+- **RGBee** (Light Hive): Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
 - **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
