@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sync my lights · Light Hive</title>
 <!-- Light Hive's sync-my-lights-tool (Astra, 2026-11-08: "I want all my RGBs, as many as I can in my entire apartment,
-     to be synchronized to this"). Every light Light Hive knows, with what reaches it today, and one colour and
-     brightness sent to all of them at once through Light Hive's helper on this PC. Lights the helper
-     cannot reach yet say why, plainly.
-     2026-11-11 (Astra: "I don't like the extra black panel behind the sync my lights, and it's kind of like hard to
-     read... make it more like aesthetically pleasing and user friendly"; "neither of them have the more details in
-     the tool"): inside its tool box it has no background of its own and tells the box how tall it is (the house way,
-     like PC Master Race's tools); bigger, lighter text; the lights grouped by what reaches them; the explanations
-     moved into More details. Claude Opus 5.5 (claude-opus-5-5), 2026-11-08 and 2026-11-11. -->
+     to be synchronized to this"). One colour, brightness and effect for every light Light Hive's helper reaches.
+     2026-11-11: no background of its own inside its tool box, easy to read, explanations in More details.
+     2026-11-13 (Astra: "whatever features that the new one doesn't have from the old one, just add them in there and
+     try to reduce the writing on the page"): the old RGBee app's features moved in: saved scenes of your own, effects
+     (breathe, colour cycle), a colour per light, the desk preview, adding your own lights, backup, delete with undo.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, 2026-11-11 and 2026-11-13. -->
 <style>
 :root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
   --green:#39ff88;--cyan:#00e5ff;--pink:#ff2bd6;--amber:#ffc23d;--c:#39ff88}
@@ -22,43 +20,68 @@ html.in-tool,html.in-tool body{background:transparent}
 main{padding:20px;display:grid;gap:18px;max-width:1100px}
 html.in-tool main{padding:4px 2px 8px}
 html.in-tool .alone{display:none}
-h1{font-size:22px;margin:0 0 2px}
+h1{font-size:22px;margin:0}
 h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px;font-weight:600}
 p{margin:0}
-.lead{color:var(--soft)}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+.chip{font-size:15px;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px 7px 8px;
+  border:1px solid var(--card-line);background:rgba(255,255,255,.03)}
+.chip:hover{border-color:rgba(255,255,255,.28)}
+.quiet{font-size:14px;border-radius:999px;padding:6px 14px;border:1px solid var(--card-line);background:transparent;color:var(--soft)}
+.quiet:hover{color:var(--ink);border-color:rgba(255,255,255,.28)}
 
-/* The colour: a big preview of what the lights will show, the scenes, brightness and Send. */
+/* The mixer: colour, scenes, effect, brightness, Send. */
 .mixer{display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center;padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--card-line)}
 .preview{width:112px;height:112px;border-radius:50%;position:relative;background:var(--c);
   box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 36px color-mix(in srgb,var(--c) 70%,transparent);opacity:var(--o,1)}
 .preview input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .side{display:grid;gap:14px;min-width:0}
 .scenes{display:flex;flex-wrap:wrap;gap:8px}
-.scene{font:inherit;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px 7px 8px;
-  border:1px solid var(--card-line);background:rgba(255,255,255,.03);color:var(--ink)}
 .scene i{width:20px;height:20px;border-radius:50%;background:var(--s);box-shadow:0 0 10px color-mix(in srgb,var(--s) 60%,transparent)}
+.scene.moving i{background:conic-gradient(#ff2b4e,#ffd43b,#3bff7a,#2bd9ff,#5b5bff,#ff3df0,#ff2b4e)}
 .scene[aria-pressed=true]{border-color:var(--s);background:color-mix(in srgb,var(--s) 14%,transparent)}
+.scene .x{margin-left:2px;color:var(--dim);font-size:13px;padding:0 2px;border:0;background:none}
+.scene .x:hover{color:var(--ink)}
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
-.bright{display:flex;align-items:center;gap:12px;color:var(--soft);flex:1;min-width:220px}
-.bright input{flex:1;accent-color:var(--c)}
-.bright output{min-width:3.2em;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
-.go{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:999px;padding:11px 24px;background:var(--c);color:#050507;
+.slider{display:flex;align-items:center;gap:12px;color:var(--soft);flex:1;min-width:200px}
+.slider input{flex:1;accent-color:var(--c)}
+.slider[hidden]{display:none}
+.slider output{min-width:3.2em;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+select,input[type=text]{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1px solid var(--card-line);border-radius:10px;padding:7px 10px}
+.go{font-weight:700;border:0;border-radius:999px;padding:11px 24px;background:var(--c);color:#050507;
   box-shadow:0 0 18px color-mix(in srgb,var(--c) 55%,transparent)}
 .said{min-height:1.5em;color:var(--cyan);font-size:15px}
-button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.namer{display:flex;gap:8px;flex-wrap:wrap}
+.namer[hidden]{display:none}
+
+/* The desk: what every light shows. Faint = not reached yet. */
+.desk{border-radius:18px;background:var(--card);border:1px solid var(--card-line);padding:10px}
+.desk svg{display:block;width:100%;height:auto;max-height:240px}
+.desk .lit{fill:none;stroke-width:6;stroke-linecap:round;filter:url(#glow)}
+.desk .fill{filter:url(#glow)}
+.desk .far{opacity:.28}
 
 /* The lights, grouped: reaching now, waiting, no lights to set. */
 .groups{display:grid;gap:16px}
 .lights{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.light{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
-.light .dot{grid-row:1/3;width:16px;height:16px;border-radius:50%;background:#2c333a}
-.light.on{border-color:color-mix(in srgb,var(--c) 70%,transparent)}
-.light.on .dot{background:var(--c);box-shadow:0 0 12px var(--c)}
+.light{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--card);border:1px solid var(--card-line)}
+.light .dot{grid-row:1/3;width:18px;height:18px;border-radius:50%;background:#2c333a;position:relative;overflow:hidden}
+.light .dot input{position:absolute;inset:-4px;opacity:0;cursor:pointer}
+.light.on{border-color:color-mix(in srgb,var(--lc,var(--c)) 70%,transparent)}
+.light.on .dot,.light .dot.own{background:var(--lc,var(--c));box-shadow:0 0 12px var(--lc,var(--c))}
 .light b{font-weight:650;font-size:16px}
-.light span{color:var(--soft);font-size:14.5px}
 .light .why{grid-column:2;color:var(--amber);font-size:14.5px}
 .light.on .why{color:var(--green)}
 .light.none .why{color:var(--dim)}
+.light .end{grid-row:1/3;grid-column:3;display:flex;gap:4px}
+.light .end button{border:0;background:none;color:var(--dim);font-size:13px;padding:2px 4px}
+.light .end button:hover{color:var(--ink)}
+.add{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.add input{flex:1;min-width:150px}
+
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#16161e;border:1px solid var(--card-line);border-radius:12px;padding:8px 12px;display:flex;gap:12px;align-items:center;font-size:15px;z-index:5}
+.toast[hidden]{display:none}
 
 /* More details: the same four lines as every panel on the pet program page. */
 .about{color:var(--soft);font-size:15px}
@@ -69,41 +92,86 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
 .about dl{margin:10px 0 0 18px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px}
 .about dt{color:var(--ink);font-weight:600}
 .about dd{margin:0}
+.about .row{margin:12px 0 0 18px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (max-width:560px){.mixer{grid-template-columns:1fr;justify-items:center}.side{justify-items:stretch;width:100%}.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}}
 @media (prefers-reduced-motion:no-preference){.light,.preview{transition:box-shadow .4s,border-color .4s,background-color .4s}}
 </style>
 </head>
 <body>
 <main>
-  <header class="alone">
-    <h1>Sync my lights</h1>
-    <p class="lead">One colour and brightness for every light Light Hive reaches.</p>
-  </header>
+  <header class="alone"><h1>Sync my lights</h1></header>
 
   <section class="mixer" aria-label="Colour for every light">
-    <label class="preview" id="preview" title="Click to pick any colour"><input id="color" type="color" value="#39ff88" aria-label="Pick any colour"></label>
+    <label class="preview" id="preview" title="Pick any colour"><input id="color" type="color" value="#39ff88" aria-label="Pick any colour"></label>
     <div class="side">
       <div class="scenes" id="scenes" role="group" aria-label="Scenes"></div>
       <div class="row">
-        <label class="bright">Brightness <input id="bright" type="range" min="5" max="100" value="80"><output id="brightSaid">80%</output></label>
-        <button class="go" id="send" type="button">Send to every light</button>
+        <label class="slider">Brightness <input id="bright" type="range" min="5" max="100" value="80"><output id="brightSaid">80%</output></label>
+        <select id="effect" aria-label="Effect">
+          <option value="static">Still</option><option value="breathe">Breathe</option><option value="cycle">Colour cycle</option>
+        </select>
+        <label class="slider" id="speedBox" hidden>Speed <input id="speed" type="range" min="1" max="5" value="2"><output id="speedSaid">2</output></label>
       </div>
+      <div class="row">
+        <button class="go" id="send" type="button">Send to every light</button>
+        <button class="quiet" id="off" type="button">Lights off</button>
+        <button class="quiet" id="saveScene" type="button">Save as scene</button>
+      </div>
+      <form class="namer" id="namer" hidden>
+        <input type="text" id="sceneName" maxlength="30" placeholder="Scene name" aria-label="Scene name" required>
+        <button class="quiet" type="submit">Save</button>
+        <button class="quiet" type="button" id="nameCancel">Cancel</button>
+      </form>
     </div>
   </section>
   <p class="said" id="said" role="status"></p>
 
+  <section class="desk" aria-label="Desk preview">
+    <svg viewBox="0 0 600 230" role="img" aria-label="Your desk with each light in its colour">
+      <defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <path class="lit" data-light="lightstrip" d="M40 22 H560"/>
+      <circle class="lit" data-light="mirror" cx="78" cy="96" r="38"/>
+      <path class="lit" data-light="squiggle" d="M470 60 q15 -22 30 0 t30 0 t30 0"/>
+      <rect x="215" y="62" width="170" height="104" rx="8" fill="#15151c" stroke="#2a2a35"/>
+      <rect x="292" y="166" width="16" height="22" fill="#1d1d26"/>
+      <rect class="fill" data-light="msi" x="468" y="96" width="74" height="110" rx="8" fill-opacity=".18" stroke-width="3"/>
+      <circle data-light="msi" class="lit" cx="505" cy="128" r="14" style="stroke-width:3"/>
+      <circle data-light="msi" class="lit" cx="505" cy="170" r="14" style="stroke-width:3"/>
+      <rect class="fill" data-light="corsair" x="214" y="192" width="140" height="12" rx="4"/>
+      <rect class="lit" data-light="mousepad" x="366" y="190" width="84" height="18" rx="5" style="stroke-width:3"/>
+      <ellipse cx="408" cy="199" rx="8" ry="6" fill="#2a2a35"/>
+      <rect class="fill" data-light="seiren" x="160" y="120" width="22" height="50" rx="11"/>
+      <rect x="168" y="170" width="6" height="36" fill="#2a2a35"/>
+      <path class="lit" data-light="kraken" d="M96 196 a22 22 0 0 1 44 0" style="stroke-width:4"/>
+      <circle class="fill" data-light="kraken" cx="96" cy="198" r="8"/>
+      <circle class="fill" data-light="kraken" cx="140" cy="198" r="8"/>
+      <path d="M20 210 H580" stroke="#2a2a35" stroke-width="3"/>
+    </svg>
+  </section>
+
   <div class="groups" id="groups" aria-label="Your lights"></div>
+  <form class="add" id="addLight">
+    <input type="text" id="newLight" maxlength="40" placeholder="Add a light (name)" aria-label="Name of a light to add" required>
+    <button class="quiet" type="submit">Add</button>
+  </form>
 
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Pick a scene or click the big circle for any colour, set the brightness, and press Send. Every light Light Hive reaches takes it at once; the others say what they are waiting for.</dd>
-      <dt>Where it comes from</dt><dd>Light Hive’s helper on this PC (findastra/rgbee, <code>helper/</code>): Razer through the Razer Chroma App, Govee over your Wi-Fi once LAN Control is on. Only a page opened from your PC’s copy reaches it; the live site only shows what the lights would do.</dd>
-      <dt>Your rules</dt><dd>2026-11-08: every RGB light in the apartment, as many as can be reached; 2026-11-11: no black box behind the tool, easy to read, details in here.</dd>
-      <dt>Not built yet</dt><dd>The Corsair K65 PLUS keyboard and the MSI motherboard: OpenRGB 1.1 cannot set either (checked on your PC, 2026-11-11), so they need Corsair iCUE and MSI Center. The mouse pad: not found on this PC. The helper starting by itself at sign-in (rgbee card 002).</dd>
+      <dt>How it works</dt><dd>Pick a colour or scene, then Send. Click a light’s dot to give it its own colour in this scene.</dd>
+      <dt>Where it comes from</dt><dd>Light Hive’s helper on this PC (findastra/rgbee <code>helper/</code>). The live site only previews.</dd>
+      <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13). Never more than three flashes a second.</dd>
+      <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. Corsair and MSI need iCUE and MSI Center. The helper doesn’t start by itself yet.</dd>
     </dl>
+    <div class="row">
+      <button class="quiet" id="export" type="button">Export backup</button>
+      <label class="quiet" for="importFile" style="cursor:pointer">Import backup</label>
+      <input id="importFile" type="file" accept="application/json,.json" class="sr">
+    </div>
   </details>
 </main>
+<div class="toast" id="toast" role="status" hidden><span id="toastText"></span><button class="quiet" id="undo" type="button">Undo</button></div>
 <script>
 'use strict';
 const $ = (id) => document.getElementById(id);
@@ -128,23 +196,40 @@ function findHelper() {
     document.head.appendChild(s);
   });
 }
-const SCENES = [['Neon green', '#39ff88'], ['Astra purple', '#aa3cff'], ['Ice cyan', '#00e5ff'], ['Hot pink', '#ff2bd6'], ['Sunset', '#ff7a1a'], ['Rainforest', '#127a3c'], ['Warm white', '#ffd9a8']];
+const PRESETS = [['Neon green', '#39ff88'], ['Astra purple', '#aa3cff'], ['Ice cyan', '#00e5ff'], ['Hot pink', '#ff2bd6'], ['Sunset', '#ff7a1a'], ['Rainforest', '#127a3c'], ['Warm white', '#ffd9a8']];
 // Every light Light Hive knows. `via`: how it is reached; the helper's answer decides whether it is on.
-const LIGHTS = [
-  { name: 'Razer Seiren V3 Chroma', what: 'Desk mic', via: 'razer' },
-  { name: 'Razer Kraken Ultimate', what: 'Headset ear cups', via: 'razer' },
-  { name: 'Mirror', what: 'Govee light', via: 'govee' },
-  { name: 'Squiggle', what: 'Govee light', via: 'govee' },
-  { name: 'Lightstrip', what: 'Govee light strip', via: 'govee' },
-  { name: 'Corsair K65 PLUS Wireless', what: 'Keyboard', via: 'brand' },
-  { name: 'MSI Mystic Light', what: 'PC motherboard', via: 'brand' },
-  { name: 'Razer Viper V3 Pro', what: 'Mouse', via: 'none', why: 'Has no lights' },
-  { name: 'Mouse pad', what: 'Not found on this PC', via: 'none', why: 'Plugged in?' }
+const KNOWN = [
+  { id: 'seiren', name: 'Razer Seiren V3 Chroma', via: 'razer' },
+  { id: 'kraken', name: 'Razer Kraken Ultimate', via: 'razer' },
+  { id: 'mirror', name: 'Mirror', via: 'govee' },
+  { id: 'squiggle', name: 'Squiggle', via: 'govee' },
+  { id: 'lightstrip', name: 'Lightstrip', via: 'govee' },
+  { id: 'corsair', name: 'Corsair K65 PLUS', via: 'brand', why: 'Needs Corsair iCUE' },
+  { id: 'msi', name: 'MSI Mystic Light', via: 'brand', why: 'Needs MSI Center' },
+  { id: 'mousepad', name: 'Mouse pad', via: 'none', why: 'Not found: plugged in?' },
+  { id: 'viper', name: 'Razer Viper V3 Pro', via: 'none', why: 'Has no lights' }
 ];
 const save = (k, v) => { try { localStorage.setItem('light-hive-sync:' + k, v); } catch (e) {} };
 const load = (k) => { try { return localStorage.getItem('light-hive-sync:' + k); } catch (e) { return null; } };
-if (load('color')) $('color').value = load('color');
+const loadJSON = (k, d) => { try { const v = JSON.parse(load(k)); return Array.isArray(v) ? v : d; } catch (e) { return d; } };
+const isHex = (c) => typeof c === 'string' && /^#[0-9a-f]{6}$/i.test(c);
+const uid = () => Math.random().toString(36).slice(2, 10);
+const EFFECTS = ['static', 'breathe', 'cycle'];
+const cleanScene = (s) => s && typeof s.name === 'string' && isHex(s.color) ? {
+  id: typeof s.id === 'string' ? s.id.slice(0, 20) : uid(), name: s.name.slice(0, 30), color: s.color.toLowerCase(),
+  bright: Math.min(100, Math.max(5, +s.bright || 80)), effect: EFFECTS.includes(s.effect) ? s.effect : 'static',
+  speed: Math.min(5, Math.max(1, +s.speed || 2)),
+  own: Object.fromEntries(Object.entries(s.own && typeof s.own === 'object' ? s.own : {}).filter(([k, v]) => typeof k === 'string' && isHex(v)).slice(0, 40)) } : null;
+const cleanLight = (l) => l && typeof l.name === 'string' && l.name.trim() ? { id: typeof l.id === 'string' ? l.id.slice(0, 20) : uid(), name: l.name.trim().slice(0, 40) } : null;
+let scenes = loadJSON('scenes', []).map(cleanScene).filter(Boolean);
+let extra = loadJSON('lights', []).map(cleanLight).filter(Boolean);
+let own = {}; try { own = JSON.parse(load('own')) || {}; } catch (e) { own = {}; }
+let current = load('scene') || '';
+if (isHex(load('color'))) $('color').value = load('color');
 if (load('bright')) $('bright').value = load('bright');
+if (EFFECTS.includes(load('effect'))) $('effect').value = load('effect');
+if (load('speed')) $('speed').value = load('speed');
+const lights = () => KNOWN.concat(extra.map((l) => ({ ...l, via: 'mine', why: 'Not connected' })));
 
 let answer = null;
 async function ask(path, body) {
@@ -155,50 +240,194 @@ async function ask(path, body) {
 }
 function stateOf(l) {
   if (l.via === 'none') return ['none', l.why];
-  if (l.via === 'brand') return ['wait', 'Needs its own app (' + (l.name.startsWith('Corsair') ? 'Corsair iCUE' : 'MSI Center') + ')'];
-  if (!answer) return ['wait', ON_THIS_PC ? 'Waiting for Light Hive’s helper' : 'Open your PC’s copy to reach it'];
-  if (l.via === 'razer') return answer.razer && answer.razer.ok ? ['on', 'Reached now'] : ['wait', 'Open the Razer Chroma App'];
-  return (answer.govee || []).length ? ['on', 'Reached now'] : ['wait', 'Turn on LAN Control in Govee Home'];
+  if (l.via === 'brand' || l.via === 'mine') return ['wait', l.why];
+  if (!answer) return ['wait', ON_THIS_PC ? 'Helper not running' : 'Preview only'];
+  if (l.via === 'razer') return answer.razer && answer.razer.ok ? ['on', 'Reached'] : ['wait', 'Open the Razer Chroma App'];
+  return (answer.govee || []).length ? ['on', 'Reached'] : ['wait', 'Turn on LAN Control in Govee Home'];
 }
-const GROUPS = [['on', 'Reaching now'], ['wait', 'Waiting'], ['none', 'No lights to set']];
+
+// Colour maths for breathe and cycle (slow and smooth: never a flash).
+const toRgb = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const toHex = (r, g, b) => '#' + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+function hueShift(hex, deg) {
+  let [r, g, b] = toRgb(hex).map((v) => v / 255); const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  let h = 0; if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  h = ((h * 60 + deg) % 360 + 360) % 360; const s = mx ? d / mx : 0, v = mx, c = v * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = v - c;
+  const [a, bb, cc] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  return toHex((a + m) * 255, (bb + m) * 255, (cc + m) * 255);
+}
+const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const PERIOD = { breathe: [0, 10, 8, 6, 4.5, 3.5], cycle: [0, 40, 30, 20, 14, 10] };
+function now() { // the colour and brightness right now, with the effect applied
+  const color = $('color').value, bright = +$('bright').value, fx = $('effect').value, sp = +$('speed').value;
+  if (fx === 'static' || REDUCED) return [color, bright];
+  const t = (Date.now() / 1000) / PERIOD[fx][sp];
+  if (fx === 'breathe') return [color, Math.max(5, Math.round(bright * (0.3 + 0.7 * (0.5 + 0.5 * Math.cos(t * 2 * Math.PI)))))];
+  return [hueShift(color, (t % 1) * 360), bright];
+}
+
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-function draw() {
-  const color = $('color').value, bright = +$('bright').value;
+function paintDesk(color, bright) {
+  const reached = new Set(lights().filter((l) => stateOf(l)[0] === 'on').map((l) => l.id));
+  const op = (0.35 + 0.65 * bright / 100).toFixed(2);
+  for (const e of document.querySelectorAll('[data-light]')) {
+    const id = e.dataset.light, c = own[id] || color;
+    if (e.classList.contains('lit')) { e.setAttribute('stroke', c); e.setAttribute('stroke-opacity', op); }
+    else { e.setAttribute('fill', c); e.setAttribute('stroke', c); e.setAttribute('fill-opacity', e.getAttribute('fill-opacity') === '.18' ? '.18' : op); }
+    e.classList.toggle('far', !reached.has(id));
+  }
+}
+function tick() {
+  const [color, bright] = now();
   document.documentElement.style.setProperty('--c', color);
   $('preview').style.setProperty('--o', (0.35 + 0.65 * bright / 100).toFixed(2));
-  $('brightSaid').textContent = bright + '%';
-  for (const b of $('scenes').children) b.setAttribute('aria-pressed', String(b.dataset.hex === color.toLowerCase()));
+  paintDesk(color, bright);
+}
+function drawScenes() {
+  const box = $('scenes'); box.replaceChildren();
+  const color = $('color').value.toLowerCase();
+  for (const [name, hex] of PRESETS) {
+    const b = el('button', 'chip scene'); b.type = 'button'; b.style.setProperty('--s', hex);
+    b.setAttribute('aria-pressed', String(!current && hex === color)); b.append(el('i'), document.createTextNode(name));
+    b.addEventListener('click', () => { current = ''; save('scene', ''); own = {}; save('own', '{}'); $('color').value = hex; $('effect').value = 'static'; stored(); draw(); send(); });
+    box.append(b);
+  }
+  for (const s of scenes) {
+    const b = el('button', 'chip scene' + (s.effect !== 'static' ? ' moving' : '')); b.type = 'button'; b.style.setProperty('--s', s.color);
+    b.setAttribute('aria-pressed', String(current === s.id)); b.append(el('i'), document.createTextNode(s.name));
+    const x = el('span', 'x', '✕'); x.setAttribute('role', 'button'); x.setAttribute('aria-label', 'Delete ' + s.name); x.tabIndex = 0;
+    const del = (e) => { e.stopPropagation(); removeScene(s.id); };
+    x.addEventListener('click', del); x.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') del(e); });
+    b.append(x);
+    b.addEventListener('click', () => useScene(s));
+    box.append(b);
+  }
+}
+function draw() {
+  $('brightSaid').textContent = $('bright').value + '%';
+  $('speedSaid').textContent = $('speed').value;
+  $('speedBox').hidden = $('effect').value === 'static';
+  drawScenes();
   const box = $('groups'); box.replaceChildren();
-  for (const [key, title] of GROUPS) {
-    const mine = LIGHTS.map((l) => [l, stateOf(l)]).filter(([, s]) => s[0] === key);
+  for (const [key, title] of [['on', 'Reaching now'], ['wait', 'Waiting'], ['none', 'No lights to set']]) {
+    const mine = lights().map((l) => [l, stateOf(l)]).filter(([, s]) => s[0] === key);
     if (!mine.length) continue;
     const sec = el('section'); sec.append(el('h2', null, title + ' · ' + mine.length));
     const ul = el('ul', 'lights');
     for (const [l, [cls, why]] of mine) {
-      const li = el('li', 'light ' + cls); li.append(el('i', 'dot'), el('b', null, l.name), el('span', null, l.what), el('p', 'why', why)); ul.append(li);
+      const li = el('li', 'light ' + cls); if (own[l.id]) li.style.setProperty('--lc', own[l.id]);
+      const dot = el('i', 'dot' + (own[l.id] ? ' own' : ''));
+      if (l.via !== 'none' || l.id === 'mousepad') {
+        const pick = el('input'); pick.type = 'color'; pick.value = own[l.id] || $('color').value; pick.setAttribute('aria-label', l.name + ': its own colour');
+        pick.addEventListener('input', () => { own[l.id] = pick.value; save('own', JSON.stringify(own)); draw(); });
+        dot.append(pick);
+      }
+      li.append(dot, el('b', null, l.name), el('p', 'why', why));
+      const end = el('span', 'end');
+      if (own[l.id]) { const r = el('button', null, 'same'); r.type = 'button'; r.title = 'Back to the scene colour'; r.addEventListener('click', () => { delete own[l.id]; save('own', JSON.stringify(own)); draw(); }); end.append(r); }
+      if (l.via === 'mine') { const d = el('button', null, '✕'); d.type = 'button'; d.setAttribute('aria-label', 'Delete ' + l.name); d.addEventListener('click', () => removeLight(l.id)); end.append(d); }
+      if (end.childNodes.length) li.append(end);
+      ul.append(li);
     }
     sec.append(ul); box.append(sec);
   }
-  tell();
+  tick(); tell();
 }
-for (const [name, hex] of SCENES) {
-  const b = el('button', 'scene'); b.type = 'button'; b.dataset.hex = hex; b.style.setProperty('--s', hex); b.setAttribute('aria-pressed', 'false');
-  b.append(el('i'), document.createTextNode(name));
-  b.addEventListener('click', () => { $('color').value = hex; save('color', hex); draw(); send(); });
-  $('scenes').append(b);
+function stored() { save('color', $('color').value); save('bright', $('bright').value); save('effect', $('effect').value); save('speed', $('speed').value); }
+function useScene(s) {
+  current = s.id; save('scene', s.id);
+  $('color').value = s.color; $('bright').value = s.bright; $('effect').value = s.effect; $('speed').value = s.speed;
+  own = { ...s.own }; save('own', JSON.stringify(own)); stored(); draw(); send();
+}
+
+// Sending: once for Still; for Breathe and Colour cycle, four gentle steps a second while this page is open.
+let loop = 0;
+function stopLoop() { clearInterval(loop); loop = 0; }
+async function sendNow() {
+  const [hex, bright] = now(); const [r, g, b] = toRgb(hex);
+  return ask('/color', { r, g, b, bright });
 }
 async function send() {
-  const hex = $('color').value, n = parseInt(hex.slice(1), 16);
-  const r = await ask('/color', { r: n >> 16 & 255, g: n >> 8 & 255, b: n & 255, bright: +$('bright').value });
-  $('said').textContent = !r ? (ON_THIS_PC ? 'Light Hive’s helper isn’t running on this PC, so only the preview changed.' : 'This is the live page: it never reaches your lights. Open your PC’s copy.')
-    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + '; ' + r.govee + ' Govee light' + (r.govee === 1 ? '' : 's') + '.';
+  stopLoop();
+  const r = await sendNow();
+  $('said').textContent = !r ? (ON_THIS_PC ? 'Helper not running: preview only.' : 'Live page: preview only.')
+    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + ' · Govee ' + r.govee + '.';
+  if (r && $('effect').value !== 'static' && !REDUCED) loop = setInterval(sendNow, 250);
 }
-$('color').addEventListener('input', () => { save('color', $('color').value); draw(); });
-$('bright').addEventListener('input', () => { save('bright', $('bright').value); draw(); });
+async function lightsOff() {
+  stopLoop();
+  const r = await ask('/color', { r: 0, g: 0, b: 0, bright: 1 });
+  $('said').textContent = r ? 'Lights off.' : (ON_THIS_PC ? 'Helper not running.' : 'Live page: preview only.');
+}
+
+// Undo for deletes.
+let undo = null, toastTimer = 0;
+function toast(text, back) {
+  undo = back; $('toastText').textContent = text; $('toast').hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { $('toast').hidden = true; undo = null; }, 6000);
+}
+$('undo').addEventListener('click', () => { if (undo) undo(); undo = null; $('toast').hidden = true; });
+function removeScene(id) {
+  const i = scenes.findIndex((s) => s.id === id); if (i < 0) return;
+  const [gone] = scenes.splice(i, 1); save('scenes', JSON.stringify(scenes));
+  if (current === id) { current = ''; save('scene', ''); }
+  draw(); toast(gone.name + ' deleted', () => { scenes.splice(i, 0, gone); save('scenes', JSON.stringify(scenes)); draw(); });
+}
+function removeLight(id) {
+  const i = extra.findIndex((l) => l.id === id); if (i < 0) return;
+  const [gone] = extra.splice(i, 1); save('lights', JSON.stringify(extra));
+  draw(); toast(gone.name + ' deleted', () => { extra.splice(i, 0, gone); save('lights', JSON.stringify(extra)); draw(); });
+}
+
+$('color').addEventListener('input', () => { current = ''; stored(); draw(); });
+$('bright').addEventListener('input', () => { stored(); draw(); });
+$('effect').addEventListener('change', () => { stored(); draw(); if (loop) send(); });
+$('speed').addEventListener('input', () => { stored(); draw(); });
 $('send').addEventListener('click', send);
+$('off').addEventListener('click', lightsOff);
+$('saveScene').addEventListener('click', () => {
+  const s = scenes.find((x) => x.id === current);
+  $('sceneName').value = s ? s.name : ''; $('namer').hidden = false; $('sceneName').focus(); tell();
+});
+$('nameCancel').addEventListener('click', () => { $('namer').hidden = true; tell(); });
+$('namer').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = $('sceneName').value.trim().slice(0, 30); if (!name) return;
+  const s = cleanScene({ id: uid(), name, color: $('color').value, bright: $('bright').value, effect: $('effect').value, speed: $('speed').value, own });
+  const same = scenes.findIndex((x) => x.name.toLowerCase() === name.toLowerCase());
+  if (same >= 0) { s.id = scenes[same].id; scenes[same] = s; } else scenes.push(s);
+  save('scenes', JSON.stringify(scenes)); current = s.id; save('scene', s.id);
+  $('namer').hidden = true; $('said').textContent = 'Saved ' + name + '.'; draw();
+});
+$('addLight').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const l = cleanLight({ id: uid(), name: $('newLight').value }); if (!l) return;
+  extra.push(l); save('lights', JSON.stringify(extra)); $('newLight').value = ''; draw();
+});
+$('export').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify({ app: 'light-hive-sync', schema: 'light-hive-sync-backup-v1', saved: new Date().toISOString(), scenes, lights: extra }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'light-hive-backup-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '.json';
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+$('importFile').addEventListener('change', async () => {
+  const f = $('importFile').files[0]; $('importFile').value = ''; if (!f) return;
+  try {
+    const d = JSON.parse(await f.text());
+    // The old RGBee app's backups (app: "rgbee") have scenes with overrides by kind; their colour, brightness and effect come across.
+    const sc = (Array.isArray(d.scenes) ? d.scenes : []).slice(0, 100).map((s) => cleanScene({ ...s, effect: s.effect === 'wave' ? 'cycle' : s.effect, own: s.own || {} })).filter(Boolean);
+    const li = (Array.isArray(d.lights) ? d.lights : []).slice(0, 100).map(cleanLight).filter(Boolean)
+      .filter((l) => !KNOWN.some((k) => k.name.toLowerCase() === l.name.toLowerCase()));
+    if (!sc.length && !li.length) throw new Error('empty');
+    const before = [scenes, extra];
+    scenes = sc.length ? sc : scenes; extra = li.length ? li : extra;
+    save('scenes', JSON.stringify(scenes)); save('lights', JSON.stringify(extra)); draw();
+    toast('Backup loaded: ' + sc.length + ' scenes, ' + li.length + ' lights', () => { [scenes, extra] = before; save('scenes', JSON.stringify(scenes)); save('lights', JSON.stringify(extra)); draw(); });
+  } catch (e) { $('said').textContent = 'That file isn’t a Light Hive backup.'; }
+});
+if (!REDUCED) setInterval(() => { if ($('effect').value !== 'static') tick(); }, 100);
 (async () => {
   draw(); answer = await ask('/lights'); draw();
-  if (!answer) $('said').textContent = ON_THIS_PC ? 'Light Hive’s helper isn’t running on this PC: the lights show what they would do.' : 'This is the live page: the lights show what they would do. Open your PC’s copy to reach them.';
+  if (!answer) $('said').textContent = ON_THIS_PC ? 'Helper not running: preview only.' : 'Live page: preview only.';
 })();
 </script>
 </body>

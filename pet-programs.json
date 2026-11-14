@@ -327,7 +327,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "light-hive-v1.0-mini-descriptor-v1.0",
-        "text": "Plans lighting scenes for every RGB light in the room and sends them to the lights it reaches: the Razer mic and headset today. Govee lights wait on LAN Control; the Corsair keyboard and MSI board need their own apps.",
+        "text": "Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.",
         "reviewed": false
       }
     },
