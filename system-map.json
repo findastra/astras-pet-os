@@ -8969,6 +8969,24 @@
         "next": "The Police Station watches every write and every key use."
       },
       {
+        "id": "farm-own-tools",
+        "who": "The Farm's own tools (the build and the pet program spawner, the Flash Audit's auditor and helper, click-check, Startup Star)",
+        "level": ["L1"],
+        "subjects": [
+          "type:host"
+        ],
+        "on": "its own folder (the hub's copy on this PC) and its data folders (Astra's PetOS Data\\astras-pet-os, %LOCALAPPDATA%\\astras-pet-os)",
+        "resources": [
+          "self"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "written",
+        "how": "farm-security, sections 1 and 2. The Farm's tools run as you on this PC: the build and the spawner write the generated pages, the Flash Audit's helper writes its ledger and page data. Some reach further today, outside this grant: click-check writes its report and pictures to the temp folder and opens outside links; the auditor reads every pet's repo through GitHub and runs GitHub Goldfish's preflight; Startup Star writes its settings in %LOCALAPPDATA% and HKCU and starts other pets' programs. Nothing stops one writing elsewhere. None of them commits or pushes: the hub's main changes only by a pull request merged after Astra's OK in chat (AGENTS.md; the seat-core grant).",
+        "next": "The reaches outside this grant get their own grants, with Astra's OK. The Police Station watches every write and every key use."
+      },
+      {
         "id": "pet-elsewhere",
         "who": "Each pet",
         "level": ["L1","L2"],
