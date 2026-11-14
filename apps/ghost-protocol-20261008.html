@@ -399,15 +399,16 @@
   /* ---------- footer ---------- */
   footer{margin-top:36px; padding-top:20px; border-top:1px dashed var(--border-soft); font-size:11.5px; color:var(--text-dim);}
   /* Ghost Protocol's line in the unified footer, "Open-sourced on GitHub · v0.1.0 // 20261013", right after the GitHub
-     icon with a dot between (Astra, 2026-11-13: "by default I actually want it to be after the github cat icon link
+     icon with a sparkle between (Astra, 2026-11-13: "by default I actually want it to be after the github cat icon link
      (separate with dot) but when you shrink it, the whole line goes below"). It never breaks inside: when the box gets
-     too narrow the whole line moves below, centered and without its dot (the script after the footer marks it
+     too narrow the whole line moves below, centered and without its leading sparkle (the script after the footer marks it
      .wrapped). The hidden bug pixel (an easter egg) stays at its end, out of the text flow. */
   .footer-app{position:relative; white-space:nowrap; font-size:11.5px; color:var(--text-dim); margin-left:-8px;}
-  .footer-app::before{content:"\00B7"; margin-right:10px;}
+  .footer-app::before{content:"\2726"; color:var(--green); font-size:12px; line-height:1; margin-right:10px;}
   .footer-app.wrapped{flex-basis:100%; text-align:center; margin-left:0;}
   .footer-app.wrapped::before{content:none;}
   .footer-app .bug{position:absolute; margin:5px 0 0 8px;}
+  .footer-app-sparkle{color:var(--green); font-size:12px; line-height:1; margin:0 10px;}
   .ghost-btn{
     background:none; border:1px solid var(--border); color:var(--text-dim); border-radius:6px;
     padding:6px 12px; font-size:11px; cursor:pointer; font-family:var(--mono);
@@ -636,7 +637,7 @@
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
 <span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="https://findastra.github.io/astras-star-window/" title="Astra's photostar" aria-label="Astra's photostar"><img src="https://findastra.github.io/astras-star-window/star-window.svg" alt="" width="48" height="48" loading="lazy"></a>
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons"><a href="https://github.com/findastra" title="GitHub: Astra" aria-label="GitHub: Astra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a></span></div>
-<div class="footer-app">Open-sourced on <a href="https://github.com/findastra/Ghost-Protocol" id="footer-gh-link" target="_blank" rel="noopener">GitHub</a> &middot; v0.1.0 // 20261013<span class="bug" id="hidden-bug" title=""></span></div>
+<div class="footer-app">Open-sourced on <a href="https://github.com/findastra/Ghost-Protocol" id="footer-gh-link" target="_blank" rel="noopener">GitHub</a><span class="footer-app-sparkle" aria-hidden="true">&#x2726;</span>v0.1.0 // 20261013<span class="bug" id="hidden-bug" title=""></span></div>
 </div>
 </footer>
 </section>
