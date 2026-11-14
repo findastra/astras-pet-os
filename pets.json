@@ -3356,6 +3356,231 @@
             "node": "voicemeeter",
             "how": "optional",
             "why": "program-watch shows whether it is open, and closes it the way its window’s X does (2026-10-25)."
+          },
+          {
+            "node": "ableton-live",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "autoruns",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "canva",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "capcut",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "corsair-icue",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "cpu-z",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "crystaldiskinfo",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "discord",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "epic-games",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "everything-search",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "hwinfo",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "logitech-g-hub",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "malwarebytes",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "msi-center",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "obs-studio",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "overwolf",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "powertoys",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "process-explorer",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "process-monitor",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "rammap",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "razer-synapse",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "sharex",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "spacesniffer",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "spotify",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "web-browser",
+            "how": "optional",
+            "why": "program-watch shows whether a browser is open, opens Brave when Astra presses its red light and closes the browser the way its window's X does when she presses its green one and says yes (Astra, 2026-11-12)."
+          },
+          {
+            "node": "tcpview",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "tikfinity",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "tiktok-live-studio",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "usbdeview",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "visual-studio",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "wallpaper-engine",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "winobj",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "wireshark",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "wiztree",
+            "how": "optional",
+            "why": "program-watch shows whether it is open, opens it when Astra presses its red light and closes it the way its window's X does when she presses its green one and says yes (Astra, 2026-11-07)."
+          },
+          {
+            "node": "betterdiscord",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "cli-proxy-api",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "coreinfo",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "es-cli",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "handle",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "nodejs",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "sigcheck",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "winget",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "windows-performance-recorder",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "ableton-usb-audio-driver",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
+          },
+          {
+            "node": "steam-streaming-audio",
+            "how": "optional",
+            "why": "program-watch shows whether it is installed; it is not a window, so it is never opened or closed (Astra, 2026-11-07)."
           }
         ]
       },

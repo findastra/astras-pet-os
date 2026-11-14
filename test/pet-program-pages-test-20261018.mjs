@@ -228,7 +228,12 @@ test('a native ON/OFF light says it only keeps the choice in this browser; a pro
   const farm = files[pagePath('astras-pet-os')];
   assert.doesNotMatch(farm, /kill switch\): click to switch/, 'no light promises a kill switch that nothing reads');
   assert.match(farm, /data-item="tool:click-check"[^>]*title="ON\/OFF: your choice, saved in this browser\. Nothing on the PC switches yet\."/, 'a native tool');
-  assert.match(farm, /data-item="third-party:github"[^>]*title="ON\/OFF: green while it is open on this PC\. Click to open or close it"/, 'a 3rd party program');
+  // Since #313 (2026-11-12): a program's light says red opens it and green closes it; GitHub is a website, opened in a tab.
+  assert.match(farm, /data-item="third-party:obs-studio"[^>]*title="Red: press to open it\. Green: press to close it, after you say yes"/, 'a 3rd party program');
+  assert.match(farm, /data-item="third-party:github"[^>]*title="A website: press to open it in a new tab"/, 'a website');
+  const drums = files[pagePath('drum-dog')];
+  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while it is plugged in"[^>]*data-usb="1"/, 'a desk USB device');
+  assert.match(drums || '', /data-item="third-party:web-browser"[^>]*data-watch="window"/, 'the web browser opens');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /on: 'on: your choice, saved in this browser\. Nothing on the PC switches yet\./, 'its words when clicked');
 });
@@ -317,7 +322,7 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
     for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
-      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|checked, works|report issues|update waiting for your approval|not created)"/);
+      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|not found|checked, works|report issues|update waiting for your approval|not created)"/);
       assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
     }
   }
@@ -423,7 +428,11 @@ test('text written by pets is data: it is escaped, never markup', () => {
 test('the page script puts text in with textContent only, and saves nothing outside this browser', () => {
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write/);
-  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|sendBeacon|WebSocket/);
+  assert.doesNotMatch(js, /XMLHttpRequest|sendBeacon|WebSocket/);
+  // Its one request since 2026-11-07: a 3rd party program's light asks program-watch on this PC to open or close it
+  // (test/program-buttons-test-20261107.mjs).
+  assert.equal((js.match(/fetch\(/g) || []).length, 1);
+  assert.match(js, /fetch\(to\.url \+ path, \{ method: 'POST'/);
   assert.doesNotMatch(js, /\.src\s*=/, 'no picture address goes through the script: it only shows or hides faces already in the page');
   for (const html of Object.values(files)) assert.doesNotMatch(html, /<script(?! type="application\/json"| src=")/, 'no inline code in a page');
 });
