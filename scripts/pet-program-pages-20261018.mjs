@@ -886,8 +886,10 @@ const GITHUB_ICON = footerIcon('M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.7
 // that (Astra, 2026-11-13: "on the unified footer, remove all of the social media links except for the GitHub one").
 // Mommy's Discord, the two TikToks and the VRChat Instagram it held since 2026-10-22 are gone; her profile README keeps
 // its own social row (Portfolio Puffer's panel).
-// Astra's photostar (Iced Out Iceberg's astras-star-window), in the footer border's right corner on every page.
-export const PHOTOSTAR = { url: `https://${OWNER}.github.io/astras-star-window/`, picture: `https://${OWNER}.github.io/astras-star-window/star-window.svg` };
+// Astra's photostar (Iced Out Iceberg's astras-star-window), between the footer's two sparkles on every page. It is a
+// picture only, never a link (Astra, 2026-11-13: "also the star shouldnt be a link. ever."): no address, no pointer, no
+// hover.
+export const PHOTOSTAR = { picture: `https://${OWNER}.github.io/astras-star-window/star-window.svg` };
 export const FOOTER_LINKS = [
   ['GitHub: Astra', `https://github.com/${OWNER}`, GITHUB_ICON],
 ];
@@ -1179,7 +1181,7 @@ ${about({
   const footer = panel(`${d.petSlug}-unified-footer-panel`, `<footer class="astra-footer" aria-label="By Astra and her links">
 <div class="footer-line">
 <div class="footer-group footer-by"><span class="footer-title">By Astra</span></div>
-<span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="${esc(PHOTOSTAR.url)}" title="Astra's photostar" aria-label="Astra's photostar"><img src="${esc(PHOTOSTAR.picture)}" alt="" width="48" height="48" loading="lazy"></a>
+<span class="footer-sparkle" aria-hidden="true">✦</span><span class="footer-star"><img src="${esc(PHOTOSTAR.picture)}" alt="Astra's photostar" width="48" height="48" loading="lazy"></span>
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons">${FOOTER_LINKS.map(([label, href, icon]) => `<a href="${esc(href)}" title="${esc(label)}" aria-label="${esc(label)}">${icon}</a>`).join('')}</span></div>
 </div>
 ${d.isPrivate ? '<p class="small">Private: its data never leaves the PC.</p>' : ''}</footer>
