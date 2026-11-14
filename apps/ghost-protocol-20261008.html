@@ -398,11 +398,11 @@
 
   /* ---------- footer ---------- */
   footer{margin-top:36px; padding-top:20px; border-top:1px dashed var(--border-soft); font-size:11.5px; color:var(--text-dim);}
-  /* Ghost Protocol's own line sits inside the unified footer, under By Astra ✦ star ✦ Find Out More (Astra, 2026-11-13:
-     "put that in the unified footer below the other stuff"), centered like the rest of the box. */
-  .footer-app{display:grid; justify-items:center; gap:8px; margin-top:4px; font-size:11.5px; color:var(--text-dim);}
-  .footer-app .foot-row{display:flex; justify-content:center; align-items:center; gap:8px 14px; flex-wrap:wrap;}
-  .footer-app .footer-version{opacity:.5;}
+  /* Ghost Protocol's one line inside the unified footer, under By Astra ✦ star ✦ Find Out More (Astra, 2026-11-13: "i only
+     want 1 line below the astra stuff, it should be the Open-sourced on GitHub [dot] v0.1.0 // 20261013"). The hidden
+     bug pixel (an easter egg) stays at its end. */
+  .footer-app{margin-top:4px; font-size:11.5px; color:var(--text-dim); text-align:center;}
+  .footer-app .bug{position:absolute; margin:5px 0 0 8px;} /* out of the text flow, so it never wraps the line */
   .ghost-btn{
     background:none; border:1px solid var(--border); color:var(--text-dim); border-radius:6px;
     padding:6px 12px; font-size:11px; cursor:pointer; font-family:var(--mono);
@@ -630,10 +630,7 @@
 <span class="footer-sparkle" aria-hidden="true">✦</span><a class="footer-star" href="https://findastra.github.io/astras-star-window/" title="Astra's photostar" aria-label="Astra's photostar"><img src="https://findastra.github.io/astras-star-window/star-window.svg" alt="" width="48" height="48" loading="lazy"></a>
 <div class="footer-group footer-more"><span class="footer-title">Find Out More</span><span class="footer-icons"><a href="https://github.com/findastra" title="GitHub: Astra" aria-label="GitHub: Astra"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.09c-3.14.68-3.8-1.33-3.8-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.73 2.63 1.23 3.27.94.1-.73.4-1.23.71-1.51-2.51-.29-5.15-1.26-5.15-5.58 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.16A10.7 10.7 0 0 1 12 6.12c.95 0 1.9.13 2.8.38 2.14-1.46 3.08-1.16 3.08-1.16.61 1.55.23 2.69.11 2.98.72.79 1.16 1.8 1.16 3.03 0 4.33-2.65 5.29-5.17 5.57.41.35.77 1.03.77 2.08v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a></span></div>
 </div>
-<div class="footer-app">
-<div class="foot-row"><span>Built for Astra by Claude &middot; open-sourced on <a href="https://github.com/findastra/Ghost-Protocol" id="footer-gh-link" target="_blank" rel="noopener">GitHub</a></span><button class="ghost-btn" id="reset-btn">Reset my progress</button></div>
-<div class="footer-version">v1.0 &middot; <span class="bug" id="hidden-bug" title=""></span></div>
-</div>
+<div class="footer-app">Open-sourced on <a href="https://github.com/findastra/Ghost-Protocol" id="footer-gh-link" target="_blank" rel="noopener">GitHub</a> &middot; v0.1.0 // 20261013<span class="bug" id="hidden-bug" title=""></span></div>
 </footer>
 </section>
 </div>
@@ -2223,7 +2220,8 @@ console.log('%cCurious. Try the terminal in the corner — type "help".', 'color
    RESET
 ========================================================= */
 var resetModal = document.getElementById('reset-modal');
-document.getElementById('reset-btn').addEventListener('click', function(){ resetModal.classList.add('open'); });
+var resetBtn = document.getElementById('reset-btn'); // not on the page since 2026-11-13 (the footer is one line)
+if (resetBtn) resetBtn.addEventListener('click', function(){ resetModal.classList.add('open'); });
 document.getElementById('reset-cancel').addEventListener('click', function(){ resetModal.classList.remove('open'); });
 document.getElementById('reset-confirm').addEventListener('click', function(){
   var eggs = state.eggs, ach = state.achievements, lv = state.localVisits, muted = state.muted;
