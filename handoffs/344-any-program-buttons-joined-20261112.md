@@ -33,7 +33,8 @@ program buttons are here, on `claude/program-buttons-joined-20261112`, not on #3
   passed, 0 failed; #11 merged as `b345c50`. Benchmark Rock rebuilt on the PC and its watch restarted (`--startup`); it
   writes `link` and the APC64 shows on.
 - main merged into #344 again (#341's `chatSay` rename kept; the seated helper's answer still called the old `say`, now
-  `chatSay`). `npm test`: 448 pass, 1 fail (the Windows from-scratch farm install, which fails on main too).
+  `chatSay`). `npm test` after main (#357, #358): 442 pass, 1 fail (the Windows from-scratch farm install, which fails on main
+  too), 6 skipped.
 
 ## Done when
 Both merged; Benchmark Rock rebuilt on the PC (`build-benchmark-rock-20261023.ps1`, `bin` is not in git) and its watch
