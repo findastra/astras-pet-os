@@ -51,9 +51,10 @@ test('the page reads the real list only from one fixed file on Astra\'s PC, and 
   assert.match(js, /var LOCAL_REQUESTS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/api-fairy-ring\/key-requests-page-data\.js";/);
   // Three script elements in the page script: this list, GitHub Aquarium's outstanding items and Inference Iguana's
   // open programs (2026-10-23, read again every five seconds, so its address carries the time), each from its own
-  // fixed constant and only on this PC.
-  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 3, 'one script element per local list');
-  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS'], 'each address is a fixed constant, never from data');
+  // fixed constant and only on this PC. A fourth since 2026-11-14: GitHub Aquarium's branch-sweeper list.
+  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 4, 'one script element per local list');
+  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS', 'LOCAL_SWEEPER'], 'each address is a fixed constant, never from data');
+  assert.match(js, /var LOCAL_SWEEPER = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/github-aquarium\/branch-sweeper-page-data\.js";/);
   assert.match(js, /var LOCAL_PROGRAMS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/benchmark-rock\/programs-page-data\.js";/);
   assert.match(js, /var onThisPC = location\.protocol === 'file:' \|\| \/\^\(localhost\|127\\\.0\\\.0\\\.1\|\\\[::1\\\]\)\$\/\.test\(location\.hostname\);/);
   assert.match(js, /if \(onThisPC\) \{\s*var script = document\.createElement\('script'\);/, 'loaded only on this PC');
