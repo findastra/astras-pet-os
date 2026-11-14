@@ -19,5 +19,7 @@ want it to be after the github cat icon link (separate with dot) but when you sh
 - Checked in the browser pane on the working copy: one row at 1124, 880 and 780 px; with the box squeezed to 560 px the
   line moves below without its leading sparkle and comes back when it is wide again; under the icon on a 375 px phone; no sideways
   scroll, no console errors.
+- The star between the footer's sparkles is a picture, never a link (Astra, 2026-11-13, in the Spoonfed chat: "also the
+  star shouldnt be a link. ever."); its focus outline rule is gone. The hub's other pages get this in their own pull request.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-13.
