@@ -110,10 +110,24 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Pick a preset, then press Play. The rain, wind and forest are made live as it plays, so it never loops; with Keeps changing on, they drift by themselves like real weather. Lightning flashes the picture and every light Light Hive reaches, and the thunder follows: the closer the strike, the sooner and louder. Between strikes your lights hold the preset’s colour. Full screen turns the screen itself into a light.</dd>
-      <dt>Where it comes from</dt><dd>The sound is made in this page by your browser, so there are no recordings and nothing to download. The lights go through Light Hive’s helper on this PC (findastra/rgbee), only from your PC’s copy of the page. Two screens on the same lightning level strike at the same seconds, so the desktop and the laptop flash together.</dd>
-      <dt>Your rules</dt><dd>2026-11-08: a rainforest with lightning across every light; never more than three flashes a second, soft glows when your computer asks for less motion; 2026-11-11: lots of presets, more variable, easy to read, details in here.</dd>
-      <dt>Not built yet</dt><dd>Real recorded rainforest sound (the choice is on the deck); the laptop’s own lights; the helper starting by itself at sign-in (rgbee card 002).</dd>
+      <dt>How it works</dt><dd>Pick a preset, then press Play. Each preset mixes real rainforest recordings: rain, drops on leaves, a tin roof, a waterfall, birds, insects, frogs and wind. Each recording plays as overlapping pieces from random places, a little faster or slower, so it never repeats; with Keeps changing on, every sound drifts by itself like real weather. Lightning flashes the picture and every light Light Hive reaches, and real thunder follows: the closer the strike, the sooner and louder. Between strikes your lights hold the preset’s colour. Full screen turns the screen itself into a light.</dd>
+      <dt>Where it comes from</dt><dd>Fourteen recordings from freesound.org that their makers gave away for anyone to use (CC0), cut short and kept with this page (about 10 MB, loaded when you press Play). If they can’t load, for example on a copy opened straight from a file, the page makes the sound itself instead. The lights go through Light Hive’s helper on this PC (findastra/rgbee), only from your PC’s copy of the page. Two screens on the same lightning level strike at the same seconds, so the desktop and the laptop flash together.</dd>
+      <dt>Recordings</dt><dd>Thanks to the makers, all CC0 on freesound.org:
+        drizzle, <a href="https://freesound.org/s/615747/" target="_blank" rel="noopener">nyoz</a>;
+        steady rain, <a href="https://freesound.org/s/658836/" target="_blank" rel="noopener">mariannadeoliveira</a>;
+        downpour, <a href="https://freesound.org/s/172099/" target="_blank" rel="noopener">nonzeroenfilade</a>;
+        big leaves, <a href="https://freesound.org/s/572267/" target="_blank" rel="noopener">TRP</a>;
+        drips, <a href="https://freesound.org/s/452297/" target="_blank" rel="noopener">kyles</a>;
+        tin roof, <a href="https://freesound.org/s/521773/" target="_blank" rel="noopener">MrFossy</a>;
+        distant thunder, <a href="https://freesound.org/s/581122/" target="_blank" rel="noopener">Fission9</a> (two);
+        close thunder, <a href="https://freesound.org/s/840628/" target="_blank" rel="noopener">loganzsound</a>;
+        birds, <a href="https://freesound.org/s/408651/" target="_blank" rel="noopener">felix.blume</a>;
+        night insects, <a href="https://freesound.org/s/386474/" target="_blank" rel="noopener">Skjor1</a>;
+        frogs, <a href="https://freesound.org/s/502204/" target="_blank" rel="noopener">fenixevendir</a>;
+        waterfall pool, <a href="https://freesound.org/s/236981/" target="_blank" rel="noopener">mhtaylor67</a>;
+        wind, <a href="https://freesound.org/s/469280/" target="_blank" rel="noopener">rucisko</a>.</dd>
+      <dt>Your rules</dt><dd>2026-11-08: a rainforest with lightning across every light; never more than three flashes a second, soft glows when your computer asks for less motion; 2026-11-11: lots of presets, more variable, easy to read, details in here; 2026-11-13: free real recordings, thunder still timed to the lightning, keep all twelve presets.</dd>
+      <dt>Not built yet</dt><dd>The laptop’s own lights; the helper starting by itself at sign-in (rgbee card 002).</dd>
     </dl>
   </details>
 </main>
@@ -148,29 +162,41 @@ const STRIKE = { r: 205, g: 220, b: 255 };               // lightning's blue-whi
    hiss: how bright the rain sounds (Hz); drops: big single drops on leaves or a roof (0-1) and their pitch;
    insects, birds, frogs: forest life (0-1 each, scaled by Forest life); falls: a waterfall's roar (0-1);
    near/far: how close the strikes come (0 overhead, 1 far off); light: the lights between strikes. */
+/* mix: how loud each real recording is in this preset (0-1; the Rain, Wind and Forest life sliders scale their group). */
 const PRESETS = [
   { id: 'drizzle', name: 'Light drizzle', say: 'Soft rain, birds still singing', rain: 25, wind: 15, life: 60, storm: 0, vol: 65,
-    hiss: 3600, drops: .25, dropHz: 1800, insects: .5, birds: .8, frogs: 0, falls: 0, near: .6, far: 1, light: '#3fd17a', bright: 30 },
+    hiss: 3600, drops: .25, dropHz: 1800, insects: .5, birds: .8, frogs: 0, falls: 0, near: .6, far: 1, light: '#3fd17a', bright: 30,
+    mix: { drizzle: 1, leaves: .3, birds: .8, insects: .3, wind: .5 } },
   { id: 'steady', name: 'Steady rain', say: 'An even, all-day rain', rain: 60, wind: 25, life: 35, storm: 0, vol: 70,
-    hiss: 2600, drops: .35, dropHz: 1500, insects: .5, birds: .3, frogs: .1, falls: 0, near: .5, far: 1, light: '#1f9e58', bright: 35 },
+    hiss: 2600, drops: .35, dropHz: 1500, insects: .5, birds: .3, frogs: .1, falls: 0, near: .5, far: 1, light: '#1f9e58', bright: 35,
+    mix: { steady: 1, drizzle: .4, drips: .3, insects: .4, birds: .2, wind: .5 } },
   { id: 'leaves', name: 'Rain on big leaves', say: 'Fat drops tapping the canopy', rain: 50, wind: 20, life: 40, storm: 1, vol: 70,
-    hiss: 2200, drops: .9, dropHz: 1100, insects: .4, birds: .4, frogs: .2, falls: 0, near: .5, far: 1, light: '#2bbf5a', bright: 35 },
+    hiss: 2200, drops: .9, dropHz: 1100, insects: .4, birds: .4, frogs: .2, falls: 0, near: .5, far: 1, light: '#2bbf5a', bright: 35,
+    mix: { leaves: 1, drips: .7, steady: .3, birds: .3, insects: .3, wind: .5 } },
   { id: 'roof', name: 'Under a tin roof', say: 'Ringing drops overhead', rain: 65, wind: 20, life: 20, storm: 1, vol: 65,
-    hiss: 4200, drops: 1, dropHz: 3200, insects: .3, birds: 0, frogs: .2, falls: 0, near: .45, far: 1, light: '#c9a46a', bright: 30 },
+    hiss: 4200, drops: 1, dropHz: 3200, insects: .3, birds: 0, frogs: .2, falls: 0, near: .45, far: 1, light: '#c9a46a', bright: 30,
+    mix: { roof: 1, steady: .25, frogs: .4, insects: .2, wind: .3 } },
   { id: 'distant', name: 'Distant storm', say: 'Thunder rolling far away', rain: 50, wind: 35, life: 35, storm: 2, vol: 70,
-    hiss: 2600, drops: .35, dropHz: 1400, insects: .5, birds: .2, frogs: .3, falls: 0, near: .6, far: 1, light: '#1d7f6a', bright: 30 },
+    hiss: 2600, drops: .35, dropHz: 1400, insects: .5, birds: .2, frogs: .3, falls: 0, near: .6, far: 1, light: '#1d7f6a', bright: 30,
+    mix: { steady: .8, drizzle: .4, insects: .5, frogs: .4, wind: .7 } },
   { id: 'overhead', name: 'Storm overhead', say: 'Cracks right above you', rain: 85, wind: 60, life: 15, storm: 5, vol: 75,
-    hiss: 2400, drops: .5, dropHz: 1300, insects: .2, birds: 0, frogs: .2, falls: 0, near: 0, far: .45, light: '#2a4dbf', bright: 30 },
+    hiss: 2400, drops: .5, dropHz: 1300, insects: .2, birds: 0, frogs: .2, falls: 0, near: 0, far: .45, light: '#2a4dbf', bright: 30,
+    mix: { downpour: .8, steady: .6, frogs: .2, wind: 1 } },
   { id: 'monsoon', name: 'Monsoon downpour', say: 'Heavy, roaring, gusting', rain: 100, wind: 75, life: 10, storm: 3, vol: 75,
-    hiss: 2000, drops: .6, dropHz: 1200, insects: .1, birds: 0, frogs: .1, falls: .35, near: .15, far: .8, light: '#0f6b52', bright: 35 },
+    hiss: 2000, drops: .6, dropHz: 1200, insects: .1, birds: 0, frogs: .1, falls: .35, near: .15, far: .8, light: '#0f6b52', bright: 35,
+    mix: { downpour: 1, steady: .5, falls: .3, insects: .2, wind: 1 } },
   { id: 'night', name: 'Night jungle', say: 'Frogs and insects in the rain', rain: 30, wind: 15, life: 85, storm: 1, vol: 65,
-    hiss: 2800, drops: .4, dropHz: 1500, insects: 1, birds: 0, frogs: 1, falls: 0, near: .6, far: 1, light: '#123d6e', bright: 25 },
-  { id: 'dawn', name: 'Dawn after rain', say: 'Dripping leaves, a bird chorus', rain: 10, wind: 10, life: 95, storm: 0, vol: 65,
-    hiss: 3800, drops: .7, dropHz: 1700, insects: .4, birds: 1, frogs: .2, falls: 0, near: .7, far: 1, light: '#ffb46b', bright: 35 },
+    hiss: 2800, drops: .4, dropHz: 1500, insects: 1, birds: 0, frogs: 1, falls: 0, near: .6, far: 1, light: '#123d6e', bright: 25,
+    mix: { drizzle: .6, drips: .4, insects: 1, frogs: 1, wind: .3 } },
+  { id: 'dawn', name: 'Dawn after rain', say: 'Dripping leaves, a bird chorus', rain: 25, wind: 10, life: 95, storm: 0, vol: 65,
+    hiss: 3800, drops: .7, dropHz: 1700, insects: .4, birds: 1, frogs: .2, falls: 0, near: .7, far: 1, light: '#ffb46b', bright: 35,
+    mix: { drips: 1, leaves: .4, birds: 1, insects: .3, wind: .3 } },
   { id: 'falls', name: 'Waterfall pool', say: 'Falling water and light rain', rain: 35, wind: 20, life: 50, storm: 0, vol: 70,
-    hiss: 3000, drops: .3, dropHz: 1500, insects: .5, birds: .5, frogs: .2, falls: 1, near: .6, far: 1, light: '#11a7a0', bright: 35 },
-  { id: 'sleep', name: 'Sleep', say: 'Gentle and dim, no lightning', rain: 45, wind: 10, life: 15, storm: 0, vol: 45,
-    hiss: 2200, drops: .3, dropHz: 1300, insects: .4, birds: 0, frogs: .2, falls: 0, near: 1, far: 1, light: '#0d3326', bright: 12 },
+    hiss: 3000, drops: .3, dropHz: 1500, insects: .5, birds: .5, frogs: .2, falls: 1, near: .6, far: 1, light: '#11a7a0', bright: 35,
+    mix: { falls: 1, drizzle: .4, birds: .5, insects: .3, frogs: .2, wind: .4 } },
+  { id: 'sleep', name: 'Sleep', say: 'Gentle and dim, no lightning', rain: 55, wind: 10, life: 25, storm: 0, vol: 50,
+    hiss: 2200, drops: .3, dropHz: 1300, insects: .4, birds: 0, frogs: .2, falls: 0, near: 1, far: 1, light: '#0d3326', bright: 12,
+    mix: { steady: 1, drizzle: .6, insects: .4, wind: .3 } },
   { id: 'wild', name: 'Surprise me', say: 'A new storm every time', wild: true, light: '#ff2bd6' }
 ];
 const save = (k, v) => { try { localStorage.setItem('light-hive-storm:' + k, v); } catch (e) {} };
@@ -180,7 +206,8 @@ const MIX = ['rain', 'wind', 'life', 'storm', 'vol'];
 function pick(p) {
   if (p.wild) {
     const r = (a, b) => Math.round(a + Math.random() * (b - a)), base = PRESETS[Math.floor(Math.random() * (PRESETS.length - 1))];
-    p = { ...base, id: 'wild', name: 'Surprise: ' + base.name.toLowerCase(), rain: r(15, 100), wind: r(5, 80), life: r(10, 95), storm: r(0, 5),
+    const mix = {}; for (const k in BEDS) mix[k] = Math.random() < .45 ? Math.round(Math.random() * 10) / 10 : (base.mix[k] || 0);
+    p = { ...base, id: 'wild', name: 'Surprise: ' + base.name.toLowerCase(), rain: r(15, 100), wind: r(5, 80), life: r(10, 95), storm: r(0, 5), mix,
       drops: Math.random(), dropHz: r(1000, 3400), near: Math.random() * .6, light: '#' + [r(0, 80), r(60, 200), r(60, 220)].map((n) => n.toString(16).padStart(2, '0')).join('') };
   }
   preset = p;
@@ -232,10 +259,22 @@ function noiseBuffer(kind, seconds) {
   return b;
 }
 function loop(buffer) { const s = ctx.createBufferSource(); s.buffer = buffer; s.loop = true; s.loopStart = Math.random(); return s; }
-function startSound() {
+async function startSound() {
   ctx = new (window.AudioContext || window.webkitAudioContext)();
   master = ctx.createGain(); master.connect(ctx.destination);
   white = noiseBuffer('white', 5); brown = noiseBuffer('brown', 7);
+  try {
+    real = await loadRecordings();
+    // Louder than the page-made sound, with a limiter so a close strike never distorts.
+    const lim = ctx.createDynamicsCompressor(); lim.threshold.value = -6; lim.knee.value = 4; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.25;
+    master.disconnect(); master.connect(lim).connect(ctx.destination);
+    rainGain = ctx.createGain(); windGain = ctx.createGain(); lifeGain = ctx.createGain(); fallsGain = ctx.createGain();
+    for (const g of [rainGain, windGain, lifeGain, fallsGain]) g.connect(master);
+    startBeds(); setLevels(); return;
+  } catch (e) { real = null; }       // no recordings: the sound made in the page
+  madeSound();
+}
+function madeSound() {
   // Rain: a hiss band (its brightness set by the preset) plus a softer low patter.
   rainGain = ctx.createGain(); rainGain.connect(master);
   const hiss = loop(white); hissFilter = ctx.createBiquadFilter(); hissFilter.type = 'bandpass'; hissFilter.Q.value = 0.45;
@@ -263,7 +302,14 @@ function setLevels() {
   if (!ctx || !preset) return;
   const v = (id) => $(id).value / 100, t = ctx.currentTime, d = $('drift').checked;
   const rainNow = v('rain') * (d ? wander.rain : 1), windNow = v('wind') * (d ? wander.wind : 1), lifeNow = v('life') * (d ? wander.life : 1);
-  master.gain.setTargetAtTime(v('vol') * 0.9, t, 0.3);
+  master.gain.setTargetAtTime(v('vol') * (real ? 2.2 : 0.9), t, 0.3);
+  if (real) {
+    rainGain.gain.setTargetAtTime(Math.min(1.3, rainNow * 1.1), t, 0.8);
+    windGain.gain.setTargetAtTime(Math.min(1.3, windNow * 1.1), t, 0.8);
+    lifeGain.gain.setTargetAtTime(Math.min(1.3, lifeNow * 1.1), t, 0.8);
+    fallsGain.gain.setTargetAtTime(1, t, 0.8);
+    bedLevels(t, d); return;
+  }
   rainGain.gain.setTargetAtTime(Math.min(1, rainNow) * 0.9, t, 0.8);
   hissFilter.frequency.setTargetAtTime(preset.hiss * (0.85 + 0.3 * rainNow), t, 1);
   windGain.gain.setTargetAtTime(Math.min(1, windNow) * 0.75, t, 0.8);
@@ -303,6 +349,7 @@ function frog() {
 }
 function thunder(distance, delay) {
   if (!ctx) return;
+  if (real) { realThunder(distance, delay); return; }
   const at = ctx.currentTime + delay, len = 3 + distance * 4 + Math.random() * 2;
   if (distance < 0.3) {
     // A close strike cracks before it rumbles.
@@ -319,6 +366,79 @@ function thunder(distance, delay) {
     g.gain.setValueAtTime(0.0001, st); g.gain.exponentialRampToValueAtTime(loud, st + (distance < 0.35 ? 0.05 : 0.5));
     g.gain.setValueAtTime(loud * 0.8, st + 0.6); g.gain.exponentialRampToValueAtTime(0.0001, st + l);
     s.connect(f).connect(g).connect(master); s.start(st); s.stop(st + l + 0.2);
+  }
+}
+
+/* ---------- the sound, from real recordings ----------
+   Free recordings their makers released for anyone to use (CC0, freesound.org; credits in More details and in
+   apps/sounds/storm-sounds-credits-20261113.md). Each one plays as overlapping pieces from random places, slightly
+   faster or slower, crossfaded, so it never repeats; the thunder is cut to land on the lightning. If they can't load
+   (a page opened straight from a file), the sound made in the page above plays instead. */
+const SOUNDS = 'sounds/';
+const BEDS = { drizzle: 615747, steady: 658836, downpour: 172099, leaves: 572267, drips: 452297, roof: 521773,
+  falls: 236981, birds: 408651, insects: 386474, frogs: 502204, wind: 469280 };
+const GROUP = { drizzle: 'rain', steady: 'rain', downpour: 'rain', leaves: 'rain', drips: 'rain', roof: 'rain',
+  falls: 'falls', birds: 'life', insects: 'life', frogs: 'life', wind: 'wind' };
+const THUNDER = { far: ['thunder-far-1-581122', 'thunder-far-2-581125'], close: ['thunder-close-840628'] };
+let real = null;                      // { buf, norm, onset, gain } once the recordings are in
+const fileOf = (name) => SOUNDS + 'storm-' + name + '-20261113.mp3';
+async function loadRecordings() {
+  const names = Object.keys(BEDS).map((k) => k + '-' + BEDS[k]).concat(THUNDER.far, THUNDER.close);
+  const got = await Promise.all(names.map(async (n) => {
+    const r = await fetch(fileOf(n)); if (!r.ok) throw new Error(n);
+    return [n, await ctx.decodeAudioData(await r.arrayBuffer())];
+  }));
+  const buf = {}, norm = {}, onset = {};
+  for (const [n, b] of got) {
+    const d = b.getChannelData(0), e = b.getChannelData(b.numberOfChannels - 1); let sum = 0, peak = 0;
+    for (let i = 0; i < d.length; i += 7) { sum += (d[i] * d[i] + e[i] * e[i]) / 2; peak = Math.max(peak, Math.abs(d[i]), Math.abs(e[i])); }
+    const rms = Math.sqrt(sum / (d.length / 7)) || 1e-4;
+    buf[n] = b;
+    norm[n] = n.startsWith('thunder') ? Math.min(3, 0.95 / (peak || 1)) : Math.min(2, 0.05 / rms);   // every bed about as loud
+    let at = 0; for (let i = 0; i < d.length; i++) if (Math.abs(d[i]) > peak * 0.35) { at = i / b.sampleRate; break; }
+    onset[n] = Math.max(0, at - 0.06);                                                // where the thunder hits
+  }
+  return { buf, norm, onset, gain: {} };
+}
+function startBeds() {
+  for (const k of Object.keys(BEDS)) {
+    const n = k + '-' + BEDS[k], g = ctx.createGain(); g.gain.value = 0;
+    g.connect({ rain: rainGain, wind: windGain, life: lifeGain, falls: fallsGain }[GROUP[k]]);
+    real.gain[k] = g; piece(n, g, ctx.currentTime + Math.random() * 0.5, k === 'birds' || k === 'frogs' ? 0.03 : 0.08);
+  }
+}
+function piece(n, out, when, wobble) {
+  // One piece of a recording: 12-26 s from a random place, crossfaded 3 s into the next.
+  const b = real.buf[n], X = 3, rate = 1 - wobble + Math.random() * wobble * 2;
+  const len = Math.min(12 + Math.random() * 14, b.duration / rate - 1), from = Math.random() * Math.max(0, b.duration - len * rate);
+  const s = ctx.createBufferSource(), g = ctx.createGain(); s.buffer = b; s.playbackRate.value = rate;
+  const lvl = real.norm[n];
+  g.gain.setValueAtTime(0.0001, when); g.gain.linearRampToValueAtTime(lvl, when + X);
+  g.gain.setValueAtTime(lvl, when + len - X); g.gain.linearRampToValueAtTime(0.0001, when + len);
+  s.connect(g).connect(out); s.start(when, from); s.stop(when + len + 0.1);
+  const next = when + len - X;
+  const wait = () => { if (ctx.state === 'running' && next - ctx.currentTime < 2) piece(n, out, Math.max(next, ctx.currentTime + 0.05), wobble); else setTimeout(wait, 500); };
+  setTimeout(wait, 500);
+}
+function bedLevels(t, d) {
+  // Each recording's level from the preset, and with Keeps changing on, each wanders on its own.
+  if (!real) return;
+  let i = 10;
+  for (const k of Object.keys(BEDS)) {
+    const w = d ? 0.45 + 0.9 * smooth(i++, wander.t * (0.6 + (i % 4) * 0.25)) : 1;
+    real.gain[k].gain.setTargetAtTime((preset.mix[k] || 0) * w, t, 1.5);
+  }
+}
+function realThunder(distance, delay) {
+  const at = ctx.currentTime + delay, close = distance < 0.3, list = close ? THUNDER.close : THUNDER.far;
+  const n = list[Math.floor(Math.random() * list.length)], b = real.buf[n];
+  const s = ctx.createBufferSource(); s.buffer = b; s.playbackRate.value = close ? 0.9 + Math.random() * 0.2 : 0.8 + Math.random() * 0.3;
+  const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = close ? 14000 : 3200 - distance * 2400;
+  const g = ctx.createGain(); g.gain.value = real.norm[n] * (1.15 - distance * 0.75);
+  s.connect(f).connect(g).connect(master); s.start(at, real.onset[n]);
+  if (close) {                        // a close strike rolls on afterwards
+    const m = THUNDER.far[Math.floor(Math.random() * 2)], r = ctx.createBufferSource(), rg = ctx.createGain(); r.buffer = real.buf[m];
+    r.playbackRate.value = 0.85 + Math.random() * 0.2; rg.gain.value = real.norm[m] * 0.55; r.connect(rg).connect(master); r.start(at + 0.9 + Math.random(), real.onset[m]);
   }
 }
 
@@ -339,9 +459,11 @@ function tick() {
   if (!playing || !preset) return;
   // Drops, birds and frogs, at rates the preset and the mix set (several times a second).
   const life = $('life').value / 100, rain = $('rain').value / 100;
-  if (Math.random() < preset.drops * (0.25 + rain) * 0.5) drop();
-  if (Math.random() < preset.birds * life * 0.025) bird();
-  if (Math.random() < preset.frogs * life * 0.05) frog();
+  if (!real) {                         // the recordings already have their own drops, birds and frogs
+    if (Math.random() < preset.drops * (0.25 + rain) * 0.5) drop();
+    if (Math.random() < preset.birds * life * 0.025) bird();
+    if (Math.random() < preset.frogs * life * 0.05) frog();
+  }
   if (second !== lastSecond) {
     lastSecond = second;
     wander.t += 1 / 20;
@@ -416,7 +538,7 @@ function words() {
 for (const id of MIX) $(id).addEventListener('input', () => { save(id, $(id).value); setLevels(); words(); });
 $('drift').addEventListener('change', () => { save('drift', $('drift').checked ? '1' : '0'); setLevels(); });
 $('play').addEventListener('click', async () => {
-  if (!ctx) startSound();
+  if (!ctx) { $('play').disabled = true; $('play').textContent = 'Loading the rainforest…'; await startSound(); $('play').disabled = false; }
   if (playing) { playing = false; await ctx.suspend(); $('play').textContent = 'Play the storm'; $('stage').classList.remove('playing'); words(); return; }
   await ctx.resume(); playing = true; $('play').textContent = 'Pause'; $('stage').classList.add('playing'); words();
   await lookLights(); if (helperUp) ask('/color', ambient());
