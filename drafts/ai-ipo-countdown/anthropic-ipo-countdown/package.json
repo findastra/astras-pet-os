@@ -1,0 +1,10 @@
+{
+  "name": "anthropic-ipo-countdown",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Counts down to Anthropic's IPO on your Discord profile.",
+  "type": "module",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": { "start": "node src/server-20261115.js", "test": "node --test" },
+  "license": "MIT"
+}

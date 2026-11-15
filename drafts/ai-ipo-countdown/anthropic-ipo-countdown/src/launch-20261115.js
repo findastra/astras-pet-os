@@ -2,8 +2,9 @@ import { spawn } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { SOURCE_IDENTITY } from './source-identity-20261115.js';
-const url = 'http://127.0.0.1:38767/';
-const app = 'countdown-discord-presence';
+import { EDITION } from './card-20261115.js';
+const url = `http://127.0.0.1:${EDITION.port}/`;
+const app = 'anthropic-ipo-countdown';
 
 export async function launch({ fetcher = fetch, spawnProcess = spawn, identity = SOURCE_IDENTITY,
   background = process.argv.includes('--background'), replace = process.argv.includes('--replace'),
@@ -36,12 +37,12 @@ export async function launch({ fetcher = fetch, spawnProcess = spawn, identity =
     child.on('error', error => { spawnError = error; });
     child.unref();
     for (let i = 0; i < 30; i++) {
-      if (spawnError) throw new Error('Could not start Countdown Discord Presence: ' + spawnError.message);
+      if (spawnError) throw new Error('Could not start Anthropic IPO Countdown: ' + spawnError.message);
       if (await status()) break;
       await sleep(200);
     }
   }
-  if (!(await status())) throw new Error('Could not start Countdown Discord Presence. Run node src/server-20261115.js for details.');
+  if (!(await status())) throw new Error('Could not start Anthropic IPO Countdown. Run node src/server-20261115.js for details.');
   if (!background) spawnProcess('rundll32.exe', ['url.dll,FileProtocolHandler', url], { detached: true, windowsHide: true, stdio: 'ignore' }).unref();
 }
 function isMainModule() {

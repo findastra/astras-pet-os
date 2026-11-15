@@ -4,7 +4,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateConfig } from './card-20261115.js';
 const root = fileURLToPath(new URL('../', import.meta.url));
-export const LAUNCHER_NAME = 'countdown-discord-presence-20261115.vbs';
+export const LAUNCHER_NAME = 'anthropic-ipo-countdown-20261115.vbs';
 function options(value = {}) { return { io: fs, appRoot: root, platform: process.platform, appdata: process.env.APPDATA, execPath: process.execPath, ...value }; }
 function target(value) {
   if (value.platform !== 'win32' || !value.appdata) throw new Error('Windows startup requires Windows.');

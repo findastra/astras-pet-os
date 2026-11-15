@@ -2,5 +2,5 @@
 
 Read [AGENTS.md](AGENTS.md) first, in full. It holds every rule for this repo.
 
-On Astra's PC this repo lives in `%USERPROFILE%\Documents\Astra's PetOS\countdown-discord-presence`. Work on a
+On Astra's PC this repo lives in `%USERPROFILE%\Documents\Astra's PetOS\ai-ipo-countdown`. Work on a
 `claude/<topic>-YYYYMMDD` branch and push before you stop. Open cards: [handoffs/](handoffs/).
