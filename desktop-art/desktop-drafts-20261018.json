@@ -13,78 +13,78 @@
    "id": "rgbee",
    "name": "RGBee",
    "interface": "apps/pet-programs/rgbee-20261018.html",
-   "idle": "desktop-art/rgbee/idle-20261011.png",
-   "blink": "desktop-art/rgbee/blink-20261011.png"
+   "idle": "desktop-art/rgbee/idle-20261114.png",
+   "blink": "desktop-art/rgbee/blink-20261114.png"
   },
   {
    "id": "mine-mole",
    "name": "Mine Mole",
    "interface": "apps/pet-programs/mine-mole-20261018.html",
-   "idle": "desktop-art/mine-mole/idle-20261011.png",
-   "blink": "desktop-art/mine-mole/blink-20261011.png"
+   "idle": "desktop-art/mine-mole/idle-20261114.png",
+   "blink": "desktop-art/mine-mole/blink-20261114.png"
   },
   {
    "id": "mail-snail",
    "name": "Mail Snail",
    "interface": "apps/pet-programs/mail-snail-20261018.html",
-   "idle": "desktop-art/mail-snail/idle-20261011.png",
-   "blink": "desktop-art/mail-snail/blink-20261011.png"
+   "idle": "desktop-art/mail-snail/idle-20261114.png",
+   "blink": "desktop-art/mail-snail/blink-20261114.png"
   },
   {
    "id": "patch-cat",
    "name": "Patch Cat",
    "interface": "apps/pet-programs/patch-cat-20261018.html",
-   "idle": "desktop-art/patch-cat/idle-20261011.png",
-   "blink": "desktop-art/patch-cat/blink-20261011.png"
+   "idle": "desktop-art/patch-cat/idle-20261114.png",
+   "blink": "desktop-art/patch-cat/blink-20261114.png"
   },
   {
    "id": "backup-beaver",
    "name": "Backup Beaver",
    "interface": "apps/pet-programs/backup-beaver-20261018.html",
-   "idle": "desktop-art/backup-beaver/idle-20261011.png",
-   "blink": "desktop-art/backup-beaver/blink-20261011.png"
+   "idle": "desktop-art/backup-beaver/idle-20261114.png",
+   "blink": "desktop-art/backup-beaver/blink-20261114.png"
   },
   {
    "id": "rift-rabbit",
    "name": "Rift Rabbit",
    "interface": "apps/pet-programs/rift-rabbit-20261018.html",
-   "idle": "desktop-art/rift-rabbit/idle-20261011.png",
-   "blink": "desktop-art/rift-rabbit/blink-20261011.png"
+   "idle": "desktop-art/rift-rabbit/idle-20261114.png",
+   "blink": "desktop-art/rift-rabbit/blink-20261114.png"
   },
   {
    "id": "wifi-butterfly",
    "name": "Wifi Butterfly",
    "interface": "apps/pet-programs/wifi-butterfly-20261018.html",
-   "idle": "desktop-art/wifi-butterfly/idle-20261011.png",
-   "blink": "desktop-art/wifi-butterfly/blink-20261011.png"
+   "idle": "desktop-art/wifi-butterfly/idle-20261114.png",
+   "blink": "desktop-art/wifi-butterfly/blink-20261114.png"
   },
   {
    "id": "chat-rat",
    "name": "Chat Rat",
    "interface": "apps/pet-programs/chat-rat-20261018.html",
-   "idle": "desktop-art/chat-rat/idle-20261011.png",
-   "blink": "desktop-art/chat-rat/blink-20261011.png"
+   "idle": "desktop-art/chat-rat/idle-20261114.png",
+   "blink": "desktop-art/chat-rat/blink-20261114.png"
   },
   {
    "id": "deck-duck",
    "name": "Deck Duck",
    "interface": "apps/pet-programs/deck-duck-20261018.html",
-   "idle": "desktop-art/deck-duck/idle-20261011.png",
-   "blink": "desktop-art/deck-duck/blink-20261011.png"
+   "idle": "desktop-art/deck-duck/idle-20261114.png",
+   "blink": "desktop-art/deck-duck/blink-20261114.png"
   },
   {
    "id": "raspberry-berry",
    "name": "Raspberry Pi Berry",
    "interface": "apps/pet-programs/raspberry-berry-20261018.html",
-   "idle": "desktop-art/raspberry-berry/idle-20261011.png",
-   "blink": "desktop-art/raspberry-berry/blink-20261011.png"
+   "idle": "desktop-art/raspberry-berry/idle-20261114.png",
+   "blink": "desktop-art/raspberry-berry/blink-20261114.png"
   },
   {
    "id": "meme-fiend",
    "name": "Meme Fiend",
    "interface": "apps/pet-programs/meme-fiend-20261018.html",
-   "idle": "desktop-art/meme-fiend/idle-20261011.png",
-   "blink": "desktop-art/meme-fiend/blink-20261011.png"
+   "idle": "desktop-art/meme-fiend/idle-20261114.png",
+   "blink": "desktop-art/meme-fiend/blink-20261114.png"
   },
   {
    "id": "fuzzboi-friend",
@@ -9994,36 +9994,36 @@
    "id": "gif-giraffe",
    "name": "Gif Giraffe",
    "interface": "apps/pet-programs/astras-gif-maker-20261018.html",
-   "idle": "desktop-art/gif-giraffe/idle-20261011.png",
-   "blink": "desktop-art/gif-giraffe/blink-20261011.png"
+   "idle": "desktop-art/gif-giraffe/idle-20261114.png",
+   "blink": "desktop-art/gif-giraffe/blink-20261114.png"
   },
   {
    "id": "workflow-whale",
    "name": "Workflow Whale",
    "interface": "apps/pet-programs/workflow-whirlpool-20261018.html",
-   "idle": "art/drafts/workflow-whale/idle-20261018.png",
-   "blink": "art/drafts/workflow-whale/blink-20261018.png"
+   "idle": "desktop-art/workflow-whale/idle-20261114.png",
+   "blink": "desktop-art/workflow-whale/blink-20261114.png"
   },
   {
    "id": "mesh-moth",
    "name": "Mesh Moth",
    "interface": "apps/pet-programs/mesh-moth-20261018.html",
-   "idle": "desktop-art/mesh-moth/idle-20261011.png",
-   "blink": "desktop-art/mesh-moth/blink-20261011.png"
+   "idle": "desktop-art/mesh-moth/idle-20261114.png",
+   "blink": "desktop-art/mesh-moth/blink-20261114.png"
   },
   {
    "id": "spoonfed-sugarcube",
    "name": "Spoonfed Sugarcube",
    "interface": "apps/pet-programs/spoonfed-20261018.html",
-   "idle": "desktop-art/spoonfed-sugarcube/idle-20261011.png",
-   "blink": "desktop-art/spoonfed-sugarcube/blink-20261011.png"
+   "idle": "desktop-art/spoonfed-sugarcube/idle-20261114.png",
+   "blink": "desktop-art/spoonfed-sugarcube/blink-20261114.png"
   },
   {
    "id": "door-dormouse",
    "name": "Door Dormouse",
    "interface": "apps/pet-programs/the-threshold-20261018.html",
-   "idle": "desktop-art/door-dormouse/idle-20261018.png",
-   "blink": "desktop-art/door-dormouse/blink-20261018.png"
+   "idle": "desktop-art/door-dormouse/idle-20261114.png",
+   "blink": "desktop-art/door-dormouse/blink-20261114.png"
   }
  ]
 }

@@ -89,6 +89,16 @@ namespace AstraDesktopPets {
       throw new FileNotFoundException("Private draft art is not in the "+repo+" folder next to the hub: "+path);
     }
     internal static string Text(Dictionary<string,object> obj,string key,string fallback="") { object value; return obj.TryGetValue(key,out value)&&value!=null?Convert.ToString(value,CultureInfo.InvariantCulture):fallback; }
+    // The newest idle and awake drawings in a hub folder: the latest YYYYMMDD with both idle-<date>.png and
+    // blink-<date>.png. False when the folder has no such pair.
+    internal static bool NewestDrawing(string folder,out string idle,out string blink) {
+      idle=blink=null;string dir=SafePath(folder);if(!Directory.Exists(dir))return false;
+      var dates=new List<string>();
+      foreach(string f in Directory.GetFiles(dir,"idle-*.png")){string d=Path.GetFileNameWithoutExtension(f).Substring(5);if(System.Text.RegularExpressions.Regex.IsMatch(d,"^[0-9]{8}$"))dates.Add(d);}
+      dates.Sort(StringComparer.Ordinal);dates.Reverse();
+      foreach(string d in dates){string i=Path.Combine(dir,"idle-"+d+".png"),b=Path.Combine(dir,"blink-"+d+".png");if(File.Exists(b)){idle=i;blink=b;return true;}}
+      return false;
+    }
     internal static bool StartupEnabled() { using(var key=Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))return key!=null&&String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal); }
     internal static void Startup(bool enabled) { using(var key=Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) { if(enabled)key.SetValue(RunName,StartupCommand,RegistryValueKind.String);else if(String.Equals(Convert.ToString(key.GetValue(RunName)),StartupCommand,StringComparison.Ordinal))key.DeleteValue(RunName,false); } }
     internal static bool PetsOutSetting() { using(var key=Registry.CurrentUser.OpenSubKey(SettingsKey)) { object value=key==null?null:key.GetValue("PetsOut");return !(value is int)||(int)value!=0; } }
@@ -175,12 +185,12 @@ namespace AstraDesktopPets {
       object plain;var still=((Dictionary<string,object>)raw).TryGetValue("plain",out plain)&&plain is Dictionary<string,object>?(Dictionary<string,object>)plain:paths;
       string idle=PetFiles.SafePath(PetFiles.Text(still,"idle",PetFiles.Text(paths,"idle"))),blink=PetFiles.SafePath(PetFiles.Text(still,"blink",PetFiles.Text(paths,"blink")));
       if(!File.Exists(idle)||!File.Exists(blink)){idle=PetFiles.SafePath(PetFiles.Text(paths,"idle"));blink=PetFiles.SafePath(PetFiles.Text(paths,"blink"));}
-      // Desktop-only drafts: the shared registry and website art keep their own assets.
-      if(pet.Id=="health-hummy"||pet.Id=="farmer"||pet.Id=="discord-damsel"||pet.Id=="drum-dog"||pet.Id=="mommys-mommies"||pet.Id=="finance-finch"||pet.Id=="python-panther"||pet.Id=="paper-girl"||pet.Id=="chip"||pet.Id=="file-master"||pet.Id=="astra-wisp"||pet.Id=="project-parrot"||pet.Id=="portfolio-puffer"||pet.Id=="vscode-angel"||pet.Id=="voicemeeter-bug") {
-        string localIdle=PetFiles.SafePath("desktop-art/"+pet.Id+"/idle-20261011.png"),localBlink=PetFiles.SafePath("desktop-art/"+pet.Id+"/blink-20261011.png");
-        if(File.Exists(localIdle)!=File.Exists(localBlink))throw new InvalidDataException("Incomplete desktop artwork for "+pet.Name);
-        if(File.Exists(localIdle)){idle=localIdle;blink=localBlink;pet.DesktopArt=true;}
-      }
+      // Its own desktop drawing wins over the registry's frames: the newest date in desktop-art/<pet>/ with both an idle
+      // and an awake (blink) drawing, the same drawing its pages and the Stream Deck show (the pages' petFrames). Until
+      // 2026-11-14 that was fifteen pets' drawings of 2026-10-11; since then every pet has GPT-6-Astra's nine faces there
+      // (Astra: "Yes, all of them").
+      string localIdle,localBlink;
+      if(PetFiles.NewestDrawing("desktop-art/"+pet.Id,out localIdle,out localBlink)){idle=localIdle;blink=localBlink;pet.DesktopArt=true;}
       pet.Idle=Detached(idle);pet.Blink=Detached(blink);
       pet.Repo=PetFiles.Text(entry,"repo",null);
       pet.framePaths=paths;
@@ -706,9 +716,15 @@ namespace AstraDesktopPets {
     // Group 3 share Mommy's Mommies' face and body in art pixels (docs/girls-same-size-20261017.md). Halos,
     // horns, wings, the star and the headset make their alpha bounds differ, so instead of each being fitted
     // by its bounds they all use one crop height, measured up from the soles: one scale for all six girls.
-    // 202 is Mommy's Mommies' own height, so they are drawn exactly as before.
+    // 2026-11-14: GPT-6-Astra drew each girl again on her own (nine faces each, desktop-art/<girl>/*-20261114.png), so
+    // the art pixels no longer match and each girl has her own crop, still measured up from the soles. Measured on the
+    // idle frames, the eye top to the soles is Mommy's Mommies 141 rows, Discord Damsel 152, API Fairy 139, Astra Wisp
+    // 142 and VSCode Angel 146; each crop is 207 x her rows / 141, so all six girls stand the same height from the eyes
+    // down (faces 20 to 22 rows on every girl). 207 is the smallest crop for Mommy's Mommies that still holds the
+    // whole of API Fairy's drawing (204 rows). A newer drawing must be measured again: the self-test checks every crop.
     internal static readonly string[] SameSize={"mommys-mommies","discord-damsel","api-fairy","astra-wisp","vscode-angel"};
-    internal const int SameSizeCrop=202;
+    internal static readonly Dictionary<string,int> SameSizeCrops=new Dictionary<string,int>{{"mommys-mommies",207},{"discord-damsel",224},{"api-fairy",204},{"astra-wisp",208},{"vscode-angel",214}};
+    internal static int SameSizeCrop(string id) { return SameSizeCrops[id]; }
     const int LogicalWidth=20,LogicalHeight=20,StarDrop=0;
     readonly List<PetSprite> pets=new List<PetSprite>();
     readonly List<string> draftErrors=new List<string>();
@@ -891,7 +907,7 @@ namespace AstraDesktopPets {
     void LayoutPets() {
       // Every pet stands the same height; wide art is fitted without distortion.
       foreach(var pet in pets) { float h=pet.Id=="voicemeeter-bug"?BugHeight:NormalHeight;float w=h*pet.Crop.Width/pet.Crop.Height;if(w>MaxPetWidth){h*=MaxPetWidth/w;w=MaxPetWidth;}float size=1;
-        if(Array.IndexOf(SameSize,pet.Id)>=0) { pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop,pet.Crop.Right,pet.Crop.Bottom);h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height; }
+        if(Array.IndexOf(SameSize,pet.Id)>=0) { pet.Crop=Rectangle.FromLTRB(pet.Crop.Left,pet.Crop.Bottom-SameSizeCrop(pet.Id),pet.Crop.Right,pet.Crop.Bottom);h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height; }
         switch(pet.Id) { case "wifi-butterfly":size=0.7f;break;case "fuzzboi-friend":size=0.75f;break;case "paper-girl":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break;case "claude-bot":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=1.5f;break;case "rift-rabbit":size=0.9f;break;case "chat-rat":size=0.8f;break;case "meme-fiend":case "raspberry-berry":size=0.8f;break;case "rgbee":size=0.7f;break;case "mesh-moth":size=0.64f;break;case "spoonfed-sugarcube":size=0.7f;break;case "health-hummy":size=0.7776f;break;case "voicemeeter-bug":case "mail-snail":case "portfolio-puffer":case "ghost-protocol":size=0.8f;break;case "finance-finch":case "backup-beaver":case "patch-cat":size=0.85f;break;case "file-master":h=NormalHeight;w=h*pet.Crop.Width/pet.Crop.Height;size=0.72f;break; }
         pet.Hit=new RectangleF(0,0,w*size,h*size); }
       float fh=NormalHeight*0.9f,fw=fh*farmer.Crop.Width/farmer.Crop.Height;farmer.Hit=new RectangleF(0,0,fw,fh);
@@ -1160,7 +1176,7 @@ namespace AstraDesktopPets {
       var paper=pets.Find(p=>p.Id=="paper-girl");var files=pets.Find(p=>p.Id=="file-master");
       if(Math.Abs(paper.Hit.Height-NormalHeight*.72f)>.01f||Math.Abs(files.Hit.Height-NormalHeight*.72f)>.01f)throw new Exception("Paper Girl or File Master resize failed.");
       foreach(string id in SameSize) { var girl=pets.Find(p=>p.Id==id);if(girl==null)continue;var art=Rectangle.Union(PetSprite.AlphaBounds(girl.Idle),PetSprite.AlphaBounds(girl.Blink));
-        if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
+        if(girl.Crop.Top<0||girl.Crop.Height!=SameSizeCrop(id)||girl.Crop.Bottom!=art.Bottom||art.Top<girl.Crop.Top||Math.Abs(girl.Hit.Height-NormalHeight)>.01f)throw new Exception("Group 3 same-size scale failed: "+girl.Name); }
 
       Rectangle left=new Rectangle(-1920,0,1920,1080);Size size=new Size(690,172);
       if(Clamp(new Point(9999,9999),size,left)!=new Point(-690,908))throw new Exception("Screen clamp failed.");
