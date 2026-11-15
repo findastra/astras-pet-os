@@ -486,6 +486,28 @@
       "category": "Desktop app"
     },
     {
+      "id": "anthropic-ipo-countdown",
+      "name": "Anthropic IPO Countdown",
+      "url": "https://github.com/findastra/anthropic-ipo-countdown",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that counts down to Anthropic's IPO on Astra's Discord profile: the gold galaxy with one kind of time in its middle (4 DAYS, then hours, minutes, seconds), Nasdaq: ANT, the time left and Discord's live timer. Reads nothing on the PC. Code in findastra/ai-ipo-countdown. One of Discord Damsel's programs (discord-tower pet.json, v0.1.0, 2026-11-15).",
+      "does": "Counts down to Anthropic's IPO on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
+      "id": "openai-ipo-countdown",
+      "name": "OpenAI IPO Countdown",
+      "url": "https://github.com/findastra/openai-ipo-countdown",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that counts down to OpenAI's IPO on Astra's Discord profile: the blue galaxy with one kind of time in its middle, Ticker TBA and the 2027 target (OpenAI has set no date; the count runs to the first trading day of 2027), the time left and Discord's live timer. Reads nothing on the PC. Code in findastra/ai-ipo-countdown. One of Discord Damsel's programs (discord-tower pet.json, v0.1.0, 2026-11-15).",
+      "does": "Counts down to OpenAI's IPO on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
       "id": "sticker-manager",
       "name": "Sticker Manager",
       "type": "tool",
@@ -5874,6 +5896,48 @@
       "carries": "opens",
       "state": "now",
       "why": "Discord Damsel's page starts and stops Ableton Live Discord Presence (hub #284); its control panel only answers on this PC."
+    },
+    {
+      "from": "discord-tower",
+      "to": "anthropic-ipo-countdown",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops Anthropic IPO Countdown (Astra, 2026-11-15); its control panel only answers on this PC."
+    },
+    {
+      "from": "anthropic-ipo-countdown",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Counts down to the IPO on your Discord profile."
+    },
+    {
+      "from": "anthropic-ipo-countdown",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
+    },
+    {
+      "from": "discord-tower",
+      "to": "openai-ipo-countdown",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops OpenAI IPO Countdown (Astra, 2026-11-15); its control panel only answers on this PC."
+    },
+    {
+      "from": "openai-ipo-countdown",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Counts down to the IPO on your Discord profile."
+    },
+    {
+      "from": "openai-ipo-countdown",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
     },
     {
       "from": "codex",
