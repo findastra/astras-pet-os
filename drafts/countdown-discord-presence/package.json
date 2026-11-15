@@ -1,0 +1,10 @@
+{
+  "name": "countdown-discord-presence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Counts down to your big day on your Discord profile.",
+  "type": "module",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": { "start": "node src/server-20261115.js", "test": "node --test", "art": "node scripts/make-hourglass-art-20261115.js" },
+  "license": "MIT"
+}
