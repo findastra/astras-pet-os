@@ -171,7 +171,9 @@ test('a pet pack: the repo at its version, its pictures, a page that works on it
     assert.ok(page.includes('href="https://findastra.github.io/astras-pet-os/apps/pet-programs/log-den-20261018.html"'), "another pet's page goes to the public site");
     assert.match(at(OPENER).toString('utf8'), new RegExp(`url=${HUB_DIR}/apps/pet-programs/evidence-locker-20261018\\.html`));
     // The Markdown pet shows the picture in the pack.
-    assert.match(at(`${HUB_DIR}/markdown-pets/evidence-locker-20261019.md`).toString('utf8'), /!\[Forensic Ferret\]\(\.\.\/art\/frames\/forensic-ferret\/idle-20261019\.png\)/);
+    // (2026-11-14: his newest drawing, the nine faces in desktop-art/forensic-ferret/, stamped in art/moods/.)
+    assert.match(at(`${HUB_DIR}/markdown-pets/evidence-locker-20261019.md`).toString('utf8'), /!\[Forensic Ferret\]\(\.\.\/art\/moods\/forensic-ferret\/idle\.png\)/);
+    assert.ok(at(`${HUB_DIR}/art/moods/forensic-ferret/idle.png`), 'and that picture is in the pack');
     // The README says plainly what works alone and what needs a farm.
     const readme = at('README.md').toString('utf8');
     for (const want of ['## What works on its own', '## What needs a farm', '**Log Lynx** (`log-den`, required)', '**Its desktop pet** (optional)', 'Windows 10 or 11',

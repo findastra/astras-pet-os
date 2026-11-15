@@ -186,8 +186,11 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
   // The pet as it looks on the desktop comes first (Astra, 2026-10-20, crossing out the older drawing of Drum Dog on
   // his page while his desktop pet sat beside it): its drawing in desktop-art/<art>/, the newest file of each mood, so
   // the page and the desktop pet are one pet. A drawing the draft list marks private (Claude Bot's) is never used.
+  // Its folder is named for its art, its desktop draft, its repo or (since 2026-11-14, when every pet got GPT-6-Astra's
+  // nine faces in desktop-art/: Astra, "Yes, all of them") its pet's name.
   const privateArt = new Set((drafts?.pets || []).filter((d) => d.private).map((d) => d.id));
-  for (const folder of [reg.art, reg.repo].filter((x) => x && !privateArt.has(x))) {
+  const draftOf = (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet));
+  for (const folder of [...new Set([reg.art, draftOf?.id, reg.repo, reg.pet && slug(reg.pet)])].filter((x) => x && !privateArt.has(x))) {
     const frames = newest(`desktop-art/${folder}`);
     // The same drawing with its mood sticker stamped on, when the build has made it (build-mood-stickers-20261024.mjs;
     // Astra, 2026-10-24: the nine mood symbols "stay the same across all pets").
