@@ -177,7 +177,8 @@ const RULES = {
     const want = itemNames(t.own).filter((n) => /clicks?$/.test(n)), have = itemNames(p.own);
     return [!same(have.slice(0, want.length), want) && `its clicks are ${list(have)}; the template’s start ${list(want)}`];
   },
-  'friends-list-panel': (p) => [...p.own.matchAll(/<li class="mood related-pet">([\s\S]*?)<\/li>/g)].flatMap((m) => {
+  // Each friend's <li> also says which pet it is (data-mood-of, for the shared mood since 2026-11-14).
+  'friends-list-panel': (p) => [...p.own.matchAll(/<li class="mood related-pet"(?: data-mood-of="[^"]*")?>([\s\S]*?)<\/li>/g)].flatMap((m) => {
     const who = (/<legend>([^<]+)<\/legend>/.exec(m[1]) || [])[1];
     return [!who && 'a friend with no name in its cloud', !/<img [^>]*src="[^"]+"/.test(m[1]) && `${who || 'a friend'} has no picture`];
   }),

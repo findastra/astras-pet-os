@@ -19,7 +19,7 @@ test('every drawn cyberhome has its stylesheet in the pet program folder', () =>
 test("the Goldfish's page draws the Aquarium behind the Goldfish, and its cyberhome tool is built", () => {
   const html = files[pagePath('github-goldfish')];
   assert.match(html, /<link rel="stylesheet" href="cyberhome-aquarium-20261111\.css">/);
-  const den = /<div class="den aquarium" data-arrival="waiting">([\s\S]*?)<\/div>/.exec(html);
+  const den = /<div class="den aquarium" data-arrival="waiting"(?: data-mood-of="[^"]*")?>([\s\S]*?)<\/div>/.exec(html);
   assert.ok(den, 'the den carries the aquarium');
   assert.ok(den[1].indexOf('aq-tank') < den[1].indexOf('class="pet'), 'the drawing comes before the pet, so the pet swims in front');
   assert.match(den[1], /aria-hidden="true"/, 'the drawing is decoration for screen readers');
@@ -30,6 +30,6 @@ test("the Goldfish's page draws the Aquarium behind the Goldfish, and its cyberh
 test('pets without a drawn cyberhome keep the plain den and no extra stylesheet', () => {
   const html = files[pagePath('rift-rabbit')];
   assert.ok(html, 'Rift Rabbit has a page');
-  assert.match(html, /<div class="den" data-arrival="waiting">/);
+  assert.match(html, /<div class="den" data-arrival="waiting"(?: data-mood-of="[^"]*")?>/);
   assert.doesNotMatch(html, /cyberhome-aquarium/);
 });

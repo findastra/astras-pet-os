@@ -306,7 +306,8 @@ test('the mood the pet is in lights up in the emotions tool panel (Astra, 2026-1
     for (const m of ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad']) assert.ok(html.includes(`<figure class="mood" data-mood="${m}">`), `${d.repo}: ${m}`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /lightUp\(mood === 'awake' \? 'blink' : mood\)/);
+  // The shared mood (pet-moods, 2026-11-14) lights up first, when there is one; then the page's own.
+  assert.match(js, /lightUp\(s \|\| \(mood === 'awake' \? 'blink' : mood\)\)/);
 });
 
 test('the title is the pet program name from pet-programs.json', () => {
@@ -619,7 +620,7 @@ test('awake shows its own drawing with the twinkles; L2 has play-with and care-f
     for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
+  assert.match(js, /face\(den, s \|\| \(mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)\)/, 'the cyberhome shows the awake drawing too');
 });
 
 // Astra, 2026-11-08, "Yes, add them" (PC Master Race's waiting OKs, where the Model Pet Program has them): a pet's own

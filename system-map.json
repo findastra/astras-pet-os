@@ -4442,6 +4442,18 @@
       "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 71 checks as tools. The page checks follow the Model Pet Program, one per part of the template, and every build compares every pet program page with it (scripts/flash-template-20261112.mjs, Astra 2026-11-12); the others show the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 18 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
     },
     {
+      "id": "pet-moods",
+      "name": "pet-moods",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-moods-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-14: \"I want all of the pets everywhere to have the same status. Like if they're questioning or if they're alert ... the icons on the stream deck, the icons on every single pet program page, where they are on the top of the page and all their friends at the bottom, and on my desktop\"): the only place that works out each pet's mood. Every five seconds it reads what the background pets say about themselves, the key requests waiting on Astra (the pet that asked is curious) and the Friendly Farmer's round from the past week, picks the most urgent mood for each pet (MOOD-KEY.md) and writes it to one file on this PC. The desktop pets and every pet program page (the pet at the top, its emotions and its friends) read that file, so a pet shows the same mood everywhere; the Stream Deck keys are next (Deck Duck's plugin). Startup Star starts it at sign-in (scripts/pet-moods-20261114.mjs)."
+    },
+    {
       "id": "project-image-generator",
       "name": "project-image-generator",
       "type": "tool",
@@ -6358,6 +6370,13 @@
       "carries": "runs-on",
       "state": "now",
       "why": "click-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "pet-moods",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-moods runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "outstanding-items",
