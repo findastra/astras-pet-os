@@ -5,6 +5,10 @@
 //   node scripts/generate-pets.mjs --dry           print the prompts, generate nothing
 //   node scripts/generate-pets.mjs --force         redo sheets that already exist
 //   node scripts/generate-pets.mjs <ids> --match   redo them, holding the body they already have
+//   node scripts/generate-pets.mjs <id> --force --ref <png>   a NEW body for one pet, drawn from a reference picture
+//
+// --ref is for a pet whose new look comes from a picture Astra already has (Papermon from his Papermon card art,
+// 2026-11-14). It takes one pet, a PNG, and never --match: an approved body is held with --match alone.
 //
 // --match is the safe way to redo a pet whose art is approved. A plain regeneration re-rolls
 // the character and the body comes back different (this is how the penguin got slimmer once).
@@ -70,7 +74,12 @@ export const PETS = [
   // The Mommies are one pet, not two. They are never drawn apart, so they share a single
   // double-wide sprite. Identical bodies, faces and proportions: only hair and outfit differ.
   { id: 'mommys-mommies', what: 'TWO girl dancers standing side by side together, touching shoulders, as one pair. They stand close together and fit inside a square frame the same size as a single-character sprite. They are IDENTICAL twins with exactly the same body, same face, same proportions and same pose - the ONLY differences between them are hair colour and outfit colour. The girl on the left has long straight BLONDE hair; the girl on the right has long straight DARK BRUNETTE hair and small white curved horns. Both wear the same style of dance outfit', colours: 'left girl bright golden-blonde hair with a hot pink outfit, right girl dark brunette hair with a deep magenta outfit, both with white trim' },
-  { id: 'paper-girl', what: 'a rolled-up NEWSPAPER character with a face on it, feminine and sweet: a folded broadsheet newspaper standing upright with little arms and feet, long eyelashes and a ribbon bow tied around its middle. It is a newspaper, not a person', colours: 'cream-white newsprint with charcoal text lines, hot coral ribbon bow, teal accents' },
+  // Papermon (pet program #11, Papermon). Paper Patty, the newspaper girl, retired on 2026-11-14 (Astra, deck answered
+  // "all recommended"): the pet and the game share one name, and he is the Babbling Sac-winged Pup, the baby bat of his
+  // Papermon card ("a babbler, like a pet that tells you about papers"). A new body, so drawn fresh with his card art as
+  // the reference (--ref), not --match; once Astra approves the sheet, redo him only with --match. The id stays
+  // paper-girl until the repo and art folders are renamed papermon. Claude Opus 5.5.
+  { id: 'paper-girl', what: 'a tiny chubby kawaii baby sac-winged bat pup, chibi proportions with a big round fuzzy head as wide as its body, two very large pointed bat ears, a small round pig-like snout nose, a fluffy ruff of fur on its chest, two leathery bat wings folded down at its sides like a little cape with a tiny claw at each wing tip, two tiny clawed feet, standing upright on the ground and never hanging upside down, no props and no lettering', colours: 'soft charcoal-grey fur, neon sunset-orange inner ears and wing membranes, fluffy pale lilac chest ruff, bubblegum-pink snout, dark charcoal wing bones' },
   { id: 'file-master', what: 'a manila folder creature: a folder with a tab on its top left, white papers poking out of the top, with little arms and feet and a face on the front panel', colours: 'neon amber-orange folder, electric blue tab label, bright white papers' },
   // Discord Damsel is told apart by a crown, not a hood.
   { id: 'discord-damsel', what: 'a girl wearing a SMALL delicate golden tiara resting on her head, dainty and low, not a tall crown, no hood and no hat, holding a small game controller', colours: 'small bright gold tiara, blurple indigo dress, neon cyan trim, white controller, pale blonde hair' },
@@ -117,6 +126,10 @@ export const DRAFT_FLOWSHEET_FLAMINGO = { id: 'flowsheet-flamingo', what: 'a tin
 const prompt = (p) => `${STYLE} The character is ${p.what}, in NEON unconventional colours: ${p.colours}. It must clearly read as ${p.what.split(',')[0]}.`;
 export const promptFor = prompt;
 
+/* Added to the prompt only when --ref gives a new body a picture in another art style (2026-11-14), so the model takes
+   the character's design from it and nothing else. --match and a pet's own `ref` never add it. */
+export const REF_NOTE = 'The attached reference picture shows this same character in a different art style: keep its face, ears, markings and body shape, but redraw it from scratch in the pixel-art sprite sheet style described above, upright, in the neon colours given, on the plain medium grey background, with nothing else from the picture: no scenery, no branch, no other characters.';
+
 /* ---------- run ----------
    Only when this file is run directly. Importing it (the tests read PETS) must never spend
    money: once, a command that merely imported it started a paid batch. */
@@ -126,10 +139,18 @@ if (invokedDirectly) await main();
 async function main() {
   const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
   const args = process.argv.slice(2);
+  // --ref <png> takes its value out first, so the picture's path is never read as a pet id.
+  const refAt = args.indexOf('--ref');
+  const extraRef = refAt >= 0 ? args.splice(refAt, 2)[1] : null;
   const dry = args.includes('--dry');
   const match = args.includes('--match');
   const force = args.includes('--force') || match;
   const only = args.filter((a) => !a.startsWith('--'));
+  if (refAt >= 0 && (!extraRef || extraRef.startsWith('--') || only.length !== 1 || match || !/\.png$/i.test(extraRef))) {
+    console.error('--ref <png> draws a new body for exactly one pet: name one pet, give a .png, and leave out --match.');
+    process.exit(2);
+  }
+  if (extraRef && !existsSync(extraRef)) { console.error(`--ref: ${extraRef} is not there.`); process.exit(2); }
   const KEEP = 'art/sheets/.approved';
   // A pet generated from another pet's sheet has to run after it, whatever order the table is
   // written in. PETS order stays the roster's row order; this only reorders the work.
@@ -146,7 +167,8 @@ async function main() {
   for (const pet of todo) {
     const paths = assetPaths(registry, pet.id);
     const sheet = paths.sheet;
-    if (dry) { console.log(`\n--- ${pet.id} ---\n${prompt(pet)}`); continue; }
+    const text = extraRef ? `${prompt(pet)} ${REF_NOTE}` : prompt(pet);
+    if (dry) { console.log(`\n--- ${pet.id} ---${extraRef ? ` (reference: ${extraRef})` : ''}\n${text}`); continue; }
 
     if (existsSync(sheet) && !force) { skipped++; }
     else {
@@ -154,9 +176,10 @@ async function main() {
       try {
         // A pair of characters needs a wider cell than a single one.
         const canvas = (pet.aspect || 1) > 1 ? '1536x1024' : '1024x1024';
-        const argv = [BRIDGE, prompt(pet), sheet, '--size', canvas, '--quality', 'high'];
-        // Some pets are generated from another pet's sheet so they share its character design.
-        let ref = pet.ref;
+        const argv = [BRIDGE, text, sheet, '--size', canvas, '--quality', 'high'];
+        // Some pets are generated from another pet's sheet so they share its character design; --ref gives a new body
+        // its picture (one pet only, checked above).
+        let ref = extraRef || pet.ref;
         // --match: hold this pet's own approved body still while the expressions are redrawn.
         if (match && existsSync(sheet)) {
           mkdirSync(KEEP, { recursive: true });

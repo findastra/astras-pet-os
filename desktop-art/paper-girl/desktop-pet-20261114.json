@@ -1,0 +1,25 @@
+{
+  "pet": "paper-girl",
+  "name": "Papermon",
+  "creator": "Astra",
+  "assistant": "Claude Opus 5.5 (claude-opus-5-5)",
+  "date": "2026-11-14",
+  "status": "draft",
+  "desktop_scale": 0.72,
+  "sparkles": false,
+  "renderer": "astras-pet-os/scripts/desktop-pets-20261011.cs",
+  "source_sheet": "art/sheets/paper-girl.png",
+  "art_files": [
+    "idle-20261114.png",
+    "blink-20261114.png",
+    "happy-20261114.png",
+    "curious-20261114.png",
+    "worried-20261114.png",
+    "sad-20261114.png",
+    "sick-20261114.png",
+    "alarmed-20261114.png",
+    "sleep-20261114.png"
+  ],
+  "paired_with": "file-master",
+  "notes": "Papermon, a baby sac-winged bat pup (the Babbling Sac-winged Pup, Astra 2026-11-14: \"a babbler, like a pet that tells you about papers\"). Paper Patty, the newspaper girl, retired that day; the pet and the Papermon game share one name. His sheet was generated with scripts/generate-pets.mjs (OpenAI, gpt-image-2) from his Papermon card art as the reference. The nine plain frames (no mood stickers) are cut from that sheet with the hub's own converter (scripts/sheet-to-sprites.mjs, as scripts/build-frames.mjs does, 256px, 24 colours); idle and blink are byte-identical to art/frames/paper-girl/plain-idle.png and plain-blink.png. A draft until Astra approves it. The 2026-10-11 newspaper drawings stay in this folder as a record. The Windows desktop pet still reads idle-20261011.png and blink-20261011.png by name (scripts/desktop-pets-20261011.cs) until that list reads the newest drawing; desktop_scale and the File Master pairing are carried over from the 2026-10-11 manifest."
+}

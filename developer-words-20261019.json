@@ -121,7 +121,7 @@
     "health-hummy": { "agent": "Health Agent" },
     "finance-finch": { "agent": "Finance Agent" },
     "mommys-mommies": { "agent": "Event Planning Agent" },
-    "paper-girl": { "agent": "Science News Agent", "keep_home": true },
+    "paper-girl": { "agent": "Papermon", "keep_home": true },
     "file-master": { "agent": "File Agent" },
     "discord-tower": { "agent": "Discord Presence Agent" },
     "portfolio-puffer": { "agent": "Portfolio Agent" },

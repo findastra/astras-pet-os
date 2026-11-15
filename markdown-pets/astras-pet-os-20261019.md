@@ -87,7 +87,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Mine Mole** (Crypto Burrow): Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power.
 - **Mommy's Mommies** (Mommy’s HQ): A local planning room for Mommy's classes and events, with session details, readiness and notes.
 - **Packet Piranha** (Packet River): Network: packet loss, DNS, latency, routing.
-- **Paper Patty** (Paper Girl): Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.
+- **Papermon** (Papermon): Runs Papermon, a free science trading card game where every card is a real research article: real science, one card at a time.
 - **Patch Cat** (The Litter Box): Placeholder.
 - **PC Master** (PC Master Race): Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.
 - **Pet Police Officer** (The Police Station): Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach.

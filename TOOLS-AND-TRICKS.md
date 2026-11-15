@@ -269,9 +269,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 7 | Astra Wisp | The Astral Plane | native trick | clone-session | `the-astral-plane-v1.0-clone-session-trick-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | third-party program | Magic Chatbox |  | Idea |
 | 7 | Astra Wisp | The Astral Plane | third-party program | VRChat |  | Planned |
-| 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
-| 11 | Paper Patty | Paper Girl | third-party program | alphaXiv |  | Planned |
-| 11 | Paper Patty | Paper Girl | third-party program | PubMed |  | Planned |
+| 11 | Papermon | Papermon | third-party program | GitHub |  | Works today |
+| 11 | Papermon | Papermon | third-party program | alphaXiv |  | Planned |
+| 11 | Papermon | Papermon | third-party program | PubMed |  | Planned |
 | 12 | File Master | File Kingdom | native tool | claude-chat-repointer | `file-kingdom-v1.0-claude-chat-repointer-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | cleanup-plan | `file-kingdom-v1.0-cleanup-plan-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Works today |

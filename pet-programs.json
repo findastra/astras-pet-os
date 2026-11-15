@@ -153,16 +153,16 @@
     },
     {
       "number": 11,
-      "program": "Paper Girl",
+      "program": "Papermon",
       "assigned": true,
-      "icon": "Paper Patty",
+      "icon": "Papermon",
       "idea": null,
       "stage": "registered",
       "repo": "paper-girl",
       "repo_exists": true,
       "mini_descriptor": {
-        "label": "paper-girl-v1.0-mini-descriptor-v1.0",
-        "text": "Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.",
+        "label": "papermon-v1.0-mini-descriptor-v1.0",
+        "text": "Runs Papermon, a free science trading card game where every card is a real research article: real science, one card at a time.",
         "reviewed": false
       }
     },

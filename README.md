@@ -170,7 +170,7 @@ and the ones left out, each with its keeper pet and the reason. The research beh
 | **Health Hummy** | pet | hatching | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | [Pet Program](apps/pet-programs/health-hummy-20261018.html) · private repo |
 | **Finance Finch** | pet | hatching | Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed. | [Pet Program](apps/pet-programs/finance-finch-20261018.html) · private repo |
 | **Mommy's Mommies** | pet | hatching | A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned. | [Pet Program](apps/pet-programs/mommys-mommies-20261018.html) · private repo |
-| **Paper Patty** | pet | growing | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | [Pet Program](apps/pet-programs/paper-girl-20261018.html) · private repo |
+| **Papermon** | pet | growing | Runs Papermon, a free science trading card game where every card is a real research article: real science, one card at a time. | [Pet Program](apps/pet-programs/paper-girl-20261018.html) · private repo |
 | **File Master** | pet | growing | Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned). | [Pet Program](apps/pet-programs/file-master-20261018.html) · private repo |
 | **Discord Damsel** | pet | hatching | Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds. | [Pet Program](apps/pet-programs/discord-tower-20261018.html) · private repo |
 | **Portfolio Puffer** | pet | hatching | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | [Pet Program](apps/pet-programs/portfolio-puffer-20261018.html) · private repo |
@@ -206,7 +206,7 @@ git clone https://github.com/findastra/astras-pet-os
 **Releases:** from v0.3.0-beta on, every release carries the installer zip (`astras-pet-os-installer.zip`, made by `node scripts/installer-zip-20261018.mjs <tag>`). The [repository release ledger](docs/repository-releases-20261008.json) records the older source tags of the pet repos.
 
 **Open a pet program:** double-click a pet or use its **Pet Program** link: one click always points to the pet program
-page (Astra, 2026-10-19). Its Pet ID (L4) links the app the pet had before: Gone Ghost, Paper Patty
+page (Astra, 2026-10-19). Its Pet ID (L4) links the app the pet had before: Gone Ghost, Papermon
 and Platform Platypus open their hosted sites, and the other registered pets their dated web app in `apps/` (the original
 app where it is portable, and a web stand-in where the original is a Windows app or still planned). Local form data stays
 in that browser.
