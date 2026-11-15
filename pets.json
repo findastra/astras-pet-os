@@ -1385,6 +1385,20 @@
           "version": "0.2.0"
         },
         {
+          "name": "anthropic-ipo-countdown",
+          "label": "discord-tower-v1.0-anthropic-ipo-countdown-v0.1",
+          "use": "Counts down to Anthropic's IPO on Discord: the gold galaxy with one kind of time in its middle (4 DAYS, then hours, minutes, seconds), Nasdaq: ANT and the date, the time left and Discord's live timer to the opening bell; then how long it has been trading. Reads nothing on the PC.",
+          "visibility": "public",
+          "version": "0.1.0"
+        },
+        {
+          "name": "openai-ipo-countdown",
+          "label": "discord-tower-v1.0-openai-ipo-countdown-v0.1",
+          "use": "Counts down to OpenAI's IPO on Discord: the blue galaxy with one kind of time in its middle, Ticker TBA and the 2027 target (OpenAI has set no date; the count runs to the first trading day of 2027), the time left and Discord's live timer. Reads nothing on the PC.",
+          "visibility": "public",
+          "version": "0.1.0"
+        },
+        {
           "name": "sticker-manager",
           "label": "discord-tower-v1.0-sticker-manager-v1.0",
           "use": "Shows every Discord server Astra is in, each opening to its stickers, and resets her favorite stickers to the ones she picks, after she confirms. Reads the Discord app's own server, sticker and favorites lists; changes only the favorite stickers, through Discord's own settings saver. No requests of ",

@@ -776,13 +776,13 @@ ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what e
 }
 
 function presenceBody(d) {
-  const card = (key, name) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${name} Discord Presence</legend>
+  const card = (key, name, title = `${name} Discord Presence`) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${title}</legend>
 <p data-presence-status role="status">Not checked. Open Discord Damsel on this PC to connect.</p>
 <p><button type="button" class="button" data-presence-start="${key}" disabled>Start &amp; open ${name}</button>
 <a class="button" data-presence-controls="${key}" aria-disabled="true" target="_blank" rel="noopener">Open ${name} controls</a>
 <button type="button" class="button" data-presence-stop="${key}" disabled>Stop sharing</button></p></fieldset>`;
   return `<div id="discord-damsel-presence-control">
-${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}${card('ableton', 'Ableton Live')}
+${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}${card('ableton', 'Ableton Live')}${card('anthropic-ipo', 'Anthropic IPO', 'Anthropic IPO Countdown')}${card('openai-ipo', 'OpenAI IPO', 'OpenAI IPO Countdown')}
 <p class="small" id="presence-control-note" role="status">Start and open works on this PC after you double-click Discord Damsel. The control links open apps that are already running.</p>
 ${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`;
 }
