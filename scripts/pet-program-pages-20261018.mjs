@@ -79,6 +79,11 @@ export const LIVE_CHECK = '<script src="../live-site-20261102.js"></script>';
 export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+// The faces every picture of a pet carries, idle first and shown (Astra, 2026-11-14: "I want all of the pets everywhere
+// to have the same status"): the page's own idle, awake and sad, and every mood The Farm's pet-moods shows on every pet
+// everywhere (scripts/pet-moods-20261114.mjs, SHOWN; a test keeps the two lists together). The page script shows the
+// one the board says, on the pet at the top and on each friend; sleepy is calm, so no picture needs it.
+export const PAGE_FACES = ['idle', 'blink', 'sad', 'happy', 'curious', 'worried', 'sick', 'alarmed'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
 const EMOTIONS = [
   ['sleep', 'sleepy', ['running in the background']],
@@ -322,8 +327,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     const r = regs.find((x) => x.repo === id);
     const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
     const who = r || { repo: id, pet: o.name }, its = petFrames(who, { frameIndex, drafts, exists, list });
+    // Its faces (PAGE_FACES), all lined up in one cut like the pet at the top, so a sticker is never cut off.
+    const frames = Object.fromEntries(PAGE_FACES.filter((m) => its.frames[m]).map((m) => [m, its.frames[m]]));
     return { id, pet: o.name, home, state, why, links,
-      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, fit: fitOf(who, its, { drafts, measure }, [its.frames.idle]) };
+      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, frames, fit: fitOf(who, its, { drafts, measure }, Object.values(frames)) };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
   // A line every friend shares says nothing about each one (Astra, 2026-11-08, on the Farmer's page: "a lot of these pets
   // and their descriptions are wrong"): the Friendly Farmer's links to every pet, every roadmap pet and every seed each
@@ -590,7 +597,12 @@ const img = (path, alt, cls = '', fit = null) => (path ? `<img${cls || fit ? ` c
 
 // The faces the page script switches between (idle first and shown; the others hidden until the script shows them).
 const faces = (f, pet, moods, cls, fit = null) => moods.filter((m) => f[m]).map((m, i) =>
-  `<img class="${cls}${fit ? ' fit' : ''}"${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+  `<img${cls || fit ? ` class="${[cls, fit ? 'fit' : ''].filter(Boolean).join(' ')}"` : ''}${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+// Another pet's picture (a friend, a pet it talks to): every face in PAGE_FACES it has, so it shows the same mood as on
+// the desktop; just its idle picture (or "no picture yet") when it has no faces.
+const friendFaces = (r, cls = '', fit = null) => (r?.frames?.idle ? faces(r.frames, r.pet, PAGE_FACES, cls, fit) : img(r?.idle || null, `${r?.pet || 'a pet'}, idle`, cls, fit));
+// Which pet a picture is, for the page script to look up on the board (its repo).
+const petAttr = (id) => (id ? ` data-mood-of="${esc(id)}"` : '');
 
 // ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
 // "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
@@ -647,8 +659,8 @@ ${about({
 function connection(c, d) {
   const said = (word, list) => list.length ? list.map((f) => `<p><b>${word}</b> ${esc(f.carries)}${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</p>`).join('') : '';
   const pic = d.related.find((r) => r.id === c.id);
-  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${img(pic?.idle || null, `${c.name}, idle`)}`;
-  return `<li class="mood related-pet talk">${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
+  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${friendFaces(pic ? { ...pic, pet: c.name } : { pet: c.name })}`;
+  return `<li class="mood related-pet talk"${petAttr(c.id)}>${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
 }
 
 // ---------- A pet's own panels, beyond the sketch's minimum ----------
@@ -889,8 +901,8 @@ export const MAP_RELATED = 3;
 function mapRelated(d) {
   if (!d.related.length) return '';
   const link = (r) => {
-    const inner = `${img(r.idle, `${r.pet}, idle`, 'mini')}<span>${esc(r.pet)}</span>`;
-    return `<li>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
+    const inner = `${friendFaces(r, 'mini')}<span>${esc(r.pet)}</span>`;
+    return `<li${petAttr(r.id)}>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
   };
   const more = d.related.length > MAP_RELATED ? `plays with all ${d.related.length}` : 'plays with';
   return `
@@ -968,7 +980,7 @@ ${about({
   const drawn = CYBERHOMES[d.repo];
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat${drawn ? ` drawn-home ${drawn.kind}-home` : ''}" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: !drawn })}<span class="render-name">${esc(render)}</span></span>
-<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting">${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div>${drawn ? drawn.frame : ''}</div>`, { cls: 'cyberhome', fold: false });
+<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting"${petAttr(d.repo)}>${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, PAGE_FACES, 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div>${drawn ? drawn.frame : ''}</div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -1149,10 +1161,10 @@ ${about({
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${d.backdrop ? `<span class="pet-backdrop">${picture}</span>` : picture}</figure>`;
   }).join('')}</div>
 ${about({
-    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up; the page knows idle, awake and sad so far. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
-    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json.`,
-    rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles'),
-    notYet: `The other six moods set by the rounds and the Police Station. An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
+    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up, and the pet at the top shows it. When ${esc(d.pet)} has something to tell you (alarmed, sick, curious, worried, happy, sad), it shows that mood here, on the desktop and on every page it is a friend on (the Stream Deck next); otherwise this page is idle, awake while you use it, or sad after two weeks away. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
+    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json. The mood itself: The Farm’s pet-moods, on this PC (its program’s own mood, a key request waiting on you, the Farmer’s round from the past week).`,
+    rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles; 2026-11-14: the same mood everywhere'),
+    notYet: `Moods from the Police Station; the live site shows no shared mood (it is on this PC only). An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
   })}`, { cls: 'emotions' });
 
   // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
@@ -1180,8 +1192,8 @@ ${about({
   // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
   // manage ..."). The whole bubble opens that pet's program.
   const relatedCard = (r) => {
-    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`, '', r.fit)}`;
-    return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
+    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${friendFaces(r, '', r.fit)}`;
+    return `<li class="mood related-pet"${petAttr(r.id)}>${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
   const related = panel(`${d.petSlug}-friends-list-panel`, `${d.related.length
     ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>`
@@ -1420,8 +1432,8 @@ export function modelProgramData(src) {
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) },
-      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),
