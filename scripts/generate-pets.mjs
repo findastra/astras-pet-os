@@ -7,7 +7,7 @@
 //   node scripts/generate-pets.mjs <ids> --match   redo them, holding the body they already have
 //   node scripts/generate-pets.mjs <id> --force --ref <png>   a NEW body for one pet, drawn from a reference picture
 //
-// --ref is for a pet whose new look comes from a picture Astra already has (Papermon from his Papermon card art,
+// --ref is for a pet whose new look comes from a picture Astra already has (Papermon Pet from his Papermon card art,
 // 2026-11-14). It takes one pet, a PNG, and never --match: an approved body is held with --match alone.
 //
 // --match is the safe way to redo a pet whose art is approved. A plain regeneration re-rolls
@@ -74,8 +74,8 @@ export const PETS = [
   // The Mommies are one pet, not two. They are never drawn apart, so they share a single
   // double-wide sprite. Identical bodies, faces and proportions: only hair and outfit differ.
   { id: 'mommys-mommies', what: 'TWO girl dancers standing side by side together, touching shoulders, as one pair. They stand close together and fit inside a square frame the same size as a single-character sprite. They are IDENTICAL twins with exactly the same body, same face, same proportions and same pose - the ONLY differences between them are hair colour and outfit colour. The girl on the left has long straight BLONDE hair; the girl on the right has long straight DARK BRUNETTE hair and small white curved horns. Both wear the same style of dance outfit', colours: 'left girl bright golden-blonde hair with a hot pink outfit, right girl dark brunette hair with a deep magenta outfit, both with white trim' },
-  // Papermon (pet program #11, Papermon). Paper Patty, the newspaper girl, retired on 2026-11-14 (Astra, deck answered
-  // "all recommended"): the pet and the game share one name, and he is the Babbling Sac-winged Pup, the baby bat of his
+  // Papermon Pet (pet program #11, Papermon, the game). Paper Patty, the newspaper girl, retired on 2026-11-14 (Astra:
+  // "Papermon Pet is its name for now"), and he is the Babbling Sac-winged Pup, the baby bat of his
   // Papermon card ("a babbler, like a pet that tells you about papers"). A new body, so drawn fresh with his card art as
   // the reference (--ref), not --match; once Astra approves the sheet, redo him only with --match. The id stays
   // paper-girl until the repo and art folders are renamed papermon. Claude Opus 5.5.

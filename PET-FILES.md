@@ -184,7 +184,7 @@ rules from there. Nothing about movement is hard-coded per pet.
 | `zone: "ground"` | Everyone else walks the floor. `hops: true` (humans) bounces as they walk. |
 | `climbs: true` | The cat runs up a side wall, hangs, and leaps back off. It always climbs when chased. |
 | `flock: true` | Birds fly a loose V behind the first bird in the roster. |
-| `friends` | API Fairy, Unity Unicorn and Astra Wisp hang out; so do Papermon, File Master and Data Chip. |
+| `friends` | API Fairy, Unity Unicorn and Astra Wisp hang out; so do Papermon Pet, File Master and Data Chip. |
 | `tag` | Drum Dog and Python Panther chase each other, taking turns being "it". |
 | `chases` | Birds chase bugs and the fish; the fish chases bugs. The chased one runs away. |
 

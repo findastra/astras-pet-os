@@ -1,6 +1,6 @@
 {
   "pet": "paper-girl",
-  "name": "Papermon",
+  "name": "Papermon Pet",
   "creator": "Astra",
   "assistant": "Claude Opus 5.5 (claude-opus-5-5)",
   "date": "2026-11-14",
@@ -21,5 +21,5 @@
     "sleep-20261114.png"
   ],
   "paired_with": "file-master",
-  "notes": "Papermon, a baby sac-winged bat pup (the Babbling Sac-winged Pup, Astra 2026-11-14: \"a babbler, like a pet that tells you about papers\"). Paper Patty, the newspaper girl, retired that day; the pet and the Papermon game share one name. His sheet was generated with scripts/generate-pets.mjs (OpenAI, gpt-image-2) from his Papermon card art as the reference. The nine plain frames (no mood stickers) are cut from that sheet with the hub's own converter (scripts/sheet-to-sprites.mjs, as scripts/build-frames.mjs does, 256px, 24 colours); idle and blink are byte-identical to art/frames/paper-girl/plain-idle.png and plain-blink.png. A draft until Astra approves it. The 2026-10-11 newspaper drawings stay in this folder as a record. The Windows desktop pet still reads idle-20261011.png and blink-20261011.png by name (scripts/desktop-pets-20261011.cs) until that list reads the newest drawing; desktop_scale and the File Master pairing are carried over from the 2026-10-11 manifest."
+  "notes": "Papermon Pet, a baby sac-winged bat pup (the Babbling Sac-winged Pup, Astra 2026-11-14: \"a babbler, like a pet that tells you about papers\"). Paper Patty, the newspaper girl, retired that day; Astra: \"Papermon Pet is its name for now\", and his program is the Papermon game. His sheet was generated with scripts/generate-pets.mjs (OpenAI, gpt-image-2) from his Papermon card art as the reference. The nine plain frames (no mood stickers) are cut from that sheet with the hub's own converter (scripts/sheet-to-sprites.mjs, as scripts/build-frames.mjs does, 256px, 24 colours); idle and blink are byte-identical to art/frames/paper-girl/plain-idle.png and plain-blink.png. A draft until Astra approves it. The 2026-10-11 newspaper drawings stay in this folder as a record. The Windows desktop pet still reads idle-20261011.png and blink-20261011.png by name (scripts/desktop-pets-20261011.cs) until that list reads the newest drawing; desktop_scale and the File Master pairing are carried over from the 2026-10-11 manifest."
 }

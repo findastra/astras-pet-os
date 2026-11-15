@@ -1,8 +1,9 @@
-# Paper Patty retires: the pet is now Papermon, a bat pup (2026-11-14)
+# Paper Patty retires: the pet is now Papermon Pet, a bat pup (2026-11-14)
 
-Astra, 2026-11-14, answering the Papermon card server deck "all recommended": the pet's name is **Papermon**, and
-Paper Patty retires. The pet and the game (the Papermon website, built from the `paper-girl` repo) share one name, so
-pet program #11 is called Papermon too. He is a "him". His look is the **Babbling Sac-winged Pup**, a baby sac-winged
+Astra, 2026-11-14, answering the Papermon card server deck "all recommended": Paper Patty retires, and pet program
+#11 is called **Papermon**, like the game (the Papermon website, built from the `paper-girl` repo). Later the same day
+she named the pet: "Papermon Pet is its name for now." So the pet is **Papermon Pet** and his program is **Papermon**.
+He is a "him". His look is the **Babbling Sac-winged Pup**, a baby sac-winged
 bat ("a babbler, like a pet that tells you about papers"), the bat pup of his Papermon trading card, drawn by OpenAI in
 the hub's nine moods for his pet program page and the desktop pet. Astra approved the drawing cost.
 
@@ -10,16 +11,17 @@ Branch `claude/papermon-pet-20261114`. Claude Opus 5.5 (`claude-opus-5-5`), 2026
 
 ## What changed
 
-- **Names** (`pet-programs.json` #11, the one list of names): pet `icon` and `program` are both "Papermon"; the mini
+- **Names** (`pet-programs.json` #11, the one list of names): pet `icon` "Papermon Pet", `program` "Papermon"; the mini
   descriptor is `papermon-v1.0-mini-descriptor-v1.0`, "Runs Papermon, a free science trading card game where every
   card is a real research article: real science, one card at a time." The lists that must agree with it follow:
   `pets.json` (pet, job, note, the two `needs` lines), `system-map.json` (the `paper-girl-site` node and four lines that
   named Paper Patty or Paper Girl), `INTELLIGENCE-LEVELS.md` (his row), `PET-FILES.md` (the friends line), the README
-  line about Pet IDs, and the registry test that looks for his table link.
-- **Developer mode** (`developer-words-20261019.json`): his draft agent name was "Science News Agent", with the
-  program's own name kept. Now that the pet and the program are both "Papermon", the word swap cannot rename one and
-  keep the other (the developer-mode test caught "Papermon" being swapped twice), so his agent name is "Papermon" too:
-  in developer mode he keeps the project's own name, as Data Dealer does. Still a draft for Astra's review.
+  line about Pet IDs, and the registry test that looks for his table link. Where a line means the pet it says
+  "Papermon Pet"; where it means the game or website it says "Papermon".
+- **Developer mode** (`developer-words-20261019.json`) is unchanged: his draft agent name stays "Science News Agent",
+  with the program's own name, Papermon, kept (as Data Dealer's is). While the pet and the program were both called
+  "Papermon", the swap could not rename one and keep the other, and this branch had briefly set the agent name to
+  "Papermon"; with the pet called "Papermon Pet" the normal rule works again, so that workaround was dropped.
 - **Kept on purpose:** `repo: "paper-girl"`, the art id `paper-girl`, `art/frames/paper-girl/`,
   `desktop-art/paper-girl/` and the page `apps/pet-programs/paper-girl-20261018.html`. The repo is being renamed
   `papermon` in paper-girl's pull request 19; the ids and folders move with that rename, not here.
@@ -63,6 +65,7 @@ Branch `claude/papermon-pet-20261114`. Claude Opus 5.5 (`claude-opus-5-5`), 2026
   for all nine moods; the desktop `idle` and `blink` are byte-identical to `plain-idle.png` and `plain-blink.png`.
 - `npm test` in this branch's worktree: 460 tests, 449 pass, 5 fail, 6 skipped. The 5 are the same 5 that fail on clean
   `main` in the same worktree (458 tests, 447 pass): the Windows farm-setup test, which fails in any git worktree, and
-  four pet-chat helper tests that need a seated Claude Code or Codex. Before the developer-words fix, a sixth failed
-  (the developer-mode swap test, above). `npm run check`: "Pets OK: 23 pet apps, 23 characters drawn at 256px."
+  four pet-chat helper tests that need a seated Claude Code or Codex. While the pet and the program shared the name
+  "Papermon", a sixth failed (the developer-mode swap test, above). `npm run check`: "Pets OK: 23 pet apps, 23
+  characters drawn at 256px."
 - Looked at: the sheet, `art/roster.png` and his nine mood frames on light and dark backgrounds.
