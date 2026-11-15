@@ -12,7 +12,11 @@ Discord Presence apps we made."
 - Dates as reported on 2026-11-15 (pricing on or about Nov 18, first trade Nov 19), not final, editable on the page.
 - Art: Astra's approved gold galaxy (2026-10-30), the same GIF Anthropic Discord Presence shows; the page draws it live
   with a gold countdown under its core. No new art was generated.
-- Its tests: 7 of 7. Not verified here: the card reaching Discord (Windows only).
+- Not verified here: the card reaching Discord (Windows only).
 - Waits on Astra: the repo, and a Discord application ID. Then Discord Damsel's presence card and the System Map node.
+
+- Then (Astra: "You should have what they have, a matching repo... the AI ones are the better ones"): the page is
+  AI Discord Presence's, with no settings on it, and the repo has what that repo has: the start files, a per-app README,
+  SECURITY.md, ADDING-A-COMPANY.md, the download zip, README pictures and repo-level tests (12 of 12).
 
 Nothing else in the hub changed. Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-15.

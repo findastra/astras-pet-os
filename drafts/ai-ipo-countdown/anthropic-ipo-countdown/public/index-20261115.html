@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Count down to Anthropic's IPO on your Discord profile: days to go, pricing day, a live timer on the last day and the time since the opening bell. Free local companion.">
+<meta name="description" content="Count down to Anthropic’s IPO on your Discord profile, with the gold galaxy: days to go, pricing day, a live timer on the last day and the time since the opening bell. Free local companion.">
 <title>Anthropic IPO Countdown</title><link rel="icon" href="./official-galaxy-still-20261030.png">
 <link rel="stylesheet" href="./style-20261115.css"><script src="./app-20261115.js" defer></script><script src="./official-galaxy-data-20261030.js" defer></script><script src="./official-galaxy-renderer-20261030.js" defer></script>
 </head>
@@ -16,24 +16,11 @@
 </section>
 <section class="workspace" aria-label="Discord presence controls">
 <h2 class="headline">A little bell.<br>A whole market.</h2>
-<div class="session"><p id="intro">A Discord presence card counting down to Anthropic’s first day on the market: the ticker, the date, the days to go and pricing day, Discord’s live timer on the last day, then how long it has been trading since the opening bell. Your friends see the same card. Want to share your Claude sessions too? See <a href="https://github.com/findastra/ai-discord-presence" target="_blank" rel="noreferrer">AI Discord Presence ↗</a>.</p>
-<details id="setup-box"><summary>Dates &amp; setup <span id="setup-summary">Thu, Nov 19 · Nasdaq: ANT</span></summary>
-<form id="setup" autocomplete="off">
-<label>First trade<input id="when" type="datetime-local" required></label>
-<label>Pricing<input id="pricing" type="datetime-local"></label>
-<label>Ticker<input id="ticker" maxlength="10" required pattern="[A-Za-z][A-Za-z0-9.]{0,9}"></label>
-<label>Exchange<input id="exchange" maxlength="24" minlength="2" required></label>
-<label class="wide" id="client-label">Discord Application ID<input id="client" inputmode="numeric" pattern="\d{17,20}" placeholder="17–20 digits, one time only"></label>
-<button type="submit">Save</button>
-<p id="save-status" role="status"></p>
-</form>
-<p class="note" id="dates-note">Dates as reported on Nov 15, 2026, not final. Change them here if they move.</p>
-</details>
-<p id="status-line" role="status"></p>
+<div class="session"><p id="intro">Discord presence card counting down to Anthropic’s IPO: the ticker and date, the days to go and pricing day, a live timer on the last day, then how long it has been trading since the opening bell. Your friends see the same card. OpenAI’s is next. See <a href="https://github.com/findastra/ai-ipo-countdown/blob/main/ADDING-A-COMPANY.md" target="_blank" rel="noreferrer">AI IPO Countdown on GitHub ↗</a>.</p>
 <div id="download" hidden><a class="button primary" href="https://github.com/findastra/ai-ipo-countdown/raw/main/downloads/anthropic-ipo-countdown.zip" download>Download for Windows ↓</a><p class="note">Free · Windows 10/11 · <a href="https://nodejs.org/en/download" target="_blank" rel="noreferrer">Node.js 24+</a> required</p></div>
 </div>
 <div class="controls"><div class="buttons"><button id="manual" aria-pressed="false">Start</button><button id="off" aria-pressed="true">Stop</button><button id="date" aria-pressed="true">Hide Date</button><button id="quit">Quit</button></div>
-<aside class="card-wrap"><div class="card-label"><span>DISCORD PRESENCE ON YOUR PROFILE</span></div><div class="preview"><div class="preview-top"><span>Playing</span><span class="dots" aria-hidden="true">•••</span></div><div class="preview-body"><div class="official-card-galaxy"><img src="./galaxy-card.gif" alt=""></div><div><strong id="title-preview">Anthropic IPO</strong><p id="event-preview">Nasdaq: ANT · Thu, Nov 19</p><p class="small" id="state-preview">4 days to go</p><p class="elapsed"><svg class="glass" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a1.5 1.5 0 0 1 1.5 1.5v.6A6.5 6.5 0 0 1 18.5 10.5V15l1.8 2.4A1 1 0 0 1 19.5 19h-15a1 1 0 0 1-.8-1.6L5.5 15v-4.5a6.5 6.5 0 0 1 5-6.4v-.6A1.5 1.5 0 0 1 12 2Zm-2.5 18h5a2.5 2.5 0 0 1-5 0Z"/></svg><span id="timer"></span></p></div></div></div>
+<aside class="card-wrap"><div class="card-label"><span>DISCORD PRESENCE ON YOUR PROFILE</span></div><div class="preview"><div class="preview-top"><span>Playing</span><span class="dots" aria-hidden="true">•••</span></div><div class="preview-body"><div class="official-card-galaxy"><img src="./galaxy-card.gif" alt=""></div><div><strong id="title-preview">Anthropic IPO</strong><p id="event-preview">Nasdaq: ANT · Thu, Nov 19</p><p class="small" id="state-preview">4 days to go</p><p class="elapsed"><svg class="pad" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.5 6h9a5.5 5.5 0 0 1 5.4 6.5l-.8 4.4a2.6 2.6 0 0 1-4.5 1.3L14.8 16H9.2l-1.8 2.2a2.6 2.6 0 0 1-4.5-1.3l-.8-4.4A5.5 5.5 0 0 1 7.5 6Zm-.5 3v1.5H5.5v1.5H7v1.5h1.5V12H10v-1.5H8.5V9H7Zm9.5 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg><span id="timer">Ready when you are</span></p></div></div></div>
 </aside>
 </div>
 </section>

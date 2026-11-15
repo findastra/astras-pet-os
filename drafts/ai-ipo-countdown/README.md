@@ -2,78 +2,134 @@
 
 *By Astra.*
 
-Count down to an AI company's first day on the stock market, on your Discord profile. One small Windows app per
-company: **Anthropic** first, **OpenAI** next.
+Let your Discord friends count down with you to an AI company's first day on the stock market. One small Windows app
+per company: Anthropic now, OpenAI next.
 
 ## The Card
 
-<img src="anthropic-ipo-countdown/public/official-galaxy-still-20261030.png" alt="The gold five-arm galaxy: individual stars flowing into a white core" width="160" align="left">
+What your friends see on your Discord profile while the app is sharing:
 
-**Anthropic IPO**<br>
-Nasdaq: ANT · Thu, Nov 19<br>
-4 days to go
+<table>
+<tr>
+<th width="50%"><a href="anthropic-ipo-countdown/README.md">Anthropic IPO Countdown</a><br><sub>Nasdaq: ANT</sub></th>
+<th width="50%">OpenAI IPO Countdown<br><sub>next, when its date is set</sub></th>
+</tr>
+<tr>
+<td width="50%"><a href="anthropic-ipo-countdown/README.md"><img src="docs/images/anthropic-ipo-card-20261115.png" alt="Anthropic IPO Countdown card: Anthropic IPO, Nasdaq: ANT · Thu, Nov 19, 4 days to go, with the gold galaxy" width="100%"></a></td>
+<td width="50%" align="center">Coming next, with OpenAI's blue galaxy (<a href="ADDING-A-COMPANY.md">how</a>).</td>
+</tr>
+</table>
 
-<br clear="left">
+The company, the ticker and date, the days to go and pricing day, Discord's live timer on the last day, then how long
+it has been trading since the opening bell. A day after the bell the card turns itself off.
 
-| When | What the card says |
-| --- | --- |
-| Days before | `4 days to go` (weeks when it's more than 8 weeks away) |
-| Pricing day | `Pricing today`, then `Priced · trading tomorrow` |
-| The day before, without a pricing date | `Trading tomorrow` |
-| The last 24 hours | Discord's own live timer, such as `5:12:33 left`, and `Opening bell today` on the day |
-| After the opening bell | `Now trading on Nasdaq: ANT` · `It's here!`, with Discord counting up from the bell, for a day |
+## Official Artwork
 
-Then the card goes away by itself. **Hide Date** keeps the date off the card.
+The card and the page use the galaxies Astra approved for [AI Discord Presence](https://github.com/findastra/ai-discord-presence)
+on October 30, 2026: individual gold (Anthropic) or blue (OpenAI) stars flowing into a white core, with the outside
+fading completely to black. The page draws the galaxy live, star by star, with the countdown to the opening bell under
+its core; Discord shows the same seamless 25-fps GIF as Anthropic Discord Presence.
+[Artwork, source and reproduction](https://github.com/findastra/ai-discord-presence/blob/main/docs/official-galaxy-artwork-20261030.md).
 
-The picture is the gold galaxy Astra approved for Anthropic Discord Presence on October 30, 2026, the same animated
-GIF, loaded from [AI Discord Presence](https://github.com/findastra/ai-discord-presence). The app's page draws it
-live, star by star, with the countdown to the opening bell under its core.
+## The App
 
-## Install
+A small program on your PC. Its page opens in your browser and shows a live preview of your card.
 
-1. Install [Node.js 24 or later](https://nodejs.org/en/download). No `npm install` is needed.
-2. Download this repo (Code › Download ZIP) and unzip it somewhere it can stay.
-3. In `anthropic-ipo-countdown`, double-click `start-anthropic-ipo-countdown-20261115.cmd`. Its page opens in your
-   browser by itself (port 38767, on this PC only).
-4. Paste a Discord Application ID once under **Dates & setup** (until the app's own is built in), then **Start**.
-5. To start it quietly every time Windows starts, double-click `enable-automatic-startup-20261115.cmd` once.
+<table>
+<tr>
+<th width="50%">Anthropic IPO Countdown</th>
+<th width="50%">OpenAI IPO Countdown</th>
+</tr>
+<tr>
+<td width="50%"><a href="anthropic-ipo-countdown/README.md"><img src="docs/images/anthropic-ipo-app-20261115.png" alt="Anthropic IPO Countdown's page: the gold galaxy with 4d 11:15:07 until ANT opens on Nasdaq, the Start, Stop, Hide Date and Quit buttons, and the card" width="100%"></a></td>
+<td width="50%" align="center">Coming next.</td>
+</tr>
+<tr>
+<td align="center"><b><a href="https://github.com/findastra/ai-ipo-countdown/raw/main/downloads/anthropic-ipo-countdown.zip">⬇ Download for Windows</a></b></td>
+<td align="center">Coming next.</td>
+</tr>
+<tr>
+<td align="center"><a href="anthropic-ipo-countdown/README.md">Everything about the Anthropic app</a></td>
+<td></td>
+</tr>
+</table>
 
-Discord desktop must be running. In Discord, User Settings › Activity Privacy › *Share your detected activities with
-others* must be on for friends to see the card.
+**Needs:** Windows, [Node.js 24 or later](https://nodejs.org/en/download) and the Discord desktop app with activity
+sharing on.
 
-## The dates
+### Buttons & Instructions
 
-The dates are the ones reported on November 15, 2026: Anthropic's roadshow began November 10, pricing is expected on
-or about November 18, and trading on Nasdaq as ANT on November 19. **They are not final.** If they move, change them
-under **Dates & setup**; the card follows at once. The first trade counts to 9:30am in New York, the opening bell.
+<table>
+<tr>
+<th width="200">Button</th>
+<th>What it does</th>
+</tr>
+<tr>
+<td width="200" align="center" valign="middle"><img src="docs/images/button-start-20261115.png" alt="Start" width="178"></td>
+<td valign="middle">Puts the card on your profile, until you click Stop or Quit. The app starts sharing again when it starts.</td>
+</tr>
+<tr>
+<td width="200" align="center" valign="middle"><img src="docs/images/button-stop-20261115.png" alt="Stop" width="178"></td>
+<td valign="middle">Takes the card off your profile. The app keeps running.</td>
+</tr>
+<tr>
+<td width="200" align="center" valign="middle"><img src="docs/images/button-hide-date-20261115.png" alt="Hide Date" width="178"></td>
+<td valign="middle">Takes the date off the card. Click it again (Show Date) to put it back.</td>
+</tr>
+<tr>
+<td width="200" align="center" valign="middle"><img src="docs/images/button-quit-20261115.png" alt="Quit" width="178"></td>
+<td valign="middle">Closes the app. Click it twice within 3 seconds.</td>
+</tr>
+</table>
 
-## Privacy
+## Quirks
 
-The app reads nothing on your PC. It sends Discord only the card. Settings stay in `.local/config.json` in the app
-folder.
+1. **The dates are reported, not final.** As of November 15, 2026: pricing on or about November 18, first trade on
+   Nasdaq as ANT on November 19, counted to the 9:30am opening bell in New York. If they move, change them in
+   `.local/config.json` ([how](anthropic-ipo-countdown/README.md#the-dates)).
+2. Discord draws a live timer only from a time, so far from the bell the card counts **days** in words, and the live
+   `5:12:33 left` appears in the last 24 hours. Days are counted in your PC's time zone.
+3. After the bell the timer counts **up** from the opening bell, for a day; then the card turns itself off.
+4. **Until the app's own Discord application is registered**, add an Application ID once in `.local/config.json`
+   ([how](anthropic-ipo-countdown/README.md#start-it)). The line under the card says so until it is set.
+5. AI Discord Presence and this app can run together, but Discord may show only one card; check your profile to see
+   what friends see.
+6. **Privacy:** the app reads nothing on your PC. Only the card goes to your Discord.
+7. To update, click **Quit** in the old copy first (the launcher refuses to let an older copy stand in), and run
+   **Enable Automatic Startup.cmd** again if you moved the folder.
+8. Not financial advice. The card counts down; it never says to buy.
 
-## Adding a company
+## Developer Notes
 
-Each app is one folder. For OpenAI: copy `anthropic-ipo-countdown/` to `openai-ipo-countdown/`, then change
-`EDITION` (company, ticker, exchange, dates) and `GALAXY_URL` in `src/card-20261115.js` to OpenAI Discord Presence's
-blue galaxy, the galaxy files in `public/` (and `data-official-galaxy="openai"` in the page), `port` (38768) in `EDITION`, and the names in the launcher, Startup file and
-tests. One Discord application can serve every company: the card's title comes from the app.
+1. **What's where:** one folder per app (`anthropic-ipo-countdown/`, with `src/`, `public/`, `scripts/` and `test/`);
+   `downloads/` holds the built ZIPs; `docs/images/` has the README pictures; `test/` checks names and the controls page
+   across every app.
+2. **Run from source:** `node src/server-20261115.js` in an app folder. The page uses port 38767 (Anthropic); OpenAI's
+   will use 38768. `ANTHROPIC_IPO_PORT` changes it. The server listens on 127.0.0.1 only and checks Host and Origin on
+   every change.
+3. **Settings** live in each app's git-ignored `.local/config.json`. Never commit it, or any log or cache.
+4. **Tests** (every app plus the naming rules): `node --test`. Add tests with every behavior change. **Rebuild the
+   downloads** with `node scripts/package.mjs` before pushing any app change. No dependencies.
+5. **The card's galaxy** is loaded by Discord from AI Discord Presence's `galaxy-card.gif` (`GALAXY_URL` in
+   `src/card-20261115.js`), whose address that repo keeps fixed. Never redraw the galaxies here.
+6. **The company, ticker, exchange and dates** are one `EDITION` in `src/card-20261115.js`, with the date they were
+   read and the source.
+7. **Adding another company:** copy the folder and change its `EDITION`, galaxy and port. Step by step:
+   [ADDING-A-COMPANY.md](ADDING-A-COMPANY.md).
+8. **Rules and handoffs:** [CLAUDE.md](CLAUDE.md) and [AGENTS.md](AGENTS.md) for contributors and AI assistants; open
+   work in [handoffs/](handoffs/README.md); report a vulnerability through [SECURITY.md](SECURITY.md).
 
-## Files (each app)
+## Credits
 
-| Path | What it does |
-| --- | --- |
-| `src/card-20261115.js` | The company, the dates, and what the card says at each moment |
-| `src/rpc-20261115.js` | Talks to Discord desktop over its local pipe |
-| `src/server-20261115.js` | The app: the control page and the card updates |
-| `src/launch-20261115.js` | Starts the app once, or opens the page if it's already running |
-| `src/windows-startup-20261115.js` | Writes or removes the app's file in the Windows Startup folder |
-| `public/official-galaxy-*-20261030.*`, `public/galaxy-card.gif` | The approved galaxy, copied from AI Discord Presence |
-| `test/app-test-20261115.js` | `node --test` |
+1. Anthropic IPO Countdown: built with Claude Opus 5.5, from 2026-11-15.
+2. The Discord connection, launcher and Windows startup come from
+   [Ableton Live Discord Presence](https://github.com/findastra/ableton-live-discord-presence); the page, the card and
+   the galaxies from [AI Discord Presence](https://github.com/findastra/ai-discord-presence).
+3. Full list: the "Built with" lines in [AGENTS.md](AGENTS.md).
 
 ## License
 
-[MIT](LICENSE).
+MIT, see [LICENSE](LICENSE).
 
 Anthropic, OpenAI, Nasdaq and Discord are trademarks of their owners. This is an independent project, not made,
-endorsed or sponsored by them, and not financial advice; their names appear only to say what is being counted down to.
+endorsed or sponsored by them; their names appear only to say what is being counted down to.

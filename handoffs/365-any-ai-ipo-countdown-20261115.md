@@ -16,7 +16,10 @@ Reviewer: unassigned; next action: review #365, then a Windows test on Astra's P
 ## What I did
 - Version 0.1.0 in `drafts/ai-ipo-countdown/anthropic-ipo-countdown/` (pull request #365): the Ableton app's Discord
   pipe and launcher, the Anthropic app's gold galaxy and page layout, IPO card logic (days, pricing day, the bell).
-- `node --test` in the app: 7 of 7 passed. The page was tested in Chromium (desktop and phone) against the running server.
+- Matched to AI Discord Presence at Astra's request: the same page with no settings on it, and the same repo layout
+  (start files, READMEs, SECURITY.md, ADDING-A-COMPANY.md, the download zip, README pictures, repo-level tests).
+- `node --test` at the draft's root: 12 of 12 passed. The page was drawn in Chromium (desktop and phone), and the
+  download unzipped and ran.
 - Not verified here: Discord itself (Windows only). Hub `npm test`: the same 6 farm-pets tests fail without this draft.
 
 ## Done when

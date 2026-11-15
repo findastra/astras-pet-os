@@ -15,14 +15,20 @@ apps", with an OpenAI one later (Astra, 2026-11-15).
    24 hours; after the bell "Now trading on Nasdaq: ANT" / "It's here!" with Discord counting up from the bell for a day.
 4. The picture: the approved gold galaxy, the same GIF Anthropic Discord Presence shows, from its fixed address. The
    page draws the galaxy live with a gold countdown under its core.
+6. The dates and the Application ID are settings in `.local/config.json`, not on the page (Astra's layout).
 5. Port 38767 (OpenAI: 38768). Discord Damsel manages it.
 
 ## What I did
 - Built the app in the hub at `drafts/ai-ipo-countdown/` (hub pull request #365), from the Ableton app's Discord pipe,
-  launcher and Startup file, and the Anthropic app's galaxy and page layout.
-- `node --test`: 7 of 7 passed. Ran the server and used the page in Chromium (desktop and phone): the live galaxy
-  drew, Save, the card, the big count, Hide Date and Quit work; the trading and last-day cards checked through the
-  app's API. Discord itself not reached (Windows only): **not verified here**.
+  launcher and Startup file, and the Anthropic app's page, stylesheet and galaxy.
+- Astra compared it with the three presence apps (2026-11-15) and asked for what they have, with AI Discord Presence as
+  the model. Done: the page is the Anthropic page with no settings on it (settings in `.local/config.json`), the card
+  preview with nothing under it, the four buttons beside it; the repo has `Start Anthropic IPO Countdown.cmd`,
+  `Enable Automatic Startup.cmd`, a per-app README, the main README in AI Discord Presence's layout, SECURITY.md,
+  ADDING-A-COMPANY.md, `scripts/package.mjs` and `downloads/anthropic-ipo-countdown.zip`, `docs/images/`, the
+  repo-level naming and controls-page tests, `handoffs/README.md` and `changes/`.
+- `node --test` at the root: 12 of 12 passed. The page drawn in Chromium at 1280×860 and phone width; the download
+  unzipped and ran. Discord itself not reached (Windows only): **not verified here**.
 
 ## Open
 - Astra: OK to create `findastra/ai-ipo-countdown`.
