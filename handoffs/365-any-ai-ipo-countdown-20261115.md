@@ -1,7 +1,7 @@
-status: open (waiting on Astra: OK to create the ai-ipo-countdown repo, and a Discord application ID)
+status: open (waiting on Astra: a Discord application ID)
 for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-15
-needs: drafts/ai-ipo-countdown/handoffs/001-any-first-version-20261115.md
+needs: findastra/ai-ipo-countdown handoffs/001-any-first-version-20261115.md
 ---
 ## Task
 Anthropic IPO Countdown, the first app of AI IPO Countdown (OpenAI's comes later), "fantastic like the other 3 Discord
@@ -9,7 +9,7 @@ Presence apps" (Astra, 2026-11-15).
 
 ## Ownership and state
 State: READY_FOR_REVIEW
-Implementer: Claude cloud session; writable files: drafts/ai-ipo-countdown/, this card,
+Implementer: Claude cloud session; writable files: findastra/ai-ipo-countdown, this card,
 changes/ai-ipo-countdown-20261115.md; ownership: released
 Reviewer: unassigned; next action: review #365, then a Windows test on Astra's PC
 
@@ -23,7 +23,8 @@ Reviewer: unassigned; next action: review #365, then a Windows test on Astra's P
 - Not verified here: Discord itself (Windows only). Hub `npm test`: the same 6 farm-pets tests fail without this draft.
 
 ## Done when
-- Astra OKs the repo, and the draft moves there as its first commit (then it is removed from `drafts/`).
+- Done 2026-11-15: Astra OK'd the repo; created public from her PC, the app is its first commit (`07bc914`), and the
+  draft is removed from `drafts/` here.
 - "Countdown Presence" is registered and its ID is built in; the card shows on Astra's profile.
 - Discord Damsel's presence card and the System Map node are added, as for the Ableton app.
 - The card is up before the first trade (expected Thu 2026-11-19); the dates still match the latest reports.
