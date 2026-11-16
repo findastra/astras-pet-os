@@ -16,3 +16,5 @@ All 86 pets accounted for, all nine expressions visually reviewed, original simp
 Record progress and review here.
 ## Receipt and review
 Pending.
+
+2026-11-16 scope addition: shared apps/pet-programs/pet-program-page-20261018.css and page sizing regression checks, authorized by Astra's fixed-square clarification.
