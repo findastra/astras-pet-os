@@ -98,7 +98,7 @@ Run's and the build's checks only, so its hand checks are still to do ("next").
 
 | # | Pet | Program | Stage | Missing | Incorrect | Not verified | Checks with a finding | Round |
 |--:|---|---|---|--:|--:|--:|---|---|
-| 1 | Friendly Farmer | The Farm | registered | 5 | 8 | 22 | see round 1 | [done](round-01-astras-pet-os-20261116.md) |
+| 1 | Friendly Farmer | The Farm | registered | 4 | 6 | 25 | see round 1 | [done](round-01-astras-pet-os-20261116.md) |
 | 2 | GitHub Goldfish | GitHub Aquarium | registered | 0 | 0 | 0 | — (the Run leaves pet program 2 out: page checks only so far) | next |
 | 3 | Data Chip | Data Dealer | registered | 4 | 1 | 0 | A15 A16 A55 A18 | next |
 | 4 | API Fairy | API Fairy Ring | registered | 3 | 5 | 0 | A10 A15 A56 A17 A55 A18 | next |
@@ -185,6 +185,13 @@ Run's and the build's checks only, so its hand checks are still to do ("next").
 | 86 | PC Master | PC Master Race | pipeline | 5 | 1 | 1 | A59 A10 A54 A16 A55 A26 | next |
 | 87 | Flowsheet Flamingo | The Pilot Plant | seed | 4 | 2 | 1 | A09 A10 A13 A16 A55 A26 | next |
 
-All items: 497 Missing, 130 Incorrect, 42 Not verified.
+All items: 496 Missing, 128 Incorrect, 45 Not verified.
+
+Two holds apply to every round:
+
+- **A14's "no `pet-app` topic" rows wait on #256.** The topic's name is the retired word "pet app" (Astra,
+  2026-10-26 and 2026-11-16), so no round adds it.
+- **The art checks wait on OpenAI's redraw.** These are A02, A03, A04, A05 and A61. Astra, 2026-11-16: "OpenAI just
+  redrew all 85 pets so that update is coming" (#371). Each round checks them on the new drawings once they land.
 
 <sub>Flash Audit, 2026-11-16, Claude Opus 5.5 (`claude-opus-5-5`). Read-only: nothing was clicked, launched or signed in to.</sub>

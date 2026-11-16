@@ -34,8 +34,13 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
   `round-NN-<repo>-20261116.md` (or the day's date), fix the grey ones on a branch per repo, and put the blue ones on
   the card.
 - Program 2 (GitHub Goldfish) is not in the Run: the auditor starts at 3. Its round needs the auditor's checks by hand.
-- Round 1's decisions wait on Astra: the `pet-app` topic, the folder icons under the old-name folder, `data_folder`, the
-  Farmer's awake drawing (eyes shut), `FARMER_TOKEN`, the v0.4.0-beta release, and the older open pull requests.
+- Round 1's decisions wait on Astra: the retired word "pet app", still the GitHub topic every pet repo carries (#256,
+  question 1), the folder icons under the old-name folder, `data_folder`, `FARMER_TOKEN`, the v0.4.0-beta release,
+  and the older open pull requests. Never suggest adding the `pet-app` topic: Astra, 2026-11-16, "we are not supposed
+  to call it this".
+- **Art waits on OpenAI's redraw.** Astra, 2026-11-16: "OpenAI just redrew all 85 pets so that update is coming"
+  (Codex's #371, a draft with no drawings yet). Every round marks A02, A03, A04, A05 and A61 as Not verified until it
+  lands, then checks them on the new drawings. Do not ask for new art before then.
 - Held: A54's lists for The Farm (`system-map.json`, `TOOLS-AND-TRICKS.md`, `INTELLIGENCE-LEVELS.md`). Eleven open PRs
   change them.
 
