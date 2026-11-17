@@ -3871,7 +3871,12 @@
         "subject": "authorized security tests and their scan log",
         "needs": "your OK before every test"
       },
-      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the private scan log is in findastra/white-hat-lab#3. No pet art registered yet.",
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main and the private scan log (merged with findastra/white-hat-lab#3; the newest row, 2026-11-17, links Port Spider's report). No pet art registered yet.",
+      "editorial": {
+        "says": "The scan log has three scans; the newest, on 2026-11-17, is Port Spider's check of the home network. Findings stay in the two private repos, so this page says only when a scan ran. Wireshark, with Npcap, is installed and listed in L1 for traffic recordings. Next: a port check from another device.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-17"
+      },
       "interface_url": "apps/pet-programs/white-hat-lab-20261018.html",
       "interface_local_url": "apps/pet-programs/white-hat-lab-20261018.html",
       "needs": {
@@ -3883,6 +3888,11 @@
             "node": "mcp-inspector",
             "how": "optional",
             "why": "The checker for every new MCP server before any chat gets it (hub card 319)."
+          },
+          {
+            "node": "wireshark",
+            "how": "optional",
+            "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
           }
         ]
       }

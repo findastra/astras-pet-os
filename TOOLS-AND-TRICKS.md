@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-424 rows: 22 native programs, 174 native tools, 25 native tricks, 203 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+425 rows: 22 native programs, 174 native tools, 25 native tricks, 204 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -433,6 +433,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Process sweep | `kernel-grove-v1.0-process-sweep-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | Wireshark |  | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | MCP Inspector |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
