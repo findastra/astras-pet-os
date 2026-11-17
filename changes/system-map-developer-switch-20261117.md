@@ -7,7 +7,7 @@ the developer would name these things what they actually really are." A cybersec
 - `scripts/system-map-template-20261012.html`:
   - **Start here** at the top of the key, in four numbered lines: read it from the middle out, what the glass is, what
     lies outside it, and what the lines and clicks show.
-  - **Developer** button in the bottom bar, next to 2D | 3D. It is the pages' existing developer words
+  - **DEV** button in the bottom bar, next to 2D | 3D. It is the pages' existing developer words
     (`?words=developer`, remembered in this browser), so 2D and 3D both work in either words. In developer words the
     key opens with an **Architecture overview** instead of Start here (a trust-zone diagram; rings are logical trust
     zones, not CPU protection rings; grants are R W X at privilege levels L1 to L4; ✓ In code / ⚠︎ Rule only /

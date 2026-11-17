@@ -236,7 +236,7 @@ body.pets .navpad,body.pets .grip{display:none!important}
     <li>The glass sphere is the trust boundary (the agent harness). Outside it: LLM providers, third-party software and services (supply chain), endpoints, and the owner.</li>
     <li>Rings are logical trust zones, not CPU protection rings, and grant nothing. Permissions are grants (R W X, least privilege) at privilege levels L1 to L4: L1 deterministic tools, L2 the app and its skills, L3 an LLM agent session, L4 the human approver.</li>
     <li>Each grant is marked ✓ In code (a technical control, with its proof), ⚠︎ Rule only (policy, nothing enforces it) or ○ Not built. Edges are data flows. Click any ring or node for its grants.</li></ol></div>
-  <p class="sub farm-words">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom, and <b>Developer</b> for the standard engineering names.<span class="touch-only"> In 2D drag to move; in 3D drag to turn. Pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
+  <p class="sub farm-words">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom, and <b>DEV</b> for the standard engineering names.<span class="touch-only"> In 2D drag to move; in 3D drag to turn. Pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
   <div class="search">
     <label class="label" for="q">Search</label>
     <input id="q" type="search" placeholder="Pet, program, job…" autocomplete="off" aria-controls="res">
@@ -313,7 +313,7 @@ body.pets .navpad,body.pets .grip{display:none!important}
   <button class="btn" id="nReset" title="Back to the whole map">Reset view</button>
   <button class="btn no-touch" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
   <span class="dims" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
-  <span class="dims dev" role="group" aria-label="Developer words" data-words-keep><button type="button" id="dDev" aria-pressed="false" title="Developer: the standard engineering name for every ring and part (trusted core, trust boundary, LLM providers, supply chain). Click again for the farm words. Remembered in this browser.">Developer</button></span>
+  <span class="dims dev" role="group" aria-label="Developer words" data-words-keep><button type="button" id="dDev" aria-pressed="false" title="Developer: the standard engineering name for every ring and part (trusted core, trust boundary, LLM providers, supply chain). Click again for the farm words. Remembered in this browser.">DEV</button></span>
 </nav>
 <button class="spinbig pets-only" id="petSpin" type="button" aria-pressed="true">Stop spinning</button>
 <div class="tip" id="tip" hidden></div>
@@ -747,7 +747,13 @@ d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
 const DEV_WORDS = document.documentElement.getAttribute('data-words')==='developer';
 { const b=document.getElementById('dDev'); b.setAttribute('aria-pressed',DEV_WORDS);
   if(!window.PetOSWords) b.parentNode.hidden=true;
-  b.onclick=()=>{ const u=new URL(location.href); u.searchParams.set('words',DEV_WORDS?'farm':'developer'); location.replace(u.href); }; }
+  // Save first, the way the pages' own words switch does (developer-words-page-20261019.js remember()), then reload
+  // without ?words= in the address, since the address would win over what was saved.
+  b.onclick=()=>{ const mode=DEV_WORDS?'farm':'developer';
+    const u=new URL(location.href); const had=u.searchParams.has('words'); u.searchParams.delete('words');
+    try{ localStorage.setItem('astras-pet-os:words', JSON.stringify({mode, over:window.PetOSWords.installed})); }
+    catch(e){ u.searchParams.set('words',mode); location.replace(u.href); return; } // no storage: this visit only
+    if(had) location.replace(u.href); else location.reload(); }; }
 if(TOUCH && !IN_FRAME){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold; a frame keeps the sphere
 if(TOUCH) controls.enabled=!flat; // in a frame a touch screen opens on the sphere, which one finger turns
 
