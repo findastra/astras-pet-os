@@ -9150,28 +9150,32 @@
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18). \"dev\" is each ring's name in developer words (the map's Developer switch) and its standard term, for engineers reading the map for the first time (Astra, 2026-11-17).",
     "list": [
       {
         "ring": "0",
+        "dev": {"name":"Trusted core","term":"Trusted computing base (TCB), control plane","what":"the control plane every other part trusts: the orchestrator's dashboard, the service registry (pets.json), the program registry, the policy rules and the test suite"},
         "name": "Core",
         "what": "The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools",
         "animal": "yes"
       },
       {
         "ring": "1",
+        "dev": {"name":"Orchestrator","term":"Orchestrator, supervisor and package manager","what":"the one agent that installs, starts, updates and removes the other agents, and keeps the lockfile of what runs"},
         "name": "Friendly Farmer",
         "what": "organizes the pets",
         "animal": "yes"
       },
       {
         "ring": "2",
+        "dev": {"name":"Agents","term":"AI agents (one per domain)","what":"one agent per job (GitHub, backups, VR, files ...). Lifecycle: released, in development, planned, backlog. Only released and in-development agents sit inside the trust boundary"},
         "name": "Pets",
         "what": "every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them",
         "animal": "registered and pipeline pets; seeds and roadmap pets once Astra registers them"
       },
       {
         "ring": "3",
+        "dev": {"name":"First-party applications","term":"First-party code","what":"apps, sites, scripts and worlds the owner wrote, which the agents run or manage, with their tools. Each has its agent's permissions, never more"},
         "name": "Pet programs",
         "what": "the programs, sites and worlds Astra made, and their tools",
         "made": "you",
@@ -9179,18 +9183,21 @@
       },
       {
         "ring": "H",
+        "dev": {"name":"Trust boundary (agent harness)","term":"Trust boundary, sandbox perimeter","what":"inside: first-party code an agent session may change. Outside: everything the agents only call. Today the agents run inside Claude Code or Codex, so this line is mostly policy; the controls that are really enforced are marked In code on each grant"},
         "name": "Agent harness",
         "what": "the glass sphere between the animals and everything else",
         "animal": "the line between animals and everything else"
       },
       {
         "ring": "4",
+        "dev": {"name":"LLM providers","term":"Model APIs and vendor agent runtimes","what":"Anthropic (Claude), OpenAI and local models. Claude Code and Codex are the vendors' agent runtimes, drawn as rings around their model: a call goes through the runtime or straight to the API. Only allowlisted models get API keys"},
         "name": "Farmhands (AI models)",
         "what": "Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model",
         "animal": "no"
       },
       {
         "ring": "5",
+        "dev": {"name":"Third-party software and services","term":"Software supply chain","what":"libraries, desktop programs and online services made by others, and the public community registries. Agents may read and run them (R X), never change them"},
         "name": "Third-party programs",
         "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
         "made": "others",
@@ -9198,18 +9205,21 @@
       },
       {
         "ring": "6",
+        "dev": {"name":"Endpoints and hardware","term":"Asset inventory","what":"PCs, laptop, tablet, VR headset and trackers, network gear and other devices"},
         "name": "Devices",
         "what": "PCs, phones, headsets, trackers and other hardware",
         "animal": "no"
       },
       {
         "ring": "7",
+        "dev": {"name":"External advisory AI","term":"Out-of-band adviser, no system access","what":"ChatGPT in its own chat: no credentials, no access to these systems"},
         "name": "Advisers",
         "what": "ChatGPT",
         "animal": "no"
       },
       {
         "ring": "8",
+        "dev": {"name":"Owner (L4)","term":"Human principal, human-in-the-loop approver","what":"the one verified human who approves releases, permission grants and merges"},
         "name": "You (L4)",
         "what": "Astra, who owns the whole farm",
         "animal": "no: the owner"

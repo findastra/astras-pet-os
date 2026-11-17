@@ -156,6 +156,18 @@ button.link{font:inherit;color:var(--fg);background:none;border:0;padding:0;curs
 .dims button:hover{color:var(--fg)}
 .dims button[aria-pressed="true"]{background:var(--host);color:var(--bg)}
 .dims button:focus-visible{outline:2px solid var(--host);outline-offset:2px}
+/* The Developer switch (Astra, 2026-11-17): next to 2D | 3D, it puts the map in developer words: each ring by its
+   standard name (trusted core, trust boundary, LLM providers, supply chain ...) for an engineer reading it the first
+   time. It is the same switch as the pages' "Developer words" (?words=developer), so it is remembered in this browser. */
+.dims.dev button{min-width:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+html[data-words="developer"] .farm-words{display:none!important}
+html:not([data-words="developer"]) .dev-words{display:none!important}
+/* Start here: the core of the map in four lines, for someone seeing it the first time (Astra, 2026-11-17). */
+.start{margin:8px 0 10px;padding:9px 11px;border:1px solid var(--raise-edge);border-left:3px solid var(--host);border-radius:8px;background:var(--well);font-size:12.5px;line-height:1.5}
+.start b.h{display:block;font:700 12px/1.2 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--host);margin-bottom:4px}
+.start ol{margin:4px 0 0;padding-left:18px}
+.start li{margin:2px 0}
+.ring-term{display:block;font-size:11px;color:var(--muted);margin-top:1px}
 /* Both panes fold (Astra, 2026-10-18): the key panel to its title, the card to its name. On a phone both start folded. */
 .hudtop{display:flex;align-items:flex-start;gap:8px}
 .hudtop h1{flex:1;min-width:0}
@@ -214,7 +226,17 @@ body.pets .navpad,body.pets .grip{display:none!important}
     <input id="nameInput" maxlength="40" autocomplete="off">
     <div class="row"><button class="btn" id="nameSave" aria-pressed="true">Save</button><button class="btn" id="nameSkip">Keep "Astra's PetOS"</button></div>
   </div>
-  <p class="sub">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom.<span class="touch-only"> In 2D drag to move; in 3D drag to turn. Pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
+  <div class="start farm-words" id="startFarm"><b class="h">Start here</b>This is a map of one person's computer, with an AI helper for each job drawn as a pet. Read it from the middle out:
+    <ol><li>The middle is what Astra built and trusts most: The Farm, the Friendly Farmer who looks after the pets, the pets, and the programs she made.</li>
+    <li>The glass sphere is the fence. Everything inside it (🐾) an AI may change; everything outside it may only be used.</li>
+    <li>Outside the glass, trusted less as you go: the AI models, programs made by others, the devices, and Astra (L4), who says yes to every change.</li>
+    <li>Lines show what flows between things. Click a ring below, or anything on the map, to see who may read, write or run it.</li></ol></div>
+  <div class="start dev-words" id="startDev" data-words-keep><b class="h">Architecture overview</b>A trust-zone diagram of a single-owner AI-agent platform on Windows: one LLM agent per domain, an orchestrator that installs and supervises them, and a human owner who approves every change. Read it from the centre out:
+    <ol><li>Rings 0 to 3 sit inside the trust boundary: the trusted core, the orchestrator, the agents and the first-party code they may modify.</li>
+    <li>The glass sphere is the trust boundary (the agent harness). Outside it: LLM providers, third-party software and services (supply chain), endpoints, and the owner.</li>
+    <li>Rings are logical trust zones, not CPU protection rings, and grant nothing. Permissions are grants (R W X, least privilege) at privilege levels L1 to L4: L1 deterministic tools, L2 the app and its skills, L3 an LLM agent session, L4 the human approver.</li>
+    <li>Each grant is marked ✓ In code (a technical control, with its proof), ⚠︎ Rule only (policy, nothing enforces it) or ○ Not built. Edges are data flows. Click any ring or node for its grants.</li></ol></div>
+  <p class="sub farm-words">Every pet, program, AI model and device, on the ring where it lives. The glass is the agent harness: <b class="animal">🐾 everything inside it is an animal</b>. Claude Code and Codex are rings around their AI. Switch between <b>2D</b> and <b>3D</b> at the bottom, and <b>Developer</b> for the standard engineering names.<span class="touch-only"> In 2D drag to move; in 3D drag to turn. Pinch to zoom.</span> Click anything to see who may read, write or run it, and what flows to it.</p>
   <div class="search">
     <label class="label" for="q">Search</label>
     <input id="q" type="search" placeholder="Pet, program, job…" autocomplete="off" aria-controls="res">
@@ -232,12 +254,13 @@ body.pets .navpad,body.pets .grip{display:none!important}
   <div class="legend" id="netLegend" hidden></div>
   <div class="legend" id="hatLegend" hidden></div>
 
-  <details class="sec" open><summary>Rings: where things live</summary><div>
-    <p class="sub long">Inside out, each ring a sphere. A ring says where a thing lives; it grants nothing. Click a ring to light it up and see the grants that reach it.</p>
+  <details class="sec" open><summary><span class="farm-words">Rings: where things live</span><span class="dev-words" data-words-keep>Trust zones (rings), centre out</span></summary><div>
+    <p class="sub long farm-words">Inside out, each ring a sphere. A ring says where a thing lives; it grants nothing. Click a ring to light it up and see the grants that reach it.</p>
+    <p class="sub long dev-words" data-words-keep>Most trusted at the centre. A zone says where a component runs and who wrote it; it grants nothing. Click a zone to highlight it and list the permission grants that reach it. The small line under each name is the standard term.</p>
     <div class="rings" id="ringKey"></div>
   </div></details>
 
-  <details class="sec"><summary>L1 to L4: what each should be, and whether it is in code</summary><div>
+  <details class="sec"><summary><span class="farm-words">L1 to L4: what each should be, and whether it is in code</span><span class="dev-words" data-words-keep>Privilege levels L1 to L4: designed permissions vs enforced controls</span></summary><div>
     <p class="sub">R W X lives on <b>grants</b>, not on rings (Astra, 2026-10-17). Every card shows the four levels down the left: what each <b>should be</b> (its R W X on that thing), then whether that is <b>in code</b> (Astra, 2026-10-19). Click a level to see the grants behind it, and the proof of every In code.</p>
     <div class="keyrow"><span class="lv">L1</span>a pet's programs and tools: they act with their pet's grants, never more</div>
     <div class="keyrow"><span class="lv">L2</span>a pet program and its runtime</div>
@@ -290,6 +313,7 @@ body.pets .navpad,body.pets .grip{display:none!important}
   <button class="btn" id="nReset" title="Back to the whole map">Reset view</button>
   <button class="btn no-touch" id="nSpin" aria-pressed="true" title="Slowly turn the map">Spin</button>
   <span class="dims" role="group" aria-label="2D or 3D map"><button type="button" id="d2" aria-pressed="false" title="2D: every ring laid flat on the ground, so you can read which ring each thing is on">2D</button><button type="button" id="d3" aria-pressed="true" title="3D: every ring a sphere inside the next">3D</button></span>
+  <span class="dims dev" role="group" aria-label="Developer words" data-words-keep><button type="button" id="dDev" aria-pressed="false" title="Developer: the standard engineering name for every ring and part (trusted core, trust boundary, LLM providers, supply chain). Click again for the farm words. Remembered in this browser.">Developer</button></span>
 </nav>
 <button class="spinbig pets-only" id="petSpin" type="button" aria-pressed="true">Stop spinning</button>
 <div class="tip" id="tip" hidden></div>
@@ -718,6 +742,12 @@ function fadeDecor(e){ const fs=flat?1-e:e, ff=flat?e:1-e;
 const d2=document.getElementById('d2'), d3=document.getElementById('d3');
 function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
 d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
+// The Developer switch (Astra, 2026-11-17): the words are swapped before anything is drawn, so it reloads the page in the
+// other words. ?words= is what the pages' words switch uses, and developer-words-20261019.js remembers it in this browser.
+const DEV_WORDS = document.documentElement.getAttribute('data-words')==='developer';
+{ const b=document.getElementById('dDev'); b.setAttribute('aria-pressed',DEV_WORDS);
+  if(!window.PetOSWords) b.parentNode.hidden=true;
+  b.onclick=()=>{ const u=new URL(location.href); u.searchParams.set('words',DEV_WORDS?'farm':'developer'); location.replace(u.href); }; }
 if(TOUCH && !IN_FRAME){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold; a frame keeps the sphere
 if(TOUCH) controls.enabled=!flat; // in a frame a touch screen opens on the sphere, which one finger turns
 
@@ -727,8 +757,13 @@ const el=(tag,cls,text)=>{const e=document.createElement(tag); if(cls) e.classNa
 const ringKey=document.getElementById('ringKey'), ringButtons={};
 DATA.rings.forEach(r=>{ const count=DATA.nodes.filter(n=>n.ring===r.ring).length;
   const b=el('button', r.ring==='H'?'glass':''); b.type='button'; b.setAttribute('aria-pressed','false'); b.title=r.what;
-  const name=el('span'); name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name));
-  if(r.made) name.append(el('span','made '+r.made, MADE[r.made].word)); name.append(document.createTextNode(': '+r.what));
+  const name=el('span');
+  if(DEV_WORDS && r.dev){ // developer words: the ring's standard name, its term on a line below, then what lives there
+    b.setAttribute('data-words-keep',''); b.title=r.dev.term+': '+r.dev.what;
+    name.append(el('b','',r.dev.name), document.createTextNode(': '+r.dev.what), el('span','ring-term',r.dev.term));
+  } else {
+  name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name));
+  if(r.made) name.append(el('span','made '+r.made, MADE[r.made].word)); name.append(document.createTextNode(': '+r.what)); }
   b.append(el('span','num',r.ring==='H'?'◠':r.ring), name, el('span','count',String(count)));
   b.onclick=()=>selectRing(r.ring); ringKey.appendChild(b); ringButtons[r.ring]=b; });
 const tg=document.getElementById('edgeToggles');
