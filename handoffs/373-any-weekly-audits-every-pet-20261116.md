@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her OK to merge #373, after #337)
+status: open (waiting on Astra: her OK to merge #373)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: AGENTS.md, PET-FILES.md ("Rounds, self-audits and submissions"), changes/weekly-audits-every-pet-20261116.md
@@ -42,8 +42,10 @@ Reviewer: a separate read-only checker session reviewed the first revision; its 
 
 ## Done when
 
-Astra has said OK in chat, #337 is merged first and this branch is brought up to date with it (take #337's side of
-Flowsheet Flamingo's seed entry, take main's generated files, `npm run build`, `npm test`), and #373 is merged.
+Astra has said OK in chat and #373 is merged (bring it up to date with `main` first if another pull request merged
+meanwhile: take main's generated files, `npm run build`, `npm test`). #337 already has conflicts with `main`
+(2026-11-16), so its chat keeps its own side of Flowsheet Flamingo's seed entry when it fixes them; his pipeline audit
+uses the same words.
 
 ## Receipt and review
 
