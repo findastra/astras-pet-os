@@ -4574,5 +4574,20 @@
       "repo": "fuzzbois",
       "why": "Local art project, not published."
     }
+  ],
+  "retired_pets": [
+    {
+      "repo": "port-web",
+      "pet": "Port Spider",
+      "program": "Port Web",
+      "number": 68,
+      "retired": "2026-11-17",
+      "how": "folded",
+      "into": "white-hat-lab",
+      "tool": "port-check-tool",
+      "art": "port-spider",
+      "repo_state": "archived",
+      "why": "Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\". Its port checks are White Hat Lab's port-check-tool; its reports moved to findastra/white-hat-lab (scans/); findastra/port-web was archived the same day (Astra: \"Archive it\"). Its number stays unused (skills/retire-a-pet)."
+    }
   ]
 }

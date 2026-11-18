@@ -4893,6 +4893,30 @@
       "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
     },
     {
+      "id": "retire-a-pet-trick",
+      "name": "retire-a-pet",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-a-pet-trick-v1.0",
+      "job": "A trick of The Farm (skills/retire-a-pet/SKILL.md; Astra, 2026-11-17: \"make sure to delete it everywhere ... make a protocol and update his software please\"): retire a pet, or fold it into another pet as a tool, everywhere. Everything live forgets it (registry, map, pages, Markdown pets, words, art, other repos, the PC); every record keeps its name; its repo is archived, never deleted unless Astra says so for that pet; its number is never reused."
+    },
+    {
+      "id": "retire-check",
+      "name": "retire-check",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-check-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-17): for every pet in pets.json retired_pets, lists what still treats it as a pet: the hub's registry, map, pages, Markdown pets, developer words and art; live mentions in every pet repo on the PC (records are counted, never changed); its folders on the PC; and, with --github, whether its repo is archived. Read only: it reports, Astra decides (scripts/retire-check-20261117.mjs, npm run retire-check; the retire-a-pet trick uses it; pet-finder calls a retired pet's leftovers retired-leftover, never missing)."
+    },
+    {
       "id": "make-a-prop-look-real",
       "name": "make-a-prop-look-real",
       "type": "trick",
