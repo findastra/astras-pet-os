@@ -38,6 +38,10 @@ text in `scripts/pet-program-pages-20261018.mjs`, a new note in `changes/`, and 
      `codex/flash-audit-20261014` (github-goldfish).
   5. 13 branches merged after the morning check with nothing added: deleted.
   44 deleted in all; undo log `branch-sweeper-undo-20261115.jsonl` (see the date note under "Not done").
+- Three of the 13 in step 5 were branches in one of Astra's private repos that she had decided to keep that same day
+  (the morning list had them under the repo's old name, so the evening list showed them as new). Nothing told the
+  tool. Astra, 2026-11-16: "Yes, restore them": they were put back at the same commits (lines 1 to 3 of that undo
+  log). The keep list below (2026-11-17) is so that no plan offers them again.
 - How the "ask" rows were judged: each added line of the branch looked up in main's copy of the file, new files looked
   up on main, and the pull request's head compared with the branch tip.
 
@@ -61,6 +65,43 @@ text in `scripts/pet-program-pages-20261018.mjs`, a new note in `changes/`, and 
   main on this PC (card 347).
 - Looked at in the browser pane from 127.0.0.1: the tool box draws with its three groups and made-up examples.
 
+### 2026-11-17: Astra's keep list (Claude Opus 5.5)
+- Branch `claude/branch-sweeper-keep-list-20261117`, in its own worktree (an LF checkout). The live hub folder was not
+  touched.
+- `scripts/branch-sweeper-20261114.mjs`: the keep list, `KEEP_FILE` = `branch-sweeper-keep-20261117.json` (schema
+  `github-aquarium-branch-sweeper-keep-v1`), read from her PC's `Documents\Astra's PetOS Data\github-aquarium\`, never
+  from a repo. Each entry: owner, repo, branch, `why` (her reason), `date` (the day she decided) and, when known,
+  `repo_id` (the repo's number on GitHub, so a rename does not lose it) and `sha`. `verdict()` checks it before any
+  other rule: a listed branch is "keep" with "On Astra's keep list: <her reason>", and her branches come first in the
+  Keep group. `checkPlan()` and `--apply` refuse a listed branch even in a plan made before she listed it; the fresh
+  check on GitHub reads the list too, under the repo's name as GitHub gives it now (`collect()` keeps that name and the
+  number), and deletes under that name. A list that cannot be read stops the sweeper before it asks GitHub anything,
+  and `--apply` does not run without the file; a check with no file has an empty list and says so. Kept branches GitHub
+  no longer has, and entries whose repo was renamed, are reported (console, "Not covered" in `--md`).
+- The keep list on her PC holds the three restored branches, each with her reason from 2026-11-14 (her words and where
+  she said them), the repo's number and the commit. Only that file names them.
+- `test/branch-sweeper-test-20261114.mjs`: 7 new tests, 16 in all, with made-up names: the verdict, reading the list
+  (no file, a missing file for `--apply`, a byte-order mark, every bad field), a renamed repo, a plan made before a
+  rename, the list, page and plan, `--apply` refusing a kept branch (also from an older plan, with a pretend GitHub: no
+  delete, no undo line), and kept branches that are gone. Taking the list out of `verdict()`, `checkPlan()` or the
+  fresh check in `apply()` each makes them fail (checked on a scratch copy).
+- Maker-checker: a separate read-only reviewer (Claude Sonnet 5.5) read the diff. It found two gaps, both fixed: a plan
+  made before a repo rename could slip past an entry written under the new name, and a missing file left `--apply`
+  without the list.
+- `system-map.json`: the `branch-sweeper` node's job and the grant `goldfish-branch-sweeper-delete` (`on`, `how`) name
+  the keep list. `scripts/pet-program-pages-20261018.mjs`: the tool box text. `npm run build` rebuilt PROTECTION-RINGS.md,
+  the System Map page, the two Markdown pets and 56 pet program pages (only the grant's words in their R W X panels).
+- `changes/branch-sweeper-keep-list-20261117.md`: the change note.
+- Read-only check from this branch on 2026-11-17: 118 repos, 480 branches (95 safe to delete, 10 to ask, 375 to keep).
+  The three kept branches are "keep" with her reason, first in the Keep group, and `"delete": false` in the plan; "keep
+  list: 3 branches Astra keeps, 3 found on GitHub". It also rewrote the page's list on her PC (it was from 2026-11-14);
+  the plan and the full list went to a scratch folder, not into her data folder.
+- `--apply` dry run (no `--yes`) on a scratch plan that ticks the three for deleting, as an older plan would, plus one
+  row under the repo's old name: the three are refused with her reason, the old-name row is "gone already", 0 deleted,
+  no undo log written; the three branches are still on GitHub at the same commits.
+- Looked at in the browser pane from 127.0.0.1 (this branch): the Keep group starts with the three, with her reason, and
+  the tool box text names the keep list.
+
 ## Not done
 - The three kept branches in step 3 above: each project's chat decides whether to finish or drop the work.
 - The undo log is named by the UTC date (`...-20261115.jsonl` for a run on the evening of 2026-11-14 in Denver);
@@ -72,6 +113,11 @@ text in `scripts/pet-program-pages-20261018.mjs`, a new note in `changes/`, and 
   is the record for now.
 - GitHub's per-repo setting "Automatically delete head branches" is untouched; turning it on is a settings change for
   Astra to name.
+- Keep-list entries are added by hand, on Astra's word; the tool has no command that adds one. An entry without the
+  repo's number matches by name only, so after a rename it needs changing (the check reports it as not found).
+- A keep-list branch name must fit the tool's own branch-name rule (letters, digits, `.`, `_`, `-` and `/`); a name
+  outside it stops the sweeper with an error, as it could never be deleted anyway.
+- INTELLIGENCE-LEVELS.md's GitHub Goldfish row lists outstanding-items but not branch-sweeper (since #364).
 
 ## Done when
 #364 is merged and GitHub Aquarium's page on her PC shows the real counts in the branch-sweeper tool box (done
