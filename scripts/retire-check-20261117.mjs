@@ -30,7 +30,7 @@ export function retiredPets(registry) {
 // A record says what happened and keeps the old name; everything else is live and must not treat the pet as a pet.
 const RECORD = [
   /^changes\//, /^handoffs\//, /^scans\//, /^reports\//, /^research_notes\//, /^status\//, /(^|\/)test\/fixtures\//,
-  /^docs\/flash-audit-rounds-/, /^docs\/[^/]*(audit|assessment|review)[^/]*\.md$/, /^skills\/retire-a-pet\//, /^docs\/architecture\/reference-/,
+  /^docs\/flash-audit-rounds-/, /^docs\/[^/]*(audit|assessment|review)[^/]*\.md$/, /^skills\/retire-a-pet\//, /^test\/retired-pets-test-/, /^docs\/architecture\/reference-/,
   /^docs\/linux-readiness-/, /^art\/drafts\//, /^art\/latest\/drafts\//, /(^|\/)data\/catalog(-public)?-\d{8}\./,
   /(^|\/)project-images(-\d{8})?\.(js|json)$/, /\.log$/,
 ];
