@@ -767,6 +767,23 @@
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
     {
+      "id": "port-check-tool",
+      "name": "port-check-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-check-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\"; it was Port Spider's job, pet program 68, from 2026-11-12). Which devices are on the home network, which ports answer on each, what the router forwards from the internet, and what to do. Read only, and only with Astra's OK before every check. The reports stay private (findastra/white-hat-lab scans/); on her PC the tool box shows the newest assessment from the white-hat-lab folder of Astra's PetOS Data, and the public page shows only that the reports are private.",
+      "does": "The port assessment of your home network: the verdict, every device and what answers on it, and what to do.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
@@ -4876,6 +4893,30 @@
       "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
     },
     {
+      "id": "retire-a-pet-trick",
+      "name": "retire-a-pet",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-a-pet-trick-v1.0",
+      "job": "A trick of The Farm (skills/retire-a-pet/SKILL.md; Astra, 2026-11-17: \"make sure to delete it everywhere ... make a protocol and update his software please\"): retire a pet, or fold it into another pet as a tool, everywhere. Everything live forgets it (registry, map, pages, Markdown pets, words, art, other repos, the PC); every record keeps its name; its repo is archived, never deleted unless Astra says so for that pet; its number is never reused."
+    },
+    {
+      "id": "retire-check",
+      "name": "retire-check",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-check-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-17): for every pet in pets.json retired_pets, lists what still treats it as a pet: the hub's registry, map, pages, Markdown pets, developer words and art; live mentions in every pet repo on the PC (records are counted, never changed); its folders on the PC; and, with --github, whether its repo is archived. Read only: it reports, Astra decides (scripts/retire-check-20261117.mjs, npm run retire-check; the retire-a-pet trick uses it; pet-finder calls a retired pet's leftovers retired-leftover, never missing)."
+    },
+    {
       "id": "make-a-prop-look-real",
       "name": "make-a-prop-look-real",
       "type": "trick",
@@ -6269,13 +6310,6 @@
       "carries": "findings",
       "state": "architecture",
       "why": "Security work stays in authorized scope."
-    },
-    {
-      "from": "port-web",
-      "to": "iron-gates",
-      "carries": "findings",
-      "state": "architecture",
-      "why": "Scans only authorized targets."
     },
     {
       "from": "test-tortoise",
@@ -7881,18 +7915,39 @@
       "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
     },
     {
+      "from": "wifi-butterfly",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: \"shouldnt this pet be talking to WiFi Butterfly?\"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17)."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "evidence-locker",
+      "carries": "findings",
+      "state": "planned",
+      "why": "A real finding in a scan (not a \"worth a look\") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02."
+    },
+    {
+      "from": "packet-river",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "idea",
+      "why": "Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "macattack",
+      "carries": "opens",
+      "state": "idea",
+      "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
       "from": "white-hat-lab",
       "to": "wireshark",
       "carries": "opens",
       "state": "now",
       "why": "White Hat Weasel records network traffic in Wireshark when a check needs it (Astra, 2026-11-17: Wireshark for her network check; installed with Npcap, checked that day). Recording happens only in Wireshark's own window; Packet Piranha owns network checks."
-    },
-    {
-      "from": "port-web",
-      "to": "white-hat-lab",
-      "carries": "findings",
-      "state": "now",
-      "why": "Port checks are Port Spider's (Astra, 2026-11-12): each report stays in Port Web's private scans folder, and White Hat Weasel's private scan log has a row that links it (2026-11-12 and 2026-11-17)."
     },
     {
       "from": "paper-girl-site",
@@ -10008,11 +10063,7 @@
       },
       "white-hat-lab": {
         "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json) and its private scan log (merged with findastra/white-hat-lab#3): three scans logged, the newest on 2026-11-17."
-      },
-      "port-web": {
-        "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); two port checks done by hand, of the desktop PC on 2026-11-12 (findastra/port-web#4) and of the home network on 2026-11-17 (findastra/port-web#6); the reports stay in its private scans folder."
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json), its private scan log (merged with findastra/white-hat-lab#3) and the port-check reports that were Port Spider's (Astra, 2026-11-17: folded in); the newest scan is 2026-11-17."
       },
       "server-hearth": {
         "languages": [],
@@ -10718,7 +10769,6 @@
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
-    "port-web": "blue",
     "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",

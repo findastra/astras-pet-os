@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Port check · White Hat Weasel</title>
+<!-- White Hat Lab's tool page (Astra, 2026-11-17: "lets squish port spider and make it a tool of the weasel", and "need
+     to see an assessment. port assessment must be first"). White Hat Lab's port-check-tool box in L1 shows this page
+     with ?tool=port-check. It reads only the page data White Hat Weasel writes on this PC, in the white-hat-lab folder
+     of Astra's PetOS Data (port-check-page-data-20261117.js), so the findings never reach GitHub; anywhere else it says
+     the reports are private. White background, black boxes (Astra, 2026-11-17). Self-contained, no dependencies.
+     Written with Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{
+  --page:#ffffff; --box:#000000; --box2:#161616; --line:#3a3a3a; --ink:#ffffff; --dim:#b9b9b9; --page-ink:#000000;
+  --ok:#39ff88; --check:#ffd23f; --you:#ff4fd8; --link:#7fd4ff;
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--page-ink); background:var(--page);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page)}
+html.in-tool,html.in-tool body{background:transparent;color:var(--ink)}
+html.in-tool{overflow:hidden}
+html.in-tool main{padding:0 0 6px}
+html.in-tool header{display:none}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+header h1{margin:0 0 4px;font-size:1.6rem}
+.sub{color:#444}
+html.in-tool .sub{color:var(--dim)}
+.box{background:var(--box);color:var(--ink);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+html.in-tool .box{border:1px solid var(--line)}
+.box h2{margin:0 0 6px;font-size:1.05rem}
+.verdict{font-size:1.1rem;font-weight:600;margin:4px 0 8px}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:99px;color:#000;margin-right:6px;vertical-align:1px;white-space:nowrap}
+.tag.ok{background:var(--ok)} .tag.check{background:var(--check)} .tag.you{background:var(--you)}
+.meta{color:var(--dim);font-size:.85rem}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid .box{margin:0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.88em}
+ol,ul{margin:4px 0;padding-left:20px} li{margin:3px 0}
+a{color:var(--link)}
+.empty{color:var(--dim);font-style:italic}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Port check</h1>
+<p class="sub">White Hat Weasel’s port assessment of the home network. <span data-checked></span></p>
+</header>
+<div data-tools><p class="empty">Reading White Hat Weasel’s newest port check…</p></div>
+</main>
+<script src="white-hat-lab-tools-20261117.js"></script>
+</body>
+</html>
