@@ -39,18 +39,18 @@ Inside out. The System Map draws each ring as a sphere (3D) or as a circle on th
 around rings 0 to 3, and Claude Code and Codex as rings around their AI models (a request can go through the ring or straight to the model).
 
 <!-- rings:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-| Ring | Name | What lives there | Animal? |
-|---|---|---|---|
-| 0 | Core | The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools | 🐾 yes |
-| 1 | Friendly Farmer | organizes the pets | 🐾 yes |
-| 2 | Pets | every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them | registered and pipeline pets; seeds and roadmap pets once Astra registers them |
-| 3 | Pet programs | the programs, sites and worlds Astra made, and their tools | 🐾 yes, once their pet is registered |
-| — | **Agent harness** | the glass sphere between the animals and everything else | the line between animals and everything else |
-| 4 | Farmhands (AI models) | Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model | no |
-| 5 | Third-party programs | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic) | no |
-| 6 | Devices | PCs, phones, headsets, trackers and other hardware | no |
-| 7 | Advisers | ChatGPT | no |
-| 8 | You (L4) | Astra, who owns the whole farm | no: the owner |
+| Ring | Name | Standard term | What lives there | Animal? |
+|---|---|---|---|---|
+| 0 | Core | Trusted core (Trusted computing base (TCB), control plane) | The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools | 🐾 yes |
+| 1 | Friendly Farmer | Orchestrator (Orchestrator, supervisor and package manager) | organizes the pets | 🐾 yes |
+| 2 | Pets | Agents (AI agents (one per domain)) | every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them | registered and pipeline pets; seeds and roadmap pets once Astra registers them |
+| 3 | Pet programs | First-party applications (First-party code) | the programs, sites and worlds Astra made, and their tools | 🐾 yes, once their pet is registered |
+| — | **Agent harness** | Trust boundary (agent harness) (Trust boundary, sandbox perimeter) | the glass sphere between the animals and everything else | the line between animals and everything else |
+| 4 | Farmhands (AI models) | LLM providers (Model APIs and vendor agent runtimes) | Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model | no |
+| 5 | Third-party programs | Third-party software and services (Software supply chain) | programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic) | no |
+| 6 | Devices | Endpoints and hardware (Asset inventory) | PCs, phones, headsets, trackers and other hardware | no |
+| 7 | Advisers | External advisory AI (Out-of-band adviser, no system access) | ChatGPT | no |
+| 8 | You (L4) | Owner (L4) (Human principal, human-in-the-loop approver) | Astra, who owns the whole farm | no: the owner |
 <!-- rings:end -->
 
 Ring 3 sits inside the glass because Astra made those programs. Ring 5 sits outside because other people made those
