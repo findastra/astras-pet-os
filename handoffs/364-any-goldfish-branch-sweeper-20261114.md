@@ -1,4 +1,4 @@
-status: open (merged and swept; 3 branches kept for a later look, the follow-ups under "Not done")
+status: taken by Claude Opus 5.5 (claude-opus-5-5), 2026-11-17, for the keep list (branch claude/branch-sweeper-keep-list-20261117)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-14
 needs: pull request #364
@@ -13,6 +13,11 @@ out where the other tools are and put them where that" (her message cut off ther
 State: MERGED (#364, Astra's OK in chat, 2026-11-14)
 Implementer: Claude Code session; ownership of the tool's files: released
 Reviewer: Astra; next action: none waiting on her; the follow-ups under "Not done" are for any chat
+
+2026-11-17: taken by a Claude Code session (Claude Opus 5.5) to add a keep list, on `claude/branch-sweeper-keep-list-20261117`.
+Writable files: `scripts/branch-sweeper-20261114.mjs`, `test/branch-sweeper-test-20261114.mjs`, this card, the
+`branch-sweeper` node and the grant `goldfish-branch-sweeper-delete` in `system-map.json`, the branch-sweeper tool box
+text in `scripts/pet-program-pages-20261018.mjs`, a new note in `changes/`, and what `npm run build` writes from them.
 
 ## The sweep (2026-11-14, each step after Astra's OK in chat)
 - Astra: "Yes, delete the 947". The tool ran in five plans of at most 200: 944 deleted, 3 already gone (moodglass).
