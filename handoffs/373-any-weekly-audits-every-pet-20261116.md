@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her OK to merge #373)
+status: open (merged with Astra's OK in chat, 2026-11-17: "Merge #373"; the follow-ups under "Not done / next" are left)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: AGENTS.md, PET-FILES.md ("Rounds, self-audits and submissions"), changes/weekly-audits-every-pet-20261116.md
@@ -10,7 +10,7 @@ auditing for in list form." Then, to writing the proposed audits into the regist
 
 ## Ownership and state
 
-State: READY_FOR_REVIEW (Astra's merge OK)
+State: accepted by Astra (her OK in chat, 2026-11-17: "Merge #373"); main merged in first (#375, 153ed38f)
 Implementer: Claude Opus 5.5, this chat; writable files: the ones listed below; ownership: released
 Reviewer: a separate read-only checker session reviewed the first revision; its findings are fixed in 22e79ff5
 
