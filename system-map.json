@@ -7881,6 +7881,20 @@
       "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
     },
     {
+      "from": "white-hat-lab",
+      "to": "wireshark",
+      "carries": "opens",
+      "state": "now",
+      "why": "White Hat Weasel records network traffic in Wireshark when a check needs it (Astra, 2026-11-17: Wireshark for her network check; installed with Npcap, checked that day). Recording happens only in Wireshark's own window; Packet Piranha owns network checks."
+    },
+    {
+      "from": "port-web",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "now",
+      "why": "Port checks are Port Spider's (Astra, 2026-11-12): each report stays in Port Web's private scans folder, and White Hat Weasel's private scan log has a row that links it (2026-11-12 and 2026-11-17)."
+    },
+    {
       "from": "paper-girl-site",
       "to": "alphaxiv-mcp",
       "carries": "manages",
@@ -9984,11 +9998,11 @@
       },
       "white-hat-lab": {
         "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json) and its private scan log (merged with findastra/white-hat-lab#3): three scans logged, the newest on 2026-11-17."
       },
       "port-web": {
         "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first port check of the desktop PC was done by hand on 2026-11-12 (report in findastra/port-web#4)."
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); two port checks done by hand, of the desktop PC on 2026-11-12 (findastra/port-web#4) and of the home network on 2026-11-17 (findastra/port-web#6); the reports stay in its private scans folder."
       },
       "server-hearth": {
         "languages": [],
