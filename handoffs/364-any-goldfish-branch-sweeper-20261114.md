@@ -1,4 +1,4 @@
-status: open (waiting on Astra: her OK to merge #378, the branch sweeper's keep list; the follow-ups under "Not done")
+status: open (the follow-ups under "Not done")
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-14
 needs: pull request #364; pull request #378 (the keep list, 2026-11-17)
@@ -14,13 +14,14 @@ State: MERGED (#364, Astra's OK in chat, 2026-11-14)
 Implementer: Claude Code session; ownership of the tool's files: released
 Reviewer: Astra; next action: none waiting on her; the follow-ups under "Not done" are for any chat
 
-2026-11-17, the keep list: State READY_FOR_REVIEW (#378, branch `claude/branch-sweeper-keep-list-20261117`).
+2026-11-17, the keep list (#378, branch `claude/branch-sweeper-keep-list-20261117`): Astra's OK to merge in chat,
+2026-11-17 ("Yes, merge #378"), given on the reviewed revision; `main` was merged in again just before the merge.
 Implementer: a Claude Code session (Claude Opus 5.5); its writable files were `scripts/branch-sweeper-20261114.mjs`,
 `test/branch-sweeper-test-20261114.mjs`, this card, the `branch-sweeper` node and the grant
 `goldfish-branch-sweeper-delete` in `system-map.json`, the branch-sweeper tool box text in
 `scripts/pet-program-pages-20261018.mjs`, `changes/branch-sweeper-keep-list-20261117.md` and what `npm run build` writes
-from them; ownership: released. Reviewer: Astra; next action: her OK to merge #378. A separate read-only checker
-(Claude Sonnet 5.5) reviewed the diff before the pull request; its two findings are fixed in it.
+from them; ownership: released. Reviewer: Astra (her OK above); next action: none waiting on her. A separate
+read-only checker (Claude Sonnet 5.5) reviewed the diff before the pull request; its two findings are fixed in it.
 
 ## The sweep (2026-11-14, each step after Astra's OK in chat)
 - Astra: "Yes, delete the 947". The tool ran in five plans of at most 200: 944 deleted, 3 already gone (moodglass).
@@ -69,8 +70,9 @@ from them; ownership: released. Reviewer: Astra; next action: her OK to merge #3
 - Looked at in the browser pane from 127.0.0.1: the tool box draws with its three groups and made-up examples.
 
 ### 2026-11-17: Astra's keep list (Claude Opus 5.5, pull request #378)
-- Branch `claude/branch-sweeper-keep-list-20261117`, in its own worktree (an LF checkout), with `main` (#374) merged in.
-  The live hub folder was not touched.
+- Branch `claude/branch-sweeper-keep-list-20261117`, in its own worktree (an LF checkout), with `main` (#374) merged in,
+  and again (#376, #379, #380) after Astra's OK, taking main's generated files and rebuilding them. The live hub folder
+  was not touched.
 - `scripts/branch-sweeper-20261114.mjs`: the keep list, `KEEP_FILE` = `branch-sweeper-keep-20261117.json` (schema
   `github-aquarium-branch-sweeper-keep-v1`), read from her PC's `Documents\Astra's PetOS Data\github-aquarium\`, never
   from a repo. Each entry: owner, repo, branch, `why` (her reason), `date` (the day she decided) and, when known,
@@ -106,6 +108,7 @@ from them; ownership: released. Reviewer: Astra; next action: her OK to merge #3
   the tool box text names the keep list.
 - `npm run build` and `npm run check` pass. `npm test` from Git Bash, with `main` (#374) merged in: 478 tests, 471 pass,
   6 skipped, 1 fail: the Windows "from scratch" farm test, which fails the same way on clean main 8a6b5455 (card 347).
+  Again with `main` (#380) merged in, just before the merge: 484 tests, 477 pass, 6 skipped, the same 1 fail.
   (Run from Windows PowerShell, 5 pet-chat-helper tests also failed: her message reached the pretend Claude with a
   byte-order mark. From Git Bash they pass, on this branch and on clean main; this change does not touch them.)
 
