@@ -67,24 +67,37 @@ class Server(threading.Thread):
         sock.listen(4)
         sock.settimeout(0.5)
         self.log('Drum Dog: listening on this PC, port %d' % PORT)
+        # One bad connection (a page closed mid-send) must never stop the listening: before 2026-11-18 any error here
+        # ended the loop, and Drum Dog stayed deaf until Ableton restarted.
         while not self.stopping:
             try:
                 conn, _ = sock.accept()
             except socket.timeout:
                 continue
-            except Exception:
-                break
-            try:
-                self.handle(conn)
             except Exception as e:
                 self.log('Drum Dog: %s' % e)
-                try:
-                    self.reply(conn, 400, {'ok': False, 'message': 'Drum Dog could not read that kit.'}, '')
-                except Exception:
-                    pass
-            finally:
-                conn.close()
+                time.sleep(0.2)
+                continue
+            # Each page request gets its own thread, so a kit waiting for Live never blocks the next click.
+            t = threading.Thread(target=self.serve, args=(conn,))
+            t.daemon = True
+            t.start()
         sock.close()
+
+    def serve(self, conn):
+        try:
+            self.handle(conn)
+        except Exception as e:
+            self.log('Drum Dog: %s' % e)
+            try:
+                self.reply(conn, 400, {'ok': False, 'message': 'Drum Dog could not read that kit.'}, '')
+            except Exception:
+                pass
+        finally:
+            try:
+                conn.close()
+            except Exception:
+                pass
 
     def handle(self, conn):
         conn.settimeout(10)

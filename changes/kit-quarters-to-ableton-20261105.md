@@ -30,3 +30,18 @@ on my APC64 sent all four; sending the same kits twice made no second copy. Not 
 the APC64's four quarters send in Drum mode (the add-on assumes Live's 64-pad layout: bottom-left 36, bottom-right 52,
 top-left 68, top-right 84), whether Live's browser loads a sample onto the selected pad, and whether the APC64 lights
 its pads in the pads' colours. A real mouse drag between the two tool boxes could not be done from the pane.
+
+## 2026-11-18: Drum Dog keeps listening
+
+Claude Opus 5.5 (`claude-opus-5-5`), for Astra ("i really want my drums to be ready when i get home").
+
+- Found by testing: clicking kits quickly made the add-on stop listening for good (its loop ended on the first
+  connection error), so the page said "Ableton isn't listening" until Ableton restarted.
+- `drum_dog/__init__.py` now logs such an error and keeps listening, and serves each page request on its own thread, so
+  a kit waiting for Live never blocks the next click. Kits still load into Live one at a time.
+- Checked outside Ableton, with a stand-in for Live: all 9 ready kits, clicked 0.3 s apart onto the four quarters, each
+  arrived with 16 sounds on the right notes (36-51, 52-67, 68-83, 84-99), and the add-on still answered afterwards.
+  Before the fix, the same test stopped it after three kits.
+- Every pad of all 9 kits (144) renders a sound that is not silent.
+- Installed in Ableton's User Library with `install-drum-dog-in-ableton-20261105.ps1`.
+- Not checked: Live itself loading the sounds onto the Drum Rack, and the APC64 playing them.
