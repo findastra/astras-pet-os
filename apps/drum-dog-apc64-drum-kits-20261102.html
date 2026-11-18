@@ -57,12 +57,20 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
 .kit .credit{font-size:11.5px;line-height:1.3;color:var(--dim);max-width:calc(var(--u) * 377)}
 .edit .leds{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .edit input[type=color]{width:34px;height:28px;padding:1px 2px;cursor:pointer}
+.kit .name{cursor:pointer}
+.kit .name .load{margin-left:auto;font-size:12px;font-weight:600;color:var(--dim)}
+.kit .name:hover .load,.kit.loaded .name .load{color:var(--cyan)}
+.target{display:flex;gap:4px;align-items:center;justify-content:center;margin-bottom:10px;color:var(--dim)}
+.target button{padding:2px 9px}
+.target button[aria-pressed=true]{background:#2ef2ff;color:#0d0e10;border-color:#2ef2ff;font-weight:700}
+#loadState{margin-left:8px;color:var(--cyan)}
 .edit .credits{flex-basis:100%;text-align:center;font-size:12.5px;color:var(--dim)}
 </style>
 <script src="drum-dog-in-tool-20261102.js"></script>
 </head>
 <body>
 <main>
+<div class="target" id="target"></div>
 <div class="edit" id="edit"></div>
 <div class="kits" id="kits"></div>
 <input type="file" id="file" accept="audio/*" hidden>
@@ -118,6 +126,9 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
         var inp = make('input', '', name); inp.maxLength = 40; inp.value = k.name; inp.setAttribute('aria-label', 'Kit name');
         inp.addEventListener('input', function () { var c = copy(kitOf(k.id)); c.name = inp.value.trim() || 'My kit'; S.saveMyKit(c); });
       }
+      // One click on the name: show it and load it on the APC64, on the quarter picked above the kits.
+      var ld = make('span', 'load', name, 'Load ▸'); ld.title = 'Load ' + k.name + ' on your APC64';
+      name.addEventListener('click', function (e) { if (e.target.tagName === 'INPUT') return; load(k); });
       board(card, k, on);
       var m = S.made(k);
       make('div', 'credit', card, 'By ' + m.kit + (m.from ? ' · from ' + m.from : '') + ' · sounds made in code, no samples');
@@ -136,6 +147,28 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
     add.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); newKit(); } });
     drawEdit();
   }
+
+  // Which quarter of the APC64 a clicked kit goes on.
+  var QNAMES = { 'top-left': 'Top left', 'top-right': 'Top right', 'bottom-left': 'Bottom left', 'bottom-right': 'Bottom right' };
+  function drawTarget(msg) {
+    var t = $('target'), cur = S.loadTarget(); t.textContent = '';
+    make('span', '', t, 'Click a kit’s name to load it on:');
+    S.QUARTERS.forEach(function (q) {
+      var b = make('button', '', t, QNAMES[q]); b.type = 'button'; b.setAttribute('aria-pressed', q === cur ? 'true' : 'false');
+      b.addEventListener('click', function () { S.setLoadTarget(q); drawTarget(); });
+    });
+    make('span', '', t, msg || '').id = 'loadState';
+  }
+  function load(k) {
+    var q = S.loadTarget(); view = k.id; padIx = -1; S.askLoad(k.id, q); draw();
+    drawTarget(k.name + ' → ' + QNAMES[q].toLowerCase() + ', sending to your APC64…');
+    S.playPad(k.pads[0], 0.9);
+  }
+  // The deck answers when the kit is on the APC64 (or why it is not).
+  window.addEventListener('message', function (e) {
+    if (e.origin === location.origin && e.data && e.data.drumDogLoad) drawTarget(e.data.drumDogLoad);
+  });
+  drawTarget();
 
   // Sound, tune and her own file for the tapped pad, above the kits so the kits never move.
   function drawEdit() {

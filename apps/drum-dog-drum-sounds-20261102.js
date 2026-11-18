@@ -145,6 +145,18 @@
     return QUARTERS.map(function (name) { return (q && findKit(q[name])) || cur; });
   }
   function setQuarter(name, id) { var q = read(QUARTERS_KEY, {}); if (!q || typeof q !== 'object') q = {}; q[name] = id; write(QUARTERS_KEY, q); }
+  // One click on a kit loads it (Astra, 2026-11-17: "click these drums to see them immediately and load them onto my
+  // pad when i click"). The kit tool puts the kit on the picked quarter and asks; the deck, which talks to Ableton,
+  // hears the ask through the storage event and sends that quarter to the APC64.
+  var TARGET_KEY = 'bass-biscuits-load-quarter-20261117', ASK_KEY = 'bass-biscuits-load-ask-20261117';
+  function loadTarget() { var t = read(TARGET_KEY, 'bottom-left'); return QUARTERS.indexOf(t) >= 0 ? t : 'bottom-left'; }
+  function setLoadTarget(name) { if (QUARTERS.indexOf(name) >= 0) write(TARGET_KEY, name); }
+  // The other three quarters keep the kits they show now (a quarter with no kit of its own follows the current kit,
+  // so it is pinned first), and only the clicked quarter changes.
+  function askLoad(id, quarter) {
+    var now = quarters(); QUARTERS.forEach(function (q, i) { setQuarter(q, now[i].id); });
+    setQuarter(quarter, id); setCurrent(id); write(ASK_KEY, { quarter: quarter, id: id, at: Date.now() });
+  }
   function surprise() { var all = allKits(), cur = currentKit().id, pick = all[Math.floor(Math.random() * all.length)]; if (all.length > 1 && pick.id === cur) return surprise(); setCurrent(pick.id); return pick; }
 
   // Astra's own sound files: kept in IndexedDB, decoded once.
@@ -244,6 +256,6 @@
     audio: audio, voices: Object.keys(VOICES), ready: READY, allKits: allKits, myKits: myKits, findKit: findKit,
     currentKit: currentKit, setCurrent: setCurrent, saveMyKit: saveMyKit, deleteMyKit: deleteMyKit, surprise: surprise,
     freshColors: freshColors, families: FAMILIES, made: made, soundCredit: soundCredit, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor,
-    renderPad: renderPad, quarters: quarters, setQuarter: setQuarter, QUARTERS: QUARTERS
+    renderPad: renderPad, quarters: quarters, loadTarget: loadTarget, setLoadTarget: setLoadTarget, askLoad: askLoad, ASK_KEY: ASK_KEY, setQuarter: setQuarter, QUARTERS: QUARTERS
   };
 })();

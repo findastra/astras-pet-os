@@ -29,3 +29,16 @@ files and fail on this branch without this change too.
 
 Not checked: whether the APC64 itself lights in a picked colour. Live snaps each pad colour to its nearest colour, and
 the board shows Live's colour, so a picked colour may come out as the closest one Live has.
+
+## One click loads a kit
+
+Astra: "I want to be able to click these drums to see them immediately and load them onto my pad when i click".
+
+- Above the kits: "Click a kit's name to load it on:" with Top left, Top right, Bottom left and Bottom right. The
+  pick is remembered.
+- Clicking a kit's name (now marked "Load ▸") shows the kit and plays a pad. It puts the kit on the picked quarter and
+  sends that quarter to the APC64 through Ableton. The other three quarters keep their kits.
+- The kit tool asks through `localStorage`, and the deck (`drum-dog-apc64-deck-20261102.html`), which talks to
+  Ableton, sends it. The result ("on your APC64", or why not) shows in both boxes.
+- Checked in the pane: Hyperpop on the top right, the other quarters stayed Starter, and the message came back. Ableton
+  was not open, so the message was "Ableton isn't listening". Loading onto the real board is not tested.

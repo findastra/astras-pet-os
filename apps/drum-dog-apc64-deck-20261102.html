@@ -211,15 +211,24 @@ svg{display:block;width:100%;height:auto;user-select:none;-webkit-tap-highlight-
   }
   function toAbleton(list) {
     var names = list.map(function (i) { return qk[i].name; }).join(', ');
-    state.textContent = 'Sending ' + names + ' to your APC64…';
+    tell('Sending ' + names + ' to your APC64…');
     list.reduce(function (p, i) { return p.then(function () { return sendQuarter(i); }); }, Promise.resolve())
-      .then(function () { state.textContent = names + ': on your APC64.'; })
+      .then(function () { tell(names + ': on your APC64.'); })
       .catch(function (err) {
-        state.textContent = err instanceof TypeError
+        tell(err instanceof TypeError
           ? 'Ableton isn’t listening. Open Ableton and pick Drum Dog as a Control Surface (Settings, Link, Tempo & MIDI).'
-          : String(err.message || err);
+          : String(err.message || err));
       });
   }
+  // A kit clicked in apc64-drum-kit-tool (its box below): show it on its quarter and send just that quarter.
+  var lastAsk = 0;
+  function tell(msg) { state.textContent = msg; try { Array.prototype.forEach.call(window.parent.frames, function (f) { f.postMessage({ drumDogLoad: msg }, location.origin); }); } catch (e) { /* standalone */ } }
+  window.addEventListener('storage', function (e) {
+    if (e.key !== S.ASK_KEY || !e.newValue) return;
+    var a; try { a = JSON.parse(e.newValue); } catch (x) { return; }
+    var i = S.QUARTERS.indexOf(a && a.quarter); if (i < 0 || !a.at || a.at <= lastAsk) return; lastAsk = a.at;
+    paintKit(); toAbleton([i]);
+  });
   // After Ableton opens again, this puts all four kits back on the pads.
   midiBtn.addEventListener('click', function () { qk = S.quarters(); toAbleton([0, 1, 2, 3]); });
 })();
