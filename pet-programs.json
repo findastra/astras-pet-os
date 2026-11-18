@@ -1007,21 +1007,6 @@
       }
     },
     {
-      "number": 68,
-      "program": "Port Web",
-      "assigned": true,
-      "icon": "Port Spider",
-      "idea": null,
-      "stage": "pipeline",
-      "repo": "port-web",
-      "repo_exists": true,
-      "mini_descriptor": {
-        "label": "pet-program-68-v1.0-mini-descriptor-v1.0",
-        "text": "Authorized port and service exposure checks.",
-        "reviewed": false
-      }
-    },
-    {
       "number": 69,
       "program": "Cipher Hollow",
       "assigned": true,

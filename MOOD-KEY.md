@@ -72,13 +72,12 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Journal Jellyfish** * | the diary, its nightly reminder and its backups | weekly, Wednesday | a look at the diary on your PC |
 | **AI Dashund** * | the research library, its sources and the research paper plan | weekly, Thursday | your review of the research paper plan |
 | **Door Dormouse** * | The Threshold's page, the Liminal Doors floors and the tools tracker | weekly, Friday | nothing yet |
-| **White Hat Weasel** * | authorized security tests and their scan log | weekly, Saturday | your OK before every test |
+| **White Hat Weasel** * | authorized security tests, port checks of your devices and the scan log | weekly, Saturday | your OK before every test |
 | **Gatekeeper Goddess** * | the grants, agent keys and YubiKey enrollment | weekly, Sunday | the YubiKey steps only you can do |
 | **Cipher Owl** * | encryption, keys and certificates | weekly, Monday | nothing yet |
 | **Roaming Raven** * | remote access, VPN and the tailnet | weekly, Tuesday | nothing yet |
 | **Pet Police Officer** * | every write and agent key use it watches | weekly, Wednesday | nothing yet |
 | **PC Master** * | your PC’s core tools: which are on the PC, signed and up to date | weekly, Thursday | your OK to accept a tool’s license or install one |
-| **Port Spider** * | which ports on each of your devices answer, and who can reach them | weekly, Friday | your OK before every check of a device |
-| **Server Salamander** * | your home servers: what runs on each, whether it is up, and its health | weekly, Saturday | a server to look after |
+| **Server Salamander** * | your home servers: what runs on each, whether it is up, and its health | weekly, Friday | a server to look after |
 
 \* in the pipeline: on GitHub, not registered yet.
