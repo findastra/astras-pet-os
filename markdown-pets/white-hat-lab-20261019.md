@@ -29,7 +29,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- None recorded yet.
+- **port-check-tool**: A tool of White Hat Lab (Astra, 2026-11-17: "lets squish port spider and make it a tool of the weasel"; it was Port Spider's job, pet program 68, from 2026-11-12). Which devices are on the home network, which ports answer on each, what the router forwards from the internet, and what to do. Read only, and only with Astra's OK before every check. The reports stay private (findastra/white-hat-lab scans/); on her PC the tool box shows the newest assessment from the white-hat-lab folder of Astra's PetOS Data, and the public page shows only that the reports are private.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
@@ -39,7 +39,9 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Port Spider** (Port Web): Port checks are Port Spider's (Astra, 2026-11-12): each report stays in Port Web's private scans folder, and White Hat Weasel's private scan log has a row that links it (2026-11-12 and 2026-11-17).
+- **Forensic Ferret** (Evidence Locker) (planned, not built yet): A real finding in a scan (not a "worth a look") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02.
+- **Wifi Butterfly** (Signal Garden) (planned, not built yet): Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: "shouldnt this pet be talking to WiFi Butterfly?"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17).
+- **Packet Piranha** (Packet River) (an idea, not agreed yet): Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports.
 - **Gatekeeper Goddess** (Iron Gates) (architecture): Security work stays in authorized scope.
 
 ## Picture

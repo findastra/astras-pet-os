@@ -3868,12 +3868,12 @@
       "version": "v0.1.0",
       "audit": {
         "cadence": "weekly",
-        "subject": "authorized security tests and their scan log",
+        "subject": "authorized security tests, port checks of your devices and the scan log",
         "needs": "your OK before every test"
       },
-      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main and the private scan log (merged with findastra/white-hat-lab#3; the newest row, 2026-11-17, links Port Spider's report). No pet art registered yet.",
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main and the private scan log (merged with findastra/white-hat-lab#3). Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\": Port Spider (pet program 68, Port Web) is no longer a pet; port checks are White Hat Lab's port-check-tool, first in L1. No pet art registered yet.",
       "editorial": {
-        "says": "The scan log has three scans; the newest, on 2026-11-17, is Port Spider's check of the home network. Findings stay in the two private repos, so this page says only when a scan ran. Wireshark, with Npcap, is installed and listed in L1 for traffic recordings. Next: a port check from another device.",
+        "says": "Port Spider is folded in: port checks are now this pet's port-check-tool, first in L1. On your PC it shows the newest assessment from the private report; this page never holds the findings. Next: a port check from another device.",
         "by": "Claude Opus 5.5",
         "on": "2026-11-17"
       },
@@ -4303,29 +4303,6 @@
           "note": "PC Master’s look: Windows reports it (MS-7E57).",
           "on": "2026-11-06"
         }
-      }
-    },
-    {
-      "repo": "port-web",
-      "pet": "Port Spider",
-      "visibility": "private",
-      "status": "hatching",
-      "job": "Authorized port and service exposure checks.",
-      "added": "2026-11-12",
-      "version": "v0.1.0",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "which ports on each of your devices answer, and who can reach them",
-        "needs": "your OK before every check of a device"
-      },
-      "note": "Astra, 2026-11-12: \"I think the port spider is probably the right one for this ... let's make programs for both\": moved from the roadmap to the pipeline. Its first check, the desktop PC's listening ports and firewall, was done by hand on 2026-11-12 (report in findastra/port-web#4). No program of its own yet; no pet art registered yet.",
-      "interface_url": "apps/pet-programs/port-web-20261018.html",
-      "interface_local_url": "apps/pet-programs/port-web-20261018.html",
-      "needs": {
-        "os": [],
-        "pets": [],
-        "core": [],
-        "programs": []
       }
     },
     {

@@ -46,6 +46,18 @@
   --tool-bg: rgba(255, 255, 255, .05); --tool-bg-hover: rgba(157, 255, 58, .08);
 }
 :root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
+/* White Hat Lab's own colours (Astra, 2026-11-17: "lets give white hat lab a white background of all things ..... and
+   black boxes... on the page"): a white page with black panels, white lines and lettering inside them, neon green
+   links like a terminal's. --page-ink is for the title and anything else set straight on the white page. */
+:root[data-pet="white-hat-weasel"] {
+  --slate: #ffffff; --slate-2: #f1f1f1; --chalk: #ffffff; --chalk-dim: #bdbdbd; --line: #ffffff; --line-dim: #6a6a6a;
+  --box: #000000; --surface: #000000; --page-ink: #000000; --page-ink-dim: #3c3c3c; --accent: #39ff88;
+  --editorial: #39ff88; --editorial-ink: #d9ffe9; --editorial-glow: rgba(57, 255, 136, .22); --grid: none; --editorial-by: #9dffc6; --serial: #39ff88;
+  --link: #39ff88; --connection: #9dffc6;
+  --tool-bg: rgba(255, 255, 255, .06); --tool-bg-hover: rgba(57, 255, 136, .1);
+}
+:root[data-pet="white-hat-weasel"] .panel { border-radius: 10px; }
+:root[data-pet="white-hat-weasel"] .footer-group::before, :root[data-pet="white-hat-weasel"] .footer-sparkle { color: #000000; }
 /* Chat Stack’s own colours, Chat Rat’s (Astra, 2026-11-08: "some kind of gray and pink. Like, I want these to kind of
    match the colors of the animal so that we can make the star on the GitHub profile the same color"): a graphite page,
    panel lines in his fur gray (#c1c0c0, sampled from his picture), and his ear pink (#fc8086) for links, marks and the
