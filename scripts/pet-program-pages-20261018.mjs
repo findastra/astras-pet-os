@@ -1041,7 +1041,9 @@ ${about({
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
-    desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
+    // Say what the pet audits and, apart from it, what the round really checks today, so a planned check never reads as
+    // a built one (Claude Opus 5.5, 2026-11-16, weekly audits for every pet).
+    desc: `${d.pet}'s audit: ${d.audit.subject || 'its repo'}. Today the Friendly Farmer's round checks only ${d.home}'s repo files and the cards that wait on you.`, why: '' }] : [];
   // Every pet has two tutorials, Play with and Care for (Flash Audit A37, A47): numbered steps the AI in the seat follows
   // with you, which is what a trick is, so they are two tricks here, off until L3 can run them in the chat (Astra,
   // 2026-11-03, Flash Audit deck, answer 4: A).
