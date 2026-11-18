@@ -322,8 +322,11 @@ body.pets .navpad,body.pets .grip{display:none!important}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js" integrity="sha384-hf3oVtegKGVgPlVvpd9Lg2YX9MGMmV/Dn9iSbKOeIAvzwL2L3WLK4RWf7QNkNrfJ" crossorigin="anonymous"></script>
 <script>
 const DATA = __DATA__;
-// Developer mode: agent and control hub names in the map's own data, before anything is drawn (no-op in farm words).
-if (window.PetOSWords) window.PetOSWords.data(DATA);
+// Developer mode: the map's data stays in farm words, and developer-words-20261019.js swaps what is drawn on the page,
+// both ways, so the DEV switch changes the words without reloading (Astra, 2026-11-17: "if i switch to dev then the
+// selected node switches, not the whole page reloading then zooming back in"). What is not page text (the ring tags and
+// icons drawn on canvases, the ring key) uses WD() and is redrawn on 'petos-words'.
+const WD = t => window.PetOSWords ? window.PetOSWords.swap(t) : t;
 // Native tools and tricks (Astra, 2026-10-19: "dont show on the system map at all, unless we are calling it a native
 // program"): only programs are drawn. Each pet program's tools and tricks are listed on its card (and its pet's card)
 // in sections that fold; search finds them there; a line that starts or ends at one is drawn from its pet program,
@@ -587,17 +590,22 @@ const appRings = Object.entries(APP_RING).filter(([app,model])=>nodeById[app]&&p
   ring.userData.hit=hit; return ring; });
 // Ring names, fanned up the left side of the spheres from the inside out, always facing you.
 function tagSprite(text, color, border){
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tagTexture(text,color,border),transparent:true,depthTest:false,depthWrite:false}));
+  sp.renderOrder=10; return sp; }
+function tagTexture(text, color, border){
   const c=document.createElement('canvas'); c.width=720; c.height=96; const x=c.getContext('2d');
   let px=40; do { x.font=`600 ${px}px "IBM Plex Sans",system-ui,sans-serif`; } while(x.measureText(text).width>644 && --px>22); // long names shrink to fit
   const w=Math.min(700, x.measureText(text).width+56);
   x.fillStyle='rgba(10,20,48,.82)'; x.strokeStyle=border; x.lineWidth=3; x.beginPath(); (x.roundRect||x.rect).call(x,(720-w)/2,6,w,84,42); x.fill(); x.stroke();
   x.fillStyle=color; x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,360,50);
-  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false,depthWrite:false}));
-  sp.renderOrder=10; return sp; }
+  return new THREE.CanvasTexture(c); }
 const tagSpot = (r,i) => { const e=(-50+i*11)*Math.PI/180; return new THREE.Vector3(-Math.cos(e)*.82, Math.sin(e), Math.cos(e)*.57).multiplyScalar(RING_R[r.ring]+(r.ring==='0'?3:1)); };
+// A ring tag's words and colours, in the words in use.
+function ringTagLook(r){
+  const animal=['0','1','2','3'].includes(r.ring), m=madeOf(r.ring), label=(animal?'🐾 ':'')+(r.ring==='H'?'AGENT HARNESS · THE GLASS':WD(ringLabel(r)).toUpperCase()+(m?' · '+WD(m.word).toUpperCase():''));
+  return [label, r.ring==='H'?css('--l5'):m?m.color:css('--fg'), r.ring==='H'?css('--l5'):m?m.color:animal?css('--host'):'#4a5fa8']; }
 const ringTags = DATA.rings.map((r,i)=>{
-  const animal=['0','1','2','3'].includes(r.ring), m=madeOf(r.ring), label=(animal?'🐾 ':'')+(r.ring==='H'?'AGENT HARNESS · THE GLASS':ringLabel(r).toUpperCase()+(m?' · '+m.word.toUpperCase():''));
-  const sp=tagSprite(label, r.ring==='H'?css('--l5'):m?m.color:css('--fg'), r.ring==='H'?css('--l5'):m?m.color:animal?css('--host'):'#4a5fa8');
+  const sp=tagSprite(...ringTagLook(r));
   const w=Math.min(22,6+RING_R[r.ring]*.4); sp.scale.set(w,w*96/720,1); sp.position.copy(tagSpot(r,i));
   sp.userData.ring=r.ring; sp.userData.base=sp.scale.clone(); scene.add(sp); return sp; });
 const RULER_A = Math.PI/2 + .17; // just left of straight toward the camera
@@ -646,9 +654,10 @@ function makeIcon(n){
   const tex=new THREE.CanvasTexture(c), sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthWrite:false}));
   const sz=Math.max(TYPE[n.type].r*3.2,1.4); sp.scale.set(sz,sz,1);
   if(n.icon){ const img=new Image(); img.onload=()=>{ g.drawImage(img,0,0,128,128); tex.needsUpdate=true; }; img.src=n.icon; }
-  else { g.fillStyle=TYPE[n.type].color; g.globalAlpha=.9; g.beginPath(); g.arc(64,64,56,0,Math.PI*2); g.fill(); g.globalAlpha=1;
+  else { const draw=()=>{ g.clearRect(0,0,128,128); g.fillStyle=TYPE[n.type].color; g.globalAlpha=.9; g.beginPath(); g.arc(64,64,56,0,Math.PI*2); g.fill(); g.globalAlpha=1;
     g.fillStyle=css('--bg'); g.font='bold 44px system-ui,sans-serif'; g.textAlign='center'; g.textBaseline='middle';
-    g.fillText(n.name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase(),64,68); tex.needsUpdate=true; }
+    g.fillText(WD(n.name).replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase(),64,68); tex.needsUpdate=true; };
+    draw(); sp.userData.redraw=draw; }
   sp.visible=false; sp.userData.node=n; return sp;
 }
 const meshes = [], icons = [], labelEls = {};
@@ -742,18 +751,15 @@ function fadeDecor(e){ const fs=flat?1-e:e, ff=flat?e:1-e;
 const d2=document.getElementById('d2'), d3=document.getElementById('d3');
 function syncDims(){ d2.setAttribute('aria-pressed',flat); d3.setAttribute('aria-pressed',!flat); }
 d2.onclick=()=>setFlat(true); d3.onclick=()=>setFlat(false); syncDims();
-// The Developer switch (Astra, 2026-11-17): the words are swapped before anything is drawn, so it reloads the page in the
-// other words. ?words= is what the pages' words switch uses, and developer-words-20261019.js remembers it in this browser.
-const DEV_WORDS = document.documentElement.getAttribute('data-words')==='developer';
-{ const b=document.getElementById('dDev'); b.setAttribute('aria-pressed',DEV_WORDS);
-  if(!window.PetOSWords) b.parentNode.hidden=true;
-  // Save first, the way the pages' own words switch does (developer-words-page-20261019.js remember()), then reload
-  // without ?words= in the address, since the address would win over what was saved.
-  b.onclick=()=>{ const mode=DEV_WORDS?'farm':'developer';
-    const u=new URL(location.href); const had=u.searchParams.has('words'); u.searchParams.delete('words');
-    try{ localStorage.setItem('astras-pet-os:words', JSON.stringify({mode, over:window.PetOSWords.installed})); }
-    catch(e){ u.searchParams.set('words',mode); location.replace(u.href); return; } // no storage: this visit only
-    if(had) location.replace(u.href); else location.reload(); }; }
+// The Developer switch (Astra, 2026-11-17): the words change in place, so the camera, the 2D | 3D look and what you
+// selected all stay (no reload). developer-words-20261019.js remembers the choice in this browser; ?words= is taken out
+// of the address, since on the next visit the address would win over what was saved.
+const devWords = () => !!(window.PetOSWords && window.PetOSWords.developer);
+const dDev=document.getElementById('dDev');
+dDev.setAttribute('aria-pressed',devWords());
+if(!window.PetOSWords || !window.PetOSWords.setMode) dDev.parentNode.hidden=true;
+else dDev.onclick=()=>{ window.PetOSWords.setMode(devWords()?'farm':'developer');
+  try{ const u=new URL(location.href); if(u.searchParams.has('words')){ u.searchParams.delete('words'); history.replaceState(history.state,'',u.href); } }catch(e){} };
 if(TOUCH && !IN_FRAME){ flat=true; syncDims(); placeNodes(posFlat); reshapeLinks(); } // touch screens open flat, with no fold; a frame keeps the sphere
 if(TOUCH) controls.enabled=!flat; // in a frame a touch screen opens on the sphere, which one finger turns
 
@@ -761,17 +767,20 @@ if(TOUCH) controls.enabled=!flat; // in a frame a touch screen opens on the sphe
 const STATE_WORD = DATA.states;
 const el=(tag,cls,text)=>{const e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e;};
 const ringKey=document.getElementById('ringKey'), ringButtons={};
+// Drawn again when the words change (the DEV switch).
+function buildRingKey(on=null){ ringKey.replaceChildren();
 DATA.rings.forEach(r=>{ const count=DATA.nodes.filter(n=>n.ring===r.ring).length;
-  const b=el('button', r.ring==='H'?'glass':''); b.type='button'; b.setAttribute('aria-pressed','false'); b.title=r.what;
+  const b=el('button', r.ring==='H'?'glass':''); b.type='button'; b.setAttribute('aria-pressed',String(on===r.ring)); b.title=r.what;
   const name=el('span');
-  if(DEV_WORDS && r.dev){ // developer words: the ring's standard name, its term on a line below, then what lives there
+  if(devWords() && r.dev){ // developer words: the ring's standard name, its term on a line below, then what lives there
     b.setAttribute('data-words-keep',''); b.title=r.dev.term+': '+r.dev.what;
     name.append(el('b','',r.dev.name), document.createTextNode(': '+r.dev.what), el('span','ring-term',r.dev.term));
   } else {
   name.append(el('b','',(['0','1','2','3'].includes(r.ring)?'🐾 ':'')+r.name));
   if(r.made) name.append(el('span','made '+r.made, MADE[r.made].word)); name.append(document.createTextNode(': '+r.what)); }
   b.append(el('span','num',r.ring==='H'?'◠':r.ring), name, el('span','count',String(count)));
-  b.onclick=()=>selectRing(r.ring); ringKey.appendChild(b); ringButtons[r.ring]=b; });
+  b.onclick=()=>selectRing(r.ring); ringKey.appendChild(b); ringButtons[r.ring]=b; }); }
+buildRingKey();
 const tg=document.getElementById('edgeToggles');
 Object.keys(STATE).forEach(k=>{
   const n=DATA.links.filter(e=>e.state===k&&!e.everyApp).length;
@@ -1145,10 +1154,12 @@ const q=document.getElementById('q'), res=document.getElementById('res'); let re
 function runSearch(){
   const s=q.value.trim().toLowerCase(); ringOn=null;
   if(!s){ matches=null; res.hidden=true; apply(); return; }
-  const found=DATA.nodes.filter(n=>[n.name,n.job,n.id,DATA.types[n.type],langOf(n),n.category||'',n.home?n.home.name:''].join(' ').toLowerCase().includes(s))
-    .sort((x,y)=>(y.name.toLowerCase().startsWith(s))-(x.name.toLowerCase().startsWith(s)));
+  // Found by the words on screen too: in developer words a pet is found by its agent name.
+  const said = t => { t=t||''; const w=WD(t); return w===t ? t : t+' '+w; };
+  const found=DATA.nodes.filter(n=>[said(n.name),said(n.job),n.id,said(DATA.types[n.type]),langOf(n),n.category||'',n.home?said(n.home.name):''].join(' ').toLowerCase().includes(s))
+    .sort((x,y)=>(WD(y.name).toLowerCase().startsWith(s)||y.name.toLowerCase().startsWith(s))-(WD(x.name).toLowerCase().startsWith(s)||x.name.toLowerCase().startsWith(s)));
   // A native tool or trick is found through its pet program, where its card lists it.
-  Object.values(PART).filter(t=>[t.name,t.label||'',t.job||''].join(' ').toLowerCase().includes(s)).forEach(t=>{ const o=nodeById[t.of]; if(o&&!found.includes(o)) found.push(o); });
+  Object.values(PART).filter(t=>[said(t.name),t.label||'',said(t.job)].join(' ').toLowerCase().includes(s)).forEach(t=>{ const o=nodeById[t.of]; if(o&&!found.includes(o)) found.push(o); });
   matches=new Set(found.map(n=>n.id)); resItems=found.slice(0,12); resOn=0; res.replaceChildren();
   if(!found.length){ res.appendChild(el('div','why','  Nothing matches.')); }
   resItems.forEach((n,i)=>{ const b=el('button',i===0?'on':''); b.setAttribute('role','option');
@@ -1162,6 +1173,19 @@ q.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); resOn=(resOn+(e.key==='ArrowDown'?1:-1)+resItems.length)%Math.max(resItems.length,1);
     [...res.querySelectorAll('button')].forEach((b,i)=>b.classList.toggle('on',i===resOn)); }
   if(e.key==='Escape'){ q.value=''; runSearch(); }
+});
+
+// ---------- the DEV switch changed the words (no reload: the camera and what you selected stay) ----------
+// The page text has already been swapped by developer-words-20261019.js; here, what it cannot reach.
+window.addEventListener('petos-words', ()=>{
+  dDev.setAttribute('aria-pressed',devWords());
+  buildRingKey(ringOn);
+  ringTags.forEach((sp,i)=>{ const old=sp.material.map; sp.material.map=tagTexture(...ringTagLook(DATA.rings[i])); sp.material.needsUpdate=true; old.dispose(); });
+  icons.forEach(ic=>{ if(ic.userData.redraw) ic.userData.redraw(); });
+  measureLabels();
+  side.querySelectorAll('iframe').forEach(f=>{ f.src=f.src; }); // a pet program page in the card loads in the new words
+  if(q.value.trim()) runSearch();
+  apply();
 });
 
 // ---------- camera fly ----------
