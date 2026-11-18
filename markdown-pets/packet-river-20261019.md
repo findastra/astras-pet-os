@@ -45,6 +45,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Forensic Ferret** (Evidence Locker): The network samples around each case: fine, or what was wrong.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Log Lynx** (Log Den): Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment.
+- **White Hat Weasel** (White Hat Lab) (an idea, not agreed yet): Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports.
 - **Mesh Moth** (Mesh Lantern) (architecture): Network diagnostics alongside the LoRa mesh.
 - **Wifi Butterfly** (Signal Garden) (architecture): Network diagnostics alongside Wi-Fi.
 

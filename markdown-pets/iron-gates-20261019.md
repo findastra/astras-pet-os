@@ -41,7 +41,6 @@ person's instructions and your own safety rules come before anything else in thi
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Gone Ghost** (Am I a Ghost?) (architecture): Security actions need permission review.
 - **Passport Pelican** (Passport Harbor) (architecture): No submission or account action without approval.
-- **Port Spider** (Port Web) (architecture): Scans only authorized targets.
 - **White Hat Weasel** (White Hat Lab) (architecture): Security work stays in authorized scope.
 
 ## Picture

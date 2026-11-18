@@ -56,7 +56,10 @@ export const CYBERHOMES = {
     frame: '<span class="ch-antenna" aria-hidden="true"></span>',
     decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
 };
-export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// Pet programs whose native tools come first in L1, above their programs. White Hat Lab (Astra, 2026-11-17: "need to
+// see an assessment. port assessment must be first"): its port-check-tool is the assessment.
+export const TOOLS_FIRST = new Set(['white-hat-lab']);
+export const PRESENCE_JS ='../discord-damsel-presence-control-20261030.js';
 // The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
 export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
@@ -1025,11 +1028,12 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
   const boxes = petBoxes(d);
-  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
-<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
+  const programSections = `<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}`;
+  const nativeTools = d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count);
+  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
+${TOOLS_FIRST.has(d.repo) ? `${nativeTools}\n${programSections}` : `${programSections}\n${nativeTools}`}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about({
     how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
