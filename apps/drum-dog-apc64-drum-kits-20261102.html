@@ -53,6 +53,11 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
 .add .plus{fill:#7d8592;font:300 150px system-ui,sans-serif;text-anchor:middle;pointer-events:none}
 .add:hover .body{stroke:var(--cyan);stroke-width:4}
 .add:hover .plus{fill:var(--cyan)}
+/* Who made each kit and where its sounds came from (Provenance, Authenticity and Creativity, Astra 2026-11-17). */
+.kit .credit{font-size:11.5px;line-height:1.3;color:var(--dim);max-width:calc(var(--u) * 377)}
+.edit .leds{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.edit input[type=color]{width:34px;height:28px;padding:1px 2px;cursor:pointer}
+.edit .credits{flex-basis:100%;text-align:center;font-size:12.5px;color:var(--dim)}
 </style>
 <script src="drum-dog-in-tool-20261102.js"></script>
 </head>
@@ -114,6 +119,8 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
         inp.addEventListener('input', function () { var c = copy(kitOf(k.id)); c.name = inp.value.trim() || 'My kit'; S.saveMyKit(c); });
       }
       board(card, k, on);
+      var m = S.made(k);
+      make('div', 'credit', card, 'By ' + m.kit + (m.from ? ' · from ' + m.from : '') + ' · sounds made in code, no samples');
     });
     var add = make('div', 'kit add', box); add.setAttribute('role', 'button'); add.setAttribute('aria-label', 'New kit'); add.tabIndex = 0;
     make('div', 'name', add);
@@ -122,6 +129,7 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
     el('text', { class: 'plus', x: X0 + W / 2, y: Y0 + H / 2 + 52 }, svg, '+');
     function newKit() {
       var c = copy(S.ready[0]); c.id = 'kit-' + Date.now().toString(36); c.name = 'My kit ' + (S.myKits().length + 1); c.colors = S.freshColors(); delete c.ready;
+      c.made = { by: 'Astra', from: S.ready[0].name };
       S.saveMyKit(c); view = c.id; padIx = -1; S.setCurrent(c.id); draw();
     }
     add.addEventListener('click', newKit);
@@ -144,7 +152,25 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
       tune.addEventListener('change', function () { var t = +tune.value; editPad(function (q) { q.tune = t; }); });
       var fb = make('button', '', ed, 'My own sound file'); fb.type = 'button';
       fb.addEventListener('click', function () { $('file').click(); });
+      // This pad's light: any colour she picks (Astra, 2026-11-17: "a tool for how to pick colors myself").
+      var l3 = make('label', '', ed, 'Pad light '), pc = make('input', '', l3); pc.type = 'color'; pc.value = S.padColor(p, k);
+      pc.title = 'Pick this pad’s colour';
+      pc.addEventListener('change', function () { var v = pc.value; editPad(function (q) { q.color = v; }, true); });
+      if (p.color) {
+        var rb = make('button', '', ed, 'Kit colour again'); rb.type = 'button'; rb.title = 'This pad lights in its kit’s colour again';
+        rb.addEventListener('click', function () { editPad(function (q) { delete q.color; }, true); });
+      }
     }
+    // The kit's five colours, one for each kind of sound: pick any of them.
+    var leds = make('span', 'leds', ed); make('span', 'dim', leds, 'Kit lights');
+    (k.colors || []).forEach(function (col, i) {
+      var c = make('input', '', leds); c.type = 'color'; c.value = col; c.title = S.families[i]; c.setAttribute('aria-label', S.families[i] + ' colour');
+      c.addEventListener('change', function () { var v = c.value; editKit(function (q) { q.colors[i] = v; }); });
+    });
+    // Where it all came from.
+    var m = S.made(k), cr = make('div', 'credits', ed);
+    cr.textContent = 'Kit by ' + m.kit + (m.from ? ', from ' + m.from : '') + '. Lights picked by ' + m.colours + '. ' +
+      (p ? 'This sound: ' + S.soundCredit(p) : 'Sounds: ' + S.soundCredit(null));
     if (!k.ready) {
       var del = make('button', '', ed, 'Delete kit'); del.type = 'button';
       del.addEventListener('click', function () { if (!confirm('Delete ' + k.name + '?')) return; S.deleteMyKit(k.id); view = S.currentKit().id; padIx = -1; draw(); });
@@ -152,10 +178,25 @@ svg.board{display:block;width:calc(var(--u) * 377);height:calc(var(--u) * 375);o
   }
   // Changing a ready-made kit keeps the change in her own copy of it ("My House"), in colours of its own so it never
   // looks like the kit it came from.
-  function editPad(fn) {
+  // A colour change keeps the kit's own colours (keepColors), so only what she picked changes.
+  function own(keepColors) {
     var k = copy(kitOf(view));
-    if (k.ready) { k.id = 'kit-' + Date.now().toString(36); k.name = 'My ' + k.name; k.colors = S.freshColors(); delete k.ready; S.setCurrent(k.id); }
-    fn(k.pads[padIx]); S.saveMyKit(k); view = k.id; draw(); S.playPad(kitOf(view).pads[padIx], 0.9);
+    if (k.ready) {
+      k.made = { by: 'Astra', from: k.name }; k.id = 'kit-' + Date.now().toString(36); k.name = 'My ' + k.name;
+      if (!keepColors) k.colors = S.freshColors(); else k.made.colorsBy = 'Astra, starting from ' + MADE_FROM(k.made.from);
+      delete k.ready; S.setCurrent(k.id);
+    }
+    return k;
+  }
+  function MADE_FROM(name) { return name + '’s colours'; }
+  function editPad(fn, keepColors) {
+    var k = own(keepColors);
+    fn(k.pads[padIx]); if (keepColors) { k.made = k.made || {}; k.made.colorsBy = k.made.colorsBy || 'Astra'; }
+    S.saveMyKit(k); view = k.id; draw(); S.playPad(kitOf(view).pads[padIx], 0.9);
+  }
+  function editKit(fn) {
+    var k = own(true); k.colors = (k.colors || []).slice(); fn(k); k.made = k.made || {}; k.made.colorsBy = k.made.colorsBy || 'Astra';
+    S.saveMyKit(k); view = k.id; draw();
   }
   $('file').addEventListener('change', function (e) {
     var f = e.target.files[0]; e.target.value = ''; if (!f) return;

@@ -135,7 +135,7 @@
   function findKit(id) { var all = allKits(); for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i]; return null; }
   function currentKit() { return findKit(read(CURRENT_KEY, 'starter')) || READY[0]; }
   function setCurrent(id) { write(CURRENT_KEY, id); }
-  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), colors: k.colors, pads: k.pads }); return write(KITS_KEY, mine); }
+  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), colors: k.colors, pads: k.pads, made: k.made }); return write(KITS_KEY, mine); }
   function deleteMyKit(id) { write(KITS_KEY, myKits().filter(function (x) { return x.id !== id; })); if (read(CURRENT_KEY, '') === id) setCurrent('starter'); }
   // Four kits at once: one per 4x4 quarter of the APC64's 8x8 (Astra, 2026-11-05: "I want to be able to do 4 at a
   // time"). A quarter no kit was dropped on plays the current kit.
@@ -219,12 +219,31 @@
   }
   function padName(pad) { return pad ? (pad.file ? (pad.label || 'My sound') : pad.sound) : ''; }
   // A pad's colour in its kit (kits saved before 2026-11-03 have no colours of their own and light in the first set).
-  function padColor(pad, k) { return pad && pad.file ? FILE_COLOR : ((k && k.colors) || PALETTES[0])[family(pad ? pad.sound : '')]; }
+  // A colour Astra picked for one pad wins over everything (Astra, 2026-11-17: "a tool for how to pick colors myself").
+  function padColor(pad, k) {
+    if (pad && /^#[0-9a-fA-F]{6}$/.test(pad.color || '')) return pad.color;
+    return pad && pad.file ? FILE_COLOR : ((k && k.colors) || PALETTES[0])[family(pad ? pad.sound : '')];
+  }
+  // The five colour groups a kit lights its pads in, in order (family() above).
+  var FAMILIES = ['Kicks', 'Snares and claps', 'Hats and cymbals', 'Toms and bongos', 'Everything else'];
+
+  // Provenance, Authenticity and Creativity (Astra, 2026-11-17): every kit says who made it, what it came from, who
+  // picked its colours, and where every sound came from. Nothing here is a recording or a sample from anywhere else.
+  var MADE_BY_CLAUDE = 'Claude Opus 5.5 (claude-opus-5-5)';
+  var SOUND_SOURCE = 'Made in code in this page (Web Audio synthesis) by ' + MADE_BY_CLAUDE + ', 2026-11-02 and 11-03, for Astra. No recordings, samples or sound packs from anyone else.';
+  function made(k) {
+    var m = (k && k.made) || {};
+    if (k && k.ready) return { kit: MADE_BY_CLAUDE + ', picked for Astra', from: '', colours: MADE_BY_CLAUDE + ' (ready-made colour set)' };
+    // Kits saved before 2026-11-17 kept no record of who picked what, so they say so instead of guessing.
+    if (!k || !k.made) return { kit: 'Astra', from: '', colours: 'not recorded (kit saved before 2026-11-17)' };
+    return { kit: m.by || 'Astra', from: m.from || '', colours: m.colorsBy || MADE_BY_CLAUDE + ' (colour set given to a new kit)' };
+  }
+  function soundCredit(pad) { return pad && pad.file ? 'Your own file' + (pad.label ? ' “' + pad.label + '”' : '') + ', kept only in this browser.' : SOUND_SOURCE; }
 
   window.DrumSounds = {
     audio: audio, voices: Object.keys(VOICES), ready: READY, allKits: allKits, myKits: myKits, findKit: findKit,
     currentKit: currentKit, setCurrent: setCurrent, saveMyKit: saveMyKit, deleteMyKit: deleteMyKit, surprise: surprise,
-    freshColors: freshColors, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor,
+    freshColors: freshColors, families: FAMILIES, made: made, soundCredit: soundCredit, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor,
     renderPad: renderPad, quarters: quarters, setQuarter: setQuarter, QUARTERS: QUARTERS
   };
 })();
