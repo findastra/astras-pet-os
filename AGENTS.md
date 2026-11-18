@@ -22,6 +22,12 @@ no "I'll read it if I need it". This applies to small tasks too.
    before doing anything else.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
+## PAC: Provenance, Authenticity and Creativity, at all costs (Astra, 2026-11-17)
+
+Astra: "Provenance, Authenticity, and Creativity must be preserved at all costs." Every pet, page, tool and asset
+credits where each part came from, never passes anything off as what it is not, and leaves the choices to the person
+using it. The full rule, with what each letter asks for, is in [PROVENANCE.md](PROVENANCE.md#pac-provenance-authenticity-and-creativity).
+
 ## Show the working copy, one page at a time (Astra, 2026-11-02)
 
 Astra: "Stop giving me the live pages. I want to look at the page that we're working on actively... I'm sick of
