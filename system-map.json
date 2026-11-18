@@ -1514,7 +1514,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Tasks: watches retries, stalled jobs and agent handoffs.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "stalled jobs, retries and agent handoffs left open",
+        "needs": "a decision on a stuck handoff"
+      }
     },
     {
       "id": "docker-dragon",
@@ -1522,7 +1527,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Containers: Docker health and authorized management. Security role: keeps the sandbox, where anything untrusted runs first.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your Docker containers and the sandbox: their health, unused images and disk use",
+        "needs": "your OK before a container is stopped or removed"
+      }
     },
     {
       "id": "test-tortoise",
@@ -1530,7 +1540,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Quality: tests and release verification. Security role: the checker agent for maker-checker, and a security test for every hole ever fixed.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the tests of every repo: which fail, which pets have none, and a test for every hole ever fixed",
+        "needs": "your OK on a release that failed a check"
+      }
     },
     {
       "id": "token-toucan",
@@ -1538,7 +1553,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "AI cost: model tokens, budgets and inference usage. Security role: flags token and cost spikes; a runaway or hijacked agent burns tokens.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "model tokens and spend against your budgets, and any sudden spike",
+        "needs": "a budget for each model"
+      }
     },
     {
       "id": "calendar-crow",
@@ -1546,7 +1566,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Calendar: scheduling, conflicts and reminders.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "next week's calendar: clashes and missing reminders",
+        "needs": "which calendar I may read"
+      }
     },
     {
       "id": "browser-bat",
@@ -1554,7 +1579,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Web and marketing operations: website QA and authorized browser work.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your websites: broken links and page errors",
+        "needs": "the list of sites to check"
+      }
     },
     {
       "id": "data-dragonfly",
@@ -1562,7 +1592,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Data engineering: data integrity, schemas, pipelines.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the farm's data files: whether each one still matches its schema",
+        "needs": "a decision on a file that does not match"
+      }
     },
     {
       "id": "update-urchin",
@@ -1570,7 +1605,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Dependency updates: packages, compatibility, rollback prep.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "outdated packages in every repo, with a way back for each update",
+        "needs": "your OK before an update"
+      }
     },
     {
       "id": "shell-squid",
@@ -1578,7 +1618,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Bash, terminal scripting and guarded automation.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your scripts and scheduled tasks: which failed, and which run without a guard",
+        "needs": "your OK before a script is changed"
+      }
     },
 {
       "id": "proxy-axolotl",
@@ -1586,7 +1631,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Reverse proxies, TLS and secure private remote access. Security role: the egress allowlist, what may leave the PC, and safe remote access.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your reverse proxies and the egress allowlist: certificate expiry and what may leave the PC",
+        "needs": "your OK before anything is opened to the network"
+      }
     },
     {
       "id": "cluster-crab",
@@ -1594,7 +1644,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Distributed services and orchestration.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the services that run across several machines: which are down or out of step",
+        "needs": "a machine to look after"
+      }
     },
     {
       "id": "storage-stoat",
@@ -1602,7 +1657,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "NAS, ZFS, snapshots and capacity health.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your disks and NAS: free space, snapshots and drive health",
+        "needs": "your OK to check a drive"
+      }
     },
     {
       "id": "llama-librarian",
@@ -1610,7 +1670,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Local model inventory, downloads and compatibility.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the local models: which are downloaded, how big they are and which fit the graphics card",
+        "needs": "your OK before a model is downloaded"
+      }
     },
     {
       "id": "agent-ant",
@@ -1618,7 +1683,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Agent experiments and tool-use evaluation. Security role: records each AI that takes a seat (model, version, request patterns), so a stranger or a changed agent stands out.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every AI that took a seat (its model and version), and how well each one used its tools",
+        "needs": "an experiment to run"
+      }
     },
     {
       "id": "cache-coyote",
@@ -1626,7 +1696,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Offline-first documents, caches and queued actions.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "offline caches and queued actions that never went out",
+        "needs": "a decision on a queued action"
+      }
     },
     {
       "id": "sync-mink",
@@ -1634,7 +1709,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Cross-device sync and conflict resolution.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "sync between your devices: conflicts and files that did not sync",
+        "needs": "which copy to keep when two disagree"
+      }
     },
     {
       "id": "passport-pelican",
@@ -1642,7 +1722,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Passport/ID metadata, visa research and deadlines, encrypted.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "passport and ID expiry dates and visa deadlines (dates only, never the numbers)",
+        "needs": "a date only you can check"
+      }
     },
     {
       "id": "stock-fox",
@@ -1650,7 +1735,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Named as an established pet in ASTRAS_PET_OS v5.2; no repo in the registry.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "my plan",
+        "needs": "a job: what should Stock Fox do?"
+      }
     },
     {
       "id": "pet-directory",
@@ -3571,7 +3661,12 @@
       "layer": 6,
       "category": "Made by Astra",
       "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet.",
-      "does": "A catalog site for your avatar gun effects and loadouts."
+      "does": "A catalog site for your avatar gun effects and loadouts.",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the avatar gun effects and loadouts catalog",
+        "needs": "the catalog's source on GitHub"
+      }
     },
     {
       "id": "threejs",

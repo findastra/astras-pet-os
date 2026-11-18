@@ -27,7 +27,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Friendly Farmer** | the pet registry and the System Map | daily | a FARMER_TOKEN secret so I can see the private pet repos |
 | **GitHub Goldfish** | the findastra GitHub account | weekly, Monday | a GitHub token that can read the private repos |
 | **Data Chip** | Data Dealer's repo | weekly, Tuesday | your answer to a decision on the ops dashboard |
-| **API Fairy** | Pet Program source, shared controls and declared tool behavior | weekly, Wednesday | Local source review; real runtime and desktop actions require separate verification |
+| **API Fairy** | your API key notes: which keys have gone stale, where each one lives and what uses it | weekly, Wednesday | your OK to replace a stale key |
 | **Unity Unicorn** | your Unity and VRChat project notes | weekly, Thursday | a project opened in Unity so I can check it |
 | **Python Panther** | your Python lessons | weekly, Friday | you to do the next lesson |
 | **Astra Wisp** | AI Astra: her mind, VRChat body and voice | weekly, Saturday | the AI Astra app started on your PC |
@@ -51,15 +51,15 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Claude Bot** * | the Claude Bot plan and build | weekly, Wednesday | a decision on the plan |
 | **RGBee** * | your RGB lights and scenes | weekly, Thursday | the brand and model of each light |
 | **Mine Mole** * | the crypto mining research | weekly, Friday | your power price and graphics card model |
-| **Mail Snail** * | my plan | weekly, Saturday | a job: what should Mail Snail do |
-| **Patch Cat** * | my plan | weekly, Sunday | a job: what should Patch Cat do |
+| **Mail Snail** * | your mail: bills not paid yet, and what could be sorted or cleaned up | weekly, Saturday | which mail I may read (no mail account is connected yet) |
+| **Patch Cat** * | the security patches Windows, your drivers and your apps are still missing | weekly, Sunday | a job: what should Patch Cat do |
 | **Meme Fiend** * | your saved memes (on your PC only) | weekly, Monday | a meme folder chosen |
-| **Gif Giraffe** * | my plan | weekly, Tuesday | a job: what kind of GIFs should I make |
-| **Backup Beaver** * | my plan | weekly, Wednesday | a job: what should Backup Beaver back up |
+| **Gif Giraffe** * | Astra's GIF Maker: whether it still opens and makes a GIF | weekly, Tuesday | a job: what kind of GIFs should I make |
+| **Backup Beaver** * | your backups: when each one last ran, where it is and how to get it back | weekly, Wednesday | where your backups are kept |
 | **Rift Rabbit** * | your VR software and performance notes | weekly, Thursday | your headset and PC details |
 | **Fuzzboi Friend** * | the Fuzzboi maker and its live site | weekly, Friday | your OK to register me in the hub |
-| **Wifi Butterfly** * | my plan | weekly, Saturday | a job: what should Wifi Butterfly do |
-| **Deck Duck** * | my plan | weekly, Sunday | a job: what should Deck Duck do |
+| **Wifi Butterfly** * | the radios nearby: unknown Wi-Fi networks and Bluetooth devices | weekly, Saturday | a job: what should Wifi Butterfly do |
+| **Deck Duck** * | your Stream Deck: what every button does on every profile, and any button that does nothing | weekly, Sunday | a look at a button that does nothing |
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Monday | a job: what should Mesh Moth watch |
 | **Raspberry Pi Berry** * | Astra's Raspberry Pi projects | weekly, Tuesday | site storage allowed for the page (custom lines: happy, worried, sad, sick, alarmed) |
 | **Role Fairy** * | every Discord bot: its servers, roles, permissions and health | weekly, Wednesday | a bot's access to its server, or your OK for a new bot |
