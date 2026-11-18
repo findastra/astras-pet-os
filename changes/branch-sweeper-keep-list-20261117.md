@@ -34,4 +34,4 @@ next plan would have offered them for deleting again.
   reason, first in the Keep group, and `"delete": false` in the plan. An `--apply` dry run on a plan that ticks them for
   deleting refuses all three with her reason.
 
-Card 364. By Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-17.
+Card 364, pull request #378. By Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-17.
