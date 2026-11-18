@@ -12,6 +12,7 @@
 //   node scripts/retire-check-20261117.mjs --pet port-web     # one of them
 //   node scripts/retire-check-20261117.mjs --local "<folder holding the pet repos>" --data "<Astra's PetOS Data>"
 //   node scripts/retire-check-20261117.mjs --github           # also asks GitHub (gh) whether its repo is archived
+//   node scripts/retire-check-20261117.mjs --fetch            # fetches each pet repo first (each is read at its main on GitHub)
 //   npm run retire-check
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
@@ -72,15 +73,28 @@ export function hubLeftovers(root, pet) {
   return out;
 }
 
-/** Tracked files in one repo that name the pet, split into live mentions and records. */
-export function textMentions(repoDir, pet) {
+const gitOut = (dir, args) => execFileSync('git', ['-C', dir, ...args], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['pipe', 'pipe', 'ignore'] });
+
+// What a repo shares is its main on GitHub, not whatever branch a PC folder has checked out (an old branch, or another
+// chat's work). So each pet repo is read at origin's default branch, as last fetched (--fetch fetches it first).
+export function sharedRef(dir) {
+  for (const r of ['origin/HEAD', 'origin/main', 'origin/master']) {
+    try { gitOut(dir, ['rev-parse', '--verify', '--quiet', r]); return r; } catch { /* next */ }
+  }
+  return 'HEAD';
+}
+const remoteOf = (dir) => { try { return gitOut(dir, ['remote', 'get-url', 'origin']).trim().toLowerCase().replace(/\.git$/, ''); } catch { return null; } };
+
+/** Tracked files in one repo (at `ref`, else the working tree) that name the pet, split into live mentions and records. */
+export function textMentions(repoDir, pet, ref = null) {
   const terms = [pet.repo, pet.pet, pet.program].filter(Boolean);
   let raw = '';
   try {
-    raw = execFileSync('git', ['-C', repoDir, 'grep', '-n', '-I', '-i', '-F', ...terms.flatMap((t) => ['-e', t]), '--', '.'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    raw = gitOut(repoDir, ['grep', '-n', '-I', '-i', '-F', ...terms.flatMap((t) => ['-e', t]), ...(ref ? [ref] : []), '--', '.']);
   } catch { return { live: [], records: 0 }; }
   const live = []; let records = 0;
-  for (const line of raw.split(/\r?\n/).filter(Boolean)) { // a file with CRLF endings leaves a \r, which "." won't match
+  for (let line of raw.split(/\r?\n/).filter(Boolean)) { // a file with CRLF endings leaves a \r, which "." won't match
+    if (ref && line.startsWith(`${ref}:`)) line = line.slice(ref.length + 1);
     const m = line.match(/^(.*?):(\d+):(.*)$/); if (!m) continue;
     const [, file, n, text] = m;
     if (isRecord(file)) { records++; continue; }
@@ -105,20 +119,28 @@ function githubState(owner, repo) {
   } catch { return 'gone, or gh cannot see it'; }
 }
 
-export function check({ root, local, data, github = false, only = null }) {
+export function check({ root, local, data, github = false, only = null, fetch = false }) {
   const registry = read(join(root, 'pets.json'));
   const owner = registry.github_owner || registry.owner || 'findastra';
   const pets = retiredPets(registry).filter((p) => !only || p.repo === only);
   return pets.map((pet) => {
     const hub = hubLeftovers(root, pet);
     const repos = [];
-    const seen = new Set([resolve(root)]);
-    for (const dir of [root, ...gitRepos(local)]) {
-      const r = resolve(dir); if (dir !== root && seen.has(r)) continue; seen.add(r);
-      if (dir !== root && r.split(/[\\/]/).pop() === pet.repo) continue; // its own clone is reported as a PC folder
-      if (dir !== root && existsSync(join(dir, 'pet-programs.json'))) continue; // another copy of the hub: the hub is checked once
-      const { live, records } = textMentions(dir, pet);
-      if (live.length || records) repos.push({ repo: dir === root ? 'hub' : r.split(/[\\/]/).pop(), live, records });
+    // The hub is checked as it is (the branch being changed); every other repo once, at its main on GitHub, however many
+    // folders on the PC hold a copy of it.
+    const seen = new Set([remoteOf(root)].filter(Boolean));
+    const { live: hubLive, records: hubRecords } = textMentions(root, pet);
+    if (hubLive.length || hubRecords) repos.push({ repo: 'hub', live: hubLive, records: hubRecords });
+    for (const dir of gitRepos(local)) {
+      const r = resolve(dir);
+      if (r.split(/[\\/]/).pop() === pet.repo) continue; // its own clone is reported as a PC folder
+      const remote = remoteOf(dir) || r.toLowerCase();
+      if (seen.has(remote)) continue; seen.add(remote);
+      if (fetch) { try { gitOut(dir, ['fetch', '--quiet', 'origin']); } catch { /* offline: last fetch */ } }
+      const ref = sharedRef(dir);
+      const { live, records } = textMentions(dir, pet, ref);
+      const name = remote.split('/').pop();
+      if (live.length || records) repos.push({ repo: ref === 'HEAD' ? `${name} (this folder)` : `${name} (GitHub main)`, live, records });
     }
     const folders = [];
     if (local && existsSync(join(local, pet.repo))) folders.push(join(local, pet.repo));
@@ -133,7 +155,7 @@ function main(argv) {
   // The pet repos live in Documents, in the Astra's PetOS folder (Astra, 2026-10-17), never next to a worktree in Temp.
   const local = arg('--local') || join(homedir(), 'Documents', "Astra's PetOS");
   const data = arg('--data') || resolve(local, '..', "Astra's PetOS Data");
-  const results = check({ root: here, local, data, github: argv.includes('--github'), only: arg('--pet') });
+  const results = check({ root: here, local, data, github: argv.includes('--github'), fetch: argv.includes('--fetch'), only: arg('--pet') });
   if (!results.length) { console.log('No retired pets in pets.json (retired_pets).'); return 0; }
   let left = 0;
   for (const r of results) {
