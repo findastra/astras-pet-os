@@ -184,6 +184,23 @@
   --tool-bg: rgba(240, 144, 0, .06); --tool-bg-hover: rgba(240, 144, 0, .11);
 }
 :root[data-pet="file-master"] .footer-group::before, :root[data-pet="file-master"] .footer-sparkle { color: #f0d848; }
+/* Deck Pond's own colours, Deck Duck's (Astra, 2026-11-17: "give a yellow background to the program too"): his body
+   yellow (#fcd31c, sampled from his newest drawing) for the page, so this page is light and its lettering dark, in the
+   warm black of his outline. Panel lines in his beak orange, deepened to #a2420a so they read on yellow; electric blue
+   for links, marks and the working-copy box, like a lit Stream Deck key; magenta for connections. The status colours
+   are deepened too, so the lights still read on a light page, and the two pale green labels written into the shared
+   rules below get a dark green here. */
+:root[data-pet="deck-duck"] {
+  --slate: #fcd31c; --slate-2: #f2c40f; --chalk: #1c1405; --chalk-dim: #4d3a0c; --line: #a2420a; --line-dim: #c98a1e;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #1d3fbf;
+  --editorial: #1d3fbf; --editorial-ink: #13286f; --editorial-glow: rgba(29, 63, 191, .16); --grid: none; --editorial-by: #2a4fd0; --serial: #1d3fbf;
+  --link: #1d3fbf; --connection: #a3166b;
+  --on: #2e8b3a; --off: #c0392b; --care: #1b7fa6; --fix: #9a6a00; --planned: #6b6960; --update: #b3560a;
+  --tool-bg: rgba(28, 20, 5, .05); --tool-bg-hover: rgba(29, 63, 191, .08);
+}
+:root[data-pet="deck-duck"] .footer-group::before, :root[data-pet="deck-duck"] .footer-sparkle { color: #a2420a; }
+:root[data-pet="deck-duck"] .mood.is-now .mood-bubble legend,
+:root[data-pet="deck-duck"] .panel.level[data-activity="live"] > summary .legend { color: #1d6b2a; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
