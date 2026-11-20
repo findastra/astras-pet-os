@@ -593,6 +593,10 @@ namespace AstraDesktopPets {
       list.Add(new Entry{Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker="port-watch-20261119",Folder=Path.Combine(DataRoot,"white-hat-lab"),Needs=Path.Combine(PetFiles.Root,"scripts","port-watch-20261119.mjs")});
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
       list[list.Count-1].MenuPrefix=new[]{Quote(list[list.Count-1].Needs)};
+      // Chat Rat's server, behind its page (Astra, 2026-11-19, "All recommended": it starts with the star like the other
+      // helpers). An older copy started by hand from its folder (`node chat-rat-20261016.mjs serve`) counts as running.
+      list.Add(new Entry{Repo="chat-rat",Pet="Chat Rat",Exe=node,Marker="chat-rat-20261016.mjs",Needs=Path.Combine(parent,"chat-rat","chat-rat-20261016.mjs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"serve"};
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -605,7 +609,7 @@ namespace AstraDesktopPets {
     // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
     // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
     // behind the Run buttons on The Farm's flash-audit checks.
-    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab"};
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab","chat-rat"};
     // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
     // star starts one crash watch, not three.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
@@ -620,6 +624,44 @@ namespace AstraDesktopPets {
     }
     internal static bool Held(string name) { System.Threading.Mutex m;if(!System.Threading.Mutex.TryOpenExisting(name,out m))return false;m.Dispose();return true; }
     internal static string Quote(string path) { return "\""+path+"\""; }
+    // Only Startup Star in Task Manager (Astra, 2026-11-19, "All recommended"): Windows lists a program's helpers inside
+    // its row only while the copy that started them still runs. A star started again (after a hub update) finds the
+    // helpers an older star started, and starts them again as its own, so they sit inside its one Task Manager row.
+    internal sealed class Proc { internal int Id,Parent;internal string Name,Line; }
+    internal static List<Proc> Processes() {
+      var list=new List<Proc>();
+      using(var search=new System.Management.ManagementObjectSearcher("SELECT ProcessId,ParentProcessId,Name,CommandLine FROM Win32_Process"))
+        foreach(System.Management.ManagementObject p in search.Get()) using(p) list.Add(new Proc{Id=Convert.ToInt32(p["ProcessId"]),Parent=Convert.ToInt32(p["ParentProcessId"]),Name=(p["Name"] as string)??"",Line=(p["CommandLine"] as string)??""});
+      return list;
+    }
+    // One of this helper's copies: its own program, or (for a script) node, PowerShell or wscript running its script.
+    // A copy run from a Temp folder is another chat's test, never touched.
+    internal static bool IsCopy(Entry e,Proc p) {
+      if(p.Line.IndexOf("\\Temp\\",StringComparison.OrdinalIgnoreCase)>=0||p.Line.IndexOf("/Temp/",StringComparison.OrdinalIgnoreCase)>=0)return false;
+      string name=Path.GetFileName(e.Exe);
+      if(e.Marker==null)return String.Equals(p.Name,name,StringComparison.OrdinalIgnoreCase);
+      bool host=String.Equals(p.Name,name,StringComparison.OrdinalIgnoreCase)||String.Equals(p.Name,"node.exe",StringComparison.OrdinalIgnoreCase);
+      return host&&p.Line.IndexOf(e.Marker,StringComparison.OrdinalIgnoreCase)>=0;
+    }
+    // This helper's copies that an older star left behind: their parent is gone. A copy whose parent still runs was
+    // started by someone else (a Claude or Codex chat, a terminal) and is never touched. On 2026-11-19 the first build
+    // stopped every chat's Desktop Commander server, whose node command lines also say "desktop-commander".
+    internal static List<Proc> Leftovers(Entry e,List<Proc> all,int star) {
+      var mine=all.FindAll(p=>IsCopy(e,p));
+      return mine.FindAll(p=>p.Parent!=star&&!mine.Exists(q=>q.Id==p.Parent)&&!all.Exists(q=>q.Id==p.Parent));
+    }
+    // Helpers that detach on purpose are never taken over: Desktop Commander's script hands it to npx, and each Discord
+    // presence's launch script starts its server and exits, so a copy started again would fall out of the star's row too.
+    static readonly string[] NeverAdopted={"desktop-commander","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence"};
+    internal static bool Adoptable(Entry e) { return e.Host==null&&Array.IndexOf(NeverAdopted,e.Repo)<0; }
+    // A copy and everything it started, children first.
+    internal static List<int> Tree(int root,List<Proc> all) {
+      var order=new List<int>();var seen=new HashSet<int>();
+      Action<int> walk=null;walk=delegate(int id){if(!seen.Add(id))return;foreach(var c in all.FindAll(p=>p.Parent==id&&p.Id!=id))walk(c.Id);order.Add(id);};
+      walk(root);return order;
+    }
+    // Live Sync is only restarted between its passes, never while it updates a folder (its pass lock is free).
+    internal const string LiveSyncPassLock="Local\\astras-pet-os-live-sync-pass";
     internal static bool Running(Entry e) {
       try {
         if(e.Host!=null)return Held(MutexName(e.Repo,DataRoot));
@@ -810,8 +852,8 @@ namespace AstraDesktopPets {
       clickTimer.Tick+=delegate { clicks.Advance(clickClock.ElapsedMilliseconds);if(!clicks.Pending)clickTimer.Stop(); };
       MouseDown+=Press;MouseMove+=TrackPointer;MouseUp+=Release;
       MouseLeave+=delegate { hover=null;hoverStar=false;tooltip.SetToolTip(this,null);Cursor=Cursors.Default; };
-      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();repaintTimer.Start();PetFiles.StartBug("--hosted");StartBackgroundPets();tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
-      FormClosed+=delegate { if(!test){SystemEvents.SessionSwitch-=SystemRepaint;SystemEvents.DisplaySettingsChanged-=SystemRepaint;SystemEvents.PowerModeChanged-=SystemRepaint;}repaintTimer.Stop();if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
+      Shown+=delegate { started=true;ApplyDpi();PositionInitial();CreatePetWindows(Screen.FromRectangle(Bounds).WorkingArea);if(!test){CreateTray();repaintTimer.Start();PetFiles.StartBug("--hosted");StartBackgroundPets();StartAdopting();tracker=new PetDockTracker(QueueDock);tracker.Start();}SyncVisible();WriteStatus(); };
+      FormClosed+=delegate { if(!test){SystemEvents.SessionSwitch-=SystemRepaint;SystemEvents.DisplaySettingsChanged-=SystemRepaint;SystemEvents.PowerModeChanged-=SystemRepaint;}repaintTimer.Stop();if(adoptTimer!=null)adoptTimer.Dispose();if(tray!=null)tray.Visible=false;timer.Stop();clickTimer.Stop();CancelClicks();if(tracker!=null)tracker.Dispose();ClosePetWindows();SavePosition();WriteStatus(false); };
       RefreshStarIcon();LayoutPets();
     }
     // A background pet's command from its menu: its own program, started with the item's words.
@@ -831,6 +873,39 @@ namespace AstraDesktopPets {
         if(test)continue;
         try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",e.StartArgs)) { UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(e.Needs??e.Exe) }); }catch(Exception){}
       }
+    }
+    // Only Startup Star in Task Manager (Astra, 2026-11-19): 20 s after the star starts, and every 2 minutes after
+    // that, each helper an older star started is stopped and started again by this star, so it sits inside the star's
+    // row. Live Sync waits until it is between passes. Off the window's thread: the process list is slow.
+    System.Threading.Timer adoptTimer;
+    int adopting;
+    void StartAdopting() { adoptTimer=new System.Threading.Timer(delegate { AdoptLeftovers(); },null,20000,120000); }
+    internal List<BackgroundPets.Entry> Adoptable() {
+      var list=BackgroundPets.AtSignIn();var bug=BackgroundPets.Find("voicemeeter-bug");if(bug!=null)list.Add(bug);
+      return list.FindAll(BackgroundPets.Adoptable);
+    }
+    void AdoptLeftovers() {
+      if(System.Threading.Interlocked.Exchange(ref adopting,1)==1)return;
+      try {
+        int star=Process.GetCurrentProcess().Id;
+        foreach(var e in Adoptable()) {
+          if(!File.Exists(e.Exe)||(e.Needs!=null&&!File.Exists(e.Needs)))continue;
+          var all=BackgroundPets.Processes();var left=BackgroundPets.Leftovers(e,all,star);
+          if(left.Count==0)continue;
+          System.Threading.Mutex pass=null;bool passHeld=false;
+          try {
+            if(e.Repo=="live-sync") {
+              if(!System.Threading.Mutex.TryOpenExisting(BackgroundPets.LiveSyncPassLock,out pass))pass=null;
+              else { try{passHeld=pass.WaitOne(0);}catch(System.Threading.AbandonedMutexException){passHeld=true;} if(!passHeld)continue; }
+            }
+            // The copy and its own sub-copies only (Desktop Commander's node runs another node): never anything else it
+            // opened, so Voicemeeter, opened by the Bug, stays up and the sound never cuts (answer 4).
+            foreach(var p in left) foreach(int id in BackgroundPets.Tree(p.Id,all).FindAll(i=>i==p.Id||all.Exists(q=>q.Id==i&&BackgroundPets.IsCopy(e,q)))) { try{using(var proc=Process.GetProcessById(id))if(!proc.HasExited){proc.Kill();proc.WaitForExit(5000);}}catch(Exception){} }
+            try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",e.StartArgs)) { UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(e.Needs??e.Exe) }); }catch(Exception){}
+          } finally { if(pass!=null){if(passHeld)try{pass.ReleaseMutex();}catch(Exception){} pass.Dispose();} }
+        }
+      } catch(Exception) {}
+      finally { System.Threading.Interlocked.Exchange(ref adopting,0); }
     }
     // Every five seconds: each pet shows the mood The Farm's pet-moods gives it, the same as on the pages and the Stream
     // Deck (2026-11-14). While pet-moods is not running, a background pet whose own program says alarmed still shows its
@@ -1272,10 +1347,41 @@ namespace AstraDesktopPets {
       int signIn=testActions.Count;StartBackgroundPets();
       var started=new List<string>();bool quiet=true;
       foreach(var a in testActions.GetRange(signIn,testActions.Count-signIn)){started.Add(a.Split(':')[1]);if(started.Count<=4&&!a.EndsWith(":--startup"))quiet=false;}
-      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper and pet-moods quietly, and only them.");
+      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods,white-hat-lab,chat-rat"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper, pet-moods, the port watch and Chat Rat's server quietly, and only them.");
       int helpers=0;
       foreach(var x in BackgroundPets.AtSignIn()){if(x.Marker==null)continue;helpers++;if(x.Needs==null||Array.IndexOf(x.StartArgs,BackgroundPets.Quote(x.Needs))<0)throw new Exception("Each helper run by node, PowerShell or wscript starts its own script.");}
-      if(helpers!=7)throw new Exception("Seven helpers are found by their command line.");
+      if(helpers!=9)throw new Exception("Nine helpers are found by their command line.");
+      // Only Startup Star in Task Manager (2026-11-19): a helper an older star started is found and started again by this
+      // star; its own sub-copies go with it, but nothing else it opened (Voicemeeter stays up); a Temp test copy is left alone.
+      {
+        var dc=BackgroundPets.Find("desktop-commander");var bugEntry=BackgroundPets.Find("voicemeeter-bug");var chat=BackgroundPets.Find("chat-rat");
+        if(chat==null||chat.Pet!="Chat Rat"||chat.StartArgs[chat.StartArgs.Length-1]!="serve"||!chat.Needs.EndsWith(Path.Combine("chat-rat","chat-rat-20261016.mjs")))throw new Exception("Chat Rat's server must start with the star from its own folder.");
+        var procs=new List<BackgroundPets.Proc>{
+          new BackgroundPets.Proc{Id=10,Parent=1,Name="desktop-pets-20261008.exe",Line="star"},
+          new BackgroundPets.Proc{Id=20,Parent=999,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\index.js remote"},
+          new BackgroundPets.Proc{Id=21,Parent=20,Name="node.exe",Line="node C:\\x\\npm-cache\\desktop-commander\\dist\\index.js"},
+          new BackgroundPets.Proc{Id=30,Parent=10,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
+          new BackgroundPets.Proc{Id=31,Parent=999,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
+          new BackgroundPets.Proc{Id=32,Parent=31,Name="voicemeeter8.exe",Line="voicemeeter8.exe"},
+          new BackgroundPets.Proc{Id=40,Parent=999,Name="node.exe",Line="node chat-rat-20261016.mjs serve"},
+          new BackgroundPets.Proc{Id=41,Parent=999,Name="node.exe",Line="node E:\\Temp\\claude\\s\\chat-rat-20261016.mjs serve"},
+          new BackgroundPets.Proc{Id=50,Parent=1,Name="claude.exe",Line="claude.exe"},
+          new BackgroundPets.Proc{Id=51,Parent=50,Name="cmd.exe",Line="cmd.exe /d /s /c npx -y @wonderwhy-er/desktop-commander@latest"},
+          new BackgroundPets.Proc{Id=52,Parent=51,Name="node.exe",Line="node npx-cli.js -y @wonderwhy-er/desktop-commander@latest"},
+          new BackgroundPets.Proc{Id=53,Parent=50,Name="node.exe",Line="node chat-rat-20261016.mjs serve"}};
+        var dcLeft=BackgroundPets.Leftovers(dc,procs,10);
+        if(dcLeft.Count!=1||dcLeft[0].Id!=20)throw new Exception("A helper an older star started must be found once, at its top copy; a chat's own Desktop Commander server never.");
+        var dcTree=BackgroundPets.Tree(20,procs).FindAll(i=>i==20||procs.Exists(q=>q.Id==i&&BackgroundPets.IsCopy(dc,q)));
+        if(String.Join(",",dcTree.ConvertAll(i=>i.ToString()).ToArray())!="21,20")throw new Exception("A helper's own sub-copies stop with it, children first.");
+        if(Adoptable().Exists(x=>x.Repo=="desktop-commander"||x.Repo.EndsWith("discord-presence")))throw new Exception("Desktop Commander and the Discord presences detach on purpose and are never taken over.");
+        var bugLeft=BackgroundPets.Leftovers(bugEntry,procs,10);
+        if(bugLeft.Count!=1||bugLeft[0].Id!=31)throw new Exception("Only the Bug this star did not start is a leftover.");
+        var bugTree=BackgroundPets.Tree(31,procs).FindAll(i=>i==31||procs.Exists(q=>q.Id==i&&BackgroundPets.IsCopy(bugEntry,q)));
+        if(bugTree.Contains(32))throw new Exception("Voicemeeter, opened by the Bug, must never be stopped with him.");
+        var chatLeft=BackgroundPets.Leftovers(chat,procs,10);
+        if(chatLeft.Count!=1||chatLeft[0].Id!=40)throw new Exception("Chat Rat's own server is a leftover; another chat's Temp test copy is not.");
+        if(Adoptable().Find(x=>x.Repo=="voicemeeter-bug")==null||Adoptable().Exists(x=>x.Host!=null))throw new Exception("The Bug is adopted too; a watch hosted in Log Den is not.");
+      }
       var rabbit=BackgroundPets.Find("rift-rabbit");
       if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
       var petChat=BackgroundPets.Find("pet-chat");
