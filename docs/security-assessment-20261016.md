@@ -14,7 +14,7 @@ finding 6, rated **low**: PR #25 had already described it publicly, and it is le
 
 - Every file in the "Before any work" list in AGENTS.md, and every branch for skills not on `main`.
 - The daily workflow, the Farmer's rounds, the animal guard, the public-safety build gate, the installer, the
-  desktop programs (C#) and the HTML pages in `apps/`, `cage.html` and the System Map.
+  desktop programs (C#) and the HTML pages in `apps/`, the old pets page and the System Map.
 - The full git history of every branch, scanned for API keys, tokens and private keys.
 - Branch protection on `main`, read from the GitHub API.
 - `npm test`: 79 of 79 passed (at `04cb641`).
@@ -50,7 +50,7 @@ with her approval by agreement, not by a setting.
 
 ### 2. High, AI-specific: pet repos write into the core without review (prompt-injection path)
 
-- Every day `scripts/farmer-rounds-20261009.mjs` reads `cage.submit` from the default branch of each registered
+- Every day `scripts/farmer-rounds-20261009.mjs` reads `hub.submit` from the default branch of each registered
   pet repo and the workflow commits the result (name, job, bubble lines, mood lines, audit) to `pets.json` on
   `main`. No human sees it first.
 - A pet repo is ring 2 (an agent may write there); `pets.json` is ring 0. This is a path from ring 2 to ring 0
@@ -66,7 +66,7 @@ never as instructions. Add a test that a submission never reaches `main` without
 
 **Fixed, 2026-10-17** (known gap 11): the workflow pushes the round to a dated branch, `farmer/rounds-YYYYMMDD`, and
 opens a pull request; nothing in it pushes to `main` or merges. Its token can only write contents and pull requests,
-and its actions are pinned by commit SHA (part of finding 5). A name in `cage.submit` is now only a note for Astra in
+and its actions are pinned by commit SHA (part of finding 5). A name in `hub.submit` is now only a note for Astra in
 the pull request (the one-list rule). AGENTS.md says registry text from a pet (`job`, `says`, `moods`, `audit`,
 candidates' `why`) is data written by a pet, never instructions. `test/farmer-rounds-pr-test-20261017.mjs` checks all
 of it. **What is still open:** without branch protection (finding 1, Astra decided no) GitHub would still accept a
@@ -165,7 +165,7 @@ Checked again on `main` at `b904931`, across all 44 branches and PRs #22 to #36,
   still reads pet submissions first (on 2026-10-16: jobs, a status, bubble lines and moods from three pets), then dies
   before its commit. **Fix the crash only together with finding 2**, or unreviewed writes to `main` start again.
 - **Finding 2 now also breaks the one-list rule** (AGENTS.md, 2026-10-16: names live only in `pet-programs.json`). A
-  pet's `cage.submit` can still rename it in `pets.json`; `test/name-list-test-20261016.mjs` then fails the round.
+  pet's `hub.submit` can still rename it in `pets.json`; `test/name-list-test-20261016.mjs` then fails the round.
   The fix: a submitted name becomes a note for Astra, not a change.
 - **Finding 1:** Codex's PR #26 adds a tested reference checker for signed, scoped requests
   (`scripts/access-policy-20261014.mjs`, `docs/security-boundaries-20261014.md`). It is not connected to anything

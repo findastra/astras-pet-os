@@ -443,11 +443,20 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
       <span class="copy-status" role="status" aria-live="polite"></span>
     </div>
     <div class="note">
-      <p><strong>Proud of it?</strong> Bring it to <a href="https://github.com/findastra/the-kennel">the Kennel</a>, so
-        other farmers can adopt it. <span class="dev">a community app catalog (a package registry)</span></p>
-      <p><strong>Want a brand-new pet?</strong> Ask your AI to make one. It follows the
-        <a href="https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md">Pet Program Framework</a>
-        and gives the pet its own repo. <span class="dev">scaffolding a new app</span></p>
+      <p><strong>Proud of it?</strong> The Kennel, where other farmers will adopt it, is not open yet. Until then, make
+        its repo public and share the link. <span class="dev">a community app catalog (a package registry)</span></p>
+    </div>
+    <h3>Make a brand-new pet</h3>
+    <p>Have an idea for your own pet? Your AI makes it with you, in your own copy, by the steps in
+      <a href="https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md#make-your-first-pet">MAKE-IT-YOURS.md,
+      "Make your first pet"</a>. It is built to the
+      <a href="https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md">Pet Program Framework</a>
+      and gets its own repo, private to start. On your farm you are the one who says yes.
+      <span class="dev">scaffolding a new app; you are the farm's L4</span></p>
+    <p class="prompt" id="prompt-first-pet">Please help me make my first pet in my copy of Astra's PetOS, following MAKE-IT-YOURS.md section 5, "Make your first pet" (https://github.com/findastra/astras-pet-os/blob/main/MAKE-IT-YOURS.md). My idea: &lt;what it does&gt;. Ask me for the names first, work on a branch, show me each change before you save it, and run npm test at the end.</p>
+    <div class="copy">
+      <button type="button" data-copy="prompt-first-pet">Copy the message</button>
+      <span class="copy-status" role="status" aria-live="polite"></span>
     </div>
   </div>
 </details>
@@ -467,8 +476,9 @@ footer .label { font: 12px var(--mono); color: var(--dim); }
         <span class="dev">prompt injection: text that tries to give an AI orders</span></li>
       <li>Pets from other people never run on your farm until you have checked them and said yes.
         <span class="dev">an untrusted dependency (a supply-chain risk)</span></li>
-      <li>Your pet is sick? Ask at the <a href="https://github.com/findastra/vet-clinic">vet-clinic</a>. Never post keys
-        or private data there. <span class="dev">a public issue tracker</span></li>
+      <li>Your pet is sick? The vet-clinic is not open yet: until it is, open an
+        <a href="https://github.com/findastra/astras-pet-os/issues">issue on Astra's PetOS</a>. Never post keys or
+        private data there. <span class="dev">a public issue tracker</span></li>
       <li>Found a security problem? Report it privately, never in a public issue:
         <a href="https://github.com/findastra/astras-pet-os/blob/main/SECURITY.md">SECURITY.md</a>.</li>
     </ul>

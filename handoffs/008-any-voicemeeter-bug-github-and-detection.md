@@ -9,20 +9,20 @@ All on 2026-10-11, America/Denver time.
 
 **Finding him.** Voicemeeter Bug was made by OpenAI Codex (GPT-6) on 2026-10-08. His registry
 entry and art only existed on the unmerged branch `claude/roam-free-wip-20261009` (commit
-`a287c08`), so main and the Cage did not list him. His Windows app has never been on GitHub. It
+`a287c08`), so main and the hub did not list him. His Windows app has never been on GitHub. It
 lives on Astra's PC at `%USERPROFILE%\Documents\ChatGPT\Voicemeeter Bug\`.
 
 **Hub (this repo), on `main`:**
-- Commit `973798f` "Bring Voicemeeter Bug home to the Cage", pushed to `main` with Astra's OK
+- Commit `973798f` "Bring Voicemeeter Bug home to the hub", pushed to `main` with Astra's OK
   (fast-forward from `44cf7e5`). Branch `voicemeeter-bug-home` points at the same commit.
   - `pets.json`: added `voicemeeter-bug` after Project Parrot (pet #19), `kind: "bug"`,
     `status: "growing"`, `published: false`, weekly `audit` block.
   - Copied unchanged from `a287c08`: `apps/voicemeeter-bug-20261008.html`,
     `art/frames/voicemeeter-bug/*-20261008.png` (9 moods), `art/sheets/voicemeeter-bug-20261008.png`.
   - `scripts/generate-pets.mjs`: restored his art prompt from that branch.
-  - `test/cage-controls-test-20261008.mjs`: the bug is caged during the two zone/flock tests.
-    The fish and birds chase bugs by design (`cage_life.chases`), which pulled them out of the
-    zones those tests measure. The real Cage still lets them chase him.
+  - `test/old-pets-page-controls-test-20261008.mjs`: the bug is held still during the two zone/flock tests.
+    The fish and birds chase bugs by design (`pet_life.chases`), which pulled them out of the
+    zones those tests measure. The real old pets page still lets them chase him.
   - Rebuilt with `npm run build`. `npm test` passed 62/62, five runs in a row. `npm run check` reported 19 pet apps.
 - This commit: this card, its README row (plus the missing row for card 007), and the
   `## What I did` rule in `skills/handoff/SKILL.md`.
@@ -32,7 +32,7 @@ lives on Astra's PC at `%USERPROFILE%\Documents\ChatGPT\Voicemeeter Bug\`.
   hosted mode when they restarted.
 - In `%USERPROFILE%\Documents\Projects\findastra-pet-apps` (branch `codex/astras-pet-os`,
   tracks `origin/main`, was clean): ran `git pull --ff-only` to `973798f`, reopened
-  `cage.html`, and restarted `bin\desktop-pets-20261008.exe`.
+  the old pets page, and restarted `bin\desktop-pets-20261008.exe`.
 
 **The missed failure (about 02:19).** Astra's headphones went scrambled or low-quality and the Bug did
 not react. Cause: the Bug only watches selected Windows output devices for removal and reconnection

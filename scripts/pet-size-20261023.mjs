@@ -22,9 +22,11 @@ export const FULL_HEIGHT = new Set(['paper-girl', 'claude-bot', 'file-master']);
 // they're the right size"): every pet picture on a pet program page (the cyberhome, the nine emotions, the friends list)
 // is drawn at the size the star draws that pet, with the empty margin around the drawing cut off, and nothing caps it
 // at the old 60px slot. The rules below follow LayoutPets exactly; the test reads them back from the star's own code.
-// The five pets that share Mommy's Mommies' body use one crop height, measured up from the soles (SameSize).
+// The five pets that share Mommy's Mommies' body each use a crop height measured up from the soles (SameSize). Until
+// 2026-11-14 that was one crop of 202 rows; GPT-6-Astra's new drawings put each girl's eyes at a different row, so each
+// has her own crop (SameSizeCrops in the star, measured eye top to soles) and all six girls stand the same height.
 export const SAME_SIZE = ['mommys-mommies', 'discord-damsel', 'api-fairy', 'astra-wisp', 'vscode-angel'];
-export const SAME_SIZE_CROP = 202;
+export const SAME_SIZE_CROPS = { 'mommys-mommies': 207, 'discord-damsel': 224, 'api-fairy': 204, 'astra-wisp': 208, 'vscode-angel': 214 };
 // The Friendly Farmer stands 0.9 of NormalHeight, his width from his drawing, never fitted into MaxPetWidth.
 export const FARMER_SIZE = 0.9;
 
@@ -73,17 +75,17 @@ export function desktopScale(id, crop) {
   if (!crop) return null;
   const cropW = crop.right - crop.left + 1, cropH = crop.bottom - crop.top + 1;
   if (id === 'farmer') return NORMAL_HEIGHT * FARMER_SIZE / cropH;
-  if (SAME_SIZE.includes(id)) return NORMAL_HEIGHT / SAME_SIZE_CROP;
+  if (SAME_SIZE.includes(id)) return NORMAL_HEIGHT / SAME_SIZE_CROPS[id];
   let h = NORMAL_HEIGHT;
   const w = h * cropW / cropH;
   if (w > MAX_PET_WIDTH && !FULL_HEIGHT.has(id)) h *= MAX_PET_WIDTH / w;
   return h * (SIZE[id] || 1) / cropH;
 }
 
-/** How tall the pet's own drawing stands on the desktop, in CSS pixels (SameSize pets: their 202-pixel crop). */
+/** How tall the pet's own drawing stands on the desktop, in CSS pixels (SameSize pets: their own crop). */
 export function desktopHeight(id, crop) {
   const k = desktopScale(id, crop);
-  return k === null ? null : Math.round(k * (SAME_SIZE.includes(id) ? SAME_SIZE_CROP : crop.bottom - crop.top + 1) * 10) / 10;
+  return k === null ? null : Math.round(k * (SAME_SIZE.includes(id) ? SAME_SIZE_CROPS[id] : crop.bottom - crop.top + 1) * 10) / 10;
 }
 
 /** The picture drawn at scale `k`, cut to `show` (the drawn box of every picture shown in that place): the CSS

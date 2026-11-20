@@ -8,7 +8,7 @@
   "runs_on": "Windows PC (planned)",
   "entry": "index.html",
   "status": "hatching",
-  "cage": {
+  "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"

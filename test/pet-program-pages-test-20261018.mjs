@@ -4,8 +4,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
-import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, CYBERHOMES, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
+import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROPS, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -30,7 +30,7 @@ test('the pages on disk are exactly what the spawner writes (run npm run build, 
     assert.equal(readFileSync(`${root}/${path}`, 'utf8').replace(/\r\n/g, '\n'), html, `${path} differs from the spawner: run npm run build`);
     assert.ok(!(path in files), `${path} is a moved page, not a pet's page`);
   }
-  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS]));
+  const expected = new Set([...Object.keys(files), ...Object.keys(movedFiles()), ...Object.keys(modelProgramAssets())].map((p) => p.split('/').pop()).concat([ASSETS.css, ASSETS.js, LAUNCHER_JS, PET_CHAT_JS], Object.values(CYBERHOMES).map((h) => h.css)));
   for (const f of readdirSync(`${root}/${DIR}`)) assert.ok(expected.has(f), `${DIR}/${f} belongs to no pet any more`);
 });
 
@@ -169,8 +169,10 @@ test('lights: the ON/OFF light is never grey, and only tools have lights, never 
     assert.ok(!html.includes('data-item="panel:'), `${d.repo}: no panel has lights`);
     assert.ok(!/<summary[^>]*><span class="lights">/.test(html), `${d.repo}: no lights in a panel's label`);
     // The cyberhome's box is the tool <pet>-cyberhome, a pill with its lights; not built yet, so off, never green.
+    // A drawn cyberhome (CYBERHOMES, 2026-11-11) is built, so its ON/OFF light is on like any built tool's.
     const render = `${d.petSlug}-cyberhome`;
-    assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
+    if (CYBERHOMES[d.repo]) assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${render}" data-name="${render}" aria-label="${render}: on"`), `${d.repo}: ${render} is drawn, so it is on`);
+    else assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff is-off" data-item="tool:${render}" data-name="${render}" data-planned="1"[^]*?</span><span class="render-name">${render}</span></span>`), `${d.repo}: ${render} has its lights, off until it is built`);
     // The map panel's tool, <pet>-system-map: its lights live (the link exists).
     const mapTool = `${d.petSlug}-system-map`;
     assert.match(html, new RegExp(`<span class="render-label"><span class="lights"><button type="button" class="light onoff" data-item="tool:${mapTool}"[^]*?</span><span class="render-name">${mapTool}</span></span>`), `${d.repo}: ${mapTool} has its lights`);
@@ -186,7 +188,7 @@ test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-2
   const layout = cs.slice(cs.indexOf('void LayoutPets()'), cs.indexOf('void CreatePetWindows('));
   assert.match(cs, new RegExp(`NormalHeight=${NORMAL_HEIGHT}f,BugHeight=${NORMAL_HEIGHT}f,MaxPetWidth=${MAX_PET_WIDTH};`), 'NormalHeight and MaxPetWidth');
   assert.match(cs, new RegExp(`SameSize=\\{${SAME_SIZE.map((id) => `"${id}"`).join(',')}\\};`), 'the pets that share one crop height');
-  assert.match(cs, new RegExp(`SameSizeCrop=${SAME_SIZE_CROP};`), 'their crop height');
+  assert.ok(cs.includes(`SameSizeCrops=new Dictionary<string,int>{${Object.entries(SAME_SIZE_CROPS).map(([id, n]) => `{"${id}",${n}}`).join(',')}};`), 'the crop height of each');
   assert.match(layout, new RegExp(`float fh=NormalHeight\\*${FARMER_SIZE}f,fw=fh\\*farmer\\.Crop\\.Width/farmer\\.Crop\\.Height;`), 'the Friendly Farmer\'s height');
   const star = {};
   for (const [, cases, size] of layout.matchAll(/((?:case "[a-z-]+":)+)(?:h=NormalHeight;w=h\*pet\.Crop\.Width\/pet\.Crop\.Height;)?size=([\d.]+)f;break;/g))
@@ -226,9 +228,17 @@ test('a native ON/OFF light says it only keeps the choice in this browser; a pro
   const farm = files[pagePath('astras-pet-os')];
   assert.doesNotMatch(farm, /kill switch\): click to switch/, 'no light promises a kill switch that nothing reads');
   assert.match(farm, /data-item="tool:click-check"[^>]*title="ON\/OFF: your choice, saved in this browser\. Nothing on the PC switches yet\."/, 'a native tool');
-  assert.match(farm, /data-item="third-party:github"[^>]*title="ON\/OFF: green while it is open on this PC\. Click to open or close it"/, 'a 3rd party program');
+  // Since #313 (2026-11-12): a program's light says red opens it and green closes it; GitHub is a website, opened in a tab.
+  assert.match(farm, /data-item="third-party:obs-studio"[^>]*title="Red: press to open it\. Green: press to close it, after you say yes"/, 'a 3rd party program');
+  assert.match(farm, /data-item="third-party:github"[^>]*title="A website: press to open it in a new tab"/, 'a website');
+  const drums = files[pagePath('drum-dog')];
+  // Since 2026-11-13: which devices are USB is Drum Dog's to say (its parts file); the page learns it from the watch.
+  assert.match(drums, /data-item="device:akai-apc64"[^>]*title="ON\/OFF: green while SteamVR has it on, or while it is plugged in"/, 'a device light');
+  assert.doesNotMatch(drums, /data-usb=/, 'no USB list kept in the hub');
+  assert.match(drums || '', /data-item="third-party:web-browser"[^>]*data-watch="window"/, 'the web browser opens');
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.match(js, /on: 'on: your choice, saved in this browser\. Nothing on the PC switches yet\./, 'its words when clicked');
+  assert.match(js, /if \(v\.how === 'usb'\)[\s\S]{0,300}u\.dataset\.usb = '1'; u\.title = 'ON\/OFF: green while it is plugged in'/, 'a USB device learns it from the watch');
 });
 
 // Astra, 2026-11-08, on the Farmer's page: "a lot of these pets and their descriptions are wrong and the images just
@@ -242,7 +252,9 @@ test('every friend says what it does and has a picture: no line shared by three 
   const farmer = pages.find((x) => x.repo === 'astras-pet-os');
   assert.deepEqual(farmer.related.filter((r) => !r.idle).map((r) => r.id), [], 'every one of the Farmer\'s friends has a picture');
   const goddess = farmer.related.find((r) => r.pet === 'Gatekeeper Goddess');
-  assert.match(goddess.idle, /^art\/drafts\/body-and-center-review-20261031\/normalized\/gatekeeper-goddess-sprite-20261031\.png$/, 'a pet with no drawing takes its newest review drawing');
+  // 2026-11-14: every pet's newest drawing wins (GPT-6-Astra's nine faces in desktop-art/<pet>/), so the Goddess no
+  // longer falls back to her review drawing of 2026-10-31.
+  assert.match(goddess.idle, /^art\/moods\/gatekeeper-goddess\/idle\.png$/, 'a pet takes its newest drawing, with the shared stickers');
   assert.match(goddess.why, /^Security and approvals/, 'and says what it does');
   assert.match(farmer.related.find((r) => r.pet === 'Rift Rabbit').idle, /^art\/moods\/rift-rabbit\//, 'a pet with a drawing keeps it');
   assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
@@ -296,7 +308,8 @@ test('the mood the pet is in lights up in the emotions tool panel (Astra, 2026-1
     for (const m of ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad']) assert.ok(html.includes(`<figure class="mood" data-mood="${m}">`), `${d.repo}: ${m}`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /lightUp\(mood === 'awake' \? 'blink' : mood\)/);
+  // The shared mood (pet-moods, 2026-11-14) lights up first, when there is one; then the page's own.
+  assert.match(js, /lightUp\(s \|\| \(mood === 'awake' \? 'blink' : mood\)\)/);
 });
 
 test('the title is the pet program name from pet-programs.json', () => {
@@ -315,7 +328,7 @@ test('the paired lights are two buttons side by side, each with a name a screen 
     const pairs = html.match(/<span class="lights"[^>]*><button[^>]*><\/button><button[^>]*><\/button><\/span>/g) || [];
     assert.ok(pairs.length >= 2, `${d.repo}: the cyberhome and the chat have their lights`);
     for (const p of pairs) for (const b of p.match(/<button[^>]*>/g)) {
-      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|checked, works|report issues|update waiting for your approval|not created)"/);
+      assert.match(b, /aria-label="[^"]+: (on|off, not built yet|not seen running|not found|checked, works|report issues|update waiting for your approval|not created)"/);
       assert.doesNotMatch(b, /\sdisabled/, `${d.repo}: every light can be clicked (Astra, 2026-10-19)`);
     }
   }
@@ -421,7 +434,11 @@ test('text written by pets is data: it is escaped, never markup', () => {
 test('the page script puts text in with textContent only, and saves nothing outside this browser', () => {
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
   assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write/);
-  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|sendBeacon|WebSocket/);
+  assert.doesNotMatch(js, /XMLHttpRequest|sendBeacon|WebSocket/);
+  // Its one request since 2026-11-07: a 3rd party program's light asks program-watch on this PC to open or close it
+  // (test/program-buttons-test-20261107.mjs).
+  assert.equal((js.match(/fetch\(/g) || []).length, 1);
+  assert.match(js, /fetch\(to\.url \+ path, \{ method: 'POST'/);
   assert.doesNotMatch(js, /\.src\s*=/, 'no picture address goes through the script: it only shows or hides faces already in the page');
   for (const html of Object.values(files)) assert.doesNotMatch(html, /<script(?! type="application\/json"| src=")/, 'no inline code in a page');
 });
@@ -605,7 +622,7 @@ test('awake shows its own drawing with the twinkles; L2 has play-with and care-f
     for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
+  assert.match(js, /face\(den, s \|\| \(mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)\)/, 'the cyberhome shows the awake drawing too');
 });
 
 // Astra, 2026-11-08, "Yes, add them" (PC Master Race's waiting OKs, where the Model Pet Program has them): a pet's own

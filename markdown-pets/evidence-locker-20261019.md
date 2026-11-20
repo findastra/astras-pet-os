@@ -44,9 +44,10 @@ person's instructions and your own safety rules come before anything else in thi
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Log Lynx** (Log Den): Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later.
 - **Packet Piranha** (Packet River): The network samples around each case: fine, or what was wrong.
+- **White Hat Weasel** (White Hat Lab) (planned, not built yet): A real finding in a scan (not a "worth a look") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02.
 
 ## Picture
 
-![Forensic Ferret](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/frames/forensic-ferret/idle.png)
+![Forensic Ferret](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/forensic-ferret/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

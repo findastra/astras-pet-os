@@ -55,7 +55,11 @@ What each one means: section 3, `<pet>-emotions`.
 Pet Program Name: every tool panel of this section and every kind of item and light once, with placeholder names
 (tool-one, tool-two, 3rd party program one ...) and the version as its format, v0.0.0 // YYYYMMDD. The pet program spawner draws it with the same code as every real
 page, so it always shows today's rules; `test/model-pet-program-test-20261102.mjs` fails when a real page can show something
-the Model Pet Program does not. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
+the Model Pet Program does not. **The Flash Audit checks pages against it** (Astra, 2026-11-12: "when we do audits and
+we're looking at user interface, that we're auditing it based off of what's on the template"): each part of the Model
+Pet Program is one check in [docs/flash-audit-20261014.md](docs/flash-audit-20261014.md) ("6. The page"), in its order,
+and `npm run build` compares every pet program page with it part by part (`scripts/flash-template-20261112.mjs`),
+shown on The Farm's flash-audit checks. A new part here gets its Flash Audit check in the same change. Before changing how pet program pages look, change the Model Pet Program's page first and check it on every
 screen with Platform Platypus's fit-check (`node tools/fit-check/fit-check-20261019.mjs <its address>` in
 platform-platypus): on 2026-11-02, 19 of 19 screens fit.
 
@@ -110,7 +114,7 @@ blueprint color, blue and white and yellow. Like, make it very classical"; raspb
 paper with its faint drafting grid, white lines and lettering, yellow for links, marks and L3's note. The layout never
 changes with the colours (2026-11-03: "the exact same formatting as we've been"): open panels, thin lines, no filled
 boxes. Pages with their own colours keep them (the Farm's green, Wonderland Launchpad's storm, Bass & Biscuits'
-midnight indigo, Spoonfed's pretty gray), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
+midnight indigo, Spoonfed's pretty gray, The Threshold's Door Dormouse tail indigo, Halo List's bright sky blue), and a pet gets colours of its own only when Astra asks, shown to her first (2026-11-03, Flash Audit
 deck, answer 6: A); Data Chip's phone on Data Dealer keeps his neon and LCD greens (item 10). Every group is a **tool panel**: a thin bordered box with its label
 set into the top border, in lowercase-with-hyphens, starting with the pet's name (`unity-unicorn-L1-tool-panel`).
 **The page keeps a quiet frame** (Astra, 2026-10-14, brought back 2026-10-19: "what happened to the 1-inch margin thing,
@@ -270,9 +274,11 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
    grant (section 11). It holds item 10 of the list below. **It is a footer, not a list** (Astra, 2026-10-20: "It
    looked really good ... It was listed like an actual aesthetic footer"): Codex's footer-template of 2026-10-14
    (Flash Audit A51), in a whole box like every panel. Since Astra's marked-up screenshot of 2026-10-22: two groups on
-   one line, each after a ✦: By Astra, and Find Out More with her GitHub and the same socials as her GitHub profile
-   README (Mommy's Discord, VR TikTok, Pole Dance TikTok, VRChat Instagram), with Astra's photostar between them
-   (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). No languages (2026-10-24: "get rid of the
+   one line, each after a ✦: By Astra, and Find Out More with her GitHub, and only her GitHub (Astra, 2026-11-13:
+   "on the unified footer, remove all of the social media links except for the GitHub one"; from 2026-10-22 it also
+   held Mommy's Discord, VR TikTok, Pole Dance TikTok and VRChat Instagram), with Astra's photostar between them
+   (2026-10-24: "By Astra, sparkle, star, sparkle, Find Out More, links"). The photostar is a picture only, never a link,
+   with no pointer and no hover (2026-11-13: "also the star shouldnt be a link. ever."). No languages (2026-10-24: "get rid of the
    code on the unified footer"). The license, signature, date (it is beside the title), Take Me Home!, the list of
    links, the words switch and the spawner's note are crossed out; the spawner's note stays as an HTML comment.
 10. **`<pet>-chat`** (fixed, bottom right): **the pet's chat, like Data Chip's on Data Dealer** (Astra, 2026-10-20: "he

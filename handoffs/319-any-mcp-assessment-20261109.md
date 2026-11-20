@@ -1,4 +1,4 @@
-status: open (waiting on Astra: connect Microsoft Learn, alphaXiv, PubMed and Yelp in Claude; plug in the D: drive for the Unity check)
+status: open (waiting on Astra: plug in the D: drive for the Unity check; say whether alphaXiv's 9 write tools go off)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-09
 needs: docs/mcp-assessment-20261109.md, card 306, #254, #255
@@ -84,6 +84,18 @@ for me?":
   - The four connectors need a claude.ai sign-in. The browser pane was signed out, and this chat was not open in a
     window to show her the form.
   - The Unity check waits for the D: drive (Liminal Doors), which was not plugged in.
+
+**2026-11-12:** #331 merged (`c9374ebd`, Astra: "Yes, merge #331"). Then Astra: "Yes, set it up" (the connectors).
+The browser pane could not be shown (this chat was not open in a window), so the four Connect buttons went into the
+chat instead, and she connected all four ("All four connected").
+- Their tools showed up in the same chat. One read-only call each answered: Microsoft Learn (a docs search), PubMed (an
+  article search), alphaXiv (a paper search), Yelp (a restaurant search in a city that is not hers).
+- The four nodes and their `directs` links from Claude Code go to `now`. Codex's link to Microsoft Learn stays
+  `planned` until a Codex chat calls it. The keepers' `manages` links stay `planned`, like Context7's.
+- Found: connected, alphaXiv offers 23 tools, not the 6 its directory listing showed. 9 of them write to her alphaXiv
+  account (folders, saved papers, private notes, follows). Paper Patty's grant is read only, so whether to switch those
+  9 off in the connector's settings is Astra's call.
+- Still hers: the Unity check (D: drive).
 
 Merged with Astra's OK in chat ("Yes, all three", 2026-11-09): #319 (`53b961cf`), #254 (`eb9522f0`), #255
 (`a1a10d68`).

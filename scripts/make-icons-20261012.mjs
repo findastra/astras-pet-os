@@ -10,6 +10,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { decodePng, keyBackground } from './sheet-to-sprites.mjs';
 import { png } from './art-kit.mjs';
+import { newestMoods } from './build-mood-stickers-20261024.mjs';
 
 const SIZE = 96;
 const desk = (art) => `desktop-art/${art}/idle-20261011.png`;
@@ -44,13 +45,17 @@ export const SOURCES = {
 };
 
 SOURCES['closet-cat'] = 'art/seeds/closet-cat-sheet-20261012.png';
-// Registered pets: their newest look. That is the October 11 desktop art where it exists (what the
-// desktop actually shows, Astra 2026-10-12: "the icons are outdated"), otherwise their mood frames.
+// Registered pets: their newest look. That is their newest idle drawing in desktop-art/<art>/ where one exists (what the
+// desktop actually shows, Astra 2026-10-12: "the icons are outdated"), otherwise their mood frames. Newest by the same
+// rule as the pet program pages (newestMoods, build-mood-stickers-20261024.mjs), so the icon and the page are one pet:
+// Gone Ghost's approved drawing of 2026-10-08, saved again as idle-20261112.png (Astra, 2026-11-12), wins over the
+// 2026-10-11 draft. Claude Opus 5.5 (claude-opus-5-5), 2026-11-12.
 const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
 const frames = JSON.parse(readFileSync('art/frames/index.json', 'utf8'));
 for (const p of registry.pets) {
-  const desk = `desktop-art/${p.art}/idle-20261011.png`;
-  SOURCES[p.repo] = existsSync(desk) ? desk : frames.pets[p.art]?.frames.idle;
+  const dir = `desktop-art/${p.art}`;
+  const desk = existsSync(dir) ? newestMoods(dir).idle : null;
+  SOURCES[p.repo] = desk || frames.pets[p.art]?.frames.idle;
 }
 
 function crop(img, x0, y0, w, h) {

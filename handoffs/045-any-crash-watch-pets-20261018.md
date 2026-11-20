@@ -115,7 +115,7 @@ Panther (registered, desktop pets, icons, README pictures)."
   symbols. Drafts until Astra approves them.
 - **Registered:** `pets.json` moves the three from `pipeline` to `pets` (`art`, `asset_date` 20261019, kinds `cat`,
   `fish` and `dog`, one-click `interface_url` = their pet program pages, `app_url` = their repo's Run it), and the three
-  are friends in `cage_life` (they hang out on the desktop); `pet-programs.json` stage registered; INTELLIGENCE-LEVELS.md
+  are friends in `pet_life` (they hang out on the desktop); `pet-programs.json` stage registered; INTELLIGENCE-LEVELS.md
   rows registered with their icons. `npm run build`: 9 frames each in `art/frames/<art>/`, the roster (23 pets), the
   README table, the spawned pages, the System Map and the Markdown pets.
 - **Icons:** `art/icons/<repo>-20261012.png` from `scripts/make-icons-20261012.mjs` (the script also refreshed six other
