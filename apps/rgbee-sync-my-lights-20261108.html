@@ -12,6 +12,9 @@
      (breathe, colour cycle), a colour per light, the desk preview, adding your own lights, backup, delete with undo.
      2026-11-20 (Astra: "make the lights change depending on the music ... general themes works, like lightning for
      thunderstorms"): Themes that the helper plays and that follow the PC's music; Govee lights over Bluetooth too.
+     Later 2026-11-20 (Astra, on her phone: "I don't want the button that says send to lights. Maybe that can be like a
+     resync button at the top, but I want it to just change as I tap it ... I need to see the color palettes more
+     vertically"): every tap goes straight to the lights; Resync at the top; one colour per row on phones.
      Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, 2026-11-11, 2026-11-13 and 2026-11-20. -->
 <style>
 :root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
@@ -56,6 +59,8 @@ select,input[type=text]{font:inherit;font-size:15px;color:var(--ink);background:
 button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .namer{display:flex;gap:8px;flex-wrap:wrap}
 .namer[hidden]{display:none}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar .said{flex:1;min-width:0}
 .themes{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .theme[aria-pressed=true]{color:var(--ink);border-color:var(--cyan);background:rgba(0,229,255,.12)}
 .music{display:flex;align-items:center;gap:6px;color:var(--soft);font-size:14px}
@@ -99,6 +104,16 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 .about dd{margin:0}
 .about .row{margin:12px 0 0 18px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:560px){
+  .mixer{padding:14px}
+  .preview{width:84px;height:84px}
+  .scenes{flex-direction:column;align-items:stretch;gap:6px}
+  .scene{width:100%;justify-content:flex-start;padding:11px 14px 11px 10px;font-size:16px}
+  .scene .x{margin-left:auto}
+  .themes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .themes .theme{padding:10px 12px;text-align:left}
+  .themes .music{grid-column:1/-1}
+}
 @media (max-width:560px){.mixer{grid-template-columns:1fr;justify-items:center}.side{justify-items:stretch;width:100%}.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}}
 @media (prefers-reduced-motion:no-preference){.light,.preview{transition:box-shadow .4s,border-color .4s,background-color .4s}}
 </style>
@@ -107,6 +122,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 <main>
   <header class="alone"><h1>Sync my lights</h1></header>
 
+  <div class="topbar"><p class="said" id="said" role="status"></p><button class="quiet" id="resync" type="button" title="Send the colour shown here to every light again">↻ Resync</button></div>
   <section class="mixer" aria-label="Colour for every light">
     <label class="preview" id="preview" title="Pick any colour"><input id="color" type="color" value="#39ff88" aria-label="Pick any colour"></label>
     <div class="side">
@@ -119,7 +135,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
         <label class="slider" id="speedBox" hidden>Speed <input id="speed" type="range" min="1" max="5" value="2"><output id="speedSaid">2</output></label>
       </div>
       <div class="row">
-        <button class="go" id="send" type="button">Send to every light</button>
         <button class="quiet" id="off" type="button">Lights off</button>
         <button class="quiet" id="saveScene" type="button">Save as scene</button>
       </div>
@@ -139,7 +154,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
       </form>
     </div>
   </section>
-  <p class="said" id="said" role="status"></p>
 
   <section class="desk" aria-label="Desk preview">
     <svg viewBox="0 0 600 230" role="img" aria-label="Your desk with each light in its colour">
@@ -173,7 +187,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Pick a colour or scene, then Send. Click a light’s dot to give it its own colour in this scene. A theme keeps playing after you close the page; Send or Lights off stops it.</dd>
+      <dt>How it works</dt><dd>Tap a colour or scene and the lights change; Resync sends it again. Click a light’s dot to give it its own colour in this scene. A theme keeps playing after you close the page; Send or Lights off stops it.</dd>
       <dt>Where it comes from</dt><dd>Light Hive’s server, light-hive-server, on this PC (findastra/rgbee <code>server/</code>). The live site only previews.</dd>
       <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13); themes that follow the music (2026-11-20). Never more than three flashes a second.</dd>
       <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. Corsair and MSI need iCUE and MSI Center. Themes follow how loud the music is, not each beat. The helper doesn’t start by itself yet.</dd>
@@ -409,11 +423,14 @@ function removeLight(id) {
   draw(); toast(gone.name + ' deleted', () => { extra.splice(i, 0, gone); save('lights', JSON.stringify(extra)); draw(); });
 }
 
-$('color').addEventListener('input', () => { current = ''; stored(); draw(); });
-$('bright').addEventListener('input', () => { stored(); draw(); });
-$('effect').addEventListener('change', () => { stored(); draw(); if (loop) send(); });
+// Every change goes straight to the lights (dragging the picker or the slider sends at most every 150 ms).
+let soon = 0;
+function sendSoon() { clearTimeout(soon); soon = setTimeout(send, 150); }
+$('color').addEventListener('input', () => { current = ''; stored(); draw(); sendSoon(); });
+$('bright').addEventListener('input', () => { stored(); draw(); sendSoon(); });
+$('effect').addEventListener('change', () => { stored(); draw(); send(); });
 $('speed').addEventListener('input', () => { stored(); draw(); });
-$('send').addEventListener('click', send);
+$('resync').addEventListener('click', send);
 $('off').addEventListener('click', lightsOff);
 $('saveScene').addEventListener('click', () => {
   const s = scenes.find((x) => x.id === current);
