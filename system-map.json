@@ -2481,6 +2481,17 @@
       "does": "Gives chats Microsoft's own Windows and PowerShell docs."
     },
     {
+      "id": "shadowbroker",
+      "name": "ShadowBroker",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "OSINT dashboard",
+      "job": "Third-party program (BigBodyCobain, AGPL-3.0, github.com/BigBodyCobain/Shadowbroker): a self-hosted map of public signals (aircraft, ships, satellites, outages, CISA KEV and malware C2 threat feeds) with a recon toolkit (DNS, WHOIS, BGP, CVE lookups) and an optional Shodan connector. Added to White Hat Lab by Astra, 2026-11-20. Runs as Docker containers on 127.0.0.1 (ports 3000 and 8000) and needs an ADMIN_KEY. Downloaded into quarantine and read on 2026-11-20 (commit 3f786b1); not installed or run on Astra's PC. Before first run: MESH_INFONET_FLEET_JOIN=false, so it does not join its public peer-to-peer testnet, and its agent command channel stays off. Its recon and Shodan tools follow White Hat Weasel's rule: Astra's own devices and network only.",
+      "does": "Shows public threat feeds and world events on one map, with lookups for IPs, domains and CVEs.",
+      "url": "https://github.com/BigBodyCobain/Shadowbroker"
+    },
+    {
       "id": "mcp-inspector",
       "name": "MCP Inspector",
       "type": "program",
@@ -8100,6 +8111,13 @@
       "carries": "opens",
       "state": "idea",
       "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "shadowbroker",
+      "carries": "opens",
+      "state": "planned",
+      "why": "White Hat Weasel uses ShadowBroker for threat context: CISA KEV and malware C2 feeds, and lookups of an IP, domain or CVE a port check turns up (Astra, 2026-11-20). Recon and Shodan only on Astra's own devices and network; not installed yet."
     },
     {
       "from": "white-hat-lab",

@@ -3920,6 +3920,11 @@
             "node": "wireshark",
             "how": "optional",
             "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
+          },
+          {
+            "node": "shadowbroker",
+            "how": "optional",
+            "why": "Threat feeds and IP, domain and CVE lookups for what a port check finds (Astra, 2026-11-20). Not installed yet; Docker needed."
           }
         ]
       }
