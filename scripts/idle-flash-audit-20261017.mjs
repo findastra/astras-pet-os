@@ -227,8 +227,8 @@ for (const prog of catalog) {
 
   // A54 third-party programs.
   const madeByOthers = stripTags((levelRows[prog.repo]?.program || '').split('**Made by others:**')[1] || '').trim();
-  rec.thirdParty = { levels: madeByOthers || null, pet: pet?.third_party_programs || pet?.third_party || null, page: /Third Party Programs/i.test(entry) };
-  if (madeByOthers && !/Third Party Programs/i.test(entry) && entryPath) add('A54', 'Missing', `INTELLIGENCE-LEVELS lists programs made by others (${madeByOthers.slice(0, 120)}) but the page has no Third Party Programs row.`);
+  rec.thirdParty = { levels: madeByOthers || null, pet: pet?.third_party_programs || pet?.third_party || null, page: /Third Party Programs|3rd party programs/i.test(entry) };
+  if (madeByOthers && !/Third Party Programs|3rd party programs/i.test(entry) && entryPath) add('A54', 'Missing', `INTELLIGENCE-LEVELS lists programs made by others (${madeByOthers.slice(0, 120)}) but the page has no Third Party Programs row.`);
 
   // ---- 2. Where the work lives
   const pre = inspectSnapshot({ files: t, metadata: pet, entry });
