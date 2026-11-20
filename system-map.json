@@ -2754,6 +2754,19 @@
       "job": "A tool of API Fairy Ring (Astra, 2026-10-19): every key a chat, pet or tool asks for. A request is a small file in Astra's key-requests folder on her PC (who asks, the provider and key name, what for, the spend limit, a link back), never the key. API Fairy looks for each key by name in Windows' environment variables and the .env files she watches, and her pet program page shows waiting on you, has a key, and declined or not needed. Merged in findastra/api-fairy#8 (6fbbef4); how a chat files one is skills/key-request."
     },
     {
+      "id": "key-check",
+      "name": "key-check",
+      "type": "tool",
+      "of": "key-ring",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "api-fairy-ring-v1.0-key-check-v1.0",
+      "job": "A tool of API Fairy Ring (Astra, 2026-11-19: \"all recommended\"): runs before every git push from every repo on Astra's PC, for Claude, Codex or anyone, and stops a push whose new lines hold a key, by its shape (OpenAI, Anthropic, GitHub, Google, Discord and more) or by the exact value of any key kept as a Windows environment variable. It names the file and the kind of key, never the key; each repo's own hooks still run. Installed 2026-11-12 through the global git config (hook.key-check, event pre-push); its source is tools/key-check-20261112.ps1 in findastra/api-fairy (#14).",
+      "does": "Stops any push that would publish a key, before it leaves the PC."
+    },
+    {
       "id": "ai-astra",
       "name": "The Astral Plane",
       "program": 7,
@@ -8771,6 +8784,13 @@
       "carries": "opens",
       "state": "now",
       "why": "key-requests is a tool of API Fairy Ring."
+    },
+    {
+      "from": "key-ring",
+      "to": "key-check",
+      "carries": "opens",
+      "state": "now",
+      "why": "key-check is a tool of API Fairy Ring."
     },
     {
       "from": "file-kingdom",
