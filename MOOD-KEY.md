@@ -78,6 +78,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Roaming Raven** * | remote access, VPN and the tailnet | weekly, Tuesday | nothing yet |
 | **Pet Police Officer** * | every write and agent key use it watches | weekly, Wednesday | nothing yet |
 | **PC Master** * | your PC’s core tools: which are on the PC, signed and up to date | weekly, Thursday | your OK to accept a tool’s license or install one |
-| **Server Salamander** * | your home servers: what runs on each, whether it is up, and its health | weekly, Friday | a server to look after |
+| **Flowsheet Flamingo** * | your engineering, maths and study programs: which are on the PC, signed and up to date | weekly, Friday | your OK to download or update a program |
+| **Server Salamander** * | your home servers: what runs on each, whether it is up, and its health | weekly, Saturday | a server to look after |
 
 \* in the pipeline: on GitHub, not registered yet.
