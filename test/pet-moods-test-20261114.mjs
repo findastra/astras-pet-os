@@ -169,6 +169,6 @@ test('Startup Star reads the same file, starts pet-moods at sign-in and draws th
   assert.ok(cs.includes(`"Astra's PetOS Data","astras-pet-os","pet-moods","${BOARD}"`), 'the star reads the board');
   assert.ok(cs.includes(`Schema="${SCHEMA}"`));
   assert.ok(cs.includes(`Shown={${SHOWN.map((m) => `"${m}"`).join(',')}}`), 'the star shows the same six moods');
-  assert.match(cs, /AlsoAtSignIn=\{[^}]*"pet-moods"\}/, 'it starts pet-moods at sign-in');
+  assert.match(cs, /AlsoAtSignIn=\{[^}]*"pet-moods"[,}]/, 'it starts pet-moods at sign-in');
   assert.ok(cs.includes('"scripts","pet-moods-20261114.mjs"') && cs.includes('Marker="pet-moods-20261114"'));
 });

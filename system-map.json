@@ -767,6 +767,40 @@
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
     {
+      "id": "port-check-tool",
+      "name": "port-check-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-check-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\"; it was Port Spider's job, pet program 68, from 2026-11-12). Which devices are on the home network, which ports answer on each, what the router forwards from the internet, and what to do. Read only, and only with Astra's OK before every check. The reports stay private (findastra/white-hat-lab scans/); on her PC the tool box shows the newest assessment from the white-hat-lab folder of Astra's PetOS Data, and the public page shows only that the reports are private.",
+      "does": "The port assessment of your home network: the verdict, every device and what answers on it, and what to do.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "port-watch-tool",
+      "name": "port-watch-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-watch-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-19: \"The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some ... I want to be able to click on a port, labeled, and I can read info about the latest traffic\"; her answers \"All recommended\"). Every 10 minutes, started by Startup Star at sign-in, it looks at every port open on this PC with Get-NetTCPConnection (no administrator, no port of its own): which program owns it, who can reach it, who is connected and from where (this PC, the home network, Tailscale or the internet) and the last peers seen. Once a day it asks about chat preview servers left open more than two hours: its mood turns curious and its menu in Startup Star names them. Only our own servers (PetOS helpers and chat previews) can be closed, and only by Astra's click in that menu. The list stays on her PC (white-hat-lab folder of Astra's PetOS Data); the public page says only that it is private.",
+      "does": "Every port open on your PC, labeled: click one to see who is connected, from where, and how to close it.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
@@ -1514,7 +1548,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Tasks: watches retries, stalled jobs and agent handoffs.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "stalled jobs, retries and agent handoffs left open",
+        "needs": "a decision on a stuck handoff"
+      }
     },
     {
       "id": "docker-dragon",
@@ -1522,7 +1561,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Containers: Docker health and authorized management. Security role: keeps the sandbox, where anything untrusted runs first.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your Docker containers and the sandbox: their health, unused images and disk use",
+        "needs": "your OK before a container is stopped or removed"
+      }
     },
     {
       "id": "test-tortoise",
@@ -1530,7 +1574,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Quality: tests and release verification. Security role: the checker agent for maker-checker, and a security test for every hole ever fixed.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the tests of every repo: which fail, which pets have none, and a test for every hole ever fixed",
+        "needs": "your OK on a release that failed a check"
+      }
     },
     {
       "id": "token-toucan",
@@ -1538,7 +1587,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "AI cost: model tokens, budgets and inference usage. Security role: flags token and cost spikes; a runaway or hijacked agent burns tokens.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "model tokens and spend against your budgets, and any sudden spike",
+        "needs": "a budget for each model"
+      }
     },
     {
       "id": "calendar-crow",
@@ -1546,7 +1600,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Calendar: scheduling, conflicts and reminders.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "next week's calendar: clashes and missing reminders",
+        "needs": "which calendar I may read"
+      }
     },
     {
       "id": "browser-bat",
@@ -1554,7 +1613,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Web and marketing operations: website QA and authorized browser work.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your websites: broken links and page errors",
+        "needs": "the list of sites to check"
+      }
     },
     {
       "id": "data-dragonfly",
@@ -1562,7 +1626,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Data engineering: data integrity, schemas, pipelines.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the farm's data files: whether each one still matches its schema",
+        "needs": "a decision on a file that does not match"
+      }
     },
     {
       "id": "update-urchin",
@@ -1570,7 +1639,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Dependency updates: packages, compatibility, rollback prep.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "outdated packages in every repo, with a way back for each update",
+        "needs": "your OK before an update"
+      }
     },
     {
       "id": "shell-squid",
@@ -1578,7 +1652,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Bash, terminal scripting and guarded automation.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your scripts and scheduled tasks: which failed, and which run without a guard",
+        "needs": "your OK before a script is changed"
+      }
     },
 {
       "id": "proxy-axolotl",
@@ -1586,7 +1665,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Reverse proxies, TLS and secure private remote access. Security role: the egress allowlist, what may leave the PC, and safe remote access.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your reverse proxies and the egress allowlist: certificate expiry and what may leave the PC",
+        "needs": "your OK before anything is opened to the network"
+      }
     },
     {
       "id": "cluster-crab",
@@ -1594,7 +1678,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Distributed services and orchestration.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the services that run across several machines: which are down or out of step",
+        "needs": "a machine to look after"
+      }
     },
     {
       "id": "storage-stoat",
@@ -1602,7 +1691,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "NAS, ZFS, snapshots and capacity health.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your disks and NAS: free space, snapshots and drive health",
+        "needs": "your OK to check a drive"
+      }
     },
     {
       "id": "llama-librarian",
@@ -1610,7 +1704,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Local model inventory, downloads and compatibility.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the local models: which are downloaded, how big they are and which fit the graphics card",
+        "needs": "your OK before a model is downloaded"
+      }
     },
     {
       "id": "agent-ant",
@@ -1618,7 +1717,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Agent experiments and tool-use evaluation. Security role: records each AI that takes a seat (model, version, request patterns), so a stranger or a changed agent stands out.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every AI that took a seat (its model and version), and how well each one used its tools",
+        "needs": "an experiment to run"
+      }
     },
     {
       "id": "cache-coyote",
@@ -1626,7 +1730,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Offline-first documents, caches and queued actions.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "offline caches and queued actions that never went out",
+        "needs": "a decision on a queued action"
+      }
     },
     {
       "id": "sync-mink",
@@ -1634,7 +1743,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Cross-device sync and conflict resolution.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "sync between your devices: conflicts and files that did not sync",
+        "needs": "which copy to keep when two disagree"
+      }
     },
     {
       "id": "passport-pelican",
@@ -1642,7 +1756,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Passport/ID metadata, visa research and deadlines, encrypted.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "passport and ID expiry dates and visa deadlines (dates only, never the numbers)",
+        "needs": "a date only you can check"
+      }
     },
     {
       "id": "stock-fox",
@@ -1650,7 +1769,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Named as an established pet in ASTRAS_PET_OS v5.2; no repo in the registry.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "my plan",
+        "needs": "a job: what should Stock Fox do?"
+      }
     },
     {
       "id": "pet-directory",
@@ -2662,7 +2786,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-face-recorder-v1.0",
-      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"I want to track my own face tracking data and my reaction to other people or scenarios\"): records Astra's own face and eye values (VRCFaceTracking's parameters, as VRChat's OSC output repeats them) into a session file that stays on her PC, and a line she types marks a moment. Each recording adds to VRChat AI Astra, the copy of Astra. Other players named in VRChat's log get made-up names (pseudonymization; Astra: \"just change the names so we know it's the same person, but not use their actual name\"): Player- and 6 hex digits from a keyed hash with this PC's own salt, the same for the same person, never a real name or user ID; --no-pseudonyms keeps event types only. In code: it listens on 127.0.0.1 only and sends nothing of its own; it keeps only face, eye and tracking values (an optional relay, off unless asked, passes each packet on to VRChat unchanged, from a socket bound to 127.0.0.1). Only one app at a time can listen on VRChat's output, port 9001 on this PC, so the recorder shares it with other OSC apps such as OSCGoesBrrr through OSCQuery or an OSC router (a step on Astra's PC, not done yet). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_face_recorder.py, 56 unit tests); never run against live VRChat, VRCFaceTracking or a real headset. Face-out is a preview only and not built."
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"I want to track my own face tracking data and my reaction to other people or scenarios\"): records Astra's own face and eye values (VRCFaceTracking's parameters, as VRChat's OSC output repeats them) into a session file that stays on her PC, and a line she types marks a moment. Each recording adds to the face language Iris uses to create herself (Iris is the agent, not a copy of Astra). Other players named in VRChat's log get made-up names (pseudonymization; Astra: \"just change the names so we know it's the same person, but not use their actual name\"): Player- and 6 hex digits from a keyed hash with this PC's own salt, the same for the same person, never a real name or user ID; --no-pseudonyms keeps event types only. In code: it listens on 127.0.0.1 only and sends nothing of its own; it keeps only face, eye and tracking values (an optional relay, off unless asked, passes each packet on to VRChat unchanged, from a socket bound to 127.0.0.1). Only one app at a time can listen on VRChat's output, port 9001 on this PC, so the recorder shares it with other OSC apps such as OSCGoesBrrr through OSCQuery or an OSC router (a step on Astra's PC, not done yet). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_face_recorder.py, 56 unit tests); never run against live VRChat, VRCFaceTracking or a real headset. Face-out is a preview only and not built."
     },
     {
       "id": "face-codec",
@@ -2686,7 +2810,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-reaction-learner-v1.0",
-      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"convert that into how the AI should be reacting in VR chat\"): cuts Astra's reaction clips (0.5 to 3 s) out of her recorded sessions, after each moment she marked or each event, into a reaction book on her PC that she can review, rate good or bad and delete from. The book is VRChat AI Astra, the copy of Astra (Astra: \"It's basically a copy of me\"). Given a moment in words, it picks one of her closest reaction clips and varies it by at most 10%. It reads back only made-up names (Player- and 6 hex digits) and ignores anything else in that field; a session file it cannot read is skipped with the reason. In code: a preview only, with no way to send to VRChat; face-out, when it is built, may change face and eye shapes only (decision 7, 2026-11-03). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_reactions.py, 25 unit tests); never run against live VRChat, VRCFaceTracking or a real headset."
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"convert that into how the AI should be reacting in VR chat\"): cuts Astra's reaction clips (0.5 to 3 s) out of her recorded sessions, after each moment she marked or each event, into a reaction book on her PC that she can review, rate good or bad and delete from. The book is Astra's reactions, for Iris to read; Iris is the agent, not a copy of Astra (Astra, 2026-11-17). Given a moment in words, it picks one of her closest reaction clips and varies it by at most 10%. It reads back only made-up names (Player- and 6 hex digits) and ignores anything else in that field; a session file it cannot read is skipped with the reason. In code: a preview only, with no way to send to VRChat; face-out, when it is built, may change face and eye shapes only (decision 7, 2026-11-03). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_reactions.py, 25 unit tests); never run against live VRChat, VRCFaceTracking or a real headset."
     },
     {
       "id": "quantum-coin",
@@ -2710,7 +2834,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-clone-session-trick-v1.0",
-      "job": "A trick of The Astral Plane (skills/clone-session; Astra, 2026-11-03: \"I'm going to basically clone myself in VR chat\"): the steps for one recording session of Astra's own face, which adds to VRChat AI Astra, the copy of Astra: who is present and whether they are comfortable, check the face is coming in, record, mark moments with roles rather than names, stop, learn, review the reaction book, and delete what she does not want kept. Other players get made-up names, never their real ones. Astra starts and stops every recording, and nothing is sent to VRChat: face-out is a preview only, and when it is built it may change face and eye shapes only. It uses the face recorder, the Face Codec, the reaction learner and the quantum coin, with VRChat and VRCFaceTracking. Merged into the-astral-plane main with Astra's OK on 2026-11-03; never followed in a live session, never run against live VRChat, VRCFaceTracking or a real headset."
+      "job": "A trick of The Astral Plane (skills/clone-session; Astra, 2026-11-03: \"I'm going to basically clone myself in VR chat\"): the steps for one recording session of Astra's own face, which adds to the face language that Iris uses to create herself: who is present and whether they are comfortable, check the face is coming in, record, mark moments with roles rather than names, stop, learn, review the reaction book, and delete what she does not want kept. Other players get made-up names, never their real ones. Astra starts and stops every recording, and nothing is sent to VRChat: face-out is a preview only, and when it is built it may change face and eye shapes only. It uses the face recorder, the Face Codec, the reaction learner and the quantum coin, with VRChat and VRCFaceTracking. Merged into the-astral-plane main with Astra's OK on 2026-11-03; never followed in a live session, never run against live VRChat, VRCFaceTracking or a real headset."
     },
     {
       "id": "data-dealer-project",
@@ -3571,7 +3695,12 @@
       "layer": 6,
       "category": "Made by Astra",
       "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet.",
-      "does": "A catalog site for your avatar gun effects and loadouts."
+      "does": "A catalog site for your avatar gun effects and loadouts.",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the avatar gun effects and loadouts catalog",
+        "needs": "the catalog's source on GitHub"
+      }
     },
     {
       "id": "threejs",
@@ -4667,7 +4796,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "github-aquarium-v1.0-branch-sweeper-v1.0",
-      "job": "A tool of GitHub Aquarium (Astra, 2026-11-14: \"a branch deleter, assessor and deleter\", then \"Plan is fine, build it\", card 364): sorts every branch on every repo the farm owner owns into safe to delete (all its work is on the main branch, or its pull request merged with nothing added after), ask Astra (closed without merging, more added after a merge, or old work with no pull request) and keep (the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and work from the last week). Checking is read only. It deletes only from a plan file, only the rows marked to delete, only with --yes while signed in as the farm owner, after checking each branch again; each delete is written to an undo log on her PC first, and --undo puts it back (scripts/branch-sweeper-20261114.mjs, npm run branch-sweeper). Its list names private repos, so it stays on her PC."
+      "job": "A tool of GitHub Aquarium (Astra, 2026-11-14: \"a branch deleter, assessor and deleter\", then \"Plan is fine, build it\", card 364): sorts every branch on every repo the farm owner owns into safe to delete (all its work is on the main branch, or its pull request merged with nothing added after), ask Astra (closed without merging, more added after a merge, or old work with no pull request) and keep (first the branches on Astra's keep list, each shown with her reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and work from the last week). Checking is read only. It deletes only from a plan file, only the rows marked to delete, only with --yes while signed in as the farm owner, after checking each branch again; each delete is written to an undo log on her PC first, and --undo puts it back (scripts/branch-sweeper-20261114.mjs, npm run branch-sweeper). Its keep list (2026-11-17) is a file on her PC next to the plans: a listed branch is never offered for deleting, even after its repo is renamed (an entry can hold the repo's number on GitHub); --apply refuses it even in an older plan, checks each repo under the name GitHub gives it now, and does not run without the list; a list it cannot read stops it. Its lists name private repos, so they stay on her PC."
     },
     {
       "id": "pets-board",
@@ -4779,6 +4908,30 @@
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-organizer-trick-v1.0",
       "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
+    },
+    {
+      "id": "retire-a-pet-trick",
+      "name": "retire-a-pet",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-a-pet-trick-v1.0",
+      "job": "A trick of The Farm (skills/retire-a-pet/SKILL.md; Astra, 2026-11-17: \"make sure to delete it everywhere ... make a protocol and update his software please\"): retire a pet, or fold it into another pet as a tool, everywhere. Everything live forgets it (registry, map, pages, Markdown pets, words, art, other repos, the PC); every record keeps its name; its repo is archived, never deleted unless Astra says so for that pet; its number is never reused."
+    },
+    {
+      "id": "retire-check",
+      "name": "retire-check",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-check-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-17): for every pet in pets.json retired_pets, lists what still treats it as a pet: the hub's registry, map, pages, Markdown pets, developer words and art; live mentions in every pet repo on the PC (records are counted, never changed); its folders on the PC; and, with --github, whether its repo is archived. Read only: it reports, Astra decides (scripts/retire-check-20261117.mjs, npm run retire-check; the retire-a-pet trick uses it; pet-finder calls a retired pet's leftovers retired-leftover, never missing)."
     },
     {
       "id": "make-a-prop-look-real",
@@ -6174,13 +6327,6 @@
       "carries": "findings",
       "state": "architecture",
       "why": "Security work stays in authorized scope."
-    },
-    {
-      "from": "port-web",
-      "to": "iron-gates",
-      "carries": "findings",
-      "state": "architecture",
-      "why": "Scans only authorized targets."
     },
     {
       "from": "test-tortoise",
@@ -7786,6 +7932,41 @@
       "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
     },
     {
+      "from": "wifi-butterfly",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: \"shouldnt this pet be talking to WiFi Butterfly?\"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17)."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "evidence-locker",
+      "carries": "findings",
+      "state": "planned",
+      "why": "A real finding in a scan (not a \"worth a look\") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02."
+    },
+    {
+      "from": "packet-river",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "idea",
+      "why": "Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "macattack",
+      "carries": "opens",
+      "state": "idea",
+      "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "wireshark",
+      "carries": "opens",
+      "state": "now",
+      "why": "White Hat Weasel records network traffic in Wireshark when a check needs it (Astra, 2026-11-17: Wireshark for her network check; installed with Npcap, checked that day). Recording happens only in Wireshark's own window; Packet Piranha owns network checks."
+    },
+    {
       "from": "paper-girl-site",
       "to": "alphaxiv-mcp",
       "carries": "manages",
@@ -9150,28 +9331,32 @@
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18). \"dev\" is each ring's name in developer words (the map's Developer switch) and its standard term, for engineers reading the map for the first time (Astra, 2026-11-17).",
     "list": [
       {
         "ring": "0",
+        "dev": {"name":"Trusted core","term":"Trusted computing base (TCB), control plane","what":"the control plane every other part trusts: the orchestrator's dashboard, the service registry (pets.json), the program registry, the policy rules and the test suite"},
         "name": "Core",
         "what": "The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools",
         "animal": "yes"
       },
       {
         "ring": "1",
+        "dev": {"name":"Orchestrator","term":"Orchestrator, supervisor and package manager","what":"the one agent that installs, starts, updates and removes the other agents, and keeps the lockfile of what runs"},
         "name": "Friendly Farmer",
         "what": "organizes the pets",
         "animal": "yes"
       },
       {
         "ring": "2",
+        "dev": {"name":"Agents","term":"AI agents (one per domain)","what":"one agent per job (GitHub, backups, VR, files ...). Lifecycle: released, in development, planned, backlog. Only released and in-development agents sit inside the trust boundary"},
         "name": "Pets",
         "what": "every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them",
         "animal": "registered and pipeline pets; seeds and roadmap pets once Astra registers them"
       },
       {
         "ring": "3",
+        "dev": {"name":"First-party applications","term":"First-party code","what":"apps, sites, scripts and worlds the owner wrote, which the agents run or manage, with their tools. Each has its agent's permissions, never more"},
         "name": "Pet programs",
         "what": "the programs, sites and worlds Astra made, and their tools",
         "made": "you",
@@ -9179,18 +9364,21 @@
       },
       {
         "ring": "H",
+        "dev": {"name":"Trust boundary (agent harness)","term":"Trust boundary, sandbox perimeter","what":"inside: first-party code an agent session may change. Outside: everything the agents only call. Today the agents run inside Claude Code or Codex, so this line is mostly policy; the controls that are really enforced are marked In code on each grant"},
         "name": "Agent harness",
         "what": "the glass sphere between the animals and everything else",
         "animal": "the line between animals and everything else"
       },
       {
         "ring": "4",
+        "dev": {"name":"LLM providers","term":"Model APIs and vendor agent runtimes","what":"Anthropic (Claude), OpenAI and local models. Claude Code and Codex are the vendors' agent runtimes, drawn as rings around their model: a call goes through the runtime or straight to the API. Only allowlisted models get API keys"},
         "name": "Farmhands (AI models)",
         "what": "Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model",
         "animal": "no"
       },
       {
         "ring": "5",
+        "dev": {"name":"Third-party software and services","term":"Software supply chain","what":"libraries, desktop programs and online services made by others, and the public community registries. Agents may read and run them (R X), never change them"},
         "name": "Third-party programs",
         "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
         "made": "others",
@@ -9198,18 +9386,21 @@
       },
       {
         "ring": "6",
+        "dev": {"name":"Endpoints and hardware","term":"Asset inventory","what":"PCs, laptop, tablet, VR headset and trackers, network gear and other devices"},
         "name": "Devices",
         "what": "PCs, phones, headsets, trackers and other hardware",
         "animal": "no"
       },
       {
         "ring": "7",
+        "dev": {"name":"External advisory AI","term":"Out-of-band adviser, no system access","what":"ChatGPT in its own chat: no credentials, no access to these systems"},
         "name": "Advisers",
         "what": "ChatGPT",
         "animal": "no"
       },
       {
         "ring": "8",
+        "dev": {"name":"Owner (L4)","term":"Human principal, human-in-the-loop approver","what":"the one verified human who approves releases, permission grants and merges"},
         "name": "You (L4)",
         "what": "Astra, who owns the whole farm",
         "animal": "no: the owner"
@@ -9725,7 +9916,7 @@
         "subjects": [
           "id:branch-sweeper"
         ],
-        "on": "branches on GitHub repos the farm owner owns, never the main branch, a protected or release branch, one with an open pull request, or one an open handoff card names: delete one (from a plan Astra okayed), and put it back from the undo log",
+        "on": "branches on GitHub repos the farm owner owns, never one on Astra's keep list, the main branch, a protected or release branch, one with an open pull request, or one an open handoff card names: delete one (from a plan Astra okayed), and put it back from the undo log",
         "resources": [
           "ring:0",
           "animal:2",
@@ -9736,7 +9927,7 @@
         "w": "yes",
         "x": "no",
         "status": "written",
-        "how": "scripts/branch-sweeper-20261114.mjs checks read only; it deletes only rows a plan marks, never a \"keep\" row, at most 200 at once, only with --yes while signed in as the farm owner (animal-guard), after checking each branch again (same commit, still not keep), and writes the undo line before each delete (test/branch-sweeper-test-20261114.mjs). Nothing stops someone who runs other code with the same token. Asked for on 2026-11-14; Astra approves it by merging.",
+        "how": "scripts/branch-sweeper-20261114.mjs checks read only; it deletes only rows a plan marks, never a \"keep\" row or a branch on Astra's keep list (a file on her PC, matched by the repo's name or its number on GitHub; --apply does not run without it, and a list it cannot read stops it), at most 200 at once, only with --yes while signed in as the farm owner (animal-guard), after checking each branch again (same commit, still not keep), and writes the undo line before each delete (test/branch-sweeper-test-20261114.mjs). Nothing stops someone who runs other code with the same token. Asked for on 2026-11-14; Astra approves it by merging.",
         "next": "Iron Gates issues a token that can only delete branches (a fine-grained token with contents write on the farm's repos), and The Police Station watches the deletes."
       },
       {
@@ -9889,11 +10080,7 @@
       },
       "white-hat-lab": {
         "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
-      },
-      "port-web": {
-        "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); its first port check of the desktop PC was done by hand on 2026-11-12 (report in findastra/port-web#4)."
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json), its private scan log (merged with findastra/white-hat-lab#3) and the port-check reports that were Port Spider's (Astra, 2026-11-17: folded in); the newest scan is 2026-11-17."
       },
       "server-hearth": {
         "languages": [],
@@ -10599,7 +10786,6 @@
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
-    "port-web": "blue",
     "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",

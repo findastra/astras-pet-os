@@ -110,8 +110,7 @@ New approved additions and roles:
 | Proxy Axolotl | Self-hosting | Reverse proxies, TLS, certificates and secure private remote access |
 | Cluster Crab | Self-hosting | Distributed services, orchestration and failure modes |
 | Storage Stoat | Self-hosting | NAS, ZFS, storage pools, snapshots and capacity health |
-| White Hat Weasel | Cybersecurity | Authorized security assessment, learning labs and remediation |
-| Port Spider | Cybersecurity | Authorized port/service discovery and exposure checks |
+| White Hat Weasel | Cybersecurity | Authorized security assessment, learning labs and remediation; port and service exposure checks (port-check-tool; Port Spider folded in, Astra 2026-11-17) |
 | Cipher Owl | Cybersecurity | Encryption, key management, certificates and crypto education |
 | Forensic Ferret | Cybersecurity | Incident timelines, forensic integrity and log analysis |
 | Llama Librarian | Local AI | Local model inventory, downloads, storage, quantization and compatibility |
@@ -135,7 +134,7 @@ New approved additions and roles:
 
 - **M. Linux administration:** Linux Penguin safely inspects a Linux host, explains requested commands, and respects approval and host access boundaries.
 - **N. Self-hosting and remote access:** Deploy a test service with documented TLS/private access, health checks, and recoverability; do not expose admin services publicly by default.
-- **O. Security lab:** White Hat Weasel and Port Spider refuse out-of-scope targets and produce useful authorized findings with evidence and remediation.
+- **O. Security lab:** White Hat Weasel (with its port-check-tool) refuses out-of-scope targets and produces useful authorized findings with evidence and remediation.
 - **P. Local inference:** Llama Librarian + Inference Iguana report true model/VRAM/latency metrics and Agent Ant runs repeatable tool-use evaluations.
 - **Q. Cyberdeck offline recovery:** Cache Coyote queues work offline on the Pi, and Sync Mink reconciles it safely after reconnection, with documented conflict behavior.
 - **R. Mobility privacy:** Passport Pelican alerts on synthetic visa/passport deadlines without leaking sensitive records; Journal Jellyfish diary remains private; no immigration application is sent without approval.

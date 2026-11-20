@@ -137,7 +137,49 @@ test('every page loads the installer\'s words, then the swap, in its <head>', ()
   // setting still chooses its words, and the spawner's list page keeps the switch.
   for (const [path, html] of Object.entries(pages)) if (path !== INDEX) assert.ok(!html.includes('data-words-switch'), `${path}: no words switch in a pet program's footer`);
   assert.ok(pages[INDEX].includes('data-words-switch'));
-  assert.match(read('system-map-20261012.html'), /const DATA = [\s\S]{0,2000000}?\nif \(window\.PetOSWords\) window\.PetOSWords\.data\(DATA\);/, 'the map gets its new names before it is drawn');
+  // The System Map's DEV switch changes the words in place (Astra, 2026-11-17: "not the whole page reloading then
+  // zooming back in"): its data stays in farm words, the swap goes both ways, and the map redraws its canvases.
+  const map = read('system-map-20261012.html');
+  assert.ok(!/window\.PetOSWords\.data\(DATA\)/.test(map), 'the map\'s data stays in farm words, so the swap can go back');
+  assert.match(map, /window\.PetOSWords\.setMode\(/, 'the DEV switch swaps the words without a reload');
+  assert.match(map, /addEventListener\('petos-words'/, 'the map redraws its ring tags, icons and ring key when the words change');
+  assert.ok(!/dDev[\s\S]{0,600}location\.(reload|replace)\(/.test(map), 'the DEV switch never reloads the page');
+});
+
+test('setMode swaps a page\'s text to developer words and back, and remembers the choice', () => {
+  // A small pretend page: one text node and one titled element, walked the way a browser's TreeWalker does.
+  const saved = new Map(), attrs = {}, heard = [];
+  const textNode = { nodeType: 3, data: 'Unity Stable', parentNode: null };
+  const button = { nodeType: 1, nodeName: 'BUTTON', parentNode: null, _a: { title: 'The Farm' },
+    hasAttribute(k) { return k in this._a; }, getAttribute(k) { return this._a[k] ?? null; }, setAttribute(k, v) { this._a[k] = v; } };
+  const body = { nodeType: 1, nodeName: 'BODY', parentNode: null, _a: {}, hasAttribute: () => false, getAttribute: () => null, setAttribute() {}, querySelectorAll: () => [] };
+  textNode.parentNode = button; button.parentNode = body;
+  const g = {
+    ASTRAS_PET_OS_WORDS: 'farm',
+    document: { documentElement: { setAttribute: (k, v) => { attrs[k] = v; } }, readyState: 'complete', addEventListener() {}, body, title: 'The Farm',
+      createTreeWalker: () => { const list = [button, textNode]; let i = -1; return { nextNode: () => list[++i] || null }; } },
+    localStorage: { getItem: (k) => saved.get(k) ?? null, setItem: (k, v) => saved.set(k, v) },
+    location: { search: '' },
+    CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init.detail; } },
+    dispatchEvent: (e) => heard.push(e.detail.mode),
+  };
+  g.window = g;
+  vm.createContext(g);
+  vm.runInContext(code, g);
+  const W = g.PetOSWords;
+  assert.equal(W.mode, 'farm');
+  W.setMode('developer');
+  assert.equal(textNode.data, 'Unity Agent Control Hub');
+  assert.equal(button._a.title, 'Agent Control Hub');
+  assert.equal(attrs['data-words'], 'developer');
+  assert.equal(W.developer, true);
+  assert.equal(W.swap('pets'), 'agents', 'the swap follows the switch');
+  assert.deepEqual(JSON.parse(saved.get('astras-pet-os:words')), { mode: 'developer', over: 'farm' });
+  W.setMode('farm');
+  assert.equal(textNode.data, 'Unity Stable', 'the farm words come back');
+  assert.equal(button._a.title, 'The Farm');
+  assert.equal(attrs['data-words'], 'farm');
+  assert.deepEqual(heard, ['developer', 'farm'], 'the page hears each change');
 });
 
 // The Farmer's round rebuilds the desk every morning with its generator, so a hand edit to the desk is gone the next

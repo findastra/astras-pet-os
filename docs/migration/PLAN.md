@@ -142,7 +142,7 @@ Status today: **not started** for every row.
 | L | Install a chosen subset of pets; core security still enforced | Install test with two pets | after 4 |
 | M | Linux Penguin inspects a Linux host, explains commands, respects approvals | Test on a Linux VM or Pi | 8 |
 | N | Test service deployed with TLS/private access, health checks, recovery; no public admin | Deployment test | 8 |
-| O | White Hat Weasel and Port Spider refuse out-of-scope targets; useful findings in scope | Scope tests on owned lab hosts only | 8 |
+| O | White Hat Weasel (with its port-check-tool) refuses out-of-scope targets; useful findings in scope | Scope tests on owned lab hosts only | 8 |
 | P | Llama Librarian and Inference Iguana report real model, VRAM and latency; Agent Ant repeatable evals | Benchmarks on Astra's GPU | 8 |
 | Q | Cache Coyote queues work offline on the Pi; Sync Mink reconciles after reconnect | Offline/online test with conflicts | 8 |
 | R | Passport Pelican alerts on synthetic deadlines without leaking; Journal Jellyfish stays private; nothing submitted without approval | Synthetic data only | 8 |

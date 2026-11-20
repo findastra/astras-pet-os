@@ -3,7 +3,7 @@
 Every pet program in Astra's PetOS, numbered for good. Each **mini-descriptor** is one or two sentences on what the pet
 program actually does; it is shown in the pet's own repo, the findastra profile and the System Map. Its label follows
 the naming rules: `<pet-program>-v1.0-mini-descriptor-v1.0`. **Bold** program names are assigned; `pet-program-#`
-means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 86 reviewed.
+means not named yet. *(draft)* means Astra has not reviewed it yet: 1 of 85 reviewed.
 
 Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not edit this page; edit the JSON.
 
@@ -76,7 +76,6 @@ Generated from [pet-programs.json](pet-programs.json) by `npm run build`. Do not
 | 65 | Cluster Crab | **Cluster Shore** | [cluster-shore](https://github.com/findastra/cluster-shore) | Roadmap | Distributed services and orchestration. *(draft)* |
 | 66 | Storage Stoat | **Storage Warren** | [storage-warren](https://github.com/findastra/storage-warren) | Roadmap | NAS, ZFS, snapshots and capacity health. *(draft)* |
 | 67 | White Hat Weasel | **White Hat Lab** | [white-hat-lab](https://github.com/findastra/white-hat-lab) | Pipeline | Authorized security assessment and remediation. *(draft)* |
-| 68 | Port Spider | **Port Web** | [port-web](https://github.com/findastra/port-web) | Pipeline | Authorized port and service exposure checks. *(draft)* |
 | 69 | Cipher Owl | **Cipher Hollow** | [cipher-hollow](https://github.com/findastra/cipher-hollow) | Pipeline | Encryption, keys, certificates and crypto education. *(draft)* |
 | 70 | Forensic Ferret | **Evidence Locker** | [evidence-locker](https://github.com/findastra/evidence-locker) | Registered | Incident timelines and log analysis. *(draft)* |
 | 71 | Llama Librarian | **Model Library** | [model-library](https://github.com/findastra/model-library) | Roadmap | Local model inventory, downloads and compatibility. *(draft)* |

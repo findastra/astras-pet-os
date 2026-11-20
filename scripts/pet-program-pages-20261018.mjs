@@ -56,7 +56,10 @@ export const CYBERHOMES = {
     frame: '<span class="ch-antenna" aria-hidden="true"></span>',
     decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
 };
-export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// Pet programs whose native tools come first in L1, above their programs. White Hat Lab (Astra, 2026-11-17: "need to
+// see an assessment. port assessment must be first"): its port-check-tool is the assessment.
+export const TOOLS_FIRST = new Set(['white-hat-lab']);
+export const PRESENCE_JS ='../discord-damsel-presence-control-20261030.js';
 // The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
 export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
@@ -734,7 +737,8 @@ export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label)
 // GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
 // build it", card 364): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
 // five tools above it is filled only on Astra's PC (scripts/branch-sweeper-20261114.mjs writes the list there); the
-// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log.
+// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log. Since 2026-11-17 the keep
+// group starts with the branches on her keep list, each with her reason (the script reads that list, not the page).
 export const SWEEPER_TOOL_ID = 'branch-sweeper';
 export const SWEEPER_GROUPS = [
   ['delete', 'Safe to delete', 'No branch is ready to delete.'],
@@ -750,7 +754,7 @@ function branchSweeperBox() {
   const groups = SWEEPER_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group sweep-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-sweep-count="${id}"></p><ul class="requests" data-sweep-group="${id}"></ul><p class="empty" data-sweep-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return toolBox(SWEEPER_TOOL_ID, SWEEPER_TOOL_ID, `<p class="small" id="branch-sweeper-source" aria-live="polite">Looking for the Goldfish's branch list on this PC.</p>
 <div class="request-groups" id="branch-sweeper">${groups}</div>
-${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. The list names private repos, so it stays on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
+${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> first the branches on your keep list, each with your reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. A branch you decided to keep goes on the keep list (<code>branch-sweeper-keep-20261117.json</code>, next to the plans on this PC): it is never offered for deleting again, even after its repo is renamed, and <code>--apply</code> refuses it even in an older plan and does not run without the list. The lists name private repos, so they stay on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
 }
 function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
@@ -1025,11 +1029,12 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
   const boxes = petBoxes(d);
-  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
-<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
+  const programSections = `<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}`;
+  const nativeTools = d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count);
+  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
+${TOOLS_FIRST.has(d.repo) ? `${nativeTools}\n${programSections}` : `${programSections}\n${nativeTools}`}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about({
     how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
@@ -1041,7 +1046,9 @@ ${about({
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
-    desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
+    // Say what the pet audits and, apart from it, what the round really checks today, so a planned check never reads as
+    // a built one (Claude Opus 5.5, 2026-11-16, weekly audits for every pet).
+    desc: `${d.pet}'s audit: ${d.audit.subject || 'its repo'}. Today the Friendly Farmer's round checks only ${d.home}'s repo files and the cards that wait on you.`, why: '' }] : [];
   // Every pet has two tutorials, Play with and Care for (Flash Audit A37, A47): numbered steps the AI in the seat follows
   // with you, which is what a trick is, so they are two tricks here, off until L3 can run them in the chat (Astra,
   // 2026-11-03, Flash Audit deck, answer 4: A).

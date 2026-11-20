@@ -1,12 +1,13 @@
 // GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
 // build it"). Every branch is sorted into delete, ask or keep; nothing that may still be in use is ever offered;
 // deleting needs a plan, --yes and a fresh check, and writes the undo line first. Claude Opus 5.5, 2026-11-14.
+// Astra's keep list (branches she decided to keep are never offered for deleting again): Claude Opus 5.5, 2026-11-17.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { analyze, apply, checkPlan, makePlan, namedInCard, openCardText, pageData, protects, undo, verdict, LABEL, LIMITS, PLAN_SCHEMA, RECENT_DAYS, STALE_DAYS } from '../scripts/branch-sweeper-20261114.mjs';
+import { analyze, apply, checkPlan, keepNotes, keptBy, makePlan, namedInCard, openCardText, pageData, parseKeepList, protects, readKeepList, toMarkdown, undo, verdict, KEEP_FILE, KEEP_SCHEMA, LABEL, LIMITS, PLAN_SCHEMA, RECENT_DAYS, STALE_DAYS } from '../scripts/branch-sweeper-20261114.mjs';
 
 const NOW = Date.parse('2026-11-14T20:00:00Z');
 const ago = (days) => new Date(NOW - days * 86400000).toISOString();
@@ -84,8 +85,9 @@ test('a plan starts with only the safe rows ticked and can never delete a "keep"
   assert.throws(() => checkPlan(big, { owner: 'o' }), /at most 200/);
 });
 
-/** A pretend GitHub: answers the sweeper's queries from `branches`, records every write. */
-function fakeGitHub(branches) {
+/** A pretend GitHub: answers the sweeper's queries from `branches` for one repo (its name and number now: a renamed
+ *  repo answers under its new name), records every write. */
+function fakeGitHub(branches, { name = 'r', id = 7 } = {}) {
   const writes = [];
   const fetchFn = async (url, init) => {
     const reply = (status, body) => ({ ok: status < 300, status, json: async () => body, text: async () => (body ? JSON.stringify(body) : '') });
@@ -93,7 +95,7 @@ function fakeGitHub(branches) {
       const { query } = JSON.parse(init.body);
       assert.ok(!/mutation/.test(query), 'checking never writes');
       if (/compare/.test(query)) return reply(200, { data: Object.fromEntries(branches.filter((b) => b.name !== 'main').map((b, k) => [`c${k}`, { ref: { compare: { aheadBy: b.aheadBy } } }])) });
-      return reply(200, { data: { r0: { name: 'r', isPrivate: true, defaultBranchRef: { name: 'main' }, branchProtectionRules: { nodes: [] }, cards: null,
+      return reply(200, { data: { r0: { name, databaseId: id, isPrivate: true, defaultBranchRef: { name: 'main' }, branchProtectionRules: { nodes: [] }, cards: null,
         refs: { pageInfo: { hasNextPage: false }, nodes: branches.map((b) => ({ name: b.name, target: { oid: b.sha, committedDate: b.committedDate }, associatedPullRequests: { nodes: [] } })) } } } });
     }
     writes.push([init.method, url, init.body || null]);
@@ -131,6 +133,136 @@ test('deleting re-checks each branch, does nothing without --yes, and writes the
   const u = await undo('t', [line], { owner: 'o', yes: true, fetchFn: back.fetchFn });
   assert.equal(u.done.length, 1);
   assert.deepEqual(back.writes, [['POST', 'https://api.github.com/repos/o/r/git/refs', JSON.stringify({ ref: 'refs/heads/claude/done', sha: SHA })]]);
+});
+
+// Astra's keep list (2026-11-17): a branch she decided to keep never goes into a delete plan again. On 2026-11-14 the
+// sweeper deleted three branches she had decided to keep, because nothing told it so (card 364). The real list names
+// private repos and stays on her PC; these names are made up.
+const KEPT = { owner: 'o', repo: 'r', branch: 'claude/kept', why: 'Astra 2026-11-14: these branches stay. Restored 2026-11-16.', date: '2026-11-14', sha: SHA };
+const keepText = (keep = [KEPT]) => JSON.stringify({ schema: KEEP_SCHEMA, keep });
+const HER_REASON = `On Astra's keep list: ${KEPT.why}`;
+/** One repo as collect() reads it: main, a kept branch that would be "delete" without the list, and a done branch. */
+const listed = (id) => ({ owner: 'o', repos: [{ owner: 'o', name: 'r', ...(id ? { id } : {}), private: true, defaultBranch: 'main', protections: [], cards: [],
+  branches: [br({ name: 'main', committedDate: ago(90) }), br({ name: 'claude/kept', committedDate: ago(40), prs: [merged()] }), br({ name: 'claude/done' })] }] });
+const tmpLog = () => join(mkdtempSync(join(tmpdir(), 'sweeper-')), 'undo.jsonl');
+
+test('a branch on Astra\'s keep list is "keep" with her reason, before every rule that would delete it', () => {
+  const keep = parseKeepList(keepText());
+  const at = { owner: 'o', repo: 'r', keep };
+  // Merged with nothing added after, and all its work on main: both are "delete" without the list.
+  assert.deepEqual(v({ name: 'claude/kept', aheadBy: 3, prs: [merged()] }, at), { group: 'keep', why: HER_REASON, kept: true });
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, at).group, 'keep');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 2, prs: [{ number: 5, state: 'CLOSED', merged: false }] }, at).group, 'keep', 'never "ask" either');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { ...at, owner: 'O', repo: 'R' }).group, 'keep', 'owner and repo in any case, as GitHub reads them');
+  // Only that branch, in that repo, on that account.
+  assert.equal(v({ name: 'claude/Kept', aheadBy: 0 }, at).group, 'delete', 'a branch name is exact');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { ...at, repo: 'other' }).group, 'delete');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { ...at, owner: 'someone-else' }).group, 'delete');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }).group, 'delete', 'no list, nothing kept by it');
+  assert.equal(keptBy(keep, { owner: 'O', repo: 'r', branch: 'claude/kept' }), keep[0]);
+  assert.equal(keptBy(keep, { owner: 'o', repo: 'r', branch: 'claude/other' }), null);
+});
+
+test('the keep list must be whole: no file yet is an empty list, and anything wrong in it stops the sweeper', () => {
+  assert.equal(KEEP_FILE, 'branch-sweeper-keep-20261117.json');
+  const dir = mkdtempSync(join(tmpdir(), 'sweeper-keep-'));
+  const file = join(dir, KEEP_FILE);
+  assert.deepEqual(readKeepList(file), [], 'a farm with no keep list yet');
+  writeFileSync(file, String.fromCharCode(0xfeff) + keepText()); // Notepad saves a byte-order mark
+  assert.deepEqual(readKeepList(file), [KEPT]);
+  assert.deepEqual(parseKeepList(keepText([{ ...KEPT, sha: undefined }])).map((k) => 'sha' in k), [false], 'the commit is optional');
+  assert.throws(() => parseKeepList('{ "schema": '), /is not valid JSON/);
+  assert.throws(() => parseKeepList(JSON.stringify({ keep: [KEPT] })), /is not a branch-sweeper keep list/);
+  for (const [field, value] of [['owner', ''], ['repo', 'a b'], ['repo_id', '7'], ['repo_id', -1], ['repo_id', 1.5], ['branch', '../x'], ['why', ' '], ['date', '11/14/2026'], ['sha', 'abc']]) {
+    assert.throws(() => parseKeepList(keepText([KEPT, { ...KEPT, [field]: value }])), new RegExp(`entry 2: its ${field}`), `${field} ${value}`);
+  }
+  assert.deepEqual(parseKeepList(keepText([{ ...KEPT, repo_id: 7 }]))[0].repo_id, 7);
+  // --apply reads it with `required`: a list that went missing stops the deleting, where a check just has none.
+  assert.throws(() => readKeepList(join(dir, 'gone.json'), { required: true }), /is missing, and nothing is deleted without it/);
+  assert.deepEqual(readKeepList(join(dir, 'gone.json')), []);
+});
+
+test('a renamed repo keeps its kept branches: an entry with the repo\'s number matches it under any name', () => {
+  const keep = parseKeepList(keepText([{ ...KEPT, repo: 'old-name', repo_id: 7 }]));
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { owner: 'o', repo: 'r', repoId: 7, keep }).group, 'keep');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { owner: 'o', repo: 'r', repoId: 8, keep }).group, 'delete', 'another repo, another number');
+  assert.equal(v({ name: 'claude/kept', aheadBy: 0 }, { owner: 'o', repo: 'old-name', repoId: 8, keep }).group, 'keep', 'the name still counts');
+  const row = { delete: true, group: 'delete', owner: 'o', repo: 'r', repo_id: 7, branch: 'claude/kept', sha: SHA };
+  assert.deepEqual(checkPlan({ schema: PLAN_SCHEMA, rows: [row] }, { owner: 'o', keep }).refused.map((x) => x.branch), ['claude/kept']);
+  const r = analyze(listed(7), { now: NOW, keep });
+  assert.equal(makePlan(r, { owner: 'o', checked: ago(0) }).rows.find((x) => x.branch === 'claude/kept').repo_id, 7, 'plans carry the number');
+  assert.deepEqual(keepNotes(keep, r),
+    ['Astra\'s keep list names o/old-name claude/kept; that repo is now o/r (found by its number): change the entry\'s owner and repo.']);
+});
+
+test('a plan made before a rename cannot delete a kept branch: --apply checks the repo under the name GitHub gives now', async () => {
+  // The plan says "r"; the repo is "renamed" now (GitHub answers the old name with it); the list names the new name.
+  const keep = parseKeepList(keepText([{ ...KEPT, repo: 'renamed' }]));
+  const old = { schema: PLAN_SCHEMA, rows: [{ delete: true, group: 'delete', owner: 'o', repo: 'r', branch: 'claude/kept', sha: SHA }] };
+  assert.equal(checkPlan(old, { owner: 'o', keep }).go.length, 1, 'the plan alone cannot tell');
+  const gh = fakeGitHub([br({ name: 'claude/kept' })], { name: 'renamed' });
+  const a = await apply('t', old, { owner: 'o', yes: true, undoLog: tmpLog(), now: NOW, keep, fetchFn: gh.fetchFn });
+  assert.deepEqual([gh.writes, a.skipped.map((x) => x.skipped)], [[], [`it is "keep" now: ${HER_REASON}`]]);
+  // A branch that is not kept is deleted under the repo's name now, and its undo line says that name.
+  const log = tmpLog();
+  const done = fakeGitHub([br({ name: 'claude/done' })], { name: 'renamed' });
+  await apply('t', { ...old, rows: [{ ...old.rows[0], branch: 'claude/done' }] }, { owner: 'o', yes: true, undoLog: log, now: NOW, keep, fetchFn: done.fetchFn });
+  assert.deepEqual(done.writes, [['DELETE', 'https://api.github.com/repos/o/renamed/git/refs/heads/claude/done', null]]);
+  assert.equal(JSON.parse(readFileSync(log, 'utf8')).repo, 'renamed');
+});
+
+test('the list, the page and the plan show a kept branch as "keep" with her reason, her branches first', () => {
+  const keep = parseKeepList(keepText());
+  const r = analyze(listed(), { now: NOW, keep });
+  assert.deepEqual(r.items.map((i) => [i.branch, i.group]), [['claude/done', 'delete'], ['claude/kept', 'keep'], ['main', 'keep']], 'before the older main branch');
+  const row = r.items.find((i) => i.branch === 'claude/kept');
+  assert.deepEqual([row.why, row.kept], [HER_REASON, true]);
+  assert.equal(r.items.find((i) => i.branch === 'main').kept, undefined);
+  assert.match(toMarkdown(r, { owner: 'o', checked: ago(0), repoCount: 1 }), /\| 1 \| r \(private\) \| `claude\/kept` \| On Astra's keep list: Astra 2026-11-14: these branches stay\. Restored 2026-11-16\. \|/);
+  const js = pageData(r, { owner: 'o', checked: ago(0), repoCount: 1 });
+  const page = JSON.parse(js.slice(js.indexOf(' = ') + 3, js.lastIndexOf(';')));
+  assert.deepEqual(page.items.map((i) => [i.branch, i.group, i.why]), [['claude/done', 'delete', 'Everything on it is already on main.'], ['claude/kept', 'keep', HER_REASON]]);
+  assert.deepEqual(page.counts, { delete: 1, ask: 0, keep: 1 }, 'the main branch is left out, her branch is not');
+  const plan = makePlan(r, { owner: 'o', checked: ago(0) });
+  assert.deepEqual(plan.rows.filter((x) => x.delete).map((x) => x.branch), ['claude/done'], 'a kept row starts unticked');
+  assert.match(plan.how, /keep list/);
+});
+
+test('--apply refuses a kept branch like any other "keep" row, even from a plan made before she listed it', async () => {
+  const keep = parseKeepList(keepText());
+  // A plan made with the list: ticking the kept row does not help.
+  const plan = makePlan(analyze(listed(), { now: NOW, keep }), { owner: 'o', checked: ago(0) });
+  plan.rows.forEach((x) => { x.delete = true; });
+  const checked = checkPlan(plan, { owner: 'o', keep });
+  assert.deepEqual(checked.go.map((x) => x.branch), ['claude/done']);
+  assert.deepEqual(checked.refused.map((x) => [x.branch, x.refused]), [['claude/kept', `it is on Astra's keep list: ${KEPT.why}`], ['main', 'it is a "keep" branch']]);
+  // The plan of 2026-11-14 said "delete" before the list existed: refused before GitHub is asked anything.
+  const old = { schema: PLAN_SCHEMA, rows: [
+    { delete: true, group: 'delete', owner: 'o', repo: 'r', branch: 'claude/kept', sha: SHA },
+    { delete: true, group: 'delete', owner: 'o', repo: 'r', branch: 'claude/done', sha: SHA },
+  ] };
+  const gh = fakeGitHub([br({ name: 'main' }), br({ name: 'claude/kept' }), br({ name: 'claude/done' })]);
+  const undoLog = join(mkdtempSync(join(tmpdir(), 'sweeper-')), 'undo.jsonl');
+  const a = await apply('t', old, { owner: 'o', yes: true, undoLog, now: NOW, keep, fetchFn: gh.fetchFn });
+  assert.deepEqual(gh.writes, [['DELETE', 'https://api.github.com/repos/o/r/git/refs/heads/claude/done', null]], 'only the branch that is not kept');
+  assert.deepEqual(a.skipped.map((x) => [x.branch, x.skipped]), [['claude/kept', `it is on Astra's keep list: ${KEPT.why}`]]);
+  assert.deepEqual(readFileSync(undoLog, 'utf8').trim().split('\n').map((l) => JSON.parse(l).branch), ['claude/done'], 'no undo line for a branch it left alone');
+  // Its dry run says the same, and the same branch with the list gone would be deleted: the list is what keeps it.
+  const one = { ...old, rows: [old.rows[0]] };
+  const dry = await apply('t', one, { owner: 'o', undoLog, now: NOW, keep, fetchFn: fakeGitHub([br({ name: 'claude/kept' })]).fetchFn });
+  assert.deepEqual([dry.done.length, dry.skipped.map((x) => x.branch)], [0, ['claude/kept']]);
+  const none = await apply('t', one, { owner: 'o', undoLog, now: NOW, fetchFn: fakeGitHub([br({ name: 'claude/kept' })]).fetchFn });
+  assert.deepEqual(none.done.map((x) => [x.branch, x.dryRun]), [['claude/kept', true]]);
+});
+
+test('a kept branch that is not on GitHub any more is reported, so a renamed repo or a lost branch is noticed', () => {
+  const keep = parseKeepList(keepText([KEPT, { ...KEPT, branch: 'claude/lost' }, { ...KEPT, repo: 'renamed' }]));
+  const r = analyze(listed(), { now: NOW, keep });
+  assert.deepEqual(keepNotes(keep, r), [
+    'Astra\'s keep list names o/r claude/lost, and GitHub has no such branch (deleted, or its repo renamed): check that entry.',
+    'Astra\'s keep list names o/renamed claude/kept, and GitHub has no such branch (deleted, or its repo renamed): check that entry.',
+  ]);
+  assert.deepEqual(keepNotes([], r), []);
 });
 
 test('GitHub Aquarium\'s page has the branch-sweeper tool box with made-up examples, and the map lists the tool', () => {
