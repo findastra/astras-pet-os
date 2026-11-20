@@ -17,8 +17,10 @@ Stream Deck: findastra/deck-duck belongs to the Deck Duck chat (PRs deck-duck#9 
 not touch it. Astra's answer, 2026-11-20 ("All recommended", question slides 1A): the Deck Duck chat adds the moods
 to the keys after she installs 0.10.1; this chat stays out of findastra/deck-duck.
 Also answered 2026-11-20: Fuzzboi Friend shows moods too (2C: a recipe of her Fuzzbois layers while calm, GPT-6-Astra's
-nine-face drawing while a mood shows; `art/moods/fuzzboi-friend/` since the Fuzzboi pull request), and Claude Bot and
-Skill Scout get original looks (3A: drawn privately, nothing public until she approves one).
+nine-face drawing while a mood shows; `art/moods/fuzzboi-friend/` since the Fuzzboi pull request).
+Claude Bot and Skill Scout: no new looks. She first chose 3A, then, the same day after seeing GPT-6-Astra's options:
+"i dont want the new look for Claude Bot or Skill Scout, so drop all that." They keep their private pictures and show
+no mood; do not draw or propose new looks for them again unless she asks.
 
 ## What I did
 - `scripts/pet-moods-20261114.mjs`, The Farm's pet-moods (`the-farm-v1.0-pet-moods-v1.0`, on the System Map): the one
