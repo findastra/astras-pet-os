@@ -10,7 +10,9 @@
      2026-11-13 (Astra: "whatever features that the new one doesn't have from the old one, just add them in there and
      try to reduce the writing on the page"): the old RGBee app's features moved in: saved scenes of your own, effects
      (breathe, colour cycle), a colour per light, the desk preview, adding your own lights, backup, delete with undo.
-     Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, 2026-11-11 and 2026-11-13. -->
+     2026-11-20 (Astra: "make the lights change depending on the music ... general themes works, like lightning for
+     thunderstorms"): Themes that the helper plays and that follow the PC's music; Govee lights over Bluetooth too.
+     Claude Opus 5.5 (claude-opus-5-5), 2026-11-08, 2026-11-11, 2026-11-13 and 2026-11-20. -->
 <style>
 :root{color-scheme:dark;--bg:#050507;--card:rgba(255,255,255,.045);--card-line:rgba(255,255,255,.10);--ink:#f2f5f8;--soft:#c3ccd5;--dim:#9aa6b2;
   --green:#39ff88;--cyan:#00e5ff;--pink:#ff2bd6;--amber:#ffc23d;--c:#39ff88}
@@ -54,6 +56,9 @@ select,input[type=text]{font:inherit;font-size:15px;color:var(--ink);background:
 button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .namer{display:flex;gap:8px;flex-wrap:wrap}
 .namer[hidden]{display:none}
+.themes{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.theme[aria-pressed=true]{color:var(--ink);border-color:var(--cyan);background:rgba(0,229,255,.12)}
+.music{display:flex;align-items:center;gap:6px;color:var(--soft);font-size:14px}
 
 /* The desk: what every light shows. Faint = not reached yet. */
 .desk{border-radius:18px;background:var(--card);border:1px solid var(--card-line);padding:10px}
@@ -118,6 +123,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
         <button class="quiet" id="off" type="button">Lights off</button>
         <button class="quiet" id="saveScene" type="button">Save as scene</button>
       </div>
+      <div class="themes" role="group" aria-label="Themes">
+        <button class="quiet theme" type="button" data-theme="storm" aria-pressed="false">⛈ Storm</button>
+        <button class="quiet theme" type="button" data-theme="rainforest-storm" aria-pressed="false">🌧 Rainforest storm</button>
+        <button class="quiet theme" type="button" data-theme="rainforest" aria-pressed="false">🌿 Rainforest</button>
+        <button class="quiet theme" type="button" data-theme="party" aria-pressed="false">🎉 Party</button>
+        <button class="quiet theme" type="button" data-theme="chill" aria-pressed="false">🌙 Chill</button>
+        <button class="quiet theme" type="button" data-theme="fire" aria-pressed="false">🔥 Fire</button>
+        <label class="music"><input type="checkbox" id="music" checked> Follow the music</label>
+      </div>
       <form class="namer" id="namer" hidden>
         <input type="text" id="sceneName" maxlength="30" placeholder="Scene name" aria-label="Scene name" required>
         <button class="quiet" type="submit">Save</button>
@@ -159,10 +173,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Pick a colour or scene, then Send. Click a light’s dot to give it its own colour in this scene.</dd>
-      <dt>Where it comes from</dt><dd>Light Hive’s helper on this PC (findastra/rgbee <code>helper/</code>). The live site only previews.</dd>
-      <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13). Never more than three flashes a second.</dd>
-      <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. Corsair and MSI need iCUE and MSI Center. The helper doesn’t start by itself yet.</dd>
+      <dt>How it works</dt><dd>Pick a colour or scene, then Send. Click a light’s dot to give it its own colour in this scene. A theme keeps playing after you close the page; Send or Lights off stops it.</dd>
+      <dt>Where it comes from</dt><dd>Light Hive’s server, light-hive-server, on this PC (findastra/rgbee <code>server/</code>). The live site only previews.</dd>
+      <dt>Your rules</dt><dd>Every RGB light in the apartment (2026-11-08); easy to read, details in here (2026-11-11); fewer words, the old app’s features in here (2026-11-13); themes that follow the music (2026-11-20). Never more than three flashes a second.</dd>
+      <dt>Not built yet</dt><dd>Every reached light takes the scene colour: a light’s own colour shows on the desk only. Corsair and MSI need iCUE and MSI Center. Themes follow how loud the music is, not each beat. The helper doesn’t start by itself yet.</dd>
     </dl>
     <div class="row">
       <button class="quiet" id="export" type="button">Export backup</button>
@@ -241,9 +255,12 @@ async function ask(path, body) {
 function stateOf(l) {
   if (l.via === 'none') return ['none', l.why];
   if (l.via === 'brand' || l.via === 'mine') return ['wait', l.why];
-  if (!answer) return ['wait', ON_THIS_PC ? 'Helper not running' : 'Preview only'];
+  if (!answer) return ['wait', ON_THIS_PC ? 'Server not running' : 'Preview only'];
   if (l.via === 'razer') return answer.razer && answer.razer.ok ? ['on', 'Reached'] : ['wait', 'Open the Razer Chroma App'];
-  return (answer.govee || []).length ? ['on', 'Reached'] : ['wait', 'Turn on LAN Control in Govee Home'];
+  const ble = (answer.bluetooth || []).filter((x) => x.state === 'connected').length;
+  if ((answer.govee || []).length) return ['on', 'Reached'];
+  if (ble >= 3) return ['on', 'Reached by Bluetooth'];
+  return ['wait', ble ? 'Bluetooth: ' + ble + ' of 3 Govee lights reached' : 'Bluetooth: out of reach, or held by Govee Home'];
 }
 
 // Colour maths for breathe and cycle (slow and smooth: never a flash).
@@ -348,16 +365,28 @@ async function sendNow() {
   return ask('/color', { r, g, b, bright });
 }
 async function send() {
-  stopLoop();
+  stopLoop(); showTheme('none');
   const r = await sendNow();
-  $('said').textContent = !r ? (ON_THIS_PC ? 'Helper not running: preview only.' : 'Live page: preview only.')
-    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + ' · Govee ' + r.govee + '.';
+  $('said').textContent = !r ? (ON_THIS_PC ? 'Server not running: preview only.' : 'Live page: preview only.')
+    : 'Sent. Razer ' + (r.razer === 'ok' ? 'took it' : 'didn’t answer') + ' · Govee ' + (r.govee + (r.bluetooth || 0)) + '.';
   if (r && $('effect').value !== 'static' && !REDUCED) loop = setInterval(sendNow, 250);
 }
-async function lightsOff() {
+// Themes run in the helper, so they keep going (and follow the music) with this page closed.
+function showTheme(t) { document.querySelectorAll('.theme').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.theme === t))); }
+async function playTheme(t) {
   stopLoop();
+  const on = document.querySelector('.theme[data-theme="' + t + '"]').getAttribute('aria-pressed') === 'true';
+  const r = await ask('/theme', { theme: on ? 'none' : t, music: $('music').checked });
+  if (!r) { $('said').textContent = ON_THIS_PC ? 'Server not running: preview only.' : 'Live page: preview only.'; return; }
+  if (!r.ok) { $('said').textContent = 'This server is older: rebuild it for themes.'; return; }
+  showTheme(on ? 'none' : t); $('said').textContent = r.said;
+}
+document.querySelectorAll('.theme').forEach((b) => b.addEventListener('click', () => playTheme(b.dataset.theme)));
+$('music').addEventListener('change', () => { const b = document.querySelector('.theme[aria-pressed=true]'); if (b) { b.setAttribute('aria-pressed', 'false'); playTheme(b.dataset.theme); } });
+async function lightsOff() {
+  stopLoop(); showTheme('none');
   const r = await ask('/color', { r: 0, g: 0, b: 0, bright: 1 });
-  $('said').textContent = r ? 'Lights off.' : (ON_THIS_PC ? 'Helper not running.' : 'Live page: preview only.');
+  $('said').textContent = r ? 'Lights off.' : (ON_THIS_PC ? 'Server not running.' : 'Live page: preview only.');
 }
 
 // Undo for deletes.
@@ -427,7 +456,8 @@ $('importFile').addEventListener('change', async () => {
 if (!REDUCED) setInterval(() => { if ($('effect').value !== 'static') tick(); }, 100);
 (async () => {
   draw(); answer = await ask('/lights'); draw();
-  if (!answer) $('said').textContent = ON_THIS_PC ? 'Helper not running: preview only.' : 'Live page: preview only.';
+  if (answer && answer.theme) { showTheme(answer.theme); if (typeof answer.music === 'boolean') $('music').checked = answer.music; }
+  if (!answer) $('said').textContent = ON_THIS_PC ? 'Server not running: preview only.' : 'Live page: preview only.';
 })();
 </script>
 </body>
