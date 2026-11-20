@@ -3065,6 +3065,11 @@
             "node": "claude-website",
             "how": "optional",
             "why": "Claude’s data export, put in the import inbox, is saved too."
+          },
+          {
+            "node": "orrery",
+            "how": "optional",
+            "why": "An idea (Astra, 2026-11-20): a friend's encrypted chat app for agents, whose exported chats could be saved too. Not installed; it needs a Matrix server and Hermes."
           }
         ]
       },

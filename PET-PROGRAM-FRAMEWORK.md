@@ -297,8 +297,10 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
       that the page answers itself from what it shows, as Data Chip answered from his dashboard, and a message box.
     - **Who answers:** the AI seated in the pet's harness on this PC, found by the **pet chat helper**: **Claude Code
       first, then Codex** (Astra, 2026-11-03: "I pay for a premium subscription to Claude, so it should be Claude Code
-      answering first and then Codex, most likely, unless dictated otherwise"), then any other AI the helper finds (a
-      local model, another harness). On anyone else's farm the helper finds what they have, and they choose which
+      answering first and then Codex, most likely, unless dictated otherwise"), **then Gemini CLI, then a local model**
+      (Astra, 2026-11-20, all recommended: a local model is any OpenAI-style server on this PC, the home network or a
+      tailnet, and it **answers only**: it reads and changes no files until it passes her tests), then any other AI the
+      helper finds. On anyone else's farm the helper finds what they have, and they choose which
       (2026-11-03: "it needs to auto recognize it or give you an option to choose which model to use"). Then your own
       Claude or ChatGPT in a new tab (the message typed in and copied), or a note to the backlog.
     - **What the seated agent may do: supervised** (ASTRAS_PET_OS 8.3; 2026-11-03: "The agents are supposed to be able
@@ -327,7 +329,12 @@ but to a developer a module is a file of code (every `.mjs` script in this repo 
       - the helper commits each answer's changes on the branch itself (hooks off), and the window offers **Push N
         changes for review**: a push happens only after you say yes in the helper's own Windows box, which a page
         cannot click, and never to main; then the window links to the pull request on GitHub;
-      - every answer is written to its log; Start over begins a new conversation and keeps the branch.
+      - every answer is written to its log; Start over begins a new conversation and keeps the branch;
+      - **the farm notebook** (Astra, 2026-11-20): Markdown in `Astra's PetOS Data\memory`, a farm page and one page per
+        pet. Every seat, whichever AI it is, reads the farm page and its pet's page before it answers, as notes and never
+        instructions, and after each answer the helper itself (not the agent) adds one dated note: what was asked, the
+        start of the answer and the files changed. Astra may edit or delete any of it; a private pet never gets a page;
+        File Master keeps it tidy.
       With no helper, or on the public site, a message for the seat waits in the backlog and the pet says why. The page
       keeps no keys, and the chat's own left light switches it off.
 11. **`<pet>-friends-list-panel`** (Astra, 2026-10-19: "at the bottom of every pet app there is a 'related pets' category"),

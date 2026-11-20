@@ -871,9 +871,11 @@ function petBoxes(d) {
 }
 
 // Who answers in a pet's chat, in this order unless the farm's owner picks another (Astra, 2026-11-03): the AI seated in
-// the pet's harness on this PC (Claude Code, then Codex, then another AI the pet chat helper finds), then your own
-// Claude or ChatGPT in a new tab, or a note to the backlog. [key, name, where it answers].
-export const CHAT_SEATS = [['claude-code', 'Claude Code', 'on this PC'], ['codex', 'Codex', 'on this PC'], ['other-ai', 'Another AI', 'on this PC'],
+// the pet's harness on this PC (Claude Code, then Codex, then Gemini CLI, then a local model that answers only, since
+// 2026-11-20, then another AI the pet chat helper finds), then your own Claude or ChatGPT in a new tab, or a note to
+// the backlog. [key, name, where it answers].
+export const CHAT_SEATS = [['claude-code', 'Claude Code', 'on this PC'], ['codex', 'Codex', 'on this PC'], ['gemini', 'Gemini CLI', 'on this PC'],
+  ['local', 'Local model', 'on this PC'], ['other-ai', 'Another AI', 'on this PC'],
   ['claude', 'My Claude', 'new tab'], ['chatgpt', 'My ChatGPT', 'new tab'], ['note', 'Just leave a note', 'backlog']];
 
 // The chat's circle-arrow button (the sketch): a drawn arrow, centred in its circle, that turns down while the chat is
