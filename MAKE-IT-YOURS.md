@@ -257,6 +257,32 @@ node scripts/pet-packs-20261020.mjs build evidence-locker
 Or ask your AI: *"Make a pet pack of `<the pet's repo>` with the Friendly Farmer's pet-packs tool (node
 scripts/pet-packs-20261020.mjs). Run plan first and show me what it needs, then build it."*
 
+### A team of pets as text: a pet team (Astra, 2026-11-20)
+
+Someone wants a few of the pets for one job (a network agent and a PC security agent, say) and does not want to install
+anything? Give them a **pet team**: several Markdown pets that work together, in one folder of Markdown files, with no
+code. The first is the **[Security Team](pet-teams/security-team/README.md)**: Packet Piranha, White Hat Weasel, Wifi
+Butterfly and Roaming Raven watch the network; Kernel Koala, Log Lynx, Forensic Ferret and Patch Cat watch the PC.
+
+- They use it one of three ways: the whole team as one file for any AI, one `SKILL.md` per pet copied into an agent
+  harness that loads skill folders, or just reading the checks.
+- Every check only reads, and the team's rules ask the AI to show each command and run it only after its person says
+  yes, on their own computer and network only. Those rules are instructions, not a lock: the harness's own permission
+  prompts are what stop a command, so they keep them on.
+- **Share the GitHub link, not a zip.** The team's folder on GitHub is the real copy; its `sha256sums-20261120.txt`
+  lets anyone check a copy is unchanged. A pet team is not signed yet, so the fingerprints prove a copy matches
+  GitHub's, not who made it (PROVENANCE.md).
+- **Make a team:** add it to `pet-teams-20261120.json` (an id, a title, who it is for, groups of pets by repo, each pet's
+  role and its read-only checks), then `npm run build`. The Friendly Farmer's pet-teams tool
+  (`scripts/pet-teams-20261120.mjs`) writes `pet-teams/<team>/`, refuses a private pet and refuses any check that would
+  install, stop, delete, scan or change a setting; `npm test` checks the files and the fingerprints.
+- **Selling one:** Astra's PetOS is MIT, so anyone may copy and share a team; what can be sold is the help around it
+  (setting it up, a custom team, support). Never put a Claude or ChatGPT subscription behind one for other people
+  (AGENTS.md, "How the agents work"). No payment is built into Astra's PetOS.
+
+Or ask your AI: *"Make a pet team in my copy of Astra's PetOS for `<the job>`, following MAKE-IT-YOURS.md section 6,
+'A team of pets as text'. Pick the pets from the registry, show me the team first, then run npm run build and npm test."*
+
 ## 7. Keep it safe
 
 - **A fork of a public repo is public**, and GitHub cannot make it private: for a private farm, make a private copy

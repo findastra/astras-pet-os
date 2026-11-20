@@ -13,6 +13,7 @@
 //   PROTECTION-RINGS.md          the rings and grants tables, from system-map.json (system-map-20261012.mjs)
 //   apps/pet-programs/           a pet program page for every registered and pipeline pet (pet-program-pages-20261018.mjs)
 //   markdown-pets/               every pet as one Markdown file, for computers that cannot install (markdown-pets-20261019.mjs)
+//   pet-teams/                   several Markdown pets that work together, as one folder to give someone (pet-teams-20261120.mjs)
 //   apps/developer-words-20261019.js  developer mode's words for every page: agents and control hubs (developer-words-20261019.mjs)
 //
 // This replaces build-art.mjs, which drew the original 32x32 pets by hand.
@@ -32,6 +33,7 @@ import { buildSystemMap, readSystemMapSources, applyAccessDoc, applyPartsDoc, SY
 import { redactData, assertPublic } from './public-safety-20261014.mjs';
 import { writePetProgramPages } from './pet-program-pages-20261018.mjs';
 import { writeMarkdownPets } from './markdown-pets-20261019.mjs';
+import { writePetTeams } from './pet-teams-20261120.mjs';
 import { writeDeveloperWords } from './developer-words-20261019.mjs';
 import { applyStages } from './pet-stages-20261102.mjs';
 
@@ -80,6 +82,8 @@ writeFileSync('PET-PROGRAMS.md', buildPetProgramsPage(JSON.parse(readFileSync('p
 writePetProgramPages('.');
 // The same pets as Markdown, for locked-down computers that take only .md files (Astra, 2026-10-19).
 writeMarkdownPets('.');
+// Pet teams: several Markdown pets that work together, in one folder to give someone (Astra, 2026-11-20).
+writePetTeams('.');
 for (const { path, kind } of redacted) console.log(`Public safety: left out a ${kind} at ${path}; keep it on this PC (docs/local-services-20261014.md).`);
 
 const readme = readFileSync('README.md', 'utf8');

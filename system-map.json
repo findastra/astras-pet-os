@@ -387,6 +387,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-19: \"make it so that computers under other security protocols can download these agents ... The only files the user could give their computer was the markdown files\"): writes every registered and pipeline pet as one Markdown pet (what it does, where it opens in a browser with nothing to install, and the rules an AI follows to act as it), a farm list and one file with every pet, from the same data as the pet program pages. Files in markdown-pets/, rebuilt by npm run build (scripts/markdown-pets-20261019.mjs). It installs and runs nothing and never works around a computer's security."
     },
     {
+      "id": "pet-teams",
+      "name": "pet-teams",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-teams-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-20: \"people that need stuff, they might not want to download my operating system at all ... I can just sell them my agents\"): writes each pet team in pet-teams-20261120.json as one folder to give someone, a pet team: a README for the person, the whole team as one Markdown file for any AI, one SKILL.md per pet for a harness that loads skill folders, and a SHA-256 fingerprint of every file. Each pet's name, job and tools come from the registry (the same data as its Markdown pet); the team file holds each pet's role and its read-only checks, and the tool refuses a check that would change anything and any private pet. Files in pet-teams/, rebuilt by npm run build (scripts/pet-teams-20261120.mjs). It installs and runs nothing; its rules hold only while the AI follows them."
+    },
+    {
       "id": "click-check",
       "name": "click-check",
       "type": "tool",
@@ -6688,6 +6700,13 @@
       "carries": "opens",
       "state": "now",
       "why": "farm-pets reads a pet’s repo at a pet pack’s commit with git, through the PC’s own sign-in, to check the pack file by file; it changes nothing there."
+    },
+    {
+      "from": "pet-teams",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-teams runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "pet-packs",

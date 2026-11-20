@@ -159,6 +159,11 @@
         "say": "pet pack",
         "means": "one pet in one zip, without the whole system: its repo at one version, its pictures, its pet program page and its Markdown pet",
         "retired": []
+      },
+      {
+        "say": "pet team",
+        "means": "several Markdown pets that work together on one job, in one folder to give someone: a README, the whole team in one file for any AI, one skill per pet and a fingerprint of every file",
+        "retired": []
       }
     ]
   },
