@@ -37,8 +37,9 @@ on the art and 22 Not verified.
 
 ## Decisions waiting on you
 
-1. Merge [portfolio-puffer#9](https://github.com/findastra/portfolio-puffer/pull/9) (the credit) and
-   [portfolio-puffer#13](https://github.com/findastra/portfolio-puffer/pull/13) (`pet.json`)?
+1. ~~Merge #9 and #13?~~ Done. Astra, 2026-11-19: "Yes, merge both". Merged as `9218377` (#9) and `0c96f2a` (#13),
+   and `main`'s README and `pet.json` were checked afterwards. A15 and A16's `framework` and `source` now pass. #10
+   shares the `updated` line with #13, so its chat takes the newer date when it updates #10.
 2. Close [portfolio-puffer#6](https://github.com/findastra/portfolio-puffer/pull/6) (stale, conflicting, not needed)?
 3. The `v0.1.1-20261009` tag: make it, or drop `release_tag` from `pet.json`?
 
