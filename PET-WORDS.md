@@ -128,8 +128,8 @@ pet's name: `<pet>` is `unity-unicorn`, `<home>` is `unity-stable`.
 | **trick** (native trick) | first-party agent skill (`SKILL.md`), prompt or workflow | A way of using the pet's 3rd party programs, native programs, native tools and native tricks (Astra, 2026-10-21): written steps the pet's AI follows. Kept by Skill Scout. Listed on its card, never drawn. |
 | **which kind** | classification rule | Who does the work decides it (Astra, 2026-10-24): a person opens it, a native program; code runs it with no AI deciding, a native tool; an AI reads written steps and makes choices, a native trick. A script with written steps is both, a tool (L1) and a trick (L2). |
 | **harness skill** | development skill installed in Claude Code or Codex | Belongs to the provider harness in the seat, not the pet; helps an AI work on the pet. |
-| **bot** | Discord bot application | Not a harness: a native program of Fairy Ring, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in Fairy Ring's seat. |
-| **bot panel** | admin panel for one bot | On Fairy Ring's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
+| **bot** | Discord bot application | Not a harness: a native program of The Fairy Court, which runs every Discord bot. Its commands are tools; its answers come from the farmhand in The Fairy Court's seat. |
+| **bot panel** | admin panel for one bot | On The Fairy Court's page: one bot's commands, servers, permissions and health (`mommys-help-bot-panel`). |
 | **your programs** | managed applications (the L1 tool panel's name for native programs) | Programs Astra made that a pet looks after (worlds, websites). Not its tools. |
 | **3rd party programs** | third-party software (external dependencies) | Programs, libraries and services made by others. |
 | **shared tool** | shared library or service with one owner | One copy, owned by one pet; other pets use it by grant. |
