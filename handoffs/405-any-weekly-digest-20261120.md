@@ -58,6 +58,9 @@ Reviewer: unassigned; next action: review #405 and portfolio-puffer#15, then Ast
    hand.
 5. Privacy: the portfolio may name her (skills/farm-security, section 5), but an edition never does (the trick's step
    5).
+6. Overlaps: #404 (draft, Puffer's seo-toolkit) and its companion portfolio-puffer#14 were opened at the same time.
+   They add Puffer nodes elsewhere in `system-map.json`, a decision row at the same end of the table, and sections at
+   the same places in Puffer's README.md and pet.json. Whichever merges second keeps both, then rebuilds and tests.
 
 ## Done when
 
