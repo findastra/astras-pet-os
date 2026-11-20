@@ -83,7 +83,7 @@ if (process.argv[1] && real(fileURLToPath(import.meta.url)) === real(resolve(pro
   try {
     const registry = JSON.parse(readFileSync(file, 'utf8'));
     const result = makeItYours(registry, name);
-    console.log(report(result, { dryRun, host: registry.cage || 'the hub' }).join('\n'));
+    console.log(report(result, { dryRun, host: registry.hub || 'the hub' }).join('\n'));
     if (result.changed && !dryRun) {
       writeFileSync(file, `${JSON.stringify(result.registry, null, 2)}\n`);
       if (!args.includes('--no-build') && !opt('--registry')) {

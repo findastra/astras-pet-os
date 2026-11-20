@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
-import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS, CHAT_SEATS, PET_CHAT_JS } from '../scripts/pet-program-pages-20261018.mjs';
+import { readSpawnerSources, spawnerPages, spawnerFiles, pagePath, esc, DIR, ASSETS, CHAT_SEATS, PET_CHAT_JS, CYBERHOMES } from '../scripts/pet-program-pages-20261018.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const src = readSpawnerSources(root);
@@ -29,7 +29,7 @@ const between = (text, open, close) => {
 test('every page starts with an empty cyberhome, and no star door in it (Astra crossed it out, 2026-10-20)', () => {
   for (const d of pages) {
     const html = files[pagePath(d.repo)];
-    const den = between(html, '<div class="den" data-arrival="waiting"', '</div>');
+    const den = between(html, `<div class="den${CYBERHOMES[d.repo] ? ` ${CYBERHOMES[d.repo].kind}` : ''}" data-arrival="waiting"`, '</div>');
     assert.ok(den, `${d.repo}: the den starts waiting`);
     assert.ok(!den.includes('star-door'), `${d.repo}: no star door in the den`);
     assert.match(den, /class="(no-art )?pet/, `${d.repo}: the pet (or its no-picture box) is ready to move in`);
@@ -438,4 +438,12 @@ test('a tool panel\'s page sets its height only from the site its panel opened, 
   assert.deepEqual([astras.style.height, devs.style.height], ['500px', '640px'], 'a message from any other site is not listened to');
   p.fireWindow('message', { data: { type: 'tool-panel-height', height: 900 }, origin: 'https://findastra.github.io', source: {} });
   assert.equal(astras.style.height, '500px', 'nor one from a window that is not in a tool panel');
+});
+
+test('the page script names each of its functions once, so the chat never takes over the lights\' bubble (2026-11-12)', () => {
+  // A second `function say` (the chat's) silently replaced the lights' one: a light's message went into the chat log
+  // instead of its bubble (Unity Stable button audit, 2026-11-12: MCP for Unity's light said nothing).
+  const names = [...js.matchAll(/^  function (\w+)\(/gm)].map((m) => m[1]);
+  const twice = names.filter((n, i) => names.indexOf(n) !== i);
+  assert.deepEqual(twice, [], `declared twice in ${ASSETS.js}: ${twice.join(', ')}`);
 });

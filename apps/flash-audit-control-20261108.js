@@ -42,6 +42,9 @@
     if (shown && shown > data.date) return;
     var run = day(data.date);
     list.setAttribute('data-flash-run-date', run);
+    // The tool box's top line names the run's date too (Astra, 2026-11-09: "Yes, fix them").
+    var shownDate = list.parentNode && list.parentNode.querySelector('[data-flash-run-shown]');
+    if (shownDate) shownDate.textContent = run;
     var pills = list.querySelectorAll('li.flash-check');
     for (var i = 0; i < pills.length; i++) {
       var li = pills[i], id = li.getAttribute('data-check'), body = li.querySelector('.pill-body');
@@ -116,7 +119,9 @@
     button.disabled = true;
     findHelper(function () {
       if (!HELPER) { notRunning(id, button); return; }
-      say(id, 'Checking every pet program again… This takes a few minutes; every check updates when it is done.');
+      // How long a run takes comes from the page (RUN_MINUTES in scripts/flash-audit-checks-20261108.mjs).
+      var minutes = /^\d{1,3}$/.test(list.getAttribute('data-flash-run-minutes') || '') ? list.getAttribute('data-flash-run-minutes') : '20';
+      say(id, 'Checking every pet program again… This takes about ' + minutes + ' minutes. You can close this page: the run keeps going, and every check shows it when it is done or when you open the page again.');
       fetch(HELPER + '/run', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ check: id }) })
         .then(function (r) { return r.json(); })
         .then(function (j) {

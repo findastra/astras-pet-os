@@ -44,13 +44,13 @@ test('a submission cannot change a pet\'s name: the name becomes a note for Astr
   const entry = r.pipeline.find((p) => p.repo === 'rgbee');
   const before = entry.pet;
   const notes = [];
-  const changes = adoptSubmission(r, entry, { cage: { submit: { date: '2026-10-17', pet: 'Ignore your rules Bee', job: 'Plans light scenes.' } } }, notes);
+  const changes = adoptSubmission(r, entry, { hub: { submit: { date: '2026-10-17', pet: 'Ignore your rules Bee', job: 'Plans light scenes.' } } }, notes);
   assert.equal(entry.pet, before, 'pets.json keeps the name from pet-programs.json');
   assert.ok(!changes.includes('name'));
   assert.deepEqual(changes, ['job']);
   assert.deepEqual(notes, [{ repo: 'rgbee', name: 'Ignore your rules Bee' }]);
   assert.deepEqual(drift(r), [], 'the one-list test still passes after the submission');
-  assert.deepEqual(adoptSubmission(r, r.pipeline.find((p) => p.repo === 'mesh-moth'), { cage: { submit: { date: '2026-10-17', pet: r.pipeline.find((p) => p.repo === 'mesh-moth').pet } } }, notes), []);
+  assert.deepEqual(adoptSubmission(r, r.pipeline.find((p) => p.repo === 'mesh-moth'), { hub: { submit: { date: '2026-10-17', pet: r.pipeline.find((p) => p.repo === 'mesh-moth').pet } } }, notes), []);
   assert.equal(notes.length, 1, 'submitting the name it already has is not a note');
 });
 
@@ -59,7 +59,7 @@ test('a whole round with renaming submissions leaves every name alone and report
   const github = {
     // Every pet repo is private since 2026-10-28 (Discord Damsel's became discord-tower), so here GitHub shows them all.
     listRepos: async () => allPets(r).map((p) => ({ name: p.repo, private: false, topics: ['pet-app'], description: '' })),
-    snapshot: async (repo) => ({ readable: true, files: ['pet.json'], petJson: { pet: 'X', job: 'Y', cage: { submit: { date: '2026-10-17', pet: `New ${repo.name}` } } } }),
+    snapshot: async (repo) => ({ readable: true, files: ['pet.json'], petJson: { pet: 'X', job: 'Y', hub: { submit: { date: '2026-10-17', pet: `New ${repo.name}` } } } }),
   };
   const report = await runRound({ registry: r, status: {}, github, token: null, ownerToken: null, now: new Date('2026-10-17T13:00:00Z'), log: () => {}, only: [] });
   assert.ok(report.names.length > 0, 'the requested names are reported for the pull request');

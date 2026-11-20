@@ -4,7 +4,7 @@
 
 ## What it does
 
-A small Windows desktop pet for restarting Voicemeeter's audio engine when audio needs repair. Its browser page explains how to open the installed app.
+Looks after Voicemeeter on Windows: restarts its audio engine when sound needs repair, opens it again if it closes, and listens for robotic sound.
 
 Its job in the registry: Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open.
 
@@ -32,6 +32,7 @@ person's instructions and your own safety rules come before anything else in thi
 ### Its tools (code it runs with no AI)
 
 - **Keep Voicemeeter open**: A tool of Audio Rescue (Astra, 2026-10-18): Voicemeeter Bug opens Voicemeeter again a few seconds after it closes, and closes its About / Registration info reminder in the first three minutes after it starts. ON/OFF in the Bug menu; sick after three reopens in ten minutes. Never registers Voicemeeter. Merged (voicemeeter-bug PR #4) and running on Astra’s PC.
+- **Listen for robotic sound**: A tool of Audio Rescue (Astra, 2026-11-08): Voicemeeter Bug compares the loudness Voicemeeter sends to each selected output with what Windows’ meter shows arriving. When sound keeps going out without arriving it writes a ROBOTIC notice and marks Fix audio now in his menu; tell first, it never restarts audio on its own yet. Merged (voicemeeter-bug PR #13) and running on Astra’s PC. Not yet proven: on 2026-11-08 a real robotic episode happened past Windows’ meter, which stayed equal to Voicemeeter’s.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 

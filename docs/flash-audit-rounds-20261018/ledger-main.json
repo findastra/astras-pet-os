@@ -109,7 +109,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "data-dealer-20261008.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -329,7 +329,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261008.md",
    "visibility": "public",
    "implementation_status": "The dated browser entry is an offline API credential-metadata notebook. It stores labels and rotation notes, never API key values, and does not scan files. The existing Windows desktop implementation remains under src/. Its scanner and background checks are separate from this browser interface.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os",
@@ -521,7 +521,7 @@
    "publication_status": "source-release; verification in docs/open-arches-publication-20261011.md",
    "visibility": "public",
    "implementation_status": "Offline planning desk plus generic tool catalog, private report and usage imports, local execution-history display and command copying. No direct Unity connection or command execution.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -699,7 +699,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "learn-python-20261008.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -889,7 +889,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "vrchat-ai-astra-20261008.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os",
     "submit": {
@@ -1060,7 +1060,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -1193,7 +1193,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -1357,7 +1357,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -1520,7 +1520,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "paper-girl-20261008.html",
    "status": "growing",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -1688,7 +1688,7 @@
    "runs_on": "Windows for the scanner and plans; a modern browser for the web app; original application requirements remain in README.md.",
    "entry": "file-master-20261008.html",
    "status": "growing",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -2022,7 +2022,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "findastra-discord-presence-20261008.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -2296,7 +2296,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -2428,7 +2428,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -2570,7 +2570,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -2732,7 +2732,7 @@
    "runs_on": "Modern browser for the pet interface; original application requirements remain in README.md.",
    "entry": "ghost-protocol-20261008.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -2868,7 +2868,7 @@
    "publication_status": "source-release-prepared; see docs/publications-20261009.md",
    "visibility": "private",
    "implementation_status": "Working offline draft: purpose-specific records, editing, status changes, search, local browser storage, JSON and Markdown exports. External integrations are planned.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -3020,7 +3020,7 @@
    "runs_on": "64-bit Windows with .NET Framework and an installed compatible Voicemeeter Remote API.",
    "entry": "build-voicemeeter-bug-20261008.ps1",
    "status": "growing",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "submit": {
@@ -3051,7 +3051,7 @@
      "hosted_runtime": "verified: one updated hosted helper, hidden standalone windows, registered Ctrl+Alt+F10 hotkey, automatic monitoring enabled, corrected --hosted login entry recognized, fresh heartbeat logs",
      "live_audio_restart": "verified command acceptance on 2026-10-11 at 02:44:49 America/Denver: one manual Command.Restart request returned 0; later API/device polls succeeded; audible result not verified",
      "reviewed_by": "OpenAI Codex (GPT-6), 2026-10-11",
-     "watchdog_update": "passed: stale recovery events cleared on automatic-mode/A1 ownership changes, fresh baseline required, existing cooldown history preserved; legacy --caged accepted as hosted alias",
+     "watchdog_update": "passed: stale recovery events cleared on automatic-mode/A1 ownership changes, fresh baseline required, existing cooldown history preserved; legacy flag accepted as a hosted alias",
      "login_test": "configured and startup command verified; actual logout/reboot not performed"
     }
    },
@@ -3272,7 +3272,7 @@
    "runs_on": "Windows (planned: C# compiled with the .NET Framework compiler included with Windows).",
    "entry": "README.md",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md"
    },
@@ -3384,7 +3384,7 @@
    "runs_on": "A modern browser for the web app (preview only). Light control is planned for Windows.",
    "entry": "rgbee-20261009.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md"
    },
@@ -3657,7 +3657,7 @@
    "entry": "index.html",
    "status": "hatching",
    "visibility": "public",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os",
@@ -3810,7 +3810,7 @@
    "entry": "index.html",
    "status": "hatching",
    "visibility": "private",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -3951,7 +3951,7 @@
    "entry": "index.html",
    "status": "hatching",
    "visibility": "private",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -4190,7 +4190,7 @@
    "entry": "index.html",
    "status": "hatching",
    "visibility": "private",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -4319,7 +4319,7 @@
    "runs_on": "Windows desktop (placeholder; not decided yet).",
    "entry": "index.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -4446,10 +4446,10 @@
    {
     "check": "A56",
     "status": "Incorrect",
-    "detail": "cage/README.md: 2× the retired hub repo name.",
+    "detail": "hub-registration/README.md: 2× the retired hub repo name.",
     "fix": {
      "type": "stray",
-     "file": "cage/README.md",
+     "file": "hub-registration/README.md",
      "what": "the retired hub repo name"
     }
    },
@@ -4493,7 +4493,7 @@
    "runs_on": "A modern browser, online: https://findastra.github.io/fuzzboi-friend/",
    "entry": "fuzzboi-friend-20261009.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md"
    },
@@ -4503,7 +4503,7 @@
    "audit": {
     "cadence": "weekly",
     "subject": "the Fuzzboi maker and its live site",
-    "needs": "your OK to register me in the Cage"
+    "needs": "your OK to register me in the hub"
    }
   },
   "entryPath": "fuzzboi-friend-20261009.html",
@@ -4524,7 +4524,7 @@
   },
   "stray": [
    {
-    "file": "cage/README.md",
+    "file": "hub-registration/README.md",
     "what": "the retired hub repo name",
     "count": 2,
     "sample": "(old hub repo name)"
@@ -4632,7 +4632,7 @@
    "status": "hatching",
    "visibility": "private",
    "implementation_status": "Seeded: pet art (nine mood frames, draft), app icon and a placeholder app with a pet well. The job is not decided; nothing else is built.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -4761,7 +4761,7 @@
    "runs_on": "Windows PC (planned)",
    "entry": "index.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -4906,7 +4906,7 @@
    "runs_on": "Any modern browser (index.html). Meshtastic radio hardware is not required for the placeholder.",
    "entry": "index.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -5048,7 +5048,7 @@
    "runs_on": "Any modern browser (index.html), on Astra's PC. Data stays in that browser; no Pi hardware connection.",
    "entry": "index.html",
    "status": "growing",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os",
@@ -5213,7 +5213,7 @@
    "status": "hatching",
    "visibility": "private",
    "implementation_status": "Seeded: draft pet art, app icon and the build plan (handoffs/001). No app yet.",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -5361,7 +5361,7 @@
    "runs_on": "Any browser; open index.html by double-click",
    "entry": "index.html",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"
@@ -5524,7 +5524,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -5651,7 +5651,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -5778,7 +5778,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -5915,7 +5915,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6048,7 +6048,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6180,7 +6180,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6307,7 +6307,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6434,7 +6434,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6578,7 +6578,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6699,7 +6699,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6826,7 +6826,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -6953,7 +6953,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7080,7 +7080,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7207,7 +7207,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7334,7 +7334,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7461,7 +7461,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7588,7 +7588,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7720,7 +7720,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7847,7 +7847,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -7974,7 +7974,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8101,7 +8101,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8228,7 +8228,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8355,7 +8355,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8482,7 +8482,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8609,7 +8609,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8736,7 +8736,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8863,7 +8863,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -8990,7 +8990,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9117,7 +9117,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9244,7 +9244,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9371,7 +9371,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9498,7 +9498,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9625,7 +9625,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9752,7 +9752,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -9879,7 +9879,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10006,7 +10006,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10133,7 +10133,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10260,7 +10260,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10387,7 +10387,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10514,7 +10514,7 @@
    "status": "roadmap",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10641,7 +10641,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -10775,7 +10775,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -10936,7 +10936,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -11096,7 +11096,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    }
@@ -11223,7 +11223,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -11351,7 +11351,7 @@
    "status": "seed",
    "version": "v0.1",
    "framework": "https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "https://github.com/findastra/astras-pet-os"
    },
@@ -11467,7 +11467,7 @@
    "runs_on": "Node 24.17 or newer on Astra’s PC, with her own Discord bot application (see README).",
    "entry": "src/bot.js",
    "status": "hatching",
-   "cage": {
+   "hub": {
     "topic": "pet-app",
     "home": "README.md",
     "repository": "https://github.com/findastra/astras-pet-os"

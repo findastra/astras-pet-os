@@ -15,7 +15,7 @@ canonical architecture, [ASTRAS_PET_OS.md](../../ASTRAS_PET_OS.md).
 | Farmer is an ordinary pet, managed like the rest | Farmer is `role: "host"` and his repo *is* the hub | Farmer must be registered through Program Manager, restartable, not required by others | His daily rounds already run independently on GitHub Actions |
 | **Independent pet runtimes**: scheduler, inbox, state, health, crash recovery | None. The only scheduled work is the Farmer's daily GitHub Action | Every pet needs a runtime | The rounds' self-audit cadence and `status/pets-status.json` shape |
 | Agent harness, proactive loop, autonomy levels, budgets, kill switch | None | All new; choose one framework after checking language fit (Node, C#) | Handoff cards are a human-readable precursor of tasks |
-| Typed inter-pet messages with the v5.2 envelope | `cage.submit` blocks and `RELATIONS.md` | No messaging, auth or retries | `relations` data for who talks to whom |
+| Typed inter-pet messages with the v5.2 envelope | `hub.submit` blocks and `RELATIONS.md` | No messaging, auth or retries | `relations` data for who talks to whom |
 | Manifest with SemVer, hosts, capabilities, permissions | No per-pet SemVer; hub uses `0.2.1-20261008` | Versioned manifest contract and tests | `pet.json` per repo; the Kennel starter's `pet.example.json` |
 | **GitHub Goldfish** compares releases, both official and community | Compares registry text with repos | Release vs commit, installed vs latest, last-checked timestamps | Goldfish's existing account crawl |
 | **astras-farm**, **astras-kennel**, **astra-pet-sdk** repos | None exist | Plans first; creation needs Astra's OK | Kennel registry starter (rename from `astra-pet-registry`) |
@@ -23,7 +23,7 @@ canonical architecture, [ASTRAS_PET_OS.md](../../ASTRAS_PET_OS.md).
 | Desktop: tray single/double/triple/right click | Tray single and right click; desktop-star click toggles the desktop pets; desktop-star double-click lineup | Move the desktop pets toggle to tray double-click, lineup to triple-click | `PetClicks` gesture recogniser already handles timing |
 | Desktop: roam across monitors | Per-monitor only | Cross-monitor roaming and a multi-monitor test | `Screen.AllScreens` scatter, DPI handling |
 | Hiding visuals never stops work | No workers exist yet | Becomes real once runtimes exist | Launcher/desktop pets separation already done |
-| No browser Cage, no browser roaming | `cage.html` with door and `cage_life` movement | Retire; keep reusable parts | See "Retiring the Cage" in the plan |
+| No browser pets page, no browser roaming | The old pets page with door and `pet_life` movement | Retire; keep reusable parts | See "Retiring the old pets page" in the plan |
 | Security: secrets store, least privilege, approvals in code, audit | Rules in AGENTS.md; no secrets in repo; approvals are human | Enforcement in code once anything acts | Current rules carry over unchanged |
 | 30 approved new pets (12 core + 18 v5.2), plus 6 seeds (Pole Puff, Procreate Panda, Skill Scout, OSC Sealion, Platform Platypus, Piranesi Nessi) | None exist except as names; Platform Platypus has a local draft. Passport Panda is renamed Passport Pelican | Phased; none to be claimed as built | Art pipeline, handoff cards |
 | Stock Fox | No repo or entry | Add to pipeline when Astra wants it | Pipeline format |

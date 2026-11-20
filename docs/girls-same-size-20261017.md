@@ -141,7 +141,32 @@ None is merged. mommys-mommies#3 (a record note) was closed: Mommy's Mommies are
   the girls; the other three girls' web frames are still fitted (older designs, above).
 - The API Fairy app embeds her frames: it shows them after `build.cmd`. Folder icons on Astra's PC refresh with
   `set-folder-icons-20261017.ps1`.
-- Generated files (`cage-data.js`, `system-map-20261012.html`, `art/roster.png`) conflict with any other branch that
+- Generated files (the old pets page's data file, `system-map-20261012.html`, `art/roster.png`) conflict with any other branch that
   rebuilt them: whoever merges second runs `npm run build` again.
 - `npm test`: all pass on a checkout with LF line endings. On a Windows checkout with `core.autocrlf=true`, two tests
   that compare generated docs fail on `main` too (line endings, not content).
+
+## 2026-11-14: GPT-6-Astra's nine faces, one crop per girl
+
+By Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-15. Astra asked for every pet's newest drawing everywhere ("Yes, all of
+them"), and GPT-6-Astra drew each girl's nine faces again from her newest drawing
+([changes/newest-pet-art-nine-moods-20261114.md](../changes/newest-pet-art-nine-moods-20261114.md)). Each sheet is cut
+to the same 204 rows from the top of her halo, headset, bun or star to her soles, so with one shared crop the girls
+with a tall headpiece would have stood smaller. Mommy's Mommies are not changed: they are still the reference.
+
+Measured by eye on each girl's idle frame at 6x with a ruler (rows of the 256 px frame; soles 229 on all five):
+
+| Girl | Eye top | Chin | Face height | Eye top to soles | Crop (`SameSizeCrops`) |
+| --- | --- | --- | --- | --- | --- |
+| Mommy's Mommies (Astra, Devilish) | 88 | 108 | 20 | 141 | 207 |
+| Discord Damsel | 77 | 98 | 21 | 152 | 224 |
+| API Fairy | 90 | 110 | 20 | 139 | 204 |
+| Astra Wisp | 87 | 109 | 22 | 142 | 208 |
+| VSCode Angel | 83 | 105 | 22 | 146 | 214 |
+
+Each crop is 207 x her eye-top-to-soles rows / 141, still measured up from the soles and drawn 58.75 high, so every
+girl's eyes, face and body stand the same height on the desktop and on her pages (`scripts/pet-size-20261023.mjs`,
+`SAME_SIZE_CROPS`). 207 is the smallest crop for Mommy's Mommies that still holds the whole of API Fairy's drawing.
+No pixel is moved this time: each girl keeps her drawing and only her scale changes. Faces are not stretched to one
+width as on 2026-10-17 (the Damsel's face is a little narrower than Mommy's Mommies', Astra Wisp's a little wider);
+that waits on Astra. A newer drawing of any girl must be measured again; the self-test checks every crop.

@@ -1,4 +1,4 @@
-status: open (the build is in a PR, waiting on Astra: her merge OK and her OK for the four downloads)
+status: open (the build is in a PR, waiting on Astra's merge OK; the four programs are installed)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -91,7 +91,11 @@ done in the build PR and `findastra/the-pilot-plant` (private, f55cd9c). Left: 7
 5. ~~Add Rift Rabbit's parts: L3's note, devices if any.~~ Done: L3's note; it looks after no devices.
 6. ~~Astra approves the draft art.~~ Done: approved on 2026-11-12 ("Approve it"). Registering it is the Farmer's step
    once the pet is built.
-7. Do the four downloads, each checked first.
+7. ~~Do the four downloads, each checked first.~~ Done 2026-11-19 (Astra, 2026-11-12: "Yes, download all"). DWSIM
+   10.2.15 instead of 9.0.5 (Astra: "I want the one with the AI agent"; 9.0.5 removed), Qalculate! 5.13.2, Python
+   3.13.17 per user with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero 10.0.8. Every file's SHA-256 matched
+   winget's (GitHub's for DWSIM 10); Astra clicked through each licence herself. Left for her, in L4: Zotero's local API
+   tick, and which AI DWSIM's assistant talks to.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 
 ## Done when
@@ -112,3 +116,6 @@ Record the merge below.
 
 - 2026-11-12, PC Master Race chat (Claude Opus 5.5): received the build after the flamingo chat's note that it makes no
   more changes; Astra said "Yes, build it". Built as above; the four downloads wait in L4 (`waiting_on_you`, card 299).
+- 2026-11-19, same chat: the four programs are installed (step 7). The look (the-pilot-plant#1) finds DWSIM 10 and its
+  assistant, all four programs and Astra's first flowsheet; 16 self-test checks. #337 brought up to date with main
+  (pets.json: Server Salamander's entry kept; the seed's weekly audit block moved onto this pipeline entry).

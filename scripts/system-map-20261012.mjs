@@ -225,10 +225,12 @@ export function buildSystemMap(registry, extra, template, icons = {}, programs =
 const CELL = { yes: 'yes', pr: '🔒 PR', ask: 'asks', grant: '🔑 grant', no: '–' };
 const cell = (s) => String(s).replace(/\\/g, '\\\\').replace(/\|/g, '\\|'); // backslashes first, then the table's pipes
 export function ringsTable(extra) {
-  return ['| Ring | Name | What lives there | Animal? |', '|---|---|---|---|',
+  // "Standard term" (Astra, 2026-11-17): each ring's developer name and term, as the map's Developer switch shows it.
+  const term = (r) => (r.dev ? `${cell(r.dev.name)} (${cell(r.dev.term)})` : '');
+  return ['| Ring | Name | Standard term | What lives there | Animal? |', '|---|---|---|---|---|',
     ...extra.rings.list.map((r) => r.ring === 'H'
-      ? `| — | **${cell(r.name)}** | ${cell(r.what)} | ${cell(r.animal)} |`
-      : `| ${r.ring} | ${cell(r.name)} | ${cell(r.what)} | ${r.animal === 'yes' || r.animal.startsWith('yes') ? '🐾 ' : ''}${cell(r.animal)} |`)].join('\n');
+      ? `| — | **${cell(r.name)}** | ${term(r)} | ${cell(r.what)} | ${cell(r.animal)} |`
+      : `| ${r.ring} | ${cell(r.name)} | ${term(r)} | ${cell(r.what)} | ${r.animal === 'yes' || r.animal.startsWith('yes') ? '🐾 ' : ''}${cell(r.animal)} |`)].join('\n');
 }
 export function grantsTable(extra) {
   const { grants, statuses } = extra.access;

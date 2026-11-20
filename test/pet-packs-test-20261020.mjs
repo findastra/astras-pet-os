@@ -11,6 +11,7 @@ import { tmpdir } from 'node:os';
 import { join, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readSpawnerSources } from '../scripts/pet-program-pages-20261018.mjs';
+import { asAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 import { systemMapData } from '../scripts/system-map-20261012.mjs';
 import { buildPack, needsProblems, packRefusal, planPack, repoAt, resolveNeeds, unzip, zip, crc32,
   HUB_DIR, MANIFEST, OPENER, TOOL_LABEL, packName } from '../scripts/pet-packs-20261020.mjs';
@@ -22,7 +23,7 @@ const read = (p) => readFileSync(`${root}/${p}`, 'utf8');
 // the registry in which he is public; packing a private repo has its own test below.
 const src = (() => {
   const s = readSpawnerSources(root);
-  const r = JSON.parse(JSON.stringify(s.registry));
+  const r = asAstrasFarm(s.registry); // Astra's farm, also on someone else's copy (fixtures/astras-farm-20261111.mjs)
   for (const p of [...r.pets, ...r.pipeline]) if (p.repo === 'evidence-locker') p.visibility = 'public';
   return { ...s, registry: r };
 })();
@@ -61,12 +62,12 @@ test('the needs check finds every kind of mistake', () => {
   const pet = r.pets.find((p) => p.repo === 'evidence-locker');
   pet.needs.os.push('beos');
   pet.needs.pets.push({ repo: 'no-such-pet', how: 'required', why: 'x' }, { repo: 'evidence-locker', how: 'optional', why: 'itself' }, { repo: 'log-den', how: 'required', why: 'twice' });
-  pet.needs.core.push({ part: 'the-cage', how: 'required', why: 'gone' });
+  pet.needs.core.push({ part: 'the-old-page', how: 'required', why: 'gone' });
   pet.needs.programs.push({ node: 'github-goldfish', how: 'sometimes', why: '' });
   pet.needs.feelings = [];
   const problems = needsProblems(r, extra).join('\n');
   for (const want of ['unknown os "beos"', '"no-such-pet", which is not a registered or pipeline pet', 'evidence-locker: needs itself', 'needs.pets names one twice',
-    '"the-cage", which is not a part of the core', '"github-goldfish", which is not a third-party program', 'unknown how "sometimes"', 'say why', 'unknown kind of need "feelings"']) {
+    '"the-old-page", which is not a part of the core', '"github-goldfish", which is not a third-party program', 'unknown how "sometimes"', 'say why', 'unknown kind of need "feelings"']) {
     assert.ok(problems.includes(want), `missing: ${want}\n${problems}`);
   }
   delete r.pipeline[0].needs;
@@ -170,7 +171,9 @@ test('a pet pack: the repo at its version, its pictures, a page that works on it
     assert.ok(page.includes('href="https://findastra.github.io/astras-pet-os/apps/pet-programs/log-den-20261018.html"'), "another pet's page goes to the public site");
     assert.match(at(OPENER).toString('utf8'), new RegExp(`url=${HUB_DIR}/apps/pet-programs/evidence-locker-20261018\\.html`));
     // The Markdown pet shows the picture in the pack.
-    assert.match(at(`${HUB_DIR}/markdown-pets/evidence-locker-20261019.md`).toString('utf8'), /!\[Forensic Ferret\]\(\.\.\/art\/frames\/forensic-ferret\/idle-20261019\.png\)/);
+    // (2026-11-14: his newest drawing, the nine faces in desktop-art/forensic-ferret/, stamped in art/moods/.)
+    assert.match(at(`${HUB_DIR}/markdown-pets/evidence-locker-20261019.md`).toString('utf8'), /!\[Forensic Ferret\]\(\.\.\/art\/moods\/forensic-ferret\/idle\.png\)/);
+    assert.ok(at(`${HUB_DIR}/art/moods/forensic-ferret/idle.png`), 'and that picture is in the pack');
     // The README says plainly what works alone and what needs a farm.
     const readme = at('README.md').toString('utf8');
     for (const want of ['## What works on its own', '## What needs a farm', '**Log Lynx** (`log-den`, required)', '**Its desktop pet** (optional)', 'Windows 10 or 11',

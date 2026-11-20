@@ -115,8 +115,11 @@ install fail instead (the register script sets it). `npm test` in `mcp\` runs th
 
 ## Not done yet
 
-- Not registered on Astra's PC yet. Its System Map node is `planned` until a new chat lists the server and one call
-  answers, like `unity-mcp` (card 306); then it goes to `now`.
+- Registered on Astra's PC on 2026-11-11 (hub card 319). The script was started through Explorer, so it ran outside the
+  Claude app; its log ended with exit 0. Claude Code got it at user scope through the Claude app's own `claude.exe`, and
+  Codex through `config.toml`. Claude Desktop was skipped: `%APPDATA%\Claude` does not exist outside the app's package.
+  `claude mcp list` shows it Connected, `codex mcp list` shows it enabled, and one `get_pet` call through MCP Inspector
+  answered. Its System Map node is `now`.
 - Checked on Astra's PC, 2026-11-09 (hub card 319): `npm ci` in `mcp\` and the tests with the SDK required, 13 of 13;
   PowerShell's parser finds no error in the register script, and run from a Claude chat it stops at its first check.
 - The client config details (Claude Desktop's file, `claude mcp add`, Codex's `config.toml`, `${USERPROFILE}` in

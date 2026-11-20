@@ -6,9 +6,11 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { STAGES, NUMBERED, stageCounts, buildStagesChart, applyStages } from '../scripts/pet-stages-20261102.mjs';
 import { findPets } from '../scripts/pet-finder-20261016.mjs';
+import { asAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
 const read = (f) => readFileSync(fileURLToPath(new URL(`../${f}`, import.meta.url)), 'utf8');
-const registry = JSON.parse(read('pets.json'));
+// Astra's farm, also when this copy is someone else's farm after make-it-yours (fixtures/astras-farm-20261111.mjs).
+const registry = asAstrasFarm(JSON.parse(read('pets.json')));
 const programs = JSON.parse(read('pet-programs.json')).programs;
 
 test('the README stages chart is up to date with pet-programs.json and the gate (run npm run build)', () => {

@@ -26,12 +26,19 @@ Everybody should be doing this."
 The first slide says what the questions are about and how many there are. The last slide lists every question with
 its recommended answer, so she can say "all recommended" or change one.
 
+## Answered stays answered (Astra, 2026-10-24)
+Once she answers a deck ("all recommended" included), those answers are decisions. Before a new deck, list them
+under "Already decided" and drop every question they answer. Never re-ask one, and never recommend a different
+answer later. If a new idea really conflicts with an answer, say so plainly and ask only about that conflict.
+(The Cooling Tower: after "all recommended" put the DJ on the centre riser, the DJ questions came back twice.)
+
 ## How
 - **Claude:** make the deck with the Artifact tool (`action: "quickstart"`, `intent: "slides"`), private, and give
   the link.
 - **Codex, or no slide tool:** a self-contained HTML slideshow (one slide per screen, arrow keys and Next/Back
   buttons, readable on a phone), saved where the task's other files are, and opened for her.
 - **In chat**, put ✨ right next to the deck's link and list the questions in one short line each, so she sees them
-  even before she opens it.
+  even before she opens it. ✨ marks only what she must answer (a deck, an answer sheet), never merge links, so she
+  can find her open questions by looking for it (2026-10-19).
 - Plain language, sentence case. When a word is a developer term, give the plain meaning on the slide.
 - When she answers, record each answer where the slide said, and show anything still open in the next deck as open.

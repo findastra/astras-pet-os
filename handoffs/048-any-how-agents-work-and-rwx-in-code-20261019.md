@@ -21,7 +21,7 @@ Code and Codex "the agentic harness", while L3 is each pet program's own harness
   harness, Bot (a Discord bot) and Bot panel.
 - `skills/new-pet-or-tool`: decision row, help bots and bot panels belong to Role Fairy (Fairy Ring).
 - `findastra/role-fairy` PR #4 (branch `claude/help-bots-and-panels-20261019`): README "Bots and bot panels"
-  (Mommy's Helper Bot, `mommys-help-bot-panel`; Press Plai's help bot), pet.json job and `cage.submit`, its card 001.
+  (Mommy's Helper Bot, `mommys-help-bot-panel`; Press Plai's help bot), pet.json job and `hub.submit`, its card 001.
 - This card, its row and the next free number (049) in `handoffs/README.md`; card 047's row copied from PR #111 so the
   number table is complete on this branch.
 - Tests: `npm test` in the worktree (result in the pull request).

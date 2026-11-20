@@ -127,17 +127,34 @@
     }
     return false;
   }
+  // What each swap replaced, so setMode('farm') can put the farm words back without reloading the page (Astra,
+  // 2026-11-17: the System Map's DEV switch keeps what you selected). Only text still showing what the swap wrote goes
+  // back: text the page has written since stays as the page wrote it.
+  var wasText = new WeakMap(), wasAttr = new WeakMap();
   function text(node) {
     if (kept(node)) return;
+    var had = wasText.get(node);
+    if (had && had.shown === node.data) return; // already in developer words
     var p = node.parentNode, next = p && p.classList && p.classList.contains('legend') ? legend(node.data) : swap(node.data);
-    if (next !== node.data) node.data = next;
+    if (next !== node.data) { wasText.set(node, { farm: node.data, shown: next }); node.data = next; }
   }
   // A search box's placeholder or a button's title is read, so it changes; the value typed into a box never does.
   function attrs(el) {
     if (el.hasAttribute('data-words-keep') || (el.parentNode && el.parentNode.nodeType === 1 && kept(el.parentNode))) return;
     for (var i = 0; i < ATTRS.length; i++) {
-      var v = el.getAttribute(ATTRS[i]);
-      if (v) { var next = swap(v); if (next !== v) el.setAttribute(ATTRS[i], next); }
+      var v = el.getAttribute(ATTRS[i]), had = wasAttr.get(el);
+      if (!v || (had && had[ATTRS[i]] && had[ATTRS[i]].shown === v)) continue;
+      var next = swap(v);
+      if (next !== v) { if (!had) wasAttr.set(el, had = {}); had[ATTRS[i]] = { farm: v, shown: next }; el.setAttribute(ATTRS[i], next); }
+    }
+  }
+  function unswap(root) {
+    var tw = document.createTreeWalker(root, 1 | 4), n, had;
+    while ((n = tw.nextNode())) {
+      if (n.nodeType === 3) { had = wasText.get(n); if (had && had.shown === n.data) n.data = had.farm; wasText.delete(n); continue; }
+      had = wasAttr.get(n); if (!had) continue;
+      for (var a in had) if (n.getAttribute(a) === had[a].shown) n.setAttribute(a, had[a].farm);
+      wasAttr.delete(n);
     }
   }
   function walk(root) {
@@ -151,12 +168,10 @@
     var tw = document.createTreeWalker(root, 1 | 4), n;
     while ((n = tw.nextNode())) { if (n.nodeType === 3) text(n); else attrs(n); }
   }
-  function start() {
-    walk(document.body);
-    if (!developer) return;
-    document.title = swap(document.title);
+  var seen = null, farmTitle = null;
+  function watch() {
     if (!window.MutationObserver) return;
-    var seen = new MutationObserver(function (records) {
+    if (!seen) seen = new MutationObserver(function (records) {
       records.forEach(function (r) {
         if (r.type === 'childList') for (var i = 0; i < r.addedNodes.length; i++) walk(r.addedNodes[i]);
         else if (r.type === 'characterData') text(r.target);
@@ -166,9 +181,32 @@
     });
     seen.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
   }
+  function start() {
+    walk(document.body);
+    if (!developer) return;
+    farmTitle = document.title; document.title = swap(document.title);
+    watch();
+  }
+  // Switch the words on this page without reloading it, and remember the choice like the footer switch does. The page
+  // hears 'petos-words' on window afterwards, to redraw what is not page text (a canvas, or its own key).
+  function setMode(next) {
+    if (!MODES[next] || next === mode) return;
+    mode = next; developer = next === 'developer';
+    window.PetOSWords.mode = mode; window.PetOSWords.developer = developer;
+    remember(mode);
+    document.documentElement.setAttribute('data-words', mode);
+    if (developer) { walk(document.body); farmTitle = document.title; document.title = swap(document.title); watch(); }
+    else {
+      if (seen) { seen.takeRecords(); seen.disconnect(); }
+      unswap(document.body);
+      if (farmTitle !== null && document.title === swap(farmTitle)) document.title = farmTitle;
+    }
+    var ev; try { ev = new CustomEvent('petos-words', { detail: { mode: mode } }); } catch (e) { ev = document.createEvent('CustomEvent'); ev.initCustomEvent('petos-words', false, false, { mode: mode }); }
+    window.dispatchEvent(ev);
+  }
 
   window.PetOSWords = {
-    mode: mode, developer: developer, installed: installed,
+    mode: mode, developer: developer, installed: installed, setMode: setMode,
     swap: function (t) { return developer ? swap(t) : t; },
     legend: function (t) { return developer ? legend(t) : t; },
     data: data,

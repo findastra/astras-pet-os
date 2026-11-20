@@ -39,5 +39,5 @@
     "sleep": "sleep-20261011.png"
   },
   "icon": "idle-20261011.png",
-  "notes": "Draft artwork for review. Not activated in the app or Cage registry. No generated mood symbols; shared overlays can be composited during integration."
+  "notes": "Draft artwork for review. Not activated in the app or hub registry. No generated mood symbols; shared overlays can be composited during integration."
 }

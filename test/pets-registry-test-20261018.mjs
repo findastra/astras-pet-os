@@ -32,7 +32,7 @@ test('the real registry, README table and built frames all agree', () => {
 test('exactly one host, and it is this hub itself', () => {
   const hosts = registry.pets.filter((p) => p.role === 'host');
   assert.equal(hosts.length, 1);
-  assert.equal(hosts[0].repo, registry.cage);
+  assert.equal(hosts[0].repo, registry.hub);
   assert.equal(hosts[0].pet, 'Friendly Farmer');
 });
 

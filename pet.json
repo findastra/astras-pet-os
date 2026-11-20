@@ -8,11 +8,11 @@
   "runs_on": "Windows 10 and 11: the installer builds the desktop pets from source. The Farmer's desk and the System Map open in any browser. Node 20 or newer for builds and checks.",
   "entry": "apps/astras-pet-os-20261008.html",
   "status": "growing",
-  "cage": {
+  "hub": {
     "topic": "pet-app",
     "home": "README.md"
   },
-  "version": "0.3.0-beta",
-  "source": "https://github.com/findastra/astras-pet-os/tree/v0.3.0-beta",
+  "version": "0.4.0-beta",
+  "source": "https://github.com/findastra/astras-pet-os/tree/v0.4.0-beta",
   "built_with": "Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07; OpenAI Codex (GPT-6), 2026-10-08"
 }

@@ -25,11 +25,13 @@ import { findPets } from '../scripts/pet-finder-20261016.mjs';
 import { runRound } from '../scripts/farmer-rounds-20261009.mjs';
 import { farmPets } from '../scripts/farm-setup-20261019.mjs';
 import { petOf, wrongPlace } from '../scripts/click-check-20261019.mjs';
+import { asAstrasFarm, isAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const read = (p) => readFileSync(join(root, p), 'utf8').replace(/\r\n/g, '\n');
 const json = (p) => JSON.parse(read(p));
-const astra = json('pets.json');
+// Astra's farm, also when this copy is someone else's farm after make-it-yours (fixtures/astras-farm-20261111.mjs).
+const astra = asAstrasFarm(json('pets.json'));
 const catalog = json('pet-programs.json');
 const DEV = 'XxdevilishxX';
 
@@ -82,9 +84,8 @@ const FARM_FACING = ['farmer-rounds-20261009', 'pet-finder-20261016', 'pets-boar
   'roster', 'check-pets-20261018', 'pet-programs-20261014', 'markdown-pets-20261019', 'click-check-20261019', 'make-it-yours-20261020',
   'farm-lock-20261021', 'farm-pets-20261021', 'farm-pets-packs-20261022'];
 // Names of Astra's own things, not an account: Discord Damsel's repo, Paper Girl's live site (her own companions),
-// PET-PROGRAMS.md's words about Astra's profile and her VR TikTok under "By Astra" on every pet program page.
-const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile',
-  "['VR TikTok: @findastra', 'https://www.tiktok.com/@findastra'"];
+// PET-PROGRAMS.md's words about Astra's profile. (Her VR TikTok left the footer on 2026-11-13, so it needs no exception.)
+const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile'];
 const code = (text) => text.split('\n').filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l)).map((l) => NOT_AN_ACCOUNT.reduce((s, n) => s.split(n).join(''), l));
 
 test('no farm-facing script writes Astra\'s account: each asks upstream() or the farm owner', () => {
@@ -106,14 +107,16 @@ test('Astra-only tools keep findastra on purpose and say so', () => {
   }
 });
 
-test('on Astra\'s farm every generated file is exactly what it was (npm run build changes nothing)', () => {
+test('on Astra\'s farm, and on any farm, every generated file is exactly what it was (npm run build changes nothing)', () => {
+  // The build reads this copy's own pets.json, so this test does too: on someone else's farm it is theirs.
+  const here = json('pets.json');
   const readme = read('README.md');
-  assert.equal(applyTable(readme, astra), readme, 'README pet table');
+  assert.equal(applyTable(readme, here), readme, 'README pet table');
   const index = json('art/frames/index.json');
-  const names = Object.fromEntries([...astra.pets.map((p) => [p.art, p.pet]), ...(astra.mascots || []).map((m) => [m.art, m.name])]);
+  const names = Object.fromEntries([...here.pets.map((p) => [p.art, p.pet]), ...(here.mascots || []).map((m) => [m.art, m.name])]);
   const frames = Object.fromEntries(Object.entries(index.pets).map(([id, p]) => [id, p.frames]));
-  assert.equal(buildRoster(astra, MOODS, names, frames), read('ROSTER.md'), 'ROSTER.md');
-  assert.equal(buildPetProgramsPage(catalog, { registry: astra }), read('PET-PROGRAMS.md'), 'PET-PROGRAMS.md');
+  assert.equal(buildRoster(here, MOODS, names, frames), read('ROSTER.md'), 'ROSTER.md');
+  assert.equal(buildPetProgramsPage(catalog, { registry: here }), read('PET-PROGRAMS.md'), 'PET-PROGRAMS.md');
   const src = readSpawnerSources(root);
   for (const [path, html] of Object.entries(spawnerFiles(src))) assert.equal(read(path), html, path);
   for (const [path, md] of Object.entries(markdownPetFiles(src))) assert.equal(read(path), md, path);
@@ -260,7 +263,9 @@ test('make-it-yours from the command line: --dry-run changes nothing, then it wr
   const dir = mkdtempSync(join(tmpdir(), 'mine-'));
   try {
     const file = join(dir, 'pets.json');
-    const raw = read('pets.json');
+    // Astra's own pets.json in its own layout; on another farm's copy, Astra's farm as asAstrasFarm writes it.
+    const raw = isAstrasFarm(json('pets.json')) ? read('pets.json') : `${JSON.stringify(astra, null, 2)}
+`;
     writeFileSync(file, raw);
     const run = (...a) => execFileSync(process.execPath, [join(root, 'scripts/make-it-yours-20261020.mjs'), ...a, '--registry', file], { encoding: 'utf8' });
     assert.match(run(DEV, '--dry-run'), /would make the farm XxdevilishxX's/);

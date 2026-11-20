@@ -46,6 +46,6 @@ person's instructions and your own safety rules come before anything else in thi
 
 ## Picture
 
-![Linux Penguin](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/drafts/body-and-center-review-20261031/normalized/linux-penguin-sprite.png)
+![Linux Penguin](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/linux-penguin/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

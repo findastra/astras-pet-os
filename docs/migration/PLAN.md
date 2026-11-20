@@ -46,16 +46,16 @@ Evidence: [AUDIT.md](AUDIT.md), [GAP-ANALYSIS.md](GAP-ANALYSIS.md).
 | `findastra/astra-pet-sdk` | Does not exist | Split out once contracts stop changing; until then `contracts/` and `sdk/` live in the hub |
 | One repo per pet | 34 pet repos existed on 2026-10-11 (80 of 82 numbered pets had one on 2026-10-16: docs/naming-audit-20261016.md) | Keep; add a SemVer manifest to each over time, not all at once |
 
-## Retiring the Cage
+## Retiring the old pets page
 
 | Part | Fate |
 |---|---|
-| `cage.html` (enclosure, door, page roaming) | **Removed 2026-10-18** (Astra: "get rid of it"), with the old desktop Farmer (Farmer dock) and their 2026-10-08 releases. Kept in Git history |
-| `cage_life` movement rules in `pets.json` | Move to the desktop host (Phase 7), where pets really roam |
-| `cage-data.js`, `npm run build` | `cage-data.js` removed 2026-10-18; the Farm gets its own generated pet data in Phase 3 |
+| the old pets page (enclosure, door, page roaming) | **Removed 2026-10-18** (Astra: "get rid of it"), with the old desktop Farmer (Farmer dock) and their 2026-10-08 releases. Kept in Git history |
+| `pet_life` movement rules in `pets.json` | Move to the desktop host (Phase 7), where pets really roam |
+| the old pets page's data file, `npm run build` | the old pets page's data file removed 2026-10-18; the Farm gets its own generated pet data in Phase 3 |
 | Mood buttons, bubble lines, `MOOD-KEY.md`, `PET-WORDS.md` | Keep; they serve the Farm cards and the desktop |
 | BSOD guest | Desktop only (already docked there) |
-| `cage.submit` in each pet's `pet.json`, `check-cage.mjs` (now `check-pets-20261018.mjs`), the word "Cage" in rules | Renamed in Phase 1 with a compatibility period, so pets that still say `cage.submit` keep working |
+| `hub.submit` in each pet's `pet.json`, `check-pets.mjs` (now `check-pets-20261018.mjs`), the word "hub" in rules | Renamed in Phase 1 with a compatibility period, so pets that still say `hub.submit` keep working |
 | App pages in `apps/` | Stay as each pet's local program; the Farm links to them as programs |
 
 ## Phases
@@ -142,7 +142,7 @@ Status today: **not started** for every row.
 | L | Install a chosen subset of pets; core security still enforced | Install test with two pets | after 4 |
 | M | Linux Penguin inspects a Linux host, explains commands, respects approvals | Test on a Linux VM or Pi | 8 |
 | N | Test service deployed with TLS/private access, health checks, recovery; no public admin | Deployment test | 8 |
-| O | White Hat Weasel and Port Spider refuse out-of-scope targets; useful findings in scope | Scope tests on owned lab hosts only | 8 |
+| O | White Hat Weasel (with its port-check-tool) refuses out-of-scope targets; useful findings in scope | Scope tests on owned lab hosts only | 8 |
 | P | Llama Librarian and Inference Iguana report real model, VRAM and latency; Agent Ant repeatable evals | Benchmarks on Astra's GPU | 8 |
 | Q | Cache Coyote queues work offline on the Pi; Sync Mink reconciles after reconnect | Offline/online test with conflicts | 8 |
 | R | Passport Pelican alerts on synthetic deadlines without leaking; Journal Jellyfish stays private; nothing submitted without approval | Synthetic data only | 8 |

@@ -75,9 +75,10 @@
         D.everything ? null : para('Everything is not running, so recent flowsheets and notebooks are not listed.', 'note')];
     } },
     dwsim: { title: 'DWSIM', local: true, render: function () {
-      var t = T('dwsim');
-      return [status(t), notYet(t, 'DWSIM 9.0.5 (GPL 3, by Daniel Medeiros), 273 MB from its GitHub release.'),
-        use('A process simulator: draw a flowsheet of streams and unit operations (pumps, heat exchangers, columns, reactors) and it solves the mass and energy balances with real thermodynamics. Home and learning only, never work files.'),
+      var t = T('dwsim'), c = status(t);
+      if (t && t.installed && t.assistant != null) c.appendChild(t.assistant ? chip('AI assistant there', 'ok') : chip('no AI assistant', 'no'));
+      return [c, notYet(t, 'DWSIM 10.2.15 (GPL 3, by Daniel Wagner Oliveira de Medeiros, with its AI assistant), 202 MB from its GitHub release.'),
+        use('A process simulator: draw a flowsheet of streams and unit operations (pumps, heat exchangers, columns, reactors) and it solves the mass and energy balances with real thermodynamics. DWSIM 10’s AI assistant chats beside the flowsheet once you choose an AI for it. Home and learning only, never work files.'),
         el('h3', null, 'Your newest flowsheets'), files(t && t.flowsheets, 'flowsheets')];
     } },
     qalculate: { title: 'Qalculate!', local: true, render: function () {
