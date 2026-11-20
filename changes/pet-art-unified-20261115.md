@@ -1,5 +1,9 @@
 # Pet Art Revision
 
+## Current direction, 2026-11-19
+
+Choose faces before the final pass. Astra asked to see every existing face next to the new draft, with all nine expressions plain and with shared matching symbols. Keep the exact original Storage Stoat and native Data Chip. Do not blanket-straighten the pets, and do not implement a separate animation layer. Retired Port Spider is excluded. Preserve all other design details. The earlier universal-tilt redraw and later universal-upright redraw are superseded. Original default assets are intact; final art adoption waits for this selection review. The private local slideshow records choices for card 371.
+
 By Astra. Implementation: Codex, 2026-11-15.
 
 Astra requests all 86 registered pets and all nine expressions reviewed and redrawn consistently using Patch Cat, Rift Rabbit, Deck Duck and Mesh Moth as style references. Storage Stoat supplies a subtle head tilt; Mommy's Mommies supplies human face and body proportions. Preserve identities and accessories while improving outlines, centering and square padding.
