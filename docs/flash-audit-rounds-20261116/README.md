@@ -107,7 +107,7 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 | 5 | Unity Unicorn | Unity Stable | registered | 4 | 5 | 0 | A59 A54 A14 A56 A17 A55 A18 A31 | next |
 | 6 | Python Panther | Python Jungle | registered | 6 | 2 | 0 | A59 A14 A15 A16 A17 A55 A18 | next |
 | 7 | Astra Wisp | The Astral Plane | registered | 5 | 5 | 1 | A01 A10 A54 A15 A56 A16 A17 A55 | next |
-| 8 | Health Hummy | The Nectar Nest | registered | 4 | 1 | 0 | A10 A15 A16 A55 A18 | next |
+| 8 | Health Hummy | The Nectar Nest | registered | 4 | 4 | 29 | see round 8 | [done 11-20](round-08-health-hummy-20261120.md) |
 | 9 | Finance Finch | Nest Egg | registered | 4 | 1 | 0 | A10 A15 A16 A55 A18 | next |
 | 10 | Mommy's Mommies | Mommy’s HQ | registered | 9 | 2 | 0 | A59 A07 A01 A10 A15 A16 A17 A55 A18 | next |
 | 11 | Paper Patty | Paper Girl | registered | 4 | 6 | 0 | A59 A07 A10 A13 A14 A16 A55 A18 A31 | next |
@@ -184,9 +184,9 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 | 83 | Role Fairy | Fairy Ring | pipeline | 7 | 4 | 0 | A59 A01 A10 A54 A15 A16 A55 A18 A31 | next |
 | 84 | Workflow Whale | Workflow Whirlpool | pipeline | 4 | 0 | 1 | A59 A10 A16 A55 | next |
 | 86 | PC Master | PC Master Race | pipeline | 5 | 1 | 1 | A59 A10 A54 A16 A55 A26 | next |
-| 87 | Flowsheet Flamingo | The Pilot Plant | seed | 4 | 2 | 1 | A09 A10 A13 A16 A55 A26 | next |
+| 87 | Flowsheet Flamingo | The Pilot Plant | pipeline | 3 | 2 | 1 | A10 A13 A16 A55 A26 | next |
 
-All items: 487 Missing, 133 Incorrect, 102 Not verified.
+All items: 486 Missing, 136 Incorrect, 131 Not verified.
 
 Two holds apply to every round:
 

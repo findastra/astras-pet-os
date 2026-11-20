@@ -21,7 +21,7 @@ set aside. All 71 checks were run in the matrix's order. Only what is not a pass
 
 | Check | Result | What was found | Fix |
 |---|---|---|---|
-| ⚪ A10 Website route | Missing | The desk has no hosted address. The repo is private and opens from the file only. The pet program page in the hub is the program (A59 passes). | 🔵 Putting the desk on a public site is yours. |
+| ⚪ A10 Website route | Missing | Corrected 2026-11-20 (round 8): the desk is already on the hub's public site, `apps/portfolio-puffer-20261008.html` (200). `pets.json` registers no `interface_live_url` for it, so the Run finds no program address. The pet program page in the hub is the program (A59 passes). | 🔵 Register that copy as its address? Round 8, decision 3, asks this for both pets. |
 | ⚪ A15 README and credit (Goldfish's) | Incorrect | The README's first line is the retired credit line ("An Intelligent App, or Pet, by Astra."). | Already fixed in [portfolio-puffer#9](https://github.com/findastra/portfolio-puffer/pull/9) (2026-10-20, one line, still mergeable). It only needs merging. |
 | ⚪ A16 Metadata and self-audit | Missing + Incorrect | `pet.json` had no `framework`. `source` opened `tree/v0.1.1-20261009`, a tag that was never made (404). `release_tag` still names that tag. | [portfolio-puffer#13](https://github.com/findastra/portfolio-puffer/pull/13): `framework` says the hub's page is built to the framework and the desk is not yet, and `source` opens commit `72da88b`, as the README does. 🔵 Make the `v0.1.1-20261009` tag, or drop `release_tag`. A tag is a release, so it's yours. |
 | 🔵 A18 Official tool and trick inventory | Incorrect | The tool lists disagree. The page shows 3 native tools (Astra's Window Star, Handwritten Message Manager, and `portfolio-puffer-social-row`, preview only). `pet.json` lists the first two. `TOOLS-AND-TRICKS.md` lists only Astra's Window Star. | Held, like The Farm's A54: `system-map.json` (which `TOOLS-AND-TRICKS.md` is built from) is changed by 11 open hub pull requests. |
@@ -41,7 +41,9 @@ on the art and 22 Not verified.
    and `main`'s README and `pet.json` were checked afterwards. A15 and A16's `framework` and `source` now pass. #10
    shares the `updated` line with #13, so its chat takes the newer date when it updates #10.
 2. Close [portfolio-puffer#6](https://github.com/findastra/portfolio-puffer/pull/6) (stale, conflicting, not needed)?
-3. The `v0.1.1-20261009` tag: make it, or drop `release_tag` from `pet.json`?
+3. The `v0.1.1-20261009` tag: make it, or drop `release_tag` from `pet.json`? Health Hummy has the same tag
+   question (round 8, decision 2).
+4. Register the hub's public copy of the desk as its address (round 8, decision 3)?
 
 <sub>Flash Audit, 2026-11-19, Claude Opus 5.5 (`claude-opus-5-5`). Checks were read-only. Nothing was clicked for you,
 launched or signed in to.</sub>

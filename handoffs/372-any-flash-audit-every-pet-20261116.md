@@ -1,5 +1,5 @@
 ---
-status: open. Rounds 1, 14 and 3 done (easiest first since 2026-11-19, one at a time); next 8, 9, 13, 15, 17; #372 waits for Astra's merge OK
+status: open. Rounds 1, 14, 3 and 8 done (easiest first since 2026-11-19, one at a time); next 9, 13, 15, 17; #372 waits for Astra's merge OK
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: round 1's decisions from Astra (listed on its card); one assistant at a time on the rounds
@@ -31,8 +31,11 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
 - **2026-11-19: easiest first, one item at a time** (Astra: "ChatGPT is doing another art redraw right now. So we are
   going to be waiting for that. But in the meantime, let's roll through the easiest ones first and get going. I want
   to do one item at a time."). Easiest = the fewest Run and page findings once the art checks and the `pet-app` topic
-  are set aside. Round 14 (Portfolio Puffer) and round 3 (Data Dealer, data-dealer#18) are done. The next ones are
-  8 The Nectar Nest, 9 Nest Egg, 13 Discord Tower, 15 Bass & Biscuits and 17 Am I a Ghost?. Run the auditor again for
+  are set aside. Round 14 (Portfolio Puffer), round 3 (Data Dealer, data-dealer#18) and round 8 (The Nectar Nest,
+  health-hummy#10) are done. The next ones are 9 Nest Egg, 13 Discord Tower, 15 Bass & Biscuits and 17 Am I a
+  Ghost?. A10 trap (round 8): a desk whose copy is on the hub's public site (`apps/<repo>-*.html`) still counts as
+  Missing when `pets.json` has no `interface_live_url` (only 4 of 23 do). Check the copy before writing "no hosted
+  address". Run the auditor again for
   the one item first (`node scripts/idle-flash-audit-20261017.mjs <out> <number>`, a few seconds). Set
   `FLASH_PREFLIGHT` to Goldfish's `scripts/flash-audit-local-20261015.mjs` in her PC folder: that file is only on
   Codex's `codex/l3-activity-20261016`, not on Goldfish's `main`. Without it, the Goldfish checks come out Not
@@ -59,7 +62,9 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
 ## Receipt and review
 
 - `npm test` in an LF clone of the branch (Git Bash): 469 tests, 463 pass, 0 fail, 6 skipped. `main` gave the same.
-  2026-11-20, after merging `main` (5db73a02) and adding round 3: 494 tests, 488 pass, 0 fail, 6 skipped.
+  2026-11-20, after merging `main` (5db73a02) and adding round 3: 494 tests, 488 pass, 0 fail, 6 skipped. After
+  merging `main` again (The Farm's page taken from `main` and rebuilt) and adding round 8: 497 tests, 491 pass, 0 fail,
+  6 skipped.
 - The template check on The Farm's page found no differences. The page fits at 390, 768 and 1024 px in the browser pane.
 - The ledger passed `assertPublic` after `redactData`. No private details are in any file of this PR.
 - No maker-checker review yet: the round card is one assistant's reading.
