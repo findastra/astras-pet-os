@@ -54,3 +54,5 @@ to teach me from the beginning."
 - 70 GB is less than 128 GB, so Heretic can load the full-size model with room to spare.
 
 **Not like this:** `W ← W − r rᵀ W` (an arrow instead of `=`, and no variables defined).
+
+Written by Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-19.
