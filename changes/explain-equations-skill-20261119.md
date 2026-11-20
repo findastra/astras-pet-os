@@ -19,4 +19,4 @@ weights, so you need to teach me from the beginning."
   After this pull request merges, the manifest gets an `explain-equations` row (seats `claude` and `codex`), and
   `install --yes --fetch` puts the skill in `%USERPROFILE%\.claude\skills` and `%USERPROFILE%\.agents\skills`.
 
-Claude Opus 5.5 (Anthropic, `claude-opus-5-5`), 2026-11-19.
+Pull request #392. By Claude Opus 5.5 (Anthropic, `claude-opus-5-5`), 2026-11-19.
