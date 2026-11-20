@@ -387,6 +387,18 @@
       "job": "A tool of The Farm (Astra, 2026-10-19: \"make it so that computers under other security protocols can download these agents ... The only files the user could give their computer was the markdown files\"): writes every registered and pipeline pet as one Markdown pet (what it does, where it opens in a browser with nothing to install, and the rules an AI follows to act as it), a farm list and one file with every pet, from the same data as the pet program pages. Files in markdown-pets/, rebuilt by npm run build (scripts/markdown-pets-20261019.mjs). It installs and runs nothing and never works around a computer's security."
     },
     {
+      "id": "pet-teams",
+      "name": "pet-teams",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-teams-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-20: \"people that need stuff, they might not want to download my operating system at all ... I can just sell them my agents\"): writes each pet team in pet-teams-20261120.json as one folder to give someone, a pet team: a README for the person, the whole team as one Markdown file for any AI, one SKILL.md per pet for a harness that loads skill folders, and a SHA-256 fingerprint of every file. Each pet's name, job and tools come from the registry (the same data as its Markdown pet); the team file holds each pet's role and its read-only checks, and the tool refuses a check that would change anything and any private pet. Files in pet-teams/, rebuilt by npm run build (scripts/pet-teams-20261120.mjs). It installs and runs nothing; its rules hold only while the AI follows them."
+    },
+    {
       "id": "click-check",
       "name": "click-check",
       "type": "tool",
@@ -408,7 +420,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-chat-helper-v1.0",
-      "job": "A tool of The Farm (Astra, 2026-11-03: \"it should be Claude Code answering first and then Codex, most likely, unless dictated otherwise. The agents are supposed to be able to change stuff, read the plan\"; cards 061 and 283): the seat behind every pet program page's chat window. A background program with no window, started by Startup Star at sign-in, listening on this PC only with a code kept in the farm's data folder. It finds which agents are installed and signed in (Claude Code, then Codex; others are named but not seated yet), seats the chosen one in its own worktree of the pet's repo on a pet-chat branch, supervised: Claude Code restricted to file tools in that folder, Codex in its sandbox without her config's plugins; it commits each answer's changes itself, pushes only after Astra says yes in its own Windows box, never to main, never for a private pet, and logs every answer (scripts/pet-chat-helper-20261103.cs). On branch claude/pet-chat-helper-20261103, not merged."
+      "job": "A tool of The Farm (Astra, 2026-11-03: \"it should be Claude Code answering first and then Codex, most likely, unless dictated otherwise. The agents are supposed to be able to change stuff, read the plan\"; cards 061 and 283): the seat behind every pet program page's chat window. A background program with no window, started by Startup Star at sign-in, listening on this PC only with a code kept in the farm's data folder. It finds which agents are installed and signed in (Claude Code, then Codex, then Gemini CLI, then a local model; GitHub Copilot CLI is named but not seated yet), seats the chosen one in its own worktree of the pet's repo on a pet-chat branch, supervised: Claude Code restricted to file tools in that folder, Codex in its sandbox without her config's plugins, Gemini CLI in its auto_edit mode where every tool but file edits is refused, and a local model (an OpenAI-style server on this PC, the home network or a tailnet only) answering without reading or changing any file (Astra, 2026-11-20, all recommended); every seat reads the farm notebook (Astra's PetOS Data\\\\memory: a farm page and a page per pet, never a private pet's) before it answers, and the helper itself adds a short dated note after; it commits each answer's changes itself, pushes only after Astra says yes in its own Windows box, never to main, never for a private pet, and logs every answer (scripts/pet-chat-helper-20261103.cs). On branch claude/pet-chat-helper-20261103, not merged."
     },
     {
       "id": "claude",
@@ -2467,6 +2479,28 @@
       "category": "MCP server",
       "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; Astra connected it in Claude on 2026-11-12, and one docs search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319).",
       "does": "Gives chats Microsoft's own Windows and PowerShell docs."
+    },
+    {
+      "id": "orrery",
+      "name": "Orrery",
+      "type": "program",
+      "state": "idea",
+      "layer": 6,
+      "category": "Agent chat app",
+      "job": "Third-party program (veredis, AGPL-3.0, github.com/veredis/Orrery), made by a friend of Astra's: an end-to-end encrypted Matrix chat app for Hermes Agent and other agents, for Windows and as a web app for phones, with a model picker, approval cards, a task board and voice to text on the device. It needs a Matrix homeserver and Hermes Agent, which Astra does not run, and keeps no memory of its own. Added to Chat Rat as an idea by Astra, 2026-11-20 (all recommended); read in quarantine (commit 6f0f29b), never run, not installed. Its approval cards and task board inform the pet chat's design.",
+      "does": "An encrypted chat app for talking to agents, with their model picker, approvals and a task board.",
+      "url": "https://github.com/veredis/Orrery"
+    },
+    {
+      "id": "shadowbroker",
+      "name": "ShadowBroker",
+      "type": "program",
+      "state": "planned",
+      "layer": 6,
+      "category": "OSINT dashboard",
+      "job": "Third-party program (BigBodyCobain, AGPL-3.0, github.com/BigBodyCobain/Shadowbroker): a self-hosted map of public signals (aircraft, ships, satellites, outages, CISA KEV and malware C2 threat feeds) with a recon toolkit (DNS, WHOIS, BGP, CVE lookups) and an optional Shodan connector. Added to White Hat Lab by Astra, 2026-11-20. Runs as Docker containers on 127.0.0.1 (ports 3000 and 8000) and needs an ADMIN_KEY. Downloaded into quarantine and read on 2026-11-20 (commit 3f786b1); not installed or run on Astra's PC. Before first run: MESH_INFONET_FLEET_JOIN=false, so it does not join its public peer-to-peer testnet, and its agent command channel stays off. Its recon and Shodan tools follow White Hat Weasel's rule: Astra's own devices and network only.",
+      "does": "Shows public threat feeds and world events on one map, with lookups for IPs, domains and CVEs.",
+      "url": "https://github.com/BigBodyCobain/Shadowbroker"
     },
     {
       "id": "mcp-inspector",
@@ -6690,6 +6724,13 @@
       "why": "farm-pets reads a pet’s repo at a pet pack’s commit with git, through the PC’s own sign-in, to check the pack file by file; it changes nothing there."
     },
     {
+      "from": "pet-teams",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-teams runs with Node 20 or newer, its built-in modules only."
+    },
+    {
       "from": "pet-packs",
       "to": "nodejs",
       "carries": "runs-on",
@@ -8081,6 +8122,20 @@
       "carries": "opens",
       "state": "idea",
       "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
+      "from": "chat-rat",
+      "to": "orrery",
+      "carries": "opens",
+      "state": "idea",
+      "why": "Chats with agents are Chat Rat's job: Orrery is where a friend talks with Hermes Agent, and its exported conversations (Markdown) could be saved like the others (Astra, 2026-11-20). Not installed; it needs a Matrix server and Hermes."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "shadowbroker",
+      "carries": "opens",
+      "state": "planned",
+      "why": "White Hat Weasel uses ShadowBroker for threat context: CISA KEV and malware C2 feeds, and lookups of an IP, domain or CVE a port check turns up (Astra, 2026-11-20). Recon and Shodan only on Astra's own devices and network; not installed yet."
     },
     {
       "from": "white-hat-lab",
@@ -9830,6 +9885,50 @@
         "gaps": [
           9
         ]
+      },
+      {
+        "id": "pet-chat-local-model",
+        "who": "The pet chat helper, for a local model seated in a pet's chat",
+        "level": [
+          "L2",
+          "L3"
+        ],
+        "subjects": [
+          "id:pet-chat-helper"
+        ],
+        "on": "a local farmhand (Ollama, LM Studio or llama.cpp) on this PC, the home network or a tailnet",
+        "resources": [
+          "ring:4"
+        ],
+        "r": "no",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "The helper sends the seat's rules, the farm notebook and Astra's message to the model and shows its answer; the model gets no tools, so it reads and changes no file (Astra, 2026-11-20: answers only, the short leash). The helper's code refuses any address but loopback, the private ranges and a tailnet (LocalModel.AddressOk, checked by its --self-test). Not run on Windows yet; nothing outside the helper's code enforces it: it runs as you.",
+        "next": "A key that binds the local farmhand to this PC (known gap 9); more grants as the model passes Astra's tests.",
+        "gaps": [
+          9
+        ]
+      },
+      {
+        "id": "farm-notebook",
+        "who": "The pet chat helper (the farm notebook)",
+        "level": [
+          "L2"
+        ],
+        "subjects": [
+          "id:pet-chat-helper"
+        ],
+        "on": "the farm notebook in Astra's PetOS Data\\memory: a farm page and one page per pet",
+        "resources": [
+          "type:host"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "no",
+        "status": "written",
+        "how": "Every seat gets the farm page and its pet's page as notes, never instructions; after each answer the helper, not the agent, appends one dated note (what was asked, the start of the answer, the files changed). A private pet never gets a page. Astra may edit or delete any of it (Astra, 2026-11-20). Nothing outside the helper's code enforces it: it runs as you.",
+        "next": "File Master's memory hygiene: duplicates, stale notes and size (architecture v5.2)."
       },
       {
         "id": "seat-third-party",

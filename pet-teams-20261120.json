@@ -1,0 +1,103 @@
+{
+  "schema": "pet-teams-v1",
+  "about": "Pet teams: several Markdown pets that work together on one job, in one folder, for someone who wants the agents without installing Astra's PetOS. Read by scripts/pet-teams-20261120.mjs, which writes pet-teams/ on npm run build. Each pet's name, job, tools and picture come from the registry (the same data as its Markdown pet); this file holds only the team, each pet's role in it and the read-only checks it may suggest. Astra, 2026-11-20: \"people that need stuff, they might not want to download my operating system at all ... I can just sell them my agents\". Claude Opus 5.5 (claude-opus-5-5), 2026-11-20.",
+  "teams": [
+    {
+      "id": "security-team",
+      "title": "Security Team",
+      "for": "Watch your own PC and your own home network, the way Astra's security pets watch hers: one group for the network, one for the PC. They look and explain; you decide and make every change yourself.",
+      "groups": [
+        {
+          "name": "Network",
+          "about": "Is the network healthy, what is on it, what can reach in, and what radios are near.",
+          "pets": [
+            {
+              "repo": "packet-river",
+              "role": "The network's health: loss, latency, DNS and routes. Says whether the network was fine at a given moment, so a problem is put in the right place (the router, the provider, DNS or a website).",
+              "checks": [
+                { "look": "The router and DNS server this computer uses", "windows": "ipconfig /all", "linux": "ip route; cat /etc/resolv.conf" },
+                { "look": "Loss and latency to the router (put the router's address from the step above in place of ROUTER)", "windows": "ping -n 5 ROUTER", "linux": "ping -c 5 ROUTER" },
+                { "look": "How long a DNS answer takes", "windows": "Measure-Command { Resolve-DnsName github.com }", "linux": "getent hosts github.com" },
+                { "look": "Whether the internet answers (one connection, no data sent)", "windows": "Test-NetConnection github.com -Port 443", "linux": "curl -sI https://github.com -o /dev/null -w '%{http_code}\\n'" },
+                { "look": "The hops to a website, when something is slow or down", "windows": "tracert github.com", "linux": "tracepath github.com" },
+                { "look": "The network adapter in use and its speed", "windows": "Get-NetAdapter | Format-Table Name,Status,LinkSpeed", "linux": "ip -br link" }
+              ]
+            },
+            {
+              "repo": "white-hat-lab",
+              "role": "Ports and devices: which ports are open on this computer, which program owns each, who is connected and from where, which devices this computer has seen on the home network, and what to close. Security checks only on your own computer and network.",
+              "checks": [
+                { "look": "Every port this computer listens on, and the program that owns it", "windows": "Get-NetTCPConnection -State Listen | Select-Object LocalAddress,LocalPort,OwningProcess,@{n='Program';e={(Get-Process -Id $_.OwningProcess).ProcessName}}", "linux": "ss -tulpn" },
+                { "look": "Who is connected to this computer right now, and from where", "windows": "Get-NetTCPConnection -State Established | Select-Object LocalPort,RemoteAddress,RemotePort,OwningProcess", "linux": "ss -tunp state established" },
+                { "look": "The devices this computer has seen on the home network (nothing is scanned)", "windows": "arp -a", "linux": "ip neigh" },
+                { "look": "Whether the firewall is on", "windows": "Get-NetFirewallProfile | Format-Table Name,Enabled", "linux": "ufw status" },
+                { "look": "What the router lets in from the internet: you open the router's own page and read its port forwarding and UPnP lists aloud or as a screenshot", "windows": "", "linux": "" }
+              ]
+            },
+            {
+              "repo": "wifi-butterfly",
+              "role": "The radios nearby: Wi-Fi networks and Bluetooth devices, and any that are new or unknown. Only its security role is part of this team; the rest of its job is still being chosen.",
+              "checks": [
+                { "look": "Wi-Fi networks in range, with their security", "windows": "netsh wlan show networks mode=bssid", "linux": "nmcli dev wifi list" },
+                { "look": "The Wi-Fi network this computer is on", "windows": "netsh wlan show interfaces", "linux": "nmcli -t -f active,ssid dev wifi" },
+                { "look": "Bluetooth devices paired with this computer", "windows": "Get-PnpDevice -Class Bluetooth | Format-Table FriendlyName,Status", "linux": "bluetoothctl devices" }
+              ]
+            },
+            {
+              "repo": "roam-map",
+              "role": "Remote access and VPNs: which ways in from outside are switched on (remote desktop, SSH, a VPN or tailnet), whether each is meant to be, and how to keep the ones you use private.",
+              "checks": [
+                { "look": "VPN connections set up on this computer", "windows": "Get-VpnConnection", "linux": "ip -br addr" },
+                { "look": "Whether Remote Desktop is switched on (0 means on)", "windows": "Get-ItemProperty 'HKLM:\\System\\CurrentControlSet\\Control\\Terminal Server' -Name fDenyTSConnections", "linux": "systemctl is-active ssh" },
+                { "look": "The tailnet, when Tailscale is installed", "windows": "tailscale status", "linux": "tailscale status" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PC",
+          "about": "What runs on the computer, what its logs say, whether it is patched, and what happened when something goes wrong.",
+          "pets": [
+            {
+              "repo": "kernel-grove",
+              "role": "What runs on your PC: every program and what it is, what is safe to stop, the leftovers that keep running after a window closes, and what starts at sign-in.",
+              "checks": [
+                { "look": "The programs using the most processor time, with where each runs from", "windows": "Get-Process | Sort-Object CPU -Descending | Select-Object -First 20 Name,Id,CPU,WS,Path", "linux": "ps aux --sort=-%cpu | head -20" },
+                { "look": "What starts at sign-in", "windows": "Get-CimInstance Win32_StartupCommand | Select-Object Name,Command,Location", "linux": "systemctl list-unit-files --state=enabled" },
+                { "look": "Scheduled tasks that are switched on", "windows": "Get-ScheduledTask | Where-Object State -ne 'Disabled' | Select-Object TaskName,TaskPath,State", "linux": "crontab -l; ls /etc/cron.d" },
+                { "look": "Who signed a program you are not sure about (put its path in place of PATH)", "windows": "Get-AuthenticodeSignature 'PATH' | Format-List Status,SignerCertificate", "linux": "dpkg -S PATH" }
+              ]
+            },
+            {
+              "repo": "log-den",
+              "role": "The logs: errors and crashes in the system's own logs, failed sign-ins, and anything that repeats. Reads logs; never clears them.",
+              "checks": [
+                { "look": "The newest errors in the application log", "windows": "Get-WinEvent -LogName Application -MaxEvents 200 | Where-Object LevelDisplayName -in 'Error','Critical' | Select-Object -First 30 TimeCreated,ProviderName,Message", "linux": "journalctl -p err -n 50 --no-pager" },
+                { "look": "The newest errors in the system log", "windows": "Get-WinEvent -LogName System -MaxEvents 200 | Where-Object LevelDisplayName -in 'Error','Critical' | Select-Object -First 30 TimeCreated,ProviderName,Message", "linux": "journalctl -k -p err -n 50 --no-pager" },
+                { "look": "Failed sign-ins (needs an administrator window on Windows, sudo on Linux; ask first)", "windows": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 20", "linux": "sudo lastb -n 20" }
+              ]
+            },
+            {
+              "repo": "evidence-locker",
+              "role": "When something looks wrong: a case with a timeline of what happened when, from the other pets' findings, with a fingerprint (SHA-256) of every file kept as evidence. It never changes or deletes what it looks at.",
+              "checks": [
+                { "look": "A fingerprint of a file kept as evidence (put its path in place of PATH)", "windows": "Get-FileHash 'PATH' -Algorithm SHA256", "linux": "sha256sum PATH" },
+                { "look": "Recent sign-ins and restarts, for the timeline", "windows": "Get-WinEvent -FilterHashtable @{LogName='System';Id=6005,6006,1074} -MaxEvents 20 | Select-Object TimeCreated,Id,Message", "linux": "last -n 20" },
+                { "look": "Files in the sign-in startup folder, with when each changed", "windows": "Get-ChildItem \"$env:APPDATA\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\" | Select-Object Name,LastWriteTime", "linux": "ls -la ~/.config/autostart" }
+              ]
+            },
+            {
+              "repo": "patch-cat",
+              "role": "Patches: which security updates Windows, the drivers and the apps are still missing, and whether the antivirus is on and up to date. It lists; you install.",
+              "checks": [
+                { "look": "The newest Windows updates installed", "windows": "Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10 HotFixID,InstalledOn,Description", "linux": "zgrep -h ' upgrade ' /var/log/dpkg.log* | tail -20" },
+                { "look": "Apps with a newer version (this only lists them)", "windows": "winget upgrade", "linux": "apt list --upgradable" },
+                { "look": "Whether Microsoft Defender is on and its signatures are fresh", "windows": "Get-MpComputerStatus | Select-Object AMServiceEnabled,RealTimeProtectionEnabled,AntivirusSignatureLastUpdated", "linux": "" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

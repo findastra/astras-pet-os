@@ -159,6 +159,11 @@
         "say": "pet pack",
         "means": "one pet in one zip, without the whole system: its repo at one version, its pictures, its pet program page and its Markdown pet",
         "retired": []
+      },
+      {
+        "say": "pet team",
+        "means": "several Markdown pets that work together on one job, in one folder to give someone: a README, the whole team in one file for any AI, one skill per pet and a fingerprint of every file",
+        "retired": []
       }
     ]
   },
@@ -3060,6 +3065,11 @@
             "node": "claude-website",
             "how": "optional",
             "why": "Claude’s data export, put in the import inbox, is saved too."
+          },
+          {
+            "node": "orrery",
+            "how": "optional",
+            "why": "An idea (Astra, 2026-11-20): a friend's encrypted chat app for agents, whose exported chats could be saved too. Not installed; it needs a Matrix server and Hermes."
           }
         ]
       },
@@ -3915,6 +3925,11 @@
             "node": "wireshark",
             "how": "optional",
             "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
+          },
+          {
+            "node": "shadowbroker",
+            "how": "optional",
+            "why": "Threat feeds and IP, domain and CVE lookups for what a port check finds (Astra, 2026-11-20). Not installed yet; Docker needed."
           }
         ]
       }

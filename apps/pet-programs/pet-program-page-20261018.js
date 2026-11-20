@@ -593,7 +593,9 @@
   var WHO = {
     'claude-code': { name: 'Claude Code', seat: true, says: 'Claude Code' + SEAT_SAYS },
     codex: { name: 'Codex', seat: true, says: 'Codex' + SEAT_SAYS },
-    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC. It names what it found; only Claude Code and Codex can be seated so far.' },
+    gemini: { name: 'Gemini CLI', seat: true, says: 'Gemini CLI' + SEAT_SAYS },
+    local: { name: 'a local model', seat: true, says: 'A local model (Ollama, LM Studio or llama.cpp on this PC or your home network) answers as ' + config.pet + ' with the farm notebook in mind. It answers only: it reads and changes no files, and says what Claude Code, Codex or Gemini CLI could change.' },
+    'other-ai': { name: 'another AI on this PC', seat: true, says: 'Another AI the pet chat helper finds on this PC. It names what it found; Claude Code, Codex, Gemini CLI and a local model can be seated so far.' },
     claude: { name: 'your Claude', url: 'https://claude.ai/new?q=',
       says: 'Opens your Claude (claude.ai) in a new tab with your message and ' + config.home + '\'s name typed in. Nothing is sent from this page.' },
     chatgpt: { name: 'your ChatGPT', url: 'https://chatgpt.com/?q=',
@@ -617,7 +619,7 @@
     if (!petOk) return petWhy || 'No agent can be seated for ' + config.pet + ' here.';
     if (k === 'other-ai') {
       var others = order.filter(function (id) { var a = agentOf(id); return a && a.found && !a.seatable; }).map(function (id) { return agentOf(id).name; });
-      return others.length ? 'Found on this PC: ' + others.join(', ') + '. The pet chat cannot seat ' + (others.length === 1 ? 'it' : 'them') + ' yet; Claude Code and Codex can.' : 'The pet chat helper found no other AI on this PC.';
+      return others.length ? 'Found on this PC: ' + others.join(', ') + '. The pet chat cannot seat ' + (others.length === 1 ? 'it' : 'them') + ' yet; Claude Code, Codex, Gemini CLI and a local model can.' : 'The pet chat helper found no other AI on this PC.';
     }
     var a = agentOf(k);
     return !a ? 'The pet chat helper does not know ' + WHO[k].name + '.' : a.ready ? '' : a.name + ': ' + a.why + '.';
@@ -638,7 +640,7 @@
     }
     var why = WHO[chosen].seat ? whyNot(chosen) : '';
     if (chatSays) chatSays.textContent = WHO[chosen].says + (why ? ' ' + why : '');
-    if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another');
+    if (chatNow) chatNow.textContent = WHO[chosen].name.replace(/^your /, 'My ').replace(/^another/, 'Another').replace(/^a local/, 'A local');
     if (chatSeat) chatSeat.textContent = !WHO[chosen].seat ? 'Seat: empty' : checking ? 'Seat: checking…' : ready(chosen) ? 'Seat: ' + WHO[chosen].name + ' · ready' : 'Seat: empty · ' + WHO[chosen].name + ' answers once seated';
   }
   function askHelper(path, extra) {
@@ -647,7 +649,7 @@
     return link.ask(path, body);
   }
   // When the chat opens: who the helper found and whether this pet can have a seat. With nothing chosen yet, the first
-  // ready one in the farm's order answers (Claude Code, then Codex).
+  // ready one in the farm's order answers (Claude Code, then Codex, then Gemini CLI, then a local model).
   function hello() {
     if (!link) { choose(chosen); return; }
     checking = true; choose(chosen);

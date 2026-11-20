@@ -307,7 +307,7 @@ test('with the pet chat helper on this PC, each seat says what it found, and the
   assert.equal(mine.who[at('claude-code')].attrs['aria-pressed'], 'true');
   assert.match(mine.byId('chat-who-says').textContent, /Claude Code: found on this PC; sign in once \(claude auth login\)\.$/);
   mine.who[at('other-ai')].click();
-  assert.match(mine.byId('chat-who-says').textContent, /Found on this PC: GitHub Copilot CLI\. The pet chat cannot seat it yet; Claude Code and Codex can\.$/);
+  assert.match(mine.byId('chat-who-says').textContent, /Found on this PC: GitHub Copilot CLI\. The pet chat cannot seat it yet; Claude Code, Codex, Gemini CLI and a local model can\.$/);
 });
 
 test('the seat\'s answer streams into the pet\'s bubble; its changes show, and Push asks the helper, which asks you on your PC', async () => {
