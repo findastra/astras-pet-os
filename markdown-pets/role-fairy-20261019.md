@@ -6,7 +6,7 @@
 
 Runs The Fairy Court: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.
 
-Its job in the registry: Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or
+Its job in the registry: Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands, and a feedback bot that reads Astra’s chat about Astra’s PetOS, looks what people say up in its docs, asks them questions and gives them prompts for their own AI; assigns or changes members’ roles when asked; and keeps each bot’s commands, permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.
 
 ## Open it with nothing to install
 
