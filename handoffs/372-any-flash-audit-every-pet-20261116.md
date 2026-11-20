@@ -59,6 +59,7 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
 ## Receipt and review
 
 - `npm test` in an LF clone of the branch (Git Bash): 469 tests, 463 pass, 0 fail, 6 skipped. `main` gave the same.
+  2026-11-20, after merging `main` (5db73a02) and adding round 3: 494 tests, 488 pass, 0 fail, 6 skipped.
 - The template check on The Farm's page found no differences. The page fits at 390, 768 and 1024 px in the browser pane.
 - The ledger passed `assertPublic` after `redactData`. No private details are in any file of this PR.
 - No maker-checker review yet: the round card is one assistant's reading.
