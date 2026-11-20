@@ -91,7 +91,7 @@ After **each round**, and after substantial owner corrections within a round:
 5. Hand off the next round with exact progress and open decisions. Never count a
    Not verified check as passed merely to finish a round.
 
-All checks, A01-A71, are in one matrix in section 3, most important first. The dot at the start of each row says
+All checks, A01-A72, are in one matrix in section 3, most important first. The dot at the start of each row says
 whether it needs Astra (section 3, "Grey and blue dots"). The page checks (section 3, "6. The page") follow the Model
 Pet Program part by part, and every build compares every pet program page with it.
 
@@ -176,6 +176,7 @@ What people see first.
 | 🔵 A18 | Official tool and trick inventory | Separate implemented, owner-approved planned, and proposed tools. Record purpose, version, owner, permissions, dependencies and add-your-own decisions. List the pet's tricks the same way: its own skills (L2 tool panel, kept by Skill Scout), apart from the harness skills the seat brings (L3; PET-PROGRAM-FRAMEWORK.md section 3). Which tools and tricks each pet should have is Astra's. ⚪ Listing what is built, merged or only on a branch, from the code, is idle. |
 | ⚪ A19 | Tool behavior | Verify inputs, outputs, errors and intended actions for each tool. Use safe fixtures for changing actions; live checks require authorized scope. Fixture checks run in a scratch copy with made-up data and no sign-in. 🔵 A live check (Astra's real data, an account, her PC) needs her there. |
 | 🔵 A21 | Tool OFF enforcement | Verify execution actually stops/prevents new work, state is controlled outside the tool, and security OFF cannot be self-reenabled. Report unsupported enforcement as a gap. Enforcement is a security change, so L4 (Astra) approves it, and checking it live needs her there. |
+| ⚪ A72 | Its own server | Astra, 2026-11-20: every pet gets its own server, run on its own "so we can end separate ones of them at a time on demand and not the whole system at once". A server here is the pet program's background program, with a port or without one (a watch). It runs in its own process: never inside Startup Star, which only starts, adopts and stops them (a process supervisor), and never inside another pet's program, except where Astra chose one host (2026-11-08: Log Den runs Packet River's and Evidence Locker's watches, each on its own thread with its own Quit). It is named after its pet program: `<program>-server-YYYYMMDD.<ext>`, with the date of its last rename (Light Hive's: `light-hive-server-20261120.exe`). Startup Star's menu can stop it and start it again without touching the others. Report each server under another name, each one running inside another program, and each one with no Stop of its own. A pet with no server yet is noted as "no server yet", not failed. ⚪ Renaming a server, with every place that starts, adopts or names it, is idle, on a branch. 🔵 Whether a pet gets a server, its port, how a pet with more than one names them, and restarting one on her PC are Astra's. |
 | ⚪ A20 | Manual maintenance light | Every tool has a maintenance light, the right one of its pair (Astra, 2026-10-24 and 2026-10-26: blue checked and works, orange report issues or not checked yet, yellow an update waiting for her OK, grey not created), distinct from ON/OFF and automatic health. Report persists to backlog/Farmer; tests cannot silently clear it. |
 | 🔵 A26 | Privacy and permissions | Check exact allowed data/actions, owner approvals, secret storage and untrusted inputs. No private data or credentials in public repos/reports. Every permission, grant and leaked secret is Astra's (L4). ⚪ A personal path in a public document is replaced with `%USERPROFILE%` on a branch. |
 | 🔵 A25 | Integrations/accounts | Check supported services, feature detection, account selection, connection denial, expiry, disconnect and provider-specific limits. No connection from domain guessing alone. Accounts and connections are Astra's; nothing signs in while she is away. |
@@ -433,3 +434,15 @@ before the name, never stacked, with the maintenance colours of A20 and A48): tw
 
 
 Owner correction, 2026-10-15 (replaced 2026-10-19: every item is a pill, A46): cloud-shaped square tiles are for Third Party Programs only. OpenAI and Anthropic presence controllers belong under Your Tools in the regular rounded tool bubbles, with their paired left lights and Discord-style profile-card previews inside. Other owner-created programs use regular program/tool bubbles rather than third-party cloud tiles. Hide an empty Your Programs row.
+
+## Every pet's own server — owner decision, 2026-11-20
+
+Astra, 2026-11-20: "The model now is that every pet gets its own server, because eventually they'll all have their
+own server ... I think maybe it makes more sense to have them separate so we can end separate ones of them at a time on
+demand and not the whole system at once. So maybe write this into the flash audit. And then I want that to be the next
+thing you check for, is renaming all the servers for them correctly. They should all be named after their pet
+program, and then dash server dash the date it was updated, which would be today."
+
+Check A72 holds it. Startup Star stays the one program that starts them at sign-in and adopts leftovers (hub #389,
+#394), and each server it starts is its own process: one process per service, so one can stop, crash or update
+without the rest. The first A72 pass over every pet is `flash-audit-rounds-20261116/a72-own-servers-20261120.md`.

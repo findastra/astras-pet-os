@@ -1,5 +1,5 @@
 ---
-status: open. Rounds 1, 14, 3 and 8 done (easiest first since 2026-11-19, one at a time); next 9, 13, 15, 17; #372 waits for Astra's merge OK
+status: open. Rounds 1, 14, 3 and 8 done (easiest first since 2026-11-19, one at a time); A72 (own server) added 2026-11-20, its dry run over every item done, renames wait on Astra's two answers; then rounds 9, 13, 15, 17; #372 waits for Astra's merge OK
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: round 1's decisions from Astra (listed on its card); one assistant at a time on the rounds
@@ -41,6 +41,15 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
   Codex's `codex/l3-activity-20261016`, not on Goldfish's `main`. Without it, the Goldfish checks come out Not
   verified. Reuse fixes already waiting in that repo's open pull requests (round 14: portfolio-puffer#9 had the credit
   fix; round 3: data-dealer#10 and #12).
+- **A72, Its own server (Astra, 2026-11-20: "every pet gets its own server ... so we can end separate ones of them at
+  a time on demand ... named after their pet program, and then dash server dash the date"; "I want that to be the
+  next thing you check for").** The row is in the matrix after A21, and the owner note is at the end of
+  `docs/flash-audit-20261014.md`. The first pass covers every item at once: `a72-own-servers-20261120.md`, a dry run
+  of 18 servers in 12 pet programs, with no ports written (the hub is public). Nothing is renamed yet. Two questions
+  wait on her: how a pet with more than one server names them (Q1), and whether each name is written once into
+  `pets.json` (Q2). After that, the renames go easiest first: Benchmark Rock, Kernel Grove, White Hat Lab, Wonderland
+  Launchpad, then Log Den's three together. Keep off Light Hive's (another chat's uncommitted work in rgbee) and Chat
+  Stack's (her folder is on Codex's branch) until those land.
 - Fixed on `main` by 2026-11-20: the public-safety failure from #385 (the port-watch test's made-up home folder). It
   passes again on this branch after merging `main`.
 - **Rounds in number order (the plan before 2026-11-19), one item at a time.** For each one: read the pet's repo rules, open its page
@@ -64,7 +73,8 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
 - `npm test` in an LF clone of the branch (Git Bash): 469 tests, 463 pass, 0 fail, 6 skipped. `main` gave the same.
   2026-11-20, after merging `main` (5db73a02) and adding round 3: 494 tests, 488 pass, 0 fail, 6 skipped. After
   merging `main` again (The Farm's page taken from `main` and rebuilt) and adding round 8: 497 tests, 491 pass, 0 fail,
-  6 skipped.
+  6 skipped. After merging `main` again (466a641f) and adding A72 (the dots test now expects A01 to A72, with A72
+  after A21): 499 tests, 493 pass, 0 fail, 6 skipped.
 - The template check on The Farm's page found no differences. The page fits at 390, 768 and 1024 px in the browser pane.
 - The ledger passed `assertPublic` after `redactData`. No private details are in any file of this PR.
 - No maker-checker review yet: the round card is one assistant's reading.

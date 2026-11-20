@@ -12,7 +12,7 @@ Each gets every check below. Three kinds of check:
 - **build (template)**: every pet program page compared with the Model Pet Program (`scripts/flash-template-20261112.mjs`).
 - **by hand**: an assistant, one pet at a time, in its round. A check nobody has done is **Not verified**, never a pass.
 
-## The 71 checks, most important first
+## The 72 checks, most important first
 
 The order is the matrix's ([flash-audit-20261014.md](../flash-audit-20261014.md), section 3). ⚪ grey: fixed without
 Astra; 🔵 blue: waits for her answer or for her to be there. IDs never change, so they are not in number order.
@@ -46,54 +46,55 @@ Astra; 🔵 blue: waits for her answer or for her to be there. IDs never change,
 | 25 | 🔵 | A18 | Official tool and trick inventory | 4. Tools and safety | Run (auditor) |
 | 26 | ⚪ | A19 | Tool behavior | 4. Tools and safety | by hand |
 | 27 | 🔵 | A21 | Tool OFF enforcement | 4. Tools and safety | by hand |
-| 28 | ⚪ | A20 | Manual maintenance light | 4. Tools and safety | by hand |
-| 29 | 🔵 | A26 | Privacy and permissions | 4. Tools and safety | Run (auditor) |
-| 30 | 🔵 | A25 | Integrations/accounts | 4. Tools and safety | by hand |
-| 31 | ⚪ | A27 | Preview and recovery | 4. Tools and safety | by hand |
-| 32 | ⚪ | A42 | Credential help | 4. Tools and safety | by hand |
-| 33 | 🔵 | A28 | Pet connections | 4. Tools and safety | by hand |
-| 34 | 🔵 | A23 | Chat-created tools | 5. Chat and agent | by hand |
-| 35 | ⚪ | A24 | Ready indicator | 5. Chat and agent | by hand |
-| 36 | 🔵 | A43 | Emotion/message hierarchy | 5. Chat and agent | by hand |
-| 37 | ⚪ | A47 | The template's parts, in order | 6. The page | build (template) |
-| 38 | ⚪ | A52 | Editorial status panel | 6. The page | build (template) |
-| 39 | ⚪ | A62 | Cyberhome | 6. The page | build (template) |
-| 40 | ⚪ | A63 | Title and version | 6. The page | build (template) |
-| 41 | ⚪ | A64 | Quick summary | 6. The page | build (template) |
-| 42 | ⚪ | A60 | System Map link | 6. The page | build (template) |
-| 43 | ⚪ | A65 | Intelligence levels | 6. The page | build (template) |
-| 44 | ⚪ | A66 | L1 control panel | 6. The page | build (template) |
-| 45 | ⚪ | A67 | L2 control panel | 6. The page | build (template) |
-| 46 | ⚪ | A68 | L3 control panel | 6. The page | build (template) |
-| 47 | ⚪ | A69 | L4 control panel | 6. The page | build (template) |
-| 48 | ⚪ | A70 | R W X panel | 6. The page | build (template) |
-| 49 | ⚪ | A71 | Session notes | 6. The page | build (template) |
-| 50 | ⚪ | A49 | Emotions | 6. The page | build (template) |
-| 51 | ⚪ | A41 | Clicker Training | 6. The page | build (template) |
-| 52 | ⚪ | A39 | Friends list | 6. The page | build (template) |
-| 53 | ⚪ | A51 | Unified footer | 6. The page | build (template) |
-| 54 | 🔵 | A22 | Chat | 6. The page | build (template) |
-| 55 | ⚪ | A44 | Original yellow phone | 6. The page | build (template) |
-| 56 | ⚪ | A46 | Program pills | 6. The page | build (template) |
-| 57 | ⚪ | A48 | Paired lights | 6. The page | build (template) |
-| 58 | ⚪ | A45 | Page width | 6. The page | by hand |
-| 59 | ⚪ | A50 | Backdrop and text | 6. The page | by hand |
-| 60 | ⚪ | A38 | Tool organization | 6. The page | by hand |
-| 61 | ⚪ | A12 | Map/catalog navigation | 6. The page | by hand |
-| 62 | ⚪ | A31 | Status and link labels | 6. The page | Run (auditor), Goldfish’s |
-| 63 | 🔵 | A36 | First-visit tutorial | 7. Tutorials | by hand |
-| 64 | 🔵 | A37 | Play and care SOPs | 7. Tutorials | by hand |
-| 65 | 🔵 | A40 | Guided focus and functioning tour | 7. Tutorials | by hand |
-| 66 | ⚪ | A29 | Notes/backlog | 8. Data, releases and records | by hand |
-| 67 | ⚪ | A30 | Data continuity | 8. Data, releases and records | by hand |
-| 68 | ⚪ | A32 | Pet Collar and release trust | 8. Data, releases and records | by hand |
-| 69 | 🔵 | A33 | Registration/admission | 8. Data, releases and records | by hand |
-| 70 | ⚪ | A34 | Generated artifacts/tests | 8. Data, releases and records | by hand |
-| 71 | ⚪ | A35 | Handoff and unresolved work | 8. Data, releases and records | by hand |
+| 28 | ⚪ | A72 | Its own server | 4. Tools and safety | by hand |
+| 29 | ⚪ | A20 | Manual maintenance light | 4. Tools and safety | by hand |
+| 30 | 🔵 | A26 | Privacy and permissions | 4. Tools and safety | Run (auditor) |
+| 31 | 🔵 | A25 | Integrations/accounts | 4. Tools and safety | by hand |
+| 32 | ⚪ | A27 | Preview and recovery | 4. Tools and safety | by hand |
+| 33 | ⚪ | A42 | Credential help | 4. Tools and safety | by hand |
+| 34 | 🔵 | A28 | Pet connections | 4. Tools and safety | by hand |
+| 35 | 🔵 | A23 | Chat-created tools | 5. Chat and agent | by hand |
+| 36 | ⚪ | A24 | Ready indicator | 5. Chat and agent | by hand |
+| 37 | 🔵 | A43 | Emotion/message hierarchy | 5. Chat and agent | by hand |
+| 38 | ⚪ | A47 | The template's parts, in order | 6. The page | build (template) |
+| 39 | ⚪ | A52 | Editorial status panel | 6. The page | build (template) |
+| 40 | ⚪ | A62 | Cyberhome | 6. The page | build (template) |
+| 41 | ⚪ | A63 | Title and version | 6. The page | build (template) |
+| 42 | ⚪ | A64 | Quick summary | 6. The page | build (template) |
+| 43 | ⚪ | A60 | System Map link | 6. The page | build (template) |
+| 44 | ⚪ | A65 | Intelligence levels | 6. The page | build (template) |
+| 45 | ⚪ | A66 | L1 control panel | 6. The page | build (template) |
+| 46 | ⚪ | A67 | L2 control panel | 6. The page | build (template) |
+| 47 | ⚪ | A68 | L3 control panel | 6. The page | build (template) |
+| 48 | ⚪ | A69 | L4 control panel | 6. The page | build (template) |
+| 49 | ⚪ | A70 | R W X panel | 6. The page | build (template) |
+| 50 | ⚪ | A71 | Session notes | 6. The page | build (template) |
+| 51 | ⚪ | A49 | Emotions | 6. The page | build (template) |
+| 52 | ⚪ | A41 | Clicker Training | 6. The page | build (template) |
+| 53 | ⚪ | A39 | Friends list | 6. The page | build (template) |
+| 54 | ⚪ | A51 | Unified footer | 6. The page | build (template) |
+| 55 | 🔵 | A22 | Chat | 6. The page | build (template) |
+| 56 | ⚪ | A44 | Original yellow phone | 6. The page | build (template) |
+| 57 | ⚪ | A46 | Program pills | 6. The page | build (template) |
+| 58 | ⚪ | A48 | Paired lights | 6. The page | build (template) |
+| 59 | ⚪ | A45 | Page width | 6. The page | by hand |
+| 60 | ⚪ | A50 | Backdrop and text | 6. The page | by hand |
+| 61 | ⚪ | A38 | Tool organization | 6. The page | by hand |
+| 62 | ⚪ | A12 | Map/catalog navigation | 6. The page | by hand |
+| 63 | ⚪ | A31 | Status and link labels | 6. The page | Run (auditor), Goldfish’s |
+| 64 | 🔵 | A36 | First-visit tutorial | 7. Tutorials | by hand |
+| 65 | 🔵 | A37 | Play and care SOPs | 7. Tutorials | by hand |
+| 66 | 🔵 | A40 | Guided focus and functioning tour | 7. Tutorials | by hand |
+| 67 | ⚪ | A29 | Notes/backlog | 8. Data, releases and records | by hand |
+| 68 | ⚪ | A30 | Data continuity | 8. Data, releases and records | by hand |
+| 69 | ⚪ | A32 | Pet Collar and release trust | 8. Data, releases and records | by hand |
+| 70 | 🔵 | A33 | Registration/admission | 8. Data, releases and records | by hand |
+| 71 | ⚪ | A34 | Generated artifacts/tests | 8. Data, releases and records | by hand |
+| 72 | ⚪ | A35 | Handoff and unresolved work | 8. Data, releases and records | by hand |
 
 ## Every item
 
-Counts are what is not a pass. A round marked "done" was checked by hand against all 71. Every other item
+Counts are what is not a pass. A round marked "done" was checked by hand against all 72. Every other item
 so far has only the Run's and the build's checks, so its hand checks are still to do ("next"). Since 2026-11-19 the
 rounds go easiest first, one item at a time (Astra: "let's roll through the easiest ones first ... one item at a
 time"). Easiest means the fewest findings once the art and the `pet-app` topic are set aside.
@@ -181,12 +182,15 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 | 80 | Rescue Retriever | The Recovery Room | seed | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
 | 81 | Intel Owl | Threat Observatory | seed | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
 | 82 | Door Dormouse | The Threshold | pipeline | 7 | 4 | 1 | A59 A01 A09 A10 A15 A56 A16 A55 A31 | next |
-| 83 | Role Fairy | Fairy Ring | pipeline | 7 | 4 | 0 | A59 A01 A10 A54 A15 A16 A55 A18 A31 | next |
+| 83 | Role Fairy | The Fairy Court | registered | 7 | 4 | 0 | A59 A01 A10 A54 A15 A16 A55 A18 A31 | next |
 | 84 | Workflow Whale | Workflow Whirlpool | pipeline | 4 | 0 | 1 | A59 A10 A16 A55 | next |
 | 86 | PC Master | PC Master Race | pipeline | 5 | 1 | 1 | A59 A10 A54 A16 A55 A26 | next |
 | 87 | Flowsheet Flamingo | The Pilot Plant | pipeline | 3 | 2 | 1 | A10 A13 A16 A55 A26 | next |
 
 All items: 486 Missing, 136 Incorrect, 131 Not verified.
+
+A72 (Its own server) was added on 2026-11-20, after rounds 1, 14, 3 and 8, so their counts are out of 71. Its first
+pass covers every item at once: [a72-own-servers-20261120.md](a72-own-servers-20261120.md).
 
 Two holds apply to every round:
 
