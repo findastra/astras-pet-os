@@ -1105,7 +1105,7 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26 to the USBDeview-3.10 folder in Documents (its SHA-256 matches NirSoft's).",
+      "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26; since File Master's cleanup (2026-11-09) it is in Downloads\\installers\\USBDeview-3.10 (its SHA-256 matches NirSoft's).",
       "does": "Lists every USB device on the PC with its hub and port.",
       "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
