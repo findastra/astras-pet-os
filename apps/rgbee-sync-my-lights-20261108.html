@@ -203,6 +203,7 @@ const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js
 let HELPER = null;
 function findHelper() {
   return new Promise((done) => {
+    if (location.pathname.startsWith('/light-hive/')) { HELPER = location.origin; done(); return; } // served by light-hive-server (this PC or Astra's phone)
     if (!ON_THIS_PC) { HELPER = null; done(); return; }
     const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
     s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
