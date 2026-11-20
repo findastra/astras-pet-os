@@ -1,5 +1,5 @@
 ---
-status: open. Round 1 done, rounds 2 to 87 next; #372 waits for Astra's merge OK
+status: open. Rounds 1 and 14 done (easiest first since 2026-11-19, one at a time); next 3, 8, 9, 13, 15, 17; #372 waits for Astra's merge OK
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: round 1's decisions from Astra (listed on its card); one assistant at a time on the rounds
@@ -28,7 +28,17 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
 
 ## Not done / next
 
-- **Rounds 2 to 87, one item at a time, in number order.** For each one: read the pet's repo rules, open its page
+- **2026-11-19: easiest first, one item at a time** (Astra: "ChatGPT is doing another art redraw right now. So we are
+  going to be waiting for that. But in the meantime, let's roll through the easiest ones first and get going. I want
+  to do one item at a time."). Easiest = the fewest Run and page findings once the art checks and the `pet-app` topic
+  are set aside. Round 14 (Portfolio Puffer) is done; the next ones are 3 Data Dealer, 8 The Nectar Nest, 9 Nest Egg,
+  13 Discord Tower, 15 Bass & Biscuits and 17 Am I a Ghost?. Run the auditor again for the one item first
+  (`node scripts/idle-flash-audit-20261017.mjs <out> <number>`, a few seconds). Reuse fixes already waiting in that
+  repo's open pull requests (round 14: portfolio-puffer#9 already had the credit fix).
+- `main`'s `npm test` fails one test since #385 (2026-11-19). `test/port-watch-test-20261119.mjs` gives its made-up
+  home folder the user name `someone`, and the public-safety test only lets `example`, `Public` or `Default` through. It is not
+  a leak. The fix belongs to the port-watch chat.
+- **Rounds in number order (the plan before 2026-11-19), one item at a time.** For each one: read the pet's repo rules, open its page
   (show-pet-panel), and take the Run's rows from the ledger. Then do the by-hand checks the way round 1 did (art, folder
   icon, topics, data folder, lists, tutorials, the live checks marked Not verified). Write
   `round-NN-<repo>-20261116.md` (or the day's date), fix the grey ones on a branch per repo, and put the blue ones on
