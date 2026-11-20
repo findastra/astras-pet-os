@@ -4,12 +4,14 @@
   var box = document.getElementById('discord-damsel-presence-control');
   if (!box) return;
   var note = document.getElementById('presence-control-note');
-  // Ableton Live Discord Presence joined as her third app (Claude Opus 5.5, 2026-11-03).
-  var keys = ['openai', 'anthropic', 'ableton'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
+  // Ableton Live Discord Presence joined as her third app (Claude Opus 5.5, 2026-11-03), the Anthropic and OpenAI IPO
+  // countdowns as her fourth and fifth (Claude Opus 5.5, 2026-11-15).
+  var keys = ['openai', 'anthropic', 'ableton', 'anthropic-ipo', 'openai-ipo'], data = null, statuses = {}, busy = {}, sequence = 0, connection = 0, timer;
   // Where the apps' controls and Damsel's presence controls listen stays on this PC, in the gitignored
   // apps/findastra-discord-presence-local-services-20261014.js; only loopback addresses are used
   // (docs/local-services-20261014.md; Claude Opus 5.5, 2026-11-03).
-  var services = { openai: 'openai-discord-presence', anthropic: 'anthropic-discord-presence', ableton: 'ableton-live-discord-presence' };
+  var services = { openai: 'openai-discord-presence', anthropic: 'anthropic-discord-presence', ableton: 'ableton-live-discord-presence',
+    'anthropic-ipo': 'anthropic-ipo-countdown', 'openai-ipo': 'openai-ipo-countdown' };
   var controls = {}, presence = null;
   function loopback(url) { return typeof url === 'string' && /^http:\/\/(?:127\.0\.0\.1|localhost):\d{2,5}\/$/.test(url) ? url : null; }
   var lights = document.querySelectorAll('button.onoff[data-presence-managed]');

@@ -194,7 +194,9 @@ test('the panel and the Pets Board read the list only from one fixed file on Ast
     assert.match(src, /var onThisPC = location\.protocol === 'file:' \|\| \/\^\(localhost\|127\\\.0\\\.0\\\.1\|\\\[::1\\\]\)\$\/\.test\(location\.hostname\);/, `${name}: on this PC only`);
     assert.match(src, /d\.schema !== 'github-aquarium-outstanding-items-v1'/, `${name}: checks the list before it shows it`);
     assert.match(src, /new URL\(u\)\.protocol === 'https:'/, `${name}: only https links become links`);
-    assert.doesNotMatch(src, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|fetch\(|XMLHttpRequest/, `${name}: textContent only, nothing fetched`);
+    assert.doesNotMatch(src, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|XMLHttpRequest/, `${name}: textContent only`);
+    // Only a program light's request to program-watch on this PC (test/program-buttons-test-20261107.mjs); the list is never fetched.
+    assert.equal((src.match(/fetch\(/g) || []).length, name === 'page script' ? 1 : 0, `${name}: the list is never fetched`);
   }
   const ex = JSON.parse(board.match(/<script type="application\/json" id="examples">([\s\S]*?)<\/script>/)[1]);
   assert.equal(ex.example, true);

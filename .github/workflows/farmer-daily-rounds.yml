@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FARMER_TOKEN: ${{ secrets.FARMER_TOKEN }}
         run: node scripts/farmer-rounds-20261009.mjs
-      - name: Rebuild the Cage and the Farmer's desk
+      - name: Rebuild the hub and the Farmer's desk
         run: |
           node scripts/build.mjs --metadata-only
           node scripts/build-interfaces-20261008.mjs

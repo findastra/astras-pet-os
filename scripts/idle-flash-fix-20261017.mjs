@@ -118,7 +118,7 @@ for (const rec of ledger) {
     const reg = regOf(repo);
     if (!existsSync(pjPath) && reg && reg.job && reg.audit && !/placeholder|not decided/i.test(reg.job) && repo === 'role-fairy') {
       const pj = { pet: reg.pet, kind: 'pet-app', owner: 'Astra', program: rec.program, job: reg.job, runs_on: 'Node 24.17 or newer on Astra’s PC, with her own Discord bot application (see README).', entry: 'src/bot.js', status: reg.status || 'hatching',
-        cage: { topic: 'pet-app', home: 'README.md', repository: 'https://github.com/findastra/astras-pet-os' },
+        hub: { topic: 'pet-app', home: 'README.md', repository: 'https://github.com/findastra/astras-pet-os' },
         audit: reg.audit, built_with: `pet.json from the registry entry by ${MODEL.replaceAll('`', '')}, ${ISO} (Idle Flash Audit)`, updated: ISO };
       writeFileSync(pjPath, JSON.stringify(pj, null, 2) + '\n');
       log.push('Added pet.json from its registry entry (job, status and audit as the registry has them; no sprite yet, its art waits on Astra).');
@@ -128,9 +128,9 @@ for (const rec of ledger) {
       let pj; try { pj = JSON.parse(raw); } catch { pj = null; }
       if (pj) {
         const changes = [];
-        // A field the pet has submitted to the Farmer (cage.submit) is waiting on the Farmer and
+        // A field the pet has submitted to the Farmer (hub.submit) is waiting on the Farmer and
         // Astra; copying the registry over it would undo the submission, so it is reported instead.
-        const sub = pj.cage?.submit || {};
+        const sub = pj.hub?.submit || {};
         const nameRow = rec.rows.find((r) => r.check === 'A06' && r.fix?.type === 'petjson-name');
         if (nameRow && pj.pet !== rec.icon && !sub.pet) { changes.push(`pet "${pj.pet}" -> "${rec.icon}" (pet-programs.json)`); pj.pet = rec.icon; }
         const jobRow = rec.rows.find((r) => r.fix?.type === 'petjson-job');
@@ -150,7 +150,7 @@ for (const rec of ledger) {
     const add = rec.fixes.find((f) => f.type === 'add-files')?.files || [];
     const addFile = (name, body) => { if (!existsSync(`${dir}/${name}`)) { writeFileSync(`${dir}/${name}`, body); return true; } return false; };
     if (add.includes('CLAUDE.md') && addFile('CLAUDE.md', `# Assistant handoff\n\nRead and follow [AGENTS.md](AGENTS.md) first, then the hub's rules in [findastra/astras-pet-os](https://github.com/findastra/astras-pet-os/blob/main/AGENTS.md). Public credit is Astra. Record each change, with the model and version, in its own new file in \`changes/\`.\n\nAdded by ${MODEL}, ${ISO}, in the Idle Flash Audit (A14).\n`)) log.push('Added CLAUDE.md (pointer to AGENTS.md and the hub rules).');
-    if (add.includes('AGENTS.md') && addFile('AGENTS.md', `# Assistant rules for ${repo}\n\nPublic credit is always Astra.\n\nThis pet is registered in Astra's PetOS. Read the hub's rules before changing anything: [AGENTS.md](https://github.com/findastra/astras-pet-os/blob/main/AGENTS.md), [PET-FILES.md](https://github.com/findastra/astras-pet-os/blob/main/PET-FILES.md) and [PET-PROGRAM-FRAMEWORK.md](https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md). Changes to this pet's name, job, status, bubble lines or audit are submitted to the Friendly Farmer through \`cage.submit\` in \`pet.json\`.\n\nKeep keys, \`.env\` files and personal data out of this repo. Record each change in its own new file in \`changes/\` (\`changes/<topic>-YYYYMMDD.md\`, with the model and version), never as a new line in this file.\n\nAdded by ${MODEL}, ${ISO}, in the Idle Flash Audit (A14).\n`)) log.push('Added AGENTS.md (house rules pointer).');
+    if (add.includes('AGENTS.md') && addFile('AGENTS.md', `# Assistant rules for ${repo}\n\nPublic credit is always Astra.\n\nThis pet is registered in Astra's PetOS. Read the hub's rules before changing anything: [AGENTS.md](https://github.com/findastra/astras-pet-os/blob/main/AGENTS.md), [PET-FILES.md](https://github.com/findastra/astras-pet-os/blob/main/PET-FILES.md) and [PET-PROGRAM-FRAMEWORK.md](https://github.com/findastra/astras-pet-os/blob/main/PET-PROGRAM-FRAMEWORK.md). Changes to this pet's name, job, status, bubble lines or audit are submitted to the Friendly Farmer through \`hub.submit\` in \`pet.json\`.\n\nKeep keys, \`.env\` files and personal data out of this repo. Record each change in its own new file in \`changes/\` (\`changes/<topic>-YYYYMMDD.md\`, with the model and version), never as a new line in this file.\n\nAdded by ${MODEL}, ${ISO}, in the Idle Flash Audit (A14).\n`)) log.push('Added AGENTS.md (house rules pointer).');
     if (add.includes('LICENSE') && !rec.repoMeta.private && !NO_LICENSE.has(repo) && addFile('LICENSE', `MIT License\n\nCopyright (c) 2026 findastra\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n`)) log.push('Added LICENSE (MIT, the house default for public pet repos).');
 
     // 4. README: credit line and a Limits section from INTELLIGENCE-LEVELS.md.

@@ -9,9 +9,11 @@ const source = readFileSync('apps/discord-damsel-presence-control-20261030.js', 
 // Made-up ports in the 400xx range: the real addresses stay in this PC's gitignored local services list
 // (docs/local-services-20261014.md), and the public-safety test allows loopback addresses here only on 400xx ports.
 const OPENAI = 'http://127.0.0.1:40001/', ANTHROPIC = 'http://127.0.0.1:40002/', ABLETON = 'http://127.0.0.1:40003/';
+const ANTHROPIC_IPO = 'http://127.0.0.1:40005/', OPENAI_IPO = 'http://127.0.0.1:40006/';
 const PRESENCE = 'http://127.0.0.1:40004';
 const SERVICES = { 'openai-discord-presence': OPENAI, 'anthropic-discord-presence': ANTHROPIC,
-  'ableton-live-discord-presence': ABLETON, 'discord-damsel-presence-control': PRESENCE + '/' };
+  'ableton-live-discord-presence': ABLETON, 'anthropic-ipo-countdown': ANTHROPIC_IPO, 'openai-ipo-countdown': OPENAI_IPO,
+  'discord-damsel-presence-control': PRESENCE + '/' };
 const flush = async () => { for (let i = 0; i < 6; i++) await new Promise(resolve => setImmediate(resolve)); };
 function node() {
   return { textContent: '', disabled: false, listeners: {}, attrs: {}, classes: new Set(),
@@ -25,18 +27,20 @@ function browser(protocol = 'file:', holdStart = false) {
   let failure = false, finishStart;
   const status = { openai: { installed: true, running: false, mode: null, connected: false, published: false },
     anthropic: { installed: true, running: true, mode: 'off', connected: false, published: false },
-    ableton: { installed: true, running: true, mode: 'auto', connected: true, published: true } };
-  for (const key of ['openai', 'anthropic', 'ableton']) {
+    ableton: { installed: true, running: true, mode: 'auto', connected: true, published: true },
+    'anthropic-ipo': { installed: true, running: true, mode: 'manual', connected: true, published: true },
+    'openai-ipo': { installed: false, running: false, mode: null, connected: false, published: false } };
+  for (const key of ['openai', 'anthropic', 'ableton', 'anthropic-ipo', 'openai-ipo']) {
     const parts = { '[data-presence-status]': node(), '[data-presence-start]': node(), '[data-presence-stop]': node(), '[data-presence-controls]': node() };
     cards[key] = { querySelector: selector => parts[selector], parts };
     // Only the two AI apps have program lights on the map.
-    if (key === 'ableton') continue;
+    if (!['openai', 'anthropic'].includes(key)) continue;
     const light = node(); light.dataset = { item: 'program:' + key + '-discord-presence', name: key };
     light.classList.toggle = (name, on) => on ? light.classes.add(name) : light.classes.delete(name);
     lights.push(light);
   }
   const box = { closest: () => ({}), scrollIntoView() {}, querySelector(selector) {
-    const key = ['openai', 'ableton'].find(name => selector.includes(name)) || 'anthropic';
+    const key = /"([^"]+)"/.exec(selector)[1];
     if (selector.includes('card')) return cards[key];
     return cards[key].parts[selector.includes('start') ? '[data-presence-start]' : selector.includes('controls') ? '[data-presence-controls]' : '[data-presence-stop]'];
   } };
@@ -70,6 +74,12 @@ test('Damsel generated page has visible start/open/stop controls and verified-li
     assert.match(html, new RegExp(`class="light onoff is-off" data-item="program:${key}-discord-presence"[^>]*data-presence-managed="1"`));
   }
   for (const what of ['data-presence-start="ableton" disabled', 'data-presence-controls="ableton" aria-disabled="true"', 'data-presence-stop="ableton" disabled', 'Ableton Live Discord Presence']) assert.ok(html.includes(what), what);
+  // Every presence app has all three buttons (Astra, 2026-11-15: "all of these buttons on her for each of these
+  // Discord presences. All of them."), the IPO countdowns included.
+  for (const [key, title] of [['anthropic-ipo', 'Anthropic IPO Countdown'], ['openai-ipo', 'OpenAI IPO Countdown']]) {
+    for (const what of [`data-presence-start="${key}" disabled`, `data-presence-controls="${key}" aria-disabled="true"`, `data-presence-stop="${key}" disabled`, `<legend>${title}</legend>`]) assert.ok(html.includes(what), what);
+  }
+  assert.equal(html.match(/data-presence-card="/g).length, 5);
   // In its own tool box in L1 since 2026-11-02 (Astra: "No special panels").
   assert.ok(html.indexOf('id="discord-damsel-presence-control"') > html.indexOf('discord-damsel-L1-control-panel'));
   assert.ok(html.indexOf('id="discord-damsel-presence-control"') < html.indexOf('discord-damsel-L2-control-panel'));
@@ -140,4 +150,16 @@ test('a late start reply after losing the connection cannot restore publishing o
   assert.equal(b.tabs[0].url, 'about:blank');
   assert.equal(b.lights[0].attrs['aria-pressed'], 'false');
   assert.equal(b.cards.openai.parts['[data-presence-start]'].disabled, true);
+});
+test('the Anthropic and OpenAI IPO countdowns each have their own controls link, and start and stop for themselves alone', async () => {
+  const b = browser(); b.connect(); await flush();
+  assert.equal(b.cards['anthropic-ipo'].parts['[data-presence-controls]'].href, ANTHROPIC_IPO);
+  assert.equal(b.cards['openai-ipo'].parts['[data-presence-controls]'].href, OPENAI_IPO);
+  assert.match(b.cards['anthropic-ipo'].parts['[data-presence-status]'].textContent, /Card published/);
+  assert.match(b.cards['openai-ipo'].parts['[data-presence-status]'].textContent, /Not installed/);
+  b.cards['anthropic-ipo'].parts['[data-presence-stop]'].listeners.click(); await flush();
+  assert.equal(b.posts.find(p => p.url.endsWith('/api/stop')).input.app, 'anthropic-ipo');
+  b.cards['anthropic-ipo'].parts['[data-presence-start]'].listeners.click(); await flush();
+  assert.equal(b.tabs[0].url, ANTHROPIC_IPO);
+  assert.equal(b.posts.filter(p => p.url.endsWith('/api/start')).map(p => p.input.app).join(), 'anthropic-ipo');
 });

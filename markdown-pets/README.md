@@ -38,7 +38,7 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 10 | [Mommy's Mommies](mommys-mommies-20261019.md) | Mommy’s HQ | A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/mommys-20261008.html) |
 | 11 | [Paper Patty](paper-girl-20261019.md) | Paper Girl | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | no app yet |
 | 12 | [File Master](file-master-20261019.md) | File Kingdom | Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/file-master-20261008.html) |
-| 13 | [Discord Damsel](discord-tower-20261019.md) | Discord Tower | Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls, with a manual setup checklist. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/findastra-discord-presence-20261008.html) |
+| 13 | [Discord Damsel](discord-tower-20261019.md) | Discord Tower | Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls and the Anthropic and OpenAI IPO countdowns, with a manual setup checklist. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/findastra-discord-presence-20261008.html) |
 | 14 | [Portfolio Puffer](portfolio-puffer-20261019.md) | Iced Out Iceberg | Looks after Astra's portfolio, findastra.github.io, and her GitHub profile's Window Star and hand lettering, and drafts portfolio updates for her OK. LinkedIn is planned; publishing stays hers. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-20261008.html) |
 | 15 | [Drum Dog](drum-dog-20261019.md) | Bass & Biscuits | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/drum-dog-20261008.html) |
 | 16 | [VSCode Angel](vscode-angel-20261019.md) | Halo List | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/vscode-angel-20261008.html) |
@@ -47,7 +47,7 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 19 | [Voicemeeter Bug](voicemeeter-bug-20261019.md) | Audio Rescue | Looks after Voicemeeter on Windows: restarts its audio engine when sound needs repair, opens it again if it closes, and listens for robotic sound. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/voicemeeter-bug-20261008.html) |
 | 20 | [Spoonfed Sugarcube](spoonfed-20261019.md) | Spoonfed | Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots. | no app yet |
 | 21 | [Claude Bot](claude-bot-20261019.md) | Claude Dock | Claude’s twin of ChatGPT’s BSOD desktop pet, in looks and in function: an orange face on the Windows desktop that shows Claude’s live status in a bubble and opens quick chat. | no app yet |
-| 22 | [RGBee](rgbee-20261019.md) | Light Hive | Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned. | no app yet |
+| 22 | [RGBee](rgbee-20261019.md) | Light Hive | Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next. | no app yet |
 | 23 | [Mine Mole](mine-mole-20261019.md) | Crypto Burrow | Manages the cryptocurrency mining program on Astra’s PC and checks whether mining is worth the power. | no app yet |
 | 24 | [Mail Snail](mail-snail-20261019.md) | Mail Shell | Organizes your mail: sorts it, cleans it up and deletes what you no longer need, always with your OK first. Connects to no mail account yet. | no app yet |
 | 25 | [Patch Cat](patch-cat-20261019.md) | The Litter Box | Keeps Windows, drivers and apps patched against security holes (its confirmed security role; the rest of its job is Astra’s to choose). | no app yet |
@@ -65,6 +65,7 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 40 | [Skill Scout](lunas-log-20261019.md) | Luna's Log | Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why. | no app yet |
 | 46 | [Gatekeeper Goddess](iron-gates-20261019.md) | Iron Gates | Security and approvals: human-facing approvals and security monitoring. Issues the grants and the short-lived agent keys; never approves her own. | no app yet |
 | 48 | [Log Lynx](log-den-20261019.md) | Log Den | Observability: correlates logs, traces, health and failures. | no app yet |
+| 49 | [Server Salamander](server-hearth-20261019.md) | Server Hearth | Hosts: home servers, uptime, service health. | no app yet |
 | 53 | [Packet Piranha](packet-river-20261019.md) | Packet River | Network: packet loss, DNS, latency, routing. | no app yet |
 | 58 | [Linux Penguin](linux-iceberg-20261019.md) | Linux Iceberg | Linux administration, SSH, systemd, packages. | no app yet |
 | 61 | [Journal Jellyfish](journal-lagoon-20261019.md) | Journal Lagoon | Private travel diary and itineraries. | no app yet |
@@ -81,4 +82,4 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 | 86 | [PC Master](pc-master-race-20261019.md) | PC Master Race | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example. | no app yet |
 
-54 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.
+55 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.

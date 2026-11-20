@@ -48,5 +48,6 @@ Discord bots) are not pets and are not reported.
    add or move its pets.json entry when it becomes an animal, run `npm run build` (the README's
    [Pet stages](../../README.md#pet-stages) chart and the pet program pages follow), and open a pull request. Moving a pet
    into the pipeline goes through the gate, so ask Astra which ones in the same list and merge only with her OK.
-3. Then run the **pet-organizer** trick so the profile shows the result.
+3. Then run the **pet-organizer** trick once so the profile shows the result. Skip this step when pet-organizer is
+   what started you: it is already running, and starting it again would loop.
 4. Record what you did in a handoff card (`skills/handoff`), with `## What I did`.

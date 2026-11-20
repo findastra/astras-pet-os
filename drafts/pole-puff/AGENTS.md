@@ -5,7 +5,7 @@ Status: hatching (draft, repo not created yet). Pole Puff is the pet of `findast
 Rules: see [PET-FILES.md](https://github.com/findastra/astras-pet-os/blob/main/PET-FILES.md) in
 [Astra's PetOS](https://github.com/findastra/astras-pet-os) (`findastra/astras-pet-os`).
 Changes to the pet's name, job, status, bubble lines, mood lines or audit are **submitted to the
-Friendly Farmer** through `cage.submit` in `pet.json` (PET-FILES.md, "Submitting a change to the Farmer").
+Friendly Farmer** through `hub.submit` in `pet.json` (PET-FILES.md, "Submitting a change to the Farmer").
 Art, `kind` and friends belong to the Farmer: ask with a card in `astras-pet-os/handoffs/`.
 
 - Keep `pet.json` pointing at real files (`sprite.json`, `index.html`).

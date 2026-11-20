@@ -1,0 +1,31 @@
+You are drawing production art for Astra's desktop pets. Use your built-in image generation tool (image_gen). Do not write or run code to draw it, and do not edit any file except the one copy described at the end.
+
+Image 1 is Patch Cat's approved drawing. It is the one and only design reference: keep this exact character.
+
+Draw ONE new image: a sprite sheet of Patch Cat in an exact 3x3 grid, nine copies of the SAME character, each with a different facial expression.
+
+Keep identical in all nine cells (copy them from image 1):
+- the same species and body shape, the same pose, the same size, the same position in its cell
+- every colour, marking, outfit, accessory, prop and held object
+- the art style: chunky crisp pixel art, square stepped pixels, one continuous solid BLACK outline around the whole silhouette, flat vivid colours with one restrained shade, small dark rounded eyes with one white highlight, small pink cheeks
+Only the face changes: eyes, brows and mouth. Nothing else moves.
+
+The nine cells, left to right, then top to bottom:
+1. idle: calm and friendly, exactly the face in image 1.
+2. blink: the same calm face with both eyes closed as two short curved lines.
+3. happy: a big open smile, eyes curved up into happy arcs.
+4. curious: both eyes exactly the same shape and size as cell 1, looking straight ahead; one brow slightly raised and a small round open mouth. No head tilt, no sideways glance, never one eye bigger than the other.
+5. worried: brows tilted up in the middle, a small wavy mouth, eyes a little wider.
+6. sad: brows tilted down at the outer ends, a small downturned mouth, eyes half closed.
+7. sick: droopy half-closed eyes and a wobbly flat mouth; the cheeks a pale mint green instead of pink.
+8. alarmed: eyes wide open and round with small pupils, brows high, mouth a small open oval.
+9. asleep: both eyes gently closed as downward curves, mouth small and relaxed.
+
+Strict rules:
+- NO symbols of any kind anywhere: no question marks, exclamation marks, Z letters, music notes, hearts, sparkles, stars, tears, sweat drops, clouds, wavy lines, bandages, letters, numbers or labels. Astra's build adds one shared set of mood stickers later, so they must be identical on every pet: you must leave them out.
+- A genuinely transparent background (real alpha), no backdrop, no grid lines, no borders, no shadow, no glow.
+- Wide empty transparent gutters between the cells: no part of one character may touch or cross into another cell. The whole body is visible in every cell.
+- Square canvas, the nine cells equally sized and evenly spaced.
+
+When the image is made, look at it. If any cell has a symbol, a changed body, a changed outfit or prop, a missing cell, or characters touching, make it again (once). Then copy the final PNG into the current working folder as exactly: sheet-20261114.png
+Your last message: one line saying the file name and anything that is still wrong with it.

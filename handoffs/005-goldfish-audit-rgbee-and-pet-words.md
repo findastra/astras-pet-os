@@ -16,7 +16,7 @@ node scripts/goldfish-cli.mjs findastra --md > audit-20261009.md
 2. List the **old pet words** still in use. A local dry run on 2026-10-09 found them in
    vrchat-ai-astra and findastra-discord-presence ("pet interface"), in the eight rail-style
    apps' AGENTS.md and READMEs ("pet frame", from the square pet well fix), and in Data Dealer's
-   pet.json ("pixel twin", "pet interface"). The Cage, the Goldfish and the File Master are
+   pet.json ("pixel twin", "pet interface"). The hub, the Goldfish and the File Master are
    already fixed.
 
 Leave dated publication records (`docs/publications-*.md`) as they are: they record what was

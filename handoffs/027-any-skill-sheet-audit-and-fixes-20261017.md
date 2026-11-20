@@ -19,13 +19,13 @@ tricks, a proposed new skill sheet, the work pushed to "the skill-scout repo", a
     README, AGENTS.md, CLAUDE.md, `data/catalog-public-20261017.*` (public catalog), `art/` (the 2026-10-12 seed icon,
     copied from this repo; no new art was generated).
 - **This branch** `claude/skill-scout-audit-20261017` of astras-pet-os: this card and its row, and two fixes where the
-  core contradicted itself: AGENTS.md ("on a branch merged that day" → "on a branch Astra merges"; "who hosts the Cage
-  today" → "whose pet program is The Farm") and `skills/handoff` ("the Cage's host" → "runs The Farm"). `npm test`: 93 pass.
+  core contradicted itself: AGENTS.md ("on a branch merged that day" → "on a branch Astra merges"; "who hosts the hub
+  today" → "whose pet program is The Farm") and `skills/handoff` ("the hub's host" → "runs The Farm"). `npm test`: 93 pass.
 - **On Astra's PC:** the full private catalog and report in `%LOCALAPPDATA%\astras-pet-os\pet-program-40\`
   (`catalog-20261017.json`, `report-20261017.md`). Working copies are in the session scratchpad, not in
   `Documents\Astra's PetOS`; nothing in the pet folders was changed. A hub worktree was added under the scratchpad.
 - **Not done:** the repo rename (blocked for agents; Astra's call), no sheet in any other repo was edited, the
-  `pet.json` job of the Friendly Farmer still says "Hosts the Cage" (it is in the one-list registry: change it with
+  `pet.json` job of the Friendly Farmer still says "Hosts the hub" (it is in the one-list registry: change it with
   the Farmer's submission so the lists stay in step), `repo_exists` in pet-programs.json is still false for repos that
   exist (37 to 77, iron-gates, the-recovery-room).
 
@@ -33,7 +33,7 @@ tricks, a proposed new skill sheet, the work pushed to "the skill-scout repo", a
 Run the fix batches in Skill Scout's audit, in order, following `skills/skill-fix` in pet-program-40:
 A errors (unity-unicorn's garbled account name, startup-star's hidden control character, File Master's agent and
 weekly task paths), B core contradictions (Goldfish's 32×32 and its README line shape vs pet-organizer), C the old hub
-name and the Cage in the 2026-10-08/09 pet repos, D one copy per trick, E changelog cleanup. Batches A (the
+name and the hub in the 2026-10-08/09 pet repos, D one copy per trick, E changelog cleanup. Batches A (the
 `~\.claude` files), D and E need Astra's yes first.
 
 ## Done when

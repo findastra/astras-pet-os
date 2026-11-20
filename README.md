@@ -124,8 +124,8 @@ Every pet is at one stage on its way from an idea to a released pet. The chart i
 ```mermaid
 flowchart LR
   candidate["Candidate · 4"] -->|Astra lets it in| seed["Seed · 12"]
-  candidate -->|Astra lets it in| roadmap["Roadmap · 20"]
-  seed -->|real work in its repo| pipeline["Pipeline · 30"]
+  candidate -->|Astra lets it in| roadmap["Roadmap · 18"]
+  seed -->|real work in its repo| pipeline["Pipeline · 31"]
   roadmap -->|real work in its repo| pipeline
   pipeline -->|art registered| registered["Registered · 24"]
 ```
@@ -134,11 +134,11 @@ flowchart LR
 |---|---|---|---|---|---|
 | **Candidate** | Found, waiting at the gate. A repo or PC folder that might be a pet; Astra has not said yes, so it has no number. | pets.json `candidates` | no | 4 | not counted |
 | **Seed** | Approved pet idea, nothing built. It has a number, a name and a job, and it may have a starter repo (a README and a pet.json), but no working tool yet. | pet-programs.json | no | 12 | 11 |
-| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 20 | 20 |
-| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 30 | 30 |
+| **Roadmap** | Approved for later. A pet the PetOS plan needs (servers, security, sync and the like); it may have a starter repo, but its work has not started. | pet-programs.json | no | 18 | 18 |
+| **Pipeline** | Being built. Its repo has real work (a tool or a page), or Astra has said it is being built; it is an animal in pets.json and has its pet program page. Its art is not registered yet. | pet-programs.json and pets.json `pipeline` | yes | 31 | 31 |
 | **Registered** | Released. In pets.json `pets` with its registered art, in the pet table below and on the desktop. | pet-programs.json and pets.json `pets` | yes | 24 | 24 |
 
-86 numbered pet programs and 4 candidates at the gate. 54 have a pet program page (registered and pipeline).
+85 numbered pet programs and 4 candidates at the gate. 55 have a pet program page (registered and pipeline).
 <!-- stages:end -->
 
 **Moving a pet** (Astra, 2026-11-02): when the Friendly Farmer hatches a pet, or an audit (his round, the pet-finder,
@@ -218,7 +218,7 @@ gives each registered and pipeline pet a page with every tool panel of Astra's s
 **[The Model Pet Program](apps/pet-programs/model-pet-program-20261102.html)** is a made-up pet with every tool
 panel, every kind of item and every light, named Tool one, Tool two and so on.
 
-**The Cage is gone** (Astra, 2026-10-18): `cage.html`, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
+**The old pets page is gone** (Astra, 2026-10-18): the old pets page, the old browser page where the pets roamed, its data file and the old desktop Farmer (the Farmer dock) were removed. Pets live on the Windows desktop; the Farm will be their web home (Phase 3 of the [migration plan](docs/migration/PLAN.md)).
 
 **For builders** (Node 20 or newer; none of this is needed to just look):
 

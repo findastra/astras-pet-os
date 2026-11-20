@@ -16,7 +16,7 @@ for missing pets, and two Friendly Farmer skills: pet-organizer and pet-finder.
   from Astra (redlines in Procreate, her Procreate tools and drawings); also in `pets.json` seeds.
 - New: `scripts/pet-finder-20261016.mjs` (read-only tool of The Farm), `skills/pet-organizer/SKILL.md`,
   `skills/pet-finder/SKILL.md`, `test/pet-first-test-20261016.mjs`; `test/rounds-test-20261009.mjs` expects pet first.
-- `npm run build` (PET-PROGRAMS.md, cage-data.js, system-map-20261012.html regenerated), `npm test`: 82 of 82 pass.
+- `npm run build` (PET-PROGRAMS.md, the old pets page's data file, system-map-20261012.html regenerated), `npm test`: 82 of 82 pass.
 
 **findastra/github-goldfish, branch `claude/pet-first-roster-20261016`:** `rosterChecks` reads pet-first lines and
 flags repo-first ones; style doc updated. 48 of 48 tests pass.

@@ -9,7 +9,7 @@ The text below is the 2026-10-09 design, unchanged except the repo's new name (`
 
 | Section | Today |
 |---|---|
-| Whole page | The Cage is retired (AGENTS.md); read "the Cage" as The Farm. This repo is `astras-pet-os`. |
+| Whole page | The old pets page is retired (AGENTS.md); read "the hub" as The Farm. This repo is `astras-pet-os`. |
 | 1, decision 3 ("program" or "app") | **Decided:** "pet program" ([skills/dev-mindset](../skills/dev-mindset/SKILL.md), 2026-10-13 and 2026-10-16). |
 | 2, decision 1 (issues as the queue) | **Still open.** Cards stayed. Card numbers are now kept in one table in `handoffs/README.md`, checked by `test/handoff-numbers-test-20261017.mjs`. That table's "Next free number" line is edited by every new card, which made pull requests conflict on 2026-10-18, the problem this section's GitHub-numbered issues avoid. |
 | 3 (the chat bot) | **Decided in another form:** every pet program has a chat bot shaped like its icon, running in L3 chat ([PET-PROGRAM-FRAMEWORK.md](../PET-PROGRAM-FRAMEWORK.md); Flash Audit A22, A44). Whether it files GitHub issues is still this page's open question. |

@@ -1,4 +1,4 @@
-// Generates a 3x3 mood sheet for every pet, then converts each one into the Cage's sprite format.
+// Generates a 3x3 mood sheet for every pet, then converts each one into the hub's sprite format.
 //
 //   node scripts/generate-pets.mjs                 everything still missing
 //   node scripts/generate-pets.mjs goldfish chip   just these

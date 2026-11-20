@@ -96,7 +96,7 @@ every copy so nothing shows the old art in the meantime.
   Codex branch), `build-desktop-pets-20261011.ps1` is run (the rat's size is compiled in), the draft pets' repo folders
   have the merged art, and the desktop pets app restarts. Then `set-folder-icons-20261017.ps1` refreshes folder icons.
 - `art/icons/claude-bot-20261012.png` stays the earlier twin; `make-icons` no longer fetches Claude Bot (private repo).
-- Generated files (`cage-data.js`, `system-map-20261012.html`, `art/roster.png`) will conflict with any other branch
+- Generated files (the old pets page's data file, `system-map-20261012.html`, `art/roster.png`) will conflict with any other branch
   that rebuilt them; whoever merges second runs `npm run build` again.
 - Links to `github.com/findastra/claude-bot` in this hub's docs now show 404 to visitors (private repo).
 - A58 is a check, not a migration: switching each repo to the hub source is separate work.

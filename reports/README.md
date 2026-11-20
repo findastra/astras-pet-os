@@ -44,8 +44,8 @@ The roadmap for cloning my reactions, as I approved it on 2026-11-03:
 | 0 | Fix the OSC overlap | VRCFaceTracking, OSCGoesBrrr and the face recorder all hear VRChat at once (OSCQuery or a router) | Researched; my PC step |
 | 1 | Record me | Save my face data during real moments, with my own notes ("friend told a joke") | face-recorder: built and tested, never run live |
 | 2 | Encode it | Turn raw tracking values into face frames with the Face Codec | face-codec: built and tested |
-| 3 | Learn my reactions | Cut and keep my reaction clips: VRChat AI Astra, the copy of me | reaction-learner: built and tested, preview only |
-| 4 | Build Iris | The agent who reads the copy of me and reacts her own way | Not started |
+| 3 | Learn my reactions | Cut and keep my reaction clips in the reaction book Iris reads | reaction-learner: built and tested, preview only |
+| 4 | Build Iris | Iris uses the face language to create her own expressions | Not started |
 | 5 | Iris's face in VRChat | Face and eye shapes only, after a private-world test | Not started |
 
 - **Status of steps 1 to 3:** merged into The Astral Plane's `main` with my OK on 2026-11-03; tested (unit tests, 148
@@ -56,8 +56,9 @@ The roadmap for cloning my reactions, as I approved it on 2026-11-03:
   `netstat -ano | findstr :9001` to see which program holds it, then use OSCQuery or an OSC router such as VRCOSC's
   ([paper](Face%20tracking%20avatars%20and%20quantum%20simulation.md#her-problem-many-apps-can-send-only-one-can-listen);
   the [10-step checklist](Face%20tracking%20avatars%20and%20quantum%20simulation.md#most-osc-trouble-is-a-port-fight-or-a-stale-avatar-config)).
-- **The two parts:** VRChat AI Astra is the copy of me (my recordings, my reaction book, my persona); Iris will be the
-  agent who uses it. Iris is not built yet ([paper](Face%20tracking%20avatars%20and%20quantum%20simulation.md#the-astral-plane-got-four-face-tools-tested-but-never-run-live)).
+- **Iris** (2026-11-17, replacing the "two parts" note of 2026-11-03): "VRChat AI Astra was NAMED Iris." Iris is the
+  agent's name; she is not me and not a copy of me. The face tools are a language that measures my expressions
+  (working name *Astralese*), a tool for Iris to use when creating herself. Iris is not built yet ([paper](Face%20tracking%20avatars%20and%20quantum%20simulation.md#the-astral-plane-got-four-face-tools-tested-but-never-run-live)).
 - **Names:** the [Face Codec](Face%20tracking%20avatars%20and%20quantum%20simulation.md#the-face-codec-turns-unified-expressions-into-face-frames-and-reaction-clips)
   encodes my whole face into signals; one moment is a face frame, a few seconds of one reaction is a reaction clip.
   Other people in my recordings get made-up names, never their real ones

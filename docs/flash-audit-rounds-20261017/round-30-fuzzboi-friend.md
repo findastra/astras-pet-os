@@ -10,7 +10,7 @@
 
 ### Exceptions
 
-1. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `cage/README.md`.  
+1. **A57 Current names only** — Incorrect. Retired names (the old hub names, findastra-pet-apps, Documents\Projects) in `hub-registration/README.md`.  
    *Next:* Inside code (a storage key or a name the code looks for), so it was left alone tonight.
 2. **A16 pet.json** — Missing. Metadata: framework declaration  
    *Next:* Framework metadata comes with the shared page framework (Codex's branch); not added by hand tonight.
@@ -36,7 +36,7 @@
 
 <details><summary>What the fix PR changes, exactly</summary>
 
-- Retired names: 14 replacement(s) in AGENTS.md, CLAUDE.md, README.md, cage/README.md, desktop-pet-20261011.json, sprite-20261009.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
+- Retired names: 14 replacement(s) in AGENTS.md, CLAUDE.md, README.md, hub-registration/README.md, desktop-pet-20261011.json, sprite-20261009.json (old hub names / findastra-pet-apps -> astras-pet-os and Astra's PetOS, Documents\Projects -> Documents\Astra's PetOS). History lines kept as written.
 - pet.json: job now matches the registry; audit block copied from the registry.
 - 2026-10-18 refresh: Brought up to date with main (3 new commit(s) there); main's version was kept where both changed a line, and desktop-pet-20261011.json stays deleted as main deleted it. Retired names again after the merge: 1 in AGENTS.md. pet.json: audit block from the registry. Credit line is now "An Intelligent App, or Pet, by Astra." (card 033): 4 change(s) in AGENTS.md, README.md, fuzzboi-friend-20261009.html. Art prompts and provenance notes keep their wording.
 
