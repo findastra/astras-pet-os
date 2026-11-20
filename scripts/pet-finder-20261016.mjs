@@ -38,10 +38,13 @@ export function findPets({ programs, registry, repos, local = [] }) {
   const byRepo = new Map(programs.map((p) => [p.repo, p]));
   const byNumber = new Map(programs.map((p) => [p.number, p]));
   const registered = new Set([...(registry.pets || []), ...(registry.pipeline || [])].map((p) => p.repo));
+  // Retired or folded pets (skills/retire-a-pet, 2026-11-17): never "missing", only a leftover to clear.
+  const retired = new Map((registry.retired_pets || []).map((p) => [p.repo, p]));
 
   // 1. A repo on GitHub that is a pet (pet.json, or "pet program (#N)" in its description) but has no line.
   for (const r of all.filter((x) => sameAccount(x.owner, farm))) {
     if (byRepo.has(r.name)) continue;
+    if (retired.has(r.name)) { const t = retired.get(r.name); add('retired-leftover', { pet: t.pet, repo: r.name, number: t.number, detail: `${t.pet} was retired on ${t.retired}, but its repo ${r.name} is not archived. Archive it with Astra's OK (skills/retire-a-pet).` }); continue; }
     const pj = r.petJson || null;
     const num = pj && Number.isInteger(pj.number) ? pj.number : Number((/pet program \(#(\d+)/i.exec(r.description || '') || [])[1]) || null;
     if (!pj && !num) continue;
@@ -75,6 +78,7 @@ export function findPets({ programs, registry, repos, local = [] }) {
 
   // 6. Pets that live only on the PC.
   for (const l of local) {
+    if (retired.has(l.folder)) { const t = retired.get(l.folder); add('retired-leftover', { pet: t.pet, repo: l.folder, number: t.number, detail: `${t.pet} was retired on ${t.retired}, but its folder is still on the PC (${l.folder}). Check it for unsaved work, then the Recycle Bin (skills/retire-a-pet).` }); continue; }
     if (l.onGitHub || byRepo.has(l.folder)) continue;
     add('pc-only', { pet: l.pet, repo: l.folder, detail: `${l.pet || l.folder}${l.program ? ` (${l.program})` : ''} is only on the PC (${l.file}), not on GitHub.` });
   }

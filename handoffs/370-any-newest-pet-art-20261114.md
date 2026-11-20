@@ -1,5 +1,5 @@
-status: open (waiting on Astra: her look at the new faces, her OK to merge #369 then #370, and three answers below)
-for: any (the Stream Deck rebuild: the Deck Duck chat, findastra/deck-duck)
+status: done (merged 2026-11-15 with Astra's OK, "Merge #369 and #370"); three choices of hers are listed below
+for: any
 from: Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-15
 ---
 ## Task
@@ -9,12 +9,10 @@ each one, give it good instructions, and make sure that those symbols are the sa
 Astra Max that does the art."
 
 ## Ownership and state
-State: READY_FOR_REVIEW
-Implementer: Claude Opus 5.5 (this chat); writable files: the files in pull request #370, this card,
-changes/newest-pet-art-nine-moods-20261114.md; ownership: released after the merge
-Reviewer: unassigned; next action: Astra looks at the faces; merge #369 first, then retarget #370 to `main`
-(`gh pr edit 370 --base main`) before merging it, rebuild and restart Startup Star on her PC
-Stacked on #369 (`claude/one-mood-everywhere-20261114`). Codex's draft #267 (`codex/pet-art-review-20261030`) stays
+State: DONE
+Implementer: Claude Opus 5.5 (this chat); ownership: released (merged 2026-11-15, a6537a7c; live on Pages the same
+minute). Startup Star rebuilt on her PC from main and restarted through its scheduled task (self-test PASS).
+It was stacked on #369 and moved to `main` before #369 merged. Codex's draft #267 (`codex/pet-art-review-20261030`) stays
 Codex's: never push to it; its 10-30/31 drawings are the references these faces were drawn from.
 
 ## What I did
@@ -36,5 +34,6 @@ Codex's: never push to it; its 10-30/31 drawings are the references these faces 
 - Claude Bot and Skill Scout: their art stays private; an original redesign for each is her call.
 
 ## For the Deck Duck chat
-After #370 is merged, rebuild the Stream Deck plugin: its keys read `petFrames`, which now gives every pet its
-newest drawing. Nothing in findastra/deck-duck was touched here.
+Done: the Stream Deck plugin's builds from `main` after #370 (0.9 on 2026-11-17 and later) take every pet's newest
+drawing through `petFrames`; its notes say 0.9's pictures match 0.8's. The keys do not show the shared mood yet: that
+is card 369's open part.

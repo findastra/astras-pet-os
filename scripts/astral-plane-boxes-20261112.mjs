@@ -16,8 +16,8 @@ export const ROADMAP = [
   ['0', 'Fix the OSC overlap', 'VRCFaceTracking, OSCGoesBrrr and the face recorder all hear VRChat at once (OSCQuery or a router).', 'Researched; a step on your PC'],
   ['1', 'Record me', 'Save my face data during real moments, with my own notes ("friend told a joke").', 'face-recorder: built and tested, never run live'],
   ['2', 'Encode it', 'Turn raw tracking values into face frames with the Face Codec.', 'face-codec: built and tested'],
-  ['3', 'Learn my reactions', 'Cut and keep my reaction clips: VRChat AI Astra, the copy of me.', 'reaction-learner: built and tested, preview only'],
-  ['4', 'Build Iris', 'The agent who reads the copy of me and reacts her own way.', 'Not started'],
+  ['3', 'Learn my reactions', 'Cut and keep my reaction clips in the reaction book Iris reads.', 'reaction-learner: built and tested, preview only'],
+  ['4', 'Build Iris', 'Iris uses the face language to create her own expressions.', 'Not started'],
   ['5', "Iris's face in VRChat", 'Face and eye shapes only, after a private-world test.', 'Not started'],
 ];
 
@@ -25,7 +25,7 @@ export const WAITING = [
   ['Fix the OSC overlap (step 0)', 'With VRCFaceTracking and OSCGoesBrrr both open, run netstat -ano | findstr :9001 and look up the number at the end in Task Manager’s Details tab: whichever app holds port 9001 is the one blocking the other. Current VRCFaceTracking uses OSCQuery and needs no fixed port; VRCOSC’s router can give each app its own.'],
   ['First live test of the face tools', 'Follow the clone-session trick in a private world: start the recorder, mark a few moments, stop, learn, look at the reaction book. Nothing is sent to VRChat yet: face-out is preview only.'],
   ['The face recorder’s grant', 'It reads VRChat’s OSC output and its log, outside The Astral Plane’s own folder. That grant waits on Gatekeeper Goddess and you.'],
-  ['Iris', 'Not built yet. VRChat AI Astra is the copy of you (your recordings and reaction clips); Iris will be the agent who uses it. Her code gets her name when she is made.'],
+  ['Iris', 'Not built yet. VRChat AI Astra was named Iris: she is the agent, not you and not a copy of you. The face tools are a language that measures your expressions (working name Astralese), a tool for Iris to use when creating herself. Her code gets her name when she is made.'],
 ];
 
 export const RESEARCH = [
@@ -37,7 +37,7 @@ export const RESEARCH = [
 
 export function roadmapBody() {
   const rows = ROADMAP.map(([n, step, what, status]) => `<tr><td>${esc(n)}</td><td><b>${esc(step)}</b></td><td>${esc(what)}</td><td>${esc(status)}</td></tr>`).join('');
-  return `<p class="small">Astra’s plan, approved 2026-11-03. Two parts: <b>VRChat AI Astra</b> is the copy of Astra; <b>Iris</b> is the agent who uses it. The face format is the <b>Face Codec</b> (face frames and reaction clips, on top of Unified Expressions).</p>
+  return `<p class="small">Astra’s plan, approved 2026-11-03. <b>Iris</b> is the agent’s name (Astra, 2026-11-17: “VRChat AI Astra was NAMED Iris”); she is not Astra and not a copy of her. The face tools are a language that measures Astra’s expressions (working name <b>Astralese</b>), a tool for Iris to use when creating herself. The face format is the <b>Face Codec</b> (face frames and reaction clips, on top of Unified Expressions).</p>
 <table class="astral-roadmap"><thead><tr><th>#</th><th>Step</th><th>What it means</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>
 <p class="small">Decided: Iris may move face and eye shapes only; other people in recordings get made-up names, the same one for the same person. None of it has run against live VRChat or a headset yet.</p>`;
 }

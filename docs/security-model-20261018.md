@@ -55,7 +55,7 @@ Roles marked **confirmed** were confirmed by Astra on 2026-10-14. Turn on **Secu
 | Identify | File Master | pet-program-12 | Inventory: new programs anywhere on the PC, repos never pushed | **Built (2 tools)** |
 | Identify | API Fairy | API Fairy Ring | Every key: where it lives, what uses it, active and expired (never the secret) | Registered |
 | Identify | GitHub Goldfish | pet-program-2 | Everything public on GitHub: leaks, exposed files, document errors | Registered |
-| Identify | Port Spider | pet-program-68 | Open ports and exposed services | Roadmap |
+| Identify | White Hat Weasel | White Hat Lab (port-check-tool) | Open ports and exposed services (Port Spider, pet-program-68, folded in; Astra, 2026-11-17) | Pipeline |
 | Protect | Cipher Owl | pet-program-69 | Encryption, certificates and **signatures** (checks provenance; see PROVENANCE.md) | Roadmap, role confirmed |
 | Protect | Proxy Axolotl | pet-program-64 | **Egress allowlist**: what may leave the PC, and safe remote access | Roadmap, role confirmed |
 | Protect | Docker Dragon | pet-program-50 | **The sandbox:** runs anything untrusted in isolation first | Roadmap, role confirmed |
