@@ -537,6 +537,35 @@
       "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
+      "id": "seo-toolkit",
+      "name": "seo-toolkit",
+      "type": "tool",
+      "of": "program-14",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-seo-toolkit-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-seo-toolkit-20261120.html",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-11-20: \"I think this just needs to be a portfolio [puffer] job\"): one pill per published page on findastra.github.io, each with a light (green, yellow, red) from checks that are code, not AI: the name in words and as the dashed name in the title, a description, one h1, canonical address, language, viewport, link-preview tags, structured data, no noindex, and the sitemap. Tap a pill for what is missing and the head tags to paste. scripts/portfolio-puffer-seo-sweep-20261120.mjs fetches every page in apps/portfolio-puffer-seo-pages-20261120.json and writes the results; with --out it writes the sitemap.xml and robots.txt for the root of findastra.github.io. Reads public pages only and writes no repo: fixes go to each page's repo as pull requests Astra merges (seo-fix-round).",
+      "does": "One pill per published page: what search engines are missing, and the tags to paste.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-seo-toolkit-20261120.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "seo-fix-round",
+      "name": "seo-fix-round",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-seo-fix-round-trick-v1.0",
+      "job": "A trick of Iced Out Iceberg (Astra, 2026-11-20): when Astra asks for SEO on a page, the agent in the seat runs seo-toolkit's sweep, writes the page's missing head tags on a branch of that page's repo (the description in Astra's words, or left in [brackets] for her), and opens a pull request for her to merge; the sitemap.xml and robots.txt go to findastra.github.io the same way. Never pushes live. Written steps only, not a skill file yet."
+    },
+    {
       "id": "findastra-portfolio",
       "name": "findastra.github.io",
       "type": "own-program",
