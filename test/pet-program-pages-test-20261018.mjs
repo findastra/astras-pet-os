@@ -199,7 +199,7 @@ test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-2
   assert.deepEqual(full, [...FULL_HEIGHT].sort(), 'the pets that keep NormalHeight when wide');
 });
 
-test('every pet picture is as big as on the desktop, its empty margin cut off, never squeezed into 60px', () => {
+test('every page pet uses the same square while desktop size metadata remains available', () => {
   // Rift Rabbit: 0.9 of NormalHeight on the desktop, measured from his drawings the way the star crops them.
   const rabbit = pages.find((x) => x.repo === 'rift-rabbit');
   const crop = unionBox([rabbit.art.plain.idle, rabbit.art.plain.blink].map((p) => drawnBox(`${root}/${p}`, 127)));
@@ -219,7 +219,10 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.doesNotMatch(css, /--pet-height|\.den \{[^}]*[{;] ?height: 60px/, 'no 60px slot shrinks the pet');
   assert.doesNotMatch(css, /discord-damsel"\] \.den img\.pet \{ scale/, 'Damsel needs no size of her own');
-  assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
+  assert.match(css, /--pet-square: 80px/);
+  assert.match(css, /width: var\(--pet-square\); height: var\(--pet-square\)/);
+  assert.match(css, /margin: 0; clip-path: none; object-fit: contain/);
+  assert.match(css, /grid-template-columns: minmax\(0, 1fr\) var\(--pet-square\)/);
 });
 
 // Astra, 2026-11-08: "I think a lot of these buttons aren't really working on the farm. We should know how they're
