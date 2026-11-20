@@ -88,13 +88,13 @@ export const PETS = [
   { id: 'log-lynx', what: 'a sturdy lynx cat sitting upright with tall pointed ears ending in long ear tufts, a fluffy cheek ruff and a short bobbed tail, holding a small open logbook against its chest, no other props and no lettering', colours: 'electric teal fur with small dark navy spots, tangerine-orange ear tufts and nose, ice-white cheek ruff and belly, acid-lime logbook' },
   { id: 'packet-piranha', what: 'a chubby round piranha fish seen face on, with a big jutting underbite showing a neat row of small white triangle teeth, a forked tail and spiky fins, cute rather than scary, no props and no lettering', colours: 'neon aqua-cyan body with a few silver scale glints, crimson-red belly and jaw, bright lemon-yellow fins and tail, white teeth' },
   { id: 'forensic-ferret', what: 'a slim ferret standing upright on its hind legs with a long body, a dark bandit eye mask, small round ears and a long tail, holding a big round magnifying glass up beside its face, no hat, no other props and no lettering', colours: 'neon golden-yellow fur, deep violet bandit mask, paws and tail tip, hot pink magnifying glass rim, pale cyan lens' },
+  // Role Fairy (The Fairy Court, #83): drafted 2026-10-18 with Astra's OK (art/seeds/role-fairy-sheet-20261018.png), then
+  // redrawn on 2026-11-12 from Codex's newest drawing of her (hub #267, 2026-10-31, the Scout body; copied unchanged to
+  // art/seeds/role-fairy-idle-20261031.png) so her nine moods keep that body (Astra in chat, 2026-11-12: "A"), and registered.
+  // Her wings carry the five Discord role colours she hands out, so she never reads as API Fairy.
+  // From now on redo her only with --match. Claude Opus 5.5.
+  { id: 'role-fairy', ref: 'art/seeds/role-fairy-idle-20261031.png', what: 'EXACTLY the fairy girl in the reference image, same slim full-body proportions from head to boots: white hair in two round buns with pink scrunchies, large rainbow butterfly wings, a pink sweetheart dress with a ruffled pink skirt, white gloves, tall pink boots, holding her small gold and pink star wand in front of her in EVERY one of the nine cells, the wand always clearly visible, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink dress and boots, snow-white hair, gold and pink star wand' },
 ];
-
-// Role Fairy (Fairy Ring, #83), draft: generated 2026-10-18 with Astra's OK, sheet in art/seeds/role-fairy-sheet-20261018.png.
-// Her wings carry the five Discord role colours she hands out (Raver, DJ, Dancer, Drinker, Dreamer), so she never reads
-// as API Fairy. When Astra approves the sheet and the Farmer registers her, move this line into PETS and copy the
-// sheet to art/sheets/role-fairy.png (then --match keeps this body). Claude Opus 5.5.
-export const DRAFT_ROLE_FAIRY = { id: 'role-fairy', what: 'a tiny cheerful fairy girl with LARGE butterfly wings made of five clearly separate coloured panels, a short ruffled tutu dress, hair in two round buns, holding a small star wand topped with a round badge, no key and no props besides the wand', colours: 'wing panels in royal blue, bubblegum pink, lavender purple, ice blue and butter yellow, hot pink tutu, snow-white hair, gold wand and star' };
 
 // PC Master (PC Master Race, #86), draft: generated 2026-11-03 with Astra's OK ("He's going to need art, too"), sheet
 // in art/drafts/pc-master-race/. A gaming PC tower racing to be the PC Master (her words: "it's a race to be the PC
