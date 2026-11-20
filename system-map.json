@@ -784,6 +784,23 @@
       "in_pill": true
     },
     {
+      "id": "port-watch-tool",
+      "name": "port-watch-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-watch-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-19: \"The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some ... I want to be able to click on a port, labeled, and I can read info about the latest traffic\"; her answers \"All recommended\"). Every 10 minutes, started by Startup Star at sign-in, it looks at every port open on this PC with Get-NetTCPConnection (no administrator, no port of its own): which program owns it, who can reach it, who is connected and from where (this PC, the home network, Tailscale or the internet) and the last peers seen. Once a day it asks about chat preview servers left open more than two hours: its mood turns curious and its menu in Startup Star names them. Only our own servers (PetOS helpers and chat previews) can be closed, and only by Astra's click in that menu. The list stays on her PC (white-hat-lab folder of Astra's PetOS Data); the public page says only that it is private.",
+      "does": "Every port open on your PC, labeled: click one to see who is connected, from where, and how to close it.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
