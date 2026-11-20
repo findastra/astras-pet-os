@@ -69,6 +69,13 @@ test('the dashed name counts only as a whole name, and dashes in the title count
   assert.equal(seo.hasWords("Astra's GIF Maker", "Astra's GIF Maker"), true);
 });
 
+test('a title is read as plain text, and stays escaped in the tags it suggests', () => {
+  const t = seo.title('<title>A &lt;script&gt;alert(1)&lt;/script&gt; page</title>');
+  assert.equal(t, 'A <script>alert(1)</script> page', 'decoded to text, shown only with textContent');
+  const r = seo.checkPage('<html><head><title>&lt;script&gt;</title></head></html>', { ...page, name: '<script>x' });
+  assert.doesNotMatch(seo.suggestHead({ ...page, name: '<script>x' }, r), /<script>x/);
+});
+
 test('suggested head tags use both forms of the name, escape quotes, and never make up a description', () => {
   const html = seo.suggestHead({ ...page, name: 'Liminal "Doors"' }, seo.checkPage(bare, page));
   assert.match(html, /<title>Liminal &quot;Doors&quot; \(liminal-doors\)<\/title>/);

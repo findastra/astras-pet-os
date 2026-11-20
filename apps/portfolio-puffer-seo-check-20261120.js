@@ -38,9 +38,11 @@
       return (a.rel || '').toLowerCase().split(/\s+/).indexOf(rel) !== -1;
     });
   }
+  // A <title> holds text only (browsers never read tags inside it), so it is decoded, never stripped of tags: the result
+  // is plain text, shown with textContent and escaped with esc() before it goes into any tag.
   function title(html) {
     var m = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(html);
-    return m ? decode(m[1].replace(/<[^>]+>/g, '')) : '';
+    return m ? decode(m[1]) : '';
   }
 
   // Words: lower case, apostrophes dropped, dashes and punctuation read as spaces (as search engines read them).
