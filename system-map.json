@@ -3451,6 +3451,15 @@
       "job": "An old MacBook Pro, now running MacAttack (Kali Linux) to test this farm (Astra, 2026-10-18)."
     },
     {
+      "id": "home-server",
+      "name": "Home server",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 1,
+      "category": "Device",
+      "job": "Your home server, a mini PC that stays on all day (Astra, 2026-11-18): Claude through Remote Control, the pets and the bots run here so the desktop can sleep. Server Salamander looks after it. Model, specs and address are in White Hat Weasel's private device list, not on this map."
+    },
+    {
       "id": "macattack",
       "name": "MacAttack",
       "type": "program",
@@ -9022,6 +9031,28 @@
       "medium": "wi-fi",
       "state": "suggested",
       "why": "Connects over wi-fi."
+    },
+    {
+      "from": "server-hearth",
+      "to": "home-server",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Server Salamander looks after the home server: what runs on it, whether it is up and how its services are doing (Astra, 2026-11-12)."
+    },
+    {
+      "from": "home-server",
+      "to": "home-router",
+      "carries": "network",
+      "medium": "wi-fi",
+      "state": "suggested",
+      "why": "On Wi-Fi during setup (2026-11-18); a cable to the router is steadier for a server."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "home-server",
+      "carries": "findings",
+      "state": "planned",
+      "why": "White Hat Weasel keeps every device in his private device list and port-checks the server once it is on the network (Astra, 2026-11-20)."
     },
     {
       "from": "macbook-pro",
