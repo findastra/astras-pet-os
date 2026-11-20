@@ -44,3 +44,5 @@ Open-PR scan: #280 is an older sick-waves change superseded by these approved sy
 
 ### Publication authorized, 2026-11-20
 In reply to the specific request to merge #371 and refresh desktop pets, Astra said: "when you are done, push everything to guthub and make sure the main pets hosting file is updated". Proceeding with #371 only. Fetched latest main (8b6fd60e), retained the merged Pilot Plant and installer fixes, and regenerated the conflicted output pages from the combined sources. The hosting source remains main at the repository root; the main pet program page, art/latest and desktop mood paths are included. Existing pet faces remain unchanged by this work.
+
+Main advanced again to 67d4ad07 (approved Role Fairy update, #327) immediately before publication. Preserved that update, including her registered faces and page theme, and rebuilt the combined outputs so her moods use the same approved symbols. #401's separate Fuzzboi work remains untouched. The earlier integration passed all 67 focused checks; the final page/symbol checks are repeated for this merge.
