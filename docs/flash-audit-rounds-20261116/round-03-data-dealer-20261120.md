@@ -44,12 +44,11 @@ this round leaves them alone.
 
 ## Decisions waiting on you
 
-1. Merge [data-dealer#18](https://github.com/findastra/data-dealer/pull/18) (this round),
-   [#10](https://github.com/findastra/data-dealer/pull/10) (credit) and
-   [#12](https://github.com/findastra/data-dealer/pull/12) (sprite at `art/latest`)? All three merge cleanly with one
-   another.
-2. Close [data-dealer#9](https://github.com/findastra/data-dealer/pull/9) (`homepage`: it works, but nothing needs
-   it, the same as Puffer's #6)?
+1. ~~Merge #18, #10 and #12, and close #9?~~ Done. Astra, 2026-11-20: "Yes, all four". Merged as `7f29a37` (#18),
+   `d52b98a` (#10) and `96b15d8` (#12), and #9 was closed with a note. `main` was checked afterwards: `pet.json` and
+   the sprite parse, the README credit is "*By Astra.*", Limits is a heading, the old pets page sentence is gone and
+   all 9 sprite links open `art/latest` (200). A15's credit and Limits, A16 and A57's sentence now pass. Five pull
+   requests stay open: #17 and #14 (their own chats) and Codex's #5, #7 and #6 (card 035).
 
 <sub>Flash Audit, 2026-11-20, Claude Opus 5.5 (`claude-opus-5-5`). Checks were read-only. Nothing was clicked for you,
 launched or signed in to.</sub>
