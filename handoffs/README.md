@@ -39,7 +39,7 @@ their pull request and are found in this folder ("Card numbers", below).
 | [045: Log Lynx, Packet Piranha and Forensic Ferret: built, started at sign-in, registered with draft art](045-any-crash-watch-pets-20261018.md) | any | done 2026-10-19; left for Astra: approving the drafts |
 | [044: The pet program spawner: a basic page for every pet](044-any-pet-program-spawner-20261018.md) | any | open: task 1 done with #110 except pet.json `entry` (waits on Astra) and the map card (`claude/map-card-program-page-20261019`); task 2 done with #106 and #114; tasks 3 and 4 to do |
 | [043: Unity Unicorn's page-modules doc matches the pet again (34 tools on main, 21 not merged)](043-any-unity-unicorn-page-modules-doc-20261018.md) | any | open, waits on Astra: the doc's questions 1, 2 and 4 (3 answered by #114; counts on `claude/unity-unicorn-tricks-20261019`) |
-| [042: The old pets page removed; the installer zip is the one download](042-any-installer-zip-20261018.md) | any | open, waits on Astra: one workflow line (shipped: #96 merged, v0.3.0-beta Latest, old pets page releases deleted) |
+| [042: The old pets page removed; the installer zip is the one download](042-any-installer-zip-20261018.md) | any | done 2026-10-18: #96 merged, v0.3.0-beta Latest, old pets page releases deleted, workflow line fixed (f6bd9f7) |
 | [041: Linux readiness: Astra's decisions, then the Debian package](041-any-linux-readiness-20261018.md) | any | taken 2026-10-19: decisions 1 to 4 answered; step (a) on `claude/linux-package-20261019`, waits on Astra's OK and the Kali MacBook install |
 | [040: Workflow Whale registration and Startup Star activation](040-farmer-register-workflow-whirlpool-20261018.md) | farmer | open, waiting on Astra: core merge |
 | [039: Installer "Set up your farm": Astra's example pets or from scratch](039-any-farm-setup-installer-20261018.md) | any | done 2026-10-18: #88 merged, v0.2.0-beta released, "core pets" kept |
@@ -133,7 +133,7 @@ card that reached `main` first kept its number, then the oldest card on a branch
 | 039 | `039-any-farm-setup-installer-20261018.md` | `main` (merged with #88) |
 | 040 | `040-farmer-register-workflow-whirlpool-20261018.md` | `main` (merged with #85) |
 | 041 | `041-any-linux-readiness-20261018.md` | `main` (PR #95); step (a) on `claude/linux-package-20261019` |
-| 042 | `042-any-installer-zip-20261018.md` | `claude/installer-20261018` |
+| 042 | `042-any-installer-zip-20261018.md` | `main` (merged with #96) |
 | 043 | `043-any-unity-unicorn-page-modules-doc-20261018.md` | `claude/unity-unicorn-modules-doc-20261018` (PR #98) |
 | 044 | `044-any-pet-program-spawner-20261018.md` | `main` (merged with #100; task 2 with #106) |
 | 045 | `045-any-crash-watch-pets-20261018.md` | `main` (merged with #105); the sign-in start on `claude/crash-watch-sign-in-20261019` |
