@@ -3,8 +3,8 @@
 Astra, 2026-11-16: "I want every item to be done through a flash audit. Let's start with item one. All 85 items. Go.
 Also, show me the whole list of items on the flash audit."
 
-The items are the pet programs in [pet-programs.json](../../pet-programs.json), in their numbers: 86 of them,
-numbered 1 to 87 (number 85 is not taken: Reactor Raccoon's seed is still pull request #245).
+The items are the pet programs in [pet-programs.json](../../pet-programs.json), in their numbers: 85 of them,
+numbered 1 to 87. Two numbers are not in the list: 68 (Port Spider, folded into White Hat Weasel on 2026-11-17) and 85 (Reactor Raccoon's seed, still pull request #245).
 Each gets every check below. Three kinds of check:
 
 - **Run (auditor)**: `scripts/idle-flash-audit-20261017.mjs`, read-only through GitHub, run over every pet program on
@@ -93,12 +93,14 @@ Astra; 🔵 blue: waits for her answer or for her to be there. IDs never change,
 
 ## Every item
 
-Counts are what is not a pass. Round 1 was checked by hand against all 71. Every other item so far has the
-Run's and the build's checks only, so its hand checks are still to do ("next").
+Counts are what is not a pass. A round marked "done" was checked by hand against all 71. Every other item
+so far has only the Run's and the build's checks, so its hand checks are still to do ("next"). Since 2026-11-19 the
+rounds go easiest first, one item at a time (Astra: "let's roll through the easiest ones first ... one item at a
+time"). Easiest means the fewest findings once the art and the `pet-app` topic are set aside.
 
 | # | Pet | Program | Stage | Missing | Incorrect | Not verified | Checks with a finding | Round |
 |--:|---|---|---|--:|--:|--:|---|---|
-| 1 | Friendly Farmer | The Farm | registered | 4 | 6 | 25 | see round 1 | [done](round-01-astras-pet-os-20261116.md) |
+| 1 | Friendly Farmer | The Farm | registered | 4 | 6 | 25 | see round 1 | [done 11-16](round-01-astras-pet-os-20261116.md) |
 | 2 | GitHub Goldfish | GitHub Aquarium | registered | 0 | 0 | 0 | — (the Run leaves pet program 2 out: page checks only so far) | next |
 | 3 | Data Chip | Data Dealer | registered | 4 | 1 | 0 | A15 A16 A55 A18 | next |
 | 4 | API Fairy | API Fairy Ring | registered | 3 | 5 | 0 | A10 A15 A56 A17 A55 A18 | next |
@@ -111,7 +113,7 @@ Run's and the build's checks only, so its hand checks are still to do ("next").
 | 11 | Paper Patty | Paper Girl | registered | 4 | 6 | 0 | A59 A07 A10 A13 A14 A16 A55 A18 A31 | next |
 | 12 | File Master | File Kingdom | registered | 3 | 4 | 1 | A10 A54 A15 A56 A55 | next |
 | 13 | Discord Damsel | Discord Tower | registered | 2 | 2 | 1 | A59 A10 A16 A55 | next |
-| 14 | Portfolio Puffer | Iced Out Iceberg | registered | 2 | 1 | 1 | A10 A15 A16 | next |
+| 14 | Portfolio Puffer | Iced Out Iceberg | registered | 2 | 4 | 29 | see round 14 | [done 11-19](round-14-portfolio-puffer-20261119.md) |
 | 15 | Drum Dog | Bass & Biscuits | registered | 4 | 1 | 0 | A10 A54 A15 A16 A18 | next |
 | 16 | VSCode Angel | Halo List | registered | 5 | 2 | 0 | A10 A54 A15 A16 A17 A55 A18 | next |
 | 17 | Gone Ghost | Am I a Ghost? | registered | 2 | 3 | 0 | A59 A07 A16 A17 A18 | next |
@@ -165,7 +167,6 @@ Run's and the build's checks only, so its hand checks are still to do ("next").
 | 65 | Cluster Crab | Cluster Shore | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
 | 66 | Storage Stoat | Storage Warren | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
 | 67 | White Hat Weasel | White Hat Lab | pipeline | 8 | 3 | 0 | A59 A01 A09 A10 A16 A55 A18 A26 | next |
-| 68 | Port Spider | Port Web | pipeline | 8 | 1 | 0 | A59 A01 A09 A10 A16 A55 A18 | next |
 | 69 | Cipher Owl | Cipher Hollow | pipeline | 8 | 2 | 0 | A59 A01 A09 A10 A16 A17 A55 A18 | next |
 | 70 | Forensic Ferret | Evidence Locker | registered | 4 | 2 | 1 | A59 A10 A54 A15 A16 A31 | next |
 | 71 | Llama Librarian | Model Library | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
@@ -185,7 +186,7 @@ Run's and the build's checks only, so its hand checks are still to do ("next").
 | 86 | PC Master | PC Master Race | pipeline | 5 | 1 | 1 | A59 A10 A54 A16 A55 A26 | next |
 | 87 | Flowsheet Flamingo | The Pilot Plant | seed | 4 | 2 | 1 | A09 A10 A13 A16 A55 A26 | next |
 
-All items: 496 Missing, 128 Incorrect, 45 Not verified.
+All items: 488 Missing, 130 Incorrect, 73 Not verified.
 
 Two holds apply to every round:
 
