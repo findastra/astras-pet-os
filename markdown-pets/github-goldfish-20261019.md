@@ -72,6 +72,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
 - **File Master** (File Kingdom): Organizes your files and finds systemic errors.
 - **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Flowsheet Flamingo** (The Pilot Plant): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
 - **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
 - **Gatekeeper Goddess** (Iron Gates): Security and approvals: human-facing approvals and security monitoring.
@@ -99,7 +100,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **RGBee** (Light Hive): Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
-- **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Role Fairy** (The Fairy Court): Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel.
 - **Server Salamander** (Server Hearth): Hosts: home servers, uptime, service health.
 - **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
 - **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.

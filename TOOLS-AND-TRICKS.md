@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-430 rows: 22 native programs, 177 native tools, 26 native tricks, 205 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+440 rows: 22 native programs, 178 native tools, 26 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -264,6 +264,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 6 | Python Panther | Python Jungle | third-party program | Jupyter |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
@@ -518,6 +519,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Wireshark |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | WizTree |  | Planned |
 | 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
+| 79 | AI Dashund | AI Doghouse | third-party program | Zotero |  | Planned |
 | 82 | Door Dormouse | The Threshold | native program | Found floors |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors (world) |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors Concept Atlas |  | Works today |
@@ -533,8 +535,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat Creator Companion |  | Works today |
 | 82 | Door Dormouse | The Threshold | third-party program | MCP for Unity 10.3.0 |  | Planned |
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat |  | Planned |
-| 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
-| 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
+| 83 | Role Fairy | The Fairy Court | native tool | PetOS feedback (ask-astra-bot) | `the-fairy-court-v1.0-petos-feedback-v1.0` | Planned |
+| 83 | Role Fairy | The Fairy Court | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
 | 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
 | 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
@@ -561,4 +563,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 | 86 | PC Master | PC Master Race | third-party program | Microsoft Learn MCP |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | native tool | pilot-plant-look-tool | `the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0` | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | GeoGebra |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Natural Number Game |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | WebPlotDigitizer |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | DWSIM |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Jupyter |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Qalculate! |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Zotero |  | Planned |
 <!-- registry:end -->

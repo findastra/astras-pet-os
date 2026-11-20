@@ -175,7 +175,7 @@
     "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
-    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
+    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program The Fairy Court on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
     "hidden": [
       "led-message-board"
     ],
@@ -875,7 +875,13 @@
             "why": "Startup Star runs it on a farm; Python Panther works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06); The Pilot Plant keeps it."
+          }
+        ]
       }
     },
     {
@@ -2051,6 +2057,53 @@
           "version": "v1.0"
         }
       ]
+    },
+    {
+      "repo": "role-fairy",
+      "pet": "Role Fairy",
+      "role": "pet",
+      "art": "role-fairy",
+      "kind": "fairy",
+      "asset_date": "20261112",
+      "status": "hatching",
+      "published": true,
+      "job": "Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
+      "added": "2026-10-17",
+      "version": "0.1.0",
+      "version_assigned": true,
+      "note": "Astra, 2026-10-17: Role Fairy is a pet; her pet program is The Fairy Court (#83, renamed from Fairy Ring on 2026-11-11 so it no longer reads like API Fairy Ring). Art drafted 2026-10-18 with Astra's OK, redrawn once with --match on 2026-11-11 so the wand is in every face, and registered the same day (Astra in chat: \"just do all recommended\"). Claude Opus 5.5.",
+      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
+      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every Discord bot: its servers, roles, permissions and health",
+        "needs": "a bot's access to its server, or your OK for a new bot"
+      },
+      "visibility": "private",
+      "submitted": "2026-10-19",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs her desktop pet on a farm; her Discord bots run without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "discord",
+            "how": "required",
+            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+          },
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "The Fairy Court’s bots run on Node 24.17 or newer (its pet.json)."
+          }
+        ]
+      }
     }
   ],
   "pipeline": [
@@ -2953,42 +3006,6 @@
       }
     },
     {
-      "repo": "role-fairy",
-      "pet": "Role Fairy",
-      "visibility": "private",
-      "status": "hatching",
-      "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
-      "added": "2026-10-17",
-      "version": "0.1.0",
-      "version_assigned": true,
-      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
-      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "every Discord bot: its servers, roles, permissions and health",
-        "needs": "a bot's access to its server, or your OK for a new bot"
-      },
-      "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered.",
-      "submitted": "2026-10-19",
-      "needs": {
-        "os": [],
-        "pets": [],
-        "core": [],
-        "programs": [
-          {
-            "node": "discord",
-            "how": "required",
-            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
-          },
-          {
-            "node": "nodejs",
-            "how": "required",
-            "why": "Fairy Ring’s bots run on Node 24.17 or newer (its pet.json)."
-          }
-        ]
-      }
-    },
-    {
       "repo": "chat-rat",
       "pet": "Chat Rat",
       "visibility": "private",
@@ -3764,6 +3781,11 @@
             "node": "context7",
             "how": "optional",
             "why": "Current library docs for every coding chat (hub card 319)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06); The Pilot Plant keeps it."
           }
         ]
       },
@@ -4306,6 +4328,137 @@
       }
     },
     {
+      "repo": "the-pilot-plant",
+      "pet": "Flowsheet Flamingo",
+      "visibility": "private",
+      "status": "hatching",
+      "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
+      "added": "2026-11-12",
+      "version": "0.1.0-20261112",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your engineering, maths and study programs: which are on the PC, signed and up to date",
+        "needs": "your OK to download or update a program"
+      },
+      "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\"). Built on 2026-11-12 after \"Yes, build it\": the private repo, the look and the tool page. Astra, 2026-11-12: \"Yes, download all\", and for DWSIM \"I want the one with the AI agent\": DWSIM 10.2.15 instead of 9.0.5 (9.0.5 removed); all four programs were installed by 2026-11-19, with Astra clicking through each licence herself.",
+      "editorial": {
+        "says": "All seven programs work now: DWSIM 10 (with its AI assistant), Qalculate!, Jupyter and Zotero are on the PC, and GeoGebra, the Natural Number Game and WebPlotDigitizer run right in their pills. My look fills the four PC pills every ten minutes. Next: the look at sign-in (it is started by hand now) and Open buttons through a launcher on this PC.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-19"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Tick “Allow other applications on this computer to communicate with Zotero” in Zotero (Edit > Settings > Advanced), so its pill can show your library’s newest titles.",
+          "card": "299",
+          "on": "2026-11-19"
+        },
+        {
+          "need": "Choose the AI that DWSIM 10’s assistant talks to: a cloud one (needs an API key, filed with API Fairy) or a local one such as Ollama (keeps your flowsheets on the PC).",
+          "card": "299",
+          "on": "2026-11-19"
+        }
+      ],
+      "works_with": [
+        {
+          "pet": "learn-python",
+          "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
+        },
+        {
+          "pet": "ai-doghouse",
+          "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
+        }
+      ],
+      "interface_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "submitted": "2026-11-12",
+      "needs": {
+        "os": [
+          "windows"
+        ],
+        "pets": [],
+        "core": [],
+        "programs": [
+          {
+            "node": "dwsim",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "qalculate",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "geogebra",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "natural-number-game",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "webplotdigitizer",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          }
+        ]
+      },
+      "checks": {
+        "third-party:dwsim": {
+          "result": "works",
+          "note": "DWSIM 10.2.15 (open-source edition, its AI assistant included) is on this PC, installed per user from its GitHub release after its SHA-256 matched; the look found it and Astra’s first flowsheet.",
+          "on": "2026-11-19"
+        },
+        "third-party:qalculate": {
+          "result": "works",
+          "note": "Qalculate! 5.13.2 is on this PC, installed from its GitHub release after winget’s SHA-256 matched; the look found it.",
+          "on": "2026-11-19"
+        },
+        "third-party:jupyterlab": {
+          "result": "works",
+          "note": "Python 3.13.17 (per user, signed by the Python Software Foundation) with JupyterLab 4.6.6, NumPy 2.5.4, SymPy 1.14.0 and Matplotlib 3.11.2 is on this PC; the look found all four packages.",
+          "on": "2026-11-19"
+        },
+        "third-party:zotero": {
+          "result": "works",
+          "note": "Zotero 10.0.8 is on this PC (signed by the Corporation for Digital Scholarship), installed after winget’s SHA-256 matched; the look found it running. Its library shows after Astra’s tick on its local API.",
+          "on": "2026-11-19"
+        },
+        "third-party:geogebra": {
+          "result": "works",
+          "note": "GeoGebra’s calculator runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:natural-number-game": {
+          "result": "works",
+          "note": "The Natural Number Game runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:webplotdigitizer": {
+          "result": "works",
+          "note": "WebPlotDigitizer 4 runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "tool:pilot-plant-look-tool": {
+          "result": "works",
+          "note": "Ran on this PC on 2026-11-19: it found all four installed programs and their versions; 16 self-test checks pass (the-pilot-plant#1).",
+          "on": "2026-11-19"
+        }
+      }
+    },
+    {
       "repo": "server-hearth",
       "pet": "Server Salamander",
       "visibility": "private",
@@ -4507,28 +4660,6 @@
             "why": "Shares defensive findings; File Master retains file management ownership."
           }
         ]
-      },
-      {
-        "pet": "Flowsheet Flamingo",
-        "program": "The Pilot Plant",
-        "repo": null,
-        "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
-        "audit": {
-          "cadence": "weekly",
-          "subject": "your engineering, maths and study programs: which are on the PC, signed and up to date",
-          "needs": "your OK to download or update a program"
-        },
-        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
-        "works_with": [
-          {
-            "pet": "learn-python",
-            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
-          },
-          {
-            "pet": "ai-doghouse",
-            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
-          }
-        ]
       }
     ],
     "already_in_pipeline": [
@@ -4536,7 +4667,8 @@
       "spoonfed (Spoonfed Sugarcube)",
       "lunas-log (Skill Scout)",
       "the-police-station (Pet Police Officer)",
-      "the-threshold (Door Dormouse)"
+      "the-threshold (Door Dormouse)",
+      "the-pilot-plant (Flowsheet Flamingo)"
     ],
     "renames": [
       {
