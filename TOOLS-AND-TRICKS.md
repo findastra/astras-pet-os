@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-429 rows: 22 native programs, 176 native tools, 26 native tricks, 205 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+430 rows: 22 native programs, 177 native tools, 26 native tricks, 205 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -436,6 +436,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
 | 67 | White Hat Weasel | White Hat Lab | native tool | port-check-tool | `white-hat-lab-v1.0-port-check-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native tool | port-watch-tool | `white-hat-lab-v1.0-port-watch-tool-v1.0` | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | Wireshark |  | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | MacAttack |  | Idea |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | MCP Inspector |  | Planned |

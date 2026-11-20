@@ -540,7 +540,8 @@ namespace AstraDesktopPets {
     // command line, since its program's name is not its own.
     // Host: the background pet whose program runs this one's watch (Astra, 2026-11-08, one crash watch instead of three:
     // "All recommended"). The star never starts it by itself; its Start runs the host's program with --startup.
-    internal sealed class Entry { internal string Repo,Pet,Exe,Folder,Marker,Needs,Host;internal string[] StartArgs; }
+    // MenuPrefix: the words put before a menu item's own (a script run by node needs its script's path first).
+    internal sealed class Entry { internal string Repo,Pet,Exe,Folder,Marker,Needs,Host;internal string[] StartArgs,MenuPrefix; }
     internal const string MenuFile="menu-20261021.json",MoodFile="mood-20261021.json";
     static readonly string[] Watched={"log-den","packet-river","evidence-locker"};
     // A menu file can only ask for its own program's commands: plain words, never a path, a quote or a command break.
@@ -586,6 +587,12 @@ namespace AstraDesktopPets {
       // every five seconds and writes it where the desktop pets and the pages read it (PetMoods).
       list.Add(new Entry{Repo="pet-moods",Pet="Pet moods",Exe=node,Marker="pet-moods-20261114",Needs=Path.Combine(PetFiles.Root,"scripts","pet-moods-20261114.mjs")});
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
+      // White Hat Weasel's port watch (Astra, 2026-11-19: "monitoring ports and asking me intermittently if I can close
+      // some"; "All recommended"): one look every 10 minutes, no port of its own. Its menu here names the ports that look
+      // left over and closes one of our own servers only when Astra clicks it.
+      list.Add(new Entry{Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker="port-watch-20261119",Folder=Path.Combine(DataRoot,"white-hat-lab"),Needs=Path.Combine(PetFiles.Root,"scripts","port-watch-20261119.mjs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
+      list[list.Count-1].MenuPrefix=new[]{Quote(list[list.Count-1].Needs)};
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -598,7 +605,7 @@ namespace AstraDesktopPets {
     // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
     // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
     // behind the Run buttons on The Farm's flash-audit checks.
-    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods"};
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab"};
     // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
     // star starts one crash watch, not three.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
@@ -809,6 +816,7 @@ namespace AstraDesktopPets {
     }
     // A background pet's command from its menu: its own program, started with the item's words.
     void RunBackground(BackgroundPets.Entry e,string[] args) {
+      if(e.MenuPrefix!=null){var all=new List<string>(e.MenuPrefix);all.AddRange(args);args=all.ToArray();}
       testActions.Add("background:"+e.Repo+":"+String.Join(" ",args));
       if(test)return;
       try { Process.Start(new ProcessStartInfo(e.Exe,String.Join(" ",args)) { UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(e.Needs??e.Exe) }); }
