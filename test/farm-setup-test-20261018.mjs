@@ -33,6 +33,14 @@ test('the installer is plain ASCII, so Windows PowerShell 5.1 reads it the same 
   assert.ok(![...installer].some((c) => c.charCodeAt(0) > 127));
 });
 
+// A git worktree's .git is a file, which robocopy's /XD (folders only) copies: the new farm then looked like a hub
+// copy and the Friendly Farmer refused to add pets there (2026-11-19). /XF .git skips it too.
+test('the installer copies no .git, as a folder (a clone) or as a file (a git worktree)', () => {
+  const copy = installer.split(/\r?\n/).find((l) => /& robocopy \$source \$InstallDir /.test(l));
+  assert.match(copy, /\/XD (?:[^\s/]\S* )*\.git /, 'skips the .git folder');
+  assert.match(copy, /\/XF (?:[^\s/]\S* )*\.git /, 'skips the .git file of a git worktree');
+});
+
 test('the desktop pets run with the Farmer alone and never look up a pet that may not be there', () => {
   assert.ok(!desktop.includes('pets.Count==0)throw'), 'a farm from scratch can be the Farmer alone');
   const unguarded = [...desktop.matchAll(/(.{0,40})pets\.Find\(p=>p\.Id=="([\w-]+)"\)\.\w+/g)].filter((m) => !/==null\?[^:]*:$/.test(m[1]));
