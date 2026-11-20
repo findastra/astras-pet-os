@@ -102,7 +102,7 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 |--:|---|---|---|--:|--:|--:|---|---|
 | 1 | Friendly Farmer | The Farm | registered | 4 | 6 | 25 | see round 1 | [done 11-16](round-01-astras-pet-os-20261116.md) |
 | 2 | GitHub Goldfish | GitHub Aquarium | registered | 0 | 0 | 0 | — (the Run leaves pet program 2 out: page checks only so far) | next |
-| 3 | Data Chip | Data Dealer | registered | 4 | 1 | 0 | A15 A16 A55 A18 | next |
+| 3 | Data Chip | Data Dealer | registered | 3 | 4 | 29 | see round 3 | [done 11-20](round-03-data-dealer-20261120.md) |
 | 4 | API Fairy | API Fairy Ring | registered | 3 | 5 | 0 | A10 A15 A56 A17 A55 A18 | next |
 | 5 | Unity Unicorn | Unity Stable | registered | 4 | 5 | 0 | A59 A54 A14 A56 A17 A55 A18 A31 | next |
 | 6 | Python Panther | Python Jungle | registered | 6 | 2 | 0 | A59 A14 A15 A16 A17 A55 A18 | next |
@@ -186,7 +186,7 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 | 86 | PC Master | PC Master Race | pipeline | 5 | 1 | 1 | A59 A10 A54 A16 A55 A26 | next |
 | 87 | Flowsheet Flamingo | The Pilot Plant | seed | 4 | 2 | 1 | A09 A10 A13 A16 A55 A26 | next |
 
-All items: 488 Missing, 130 Incorrect, 73 Not verified.
+All items: 487 Missing, 133 Incorrect, 102 Not verified.
 
 Two holds apply to every round:
 
