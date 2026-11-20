@@ -263,6 +263,22 @@ test('every friend says what it does and has a picture: no line shared by three 
   assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
 });
 
+// Astra, 2026-11-20, "All recommended" (2C): Fuzzboi Friend keeps her own Fuzzbois art while he is calm and wears his
+// nine-face drawing only while a mood shows, with the same shared stickers as every pet, on his page as on the desktop.
+test('Fuzzboi Friend: her Fuzzbois drawing while calm, his nine-face drawing with the shared sticker for each mood', () => {
+  const html = files[pagePath('fuzzboi-friend')];
+  const faces = (face) => [...html.matchAll(new RegExp(`data-face="${face}" src="\\.\\./\\.\\./(art/[a-z]+/fuzzboi-friend/[^"]+)"`, 'g'))].map((m) => m[1]);
+  for (const calm of ['idle', 'blink']) {
+    assert.ok(faces(calm).length, `his ${calm} face is on his page`);
+    for (const p of faces(calm)) assert.match(p, new RegExp(`^art/drafts/fuzzboi-friend/${calm}-\\d{8}\\.png$`), `${calm}: her Fuzzbois drawing`);
+  }
+  for (const mood of ['happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) {
+    assert.ok(faces(mood).length, `his ${mood} face is on his page`);
+    for (const p of faces(mood)) assert.equal(p, `art/moods/fuzzboi-friend/${mood}.png`, `${mood}: the stamped nine-face drawing the desktop shows`);
+    assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261114.png`), `${mood}: GPT-6-Astra's drawing is in the hub`);
+  }
+});
+
 // Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on
 // there? And then everything else that we've built?"
 test('a 3rd party program one of its tricks runs on is listed; Discord Tower shows everything built for it', () => {

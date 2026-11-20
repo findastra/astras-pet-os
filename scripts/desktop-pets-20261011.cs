@@ -137,7 +137,9 @@ namespace AstraDesktopPets {
     readonly Dictionary<string,Rectangle> moodCrops=new Dictionary<string,Rectangle>();
     // Its mood's picture, read from the hub the first time it is needed: a desktop drawing's art/moods/<pet>/<mood>.png
     // (build-mood-stickers-20261024.mjs), else the frame index's stamped frame. Null when it has none (Claude Bot's
-    // private drawing, the Fuzzboi recipes) or it is not the same size as its idle drawing.
+    // private drawing) or it is not the same size as its idle drawing. Fuzzboi Friend is a recipe of Astra's own
+    // Fuzzbois layers while he is calm; while a mood shows he wears GPT-6-Astra's nine-face drawing of that mood, the
+    // same picture his pages show (Astra, 2026-11-20, "All recommended": 2C).
     internal Bitmap MoodPicture(string mood) {
       if(mood==null)return null;
       Bitmap picture;if(moodFrames.TryGetValue(mood,out picture))return picture;
@@ -1327,6 +1329,15 @@ namespace AstraDesktopPets {
       SetPetsOut(false);if(petsOut||!Compact)throw new Exception("The star did not hide the pets.");
       SetPetsOut(true);if(!petsOut||Compact)throw new Exception("The star did not show the pets.");
       var fuzz=pets.Find(p=>p.Id=="fuzzboi-friend");if(fuzz!=null)foreach(string expected in new[]{"C","A","B"}){ResolveClicks(fuzz.Id,3);if(fuzz.FuzzStyle!=expected)throw new Exception("Fuzzboi body did not change to "+expected);}
+      // Fuzzboi Friend (Astra, 2026-11-20, 2C): a recipe while calm, his nine-face drawing for every mood the board shows,
+      // at his own size, and still after a reroll.
+      if(fuzz!=null) {
+        foreach(string mood in new[]{"happy","curious","worried","sad","sick","alarmed"})if(!fuzz.HasMood(mood))throw new Exception("Fuzzboi Friend needs his "+mood+" face.");
+        var fuzzHit=fuzz.Hit;fuzz.Mood="curious";if(fuzz.Hit!=fuzzHit)throw new Exception("Fuzzboi Friend keeps his size while he shows a mood.");
+        ResolveClicks(fuzz.Id,3);if(!fuzz.HasMood("curious"))throw new Exception("Fuzzboi Friend keeps his mood faces after a reroll.");
+        fuzz.Mood=null;var fuzzWindow=roaming.Find(w=>w.Pet==fuzz);if(fuzzWindow!=null)fuzzWindow.RefreshMood();
+        ResolveClicks(fuzz.Id,3);ResolveClicks(fuzz.Id,3);if(fuzz.FuzzStyle!="B")throw new Exception("Fuzzboi body did not come back to B.");
+      }
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
@@ -1340,7 +1351,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the one crash watch started by the star (Log Den's program runs all three), Log Lynx's alarmed face and the one shared mood (pet-moods).");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the one crash watch started by the star (Log Den's program runs all three), Log Lynx's alarmed face and the one shared mood (pet-moods), Fuzzboi Friend's recipes with his nine-face moods.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {

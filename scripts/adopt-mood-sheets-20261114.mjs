@@ -9,7 +9,8 @@
 //
 // <folder> is the pet's desktop id: its `art` in pets.json, else its desktop draft's id, else its pet's name as a slug.
 // Pets whose art may not be public (Claude Bot, Skill Scout) are never adopted; Papermon waits for its own pull request
-// (#366); Fuzzboi Friend keeps his recipe drawings on the desktop until Astra decides.
+// (#366). Fuzzboi Friend's nine faces are adopted for his moods only: while he is calm he stays a recipe of Astra's
+// own Fuzzbois layers on the desktop and her Fuzzbois drawing on his pages (Astra, 2026-11-20, "All recommended": 2C).
 // Node's built-in modules only. Claude Opus 5.5 (claude-opus-5-5), 2026-11-14.
 import { execFileSync } from 'node:child_process';
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -18,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 export const DATE = '20261114';
 // Data Chip keeps the original Data Dealer drawing code (AGENTS.md: "Do not replace Data Chip with generated art").
-export const NOT_ADOPTED = { 'data-chip': 'keeps the original Data Dealer drawing (AGENTS.md)', 'claude-bot': 'private art', 'skill-scout': 'private art', papermon: 'waits for #366', 'fuzzboi-friend': 'keeps his recipes until Astra decides', 'reactor-raccoon': 'a seed, not a pet program yet (#245)' };
+export const NOT_ADOPTED = { 'data-chip': 'keeps the original Data Dealer drawing (AGENTS.md)', 'claude-bot': 'private art', 'skill-scout': 'private art', papermon: 'waits for #366', 'reactor-raccoon': 'a seed, not a pet program yet (#245)' };
 const hub = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
