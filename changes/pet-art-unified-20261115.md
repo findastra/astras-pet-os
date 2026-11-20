@@ -1,15 +1,11 @@
-# Pet Art Revision
+# Shared Pet Mood Symbols
 
-## Current direction, 2026-11-19
+By Astra. Implementation: OpenAI Codex, 2026-11-20.
 
-Choose faces before the final pass. Astra asked to see every existing face next to the new draft, with all nine expressions plain and with shared matching symbols. Keep the exact original Storage Stoat and native Data Chip. Do not blanket-straighten the pets, and do not implement a separate animation layer. Retired Port Spider is excluded. Preserve all other design details. The earlier universal-tilt redraw and later universal-upright redraw are superseded. Original default assets are intact; final art adoption waits for this selection review. The private local slideshow records choices for card 371.
+Astra approved updating the shared mood symbols everywhere while keeping every existing pet face. The sleeping Z is purple with slimmer strokes; the music note is neon pink. The other seven reviewed symbols keep their original artwork. All nine use consistent black outlines and highlights.
 
-By Astra. Implementation: Codex, 2026-11-15.
+The same full-color symbol files feed desktop mood images and registered pet frames. The normal build refreshes stable art paths, pet pages and the roster. The desktop reads these shared mood images. No new pet face, upright variant, tilted variant or animation layer is adopted. The original Storage Stoat stays untouched. Port Spider remains retired.
 
-Astra requests all 86 registered pets and all nine expressions reviewed and redrawn consistently using Patch Cat, Rift Rabbit, Deck Duck and Mesh Moth as style references. Storage Stoat supplies a subtle head tilt; Mommy's Mommies supplies human face and body proportions. Preserve identities and accessories while improving outlines, centering and square padding.
+All page pet images retain one fixed 80px square in every position, preserving transparent padding and preventing species width from moving the bubbles. Desktop sizing metadata is retained but does not crop page images.
 
-Specific corrections: smaller Workflow Whale, Finance Finch, Gone Ghost, Voicemeeter Bug, Chat Rat, Test Tortoise, Server Salamander, Packet Piranha, Forensic Ferret and OSC Sealion; Meme Fiend is a fox; improve Unity Unicorn, Gif Giraffe, Pole Puff, Linux Penguin, Inference Iguana, Piranesi Nessi, Video Vulture and Photo Dodo. Narrow File Master toward Paper Patty. Center RGBee and keep its face outside the rainbow animation. Dubstep Gunsmith and Skill Scout match Mommy's Mommies proportions. Pet Police Officer shares Friendly Farmer's face and body. Select a simple spiky original Fuzzboi recipe. Preserve Data Chip's original native art. Keep private art private.
-
-Scope: desktop-art, art-kit where required, pet sizing and rendering scripts, generated art from the existing build, relevant tests and a dated review gallery. No merge or installation is authorized. Review every expression and actual displayed size before delivery. Current state: reference and pipeline inspection complete; one unadopted Workflow Whale draft generated. No finished collection yet.
-
-Astra clarified 2026-11-16: all page pet images use one identical fixed square, preserving transparent margins. No per-pet or per-position resizing on pages; pet width must never shift bubbles. This supersedes matching each page image to desktop cropped dimensions. Implemented common 80px page squares and fixed bubble columns; visual verification pending.
+Earlier full-redraw proposals were reviewed privately and superseded by Astra's explicit 2026-11-20 choice: "Update symbols; keep existing faces." Those drafts remain local review history. This change does not publish private artwork.

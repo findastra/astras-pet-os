@@ -30,3 +30,14 @@ Verified every referenced image exists, all pet IDs are unique, no private absol
 Pending.
 
 2026-11-16 scope addition: shared apps/pet-programs/pet-program-page-20261018.css and page sizing regression checks, authorized by Astra's fixed-square clarification.
+
+## Symbols-only approval and delivery, 2026-11-20
+Astra answered: "Update symbols; keep existing faces." This supersedes the pending face selection and final redraw. All existing faces, including the exact original Storage Stoat, stay. Publish the nine reviewed shared mood symbols; the Z is purple and now slimmer, and the music note is neon pink. No separate animation layer. Port Spider stays retired. No private draft artwork is published.
+
+Scope extends to scripts/mood-symbols-20261120.mjs, scripts/indicators.mjs, scripts/art-kit.mjs, scripts/build-frames.mjs, the Model Pet SVG in scripts/pet-program-pages-20261018.mjs, art/mood-symbols/, generated output and the related tests. One shared PNG set feeds registered frames, desktop mood pictures and the model page. Existing plain frames and desktop-art sources have no changes.
+
+Validation: build and pet registry check pass. Final focused symbol/page/change-note suite: 47 pass. Registry suite: 25 pass. Full suite: 496 tests, 485 pass, 5 fail, 6 skipped; the two failures caused by this change were fixed and passed on rerun. The remaining three are Windows installer tests: developer install and uninstall report Get-FileHash unavailable in the test environment; farm setup has the existing worktree .git-copy issue addressed by open #395. Installer files are unchanged here.
+
+Independent read-only review by review_face_choices: no remaining blocker in reviewed code. Confirmed unchanged plain/source art, immutable alpha composition, all three shared consumers, and visual checks of Stoat, Whale, Rabbit and Moth. The final slimmer purple Z and pink note were also checked in the local review pane. Running desktop pets cache pictures until reload.
+
+Open-PR scan: #280 is an older sick-waves change superseded by these approved symbols; do not merge it over this set. Other overlaps are generated pages or separate page features (including #377 CSS theme and #345 click fixes). No other branch was edited. Publication to the working branch is ready; live merge and desktop reload remain pending specific approval for #371 under the owner's merge rule.

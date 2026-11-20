@@ -1371,12 +1371,12 @@ const MODEL_FACES = {
 // across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
 // it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
 const stickerAt = (mood) => {
-  const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
-  return { art, px, sw, sh, ox: Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy: Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55))) };
+  return {sw:59,sh:59,ox:193,oy:4};
 };
 const stickerSvg = (mood) => {
-  const { art, px, ox, oy } = stickerAt(mood);
-  return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
+  const {sw,sh,ox,oy}=stickerAt(mood);
+  const data=readFileSync(new URL(`../art/mood-symbols/${mood}-20261120.png`,import.meta.url)).toString('base64');
+  return `<image x="${ox}" y="${oy}" width="${sw}" height="${sh}" href="data:image/png;base64,${data}"/>`;
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
   + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}.shine{fill:#f4f8ff}</style>`
