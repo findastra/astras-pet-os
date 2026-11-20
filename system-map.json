@@ -605,7 +605,7 @@
       "version": "v1.0",
       "label": "iced-out-iceberg-v1.0-weekly-digest-v1.0",
       "url": "https://findastra.github.io/weekly-digest/",
-      "job": "A native program of Iced Out Iceberg (Astra, 2026-11-20: \"I think this can be called the weekly digest, and its part of portfolio puffer. it showcases the things I worked on this week\"): a public website, findastra.github.io/weekly-digest/, with an edition each week of what Astra worked on: mostly the new things, then the most ingenious ones, then anything she asks for. An edition is a numbered list of about 10 items, each a picture with its link under it and a description, sometimes with numbered subsections, and it can be written for one reader (the first is for a friend who DJs in VRChat). It wears the Anthropic IPO guide's colors and lettering (navy with lavender, peach, mint and pink; Anton, Bungee and Space Mono) over AI Discord Presence's slowly spinning galaxies. weekly-digest/index.html shows the newest edition and ?edition=YYYYMMDD an older one; each edition is a data file, weekly-digest/editions/weekly-digest-YYYYMMDD.js, with its pictures in weekly-digest/pictures/. It is being built on findastra/findastra.github.io, branch claude/weekly-digest-20261120, not merged yet: the address answers only after that pull request merges. Its trick weekly-digest-edition makes each edition.",
+      "job": "A native program of Iced Out Iceberg (Astra, 2026-11-20: \"I think this can be called the weekly digest, and its part of portfolio puffer. it showcases the things I worked on this week\"): a public website, findastra.github.io/weekly-digest/, with an edition each week of what Astra worked on: mostly the new things, then the most ingenious ones, then anything she asks for. An edition is a numbered list of about 10 items, each a picture with its link under it and a description, sometimes with numbered subsections, and it can be written for one reader (the first is for a friend who DJs in VRChat). It wears the Anthropic IPO guide's colors and lettering (navy with lavender, peach, mint and pink; Anton, Bungee and Space Mono) over AI Discord Presence's slowly spinning galaxies. weekly-digest/index.html shows the newest edition and ?edition=YYYYMMDD an older one; each edition is a data file, weekly-digest/editions/weekly-digest-YYYYMMDD.js, with its pictures in weekly-digest/pictures/. It is being built in findastra/findastra.github.io pull request 210 (branch claude/weekly-digest-20261120), not merged yet: the address answers only after it merges. Its trick weekly-digest-edition makes each edition.",
       "does": "What you worked on each week: about ten things, new ones first, each with a picture, a link and a description."
     },
     {
@@ -8739,7 +8739,7 @@
       "to": "weekly-digest",
       "carries": "opens",
       "state": "planned",
-      "why": "Puffer's trick weekly-digest-edition makes each week's edition and opens a pull request on findastra.github.io for your OK. The address goes live when the weekly-digest pull request there merges."
+      "why": "Puffer's trick weekly-digest-edition makes each week's edition and opens a pull request on findastra.github.io for your OK. The address goes live when findastra.github.io pull request 210 merges."
     },
     {
       "from": "fuzzboi-friend",

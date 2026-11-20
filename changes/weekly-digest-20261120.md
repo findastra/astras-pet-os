@@ -7,8 +7,8 @@ things I request, make it a feature of the portfolio puffer as a tool".
 The Weekly Digest is a public website, https://findastra.github.io/weekly-digest/: each week's edition of what Astra
 worked on, a numbered list of about 10 items (a picture, its link and a description, sometimes with numbered
 subsections), new things first, then the most ingenious, then what she asks for. An edition can be written for one
-reader. It is being built in another chat on findastra/findastra.github.io, branch `claude/weekly-digest-20261120`, and
-goes live when that pull request merges.
+reader. It is being built in another chat, in findastra/findastra.github.io#210 (branch `claude/weekly-digest-20261120`),
+and goes live when that pull request merges.
 
 - **Kinds, by who does the work** (Astra, 2026-10-24): she called it a tool, but a person opens the site, so it is a
   **native program**, and an AI picks and writes each edition, so making one is a **native trick**. No code runs it by
@@ -24,8 +24,8 @@ goes live when that pull request merges.
     employer, passwords or where she lives, every picture's source credited, and a pull request on findastra.github.io
     for her to merge.
   - Both are **planned** until the address answers; then their state, and the link's, become `now`.
-- **`pets.json`**: Portfolio Puffer's job names the Weekly Digest. Its own `pet.json` says the same words (the
-  portfolio-puffer pull request of the same day), so the Farmer's round finds no difference.
+- **`pets.json`**: Portfolio Puffer's job names the Weekly Digest. Its own `pet.json` says the same words
+  (findastra/portfolio-puffer#15), so the Farmer's round finds no difference.
 - **`skills/new-pet-or-tool/SKILL.md`**: the decision's row.
 - **`npm run build`**: Iced Out Iceberg's page, the registry table in TOOLS-AND-TRICKS.md, the System Map page, the
   Markdown pets, and the README and ROSTER.md rows (the job).
@@ -33,4 +33,4 @@ goes live when that pull request merges.
 Names: "Weekly Digest" is Astra's. "weekly-digest-edition" was picked by Claude in the hub's trick style and waits on
 her OK.
 
-Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20. Pull request #405, card 405.
