@@ -208,6 +208,18 @@
   --tool-bg: rgba(240, 144, 0, .06); --tool-bg-hover: rgba(240, 144, 0, .11);
 }
 :root[data-pet="file-master"] .footer-group::before, :root[data-pet="file-master"] .footer-sparkle { color: #f0d848; }
+/* Deck Pond's own colours, Deck Duck's (Astra, 2026-11-17: "give a yellow background to the program too", then, of
+   the bright yellow: "yellow is terrible on the eyes use dark yellow gray ish"): a dark khaki gray page with cream
+   lettering, panel lines in his body yellow (#fcd31c, sampled from his newest drawing), his beak orange (#ffa25c, a
+   lighter cut of #fa6a1a) for links and marks, his yellow for the working-copy box and his cheek pink for connections. */
+:root[data-pet="deck-duck"] {
+  --slate: #4a4430; --slate-2: #3a3524; --chalk: #fbf4dc; --chalk-dim: #cfc6a4; --line: #fcd31c; --line-dim: #8a7a3a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ffa25c;
+  --editorial: #fcd31c; --editorial-ink: #fff3c4; --editorial-glow: rgba(252, 211, 28, .2); --grid: none; --editorial-by: #ffe58a; --serial: #fcd31c;
+  --link: #ffa25c; --connection: #ffb3c9;
+  --tool-bg: rgba(252, 211, 28, .06); --tool-bg-hover: rgba(252, 211, 28, .11);
+}
+:root[data-pet="deck-duck"] .footer-group::before, :root[data-pet="deck-duck"] .footer-sparkle { color: #fcd31c; }
 * { box-sizing: border-box; }
 /* Anything hidden stays hidden, whatever display its own style gives it (Astra, 2026-10-26: "The X button to close the
    tracker choice menu still doesnt work"). */
