@@ -44,10 +44,19 @@ function startHelper(confirm) {
   };
   const env = { ...process.env, CLAUDECODE: '1', CLAUDE_CODE_OAUTH_TOKEN: 'not-a-token', ANTHROPIC_API_KEY: 'not-a-key', OPENAI_API_KEY: 'not-a-key',
     GIT_AUTHOR_NAME: 'Pet chat test', GIT_AUTHOR_EMAIL: 'pet-chat@example.invalid', GIT_COMMITTER_NAME: 'Pet chat test', GIT_COMMITTER_EMAIL: 'pet-chat@example.invalid' };
-  helper = spawn(exe, ['--test', '--confirm', confirm, '--agent', `claude-code=${shim('claude')}`, '--agent', `codex=${shim('codex')}`, '--agent', 'gemini=none', '--agent', 'copilot=none',
-    '--hub', root, '--pets', pets, '--data', data, '--menu', path.join(dir, 'menu')], { env, stdio: 'ignore' });
+  helper = spawn(process.env.ComSpec || 'cmd.exe', inUtf8Console(exe, ['--test', '--confirm', confirm, '--agent', `claude-code=${shim('claude')}`, '--agent', `codex=${shim('codex')}`,
+    '--agent', 'gemini=none', '--agent', 'copilot=none', '--hub', root, '--pets', pets, '--data', data, '--menu', path.join(dir, 'menu')]),
+  { env, stdio: 'ignore', windowsHide: true, windowsVerbatimArguments: true });
   return waitFor(() => pageData().on === true && pageData().time > (startHelper.last || ''), 'the helper to start').then(() => { startHelper.last = pageData().time; });
 }
+// The helper runs in a hidden console of its own set to UTF-8 (code page 65001): the console where .NET Framework put a
+// byte-order mark in front of her message on stdin (2026-11-19). So every Windows run checks that case, whichever console
+// runs the tests, and the code page of that console never changes (a hidden console is not shared with its parent).
+function inUtf8Console(file, args) {
+  return [`/d /s /c "chcp 65001 >nul & ${[file, ...args].map((a) => `"${a}"`).join(' ')}"`];
+}
+// cmd.exe holds the helper: stopping it by force takes the helper with it.
+const stopHelperHard = () => spawnSync('taskkill', ['/pid', String(helper.pid), '/t', '/f'], { stdio: 'ignore' });
 async function quitHelper() {
   const done = new Promise((r) => helper.once('exit', r));
   await post('quit', {});
@@ -80,7 +89,7 @@ before(async () => {
 });
 after(async () => {
   if (skip) return;
-  try { if (helper && helper.exitCode === null) await quitHelper(); } catch { helper.kill(); }
+  try { if (helper && helper.exitCode === null) await quitHelper(); } catch { stopHelperHard(); }
   fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5 });
 });
 

@@ -299,7 +299,23 @@ namespace AstrasPetOs.PetChat
             psi.StandardOutputEncoding = Encoding.UTF8; psi.StandardErrorEncoding = Encoding.UTF8;
             if (cwd != null) psi.WorkingDirectory = cwd;
             foreach (string key in psi.EnvironmentVariables.Keys.Cast<string>().ToList()) if (!Inherited(key)) psi.EnvironmentVariables.Remove(key);
+            NoByteOrderMark();
             return psi;
+        }
+
+        // .NET Framework opens every redirected stdin with Console.InputEncoding and writes that encoding's byte-order mark
+        // into the pipe the moment the program starts. On a console whose input code page is UTF-8 (65001: chcp 65001, a
+        // PowerShell set to UTF-8, Windows' "Use Unicode UTF-8" option) that put U+FEFF in front of Astra's message
+        // (2026-11-19). The same code page without the mark: SetConsoleCP(65001) on a console already at 65001 changes
+        // nothing for the console or anyone else on it.
+        public static void NoByteOrderMark()
+        {
+            try
+            {
+                var e = Console.InputEncoding;
+                if (e.CodePage == 65001 && e.GetPreamble().Length > 0) Console.InputEncoding = new UTF8Encoding(false);
+            }
+            catch (Exception) { }
         }
 
         public static Ran Program(string exe, string args, string cwd, int timeoutMs, string stdin)
@@ -321,7 +337,8 @@ namespace AstrasPetOs.PetChat
             return r;
         }
 
-        // UTF-8 straight to the pipe: .NET Framework would otherwise write the console's code page.
+        // UTF-8 straight to the pipe, with no byte-order mark (NoByteOrderMark, above): .NET Framework would otherwise write
+        // the console's code page.
         public static void WriteInput(Process p, string text)
         {
             try
