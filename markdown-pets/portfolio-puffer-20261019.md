@@ -6,7 +6,7 @@
 
 Looks after Astra's portfolio, findastra.github.io, and her GitHub profile's Window Star and hand lettering, and drafts portfolio updates for her OK. LinkedIn is planned; publishing stays hers.
 
-Its job in the registry: Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual.
+Its job in the registry: Drafts and tracks portfolio updates locally. The Weekly Digest (what Astra worked on each week) and the GitHub and LinkedIn connections are planned; publishing is manual.
 
 ## Open it with nothing to install
 
@@ -38,6 +38,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **portfolio-update-round** (planned, not built yet): A trick of Iced Out Iceberg (card 019, from the plan of 2026-10-08): once a week, read LinkedIn and GitHub, compare them with the portfolio's profile-data.js and project list, and propose each change, old to new, for Astra to approve. Only what she approves is written, on a branch; it never pushes by itself and says plainly when LinkedIn was not read that week. Not written yet.
 - **portfolio-pictures-refresh** (planned, not built yet): A trick of Iced Out Iceberg: run GitHub Goldfish's project-image-generator (by grant) over Astra's repos, rebuild the portfolio's project-images.js and art/projects/, and open a pull request for her. Done by hand so far, from the steps in findastra.github.io's AGENTS.md; not a skill in Puffer's repo yet.
+- **weekly-digest-edition** (planned, not built yet): A trick of Iced Out Iceberg (Astra, 2026-11-20): make each week's edition of the Weekly Digest. 1. Pick the week's items from merged pull requests, handoff cards and what Astra asks for: the new things first, then the most ingenious, then her requests. 2. Use 10 items unless more are truly needed. 3. Give each a picture, a public link and a description written for that edition's reader. 4. Check that every link opens for someone signed out. 5. Never include her legal name, her email, personal paths, her employer, passwords or anything about where she lives, even though the rest of the portfolio may name her (skills/farm-security, section 5). 6. Credit every picture's source. 7. Open a pull request on findastra/findastra.github.io with the edition's data file and pictures, for Astra to merge; it never merges or publishes by itself. It uses GitHub and the hub's handoff cards. Named by Claude, waiting on Astra; not written as a skill in Puffer's repo yet.
 
 ### Pets it works with
 
