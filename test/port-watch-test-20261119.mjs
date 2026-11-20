@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { classify, reach, where, privacy, build, ask, menu, mood, close, once, LEFTOVER_MS, PAGE_DATA, SCHEMA } from '../scripts/port-watch-20261119.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const HOME = 'C:\\Users\\someone';
+const HOME = 'C:\\Users\\example';
 const now = Date.parse('2026-11-19T20:00:00Z');
 const old = new Date(now - LEFTOVER_MS - 60000).toISOString(), fresh = new Date(now - 60000).toISOString();
 const raw = () => ({
@@ -58,9 +58,9 @@ test('reach and where say who can get in, in plain words', () => {
 
 test('the user folder never shows', () => {
   assert.equal(privacy(`node ${HOME}\\x.mjs`, HOME), 'node %USERPROFILE%\\x.mjs');
-  assert.equal(privacy('node c:/users/someone/x.mjs', HOME), 'node %USERPROFILE%/x.mjs');
+  assert.equal(privacy('node c:/users/example/x.mjs', HOME), 'node %USERPROFILE%/x.mjs');
   const { ports } = build(raw(), {}, now, HOME);
-  assert.ok(!JSON.stringify(ports).includes('someone'));
+  assert.ok(!JSON.stringify(ports).includes('example'));
 });
 
 test('the port list: connections now, peers kept, left-over previews', () => {

@@ -643,11 +643,17 @@ namespace AstraDesktopPets {
       bool host=String.Equals(p.Name,name,StringComparison.OrdinalIgnoreCase)||String.Equals(p.Name,"node.exe",StringComparison.OrdinalIgnoreCase);
       return host&&p.Line.IndexOf(e.Marker,StringComparison.OrdinalIgnoreCase)>=0;
     }
-    // This helper's copies that this star did not start (their parent is not the star, nor another copy of the helper).
+    // This helper's copies that an older star left behind: their parent is gone. A copy whose parent still runs was
+    // started by someone else (a Claude or Codex chat, a terminal) and is never touched. On 2026-11-19 the first build
+    // stopped every chat's Desktop Commander server, whose node command lines also say "desktop-commander".
     internal static List<Proc> Leftovers(Entry e,List<Proc> all,int star) {
       var mine=all.FindAll(p=>IsCopy(e,p));
-      return mine.FindAll(p=>p.Parent!=star&&!mine.Exists(q=>q.Id==p.Parent));
+      return mine.FindAll(p=>p.Parent!=star&&!mine.Exists(q=>q.Id==p.Parent)&&!all.Exists(q=>q.Id==p.Parent));
     }
+    // Helpers that detach on purpose are never taken over: Desktop Commander's script hands it to npx, and each Discord
+    // presence's launch script starts its server and exits, so a copy started again would fall out of the star's row too.
+    static readonly string[] NeverAdopted={"desktop-commander","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence"};
+    internal static bool Adoptable(Entry e) { return e.Host==null&&Array.IndexOf(NeverAdopted,e.Repo)<0; }
     // A copy and everything it started, children first.
     internal static List<int> Tree(int root,List<Proc> all) {
       var order=new List<int>();var seen=new HashSet<int>();
@@ -876,7 +882,7 @@ namespace AstraDesktopPets {
     void StartAdopting() { adoptTimer=new System.Threading.Timer(delegate { AdoptLeftovers(); },null,20000,120000); }
     internal List<BackgroundPets.Entry> Adoptable() {
       var list=BackgroundPets.AtSignIn();var bug=BackgroundPets.Find("voicemeeter-bug");if(bug!=null)list.Add(bug);
-      return list;
+      return list.FindAll(BackgroundPets.Adoptable);
     }
     void AdoptLeftovers() {
       if(System.Threading.Interlocked.Exchange(ref adopting,1)==1)return;
@@ -1358,11 +1364,16 @@ namespace AstraDesktopPets {
           new BackgroundPets.Proc{Id=31,Parent=999,Name="voicemeeter-bug-20261008.exe",Line="\"voicemeeter-bug-20261008.exe\" --hosted"},
           new BackgroundPets.Proc{Id=32,Parent=31,Name="voicemeeter8.exe",Line="voicemeeter8.exe"},
           new BackgroundPets.Proc{Id=40,Parent=999,Name="node.exe",Line="node chat-rat-20261016.mjs serve"},
-          new BackgroundPets.Proc{Id=41,Parent=999,Name="node.exe",Line="node E:\\Temp\\claude\\s\\chat-rat-20261016.mjs serve"}};
+          new BackgroundPets.Proc{Id=41,Parent=999,Name="node.exe",Line="node E:\\Temp\\claude\\s\\chat-rat-20261016.mjs serve"},
+          new BackgroundPets.Proc{Id=50,Parent=1,Name="claude.exe",Line="claude.exe"},
+          new BackgroundPets.Proc{Id=51,Parent=50,Name="cmd.exe",Line="cmd.exe /d /s /c npx -y @wonderwhy-er/desktop-commander@latest"},
+          new BackgroundPets.Proc{Id=52,Parent=51,Name="node.exe",Line="node npx-cli.js -y @wonderwhy-er/desktop-commander@latest"},
+          new BackgroundPets.Proc{Id=53,Parent=50,Name="node.exe",Line="node chat-rat-20261016.mjs serve"}};
         var dcLeft=BackgroundPets.Leftovers(dc,procs,10);
-        if(dcLeft.Count!=1||dcLeft[0].Id!=20)throw new Exception("A helper an older star started must be found once, at its top copy.");
+        if(dcLeft.Count!=1||dcLeft[0].Id!=20)throw new Exception("A helper an older star started must be found once, at its top copy; a chat's own Desktop Commander server never.");
         var dcTree=BackgroundPets.Tree(20,procs).FindAll(i=>i==20||procs.Exists(q=>q.Id==i&&BackgroundPets.IsCopy(dc,q)));
         if(String.Join(",",dcTree.ConvertAll(i=>i.ToString()).ToArray())!="21,20")throw new Exception("A helper's own sub-copies stop with it, children first.");
+        if(Adoptable().Exists(x=>x.Repo=="desktop-commander"||x.Repo.EndsWith("discord-presence")))throw new Exception("Desktop Commander and the Discord presences detach on purpose and are never taken over.");
         var bugLeft=BackgroundPets.Leftovers(bugEntry,procs,10);
         if(bugLeft.Count!=1||bugLeft[0].Id!=31)throw new Exception("Only the Bug this star did not start is a leftover.");
         var bugTree=BackgroundPets.Tree(31,procs).FindAll(i=>i==31||procs.Exists(q=>q.Id==i&&BackgroundPets.IsCopy(bugEntry,q)));
