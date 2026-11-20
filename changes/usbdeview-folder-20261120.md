@@ -10,4 +10,4 @@ pc-master-race#2, rift-rabbit#16) already point the programs there; the map's de
 - `system-map-20261012.html` rebuilt with `npm run build`, so the map shows the new folder when USBDeview is clicked.
 - Nothing else changes: no program, grant, link or other node.
 
-By Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
+Pull request #399. By Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
