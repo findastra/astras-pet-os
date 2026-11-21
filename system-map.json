@@ -5210,12 +5210,12 @@
       "version": "v1.0",
       "label": "the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
-      "job": "A tool of The Pilot Plant (Astra, 2026-11-12: \"Yes, build it\"): the-pilot-plant-20261112.mjs --watch: one look every ten minutes, reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\the-pilot-plant). Not started at sign-in yet.",
-      "does": "Looks at your engineering and study programs every 10 minutes and fills these pills.",
+      "job": "A tool of The Pilot Plant (Astra, 2026-11-12: \"Yes, build it\"): the-pilot-plant-20261112.mjs --look: one look at sign-in and one in the weekly audit, never on a timer (Astra, 2026-11-20: \"its an engineer pet it doesnt maintain anything\"), reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\the-pilot-plant). Not started at sign-in yet.",
+      "does": "Looks at your engineering and study programs once at sign-in and once a week, and fills these pills.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
       "frame": "wide",
       "in_pill": true,
-      "cadence": "every 10 minutes"
+      "cadence": "at sign-in and weekly"
     }
   ],
   "links": [
