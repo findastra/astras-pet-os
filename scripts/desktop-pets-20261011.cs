@@ -573,8 +573,9 @@ namespace AstraDesktopPets {
       var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
       foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
         list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
-      // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet.
-      list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe"),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
+      // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet. Its
+      // server is named in pets.json (2026-11-20); without that line, its window program keeps watch the same way.
+      list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=ServerIn("kernel-grove",Path.Combine(parent,"kernel-grove"),Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe")),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
       // Inference Iguana's busy-watch (Astra, 2026-10-23: the graphics card watch is hers); no desktop pet yet. Its server
       // is named in pets.json (2026-11-20); without that line, its window program keeps watch the same way.
       list.Add(new Entry{Repo="benchmark-rock",Pet="Inference Iguana",Exe=ServerIn("benchmark-rock",Path.Combine(parent,"benchmark-rock"),Path.Combine(parent,"benchmark-rock","bin","benchmark-rock-20261023.exe")),Folder=Path.Combine(DataRoot,"benchmark-rock"),StartArgs=new[]{"--startup"}});
@@ -1363,12 +1364,14 @@ namespace AstraDesktopPets {
       foreach(string word in new[]{"--open","--tool","log-den-v1.0-crash-catcher-v1.0","off","github.com","--trace"})if(!BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was refused: "+word);
       foreach(string word in new[]{"C:\\evil.exe","--x;calc","\"quoted\"","--x & calc","..\\x",""})if(BackgroundPets.SafeArg.IsMatch(word))throw new Exception("A menu word was let through: "+word);
       var koala=BackgroundPets.Find("kernel-grove");
-      if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||!koala.Exe.EndsWith("kernel-grove-20261021.exe")||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
+      if(koala==null||koala.Pet!="Kernel Koala"||koala.StartArgs[0]!="--startup"||BackgroundPets.Watches("kernel-grove"))throw new Exception("Kernel Koala's watch must be in the star's menu, started quietly, with no alarmed face.");
       var iguana=BackgroundPets.Find("benchmark-rock");
       if(iguana==null||iguana.Pet!="Inference Iguana"||iguana.StartArgs[0]!="--startup"||BackgroundPets.Watches("benchmark-rock"))throw new Exception("Inference Iguana's watch must be in the star's menu, started quietly, with no alarmed face.");
       // Every pet's own server (2026-11-20, A72): the star starts the program named once in pets.json, and only a plain path.
-      string rockServer;
-      if(!BackgroundPets.Servers().TryGetValue("benchmark-rock",out rockServer)||!System.Text.RegularExpressions.Regex.IsMatch(rockServer,"^bin/benchmark-rock-server-[0-9]{8}\\.exe$")||iguana.Exe!=Path.Combine(Path.GetDirectoryName(PetFiles.Root),"benchmark-rock",rockServer.Replace('/',Path.DirectorySeparatorChar)))throw new Exception("Inference Iguana's watch must be Benchmark Rock's server, named in pets.json.");
+      foreach(string repo in new[]{"benchmark-rock","kernel-grove"}) {
+        string server;var entry=BackgroundPets.Find(repo);
+        if(!BackgroundPets.Servers().TryGetValue(repo,out server)||!System.Text.RegularExpressions.Regex.IsMatch(server,"^bin/"+repo+"-server-[0-9]{8}\\.exe$")||entry.Exe!=Path.Combine(Path.GetDirectoryName(PetFiles.Root),repo,server.Replace('/',Path.DirectorySeparatorChar)))throw new Exception(entry.Pet+"'s watch must be its pet program's server, named in pets.json.");
+      }
       foreach(string bad in new[]{"../bin/a-server-20990101.exe","C:/bin/a-server-20990101.exe","bin/benchmark-rock-20261023.exe","bin/a-server-2099010.exe","bin/a-server-20990101.exe\" --x","bin\\a-server-20990101.exe","bin/a-server-20990101.bat",""})
         if(BackgroundPets.SafeServer.IsMatch(bad))throw new Exception("A server path was let through: "+bad);
       int signIn=testActions.Count;StartBackgroundPets();
