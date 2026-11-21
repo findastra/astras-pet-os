@@ -1776,7 +1776,14 @@
           "visibility": "public",
           "version": "v0.1"
         }
-      ]
+      ],
+      "checks": {
+        "tool:keep-voicemeeter-open": {
+          "result": "works",
+          "note": "Live test with Astra’s OK: Voicemeeter was shut down through its Remote API, the Bug opened it again about 7 seconds later, and its About / Registration info reminder was closed about 11 seconds after it appeared (Voicemeeter holds it about 10 seconds). Recorded in voicemeeter-bug#5. Still set up on 2026-11-20: Keep Voicemeeter open is on in his settings, and Voicemeeter is running from the path he remembers.",
+          "on": "2026-10-19"
+        }
+      }
     },
     {
       "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
@@ -4021,6 +4028,7 @@
       "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
+      "server": "pc-master-race-server-20261120.mjs",
       "audit": {
         "cadence": "weekly",
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",

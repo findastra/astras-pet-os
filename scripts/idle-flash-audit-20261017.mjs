@@ -15,6 +15,8 @@ import { a59ForPet, a59ForCatalog, parseProfileHomes, pagesOf } from './pet-prog
 import { systemMapData } from './system-map-20261012.mjs';
 import { GREY, BLUE } from './flash-matrix-20261018.mjs';
 import { PREFLIGHT_LEFT_OUT } from './flash-audit-checks-20261108.mjs';
+import { iconPets, iconSource, staleIcon, MANIFEST as ICON_RECORD } from './make-icons-20261012.mjs';
+import { slug } from './pet-program-pages-20261018.mjs';
 
 // Goldfish's local preflight (github-goldfish/scripts/flash-audit-local-20261015.mjs) adds the
 // framework checks. Without it those checks are reported Not verified.
@@ -45,7 +47,18 @@ const registry = JSON.parse(hubFile('pets.json'));
 const systemMap = JSON.parse(hubFile('system-map.json'));
 const frames = JSON.parse(hubFile('art/frames/index.json'));
 const levels = hubFile('INTELLIGENCE-LEVELS.md');
-const hubTree = tree(HUB, 'main');
+// The hub's tree, with each file's git blob for A01 ("Current icon"): an icon is current when the build made it from the
+// pet's calm picture as that picture is now (make-icons-20261012.mjs), found here the same way the build finds it.
+const hubEntries = gh(`repos/${OWNER}/${HUB}/git/trees/main?recursive=1`)?.tree || [];
+const hubTree = (treeCache[`${HUB}@main`] = hubEntries.map((t) => t.path));
+const hubBlob = Object.fromEntries(hubEntries.map((t) => [t.path, t.sha]));
+const hubPaths = new Set(hubTree);
+const hubPictures = {
+  frameIndex: frames, drafts: JSON.parse(hubFile('desktop-art/desktop-drafts-20261018.json') || '{"pets":[]}'), exists: (p) => hubPaths.has(p),
+  list: (dir) => hubTree.filter((p) => p.startsWith(`${dir}/`) && !p.slice(dir.length + 1).includes('/')).map((p) => p.slice(dir.length + 1)),
+};
+const iconRecord = JSON.parse(hubFile(ICON_RECORD) || '{}');
+const iconPetOf = Object.fromEntries(iconPets(registry, catalog).map(([id, pet]) => [pet.repo, [id, pet]]));
 
 // A59: the places that show each pet. The profile README (findastra/findastra) and the System Map as the hub builds it.
 const profileMd = file(OWNER, 'README.md', gh(`repos/${OWNER}/${OWNER}`)?.default_branch || 'main');
@@ -191,9 +204,16 @@ for (const prog of catalog) {
 
   // A01 icon, A02/A05 frames.
   const art = reg?.art;
-  const icon = hubTree.find((p) => p.startsWith('art/icons/') && (p.includes(`/${prog.repo}-`) || (art && p.includes(`/${art}-`))));
+  // By repo, art or pet name, as the pages look an icon up (Skill Scout's is skill-scout-*, its repo lunas-log).
+  const icon = hubTree.find((p) => p.startsWith('art/icons/') && [prog.repo, art, slug(prog.icon)].some((n) => n && p.includes(`/${n}-`)));
   rec.iconPath = icon || null;
   if (!icon) add('A01', 'Missing', 'No icon in astras-pet-os art/icons.');
+  else {
+    const [id, pet] = iconPetOf[prog.repo] || [prog.repo, reg || { repo: prog.repo, pet: prog.icon }];
+    rec.iconFrom = iconRecord[icon]?.from || null;
+    const why = staleIcon(icon.split('/').pop(), iconSource(pet, hubPictures, id), iconRecord[icon], (p) => hubBlob[p]);
+    if (why) add('A01', 'Incorrect', `Stale icon: ${why}.`, { next: 'Run `npm run build` in the hub: it makes the icon again from that picture. No new art is needed.' });
+  }
   const fr = art ? frames.pets[art] : null;
   rec.frames = fr ? fr.frames : null;
   if (regStage === 'registered' && !fr) add('A02', 'Missing', `Registered, but art "${art}" has no frames in art/frames/index.json.`);
