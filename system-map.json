@@ -883,6 +883,34 @@
       "in_pill": true
     },
     {
+      "id": "tp-link-tool",
+      "name": "TP-Link",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-tp-link-tool-v1.0",
+      "url": "http://tplinkwifi.net",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing.",
+      "does": "Opens your TP-Link router's sign-in page."
+    },
+    {
+      "id": "ghost-in-the-walls-tool",
+      "name": "ghost-in-the-walls-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-ghost-in-the-walls-tool-v1.0",
+      "url": "https://findastra.github.io/ghost-in-the-walls/",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. Tracking the attempts is next: the router does not list wrong passwords, so the tool will record every device that joins the guest network (name, first and last seen) and which ones got through, read from the router with the tplinkrouterc6u library and a router login Astra keeps in API Fairy's care. The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo.",
+      "does": "Your guest network's puzzle portal; soon, everyone who tried to get in."
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
