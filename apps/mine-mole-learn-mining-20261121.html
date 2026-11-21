@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learn mining · Mine Mole</title>
+<!-- learn-mining-tool: Crypto Burrow's lessons on cryptocurrency mining for someone brand new (Astra, 2026-11-21:
+     "teach me from the beginning like i am brand new"). Twelve short lessons, one idea at a time: what a coin is,
+     hashes, the proof-of-work puzzle, hash rate, difficulty, rewards, pools, hardware and RAM, electricity, cooling,
+     whether it is worth the power, and staying safe. Every equation has its variables first, then the equation with an
+     equals sign, then a real scenario solved (skills/explain-equations). Ticks stay in this browser only.
+     Network sizes and prices are examples from November 2026 and change daily: check a live source before deciding.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<link rel="stylesheet" href="mine-mole-tools-20261121.css">
+</head>
+<body>
+<main>
+<header class="page">
+<h1>Learn mining</h1>
+<p class="sub">Mine Mole's lessons, from the very beginning. One idea per lesson; tick each one when it makes sense.</p>
+</header>
+<p><span id="count">0 of 12 lessons ticked</span></p>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+<details class="lesson" data-lesson="1"><summary>1. What a cryptocurrency is <span class="done-tick"></span></summary>
+<p>Picture a notebook that says who paid whom: "Astra paid Bob 2 coins." A bank normally keeps that notebook. A
+cryptocurrency has <b>no bank</b>: thousands of computers around the world each keep their own copy, and they agree
+on every new page.</p>
+<p>Each page is called a <b>block</b>, and the pages are stapled in order into a <b>blockchain</b>. The hard part is
+deciding <b>who gets to write the next page</b>, without anyone being in charge. Mining is the answer: computers race
+to solve a puzzle, and the winner writes the page and is paid in new coins for it.</p>
+<p class="note">Standard terms: distributed ledger, consensus. Bitcoin's way of doing it is called proof of work.</p>
+</details>
+
+<details class="lesson" data-lesson="2"><summary>2. A hash: a fingerprint for any data <span class="done-tick"></span></summary>
+<p>A <b>hash function</b> takes any data, a word or a whole book, and gives back a fixed-size fingerprint. Bitcoin uses
+<b>SHA-256</b>, whose fingerprint is 64 characters of 0–9 and a–f.</p>
+<ul>
+<li>The same input always gives the same fingerprint.</li>
+<li>Change one letter and the fingerprint changes completely; you can't predict how.</li>
+<li>You can't run it backwards: the fingerprint doesn't tell you the input.</li>
+</ul>
+<p>Try it in <b>hash-lab-tool</b> on this page: type "hello", then "Hello", and compare.</p>
+</details>
+
+<details class="lesson" data-lesson="3"><summary>3. The puzzle: proof of work <span class="done-tick"></span></summary>
+<p>A block holds the new payments, the fingerprint of the page before it (that's the staple), and one extra number
+called the <b>nonce</b> ("number used once"). The puzzle: <b>find a nonce that makes the block's fingerprint start
+with enough zeros.</b></p>
+<p>Because you can't run a hash backwards, there is no clever shortcut. You guess a nonce, hash, check, and guess
+again. Your description was right that it's slow, but it isn't solved by thinking. It's a lottery where each guess is
+one ticket. Each extra zero <b>bit</b> required halves the chance a guess wins.</p>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>b</code> = how many zero bits the fingerprint must start with (the difficulty), a count</li>
+<li><code>E</code> = how many guesses it takes on average, a count</li>
+<li><code>h</code> = your hash rate: guesses per second, in H/s</li>
+<li><code>t</code> = average time to win, in seconds</li>
+</ul>
+<p><b>Equations</b></p>
+<p class="formula">E = 2<sup>b</sup></p>
+<p class="formula">t = E ÷ h</p>
+<p><b>Real scenario:</b> this browser guesses about 400,000 times a second. How long for 20 zero bits?</p>
+<ol class="steps">
+<li>E = 2<sup>20</sup> = 1,048,576 guesses</li>
+<li>t = 1,048,576 ÷ 400,000 H/s</li>
+<li>t = 2.6 seconds on average</li>
+</ol>
+<p>So <b>mining-operation-tool</b> finds a ConceptCoin block every few seconds at 20 bits. Some blocks take ten times
+longer and some come almost at once: that's luck, and it's normal.</p>
+</div>
+</details>
+
+<details class="lesson" data-lesson="4"><summary>4. Hash rate: how fast you guess <span class="done-tick"></span></summary>
+<p>Hash rate is guesses per second. Each unit is 1,000 times the one before:</p>
+<table><tr><th>Unit</th><th>Guesses per second</th><th>Example</th></tr>
+<tr><td>kH/s</td><td class="n">1,000</td><td>a laptop CPU on Monero: about 3–5 kH/s</td></tr>
+<tr><td>MH/s</td><td class="n">1,000,000</td><td>this browser on ConceptCoin: about 0.4 MH/s</td></tr>
+<tr><td>TH/s</td><td class="n">10<sup>12</sup></td><td>one Bitcoin ASIC machine: about 200–270 TH/s</td></tr>
+<tr><td>EH/s</td><td class="n">10<sup>18</sup></td><td>the whole Bitcoin network: about 1,000 EH/s (late 2026, approx.)</td></tr>
+<tr><td>ZH/s</td><td class="n">10<sup>21</sup></td><td>1,000 EH/s = 1 ZH/s</td></tr></table>
+<p>The coin you mine decides which hash rate matters: your hash rate on <b>that coin's</b> algorithm, compared with
+everyone else's on the same coin.</p>
+</details>
+
+<details class="lesson" data-lesson="5"><summary>5. Difficulty adjusts itself <span class="done-tick"></span></summary>
+<p>If more miners join, blocks would come faster. So the network checks how long recent blocks took and makes the
+puzzle harder or easier to stay on schedule. It works like a thermostat: a feedback control loop. Bitcoin aims for one
+block every 10 minutes and adjusts every 2,016 blocks (about two weeks).</p>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>D<sub>old</sub></code> = the difficulty now, a number</li>
+<li><code>T<sub>target</sub></code> = how long the last 2,016 blocks should have taken: 14 days</li>
+<li><code>T<sub>actual</sub></code> = how long they really took, in days</li>
+<li><code>D<sub>new</sub></code> = the difficulty after the adjustment</li>
+</ul>
+<p><b>Equation</b></p>
+<p class="formula">D<sub>new</sub> = D<sub>old</sub> × (T<sub>target</sub> ÷ T<sub>actual</sub>)</p>
+<p><b>Real scenario:</b> new miners joined and the last 2,016 blocks took only 12 days.</p>
+<ol class="steps">
+<li>D<sub>new</sub> = D<sub>old</sub> × (14 ÷ 12)</li>
+<li>D<sub>new</sub> = D<sub>old</sub> × 1.167</li>
+</ol>
+<p>The puzzle gets about 17% harder, so everyone's share of the rewards shrinks. Watch the same thing happen every few
+blocks in <b>mining-operation-tool</b>.</p>
+</div>
+</details>
+
+<details class="lesson" data-lesson="6"><summary>6. The reward, and halvings <span class="done-tick"></span></summary>
+<p>The winner of each block gets newly made coins (the <b>block subsidy</b>) plus the fees people paid to send their
+payments. Bitcoin's subsidy halves every 210,000 blocks, about every four years: it has been 3.125 BTC since April 2024
+and drops to 1.5625 BTC around 2028. That's why mining gets harder to profit from over time unless the price rises.</p>
+<p>Not every coin does this. Monero pays a steady 0.6 XMR a block forever (its "tail emission"), with a block about
+every 2 minutes. ConceptCoin halves every 8 blocks so you can watch it happen.</p>
+</details>
+
+<details class="lesson" data-lesson="7"><summary>7. Mining alone vs in a pool <span class="done-tick"></span></summary>
+<p><b>Solo:</b> you keep the whole reward, but only when you win the block yourself. <b>Pool:</b> thousands of miners
+work together and split each reward by how much work each one sent. You prove your work with <b>shares</b>: near-misses
+that are much easier to find than a real block. Pools turn a lottery into a small, steady wage, minus a fee (often 1–2%).</p>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>h</code> = your hash rate, in H/s</li>
+<li><code>H</code> = the whole network's hash rate, in H/s</li>
+<li><code>R</code> = coins paid per block</li>
+<li><code>B</code> = blocks found per day by the whole network (Bitcoin: 144)</li>
+<li><code>f</code> = the pool's fee, as a fraction (1% = 0.01)</li>
+<li><code>T</code> = average days until you win a block solo</li>
+<li><code>D</code> = coins you earn per day in a pool</li>
+</ul>
+<p><b>Equations</b></p>
+<p class="formula">T = (H ÷ h) ÷ B</p>
+<p class="formula">D = (h ÷ H) × R × B × (1 − f)</p>
+<p><b>Real scenario:</b> one 200 TH/s Bitcoin machine, network 1,000 EH/s, reward 3.125 BTC, no fee.</p>
+<ol class="steps">
+<li>H ÷ h = 1,000,000,000,000,000,000,000 ÷ 200,000,000,000,000 = 5,000,000</li>
+<li>T = 5,000,000 ÷ 144 = 34,722 days: about 95 years to win one block alone</li>
+<li>D = (1 ÷ 5,000,000) × 3.125 × 144 × 1 = 0.00009 BTC a day in a pool</li>
+</ol>
+<p>Same machine, same expected coins over a lifetime: the pool just pays you a little every day instead of maybe once.</p>
+</div>
+</details>
+
+<details class="lesson" data-lesson="8"><summary>8. Processor, RAM and which machine fits which coin <span class="done-tick"></span></summary>
+<p>Each coin picks its own hashing recipe (its <b>algorithm</b>), and the recipe decides the best machine:</p>
+<table><tr><th>Machine</th><th>What it is</th><th>Good for</th></tr>
+<tr><td>CPU</td><td>your computer's main processor: a few fast, flexible cores</td><td>Monero (RandomX), which was designed so CPUs stay competitive</td></tr>
+<tr><td>GPU</td><td>a graphics card: thousands of small cores working in parallel</td><td>GPU coins such as Ravencoin or Ergo; Ethereum stopped mining in 2022</td></tr>
+<tr><td>ASIC</td><td>a chip built to do one algorithm only, nothing else</td><td>Bitcoin (SHA-256); once ASICs exist for a coin, CPUs and GPUs can't compete</td></tr></table>
+<p><b>RAM:</b> Bitcoin doesn't care. Monero's RandomX needs about 2–3 GB of free RAM for its fast mode, and about 2 MB
+of the CPU's L3 cache per mining thread, so cache size often limits you more than core count. Dual-channel memory and
+"huge pages" can add 20–50%. GPU coins that are "memory-hard" care about the card's VRAM size and speed.</p>
+<p class="note">Mine Mole's weekly check needs your graphics card model and your power price to say which of these fits you.</p>
+</details>
+
+<details class="lesson" data-lesson="9"><summary>9. Electricity: the cost that decides everything <span class="done-tick"></span></summary>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>P</code> = the machine's power draw, in watts (W)</li>
+<li><code>24</code> = hours in a day</li>
+<li><code>1000</code> = watts in a kilowatt</li>
+<li><code>p</code> = your electricity price, in dollars per kilowatt-hour ($/kWh), from your power bill</li>
+<li><code>C</code> = power cost per day, in dollars</li>
+<li><code>e</code> = efficiency: joules spent per terahash (J/TH); lower is better</li>
+<li><code>h<sub>TH</sub></code> = the machine's hash rate in TH/s</li>
+</ul>
+<p><b>Equations</b></p>
+<p class="formula">C = P × 24 ÷ 1000 × p</p>
+<p class="formula">e = P ÷ h<sub>TH</sub></p>
+<p><b>Real scenario:</b> a 3,500 W, 200 TH/s Bitcoin machine at $0.15 per kWh.</p>
+<ol class="steps">
+<li>C = 3,500 × 24 ÷ 1,000 × 0.15</li>
+<li>C = 84 kWh × $0.15 = $12.60 a day</li>
+<li>e = 3,500 W ÷ 200 TH/s = 17.5 J/TH</li>
+</ol>
+<p>Professional mines pay $0.03–0.06 per kWh, so the same machine costs them a third as much to run. That's why home
+Bitcoin mining usually loses money. The newest machines reach about 13–17 J/TH; older ones above 30 J/TH rarely pay.</p>
+</div>
+</details>
+
+<details class="lesson" data-lesson="10"><summary>10. Cooling: every watt becomes heat <span class="done-tick"></span></summary>
+<p>A miner turns almost all the electricity it uses into heat, so a mining computer is also a heater.</p>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>P</code> = power draw, in watts</li>
+<li><code>3.412</code> = BTU per hour that one watt gives off as heat</li>
+<li><code>Q</code> = heat given off, in BTU per hour (the unit heaters and air conditioners use)</li>
+</ul>
+<p><b>Equation</b></p>
+<p class="formula">Q = P × 3.412</p>
+<p><b>Real scenario:</b> the 3,500 W machine from lesson 9.</p>
+<ol class="steps">
+<li>Q = 3,500 × 3.412</li>
+<li>Q = 11,942 BTU per hour, as much as two 1,500 W space heaters and a bit more</li>
+</ol>
+</div>
+<ul>
+<li>ASICs are loud, 75–80 dB, like a vacuum cleaner: most live in a garage or shed.</li>
+<li>Keep CPUs and GPUs under about 80 °C. Laptops aren't built for 100% all day: they slow down and wear out.</li>
+<li>In winter the heat can warm a room, which gives back part of the power cost.</li>
+</ul>
+</details>
+
+<details class="lesson" data-lesson="11"><summary>11. Is it worth the power? <span class="done-tick"></span></summary>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars">
+<li><code>D</code> = coins earned per day (lesson 7)</li>
+<li><code>v</code> = the price of one coin, in dollars</li>
+<li><code>C</code> = power cost per day, in dollars (lesson 9)</li>
+<li><code>N</code> = profit per day, in dollars: below 0 means you lose money</li>
+</ul>
+<p><b>Equation</b></p>
+<p class="formula">N = D × v − C</p>
+<p><b>Real scenario:</b> a laptop mining Monero at 4 kH/s, network 5 GH/s, 0.6 XMR × 720 blocks a day, an example
+price of $300 per XMR, and 65 W more power at $0.15 per kWh.</p>
+<ol class="steps">
+<li>D = (4,000 ÷ 5,000,000,000) × 0.6 × 720 = 0.0003456 XMR a day</li>
+<li>D × v = 0.0003456 × $300 = $0.104</li>
+<li>C = 65 × 24 ÷ 1,000 × 0.15 = $0.234</li>
+<li>N = $0.104 − $0.234 = −$0.13 a day</li>
+</ol>
+<p>The laptop loses about 13 cents a day, before wear. Put your own numbers in <b>worth-the-power-tool</b>.</p>
+</div>
+</details>
+
+<details class="lesson" data-lesson="12"><summary>12. Staying safe, and the law <span class="done-tick"></span></summary>
+<ul>
+<li><b>"Cloud mining" contracts</b> that promise daily returns are almost always scams or lose money.</li>
+<li><b>Never mine on someone else's computer</b>: work, school or a cloud server. It breaks their rules, and secretly
+mining on other people's machines ("cryptojacking") is what malware does.</li>
+<li><b>Download miners only from their official project page</b>; antivirus often flags real miners too, so check the
+checksum the project publishes.</li>
+<li><b>Wallets:</b> your coins are controlled by a secret "seed phrase" of 12–24 words. Anyone who sees it owns your
+coins. Never type it into a website or a chat, an AI chat included.</li>
+<li><b>Taxes:</b> in the US and many other countries, mined coins count as income at their value on the day you get them.</li>
+<li>These lessons are education, not financial advice.</li>
+</ul>
+</details>
+
+<fieldset class="quiz" id="quiz"><legend>check-yourself</legend>
+<p id="q-text"></p>
+<div id="q-options"></div>
+<p id="q-result" class="note" aria-live="polite"></p>
+<button type="button" id="q-next" class="ghost">Next question</button>
+</fieldset>
+</main>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'crypto-burrow-learn-v1';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { done = {}; }
+  var lessons = Array.prototype.slice.call(document.querySelectorAll('details.lesson'));
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) { /* private window */ } }
+  function draw() {
+    var n = 0;
+    lessons.forEach(function (d) {
+      var id = d.getAttribute('data-lesson'), tick = d.querySelector('.done-tick');
+      if (done[id]) n++;
+      tick.textContent = done[id] ? '✓ ticked' : '';
+    });
+    document.getElementById('count').textContent = n + ' of ' + lessons.length + ' lessons ticked';
+    document.getElementById('bar').style.width = (100 * n / lessons.length) + '%';
+  }
+  lessons.forEach(function (d) {
+    var id = d.getAttribute('data-lesson');
+    var row = document.createElement('p');
+    var box = document.createElement('input'); box.type = 'checkbox'; box.checked = !!done[id];
+    var lab = document.createElement('label'); lab.style.flexDirection = 'row'; lab.style.alignItems = 'center'; lab.style.gap = '6px';
+    lab.appendChild(box); lab.appendChild(document.createTextNode('This makes sense'));
+    box.addEventListener('change', function () { done[id] = box.checked; save(); draw(); });
+    row.appendChild(lab); d.appendChild(row);
+  });
+  draw();
+
+  var QUIZ = [
+    ['Mining a block mostly means…', ['Guessing numbers until a hash starts with enough zeros', 'Solving a math proof cleverly', 'Downloading coins from a bank'], 0, 'Lesson 3: there is no shortcut, only guesses.'],
+    ['Each extra zero bit the puzzle needs makes it…', ['Twice as hard', 'Ten times as hard', 'A little easier'], 0, 'E = 2^b: one more bit doubles E.'],
+    ['Which costs a home miner the most, almost always?', ['Electricity', 'The internet connection', 'The pool sign-up'], 0, 'Lesson 9: C = P × 24 ÷ 1000 × p, every day.'],
+    ['Which machine mines Bitcoin today?', ['An ASIC', 'A laptop CPU', 'A phone'], 0, 'Lesson 8: CPUs and GPUs are millions of times too slow.'],
+    ['A mining pool…', ['Pays small steady amounts for your shares of work', 'Makes you more coins than solo over a lifetime', 'Mines without electricity'], 0, 'Lesson 7: same expected coins, steadier pay, minus the fee.'],
+    ['Someone online asks for your wallet\'s seed phrase to "verify" it. You…', ['Never share it', 'Share it if they seem official', 'Share half of it'], 0, 'Lesson 12: whoever has the seed phrase owns the coins.'],
+    ['A 1,000 W miner at $0.20 per kWh costs how much a day?', ['$4.80', '$0.20', '$20.00'], 0, '1,000 × 24 ÷ 1,000 × 0.20 = $4.80.'],
+    ['Why does the difficulty change?', ['To keep blocks coming on schedule as miners join or leave', 'To punish small miners', 'It never changes'], 0, 'Lesson 5: a feedback loop, like a thermostat.']
+  ];
+  var qi = 0;
+  function ask() {
+    var q = QUIZ[qi % QUIZ.length], box = document.getElementById('q-options');
+    document.getElementById('q-text').textContent = (qi % QUIZ.length + 1) + '. ' + q[0];
+    document.getElementById('q-result').textContent = '';
+    while (box.firstChild) box.removeChild(box.firstChild);
+    var order = q[1].map(function (_, i) { return i; }).sort(function () { return Math.random() - 0.5; });
+    order.forEach(function (i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'ghost'; b.textContent = q[1][i];
+      b.addEventListener('click', function () {
+        var right = i === q[2];
+        b.className = 'ghost ' + (right ? 'right' : 'wrong');
+        document.getElementById('q-result').textContent = (right ? 'Right. ' : 'Not quite. ') + q[3];
+      });
+      box.appendChild(b);
+    });
+  }
+  document.getElementById('q-next').addEventListener('click', function () { qi++; ask(); });
+  ask();
+})();
+</script>
+<script src="mine-mole-in-tool-20261121.js"></script>
+</body>
+</html>

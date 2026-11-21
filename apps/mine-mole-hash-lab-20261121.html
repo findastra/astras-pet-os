@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hash lab · Mine Mole</title>
+<!-- hash-lab-tool: Crypto Burrow's hands-on hash playground for a beginner (Astra, 2026-11-21). Type anything and see
+     its SHA-256 fingerprint; change one letter and see how much changes; then hunt for a nonce by hand, one guess or a
+     thousand at a time, until the fingerprint starts with enough zeros. Uses the shared mining core
+     (mine-mole-mining-core-20261121.js); nothing is saved or sent anywhere.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<link rel="stylesheet" href="mine-mole-tools-20261121.css">
+</head>
+<body>
+<main>
+<header class="page">
+<h1>Hash lab</h1>
+<p class="sub">Play with the fingerprint machine every miner runs. Lessons 2 and 3 of learn-mining-tool explain it.</p>
+</header>
+
+<fieldset><legend>1-fingerprint-anything</legend>
+<p>Type in either box. Each box shows its SHA-256 fingerprint; the line under them counts how many of the 64 characters differ.</p>
+<div class="row">
+<label style="flex:1 1 260px">Text A<input id="a" value="hello"></label>
+<label style="flex:1 1 260px">Text B (try one letter different)<input id="b" value="Hello"></label>
+</div>
+<p class="note">A:</p><p class="hash" id="ha"></p>
+<p class="note">B:</p><p class="hash" id="hb"></p>
+<p id="diff" class="mark"></p>
+</fieldset>
+
+<fieldset><legend>2-hunt-for-a-nonce</legend>
+<p>This is mining by hand. The block's text stays the same; you change only the <b>nonce</b> number on the end, hash
+the two together (twice, as Bitcoin does), and look at the start of the fingerprint.</p>
+<div class="row">
+<label style="flex:1 1 260px">Block text<input id="block" value="Block 1: Astra pays Bob 2 CC"></label>
+<label>Zeros needed at the start
+<select id="zeros"><option value="1">1 zero</option><option value="2">2 zeros</option><option value="3" selected>3 zeros</option><option value="4">4 zeros</option><option value="5">5 zeros</option><option value="6">6 zeros</option></select></label>
+</div>
+<p class="note" id="expect"></p>
+<button type="button" id="one">Guess once</button>
+<button type="button" id="thousand">Guess 1,000 times</button>
+<button type="button" id="auto">Keep guessing</button>
+<button type="button" id="reset" class="ghost">Start over</button>
+<div class="stats">
+<div class="stat"><b id="nonce">0</b><span>nonce tried last</span></div>
+<div class="stat"><b id="tries">0</b><span>guesses so far</span></div>
+<div class="stat"><b id="best">0</b><span>most zeros seen</span></div>
+</div>
+<p class="note">Fingerprint of block text + nonce:</p>
+<p class="hash" id="hn"></p>
+<p id="won" class="mark" aria-live="polite"></p>
+</fieldset>
+
+<fieldset><legend>why-the-zeros</legend>
+<p>Each character of a fingerprint is one of 16 (0–9, a–f), so the chance a guess starts with one 0 is 1 in 16. Two
+zeros: 1 in 16 × 16 = 256. Each zero character is 4 zero bits, which is how lessons 3 and 5 count difficulty.</p>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars"><li><code>z</code> = zero characters needed at the start</li><li><code>G</code> = guesses needed on average</li></ul>
+<p class="formula">G = 16<sup>z</sup></p>
+<ol class="steps"><li>z = 3: G = 16 × 16 × 16 = 4,096 guesses</li><li>z = 6: G = 16,777,216 guesses, a few seconds for this page at full speed</li></ol>
+<p>Bitcoin needs about 20 zero characters right now: the whole network's 1,000 EH/s × 600 seconds a block is roughly
+600,000 billion billion guesses for every block (late 2026, approx.).</p>
+</div>
+</fieldset>
+</main>
+<script src="mine-mole-mining-core-20261121.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.CryptoBurrow, $ = function (id) { return document.getElementById(id); };
+  // Draw a fingerprint with its leading zeros in yellow, as text nodes only.
+  function show(el, hx) {
+    while (el.firstChild) el.removeChild(el.firstChild);
+    var z = (hx.match(/^0*/) || [''])[0].length;
+    var s = document.createElement('span'); s.className = 'z'; s.textContent = hx.slice(0, z);
+    el.appendChild(s); el.appendChild(document.createTextNode(hx.slice(z)));
+    return z;
+  }
+  function compare() {
+    var x = C.sha256Hex($('a').value), y = C.sha256Hex($('b').value), d = 0;
+    show($('ha'), x); show($('hb'), y);
+    for (var i = 0; i < 64; i++) if (x[i] !== y[i]) d++;
+    $('diff').textContent = $('a').value === $('b').value ? 'Same text, same fingerprint.' : d + ' of 64 characters are different.';
+  }
+  $('a').addEventListener('input', compare); $('b').addEventListener('input', compare); compare();
+
+  var nonce = 0, tries = 0, best = 0, timer = null, won = false;
+  function need() { return +$('zeros').value; }
+  function expect() { $('expect').textContent = 'On average that takes ' + C.fmtNum(Math.pow(16, need()), 0) + ' guesses (16 to the power of ' + need() + ').'; }
+  function guess(n) {
+    var hx = '', z = 0, target = need();
+    for (var i = 0; i < n && !won; i++) {
+      hx = C.doubleSha256Hex($('block').value + nonce);
+      z = (hx.match(/^0*/) || [''])[0].length; tries++;
+      if (z > best) best = z;
+      if (z >= target) { won = true; break; }
+      nonce++;
+    }
+    $('nonce').textContent = C.fmtNum(nonce, 0); $('tries').textContent = C.fmtNum(tries, 0); $('best').textContent = best;
+    show($('hn'), hx || C.doubleSha256Hex($('block').value + nonce));
+    if (won) {
+      stop();
+      $('won').textContent = 'Block found! Nonce ' + nonce + ' works, after ' + C.fmtNum(tries, 0) + ' guesses (about ' +
+        C.fmtNum(Math.pow(16, target), 0) + ' expected). Anyone can check it with one hash; finding it took all those guesses.';
+    }
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } $('auto').textContent = 'Keep guessing'; }
+  function reset() { stop(); nonce = 0; tries = 0; best = 0; won = false; $('won').textContent = ''; guess(0); expect(); }
+  $('one').addEventListener('click', function () { if (won) reset(); guess(1); });
+  $('thousand').addEventListener('click', function () { if (won) reset(); guess(1000); });
+  $('auto').addEventListener('click', function () {
+    if (timer) return stop();
+    if (won) reset();
+    $('auto').textContent = 'Stop';
+    timer = setInterval(function () { guess(4000); }, 16);
+  });
+  $('reset').addEventListener('click', reset);
+  $('zeros').addEventListener('change', reset);
+  $('block').addEventListener('input', reset);
+  reset();
+})();
+</script>
+<script src="mine-mole-in-tool-20261121.js"></script>
+</body>
+</html>
