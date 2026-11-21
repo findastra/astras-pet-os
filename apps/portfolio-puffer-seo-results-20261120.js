@@ -1,14 +1,14 @@
 // Written by scripts/portfolio-puffer-seo-sweep-20261120.mjs; do not edit by hand. Data, not code.
 window.SEO_RESULTS = {
  "schema": "portfolio-puffer-seo-results-v1",
- "checked": "2026-11-21T08:02:12.917Z",
+ "checked": "2026-11-21T08:09:03.970Z",
  "tool": "iced-out-iceberg-v1.0-seo-toolkit-v1.0",
  "site": {
   "url": "https://findastra.github.io/",
   "sitemap": {
    "url": "https://findastra.github.io/sitemap.xml",
    "status": 200,
-   "pages": 13
+   "pages": 12
   },
   "robots": {
    "status": 200,
@@ -904,8 +904,8 @@ window.SEO_RESULTS = {
    "name": "Fuzzboi Forge",
    "repo": "fuzzboi-factory",
    "note": "The repo root forwards here.",
-   "light": "yellow",
-   "passed": 13,
+   "light": "green",
+   "passed": 14,
    "total": 14,
    "checks": [
     {
@@ -1016,9 +1016,9 @@ window.SEO_RESULTS = {
      "id": "in-sitemap",
      "level": "should",
      "label": "It is in the sitemap",
-     "ok": false,
-     "found": "not listed",
-     "fix": "Add it to sitemap.xml at the root of findastra.github.io."
+     "ok": true,
+     "found": "listed",
+     "fix": ""
     }
    ],
    "title": "Fuzzboi Forge (fuzzboi-factory)",
