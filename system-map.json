@@ -2213,6 +2213,32 @@
       "does": "Writes the catalog the skill catalog page shows, without private text."
     },
     {
+      "id": "skill-files-tool",
+      "name": "skill-files-tool",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-files-tool-v0.1",
+      "job": "A tool of Luna's Log (tools/skill-files-tool/skill-files-tool-20261111.mjs, card 011, 2026-11-11: see where the skills, helpers and rules files live and where Claude and Codex read them from): finds every skill, agent and rules file Claude and Codex read on this PC and writes a copy of its viewer page with six tabs: where they live, what you write and what you get, every skill, rules and memory, the errors we keep having, and how to organize. It groups the copies of each skill, reads each master from GitHub's main, and measures the always-read files against their cut-offs. Read only on every file it scans. Its data file holds private text, so it stays on the PC (Skill Scout's catalog folder) and is never committed.",
+      "does": "Every skill, agent and rules file Claude and Codex read, in six tabs: where it lives, what it gives you and what is wrong."
+    },
+    {
+      "id": "skill-install-tool",
+      "name": "skill-install-tool",
+      "type": "tool",
+      "of": "program-40",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1",
+      "label": "lunas-log-v0.1-skill-install-tool-v0.1",
+      "job": "A tool of Luna's Log (tools/skill-install-tool/skill-install-tool-20261112.mjs, card 011; Astra, 2026-11-12: skills change in their master and are installed only with this tool): copies every skill's master (its SKILL.md folder in the pet repo that owns it, as it is on GitHub's main) into the folders Claude and Codex read (~/.claude/skills and ~/.agents/skills), and Claude's agents and the Claude app's scheduled tasks the same way. plan shows what would change, install --yes copies, check exits 1 when an installed copy drifted from its master, and retire-old --yes moves Codex's old copies out once Codex lists the new ones. Every folder it replaces or retires is backed up first, with a receipt.json. On 2026-11-20, check found 45 of 45 copies the same as their masters.",
+      "does": "Installs every skill from its master for Claude and Codex, and checks that no copy has drifted."
+    },
+    {
       "id": "skill-census-trick",
       "name": "skill-census",
       "type": "trick",
