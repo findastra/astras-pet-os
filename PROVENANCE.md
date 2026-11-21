@@ -6,6 +6,25 @@ prove it?* Companion to the [security model](docs/security-model-20261018.md) an
 Nothing written in a plain file can be made impossible to remove, so provenance works like a cow's ear tag: a
 **cryptographic signature**. Removing or changing it is *detected*, and the farm refuses to run what does not check out.
 
+## PAC: Provenance, Authenticity and Creativity
+
+Astra, 2026-11-17: "Provenance, Authenticity, and Creativity must be preserved at all costs." It came up when Drum
+Dog's drum kits had colours an assistant picked, with no way to change them, and sounds with no credit ("this is where
+we lose creativity"). PAC is wider than the signatures below: it covers every part a person sees or hears, not only
+code.
+
+| Letter | What it asks for | How to do it |
+|---|---|---|
+| **P**rovenance | Say where every part came from | Credit who made it, what it was copied or forked from, and the source of every sound, image, font, model or other asset, on the page beside it, not only in the commit |
+| **A**uthenticity | Never pass anything off as what it is not | Say plainly when something is made by an assistant, generated in code, borrowed or a stand-in. When a record is missing, write "not recorded" instead of guessing |
+| **C**reativity | Leave the choices to the person using it | Don't ship a fixed pick of colours, sounds, words or looks. Give a tool to choose, and keep their own choices and files marked as theirs |
+
+Example: Drum Dog's drum kits tool (apc64-drum-kit-tool) lets Astra pick each pad's light and each kit's colours. Under
+every kit it says who made the kit, which kit it came from and who picked its lights, and that every built-in sound was
+made in code with no samples (hub #291, `changes/kit-lights-and-credits-20261117.md`).
+
+The same rule is a standing correction in the assistants' global rules (Luna's Log `global-rules/`).
+
 ## The Pet ID (for people)
 
 Every pet carries a **Pet ID**, a tool box on its pet program page, built from the layers below. Real pets have one too
