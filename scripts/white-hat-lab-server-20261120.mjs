@@ -78,7 +78,7 @@ const PETOS = [
   ['light-hive-helper', 'Light Hive helper', 'RGBee'],
   ['rift-rabbit', 'Rift Rabbit launcher', 'Rift Rabbit'],
   ['benchmark-rock', 'Benchmark Rock GPU watch', 'Inference Iguana'],
-  ['papermon-server', 'Papermon server', 'Paper Girl'],
+  ['papermon-server', 'Papermon server', 'Papermon Pet'],
   ['chat-rat', 'Chat Rat', 'Chat Rat'],
 ];
 // Programs made by others, by process name.

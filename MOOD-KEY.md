@@ -34,7 +34,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Health Hummy** | my own files (never your check-ins) | weekly, Sunday | a check-in only you can make |
 | **Finance Finch** | my own files (never your entries) | weekly, Monday | an entry only you can add |
 | **Mommy's Mommies** | Mommy's classes and events | weekly, Tuesday | a date or teacher confirmed for a session |
-| **Paper Patty** | the science desk and its live site | weekly, Wednesday | a look at the live site |
+| **Papermon Pet** | the science desk and its live site | weekly, Wednesday | a look at the live site |
 | **File Master** | your PC's folders and projects | weekly, Thursday | the scanner run on your PC |
 | **Discord Damsel** | the OpenAI and Anthropic presence apps | weekly, Friday | Discord open with activity sharing on |
 | **Portfolio Puffer** | your updates worth sharing | weekly, Saturday | a drafted update approved or posted |

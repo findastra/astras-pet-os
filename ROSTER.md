@@ -10,7 +10,7 @@ Last updated 2026-10-19. Drawings below are **drafts** unless their notes record
 
 ![Every character in every mood](art/roster.png)
 
-Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret, Role Fairy; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
+Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Papermon Pet, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret, Role Fairy; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
 ## Pet apps
 
@@ -26,7 +26,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 8 | **Health Hummy** | pet | hatching | private repo | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | <img src="art/frames/health-hummy/idle.png" width="48" height="48" alt="health-hummy idle"> |
 | 9 | **Finance Finch** | pet | hatching | private repo | Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed. | <img src="art/frames/finance-finch/idle.png" width="48" height="48" alt="finance-finch idle"> |
 | 10 | **Mommy's Mommies** | pet | hatching | private repo | A local planning room for Mommy's classes and events, with session details, readiness and notes. Calendar and Discord connections are planned. | <img src="art/frames/mommys-mommies/idle.png" width="48" height="48" alt="mommys-mommies idle"> |
-| 11 | **Paper Patty** | pet | growing | private repo | Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles. | <img src="art/frames/paper-girl/idle.png" width="48" height="48" alt="paper-girl idle"> |
+| 11 | **Papermon Pet** | pet | growing | private repo | Runs Papermon, a free science trading card game where every card is a real research article: real science, one card at a time. | <img src="art/frames/paper-girl/idle.png" width="48" height="48" alt="paper-girl idle"> |
 | 12 | **File Master** | pet | growing | private repo | Organizes your files and finds systemic errors. Shows every mass change before making it, with undo. Opens or edits programs only after Test Tortoise tests the change and Gatekeeper Goddess and Astra approve it (planned). | <img src="art/frames/file-master/idle.png" width="48" height="48" alt="file-master idle"> |
 | 13 | **Discord Damsel** | pet | hatching | private repo | Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds. | <img src="art/frames/discord-damsel/idle.png" width="48" height="48" alt="discord-damsel idle"> |
 | 14 | **Portfolio Puffer** | pet | hatching | private repo | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | <img src="art/frames/portfolio-puffer/idle.png" width="48" height="48" alt="portfolio-puffer idle"> |
@@ -123,9 +123,9 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/mommys-mommies/idle.png" width="56" height="56" alt="mommys-mommies idle"> | <img src="art/frames/mommys-mommies/blink.png" width="56" height="56" alt="mommys-mommies blink"> | <img src="art/frames/mommys-mommies/happy.png" width="56" height="56" alt="mommys-mommies happy"> | <img src="art/frames/mommys-mommies/curious.png" width="56" height="56" alt="mommys-mommies curious"> | <img src="art/frames/mommys-mommies/worried.png" width="56" height="56" alt="mommys-mommies worried"> | <img src="art/frames/mommys-mommies/sad.png" width="56" height="56" alt="mommys-mommies sad"> | <img src="art/frames/mommys-mommies/sick.png" width="56" height="56" alt="mommys-mommies sick"> | <img src="art/frames/mommys-mommies/alarmed.png" width="56" height="56" alt="mommys-mommies alarmed"> | <img src="art/frames/mommys-mommies/sleep.png" width="56" height="56" alt="mommys-mommies sleep"> |
 
-### Paper Patty
+### Papermon Pet
 
-*DRAFT. Dark mauve and pink from the site, a folded paper hat, a rolled paper.*
+*DRAFT. Papermon Pet, a baby sac-winged bat pup (the Babbling Sac-winged Pup), drawn on 2026-11-14 from his Papermon card art; Paper Patty, the newspaper girl, retired that day (Astra: "Papermon Pet is its name for now"). The art id stays paper-girl until the repo is renamed papermon.*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|

@@ -1058,16 +1058,16 @@
     },
     {
       "repo": "paper-girl",
-      "pet": "Paper Patty",
+      "pet": "Papermon Pet",
       "role": "pet",
       "art": "paper-girl",
       "kind": "human",
       "status": "growing",
       "published": true,
-      "job": "Runs Paper Girl, a free science discovery desk: real research, publisher explanations and fresh articles.",
+      "job": "Runs Papermon, a free science trading card game where every card is a real research article: real science, one card at a time.",
       "added": "2026-10-07",
       "version": "0.1.0-20261008-pets",
-      "note": "DRAFT. Dark mauve and pink from the site, a folded paper hat, a rolled paper.",
+      "note": "DRAFT. Papermon Pet, a baby sac-winged bat pup (the Babbling Sac-winged Pup), drawn on 2026-11-14 from his Papermon card art; Paper Patty, the newspaper girl, retired that day (Astra: \"Papermon Pet is its name for now\"). The art id stays paper-girl until the repo is renamed papermon.",
       "interface_local_url": "apps/pet-programs/paper-girl-20261018.html",
       "interface_url": "apps/pet-programs/paper-girl-20261018.html",
       "app_url": "https://findastra.github.io/paper-girl/",
@@ -1087,7 +1087,7 @@
           {
             "part": "startup-star",
             "how": "optional",
-            "why": "Startup Star runs it on a farm; Paper Patty works without it."
+            "why": "Startup Star runs it on a farm; Papermon Pet works without it."
           }
         ],
         "programs": [
@@ -1099,12 +1099,12 @@
           {
             "node": "alphaxiv-mcp",
             "how": "optional",
-            "why": "arXiv papers for Paper Girl (hub card 319)."
+            "why": "arXiv papers for Papermon (hub card 319)."
           },
           {
             "node": "pubmed-mcp",
             "how": "optional",
-            "why": "PubMed papers for Paper Girl (hub card 319)."
+            "why": "PubMed papers for Papermon (hub card 319)."
           }
         ]
       }

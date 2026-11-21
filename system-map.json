@@ -2567,7 +2567,7 @@
       "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory. Astra connected it in Claude on 2026-11-12 (with her alphaXiv sign-in), and one paper search answered in a chat. Connected, it offers 23 tools, not the 6 its directory listing showed: 14 read (search, full text, feeds, her library and notes) and 9 that write to her alphaXiv account (library folders, saving and moving papers, private paper notes, following researchers). Paper Patty's grant is read only. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too.",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory. Astra connected it in Claude on 2026-11-12 (with her alphaXiv sign-in), and one paper search answered in a chat. Connected, it offers 23 tools, not the 6 its directory listing showed: 14 read (search, full text, feeds, her library and notes) and 9 that write to her alphaXiv account (library folders, saving and moving papers, private paper notes, following researchers). Papermon Pet's grant is read only. Astra, 2026-11-09: \"All recommended\" (hub card 319). Papermon Pet (Paper Patty until 2026-11-14) keeps it; Flowsheet Flamingo and AI Dashund use it too.",
       "does": "Lets chats search and read arXiv papers."
     },
     {
@@ -2577,7 +2577,7 @@
       "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra connected it in Claude on 2026-11-12, and one article search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it.",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra connected it in Claude on 2026-11-12, and one article search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319). Papermon Pet (Paper Patty until 2026-11-14) keeps it.",
       "does": "Lets chats search and read PubMed papers."
     },
     {
@@ -3301,14 +3301,14 @@
     },
     {
       "id": "paper-girl-site",
-      "name": "Paper Girl",
+      "name": "Papermon",
       "program": 11,
       "type": "own-program",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
-      "job": "The free science discovery website (findastra.github.io/paper-girl), run by Paper Patty.",
-      "does": "A free science discovery website."
+      "job": "The free science trading card game website (findastra.github.io/paper-girl until its repo is renamed papermon), where every card is a real research article, run by Papermon Pet, a baby bat (Astra, 2026-11-14: Paper Patty retired; \"Papermon Pet is its name for now\").",
+      "does": "A free science trading card game: every card is a real research article."
     },
     {
       "id": "am-i-a-ghost",
@@ -8399,7 +8399,7 @@
       "to": "alphaxiv-mcp",
       "carries": "manages",
       "state": "planned",
-      "why": "Paper Patty keeps alphaXiv for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+      "why": "Papermon Pet keeps alphaXiv for his Papermon website (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
     },
     {
       "from": "claude-code",
@@ -8413,7 +8413,7 @@
       "to": "pubmed-mcp",
       "carries": "manages",
       "state": "planned",
-      "why": "Paper Patty keeps PubMed for Paper Girl (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+      "why": "Papermon Pet keeps PubMed for his Papermon website (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
     },
     {
       "from": "claude-code",
@@ -8455,7 +8455,7 @@
       "to": "paper-girl-site",
       "carries": "opens",
       "state": "now",
-      "why": "Paper Girl is this pet’s own program."
+      "why": "Papermon is this pet’s own program."
     },
     {
       "from": "paper-girl-site",
