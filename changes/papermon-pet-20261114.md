@@ -94,5 +94,19 @@ Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
   `npm run build` made them again.
 - `npm test` in this worktree: 515 tests, 509 pass, 0 fail, 6 skipped. `npm run check`: "Pets OK: 24 pet apps, 0
   mascot(s), 24 characters drawn at 256px."
+- CodeQL flagged `test/generate-pets-ref-test-20261114.mjs` (a pattern that escaped dots and slashes but not
+  backslashes); the test now compares plain text.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
+
+## Merged with main a third time, 2026-11-21
+
+- Main gained 12 commits (#383 PAC rules, #404 seo-toolkit, #425 White Hat Lab's server, #427 Workflow Whale). The only
+  conflict was the built System Map: taken from main, then `npm run build` made it again.
+- #425 moved the port watch into `scripts/white-hat-lab-server-20261120.mjs`; the merge kept this branch's
+  "Papermon Pet" as the Papermon server's pet there.
+- `npm test`: 528 tests, 519 pass, 3 fail, 6 skipped. The three failures were all in the pet chat helper's file (one
+  timed out after 22 s, the next two waited on it); that file is the same as main's and passed 9 of 9 when run again.
+  `npm run check`: "Pets OK: 24 pet apps, 0 mascot(s), 24 characters drawn at 256px."
+
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-21.

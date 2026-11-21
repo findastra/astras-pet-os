@@ -572,6 +572,35 @@
       "job": "A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser."
     },
     {
+      "id": "seo-toolkit",
+      "name": "seo-toolkit",
+      "type": "tool",
+      "of": "program-14",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-seo-toolkit-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-seo-toolkit-20261120.html",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-11-20: \"I think this just needs to be a portfolio [puffer] job\"): one pill per published page on findastra.github.io, each with a light (green, yellow, red) from checks that are code, not AI: the name in words and as the dashed name in the title, a description, one h1, canonical address, language, viewport, link-preview tags, structured data, no noindex, and the sitemap. Tap a pill for what is missing and the head tags to paste. scripts/portfolio-puffer-seo-sweep-20261120.mjs fetches every page in apps/portfolio-puffer-seo-pages-20261120.json and writes the results; with --out it writes the sitemap.xml and robots.txt for the root of findastra.github.io. Reads public pages only and writes no repo: fixes go to each page's repo as pull requests Astra merges (seo-fix-round).",
+      "does": "One pill per published page: what search engines are missing, and the tags to paste.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/portfolio-puffer-seo-toolkit-20261120.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "seo-fix-round",
+      "name": "seo-fix-round",
+      "type": "trick",
+      "of": "program-14",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-seo-fix-round-trick-v1.0",
+      "job": "A trick of Iced Out Iceberg (Astra, 2026-11-20): when Astra asks for SEO on a page, the agent in the seat runs seo-toolkit's sweep, writes the page's missing head tags on a branch of that page's repo (the description in Astra's words, or left in [brackets] for her), and opens a pull request for her to merge; the sitemap.xml and robots.txt go to findastra.github.io the same way. Never pushes live. Written steps only, not a skill file yet."
+    },
+    {
       "id": "findastra-portfolio",
       "name": "findastra.github.io",
       "type": "own-program",
@@ -3888,8 +3917,32 @@
       "layer": 6,
       "category": "Tool",
       "version": "v0.1.0",
-      "label": "workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-ipad-workflow-caster-v0.1.0",
       "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. Native project prepared; iPad execution is unverified."
+    },
+    {
+      "id": "screen-watch",
+      "name": "screen-watch",
+      "type": "tool",
+      "of": "workflow-whirlpool",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-screen-watch-v0.1.0",
+      "job": "A tool of Workflow Whirlpool (Astra, 2026-11-12: \"both of my computers have yellow boxes around the screens now ... I don't know what app is even using it\"): which programs are watching or controlling this PC's screen right now, in plain words, and how to turn each one off; a yellow border is Windows showing a screen capture. Reads only: it never stops or changes another program. It runs in Workflow Whirlpool's server (workflow-whirlpool-server-20261120.mjs), which Startup Star starts at sign-in, and what it finds stays on the PC (Documents\\Astra's PetOS Data\\workflow-whirlpool; workflow-whirlpool#5)."
+    },
+    {
+      "id": "deskflow-watch",
+      "name": "deskflow-watch",
+      "type": "tool",
+      "of": "workflow-whirlpool",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-deskflow-watch-v0.1.0",
+      "job": "A tool of Workflow Whirlpool (Astra, 2026-11-20: \"My cursor is now fighting me to get to the other screen ... what can workflow whale realistically link across these?\", then \"Yes, build it\"): which computers Deskflow (third party) links to this PC's mouse and keyboard, where each one sits, how often the cursor is sent straight back at an edge, and what to fix first (Scroll Lock, the switch delay, a picture too big for the clipboard, a computer that has not linked). Reads Deskflow's settings and log only; Astra makes any change in Deskflow's own window. It runs in Workflow Whirlpool's server, which Startup Star starts at sign-in, and what it finds stays on the PC (workflow-whirlpool#6)."
     },
     {
       "id": "asset-contact-sheet",

@@ -1,0 +1,20 @@
+{
+  "schema": "portfolio-puffer-seo-pages-v1",
+  "about": "seo-toolkit's page list (Iced Out Iceberg, Portfolio Puffer's pet program): one pill per published page. Add a page when Astra asks for SEO on it; the sweep (scripts/portfolio-puffer-seo-sweep-20261120.mjs) checks every page here and writes the results. `name` is the name people read, `slug` the dashed name Astra types (the repo name). Found on 2026-11-20 from GitHub Pages sites that answered; Claude Opus 5.5 (claude-opus-5-5).",
+  "site": "https://findastra.github.io/",
+  "sitemap": "https://findastra.github.io/sitemap.xml",
+  "pages": [
+    { "url": "https://findastra.github.io/", "slug": "findastra", "name": "findastra", "repo": "findastra.github.io" },
+    { "url": "https://findastra.github.io/astras-pet-os/", "slug": "astras-pet-os", "name": "Astra's PetOS", "repo": "astras-pet-os", "note": "No front page yet: only the files under it are served." },
+    { "url": "https://findastra.github.io/astras-photostar/", "slug": "astras-photostar", "name": "Astra's Photo Star", "repo": "astras-photostar" },
+    { "url": "https://findastra.github.io/astras-star-window/", "slug": "astras-star-window", "name": "Astra's Window Star", "repo": "astras-star-window" },
+    { "url": "https://findastra.github.io/the-cooling-tower/", "slug": "the-cooling-tower", "name": "The Cooling Tower", "repo": "the-cooling-tower" },
+    { "url": "https://findastra.github.io/liminal-doors/", "slug": "liminal-doors", "name": "Liminal Doors", "repo": "liminal-doors" },
+    { "url": "https://findastra.github.io/ghost-protocol/", "slug": "ghost-protocol", "name": "Ghost Protocol", "repo": "ghost-protocol" },
+    { "url": "https://findastra.github.io/papermon/", "slug": "papermon", "name": "Papermon", "repo": "papermon" },
+    { "url": "https://findastra.github.io/fuzzboi-factory/", "slug": "fuzzboi-factory", "name": "Fuzzbois", "repo": "fuzzboi-factory" },
+    { "url": "https://findastra.github.io/pocket-message-board/", "slug": "pocket-message-board", "name": "Pocket Message Board", "repo": "pocket-message-board" },
+    { "url": "https://findastra.github.io/spoonfed/", "slug": "spoonfed", "name": "Spoonfed", "repo": "spoonfed" },
+    { "url": "https://findastra.github.io/openai-discord-presence/", "slug": "openai-discord-presence", "name": "OpenAI Discord Presence", "repo": "openai-discord-presence", "note": "Its page says it moved." }
+  ]
+}

@@ -1,4 +1,10 @@
-// White Hat Weasel's port watch (White Hat Lab's `white-hat-lab-v1.0-port-watch-tool-v1.0`).
+// White Hat Lab's server: White Hat Weasel's port watch (White Hat Lab's `white-hat-lab-v1.0-port-watch-tool-v1.0`).
+//
+// Its own server (Astra, 2026-11-20: "every pet gets its own server ... named after their pet program, and then dash
+// server dash the date"; Flash Audit check A72): it was scripts/port-watch-20261119.mjs. Its name is written once, as
+// `server` in White Hat Lab's entry in pets.json, and Startup Star starts it from there. It lives in the hub, which
+// carries White Hat Lab's tools (the hub is public and every farm gets it; the white-hat-lab repo is private), so that
+// path is inside the hub. It stops on its own too: Quit in his menu in Startup Star (--quit), and Start there again.
 //
 // Astra, 2026-11-19: "The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some
 // ... I want to be able to click on a port, labeled, and I can read info about the latest traffic." Her answers the
@@ -18,19 +24,24 @@
 //   %LOCALAPPDATA%\astras-pet-os\white-hat-lab\menu-20261021.json and mood-20261021.json   for Startup Star and pet-moods
 // Never a repo: the port list says which programs run on her PC. User folders are written as %USERPROFILE%.
 //
-//   node scripts/port-watch-20261119.mjs                 look once, write the files
-//   node scripts/port-watch-20261119.mjs --print         look once, print, write nothing
-//   node scripts/port-watch-20261119.mjs --background    look every 10 minutes (Startup Star starts it at sign-in)
-//   node scripts/port-watch-20261119.mjs --close <port>  stop the program behind one of our own servers (his menu)
+//   node scripts/white-hat-lab-server-20261120.mjs                 look once, write the files
+//   node scripts/white-hat-lab-server-20261120.mjs --print         look once, print, write nothing
+//   node scripts/white-hat-lab-server-20261120.mjs --background    look every 10 minutes (Startup Star starts it at sign-in)
+//   node scripts/white-hat-lab-server-20261120.mjs --close <port>  stop the program behind one of our own servers (his menu)
+//   node scripts/white-hat-lab-server-20261120.mjs --quit          stop the copy looking every 10 minutes (his menu)
 //
 // Developer terms: a listening port is a numbered door a program opens to accept connections; a connection's remote
 // address is the other end. Read with Windows' Get-NetTCPConnection, which needs no administrator.
-// Node's built-in modules only (AGENTS.md). Claude Opus 5.5 (claude-opus-5-5), 2026-11-19.
+// Node's built-in modules only (AGENTS.md). Claude Opus 5.5 (claude-opus-5-5), 2026-11-19; its own server, 2026-11-20.
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+/** This server's own file name (white-hat-lab-server-YYYYMMDD.mjs); its lock is named after it. */
+export const SERVER = basename(fileURLToPath(import.meta.url));
+export const LOCK = SERVER.replace(/\.mjs$/, '.lock');
 
 export const LABEL = 'white-hat-lab-v1.0-port-watch-tool-v1.0';
 export const SCHEMA = 'white-hat-lab-port-watch-v1';
@@ -199,7 +210,9 @@ export function ask(list, state = {}, now = Date.now()) {
   return a;
 }
 
-export function menu(list, todays) {
+/** His menu in Startup Star. `watching`: the copy that looks every 10 minutes runs, so the menu ends with its Quit.
+ *  Stopped, the star puts Start first instead. */
+export function menu(list, todays, watching = false) {
   const items = [];
   const name = (p) => `${p.port} · ${p.label}`;
   if (todays && todays.ports.length) items.push({ text: `${todays.ports.length} port${todays.ports.length === 1 ? '' : 's'} look left over today: close any you don’t need` });
@@ -209,6 +222,7 @@ export function menu(list, todays) {
   if (own.length) { items.push({ separator: true }); items.push({ text: 'Our own servers (close only if you mean to)' }); }
   for (const p of own) items.push({ text: `Close ${name(p)}`, args: ['--close', String(p.port)] });
   items.push({ separator: true }, { text: 'Look at the ports now', args: ['--once'] });
+  if (watching) items.push({ text: 'Quit the port watch', args: ['--quit'] });
   return { schema: MENU_SCHEMA, program: REPO, updated: new Date().toISOString(), items };
 }
 
@@ -224,7 +238,7 @@ const readJson = (f) => { try { return JSON.parse(readFileSync(f, 'utf8')); } ca
 function writeAtomic(file, text) { mkdirSync(dirname(file), { recursive: true }); const tmp = `${file}.tmp`; writeFileSync(tmp, text); renameSync(tmp, file); }
 
 /** One look: writes the page data, state, menu and mood. Returns the page data. */
-export function once({ where: at = places(), raw = look(), now = Date.now(), home = homedir(), write = true } = {}) {
+export function once({ where: at = places(), raw = look(), now = Date.now(), home = homedir(), write = true, watching = false } = {}) {
   const stateFile = join(at.out, STATE);
   const state = readJson(stateFile) || {};
   const { ports, peers } = build(raw, state, now, home);
@@ -234,7 +248,7 @@ export function once({ where: at = places(), raw = look(), now = Date.now(), hom
   if (write) {
     writeAtomic(join(at.out, PAGE_DATA), pageFile(data));
     writeAtomic(stateFile, JSON.stringify({ peers, ask: todays }, null, 2));
-    writeAtomic(join(at.menu, 'menu-20261021.json'), JSON.stringify(menu(ports, todays), null, 2));
+    writeAtomic(join(at.menu, 'menu-20261021.json'), JSON.stringify(menu(ports, todays, watching), null, 2));
     writeAtomic(join(at.menu, 'mood-20261021.json'), JSON.stringify(mood(todays, now), null, 2));
   }
   return data;
@@ -253,6 +267,33 @@ export function close(port, { raw = look(), home = homedir(), kill = (pid) => pr
   return { ok: true, words: `Closed port ${n} (${p.label}): stopped ${p.program}, process ${p.pid}.` };
 }
 
+// ---- its own Quit (Flash Audit A72: a server stops on its own) ----
+/** The process number the copy that looks every 10 minutes wrote in its lock, or 0. */
+export function lockPid(at) { try { return Number(readFileSync(join(at.menu, LOCK), 'utf8')) || 0; } catch { return 0; } }
+const alive = (pid) => { if (!(pid > 0)) return false; try { process.kill(pid, 0); return true; } catch (e) { return e.code === 'EPERM'; } };
+/** A process's command line, from Windows (no administrator); '' when it is gone. */
+function commandLine(pid) {
+  try {
+    return execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', `(Get-CimInstance Win32_Process -Filter "ProcessId=${Number(pid)}").CommandLine`],
+      { encoding: 'utf8', windowsHide: true, timeout: 60000 }).trim();
+  } catch { return ''; }
+}
+/** The process number of the copy that looks every 10 minutes, when it runs and is not this one; else 0. */
+export function watching(at, { isAlive = alive } = {}) { const pid = lockPid(at); return pid && pid !== process.pid && isAlive(pid) ? pid : 0; }
+/** Stops the copy that looks every 10 minutes (Quit in his menu): only a process running this server, never another
+ *  program that got its number later. Returns what it did, in words. */
+export function quit(at, { pid = lockPid(at), isAlive = alive, line = commandLine, kill = (n) => process.kill(n) } = {}) {
+  const lock = join(at.menu, LOCK);
+  if (!pid || !isAlive(pid)) { rmSync(lock, { force: true }); return { ok: true, stopped: false, words: 'The port watch is not running.' }; }
+  if (!String(line(pid) || '').toLowerCase().includes(SERVER.toLowerCase())) {
+    rmSync(lock, { force: true });
+    return { ok: false, stopped: false, words: `Process ${pid} is not the port watch, so nothing was stopped.` };
+  }
+  kill(pid);
+  rmSync(lock, { force: true });
+  return { ok: true, stopped: true, words: `Stopped the port watch (process ${pid}). Start it again from Startup Star → White Hat Weasel.` };
+}
+
 function log(at, line) { try { mkdirSync(at.out, { recursive: true }); appendFileSync(join(at.out, 'port-watch-log-20261119.txt'), `${new Date().toISOString()} ${line}\n`); } catch { /* the page still works */ } }
 
 if (process.argv[1] && resolve(process.argv[1]).toLowerCase() === resolve(fileURLToPath(import.meta.url)).toLowerCase()) {
@@ -261,7 +302,14 @@ if (process.argv[1] && resolve(process.argv[1]).toLowerCase() === resolve(fileUR
     const r = close(args[1]);
     log(at, r.words);
     console.log(r.words);
-    try { once({ where: at }); } catch (e) { log(at, `look failed: ${e.message}`); }
+    try { once({ where: at, watching: watching(at) > 0 }); } catch (e) { log(at, `look failed: ${e.message}`); }
+    process.exit(r.ok ? 0 : 1);
+  } else if (args[0] === '--quit') {
+    const r = quit(at);
+    log(at, r.words);
+    console.log(r.words);
+    // His menu again, without Quit: the star shows Start first while he is stopped.
+    try { once({ where: at, watching: false }); } catch (e) { log(at, `look failed: ${e.message}`); }
     process.exit(r.ok ? 0 : 1);
   } else if (args.includes('--print')) {
     const d = once({ write: false });
@@ -269,16 +317,16 @@ if (process.argv[1] && resolve(process.argv[1]).toLowerCase() === resolve(fileUR
     console.log(d.ask ? `Today's ask: ${d.ask.ports.join(', ')}` : 'Nothing looks left over.');
   } else if (args.includes('--background')) {
     // One copy only: a second start sees the first one's lock and leaves.
-    const lock = join(at.menu, 'port-watch-20261119.lock');
+    const lock = join(at.menu, LOCK);
     const other = Number((existsSync(lock) && readFileSync(lock, 'utf8')) || 0);
     let alive = false;
     if (other && other !== process.pid) { try { process.kill(other, 0); alive = true; } catch { alive = false; } }
     if (alive) { log(at, `already running (process ${other})`); process.exit(0); }
     mkdirSync(at.menu, { recursive: true }); writeFileSync(lock, String(process.pid));
-    const tick = () => { try { const d = once({ where: at }); log(at, `looked: ${d.ports.length} ports${d.ask && d.ask.ports.length ? `, ask ${d.ask.ports.join(' ')}` : ''}`); } catch (e) { log(at, `look failed: ${e.message}`); } };
+    const tick = () => { try { const d = once({ where: at, watching: true }); log(at, `looked: ${d.ports.length} ports${d.ask && d.ask.ports.length ? `, ask ${d.ask.ports.join(' ')}` : ''}`); } catch (e) { log(at, `look failed: ${e.message}`); } };
     tick(); setInterval(tick, EVERY_MS);
   } else {
-    const d = once({ where: at });
+    const d = once({ where: at, watching: watching(at) > 0 });
     console.log(`${d.ports.length} ports written to ${join(at.out, PAGE_DATA)}${d.ask && d.ask.ports.length ? `; today's ask: ${d.ask.ports.join(', ')}` : ''}`);
   }
 }
