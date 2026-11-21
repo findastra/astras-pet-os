@@ -689,10 +689,16 @@ namespace AstraDesktopPets {
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
       // White Hat Weasel's port watch (Astra, 2026-11-19: "monitoring ports and asking me intermittently if I can close
       // some"; "All recommended"): one look every 10 minutes, no port of its own. Its menu here names the ports that look
-      // left over and closes one of our own servers only when Astra clicks it.
-      list.Add(new Entry{Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker="port-watch-20261119",Folder=Path.Combine(DataRoot,"white-hat-lab"),Needs=Path.Combine(PetFiles.Root,"scripts","port-watch-20261119.mjs")});
-      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
-      list[list.Count-1].MenuPrefix=new[]{Quote(list[list.Count-1].Needs)};
+      // left over and closes one of our own servers only when Astra clicks it, and Quit there stops it (2026-11-20). It is
+      // White Hat Lab's server, named in pets.json (A72), and one of the hub's own scripts: the hub carries White Hat
+      // Lab's tools (it is public and every farm gets it; the white-hat-lab repo is private), so its path is inside the
+      // hub. Its command line is told apart by that file name. A hub without the line has no port watch to start.
+      string watch=ServerIn("white-hat-lab",PetFiles.Root,null);
+      if(watch!=null) {
+        list.Add(new Entry{Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker=Path.GetFileName(watch),Folder=Path.Combine(DataRoot,"white-hat-lab"),Needs=watch});
+        list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--background"};
+        list[list.Count-1].MenuPrefix=new[]{Quote(list[list.Count-1].Needs)};
+      }
       // Chat Rat's server, behind its page (Astra, 2026-11-19, "All recommended": it starts with the star like the other
       // helpers). An older copy started by hand from its folder (`node chat-rat-20261016.mjs serve`) counts as running.
       list.Add(new Entry{Repo="chat-rat",Pet="Chat Rat",Exe=node,Marker="chat-rat-20261016.mjs",Needs=Path.Combine(parent,"chat-rat","chat-rat-20261016.mjs")});
@@ -1458,6 +1464,12 @@ namespace AstraDesktopPets {
       foreach(string repo in new[]{"benchmark-rock","kernel-grove"}) {
         string server;var entry=BackgroundPets.Find(repo);
         if(!BackgroundPets.Servers().TryGetValue(repo,out server)||!System.Text.RegularExpressions.Regex.IsMatch(server,"^bin/"+repo+"-server-[0-9]{8}\\.exe$")||entry.Exe!=Path.Combine(Path.GetDirectoryName(PetFiles.Root),repo,server.Replace('/',Path.DirectorySeparatorChar)))throw new Exception(entry.Pet+"'s watch must be its pet program's server, named in pets.json.");
+      }
+      // White Hat Lab's server is a hub script, run by node: started, told apart and given its menu by that one path.
+      { string server;var weasel=BackgroundPets.Find("white-hat-lab");
+        if(weasel==null||!BackgroundPets.Servers().TryGetValue("white-hat-lab",out server)||!System.Text.RegularExpressions.Regex.IsMatch(server,"^scripts/white-hat-lab-server-[0-9]{8}\\.mjs$")
+          ||weasel.Needs!=Path.Combine(PetFiles.Root,server.Replace('/',Path.DirectorySeparatorChar))||!File.Exists(weasel.Needs)||weasel.Marker!=Path.GetFileName(weasel.Needs)
+          ||weasel.StartArgs[0]!=BackgroundPets.Quote(weasel.Needs)||weasel.StartArgs[1]!="--background"||weasel.MenuPrefix[0]!=BackgroundPets.Quote(weasel.Needs))throw new Exception("White Hat Weasel's port watch must be White Hat Lab's server, named in pets.json, in the hub.");
       }
       foreach(string bad in new[]{"../bin/a-server-20990101.exe","C:/bin/a-server-20990101.exe","bin/benchmark-rock-20261023.exe","bin/a-server-2099010.exe","bin/a-server-20990101.exe\" --x","bin\\a-server-20990101.exe","bin/a-server-20990101.bat",""})
         if(BackgroundPets.SafeServer.IsMatch(bad))throw new Exception("A server path was let through: "+bad);

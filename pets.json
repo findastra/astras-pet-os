@@ -3890,6 +3890,7 @@
       "job": "Authorized security assessment and remediation.",
       "added": "2026-11-02",
       "version": "v0.1.0",
+      "server": "scripts/white-hat-lab-server-20261120.mjs",
       "audit": {
         "cadence": "weekly",
         "subject": "authorized security tests, port checks of your devices and the scan log",

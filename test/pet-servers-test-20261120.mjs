@@ -3,7 +3,7 @@
 // ("I want the one server per pet ... all recommended everything else"). Flash Audit check A72.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,8 +37,12 @@ test('one server per pet, each written once: the star reads it from pets.json an
   assert.ok(star.includes('PetFiles.Text(pet,"server")'), 'the star reads `server` from pets.json');
 });
 
-test('the renames so far, easiest first: Benchmark Rock (#408), then Kernel Grove', () => {
+test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#411), then White Hat Lab', () => {
   const server = (repo) => pets.pipeline.find((p) => p.repo === repo).server;
   assert.equal(server('benchmark-rock'), 'bin/benchmark-rock-server-20261120.exe');
   assert.equal(server('kernel-grove'), 'bin/kernel-grove-server-20261120.exe');
+  // White Hat Lab's server is one of the hub's own scripts (the hub carries its tools), so the hub has the file.
+  assert.equal(server('white-hat-lab'), 'scripts/white-hat-lab-server-20261120.mjs');
+  assert.ok(existsSync(join(root, server('white-hat-lab'))), 'the hub has White Hat Lab\'s server');
+  assert.ok(!existsSync(join(root, 'scripts', 'port-watch-20261119.mjs')), 'and not its old name');
 });
