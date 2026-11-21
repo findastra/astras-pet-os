@@ -761,6 +761,16 @@ const WATCH = [
       ['done', 'iPhone Safari has no full screen for a page: the settings tell iPhone users to Add to Home Screen.'],
       ['check', "On Astra's iPad Pro 2, turned on its side, in full screen and from the Home Screen: emulation is not the device."],
     ] },
+  { name: "What Color Is This Note? (Paper Girl's chromesthesia quiz)", url: 'https://paper-girl-chromesthesia.findastra.workers.dev/',
+    needs: [
+      ['done', 'No sideways scrolling on any screen: fit-check, 19 of 19 screens fit, loaded fresh and turned or resized live (2026-11-21).'],
+      ['done', 'One screen with no scrolling on computers and on any screen held on its side at least 500px tall: two columns, Compare and history scrolls inside its own box.'],
+      ['done', 'Phones and upright tablets: one column, quiz first, the Editorial Note and Bibliography folded into one box below it.'],
+      ['done', 'On a screen too small for the whole quiz, the page brings the wheel, then the answer, into view by itself after each tap.'],
+      ['open', 'A phone held upright still scrolls up and down: the intro, the quiz and the answer do not fit together on a phone.'],
+      ['check', 'The piano note plays only after a tap (Web Audio). Check it plays on a real iPhone with the silent switch on.'],
+      ['check', "On a real phone and on Astra's iPad: emulation is not the device."],
+    ] },
 ];
 (function () {
   const box = document.getElementById('watchList');
