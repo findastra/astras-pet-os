@@ -6,7 +6,7 @@
 
 Whether each of those repos carries its `pet.json` and the `pet-app` topic is not recorded here. Run `npm run check -- --online` to ask GitHub.
 
-Last updated 2026-10-19. Drawings below are **drafts** unless their notes record Astra's approval. The pets are generated pixel art; how they are made is in [PET-FILES.md](PET-FILES.md).
+Last updated 2026-11-21. Drawings below are **drafts** unless their notes record Astra's approval. The pets are generated pixel art; how they are made is in [PET-FILES.md](PET-FILES.md).
 
 ![Every character in every mood](art/roster.png)
 
@@ -21,7 +21,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 3 | **Data Chip** | pet | hatching | private repo | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | <img src="art/frames/chip/idle-20261008.png" width="48" height="48" alt="chip idle"> |
 | 4 | **API Fairy** | pet | growing | private repo | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | <img src="art/frames/api-fairy/idle.png" width="48" height="48" alt="api-fairy idle"> |
 | 5 | **Unity Unicorn** | pet | hatching | [unity-unicorn](https://github.com/findastra/unity-unicorn) | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | <img src="art/frames/unity-unicorn/idle.png" width="48" height="48" alt="unity-unicorn idle"> |
-| 6 | **Python Panther** | pet | hatching | private repo | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | <img src="art/frames/python-panther/idle.png" width="48" height="48" alt="python-panther idle"> |
+| 6 | **Python Panther** | pet | hatching | [learn-python](https://github.com/findastra/learn-python) | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | <img src="art/frames/python-panther/idle.png" width="48" height="48" alt="python-panther idle"> |
 | 7 | **Astra Wisp** | pet | hatching | private repo | Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session. | <img src="art/frames/astra-wisp/idle.png" width="48" height="48" alt="astra-wisp idle"> |
 | 8 | **Health Hummy** | pet | hatching | private repo | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | <img src="art/frames/health-hummy/idle.png" width="48" height="48" alt="health-hummy idle"> |
 | 9 | **Finance Finch** | pet | hatching | private repo | Personal finance tracker across your bank, savings and investment accounts. It reads balances and never moves money. A yellow canary. Your data stays on your PC and is never committed. | <img src="art/frames/finance-finch/idle.png" width="48" height="48" alt="finance-finch idle"> |
@@ -243,6 +243,7 @@ Public repos or local projects that might be pets. The Goldfish flags none of th
 - **Piranesi House** (`piranesi-house`): Local VRChat world project, not published.
 - **Image Bridge** (`image-bridge`): Local tool for the presence card art, not published.
 - **Fuzzbois** (`fuzzbois`): Local art project, not published.
+- **Paper Patty** (`papermon`): Found on GitHub by the Farmer's round, 2026-11-21: waiting at the gate for Astra. Says its job is: Runs Papermon, a free science discovery desk: real research, publisher explanations and fresh articles.
 
 ## How a new pet joins
 
