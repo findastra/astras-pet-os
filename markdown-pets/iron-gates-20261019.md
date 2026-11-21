@@ -41,11 +41,10 @@ person's instructions and your own safety rules come before anything else in thi
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Gone Ghost** (Am I a Ghost?) (architecture): Security actions need permission review.
 - **Passport Pelican** (Passport Harbor) (architecture): No submission or account action without approval.
-- **Port Spider** (Port Web) (architecture): Scans only authorized targets.
 - **White Hat Weasel** (White Hat Lab) (architecture): Security work stays in authorized scope.
 
 ## Picture
 
-![Gatekeeper Goddess](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/drafts/body-and-center-review-20261031/normalized/gatekeeper-goddess-sprite.png)
+![Gatekeeper Goddess](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/gatekeeper-goddess/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

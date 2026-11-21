@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-421 rows: 20 native programs, 173 native tools, 25 native tricks, 203 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+440 rows: 22 native programs, 178 native tools, 26 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -142,14 +142,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-chat-helper | `the-farm-v1.0-pet-chat-helper-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | pet-moods | `the-farm-v1.0-pet-moods-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | retire-check | `the-farm-v1.0-retire-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-finder | `the-farm-v1.0-pet-finder-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-organizer | `the-farm-v1.0-pet-organizer-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | retire-a-pet | `the-farm-v1.0-retire-a-pet-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | GitHub |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Google Fonts |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Node.js |  | Works today |
@@ -261,6 +264,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 6 | Python Panther | Python Jungle | third-party program | Jupyter |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
@@ -299,7 +303,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
 | 13 | Discord Damsel | Discord Tower | native program | Ableton Live Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
+| 13 | Discord Damsel | Discord Tower | native program | Anthropic IPO Countdown |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
+| 13 | Discord Damsel | Discord Tower | native program | OpenAI IPO Countdown |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | DM archive review | `discord-tower-v1.0-dm-archive-v0.1` | Planned |
 | 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Works today |
 | 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Works today |
@@ -430,6 +436,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Process sweep | `kernel-grove-v1.0-process-sweep-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native tool | port-check-tool | `white-hat-lab-v1.0-port-check-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native tool | port-watch-tool | `white-hat-lab-v1.0-port-watch-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | Wireshark |  | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | MacAttack |  | Idea |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | MCP Inspector |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
@@ -509,6 +519,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Wireshark |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | WizTree |  | Planned |
 | 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
+| 79 | AI Dashund | AI Doghouse | third-party program | Zotero |  | Planned |
 | 82 | Door Dormouse | The Threshold | native program | Found floors |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors (world) |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors Concept Atlas |  | Works today |
@@ -524,8 +535,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat Creator Companion |  | Works today |
 | 82 | Door Dormouse | The Threshold | third-party program | MCP for Unity 10.3.0 |  | Planned |
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat |  | Planned |
-| 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
-| 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
+| 83 | Role Fairy | The Fairy Court | native tool | PetOS feedback (ask-astra-bot) | `the-fairy-court-v1.0-petos-feedback-v1.0` | Planned |
+| 83 | Role Fairy | The Fairy Court | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
 | 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
 | 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
@@ -552,4 +563,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 | 86 | PC Master | PC Master Race | third-party program | Microsoft Learn MCP |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | native tool | pilot-plant-look-tool | `the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0` | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | GeoGebra |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Natural Number Game |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | WebPlotDigitizer |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | DWSIM |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Jupyter |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Qalculate! |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Zotero |  | Planned |
 <!-- registry:end -->

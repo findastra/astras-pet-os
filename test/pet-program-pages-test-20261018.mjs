@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { readSpawnerSources, spawnerPages, spawnerFiles, buildPetProgramPage, pagePath, esc, brief, PANELS, SYSTEM_MAP_LABEL, DIR, INDEX, ASSETS, LAUNCHER_JS, PET_CHAT_JS, CYBERHOMES, LIVE_CHECK, privateTarget, movedFiles, modelProgramAssets, modelProgramData, MODEL_PROGRAM, desktopId } from '../scripts/pet-program-pages-20261018.mjs';
-import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROP, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
+import { drawnBox, unionBox, desktopHeight, NORMAL_HEIGHT, MAX_PET_WIDTH, SIZE, FULL_HEIGHT, SAME_SIZE, SAME_SIZE_CROPS, FARMER_SIZE } from '../scripts/pet-size-20261023.mjs';
 import { findSensitive } from '../scripts/public-safety-20261014.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
@@ -188,7 +188,7 @@ test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-2
   const layout = cs.slice(cs.indexOf('void LayoutPets()'), cs.indexOf('void CreatePetWindows('));
   assert.match(cs, new RegExp(`NormalHeight=${NORMAL_HEIGHT}f,BugHeight=${NORMAL_HEIGHT}f,MaxPetWidth=${MAX_PET_WIDTH};`), 'NormalHeight and MaxPetWidth');
   assert.match(cs, new RegExp(`SameSize=\\{${SAME_SIZE.map((id) => `"${id}"`).join(',')}\\};`), 'the pets that share one crop height');
-  assert.match(cs, new RegExp(`SameSizeCrop=${SAME_SIZE_CROP};`), 'their crop height');
+  assert.ok(cs.includes(`SameSizeCrops=new Dictionary<string,int>{${Object.entries(SAME_SIZE_CROPS).map(([id, n]) => `{"${id}",${n}}`).join(',')}};`), 'the crop height of each');
   assert.match(layout, new RegExp(`float fh=NormalHeight\\*${FARMER_SIZE}f,fw=fh\\*farmer\\.Crop\\.Width/farmer\\.Crop\\.Height;`), 'the Friendly Farmer\'s height');
   const star = {};
   for (const [, cases, size] of layout.matchAll(/((?:case "[a-z-]+":)+)(?:h=NormalHeight;w=h\*pet\.Crop\.Width\/pet\.Crop\.Height;)?size=([\d.]+)f;break;/g))
@@ -199,7 +199,7 @@ test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-2
   assert.deepEqual(full, [...FULL_HEIGHT].sort(), 'the pets that keep NormalHeight when wide');
 });
 
-test('every pet picture is as big as on the desktop, its empty margin cut off, never squeezed into 60px', () => {
+test('every page pet uses the same square while desktop size metadata remains available', () => {
   // Rift Rabbit: 0.9 of NormalHeight on the desktop, measured from his drawings the way the star crops them.
   const rabbit = pages.find((x) => x.repo === 'rift-rabbit');
   const crop = unionBox([rabbit.art.plain.idle, rabbit.art.plain.blink].map((p) => drawnBox(`${root}/${p}`, 127)));
@@ -219,7 +219,10 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.doesNotMatch(css, /--pet-height|\.den \{[^}]*[{;] ?height: 60px/, 'no 60px slot shrinks the pet');
   assert.doesNotMatch(css, /discord-damsel"\] \.den img\.pet \{ scale/, 'Damsel needs no size of her own');
-  assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
+  assert.match(css, /--pet-square: 80px/);
+  assert.match(css, /width: var\(--pet-square\); height: var\(--pet-square\)/);
+  assert.match(css, /margin: 0; clip-path: none; object-fit: contain/);
+  assert.match(css, /grid-template-columns: minmax\(0, 1fr\) var\(--pet-square\)/);
 });
 
 // Astra, 2026-11-08: "I think a lot of these buttons aren't really working on the farm. We should know how they're
@@ -252,7 +255,9 @@ test('every friend says what it does and has a picture: no line shared by three 
   const farmer = pages.find((x) => x.repo === 'astras-pet-os');
   assert.deepEqual(farmer.related.filter((r) => !r.idle).map((r) => r.id), [], 'every one of the Farmer\'s friends has a picture');
   const goddess = farmer.related.find((r) => r.pet === 'Gatekeeper Goddess');
-  assert.match(goddess.idle, /^art\/drafts\/body-and-center-review-20261031\/normalized\/gatekeeper-goddess-sprite-20261031\.png$/, 'a pet with no drawing takes its newest review drawing');
+  // 2026-11-14: every pet's newest drawing wins (GPT-6-Astra's nine faces in desktop-art/<pet>/), so the Goddess no
+  // longer falls back to her review drawing of 2026-10-31.
+  assert.match(goddess.idle, /^art\/moods\/gatekeeper-goddess\/idle\.png$/, 'a pet takes its newest drawing, with the shared stickers');
   assert.match(goddess.why, /^Security and approvals/, 'and says what it does');
   assert.match(farmer.related.find((r) => r.pet === 'Rift Rabbit').idle, /^art\/moods\/rift-rabbit\//, 'a pet with a drawing keeps it');
   assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
@@ -306,7 +311,8 @@ test('the mood the pet is in lights up in the emotions tool panel (Astra, 2026-1
     for (const m of ['sleep', 'blink', 'idle', 'curious', 'happy', 'worried', 'alarmed', 'sick', 'sad']) assert.ok(html.includes(`<figure class="mood" data-mood="${m}">`), `${d.repo}: ${m}`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /lightUp\(mood === 'awake' \? 'blink' : mood\)/);
+  // The shared mood (pet-moods, 2026-11-14) lights up first, when there is one; then the page's own.
+  assert.match(js, /lightUp\(s \|\| \(mood === 'awake' \? 'blink' : mood\)\)/);
 });
 
 test('the title is the pet program name from pet-programs.json', () => {
@@ -486,7 +492,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   }
   const damsel = pages.find((d) => d.repo === 'discord-tower');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
-  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'The Fairy Court');
   // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
   const rabbit = pages.find((d) => d.repo === 'rift-rabbit');
   assert.ok(rabbit.related.some((r) => r.id === 'osc-sealion'), 'Rift Rabbit plays with OSC Sealion, a seed');
@@ -619,7 +625,7 @@ test('awake shows its own drawing with the twinkles; L2 has play-with and care-f
     for (const t of ['play-with', 'care-for']) assert.match(l2, new RegExp(`data-planned="1"[^]*?<span class="item-name">${t}</span>`), `${d.repo}: ${t} is a planned trick in L2`);
   }
   const js = readFileSync(`${root}/${DIR}/${ASSETS.js}`, 'utf8');
-  assert.match(js, /face\(den, mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)/, 'the cyberhome shows the awake drawing too');
+  assert.match(js, /face\(den, s \|\| \(mood === 'sad' \? 'sad' : mood === 'awake' && has\(den, 'blink'\) \? 'blink' : 'idle'\)\)/, 'the cyberhome shows the awake drawing too');
 });
 
 // Astra, 2026-11-08, "Yes, add them" (PC Master Race's waiting OKs, where the Model Pet Program has them): a pet's own

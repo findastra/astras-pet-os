@@ -175,7 +175,7 @@
     "sad": "Sad: you haven't opened me in more than two weeks."
   },
   "profile": {
-    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program Fairy Ring on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
+    "about": "Astra, 2026-10-16: how the profile round lists repos that are not numbered pets. hidden = never on the profile. tools = under a pet's line (Startup Star moved under The Farm; Role Fairy taken off by Astra, then made a pet again with the program The Fairy Court on 2026-10-17; The Farm links to its own page, 2026-10-16), its home first (its cyberhome), then its tools. led-message-board is hidden because it only sends its page to pocket-message-board, the sign's new name (2026-10-19). astras-star-window is Portfolio Puffer's tool, under its line (Astra, 2026-10-19); astras-photo-star, the maker for her friends, is in Web & More.",
     "hidden": [
       "led-message-board"
     ],
@@ -728,8 +728,8 @@
       "source_commit": "a63b027fca258816996767eff5d6e3a75431a1fb",
       "audit": {
         "cadence": "weekly",
-        "subject": "Pet Program source, shared controls and declared tool behavior",
-        "needs": "Local source review; real runtime and desktop actions require separate verification"
+        "subject": "your API key notes: which keys have gone stale, where each one lives and what uses it",
+        "needs": "your OK to replace a stale key"
       },
       "submitted": "2026-10-15",
       "needs": {
@@ -875,7 +875,13 @@
             "why": "Startup Star runs it on a farm; Python Panther works without it."
           }
         ],
-        "programs": []
+        "programs": [
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06); The Pilot Plant keeps it."
+          }
+        ]
       }
     },
     {
@@ -1383,6 +1389,20 @@
           "use": "Shows Ableton Live on Discord: Playing drums while Ableton is open and the APC64 is plugged in, Making music otherwise, with the set's name (never Untitled) and a timer. Reads only Ableton's window title and Windows device names; never audio, MIDI notes or files.",
           "visibility": "public",
           "version": "0.2.0"
+        },
+        {
+          "name": "anthropic-ipo-countdown",
+          "label": "discord-tower-v1.0-anthropic-ipo-countdown-v0.1",
+          "use": "Counts down to Anthropic's IPO on Discord: the gold galaxy with one kind of time in its middle (4 DAYS, then hours, minutes, seconds), Nasdaq: ANT and the date, the time left and Discord's live timer to the opening bell; then how long it has been trading. Reads nothing on the PC.",
+          "visibility": "public",
+          "version": "0.1.0"
+        },
+        {
+          "name": "openai-ipo-countdown",
+          "label": "discord-tower-v1.0-openai-ipo-countdown-v0.1",
+          "use": "Counts down to OpenAI's IPO on Discord: the blue galaxy with one kind of time in its middle, Ticker TBA and the 2027 target (OpenAI has set no date; the count runs to the first trading day of 2027), the time left and Discord's live timer. Reads nothing on the PC.",
+          "visibility": "public",
+          "version": "0.1.0"
         },
         {
           "name": "sticker-manager",
@@ -2037,6 +2057,53 @@
           "version": "v1.0"
         }
       ]
+    },
+    {
+      "repo": "role-fairy",
+      "pet": "Role Fairy",
+      "role": "pet",
+      "art": "role-fairy",
+      "kind": "fairy",
+      "asset_date": "20261112",
+      "status": "hatching",
+      "published": true,
+      "job": "Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
+      "added": "2026-10-17",
+      "version": "0.1.0",
+      "version_assigned": true,
+      "note": "Astra, 2026-10-17: Role Fairy is a pet; her pet program is The Fairy Court (#83, renamed from Fairy Ring on 2026-11-11 so it no longer reads like API Fairy Ring). Art drafted 2026-10-18 with Astra's OK, redrawn once with --match on 2026-11-11 so the wand is in every face, and registered the same day (Astra in chat: \"just do all recommended\"). Claude Opus 5.5.",
+      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
+      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every Discord bot: its servers, roles, permissions and health",
+        "needs": "a bot's access to its server, or your OK for a new bot"
+      },
+      "visibility": "private",
+      "submitted": "2026-10-19",
+      "needs": {
+        "os": [],
+        "pets": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star runs her desktop pet on a farm; her Discord bots run without it."
+          }
+        ],
+        "programs": [
+          {
+            "node": "discord",
+            "how": "required",
+            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
+          },
+          {
+            "node": "nodejs",
+            "how": "required",
+            "why": "The Fairy Court’s bots run on Node 24.17 or newer (its pet.json)."
+          }
+        ]
+      }
     }
   ],
   "pipeline": [
@@ -2214,8 +2281,8 @@
       "interface_url": "apps/pet-programs/mail-snail-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
-        "needs": "a job: what should Mail Snail do?"
+        "subject": "your mail: bills not paid yet, and what could be sorted or cleaned up",
+        "needs": "which mail I may read (no mail account is connected yet)"
       },
       "note": "Card 007.",
       "submitted": "2026-10-12",
@@ -2251,7 +2318,7 @@
       "interface_url": "apps/pet-programs/patch-cat-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
+        "subject": "the security patches Windows, your drivers and your apps are still missing",
         "needs": "a job: what should Patch Cat do?"
       },
       "needs": {
@@ -2309,7 +2376,7 @@
       "interface_url": "apps/pet-programs/astras-gif-maker-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
+        "subject": "Astra's GIF Maker: whether it still opens and makes a GIF",
         "needs": "a job: what kind of GIFs should I make?"
       },
       "note": "Was a candidate; now a pet repo.",
@@ -2339,8 +2406,8 @@
       "interface_url": "apps/pet-programs/backup-beaver-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
-        "needs": "a job: what should Backup Beaver back up?"
+        "subject": "your backups: when each one last ran, where it is and how to get it back",
+        "needs": "where your backups are kept"
       },
       "needs": {
         "os": [],
@@ -2813,7 +2880,7 @@
       "interface_url": "apps/pet-programs/wifi-butterfly-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
+        "subject": "the radios nearby: unknown Wi-Fi networks and Bluetooth devices",
         "needs": "a job: what should Wifi Butterfly do?"
       },
       "needs": {
@@ -2842,8 +2909,8 @@
       "interface_url": "apps/pet-programs/deck-duck-20261018.html",
       "audit": {
         "cadence": "weekly",
-        "subject": "my plan",
-        "needs": "a job: what should Deck Duck do?"
+        "subject": "your Stream Deck: what every button does on every profile, and any button that does nothing",
+        "needs": "a look at a button that does nothing"
       },
       "needs": {
         "os": [
@@ -2936,42 +3003,6 @@
           }
         ],
         "programs": []
-      }
-    },
-    {
-      "repo": "role-fairy",
-      "pet": "Role Fairy",
-      "visibility": "private",
-      "status": "hatching",
-      "job": "Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or ",
-      "added": "2026-10-17",
-      "version": "0.1.0",
-      "version_assigned": true,
-      "interface_local_url": "apps/pet-programs/role-fairy-20261018.html",
-      "interface_url": "apps/pet-programs/role-fairy-20261018.html",
-      "audit": {
-        "cadence": "weekly",
-        "subject": "every Discord bot: its servers, roles, permissions and health",
-        "needs": "a bot's access to its server, or your OK for a new bot"
-      },
-      "note": "Astra, 2026-10-17: Role Fairy is a pet; its pet program is Fairy Ring (#83). Needs pet.json, the pet-app topic and art before it can be registered.",
-      "submitted": "2026-10-19",
-      "needs": {
-        "os": [],
-        "pets": [],
-        "core": [],
-        "programs": [
-          {
-            "node": "discord",
-            "how": "required",
-            "why": "Planned: Reads only the chats Astra lists and replies there; it never pings anyone and refuses to start with Administrator or Manage permissions."
-          },
-          {
-            "node": "nodejs",
-            "how": "required",
-            "why": "Fairy Ring’s bots run on Node 24.17 or newer (its pet.json)."
-          }
-        ]
       }
     },
     {
@@ -3205,6 +3236,7 @@
       "job": "Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.",
       "added": "2026-10-23",
       "version": "0.1.0-20261023",
+      "server": "bin/benchmark-rock-server-20261120.exe",
       "audit": {
         "cadence": "weekly",
         "subject": "the graphics cards: their memory, how busy they are and what is using them",
@@ -3750,6 +3782,11 @@
             "node": "context7",
             "how": "optional",
             "why": "Current library docs for every coding chat (hub card 319)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06); The Pilot Plant keeps it."
           }
         ]
       },
@@ -3854,10 +3891,15 @@
       "version": "v0.1.0",
       "audit": {
         "cadence": "weekly",
-        "subject": "authorized security tests and their scan log",
+        "subject": "authorized security tests, port checks of your devices and the scan log",
         "needs": "your OK before every test"
       },
-      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main; the private scan log is in findastra/white-hat-lab#3. No pet art registered yet.",
+      "note": "Astra, 2026-11-02: \"All recommended\" (the Friendly Farmer's deck \"pets to the pipeline\", question 1, option B): moved from the roadmap to the pipeline; being built: a starter repo on main and the private scan log (merged with findastra/white-hat-lab#3). Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\": Port Spider (pet program 68, Port Web) is no longer a pet; port checks are White Hat Lab's port-check-tool, first in L1. No pet art registered yet.",
+      "editorial": {
+        "says": "Port Spider is folded in: port checks are now this pet's port-check-tool, first in L1. On your PC it shows the newest assessment from the private report; this page never holds the findings. Next: a port check from another device.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-17"
+      },
       "interface_url": "apps/pet-programs/white-hat-lab-20261018.html",
       "interface_local_url": "apps/pet-programs/white-hat-lab-20261018.html",
       "needs": {
@@ -3869,6 +3911,11 @@
             "node": "mcp-inspector",
             "how": "optional",
             "why": "The checker for every new MCP server before any chat gets it (hub card 319)."
+          },
+          {
+            "node": "wireshark",
+            "how": "optional",
+            "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
           }
         ]
       }
@@ -4282,26 +4329,134 @@
       }
     },
     {
-      "repo": "port-web",
-      "pet": "Port Spider",
+      "repo": "the-pilot-plant",
+      "pet": "Flowsheet Flamingo",
       "visibility": "private",
       "status": "hatching",
-      "job": "Authorized port and service exposure checks.",
+      "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
       "added": "2026-11-12",
-      "version": "v0.1.0",
+      "version": "0.1.0-20261112",
       "audit": {
         "cadence": "weekly",
-        "subject": "which ports on each of your devices answer, and who can reach them",
-        "needs": "your OK before every check of a device"
+        "subject": "your engineering, maths and study programs: which are on the PC, signed and up to date",
+        "needs": "your OK to download or update a program"
       },
-      "note": "Astra, 2026-11-12: \"I think the port spider is probably the right one for this ... let's make programs for both\": moved from the roadmap to the pipeline. Its first check, the desktop PC's listening ports and firewall, was done by hand on 2026-11-12 (report in findastra/port-web#4). No program of its own yet; no pet art registered yet.",
-      "interface_url": "apps/pet-programs/port-web-20261018.html",
-      "interface_local_url": "apps/pet-programs/port-web-20261018.html",
+      "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\"). Built on 2026-11-12 after \"Yes, build it\": the private repo, the look and the tool page. Astra, 2026-11-12: \"Yes, download all\", and for DWSIM \"I want the one with the AI agent\": DWSIM 10.2.15 instead of 9.0.5 (9.0.5 removed); all four programs were installed by 2026-11-19, with Astra clicking through each licence herself.",
+      "editorial": {
+        "says": "All seven programs work now: DWSIM 10 (with its AI assistant), Qalculate!, Jupyter and Zotero are on the PC, and GeoGebra, the Natural Number Game and WebPlotDigitizer run right in their pills. My look fills the four PC pills every ten minutes. Next: the look at sign-in (it is started by hand now) and Open buttons through a launcher on this PC.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-19"
+      },
+      "waiting_on_you": [
+        {
+          "need": "Tick “Allow other applications on this computer to communicate with Zotero” in Zotero (Edit > Settings > Advanced), so its pill can show your library’s newest titles.",
+          "card": "299",
+          "on": "2026-11-19"
+        },
+        {
+          "need": "Choose the AI that DWSIM 10’s assistant talks to: a cloud one (needs an API key, filed with API Fairy) or a local one such as Ollama (keeps your flowsheets on the PC).",
+          "card": "299",
+          "on": "2026-11-19"
+        }
+      ],
+      "works_with": [
+        {
+          "pet": "learn-python",
+          "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
+        },
+        {
+          "pet": "ai-doghouse",
+          "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
+        }
+      ],
+      "interface_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "interface_local_url": "apps/pet-programs/the-pilot-plant-20261018.html",
+      "submitted": "2026-11-12",
       "needs": {
-        "os": [],
+        "os": [
+          "windows"
+        ],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          {
+            "node": "dwsim",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "qalculate",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "jupyterlab",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "geogebra",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "natural-number-game",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "zotero",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          },
+          {
+            "node": "webplotdigitizer",
+            "how": "optional",
+            "why": "The Pilot Plant shows it in its pill (Astra, 2026-11-06)."
+          }
+        ]
+      },
+      "checks": {
+        "third-party:dwsim": {
+          "result": "works",
+          "note": "DWSIM 10.2.15 (open-source edition, its AI assistant included) is on this PC, installed per user from its GitHub release after its SHA-256 matched; the look found it and Astra’s first flowsheet.",
+          "on": "2026-11-19"
+        },
+        "third-party:qalculate": {
+          "result": "works",
+          "note": "Qalculate! 5.13.2 is on this PC, installed from its GitHub release after winget’s SHA-256 matched; the look found it.",
+          "on": "2026-11-19"
+        },
+        "third-party:jupyterlab": {
+          "result": "works",
+          "note": "Python 3.13.17 (per user, signed by the Python Software Foundation) with JupyterLab 4.6.6, NumPy 2.5.4, SymPy 1.14.0 and Matplotlib 3.11.2 is on this PC; the look found all four packages.",
+          "on": "2026-11-19"
+        },
+        "third-party:zotero": {
+          "result": "works",
+          "note": "Zotero 10.0.8 is on this PC (signed by the Corporation for Digital Scholarship), installed after winget’s SHA-256 matched; the look found it running. Its library shows after Astra’s tick on its local API.",
+          "on": "2026-11-19"
+        },
+        "third-party:geogebra": {
+          "result": "works",
+          "note": "GeoGebra’s calculator runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:natural-number-game": {
+          "result": "works",
+          "note": "The Natural Number Game runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "third-party:webplotdigitizer": {
+          "result": "works",
+          "note": "WebPlotDigitizer 4 runs in its pill from its own site; checked in the browser pane on 2026-11-12.",
+          "on": "2026-11-12"
+        },
+        "tool:pilot-plant-look-tool": {
+          "result": "works",
+          "note": "Ran on this PC on 2026-11-19: it found all four installed programs and their versions; 16 self-test checks pass (the-pilot-plant#1).",
+          "on": "2026-11-19"
+        }
       }
     },
     {
@@ -4336,6 +4491,11 @@
         "program": "Infinite Studio",
         "repo": null,
         "job": "Manages Astra's Infinite Pole.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "Astra's Infinite Pole: its last build, its scene backups and its open Unity Unicorn work",
+          "needs": "the world open in Unity so I can check it"
+        },
         "for": "astras-infinite-pole",
         "note": "Confirmed by Astra on 2026-10-12: Pole Puff manages Astra's Infinite Pole, her VRChat world (repo findastra/astras-infinite-pole).",
         "works_with": [
@@ -4354,6 +4514,11 @@
         "program": "Bamboo Studio",
         "repo": null,
         "job": "Handles the redlines Astra makes in Procreate and manages her Procreate tools and drawings.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "your Procreate redlines not applied yet, and your Procreate tools and drawings",
+          "needs": "where your Procreate exports are saved"
+        },
         "note": "Named after Procreate. Takes the panda, so the v5.2 passport pet is now Passport Pelican."
       },
       {
@@ -4361,6 +4526,11 @@
         "program": "OSC Sonar",
         "repo": null,
         "job": "Monitors OSC packets and finds problems when several apps share channels to VRChat, OSCGoesBrrr and VRCFaceTracking.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "the OSC channels VRChat, OSCGoesBrrr and VRCFaceTracking share: clashes and channels gone quiet",
+          "needs": "VRChat running so I can listen"
+        },
         "note": "Astra, 2026-10-12: the seed recorded as PSC Sealion is OSC Sealion.",
         "works_with": [
           {
@@ -4374,6 +4544,11 @@
         "pet": "Piranesi Nessi",
         "repo": null,
         "job": "Manages Piranesi House.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "Piranesi House: its Unity project, its preview website and the Unity Unicorn tools it uses",
+          "needs": "the world open in Unity so I can check it"
+        },
         "for": "piranesi-house",
         "program": "Nessi's Ocean",
         "note": "Confirmed by Astra on 2026-10-12: Piranesi Nessi manages Piranesi House, her Piranesi-inspired VRChat world (repo findastra/piranesi-house). Program named Nessi's Ocean by Astra on 2026-10-16.",
@@ -4390,6 +4565,11 @@
         "program": "Photo Roost",
         "repo": null,
         "job": "Keeps track of all your saved pictures: where each one is, what it shows, and whether it is backed up.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "your saved pictures: where each one is and whether it is backed up",
+          "needs": "the folders your pictures are saved in"
+        },
         "note": "Named by Astra on 2026-10-12.",
         "works_with": [
           {
@@ -4409,6 +4589,11 @@
         "program": "Video Vault",
         "repo": null,
         "job": "Keeps track of all your saved videos, the same way Photo Dodo does for pictures: where each one is, what it shows, and whether it is backed up.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "your saved videos: where each one is and whether it is backed up",
+          "needs": "the folders your videos are saved in"
+        },
         "note": "Named by Astra on 2026-10-12.",
         "works_with": [
           {
@@ -4428,6 +4613,11 @@
         "program": "The Cat's Closet",
         "repo": null,
         "job": "Organizes your closet (what you own and what goes together) and keeps your favourite places to shop.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "your closet list and your favourite shops' links",
+          "needs": "the clothes you got since the last check"
+        },
         "note": "Named by Astra on 2026-10-12."
       },
       {
@@ -4435,6 +4625,11 @@
         "program": "The Triage Desk",
         "repo": null,
         "job": "Triages the vet-clinic: labels tickets, checks them for leaked secrets, and tests offered cures in isolation. Never merges anything.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "the vet-clinic tickets: tickets with no label, leaked secrets and cures not tested yet",
+          "needs": "your OK before a cure is tested"
+        },
         "note": "Approved by Astra on 2026-10-14 as a new pet; named Triage Tapir by Astra on 2026-10-18 (Flash Audit A06); its pet program is The Triage Desk (2026-10-18)."
       },
       {
@@ -4442,6 +4637,11 @@
         "program": "The Recovery Room",
         "repo": null,
         "job": "Runs The Recovery Room: after a shutdown, rebuilds the farm from the verified release, restores clean backups from before the incident, and restarts everything in the safe order, isolated and with no farmhand in its seat.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "whether the farm could be rebuilt today: a verified release, clean backups and the safe start order",
+          "needs": "a backup only you can make"
+        },
         "note": "Approved by Astra on 2026-10-14. Pet program: The Recovery Room (repo findastra/the-recovery-room)."
       },
       {
@@ -4449,28 +4649,16 @@
         "program": "Threat Observatory",
         "repo": null,
         "job": "Researches emerging cyber threats, CVEs, adversary tactics and public advisories, including lawful Tor-based intelligence sources when separately authorized. Shares defensive findings with File Master and security pets; distinct from Cipher Owl and Skill Scout.",
+        "audit": {
+          "cadence": "weekly",
+          "subject": "new security advisories and CVEs for the programs on the farm",
+          "needs": "your OK for a new source"
+        },
         "note": "Selected in the October 14 phone handoff supplied by Astra. Replaces Scout Fox / Intel Ibis; planned seed only, no repo or runtime yet.",
         "works_with": [
           {
             "pet": "file-master",
             "why": "Shares defensive findings; File Master retains file management ownership."
-          }
-        ]
-      },
-      {
-        "pet": "Flowsheet Flamingo",
-        "program": "The Pilot Plant",
-        "repo": null,
-        "job": "Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview. Home and learning only, never work files.",
-        "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\").",
-        "works_with": [
-          {
-            "pet": "learn-python",
-            "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06)."
-          },
-          {
-            "pet": "ai-doghouse",
-            "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06)."
           }
         ]
       }
@@ -4480,7 +4668,8 @@
       "spoonfed (Spoonfed Sugarcube)",
       "lunas-log (Skill Scout)",
       "the-police-station (Pet Police Officer)",
-      "the-threshold (Door Dormouse)"
+      "the-threshold (Door Dormouse)",
+      "the-pilot-plant (Flowsheet Flamingo)"
     ],
     "renames": [
       {
@@ -4517,6 +4706,21 @@
       "name": "Fuzzbois",
       "repo": "fuzzbois",
       "why": "Local art project, not published."
+    }
+  ],
+  "retired_pets": [
+    {
+      "repo": "port-web",
+      "pet": "Port Spider",
+      "program": "Port Web",
+      "number": 68,
+      "retired": "2026-11-17",
+      "how": "folded",
+      "into": "white-hat-lab",
+      "tool": "port-check-tool",
+      "art": "port-spider",
+      "repo_state": "archived",
+      "why": "Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\". Its port checks are White Hat Lab's port-check-tool; its reports moved to findastra/white-hat-lab (scans/); findastra/port-web was archived the same day (Astra: \"Archive it\"). Its number stays unused (skills/retire-a-pet)."
     }
   ]
 }

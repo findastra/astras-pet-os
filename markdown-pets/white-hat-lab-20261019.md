@@ -29,7 +29,8 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- None recorded yet.
+- **port-check-tool**: A tool of White Hat Lab (Astra, 2026-11-17: "lets squish port spider and make it a tool of the weasel"; it was Port Spider's job, pet program 68, from 2026-11-12). Which devices are on the home network, which ports answer on each, what the router forwards from the internet, and what to do. Read only, and only with Astra's OK before every check. The reports stay private (findastra/white-hat-lab scans/); on her PC the tool box shows the newest assessment from the white-hat-lab folder of Astra's PetOS Data, and the public page shows only that the reports are private.
+- **port-watch-tool**: A tool of White Hat Lab (Astra, 2026-11-19: "The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some ... I want to be able to click on a port, labeled, and I can read info about the latest traffic"; her answers "All recommended"). Every 10 minutes, started by Startup Star at sign-in, it looks at every port open on this PC with Get-NetTCPConnection (no administrator, no port of its own): which program owns it, who can reach it, who is connected and from where (this PC, the home network, Tailscale or the internet) and the last peers seen. Once a day it asks about chat preview servers left open more than two hours: its mood turns curious and its menu in Startup Star names them. Only our own servers (PetOS helpers and chat previews) can be closed, and only by Astra's click in that menu. The list stays on her PC (white-hat-lab folder of Astra's PetOS Data); the public page says only that it is private.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
@@ -39,10 +40,13 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
+- **Forensic Ferret** (Evidence Locker) (planned, not built yet): A real finding in a scan (not a "worth a look") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02.
+- **Wifi Butterfly** (Signal Garden) (planned, not built yet): Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: "shouldnt this pet be talking to WiFi Butterfly?"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17).
+- **Packet Piranha** (Packet River) (an idea, not agreed yet): Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports.
 - **Gatekeeper Goddess** (Iron Gates) (architecture): Security work stays in authorized scope.
 
 ## Picture
 
-![White Hat Weasel](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/drafts/white-hat-weasel-orange-20261112/normalized/white-hat-weasel-sprite.png)
+![White Hat Weasel](https://raw.githubusercontent.com/findastra/astras-pet-os/main/art/latest/moods/white-hat-weasel/idle.png)
 
 *Made from Astra's PetOS registry by the Friendly Farmer's the-farm-v1.0-markdown-pets-v1.0. Do not edit it: run `npm run build`.*

@@ -1328,7 +1328,8 @@ export function renderMarkdown(report) {
   }
   return out.join('\n') + '\n';
 }
-const md = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
+// Escape backslashes too: otherwise a "\|" in a label would still end the table cell.
+const md = (s) => String(s ?? '').replace(/[\\|]/g, '\\$&').replace(/\n/g, ' ');
 
 export function renderHtml(report) {
   const s = summarize(report);

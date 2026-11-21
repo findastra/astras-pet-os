@@ -56,7 +56,10 @@ export const CYBERHOMES = {
     frame: '<span class="ch-antenna" aria-hidden="true"></span>',
     decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
 };
-export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// Pet programs whose native tools come first in L1, above their programs. White Hat Lab (Astra, 2026-11-17: "need to
+// see an assessment. port assessment must be first"): its port-check-tool is the assessment.
+export const TOOLS_FIRST = new Set(['white-hat-lab']);
+export const PRESENCE_JS ='../discord-damsel-presence-control-20261030.js';
 // The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
 export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
@@ -79,6 +82,11 @@ export const LIVE_CHECK = '<script src="../live-site-20261102.js"></script>';
 export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
+// The faces every picture of a pet carries, idle first and shown (Astra, 2026-11-14: "I want all of the pets everywhere
+// to have the same status"): the page's own idle, awake and sad, and every mood The Farm's pet-moods shows on every pet
+// everywhere (scripts/pet-moods-20261114.mjs, SHOWN; a test keeps the two lists together). The page script shows the
+// one the board says, on the pet at the top and on each friend; sleepy is calm, so no picture needs it.
+export const PAGE_FACES = ['idle', 'blink', 'sad', 'happy', 'curious', 'worried', 'sick', 'alarmed'];
 // The emotions tool panel in the sketch's own layout: sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad.
 const EMOTIONS = [
   ['sleep', 'sleepy', ['running in the background']],
@@ -181,8 +189,11 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
   // The pet as it looks on the desktop comes first (Astra, 2026-10-20, crossing out the older drawing of Drum Dog on
   // his page while his desktop pet sat beside it): its drawing in desktop-art/<art>/, the newest file of each mood, so
   // the page and the desktop pet are one pet. A drawing the draft list marks private (Claude Bot's) is never used.
+  // Its folder is named for its art, its desktop draft, its repo or (since 2026-11-14, when every pet got GPT-6-Astra's
+  // nine faces in desktop-art/: Astra, "Yes, all of them") its pet's name.
   const privateArt = new Set((drafts?.pets || []).filter((d) => d.private).map((d) => d.id));
-  for (const folder of [reg.art, reg.repo].filter((x) => x && !privateArt.has(x))) {
+  const draftOf = (drafts?.pets || []).find((d) => !d.private && (d.repo === reg.repo || d.id === reg.repo || d.name === reg.pet));
+  for (const folder of [...new Set([reg.art, draftOf?.id, reg.repo, reg.pet && slug(reg.pet)])].filter((x) => x && !privateArt.has(x))) {
     const frames = newest(`desktop-art/${folder}`);
     // The same drawing with its mood sticker stamped on, when the build has made it (build-mood-stickers-20261024.mjs;
     // Astra, 2026-10-24: the nine mood symbols "stay the same across all pets").
@@ -322,8 +333,10 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
     const r = regs.find((x) => x.repo === id);
     const home = o.home?.assigned ? o.home.name : (o.home ? `pet-program-${o.home.number}` : null);
     const who = r || { repo: id, pet: o.name }, its = petFrames(who, { frameIndex, drafts, exists, list });
+    // Its faces (PAGE_FACES), all lined up in one cut like the pet at the top, so a sticker is never cut off.
+    const frames = Object.fromEntries(PAGE_FACES.filter((m) => its.frames[m]).map((m) => [m, its.frames[m]]));
     return { id, pet: o.name, home, state, why, links,
-      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, fit: fitOf(who, its, { drafts, measure }, [its.frames.idle]) };
+      page: r ? `${id}-${DATE}.html` : null, idle: its.frames.idle || null, frames, fit: fitOf(who, its, { drafts, measure }, Object.values(frames)) };
   }).sort((a, b) => order(a.id) - order(b.id) || (rank[a.state] ?? 9) - (rank[b.state] ?? 9) || b.links - a.links || a.pet.localeCompare(b.pet));
   // A line every friend shares says nothing about each one (Astra, 2026-11-08, on the Farmer's page: "a lot of these pets
   // and their descriptions are wrong"): the Friendly Farmer's links to every pet, every roadmap pet and every seed each
@@ -540,7 +553,7 @@ function itemList(items, prefix, empty) {
     const inPanel = i.embed && !i.inPill;
     const href = inPanel ? `#${i.id}-tool-panel` : i.url;
     const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
-    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
+    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
     const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${tool}${open}`;
@@ -590,7 +603,12 @@ const img = (path, alt, cls = '', fit = null) => (path ? `<img${cls || fit ? ` c
 
 // The faces the page script switches between (idle first and shown; the others hidden until the script shows them).
 const faces = (f, pet, moods, cls, fit = null) => moods.filter((m) => f[m]).map((m, i) =>
-  `<img class="${cls}${fit ? ' fit' : ''}"${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+  `<img${cls || fit ? ` class="${[cls, fit ? 'fit' : ''].filter(Boolean).join(' ')}"` : ''}${fit ? ` style="${fit}"` : ''} data-face="${m}" src="${esc(up(f[m]))}" alt="${esc(`${pet}, ${m === 'blink' ? 'blinking' : m}`)}" width="256" height="256"${i ? ' hidden' : ''}>`).join('');
+// Another pet's picture (a friend, a pet it talks to): every face in PAGE_FACES it has, so it shows the same mood as on
+// the desktop; just its idle picture (or "no picture yet") when it has no faces.
+const friendFaces = (r, cls = '', fit = null) => (r?.frames?.idle ? faces(r.frames, r.pet, PAGE_FACES, cls, fit) : img(r?.idle || null, `${r?.pet || 'a pet'}, idle`, cls, fit));
+// Which pet a picture is, for the page script to look up on the board (its repo).
+const petAttr = (id) => (id ? ` data-mood-of="${esc(id)}"` : '');
 
 // ---------- The R W X panel (Astra, 2026-10-19, option C) ----------
 // "I think we need a W R X what it should be, then some kind of easy indicator of whether that is reflected in the
@@ -647,8 +665,8 @@ ${about({
 function connection(c, d) {
   const said = (word, list) => list.length ? list.map((f) => `<p><b>${word}</b> ${esc(f.carries)}${tag(f.state)}${f.why ? `: ${esc(f.why)}` : ''}</p>`).join('') : '';
   const pic = d.related.find((r) => r.id === c.id);
-  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${img(pic?.idle || null, `${c.name}, idle`)}`;
-  return `<li class="mood related-pet talk">${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
+  const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(c.name))}</legend>${said('I get', c.sends)}${said('I send', c.receives)}<p class="small">${c.program ? `${esc(c.program)} · ` : ''}scope L4 granted: none recorded yet · last exchange: not recorded yet</p></fieldset>${friendFaces(pic ? { ...pic, pet: c.name } : { pet: c.name })}`;
+  return `<li class="mood related-pet talk"${petAttr(c.id)}>${pic?.page ? `<a href="${esc(pic.page)}" title="Open ${esc(c.program || c.name)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
 }
 
 // ---------- A pet's own panels, beyond the sketch's minimum ----------
@@ -719,7 +737,8 @@ export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label)
 // GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
 // build it", card 364): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
 // five tools above it is filled only on Astra's PC (scripts/branch-sweeper-20261114.mjs writes the list there); the
-// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log.
+// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log. Since 2026-11-17 the keep
+// group starts with the branches on her keep list, each with her reason (the script reads that list, not the page).
 export const SWEEPER_TOOL_ID = 'branch-sweeper';
 export const SWEEPER_GROUPS = [
   ['delete', 'Safe to delete', 'No branch is ready to delete.'],
@@ -735,7 +754,7 @@ function branchSweeperBox() {
   const groups = SWEEPER_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group sweep-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-sweep-count="${id}"></p><ul class="requests" data-sweep-group="${id}"></ul><p class="empty" data-sweep-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return toolBox(SWEEPER_TOOL_ID, SWEEPER_TOOL_ID, `<p class="small" id="branch-sweeper-source" aria-live="polite">Looking for the Goldfish's branch list on this PC.</p>
 <div class="request-groups" id="branch-sweeper">${groups}</div>
-${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. The list names private repos, so it stays on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
+${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> first the branches on your keep list, each with your reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. A branch you decided to keep goes on the keep list (<code>branch-sweeper-keep-20261117.json</code>, next to the plans on this PC): it is never offered for deleting again, even after its repo is renamed, and <code>--apply</code> refuses it even in an older plan and does not run without the list. The lists name private repos, so they stay on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
 }
 function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
@@ -776,13 +795,13 @@ ${about(`The VRChat setups (<code>${esc(VRCHAT_LAUNCH_TOOL)}</code>) show what e
 }
 
 function presenceBody(d) {
-  const card = (key, name) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${name} Discord Presence</legend>
+  const card = (key, name, title = `${name} Discord Presence`) => `<fieldset class="tool-box" data-presence-card="${key}"><legend>${title}</legend>
 <p data-presence-status role="status">Not checked. Open Discord Damsel on this PC to connect.</p>
 <p><button type="button" class="button" data-presence-start="${key}" disabled>Start &amp; open ${name}</button>
 <a class="button" data-presence-controls="${key}" aria-disabled="true" target="_blank" rel="noopener">Open ${name} controls</a>
 <button type="button" class="button" data-presence-stop="${key}" disabled>Stop sharing</button></p></fieldset>`;
   return `<div id="discord-damsel-presence-control">
-${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}${card('ableton', 'Ableton Live')}
+${card('openai', 'OpenAI')}${card('anthropic', 'Anthropic')}${card('ableton', 'Ableton Live')}${card('anthropic-ipo', 'Anthropic IPO', 'Anthropic IPO Countdown')}${card('openai-ipo', 'OpenAI IPO', 'OpenAI IPO Countdown')}
 <p class="small" id="presence-control-note" role="status">Start and open works on this PC after you double-click Discord Damsel. The control links open apps that are already running.</p>
 ${about('The live status distinguishes an app running, sharing off, waiting for activity, and a card published to Discord. The green presence lights mean a card is published and Discord is connected. Your reported maintenance flag stays yours to clear. Closing a control tab does not stop a presence app.')}</div>`;
 }
@@ -889,8 +908,8 @@ export const MAP_RELATED = 3;
 function mapRelated(d) {
   if (!d.related.length) return '';
   const link = (r) => {
-    const inner = `${img(r.idle, `${r.pet}, idle`, 'mini')}<span>${esc(r.pet)}</span>`;
-    return `<li>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
+    const inner = `${friendFaces(r, 'mini')}<span>${esc(r.pet)}</span>`;
+    return `<li${petAttr(r.id)}>${r.page ? `<a href="${esc(r.page)}" title="${esc(r.home || r.pet)}">${inner}</a>` : `<span class="map-related-static">${inner}</span>`}</li>`;
   };
   const more = d.related.length > MAP_RELATED ? `plays with all ${d.related.length}` : 'plays with';
   return `
@@ -968,7 +987,7 @@ ${about({
   const drawn = CYBERHOMES[d.repo];
   const cyberhome = panel(`${d.petSlug}-cyberhome-panel`, `<div class="habitat${drawn ? ` drawn-home ${drawn.kind}-home` : ''}" title="${esc(d.pet)} moves in when this page opens. Coming straight from the desktop needs Startup Star's link, which is not built yet.">
 <span class="render-label">${lights(`tool:${render}`, render, { planned: !drawn })}<span class="render-name">${esc(render)}</span></span>
-<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting">${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, ['idle', 'blink', 'sad'], 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div>${drawn ? drawn.frame : ''}</div>`, { cls: 'cyberhome', fold: false });
+<div class="den${drawn ? ` ${drawn.kind}` : ''}" data-arrival="waiting"${petAttr(d.repo)}>${drawn ? drawn.decor : ''}${f.idle ? faces(f, d.pet, PAGE_FACES, 'pet', d.petFit) : img(null, idleAlt, 'pet')}</div>${drawn ? drawn.frame : ''}</div>`, { cls: 'cyberhome', fold: false });
   // No More details arrow in the cyberhome, the quick summary or the System Map box, and no fold arrow on their labels
   // (Astra, 2026-11-06: "get rid of the dropdown arrows in the cyberhome and the system map panels", "and get rid of it
   // in the summary panel too"). Every other panel keeps its More details.
@@ -1010,11 +1029,12 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
   const boxes = petBoxes(d);
-  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
-<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
+  const programSections = `<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}`;
+  const nativeTools = d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count);
+  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
+${TOOLS_FIRST.has(d.repo) ? `${nativeTools}\n${programSections}` : `${programSections}\n${nativeTools}`}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about({
     how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
@@ -1026,7 +1046,9 @@ ${about({
   // No Schedule list (Astra, 2026-10-22, crossing it out: "anything to do w/ schedule is under 'tricks' ... could put a
   // cadence indicator"): the self-audit is a trick pill with how often it runs, and every trick shows its own cadence.
   const selfAudit = d.audit.cadence ? [{ id: 'self-audit', name: 'self-audit', state: 'now', cadence: d.audit.cadence,
-    desc: `The Friendly Farmer's round checks ${d.home}${d.audit.subject ? `: ${d.audit.subject}` : ''}.`, why: '' }] : [];
+    // Say what the pet audits and, apart from it, what the round really checks today, so a planned check never reads as
+    // a built one (Claude Opus 5.5, 2026-11-16, weekly audits for every pet).
+    desc: `${d.pet}'s audit: ${d.audit.subject || 'its repo'}. Today the Friendly Farmer's round checks only ${d.home}'s repo files and the cards that wait on you.`, why: '' }] : [];
   // Every pet has two tutorials, Play with and Care for (Flash Audit A37, A47): numbered steps the AI in the seat follows
   // with you, which is what a trick is, so they are two tricks here, off until L3 can run them in the chat (Astra,
   // 2026-11-03, Flash Audit deck, answer 4: A).
@@ -1149,10 +1171,10 @@ ${about({
     return `<figure class="mood" data-mood="${esc(mood)}"><fieldset class="mood-bubble"><legend>${esc(name)}</legend><ul>${bullets.map((b) => `<li>${esc(b)}</li>`).join('')}</ul><q>${esc(d.lines[mood] || '')}</q></fieldset>${d.backdrop ? `<span class="pet-backdrop">${picture}</span>` : picture}</figure>`;
   }).join('')}</div>
 ${about({
-    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up; the page knows idle, awake and sad so far. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
-    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json.`,
-    rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles'),
-    notYet: `The other six moods set by the rounds and the Police Station. An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
+    how: `The nine moods, three to a row. The mood ${esc(d.pet)} is in now lights up, and the pet at the top shows it. When ${esc(d.pet)} has something to tell you (alarmed, sick, curious, worried, happy, sad), it shows that mood here, on the desktop and on every page it is a friend on (the Stream Deck next); otherwise this page is idle, awake while you use it, or sad after two weeks away. Each picture carries its mood’s sticker, the same on every pet, and awake always shows its own drawing.`,
+    from: `The hub’s pictures of ${esc(d.pet)} (art/moods, or its desktop drawings), with the shared stickers stamped on by the build; the lines from the mood key in pets.json. The mood itself: The Farm’s pet-moods, on this PC (its program’s own mood, a key request waiting on you, the Farmer’s round from the past week).`,
+    rules: yourRules(7, '2026-10-18: these meanings only, most urgent first; 2026-10-24: nine stickers, the same on every pet, and nothing moves; 2026-11-03: awake shows its own drawing with the twinkles; 2026-11-14: the same mood everywhere'),
+    notYet: `Moods from the Police Station; the live site shows no shared mood (it is on this PC only). An awake drawing with open eyes for every real pet waits for your OK on new art. Drawings are drafts unless you approved them.`,
   })}`, { cls: 'emotions' });
 
   // Astra, 2026-10-18: one and two clicks are the same for every pet; from three clicks on, each can run a tool. The
@@ -1180,8 +1202,8 @@ ${about({
   // (Astra, 2026-10-22: "all of these should look similar to the emotional state bubbles", drawing "rift-rabbit / I
   // manage ..."). The whole bubble opens that pet's program.
   const relatedCard = (r) => {
-    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${img(r.idle, `${r.pet}, idle`, '', r.fit)}`;
-    return `<li class="mood related-pet">${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
+    const inner = `<fieldset class="mood-bubble said"><legend>${esc(slug(r.pet))}</legend><p>I manage ${esc(r.home || 'a pet program not named yet')}.${tag(r.state)}</p>${r.why ? `<q>${esc(r.why)}</q>` : ''}</fieldset>${friendFaces(r, '', r.fit)}`;
+    return `<li class="mood related-pet"${petAttr(r.id)}>${r.page ? `<a href="${esc(r.page)}" title="Open ${esc(r.home || r.pet)}">${inner}</a>` : `<span class="related-static">${inner}</span>`}</li>`;
   };
   const related = panel(`${d.petSlug}-friends-list-panel`, `${d.related.length
     ? `<ul class="moods related">${d.related.map(relatedCard).join('')}</ul>`
@@ -1349,12 +1371,12 @@ const MODEL_FACES = {
 // across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
 // it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
 const stickerAt = (mood) => {
-  const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
-  return { art, px, sw, sh, ox: Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy: Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55))) };
+  return {sw:59,sh:59,ox:193,oy:4};
 };
 const stickerSvg = (mood) => {
-  const { art, px, ox, oy } = stickerAt(mood);
-  return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
+  const {sw,sh,ox,oy}=stickerAt(mood);
+  const data=readFileSync(new URL(`../art/mood-symbols/${mood}-20261120.png`,import.meta.url)).toString('base64');
+  return `<image x="${ox}" y="${oy}" width="${sw}" height="${sh}" href="data:image/png;base64,${data}"/>`;
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
   + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}.shine{fill:#f4f8ff}</style>`
@@ -1420,8 +1442,8 @@ export function modelProgramData(src) {
     tricks: [{ ...item('trick-one', 'trick-one', 'A way the pet\'s AI uses its programs and tools: written steps it follows, every week.', { cadence: 'weekly' }), label: 'pet-program-name-v1.0-trick-one-trick-v1.0' },
       { ...item('trick-two', 'trick-two', 'A trick that is planned, not written yet.', { state: 'planned' }), label: 'pet-program-name-v1.0-trick-two-trick-v1.0' }],
     connections: [{ id: 'model-pet-two', name: 'Pet Two', program: 'Pet Program Two', number: 0, sends: [{ carries: 'findings', state: 'now', why: 'What Pet Name sends Pet Two, working today.' }], receives: [{ carries: 'status', state: 'planned', why: 'What comes back, planned.' }] }],
-    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) },
-      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, fit: modelFit(['idle']) }],
+    related: [{ id: 'model-pet-two', pet: 'Pet Two', home: 'Pet Program Two', state: 'now', why: 'Why they play together: a link that works today.', links: 2, page: 'pet-program-spawner-20261018.html', idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-two-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) },
+      { id: 'model-pet-three', pet: 'Pet Three', home: null, state: 'planned', why: 'A pet whose program is not named yet: planned.', links: 1, page: null, idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg`, frames: { idle: `${MODEL_PROGRAM.art}/pet-three-idle-${MODEL_PROGRAM.date}.svg` }, fit: modelFit(['idle']) }],
     plays_with: [],
     access: { statuses: map.access.statuses, values: map.access.values,
       on: [grant('owner', 'Astra (you, L4)', ['L4'], ['yes', 'yes', 'yes'], 'enforced', false, 'Example: the verified human may do everything; in code.', { evidence: proof }),

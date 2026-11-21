@@ -100,7 +100,7 @@ test('the helper takes a run only from a page this PC serves, one run at a time,
 test('Startup Star starts the Flash Audit helper at sign-in, on its own port', () => {
   const cs = readFileSync(`${root}/scripts/desktop-pets-20261011.cs`, 'utf8');
   assert.match(cs, /list\.Add\(new Entry\{Repo="flash-audit",Pet="Flash Audit",Exe=node,Marker="flash-audit-helper",Needs=Path\.Combine\(PetFiles\.Root,"scripts","flash-audit-helper-20261108\.mjs"\)\}\);/);
-  assert.match(cs, /AlsoAtSignIn=\{[^}]*"flash-audit"\}/);
+  assert.match(cs, /AlsoAtSignIn=\{[^}]*"flash-audit"[,}]/);
   assert.equal(HELPER, 'scripts/flash-audit-helper-20261108.mjs');
   assert.equal(HELPER_PORT, 38778);
   const js = readFileSync(`${root}/apps/flash-audit-control-20261108.js`, 'utf8');

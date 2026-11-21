@@ -8,7 +8,13 @@ import { decodePng, MOODS } from './sheet-to-sprites.mjs';
 import { png } from './art-kit.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const args = process.argv.slice(2);
+// --date YYYYMMDD cuts sheet-<date>.png into <mood>-<date>.png (default 20261011, the first desktop drawings). The
+// nine-mood sheets GPT-6-Astra drew from each pet's newest drawing are dated 20261114 (Astra, 2026-11-14).
+let args = process.argv.slice(2);
+const dateAt = args.indexOf('--date');
+const DATE = dateAt >= 0 ? args[dateAt + 1] : '20261011';
+if (!/^\d{8}$/.test(DATE)) throw new Error('--date takes YYYYMMDD.');
+if (dateAt >= 0) args = args.filter((_, i) => i !== dateAt && i !== dateAt + 1);
 const external = args[0] === '--directory' ? args[1] : null;
 const ids = external ? [basename(resolve(external))] : args;
 if (!ids.length) throw new Error('Pass one or more desktop-art pet directory names.');
@@ -46,7 +52,7 @@ function gutterCuts(src, axis) {
 for (const id of ids) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) throw new Error('Invalid pet id.');
   const dir = external ? resolve(external) : resolve(root, 'desktop-art', id);
-  const src = decodePng(readFileSync(resolve(dir, 'sheet-20261011.png')));
+  const src = decodePng(readFileSync(resolve(dir, `sheet-${DATE}.png`)));
   const xs = gutterCuts(src, 'x'), ys = gutterCuts(src, 'y');
   const cells = MOODS.map((mood, i) => {
     const x0 = xs[i % 3], y0 = ys[Math.floor(i / 3)];
@@ -68,9 +74,12 @@ for (const id of ids) {
       const sy = Math.floor(cy + (y + 0.5 - 128) * side / 256);
       if (sx < c.x0 || sx >= c.x1 || sy < c.y0 || sy >= c.y1) continue;
       const from = (sy * src.width + sx) * 4, to = (y * 256 + x) * 4;
+      // Alpha under 16 is invisible haze from the image tool's transparent background (GPT-6-Astra's sheets of
+      // 2026-11-14 carry about 3,400 such pixels per frame): it stays fully transparent.
+      if (src.rgba[from + 3] < 16) continue;
       src.rgba.copy(out, to, from, from + 4);
     }
-    writeFileSync(resolve(dir, `${c.mood}-20261011.png`), png(256, 256, out));
+    writeFileSync(resolve(dir, `${c.mood}-${DATE}.png`), png(256, 256, out));
   }
   console.log(`${id}: 9 transparent 256px frames, shared scale, original alpha preserved.`);
 }

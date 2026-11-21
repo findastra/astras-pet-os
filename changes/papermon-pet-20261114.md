@@ -69,3 +69,18 @@ Branch `claude/papermon-pet-20261114`. Claude Opus 5.5 (`claude-opus-5-5`), 2026
   "Papermon", a sixth failed (the developer-mode swap test, above). `npm run check`: "Pets OK: 23 pet apps, 23
   characters drawn at 256px."
 - Looked at: the sheet, `art/roster.png` and his nine mood frames on light and dark backgrounds.
+
+## Merged with main, 2026-11-20
+
+- Main's #370 had given Paper Patty nine faces by GPT-6-Astra under the same names as the bat pup
+  (`desktop-art/paper-girl/<mood>-20261114.png`). The bat pup keeps those names, since Astra chose the bat pup (deck Q8).
+  Paper Patty's nine faces, with their sheet, prompt and source note, moved unchanged to
+  `art/drafts/paper-patty-nine-faces-20261114/`, so they are kept and credited but no longer the newest drawing.
+- Main's built files (pages, frames, moods, `art/latest/`, roster, map) were taken from main, then `npm run build` made
+  them again from this branch's sources.
+- The Weasel's port watch (`scripts/port-watch-20261119.mjs`, new on main) now names Papermon Pet as the Papermon
+  server's pet.
+- `npm test` in this worktree: 504 tests, 498 pass, 0 fail, 6 skipped. `npm run check`: "Pets OK: 24 pet apps, 0
+  mascot(s), 24 characters drawn at 256px."
+
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.

@@ -8,6 +8,7 @@ import { frameDirectory } from '../scripts/build-frames.mjs';
 import { counts, order } from '../scripts/roster.mjs';
 import { decodePng, sheetToSprite, MOODS } from '../scripts/sheet-to-sprites.mjs';
 import { STICKERS, png } from '../scripts/art-kit.mjs';
+import { stampMoodSymbol } from '../scripts/mood-symbols-20261120.mjs';
 import { PETS as PROMPTS } from '../scripts/generate-pets.mjs';
 import { originalChipPixels, chipLayout, CHIP_COLOURS } from '../scripts/chip-original-20261008.mjs';
 
@@ -111,11 +112,13 @@ test('nothing in any frame touches the edge of the canvas', () => {
 
 // Astra's rule: the mood symbols are the same on every pet, so they come from one set.
 test('the shared indicators are stamped on every pet: ? when curious, ! when alarmed, Z asleep', () => {
-  const badge = { curious: STICKERS.ask.pal['#'], alarmed: STICKERS.bang.pal['#'], sleep: STICKERS.zzz.pal['#'] };
   for (const id of Object.keys(art.pets)) {
-    const idle = frame(id, 'idle');
-    for (const [mood, colour] of Object.entries(badge)) {
-      assert.ok(countColour(frame(id, mood), colour) > countColour(idle, colour), `${id}/${mood} is missing its ${mood} badge`);
+    for (const mood of MOODS) {
+      const actual=frame(id,mood);
+      const expected=stampMoodSymbol(Buffer.alloc(actual.width*actual.height*4),actual.width,actual.height,mood);
+      let samples=0;
+      for(let i=0;i<expected.length;i+=4)if(expected[i+3]>=250){samples++;for(let c=0;c<3;c++)assert.ok(Math.abs(actual.rgba[i+c]-expected[i+c])<=5,`${id}/${mood} shared symbol at ${i/4}`);}
+      assert.ok(samples>10,`${mood} has a visible symbol`);
     }
   }
 });

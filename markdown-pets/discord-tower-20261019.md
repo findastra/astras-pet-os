@@ -4,7 +4,7 @@
 
 ## What it does
 
-Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls, with a manual setup checklist.
+Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls and the Anthropic and OpenAI IPO countdowns, with a manual setup checklist.
 
 Its job in the registry: Puts Astra's live AI work on her Discord profile: the OpenAI and Anthropic Discord Presence tools show the model in use and every active project, taking turns every 6 seconds.
 
@@ -44,7 +44,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
 - **Mommy's Mommies** (Mommy’s HQ) (planned, not built yet): Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps.
-- **Role Fairy** (Fairy Ring) (planned, not built yet): Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are.
+- **Role Fairy** (The Fairy Court) (planned, not built yet): Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are.
 - **Claude Bot** (Claude Dock) (an idea, not agreed yet): Claude Bot's status feeds the Anthropic presence card.
 - **Calendar Crow** (Crow's Nest) (suggested): Mommy's events could reach Discord through Discord Damsel when Calendar Crow schedules them.
 

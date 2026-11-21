@@ -395,13 +395,60 @@
   var mood = opened && Date.now() - Date.parse(opened) > 14 * 864e5 && has(den, 'sad') ? 'sad' : 'idle';
   write('opened', new Date().toISOString());
   var quiet, blinker;
+  // ---- The same mood everywhere (Astra, 2026-11-14: "I want all of the pets everywhere to have the same status. Like
+  // if they're questioning or if they're alert"). The Farm's pet-moods (scripts/pet-moods-20261114.mjs) works out every
+  // pet's mood on this PC and writes it to one file; the desktop pets read the same file (the Stream Deck next). When it
+  // says a pet has something to tell Astra (`show`: alarmed, sick, curious, worried, happy or sad), that mood wins here
+  // too: on the pet at the top, in the emotions panel, and on every picture of that pet on this page (its friends at the
+  // bottom, the System Map box, the pets it talks to). Otherwise the page keeps its own idle, awake and sad. The file is
+  // read every five seconds on a page opened on this PC; a board older than its stale_after_ms means pet-moods stopped,
+  // and nothing is shared. Only mood names come out of it (and the pet's line, shown with textContent). ----
+  var LOCAL_MOODS = "../../../../Astra's PetOS Data/astras-pet-os/pet-moods/pet-moods-page-data-20261114.js";
+  var MOOD_WORD = /^[a-z]{3,8}$/;
+  var shared = {}, sharedSays = {};
+  var boardPets = document.querySelectorAll('[data-mood-of]');
+  function sharedMood(box) { var m = box && shared[box.dataset.moodOf]; return m && has(box, m) ? m : null; }
   function show(next) {
     mood = next;
-    face(den, mood === 'sad' ? 'sad' : mood === 'awake' && has(den, 'blink') ? 'blink' : 'idle');
-    lightUp(mood === 'awake' ? 'blink' : mood);
+    var s = sharedMood(den);
+    face(den, s || (mood === 'sad' ? 'sad' : mood === 'awake' && has(den, 'blink') ? 'blink' : 'idle'));
+    lightUp(s || (mood === 'awake' ? 'blink' : mood));
     // No blinking: the pet stays still (Astra, 2026-10-24: "make the animation of the rabbit moving go away on the pet
     // program, just want to see it static").
     clearInterval(blinker);
+  }
+  function paintShared() {
+    for (var i = 0; i < boardPets.length; i++) {
+      var box = boardPets[i];
+      if (box === den) continue;
+      face(box, sharedMood(box) || 'idle');
+    }
+    show(mood);
+  }
+  function readMoods(b) {
+    var next = {}, says = {};
+    if (b && b.schema === 'astras-pet-os-pet-moods-v1' && b.pets && typeof b.pets === 'object' &&
+        Date.now() - Date.parse(b.updated) < (+b.stale_after_ms || 120000)) {
+      Object.keys(b.pets).forEach(function (repo) {
+        var p = b.pets[repo];
+        if (!p || typeof p.show !== 'string' || !MOOD_WORD.test(p.show)) return;
+        next[repo] = p.show;
+        if (typeof p.says === 'string') says[repo] = p.says.slice(0, 300);
+      });
+    }
+    shared = next; sharedSays = says;
+    paintShared();
+  }
+  function loadMoods() {
+    var script = document.createElement('script');
+    script.setAttribute('src', LOCAL_MOODS + '?t=' + Date.now());
+    script.onload = function () { script.remove(); readMoods(window.astrasPetMoods); };
+    script.onerror = function () { script.remove(); readMoods(null); };
+    document.head.appendChild(script);
+  }
+  if (watchHere && boardPets.length) {
+    loadMoods();
+    setInterval(function () { if (!document.hidden) loadMoods(); }, 5000);
   }
   function used() {
     if (mood !== 'awake') show('awake');
@@ -412,8 +459,10 @@
   show(mood);
   // One click: the current reminder, in the same small bubble the lights use, under the pet. In developer mode, what
   // the agent does, then the reminder (Astra, 2026-10-19: "you could click it and see what it does").
+  // While it shares a mood, the click says why, in its own words (from pet-moods).
   if (den && (dev || has(den, 'idle'))) den.addEventListener('click', function () {
-    sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + config.reminder);
+    var why = sharedMood(den) && sharedSays[den.dataset.moodOf];
+    sayAt(den, dev ? T(config.pet + ': ' + (config.summary || 'no description yet.') + ' ' + config.reminder) : config.pet + ': ' + (why || config.reminder));
   });
 
 
