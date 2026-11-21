@@ -109,9 +109,26 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
-      "job": "Your scenes, effects and a desk preview for every light Light Hive knows, sent through light-hive-helper.",
-      "does": "Scenes for every light Light Hive reaches.",
+      "job": "Your scenes, effects, themes that follow the music and a desk preview for every light Light Hive knows, sent through light-hive-server.",
+      "does": "Scenes and music themes for every light Light Hive reaches.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "rgbee-color-corrector",
+      "name": "rgbee-color-corrector",
+      "type": "tool",
+      "of": "rgbee",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "light-hive-v1.0-rgbee-color-corrector-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-color-corrector-20261120.html",
+      "job": "Finds the Light Strip sections whose LEDs lost a colour and has light-hive-server send them only the colours they can still show, so each section matches its spot.",
+      "does": "Works around the Light Strip's two broken colour spots.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-color-corrector-20261120.html",
       "frame": "wide",
       "in_pill": true
     },
@@ -133,18 +150,18 @@
       "in_pill": true
     },
     {
-      "id": "light-hive-helper",
-      "name": "light-hive-helper",
+      "id": "light-hive-server",
+      "name": "light-hive-server",
       "type": "own-program",
       "of": "rgbee",
       "state": "now",
       "layer": 6,
       "category": "Made by Astra",
       "version": "v1.0",
-      "label": "light-hive-v1.0-light-hive-helper-v1.0",
-      "url": "https://github.com/findastra/rgbee/tree/main/helper",
-      "job": "The small Windows program that sends Light Hive’s colours to the real lights, listening on this PC only: Razer through the Razer Chroma App, Govee over the Wi-Fi (LAN Control). Never more than three flashes a second, in code. Answers only pages on this PC and the farm owner’s GitHub Pages site. Not started at sign-in yet.",
-      "does": "Sends Light Hive’s colours and lightning to the real lights, from this PC only."
+      "label": "light-hive-v1.0-light-hive-server-v1.0",
+      "url": "https://github.com/findastra/rgbee/tree/main/server",
+      "job": "Light Hive’s server (light-hive-server-YYYYMMDD.exe, named light-hive-helper until 2026-11-20): the small Windows program that sends Light Hive’s colours and themes to the real lights, listening on this PC only: Razer through the Razer Chroma App, Govee by Bluetooth or Wi-Fi. Themes follow how loud the music is. Also the light-hive MCP, so Claude can set the lights. Never more than three flashes a second, in code. Not started at sign-in yet.",
+      "does": "Sends Light Hive’s colours, themes and lightning to the real lights, from this PC only."
     },
     {
       "id": "ableton-usb-audio-driver",
@@ -8413,13 +8430,13 @@
     },
     {
       "from": "rgbee",
-      "to": "light-hive-helper",
+      "to": "light-hive-server",
       "carries": "opens",
       "state": "now",
       "why": "Light Hive’s two tools send colours and lightning through it; it answers only pages on this PC."
     },
     {
-      "from": "light-hive-helper",
+      "from": "light-hive-server",
       "to": "razer-chroma",
       "carries": "manages",
       "state": "now",
