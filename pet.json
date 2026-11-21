@@ -14,5 +14,10 @@
   },
   "version": "0.4.0-beta",
   "source": "https://github.com/findastra/astras-pet-os/tree/v0.4.0-beta",
-  "built_with": "Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07; OpenAI Codex (GPT-6), 2026-10-08"
+  "built_with": "Claude Sonnet 5.5 (claude-sonnet-5-5), 2026-10-07; OpenAI Codex (GPT-6), 2026-10-08",
+  "audit": {
+    "cadence": "daily",
+    "subject": "the pet registry and the System Map",
+    "needs": "a FARMER_TOKEN secret so I can see the private pet repos"
+  }
 }

@@ -37,8 +37,8 @@ the checks themselves take about an hour.
 
 ### Fixed without asking (blatant)
 
-- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): `Astra's PetOS`
-  -> `Astra's PetOS`, `astras-pet-os` / `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
+- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): the old hub names
+  -> `Astra's PetOS`, `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
   `Documents\Astra's PetOS`. Lines that tell history ("was", "renamed", "formerly") keep the old name.
 - Links to renamed repos (GitHub redirects them, but the current name is correct).
 - `pet.json` catching up with the registry (`pets.json`) and the one list of names (`pet-programs.json`): pet name,
