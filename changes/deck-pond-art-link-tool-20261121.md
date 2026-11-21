@@ -19,6 +19,8 @@ link", then "Yes, build it".
   text says plainly that the code is not merged.
 - **Two links:** the tool runs on Elgato Stream Deck (`runs-on`), and it reads GitHub's API (`opens`). Because of
   these, Deck Pond's page shows Stream Deck as working today.
+- **Deck Duck's `needs` in pets.json** now list GitHub (optional), and Stream Deck's line no longer says "Planned". The
+  pet-packs test requires every program a pet's tools run to be in its needs.
 - **`stream-deck`** is now `now`, and its job no longer says "Not installed on the Desktop PC in the 2026-10-12 scan".
   StreamDeck.exe 7.6.1.23033 is installed, and it was running when checked on 2026-11-21. The page builder says "A
   program not installed yet (its node is not `now`) is never watched" (Astra, 2026-11-07), so a third-party program
@@ -27,8 +29,9 @@ link", then "Yes, build it".
 ## Not changed here
 
 - Deck Duck's row in INTELLIGENCE-LEVELS.md: #377 is rewriting it (the plugin, and the "not installed" error).
-- The `deck-duck → stream-deck` link (still `planned`) and Deck Duck's `needs` in pets.json: #289 changes both, and
-  it changes the same `stream-deck` lines as this file. Whichever merges second keeps both sides' facts.
+- The `deck-duck → stream-deck` link is still `planned`, because #289 rewrites it. #289 also changes the same
+  `stream-deck` node lines and Deck Duck's `needs` list as this pull request. Whichever merges second keeps both sides'
+  facts.
 - The code itself: deck-duck#9 → #10 → #11.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-21.
