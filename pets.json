@@ -3236,6 +3236,7 @@
       "job": "Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.",
       "added": "2026-10-23",
       "version": "0.1.0-20261023",
+      "server": "bin/benchmark-rock-server-20261120.exe",
       "audit": {
         "cadence": "weekly",
         "subject": "the graphics cards: their memory, how busy they are and what is using them",
