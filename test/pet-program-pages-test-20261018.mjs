@@ -263,20 +263,19 @@ test('every friend says what it does and has a picture: no line shared by three 
   assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
 });
 
-// Astra, 2026-11-20, "All recommended" (2C): Fuzzboi Friend keeps her own Fuzzbois art while he is calm and wears his
-// nine-face drawing only while a mood shows, with the same shared stickers as every pet, on his page as on the desktop.
-test('Fuzzboi Friend: her Fuzzbois drawing while calm, his nine-face drawing with the shared sticker for each mood', () => {
+// Astra, 2026-11-20: "Can we save separate emotion files, and then add those layers over the new roll once we get it".
+// His page shows one Fuzzboi of her layers (the one his 2026-10-09 drawing was made from) in all nine faces, each face a
+// layer in place of her eyes, with the same shared symbols as every pet (fuzzboi-mood-layers-test-20261120.mjs checks
+// the layers themselves).
+test('Fuzzboi Friend: one Fuzzboi of her layers on his page, in all nine faces with the shared symbols', () => {
   const html = files[pagePath('fuzzboi-friend')];
   const faces = (face) => [...html.matchAll(new RegExp(`data-face="${face}" src="\\.\\./\\.\\./(art/[a-z]+/fuzzboi-friend/[^"]+)"`, 'g'))].map((m) => m[1]);
-  for (const calm of ['idle', 'blink']) {
-    assert.ok(faces(calm).length, `his ${calm} face is on his page`);
-    for (const p of faces(calm)) assert.match(p, new RegExp(`^art/drafts/fuzzboi-friend/${calm}-\\d{8}\\.png$`), `${calm}: her Fuzzbois drawing`);
-  }
-  for (const mood of ['happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) {
+  for (const mood of ['idle', 'blink', 'sleep', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) {
     assert.ok(faces(mood).length, `his ${mood} face is on his page`);
-    for (const p of faces(mood)) assert.equal(p, `art/moods/fuzzboi-friend/${mood}.png`, `${mood}: the stamped nine-face drawing the desktop shows`);
-    assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261114.png`), `${mood}: GPT-6-Astra's drawing is in the hub`);
+    for (const p of faces(mood)) assert.equal(p, `art/moods/fuzzboi-friend/${mood}.png`, `${mood}: his face with the shared symbol`);
+    assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261120.png`), `${mood}: made from her layers`);
   }
+  assert.ok(!existsSync(`${root}/desktop-art/fuzzboi-friend/idle-20261114.png`), 'no whole-body drawing stands in for his roll');
 });
 
 // Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on

@@ -82,8 +82,6 @@ export const LIVE_CHECK = '<script src="../live-site-20261102.js"></script>';
 export const PANELS = ['editorial-status-panel', 'cyberhome-panel', 'quick-summary-panel', 'system-map-panel', 'intelligence-levels-panel', 'L1-control-panel', 'L2-control-panel', 'L3-control-panel', 'L4-control-panel', 'rwx-panel', 'session-notes-panel', 'emotions-panel', 'clicker-training-panel', 'friends-list-panel', 'unified-footer-panel', 'chat-panel'];
 
 const MOODS = ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed', 'sleep'];
-// The faces a pet wears while The Farm's pet-moods shows no mood for it (pet-moods-20261114.mjs: `show` is null).
-const CALM_MOODS = ['idle', 'blink', 'sleep'];
 // The faces every picture of a pet carries, idle first and shown (Astra, 2026-11-14: "I want all of the pets everywhere
 // to have the same status"): the page's own idle, awake and sad, and every mood The Farm's pet-moods shows on every pet
 // everywhere (scripts/pet-moods-20261114.mjs, SHOWN; a test keeps the two lists together). The page script shows the
@@ -203,17 +201,7 @@ export function petFrames(reg, { frameIndex, drafts, exists, list = () => [] }) 
     const plain = { ...frames };
     const stamped = list(`art/moods/${folder}`);
     for (const mood of Object.keys(frames)) if (stamped.includes(`${mood}.png`)) frames[mood] = `art/moods/${folder}/${mood}.png`;
-    if (!frames.idle) continue;
-    // A pet built from recipes (Fuzzboi Friend, from Astra's own Fuzzbois layers) keeps that art while he is calm and
-    // wears his nine-face drawing only while a mood shows (Astra, 2026-11-20, "All recommended": 2C). His page shows
-    // her Fuzzbois drawing for the calm faces, as the desktop shows a recipe; the shown moods are the same stamped
-    // pictures the desktop uses.
-    if (draftOf?.variants?.length && draftOf.id === folder) {
-      const calm = draftOf.idle && /^(.*)\/idle(-\d{8})?\.png$/.exec(draftOf.idle);
-      const own = calm ? newest(calm[1]) : {};
-      if (own.idle) for (const mood of CALM_MOODS) { if (own[mood]) frames[mood] = plain[mood] = own[mood]; }
-    }
-    return { frames, plain, source: 'desktop' };
+    if (frames.idle) return { frames, plain, source: 'desktop' };
   }
   const registered = reg.art && frameIndex?.pets?.[reg.art];
   if (registered && !registered.placeholder) { const r = pick(registered.frames, 'registered'); if (r) return r; }
