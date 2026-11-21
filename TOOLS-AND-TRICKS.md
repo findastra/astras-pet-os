@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-461 rows: 23 native programs, 190 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+462 rows: 23 native programs, 191 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -197,6 +197,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
 | 4 | API Fairy | API Fairy Ring | native program | API Fairy app | `api-fairy-ring-v1.0-api-fairy-app-v0.1.0` | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | desktop-signal | `api-fairy-ring-v1.0-desktop-signal-v1.0` | Works today |
+| 4 | API Fairy | API Fairy Ring | native tool | key-check | `api-fairy-ring-v1.0-key-check-v1.0` | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | key-notebook | `api-fairy-ring-v1.0-key-notebook-v1.0` | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | key-requests | `api-fairy-ring-v1.0-key-requests-v1.0` | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | key-watch | `api-fairy-ring-v1.0-key-watch-v1.0` | Works today |
