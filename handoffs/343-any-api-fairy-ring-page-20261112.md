@@ -11,7 +11,7 @@ like here in the in-chat browser."
 ## Ownership and state
 State: READY_FOR_REVIEW
 Implementer: Claude Code session (API Fairy chat); writable files: the files in #343; ownership: released
-Reviewer: unassigned; next action: Astra merges #343
+Reviewer: unassigned; next action: Astra merges #343, then findastra/api-fairy#16 (2026-11-20)
 
 ## What I did
 - Branch `claude/api-fairy-ring-page-20261112`, pull request #343.
@@ -45,8 +45,22 @@ work and everything's on here that should be. It might be missing a lot of stuff
 - `api-fairy-mushroom-circle` stays planned (Iron Gates does not exist).
 
 ## Not done
-- The api-fairy repo's own copy of the notebook page (its `pet.json` entry) still has the old look.
+- ~~The api-fairy repo's own copy of the notebook page (its `pet.json` entry) still has the old look.~~ 2026-11-20:
+  being removed by findastra/api-fairy#16 (see below).
 - `apps/drum-dog-in-tool-20261102.js` has the same first-load race for every tool box; fixed here only for API Fairy.
+
+## 2026-11-20: brought up to date, and the old page goes (Claude Opus 5.5, the footer chat)
+Astra, 2026-11-20, on the api-fairy repo's old page: "super old and needs deleted or the new parts merged with the
+correct one"; then "Yes, do both" (fix #343, remove the old page).
+- Merged main (`b50a75fa`, 226 commits) into this branch: `d61662e2`. `pets.json` keeps main's "shared pet style"
+  wording with this card's colour fix; `PET-PROGRAM-FRAMEWORK.md` keeps both colour lines (Halo List's sky blue and
+  API Fairy's mint); generated files from main, then `npm run build`. `npm test`: 496 pass, 0 fail, 6 skipped.
+- Checked in the browser pane from the branch (127.0.0.1, EDITORIAL bar): mint page, Native programs · 1, Native
+  tools · 6, the notebook (Add a key reference, Key references, Export local notes, Open the Windows app) in its pill,
+  no sideways scroll at 1280 or 375 px, no console errors. At 375 px the notebook is 205 px wide and long.
+- findastra/api-fairy#16 (draft): removes `api-fairy-20261008.html` from her repo, `pet.json` `entry` = `src/App.cs`,
+  `homepage` = this pet program page (folds in api-fairy#7). Merge it after this PR.
+- #390 (key-check node) also adds a `key-ring` tool in `system-map.json`: whichever merges second takes a one-line merge.
 
 ## Receipt and review
 Pending.
