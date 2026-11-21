@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO toolkit (seo-toolkit) · Iced Out Iceberg</title>
+<!-- seo-toolkit, a native tool of Iced Out Iceberg (Portfolio Puffer): one pill per published page, each with its light
+     (green: search engines have what they need; yellow: something they would use is missing; red: something blocks
+     it). Tap a pill for what is missing and the head tags to paste. The checks are portfolio-puffer-seo-check-20261120.js
+     (code, no AI); the last sweep's results are portfolio-puffer-seo-results-20261120.js. "Check again" reads the live
+     page when this page is served from findastra.github.io (same site); opened by double-click it shows the last sweep.
+     Astra, 2026-11-20: "pills that represent different pages ... a tool and a toolkit that does that for everything I
+     request you do SEO on"; "this just needs to be a portfolio [puffer] job". Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{--bg:#0f1a2e;--panel:#17243d;--line:#2c4a73;--ink:#e9f1ff;--dim:#a9b8d4;--ice:#8fe3ff;
+  --green:#4fe08a;--yellow:#ffd24a;--red:#ff6b6b;
+  font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:4px 0 8px}
+html.in-tool h1{display:none}
+main{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+h1{margin:0 0 6px;color:var(--ice);font-size:1.6rem}
+h2{margin:0 0 8px;font-size:1.15rem;color:var(--ice)}
+.dim{color:var(--dim);font-size:.9rem}
+.summary{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 12px}
+.count{border-radius:999px;padding:3px 12px;font-weight:700;color:#0b1220}
+.count.green{background:var(--green)}.count.yellow{background:var(--yellow)}.count.red{background:var(--red)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;font:inherit;color:var(--ink);background:var(--panel);
+  border:2px solid var(--line);border-radius:999px;padding:6px 14px 6px 10px;cursor:pointer}
+.pill[aria-pressed="true"]{border-color:var(--ice)}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.dot.green{background:var(--green)}.dot.yellow{background:var(--yellow)}.dot.red{background:var(--red)}
+.pill small{color:var(--dim)}
+.card{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.checks{list-style:none;margin:8px 0;padding:0;display:grid;gap:6px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:6px;align-items:start}
+.checks .mark{font-weight:800}
+.checks .ok{color:var(--green)}.checks .should{color:var(--yellow)}.checks .must{color:var(--red)}
+.checks .found{color:var(--dim);font-size:.85rem}
+pre{white-space:pre-wrap;word-break:break-all;background:#0b1424;border:1px solid var(--line);border-radius:8px;
+  padding:10px;font:13px/1.4 ui-monospace,Consolas,monospace;margin:8px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button.act,a.act{font:inherit;color:var(--ink);background:#22355a;border:1px solid var(--line);border-radius:8px;
+  padding:6px 12px;cursor:pointer;text-decoration:none}
+a{color:var(--ice)}
+</style>
+<script src="drum-dog-in-tool-20261102.js"></script>
+<script src="portfolio-puffer-seo-check-20261120.js"></script>
+<script src="portfolio-puffer-seo-results-20261120.js"></script>
+</head>
+<body>
+<main>
+<h1>SEO toolkit</h1>
+<p class="dim" id="lead">Every published page as a pill. Tap one for what search engines are missing and the tags to paste.</p>
+<div class="summary" id="summary"></div>
+<div class="pills" id="pills" role="group" aria-label="Pages"></div>
+<section class="card" id="detail" hidden>
+  <h2 id="dName"></h2>
+  <div class="row"><a class="act" id="dOpen" target="_blank" rel="noopener">Open the page</a>
+    <button type="button" class="act" id="dAgain">Check again</button>
+    <span class="dim" id="dNote"></span></div>
+  <ul class="checks" id="dChecks"></ul>
+  <div id="dHeadBox">
+    <h2>Tags to add to its &lt;head&gt;</h2>
+    <p class="dim">Words in [BRACKETS] are yours to write. The fix goes to the page's own repo as a pull request for you to merge.</p>
+    <pre id="dHead"></pre>
+    <button type="button" class="act" id="dCopy">Copy</button>
+  </div>
+</section>
+<section class="card" id="site">
+  <h2>The whole site</h2>
+  <p id="siteLine"></p>
+  <div class="row"><button type="button" class="act" id="copySitemap">Copy sitemap.xml</button>
+    <button type="button" class="act" id="copyRobots">Copy robots.txt</button></div>
+  <p class="dim">Both go at the root of the findastra.github.io repo. Then submit the sitemap in Google Search Console and Bing Webmaster Tools; only you can sign in to those.</p>
+</section>
+</main>
+<script>
+(function () {
+  'use strict';
+  var data = window.SEO_RESULTS;
+  var $ = function (id) { return document.getElementById(id); };
+  var el = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  if (!data || data.schema !== 'portfolio-puffer-seo-results-v1' || !window.SeoCheck) {
+    $('lead').textContent = 'No results yet. Run: node scripts/portfolio-puffer-seo-sweep-20261120.mjs';
+    return;
+  }
+  var pages = data.pages; var current = null;
+  var sameSite = location.protocol === 'https:' && location.hostname === 'findastra.github.io';
+
+  function summary() {
+    var box = $('summary'); box.textContent = '';
+    ['green', 'yellow', 'red'].forEach(function (l) {
+      var n = pages.filter(function (p) { return p.light === l; }).length;
+      box.appendChild(el('span', 'count ' + l, n + ' ' + l));
+    });
+    box.appendChild(el('span', 'dim', 'Last checked ' + data.checked.slice(0, 16).replace('T', ' ') + ' UTC'));
+  }
+  function pills() {
+    var box = $('pills'); box.textContent = '';
+    pages.forEach(function (p, i) {
+      var b = el('button', 'pill'); b.type = 'button'; b.setAttribute('aria-pressed', String(i === current));
+      b.title = p.name + ': ' + p.light + ', ' + (p.passed || 0) + ' of ' + (p.total || 0) + ' checks pass';
+      b.appendChild(el('span', 'dot ' + p.light));
+      b.appendChild(el('span', null, p.slug));
+      b.appendChild(el('small', null, (p.passed || 0) + '/' + (p.total || 0)));
+      b.addEventListener('click', function () { show(i); });
+      box.appendChild(b);
+    });
+  }
+  function show(i) {
+    current = i; var p = pages[i]; pills();
+    $('detail').hidden = false;
+    $('dName').textContent = p.name + ' (' + p.slug + ')';
+    $('dOpen').href = /^https:\/\/findastra\.github\.io\//.test(p.url) ? p.url : '#';
+    $('dNote').textContent = p.note || '';
+    var ul = $('dChecks'); ul.textContent = '';
+    p.checks.forEach(function (c) {
+      var li = el('li');
+      li.appendChild(el('span', 'mark ' + (c.ok ? 'ok' : c.level), c.ok ? '✓' : (c.level === 'must' ? '✗' : '!')));
+      var t = el('div'); t.appendChild(el('div', null, c.label + (c.ok ? '' : ' (' + (c.level === 'must' ? 'needed' : 'missing') + ')')));
+      t.appendChild(el('div', 'found', (c.found ? 'Found: ' + c.found : '') + (c.fix ? ' · ' + c.fix : '')));
+      li.appendChild(t); ul.appendChild(li);
+    });
+    $('dHeadBox').hidden = !p.head;
+    $('dHead').textContent = p.head || '';
+  }
+  function copy(text, btn) {
+    var done = function () { var t = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = t; }, 1200); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { window.prompt('Copy:', text); });
+    else window.prompt('Copy:', text);
+  }
+  $('dCopy').addEventListener('click', function () { copy($('dHead').textContent, this); });
+  $('dAgain').addEventListener('click', function () {
+    if (current == null) return;
+    var p = pages[current];
+    if (!sameSite) { $('dNote').textContent = 'Checking live works on the hosted page; here you see the last sweep.'; return; }
+    $('dNote').textContent = 'Checking…';
+    fetch(p.url, { cache: 'no-store' }).then(function (r) { return r.text().then(function (t) { return { status: r.status, text: r.ok ? t : null }; }); })
+      .catch(function () { return { status: 'no answer', text: null }; })
+      .then(function (got) {
+        var keep = p.checks.filter(function (c) { return c.id === 'in-sitemap'; });
+        var r = window.SeoCheck.checkPage(got.text, p, { status: got.status });
+        if (got.text) r.checks = r.checks.concat(keep);
+        var bad = r.checks.filter(function (c) { return !c.ok; });
+        r.light = bad.some(function (c) { return c.level === 'must'; }) ? 'red' : bad.length ? 'yellow' : 'green';
+        r.passed = r.checks.length - bad.length; r.total = r.checks.length;
+        Object.assign(p, r, { head: window.SeoCheck.suggestHead(p, r) });
+        summary(); show(current); $('dNote').textContent = 'Checked just now.';
+      });
+  });
+  var live = pages.filter(function (p) { return p.checks[0].ok; }).map(function (p) { return p.url; });
+  $('siteLine').textContent = 'sitemap.xml: ' + (data.site.sitemap.status === 200 ? data.site.sitemap.pages + ' pages listed' : 'missing (' + data.site.sitemap.status + ')') +
+    ' · robots.txt: ' + (data.site.robots.status === 200 ? (data.site.robots.names_sitemap ? 'points to the sitemap' : 'does not name the sitemap') : 'missing (' + data.site.robots.status + ')');
+  $('copySitemap').addEventListener('click', function () { copy(window.SeoCheck.sitemapXml(live, data.checked.slice(0, 10)), this); });
+  $('copyRobots').addEventListener('click', function () { copy(window.SeoCheck.robotsTxt(data.site.sitemap.url), this); });
+  summary(); pills();
+})();
+</script>
+</body>
+</html>
