@@ -881,12 +881,12 @@
       "version": "v1.0",
       "label": "pc-master-race-v1.0-pc-look-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=look",
-      "job": "A tool of PC Master Race (Astra, 2026-11-03): pc-master-race-20261103.mjs --watch: one look every ten minutes (winget and WizTree hourly), reading only. It runs each tool’s quiet export, hidden, never as administrator, and never accepts a license for Astra. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\pc-master-race). Not started at sign-in yet.",
-      "does": "Looks at every tool and at your PC every 10 minutes in the background, and fills these tool boxes.",
+      "job": "A tool of PC Master Race (Astra, 2026-11-03): its server pc-master-race-server-20261120.mjs: a full look at start and once a week (winget and WizTree only then), and a look at most every 10 minutes only while its page is open on the PC (Astra, 2026-11-20: \"Yes, change it\"), reading only. It runs each tool’s quiet export, hidden, never as administrator, and never accepts a license for Astra. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\pc-master-race). Not started at sign-in yet.",
+      "does": "Looks at every tool and at your PC once a week, and every 10 minutes while this page is open, and fills these tool boxes.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=look",
       "frame": "wide",
       "in_pill": true,
-      "cadence": "every 10 minutes"
+      "cadence": "weekly; every 10 min while open"
     },
     
     {
@@ -1431,7 +1431,7 @@
       "state": "now",
       "layer": 6,
       "category": "Command-line tool",
-      "job": "Third-party program (Microsoft): the Windows Package Manager, part of Windows’ App Installer. PC Master Race lists updates waiting, hourly, and installs nothing.",
+      "job": "Third-party program (Microsoft): the Windows Package Manager, part of Windows’ App Installer. PC Master Race lists updates waiting, weekly, and installs nothing.",
       "does": "Windows’ package manager: installs programs and lists every update waiting.",
       "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=winget",
@@ -1477,7 +1477,7 @@
       "state": "now",
       "layer": 6,
       "category": "PC hardware",
-      "job": "The parts inside Astra’s desktop PC (MSI MS-7E57), as PC Master Race’s look reads them from Windows every ten minutes: models only, never serial numbers. Each part is its own node in this group, and every line drawn to the group reaches each of them, the way Rift Rabbit’s devices are grouped (Astra, 2026-11-06, sending Rift Rabbit’s page: \"use this as a model Pet Program\", then \"All recommended\")."
+      "job": "The parts inside Astra’s desktop PC (MSI MS-7E57), as PC Master Race’s look reads them from Windows (weekly, and every 10 minutes while its page is open): models only, never serial numbers. Each part is its own node in this group, and every line drawn to the group reaches each of them, the way Rift Rabbit’s devices are grouped (Astra, 2026-11-06, sending Rift Rabbit’s page: \"use this as a model Pet Program\", then \"All recommended\")."
     },
     {
       "id": "desktop-cpu",
@@ -5498,7 +5498,7 @@
       "to": "wiztree",
       "carries": "manages",
       "state": "now",
-      "why": "PC Master Race shows WizTree’s own CSV export of her user folder, one level deep and without administrator (/admin=0), every hour."
+      "why": "PC Master Race shows WizTree’s own CSV export of her user folder, one level deep and without administrator (/admin=0), every week."
     },
     {
       "from": "pc-master-race",
@@ -5610,7 +5610,7 @@
       "to": "winget",
       "carries": "manages",
       "state": "now",
-      "why": "PC Master Race shows winget’s list of updates waiting (winget source only), hourly. Nothing is updated from here: Patch Cat keeps programs patched, and an update waits for Astra’s OK."
+      "why": "PC Master Race shows winget’s list of updates waiting (winget source only), weekly. Nothing is updated from here: Patch Cat keeps programs patched, and an update waits for Astra’s OK."
     },
     {
       "from": "pc-master-race",
@@ -5631,7 +5631,7 @@
       "to": "desktop-pc-parts",
       "carries": "manages",
       "state": "now",
-      "why": "PC Master Race reads each part from Windows every ten minutes (pc-look-tool), reading only, and its lessons use them as the example (learn-computer-organization-tool)."
+      "why": "PC Master Race reads each part from Windows weekly, and every 10 minutes while its page is open (pc-look-tool), reading only, and its lessons use them as the example (learn-computer-organization-tool)."
     },
     {
       "from": "unity-unicorn",
