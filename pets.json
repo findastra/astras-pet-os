@@ -3174,6 +3174,7 @@
       "job": "What runs on your PC: programs, memory and what starts at sign-in.",
       "added": "2026-10-21",
       "version": "0.1.0-20261021",
+      "server": "bin/kernel-grove-server-20261120.exe",
       "audit": {
         "cadence": "weekly",
         "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",

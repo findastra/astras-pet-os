@@ -37,7 +37,8 @@ test('one server per pet, each written once: the star reads it from pets.json an
   assert.ok(star.includes('PetFiles.Text(pet,"server")'), 'the star reads `server` from pets.json');
 });
 
-test('Benchmark Rock is the first: its server is bin/benchmark-rock-server-20261120.exe', () => {
-  const rock = pets.pipeline.find((p) => p.repo === 'benchmark-rock');
-  assert.equal(rock.server, 'bin/benchmark-rock-server-20261120.exe');
+test('the renames so far, easiest first: Benchmark Rock (#408), then Kernel Grove', () => {
+  const server = (repo) => pets.pipeline.find((p) => p.repo === repo).server;
+  assert.equal(server('benchmark-rock'), 'bin/benchmark-rock-server-20261120.exe');
+  assert.equal(server('kernel-grove'), 'bin/kernel-grove-server-20261120.exe');
 });
