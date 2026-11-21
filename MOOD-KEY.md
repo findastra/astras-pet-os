@@ -62,7 +62,7 @@ A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` 
 | **Wifi Butterfly** * | the radios nearby: unknown Wi-Fi networks and Bluetooth devices | weekly, Sunday | a job: what should Wifi Butterfly do |
 | **Deck Duck** * | your Stream Deck: what every button does on every profile, and any button that does nothing | weekly, Monday | a look at a button that does nothing |
 | **Mesh Moth** * | the Meshtastic node plan | weekly, Tuesday | a job: what should Mesh Moth watch |
-| **Raspberry Pi Berry** * | Astra's Raspberry Pi projects | weekly, Wednesday | site storage allowed for the page (custom lines: happy, worried, sad, sick, alarmed) |
+| **Raspberry Berry** * | Astra's Raspberry Pi projects | weekly, Wednesday | site storage allowed for the page (custom lines: happy, worried, sad, sick, alarmed) |
 | **Chat Rat** * | the chats it has filed and their index | weekly, Thursday | where your Claude and OpenAI chats are saved |
 | **Workflow Whale** * | pairing, capture privacy, feedback delivery and device acceptance | weekly, Friday | native iPad verification and a verified chat adapter |
 | **Linux Penguin** * | the Linux computers on the farm, MacAttack first | weekly, Saturday | his first check on a real Linux computer (the Kali MacBook) |
