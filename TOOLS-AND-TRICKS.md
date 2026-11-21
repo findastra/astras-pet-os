@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-442 rows: 22 native programs, 180 native tools, 26 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+452 rows: 22 native programs, 183 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -136,6 +136,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native program | Startup Star | `the-farm-v1.0-startup-star-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | astras-pet-os-mcp | `the-farm-v1.0-astras-pet-os-mcp-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | click-check | `the-farm-v1.0-click-check-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | daily-rounds | `the-farm-v1.0-daily-rounds-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | farm-pets | `the-farm-v1.0-farm-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | flash-audit | `the-farm-v1.0-flash-audit-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | make-it-yours | `the-farm-v1.0-make-it-yours-v1.0` | Works today |
@@ -146,13 +147,18 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | profile-round | `the-farm-v1.0-profile-round-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | retire-check | `the-farm-v1.0-retire-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
+| 1 | Friendly Farmer | The Farm | native trick | daily-rounds-trick | `the-farm-v1.0-daily-rounds-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-finder | `the-farm-v1.0-pet-finder-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-organizer | `the-farm-v1.0-pet-organizer-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | profile-round-trick | `the-farm-v1.0-profile-round-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | retire-a-pet | `the-farm-v1.0-retire-a-pet-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | click-check-round | `the-farm-v1.0-click-check-round-trick-v1.0` | Planned |
+| 1 | Friendly Farmer | The Farm | native trick | flash-audit-round | `the-farm-v1.0-flash-audit-round-trick-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | third-party program | GitHub |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Google Fonts |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Node.js |  | Works today |
@@ -186,6 +192,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | achievement-tracker | `github-aquarium-v1.0-achievement-tracker-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | findastra-readme-auditor | `github-aquarium-v1.0-findastra-readme-auditor-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native trick | branch-sweep-round | `github-aquarium-v1.0-branch-sweep-round-trick-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
 | 4 | API Fairy | API Fairy Ring | native tool | key-requests | `api-fairy-ring-v1.0-key-requests-v1.0` | Works today |
@@ -294,6 +301,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | native tool | where-things-live | `file-kingdom-v1.0-where-things-live-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | where-to-save | `file-kingdom-v1.0-where-to-save-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | mass-delete | `file-master-v1.0-mass-delete-v1.0` | Planned |
+| 12 | File Master | File Kingdom | native trick | weekly-organizing-proposal | `file-kingdom-v1.0-weekly-organizing-proposal-trick-v1.0` | Works today |
 | 12 | File Master | File Kingdom | third-party program | ES (Everything’s command line) |  | Works today |
 | 12 | File Master | File Kingdom | third-party program | Everything |  | Works today |
 | 12 | File Master | File Kingdom | third-party program | Git for Windows |  | Works today |
@@ -319,6 +327,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 14 | Portfolio Puffer | Iced Out Iceberg | native program | GitHub profile |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native program | Portfolio Review Desk |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | github-stats-refresh | `iced-out-iceberg-v1.0-github-stats-refresh-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-pictures-refresh | `iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-update-round | `iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
@@ -389,6 +398,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 35 | Chat Rat | Chat Stack | native tool | save-missing | `chat-stack-v0.1.0-save-missing-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native tool | saved-conversations-tool | `chat-stack-v0.1.0-saved-conversations-tool-v0.1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | ask-chat-rat | `chat-stack-v0.1.0-ask-chat-rat-trick-v1.0` | Works today |
+| 35 | Chat Rat | Chat Stack | native trick | chat-exports | `chat-stack-v0.1.0-chat-exports-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | native trick | save-chats | `chat-stack-v0.1.0-save-chats-trick-v1.0` | Works today |
 | 35 | Chat Rat | Chat Stack | third-party program | ChatGPT website |  | Works today |
 | 35 | Chat Rat | Chat Stack | third-party program | Claude app |  | Works today |
