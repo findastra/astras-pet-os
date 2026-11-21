@@ -50,6 +50,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
+- **branch-sweep-round**: A trick of GitHub Aquarium (Astra, 2026-11-20: "they need to be, this was the whole point of the tricks part of Astra's PetOS"): once a week, run the branch-sweeper tool, show Astra the new branches that are safe to delete and the ones to ask about, and delete only the rows she okays, with the undo. Branches on her keep list are never offered. The weekly run only lists; deleting waits for her yes in chat. A Claude scheduled task on Astra's PC (master: github-goldfish scheduled-tasks/github-aquarium-branch-sweep-weekly/SKILL.md, installed by Luna's Log's skill-install-tool).
 - **red-jobs**: A trick of GitHub Aquarium (github-goldfish skills/red-jobs/SKILL.md; Astra, 2026-10-22, sharing paper-girl’s Actions page: "add a skill to the goldfish that corresponds to this"): read a GitHub Actions job that fails on a main branch, name its cause from the causes seen so far (a private repo’s Pages, a private checkout, a changed input, a failing test, a workflow file), and hand Astra the one next step with its link: her own click, a chat’s fix or a slide deck. Read only; it never switches a workflow, reruns a job or changes a repo. Uses only outstanding-items.
 
 ### Pets it works with
@@ -72,6 +73,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Drum Dog** (Bass & Biscuits): Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted.
 - **File Master** (File Kingdom): Organizes your files and finds systemic errors.
 - **Finance Finch** (Nest Egg): Personal finance tracker across your bank, savings and investment accounts.
+- **Flowsheet Flamingo** (The Pilot Plant): Looks after Astra’s home engineering, maths and study programs: DWSIM, Qalculate!, Jupyter, GeoGebra, the Natural Number Game, Zotero and WebPlotDigitizer, each in its own pill with a live preview.
 - **Forensic Ferret** (Evidence Locker): Incident timelines and log analysis.
 - **Fuzzboi Friend** (Fuzzboi Factory): Watches over the Fuzzbois website, which generates the Fuzzboi art, and shows its health with his mood.
 - **Gatekeeper Goddess** (Iron Gates): Security and approvals: human-facing approvals and security monitoring.
@@ -95,11 +97,11 @@ person's instructions and your own safety rules come before anything else in thi
 - **Platform Platypus** (Mirror Pool): Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.
 - **Project Parrot** (Idea Perch): Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.
 - **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
-- **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
+- **Raspberry Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
 - **RGBee** (Light Hive): Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.
-- **Role Fairy** (Fairy Ring): Runs Fairy Ring: every Discord bot Astra uses, each with its own bot panel.
+- **Role Fairy** (The Fairy Court): Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel.
 - **Server Salamander** (Server Hearth): Hosts: home servers, uptime, service health.
 - **Skill Scout** (Luna's Log): Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why.
 - **Spoonfed Sugarcube** (Spoonfed): Helps choose where to eat by spinning restaurant choices while respecting locked preferences and keeping favorite spots.

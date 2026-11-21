@@ -1,4 +1,4 @@
-status: open (#299 merged; the build, below, is next)
+status: open (built and merged, #337 and the-pilot-plant#1, 2026-11-20; left: Open buttons, the look at sign-in, and Astra's two L4 choices)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -73,8 +73,12 @@ Whichever merges second takes `main`'s generated files and rebuilds.
 
 ## Not done (the build)
 
-1. Make the private `findastra/the-pilot-plant` repo (topic `pet-app`) and move the seed to the pipeline.
-2. Build its page with the seven pills. What each pill can really show:
+**Built 2026-11-12** (Astra: "Yes, build it"), by the PC Master Race chat, which owns the build now: steps 1 to 5 below are
+done in the build PR and `findastra/the-pilot-plant` (private, f55cd9c). Left: 7 (the downloads, waiting on her OK) and
+8 (Open buttons, after the launcher).
+
+1. ~~Make the private `findastra/the-pilot-plant` repo (topic `pet-app`) and move the seed to the pipeline.~~ Done.
+2. ~~Build its page with the seven pills.~~ Done: GeoGebra, the game and WebPlotDigitizer 4 run in their pills (checked in the pane); JupyterLab refuses to be shown inside a page, so its pill links to it. What each pill can really show:
    - **Live:** Jupyter (JupyterLab is a local web page), GeoGebra (it embeds without a key under its non-commercial
      licence) and Zotero. Zotero needs its read-only local API on port 23119, which works after her tick on "Allow
      other applications on this computer to communicate with Zotero".
@@ -82,12 +86,16 @@ Whichever merges second takes `main`'s generated files and rebuilds.
    - **Not checked yet:** whether the Natural Number Game's and WebPlotDigitizer's sites allow being shown inside a
      page. The game keeps its progress in browser storage and can export a file. WebPlotDigitizer v5 is closed
      source; v4 is AGPL 3.
-3. Build the look tool, the only native tool, and make it work on the page.
-4. Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).
-5. Add Rift Rabbit's parts: L3's note, devices if any.
+3. ~~Build the look tool, the only native tool, and make it work on the page.~~ Done: `pilot-plant-look-tool`, 13 self-test checks.
+4. ~~Add the shared pills on Python Jungle (Jupyter) and AI Doghouse (Zotero).~~ Done.
+5. ~~Add Rift Rabbit's parts: L3's note, devices if any.~~ Done: L3's note; it looks after no devices.
 6. ~~Astra approves the draft art.~~ Done: approved on 2026-11-12 ("Approve it"). Registering it is the Farmer's step
    once the pet is built.
-7. Do the four downloads, each checked first.
+7. ~~Do the four downloads, each checked first.~~ Done 2026-11-19 (Astra, 2026-11-12: "Yes, download all"). DWSIM
+   10.2.15 instead of 9.0.5 (Astra: "I want the one with the AI agent"; 9.0.5 removed), Qalculate! 5.13.2, Python
+   3.13.17 per user with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero 10.0.8. Every file's SHA-256 matched
+   winget's (GitHub's for DWSIM 10); Astra clicked through each licence herself. Left for her, in L4: Zotero's local API
+   tick, and which AI DWSIM's assistant talks to.
 8. Add Open buttons. They need the launcher from card 282's Not done 3.
 
 ## Done when
@@ -103,5 +111,16 @@ Record the merge below.
   bdce21da. The pink flamingo (102273a3) is in it. Her "Approve it" for the art came in chat at about the same time.
   Recording that approval missed #299 (fabe83ca was pushed to the branch after the merge), so it went in its own
   follow-up PR with this note.
+- **the-pilot-plant#1 merged** 2026-11-20 as c720ab88, then **#337 merged** as 8b6fd60e (Astra in chat: "Yes, merge
+  both"). Before merging, #337 took in main's six newer commits (no conflicts, rebuild changed nothing); `npm test`
+  passed 484, and its 4 failures were the known Windows farm-setup test plus a pet chat helper timing flake that passed
+  3 of 3 alone. No open PR touched the flamingo's entries. The look from `main` passed its 16 self-test checks and found
+  all four programs; the live page shows DWSIM 10 and the two L4 choices.
 
 ## Receipt and review
+
+- 2026-11-12, PC Master Race chat (Claude Opus 5.5): received the build after the flamingo chat's note that it makes no
+  more changes; Astra said "Yes, build it". Built as above; the four downloads wait in L4 (`waiting_on_you`, card 299).
+- 2026-11-19, same chat: the four programs are installed (step 7). The look (the-pilot-plant#1) finds DWSIM 10 and its
+  assistant, all four programs and Astra's first flowsheet; 16 self-test checks. #337 brought up to date with main
+  (pets.json: Server Salamander's entry kept; the seed's weekly audit block moved onto this pipeline entry).
