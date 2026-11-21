@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mining operation · Mine Mole</title>
+<!-- mining-operation-tool: Crypto Burrow's practice mining operation (Astra, 2026-11-21: "lets start a mining
+     operation, but for concept"), the management tool. It really mines a pretend coin, ConceptCoin (CC), on a private
+     chain in this browser: double SHA-256, nonces, a target, a pool of rigs with shares and payouts by share, difficulty
+     retargets, halvings and a pretend power bill. The rigs are slices of this one browser tab, each with the watts you
+     give it. Every block goes into the ledger the mining-ledger-tool shows (browser storage, schema
+     crypto-burrow-ledger-v1). No real coin, wallet, network or pool is involved.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<link rel="stylesheet" href="mine-mole-tools-20261121.css">
+</head>
+<body>
+<main>
+<header class="page">
+<h1>Mining operation</h1>
+<p class="sub">Run a small, pretend mining farm and manage it: rigs, power, difficulty and payouts. The hashing is real; the coin is not.</p>
+</header>
+
+<fieldset><legend>operation-controls</legend>
+<button type="button" id="go">Start mining</button>
+<button type="button" id="add" class="ghost">Add a rig</button>
+<button type="button" id="reset" class="ghost">Start a new chain</button>
+<p id="status" class="mark" aria-live="polite">Stopped. Press Start mining.</p>
+<div class="stats">
+<div class="stat"><b id="s-rate">–</b><span>hash rate, all rigs</span></div>
+<div class="stat"><b id="s-bits">–</b><span>difficulty (zero bits)</span></div>
+<div class="stat"><b id="s-expect">–</b><span>expected time per block</span></div>
+<div class="stat"><b id="s-height">0</b><span>blocks in the chain</span></div>
+<div class="stat"><b id="s-reward">–</b><span>reward for the next block</span></div>
+<div class="stat"><b id="s-round">0</b><span>guesses on this block</span></div>
+</div>
+</fieldset>
+
+<fieldset><legend>rigs</legend>
+<p class="note">Each rig is a slice of this browser tab. <b>Speed</b> gives it a bigger slice; <b>watts</b> is what you
+pretend it draws from the wall (a laptop CPU uses about 15–65 W, a gaming GPU 150–350 W, an ASIC about 3,500 W).</p>
+<div class="wrap"><table>
+<thead><tr><th>On</th><th>Rig</th><th>Speed</th><th>Watts</th><th class="n">Hash rate</th><th class="n">Shares this block</th><th class="n">Earned (CC)</th><th></th></tr></thead>
+<tbody id="rigs"></tbody>
+</table></div>
+</fieldset>
+
+<fieldset><legend>settings</legend>
+<div class="row">
+<label>Target seconds per block<input type="number" id="blockTime" min="1" max="60" step="1"></label>
+<label>Retarget every N blocks<input type="number" id="retarget" min="2" max="50" step="1"></label>
+<label>Halving every N blocks<input type="number" id="halving" min="2" max="100" step="1"></label>
+<label>Power price ($/kWh)<input type="number" id="kwhPrice" min="0" max="2" step="0.01"></label>
+<label>Pretend CC price ($)<input type="number" id="coinPrice" min="0" max="100" step="0.001"></label>
+</div>
+<p class="note">Your real power price is on your electricity bill ("per kWh"). Until you change it, $0.15 is a stand-in.</p>
+</fieldset>
+
+<fieldset><legend>the-bill</legend>
+<div class="stats">
+<div class="stat"><b id="b-coins">0</b><span>CC mined this session</span></div>
+<div class="stat"><b id="b-value">$0.00</b><span>pretend value</span></div>
+<div class="stat"><b id="b-wh">0 Wh</b><span>power used (pretend watts × time)</span></div>
+<div class="stat"><b id="b-cost">$0.00</b><span>power cost</span></div>
+<div class="stat"><b id="b-net">$0.00</b><span>net</span></div>
+</div>
+</fieldset>
+
+<fieldset><legend>recent-blocks</legend>
+<div class="wrap"><table>
+<thead><tr><th>Block</th><th>Found by</th><th class="n">Seconds</th><th class="n">Guesses</th><th class="n">Bits</th><th class="n">Reward</th><th>Fingerprint</th></tr></thead>
+<tbody id="blocks"></tbody>
+</table></div>
+<p class="note" id="events" aria-live="polite"></p>
+</fieldset>
+</main>
+<script src="mine-mole-mining-core-20261121.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.CryptoBurrow, $ = function (id) { return document.getElementById(id); };
+  var KEY = 'crypto-burrow-operation-v1', SHARE_BITS = 4;
+  var DEFAULT = { schema: 'crypto-burrow-operation-v1', settings: { blockTime: 4, retarget: 5, halving: 8, kwhPrice: 0.15, coinPrice: 0.001 },
+    rigs: [{ id: 1, name: 'rig-1', speed: 2, watts: 65, on: true }, { id: 2, name: 'rig-2', speed: 1, watts: 35, on: true }],
+    chain: { height: 0, prev: '0'.repeat(64), bits: 0 } };
+  var st;
+  try { st = JSON.parse(localStorage.getItem(KEY)); } catch (e) { st = null; }
+  if (!st || st.schema !== DEFAULT.schema) st = JSON.parse(JSON.stringify(DEFAULT));
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* private window */ } }
+
+  var running = false, timer = null, rigLive = {}, round = null, retargetStart = 0, retargetBlocks = 0;
+  var session = { started: null, seconds: 0, hashes: 0, kwh: 0, cost: 0, blocks: 0, coins: 0 };
+  var lastTick = 0, rateWin = [];
+
+  function live(r) { return rigLive[r.id] || (rigLive[r.id] = { hashes: 0, shares: 0, earned: 0, rate: 0, win: [] }); }
+  function rewardFor(height) { return 50 / Math.pow(2, Math.floor(height / st.settings.halving)); }
+  function onRigs() { return st.rigs.filter(function (r) { return r.on; }); }
+
+  // ---- Drawing (text only) ----
+  function cell(tr, text, cls) { var td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); return td; }
+  function drawRigs() {
+    var tb = $('rigs'); while (tb.firstChild) tb.removeChild(tb.firstChild);
+    st.rigs.forEach(function (r) {
+      var tr = document.createElement('tr'), L = live(r);
+      var td = document.createElement('td'), on = document.createElement('input'); on.type = 'checkbox'; on.checked = r.on;
+      on.setAttribute('aria-label', r.name + ' on'); on.addEventListener('change', function () { r.on = on.checked; save(); drawStats(); });
+      td.appendChild(on); tr.appendChild(td);
+      td = document.createElement('td'); var nm = document.createElement('input'); nm.value = r.name; nm.maxLength = 20; nm.style.width = '7em';
+      nm.setAttribute('aria-label', 'rig name'); nm.addEventListener('change', function () { r.name = nm.value.trim() || ('rig-' + r.id); save(); });
+      td.appendChild(nm); tr.appendChild(td);
+      td = document.createElement('td'); var sp = document.createElement('select'); sp.setAttribute('aria-label', r.name + ' speed');
+      [1, 2, 3, 4].forEach(function (v) { var o = document.createElement('option'); o.value = v; o.textContent = v + '×'; if (v === r.speed) o.selected = true; sp.appendChild(o); });
+      sp.addEventListener('change', function () { r.speed = +sp.value; save(); }); td.appendChild(sp); tr.appendChild(td);
+      td = document.createElement('td'); var w = document.createElement('input'); w.type = 'number'; w.min = 1; w.max = 5000; w.value = r.watts; w.style.width = '6em';
+      w.setAttribute('aria-label', r.name + ' watts'); w.addEventListener('change', function () { r.watts = Math.max(1, Math.min(5000, +w.value || 1)); save(); });
+      td.appendChild(w); tr.appendChild(td);
+      cell(tr, r.on ? C.fmtRate(L.rate) : 'off', 'n').id = 'rate-' + r.id;
+      cell(tr, String(L.shares), 'n').id = 'shares-' + r.id;
+      cell(tr, C.fmtNum(L.earned, 3), 'n').id = 'earned-' + r.id;
+      td = document.createElement('td'); var x = document.createElement('button'); x.type = 'button'; x.className = 'ghost'; x.textContent = 'Remove';
+      x.disabled = st.rigs.length <= 1; x.addEventListener('click', function () { st.rigs = st.rigs.filter(function (q) { return q !== r; }); save(); drawRigs(); });
+      td.appendChild(x); tr.appendChild(td);
+      tb.appendChild(tr);
+    });
+  }
+  function drawLiveRigs() {
+    st.rigs.forEach(function (r) {
+      var L = live(r), a = $('rate-' + r.id), b = $('shares-' + r.id), c = $('earned-' + r.id);
+      if (a) a.textContent = r.on ? C.fmtRate(L.rate) : 'off';
+      if (b) b.textContent = String(L.shares);
+      if (c) c.textContent = C.fmtNum(L.earned, 3);
+    });
+  }
+  function totalRate() { return onRigs().reduce(function (s, r) { return s + live(r).rate; }, 0); }
+  function drawStats() {
+    var rate = totalRate(), bits = st.chain.bits;
+    $('s-rate').textContent = running ? C.fmtRate(rate) : '–';
+    $('s-bits').textContent = bits ? bits.toFixed(1) : '–';
+    $('s-expect').textContent = bits && rate ? (C.expectedHashes(bits) / rate).toFixed(1) + ' s' : '–';
+    $('s-height').textContent = String(st.chain.height);
+    $('s-reward').textContent = C.fmtNum(rewardFor(st.chain.height), 4) + ' CC';
+    $('s-round').textContent = round ? C.fmtNum(round.hashes, 0) : '0';
+    $('b-coins').textContent = C.fmtNum(session.coins, 3);
+    var value = session.coins * st.settings.coinPrice;
+    $('b-value').textContent = C.fmtMoney(value);
+    $('b-wh').textContent = C.fmtNum(session.kwh * 1000, 2) + ' Wh';
+    $('b-cost').textContent = C.fmtMoney(session.cost);
+    var net = value - session.cost;
+    $('b-net').textContent = C.fmtMoney(net); $('b-net').className = net >= 0 ? 'good' : 'bad';
+  }
+  function addBlockRow(b) {
+    var tb = $('blocks'), tr = document.createElement('tr');
+    cell(tr, String(b.block)); cell(tr, b.finder); cell(tr, b.seconds.toFixed(1), 'n'); cell(tr, C.fmtNum(b.hashes, 0), 'n');
+    cell(tr, b.bits.toFixed(1), 'n'); cell(tr, C.fmtNum(b.reward, 4), 'n');
+    var td = cell(tr, '', 'hash'), z = (b.hash.match(/^0*/) || [''])[0].length, s = document.createElement('span');
+    s.className = 'z'; s.textContent = b.hash.slice(0, z); td.appendChild(s); td.appendChild(document.createTextNode(b.hash.slice(z, 24) + '…'));
+    tb.insertBefore(tr, tb.firstChild);
+    while (tb.children.length > 12) tb.removeChild(tb.lastChild);
+  }
+  function say(t) { $('events').textContent = t; }
+
+  // ---- Mining ----
+  function newRound() {
+    var h = st.chain.height + 1, txs = ['coinbase -> pool ' + rewardFor(st.chain.height) + ' CC'];
+    var names = ['astra', 'bob', 'carol', 'dave', 'erin'];
+    for (var i = 0; i < 3; i++) txs.push(names[(h + i) % 5] + ' -> ' + names[(h + i + 2) % 5] + ' ' + ((h * 7 + i * 3) % 50 / 10 + 0.1).toFixed(1) + ' CC');
+    var txRoot = C.doubleSha256Hex(txs.join('\n'));
+    round = { height: h, prefix: 'CC|' + h + '|' + st.chain.prev + '|' + txRoot + '|' + st.chain.bits.toFixed(3) + '|', start: performance.now(), hashes: 0, kwh: 0, cost: 0, nonce: {} };
+    st.rigs.forEach(function (r) { live(r).shares = 0; round.nonce[r.id] = r.id * 1e9; });
+  }
+  function found(rig, hashHex) {
+    var secs = (performance.now() - round.start) / 1000, reward = rewardFor(st.chain.height);
+    var total = st.rigs.reduce(function (s, r) { return s + live(r).shares; }, 0) || 1, payouts = {};
+    st.rigs.forEach(function (r) { var p = reward * live(r).shares / total; if (p > 0) { live(r).earned += p; payouts[r.name] = +p.toFixed(8); } });
+    var b = { block: round.height, reward: reward, finder: rig.name, seconds: secs, hashes: round.hashes, bits: st.chain.bits, kwh: round.kwh,
+      cost: round.cost, at: new Date().toISOString(), hash: hashHex, payouts: payouts };
+    var ledger = C.loadLedger(localStorage); ledger.blocks.push(b); C.saveLedger(localStorage, ledger);
+    st.chain.height = round.height; st.chain.prev = hashHex;
+    session.blocks++; session.coins += reward;
+    addBlockRow(b);
+    var note = 'Block ' + b.block + ' found by ' + rig.name + ' after ' + C.fmtNum(b.hashes, 0) + ' guesses; ' + C.fmtNum(reward, 4) + ' CC split by shares.';
+    if (st.chain.height % st.settings.halving === 0) note += ' Halving: the next reward is ' + C.fmtNum(rewardFor(st.chain.height), 4) + ' CC.';
+    retargetBlocks++;
+    if (retargetBlocks >= st.settings.retarget) {
+      var actual = (performance.now() - retargetStart) / 1000, wanted = retargetBlocks * st.settings.blockTime;
+      var change = Math.max(-2, Math.min(2, Math.log2(wanted / actual))), old = st.chain.bits;
+      st.chain.bits = Math.max(8, Math.min(32, st.chain.bits + change));
+      note += ' Retarget: the last ' + retargetBlocks + ' blocks took ' + actual.toFixed(1) + ' s (wanted ' + wanted + ' s), so the puzzle went from ' +
+        old.toFixed(1) + ' to ' + st.chain.bits.toFixed(1) + ' zero bits (' + (change >= 0 ? 'harder' : 'easier') + ').';
+      retargetStart = performance.now(); retargetBlocks = 0;
+    }
+    say(note); save(); newRound();
+    $('status').textContent = 'Mining. Each rig is guessing nonces for block ' + round.height + '.';
+  }
+  function tick() {
+    if (!running) return;
+    var t0 = performance.now(), on = onRigs();
+    if (!on.length) { $('status').textContent = 'Every rig is off: nothing is mining.'; timer = setTimeout(tick, 250); return; }
+    var bits = st.chain.bits, shareBits = Math.max(1, bits - SHARE_BITS), done = {};
+    on.forEach(function (r) { done[r.id] = 0; });
+    outer:
+    while (performance.now() - t0 < 30) {
+      for (var k = 0; k < on.length; k++) {
+        var r = on[k], n = r.speed * 300;
+        for (var i = 0; i < n; i++) {
+          var nonce = round.nonce[r.id]++;
+          var h = C.doubleSha256(C.utf8(round.prefix + nonce));
+          done[r.id]++; round.hashes++;
+          if (C.meetsTarget(h, shareBits)) {
+            live(r).shares++;
+            if (C.meetsTarget(h, bits)) { account(t0, on, done); found(r, C.hex(h)); break outer; }
+          }
+        }
+      }
+    }
+    if (round.hashes) account(t0, on, done);
+    drawStats(); drawLiveRigs();
+    timer = setTimeout(tick, 0);
+  }
+  var accounted = null;
+  function account(t0, on, done) {
+    if (accounted === done) return; accounted = done;
+    var now = performance.now(), dt = (now - lastTick) / 1000; lastTick = now;
+    var watts = on.reduce(function (s, r) { return s + r.watts; }, 0), kwh = watts * dt / 3600 / 1000, cost = kwh * st.settings.kwhPrice;
+    session.seconds += dt; session.kwh += kwh; session.cost += cost; if (round) { round.kwh += kwh; round.cost += cost; }
+    on.forEach(function (r) {
+      var L = live(r); L.hashes += done[r.id]; session.hashes += done[r.id];
+      L.win.push([now, done[r.id]]); while (L.win.length && now - L.win[0][0] > 2000) L.win.shift();
+      var span = L.win.length > 1 ? (now - L.win[0][0]) / 1000 : dt || 1;
+      L.rate = L.win.reduce(function (s, x) { return s + x[1]; }, 0) / Math.max(span, 0.03);
+    });
+  }
+  function benchmark() {
+    // Real miners measure themselves first: hash for one second, then set the puzzle so a block takes about blockTime.
+    var t0 = performance.now(), n = 0;
+    while (performance.now() - t0 < 600) { C.doubleSha256(C.utf8('benchmark|' + n)); n++; }
+    var rate = n / 0.6;
+    return Math.max(8, Math.min(32, Math.log2(rate * st.settings.blockTime)));
+  }
+  function start() {
+    if (!st.chain.bits) st.chain.bits = benchmark();
+    running = true; session.started = session.started || new Date().toISOString();
+    lastTick = performance.now(); retargetStart = performance.now(); retargetBlocks = 0;
+    newRound(); $('go').textContent = 'Stop mining';
+    $('status').textContent = 'Mining. Each rig is guessing nonces for block ' + round.height + '.';
+    tick();
+  }
+  function stop() {
+    running = false; if (timer) clearTimeout(timer); timer = null;
+    $('go').textContent = 'Start mining'; $('status').textContent = 'Stopped. Your blocks are saved in the ledger.';
+    if (session.started && session.hashes) {
+      var ledger = C.loadLedger(localStorage);
+      ledger.sessions.push({ started: session.started, seconds: session.seconds, hashes: session.hashes, kwh: session.kwh, cost: session.cost, blocks: session.blocks });
+      C.saveLedger(localStorage, ledger);
+    }
+    session = { started: null, seconds: 0, hashes: 0, kwh: 0, cost: 0, blocks: 0, coins: session.coins };
+    save(); drawStats();
+  }
+  $('go').addEventListener('click', function () { running ? stop() : start(); });
+  $('add').addEventListener('click', function () {
+    if (st.rigs.length >= 8) { say('Eight rigs is the most this page runs: they all share one browser tab.'); return; }
+    var id = st.rigs.reduce(function (m, r) { return Math.max(m, r.id); }, 0) + 1;
+    st.rigs.push({ id: id, name: 'rig-' + id, speed: 1, watts: 65, on: true }); if (round) round.nonce[id] = id * 1e9;
+    save(); drawRigs();
+  });
+  $('reset').addEventListener('click', function () {
+    if (running) stop();
+    st.chain = { height: 0, prev: '0'.repeat(64), bits: 0 }; rigLive = {}; round = null; session.coins = 0;
+    var tb = $('blocks'); while (tb.firstChild) tb.removeChild(tb.firstChild);
+    save(); drawRigs(); drawStats(); say('New chain started at block 0. The ledger keeps the old blocks until you clear it there.');
+  });
+  ['blockTime', 'retarget', 'halving', 'kwhPrice', 'coinPrice'].forEach(function (k) {
+    var el = $(k); el.value = st.settings[k];
+    el.addEventListener('change', function () { var v = +el.value; if (isFinite(v) && v >= 0) { st.settings[k] = v; save(); drawStats(); } else el.value = st.settings[k]; });
+  });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && running) { stop(); $('status').textContent = 'Paused because this page was hidden. Press Start mining to go on.'; } });
+  drawRigs(); drawStats();
+})();
+</script>
+<script src="mine-mole-in-tool-20261121.js"></script>
+</body>
+</html>

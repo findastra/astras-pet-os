@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mining ledger · Mine Mole</title>
+<!-- mining-ledger-tool: Crypto Burrow's tracking tool (Astra, 2026-11-21: "tracking tools"). Every block and every
+     session the mining-operation-tool records: totals, coins against power cost over time, who found what, and the
+     pool payouts. The ledger lives in this browser (key crypto-burrow-ledger, schema crypto-burrow-ledger-v1) and moves
+     by Export and Import as one JSON file, so it survives updates (PET-PROGRAM-FRAMEWORK.md, section 6). It updates by
+     itself while the operation mines. Nothing is sent anywhere.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<link rel="stylesheet" href="mine-mole-tools-20261121.css">
+</head>
+<body>
+<main>
+<header class="page">
+<h1>Mining ledger</h1>
+<p class="sub">What your practice operation has mined, what it cost, and who earned what. It fills in while mining-operation-tool runs.</p>
+</header>
+
+<fieldset><legend>totals</legend>
+<div class="stats">
+<div class="stat"><b id="t-blocks">0</b><span>blocks found</span></div>
+<div class="stat"><b id="t-coins">0</b><span>CC mined</span></div>
+<div class="stat"><b id="t-hashes">0</b><span>guesses made</span></div>
+<div class="stat"><b id="t-wh">0 Wh</b><span>power used</span></div>
+<div class="stat"><b id="t-cost">$0.00</b><span>power cost</span></div>
+<div class="stat"><b id="t-avg">–</b><span>average seconds per block</span></div>
+</div>
+<p class="note" id="t-luck"></p>
+</fieldset>
+
+<fieldset><legend>coins-and-cost-over-time</legend>
+<p class="note">Yellow: CC mined so far. White: power cost so far, in thousandths of a dollar. Each step is one block.</p>
+<svg id="chart" viewBox="0 0 640 200" width="100%" role="img" aria-label="Coins mined and power cost, block by block"></svg>
+</fieldset>
+
+<fieldset><legend>payouts-by-rig</legend>
+<div class="wrap"><table><thead><tr><th>Rig</th><th class="n">Blocks it found</th><th class="n">CC paid by shares</th><th class="n">Share of all pay</th></tr></thead><tbody id="rigs"></tbody></table></div>
+<p class="note">A pool pays for work, not for luck: a rig that found fewer blocks can still earn its share.</p>
+</fieldset>
+
+<fieldset><legend>blocks</legend>
+<div class="wrap"><table><thead><tr><th>Block</th><th>When</th><th>Found by</th><th class="n">Seconds</th><th class="n">Guesses</th><th class="n">Bits</th><th class="n">Reward</th><th class="n">Power cost</th></tr></thead><tbody id="blocks"></tbody></table></div>
+<p class="note" id="b-more"></p>
+</fieldset>
+
+<fieldset><legend>sessions</legend>
+<div class="wrap"><table><thead><tr><th>Started</th><th class="n">Minutes</th><th class="n">Blocks</th><th class="n">Guesses</th><th class="n">Hash rate</th><th class="n">Wh</th><th class="n">Cost</th></tr></thead><tbody id="sessions"></tbody></table></div>
+</fieldset>
+
+<fieldset><legend>keep-your-ledger</legend>
+<button type="button" id="export">Export ledger (JSON)</button>
+<label class="ghost" style="flex-direction:row;align-items:center;gap:6px">Import a ledger <input type="file" id="import" accept="application/json,.json"></label>
+<button type="button" id="clear" class="ghost">Clear ledger</button>
+<p id="msg" class="note" aria-live="polite"></p>
+</fieldset>
+</main>
+<script src="mine-mole-mining-core-20261121.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.CryptoBurrow, $ = function (id) { return document.getElementById(id); }, SVG = 'http://www.w3.org/2000/svg';
+  var last = '';
+  function cell(tr, text, cls) { var td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); }
+  function empty(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+  function when(iso) { var d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
+  function svg(tag, attrs, text) { var e = document.createElementNS(SVG, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+
+  function draw(L) {
+    var blocks = L.blocks, coins = 0, hashes = 0, kwh = 0, cost = 0, secs = 0, bits = 0;
+    blocks.forEach(function (b) { coins += b.reward; hashes += b.hashes; kwh += b.kwh; cost += b.cost; secs += b.seconds; bits += C.expectedHashes(b.bits); });
+    $('t-blocks').textContent = C.fmtNum(blocks.length, 0);
+    $('t-coins').textContent = C.fmtNum(coins, 3);
+    $('t-hashes').textContent = C.fmtNum(hashes, 0);
+    $('t-wh').textContent = C.fmtNum(kwh * 1000, 2) + ' Wh';
+    $('t-cost').textContent = C.fmtMoney(cost);
+    $('t-avg').textContent = blocks.length ? (secs / blocks.length).toFixed(1) : '–';
+    // Luck: guesses actually made ÷ guesses expected for those blocks (1.0 = exactly average).
+    $('t-luck').textContent = blocks.length ? 'Luck so far: you needed ' + (hashes / bits).toFixed(2) + '× the expected guesses (1.00 is exactly average; below 1 is lucky).' : 'No blocks yet. Start mining-operation-tool and they appear here.';
+
+    // Chart
+    var ch = $('chart'); empty(ch);
+    ch.appendChild(svg('line', { x1: 40, y1: 180, x2: 630, y2: 180, stroke: '#e8f0ff' }));
+    ch.appendChild(svg('line', { x1: 40, y1: 10, x2: 40, y2: 180, stroke: '#e8f0ff' }));
+    if (blocks.length) {
+      var pts = [], cpts = [], c = 0, k = 0, maxC = 0, maxK = 0;
+      blocks.forEach(function (b) { c += b.reward; k += b.cost * 1000; maxC = Math.max(maxC, c); maxK = Math.max(maxK, k); });
+      var top = Math.max(maxC, maxK, 1), n = blocks.length;
+      c = 0; k = 0;
+      blocks.forEach(function (b, i) {
+        c += b.reward; k += b.cost * 1000;
+        var x = 40 + 590 * (n === 1 ? 1 : i / (n - 1));
+        pts.push(x.toFixed(1) + ',' + (180 - 165 * c / top).toFixed(1));
+        cpts.push(x.toFixed(1) + ',' + (180 - 165 * k / top).toFixed(1));
+      });
+      ch.appendChild(svg('polyline', { points: pts.join(' '), fill: 'none', stroke: '#ffd84d', 'stroke-width': 2 }));
+      ch.appendChild(svg('polyline', { points: cpts.join(' '), fill: 'none', stroke: '#f4f8ff', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+      ch.appendChild(svg('text', { x: 4, y: 16 }, C.fmtNum(top, 1)));
+      ch.appendChild(svg('text', { x: 28, y: 194 }, '0'));
+      ch.appendChild(svg('text', { x: 560, y: 194 }, 'block ' + blocks[n - 1].block));
+    }
+
+    // Payouts by rig
+    var rigs = {}, paid = 0;
+    blocks.forEach(function (b) {
+      (rigs[b.finder] = rigs[b.finder] || { found: 0, paid: 0 }).found++;
+      for (var r in b.payouts) { (rigs[r] = rigs[r] || { found: 0, paid: 0 }).paid += +b.payouts[r] || 0; paid += +b.payouts[r] || 0; }
+    });
+    var tb = $('rigs'); empty(tb);
+    Object.keys(rigs).sort().forEach(function (r) {
+      var tr = document.createElement('tr'); cell(tr, r); cell(tr, String(rigs[r].found), 'n'); cell(tr, C.fmtNum(rigs[r].paid, 3), 'n');
+      cell(tr, paid ? (100 * rigs[r].paid / paid).toFixed(1) + '%' : '–', 'n'); tb.appendChild(tr);
+    });
+
+    // Blocks, newest first, the last 50
+    tb = $('blocks'); empty(tb);
+    blocks.slice(-50).reverse().forEach(function (b) {
+      var tr = document.createElement('tr'); cell(tr, String(b.block)); cell(tr, when(b.at)); cell(tr, b.finder); cell(tr, b.seconds.toFixed(1), 'n');
+      cell(tr, C.fmtNum(b.hashes, 0), 'n'); cell(tr, b.bits.toFixed(1), 'n'); cell(tr, C.fmtNum(b.reward, 4), 'n'); cell(tr, C.fmtMoney(b.cost), 'n');
+      tb.appendChild(tr);
+    });
+    $('b-more').textContent = blocks.length > 50 ? 'Showing the newest 50 of ' + blocks.length + ' blocks; Export has them all.' : '';
+
+    tb = $('sessions'); empty(tb);
+    L.sessions.slice(-20).reverse().forEach(function (s) {
+      var tr = document.createElement('tr'); cell(tr, when(s.started)); cell(tr, (s.seconds / 60).toFixed(1), 'n'); cell(tr, String(s.blocks), 'n');
+      cell(tr, C.fmtNum(s.hashes, 0), 'n'); cell(tr, s.seconds ? C.fmtRate(s.hashes / s.seconds) : '–', 'n'); cell(tr, C.fmtNum(s.kwh * 1000, 2), 'n');
+      cell(tr, C.fmtMoney(s.cost), 'n'); tb.appendChild(tr);
+    });
+  }
+  function refresh(force) {
+    var raw = ''; try { raw = localStorage.getItem(C.LEDGER_KEY) || ''; } catch (e) { raw = ''; }
+    if (!force && raw === last) return; last = raw;
+    draw(C.loadLedger(localStorage));
+  }
+  window.addEventListener('storage', function (e) { if (e.key === C.LEDGER_KEY) refresh(); });
+  setInterval(refresh, 2000);
+  $('export').addEventListener('click', function () {
+    var text = JSON.stringify(C.loadLedger(localStorage), null, 2), a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+    a.download = 'crypto-burrow-ledger-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '.json';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    $('msg').textContent = 'Exported. Keep the file to move your ledger to another browser or computer.';
+  });
+  $('import').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    f.text().then(function (t) {
+      var L = C.parseLedger(t);
+      if (!confirm('Replace this browser\'s ledger with the ' + L.blocks.length + ' blocks in ' + f.name + '?')) return;
+      C.saveLedger(localStorage, L); refresh(true); $('msg').textContent = 'Imported ' + L.blocks.length + ' blocks.';
+    }).catch(function (e) { $('msg').textContent = 'Not imported: ' + e.message; });
+    this.value = '';
+  });
+  $('clear').addEventListener('click', function () {
+    if (!confirm('Clear every block and session from this browser\'s ledger? Export first if you want to keep them.')) return;
+    C.saveLedger(localStorage, C.emptyLedger()); refresh(true); $('msg').textContent = 'Ledger cleared.';
+  });
+  refresh(true);
+})();
+</script>
+<script src="mine-mole-in-tool-20261121.js"></script>
+</body>
+</html>

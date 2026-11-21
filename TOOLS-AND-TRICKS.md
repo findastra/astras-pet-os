@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-457 rows: 23 native programs, 187 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+462 rows: 23 native programs, 192 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -365,6 +365,11 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 22 | RGBee | Light Hive | third-party program | Logitech G HUB |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | MSI Center |  | Planned |
 | 22 | RGBee | Light Hive | third-party program | Razer Synapse |  | Planned |
+| 23 | Mine Mole | Crypto Burrow | native tool | hash-lab-tool | `crypto-burrow-v1.0-hash-lab-tool-v1.0` | Works today |
+| 23 | Mine Mole | Crypto Burrow | native tool | learn-mining-tool | `crypto-burrow-v1.0-learn-mining-tool-v1.0` | Works today |
+| 23 | Mine Mole | Crypto Burrow | native tool | mining-ledger-tool | `crypto-burrow-v1.0-mining-ledger-tool-v1.0` | Works today |
+| 23 | Mine Mole | Crypto Burrow | native tool | mining-operation-tool | `crypto-burrow-v1.0-mining-operation-tool-v1.0` | Works today |
+| 23 | Mine Mole | Crypto Burrow | native tool | worth-the-power-tool | `crypto-burrow-v1.0-worth-the-power-tool-v1.0` | Works today |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | CapCut |  | Idea |
 | 27 | Gif Giraffe | Astra's GIF Maker | third-party program | ShareX |  | Idea |
 | 29 | Rift Rabbit | Wonderland Launchpad | native tool | update-audit | `wonderland-launchpad-v0.1-update-audit-v1.0` | Works today |
