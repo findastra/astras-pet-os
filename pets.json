@@ -2676,6 +2676,7 @@
       "added": "2026-10-09",
       "version": "0.1.0",
       "version_assigned": true,
+      "server": "wonderland-launchpad-server-20261121.exe",
       "interface_local_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "interface_url": "apps/pet-programs/rift-rabbit-20261018.html",
       "audit": {
