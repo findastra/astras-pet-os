@@ -1,13 +1,14 @@
-// White Hat Weasel's port watch (scripts/port-watch-20261119.mjs): labels, reach, peers, the daily ask, the menu Startup
-// Star runs, and that only our own servers can be closed. No Windows calls: every test hands it a made-up look.
-// Claude Opus 5.5 (claude-opus-5-5), 2026-11-19.
+// White Hat Weasel's port watch, White Hat Lab's server (scripts/white-hat-lab-server-20261120.mjs; it was
+// scripts/port-watch-20261119.mjs until Flash Audit A72): labels, reach, peers, the daily ask, the menu Startup Star
+// runs, its own Quit, and that only our own servers can be closed. No Windows calls: every test hands it a made-up look.
+// Claude Opus 5.5 (claude-opus-5-5), 2026-11-19; its own server, 2026-11-20.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, existsSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { classify, reach, where, privacy, build, ask, menu, mood, close, once, LEFTOVER_MS, PAGE_DATA, SCHEMA } from '../scripts/port-watch-20261119.mjs';
+import { classify, reach, where, privacy, build, ask, menu, mood, close, once, quit, watching, lockPid, LEFTOVER_MS, PAGE_DATA, SCHEMA, SERVER, LOCK } from '../scripts/white-hat-lab-server-20261120.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HOME = 'C:\\Users\\example';
@@ -105,6 +106,38 @@ test('the menu only offers our own servers, in words Startup Star accepts', () =
   const safe = /^(--[a-z][a-z-]*|[a-z0-9][a-z0-9.:-]*)$/;
   for (const i of m.items) for (const a of i.args || []) assert.match(a, safe);
   assert.match(m.items[0].text, /1 port look/);
+  assert.ok(!m.items.some((i) => i.args && i.args[0] === '--quit'), 'stopped, the star offers Start instead');
+  const on = menu(ports, ask(ports, {}, now), true);
+  assert.deepEqual(on.items[on.items.length - 1], { text: 'Quit the port watch', args: ['--quit'] });
+});
+
+test('its own Quit stops only the copy that runs this server, then clears the lock', () => {
+  assert.equal(SERVER, 'white-hat-lab-server-20261120.mjs');
+  assert.equal(LOCK, 'white-hat-lab-server-20261120.lock');
+  const base = mkdtempSync(join(tmpdir(), 'port-watch-quit-'));
+  const at = { out: join(base, 'docs'), menu: join(base, 'local') };
+  mkdirSync(at.menu, { recursive: true });
+  const lock = join(at.menu, LOCK);
+  const isAlive = (pid) => pid === 4242;
+  const ours = `"C:\\Program Files\\nodejs\\node.exe" "${HOME}\\Documents\\Astra's PetOS\\astras-pet-os\\scripts\\${SERVER}" --background`;
+  // Nothing running: nothing to stop.
+  assert.deepEqual([quit(at, { isAlive }).ok, quit(at, { isAlive }).stopped], [true, false]);
+  // Its number now belongs to another program: never stopped.
+  writeFileSync(lock, '4242');
+  assert.equal(lockPid(at), 4242);
+  assert.equal(watching(at, { isAlive }), 4242);
+  const killed = [];
+  const other = quit(at, { isAlive, line: () => 'C:\\Windows\\notepad.exe', kill: (n) => killed.push(n) });
+  assert.equal(other.ok, false);
+  assert.deepEqual(killed, []);
+  assert.ok(!existsSync(lock), 'a lock that is not ours any more goes');
+  // The port watch itself: stopped, and the lock goes with it.
+  writeFileSync(lock, '4242');
+  const r = quit(at, { isAlive, line: () => ours, kill: (n) => killed.push(n) });
+  assert.deepEqual([r.ok, r.stopped], [true, true]);
+  assert.deepEqual(killed, [4242]);
+  assert.ok(!existsSync(lock));
+  assert.equal(watching(at, { isAlive }), 0);
 });
 
 test('close stops only our own servers', () => {
@@ -133,7 +166,9 @@ test('once writes the page data, menu and mood where Startup Star and the page r
 
 test('Startup Star starts the port watch at sign-in and runs its menu with the script first', () => {
   const cs = readFileSync(join(root, 'scripts', 'desktop-pets-20261011.cs'), 'utf8');
-  assert.match(cs, /Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker="port-watch-20261119"/);
+  // Its path comes from pets.json (`server`), inside the hub, and its command line is told apart by its file name.
+  assert.match(cs, /string watch=ServerIn\("white-hat-lab",PetFiles\.Root,null\);/);
+  assert.match(cs, /Repo="white-hat-lab",Pet="White Hat Weasel",Exe=node,Marker=Path\.GetFileName\(watch\)/);
   assert.match(cs, /AlsoAtSignIn=\{[^}]*"white-hat-lab"/);
   assert.match(cs, /MenuPrefix=new\[\]\{Quote\(list\[list\.Count-1\]\.Needs\)\}/);
   assert.match(cs, /if\(e\.MenuPrefix!=null\)/);
