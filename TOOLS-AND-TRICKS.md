@@ -151,14 +151,14 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | retire-check | `the-farm-v1.0-retire-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
+| 1 | Friendly Farmer | The Farm | native trick | click-check-round | `the-farm-v1.0-click-check-round-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | daily-rounds-trick | `the-farm-v1.0-daily-rounds-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | flash-audit-round | `the-farm-v1.0-flash-audit-round-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-finder | `the-farm-v1.0-pet-finder-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-organizer | `the-farm-v1.0-pet-organizer-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | profile-round-trick | `the-farm-v1.0-profile-round-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | retire-a-pet | `the-farm-v1.0-retire-a-pet-trick-v1.0` | Works today |
-| 1 | Friendly Farmer | The Farm | native trick | click-check-round | `the-farm-v1.0-click-check-round-trick-v1.0` | Planned |
-| 1 | Friendly Farmer | The Farm | native trick | flash-audit-round | `the-farm-v1.0-flash-audit-round-trick-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | third-party program | GitHub |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Google Fonts |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Node.js |  | Works today |
@@ -191,8 +191,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-you | `github-aquarium-v1.0-waiting-on-you-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | achievement-tracker | `github-aquarium-v1.0-achievement-tracker-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | findastra-readme-auditor | `github-aquarium-v1.0-findastra-readme-auditor-v1.0` | Planned |
+| 2 | GitHub Goldfish | GitHub Aquarium | native trick | branch-sweep-round | `github-aquarium-v1.0-branch-sweep-round-trick-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
-| 2 | GitHub Goldfish | GitHub Aquarium | native trick | branch-sweep-round | `github-aquarium-v1.0-branch-sweep-round-trick-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
 | 4 | API Fairy | API Fairy Ring | native program | API Fairy app | `api-fairy-ring-v1.0-api-fairy-app-v0.1.0` | Works today |
