@@ -137,16 +137,20 @@ namespace AstraDesktopPets {
     readonly Dictionary<string,Rectangle> moodCrops=new Dictionary<string,Rectangle>();
     // Its mood's picture, read from the hub the first time it is needed: a desktop drawing's art/moods/<pet>/<mood>.png
     // (build-mood-stickers-20261024.mjs), else the frame index's stamped frame. Null when it has none (Claude Bot's
-    // private drawing, the Fuzzboi recipes) or it is not the same size as its idle drawing.
+    // private drawing) or it is not the same size as its idle drawing. Fuzzboi Friend has no fixed picture: he is a
+    // roll of Astra's own Fuzzbois layers, so his mood is drawn over the roll he has (RecipeMood).
     internal Bitmap MoodPicture(string mood) {
       if(mood==null)return null;
       Bitmap picture;if(moodFrames.TryGetValue(mood,out picture))return picture;
       picture=null;
       try {
-        string relative=DesktopArt?"art/moods/"+Id+"/"+mood+".png":framePaths!=null&&framePaths.ContainsKey(mood)?PetFiles.Text(framePaths,mood):null;
-        string file=relative==null?null:PetFiles.SafePath(relative);
-        if(file!=null&&File.Exists(file)) {
-          picture=Detached(file);
+        if(recipeLayers!=null)picture=RecipeMood(mood);
+        else {
+          string relative=DesktopArt?"art/moods/"+Id+"/"+mood+".png":framePaths!=null&&framePaths.ContainsKey(mood)?PetFiles.Text(framePaths,mood):null;
+          string file=relative==null?null:PetFiles.SafePath(relative);
+          if(file!=null&&File.Exists(file))picture=Detached(file);
+        }
+        if(picture!=null) {
           if(picture.Width!=Idle.Width||picture.Height!=Idle.Height){picture.Dispose();picture=null;}
           else {
             if(DesktopArt)CrispTransparency(picture);
@@ -158,6 +162,71 @@ namespace AstraDesktopPets {
         }
       }catch(Exception error){if(!(error is IOException||error is ArgumentException||error is InvalidDataException||error is UnauthorizedAccessException))throw;picture=null;}
       moodFrames[mood]=picture;return picture;
+    }
+    // Fuzzboi Friend's mood over the Fuzzboi he rolled (Astra, 2026-11-20: "Can we save separate emotion files, and then
+    // add those layers over the new roll once we get it"): the roll's own layers, with that mood's face layer drawn in
+    // place of eyes.png (layers/moods/<mood>-YYYYMMDD.png beside it, the newest date; fuzzboi-mood-layers-20261120.mjs
+    // cuts them from GPT-6-Astra's nine faces), and the shared mood symbol, so a reroll keeps his mood on the new body.
+    string FaceLayer(string mood) {
+      string eyes=null;foreach(string path in recipeLayers)if(Path.GetFileName(path)=="eyes.png"){eyes=path;break;}
+      if(eyes==null)return null;
+      string dir=PetFiles.DraftPath(draftEntry,eyes.Substring(0,eyes.LastIndexOf('/'))+"/moods");if(!Directory.Exists(dir))return null;
+      string best=null;
+      foreach(string f in Directory.GetFiles(dir,mood+"-*.png")){string d=Path.GetFileNameWithoutExtension(f).Substring(mood.Length+1);if(System.Text.RegularExpressions.Regex.IsMatch(d,"^[0-9]{8}$")&&(best==null||String.CompareOrdinal(f,best)>0))best=f;}
+      return best;
+    }
+    Bitmap RecipeMood(string mood) {
+      string face=FaceLayer(mood);if(face==null)return null;
+      var picture=Compose(draftEntry,recipeLayers,face);CrispTransparency(picture);
+      if(!StampMoodSymbol(picture,mood)){picture.Dispose();return null;}
+      return picture;
+    }
+    // Every pixel the mood changes on his roll is in its face (the face layer or the eyes it replaces) or its symbol's
+    // square, and the face does change something: the self-test's check that the mood goes over the roll he has.
+    internal bool MoodOverRoll(string mood) {
+      var picture=MoodPicture(mood);string face=recipeLayers==null?null:FaceLayer(mood);if(picture==null||face==null)return false;
+      string eyes=null;foreach(string path in recipeLayers)if(Path.GetFileName(path)=="eyes.png")eyes=path;
+      Rectangle region;
+      using(var faceOnly=Compose(draftEntry,new ArrayList{eyes},face))using(var eyesOnly=Compose(draftEntry,new ArrayList{eyes},null))region=Rectangle.Union(AlphaBounds(faceOnly),AlphaBounds(eyesOnly));
+      region.Inflate(2,2);var symbol=SymbolSquare(picture.Width,picture.Height);int changed=0;
+      for(int y=0;y<picture.Height;y++)for(int x=0;x<picture.Width;x++){
+        if(picture.GetPixel(x,y)==Idle.GetPixel(x,y))continue;
+        if(symbol.Contains(x,y))continue;
+        if(!region.Contains(x,y))return false;changed++;
+      }
+      return changed>0;
+    }
+    // The shared mood symbol, stamped the way the build stamps it (mood-symbols-20261120.mjs, stampMoodSymbol, Codex for
+    // Astra, 2026-11-20): her approved picture art/mood-symbols/<mood>-20261120.png, scaled to 23% of the frame, top right,
+    // 1/64 of the frame in from the edges, laid over the drawing. False when the picture is missing.
+    static int Round(double v) { return (int)Math.Floor(v+0.5); }
+    internal static Rectangle SymbolSquare(int width,int height) {
+      int size=Math.Max(1,Round(Math.Min(width,height)*.23)),inset=Math.Max(1,Round(Math.Min(width,height)/64.0));
+      return new Rectangle(width-size-inset,inset,size,size);
+    }
+    internal static bool StampMoodSymbol(Bitmap frame,string mood) {
+      string file=PetFiles.SafePath("art/mood-symbols/"+mood+"-20261120.png");if(!File.Exists(file))return false;
+      var square=SymbolSquare(frame.Width,frame.Height);int size=square.Width;
+      using(var symbol=Detached(file))for(int y=0;y<size;y++)for(int x=0;x<size;x++) {
+        Color s=symbol.GetPixel((int)Math.Floor((double)x*symbol.Width/size),(int)Math.Floor((double)y*symbol.Height/size));if(s.A==0)continue;
+        int px=square.X+x,py=square.Y+y;Color d=frame.GetPixel(px,py);
+        double a=s.A/255.0,da=d.A/255.0,alpha=a+da*(1-a);
+        frame.SetPixel(px,py,Color.FromArgb(Round(alpha*255),Round((s.R*a+d.R*da*(1-a))/alpha),Round((s.G*a+d.G*da*(1-a))/alpha),Round((s.B*a+d.B*da*(1-a))/alpha)));
+      }
+      return true;
+    }
+    // The self-test's check that the star's symbol is the build's: a desktop drawing's plain mood, stamped here, is
+    // exactly art/moods/<pet>/<mood>.png.
+    internal bool SymbolLikeBuild(string mood) {
+      if(!DesktopArt||recipeLayers!=null)return false;
+      string dir=PetFiles.SafePath("desktop-art/"+Id);if(!Directory.Exists(dir))return false;
+      string plain=null;foreach(string f in Directory.GetFiles(dir,mood+"-*.png")){string d=Path.GetFileNameWithoutExtension(f).Substring(mood.Length+1);if(System.Text.RegularExpressions.Regex.IsMatch(d,"^[0-9]{8}$")&&(plain==null||String.CompareOrdinal(f,plain)>0))plain=f;}
+      string built=PetFiles.SafePath("art/moods/"+Id+"/"+mood+".png");if(plain==null||!File.Exists(built))return false;
+      using(var mine=Detached(plain))using(var theirs=Detached(built)) {
+        if(!StampMoodSymbol(mine,mood)||mine.Size!=theirs.Size)return false;
+        for(int y=0;y<mine.Height;y++)for(int x=0;x<mine.Width;x++){Color m=mine.GetPixel(x,y),t=theirs.GetPixel(x,y);if(m.A!=t.A||(m.A!=0&&m.ToArgb()!=t.ToArgb()))return false;}
+      }
+      return true;
     }
     internal bool HasMood(string mood) { return MoodPicture(mood)!=null; }
     Bitmap Shown { get { return Mood!=null?MoodPicture(Mood):null; } }
@@ -173,6 +242,7 @@ namespace AstraDesktopPets {
     internal bool Layered { get { return Id=="ghost-protocol"||Id=="goldfish"||Id=="api-fairy"||Id=="astra-wisp"||Rainbow||Id=="wifi-butterfly"||Id=="mesh-moth"||Id=="vscode-angel"; } }
     internal string FuzzStyle;
     Dictionary<string,object> draftEntry;
+    ArrayList recipeLayers; // the layers of the Fuzzboi he rolled, in drawing order
     internal Rectangle Crop;
     internal RectangleF Hit;
     internal static PetSprite Load(Dictionary<string,object> entry,Dictionary<string,object> framesIndex) {
@@ -210,25 +280,32 @@ namespace AstraDesktopPets {
         var choices=new List<Dictionary<string,object>>();foreach(Dictionary<string,object> variant in (ArrayList)variants)if(PetFiles.Text(variant,"style","B")==style)choices.Add(variant);
         if(choices.Count==0)throw new InvalidDataException("No original Fuzzboi recipes for style "+style);
         var choice=choices[new Random(Guid.NewGuid().GetHashCode()).Next(choices.Count)];
-        pet.Idle=new Bitmap(256,256,PixelFormat.Format32bppArgb);
-        using(var canvas=Graphics.FromImage(pet.Idle))foreach(string path in (ArrayList)choice["layers"]){
-          using(var layer=Detached(PetFiles.DraftPath(entry,path))) {
-            if(Path.GetFileName(path)=="outlineB.png")using(var ink=new ImageAttributes()){
-              var black=new ColorMatrix();black.Matrix00=black.Matrix11=black.Matrix22=0;ink.SetColorMatrix(black);
-              canvas.DrawImage(layer,new Rectangle(0,0,256,256),0,0,layer.Width,layer.Height,GraphicsUnit.Pixel,ink);
-            }else canvas.DrawImage(layer,new Rectangle(0,0,256,256));
-          }
-        }
+        pet.recipeLayers=(ArrayList)choice["layers"];pet.Idle=Compose(entry,pet.recipeLayers,null);
         pet.Blink=new Bitmap(pet.Idle);pet.Name+=" "+style+" #"+PetFiles.Text(choice,"code");
       }else {pet.Idle=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"idle")));pet.Blink=Detached(PetFiles.DraftPath(entry,PetFiles.Text(entry,"blink")));}
       CrispTransparency(pet.Idle);CrispTransparency(pet.Blink);
       pet.Crop=Rectangle.Union(AlphaBounds(pet.Idle),AlphaBounds(pet.Blink));
       pet.PrepareEffects();pet.idleInk=BlackMask(pet.Idle);pet.blinkInk=BlackMask(pet.Blink);return pet;
     }
+    // A recipe's picture: its layers in order on a 256 x 256 canvas, outlineB drawn black. `face`, when given, is drawn in
+    // place of eyes.png (a mood's face layer, RecipeMood).
+    static Bitmap Compose(Dictionary<string,object> entry,ArrayList layers,string face) {
+      var picture=new Bitmap(256,256,PixelFormat.Format32bppArgb);
+      using(var canvas=Graphics.FromImage(picture))foreach(string path in layers){
+        string name=Path.GetFileName(path);
+        using(var layer=Detached(face!=null&&name=="eyes.png"?face:PetFiles.DraftPath(entry,path))) {
+          if(name=="outlineB.png")using(var ink=new ImageAttributes()){
+            var black=new ColorMatrix();black.Matrix00=black.Matrix11=black.Matrix22=0;ink.SetColorMatrix(black);
+            canvas.DrawImage(layer,new Rectangle(0,0,256,256),0,0,layer.Width,layer.Height,GraphicsUnit.Pixel,ink);
+          }else canvas.DrawImage(layer,new Rectangle(0,0,256,256));
+        }
+      }
+      return picture;
+    }
     internal void NextFuzzStyle() {
       if(draftEntry==null)return;
       var next=LoadDraft(draftEntry,FuzzStyle=="B"?"C":FuzzStyle=="C"?"A":"B");
-      Dispose();Idle=next.Idle;Blink=next.Blink;idleInk=next.idleInk;blinkInk=next.blinkInk;idleBands=next.idleBands;blinkBands=next.blinkBands;Crop=next.Crop;Name=next.Name;FuzzStyle=next.FuzzStyle;
+      Dispose();Idle=next.Idle;Blink=next.Blink;idleInk=next.idleInk;blinkInk=next.blinkInk;idleBands=next.idleBands;blinkBands=next.blinkBands;Crop=next.Crop;Name=next.Name;FuzzStyle=next.FuzzStyle;recipeLayers=next.recipeLayers;
     }
     void PrepareEffects() {
       idleBands=ApplyEffects(Idle);blinkBands=ApplyEffects(Blink);
@@ -1327,6 +1404,16 @@ namespace AstraDesktopPets {
       SetPetsOut(false);if(petsOut||!Compact)throw new Exception("The star did not hide the pets.");
       SetPetsOut(true);if(!petsOut||Compact)throw new Exception("The star did not show the pets.");
       var fuzz=pets.Find(p=>p.Id=="fuzzboi-friend");if(fuzz!=null)foreach(string expected in new[]{"C","A","B"}){ResolveClicks(fuzz.Id,3);if(fuzz.FuzzStyle!=expected)throw new Exception("Fuzzboi body did not change to "+expected);}
+      // Fuzzboi Friend (Astra, 2026-11-20: "add those layers over the new roll once we get it"): his roll while calm; in a
+      // mood the same roll with that mood's face and the shared symbol, at his own size, and over the new roll after a reroll.
+      if(fuzz!=null) {
+        foreach(string mood in new[]{"happy","curious","worried","sad","sick","alarmed"})if(!fuzz.MoodOverRoll(mood))throw new Exception("Fuzzboi Friend's "+mood+" face does not go over the Fuzzboi he rolled.");
+        var fuzzHit=fuzz.Hit;fuzz.Mood="curious";if(fuzz.Hit!=fuzzHit)throw new Exception("Fuzzboi Friend keeps his size while he shows a mood.");
+        string rolled=fuzz.Name;ResolveClicks(fuzz.Id,3);
+        if(fuzz.Name==rolled||!fuzz.MoodOverRoll("curious"))throw new Exception("After a reroll Fuzzboi Friend's mood face goes over his new roll.");
+        fuzz.Mood=null;var fuzzWindow=roaming.Find(w=>w.Pet==fuzz);if(fuzzWindow!=null)fuzzWindow.RefreshMood();
+        ResolveClicks(fuzz.Id,3);ResolveClicks(fuzz.Id,3);if(fuzz.FuzzStyle!="B")throw new Exception("Fuzzboi body did not come back to B.");
+      }
       int black=0;for(int y=0;y<starBitmap.Height;y++)for(int x=0;x<starBitmap.Width;x++){Color c=starBitmap.GetPixel(x,y);if(c.A>0&&c.R==0&&c.G==0&&c.B==0)black++;if(c.A!=0&&c.A!=255)throw new Exception("Star edge must be crisp in both tray and desktop.");}if(black<10)throw new Exception("Star black outline missing.");
       foreach(var pet in roaming)if(pet.Visible)throw new Exception("Self-test must never show a pet window.");
       if(testActions.Exists(a=>a.StartsWith("open:")||a.StartsWith("repair:")))throw new Exception("Self-test dispatched an unintended app action.");
@@ -1340,7 +1427,7 @@ namespace AstraDesktopPets {
         ResolveClicks(bug.Id,3);if(testActions[testActions.Count-1]!="repair:voicemeeter-bug")throw new Exception("Three clicks on the Bug must repair.");
         testActions.RemoveRange(before,testActions.Count-before);
       }
-      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the one crash watch started by the star (Log Den's program runs all three), Log Lynx's alarmed face and the one shared mood (pet-moods).");
+      Console.WriteLine("PASS: roster, decoded sprites, layout, group 3 same-size scale, Paper Girl and File Master sizes and paired following, paired scatter/lineup, drag leadership and bounded catch-up, pair interaction pauses, standard-size Bug, hidden Damsel launcher, monitor clamping, startup quoting, asset boundaries, the pictures-only copy while the hub is held back, drafts only from the hub, click classification, the Bug's pet program page and three-click repair, drag cancellation, one compact window per pet, whole-screen scatter, bounded roaming, sparkle trails disabled for all pets, transparent sparkle hit-testing, star show/hide, Show on Computer Screen ticks in the Farmer's menu, the star redrawn after a lock or sleep, the background pets' menus (their own commands only), the one crash watch started by the star (Log Den's program runs all three), Log Lynx's alarmed face and the one shared mood (pet-moods), Fuzzboi Friend's moods drawn over the roll he has, with the build's own mood symbol.");
     }
     void ScatterTests(Rectangle area) {
       for(int run=0;run<25;run++) {
@@ -1461,6 +1548,8 @@ namespace AstraDesktopPets {
         lynx.Mood=null;if(window!=null)window.RefreshMood();
         if(window!=null&&(window.ClientSize!=size||window.Body!=body))throw new Exception("A pet's window gives the sticker's room back.");
         if(!differs)throw new Exception("An alarmed Log Lynx must look different from his idle face.");
+        // The symbol the star stamps on a roll (Fuzzboi Friend's) is the one the build stamps on every drawing.
+        if(!lynx.SymbolLikeBuild("alarmed"))throw new Exception("The star's mood symbol must be exactly the build's (art/moods/log-lynx/alarmed.png).");
       }
       DateTime now=DateTime.UtcNow;
       string board="{\"schema\":\"astras-pet-os-pet-moods-v1\",\"updated\":\""+now.ToString("o")+"\",\"stale_after_ms\":120000,\"pets\":{\"log-den\":{\"art\":\"log-lynx\",\"show\":\"alarmed\"},\"packet-river\":{\"art\":\"packet-piranha\",\"show\":null},\"spoonfed\":{\"art\":\"spoonfed-sugarcube\",\"show\":\"curious\"},\"x\":{\"show\":\"sleep\"}}}";
