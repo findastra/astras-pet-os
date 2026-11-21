@@ -116,3 +116,9 @@ test('the toolkit page is a Portfolio Puffer tool on the System Map, held in its
   assert.match(html, /drum-dog-in-tool-20261102\.js/, 'tells its tool box how tall it is');
   assert.doesNotMatch(html, /\.innerHTML\s*=/, 'fetched text goes in with textContent');
 });
+
+test('a long description in Astra\'s own words passes: search results cut it off, it is never trimmed', () => {
+  const long = 'x'.repeat(190);
+  const r = seo.checkPage(good.replace(/content="Liminal Doors is[^"]*"/, `content="${long}"`), page);
+  assert.equal(r.checks.find((c) => c.id === 'description').ok, true);
+});
