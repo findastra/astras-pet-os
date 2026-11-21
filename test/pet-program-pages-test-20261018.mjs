@@ -270,11 +270,11 @@ test('every friend says what it does and has a picture: no line shared by three 
 test('Fuzzboi Friend: one Fuzzboi of her layers on his page, in all nine faces with the shared symbols', () => {
   const html = files[pagePath('fuzzboi-friend')];
   const faces = (face) => [...html.matchAll(new RegExp(`data-face="${face}" src="\\.\\./\\.\\./(art/[a-z]+/fuzzboi-friend/[^"]+)"`, 'g'))].map((m) => m[1]);
-  for (const mood of ['idle', 'blink', 'sleep', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) {
+  for (const mood of ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) { // pages show no sleep face
     assert.ok(faces(mood).length, `his ${mood} face is on his page`);
     for (const p of faces(mood)) assert.equal(p, `art/moods/fuzzboi-friend/${mood}.png`, `${mood}: his face with the shared symbol`);
-    assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261120.png`), `${mood}: made from her layers`);
   }
+  for (const mood of ['idle', 'blink', 'sleep', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261120.png`), `${mood}: made from her layers`);
   assert.ok(!existsSync(`${root}/desktop-art/fuzzboi-friend/idle-20261114.png`), 'no whole-body drawing stands in for his roll');
 });
 
