@@ -53,6 +53,7 @@
 <fieldset><legend>keep-your-ledger</legend>
 <button type="button" id="export">Export ledger (JSON)</button>
 <label class="ghost" style="flex-direction:row;align-items:center;gap:6px">Import a ledger <input type="file" id="import" accept="application/json,.json"></label>
+<button type="button" id="replace" hidden>Replace my ledger</button>
 <button type="button" id="clear" class="ghost">Clear ledger</button>
 <p id="msg" class="note" aria-live="polite"></p>
 </fieldset>
@@ -148,13 +149,24 @@
     var f = this.files && this.files[0]; if (!f) return;
     f.text().then(function (t) {
       var L = C.parseLedger(t);
-      if (!confirm('Replace this browser\'s ledger with the ' + L.blocks.length + ' blocks in ' + f.name + '?')) return;
-      C.saveLedger(localStorage, L); refresh(true); $('msg').textContent = 'Imported ' + L.blocks.length + ' blocks.';
+      pending = L; $('msg').textContent = f.name + ' holds ' + L.blocks.length + ' blocks. Press Replace my ledger to use it, or pick another file.';
+      $('replace').hidden = false;
     }).catch(function (e) { $('msg').textContent = 'Not imported: ' + e.message; });
     this.value = '';
   });
+  // Confirmations stay on the page (a confirm() box is refused inside some frames): press Clear twice within 5 seconds.
+  var armed = null, pending = null;
+  $('replace').addEventListener('click', function () {
+    if (!pending) return; C.saveLedger(localStorage, pending); refresh(true);
+    $('msg').textContent = 'Imported ' + pending.blocks.length + ' blocks.'; pending = null; $('replace').hidden = true;
+  });
   $('clear').addEventListener('click', function () {
-    if (!confirm('Clear every block and session from this browser\'s ledger? Export first if you want to keep them.')) return;
+    if (!armed) {
+      $('clear').textContent = 'Press again to clear everything';
+      $('msg').textContent = 'This removes every block and session from this browser\'s ledger. Export first to keep them.';
+      armed = setTimeout(function () { armed = null; $('clear').textContent = 'Clear ledger'; }, 5000); return;
+    }
+    clearTimeout(armed); armed = null; $('clear').textContent = 'Clear ledger';
     C.saveLedger(localStorage, C.emptyLedger()); refresh(true); $('msg').textContent = 'Ledger cleared.';
   });
   refresh(true);
