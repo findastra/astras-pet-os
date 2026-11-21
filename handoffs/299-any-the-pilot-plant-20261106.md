@@ -1,4 +1,4 @@
-status: open (the build is in a PR, waiting on Astra's merge OK; the four programs are installed)
+status: open (built and merged, #337 and the-pilot-plant#1, 2026-11-20; left: Open buttons, the look at sign-in, and Astra's two L4 choices)
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-06
 needs: nothing
@@ -111,6 +111,11 @@ Record the merge below.
   bdce21da. The pink flamingo (102273a3) is in it. Her "Approve it" for the art came in chat at about the same time.
   Recording that approval missed #299 (fabe83ca was pushed to the branch after the merge), so it went in its own
   follow-up PR with this note.
+- **the-pilot-plant#1 merged** 2026-11-20 as c720ab88, then **#337 merged** as 8b6fd60e (Astra in chat: "Yes, merge
+  both"). Before merging, #337 took in main's six newer commits (no conflicts, rebuild changed nothing); `npm test`
+  passed 484, and its 4 failures were the known Windows farm-setup test plus a pet chat helper timing flake that passed
+  3 of 3 alone. No open PR touched the flamingo's entries. The look from `main` passed its 16 self-test checks and found
+  all four programs; the live page shows DWSIM 10 and the two L4 choices.
 
 ## Receipt and review
 

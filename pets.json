@@ -719,7 +719,7 @@
       "job": "Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop.",
       "added": "2026-10-07",
       "version": "0.1.0-20261008",
-      "note": "Redrawn in the shared pet style from her 32x24 LCD original (pink hair, mint wings).",
+      "note": "Redrawn in the shared pet style from her 32x24 LCD original (mint hair, lilac wings, a purple dress, holding a key).",
       "interface_local_url": "apps/pet-programs/api-fairy-20261018.html",
       "interface_url": "apps/pet-programs/api-fairy-20261018.html",
       "app_url": "apps/api-fairy-20261008.html",
@@ -1776,7 +1776,14 @@
           "visibility": "public",
           "version": "v0.1"
         }
-      ]
+      ],
+      "checks": {
+        "tool:keep-voicemeeter-open": {
+          "result": "works",
+          "note": "Live test with Astra’s OK: Voicemeeter was shut down through its Remote API, the Bug opened it again about 7 seconds later, and its About / Registration info reminder was closed about 11 seconds after it appeared (Voicemeeter holds it about 10 seconds). Recorded in voicemeeter-bug#5. Still set up on 2026-11-20: Keep Voicemeeter open is on in his settings, and Voicemeeter is running from the path he remembers.",
+          "on": "2026-10-19"
+        }
+      }
     },
     {
       "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
@@ -2964,7 +2971,7 @@
     },
     {
       "repo": "raspberry-berry",
-      "pet": "Raspberry Pi Berry",
+      "pet": "Raspberry Berry",
       "visibility": "private",
       "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
@@ -2999,7 +3006,7 @@
           {
             "part": "startup-star",
             "how": "optional",
-            "why": "Startup Star runs it on a farm; Raspberry Pi Berry works without it."
+            "why": "Startup Star runs it on a farm; Raspberry Berry works without it."
           }
         ],
         "programs": []
@@ -3174,6 +3181,7 @@
       "job": "What runs on your PC: programs, memory and what starts at sign-in.",
       "added": "2026-10-21",
       "version": "0.1.0-20261021",
+      "server": "bin/kernel-grove-server-20261120.exe",
       "audit": {
         "cadence": "weekly",
         "subject": "what runs on the PC: leftovers, memory and what starts at sign-in",
@@ -3236,6 +3244,7 @@
       "job": "Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory.",
       "added": "2026-10-23",
       "version": "0.1.0-20261023",
+      "server": "bin/benchmark-rock-server-20261120.exe",
       "audit": {
         "cadence": "weekly",
         "subject": "the graphics cards: their memory, how busy they are and what is using them",
@@ -4019,6 +4028,7 @@
       "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
+      "server": "pc-master-race-server-20261120.mjs",
       "audit": {
         "cadence": "weekly",
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",
@@ -4026,7 +4036,7 @@
       },
       "note": "Astra, 2026-11-03: \"Maybe we should call this PC Master. And then we can call the pet program PC Master Race. And it's a race to be the PC Master\", and \"the PC master race one needs to just have the tools that are related to this stuff ... Organization, I guess, and PC education\". Then \"all recommended\" on the deck (new pet #86, Kernel Koala keeps Task Manager cleanup, the core PC tools plus a lesson tool, private repo, every download, portable tools in Program Files). Art generated the same day with her OK. Art approved by Astra on 2026-11-06: after a board of six other ideas she kept the tower (\"I like the original PC\", then \"Approve the tower\"), so it is redone only with --match.",
       "editorial": {
-        "says": "Every core PC tool shows its live preview in its own pill, his two tools work right here, and your PC’s parts are under Devices it looks after: all from one look every ten minutes that only reads. Next: Open buttons through a launcher on this PC, the look at sign-in (it is started by hand now), Microsoft’s license for Autoruns, TCPView and Coreinfo (yours to accept), and LatencyMon (held).",
+        "says": "Every core PC tool shows its live preview in its own pill, his two tools work right here, and your PC’s parts are under Devices it looks after: all from a look that only reads: once a week, and every 10 minutes while this page is open. Next: Open buttons through a launcher on this PC, the look at sign-in (it is started by hand now), Microsoft’s license for Autoruns, TCPView and Coreinfo (yours to accept), and LatencyMon (held).",
         "by": "Claude Opus 5.5",
         "on": "2026-11-06"
       },
@@ -4342,7 +4352,7 @@
       },
       "note": "Astra, 2026-11-03: \"We need an engineering pet, it seems like.\" On 2026-11-06 she answered \"all recommended\" on its question deck: a new pet; all seven programs, GeoGebra rather than Desmos; Jupyter also on Python Jungle and Zotero also on AI Doghouse; the PC Master Race way, with only a look tool native; home and learning only; a private repo; a seed now, then built; DWSIM, Qalculate!, Python with JupyterLab, NumPy, SymPy and Matplotlib, and Zotero downloaded and checked at build time. She asked for name ideas and picked Flowsheet Flamingo and The Pilot Plant. The same day she chose Rift Rabbit’s page as its model too: L3’s note, the devices it looks after (if any), its own tools working on the page, and Open buttons later through a launcher. Its art: a tiny round pink kawaii flamingo in a small yellow hard hat, approved by Astra on 2026-11-12 (\"Approve it\"), after she called the first, lime one terrible (\"Make it pink and like small and cute. It needs to be like kawaii.\"). Built on 2026-11-12 after \"Yes, build it\": the private repo, the look and the tool page. Astra, 2026-11-12: \"Yes, download all\", and for DWSIM \"I want the one with the AI agent\": DWSIM 10.2.15 instead of 9.0.5 (9.0.5 removed); all four programs were installed by 2026-11-19, with Astra clicking through each licence herself.",
       "editorial": {
-        "says": "All seven programs work now: DWSIM 10 (with its AI assistant), Qalculate!, Jupyter and Zotero are on the PC, and GeoGebra, the Natural Number Game and WebPlotDigitizer run right in their pills. My look fills the four PC pills every ten minutes. Next: the look at sign-in (it is started by hand now) and Open buttons through a launcher on this PC.",
+        "says": "All seven programs work now: DWSIM 10 (with its AI assistant), Qalculate!, Jupyter and Zotero are on the PC, and GeoGebra, the Natural Number Game and WebPlotDigitizer run right in their pills. My look fills the four PC pills once at sign-in and once a week, since nothing here changes faster. Next: the look at sign-in (it is started by hand now) and Open buttons through a launcher on this PC.",
         "by": "Claude Opus 5.5",
         "on": "2026-11-19"
       },

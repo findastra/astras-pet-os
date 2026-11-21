@@ -3,6 +3,8 @@
 //   art/frames/<id>/<mood>.png   each pet's nine moods, 256px, transparent  (build-frames.mjs)
 //   art/frames/index.json        what was built, and which pets are still placeholders
 //   art/moods/<folder>/<mood>.png  each desktop-art pet's moods with the shared mood stickers (build-mood-stickers-20261024.mjs)
+//   art/icons/<id>-YYYYMMDD.png  every pet's 96px icon, from the calm picture its page shows, and the record of what each
+//                                was made from, art/icons/icon-sources-20261120.json (make-icons-20261012.mjs)
 //   art/latest/                  every dated picture at a name that never changes, the newest drawing (one-picture-home-20261024.mjs)
 //   ROSTER.md                    the running list of who lives here
 //   README.md                    the pet table between the pets:start / pets:end markers, and the pet stages chart
@@ -23,6 +25,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { buildFrames } from './build-frames.mjs';
 import { buildMoodStickers } from './build-mood-stickers-20261024.mjs';
+import { buildIcons } from './make-icons-20261012.mjs';
 import { buildLatestArt } from './one-picture-home-20261024.mjs';
 import { buildRoster } from './roster.mjs';
 import { applyTable } from './lib.mjs';
@@ -43,6 +46,9 @@ const { index, missing } = metadataOnly
   : buildFrames({ log: () => {} });
 // The desktop-art pets' moods with the same shared mood stickers, for the pet program pages (2026-10-24).
 if (!metadataOnly) buildMoodStickers('.');
+// Every pet's icon from the calm picture its page shows, before anything reads art/icons (Astra, 2026-11-20: icons for
+// all pets are the Farmer's job; they went stale while this ran by hand).
+if (!metadataOnly) buildIcons('.');
 // Every picture's address that never changes (Astra, 2026-10-24). It only copies files, so it runs on every build.
 buildLatestArt('.');
 const registry = JSON.parse(readFileSync('pets.json', 'utf8'));
