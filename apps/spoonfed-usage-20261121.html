@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spoonfed usage</title>
+<!-- Spoonfed's spoonfed-usage-tool box on Spoonfed's pet program page (Astra, 2026-11-21: "track how many users and
+     stats on this in the Control Hub ... this is just for finances", then "All recommended"). It reads only what the
+     tool wrote on this PC, Documents\Astra's PetOS Data\spoonfed\spoonfed-usage-page-data.js, and shows nothing anywhere
+     else: on the public page it says the numbers are private. Built with textContent only, no dependencies.
+     Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<style>
+:root{
+  --bg:#16181c; --panel:#1f2227; --panel2:#2a2e35; --line:#3a3f48; --ink:#eceff2; --dim:#a9b3bd;
+  --green:#3dff9a; --amber:#ffc23b; --red:#ff6b6b;
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;background:var(--bg)}
+html.in-tool,html.in-tool body{background:transparent}
+h2{font-size:16px;margin:0 0 8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:0 0 12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.tile b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.tile span{color:var(--dim);font-size:13px}
+.tile.ok b{color:var(--green)} .tile.warn b{color:var(--amber)}
+.note{color:var(--dim);font-size:13px;margin:6px 0}
+.warnline{color:var(--amber);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:right;padding:4px 6px;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--dim);font-weight:600}
+.scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<div data-usage><p class="note">Loading…</p></div>
+<script>
+(function () {
+  'use strict';
+  if (window.self !== window.top) document.documentElement.classList.add('in-tool');
+  var LOCAL = "../../../Astra's PetOS Data/spoonfed/spoonfed-usage-page-data.js";
+  var STALE_MS = 2 * 24 * 60 * 60 * 1000;
+  var box = document.querySelector('[data-usage]');
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  function tile(value, label, cls) { var t = el('div', 'tile' + (cls ? ' ' + cls : '')); t.appendChild(el('b', null, value)); t.appendChild(el('span', null, label)); return t; }
+  function money(n) { return '$' + Number(n || 0).toFixed(2); }
+  function draw(d) {
+    box.textContent = '';
+    if (!d || d.schema !== 'spoonfed-usage-v1') {
+      box.appendChild(el('h2', null, 'Spoonfed usage'));
+      box.appendChild(el('p', 'note', 'Private: Spoonfed’s people, presses and Google costs show only on Astra’s PC, after spoonfed-usage-tool has run there (corepack pnpm usage, in Spoonfed’s folder).'));
+      return;
+    }
+    var m = d.thisMonth || {};
+    box.appendChild(el('h2', null, 'Spoonfed this month (' + d.month + ')'));
+    var tiles = el('div', 'tiles');
+    tiles.appendChild(tile(money(d.monthCost), 'Google cost, estimated', d.warn ? 'warn' : 'ok'));
+    tiles.appendChild(tile(String(d.monthPeople || 0), 'people (browsers)'));
+    tiles.appendChild(tile(String(m.press || 0), 'Feed me presses'));
+    tiles.appendChild(tile(String(m.piece_google || 0), 'Google searches'));
+    tiles.appendChild(tile(String(m.piece_kept || 0), 'answered from the server, free'));
+    tiles.appendChild(tile(String(m.photo_google || 0), 'Google photos'));
+    tiles.appendChild(tile(String(d.piecesKept || 0), 'map pieces kept'));
+    box.appendChild(tiles);
+    if (d.warn) box.appendChild(el('p', 'warnline', 'Over the $' + d.warnDollars + ' a month warning. Check Google Cloud’s billing page.'));
+    box.appendChild(el('p', 'note', 'Estimate: the server’s own count × Google’s price list, after Google’s free calls each month. Google’s bill is the real one; saved spots and the map are asked from the browser and not counted here.'));
+    var looked = Date.parse(d.looked);
+    if (!(Date.now() - looked < STALE_MS)) box.appendChild(el('p', 'note', 'These numbers are from ' + new Date(looked).toLocaleString() + '. Run corepack pnpm usage in Spoonfed’s folder for new ones.'));
+    else box.appendChild(el('p', 'note', 'Looked ' + new Date(looked).toLocaleString() + '.'));
+    var wrap = el('div', 'scroll'), t = el('table'), head = el('tr');
+    ['Day', 'People', 'Presses', 'Google searches', 'From the server', 'Photos'].forEach(function (h) { head.appendChild(el('th', null, h)); });
+    t.appendChild(head);
+    (d.days || []).forEach(function (day) {
+      var r = el('tr');
+      [day.day, day.people, day.press, day.piece_google, day.piece_kept, day.photo_google].forEach(function (v) { r.appendChild(el('td', null, String(v == null ? 0 : v))); });
+      t.appendChild(r);
+    });
+    wrap.appendChild(t); box.appendChild(wrap);
+  }
+  var s = document.createElement('script');
+  s.src = LOCAL + '?t=' + Date.now();
+  s.onload = function () { draw(window.spoonfedUsage); s.remove(); };
+  s.onerror = function () { draw(null); s.remove(); };
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>

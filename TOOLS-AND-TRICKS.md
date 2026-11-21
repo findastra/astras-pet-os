@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-461 rows: 23 native programs, 190 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+462 rows: 23 native programs, 191 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -358,6 +358,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 19 | Voicemeeter Bug | Audio Rescue | native tool | Listen for robotic sound | `audio-rescue-v1.0-listen-for-robotic-sound-v0.1` | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Steam Streaming audio |  | Works today |
 | 19 | Voicemeeter Bug | Audio Rescue | third-party program | Voicemeeter |  | Works today |
+| 20 | Spoonfed Sugarcube | Spoonfed | native tool | spoonfed-usage-tool | `spoonfed-v1.0-spoonfed-usage-tool-v1.0` | Works today |
 | 20 | Spoonfed Sugarcube | Spoonfed | third-party program | Yelp |  | Planned |
 | 22 | RGBee | Light Hive | native program | light-hive-helper | `light-hive-v1.0-light-hive-helper-v1.0` | Works today |
 | 22 | RGBee | Light Hive | native tool | rainforest-storm-tool | `light-hive-v1.0-rainforest-storm-tool-v1.0` | Works today |
