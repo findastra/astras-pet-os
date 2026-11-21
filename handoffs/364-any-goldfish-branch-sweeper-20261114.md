@@ -46,6 +46,12 @@ read-only checker (Claude Sonnet 5.5) reviewed the diff before the pull request;
   (the morning list had them under the repo's old name, so the evening list showed them as new). Nothing told the
   tool. Astra, 2026-11-16: "Yes, restore them": they were put back at the same commits (lines 1 to 3 of that undo
   log). The keep list below (2026-11-17) is so that no plan offers them again.
+- 2026-11-20, the second sweep: a read-only check found 650 branches (265 safe to delete, 17 ask, 368 keep, the 3 on
+  the keep list among them). Astra: "Yes, delete the 265". Two plans of 200 and 65, a dry run first (0 skipped), then
+  265 deleted, 0 skipped. Undo log `branch-sweeper-undo-20261121.jsonl` (265 lines; the UTC date again, see "Not
+  done"). The check after: 388 branches, 12 newly safe (merged since), 18 ask, 358 keep. The 17 (now 18) ask rows were
+  not shown to Astra and nothing was done to them: 5 branches whose pull request was closed unmerged, the rest about a
+  month old with no pull request.
 - How the "ask" rows were judged: each added line of the branch looked up in main's copy of the file, new files looked
   up on main, and the pull request's head compared with the branch tip.
 

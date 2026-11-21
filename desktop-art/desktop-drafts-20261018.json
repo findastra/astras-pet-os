@@ -74,7 +74,7 @@
   },
   {
    "id": "raspberry-berry",
-   "name": "Raspberry Pi Berry",
+   "name": "Raspberry Berry",
    "interface": "apps/pet-programs/raspberry-berry-20261018.html",
    "idle": "desktop-art/raspberry-berry/idle-20261114.png",
    "blink": "desktop-art/raspberry-berry/blink-20261114.png"

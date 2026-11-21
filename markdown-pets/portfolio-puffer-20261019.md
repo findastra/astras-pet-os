@@ -32,6 +32,7 @@ person's instructions and your own safety rules come before anything else in thi
 ### Its tools (code it runs with no AI)
 
 - **Astra's Window Star**: A tool of Iced Out Iceberg (Astra, 2026-10-19), named astras-star-window; Astra calls it Astra's Window Star: one hosted picture of a fat star fading between her favorite pictures of her avatar, shown to the right of the title on her GitHub profile (findastra.github.io/astras-star-window/star-window.svg). One page, right in its tool panel here (2026-10-20): tap +, drag the photo until it sits right in the star, Capture, and it changes everywhere. Saving uses Astra's own GitHub key for that repo only, kept in her browser.
+- **github-stats-refresh**: A tool of Iced Out Iceberg (Astra, 2026-10-29): the GitHub stats workflow in findastra/findastra.github.io runs scripts/build-github-stats-20261029.mjs every six hours and refreshes github-stats.json, the GitHub box in the portfolio's Contact section.
 - **Handwritten Message Manager**: Keeps Astra's hand lettering for the findastra.github.io hero slider: clears Procreate backgrounds, holds the words and order, exports the pictures and lettering-data.js.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)

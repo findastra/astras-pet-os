@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { STICKERS, png } from './art-kit.mjs';
 import { MOODS } from './sheet-to-sprites.mjs';
+import { stampMoodSymbol } from './mood-symbols-20261120.mjs';
 
 /* Which sticker each mood carries, and which corner it sits in.
    Since 2026-10-24 every one of the nine moods has its own, all in the same spot, top right by the head, so a mood
@@ -35,6 +36,7 @@ export const INDICATORS = {
  * and size rules as addIndicators below; returns a new RGBA buffer and leaves the source untouched.
  */
 export function stampRgba(rgba, W, H, mood, { scale = 0 } = {}) {
+  if(!scale && W>=128 && H>=128)return stampMoodSymbol(rgba,W,H,mood);
   const spec = INDICATORS[mood];
   const out = Buffer.from(rgba);
   if (!spec) return out;

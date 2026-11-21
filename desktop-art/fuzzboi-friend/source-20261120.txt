@@ -1,0 +1,7 @@
+Fuzzboi Friend's faces as layers, 20261120 (Astra: "Can we save separate emotion files, and then add those layers over the new roll once we get it").
+
+layers/moods/<mood>-20261120.png: eight face layers (blink, sleep and the six moods) on the same 2048 x 2048 canvas as Astra's eyes.png, lined up with her eyes, drawn in place of eyes.png. Cut by scripts/fuzzboi-mood-layers-20261120.mjs from GPT-6-Astra's nine-face drawing (sheet-20261114.png, model gpt-6-astra, reasoning effort max, in Codex): eyes, brows and mouth. The pink blush is left out (a blush is one of Astra's rare traits, rare4.png); the green cheeks stay on the sick face.
+
+<mood>-20261120.png: his pages' Fuzzboi in all nine faces, from Astra's own layers fillA4 + outlineA + eyes (or a face layer) + acc3, the Fuzzboi his 2026-10-09 drawing was made from. The build stamps the shared mood symbols on them.
+
+Fuzzbois layers by Astra. Faces by GPT-6-Astra. Cutting and layering by Claude Opus 5.5 (claude-opus-5-5).

@@ -41,7 +41,9 @@ export function canonicalJson(value) {
 export const entryHash = (entry) => createHash('sha256').update(canonicalJson(entry), 'utf8').digest('hex');
 
 /** This computer, in needs_key's words (`os`). */
-export const thisOs = (platform = process.platform) => ({ win32: 'windows', linux: 'linux', darwin: 'macos' })[platform] || platform;
+// PETOS_OS stands in for the computer's own system (windows, linux, macos); the tests set it so they read the same on
+// Astra's Windows PC and on GitHub's Linux runner (2026-11-08).
+export const thisOs = (platform = process.env.PETOS_OS || process.platform) => ({ win32: 'windows', linux: 'linux', darwin: 'macos' })[platform] || platform;
 
 /** Now in America/Denver, as Astra's records are dated: 2026-10-21T22:30:00-06:00. */
 export function denverNow(date = new Date()) {

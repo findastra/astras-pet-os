@@ -469,9 +469,14 @@ const xpole = (x = POLE_X, c = CEILING, f = FLOOR) => `<g class="strap-pole"><re
 <path d="M${x - 18} ${f} H${x + 18} Q${x + 17.5} ${f - 4} ${x + 9} ${f - 5.6} Q${x} ${f - 6.6} ${x - 9} ${f - 5.6} Q${x - 17.5} ${f - 4} ${x - 18} ${f} Z" fill="url(#strap-dome)" class="strap-dome"/></g>`;
 
 function strapperDrawing() {
+  // Each spot is clicked through one invisible circle that stops halfway to its nearest neighbour on the same view, so
+  // spots that sit close (Right Side and Right Front-Side on her hip) never cover each other; the halo, the device and
+  // the badge only draw (Astra, 2026-11-12: click-check found 9 Right Side covered by 11's halo).
+  const hitR = (s) => { const near = SPOTS.filter((o) => o !== s && o.view === s.view).map((o) => Math.hypot(o.x - s.x, o.y - s.y));
+    return Math.round(Math.min(18, ...near.map((d) => d / 2 - 0.5)) * 10) / 10; };
   // Every spot carries each device's drawing; the page shows the one for the device on it.
   const spot = (s) => `<g class="strap-spot" data-strap-dot="${esc(s.code)}"${s.view ? ` data-view="${s.view}"` : ''} data-kind="" tabindex="0" role="button" aria-label="${esc(spotName(s))}: pick its device"><title>${esc(spotName(s))}</title>
-<circle class="strap-halo" cx="${s.x}" cy="${s.y}" r="18"/><circle class="strap-empty" cx="${s.x}" cy="${s.y}" r="8"/>
+<circle class="strap-hit" cx="${s.x}" cy="${s.y}" r="${hitR(s)}"/><circle class="strap-halo" cx="${s.x}" cy="${s.y}" r="18"/><circle class="strap-empty" cx="${s.x}" cy="${s.y}" r="8"/>
 ${SPOT_KINDS.filter((k) => KIND_SIZE[k]).map((k) => `<use class="ico ico-${k}" href="#ico-${k}${k === 'tracker' && s.side ? '-side' : ''}" x="${s.x - KIND_SIZE[k] / 2}" y="${s.y - KIND_SIZE[k] / 2}" width="${KIND_SIZE[k]}" height="${KIND_SIZE[k]}"${s.down ? ` transform="rotate(180 ${s.x} ${s.y})"` : ''}/>`).join('')}
 <circle class="strap-badge" cx="${s.x + 15}" cy="${s.y - 14}" r="8"/><text x="${s.x + 15}" y="${s.y - 10.5}" text-anchor="middle">${s.n}</text></g>`;
   // Each toy stands on the floor with a soft shadow under it.
