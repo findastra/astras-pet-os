@@ -1,0 +1,106 @@
+{
+  "schema": "portfolio-puffer-seo-pages-v1",
+  "about": "seo-toolkit's page list (Iced Out Iceberg, Portfolio Puffer's pet program): one pill per published page. Add a page when Astra asks for SEO on it; the sweep (scripts/portfolio-puffer-seo-sweep-20261120.mjs) checks every page here and writes the results. `name` is the name people read, `slug` the dashed name Astra types (the repo name). Found on 2026-11-20 from GitHub Pages sites that answered; Claude Opus 5.5 (claude-opus-5-5).",
+  "site": "https://findastra.github.io/",
+  "sitemap": "https://findastra.github.io/sitemap.xml",
+  "pages": [
+    {
+      "url": "https://findastra.github.io/",
+      "slug": "findastra",
+      "name": "findastra",
+      "repo": "findastra.github.io"
+    },
+    {
+      "url": "https://findastra.github.io/astras-photostar/",
+      "slug": "astras-photostar",
+      "name": "Astra's Photo Star",
+      "repo": "astras-photostar"
+    },
+    {
+      "url": "https://findastra.github.io/astras-star-window/",
+      "slug": "astras-star-window",
+      "name": "Astra's Window Star",
+      "repo": "astras-star-window"
+    },
+    {
+      "url": "https://findastra.github.io/the-cooling-tower/",
+      "slug": "the-cooling-tower",
+      "name": "The Cooling Tower",
+      "repo": "the-cooling-tower"
+    },
+    {
+      "url": "https://findastra.github.io/liminal-doors/",
+      "slug": "liminal-doors",
+      "name": "Liminal Doors",
+      "repo": "liminal-doors"
+    },
+    {
+      "url": "https://findastra.github.io/ghost-protocol/",
+      "slug": "ghost-protocol",
+      "name": "Ghost Protocol",
+      "repo": "ghost-protocol"
+    },
+    {
+      "url": "https://findastra.github.io/papermon/",
+      "slug": "papermon",
+      "name": "Papermon",
+      "repo": "papermon"
+    },
+    {
+      "url": "https://findastra.github.io/fuzzboi-factory/site/",
+      "slug": "fuzzboi-factory",
+      "name": "Fuzzboi Forge",
+      "repo": "fuzzboi-factory",
+      "note": "The repo root forwards here."
+    },
+    {
+      "url": "https://findastra.github.io/pocket-message-board/",
+      "slug": "pocket-message-board",
+      "name": "Pocket Message Board",
+      "repo": "pocket-message-board"
+    },
+    {
+      "url": "https://findastra.github.io/spoonfed/",
+      "slug": "spoonfed",
+      "name": "Spoonfed",
+      "repo": "spoonfed",
+      "note": "A built copy (findastra.github.io/spoonfed/, from the private spoonfed repo): fix its tags in that repo's source, then rebuild."
+    },
+    {
+      "url": "https://findastra.github.io/openai-ipo/",
+      "slug": "openai-ipo",
+      "name": "OpenAI IPO Guide",
+      "repo": "findastra.github.io",
+      "added": "2026-11-21"
+    },
+    {
+      "url": "https://findastra.github.io/weekly-digest/",
+      "slug": "weekly-digest",
+      "name": "Weekly Digest",
+      "repo": "findastra.github.io",
+      "added": "2026-11-21"
+    }
+  ],
+  "left_out": [
+    {
+      "url": "https://findastra.github.io/anthropic-ipo/",
+      "why": "Its page says it has Astra's actual investment numbers; finance data stays private unless Astra says to make it searchable (2026-11-21)."
+    },
+    {
+      "url": "https://findastra.github.io/ghost-in-the-walls/",
+      "why": "Not linked from the portfolio; not asked for yet."
+    },
+    {
+      "url": "https://findastra.github.io/drafts/",
+      "why": "Old design drafts."
+    },
+    {
+      "url": "https://findastra.github.io/astras-pet-os/",
+      "why": "No front page yet: only the files under it are served (its pet program pages and System Map)."
+    },
+    {
+      "url": "https://findastra.github.io/openai-discord-presence/",
+      "why": "It moved: the page forwards to github.com/findastra/ai-discord-presence and names that as its address, which is right for a moved page."
+    }
+  ]
+}

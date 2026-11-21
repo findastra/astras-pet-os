@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-464 rows: 23 native programs, 194 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+466 rows: 23 native programs, 195 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -333,8 +333,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 14 | Portfolio Puffer | Iced Out Iceberg | native program | Portfolio Review Desk |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | Astra's Window Star | `iced-out-iceberg-v1.0-astras-star-window-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native tool | github-stats-refresh | `iced-out-iceberg-v1.0-github-stats-refresh-v1.0` | Works today |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native tool | seo-toolkit | `iced-out-iceberg-v1.0-seo-toolkit-v1.0` | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-pictures-refresh | `iced-out-iceberg-v1.0-portfolio-pictures-refresh-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | native trick | portfolio-update-round | `iced-out-iceberg-v1.0-portfolio-update-round-trick-v1.0` | Planned |
+| 14 | Portfolio Puffer | Iced Out Iceberg | native trick | seo-fix-round | `iced-out-iceberg-v1.0-seo-fix-round-trick-v1.0` | Planned |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | GitHub |  | Works today |
 | 14 | Portfolio Puffer | Iced Out Iceberg | third-party program | LinkedIn |  | Planned |
 | 15 | Drum Dog | Bass & Biscuits | native tool | apc64-drum-kit-tool | `bass-biscuits-v1.0-apc64-drum-kit-tool-v1.0` | Works today |
