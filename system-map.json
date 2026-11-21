@@ -5521,6 +5521,24 @@
       "frame": "wide",
       "in_pill": true,
       "cadence": "at sign-in and weekly"
+    },
+    {
+      "id": "spoonfed-usage-tool",
+      "name": "spoonfed-usage-tool",
+      "type": "tool",
+      "of": "spoonfed-app",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "spoonfed-v1.0-spoonfed-usage-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/spoonfed-usage-20261121.html",
+      "job": "A tool of Spoonfed (Astra, 2026-11-21: \"track how many users and stats on this in the Control Hub ... this is just for finances\", then \"All recommended\"): scripts/spoonfed-usage-tool-20261121.ts in findastra/spoonfed reads the spots server’s counts from Cloudflare with her own sign-in (read only): people (a random number per browser), Feed me presses, Google searches and photos, and the month’s Google cost estimated from Google’s price list, with a warning at $25 a month. What it finds stays on the PC (DocumentsAstra’s PetOS Dataspoonfed); the public page shows only that the numbers are private.",
+      "does": "Shows Spoonfed’s people, presses, Google searches and this month’s estimated Google cost, on your PC only.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/spoonfed-usage-20261121.html",
+      "frame": "wide",
+      "in_pill": true,
+      "cadence": "when you run it"
     }
   ],
   "links": [
