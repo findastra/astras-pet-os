@@ -3963,7 +3963,9 @@
         "os": [],
         "pets": [],
         "core": [],
-        "programs": []
+        "programs": [
+          { "node": "yubico-authenticator", "how": "optional", "why": "Checking and managing both YubiKeys: which sites each key holds, and its PIN (Astra, 2026-11-19)." }
+        ]
       }
     },
     {

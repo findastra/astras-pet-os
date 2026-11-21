@@ -2015,7 +2015,18 @@
       "state": "now",
       "layer": 1,
       "category": "Device",
-      "job": "The physical key on your keychain that you tap or plug in to sign in (a FIDO2 or passkey authenticator). It proves it is really you: to your accounts, and later to the Farm and to approvals. ASTRAS_PET_OS lists one in the cyberdeck for hardware-backed sign-in, not as a replacement for encrypted storage, backups or recovery codes."
+      "job": "The physical key on your keychain that you tap or plug in to sign in (a FIDO2 or passkey authenticator). It proves it is really you: to your accounts, and later to the Farm and to approvals. ASTRAS_PET_OS lists one in the cyberdeck for hardware-backed sign-in, not as a replacement for encrypted storage, backups or recovery codes. Astra has two YubiKeys, one a spare (2026-11-19)."
+    },
+    {
+      "id": "yubico-authenticator",
+      "name": "Yubico Authenticator",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "url": "https://www.yubico.com/products/yubico-authenticator/",
+      "job": "Yubico's own free app for YubiKeys, installed on Astra's PC on 2026-11-19 (v7.4.2, Yubico's official winget package Yubico.Authenticator, installer hash checked). Gatekeeper Goddess's 3rd party program (Astra, 2026-11-19: \"put that on the Gatekeeper Goddess as a 3rd party program\"). Its Passkeys tab shows which sites each key already holds a passkey for, which settles \"already exists\" errors when adding the second key; it also sets or changes the key's own PIN and holds sign-in codes. Astra uses it herself; no pet types into it.",
+      "does": "Shows and manages what is on your YubiKeys: the sites each key signs in to, its PIN and sign-in codes."
     },
     {
       "id": "chatgpt",
@@ -9732,6 +9743,27 @@
       "medium": "nfc",
       "state": "suggested",
       "why": "Tapped to sign in on the phone."
+    },
+    {
+      "from": "iron-gates",
+      "to": "yubico-authenticator",
+      "carries": "manages",
+      "state": "now",
+      "why": "Gatekeeper Goddess's 3rd party program (Astra, 2026-11-19): the app for checking and managing both YubiKeys."
+    },
+    {
+      "from": "yubico-authenticator",
+      "to": "security-key",
+      "carries": "manages",
+      "state": "now",
+      "why": "Lists the passkeys on each key and sets its PIN, over USB."
+    },
+    {
+      "from": "yubico-authenticator",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Installed 2026-11-19 from Yubico's official package."
     },
     {
       "from": "flipper-zero",

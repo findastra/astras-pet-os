@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-461 rows: 23 native programs, 190 native tools, 34 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+462 rows: 23 native programs, 190 native tools, 34 native tricks, 215 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -436,6 +436,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 41 | OSC Sealion | OSC Sonar | third-party program | VRCFaceTracking |  | Planned |
 | 42 | Piranesi Nessi | Nessi's Ocean | native program | Piranesi House (world) |  | Works today |
 | 42 | Piranesi Nessi | Nessi's Ocean | third-party program | VRChat |  | Planned |
+| 46 | Gatekeeper Goddess | Iron Gates | third-party program | Yubico Authenticator |  | Works today |
 | 48 | Log Lynx | Log Den | native tool | Crash catcher | `log-den-v1.0-crash-catcher-v1.0` | Works today |
 | 48 | Log Lynx | Log Den | native tool | Farm event log | `log-den-v1.0-farm-event-log-v1.0` | Works today |
 | 48 | Log Lynx | Log Den | native tool | Heartbeat checker | `log-den-v1.0-heartbeat-checker-v1.0` | Works today |
