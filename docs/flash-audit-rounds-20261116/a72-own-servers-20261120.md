@@ -45,7 +45,7 @@ files are built pages that `npm run build` rewrites. Q1 and Q2 are the two quest
 |--:|---|---|:-:|---|---|---|---|
 | 1 | Benchmark Rock | `bin/benchmark-rock-20261023.exe` (its four watches) | yes | the star | `benchmark-rock-server-20261120.exe` | hub 7, benchmark-rock 8 | **done 2026-11-20**: benchmark-rock#15 and #408, rebuilt on her PC |
 | 2 | Kernel Grove | `bin/kernel-grove-20261021.exe` (leftover watch) | no | the star, only when asked | `kernel-grove-server-20261120.exe` | hub 9, kernel-grove 5 | **done 2026-11-20**: kernel-grove#11 and #411, rebuilt on her PC |
-| 3 | White Hat Lab | `scripts/port-watch-20261119.mjs`, in the hub | no | the star | `white-hat-lab-server-20261120.mjs` | hub 8 | nothing. Add a Quit of its own |
+| 3 | White Hat Lab | `scripts/port-watch-20261119.mjs`, in the hub | no | the star | `white-hat-lab-server-20261120.mjs` | hub 8 | open 2026-11-20: #425, with a Quit of its own; it stays in the hub (the hub carries White Hat Lab's tools), so its `server` path is inside the hub |
 | 4 | Wonderland Launchpad | `rift-rabbit-20261024.exe` (the VR launcher) | yes | the star | `wonderland-launchpad-server-20261120.exe` | hub 6, rift-rabbit 6 | one uncommitted file in rift-rabbit's folder |
 | 5 | Log Den | `bin/log-den-20261018.exe` (hosts 6 and 7) | no | the star | `log-den-server-20261120.exe` | hub 73, log-den 7 | 5 to 7 build together |
 | 6 | Packet River | inside Log Den (`packet-river-20261018.exe --alone`) | no | Log Den | `packet-river-server-20261120.exe` | hub 20, packet-river 7 | with 5 |
