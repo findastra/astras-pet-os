@@ -713,6 +713,12 @@ namespace AstraDesktopPets {
       // from its clone in Astra's PetOS\the-pilot-plant, a folder that stays (Temp copies are emptied by Windows).
       list.Add(new Entry{Repo="the-pilot-plant",Pet="Flowsheet Flamingo",Exe=node,Marker="the-pilot-plant-20261112.mjs",Needs=Path.Combine(parent,"the-pilot-plant","the-pilot-plant-20261112.mjs")});
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--look"};
+      // Workflow Whirlpool's server (Astra, 2026-11-20, "Do this task here"; workflow-whirlpool#7): Workflow Whale's two
+      // watches, screen-watch and deskflow-watch, in one process that looks every 20 seconds and only reads. Run by node
+      // from the pet's own folder; its file is named once, as `server` in pets.json, and without that line it is not
+      // started. Its menu here says what runs and offers Quit (it writes that menu itself).
+      string whirlpool=ServerIn("workflow-whirlpool",Path.Combine(parent,"workflow-whirlpool"),null);
+      if(whirlpool!=null)list.Add(new Entry{Repo="workflow-whirlpool",Pet="Workflow Whale",Exe=node,Marker=Path.GetFileName(whirlpool),Folder=Path.Combine(DataRoot,"workflow-whirlpool"),Needs=whirlpool,StartArgs=new[]{Quote(whirlpool)},MenuPrefix=new[]{Quote(whirlpool)}});
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -725,7 +731,7 @@ namespace AstraDesktopPets {
     // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
     // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
     // behind the Run buttons on The Farm's flash-audit checks.
-    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab","chat-rat","pc-master-race","the-pilot-plant"};
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab","chat-rat","pc-master-race","the-pilot-plant","workflow-whirlpool"};
     // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
     // star starts one crash watch, not three.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
@@ -1491,10 +1497,10 @@ namespace AstraDesktopPets {
       int signIn=testActions.Count;StartBackgroundPets();
       var started=new List<string>();bool quiet=true;
       foreach(var a in testActions.GetRange(signIn,testActions.Count-signIn)){started.Add(a.Split(':')[1]);if(started.Count<=4&&!a.EndsWith(":--startup"))quiet=false;}
-      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods,white-hat-lab,chat-rat,pc-master-race,the-pilot-plant"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper, pet-moods, the port watch, Chat Rat's server, PC Master's server and Flowsheet Flamingo's look quietly, and only them.");
+      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods,white-hat-lab,chat-rat,pc-master-race,the-pilot-plant,workflow-whirlpool"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper, pet-moods, the port watch, Chat Rat's server, PC Master's server, Flowsheet Flamingo's look and Workflow Whirlpool's server quietly, and only them.");
       int helpers=0;
       foreach(var x in BackgroundPets.AtSignIn()){if(x.Marker==null)continue;helpers++;if(x.Needs==null||Array.IndexOf(x.StartArgs,BackgroundPets.Quote(x.Needs))<0)throw new Exception("Each helper run by node, PowerShell or wscript starts its own script.");}
-      if(helpers!=11)throw new Exception("Eleven helpers are found by their command line.");
+      if(helpers!=12)throw new Exception("Twelve helpers are found by their command line.");
       // PC Master's server (2026-11-20) is the node script named in pets.json, in its pet's folder, and is taken over like
       // the other helpers; Flowsheet Flamingo's look runs once with --look and is never taken over.
       {
@@ -1505,6 +1511,14 @@ namespace AstraDesktopPets {
         var menu=new ToolStripMenuItem("Flowsheet Flamingo");BackgroundPets.Fill(menu,flamingo,delegate{},false);
         if(menu.DropDownItems.Count<2||menu.DropDownItems[1].Text!="Look again")throw new Exception("A look that runs once offers Look again, not Start.");
         menu.Dispose();
+      }
+      // Workflow Whirlpool's server (2026-11-20): the node script named in pets.json, in its pet's folder, taken over like
+      // the other helpers; its menu items run that script, so Quit there is `node <server> --quit`.
+      {
+        string server;var whale=BackgroundPets.Find("workflow-whirlpool");string parent=Path.GetDirectoryName(PetFiles.Root);
+        if(!BackgroundPets.Servers().TryGetValue("workflow-whirlpool",out server)||whale==null||whale.Pet!="Workflow Whale"||whale.Needs!=Path.Combine(parent,"workflow-whirlpool",server.Replace('/',Path.DirectorySeparatorChar))||whale.Marker!=Path.GetFileName(whale.Needs)||!whale.Marker.StartsWith("workflow-whirlpool-server-")
+          ||whale.StartArgs.Length!=1||whale.StartArgs[0]!=BackgroundPets.Quote(whale.Needs)||whale.MenuPrefix==null||whale.MenuPrefix[0]!=BackgroundPets.Quote(whale.Needs)||whale.Folder!=Path.Combine(BackgroundPets.DataRoot,"workflow-whirlpool"))throw new Exception("Workflow Whirlpool's server must be the script named in pets.json, run by node from its own folder, with its menu.");
+        if(Adoptable().Find(x=>x.Repo=="workflow-whirlpool")==null)throw new Exception("Workflow Whirlpool's server is taken over like the other helpers.");
       }
       // Only Startup Star in Task Manager (2026-11-19): a helper an older star started is found and started again by this
       // star; its own sub-copies go with it, but nothing else it opened (Voicemeeter stays up); a Temp test copy is left alone.

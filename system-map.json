@@ -3888,8 +3888,32 @@
       "layer": 6,
       "category": "Tool",
       "version": "v0.1.0",
-      "label": "workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-ipad-workflow-caster-v0.1.0",
       "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. Native project prepared; iPad execution is unverified."
+    },
+    {
+      "id": "screen-watch",
+      "name": "screen-watch",
+      "type": "tool",
+      "of": "workflow-whirlpool",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-screen-watch-v0.1.0",
+      "job": "A tool of Workflow Whirlpool (Astra, 2026-11-12: \"both of my computers have yellow boxes around the screens now ... I don't know what app is even using it\"): which programs are watching or controlling this PC's screen right now, in plain words, and how to turn each one off; a yellow border is Windows showing a screen capture. Reads only: it never stops or changes another program. It runs in Workflow Whirlpool's server (workflow-whirlpool-server-20261120.mjs), which Startup Star starts at sign-in, and what it finds stays on the PC (Documents\\Astra's PetOS Data\\workflow-whirlpool; workflow-whirlpool#5)."
+    },
+    {
+      "id": "deskflow-watch",
+      "name": "deskflow-watch",
+      "type": "tool",
+      "of": "workflow-whirlpool",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v0.1.0",
+      "label": "workflow-whirlpool-v0.3.0-deskflow-watch-v0.1.0",
+      "job": "A tool of Workflow Whirlpool (Astra, 2026-11-20: \"My cursor is now fighting me to get to the other screen ... what can workflow whale realistically link across these?\", then \"Yes, build it\"): which computers Deskflow (third party) links to this PC's mouse and keyboard, where each one sits, how often the cursor is sent straight back at an edge, and what to fix first (Scroll Lock, the switch delay, a picture too big for the clipboard, a computer that has not linked). Reads Deskflow's settings and log only; Astra makes any change in Deskflow's own window. It runs in Workflow Whirlpool's server, which Startup Star starts at sign-in, and what it finds stays on the PC (workflow-whirlpool#6)."
     },
     {
       "id": "asset-contact-sheet",
