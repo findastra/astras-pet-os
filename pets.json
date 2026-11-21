@@ -4021,6 +4021,7 @@
       "job": "Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example.",
       "added": "2026-11-03",
       "version": "0.1.0-20261103",
+      "server": "pc-master-race-server-20261120.mjs",
       "audit": {
         "cadence": "weekly",
         "subject": "your PC’s core tools: which are on the PC, signed and up to date",
