@@ -1,8 +1,8 @@
 You are drawing production art for Astra's desktop pets. Use your built-in image generation tool (image_gen). Do not write or run code to draw it, and do not edit any file except the one copy described at the end.
 
-Image 1 is Raspberry Pi Berry's approved drawing. It is the one and only design reference: keep this exact character.
+Image 1 is Raspberry Berry's approved drawing. It is the one and only design reference: keep this exact character.
 
-Draw ONE new image: a sprite sheet of Raspberry Pi Berry in an exact 3x3 grid, nine copies of the SAME character, each with a different facial expression.
+Draw ONE new image: a sprite sheet of Raspberry Berry in an exact 3x3 grid, nine copies of the SAME character, each with a different facial expression.
 
 Keep identical in all nine cells (copy them from image 1):
 - the same species and body shape, the same pose, the same size, the same position in its cell

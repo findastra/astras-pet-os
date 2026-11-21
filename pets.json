@@ -2964,7 +2964,7 @@
     },
     {
       "repo": "raspberry-berry",
-      "pet": "Raspberry Pi Berry",
+      "pet": "Raspberry Berry",
       "visibility": "private",
       "status": "growing",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
@@ -2999,7 +2999,7 @@
           {
             "part": "startup-star",
             "how": "optional",
-            "why": "Startup Star runs it on a farm; Raspberry Pi Berry works without it."
+            "why": "Startup Star runs it on a farm; Raspberry Berry works without it."
           }
         ],
         "programs": []

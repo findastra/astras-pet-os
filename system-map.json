@@ -64,6 +64,41 @@
       "job": "A trick of Unity Stable (Astra, 2026-10-22: \"an example of a Unity Unicorn 'trick' is to check weekly on Devilish 'My Avatar Closet' to update that panel connection here\"): once a week, look at My Avatar Closet for new Poppy assets and update its pill. Not written yet."
     },
     {
+      "id": "pi-display-guide-tool",
+      "name": "pi-display-guide-tool",
+      "type": "tool",
+      "of": "raspberry-berry",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "raspberry-pi-maker-v1.0-pi-display-guide-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/raspberry-berry-pi-display-guide-20261120.html",
+      "job": "Build guide for a Raspberry Pi 4 on the back of the official 7\" Touch Display: fins, ribbon, wires, fan and lid, SD card, power on and what to do if the screen stays black. Ticks stay in this browser.",
+      "does": "Step-by-step build guide for the Pi 4 on the 7\" Touch Display, with tick boxes.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/raspberry-berry-pi-display-guide-20261120.html",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "pi-pin-map-tool",
+      "name": "pi-pin-map-tool",
+      "type": "tool",
+      "of": "raspberry-berry",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "raspberry-pi-maker-v1.0-pi-pin-map-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/raspberry-berry-pi-pin-map-20261120.html",
+      "job": "All 40 GPIO pins of a Raspberry Pi 4, each with its own key line, and the four the touch-display build uses: display power on 4 and 6, fan on 2 and 14.",
+      "does": "Key to every Pi 4 pin, with the display and fan pins marked.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/raspberry-berry-pi-pin-map-20261120.html",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
       "id": "learn-apc64-tool",
       "name": "learn-apc64-tool",
       "type": "tool",
@@ -548,6 +583,20 @@
       "does": "Your portfolio: about, worlds, every project live from GitHub, every pet and the arcade."
     },
     {
+      "id": "github-stats-refresh",
+      "name": "github-stats-refresh",
+      "type": "tool",
+      "of": "program-14",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "iced-out-iceberg-v1.0-github-stats-refresh-v1.0",
+      "cadence": "every 6 hours",
+      "job": "A tool of Iced Out Iceberg (Astra, 2026-10-29): the GitHub stats workflow in findastra/findastra.github.io runs scripts/build-github-stats-20261029.mjs every six hours and refreshes github-stats.json, the GitHub box in the portfolio's Contact section.",
+      "does": "Every six hours: refreshes the GitHub numbers on your portfolio."
+    },
+    {
       "id": "portfolio-review-desk",
       "name": "Portfolio Review Desk",
       "type": "own-program",
@@ -689,6 +738,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-busy-watch-v1.0",
+      "cadence": "every 2 minutes",
       "job": "A tool of Benchmark Rock (Astra, 2026-10-23): in the background, one look every two minutes: curious when a card's own memory is 90% full, or when a program with no window keeps a card 80% busy for ten minutes (the hung Blender render of 2026-10-23). No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Inference Iguana. Never stops anything. Merged 2026-10-23 (findastra/benchmark-rock#4)."
     },
     {
@@ -740,6 +790,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-program-watch-v1.0",
+      "cadence": "every 5 seconds",
       "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. Merged with findastra/benchmark-rock#8 (2026-10-25). Since Astra asked on 2026-11-07 (\"I should be able to press the red button, then it launches that program and the button turns green if its on and detected\"), a 3rd party program's light on the pet program pages opens it on a red press and closes it on a green one after she says yes, through a listener on this PC only (127.0.0.1, a new port and a random code at each start, written beside the list); tools and drivers it only finds, installed or not. The buttons are on a benchmark-rock branch, not merged, and not run on Windows yet."
     },
     {
@@ -764,6 +815,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "kernel-grove-v1.0-leftover-watch-v1.0",
+      "cadence": "every 10 minutes",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
     },
     {
@@ -793,6 +845,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-port-watch-tool-v1.0",
+      "cadence": "every 10 minutes",
       "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
       "job": "A tool of White Hat Lab (Astra, 2026-11-19: \"The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some ... I want to be able to click on a port, labeled, and I can read info about the latest traffic\"; her answers \"All recommended\"). Every 10 minutes, started by Startup Star at sign-in, it looks at every port open on this PC with Get-NetTCPConnection (no administrator, no port of its own): which program owns it, who can reach it, who is connected and from where (this PC, the home network, Tailscale or the internet) and the last peers seen. Once a day it asks about chat preview servers left open more than two hours: its mood turns curious and its menu in Startup Star names them. Only our own servers (PetOS helpers and chat previews) can be closed, and only by Astra's click in that menu. The list stays on her PC (white-hat-lab folder of Astra's PetOS Data); the public page says only that it is private.",
       "does": "Every port open on your PC, labeled: click one to see who is connected, from where, and how to close it.",
@@ -2952,6 +3005,20 @@
       "label": "pet-program-12-v1.0-repo-catcher-v1.0"
     },
     {
+      "id": "weekly-organizing-proposal",
+      "name": "weekly-organizing-proposal",
+      "type": "trick",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-weekly-organizing-proposal-trick-v1.0",
+      "cadence": "weekly (Sundays, 19:00)",
+      "job": "A trick of File Kingdom (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): File Master's weekly check-in, a Claude scheduled task on Astra's PC (master: file-master scheduled-tasks/file-master-weekly/SKILL.md, installed by Luna's Log's skill-install-tool). It runs the file-scan tool read-only, compares with last week, and writes a short summary: what is new or worse, new projects and the setup each is missing, repos with unpushed work, and the top three actions with their plan rows. It never applies the plan; that waits for Astra's yes.",
+      "does": "Every Sunday: scans your files and projects, read only, and proposes the week's cleanups for your yes."
+    },
+    {
       "id": "everything-search-tool",
       "name": "everything-search",
       "type": "tool",
@@ -4649,6 +4716,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-moods-v1.0",
+      "cadence": "every 5 seconds",
       "job": "A tool of The Farm (Astra, 2026-11-14: \"I want all of the pets everywhere to have the same status. Like if they're questioning or if they're alert ... the icons on the stream deck, the icons on every single pet program page, where they are on the top of the page and all their friends at the bottom, and on my desktop\"): the only place that works out each pet's mood. Every five seconds it reads what the background pets say about themselves, the key requests waiting on Astra (the pet that asked is curious) and the Friendly Farmer's round from the past week, picks the most urgent mood for each pet (MOOD-KEY.md) and writes it to one file on this PC. The desktop pets and every pet program page (the pet at the top, its emotions and its friends) read that file, so a pet shows the same mood everywhere; the Stream Deck keys are next (Deck Duck's plugin). Startup Star starts it at sign-in (scripts/pet-moods-20261114.mjs)."
     },
     {
@@ -4868,6 +4936,20 @@
       "job": "A tool of GitHub Aquarium (Astra, 2026-11-14: \"a branch deleter, assessor and deleter\", then \"Plan is fine, build it\", card 364): sorts every branch on every repo the farm owner owns into safe to delete (all its work is on the main branch, or its pull request merged with nothing added after), ask Astra (closed without merging, more added after a merge, or old work with no pull request) and keep (first the branches on Astra's keep list, each shown with her reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and work from the last week). Checking is read only. It deletes only from a plan file, only the rows marked to delete, only with --yes while signed in as the farm owner, after checking each branch again; each delete is written to an undo log on her PC first, and --undo puts it back (scripts/branch-sweeper-20261114.mjs, npm run branch-sweeper). Its keep list (2026-11-17) is a file on her PC next to the plans: a listed branch is never offered for deleting, even after its repo is renamed (an entry can hold the repo's number on GitHub); --apply refuses it even in an older plan, checks each repo under the name GitHub gives it now, and does not run without the list; a list it cannot read stops it. Its lists name private repos, so they stay on her PC."
     },
     {
+      "id": "branch-sweep-round",
+      "name": "branch-sweep-round",
+      "type": "trick",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-branch-sweep-round-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of GitHub Aquarium (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): once a week, run the branch-sweeper tool, show Astra the new branches that are safe to delete and the ones to ask about, and delete only the rows she okays, with the undo. Branches on her keep list are never offered. Not scheduled yet.",
+      "does": "Once a week: lists the branches that are safe to delete and deletes only the ones you okay."
+    },
+    {
       "id": "pets-board",
       "name": "Pets Board",
       "type": "own-program",
@@ -5003,6 +5085,90 @@
       "job": "A tool of The Farm (Astra, 2026-11-17): for every pet in pets.json retired_pets, lists what still treats it as a pet: the hub's registry, map, pages, Markdown pets, developer words and art; live mentions in every pet repo on the PC (records are counted, never changed); its folders on the PC; and, with --github, whether its repo is archived. Read only: it reports, Astra decides (scripts/retire-check-20261117.mjs, npm run retire-check; the retire-a-pet trick uses it; pet-finder calls a retired pet's leftovers retired-leftover, never missing)."
     },
     {
+      "id": "daily-rounds",
+      "name": "daily-rounds",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-daily-rounds-v1.0",
+      "cadence": "daily (06:17 Denver)",
+      "job": "A tool of The Farm (Astra, 2026-10-14: the daily rounds are a tool of The Farm): scripts/farmer-rounds-20261009.mjs, run by the farmer-daily-rounds workflow on GitHub every morning. It finds new pet repos, takes each pet's submissions, runs the self-audits that are due, writes status/pets-status.json, rebuilds and opens a pull request for Astra; it never pushes main.",
+      "does": "Every morning: finds new pets, runs the self-audits that are due, rebuilds, and opens a pull request for you."
+    },
+    {
+      "id": "daily-rounds-trick",
+      "name": "daily-rounds-trick",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-daily-rounds-trick-v1.0",
+      "cadence": "daily (06:17 Denver)",
+      "job": "A trick of The Farm (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): the Friendly Farmer's daily rounds as written steps (pets.json rounds.about), carried out by the daily-rounds tool on GitHub's schedule. The round's pull request waits for Astra's OK; nothing it finds is merged by itself.",
+      "does": "The Farmer's daily rounds: every morning, the steps that keep every pet's status, the roster and the map up to date."
+    },
+    {
+      "id": "profile-round",
+      "name": "profile-round",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-profile-round-v1.0",
+      "cadence": "daily (06:47 Denver)",
+      "job": "A tool of The Farm (Astra, 2026-10-14: the profile round is a tool of The Farm): the farmer-profile-round workflow in findastra/findastra, half an hour after the daily rounds, keeps the pet list on the GitHub profile README matched to the registry.",
+      "does": "Every morning: keeps the pet list on your GitHub profile matched to the pets."
+    },
+    {
+      "id": "profile-round-trick",
+      "name": "profile-round-trick",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-profile-round-trick-v1.0",
+      "cadence": "daily (06:47 Denver)",
+      "job": "A trick of The Farm (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): the profile round's steps, carried out by the profile-round tool on GitHub's schedule; when something is wrong that it cannot fix, the pet-organizer trick (skills/pet-organizer) is what an AI follows.",
+      "does": "The profile round: every morning, the steps that keep your profile's pet list in order."
+    },
+    {
+      "id": "click-check-round",
+      "name": "click-check-round",
+      "type": "trick",
+      "of": "farm",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-click-check-round-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of The Farm (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): once a week, run the click-check tool over every pet program page and today's apps, read its report, fix each cause in the page generator (never in a generated page) on a branch, run click-check again to show the row is gone, and open one pull request for Astra. Not scheduled yet: it still runs only when a chat starts it.",
+      "does": "Once a week: presses every button and link on every pet page and fixes what goes nowhere."
+    },
+    {
+      "id": "flash-audit-round",
+      "name": "flash-audit-round",
+      "type": "trick",
+      "of": "farm",
+      "state": "planned",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-flash-audit-round-trick-v1.0",
+      "cadence": "weekly",
+      "job": "A trick of The Farm (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"; Astra, 2026-11-16: \"I want every item to be done through a flash audit\"): once a week, run the Flash Audit's Run over every pet program, write the results in a dated rounds folder, and file each new finding as a fix for its pet. Not scheduled yet: it still runs only when a chat starts it.",
+      "does": "Once a week: checks every pet program against the whole Flash Audit and lists what is new."
+    },
+    {
       "id": "make-a-prop-look-real",
       "name": "make-a-prop-look-real",
       "type": "trick",
@@ -5036,6 +5202,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "unity-stable-v1.0-weekly-update-from-friendly-farmer-trick-v1.0",
+      "cadence": "weekly",
       "job": "A trick of Unity Stable to write (unity-unicorn pet.json, L2 tricks_to_write, from Astra's sketch): the weekly update from the Friendly Farmer."
     },
     {
@@ -5048,6 +5215,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "unity-stable-v1.0-weekly-copyright-auditor-trick-v1.0",
+      "cadence": "weekly",
       "job": "A trick of Unity Stable to write (unity-unicorn pet.json, L2 tricks_to_write, from Astra's sketch): a weekly copyright check of the assets in Astra's avatars and worlds."
     },
     {
@@ -5084,6 +5252,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "chat-stack-v0.1.0-save-chats-trick-v1.0",
+      "cadence": "weekly (Saturdays)",
       "job": "A trick of Chat Stack (chat-rat skills/save-chats/SKILL.md): save missing or changed local AI chats with Chat Rat, open the archive folders and import official exports."
     },
     {
@@ -5097,6 +5266,20 @@
       "version": "v1.0",
       "label": "chat-stack-v0.1.0-ask-chat-rat-trick-v1.0",
       "job": "A trick of Chat Stack (chat-rat skills/ask-chat-rat/SKILL.md): ask Chat Rat to find something in Astra's past Claude and OpenAI chats instead of searching the chats folder."
+    },
+    {
+      "id": "chat-exports",
+      "name": "chat-exports",
+      "type": "trick",
+      "of": "program-35",
+      "state": "now",
+      "layer": 6,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "chat-stack-v0.1.0-chat-exports-trick-v1.0",
+      "cadence": "weekly (request Saturdays, collect Sundays)",
+      "job": "A trick of Chat Stack (Astra, 2026-11-20: \"they need to be, this was the whole point of the tricks part of Astra's PetOS\"): two Claude scheduled tasks on Astra's PC. On Saturday, after save-chats, it asks ChatGPT and Claude for Astra's data exports; on Sunday it takes the export ZIPs from her email, saves them into Chat Rat's archive and keeps the ZIPs in Documents/Chats/exports.",
+      "does": "Every weekend: asks ChatGPT and Claude for your chat exports, then saves them into the archive."
     },
     {
       "id": "fit-any-screen",
