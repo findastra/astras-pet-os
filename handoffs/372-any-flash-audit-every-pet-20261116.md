@@ -1,5 +1,5 @@
 ---
-status: open. Rounds 1, 14, 3 and 8 done (easiest first since 2026-11-19, one at a time); A72 (own server) added 2026-11-20, its dry run over every item done, renames wait on Astra's two answers; then rounds 9, 13, 15, 17; #372 waits for Astra's merge OK
+status: open. Rounds 1, 14, 3 and 8 done (easiest first since 2026-11-19, one at a time); A72 (own server) added 2026-11-20 and answered (one server per pet, named once in pets.json); renames under way, Benchmark Rock first (benchmark-rock#15 + hub #408); then rounds 9, 13, 15, 17; #372 waits for Astra's merge OK
 for: any
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-11-16
 needs: round 1's decisions from Astra (listed on its card); one assistant at a time on the rounds
@@ -45,11 +45,16 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
   a time on demand ... named after their pet program, and then dash server dash the date"; "I want that to be the
   next thing you check for").** The row is in the matrix after A21, and the owner note is at the end of
   `docs/flash-audit-20261014.md`. The first pass covers every item at once: `a72-own-servers-20261120.md`, a dry run
-  of 18 servers in 12 pet programs, with no ports written (the hub is public). Nothing is renamed yet. Two questions
-  wait on her: how a pet with more than one server names them (Q1), and whether each name is written once into
-  `pets.json` (Q2). After that, the renames go easiest first: Benchmark Rock, Kernel Grove, White Hat Lab, Wonderland
-  Launchpad, then Log Den's three together. Keep off Light Hive's (another chat's uncommitted work in rgbee) and Chat
-  Stack's (her folder is on Codex's branch) until those land.
+  of 18 servers in 12 pet programs, with no ports written (the hub is public). Her answers, the same day: "I want the
+  one server per pet, I dont care if [it] stops stuff together. cant have that many [running]. all recommended
+  everything else". So a pet with several background jobs joins them into one server (The Farm's four, Discord Tower's
+  three; 10 servers in all), and each name is written once, as `server` in its `pets.json` entry, which the star reads
+  (`BackgroundPets.Servers`). The renames go easiest first, each a repo PR plus a hub PR, then a rebuild on her PC:
+  Benchmark Rock (benchmark-rock#15 and hub #408, open), then Kernel Grove, White Hat Lab, Wonderland Launchpad (the
+  Weasel must read `server` from pets.json first: its marker `rift-rabbit` would miss the new name), Log Den's three
+  together, Audio Rescue, Discord Tower's join, The Farm's join (pet chat is C#, so it is written again in Node). Keep
+  off Light Hive's (another chat's uncommitted work in rgbee) and Chat Stack's (her folder is on Codex's branch) until
+  those land.
 - Fixed on `main` by 2026-11-20: the public-safety failure from #385 (the port-watch test's made-up home folder). It
   passes again on this branch after merging `main`.
 - **Rounds in number order (the plan before 2026-11-19), one item at a time.** For each one: read the pet's repo rules, open its page

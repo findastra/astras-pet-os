@@ -1,7 +1,9 @@
 # A72: Its own server, every item
 
 [All rounds](README.md) · [The check](../flash-audit-20261014.md) (section 3, "4. Tools and safety") · Flash Audit,
-2026-11-20 · **Dry run: nothing is renamed yet.**
+2026-11-20 · **Dry run: nothing is renamed yet.** · Astra's answers, the same day: one server per pet, and each
+name written once in `pets.json` ("I want the one server per pet, I dont care if [it] stops stuff together. cant have
+that many [running]. all recommended everything else").
 
 Astra, 2026-11-20: "every pet gets its own server ... so we can end separate ones of them at a time on demand ...
 They should all be named after their pet program, and then dash server dash the date it was updated, which would be
@@ -49,30 +51,39 @@ files are built pages that `npm run build` rewrites. Q1 and Q2 are the two quest
 | 6 | Packet River | inside Log Den (`packet-river-20261018.exe --alone`) | no | Log Den | `packet-river-server-20261120.exe` | hub 20, packet-river 7 | with 5 |
 | 7 | Evidence Locker | inside Log Den (`evidence-locker-20261018.exe --alone`) | no | Log Den | `evidence-locker-server-20261120.exe` | hub 69, evidence-locker 7 | with 5 |
 | 8 | Audio Rescue | `voicemeeter-bug-20261008.exe --hosted` | no | the star | `audio-rescue-server-20261120.exe` | hub 22 | its build wants the hub beside its folder (known trap) |
-| 9 | The Farm | `bin/pet-chat-helper-20261103.exe` | yes | the star | `the-farm-pet-chat-server-20261120.exe` | hub 15 | Q1 |
-| 10 | The Farm | `scripts/flash-audit-helper-20261108.mjs` | yes | the star | `the-farm-flash-audit-server-20261120.mjs` | hub 14 | Q1. Add a Quit of its own |
-| 11 | The Farm | `scripts/pet-moods-20261114.mjs` | no | the star | `the-farm-pet-moods-server-20261120.mjs` | hub 14 | Q1. Add a Quit of its own |
-| 12 | The Farm | `mcp/server-20261026.mjs` (the read-only PetOS connector) | no | each chat, its own copy | `the-farm-mcp-server-20261120.mjs` | hub 13, and every chat's MCP settings | Q1. Running chats keep the old name until they restart |
-| 13 | The Farm (Startup Star) | `startup-star/scripts/live-sync-20261017.ps1` | no | the star | `the-farm-live-sync-server-20261120.ps1` | hub 4, startup-star 4 | Q1; one uncommitted file in startup-star's folder. Add a Quit of its own |
-| 14 | Discord Tower | `openai-discord-presence/src/server.js` | yes | the star, then it lets go | `discord-tower-openai-presence-server-20261120.js` | hub 17, ai-discord-presence 9 | Q1; two uncommitted files in that folder |
-| 15 | Discord Tower | `anthropic-discord-presence/src/server.js` | yes | the star, then it lets go | `discord-tower-anthropic-presence-server-20261120.js` | hub 14, ai-discord-presence 9 | as 14 |
-| 16 | Discord Tower | `ableton-live-discord-presence/src/server-20261102.js` | yes | the star, then it lets go | `discord-tower-ableton-live-presence-server-20261120.js` | ableton-live-discord-presence 3 | Q1 |
+| 9 | The Farm | `bin/pet-chat-helper-20261103.exe` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 15 | written again in Node: it is C# today |
+| 10 | The Farm | `scripts/flash-audit-helper-20261108.mjs` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
+| 11 | The Farm | `scripts/pet-moods-20261114.mjs` | no | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
+| 12 | The Farm | `mcp/server-20261026.mjs` (the read-only PetOS connector) | no | each chat, its own copy | stays out: not a background program | hub 13, and every chat's MCP settings | it starts and stops with its chat, so A72 does not count it |
+| 13 | The Farm (Startup Star) | `startup-star/scripts/live-sync-20261017.ps1` | no | the star | joins `the-farm-server-20261120.mjs` | hub 4, startup-star 4 | one uncommitted file in startup-star's folder |
+| 14 | Discord Tower | `openai-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 17, ai-discord-presence 9 | two uncommitted files in that folder |
+| 15 | Discord Tower | `anthropic-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 14, ai-discord-presence 9 | as 14 |
+| 16 | Discord Tower | `ableton-live-discord-presence/src/server-20261102.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | ableton-live-discord-presence 3 | |
 | 17 | Chat Stack | `chat-rat-20261016.mjs serve` | yes | the star | `chat-stack-server-20261120.mjs`: only the `serve` part moves; Chat Rat's other commands stay | hub 13, chat-rat 12 | her folder is on Codex's `codex/chat-rat-save-20261016` with 3 uncommitted files |
 | 18 | Light Hive | `rgbee/helper` (light-hive-helper) | yes | not the star yet: a test copy started by another chat | `light-hive-server-20261120.exe` | hub 13, rgbee 6 | another chat's Light Hive work, uncommitted on two branches. Wait for it to land |
 
-Names for a pet with more than one server (9 to 16) follow the recommended answer to Q1, `<program>-<what>-server-YYYYMMDD`,
-so each one still stops alone. Q2 decides whether each rename also writes the name once into `pets.json`.
+One server per pet (Astra's answer to Q1): The Farm's four background jobs (9, 10, 11, 13) join one
+`the-farm-server-20261120.mjs`, and Discord Tower's three presences (14 to 16) join one `discord-tower-server-20261120.js`.
+They stop together, which Astra accepted. Packet River's and Evidence Locker's watches stay in Log Den's server (her
+2026-11-08 answer). That is 10 servers instead of 16 programs running. The connector (12) is not one of them: each
+chat starts its own copy and it stops with that chat.
 
-## How each rename goes, once Astra says yes
+Each server's name is written once, as `server` in its pet's entry in `pets.json` (Astra's answer to Q2), with its
+path inside the pet's folder (`bin/benchmark-rock-server-20261120.exe`). Startup Star, the Weasel and the pages read it
+there, so a later rename is the pet's own repo and that one line.
+
+## How each rename goes
 
 1. A branch in the owner's repo: the file, its build or launch script, its README and `pet.json`.
-2. A hub branch: the star's entry, the Weasel's list of our own servers, `system-map.json` and the docs, then
-   `npm run build` and `npm test`.
+2. A hub branch: the `server` line in `pets.json`, the star's entry if it still names the file, the Weasel's list of
+   our own servers, `system-map.json` and the docs, then `npm run build` and `npm test`.
 3. Her OK to merge, then on her PC: quit the old one, build the new one, restart the star (`--quit`, then its scheduled
    task), and check that each server runs under its new name. Never while another chat is using it.
 
-The easiest come first: 1 to 4, then Log Den's three together, then 8. The Farm's and Discord Tower's wait on Q1, and
-17 and 18 wait on the other chats' work.
+The easiest come first: 1 Benchmark Rock, 2 Kernel Grove, 3 White Hat Lab, 4 Wonderland Launchpad, then Log Den's three
+together, then Audio Rescue. The two that join several programs into one come after: Discord Tower's three presences,
+then The Farm's four jobs (pet chat is C# today, so it is written again in Node). 17 and 18 wait on the other chats'
+work.
 
 <sub>Flash Audit, 2026-11-20, Claude Opus 5.5 (`claude-opus-5-5`). Read-only: nothing was renamed, stopped, started or
 signed in to.</sub>
