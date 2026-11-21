@@ -59,7 +59,7 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 31 | [Wifi Butterfly](wifi-butterfly-20261019.md) | Signal Garden | Watches the radios: unknown Wi-Fi networks and Bluetooth devices nearby (its confirmed security role; the rest of its job is Astra’s to choose). | no app yet |
 | 32 | [Deck Duck](deck-duck-20261019.md) | Deck Pond | Helps you manage your Elgato Stream Deck: what every button does, on every profile. | no app yet |
 | 33 | [Mesh Moth](mesh-moth-20261019.md) | Mesh Lantern | Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages. | no app yet |
-| 34 | [Raspberry Pi Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
+| 34 | [Raspberry Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
 | 35 | [Chat Rat](chat-rat-20261019.md) | Chat Stack | Saves local AI conversations and imported exports, filed by model and YYYYMMDD date, with a button that opens each folder. | no app yet |
 | 36 | [Platform Platypus](platform-platypus-20261019.md) | Mirror Pool | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | no app yet |
 | 40 | [Skill Scout](lunas-log-20261019.md) | Luna's Log | Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why. | no app yet |

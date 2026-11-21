@@ -84,3 +84,15 @@ Branch `claude/papermon-pet-20261114`. Claude Opus 5.5 (`claude-opus-5-5`), 2026
   mascot(s), 24 characters drawn at 256px."
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
+
+## Merged with main again, 2026-11-20 (evening)
+
+- Main gained 62 commits, among them #416 (every pet's icon is made by the build). Its icon for this pet came from
+  Paper Patty's GPT-6 face; the build now makes `art/icons/paper-girl-20261012.png` and `art/latest/icons/paper-girl.png`
+  from the bat pup's `desktop-art/paper-girl/idle-20261114.png`, and `art/icons/icon-sources-20261120.json` records it.
+- The other conflicts were built files (three pet program pages, developer words, the System Map): taken from main, then
+  `npm run build` made them again.
+- `npm test` in this worktree: 515 tests, 509 pass, 0 fail, 6 skipped. `npm run check`: "Pets OK: 24 pet apps, 0
+  mascot(s), 24 characters drawn at 256px."
+
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
