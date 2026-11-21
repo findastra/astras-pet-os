@@ -15,7 +15,8 @@
 // after a failure. It stops on the first billing or rate-limit error rather than burning
 // through the rest of the list.
 //
-// Needs the image bridge (../image-bridge/imagine.mjs) and OPENAI_API_KEY. Override the
+// Needs the image bridge (../image-bridge/imagine.mjs) and FARM_ART_OPENAI_API_KEY (the bridge falls
+// back to OPENAI_API_KEY while the key is moved; Astra, 2026-11-19). Override the
 // bridge location with IMAGE_BRIDGE=/path/to/imagine.mjs.
 import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
