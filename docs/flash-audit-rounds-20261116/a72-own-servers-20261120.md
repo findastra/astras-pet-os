@@ -43,7 +43,7 @@ files are built pages that `npm run build` rewrites. Q1 and Q2 are the two quest
 
 | # | Pet program | Server today | Port | Started by | Rename to | Named in | Waits on |
 |--:|---|---|:-:|---|---|---|---|
-| 1 | Benchmark Rock | `bin/benchmark-rock-20261023.exe` (its four watches) | yes | the star | `benchmark-rock-server-20261120.exe` | hub 7, benchmark-rock 8 | nothing |
+| 1 | Benchmark Rock | `bin/benchmark-rock-20261023.exe` (its four watches) | yes | the star | `benchmark-rock-server-20261120.exe` | hub 7, benchmark-rock 8 | **done 2026-11-20**: benchmark-rock#15 and #408, rebuilt on her PC |
 | 2 | Kernel Grove | `bin/kernel-grove-20261021.exe` (leftover watch) | no | the star, only when asked | `kernel-grove-server-20261120.exe` | hub 9, kernel-grove 5 | nothing |
 | 3 | White Hat Lab | `scripts/port-watch-20261119.mjs`, in the hub | no | the star | `white-hat-lab-server-20261120.mjs` | hub 8 | nothing. Add a Quit of its own |
 | 4 | Wonderland Launchpad | `rift-rabbit-20261024.exe` (the VR launcher) | yes | the star | `wonderland-launchpad-server-20261120.exe` | hub 6, rift-rabbit 6 | one uncommitted file in rift-rabbit's folder |
