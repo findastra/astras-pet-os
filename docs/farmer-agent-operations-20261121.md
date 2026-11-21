@@ -47,3 +47,25 @@ The Farm's `agent-hazop` reviews **agentic software processes**. A future purpos
 - No new storage of private health, finance, employer or process-safety data in public GitHub.
 - Dashboard links to a tested real result, never to a nonfunctional ON/OFF switch.
 - Maker/checker review, tests and Astra's merge approval before production.
+
+## Implementation checkpoint — 2026-11-21
+Three Farmer-owned read-only tools now have standalone implementations on this review branch:
+
+1. `scripts/farm-pulse-20261121.mjs`: consumes existing Log Lynx-style event exports (not a new event store), preserves explicit unknown/stale states, per-agent sample sizes, failure rates and p50/p95 durations. Includes a CLI for an explicit local JSON input file; does not collect or transmit user data.
+2. `scripts/farm-dependency-impact-20261121.mjs`: reads the canonical `pets.json needs`, computes reverse dependency reachability and missing references. The existing script was created on the earlier commit; no new dependency registry is introduced.
+3. `scripts/farm-reliability-lab-20261121.mjs`: scores supplied external test receipts grouped by agent and version, counting verified pass/fail and missing evidence separately. It is an evaluation *report*, not a duplicate benchmark runner or an autonomous model-promotion mechanism.
+
+Additionally `scripts/flash-audit-priority-20261121.mjs` offers a **derived** risk-first view of existing audit rows grouped into sections; it does not modify the canonical matrix, individual check IDs, buttons, existing page layout or persisted results.
+
+Each new script uses Node built-ins, local explicitly supplied input and no credential/network access. UI integration remains separate: the existing switches already work and must not be replaced by placeholders. The HAZOP idea stays a review method inside the Farmer, not a separate PHA/HAZOP product.
+
+### Proposed audit sections (derived presentation; original check IDs remain authoritative)
+- Safety, permissions and integrity
+- Runtime, dependencies and connectivity
+- Functionality, testing and recovery
+- Documentation, interfaces and presentation
+- Owner decisions and manual verification
+
+**Priority policy:** risk-first inside and across sections; severe, high-blast-radius defects first. Quick-check mode is optional for low-cost tests, and a canonical-order mode is always available. Risk class and propagation count are descriptive, not a process-safety certification. A missing rating stays *unassessed*, never silently scored low.
+
+**Follow-through required before deploying:** run `node --test test/farmer-agent-operations-20261121.test.mjs` in the actual checkout; run the repo's established tests and Flash Audit; inspect existing page-generator and branch ownership; integrate only genuine data-backed panels under their established tool boxes, then obtain Astra's L4 merge approval. As of this commit these are proposed/standalone tools, not production telemetry or switches.
