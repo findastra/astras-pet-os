@@ -16,7 +16,7 @@ const picture = 'art/frames/goldfish/idle.png'; // any PNG in the hub
 test('--ref gives one pet its reference picture, and the picture is never read as a pet id', () => {
   const r = run('paper-girl', '--dry', '--ref', picture);
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, new RegExp(`--- paper-girl --- \\(reference: ${picture.replace(/[./]/g, '\\$&')}\\)`));
+  assert.ok(r.stdout.includes(`--- paper-girl --- (reference: ${picture})`), r.stdout);
   assert.equal((r.stdout.match(/^--- /gm) || []).length, 1, 'only the named pet is drawn');
   assert.ok(r.stdout.includes(REF_NOTE), 'the prompt says to take only the design from the picture');
   assert.ok(!run('paper-girl', '--dry').stdout.includes(REF_NOTE), 'without --ref the prompt is the plain one');
