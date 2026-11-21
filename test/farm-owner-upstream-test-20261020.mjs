@@ -84,9 +84,8 @@ const FARM_FACING = ['farmer-rounds-20261009', 'pet-finder-20261016', 'pets-boar
   'roster', 'check-pets-20261018', 'pet-programs-20261014', 'markdown-pets-20261019', 'click-check-20261019', 'make-it-yours-20261020',
   'farm-lock-20261021', 'farm-pets-20261021', 'farm-pets-packs-20261022'];
 // Names of Astra's own things, not an account: Discord Damsel's repo, Paper Girl's live site (her own companions),
-// PET-PROGRAMS.md's words about Astra's profile and her VR TikTok under "By Astra" on every pet program page.
-const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile',
-  "['VR TikTok: @findastra', 'https://www.tiktok.com/@findastra'"];
+// PET-PROGRAMS.md's words about Astra's profile. (Her VR TikTok left the footer on 2026-11-13, so it needs no exception.)
+const NOT_AN_ACCOUNT = ['findastra-discord-presence', 'https://findastra.github.io/paper-girl/', 'the findastra profile'];
 const code = (text) => text.split('\n').filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l)).map((l) => NOT_AN_ACCOUNT.reduce((s, n) => s.split(n).join(''), l));
 
 test('no farm-facing script writes Astra\'s account: each asks upstream() or the farm owner', () => {

@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { planDelete, notices } from '../scripts/mass-delete-guard-20261016.mjs';
 
-const registry = { cage: 'astras-pet-os', pets: [{ repo: 'file-master' }, { repo: 'github-goldfish' }], pipeline: [{ repo: 'meme-fiend' }] };
+const registry = { hub: 'astras-pet-os', pets: [{ repo: 'file-master' }, { repo: 'github-goldfish' }], pipeline: [{ repo: 'meme-fiend' }] };
 const base = { registry, runId: '20261016-1', root: '/farm/meme-fiend' };
 
 test('a granted pet can plan a delete only inside its own folder; File Master and Goldfish are told', () => {

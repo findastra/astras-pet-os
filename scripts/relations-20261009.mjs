@@ -24,12 +24,12 @@ export function buildRelations(registry) {
   out.push('| Level | Who | Owns | Saves by |', '|---|---|---|---|');
   out.push('| 1 | **Astra** | Approvals: new art (it costs money), a pet\'s job, anything in a card waiting on her | Answering a card, or telling an assistant |');
   out.push('| 2 | **Friendly Farmer** (`astras-pet-os`) | `pets.json`: who exists, kinds, art, relations, the mood key | His daily round, and assistants working on this hub |');
-  out.push('| 3 | **Each pet\'s repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `cage.submit` |');
+  out.push('| 3 | **Each pet\'s repo** | Its own app, README, cards, and its own name, job, status, bubble lines, mood lines and audit | Editing its `pet.json`, and submitting identity changes in `hub.submit` |');
   out.push('| 4 | **Generated** | `ROSTER.md`, the README table, the Farmer\'s desk, `MOOD-KEY.md`, this file, `status/pets-status.json`, the profile\'s pet list | Never by hand: the build and the rounds rewrite them |', '');
   out.push('```mermaid', 'flowchart TD');
   out.push('  A(["Astra"]) -->|asks| S["Any assistant session"]');
   out.push('  S -->|creates or changes| P["Pet repo<br/>pet.json · README · handoffs/"]');
-  out.push('  P -->|"cage.submit in pet.json"| F{{"Friendly Farmer<br/>daily round"}}');
+  out.push('  P -->|"hub.submit in pet.json"| F{{"Friendly Farmer<br/>daily round"}}');
   out.push('  F -->|finds new pet repos| PL["pets.json pipeline"]');
   out.push('  PL -->|"register card + Astra OKs the art"| R["pets.json pets"]');
   out.push('  F -->|"self-audit on each pet\'s day"| ST["status/pets-status.json<br/>mood + bubble"]');
@@ -81,11 +81,12 @@ export function buildMoodKey(registry) {
   out.push('# Mood key', '');
   out.push('*What each mood means, for every pet. Generated from `mood_key` and each pet\'s `audit` in [pets.json](pets.json) by `npm run build`. The Farmer\'s desk shows the same key with each pet\'s current mood and bubble.*', '');
   out.push('Every pet uses the same meanings, so a face reads the same everywhere. `{subject}` is what the pet checks; `{needs}` is what it asks Astra for when it is curious. The meanings are Astra\'s sketch of 2026-10-18 ([PET-PROGRAM-FRAMEWORK.md](PET-PROGRAM-FRAMEWORK.md), section 3), most urgent first: when several apply, the first one shows.', '');
+  out.push('**One mood, the same everywhere** (Astra, 2026-11-14: "I want all of the pets everywhere to have the same status"). On Astra\'s PC, The Farm\'s pet-moods ([scripts/pet-moods-20261114.mjs](scripts/pet-moods-20261114.mjs), started by Startup Star) works out each pet\'s mood every five seconds from what its own program says, a key request waiting on her (curious) and the Farmer\'s round from the past week. The desktop pets and every pet program page (the pet at the top, its emotions panel and its friends) show that mood with its sticker; the Stream Deck keys will too, once Deck Duck\'s plugin reads it. Alarmed, sick, curious, worried, happy and sad show everywhere; idle, awake and sleepy are calm, so each place keeps its own.', '');
   out.push('| Mood | Means |', '|---|---|');
   for (const m of ORDER) out.push(`| \`${m}\`${SKETCH[m] ? ` (${SKETCH[m]})` : ''} | ${key[m]} |`);
   out.push('');
   out.push('## Each pet', '');
-  out.push('A pet changes its own lines by submitting `moods` (and `audit`) in `cage.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).', '');
+  out.push('A pet changes its own lines by submitting `moods` (and `audit`) in `hub.submit` in its pet.json. See [PET-FILES.md](PET-FILES.md).', '');
   out.push('| Pet | Checks | How often | When it is curious it needs |', '|---|---|---|---|');
   for (const p of allPets(registry)) {
     const a = p.audit || {};

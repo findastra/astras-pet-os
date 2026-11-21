@@ -11,7 +11,7 @@ import { asAstrasFarm } from './fixtures/astras-farm-20261111.mjs';
 const astra = asAstrasFarm(JSON.parse(readFileSync(new URL('../pets.json', import.meta.url), 'utf8')));
 // Dev's farm, as it will look: her hub copy and her own pet on her account, two of Astra's example pets kept as hers.
 const dev = {
-  cage: 'devs-pet-os', github_owner: 'XxdevilishxX',
+  hub: 'devs-pet-os', github_owner: 'XxdevilishxX',
   pets: [{ repo: 'devs-pet-os', role: 'host' }, { repo: 'meme-fiend', github_owner: 'findastra' }, { repo: 'dev-diary' }],
   pipeline: [{ repo: 'api-fairy', github_owner: 'findastra' }],
   candidates: [{ repo: 'new-newt' }],

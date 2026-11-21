@@ -192,7 +192,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "discord-tower-v1.0-mini-descriptor-v1.0",
-        "text": "Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls, with a manual setup checklist.",
+        "text": "Opens the installed OpenAI, Anthropic and Ableton Live Discord presence controls and the Anthropic and OpenAI IPO countdowns, with a manual setup checklist.",
         "reviewed": false
       }
     },
@@ -327,7 +327,7 @@
       "repo_exists": true,
       "mini_descriptor": {
         "label": "light-hive-v1.0-mini-descriptor-v1.0",
-        "text": "Plans and previews lighting scenes for every RGB light in the room: room lights, mouse pad, mouse, PC and keyboard. Sending scenes to the real lights is planned.",
+        "text": "Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.",
         "reviewed": false
       }
     },
@@ -727,7 +727,7 @@
       "assigned": true,
       "icon": "Server Salamander",
       "idea": null,
-      "stage": "roadmap",
+      "stage": "pipeline",
       "repo": "server-hearth",
       "repo_exists": true,
       "mini_descriptor": {
@@ -1007,21 +1007,6 @@
       }
     },
     {
-      "number": 68,
-      "program": "Port Web",
-      "assigned": true,
-      "icon": "Port Spider",
-      "idea": null,
-      "stage": "roadmap",
-      "repo": "port-web",
-      "repo_exists": true,
-      "mini_descriptor": {
-        "label": "pet-program-68-v1.0-mini-descriptor-v1.0",
-        "text": "Authorized port and service exposure checks.",
-        "reviewed": false
-      }
-    },
-    {
       "number": 69,
       "program": "Cipher Hollow",
       "assigned": true,
@@ -1225,7 +1210,7 @@
       "stage": "pipeline",
       "repo": "the-threshold",
       "repo_exists": true,
-      "implementation_status": "Looks after Liminal Doors, Astra's VRChat world of doors (findastra/liminal-doors, public): all 34 Doorspaces built in one Unity scene (2026-10-19), the local desktop test passes, not uploaded to VRChat yet. Its native programs are the world itself, the Liminal Doors Concept Atlas (the concept art for every floor, where Astra reviews the doors) and the found floors page (the-threshold index.html), where visitors tick the floors they have found. Its tools: tools-tracker (which tools made which floors, from the world's tools-by-floor ledger), doorspaces, door-travel, phone-booth-maker and liminal-agent-queue in the Unity project, and concept-art-sheets. The-threshold has been private since 2026-10-20, so its GitHub Pages address (findastra.github.io/the-threshold, linked from the world's VRChat description) is off until it is public again. Native pet, L3 harness and Unity execution bridge are pending.",
+      "implementation_status": "Looks after Liminal Doors, Astra's VRChat world of doors (findastra/liminal-doors, public): all 34 Doorspaces built in one Unity scene (2026-10-19), the local desktop test passes, not uploaded to VRChat yet. Its native programs are the world itself, the Liminal Doors Concept Atlas (the concept art for every floor, where Astra reviews the doors) and the found floors page (liminal-doors docs/index.html), where visitors tick the floors they have found. Its tools: tools-tracker (which tools made which floors, from the world's tools-by-floor ledger), doorspace-builder, door-travel-mover, phone-booth-spawn and agent-queue-runner in the Unity project, and concept-sheet-viewer. The found floors page and the tools tracker are on liminal-doors' GitHub Pages (findastra.github.io/liminal-doors, the address for the world's VRChat description) since 2026-11-12, because the-threshold is private. Native pet, L3 harness and Unity execution bridge are pending.",
       "mini_descriptor": {
         "label": "the-threshold-v1.0-mini-descriptor-v1.0",
         "text": "Door Dormouse looks after Liminal Doors, Astra's VRChat world of doors: 34 Doorspaces built in Unity, the concept art for every floor, the tools that made them and the found floors page. Not uploaded to VRChat yet; L3 is not connected.",
@@ -1234,16 +1219,16 @@
     },
     {
       "number": 83,
-      "program": "Fairy Ring",
+      "program": "The Fairy Court",
       "assigned": true,
       "icon": "Role Fairy",
       "idea": null,
-      "stage": "pipeline",
+      "stage": "registered",
       "repo": "role-fairy",
       "repo_exists": true,
       "mini_descriptor": {
-        "label": "fairy-ring-v1.0-mini-descriptor-v1.0",
-        "text": "Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
+        "label": "the-fairy-court-v1.0-mini-descriptor-v1.0",
+        "text": "Runs The Fairy Court: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence.",
         "reviewed": false
       }
     },
@@ -1284,12 +1269,12 @@
       "assigned": true,
       "icon": "Flowsheet Flamingo",
       "idea": null,
-      "stage": "seed",
+      "stage": "pipeline",
       "repo": "the-pilot-plant",
-      "repo_exists": false,
+      "repo_exists": true,
       "mini_descriptor": {
         "label": "the-pilot-plant-v1.0-mini-descriptor-v1.0",
-        "text": "Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. Repo, runtime and art are planned.",
+        "text": "Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill.",
         "reviewed": false
       }
     }

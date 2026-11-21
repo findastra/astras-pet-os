@@ -42,7 +42,7 @@ the checks themselves take about an hour.
   `Documents\Astra's PetOS`. Lines that tell history ("was", "renamed", "formerly") keep the old name.
 - Links to renamed repos (GitHub redirects them, but the current name is correct).
 - `pet.json` catching up with the registry (`pets.json`) and the one list of names (`pet-programs.json`): pet name,
-  job and audit block. **Not** a field the pet has submitted to the Farmer (`cage.submit`): that is a decision.
+  job and audit block. **Not** a field the pet has submitted to the Farmer (`hub.submit`): that is a decision.
 - Required files that are simply missing: `CLAUDE.md`, `AGENTS.md`, an MIT `LICENSE` (public pet repos only, never
   on an art-only repo), and `pet.json` built from a decided registry entry.
 - README: the credit `*By Astra.*` (Astra, 2026-10-20, card 059; a retired credit line, card 033's or the one before it, is changed to it), a **Limits** section (from `INTELLIGENCE-LEVELS.md`), and **Run it**
@@ -136,5 +136,5 @@ what they do (A22, A23, A52), live routes behind a sign-in (A10). Those stay **N
 - The catalog's `repo_exists` said false for 41 repos started on 2026-10-14: always ask GitHub.
 - Windows long paths are off on Astra's PC: work in a short temp folder.
 - Bash heredocs on this PC can eat backslashes; write files with an editor tool when they contain `\`.
-- Four pets had submitted jobs the registry never took (`cage.submit`); the Farmer's daily round needs fixing
+- Four pets had submitted jobs the registry never took (`hub.submit`); the Farmer's daily round needs fixing
   (hub PR #46) so submissions stop piling up.

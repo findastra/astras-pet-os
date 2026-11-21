@@ -34,7 +34,7 @@ test('the whole farm is every animal: registered and pipeline pets and the hub, 
   const all = farmRepos(registry);
   assert.ok(all.includes('astras-pet-os') && all.includes('data-dealer') && all.includes('meme-fiend'));
   for (const c of registry.candidates || []) assert.ok(!all.includes(c.repo), `${c.repo} is a candidate`);
-  assert.equal(all.length, new Set([...registry.pets, ...registry.pipeline].map((p) => p.repo).concat(registry.cage)).size);
+  assert.equal(all.length, new Set([...registry.pets, ...registry.pipeline].map((p) => p.repo).concat(registry.hub)).size);
 });
 
 // A pet that is public today, never one named here: most of Astra's repos went private on 2026-10-20.
@@ -69,7 +69,7 @@ test('a farm\'s new repos start private; public is asked for', () => {
 
 // Both ways, on any farm's own account (Astra, 2026-10-20: "privatize and unprivatize"; card 058).
 const dev = {
-  cage: 'devs-pet-os', github_owner: 'XxdevilishxX',
+  hub: 'devs-pet-os', github_owner: 'XxdevilishxX',
   pets: [{ repo: 'devs-pet-os', role: 'host' }, { repo: 'meme-fiend', github_owner: 'findastra' }, { repo: 'dev-diary', visibility: 'private' }],
   pipeline: [],
 };

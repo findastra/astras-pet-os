@@ -10,7 +10,7 @@
 //   node scripts/prepare-desktop-drafts-20261011.mjs            write the list
 //   node scripts/prepare-desktop-drafts-20261011.mjs --print    print it instead
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { repoUrl } from './farm-owner-20261020.mjs';
@@ -58,9 +58,20 @@ export function draftList() {
   // Claude Bot first, as before. His pictures stay in his private repo; the desktop finds that repo's folder next to the hub.
   pets.push({ id: 'claude-bot', name: names['claude-bot'], private: true, repo: 'claude-bot',
     idle: 'desktop-art/claude-bot/idle-20261011.png', blink: 'desktop-art/claude-bot/blink-20261011.png', interface: programPage('claude-bot') });
+  // A draft pet's newest drawing in desktop-art/<id>/ wins: the latest date with both idle and blink (2026-11-14,
+  // GPT-6-Astra's nine faces for every pet; the desktop's own PetFiles.NewestDrawing picks the same pair).
+  const newestPair = (id) => {
+    const dir = join(hub, 'desktop-art', id);
+    if (!existsSync(dir)) return null;
+    const dates = readdirSync(dir).map((n) => /^idle-(\d{8})\.png$/.exec(n)?.[1]).filter(Boolean).sort().reverse();
+    const d = dates.find((x) => existsSync(join(dir, `blink-${x}.png`)));
+    return d ? { idle: `desktop-art/${id}/idle-${d}.png`, blink: `desktop-art/${id}/blink-${d}.png` } : null;
+  };
   for (const [id, repo, date = '20261011'] of DRAFTS) {
     const entry = { id, name: names[repo], interface: programPage(repo) };
-    if (id === 'workflow-whale') {
+    const pair = id === 'fuzzboi-friend' ? null : newestPair(id);
+    if (pair) Object.assign(entry, pair);
+    else if (id === 'workflow-whale') {
       entry.idle = need('art/drafts/workflow-whale/idle-20261018.png');
       entry.blink = need('art/drafts/workflow-whale/blink-20261018.png');
     } else if (id === 'fuzzboi-friend') {

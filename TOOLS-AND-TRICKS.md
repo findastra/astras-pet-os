@@ -60,7 +60,7 @@ code runs when you press a button are a native tool, not a trick (Rift Rabbit's 
 |---|---|---|---|
 | What it is | Code a pet program owns: a script, page, program or section. The pet's hands. | Written steps for doing the pet's job with its tools. The pet's training. | Written steps that help an AI work on a pet (build it, test it, hand it off) |
 | Developer word | Program, module, utility | **Skill** (a `SKILL.md` file), prompt, workflow (runtime skill) | **Skill**, agent instructions (development skill) |
-| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.codex\skills`) |
+| Owner | One pet program | One pet program (its repo) | The seat: Claude Code or Codex on this PC (`%USERPROFILE%\.claude\skills`, `%USERPROFILE%\.agents\skills`; installed from their masters by Luna's Log's skill-install-tool) |
 | Who runs it | The computer | The AI in the pet's seat (L3) | The AI in the seat, on every pet it works on |
 | Needs AI to run | No | Yes; without an agent it does nothing | Yes |
 | Same result every time | Yes | No: a model reads it and decides | No |
@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-375 rows: 21 native programs, 171 native tools, 25 native tricks, 158 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+445 rows: 23 native programs, 182 native tools, 26 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -142,14 +142,17 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 1 | Friendly Farmer | The Farm | native tool | markdown-pets | `the-farm-v1.0-markdown-pets-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-chat-helper | `the-farm-v1.0-pet-chat-helper-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-finder | `the-farm-v1.0-pet-finder-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | pet-moods | `the-farm-v1.0-pet-moods-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-packs | `the-farm-v1.0-pet-packs-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-privatizer | `the-farm-v1.0-pet-privatizer-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | pet-program-spawner | `the-farm-v1.0-pet-program-spawner-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native tool | retire-check | `the-farm-v1.0-retire-check-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native tool | broken-tools-on-the-farm | `the-farm-v1.0-broken-tools-on-the-farm-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native tool | seed-suggester | `the-farm-v1.0-seed-suggester-v1.0` | Planned |
 | 1 | Friendly Farmer | The Farm | native trick | handoff | `the-farm-v1.0-handoff-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-finder | `the-farm-v1.0-pet-finder-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | native trick | pet-organizer | `the-farm-v1.0-pet-organizer-trick-v1.0` | Works today |
+| 1 | Friendly Farmer | The Farm | native trick | retire-a-pet | `the-farm-v1.0-retire-a-pet-trick-v1.0` | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | GitHub |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Google Fonts |  | Works today |
 | 1 | Friendly Farmer | The Farm | third-party program | Node.js |  | Works today |
@@ -166,16 +169,22 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 2 | GitHub Goldfish | GitHub Aquarium | native program | Pets Board | `github-aquarium-v1.0-pets-board-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | being-checked-or-drafts | `github-aquarium-v1.0-being-checked-or-drafts-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | blatant-checker | `github-aquarium-v1.0-blatant-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | branch-sweeper | `github-aquarium-v1.0-branch-sweeper-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | broken-on-main | `github-aquarium-v1.0-broken-on-main-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | close-or-keep | `github-aquarium-v1.0-close-or-keep-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | document-control-checker | `github-aquarium-v1.0-document-control-checker-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | naming-corrections | `github-aquarium-v1.0-naming-corrections-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | never-say-checker | `github-aquarium-v1.0-never-say-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | organizational-checker | `github-aquarium-v1.0-organizational-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | outstanding-items | `github-aquarium-v1.0-outstanding-items-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | project-image-generator | `github-aquarium-v1.0-project-image-generator-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | report-exporter | `github-aquarium-v1.0-report-exporter-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | showcase-checker | `github-aquarium-v1.0-showcase-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | systemic-checker | `github-aquarium-v1.0-systemic-checker-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-a-chat | `github-aquarium-v1.0-waiting-on-a-chat-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | native tool | waiting-on-you | `github-aquarium-v1.0-waiting-on-you-v1.0` | Works today |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | achievement-tracker | `github-aquarium-v1.0-achievement-tracker-v1.0` | Planned |
+| 2 | GitHub Goldfish | GitHub Aquarium | native tool | findastra-readme-auditor | `github-aquarium-v1.0-findastra-readme-auditor-v1.0` | Planned |
 | 2 | GitHub Goldfish | GitHub Aquarium | native trick | red-jobs | `github-aquarium-v1.0-red-jobs-trick-v1.0` | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | GitHub |  | Works today |
 | 2 | GitHub Goldfish | GitHub Aquarium | third-party program | Node.js |  | Works today |
@@ -260,6 +269,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 5 | Unity Unicorn | Unity Stable | third-party program | My Avatar Closet |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRCFaceTracking |  | Planned |
 | 5 | Unity Unicorn | Unity Stable | third-party program | VRChat |  | Planned |
+| 6 | Python Panther | Python Jungle | third-party program | Jupyter |  | Planned |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face Codec | `the-astral-plane-v1.0-face-codec-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Face recorder | `the-astral-plane-v1.0-face-recorder-v1.0` | Works today |
 | 7 | Astra Wisp | The Astral Plane | native tool | Quantum coin | `the-astral-plane-v1.0-quantum-coin-v1.0` | Works today |
@@ -298,7 +308,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 12 | File Master | File Kingdom | third-party program | SpaceSniffer |  | Planned |
 | 13 | Discord Damsel | Discord Tower | native program | Ableton Live Discord Presence |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | Anthropic Discord Presence |  | Works today |
+| 13 | Discord Damsel | Discord Tower | native program | Anthropic IPO Countdown |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | OpenAI Discord Presence |  | Works today |
+| 13 | Discord Damsel | Discord Tower | native program | OpenAI IPO Countdown |  | Works today |
 | 13 | Discord Damsel | Discord Tower | native program | DM archive review | `discord-tower-v1.0-dm-archive-v0.1` | Planned |
 | 13 | Discord Damsel | Discord Tower | native tool | CLI Proxy API manager | `discord-tower-v1.0-cli-proxy-api-v1.0` | Works today |
 | 13 | Discord Damsel | Discord Tower | native tool | Sticker Manager | `discord-tower-v1.0-sticker-manager-v1.0` | Works today |
@@ -429,6 +441,10 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 63 | Kernel Koala | Kernel Grove | native tool | Process sweep | `kernel-grove-v1.0-process-sweep-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Service Host explainer | `kernel-grove-v1.0-service-host-explainer-v1.0` | Works today |
 | 63 | Kernel Koala | Kernel Grove | native tool | Startup switch | `kernel-grove-v1.0-startup-switch-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native tool | port-check-tool | `white-hat-lab-v1.0-port-check-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native tool | port-watch-tool | `white-hat-lab-v1.0-port-watch-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | Wireshark |  | Works today |
+| 67 | White Hat Weasel | White Hat Lab | third-party program | MacAttack |  | Idea |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | MCP Inspector |  | Planned |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Case opener | `evidence-locker-v1.0-case-opener-v1.0` | Works today |
 | 70 | Forensic Ferret | Evidence Locker | native tool | Custody log | `evidence-locker-v1.0-custody-log-v1.0` | Works today |
@@ -437,40 +453,86 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 72 | Inference Iguana | Benchmark Rock | native tool | Busy watch | `benchmark-rock-v1.0-busy-watch-v1.0` | Works today |
 | 72 | Inference Iguana | Benchmark Rock | native tool | GPU watch | `benchmark-rock-v1.0-gpu-watch-v1.0` | Works today |
 | 72 | Inference Iguana | Benchmark Rock | native tool | Program watch | `benchmark-rock-v1.0-program-watch-v1.0` | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Ableton Live |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Ableton USB Audio Driver |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Autoruns |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Base Station FOV Viewer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | BetterDiscord |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Blender |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | BS Manager |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Canva |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CapCut |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CLI Proxy API |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Coreinfo |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Corsair iCUE |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CPU-Z |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | CrystalDiskInfo |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Discord |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | DoubleHip DoubleChest Tracker |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Epic Games Launcher |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | ES (Everything’s command line) |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Everything |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Handle |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | HWiNFO64 |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Logitech G HUB |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Magic Chatbox |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Malwarebytes |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Meta Horizon Link |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | MSI Center |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Node.js |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | OBS Studio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OSCGoesBrrr |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Overwolf |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Advanced Settings |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Dynamic Resolution |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Pager |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Smooth Tracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | OVR Toolkit |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | PowerToys |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Process Explorer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Process Monitor |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | RAMMap |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Razer Synapse |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | ShareX |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Sigcheck |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Calibrator |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Override |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Space Sync |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | SpaceSniffer |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Spotify |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Steam |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Steam Streaming audio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | SteamVR |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TCPView |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TikFinity |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | TikTok LIVE Studio |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity 2022.3.22f1 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Unity Hub 3.21.1 |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | USBDeview |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Virtual Desktop |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Visual Studio Community 2022 |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | Voicemeeter |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VR Pole Overlay |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRCFaceTracking |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat |  | Planned |
 | 72 | Inference Iguana | Benchmark Rock | third-party program | VRChat Creator Companion |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Wallpaper Engine |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Web browser (WebGL) |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Windows Performance Recorder |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | winget |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | WinObj |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | Wireshark |  | Planned |
+| 72 | Inference Iguana | Benchmark Rock | third-party program | WizTree |  | Planned |
 | 79 | AI Dashund | AI Doghouse | third-party program | Context7 |  | Planned |
+| 79 | AI Dashund | AI Doghouse | third-party program | Zotero |  | Planned |
 | 82 | Door Dormouse | The Threshold | native program | Found floors |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors (world) |  | Works today |
 | 82 | Door Dormouse | The Threshold | native program | Liminal Doors Concept Atlas |  | Works today |
-| 82 | Door Dormouse | The Threshold | native tool | concept-art-sheets | `the-threshold-v1.0-concept-art-sheets-v1.0` | Works today |
-| 82 | Door Dormouse | The Threshold | native tool | door-travel | `the-threshold-v1.0-door-travel-v1.0` | Works today |
-| 82 | Door Dormouse | The Threshold | native tool | doorspaces | `the-threshold-v1.0-doorspaces-v1.0` | Works today |
-| 82 | Door Dormouse | The Threshold | native tool | liminal-agent-queue | `the-threshold-v1.0-liminal-agent-queue-v1.0` | Works today |
-| 82 | Door Dormouse | The Threshold | native tool | phone-booth-maker | `the-threshold-v1.0-phone-booth-maker-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | agent-queue-runner | `the-threshold-v1.0-agent-queue-runner-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | concept-sheet-viewer | `the-threshold-v1.0-concept-sheet-viewer-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | door-travel-mover | `the-threshold-v1.0-door-travel-mover-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | doorspace-builder | `the-threshold-v1.0-doorspace-builder-v1.0` | Works today |
+| 82 | Door Dormouse | The Threshold | native tool | phone-booth-spawn | `the-threshold-v1.0-phone-booth-spawn-v1.0` | Works today |
 | 82 | Door Dormouse | The Threshold | native tool | tools-tracker | `the-threshold-v1.0-tools-tracker-v1.0` | Works today |
 | 82 | Door Dormouse | The Threshold | third-party program | Blender |  | Works today |
 | 82 | Door Dormouse | The Threshold | third-party program | Unity 2022.3.22f1 |  | Works today |
@@ -478,8 +540,8 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat Creator Companion |  | Works today |
 | 82 | Door Dormouse | The Threshold | third-party program | MCP for Unity 10.3.0 |  | Planned |
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat |  | Planned |
-| 83 | Role Fairy | Fairy Ring | native tool | PetOS feedback (ask-astra-bot) | `fairy-ring-v1.0-petos-feedback-v1.0` | Planned |
-| 83 | Role Fairy | Fairy Ring | third-party program | Discord |  | Planned |
+| 83 | Role Fairy | The Fairy Court | native tool | PetOS feedback (ask-astra-bot) | `the-fairy-court-v1.0-petos-feedback-v1.0` | Planned |
+| 83 | Role Fairy | The Fairy Court | third-party program | Discord |  | Planned |
 | 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
 | 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
 | 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
@@ -506,4 +568,12 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 86 | PC Master | PC Master Race | third-party program | WizTree |  | Works today |
 | 86 | PC Master | PC Master Race | third-party program | LatencyMon |  | Planned |
 | 86 | PC Master | PC Master Race | third-party program | Microsoft Learn MCP |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | native tool | pilot-plant-look-tool | `the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0` | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | GeoGebra |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Natural Number Game |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | WebPlotDigitizer |  | Works today |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | DWSIM |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Jupyter |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Qalculate! |  | Planned |
+| 87 | Flowsheet Flamingo | The Pilot Plant | third-party program | Zotero |  | Planned |
 <!-- registry:end -->

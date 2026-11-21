@@ -1,4 +1,4 @@
-// Usage: node scripts/check-pets-20261018.mjs [--online] (npm run check). Was check-cage.mjs until the Cage was removed, 2026-10-18.
+// Usage: node scripts/check-pets-20261018.mjs [--online] (npm run check). Was check-pets.mjs until the old pets page was removed, 2026-10-18.
 // Checks pets.json and the README table. --online also asks GitHub whether each pet's repo
 // exists, carries the pet-app topic, and has a pet.json.
 import { readFileSync } from 'node:fs';

@@ -17,14 +17,15 @@ const scratch = () => mkdtempSync(join(tmpdir(), 'idle-flash-dots-'));
 
 test('the matrix gives every check once, in priority order, each with a grey or blue dot', () => {
   const m = readMatrix();
-  const ids = Array.from({ length: 61 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
-  assert.deepEqual([...m.order].sort(), ids, 'A01 to A61, each once');
+  // A62 to A71: the parts of the Model Pet Program that had no check (2026-11-12, flash-template-test-20261112.mjs).
+  const ids = Array.from({ length: 71 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
+  assert.deepEqual([...m.order].sort(), ids, 'A01 to A71, each once');
   assert.equal(m.title.A60, 'System Map link', 'A60: every pet program page links back to the System Map (Astra, 2026-10-19)');
   assert.equal(m.dot.A60, GREY);
   for (const id of ids) assert.ok([GREY, BLUE].includes(m.dot[id]), `${id} has a dot`);
   assert.equal(m.order[0], 'A59', 'A59 is first in tier 1');
   assert.deepEqual(m.order.slice(m.order.indexOf('A03'), m.order.indexOf('A03') + 2), ['A03', 'A58'], 'A58 sits after A03');
-  assert.deepEqual(m.order.slice(m.order.indexOf('A05'), m.order.indexOf('A05') + 2), ['A05', 'A49'], 'A49 sits after A05');
+  assert.deepEqual(m.order.slice(m.order.indexOf('A71'), m.order.indexOf('A71') + 2), ['A71', 'A49'], 'A49 (the emotions) sits where the template has them, after the session notes (2026-11-12)');
   assert.equal(m.dot.A59, GREY);
   assert.equal(m.dot.A06, GREY);
   assert.equal(m.dot.A07, BLUE);

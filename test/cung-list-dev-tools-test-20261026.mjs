@@ -58,8 +58,11 @@ test('the install script is plain ASCII with balanced brackets (Windows PowerShe
 test('PowerShell parses the script, when PowerShell is on this computer', (t) => {
   const pwsh = ['pwsh', 'powershell'].find((p) => spawnSync(p, ['-NoProfile', '-Command', '1'], { encoding: 'utf8' }).status === 0);
   if (!pwsh) { t.skip('no PowerShell here: run the script with -DryRun on Windows'); return; }
-  const cmd = `$e=$null; [void][System.Management.Automation.Language.Parser]::ParseFile('${root}/${SCRIPT}', [ref]$null, [ref]$e); $e.Count`;
-  assert.equal(execFileSync(pwsh, ['-NoProfile', '-Command', cmd], { encoding: 'utf8' }).trim(), '0');
+  // The path goes in an environment variable, never inside the command's quotes: the apostrophe in "Astra's PetOS"
+  // would end a '...' string there (2026-11-19).
+  const cmd = '$e=$null; [void][System.Management.Automation.Language.Parser]::ParseFile($env:CUNG_LIST_PS1, [ref]$null, [ref]$e); $e.Count';
+  const env = { ...process.env, CUNG_LIST_PS1: `${root}/${SCRIPT}` };
+  assert.equal(execFileSync(pwsh, ['-NoProfile', '-Command', cmd], { encoding: 'utf8', env }).trim(), '0');
 });
 
 const WINGET = ['Ollama.Ollama', 'OpenJS.NodeJS.LTS', 'astral-sh.uv', 'Docker.DockerDesktop', 'Dyad.Dyad'];

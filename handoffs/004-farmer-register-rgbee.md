@@ -1,10 +1,10 @@
 status: open (step 3 waits on Astra's OK for one paid image)
 for: farmer (any assistant working on astras-pet-os)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-09
-needs: PET-FILES.md "Adding a pet to the Cage", PET-WORDS.md, pets.json, scripts/generate-pets.mjs, findastra/rgbee
+needs: PET-FILES.md "Adding a pet to the hub", PET-WORDS.md, pets.json, scripts/generate-pets.mjs, findastra/rgbee
 ---
 ## Task
-Welcome a new pet to the Cage: **RGBee** (`rgbee`), a bee whose stripes are red, green and
+Welcome a new pet to the hub: **RGBee** (`rgbee`), a bee whose stripes are red, green and
 blue. Its app plans and previews lighting scenes for Astra's room lights, mouse pad, mouse, PC
 and keyboard. Its repo exists with a v0 web app (`rgbee-20261009.html`).
 
@@ -24,7 +24,7 @@ and keyboard. Its repo exists with a v0 web app (`rgbee-20261009.html`).
    nine frames to `findastra/rgbee` (`art/`) and list them in its `sprite-20261009.json`.
 
 ## Done when
-RGBee shows in the Cage and ROSTER.md with nine draft moods, and checks pass. The art stays a
+RGBee shows in the hub and ROSTER.md with nine draft moods, and checks pass. The art stays a
 draft until Astra approves it.
 
 ## Return

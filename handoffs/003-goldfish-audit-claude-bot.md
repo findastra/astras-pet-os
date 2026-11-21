@@ -5,7 +5,7 @@ needs: PET-FILES.md, findastra/github-goldfish AGENTS.md
 ---
 ## Task
 Once `findastra/claude-bot` exists on GitHub, run the GitHub Goldfish over it and the
-Cage. Report missing pet files, a missing `pet-app` topic, and registry mismatches.
+hub. Report missing pet files, a missing `pet-app` topic, and registry mismatches.
 
 ## Done when
 Findings are written to `handoffs/results/003-goldfish-claude-bot.md`, with the model

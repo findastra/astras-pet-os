@@ -109,8 +109,8 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-sync-my-lights-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
-      "job": "Every light Light Hive knows, with what reaches it today, and one colour and brightness sent to all of them through light-hive-helper. Razer reaches today; Govee waits on LAN Control; Corsair and MSI wait on OpenRGB (card 002 in findastra/rgbee).",
-      "does": "One colour and brightness for every light in the apartment that Light Hive reaches.",
+      "job": "Your scenes, effects and a desk preview for every light Light Hive knows, sent through light-hive-helper.",
+      "does": "Scenes for every light Light Hive reaches.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-sync-my-lights-20261108.html",
       "frame": "wide",
       "in_pill": true
@@ -126,8 +126,8 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
-      "job": "A rainforest made live in the page (rain, wind, forest life, thunder) with lightning that flashes the screen and every light light-hive-helper reaches, thunder after the flash. Never more than three flashes a second; soft glows under reduced motion. Two screens with the same storm level strike together (Astra, 2026-11-08).",
-      "does": "Rainforest sounds with lightning across every light and screen.",
+      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches. Never more than three flashes a second.",
+      "does": "A rainforest storm across every light and screen.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
       "frame": "wide",
       "in_pill": true
@@ -148,6 +148,7 @@
     },
     {
       "id": "ableton-usb-audio-driver",
+      "watch": "driver",
       "name": "Ableton USB Audio Driver",
       "type": "program",
       "state": "now",
@@ -485,6 +486,28 @@
       "category": "Desktop app"
     },
     {
+      "id": "anthropic-ipo-countdown",
+      "name": "Anthropic IPO Countdown",
+      "url": "https://github.com/findastra/anthropic-ipo-countdown",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that counts down to Anthropic's IPO on Astra's Discord profile: the gold galaxy with one kind of time in its middle (4 DAYS, then hours, minutes, seconds), Nasdaq: ANT, the time left and Discord's live timer. Reads nothing on the PC. Code in findastra/ai-ipo-countdown. One of Discord Damsel's programs (discord-tower pet.json, v0.1.0, 2026-11-15).",
+      "does": "Counts down to Anthropic's IPO on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
+      "id": "openai-ipo-countdown",
+      "name": "OpenAI IPO Countdown",
+      "url": "https://github.com/findastra/openai-ipo-countdown",
+      "type": "own-program",
+      "state": "now",
+      "job": "Windows app that counts down to OpenAI's IPO on Astra's Discord profile: the blue galaxy with one kind of time in its middle, Ticker TBA and the 2027 target (OpenAI has set no date; the count runs to the first trading day of 2027), the time left and Discord's live timer. Reads nothing on the PC. Code in findastra/ai-ipo-countdown. One of Discord Damsel's programs (discord-tower pet.json, v0.1.0, 2026-11-15).",
+      "does": "Counts down to OpenAI's IPO on your Discord profile.",
+      "layer": 6,
+      "category": "Desktop app"
+    },
+    {
       "id": "sticker-manager",
       "name": "Sticker Manager",
       "type": "tool",
@@ -641,8 +664,8 @@
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "fairy-ring-v1.0-petos-feedback-v1.0",
-      "job": "A tool of Fairy Ring's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through Fairy Ring's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
+      "label": "the-fairy-court-v1.0-petos-feedback-v1.0",
+      "job": "A tool of The Fairy Court's ask-astra-bot, Press Plai's one bot (Astra, 2026-10-19 and 2026-10-20), on its bot panel ask-astra-bot-panel: reads the Discord chats Astra lists about Astra's PetOS, looks each remark up in its public docs, asks people one question back, talks with whoever replies, gives them fixed prompts to paste into their own AI, and keeps what it found for Astra on her PC. Its commands and doc search are code; Claude reads each remark through The Fairy Court's own API key, with no tools. Built and tested (role-fairy ask-astra-bot/, card 002 there); not installed."
     },
     {
       "id": "gpu-watch",
@@ -717,7 +740,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "benchmark-rock-v1.0-program-watch-v1.0",
-      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. In findastra/benchmark-rock#3, not merged."
+      "job": "A tool of Benchmark Rock, Inference Iguana's pet program (Astra, 2026-10-23: \"Build Inference Iguana's program in benchmark-rock and move program-watch there with the VR changes\"; it was Kernel Grove's, kernel-grove#5): which of the 3rd party programs on this map are open, every five seconds while its watch runs, written to a file in Documents that the pet program pages opened on this PC read, so a program's light is green while it is open; closes one the way its window's X does, never forced, and opens one from its own shortcut. Merged with findastra/benchmark-rock#8 (2026-10-25). Since Astra asked on 2026-11-07 (\"I should be able to press the red button, then it launches that program and the button turns green if its on and detected\"), a 3rd party program's light on the pet program pages opens it on a red press and closes it on a green one after she says yes, through a listener on this PC only (127.0.0.1, a new port and a random code at each start, written beside the list); tools and drivers it only finds, installed or not. The buttons are on a benchmark-rock branch, not merged, and not run on Windows yet."
     },
     {
       "id": "vr-launch",
@@ -742,6 +765,40 @@
       "version": "v1.0",
       "label": "kernel-grove-v1.0-leftover-watch-v1.0",
       "job": "A tool of Kernel Grove (Astra, 2026-10-21): in the background, one look every ten minutes for leftovers and memory above 85%. No tray icon and no pop-ups: its last look and its menu are in Startup Star's menu under Kernel Koala, and its mood file says curious when something waits on Astra. Never stops anything by itself. Merged 2026-10-21 (findastra/kernel-grove#3)."
+    },
+    {
+      "id": "port-check-tool",
+      "name": "port-check-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-check-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-17: \"lets squish port spider and make it a tool of the weasel\"; it was Port Spider's job, pet program 68, from 2026-11-12). Which devices are on the home network, which ports answer on each, what the router forwards from the internet, and what to do. Read only, and only with Astra's OK before every check. The reports stay private (findastra/white-hat-lab scans/); on her PC the tool box shows the newest assessment from the white-hat-lab folder of Astra's PetOS Data, and the public page shows only that the reports are private.",
+      "does": "The port assessment of your home network: the verdict, every device and what answers on it, and what to do.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-tools-20261117.html?tool=port-check",
+      "frame": "wide",
+      "in_pill": true
+    },
+    {
+      "id": "port-watch-tool",
+      "name": "port-watch-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-port-watch-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-19: \"The White Hat Weasel should be monitoring ports and asking me intermittently if I can close some ... I want to be able to click on a port, labeled, and I can read info about the latest traffic\"; her answers \"All recommended\"). Every 10 minutes, started by Startup Star at sign-in, it looks at every port open on this PC with Get-NetTCPConnection (no administrator, no port of its own): which program owns it, who can reach it, who is connected and from where (this PC, the home network, Tailscale or the internet) and the last peers seen. Once a day it asks about chat preview servers left open more than two hours: its mood turns curious and its menu in Startup Star names them. Only our own servers (PetOS helpers and chat previews) can be closed, and only by Astra's click in that menu. The list stays on her PC (white-hat-lab folder of Astra's PetOS Data); the public page says only that it is private.",
+      "does": "Every port open on your PC, labeled: click one to see who is connected, from where, and how to close it.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/white-hat-lab-port-watch-20261119.html",
+      "frame": "wide",
+      "in_pill": true
     },
     {
       "id": "learn-computer-organization-tool",
@@ -1036,7 +1093,7 @@
       "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26 to the USBDeview-3.10 folder in Documents (its SHA-256 matches NirSoft's).",
+      "job": "Rift Rabbit's dongle map runs it (Astra, 2026-10-26: show a branch where each dongle is, to optimize where they are plugged in). NirSoft's USBDeview 3.10, downloaded 2026-10-26; since File Master's cleanup (2026-11-09) it is in Downloads\\installers\\USBDeview-3.10 (its SHA-256 matches NirSoft's).",
       "does": "Lists every USB device on the PC with its hub and port.",
       "url": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
       "embed": "https://findastra.github.io/astras-pet-os/apps/pc-master-race-tools-20261103.html?tool=usbdeview",
@@ -1046,6 +1103,7 @@
     },
     {
       "id": "es-cli",
+      "watch": "tool",
       "name": "ES (Everything’s command line)",
       "type": "program",
       "state": "now",
@@ -1236,6 +1294,7 @@
     },
     {
       "id": "coreinfo",
+      "watch": "tool",
       "name": "Coreinfo",
       "type": "program",
       "state": "now",
@@ -1266,6 +1325,7 @@
     },
     {
       "id": "handle",
+      "watch": "tool",
       "name": "Handle",
       "type": "program",
       "state": "now",
@@ -1281,6 +1341,7 @@
     },
     {
       "id": "sigcheck",
+      "watch": "tool",
       "name": "Sigcheck",
       "type": "program",
       "state": "now",
@@ -1311,6 +1372,7 @@
     },
     {
       "id": "winget",
+      "watch": "tool",
       "name": "winget",
       "type": "program",
       "state": "now",
@@ -1341,6 +1403,7 @@
     },
     {
       "id": "windows-performance-recorder",
+      "watch": "tool",
       "name": "Windows Performance Recorder",
       "type": "program",
       "state": "now",
@@ -1485,15 +1548,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Tasks: watches retries, stalled jobs and agent handoffs.",
-      "layer": 4
-    },
-    {
-      "id": "server-salamander",
-      "name": "Server Salamander",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Hosts: home servers, uptime, service health.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "stalled jobs, retries and agent handoffs left open",
+        "needs": "a decision on a stuck handoff"
+      }
     },
     {
       "id": "docker-dragon",
@@ -1501,7 +1561,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Containers: Docker health and authorized management. Security role: keeps the sandbox, where anything untrusted runs first.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your Docker containers and the sandbox: their health, unused images and disk use",
+        "needs": "your OK before a container is stopped or removed"
+      }
     },
     {
       "id": "test-tortoise",
@@ -1509,7 +1574,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Quality: tests and release verification. Security role: the checker agent for maker-checker, and a security test for every hole ever fixed.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the tests of every repo: which fail, which pets have none, and a test for every hole ever fixed",
+        "needs": "your OK on a release that failed a check"
+      }
     },
     {
       "id": "token-toucan",
@@ -1517,7 +1587,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "AI cost: model tokens, budgets and inference usage. Security role: flags token and cost spikes; a runaway or hijacked agent burns tokens.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "model tokens and spend against your budgets, and any sudden spike",
+        "needs": "a budget for each model"
+      }
     },
     {
       "id": "calendar-crow",
@@ -1525,7 +1600,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Calendar: scheduling, conflicts and reminders.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "next week's calendar: clashes and missing reminders",
+        "needs": "which calendar I may read"
+      }
     },
     {
       "id": "browser-bat",
@@ -1533,7 +1613,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Web and marketing operations: website QA and authorized browser work.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your websites: broken links and page errors",
+        "needs": "the list of sites to check"
+      }
     },
     {
       "id": "data-dragonfly",
@@ -1541,7 +1626,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Data engineering: data integrity, schemas, pipelines.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the farm's data files: whether each one still matches its schema",
+        "needs": "a decision on a file that does not match"
+      }
     },
     {
       "id": "update-urchin",
@@ -1549,7 +1639,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Dependency updates: packages, compatibility, rollback prep.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "outdated packages in every repo, with a way back for each update",
+        "needs": "your OK before an update"
+      }
     },
     {
       "id": "shell-squid",
@@ -1557,7 +1652,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Bash, terminal scripting and guarded automation.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your scripts and scheduled tasks: which failed, and which run without a guard",
+        "needs": "your OK before a script is changed"
+      }
     },
 {
       "id": "proxy-axolotl",
@@ -1565,7 +1665,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Reverse proxies, TLS and secure private remote access. Security role: the egress allowlist, what may leave the PC, and safe remote access.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your reverse proxies and the egress allowlist: certificate expiry and what may leave the PC",
+        "needs": "your OK before anything is opened to the network"
+      }
     },
     {
       "id": "cluster-crab",
@@ -1573,7 +1678,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Distributed services and orchestration.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the services that run across several machines: which are down or out of step",
+        "needs": "a machine to look after"
+      }
     },
     {
       "id": "storage-stoat",
@@ -1581,15 +1691,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "NAS, ZFS, snapshots and capacity health.",
-      "layer": 4
-    },
-    {
-      "id": "port-spider",
-      "name": "Port Spider",
-      "type": "roadmap",
-      "state": "planned",
-      "job": "Authorized port and service exposure checks.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "your disks and NAS: free space, snapshots and drive health",
+        "needs": "your OK to check a drive"
+      }
     },
     {
       "id": "llama-librarian",
@@ -1597,7 +1704,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Local model inventory, downloads and compatibility.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the local models: which are downloaded, how big they are and which fit the graphics card",
+        "needs": "your OK before a model is downloaded"
+      }
     },
     {
       "id": "agent-ant",
@@ -1605,7 +1717,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Agent experiments and tool-use evaluation. Security role: records each AI that takes a seat (model, version, request patterns), so a stranger or a changed agent stands out.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "every AI that took a seat (its model and version), and how well each one used its tools",
+        "needs": "an experiment to run"
+      }
     },
     {
       "id": "cache-coyote",
@@ -1613,7 +1730,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Offline-first documents, caches and queued actions.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "offline caches and queued actions that never went out",
+        "needs": "a decision on a queued action"
+      }
     },
     {
       "id": "sync-mink",
@@ -1621,7 +1743,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Cross-device sync and conflict resolution.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "sync between your devices: conflicts and files that did not sync",
+        "needs": "which copy to keep when two disagree"
+      }
     },
     {
       "id": "passport-pelican",
@@ -1629,7 +1756,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Passport/ID metadata, visa research and deadlines, encrypted.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "passport and ID expiry dates and visa deadlines (dates only, never the numbers)",
+        "needs": "a date only you can check"
+      }
     },
     {
       "id": "stock-fox",
@@ -1637,7 +1769,12 @@
       "type": "roadmap",
       "state": "planned",
       "job": "Named as an established pet in ASTRAS_PET_OS v5.2; no repo in the registry.",
-      "layer": 4
+      "layer": 4,
+      "audit": {
+        "cadence": "weekly",
+        "subject": "my plan",
+        "needs": "a job: what should Stock Fox do?"
+      }
     },
     {
       "id": "pet-directory",
@@ -1669,6 +1806,7 @@
     },
     {
       "id": "betterdiscord",
+      "watch": "tool",
       "name": "BetterDiscord",
       "type": "program",
       "state": "now",
@@ -1679,6 +1817,7 @@
     },
     {
       "id": "cli-proxy-api",
+      "watch": "tool",
       "name": "CLI Proxy API",
       "type": "program",
       "state": "now",
@@ -1689,6 +1828,7 @@
     },
     {
       "id": "github",
+      "site": "https://github.com/",
       "name": "GitHub",
       "type": "program",
       "state": "now",
@@ -2209,7 +2349,7 @@
       "category": "Website",
       "url": "https://claude.ai/artifact/XvXm6nJ3BQq8XPxukPVKJ2",
       "picture": "https://raw.githubusercontent.com/findastra/liminal-doors/main/concept-art/floors/01-fox-pinkscape-20261020.png",
-      "job": "The concept art for every floor of Liminal Doors, one door at a time, where Astra reviews the floors (a claude.ai page that opens only for Astra, signed in). The pictures themselves are public in liminal-doors concept-art/floors (34 floors), with the contact sheet, the redline sheet and the imagebook in concept-art/. The found floors page is a public copy of it.",
+      "job": "The concept art for every floor of Liminal Doors, one door at a time, where Astra reviews the floors (a claude.ai page that opens only for Astra, signed in). The pictures themselves are public in liminal-doors concept-art/floors (34 floors), with the contact sheet, the redline sheet and the imagebook in concept-art/. The found floors page is a public copy of it. Its source and builder are in liminal-doors concept-art/atlas and concept-art/tools (2026-11-12).",
       "does": "Every floor's concept art: the doors you review."
     },
     {
@@ -2220,9 +2360,9 @@
       "state": "now",
       "layer": 6,
       "category": "Website",
-      "url": "https://github.com/findastra/the-threshold/blob/main/index.html",
-      "job": "The Threshold's public page (the-threshold index.html, the-threshold#3) where visitors tick the floors of Liminal Doors they have found; the ticks stay in their own browser. It was on GitHub Pages at findastra.github.io/the-threshold, and Liminal Doors' VRChat description links it, but the-threshold has been private since 2026-10-20, so that address is off until the repo is public again.",
-      "does": "Where visitors tick the floors they have found; offline while The Threshold is private."
+      "url": "https://findastra.github.io/liminal-doors/",
+      "job": "The Threshold's public page (liminal-doors docs/index.html; on the-threshold until 2026-11-12, the-threshold#3) where visitors tick the floors of Liminal Doors they have found; the ticks stay in their own browser. It is on liminal-doors' GitHub Pages, findastra.github.io/liminal-doors, the address for the world's VRChat description (docs/vrchat-world-description-20261019.md). It moved there because the-threshold has been private since 2026-10-20 (Astra, 2026-11-12, hub card 336).",
+      "does": "Where visitors tick the floors they have found."
     },
     {
       "id": "tools-tracker",
@@ -2234,76 +2374,76 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-threshold-v1.0-tools-tracker-v1.0",
-      "url": "https://github.com/findastra/the-threshold/blob/main/tools-tracker-20261019.html",
-      "job": "A tool of The Threshold (the-threshold#2): a page that reads Liminal Doors' tools ledger (liminal-doors docs/tools-by-floor-20261019.json, 36 tools) and shows which tools made which floor, and which are ready to package.",
+      "url": "https://findastra.github.io/liminal-doors/tools-tracker-20261019.html",
+      "job": "A tool of The Threshold (the-threshold#2; in liminal-doors docs/ since 2026-11-12, on its GitHub Pages): a page that reads Liminal Doors' tools ledger (liminal-doors docs/tools-by-floor-20261019.json, 36 tools) and shows which tools made which floor, and which are ready to package.",
       "does": "Shows which tools made which floors."
     },
     {
-      "id": "doorspaces",
-      "name": "doorspaces",
+      "id": "doorspace-builder",
+      "name": "doorspace-builder",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-doorspaces-v1.0",
+      "label": "the-threshold-v1.0-doorspace-builder-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Editor",
       "job": "A tool of The Threshold in Liminal Doors' Unity project (Assets/LiminalDoors/Editor: LiminalDoorspaceKit.cs, LiminalDoorspaces*.cs, LiminalStop01/02/03.cs): builds every Doorspace from code, rebuilds the ones listed in Review/doorspaces-build/rebuild.txt and renders review shots. Its window (LiminalDoors > Doorspaces > Window, Ctrl+Shift+D; Ctrl+Shift+] and [ step) jumps between them.",
       "does": "Builds the Doorspaces in Unity and jumps between them (Ctrl+Shift+D)."
     },
     {
-      "id": "door-travel",
-      "name": "door-travel",
+      "id": "door-travel-mover",
+      "name": "door-travel-mover",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-door-travel-v1.0",
+      "label": "the-threshold-v1.0-door-travel-mover-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/Assets/LiminalDoors/Scripts",
       "job": "A tool of The Threshold in Liminal Doors (UdonSharp: LiminalTraveler.cs and LiminalDoor.cs; menus LiminalDoors > World > Make door scripts, Wire doors and Door trip test): you spawn in the phone booth, and stepping through a door sends you to a random Doorspace, never one of the last few, with a door back. Checked in ClientSim by the door trip test (docs/door-trip-test-fresh-20261018.md).",
       "does": "Stepping through a door sends you to a random Doorspace, and back."
     },
     {
-      "id": "phone-booth-maker",
-      "name": "phone-booth-maker",
+      "id": "phone-booth-spawn",
+      "name": "phone-booth-spawn",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-phone-booth-maker-v1.0",
+      "label": "the-threshold-v1.0-phone-booth-spawn-v1.0",
       "url": "https://github.com/findastra/liminal-doors/blob/main/Tools/Blender/make_phone_booth.py",
       "job": "A tool of The Threshold: models and bakes the phone booth you spawn in, in Blender with no window (Tools/Blender/make_phone_booth.py, about two minutes), then LiminalDoors > Booth > Import Blender model and Build prefab make its Unity prefab (LiminalBooth.cs). The booth went into the Unity asset library as v1.0.0.",
       "does": "Models the phone booth in Blender and builds its Unity prefab."
     },
     {
-      "id": "concept-art-sheets",
-      "name": "concept-art-sheets",
+      "id": "concept-sheet-viewer",
+      "name": "concept-sheet-viewer",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-concept-art-sheets-v1.0",
+      "label": "the-threshold-v1.0-concept-sheet-viewer-v1.0",
       "url": "https://github.com/findastra/liminal-doors/tree/main/concept-art/tools",
       "job": "A tool of The Threshold (liminal-doors concept-art/tools): cuts the concept plates into one picture per floor (cut-floors.ps1, PlateCutter.cs), makes the contact sheet and the redline sheet (contact-sheet.ps1, redline-sheet.ps1), painted floor 01 all clouds (cloud-floor-20261020.cs), cleans the imagebook and makes the neon colourways (neon-pools-20261029.py, ref-colorways-20261029.py).",
       "does": "Cuts the concept art into floors and makes the review sheets."
     },
     {
-      "id": "liminal-agent-queue",
-      "name": "liminal-agent-queue",
+      "id": "agent-queue-runner",
+      "name": "agent-queue-runner",
       "type": "tool",
       "of": "program-82",
       "state": "now",
       "layer": 6,
       "category": "Tool",
       "version": "v1.0",
-      "label": "the-threshold-v1.0-liminal-agent-queue-v1.0",
+      "label": "the-threshold-v1.0-agent-queue-runner-v1.0",
       "url": "https://github.com/findastra/liminal-doors/blob/main/Assets/LiminalDoors/Editor/LiminalAgentQueue.cs",
       "job": "A tool of The Threshold in Liminal Doors' Unity project: lets Claude and Codex run the LiminalDoors menus in the Unity editor that is already open, one job file at a time (Review/agent-queue), so nobody restarts or batch-builds the editor while Astra has it open. The local desktop test (LiminalDoors > Desktop test: Build & Test, no upload) runs through it.",
       "does": "Lets Claude and Codex run Liminal Doors' menus in the open Unity editor."
@@ -2322,10 +2462,10 @@
       "id": "microsoft-learn-mcp",
       "name": "Microsoft Learn MCP",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; in Claude through the connector directory once Astra clicks Connect. Astra, 2026-11-09: \"All recommended\" (hub card 319). Planned until a new chat calls it once.",
+      "job": "Microsoft's free, read-only MCP server for its docs: Windows, PowerShell, C#, .NET (https://learn.microsoft.com/api/mcp). MCP Inspector listed its 3 tools, all read-only, on 2026-11-09. In Codex's config.toml since 2026-11-09; Astra connected it in Claude on 2026-11-12, and one docs search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319).",
       "does": "Gives chats Microsoft's own Windows and PowerShell docs."
     },
     {
@@ -2342,30 +2482,30 @@
       "id": "alphaxiv-mcp",
       "name": "alphaXiv",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory: search and full text, 6 read tools. It asks for a sign-in before MCP Inspector can look, so its directory list stands in. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too. Planned until Astra connects it and a new chat calls it once.",
+      "job": "alphaXiv's MCP server for arXiv preprints, from Claude's connector directory. Astra connected it in Claude on 2026-11-12 (with her alphaXiv sign-in), and one paper search answered in a chat. Connected, it offers 23 tools, not the 6 its directory listing showed: 14 read (search, full text, feeds, her library and notes) and 9 that write to her alphaXiv account (library folders, saving and moving papers, private paper notes, following researchers). Paper Patty's grant is read only. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it; Flowsheet Flamingo and AI Dashund use it too.",
       "does": "Lets chats search and read arXiv papers."
     },
     {
       "id": "pubmed-mcp",
       "name": "PubMed",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it. Planned until Astra connects it and a new chat calls it once.",
+      "job": "The PubMed MCP server in Claude's connector directory (biomedical and life-science papers). MCP Inspector listed its 7 tools, all read-only, on 2026-11-09. Astra connected it in Claude on 2026-11-12, and one article search answered in a chat. Astra, 2026-11-09: \"All recommended\" (hub card 319). Paper Patty keeps it.",
       "does": "Lets chats search and read PubMed papers."
     },
     {
       "id": "yelp-mcp",
       "name": "Yelp",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "MCP server",
-      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider. Planned until Astra connects it and a new chat calls it once.",
+      "job": "Yelp's own connector for Claude: one search tool for local businesses and restaurants. Its endpoint answers only Claude's connector, so its directory list stands in for the Inspector check. Astra connected it in Claude on 2026-11-12, and one restaurant search answered in a chat; the chat gets only the search tool (Yelp's results card can offer a quote or booking button, which only Astra presses). Astra, 2026-11-09: \"All recommended\" (hub card 319). Spoonfed Sugarcube keeps it for real restaurants while the app is built; the app itself still needs its own provider.",
       "does": "Lets chats look up real restaurants for Spoonfed."
     },
     {
@@ -2715,7 +2855,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-face-recorder-v1.0",
-      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"I want to track my own face tracking data and my reaction to other people or scenarios\"): records Astra's own face and eye values (VRCFaceTracking's parameters, as VRChat's OSC output repeats them) into a session file that stays on her PC, and a line she types marks a moment. Each recording adds to VRChat AI Astra, the copy of Astra. Other players named in VRChat's log get made-up names (pseudonymization; Astra: \"just change the names so we know it's the same person, but not use their actual name\"): Player- and 6 hex digits from a keyed hash with this PC's own salt, the same for the same person, never a real name or user ID; --no-pseudonyms keeps event types only. In code: it listens on 127.0.0.1 only and sends nothing of its own; it keeps only face, eye and tracking values (an optional relay, off unless asked, passes each packet on to VRChat unchanged, from a socket bound to 127.0.0.1). Only one app at a time can listen on VRChat's output, port 9001 on this PC, so the recorder shares it with other OSC apps such as OSCGoesBrrr through OSCQuery or an OSC router (a step on Astra's PC, not done yet). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_face_recorder.py, 56 unit tests); never run against live VRChat, VRCFaceTracking or a real headset. Face-out is a preview only and not built."
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"I want to track my own face tracking data and my reaction to other people or scenarios\"): records Astra's own face and eye values (VRCFaceTracking's parameters, as VRChat's OSC output repeats them) into a session file that stays on her PC, and a line she types marks a moment. Each recording adds to the face language Iris uses to create herself (Iris is the agent, not a copy of Astra). Other players named in VRChat's log get made-up names (pseudonymization; Astra: \"just change the names so we know it's the same person, but not use their actual name\"): Player- and 6 hex digits from a keyed hash with this PC's own salt, the same for the same person, never a real name or user ID; --no-pseudonyms keeps event types only. In code: it listens on 127.0.0.1 only and sends nothing of its own; it keeps only face, eye and tracking values (an optional relay, off unless asked, passes each packet on to VRChat unchanged, from a socket bound to 127.0.0.1). Only one app at a time can listen on VRChat's output, port 9001 on this PC, so the recorder shares it with other OSC apps such as OSCGoesBrrr through OSCQuery or an OSC router (a step on Astra's PC, not done yet). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_face_recorder.py, 56 unit tests); never run against live VRChat, VRCFaceTracking or a real headset. Face-out is a preview only and not built."
     },
     {
       "id": "face-codec",
@@ -2739,7 +2879,7 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-reaction-learner-v1.0",
-      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"convert that into how the AI should be reacting in VR chat\"): cuts Astra's reaction clips (0.5 to 3 s) out of her recorded sessions, after each moment she marked or each event, into a reaction book on her PC that she can review, rate good or bad and delete from. The book is VRChat AI Astra, the copy of Astra (Astra: \"It's basically a copy of me\"). Given a moment in words, it picks one of her closest reaction clips and varies it by at most 10%. It reads back only made-up names (Player- and 6 hex digits) and ignores anything else in that field; a session file it cannot read is skipped with the reason. In code: a preview only, with no way to send to VRChat; face-out, when it is built, may change face and eye shapes only (decision 7, 2026-11-03). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_reactions.py, 25 unit tests); never run against live VRChat, VRCFaceTracking or a real headset."
+      "job": "A tool of The Astral Plane (Astra, 2026-11-03: \"convert that into how the AI should be reacting in VR chat\"): cuts Astra's reaction clips (0.5 to 3 s) out of her recorded sessions, after each moment she marked or each event, into a reaction book on her PC that she can review, rate good or bad and delete from. The book is Astra's reactions, for Iris to read; Iris is the agent, not a copy of Astra (Astra, 2026-11-17). Given a moment in words, it picks one of her closest reaction clips and varies it by at most 10%. It reads back only made-up names (Player- and 6 hex digits) and ignores anything else in that field; a session file it cannot read is skipped with the reason. In code: a preview only, with no way to send to VRChat; face-out, when it is built, may change face and eye shapes only (decision 7, 2026-11-03). Merged into the-astral-plane main with Astra's OK on 2026-11-03 (face/ai_astra_reactions.py, 25 unit tests); never run against live VRChat, VRCFaceTracking or a real headset."
     },
     {
       "id": "quantum-coin",
@@ -2763,7 +2903,7 @@
       "category": "Trick",
       "version": "v1.0",
       "label": "the-astral-plane-v1.0-clone-session-trick-v1.0",
-      "job": "A trick of The Astral Plane (skills/clone-session; Astra, 2026-11-03: \"I'm going to basically clone myself in VR chat\"): the steps for one recording session of Astra's own face, which adds to VRChat AI Astra, the copy of Astra: who is present and whether they are comfortable, check the face is coming in, record, mark moments with roles rather than names, stop, learn, review the reaction book, and delete what she does not want kept. Other players get made-up names, never their real ones. Astra starts and stops every recording, and nothing is sent to VRChat: face-out is a preview only, and when it is built it may change face and eye shapes only. It uses the face recorder, the Face Codec, the reaction learner and the quantum coin, with VRChat and VRCFaceTracking. Merged into the-astral-plane main with Astra's OK on 2026-11-03; never followed in a live session, never run against live VRChat, VRCFaceTracking or a real headset."
+      "job": "A trick of The Astral Plane (skills/clone-session; Astra, 2026-11-03: \"I'm going to basically clone myself in VR chat\"): the steps for one recording session of Astra's own face, which adds to the face language that Iris uses to create herself: who is present and whether they are comfortable, check the face is coming in, record, mark moments with roles rather than names, stop, learn, review the reaction book, and delete what she does not want kept. Other players get made-up names, never their real ones. Astra starts and stops every recording, and nothing is sent to VRChat: face-out is a preview only, and when it is built it may change face and eye shapes only. It uses the face recorder, the Face Codec, the reaction learner and the quantum coin, with VRChat and VRCFaceTracking. Merged into the-astral-plane main with Astra's OK on 2026-11-03; never followed in a live session, never run against live VRChat, VRCFaceTracking or a real headset."
     },
     {
       "id": "data-dealer-project",
@@ -3485,7 +3625,7 @@
       "state": "now",
       "layer": 6,
       "category": "Keyboard",
-      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights today; Light Hive reaches it once OpenRGB is set up (card 002 in findastra/rgbee)."
+      "job": "Astra’s RGB keyboard on the Desktop PC (seen 2026-11-08, by cable and by its wireless receiver). Corsair iCUE sets its lights; OpenRGB can’t reach it (tried 2026-11-11), so Light Hive can’t yet (card 002 in findastra/rgbee)."
     },
     {
       "id": "dell-monitor",
@@ -3555,6 +3695,7 @@
     },
     {
       "id": "steam-streaming-audio",
+      "watch": "driver",
       "name": "Steam Streaming audio",
       "type": "program",
       "state": "now",
@@ -3623,7 +3764,12 @@
       "layer": 6,
       "category": "Made by Astra",
       "job": "The pet program of Dubstep Gunsmith (pet program icon). Astra’s catalog site for avatar gun effects and loadouts, made with Codex on 2026-10-12. Its source is only in Codex’s workspace on the PC, not on GitHub yet.",
-      "does": "A catalog site for your avatar gun effects and loadouts."
+      "does": "A catalog site for your avatar gun effects and loadouts.",
+      "audit": {
+        "cadence": "weekly",
+        "subject": "the avatar gun effects and loadouts catalog",
+        "needs": "the catalog's source on GitHub"
+      }
     },
     {
       "id": "threejs",
@@ -3657,6 +3803,7 @@
     },
     {
       "id": "nodejs",
+      "watch": "tool",
       "name": "Node.js",
       "type": "program",
       "state": "now",
@@ -4490,7 +4637,19 @@
       "category": "Tool",
       "version": "v1.0",
       "label": "the-farm-v1.0-flash-audit-v1.0",
-      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 61 checks as tools: each shows the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 37 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
+      "job": "A tool of The Farm (GitHub Goldfish's from 2026-10-14; The Farm's since 2026-11-08, Astra: \"All recommended\"): the Flash Audit, the checklist every pet is onboarded and reviewed with. On The Farm's page it is a tool box with its 71 checks as tools. The page checks follow the Model Pet Program, one per part of the template, and every build compares every pet program page with it (scripts/flash-template-20261112.mjs, Astra 2026-11-12); the others show the last run over every pet program, and Run asks the Flash Audit helper on this PC to run it again. The read-only auditor checks 18 of them by itself and writes an evidence ledger; GitHub Goldfish keeps the checks about words on GitHub (A15, A31, A57) (docs/flash-audit-20261014.md, scripts/idle-flash-audit-20261017.mjs, scripts/flash-audit-helper-20261108.mjs)."
+    },
+    {
+      "id": "pet-moods",
+      "name": "pet-moods",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-pet-moods-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-14: \"I want all of the pets everywhere to have the same status. Like if they're questioning or if they're alert ... the icons on the stream deck, the icons on every single pet program page, where they are on the top of the page and all their friends at the bottom, and on my desktop\"): the only place that works out each pet's mood. Every five seconds it reads what the background pets say about themselves, the key requests waiting on Astra (the pet that asked is curious) and the Friendly Farmer's round from the past week, picks the most urgent mood for each pet (MOOD-KEY.md) and writes it to one file on this PC. The desktop pets and every pet program page (the pet at the top, its emotions and its friends) read that file, so a pet shows the same mood everywhere; the Stream Deck keys are next (Deck Duck's plugin). Startup Star starts it at sign-in (scripts/pet-moods-20261114.mjs)."
     },
     {
       "id": "project-image-generator",
@@ -4503,6 +4662,66 @@
       "version": "v1.0",
       "label": "github-aquarium-v1.0-project-image-generator-v1.0",
       "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-17): finds the best pictures already in every public repo, optionally screenshots each live site with a browser already on the PC, writes one manifest and reports Flash Audit A55. Read only on GitHub; Portfolio Puffer uses it by grant (github-goldfish scripts/project-image-generator-20261017.mjs)."
+    },
+    {
+      "id": "naming-corrections",
+      "name": "naming-corrections",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-naming-corrections-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-08): remembers the naming corrections the owner asks for, one repo at a time (repo, mistaken name, preferred name), and flags the mistaken name in later audits. Rules stay in the browser or a private file outside Git, never in the repo (github-goldfish index.html, Remember correction)."
+    },
+    {
+      "id": "never-say-checker",
+      "name": "never-say-checker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-never-say-checker-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): the owner’s own list of words that must never appear in public text; the Blatant check flags each one it finds. The list stays in the browser (github-goldfish index.html)."
+    },
+    {
+      "id": "report-exporter",
+      "name": "report-exporter",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-report-exporter-v1.0",
+      "job": "A tool of GitHub Aquarium (GitHub Goldfish, 2026-10-07): copies the current audit report or downloads it as Markdown, to paste into a chat or a handoff card (github-goldfish index.html, Copy and Download)."
+    },
+    {
+      "id": "achievement-tracker",
+      "name": "achievement-tracker",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-achievement-tracker-v1.0",
+      "job": "A tool of GitHub Aquarium (Astra, 2026-10-17: \"it helps me track my GitHub achievements, lists suggestions on how to get the rest in order of easiest next\"): estimates GitHub achievements from public GitHub data, ranks the easiest next ones, lets the owner set what the profile really shows, and offers Start Project ideas for her cyber security, AI and nomad course tracks. Built on github-goldfish branch claude/achievements-20261017, not merged yet."
+    },
+    {
+      "id": "findastra-readme-auditor",
+      "name": "findastra-readme-auditor",
+      "type": "tool",
+      "of": "program-2",
+      "state": "planned",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-findastra-readme-auditor-v1.0",
+      "job": "A tool of GitHub Aquarium (Codex, 2026-10-15): audits and revises the owner’s GitHub profile README with a local maker and checker, then waits for her review before it pushes a branch. Built on github-goldfish codex branches, not merged yet."
     },
     {
       "id": "document-control-checker",
@@ -4637,6 +4856,18 @@
       "job": "An important tool of GitHub Aquarium (Astra, 2026-10-29: \"All of those things are tools\", then \"make these important tools for the goldfish\"): one of the five groups outstanding-items sorts, in the merge-order rank. It shows drafts and pull requests whose checks are still running, as a round tool box in the L1 control panel. It is filled only on her PC, because the list names private repos."
     },
     {
+      "id": "branch-sweeper",
+      "name": "branch-sweeper",
+      "type": "tool",
+      "of": "program-2",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "github-aquarium-v1.0-branch-sweeper-v1.0",
+      "job": "A tool of GitHub Aquarium (Astra, 2026-11-14: \"a branch deleter, assessor and deleter\", then \"Plan is fine, build it\", card 364): sorts every branch on every repo the farm owner owns into safe to delete (all its work is on the main branch, or its pull request merged with nothing added after), ask Astra (closed without merging, more added after a merge, or old work with no pull request) and keep (first the branches on Astra's keep list, each shown with her reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and work from the last week). Checking is read only. It deletes only from a plan file, only the rows marked to delete, only with --yes while signed in as the farm owner, after checking each branch again; each delete is written to an undo log on her PC first, and --undo puts it back (scripts/branch-sweeper-20261114.mjs, npm run branch-sweeper). Its keep list (2026-11-17) is a file on her PC next to the plans: a listed branch is never offered for deleting, even after its repo is renamed (an entry can hold the repo's number on GitHub); --apply refuses it even in an older plan, checks each repo under the name GitHub gives it now, and does not run without the list; a list it cannot read stops it. Its lists name private repos, so they stay on her PC."
+    },
+    {
       "id": "pets-board",
       "name": "Pets Board",
       "type": "own-program",
@@ -4746,6 +4977,30 @@
       "version": "v1.0",
       "label": "the-farm-v1.0-pet-organizer-trick-v1.0",
       "job": "A trick of The Farm (skills/pet-organizer/SKILL.md): keep the pet list on Astra's profile in order, pet first, by fixing pet-programs.json or the profile script, never only the README."
+    },
+    {
+      "id": "retire-a-pet-trick",
+      "name": "retire-a-pet",
+      "type": "trick",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Trick",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-a-pet-trick-v1.0",
+      "job": "A trick of The Farm (skills/retire-a-pet/SKILL.md; Astra, 2026-11-17: \"make sure to delete it everywhere ... make a protocol and update his software please\"): retire a pet, or fold it into another pet as a tool, everywhere. Everything live forgets it (registry, map, pages, Markdown pets, words, art, other repos, the PC); every record keeps its name; its repo is archived, never deleted unless Astra says so for that pet; its number is never reused."
+    },
+    {
+      "id": "retire-check",
+      "name": "retire-check",
+      "type": "tool",
+      "of": "farm",
+      "state": "now",
+      "layer": 2,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-farm-v1.0-retire-check-v1.0",
+      "job": "A tool of The Farm (Astra, 2026-11-17): for every pet in pets.json retired_pets, lists what still treats it as a pet: the hub's registry, map, pages, Markdown pets, developer words and art; live mentions in every pet repo on the PC (records are counted, never changed); its folders on the PC; and, with --github, whether its repo is archived. Read only: it reports, Astra decides (scripts/retire-check-20261117.mjs, npm run retire-check; the retire-a-pet trick uses it; pet-finder calls a retired pet's leftovers retired-leftover, never missing)."
     },
     {
       "id": "make-a-prop-look-real",
@@ -4907,6 +5162,129 @@
       "version": "v1.0",
       "label": "mirror-pool-v1.0-make-a-page-fit-any-screen-trick-v1.0",
       "job": "A trick of Mirror Pool (platform-platypus skills/make-a-page-fit-any-screen/SKILL.md): give a page what it needs to fit any screen, run fit-check on every screen, look at the device-shots contact sheet, publish, add the page to Sites I watch, and ask Astra for the real-device check. Uses only fit-any-screen, fit-check and device-shots."
+    },
+    {
+      "id": "dwsim",
+      "name": "DWSIM",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Daniel Wagner Oliveira de Medeiros, GPL 3): DWSIM 10.2.15, a chemical process simulator, open-source edition with its AI assistant (Astra, 2026-11-12: \"I want the one with the AI agent\"). Installed per user from its GitHub release (202 MB, SHA-256 checked first).",
+      "does": "Draw a flowsheet and solve its mass and energy balances with real thermodynamics.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=dwsim",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=dwsim",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "qalculate",
+      "name": "Qalculate!",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Hanna Knutsson, GPL 2): Qalculate! 5.13.2, a calculator with units. Installed from its GitHub release (63 MB, winget’s SHA-256 checked first).",
+      "does": "A calculator that understands units, algebra and constants.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=qalculate",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=qalculate",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "jupyterlab",
+      "name": "Jupyter",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party programs (Project Jupyter, NumPy, SymPy and Matplotlib, all open source): Python 3.13.17 from python.org, per user in its own folder (29 MB, SHA-256 checked first; her Store Python stays), with JupyterLab 4.6.6, NumPy 2.5.4, SymPy 1.14.0 and Matplotlib 3.11.2 from PyPI.",
+      "does": "Notebooks for working things out: numbers, algebra and plots.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=jupyterlab",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=jupyterlab",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "geogebra",
+      "name": "GeoGebra",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web app (International GeoGebra Institute), free for non-commercial use. Runs in its pill from geogebra.org; nothing is installed. Chosen over Desmos, which needs its own API key (Astra, 2026-11-06).",
+      "does": "Graph functions, solve equations and do geometry.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=geogebra",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=geogebra",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "natural-number-game",
+      "name": "Natural Number Game",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web game (Lean community, Apache 2): proofs about the natural numbers in the Lean proof assistant. Runs in its pill from its own site; progress stays in the browser and can be exported.",
+      "does": "Prove facts about numbers, level by level, in Lean.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=natural-number-game",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=natural-number-game",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "zotero",
+      "name": "Zotero",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Desktop app",
+      "job": "Third-party program (Corporation for Digital Scholarship, AGPL 3): Zotero 10.0.8. Installed from zotero.org (104 MB, winget’s SHA-256 checked first). Its pill reads Zotero’s read-only local API on this PC after her tick on “Allow other applications on this computer to communicate with Zotero”.",
+      "does": "Your paper library: save, note and cite articles and books.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=zotero",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=zotero",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "webplotdigitizer",
+      "name": "WebPlotDigitizer",
+      "type": "program",
+      "state": "now",
+      "layer": 6,
+      "category": "Web app",
+      "job": "Third-party web app (Ankit Rohatgi): version 4, open source (AGPL 3), runs in its pill from apps.automeris.io/wpd4. Version 5 is closed source and not used.",
+      "does": "Pull the numbers back out of a chart picture.",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=webplotdigitizer",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=webplotdigitizer",
+      "frame": "wide",
+      "in_pill": true,
+      "start_closed": true
+    },
+    {
+      "id": "pilot-plant-look-tool",
+      "name": "pilot-plant-look-tool",
+      "type": "tool",
+      "of": "program-87",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "the-pilot-plant-v1.0-pilot-plant-look-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
+      "job": "A tool of The Pilot Plant (Astra, 2026-11-12: \"Yes, build it\"): the-pilot-plant-20261112.mjs --watch: one look every ten minutes, reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\\Astra’s PetOS Data\\the-pilot-plant). Not started at sign-in yet.",
+      "does": "Looks at your engineering and study programs every 10 minutes and fills these pills.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/the-pilot-plant-tools-20261112.html?tool=look",
+      "frame": "wide",
+      "in_pill": true,
+      "cadence": "every 10 minutes"
     }
   ],
   "links": [
@@ -4929,14 +5307,14 @@
       "to": "found-floors-page",
       "carries": "opens",
       "state": "now",
-      "why": "The Threshold's public page of found floors, offline while the repo is private."
+      "why": "The Threshold's public page of found floors, on liminal-doors' GitHub Pages."
     },
     {
       "from": "program-82",
       "to": "unity-editor",
       "carries": "manages",
       "state": "now",
-      "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspaces, door-travel and booth tools run inside it."
+      "why": "Liminal Doors is built in Unity 2022.3.22f1; the doorspace-builder, door-travel-mover and phone-booth-spawn tools run inside it."
     },
     {
       "from": "program-82",
@@ -4957,7 +5335,7 @@
       "to": "blender",
       "carries": "opens",
       "state": "now",
-      "why": "The phone booth is modelled and baked in Blender (phone-booth-maker)."
+      "why": "The phone booth is modelled and baked in Blender (phone-booth-spawn)."
     },
     {
       "from": "program-82",
@@ -5499,6 +5877,321 @@
       "why": "Open or closed, closed the way its window's X does (benchmark-rock#3, not merged)."
     },
     {
+      "from": "program-watch",
+      "to": "ableton-live",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "autoruns",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "canva",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "capcut",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "corsair-icue",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "cpu-z",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "crystaldiskinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "discord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "epic-games",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "everything-search",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "hwinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "logitech-g-hub",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "malwarebytes",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "msi-center",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "obs-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "overwolf",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "powertoys",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "process-explorer",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "process-monitor",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "rammap",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "razer-synapse",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "sharex",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "spacesniffer",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "spotify",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "web-browser",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open when any browser is (Brave, Edge, Chrome, Firefox or Opera); a red press opens Brave and a green one closes the browser like its X, never forced (Astra, 2026-11-12, on Bass & Biscuits' page: \"audit this page for the buttons that are working and not working and fix them\"). Drum Dog lists it in its own parts file, drum-dog's program-watch-parts-20261113.json, and program-watch runs it (Astra, 2026-11-13: Drum Dog's parts are Drum Dog's)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tcpview",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tikfinity",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "tiktok-live-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "usbdeview",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "visual-studio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wallpaper-engine",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "winobj",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wireshark",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "wiztree",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Open or closed, and opened or closed when Astra presses its light, the way its window's X does, never forced (Astra, 2026-11-07: \"Fix all of the buttons in 3rd party programs\"; benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "betterdiscord",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "cli-proxy-api",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "coreinfo",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "es-cli",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "handle",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "nodejs",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "sigcheck",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "winget",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "windows-performance-recorder",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a command-line tool or a mod, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "ableton-usb-audio-driver",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a driver, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
+      "from": "program-watch",
+      "to": "steam-streaming-audio",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Installed or not (Astra, 2026-11-07); a driver, not a window, so it is never opened or closed (benchmark-rock, not merged)."
+    },
+    {
       "from": "discord-tower",
       "to": "dm-archive-review",
       "carries": "opens",
@@ -5560,6 +6253,48 @@
       "carries": "opens",
       "state": "now",
       "why": "Discord Damsel's page starts and stops Ableton Live Discord Presence (hub #284); its control panel only answers on this PC."
+    },
+    {
+      "from": "discord-tower",
+      "to": "anthropic-ipo-countdown",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops Anthropic IPO Countdown (Astra, 2026-11-15); its control panel only answers on this PC."
+    },
+    {
+      "from": "anthropic-ipo-countdown",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Counts down to the IPO on your Discord profile."
+    },
+    {
+      "from": "anthropic-ipo-countdown",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
+    },
+    {
+      "from": "discord-tower",
+      "to": "openai-ipo-countdown",
+      "carries": "opens",
+      "state": "now",
+      "why": "Discord Damsel's page starts and stops OpenAI IPO Countdown (Astra, 2026-11-15); its control panel only answers on this PC."
+    },
+    {
+      "from": "openai-ipo-countdown",
+      "to": "discord",
+      "carries": "status",
+      "state": "now",
+      "why": "Counts down to the IPO on your Discord profile."
+    },
+    {
+      "from": "openai-ipo-countdown",
+      "to": "windows-pc",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "Runs locally on the PC."
     },
     {
       "from": "codex",
@@ -5786,13 +6521,6 @@
       "why": "Security work stays in authorized scope."
     },
     {
-      "from": "port-spider",
-      "to": "iron-gates",
-      "carries": "findings",
-      "state": "architecture",
-      "why": "Scans only authorized targets."
-    },
-    {
       "from": "test-tortoise",
       "to": "astras-pet-os",
       "carries": "findings",
@@ -5871,14 +6599,14 @@
     },
     {
       "from": "docker-dragon",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Containers run on registered hosts."
     },
     {
       "from": "proxy-axolotl",
-      "to": "server-salamander",
+      "to": "server-hearth",
       "carries": "status",
       "state": "architecture",
       "why": "Secure private access to home servers."
@@ -5980,6 +6708,13 @@
       "carries": "runs-on",
       "state": "now",
       "why": "click-check runs with Node 20 or newer, its built-in modules only."
+    },
+    {
+      "from": "pet-moods",
+      "to": "nodejs",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "pet-moods runs with Node 20 or newer, its built-in modules only."
     },
     {
       "from": "outstanding-items",
@@ -7371,15 +8106,15 @@
       "from": "claude-code",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "codex",
       "to": "microsoft-learn-mcp",
       "carries": "directs",
       "state": "planned",
-      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled."
+      "why": "In Codex's config.toml since 2026-11-09; codex mcp list shows it enabled. Planned until a Codex chat calls it once."
     },
     {
       "from": "white-hat-lab",
@@ -7387,6 +8122,41 @@
       "carries": "manages",
       "state": "planned",
       "why": "White Hat Weasel keeps the checker for every new MCP server (Astra, 2026-11-09: \"All recommended\" (hub card 319).)"
+    },
+    {
+      "from": "wifi-butterfly",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "planned",
+      "why": "Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: \"shouldnt this pet be talking to WiFi Butterfly?\"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17)."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "evidence-locker",
+      "carries": "findings",
+      "state": "planned",
+      "why": "A real finding in a scan (not a \"worth a look\") opens a case with Forensic Ferret, as White Hat Weasel's scan log has said since 2026-11-02."
+    },
+    {
+      "from": "packet-river",
+      "to": "white-hat-lab",
+      "carries": "findings",
+      "state": "idea",
+      "why": "Packet Piranha says whether the network was fine (loss, DNS, routes) at the time of a port check, so a device that did not answer is not mistaken for a closed one. Packet Piranha never scans ports."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "macattack",
+      "carries": "opens",
+      "state": "idea",
+      "why": "The port check from another device that is still to run (2026-11-12 and 2026-11-17): from the Kali MacBook, with Astra's OK. Linux Penguin looks after the MacBook itself."
+    },
+    {
+      "from": "white-hat-lab",
+      "to": "wireshark",
+      "carries": "opens",
+      "state": "now",
+      "why": "White Hat Weasel records network traffic in Wireshark when a check needs it (Astra, 2026-11-17: Wireshark for her network check; installed with Npcap, checked that day). Recording happens only in Wireshark's own window; Packet Piranha owns network checks."
     },
     {
       "from": "paper-girl-site",
@@ -7399,8 +8169,8 @@
       "from": "claude-code",
       "to": "alphaxiv-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "paper-girl-site",
@@ -7413,8 +8183,8 @@
       "from": "claude-code",
       "to": "pubmed-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "spoonfed-app",
@@ -7427,8 +8197,8 @@
       "from": "claude-code",
       "to": "yelp-mcp",
       "carries": "directs",
-      "state": "planned",
-      "why": "Through the Claude connector directory, once Astra clicks Connect."
+      "state": "now",
+      "why": "A Claude connector: Astra connected it on 2026-11-12, and one read-only call answered in a chat."
     },
     {
       "from": "voicemeeter-bug",
@@ -7750,7 +8520,7 @@
       "to": "corsair-k65-plus",
       "carries": "manages",
       "state": "planned",
-      "why": "The keyboard joins Light Hive’s colours once OpenRGB is set up (card 002 in findastra/rgbee)."
+      "why": "The keyboard can join Light Hive’s colours only through Corsair iCUE; OpenRGB can’t reach it (tried 2026-11-11, card 002 in findastra/rgbee)."
     },
     {
       "from": "corsair-icue",
@@ -8799,31 +9569,98 @@
       "carries": "reports",
       "state": "planned",
       "why": "Asks for the newest clean backup from before the incident."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "dwsim",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether DWSIM is on the PC, its version and signer, whether it runs, and your newest flowsheets through Everything. Home and learning only (Astra, 2026-11-06)."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "qalculate",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether Qalculate! is on the PC and your last calculations from its own saved history."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "jupyterlab",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows the four packages and their versions, whether JupyterLab runs (its port, never its token) and your newest notebooks through Everything."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "geogebra",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs GeoGebra’s calculator inside its pill."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "natural-number-game",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs the game inside its pill."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "zotero",
+      "carries": "manages",
+      "state": "planned",
+      "why": "The Pilot Plant shows whether Zotero is on the PC and, while it is open, how many items your library has and the newest ones (titles only)."
+    },
+    {
+      "from": "the-pilot-plant",
+      "to": "webplotdigitizer",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Pilot Plant runs WebPlotDigitizer 4 inside its pill."
+    },
+    {
+      "from": "learn-python",
+      "to": "jupyterlab",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Jupyter’s pill also shows on Python Jungle (Astra, 2026-11-06). The Pilot Plant keeps it."
+    },
+    {
+      "from": "ai-doghouse",
+      "to": "zotero",
+      "carries": "manages",
+      "state": "planned",
+      "why": "Zotero’s pill also shows on AI Doghouse, next to its research library (Astra, 2026-11-06). The Pilot Plant keeps it."
     }
   ],
   "rings": {
-    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18).",
+    "about": "Where each thing lives, inside out (Astra, 2026-10-13). A ring says where a thing lives and whether it is an animal. It grants nothing: who may read, write or run a thing is in access.grants (Astra, 2026-10-17). by_type places every node; by_id overrides it. A native tool or trick belongs to its pet program's ring and is not drawn (Astra, 2026-10-19, #114). \"made\" marks the two program rings apart: ring 3 is made by you, ring 5 by others (Astra, 2026-10-18). \"dev\" is each ring's name in developer words (the map's Developer switch) and its standard term, for engineers reading the map for the first time (Astra, 2026-11-17).",
     "list": [
       {
         "ring": "0",
+        "dev": {"name":"Trusted core","term":"Trusted computing base (TCB), control plane","what":"the control plane every other part trusts: the orchestrator's dashboard, the service registry (pets.json), the program registry, the policy rules and the test suite"},
         "name": "Core",
         "what": "The Farm (the Friendly Farmer's pet program), Pet Directory, Program Manager, the rules and tests, and The Farm's tools",
         "animal": "yes"
       },
       {
         "ring": "1",
+        "dev": {"name":"Orchestrator","term":"Orchestrator, supervisor and package manager","what":"the one agent that installs, starts, updates and removes the other agents, and keeps the lockfile of what runs"},
         "name": "Friendly Farmer",
         "what": "organizes the pets",
         "animal": "yes"
       },
       {
         "ring": "2",
+        "dev": {"name":"Agents","term":"AI agents (one per domain)","what":"one agent per job (GitHub, backups, VR, files ...). Lifecycle: released, in development, planned, backlog. Only released and in-development agents sit inside the trust boundary"},
         "name": "Pets",
         "what": "every intelligent app: registered and pipeline pets, then seeds and roadmap pets, which are not animals until Astra registers them",
         "animal": "registered and pipeline pets; seeds and roadmap pets once Astra registers them"
       },
       {
         "ring": "3",
+        "dev": {"name":"First-party applications","term":"First-party code","what":"apps, sites, scripts and worlds the owner wrote, which the agents run or manage, with their tools. Each has its agent's permissions, never more"},
         "name": "Pet programs",
         "what": "the programs, sites and worlds Astra made, and their tools",
         "made": "you",
@@ -8831,18 +9668,21 @@
       },
       {
         "ring": "H",
+        "dev": {"name":"Trust boundary (agent harness)","term":"Trust boundary, sandbox perimeter","what":"inside: first-party code an agent session may change. Outside: everything the agents only call. Today the agents run inside Claude Code or Codex, so this line is mostly policy; the controls that are really enforced are marked In code on each grant"},
         "name": "Agent harness",
         "what": "the glass sphere between the animals and everything else",
         "animal": "the line between animals and everything else"
       },
       {
         "ring": "4",
+        "dev": {"name":"LLM providers","term":"Model APIs and vendor agent runtimes","what":"Anthropic (Claude), OpenAI and local models. Claude Code and Codex are the vendors' agent runtimes, drawn as rings around their model: a call goes through the runtime or straight to the API. Only allowlisted models get API keys"},
         "name": "Farmhands (AI models)",
         "what": "Claude, OpenAI and Astra's local farmhands. Claude Code and Codex are rings around their AI: a request can go through the ring (the agent app) or straight to the model",
         "animal": "no"
       },
       {
         "ring": "5",
+        "dev": {"name":"Third-party software and services","term":"Software supply chain","what":"libraries, desktop programs and online services made by others, and the public community registries. Agents may read and run them (R X), never change them"},
         "name": "Third-party programs",
         "what": "programs, libraries and services made by others, and the community places (the Kennel, the Shed, the vet-clinic)",
         "made": "others",
@@ -8850,18 +9690,21 @@
       },
       {
         "ring": "6",
+        "dev": {"name":"Endpoints and hardware","term":"Asset inventory","what":"PCs, laptop, tablet, VR headset and trackers, network gear and other devices"},
         "name": "Devices",
         "what": "PCs, phones, headsets, trackers and other hardware",
         "animal": "no"
       },
       {
         "ring": "7",
+        "dev": {"name":"External advisory AI","term":"Out-of-band adviser, no system access","what":"ChatGPT in its own chat: no credentials, no access to these systems"},
         "name": "Advisers",
         "what": "ChatGPT",
         "animal": "no"
       },
       {
         "ring": "8",
+        "dev": {"name":"Owner (L4)","term":"Human principal, human-in-the-loop approver","what":"the one verified human who approves releases, permission grants and merges"},
         "name": "You (L4)",
         "what": "Astra, who owns the whole farm",
         "animal": "no: the owner"
@@ -9041,6 +9884,24 @@
         "status": "written",
         "how": "farm-security, section 2. Hub scripts refuse a path outside the pet's folder (scripts/animal-guard-20261013.mjs), but a pet's own program runs as you, so it could reach further.",
         "next": "The Police Station watches every write and every key use."
+      },
+      {
+        "id": "farm-own-tools",
+        "who": "The Farm's own tools (the build and the pet program spawner, the Flash Audit's auditor and helper, click-check, Startup Star)",
+        "level": ["L1"],
+        "subjects": [
+          "type:host"
+        ],
+        "on": "its own folder (the hub's copy on this PC) and its data folders (Astra's PetOS Data\\astras-pet-os, %LOCALAPPDATA%\\astras-pet-os)",
+        "resources": [
+          "self"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "yes",
+        "status": "written",
+        "how": "farm-security, sections 1 and 2. The Farm's tools run as you on this PC: the build and the spawner write the generated pages, the Flash Audit's helper writes its ledger and page data. Some reach further today, outside this grant: click-check writes its report and pictures to the temp folder and opens outside links; the auditor reads every pet's repo through GitHub and runs GitHub Goldfish's preflight; Startup Star writes its settings in %LOCALAPPDATA% and HKCU and starts other pets' programs. Nothing stops one writing elsewhere. None of them commits or pushes: the hub's main changes only by a pull request merged after Astra's OK in chat (AGENTS.md; the seat-core grant).",
+        "next": "The reaches outside this grant get their own grants, with Astra's OK. The Police Station watches every write and every key use."
       },
       {
         "id": "pet-elsewhere",
@@ -9270,6 +10131,27 @@
         "next": "Iron Gates issues the grant; The Police Station watches that Benchmark Rock writes only its own folder."
       },
       {
+        "id": "inference-iguana-open-close",
+        "who": "Inference Iguana (Benchmark Rock: program-watch)",
+        "level": [
+          "L1",
+          "L4"
+        ],
+        "subjects": [
+          "id:benchmark-rock"
+        ],
+        "on": "the 3rd party programs in program-watch's own table that are windows: it opens one when Astra presses its red light on a pet program page opened on this PC, and asks one to close the way its X button does when she presses its green light and says yes. Never forced, never a tool or a driver, never a path or a command from the page",
+        "resources": [
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "no",
+        "x": "yes",
+        "status": "written",
+        "how": "Program-watch's own code: its listener answers on 127.0.0.1 only, at a port and with a random code it picks at each start and writes only to its page file in Documents. The random code is what keeps web pages out: the listener also refuses any Origin that is not this PC or none, but a file page sends Origin null, and so can a sandboxed frame or a data: page on any website, so the Origin check alone keeps nothing out. It checks the Host header and opens or closes only an id in its own table whose kind is window; the pages send only that id, and only to the address in that file (test/program-buttons-test-20261107.mjs checks the page side only). Nothing enforces this: Benchmark Rock runs as you, so nothing outside its own code stops it doing more. Asked for by Astra on 2026-11-07; she approves it by merging. Not run on Windows yet: the listener is on a benchmark-rock branch, not merged.",
+        "next": "Iron Gates issues the grant; The Police Station watches every open and close."
+      },
+      {
         "id": "kernel-koala-stop",
         "who": "Kernel Koala (Kernel Grove: process-sweep, startup-switch)",
         "level": [
@@ -9332,6 +10214,27 @@
         "next": "Iron Gates issues the grant with its targets as the limit."
       },
       {
+        "id": "goldfish-branch-sweeper-delete",
+        "who": "GitHub Goldfish (GitHub Aquarium: branch-sweeper)",
+        "level": ["L1","L2"],
+        "subjects": [
+          "id:branch-sweeper"
+        ],
+        "on": "branches on GitHub repos the farm owner owns, never one on Astra's keep list, the main branch, a protected or release branch, one with an open pull request, or one an open handoff card names: delete one (from a plan Astra okayed), and put it back from the undo log",
+        "resources": [
+          "ring:0",
+          "animal:2",
+          "animal:3",
+          "ring:5"
+        ],
+        "r": "yes",
+        "w": "yes",
+        "x": "no",
+        "status": "written",
+        "how": "scripts/branch-sweeper-20261114.mjs checks read only; it deletes only rows a plan marks, never a \"keep\" row or a branch on Astra's keep list (a file on her PC, matched by the repo's name or its number on GitHub; --apply does not run without it, and a list it cannot read stops it), at most 200 at once, only with --yes while signed in as the farm owner (animal-guard), after checking each branch again (same commit, still not keep), and writes the undo line before each delete (test/branch-sweeper-test-20261114.mjs). Nothing stops someone who runs other code with the same token. Asked for on 2026-11-14; Astra approves it by merging.",
+        "next": "Iron Gates issues a token that can only delete branches (a fine-grained token with contents write on the farm's repos), and The Police Station watches the deletes."
+      },
+      {
         "id": "forensic-ferret-read",
         "who": "Forensic Ferret (Evidence Locker: evidence-collector)",
         "level": ["L1","L2"],
@@ -9354,7 +10257,7 @@
       },
       {
         "id": "fairy-feedback-bot",
-        "who": "Role Fairy (Fairy Ring: ask-astra-bot's petos-feedback)",
+        "who": "Role Fairy (The Fairy Court: ask-astra-bot's petos-feedback)",
         "subjects": [
           "id:role-fairy"
         ],
@@ -9481,7 +10384,11 @@
       },
       "white-hat-lab": {
         "languages": [],
-        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); the private scan log waits in findastra/white-hat-lab#3."
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json), its private scan log (merged with findastra/white-hat-lab#3) and the port-check reports that were Port Spider's (Astra, 2026-11-17: folded in); the newest scan is 2026-11-17."
+      },
+      "server-hearth": {
+        "languages": [],
+        "note": "No code on main yet (GitHub measures none): a starter repo (README and pet.json); waits on Astra's answer about the server she is buying (2026-11-12)."
       },
       "iron-gates": {
         "languages": [],
@@ -10054,6 +10961,20 @@
           }
         ]
       },
+      "the-pilot-plant": {
+        "languages": [
+          {
+            "language": "JavaScript",
+            "percent": 96,
+            "why": "The look and the watch (the-pilot-plant-20261112.mjs): Node's built-in modules read what Windows, Everything, Python and Zotero report, the same language as the hub's tool page that shows it."
+          },
+          {
+            "language": "VBScript",
+            "percent": 4,
+            "why": "start-watch-20261112.vbs starts the watch with no window, the way Windows runs a script hidden. Measured from main on 2026-11-12 (f55cd9c)."
+          }
+        ]
+      },
             "log-den": {
         "languages": [
           {
@@ -10183,7 +11104,6 @@
     "file-master": "blue",
     "api-fairy": "blue",
     "github-goldfish": "blue",
-    "port-spider": "blue",
     "cipher-hollow": "blue",
     "proxy-axolotl": "blue",
     "docker-dragon": "blue",

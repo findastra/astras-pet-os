@@ -21,8 +21,8 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync, lstatSync, realpathSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { sheetToSprite, MOODS } from './sheet-to-sprites.mjs';
-import { addIndicators } from './indicators.mjs';
+import { sheetToSprite, MOODS, decodePng } from './sheet-to-sprites.mjs';
+import { addIndicators, stampRgba } from './indicators.mjs';
 import { ACCESSORIES } from './accessories.mjs';
 import { png } from './art-kit.mjs';
 import { assetPaths } from './lib.mjs';
@@ -164,7 +164,8 @@ export function buildFrames({ size = 256, colours = 24, only = [], log = console
     mkdirSync(dir, { recursive: true });
     let petBytes = 0;
     for (const mood of MOODS) {
-      const buf = framePng(sprite.frames[mood], W, H);
+      const raw = decodePng(framePng(plain.frames[mood], W, H));
+      const buf = png(W,H,stampRgba(raw.rgba,W,H,mood));
       writeFileSync(paths.frame(mood), buf);
       petBytes += buf.length;
     }
