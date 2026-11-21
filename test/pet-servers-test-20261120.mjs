@@ -51,3 +51,13 @@ test("PC Master Race's server is a node script the star starts at sign-in; The P
   assert.match(star, /RunOnce=\{"the-pilot-plant"\}/);
   assert.ok(star.includes('"--look"'), 'the look runs with --look');
 });
+
+test("Workflow Whirlpool's server runs Workflow Whale's two watches; the star starts it at sign-in from his folder, with his menu", () => {
+  const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
+  const whale = pet('workflow-whirlpool');
+  assert.equal(whale.server, 'workflow-whirlpool-server-20261120.mjs');
+  assert.deepEqual(whale.tools.map((t) => t.name), ['screen-watch', 'deskflow-watch', 'ipad-workflow-caster']);
+  assert.match(star, /AlsoAtSignIn=\{[^}]*"workflow-whirlpool"/);
+  assert.ok(star.includes('ServerIn("workflow-whirlpool",Path.Combine(parent,"workflow-whirlpool"),null)'), 'from the pet\'s own folder');
+  assert.ok(star.includes('Folder=Path.Combine(DataRoot,"workflow-whirlpool")'), 'his menu file is read from his data folder');
+});

@@ -3086,8 +3086,8 @@
       "status": "hatching",
       "job": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",
       "added": "2026-10-18",
-      "version": "0.1.0",
-      "version_assigned": true,
+      "version": "0.3.0",
+      "server": "workflow-whirlpool-server-20261120.mjs",
       "interface_local_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "interface_url": "apps/pet-programs/workflow-whirlpool-20261018.html",
       "app_url": "https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html",
@@ -3113,6 +3113,20 @@
         "programs": []
       },
       "tools": [
+        {
+          "name": "screen-watch",
+          "use": "Shows which programs are watching or controlling this PC's screen right now (the yellow capture border), in plain words, and how to turn each one off. Reads only.",
+          "entry": "dist/index.html#screen-watch",
+          "visibility": "private",
+          "version": "0.1.0"
+        },
+        {
+          "name": "deskflow-watch",
+          "use": "Shows which computers Deskflow links to this PC's mouse and keyboard, where each one sits, how often the cursor bounces back at an edge, and what to fix first. Reads only.",
+          "entry": "dist/index.html#deskflow-watch",
+          "visibility": "private",
+          "version": "0.1.0"
+        },
         {
           "name": "ipad-workflow-caster",
           "use": "Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling.",

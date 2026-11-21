@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-457 rows: 23 native programs, 187 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+459 rows: 23 native programs, 189 native tools, 33 native tricks, 214 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -554,7 +554,9 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 82 | Door Dormouse | The Threshold | third-party program | VRChat |  | Planned |
 | 83 | Role Fairy | The Fairy Court | native tool | PetOS feedback (ask-astra-bot) | `the-fairy-court-v1.0-petos-feedback-v1.0` | Planned |
 | 83 | Role Fairy | The Fairy Court | third-party program | Discord |  | Planned |
-| 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.1.0-ipad-workflow-caster-v0.1.0` | Planned |
+| 84 | Workflow Whale | Workflow Whirlpool | native tool | deskflow-watch | `workflow-whirlpool-v0.3.0-deskflow-watch-v0.1.0` | Works today |
+| 84 | Workflow Whale | Workflow Whirlpool | native tool | screen-watch | `workflow-whirlpool-v0.3.0-screen-watch-v0.1.0` | Works today |
+| 84 | Workflow Whale | Workflow Whirlpool | native tool | ipad-workflow-caster | `workflow-whirlpool-v0.3.0-ipad-workflow-caster-v0.1.0` | Planned |
 | 86 | PC Master | PC Master Race | native tool | learn-computer-organization-tool | `pc-master-race-v1.0-learn-computer-organization-tool-v1.0` | Works today |
 | 86 | PC Master | PC Master Race | native tool | pc-look-tool | `pc-master-race-v1.0-pc-look-tool-v1.0` | Works today |
 | 86 | PC Master | PC Master Race | third-party program | Autoruns |  | Works today |
