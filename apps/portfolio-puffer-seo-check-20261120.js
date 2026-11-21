@@ -87,7 +87,8 @@
     add('title-length', 'should', 'The title is 10 to 65 characters', t.length >= 10 && t.length <= 65, t.length + ' characters',
       'Keep the title between 10 and 65 characters so it is not cut off in results.');
     var d = meta(html, 'name', 'description');
-    add('description', 'must', 'It has a description (50 to 160 characters)', d && d.length >= 50 && d.length <= 160,
+    // 50 or more characters; past about 160 a result is cut off, which is fine (Astra's own words are never trimmed).
+    add('description', 'must', 'It has a description (50 characters or more)', d && d.length >= 50,
       d ? d.length + ' characters' : 'none', 'Add a one-sentence <meta name="description">: what it is, in plain words.');
     var h1 = (html.match(/<h1\b/gi) || []).length;
     add('one-h1', 'should', 'It has exactly one main heading (h1)', h1 === 1, h1 + ' h1', 'Use one <h1> with the name.');
