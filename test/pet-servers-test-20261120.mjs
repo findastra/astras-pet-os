@@ -37,7 +37,7 @@ test('one server per pet, each written once: the star reads it from pets.json an
   assert.ok(star.includes('PetFiles.Text(pet,"server")'), 'the star reads `server` from pets.json');
 });
 
-test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#411), then White Hat Lab', () => {
+test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#411), White Hat Lab (#425), then Wonderland Launchpad', () => {
   const server = (repo) => pets.pipeline.find((p) => p.repo === repo).server;
   assert.equal(server('benchmark-rock'), 'bin/benchmark-rock-server-20261120.exe');
   assert.equal(server('kernel-grove'), 'bin/kernel-grove-server-20261120.exe');
@@ -45,6 +45,12 @@ test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#4
   assert.equal(server('white-hat-lab'), 'scripts/white-hat-lab-server-20261120.mjs');
   assert.ok(existsSync(join(root, server('white-hat-lab'))), 'the hub has White Hat Lab\'s server');
   assert.ok(!existsSync(join(root, 'scripts', 'port-watch-20261119.mjs')), 'and not its old name');
+  // Wonderland Launchpad's server is the launcher Rift Rabbit installs in its program folder in Astra's PetOS Data, so
+  // its name is a plain file name there, and the page tells Astra to start it from the star instead of naming it.
+  assert.equal(server('rift-rabbit'), 'wonderland-launchpad-server-20261121.exe');
+  assert.ok(star.includes('ServerIn("rift-rabbit",rabbitDir,'), 'the star starts it from that program folder');
+  const page = read('apps/pet-programs/vrchat-launcher-20261024.js');
+  assert.ok(!page.includes('rift-rabbit-20261024.exe') && page.includes('Start it from Startup Star'), 'the Launch buttons name no program file');
 });
 
 test("PC Master Race's server is a node script the star starts at sign-in; The Pilot Plant's look runs once and is no server", () => {

@@ -81,6 +81,26 @@ const PETOS = [
   ['papermon-server', 'Papermon server', 'Paper Girl'],
   ['chat-rat', 'Chat Rat', 'Chat Rat'],
 ];
+// Our own servers by the file name written once as `server` in pets.json (Flash Audit A72, 2026-11-21): a renamed
+// server needs no change here. Checked before PETOS, which keeps the helpers with no `server` line yet and older names.
+/** [file name, label, pet] for each pet that names its server in pets.json. Pure: the test calls it. */
+export function serversFrom(pets, programs = []) {
+  const out = [];
+  for (const p of [...((pets && pets.pets) || []), ...((pets && pets.pipeline) || [])]) {
+    if (!p || typeof p.server !== 'string' || !p.server) continue;
+    const program = programs.find((x) => x && x.repo === p.repo);
+    out.push([p.server.split('/').pop().toLowerCase(), `${program ? program.program : p.repo}'s server`, p.pet || null]);
+  }
+  return out;
+}
+let named = null;
+/** This hub's named servers, read once. */
+function ourServers() {
+  if (!named) {
+    try { named = serversFrom(JSON.parse(readFileSync(join(ROOT, 'pets.json'), 'utf8')), JSON.parse(readFileSync(join(ROOT, 'pet-programs.json'), 'utf8')).programs || []); } catch { named = []; }
+  }
+  return named;
+}
 // Programs made by others, by process name.
 const APPS = {
   'everything.exe': 'Everything search', 'discord.exe': 'Discord (how the presence cards talk to it)', 'discordcanary.exe': 'Discord Canary',
@@ -111,7 +131,7 @@ export function classify(name, cmd) {
   const n = String(name || '').toLowerCase(), c = String(cmd || '').toLowerCase();
   if (c.includes('editorial-preview-tool')) return { kind: 'preview', label: 'A chat’s working-copy preview (editorial preview tool)', pet: 'Luna’s Log' };
   if (/http\.server|\\temp\\claude\\|scratchpad|audit-server/.test(c)) return { kind: 'preview', label: 'A chat’s temporary page server', pet: null };
-  for (const [marker, label, pet] of PETOS) if (c.includes(marker) || n.includes(marker)) return { kind: 'petos', label, pet };
+  for (const [marker, label, pet] of [...ourServers(), ...PETOS]) if (c.includes(marker) || n.includes(marker)) return { kind: 'petos', label, pet };
   if (c.includes("astra's petos") && (n === 'node.exe' || n.endsWith('.exe'))) return { kind: 'petos', label: 'A PetOS program', pet: null };
   if (WINDOWS.has(n)) return { kind: 'windows', label: 'Windows itself', pet: null };
   if (APPS[n]) return { kind: 'app', label: APPS[n], pet: null };
