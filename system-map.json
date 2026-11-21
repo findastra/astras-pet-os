@@ -2674,11 +2674,25 @@
       "id": "stream-deck",
       "name": "Elgato Stream Deck",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Not installed on the Desktop PC in the 2026-10-12 scan.",
+      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Installed and running on the Desktop PC (StreamDeck.exe 7.6.1.23033, checked 2026-11-21); Deck Duck’s Stream Deck plugin runs inside it (0.11.0.0 on Astra’s PC; its code is on deck-duck#9 to #11, not merged).",
       "does": "The software for Elgato's Stream Deck, a panel of buttons that each run an action."
+    },
+    {
+      "id": "art-link-tool",
+      "name": "art-link-tool",
+      "type": "tool",
+      "of": "program-32",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "deck-pond-v1.0-art-link-tool-v1.0",
+      "cadence": "hourly (while Stream Deck runs)",
+      "job": "A tool of Deck Pond, in Deck Duck’s Stream Deck plugin (Astra, 2026-11-20: \"the update should just fix every single place they are since its a link\", then \"Yes, build it\"). A minute after Stream Deck connects, then once an hour while Stream Deck runs, it asks GitHub for the list of the hub’s art/latest pictures (api.github.com/repos/findastra/astras-pet-os/git/trees/main:art/latest?recursive=1) with an ETag, so GitHub answers \"not changed\" for free when nothing moved. When a pet’s picture link shows a new drawing, it downloads only that picture, checks it is the drawing GitHub listed, and draws that pet’s key, the sign on the bar, its tool strips and its page strip again, in a low-priority background PowerShell: no rebuild or reinstall. New pets, new tools, Fuzzboi’s reroll layers and the icons in Stream Deck’s action list still need a deck rebuild. The redrawn pictures stay on the PC (Documents\\Astra’s PetOS Data\\deck-duck\\redrawn-keys-20261120). Code: stream-deck/art-link-20261120.js and stream-deck/draw-pet-keys-20261120.ps1 in findastra/deck-duck, on deck-duck#11 (stacked on #10, then #9), not merged. Version 0.11.0.0 runs on Astra’s PC: its log showed the real check on 2026-11-20 at 21:06 and 21:43 Denver (\"pictures: checked the hub's links, no new art\").",
+      "does": "Every hour while Stream Deck runs: new pet art in the hub shows up on the Stream Deck keys by itself."
     },
     {
       "id": "obs-studio",
@@ -7812,6 +7826,20 @@
       "carries": "manages",
       "state": "idea",
       "why": "Track ideas and references often start in Spotify."
+    },
+    {
+      "from": "art-link-tool",
+      "to": "stream-deck",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The picture check is part of Deck Duck’s Stream Deck plugin, so it runs only while Stream Deck runs: a minute after it connects, then once an hour."
+    },
+    {
+      "from": "art-link-tool",
+      "to": "github",
+      "carries": "opens",
+      "state": "now",
+      "why": "Once an hour it asks GitHub's API for the list of the hub's art/latest pictures, with an ETag so an unchanged list costs nothing, and downloads only a picture whose link shows a new drawing. It changes nothing there."
     },
     {
       "from": "deck-duck",

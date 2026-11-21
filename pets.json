@@ -2935,7 +2935,12 @@
           {
             "node": "stream-deck",
             "how": "optional",
-            "why": "Planned: Deck Duck is the Elgato Stream Deck pet."
+            "why": "Installed (7.6.1); Deck Duck's Stream Deck plugin and its art-link-tool run inside it. Deck Duck works without it."
+          },
+          {
+            "node": "github",
+            "how": "optional",
+            "why": "art-link-tool asks GitHub's API once an hour for the hub's art/latest list and downloads only a changed picture; the keys keep the build's pictures without it."
           }
         ]
       }
