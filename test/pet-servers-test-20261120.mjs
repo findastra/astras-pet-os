@@ -46,3 +46,12 @@ test('the renames so far, easiest first: Benchmark Rock (#408), Kernel Grove (#4
   assert.ok(existsSync(join(root, server('white-hat-lab'))), 'the hub has White Hat Lab\'s server');
   assert.ok(!existsSync(join(root, 'scripts', 'port-watch-20261119.mjs')), 'and not its old name');
 });
+
+test("PC Master Race's server is a node script the star starts at sign-in; The Pilot Plant's look runs once and is no server", () => {
+  const pet = (repo) => [...pets.pets, ...pets.pipeline].find((p) => p.repo === repo);
+  assert.equal(pet('pc-master-race').server, 'pc-master-race-server-20261120.mjs');
+  assert.equal(pet('the-pilot-plant').server, undefined, 'a look that runs once and exits is not a server');
+  assert.match(star, /AlsoAtSignIn=\{[^}]*"pc-master-race"[^}]*"the-pilot-plant"/);
+  assert.match(star, /RunOnce=\{"the-pilot-plant"\}/);
+  assert.ok(star.includes('"--look"'), 'the look runs with --look');
+});

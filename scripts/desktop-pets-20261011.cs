@@ -703,6 +703,16 @@ namespace AstraDesktopPets {
       // helpers). An older copy started by hand from its folder (`node chat-rat-20261016.mjs serve`) counts as running.
       list.Add(new Entry{Repo="chat-rat",Pet="Chat Rat",Exe=node,Marker="chat-rat-20261016.mjs",Needs=Path.Combine(parent,"chat-rat","chat-rat-20261016.mjs")});
       list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"serve"};
+      // PC Master's server (Astra, 2026-11-20, "Yes, change it"; pc-master-race#3): it stays up, looks in full when it
+      // starts and once a week, and every 10 minutes only while PC Master Race's page says it is open. Run by node from
+      // the pet's own folder; its file is named once, as `server` in pets.json, and without that line it is not started.
+      string pcMaster=ServerIn("pc-master-race",Path.Combine(parent,"pc-master-race"),null);
+      if(pcMaster!=null)list.Add(new Entry{Repo="pc-master-race",Pet="PC Master",Exe=node,Marker=Path.GetFileName(pcMaster),Needs=pcMaster,StartArgs=new[]{Quote(pcMaster)}});
+      // Flowsheet Flamingo's look (Astra, 2026-11-20: "its an engineer pet it doesnt maintain anything"): one look at
+      // sign-in, then it exits (the weekly audit runs the other). Not a server, so it has no `server` line: it runs once
+      // from its clone in Astra's PetOS\the-pilot-plant, a folder that stays (Temp copies are emptied by Windows).
+      list.Add(new Entry{Repo="the-pilot-plant",Pet="Flowsheet Flamingo",Exe=node,Marker="the-pilot-plant-20261112.mjs",Needs=Path.Combine(parent,"the-pilot-plant","the-pilot-plant-20261112.mjs")});
+      list[list.Count-1].StartArgs=new[]{Quote(list[list.Count-1].Needs),"--look"};
       // Voicemeeter Bug (Astra, 2026-10-21, "4. A"): his menu moves here too; the star already hosts him.
       list.Add(new Entry{Repo="voicemeeter-bug",Pet="Voicemeeter Bug",Exe=PetFiles.BugExe,Folder=Path.GetDirectoryName(PetFiles.BugExe)==null?null:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"findastra","voicemeeter-bug"),StartArgs=new[]{"--hosted"}});
       return list;
@@ -715,7 +725,7 @@ namespace AstraDesktopPets {
     // watch (the 3rd party lights on the pet pages need it: benchmark-rock#10), Live Sync, the three Discord presences
     // and Desktop Commander, which had their own Startup entries (Astra: "Yes, simplify it"), and the Flash Audit helper
     // behind the Run buttons on The Farm's flash-audit checks.
-    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab","chat-rat"};
+    static readonly string[] AlsoAtSignIn={"rift-rabbit","pet-chat","benchmark-rock","live-sync","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence","desktop-commander","flash-audit","pet-moods","white-hat-lab","chat-rat","pc-master-race","the-pilot-plant"};
     // Since 2026-11-08 Log Den's program runs Packet Piranha's and Forensic Ferret's watches too (log-den 0.3.0), so the
     // star starts one crash watch, not three.
     internal static List<Entry> AtSignIn() { return All().FindAll(e=>e.Host==null&&(Watches(e.Repo)||Array.IndexOf(AlsoAtSignIn,e.Repo)>=0)); }
@@ -759,7 +769,11 @@ namespace AstraDesktopPets {
     // Helpers that detach on purpose are never taken over: Desktop Commander's script hands it to npx, and each Discord
     // presence's launch script starts its server and exits, so a copy started again would fall out of the star's row too.
     static readonly string[] NeverAdopted={"desktop-commander","openai-discord-presence","anthropic-discord-presence","ableton-live-discord-presence"};
-    internal static bool Adoptable(Entry e) { return e.Host==null&&Array.IndexOf(NeverAdopted,e.Repo)<0; }
+    // A job that runs once at sign-in and exits (Astra, 2026-11-20: The Pilot Plant looks once at sign-in, never on a
+    // timer). It is never taken over either: one still looking when a new star starts finishes by itself.
+    static readonly string[] RunOnce={"the-pilot-plant"};
+    internal static bool RunsOnce(string repo) { return repo!=null&&Array.IndexOf(RunOnce,repo)>=0; }
+    internal static bool Adoptable(Entry e) { return e.Host==null&&Array.IndexOf(NeverAdopted,e.Repo)<0&&!RunsOnce(e.Repo); }
     // A copy and everything it started, children first.
     internal static List<int> Tree(int root,List<Proc> all) {
       var order=new List<int>();var seen=new HashSet<int>();
@@ -795,10 +809,11 @@ namespace AstraDesktopPets {
     internal static void Fill(ToolStripMenuItem parent,Entry e,Action<Entry,string[]> run,bool running) {
       parent.DropDownItems.Clear();
       if(!running) {
-        parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" is not running") { Enabled=false });
+        bool once=RunsOnce(e.Repo);
+        parent.DropDownItems.Add(new ToolStripMenuItem(once?e.Pet+" looks once at sign-in":e.Pet+" is not running") { Enabled=false });
         // A hosted watch starts in its host's program (log-den.exe --startup starts whichever hosted watch is not running).
         var host=e.Host==null?e:Find(e.Host);
-        parent.DropDownItems.Add("Start "+e.Pet,null,delegate { run(host,host.StartArgs); });
+        parent.DropDownItems.Add(once?"Look again":"Start "+e.Pet,null,delegate { run(host,host.StartArgs); });
       }
       var file=Read(e,MenuFile,"astras-pet-os-menu-v1");object raw;
       if(file==null||!file.TryGetValue("items",out raw)||!(raw is ArrayList)) { if(running)parent.DropDownItems.Add(new ToolStripMenuItem(e.Pet+" has not written its menu yet") { Enabled=false });return; }
@@ -1476,10 +1491,21 @@ namespace AstraDesktopPets {
       int signIn=testActions.Count;StartBackgroundPets();
       var started=new List<string>();bool quiet=true;
       foreach(var a in testActions.GetRange(signIn,testActions.Count-signIn)){started.Add(a.Split(':')[1]);if(started.Count<=4&&!a.EndsWith(":--startup"))quiet=false;}
-      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods,white-hat-lab,chat-rat"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper, pet-moods, the port watch and Chat Rat's server quietly, and only them.");
+      if(String.Join(",",started.ToArray())!="log-den,benchmark-rock,rift-rabbit,pet-chat,live-sync,openai-discord-presence,anthropic-discord-presence,ableton-live-discord-presence,desktop-commander,flash-audit,pet-moods,white-hat-lab,chat-rat,pc-master-race,the-pilot-plant"||!quiet)throw new Exception("The star must start the one crash watch (Log Den's program), Inference Iguana's watch, Rift Rabbit's launcher, the pet chat helper, Live Sync, the three Discord presences, Desktop Commander, the Flash Audit helper, pet-moods, the port watch, Chat Rat's server, PC Master's server and Flowsheet Flamingo's look quietly, and only them.");
       int helpers=0;
       foreach(var x in BackgroundPets.AtSignIn()){if(x.Marker==null)continue;helpers++;if(x.Needs==null||Array.IndexOf(x.StartArgs,BackgroundPets.Quote(x.Needs))<0)throw new Exception("Each helper run by node, PowerShell or wscript starts its own script.");}
-      if(helpers!=9)throw new Exception("Nine helpers are found by their command line.");
+      if(helpers!=11)throw new Exception("Eleven helpers are found by their command line.");
+      // PC Master's server (2026-11-20) is the node script named in pets.json, in its pet's folder, and is taken over like
+      // the other helpers; Flowsheet Flamingo's look runs once with --look and is never taken over.
+      {
+        string server;var pc=BackgroundPets.Find("pc-master-race");var flamingo=BackgroundPets.Find("the-pilot-plant");string parent=Path.GetDirectoryName(PetFiles.Root);
+        if(!BackgroundPets.Servers().TryGetValue("pc-master-race",out server)||pc==null||pc.Pet!="PC Master"||pc.Needs!=Path.Combine(parent,"pc-master-race",server.Replace('/',Path.DirectorySeparatorChar))||pc.Marker!=Path.GetFileName(pc.Needs)||!pc.Marker.StartsWith("pc-master-race-server-")||pc.StartArgs.Length!=1)throw new Exception("PC Master's server must be the script named in pets.json, run by node from its own folder.");
+        if(flamingo==null||flamingo.Pet!="Flowsheet Flamingo"||flamingo.Needs!=Path.Combine(parent,"the-pilot-plant","the-pilot-plant-20261112.mjs")||flamingo.StartArgs[flamingo.StartArgs.Length-1]!="--look"||BackgroundPets.Servers().ContainsKey("the-pilot-plant"))throw new Exception("Flowsheet Flamingo's look must run once, with --look, from its clone; it is not a server.");
+        if(Adoptable().Find(x=>x.Repo=="pc-master-race")==null||Adoptable().Exists(x=>x.Repo=="the-pilot-plant"))throw new Exception("PC Master's server is taken over; a look that runs once is not.");
+        var menu=new ToolStripMenuItem("Flowsheet Flamingo");BackgroundPets.Fill(menu,flamingo,delegate{},false);
+        if(menu.DropDownItems.Count<2||menu.DropDownItems[1].Text!="Look again")throw new Exception("A look that runs once offers Look again, not Start.");
+        menu.Dispose();
+      }
       // Only Startup Star in Task Manager (2026-11-19): a helper an older star started is found and started again by this
       // star; its own sub-copies go with it, but nothing else it opened (Voicemeeter stays up); a Temp test copy is left alone.
       {
