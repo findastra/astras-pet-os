@@ -2,16 +2,10 @@
   "pets": {
     "github-goldfish": {
       "pet": "GitHub Goldfish",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "note",
-          "msg": "My pet.json describes my job differently from pets.json in the hub. Submit the one I want (hub.submit) or copy the hub's.",
-          "label": "my job wording differs from the hub"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "data-dealer": {
@@ -24,38 +18,49 @@
     },
     "api-fairy": {
       "pet": "API Fairy",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "unity-unicorn": {
       "pet": "Unity Unicorn",
-      "mood": "happy",
-      "says": "New work since my last check.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "learn-python": {
-      "pet": "Python Panther",
       "mood": "worried",
-      "says": "2 to fix: my README needs the credit line, …",
+      "says": "To fix: add the pet-app topic",
       "needs": [],
       "findings": [
         {
           "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        },
+          "msg": "Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.",
+          "label": "add the pet-app topic"
+        }
+      ],
+      "checked": "2026-11-25T21:41:31.596Z"
+    },
+    "learn-python": {
+      "pet": "Python Panther",
+      "mood": "worried",
+      "says": "3 to fix: my README needs \"how to run it\", …",
+      "needs": [],
+      "findings": [
         {
           "sev": "warn",
           "msg": "README has no \"how to run it\" section.",
           "label": "my README needs \"how to run it\""
+        },
+        {
+          "sev": "warn",
+          "msg": "README has no \"Limits\" section.",
+          "label": "my README needs \"Limits\""
+        },
+        {
+          "sev": "warn",
+          "msg": "Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.",
+          "label": "add the pet-app topic"
         }
       ],
-      "checked": "2026-10-20T04:09:40.618Z"
+      "checked": "2026-11-25T21:41:31.596Z"
     },
     "vrchat-ai-astra": {
       "pet": "Astra Wisp",
@@ -83,16 +88,16 @@
     },
     "health-hummy": {
       "pet": "Health Hummy",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "finance-finch": {
       "pet": "Finance Finch",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -113,30 +118,18 @@
     },
     "paper-girl": {
       "pet": "Paper Patty",
-      "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "file-master": {
       "pet": "File Master",
-      "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "findastra-discord-presence": {
@@ -153,24 +146,24 @@
     },
     "portfolio-puffer": {
       "pet": "Portfolio Puffer",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "drum-dog": {
       "pet": "Drum Dog",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "vscode-angel": {
       "pet": "VSCode Angel",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -178,21 +171,21 @@
     "ghost-protocol": {
       "pet": "Gone Ghost",
       "mood": "worried",
-      "says": "To fix: my README needs the credit line",
+      "says": "To fix: my README needs \"Limits\"",
       "needs": [],
       "findings": [
         {
           "sev": "warn",
-          "msg": "README does not open with the credit line (PET-FILES.md).",
-          "label": "my README needs the credit line"
+          "msg": "README has no \"Limits\" section.",
+          "label": "my README needs \"Limits\""
         }
       ],
-      "checked": "2026-10-20T04:09:40.618Z"
+      "checked": "2026-11-25T21:41:31.596Z"
     },
     "project-parrot": {
       "pet": "Project Parrot",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -207,50 +200,40 @@
     },
     "rgbee": {
       "pet": "RGBee",
-      "mood": "curious",
-      "says": "Need: the brand and model of each light",
-      "needs": [
-        "the brand and model of each light"
-      ],
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "mine-mole": {
       "pet": "Mine Mole",
-      "mood": "worried",
-      "says": "To fix: my README needs \"how to run it\"",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "README has no \"how to run it\" section.",
-          "label": "my README needs \"how to run it\""
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "mail-snail": {
       "pet": "Mail Snail",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "patch-cat": {
       "pet": "Patch Cat",
-      "mood": "curious",
-      "says": "Need: a job: what should Patch Cat do",
-      "needs": [
-        "a job: what should Patch Cat do"
-      ],
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "meme-fiend": {
       "pet": "Meme Fiend",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -262,138 +245,33 @@
       "needs": [
         "a job: what kind of GIFs should I make"
       ],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
+      "findings": [
+        {
+          "sev": "warn",
+          "msg": "Missing the pet-app topic, so the Farmer and the Goldfish cannot find me by topic.",
+          "label": "add the pet-app topic"
+        }
+      ],
+      "checked": "2026-11-25T21:41:31.596Z"
     },
     "backup-beaver": {
       "pet": "Backup Beaver",
-      "mood": "happy",
-      "says": "New work since my last check.",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "rift-rabbit": {
       "pet": "Rift Rabbit",
-      "mood": "happy",
-      "says": "New work since my last check.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "fuzzboi-friend": {
-      "pet": "Fuzzboi Friend",
-      "mood": "curious",
-      "says": "Need: what letters A–F mean",
-      "needs": [
-        "what letters A–F mean"
-      ],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "wifi-butterfly": {
-      "pet": "Wifi Butterfly",
-      "mood": "curious",
-      "says": "Need: a job: what should Wifi Butterfly do",
-      "needs": [
-        "a job: what should Wifi Butterfly do"
-      ],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "deck-duck": {
-      "pet": "Deck Duck",
-      "mood": "happy",
-      "says": "New work since my last check.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "mesh-moth": {
-      "pet": "Mesh Moth",
-      "mood": "happy",
-      "says": "New work since my last check.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "raspberry-berry": {
-      "pet": "Raspberry Pi Berry",
-      "mood": "happy",
-      "says": "New work since my last check.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "astras-pet-os": {
-      "pet": "Friendly Farmer",
-      "mood": "curious",
-      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)",
-      "needs": [
-        "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
-      ],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "22 pets on GitHub wait to be registered."
-        }
-      ],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "voicemeeter-bug": {
-      "pet": "Voicemeeter Bug",
-      "mood": "sleep",
-      "says": "All good.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "the-astral-plane": {
-      "pet": "Astra Wisp",
-      "mood": "sleep",
-      "says": "All good.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "mommys-mommies": {
-      "pet": "Mommy's Mommies",
-      "mood": "sleep",
-      "says": "All good.",
-      "needs": [],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "platform-platypus": {
-      "pet": "Platform Platypus",
-      "mood": "curious",
-      "says": "Need: OK to merge this pull request; the Pocket Message Board checked on her iPad",
-      "needs": [
-        "OK to merge this pull request; the Pocket Message Board checked on her iPad"
-      ],
-      "findings": [],
-      "checked": "2026-10-20T04:09:40.618Z"
-    },
-    "spoonfed": {
-      "pet": "Spoonfed Sugarcube",
-      "mood": "sick",
-      "says": "4 to fix: add pet.json, …",
+      "mood": "worried",
+      "says": "2 to fix: my README needs \"Limits\", …",
       "needs": [],
       "findings": [
         {
-          "sev": "error",
-          "msg": "No pet.json, so the Farmer cannot read me.",
-          "label": "add pet.json"
-        },
-        {
           "sev": "warn",
-          "msg": "No README.md.",
-          "label": "add a README"
-        },
-        {
-          "sev": "warn",
-          "msg": "No LICENSE.",
-          "label": "add a LICENSE"
+          "msg": "README has no \"Limits\" section.",
+          "label": "my README needs \"Limits\""
         },
         {
           "sev": "warn",
@@ -401,30 +279,117 @@
           "label": "add the pet-app topic"
         }
       ],
+      "checked": "2026-11-25T21:41:31.596Z"
+    },
+    "fuzzboi-friend": {
+      "pet": "Fuzzboi Friend",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "wifi-butterfly": {
+      "pet": "Wifi Butterfly",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "deck-duck": {
+      "pet": "Deck Duck",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "mesh-moth": {
+      "pet": "Mesh Moth",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "raspberry-berry": {
+      "pet": "Raspberry Berry",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "astras-pet-os": {
+      "pet": "Friendly Farmer",
+      "mood": "curious",
+      "says": "Need: a FARMER_TOKEN secret so I can see the private pet repos (50 private: github-goldfish, data-dealer, api-fairy, the-astral-plane, heal…",
+      "needs": [
+        "a FARMER_TOKEN secret so I can see the private pet repos (50 private: github-goldfish, data-dealer, api-fairy, the-astral-plane, health-hummy, finance-finch, mommys-mommies, paper-girl, file-master, discord-tower, portfolio-puffer, drum-dog, vscode-angel, project-parrot, voicemeeter-bug, platform-platypus, log-den, packet-river, evidence-locker, role-fairy, spoonfed, claude-bot, rgbee, mine-mole, mail-snail, patch-cat, meme-fiend, backup-beaver, fuzzboi-friend, wifi-butterfly, deck-duck, mesh-moth, raspberry-berry, chat-rat, workflow-whirlpool, linux-iceberg, kernel-grove, benchmark-rock, lunas-log, journal-lagoon, ai-doghouse, the-threshold, white-hat-lab, iron-gates, cipher-hollow, roam-map, the-police-station, pc-master-race, the-pilot-plant, server-hearth)"
+      ],
+      "findings": [
+        {
+          "sev": "warn",
+          "msg": "32 pets on GitHub wait to be registered."
+        }
+      ],
+      "checked": "2026-11-25T21:41:31.596Z"
+    },
+    "voicemeeter-bug": {
+      "pet": "Voicemeeter Bug",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "the-astral-plane": {
+      "pet": "Astra Wisp",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "mommys-mommies": {
+      "pet": "Mommy's Mommies",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "platform-platypus": {
+      "pet": "Platform Platypus",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "spoonfed": {
+      "pet": "Spoonfed Sugarcube",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "role-fairy": {
       "pet": "Role Fairy",
-      "mood": "curious",
-      "says": "Need: which channels and notes ask-mommy-bot may answer from",
-      "needs": [
-        "which channels and notes ask-mommy-bot may answer from"
-      ],
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "chat-rat": {
       "pet": "Chat Rat",
-      "mood": "sick",
-      "says": "To fix: my entry file is missing",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "error",
-          "msg": "pet.json \"entry\" points at chat-rat-20261009.html, which is not in the repo.",
-          "label": "my entry file is missing"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "workflow-whirlpool": {
@@ -438,7 +403,7 @@
     "log-den": {
       "pet": "Log Lynx",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -446,7 +411,7 @@
     "packet-river": {
       "pet": "Packet Piranha",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
@@ -454,72 +419,151 @@
     "evidence-locker": {
       "pet": "Forensic Ferret",
       "mood": "sleep",
-      "says": "All good.",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
       "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
     },
     "linux-iceberg": {
       "pet": "Linux Penguin",
-      "mood": "worried",
-      "says": "To fix: add \"entry\" to pet.json",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
       "needs": [],
-      "findings": [
-        {
-          "sev": "warn",
-          "msg": "pet.json is missing \"entry\".",
-          "label": "add \"entry\" to pet.json"
-        }
-      ],
+      "findings": [],
       "checked": "2026-10-20T04:09:40.618Z"
+    },
+    "discord-tower": {
+      "pet": "Discord Damsel",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "kernel-grove": {
+      "pet": "Kernel Koala",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "benchmark-rock": {
+      "pet": "Inference Iguana",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "lunas-log": {
+      "pet": "Skill Scout",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "journal-lagoon": {
+      "pet": "Journal Jellyfish",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "ai-doghouse": {
+      "pet": "AI Dashund",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "the-threshold": {
+      "pet": "Door Dormouse",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "white-hat-lab": {
+      "pet": "White Hat Weasel",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "iron-gates": {
+      "pet": "Gatekeeper Goddess",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "cipher-hollow": {
+      "pet": "Cipher Owl",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "roam-map": {
+      "pet": "Roaming Raven",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "the-police-station": {
+      "pet": "Pet Police Officer",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "pc-master-race": {
+      "pet": "PC Master",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "the-pilot-plant": {
+      "pet": "Flowsheet Flamingo",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
+    },
+    "server-hearth": {
+      "pet": "Server Salamander",
+      "mood": "sleep",
+      "says": "Not checked: the Farmer can't see my private repo yet.",
+      "needs": [],
+      "findings": [],
+      "checked": null
     }
   },
-  "updated": "2026-10-20T04:09:40.618Z",
+  "updated": "2026-11-25T21:41:31.596Z",
   "needs_astra": [
     {
       "repo": "astras-pet-os",
       "pet": "Friendly Farmer",
-      "need": "a FARMER_TOKEN secret so I can see the private pet repos (3 private: data-dealer, claude-bot, workflow-whirlpool)"
-    },
-    {
-      "repo": "findastra-discord-presence",
-      "pet": "Discord Damsel",
-      "need": "merge the branches below; OK to restart the presence apps once Codex has pushed"
-    },
-    {
-      "repo": "platform-platypus",
-      "pet": "Platform Platypus",
-      "need": "OK to merge this pull request; the Pocket Message Board checked on her iPad"
-    },
-    {
-      "repo": "rgbee",
-      "pet": "RGBee",
-      "need": "the brand and model of each light"
-    },
-    {
-      "repo": "patch-cat",
-      "pet": "Patch Cat",
-      "need": "a job: what should Patch Cat do"
+      "need": "a FARMER_TOKEN secret so I can see the private pet repos (50 private: github-goldfish, data-dealer, api-fairy, the-astral-plane, health-hummy, finance-finch, mommys-mommies, paper-girl, file-master, discord-tower, portfolio-puffer, drum-dog, vscode-angel, project-parrot, voicemeeter-bug, platform-platypus, log-den, packet-river, evidence-locker, role-fairy, spoonfed, claude-bot, rgbee, mine-mole, mail-snail, patch-cat, meme-fiend, backup-beaver, fuzzboi-friend, wifi-butterfly, deck-duck, mesh-moth, raspberry-berry, chat-rat, workflow-whirlpool, linux-iceberg, kernel-grove, benchmark-rock, lunas-log, journal-lagoon, ai-doghouse, the-threshold, white-hat-lab, iron-gates, cipher-hollow, roam-map, the-police-station, pc-master-race, the-pilot-plant, server-hearth)"
     },
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
       "need": "a job: what kind of GIFs should I make"
-    },
-    {
-      "repo": "fuzzboi-friend",
-      "pet": "Fuzzboi Friend",
-      "need": "what letters A–F mean"
-    },
-    {
-      "repo": "wifi-butterfly",
-      "pet": "Wifi Butterfly",
-      "need": "a job: what should Wifi Butterfly do"
-    },
-    {
-      "repo": "role-fairy",
-      "pet": "Role Fairy",
-      "need": "which channels and notes ask-mommy-bot may answer from"
     }
   ]
 }

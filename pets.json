@@ -3,7 +3,7 @@
   "owner": "Astra",
   "github_owner": "findastra",
   "topic": "pet-app",
-  "updated": "2026-10-19",
+  "updated": "2026-11-25",
   "mascots": [],
   "pet_life": {
     "about": "How the pets move, by kind (the old pets page used these; the desktop pets do not read them yet). Each pet's kind picks a row in kinds. Names in friends, tag and chases can be an art id or a kind, so a new pet of a known kind (another bug, say) joins in with no code change.",
@@ -757,7 +757,7 @@
       "published": true,
       "job": "A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history.",
       "added": "2026-10-07",
-      "version": "0.5.1-20261019",
+      "version": "0.5.3-20261024",
       "interface_local_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "interface_url": "apps/pet-programs/unity-unicorn-20261018.html",
       "app_url": "apps/unity-unicorn-20261008.html",
@@ -857,7 +857,7 @@
       "interface_local_url": "apps/pet-programs/learn-python-20261018.html",
       "interface_url": "apps/pet-programs/learn-python-20261018.html",
       "app_url": "apps/learn-python-20261008.html",
-      "visibility": "private",
+      "visibility": "public",
       "source_tag": "v0.1.0-20261008-pets",
       "source_commit": "d5088d07566f7c698818e6a2c93a91ca68bfa5e1",
       "audit": {
@@ -1786,7 +1786,11 @@
       }
     },
     {
-      "editorial": { "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.", "by": "Claude Opus 5.5", "on": "2026-11-11" },
+      "editorial": {
+        "says": "page-check works right on this page now, in its own tool box in L1: paste a page or open its files, and it shows the page on six phones, an iPad and a desktop and says what to fix; Compare screenshots and Sites I watch are in it too. Next: a fit-check run from this page, the watched sites checked on a schedule, and the platypus drawing in the cyberhome.",
+        "by": "Claude Opus 5.5",
+        "on": "2026-11-11"
+      },
       "repo": "platform-platypus",
       "pet": "Platform Platypus",
       "role": "pet",
@@ -2373,7 +2377,7 @@
     {
       "repo": "astras-gif-maker",
       "pet": "Gif Giraffe",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "Placeholder for a pet app that will make GIFs.",
       "added": "2026-10-09",
@@ -2670,7 +2674,7 @@
       },
       "repo": "rift-rabbit",
       "pet": "Rift Rabbit",
-      "visibility": "private",
+      "visibility": "public",
       "status": "hatching",
       "job": "A white rabbit that preps and tracks VR software and performance.",
       "added": "2026-10-09",
@@ -4735,6 +4739,13 @@
       "name": "Fuzzbois",
       "repo": "fuzzbois",
       "why": "Local art project, not published."
+    },
+    {
+      "name": "Paper Patty",
+      "repo": "papermon",
+      "why": "Found on GitHub by the Farmer's round, 2026-11-25: waiting at the gate for Astra. Says its job is: Runs Papermon, a free science discovery desk: real research, publisher explanations and fresh articles.",
+      "found": "2026-11-25",
+      "visibility": "public"
     }
   ],
   "retired_pets": [
