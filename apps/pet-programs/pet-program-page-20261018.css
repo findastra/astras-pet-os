@@ -132,19 +132,21 @@
   --tool-bg: rgba(255, 244, 232, .05); --tool-bg-hover: rgba(253, 166, 116, .09);
 }
 :root[data-pet="door-dormouse"] .footer-group::before, :root[data-pet="door-dormouse"] .footer-sparkle { color: #fd8891; }
-/* Crypto Burrow's own colours, Mine Mole's (Astra, 2026-11-26: "pick a color for the background", after "i hate white
-   screens"): the page is the dark soil of his burrow (#2a1d17), so it is no other pet's colour (Mirror Pool already has
-   plum), with warm cream lettering, his lilac fur (#b78fb8, sampled from art/moods/mine-mole/idle.png) for the panel
-   lines, his helmet's teal (#3fd0e6) for links and marks, his headlamp's gold for the working-copy box, and his pink
-   paws (#f05080) for connections and the footer's sparkles. */
+/* Crypto Burrow's own colours, Mine Mole's (Astra, 2026-11-26: "make it the color of his claws", after "pick a color for
+   the background" and "i hate white screens"): the page is his claw pink (#fb5582, sampled from
+   art/moods/mine-mole/idle.png). Light lettering on that pink is hard to read, so the lettering, lines and links are his
+   darkest plum (#2b0e1c, 5.9:1 on the pink), the dimmer text a lighter plum, and the working-copy box his helmet's deep
+   teal. Nothing on the page is white. */
 :root[data-pet="mine-mole"] {
-  --slate: #2a1d17; --slate-2: #1f1510; --chalk: #fbf1e6; --chalk-dim: #d6c4b8; --line: #b78fb8; --line-dim: #6e5160;
-  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #3fd0e6;
-  --editorial: #ffd36b; --editorial-ink: #fff3d1; --editorial-glow: rgba(255, 211, 107, .2); --grid: none; --editorial-by: #ffe29a; --serial: #3fd0e6;
-  --link: #3fd0e6; --connection: #ff8fb0;
-  --tool-bg: rgba(251, 241, 230, .05); --tool-bg-hover: rgba(63, 208, 230, .08);
+  --slate: #fb5582; --slate-2: #e8456f; --chalk: #2b0e1c; --chalk-dim: #4a1530; --line: #3d1028; --line-dim: #8a2a4c;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #2b0e1c;
+  --editorial: #0b4f5c; --editorial-ink: #082f37; --editorial-glow: rgba(11, 79, 92, .18); --grid: none; --editorial-by: #0b4f5c; --serial: #2b0e1c;
+  --link: #2b0e1c; --connection: #3a1460;
+  --tool-bg: transparent; --tool-bg-hover: rgba(43, 14, 28, .06);
+  color-scheme: light;
 }
-:root[data-pet="mine-mole"] .footer-group::before, :root[data-pet="mine-mole"] .footer-sparkle { color: #f05080; }
+:root[data-pet="mine-mole"] a { text-decoration-thickness: 2px; }
+:root[data-pet="mine-mole"] .footer-group::before, :root[data-pet="mine-mole"] .footer-sparkle { color: #0b4f5c; }
 /* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
    that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
    bill for links, marks and pill edges, and his cyan phone for L3's note. */

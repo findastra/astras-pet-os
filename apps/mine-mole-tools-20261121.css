@@ -1,15 +1,15 @@
 /* Crypto Burrow's mining tools (Mine Mole, pet program #23): one look for all five tool pages, in Crypto Burrow's own
-   colours (Astra, 2026-11-26): burrow-soil brown, cream lettering, lilac fur lines, helmet-teal marks.
-   Inside a tool box (html.in-tool, set by mine-mole-in-tool-20261121.js) the page has no background or header of its
-   own. Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. */
-:root{--bg:#2a1d17;--ink:#fbf1e6;--dim:#d6c4b8;--line:#b78fb8;--faint:rgba(183,143,184,.22);--accent:#3fd0e6;
-  --good:#7ee2a8;--bad:#ff8a7a;
-  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+   colours (Astra, 2026-11-26): his claw pink, dark plum lettering and lines, no white anywhere, and a solid page
+   inside the tool box so the browser never paints white behind it.
+   Inside a tool box (html.in-tool, set by mine-mole-in-tool-20261121.js) the page hides its own header. Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. */
+:root{--bg:#fb5582;--ink:#2b0e1c;--dim:#4a1530;--line:#3d1028;--faint:rgba(43,14,28,.25);--accent:#2b0e1c;--zero:#0b4f5c;
+  --good:#0d5c2e;--bad:#7a0010;--well:rgba(43,14,28,.07);
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);
   }
-html.in-tool,html.in-tool body{background:transparent;background-image:none}
-html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool,html.in-tool body{background:var(--bg)}
+html.in-tool{overflow:hidden}
 html.in-tool main{padding:0 0 8px}
 html.in-tool header.page{display:none}
 main{max-width:980px;margin:0 auto;padding:24px 16px 48px}
@@ -22,11 +22,11 @@ a{color:var(--accent)}
 .note{font-size:.88rem}
 code,.mono{font-family:ui-monospace,Consolas,monospace;font-size:.9em}
 .hash{font-family:ui-monospace,Consolas,monospace;font-size:.82rem;word-break:break-all}
-.hash .z{color:var(--accent);font-weight:700}
+.hash .z{color:var(--zero);font-weight:700;text-decoration:underline}
 fieldset{border:1px solid var(--line);border-radius:6px;margin:12px 0;padding:8px 12px 12px;min-width:0}
 legend{font:600 .8rem ui-monospace,Consolas,monospace;padding:0 6px;color:var(--ink)}
 label{display:inline-flex;flex-direction:column;gap:2px;font-size:.85rem;color:var(--dim);margin:4px 12px 4px 0;vertical-align:top}
-input,select,textarea{font:inherit;color:var(--ink);background:rgba(20,12,9,.55);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--well);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0}
 input[type=number]{width:9.5em}
 input[type=checkbox]{width:auto;accent-color:var(--accent)}
 textarea{width:100%;min-height:3.2em;resize:vertical}
@@ -44,7 +44,7 @@ td.n{text-align:right;font-family:ui-monospace,Consolas,monospace;white-space:no
 .stat b{display:block;font:700 1.15rem ui-monospace,Consolas,monospace;color:var(--ink)}
 .stat span{font-size:.78rem;color:var(--dim)}
 .good{color:var(--good)} .bad{color:var(--bad)} .mark{color:var(--accent)}
-.eq{border-left:3px solid var(--accent);padding:6px 10px;margin:8px 0;background:rgba(20,12,9,.35)}
+.eq{border-left:3px solid var(--accent);padding:6px 10px;margin:8px 0;background:var(--well)}
 .eq .vars{margin:0 0 6px;padding-left:18px}
 .eq .formula{font:700 1rem ui-monospace,Consolas,monospace;margin:6px 0}
 .eq .steps{font-family:ui-monospace,Consolas,monospace;font-size:.88rem;margin:4px 0;padding-left:18px}

@@ -46,3 +46,9 @@ plum), with cream lettering, his lilac fur for the lines, his helmet's teal for 
 for the working-copy box and his pink paws for connections, sampled from `art/moods/mine-mole/idle.png`. One block
 `:root[data-pet="mine-mole"]` in `apps/pet-programs/pet-program-page-20261018.css`; the tools' own
 `apps/mine-mole-tools-20261121.css` follows it. Claude Opus 5.5 (`claude-opus-5-5`).
+
+**Changed the same day:** Astra, 2026-11-26: "make it the color of his claws, then get rid of the white inside the
+tools (cant read this)". The page and the five tools are now his claw pink (#fb5582), with his darkest plum
+(#2b0e1c, 5.9:1) for lettering, lines and links and his helmet's deep teal for the working-copy box. The white inside
+the tools came from each tool page being see-through with a different colour scheme from the page around it, so the
+browser painted white behind it; each tool now has a solid pink page and the same light scheme.
