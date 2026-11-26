@@ -38,6 +38,8 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync
 import { homedir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// The Ghost In The Walls watch rides along (2026-11-26): every third look (30 minutes), once the router login is set.
+import { once as ghostWallsOnce, ready as ghostWallsReady } from './ghost-walls-watch-20261126.mjs';
 
 /** This server's own file name (white-hat-lab-server-YYYYMMDD.mjs); its lock is named after it. */
 export const SERVER = basename(fileURLToPath(import.meta.url));
@@ -343,7 +345,11 @@ if (process.argv[1] && resolve(process.argv[1]).toLowerCase() === resolve(fileUR
     if (other && other !== process.pid) { try { process.kill(other, 0); alive = true; } catch { alive = false; } }
     if (alive) { log(at, `already running (process ${other})`); process.exit(0); }
     mkdirSync(at.menu, { recursive: true }); writeFileSync(lock, String(process.pid));
-    const tick = () => { try { const d = once({ where: at, watching: true }); log(at, `looked: ${d.ports.length} ports${d.ask && d.ask.ports.length ? `, ask ${d.ask.ports.join(' ')}` : ''}`); } catch (e) { log(at, `look failed: ${e.message}`); } };
+    let looks = 0;
+    const tick = () => {
+      try { const d = once({ where: at, watching: true }); log(at, `looked: ${d.ports.length} ports${d.ask && d.ask.ports.length ? `, ask ${d.ask.ports.join(' ')}` : ''}`); } catch (e) { log(at, `look failed: ${e.message}`); }
+      if (looks++ % 3 === 0) { try { if (ghostWallsReady()) { const g = ghostWallsOnce({ out: at.out }); log(at, `ghost walls: ${g.last === 'ok' ? `${g.guests_now} guests now` : g.last}`); } } catch (e) { log(at, `ghost walls failed: ${e.message}`); } }
+    };
     tick(); setInterval(tick, EVERY_MS);
   } else {
     const d = once({ where: at, watching: watching(at) > 0 });
