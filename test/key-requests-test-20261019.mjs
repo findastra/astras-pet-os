@@ -57,6 +57,9 @@ test('the page reads the real list only from one fixed file on Astra\'s PC, and 
   assert.equal((js.match(/createElement\('script'\)/g) || []).length, 6, 'one script element per local list');
   assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_MOODS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS', 'LOCAL_SWEEPER', 'LOCAL_PICK'], 'each address is a fixed constant, never from data');
   assert.match(js, /var LOCAL_PICK = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/deck-duck\/deck-pick-page-data\.js";/);
+  assert.match(js, /p\.schema === 'deck-duck-pick-v1' && p\.pet === config\.repo/, 'the pick is checked and must be this page\'s pet');
+  assert.match(js, /Date\.now\(\) - Date\.parse\(p\.time\) < 60000/, 'a pick older than a minute lights nothing');
+  assert.match(js, /lights\[i\]\.dataset\.item === item/, 'the pick is only compared with the page\'s own tools');
   assert.match(js, /var LOCAL_MOODS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/astras-pet-os\/pet-moods\/pet-moods-page-data-20261114\.js";/);
   assert.match(js, /var LOCAL_SWEEPER = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/github-aquarium\/branch-sweeper-page-data\.js";/);
   assert.match(js, /var LOCAL_PROGRAMS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/benchmark-rock\/programs-page-data\.js";/);
