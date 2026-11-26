@@ -883,6 +883,34 @@
       "in_pill": true
     },
     {
+      "id": "tp-link-tool",
+      "name": "TP-Link",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-tp-link-tool-v1.0",
+      "url": "http://tplinkwifi.net",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing.",
+      "does": "Opens your TP-Link router's sign-in page."
+    },
+    {
+      "id": "ghost-in-the-walls-tool",
+      "name": "ghost-in-the-walls-tool",
+      "type": "tool",
+      "of": "program-67",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "white-hat-lab-v1.0-ghost-in-the-walls-tool-v1.0",
+      "url": "https://findastra.github.io/ghost-in-the-walls/",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. Tracking the attempts is next: the router does not list wrong passwords, so the tool will record every device that joins the guest network (name, first and last seen) and which ones got through, read from the router with the tplinkrouterc6u library and a router login Astra keeps in API Fairy's care. The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo.",
+      "does": "Your guest network's puzzle portal; soon, everyone who tried to get in."
+    },
+    {
       "id": "learn-computer-organization-tool",
       "name": "learn-computer-organization-tool",
       "type": "tool",
@@ -2674,11 +2702,25 @@
       "id": "stream-deck",
       "name": "Elgato Stream Deck",
       "type": "program",
-      "state": "planned",
+      "state": "now",
       "layer": 6,
       "category": "Desktop app",
-      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Not installed on the Desktop PC in the 2026-10-12 scan.",
+      "job": "Elgato’s Stream Deck software. Deck Duck is named for it. Installed and running on the Desktop PC (StreamDeck.exe 7.6.1.23033, checked 2026-11-21); Deck Duck’s Stream Deck plugin runs inside it (0.11.0.0 on Astra’s PC; its code is on deck-duck#9 to #11, not merged).",
       "does": "The software for Elgato's Stream Deck, a panel of buttons that each run an action."
+    },
+    {
+      "id": "art-link-tool",
+      "name": "art-link-tool",
+      "type": "tool",
+      "of": "program-32",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "deck-pond-v1.0-art-link-tool-v1.0",
+      "cadence": "hourly (while Stream Deck runs)",
+      "job": "A tool of Deck Pond, in Deck Duck’s Stream Deck plugin (Astra, 2026-11-20: \"the update should just fix every single place they are since its a link\", then \"Yes, build it\"). A minute after Stream Deck connects, then once an hour while Stream Deck runs, it asks GitHub for the list of the hub’s art/latest pictures (api.github.com/repos/findastra/astras-pet-os/git/trees/main:art/latest?recursive=1) with an ETag, so GitHub answers \"not changed\" for free when nothing moved. When a pet’s picture link shows a new drawing, it downloads only that picture, checks it is the drawing GitHub listed, and draws that pet’s key, the sign on the bar, its tool strips and its page strip again, in a low-priority background PowerShell: no rebuild or reinstall. New pets, new tools, Fuzzboi’s reroll layers and the icons in Stream Deck’s action list still need a deck rebuild. The redrawn pictures stay on the PC (Documents\\Astra’s PetOS Data\\deck-duck\\redrawn-keys-20261120). Code: stream-deck/art-link-20261120.js and stream-deck/draw-pet-keys-20261120.ps1 in findastra/deck-duck, on deck-duck#11 (stacked on #10, then #9), not merged. Version 0.11.0.0 runs on Astra’s PC: its log showed the real check on 2026-11-20 at 21:06 and 21:43 Denver (\"pictures: checked the hub's links, no new art\").",
+      "does": "Every hour while Stream Deck runs: new pet art in the hub shows up on the Stream Deck keys by itself."
     },
     {
       "id": "obs-studio",
@@ -7812,6 +7854,20 @@
       "carries": "manages",
       "state": "idea",
       "why": "Track ideas and references often start in Spotify."
+    },
+    {
+      "from": "art-link-tool",
+      "to": "stream-deck",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The picture check is part of Deck Duck’s Stream Deck plugin, so it runs only while Stream Deck runs: a minute after it connects, then once an hour."
+    },
+    {
+      "from": "art-link-tool",
+      "to": "github",
+      "carries": "opens",
+      "state": "now",
+      "why": "Once an hour it asks GitHub's API for the list of the hub's art/latest pictures, with an ETag so an unchanged list costs nothing, and downloads only a picture whose link shows a new drawing. It changes nothing there."
     },
     {
       "from": "deck-duck",
