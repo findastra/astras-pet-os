@@ -14,6 +14,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { a59ForPet, a59ForCatalog, parseProfileHomes, pagesOf } from './pet-program-link-20261018.mjs';
 import { systemMapData } from './system-map-20261012.mjs';
 import { GREY, BLUE } from './flash-matrix-20261018.mjs';
+import { PREFLIGHT_LEFT_OUT } from './flash-audit-checks-20261108.mjs';
+import { iconPets, iconSource, staleIcon, MANIFEST as ICON_RECORD } from './make-icons-20261012.mjs';
+import { slug } from './pet-program-pages-20261018.mjs';
 
 // Goldfish's local preflight (github-goldfish/scripts/flash-audit-local-20261015.mjs) adds the
 // framework checks. Without it those checks are reported Not verified.
@@ -44,7 +47,18 @@ const registry = JSON.parse(hubFile('pets.json'));
 const systemMap = JSON.parse(hubFile('system-map.json'));
 const frames = JSON.parse(hubFile('art/frames/index.json'));
 const levels = hubFile('INTELLIGENCE-LEVELS.md');
-const hubTree = tree(HUB, 'main');
+// The hub's tree, with each file's git blob for A01 ("Current icon"): an icon is current when the build made it from the
+// pet's calm picture as that picture is now (make-icons-20261012.mjs), found here the same way the build finds it.
+const hubEntries = gh(`repos/${OWNER}/${HUB}/git/trees/main?recursive=1`)?.tree || [];
+const hubTree = (treeCache[`${HUB}@main`] = hubEntries.map((t) => t.path));
+const hubBlob = Object.fromEntries(hubEntries.map((t) => [t.path, t.sha]));
+const hubPaths = new Set(hubTree);
+const hubPictures = {
+  frameIndex: frames, drafts: JSON.parse(hubFile('desktop-art/desktop-drafts-20261018.json') || '{"pets":[]}'), exists: (p) => hubPaths.has(p),
+  list: (dir) => hubTree.filter((p) => p.startsWith(`${dir}/`) && !p.slice(dir.length + 1).includes('/')).map((p) => p.slice(dir.length + 1)),
+};
+const iconRecord = JSON.parse(hubFile(ICON_RECORD) || '{}');
+const iconPetOf = Object.fromEntries(iconPets(registry, catalog).map(([id, pet]) => [pet.repo, [id, pet]]));
 
 // A59: the places that show each pet. The profile README (findastra/findastra) and the System Map as the hub builds it.
 const profileMd = file(OWNER, 'README.md', gh(`repos/${OWNER}/${OWNER}`)?.default_branch || 'main');
@@ -190,9 +204,16 @@ for (const prog of catalog) {
 
   // A01 icon, A02/A05 frames.
   const art = reg?.art;
-  const icon = hubTree.find((p) => p.startsWith('art/icons/') && (p.includes(`/${prog.repo}-`) || (art && p.includes(`/${art}-`))));
+  // By repo, art or pet name, as the pages look an icon up (Skill Scout's is skill-scout-*, its repo lunas-log).
+  const icon = hubTree.find((p) => p.startsWith('art/icons/') && [prog.repo, art, slug(prog.icon)].some((n) => n && p.includes(`/${n}-`)));
   rec.iconPath = icon || null;
   if (!icon) add('A01', 'Missing', 'No icon in astras-pet-os art/icons.');
+  else {
+    const [id, pet] = iconPetOf[prog.repo] || [prog.repo, reg || { repo: prog.repo, pet: prog.icon }];
+    rec.iconFrom = iconRecord[icon]?.from || null;
+    const why = staleIcon(icon.split('/').pop(), iconSource(pet, hubPictures, id), iconRecord[icon], (p) => hubBlob[p]);
+    if (why) add('A01', 'Incorrect', `Stale icon: ${why}.`, { next: 'Run `npm run build` in the hub: it makes the icon again from that picture. No new art is needed.' });
+  }
   const fr = art ? frames.pets[art] : null;
   rec.frames = fr ? fr.frames : null;
   if (regStage === 'registered' && !fr) add('A02', 'Missing', `Registered, but art "${art}" has no frames in art/frames/index.json.`);
@@ -231,8 +252,9 @@ for (const prog of catalog) {
 
   // ---- 2. Where the work lives
   const pre = inspectSnapshot({ files: t, metadata: pet, entry });
-  // A52: "⚪ A bubble missing from the page is named on the round card for the pet's chat" (its live check stays 🔵).
-  for (const r of pre) if (r.status !== 'Pass' && !['A19', 'A20', 'A21', 'A22', 'A25', 'A26', 'A27', 'A28', 'A29', 'A30', 'A32', 'A39', 'A43', 'A46', 'A47', 'A48', 'A49', 'A50', 'A51'].includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight', ...(r.check === 'A52' && r.status === 'Missing' ? { dot: GREY } : {}) });
+  // The preflight's rows it can only mark Not verified, and its page rows, are left out: since 2026-11-12 the page checks
+  // compare every pet program page with the Model Pet Program instead (flash-template-20261112.mjs, PREFLIGHT_LEFT_OUT).
+  for (const r of pre) if (r.status !== 'Pass' && !PREFLIGHT_LEFT_OUT.includes(r.check)) add(r.check, r.status, r.detail, { source: 'goldfish preflight' });
   const required = ['LICENSE', 'AGENTS.md', 'CLAUDE.md'].filter((f) => !t.includes(f));
   if (required.length) rec.fixes.push({ type: 'add-files', files: required });
   if (!meta.private && !(meta.topics || []).includes('pet-app')) add('A14', 'Missing', 'Public pet repo without the pet-app topic.', { fix: { type: 'topic' } });
@@ -272,12 +294,12 @@ for (const prog of catalog) {
 
   // A16 metadata vs registry.
   if (pet && reg) {
-    // A16: "🔵 A field the pet submitted itself (cage.submit) that the registry has not taken is a decision".
-    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job }, ...(pet.cage?.submit?.job ? { dot: BLUE } : {}) });
+    // A16: "🔵 A field the pet submitted itself (hub.submit) that the registry has not taken is a decision".
+    if (reg.job && pet.job && norm(reg.job) !== norm(pet.job)) add('A16', 'Incorrect', `pet.json job differs from the registry. pet.json: "${pet.job.slice(0, 140)}"`, { fix: { type: 'petjson-job', to: reg.job }, ...(pet.hub?.submit?.job ? { dot: BLUE } : {}) });
     if (reg.status && pet.status && reg.status !== pet.status) add('A16', 'Incorrect', `pet.json status "${pet.status}" differs from the registry "${reg.status}".`);
     if (reg.audit && !pet.audit) add('A16', 'Missing', 'pet.json has no audit block (the registry has one).', { fix: { type: 'petjson-audit', audit: reg.audit } });
   }
-  if (pet?.cage?.repository && /findastra-pet-apps/.test(pet.cage.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
+  if (pet?.hub?.repository && /findastra-pet-apps/.test(pet.hub.repository)) rec.fixes.push({ type: 'petjson-hub-link' });
 
   // A17 git: unmerged branches and the local copy.
   const branches = gh(`repos/${OWNER}/${meta.name}/branches?per_page=100`) || [];

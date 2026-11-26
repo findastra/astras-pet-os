@@ -1,0 +1,7 @@
+By Astra. Prepared by OpenAI Codex, 2026-11-20.
+Shared full-color symbols approved in the pet face review on 2026-11-20.
+Seven unchanged symbols are from the reviewed 2026-11-19 sheet.
+Happy: neon-pink music note from sheet-20261120.png.
+Sleep: slimmer purple Z from sleep-source-20261120.png, fitted to the previous symbol extent by scripts/fit-sleep-symbol-20261120.mjs.
+The nine named mood PNGs are authoritative. The source sheet retains the first, thicker purple Z for provenance; do not re-import it over the slimmer sleep frame.
+No pet faces are changed. No separate animation layer.

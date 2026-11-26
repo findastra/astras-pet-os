@@ -22,6 +22,12 @@ no "I'll read it if I need it". This applies to small tasks too.
    before doing anything else.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
+## PAC: Provenance, Authenticity and Creativity, at all costs (Astra, 2026-11-17)
+
+Astra: "Provenance, Authenticity, and Creativity must be preserved at all costs." Every pet, page, tool and asset
+credits where each part came from, never passes anything off as what it is not, and leaves the choices to the person
+using it. The full rule, with what each letter asks for, is in [PROVENANCE.md](PROVENANCE.md#pac-provenance-authenticity-and-creativity).
+
 ## Show the working copy, one page at a time (Astra, 2026-11-02)
 
 Astra: "Stop giving me the live pages. I want to look at the page that we're working on actively... I'm sick of
@@ -61,6 +67,10 @@ Every pet name (icon) and pet program (home) name is decided in **`pet-programs.
   Pets and pet programs (rings 2 and 3) are worked on branches too.
 - Nobody becomes an animal by saying so. New pets wait in `candidates` until Astra moves them in; scripts that act
   on a repo call `scripts/animal-guard-20261013.mjs` first.
+- **A pet's stage follows its repo** (Astra, 2026-11-02). When the Friendly Farmer hatches a pet, or an audit (his
+  round, `skills/pet-finder`'s `wrong-stage`, a Flash Audit) finds a repo at the wrong stage, he updates its `stage` in
+  `pet-programs.json` (and its pets.json entry when it becomes an animal or stops being one), runs `npm run build`, and
+  opens a pull request for Astra. The stages and their counts are the README's [Pet stages](README.md#pet-stages) chart.
 - Farms never connect to each other; GitHub is the only shared place. Local models change only through Astra.
 - Warn Astra plainly when a word or structure she uses is a blatant programming error, with the standard term.
 - **L1 to L4:** L1 Programs (the third-party programs it runs, plus the programs and tools it creates), L2 Pet program (dashboard and runtime),
@@ -102,7 +112,7 @@ Every agent Astra uses, and what really limits it:
 | **ChatGPT** | Adviser (ring 7), no access | Astra | OpenAI's servers | Nothing reaches the farm except through Astra | Astra's ChatGPT plan |
 | **Local farmhands** (AI Astra's mind) | Farmhand; no harness of its own yet | Astra only | Astra's PC or local network | Only Astra changes them; a key and binding to this PC are planned (known gap 9) | Her own hardware |
 | **OpenClaw** | Provider harness made by others (open source): an always-on gateway with chat channels such as Discord, a scheduler and a skills store (ClawHub) | Anyone its channel settings let in | A background gateway on the PC | Only its own settings (DM policy, server and channel allowlists, tool policy): PetOS grants do not reach inside it | An Anthropic API key. **Not adopted** (weighed 2026-10-17 to 2026-10-19) |
-| **A Discord bot** (Role Fairy's) | Not a harness: a Discord application, a native program of Fairy Ring. Its commands are its tools (code, no AI); its answers come from the farmhand in Fairy Ring's seat | Members of its servers, through its commands | Astra's PC, one process per bot | Discord's bot permissions and role order, its channel allowlist and its code | Its answers: an Anthropic API key with a monthly spend limit |
+| **A Discord bot** (Role Fairy's) | Not a harness: a Discord application, a native program of The Fairy Court. Its commands are its tools (code, no AI); its answers come from the farmhand in The Fairy Court's seat | Members of its servers, through its commands | Astra's PC, one process per bot | Discord's bot permissions and role order, its channel allowlist and its code | Its answers: an Anthropic API key with a monthly spend limit |
 
 - **Ask who an agent takes orders from.** One that takes orders from other people (a server bot, OpenClaw in Discord)
   gets the smallest grants, and never runs commands or touches files on the PC.
@@ -141,9 +151,9 @@ Passport Panda is now **Passport Pelican**).
 - Migration is planned in [docs/migration/PLAN.md](docs/migration/PLAN.md), with the
   [audit](docs/migration/AUDIT.md) and [gap analysis](docs/migration/GAP-ANALYSIS.md). The plan
   is a **draft until Astra approves it**; until then, change only what she asks for.
-- **The Cage is gone (Astra, 2026-10-18).** `cage.html`, `cage-data.js` and the old desktop Farmer (the Farmer dock)
-  were removed; never bring them back or add browser-roaming features. Pets roam on the Windows desktop only. The
-  word survives only in data keys that pets read (`cage`, `cage.submit`, `cage_life`). The Farm (a simple responsive
+- **The old pets page is gone (Astra, 2026-10-18).** the old pets page, its data file and the old desktop Farmer (the Farmer dock)
+  were removed; never bring them back or add browser-roaming features. Pets roam on the Windows desktop only. Its data keys
+  were renamed `hub`, `hub.submit` and `pet_life` (Astra, 2026-11-02: "the [old pets page] is not supposed to be a thing anymore"). The Farm (a simple responsive
   website with a text box under every pet) replaces it, per the plan.
 - Nothing in the architecture is built until tests show it. Do not describe planned pets,
   repos (`astras-farm`, `astras-kennel`, `astra-pet-sdk`) or features as existing.
@@ -156,7 +166,7 @@ Public credit is always **Astra**, never a legal name. Keep work information (in
 Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07. Record each change in its own new file in `changes/` ("Changes are recorded in `changes/`" below), never as a new line here.
 
 ## What this is
-The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the Cage was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
+The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer**, whose pet program is The Farm (the old pets page was removed on 2026-10-18). `pets.json` is the single registry. Everything else (README table, ROSTER.md, the art) is generated from it.
 
 ## Rules
 - **`pets.json` is the source of truth.** Never hand-edit the README table between the `pets:start` / `pets:end` markers, `ROSTER.md` or `art/`. Run `npm run build`.
@@ -209,7 +219,7 @@ The hub for Astra's PetOS and itself a pet app: its pet is the **Friendly Farmer
 - Pet file rules: [PET-FILES.md](PET-FILES.md).
 - **Pet words:** one name per part (pet, app, desktop pet, bubble, quick chat, app icon, pet well). Use [PET-WORDS.md](PET-WORDS.md); `words` in pets.json is its machine-readable copy for the Goldfish. When a new part needs a name, add it to both and run `npm test`.
 - The GitHub Goldfish (`findastra/github-goldfish`) audits this repo and the whole account.
-- **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `cage.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
+- **The Farmer's rounds** run daily (PET-FILES.md, "Rounds, self-audits and submissions"). Pets submit changes to their own job, status, bubble lines, mood lines and audit through `hub.submit` in their pet.json; the round puts them in a pull request (`farmer/rounds-YYYYMMDD`) that Astra merges, and never pushes to `main`. A submitted name is only a note for Astra (names live in `pet-programs.json`). Do not hand-edit `status/pets-status.json`, `RELATIONS.md` or `MOOD-KEY.md`: they are generated.
 - **The pipeline** in pets.json holds pets that are on GitHub but not registered (no art yet). Registering one moves it to `pets`.
 - **Questions for Astra are a slideshow** (Astra, 2026-10-19: "I want to see them in slideshows with explanations. Everybody should be doing this."): one question per slide, with why it matters, the options and your recommendation, then ✨ next to its link in chat ([skills/questions-as-slides](skills/questions-as-slides/SKILL.md)).
 - **Changes are recorded in `changes/`** (Astra, 2026-10-21, card 069: one small file per change, so two pull requests never write on the same line). A pull request that changes something substantial adds its own new file, `changes/<topic>-YYYYMMDD.md`: what changed, Astra's words and the date, the model and version, and the card or pull request. Never add a credit line to the end of this file: `test/changes-folder-test-20261021.mjs` fails on one dated after 2026-10-21. The lines written here before are in [changes/history-20261007-20261021.md](changes/history-20261007-20261021.md). **In a pet repo** whose AGENTS.md still says to record the model and version there, switch that line to the repo's own `changes/` folder in the same pull request as your change (Astra, 2026-10-21: the other repos change with their next pull request).

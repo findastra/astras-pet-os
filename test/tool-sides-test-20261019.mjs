@@ -42,6 +42,7 @@ test('a pet whose tools have no side keeps one Native tools list', () => {
   const d = pages.find((p) => p.repo === 'discord-tower');
   assert.ok(d.tools.length > 0 && d.tools.every((t) => !t.side));
   const html = buildPetProgramPage(d);
-  assert.ok(html.includes(`<h3>Native tools · ${d.tools.length}</h3>`));
+  // Its tools, and its two tool boxes (presence-control and dm-archive, 2026-11-02).
+  assert.ok(html.includes(`<h3>Native tools · ${d.tools.length + 2}</h3>`));
   assert.ok(!html.includes('Avatar tools ·'));
 });

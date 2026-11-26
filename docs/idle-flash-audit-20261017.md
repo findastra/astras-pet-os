@@ -3,7 +3,9 @@
 Working name: **Idle Flash Audit**. It is the [Flash Audit](flash-audit-20261014.md) run while Astra is away
 (overnight, usually): every pet program is checked, everything that needs no decision is fixed on a branch with a
 pull request, every named pet gets a repo if it has none, and the decisions wait for her as round cards she can
-read on an iPad. Owner: **GitHub Goldfish** (the Flash Audit's owner). First run: 2026-10-17, by Claude Opus 5.5
+read on an iPad. Owner: **Friendly Farmer** (The Farm, the Flash Audit's owner since 2026-11-08; GitHub Goldfish's before,
+and Goldfish keeps the word checks A15, A31 and A57). On The Farm's page each check is a tool whose Run asks the Flash
+Audit helper on Astra's PC to run this auditor again (`scripts/flash-audit-helper-20261108.mjs`). First run: 2026-10-17, by Claude Opus 5.5
 (`claude-opus-5-5`), at Astra's request ("do the flash audit … fix blatant errors that don't require my decision,
 all night long"; "make sure you start a repo for every pet that exists"; "write down how to do an idle flash audit").
 
@@ -35,12 +37,12 @@ the checks themselves take about an hour.
 
 ### Fixed without asking (blatant)
 
-- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): `Astra's PetOS`
-  -> `Astra's PetOS`, `astras-pet-os` / `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
+- Retired names in documents (`.md`, `.json`, `.html` outside `<script>`, `.txt`, `.yml`, `.svg`): the old hub names
+  -> `Astra's PetOS`, `findastra-pet-apps` -> `astras-pet-os`, `Documents\Projects` ->
   `Documents\Astra's PetOS`. Lines that tell history ("was", "renamed", "formerly") keep the old name.
 - Links to renamed repos (GitHub redirects them, but the current name is correct).
 - `pet.json` catching up with the registry (`pets.json`) and the one list of names (`pet-programs.json`): pet name,
-  job and audit block. **Not** a field the pet has submitted to the Farmer (`cage.submit`): that is a decision.
+  job and audit block. **Not** a field the pet has submitted to the Farmer (`hub.submit`): that is a decision.
 - Required files that are simply missing: `CLAUDE.md`, `AGENTS.md`, an MIT `LICENSE` (public pet repos only, never
   on an art-only repo), and `pet.json` built from a decided registry entry.
 - README: the credit `*By Astra.*` (Astra, 2026-10-20, card 059; a retired credit line, card 033's or the one before it, is changed to it), a **Limits** section (from `INTELLIGENCE-LEVELS.md`), and **Run it**
@@ -134,5 +136,5 @@ what they do (A22, A23, A52), live routes behind a sign-in (A10). Those stay **N
 - The catalog's `repo_exists` said false for 41 repos started on 2026-10-14: always ask GitHub.
 - Windows long paths are off on Astra's PC: work in a short temp folder.
 - Bash heredocs on this PC can eat backslashes; write files with an editor tool when they contain `\`.
-- Four pets had submitted jobs the registry never took (`cage.submit`); the Farmer's daily round needs fixing
+- Four pets had submitted jobs the registry never took (`hub.submit`); the Farmer's daily round needs fixing
   (hub PR #46) so submissions stop piling up.

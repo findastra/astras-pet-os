@@ -32,3 +32,16 @@ Rabbit/Wonderland Launchpad", then "I want to see the elgato on here the same wa
 - Showing the real key pictures on the page is not built (the deck sends no pictures back).
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-02.
+
+## 2026-11-26: merged with main again
+
+Astra, 2026-11-26: "fix merge conflicts". `main` had moved 583 commits on.
+- The Stream Deck's lines in pets.json and system-map.json take `main`'s newer text (7.6.1, the plugin and its
+  art-link-tool, the GitHub need). This branch's web-browser need, the Stream Deck + device and the
+  use-my-stream-deck-tool node stay.
+- In the page generator, `main` had folded every tool into its own pill (no separate tool panels), so this branch's edit
+  to those panels went with them. Its two additions are kept on `main`'s code: the `square` tool frame and `hid` in the
+  tool iframes' allow list (now `midi; autoplay; fullscreen; hid`).
+- The generated files are `main`'s, built again with `npm run build`.
+
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-26.

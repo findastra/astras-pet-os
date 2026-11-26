@@ -84,6 +84,9 @@ in a clone in Claude's scratchpad so the live hub folder stayed as it was:
 ### Questions for Astra (asked in chat, 2026-10-19)
 
 1. Build the live link in Startup Star?
+   For the chat (task 4) only, Astra answered on 2026-11-03 (card 061, "I guess recommended"): a pet chat helper on
+   this PC seats Claude Code first, then Codex, and the agent may change things, supervised. The window is #283; the
+   helper waits on her OK (card 283). The live link for the flight (tasks 1 to 3) is still open.
 2. When you switch to another tab, does the pet stay home, or come back to the desktop?
 3. The L3 switch as Block / Ask / Allow, with Ask as the default?
 4. A switch, a "report a problem" button and the glow, replacing the two dots?

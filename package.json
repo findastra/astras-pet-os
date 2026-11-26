@@ -1,6 +1,6 @@
 {
   "name": "astras-pet-os",
-  "version": "0.3.0-beta",
+  "version": "0.4.0-beta",
   "private": true,
   "description": "Astra's PetOS: grow your own AI ecosystem. The development home of Astra's PetOS, organized by the Friendly Farmer, with the plan for the Farm (the native OS) and the Kennel (the community lab).",
   "license": "MIT",
@@ -10,6 +10,8 @@
     "check": "node scripts/check-pets-20261018.mjs",
     "click-check": "node scripts/click-check-20261019.mjs",
     "outstanding-items": "node scripts/outstanding-items-20261021.mjs",
+    "branch-sweeper": "node scripts/branch-sweeper-20261114.mjs",
+    "retire-check": "node scripts/retire-check-20261117.mjs",
     "generate": "node scripts/generate-pets.mjs"
   },
   "engines": {

@@ -16,7 +16,7 @@ For Claude:
 - After new art, look at `art/roster.png` before saying it is done. Redo approved art only with `--match` (PET-FILES.md).
 - Do not push to `main` or create GitHub repos without Astra's OK. Her OK comes in chat; then merge it yourself
   (approval, not clicks; Astra, 2026-10-18).
-- The Cage is gone (Astra, 2026-10-18): never bring back `cage.html`, `cage-data.js`, the Farmer dock or browser roaming (see AGENTS.md).
+- The old pets page is gone (Astra, 2026-10-18): never bring back the old pets page, its data file, the Farmer dock or browser roaming (see AGENTS.md).
 - Record each substantial change, with your model name and version, in its own new file in `changes/` (AGENTS.md, "Changes are recorded in `changes/`"), never as a new line in AGENTS.md.
 
 ## Complete top-level Markdown reading (Astra, 2026-10-18)

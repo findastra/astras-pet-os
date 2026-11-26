@@ -64,7 +64,7 @@ of hub PR #76 and Goldfish's preflight read first and run from `codex/l3-activit
 | the-cats-closet | [#2](https://github.com/findastra/the-cats-closet/pull/2) | README "Run it" and "Limits" (A15) |
 | the-police-station | [#2](https://github.com/findastra/the-police-station/pull/2) | README "Limits" (A15) |
 | ai-doghouse | [#2](https://github.com/findastra/ai-doghouse/pull/2) | README "Limits" (A15) |
-| astras-pet-os | [#79](https://github.com/findastra/astras-pet-os/pull/79) | pets.json links Fuzzboi Friend's live program (A59); cage-data.js rebuilt |
+| astras-pet-os | [#79](https://github.com/findastra/astras-pet-os/pull/79) | pets.json links Fuzzboi Friend's live program (A59); the old pets page's data file rebuilt |
 
 The other 76 repos needed nothing that is the Idle Flash Audit's to fix: the 78 fix pull requests of 2026-10-17 are merged.
 

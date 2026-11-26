@@ -1,19 +1,19 @@
 status: open, ready to apply (art generated with Astra's OK, 2026-10-09)
 for: farmer (any assistant working on astras-pet-os)
 from: Claude Opus 5.5 (claude-opus-5-5), 2026-10-09
-needs: PET-FILES.md "Adding a pet to the Cage", PET-WORDS.md, pets.json, scripts/generate-pets.mjs, findastra/fuzzboi-friend, findastra/fuzzbois
+needs: PET-FILES.md "Adding a pet to the hub", PET-WORDS.md, pets.json, scripts/generate-pets.mjs, findastra/fuzzboi-friend, findastra/fuzzbois
 ---
 ## Ready: apply the patch, don't regenerate
 Everything below is already done and waiting as one patch in the pet's repo:
-[`findastra/fuzzboi-friend` `cage/cage-registration-20261009.patch`](https://github.com/findastra/fuzzboi-friend/blob/main/cage/cage-registration-20261009.patch)
-(notes: [`cage/README.md`](https://github.com/findastra/fuzzboi-friend/blob/main/cage/README.md)). It holds the
+[`findastra/fuzzboi-friend` `hub-registration/registration-20261009.patch`](https://github.com/findastra/fuzzboi-friend/blob/main/hub-registration/registration-20261009.patch)
+(notes: [`hub-registration/README.md`](https://github.com/findastra/fuzzboi-friend/blob/main/hub-registration/README.md)). It holds the
 pets.json entry and new `fuzzboi` kind, the updated Fuzzbois candidate line, the generator prompt and
 reference, the app copy, the **paid mood sheet** (generated 2026-10-09 after Astra added credits) and the
-rebuilt frames, roster and cage-data. Checked against `main` at `52637db`: applies cleanly, `npm run check`
-says 19 pet apps, 48 tests pass. Astra asked to keep it out of this repo until her Cage update.
+rebuilt frames, roster and the old pets page's data file. Checked against `main` at `52637db`: applies cleanly, `npm run check`
+says 19 pet apps, 48 tests pass. Astra asked to keep it out of this repo until her hub update.
 
 ```
-git apply path/to/fuzzboi-friend/cage/cage-registration-20261009.patch
+git apply path/to/fuzzboi-friend/hub-registration/registration-20261009.patch
 npm run build && npm run check && npm test
 ```
 
@@ -22,7 +22,7 @@ re-rolls the character. The art is a draft until Astra approves it. The frames a
 repo (`art/`, listed in `sprite-20261009.json`), so step 4's copy is done.
 
 ## Task
-Welcome a new pet to the Cage: **Fuzzboi Friend** (`fuzzboi-friend`). Its app lets a friend type
+Welcome a new pet to the hub: **Fuzzboi Friend** (`fuzzboi-friend`). Its app lets a friend type
 a six-digit hex code and get that exact Fuzzboi, drawn from Astra's own layers in
 `findastra/fuzzbois`. The app is `fuzzboi-friend-20261009.html`, live at
 <https://findastra.github.io/fuzzboi-friend/>. Fuzzbois' own site, the Fuzzboi Forge, is live at
@@ -30,7 +30,7 @@ a six-digit hex code and get that exact Fuzzboi, drawn from Astra's own layers i
 
 1. Copy `fuzzboi-friend-20261009.html` from `findastra/fuzzboi-friend` to
    `apps/fuzzboi-friend-20261009.html`. (It loads its rules and layers from the Fuzzbois website,
-   so it needs the internet, also inside the Cage.)
+   so it needs the internet, also inside the old pets page.)
 2. Add the `pets.json` entry: `repo: "fuzzboi-friend"`, `pet: "Fuzzboi Friend"`, `role: "pet"`,
    `art: "fuzzboi-friend"`, `status: "hatching"`, `visibility: "public"`, `added: "2026-10-09"`,
    `asset_date: "20261009"`, `interface_url` and `interface_local_url`:
@@ -50,7 +50,7 @@ a six-digit hex code and get that exact Fuzzboi, drawn from Astra's own layers i
    frames to `findastra/fuzzboi-friend` (`art/`) and list them in its `sprite-20261009.json`.
 
 ## Done when
-Fuzzboi Friend shows in the Cage and ROSTER.md, the Fuzzbois entry is current, and checks pass.
+Fuzzboi Friend shows in the hub and ROSTER.md, the Fuzzbois entry is current, and checks pass.
 The art stays a draft until Astra approves it.
 
 ## Return

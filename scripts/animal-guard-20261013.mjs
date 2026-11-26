@@ -38,7 +38,7 @@ export function farmOwner(registry) {
 /** The repos of every animal in the registry: registered and pipeline pets, plus the core itself. */
 export function animalRepos(registry) {
   const repos = [...(registry.pets || []), ...(registry.pipeline || [])].map((p) => p.repo).filter(Boolean);
-  if (registry.cage) repos.push(registry.cage);
+  if (registry.hub) repos.push(registry.hub);
   return new Set(repos);
 }
 
@@ -47,7 +47,7 @@ export function petOwner(registry, name) {
   const farm = farmOwner(registry);
   const entry = [...(registry.pets || []), ...(registry.pipeline || [])].find((p) => p.repo === name);
   if (entry) return entry.github_owner === undefined ? farm : assertAccount(entry.github_owner, `the github_owner of ${name}`);
-  return name && name === registry.cage ? farm : null;
+  return name && name === registry.hub ? farm : null;
 }
 
 /** True when `repo` (a name like "file-master", or "findastra/file-master") is an animal on its own account. */

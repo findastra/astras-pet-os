@@ -1,4 +1,4 @@
-// Pixel-art toolkit for the Cage's pets: 32x32, full colour, soft tinted outlines, rim light and
+// Pixel-art toolkit for the hub's pets: 32x32, full colour, soft tinted outlines, rim light and
 // shadow, dot eyes and pink cheeks. Everything is symmetric about x = 15.5, so mirror(x) = 31 - x.
 import { deflateSync } from 'node:zlib';
 
@@ -152,13 +152,13 @@ export function cheeks(cv, x, y, color) { cv.both(x, y, color); cv.both(x + 1, y
 export const STICKERS = {
   sweat: { rows: ['.b.', 'bwb', 'bwb', '.b.'], pal: { b: '#4fa3ea', w: '#d9f1ff' } },
   tear:  { rows: ['b', 'w', 'b'], pal: { b: '#4fa3ea', w: '#d9f1ff' } },
-  zzz:   { rows: ['####', '..#.', '.#..', '####'], pal: { '#': '#9fb4ff' } },
-  zz:    { rows: ['###', '.#.', '###'], pal: { '#': '#9fb4ff' } },
+  zzz:   { rows: ['####', '..#.', '.#..', '####'], pal: { '#': '#a855f7' } },
+  zz:    { rows: ['###', '.#.', '###'], pal: { '#': '#a855f7' } },
   bang:  { rows: ['##', '##', '##', '##', '..', '##'], pal: { '#': '#ff5a5f' } },
   ask:   { rows: ['.##.', '#..#', '..#.', '.#..', '....', '.#..'], pal: { '#': '#c9a7ff' } },   // light purple (Astra, 2026-10-24)
   // The rest of the nine mood symbols (Astra, 2026-10-24, anime style): a song note for happy, three dots for idle, two
   // yellow twinkles for awake, three blue wavy lines for sick, a plain gray cloud for sad.
-  note:  { rows: ['..###', '..#.#', '..#.#', '..#..', '###..', '###..'], pal: { '#': '#ff8fc8' } },
+  note:  { rows: ['..###', '..#.#', '..#.#', '..#..', '###..', '###..'], pal: { '#': '#ff00aa' } },
   dots:  { rows: ['#.#.#'], pal: { '#': '#f6dbe9' } },
   twinkle: { rows: ['.y....', 'yyy...', '.y..y.', '...yyy', '....y.'], pal: { y: '#ffe14d' } },
   waves: { rows: ['b..b..b.', '.b..b..b', 'b..b..b.', '.b..b..b', 'b..b..b.'], pal: { b: '#6fb7ff' } },

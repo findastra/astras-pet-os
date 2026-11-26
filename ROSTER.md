@@ -2,7 +2,7 @@
 
 *The running list of every registered pet. Generated from [pets.json](pets.json) by `npm run build`; edit `pets.json`, not this file.*
 
-**23 pet apps so far, drawn as 23 characters (23 app pets, 0 companions, 0 mascots). 23 of the 23 pet apps have a repo on GitHub.**
+**24 pet apps so far, drawn as 24 characters (24 app pets, 0 companions, 0 mascots). 24 of the 24 pet apps have a repo on GitHub.**
 
 Whether each of those repos carries its `pet.json` and the `pet-app` topic is not recorded here. Run `npm run check -- --online` to ask GitHub.
 
@@ -10,7 +10,7 @@ Last updated 2026-10-19. Drawings below are **drafts** unless their notes record
 
 ![Every character in every mood](art/roster.png)
 
-Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
+Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies, Paper Patty, File Master, Discord Damsel, Portfolio Puffer, Drum Dog, VSCode Angel, Gone Ghost, Project Parrot, Voicemeeter Bug, Platform Platypus, Log Lynx, Packet Piranha, Forensic Ferret, Role Fairy; columns are idle, blink, happy, curious, worried, sad, sick, alarmed, sleep.
 
 ## Pet apps
 
@@ -20,7 +20,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 2 | **GitHub Goldfish** | pet | growing | private repo | Swims through every public word on a GitHub account and flags document-control, blatant, organizational and systemic errors. | <img src="art/frames/goldfish/idle.png" width="48" height="48" alt="goldfish idle"> |
 | 3 | **Data Chip** | pet | hatching | private repo | Reports the health of Data Dealer, Astra’s large and important data project: its site, data, services and open work, so she sees at a glance what needs her. | <img src="art/frames/chip/idle-20261008.png" width="48" height="48" alt="chip idle"> |
 | 4 | **API Fairy** | pet | growing | private repo | Keeps notes about your API keys, never the keys themselves: where each lives and what uses it, which keys have gone stale, and which new keys to get. Lives in the corner of the Windows desktop. | <img src="art/frames/api-fairy/idle.png" width="48" height="48" alt="api-fairy idle"> |
-| 5 | **Unity Unicorn** | pet | hatching | private repo | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | <img src="art/frames/unity-unicorn/idle.png" width="48" height="48" alt="unity-unicorn idle"> |
+| 5 | **Unity Unicorn** | pet | hatching | [unity-unicorn](https://github.com/findastra/unity-unicorn) | A local Unity and VRChat desk with avatar plans, 26 dated tools, open-arch audits, concise summaries and evidenced execution history. | <img src="art/frames/unity-unicorn/idle.png" width="48" height="48" alt="unity-unicorn idle"> |
 | 6 | **Python Panther** | pet | hatching | private repo | A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons. | <img src="art/frames/python-panther/idle.png" width="48" height="48" alt="python-panther idle"> |
 | 7 | **Astra Wisp** | pet | hatching | private repo | Watches the health of AI Astra, both while she runs and while she is being worked on offline, so problems show up before a session. | <img src="art/frames/astra-wisp/idle.png" width="48" height="48" alt="astra-wisp idle"> |
 | 8 | **Health Hummy** | pet | hatching | private repo | Personal health tracker: weight lifting by body group and sets, cardio, and pole plans. Your data stays on your PC and is never committed. | <img src="art/frames/health-hummy/idle.png" width="48" height="48" alt="health-hummy idle"> |
@@ -32,13 +32,14 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | 14 | **Portfolio Puffer** | pet | hatching | private repo | Drafts and tracks portfolio updates locally. GitHub and LinkedIn connections are planned; publishing is manual. | <img src="art/frames/portfolio-puffer/idle.png" width="48" height="48" alt="portfolio-puffer idle"> |
 | 15 | **Drum Dog** | pet | hatching | private repo | Saves and samples music found online for Ableton Live, and plans releases: the first album, DJ mixes and where each one is hosted. Ableton Live connections are planned. | <img src="art/frames/drum-dog/idle.png" width="48" height="48" alt="drum-dog idle"> |
 | 16 | **VSCode Angel** | pet | hatching | private repo | Records code-review findings and next steps, then exports a Markdown worklist. Editor connections are planned. | <img src="art/frames/vscode-angel/idle.png" width="48" height="48" alt="vscode-angel idle"> |
-| 17 | **Gone Ghost** | pet | hatching | private repo | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | <img src="art/frames/ghost-protocol/idle-20261008.png" width="48" height="48" alt="ghost-protocol idle"> |
+| 17 | **Gone Ghost** | pet | hatching | [ghost-protocol](https://github.com/findastra/ghost-protocol) | Watches the public Ghost Protocol website and checks Astra’s own security against its research: a personal cybersecurity checklist and the steps she has completed. | <img src="art/frames/ghost-protocol/idle-20261008.png" width="48" height="48" alt="ghost-protocol idle"> |
 | 18 | **Project Parrot** | pet | hatching | private repo | Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them. | <img src="art/frames/project-parrot/idle-20261008.png" width="48" height="48" alt="project-parrot idle"> |
 | 19 | **Voicemeeter Bug** | pet | growing | private repo | Requests a supported Voicemeeter audio-engine restart on a manual click or an observed reconnect of a selected hardware output, and keeps Voicemeeter open. | <img src="art/frames/voicemeeter-bug/idle-20261008.png" width="48" height="48" alt="voicemeeter-bug idle"> |
 | 20 | **Platform Platypus** | pet | hatching | private repo | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | <img src="art/frames/platform-platypus/idle-20261012.png" width="48" height="48" alt="platform-platypus idle"> |
 | 21 | **Log Lynx** | pet | hatching | private repo | Observability: correlates logs, traces, health and failures. | <img src="art/frames/log-lynx/idle-20261019.png" width="48" height="48" alt="log-lynx idle"> |
 | 22 | **Packet Piranha** | pet | hatching | private repo | Network: packet loss, DNS, latency, routing. | <img src="art/frames/packet-piranha/idle-20261019.png" width="48" height="48" alt="packet-piranha idle"> |
 | 23 | **Forensic Ferret** | pet | hatching | private repo | Incident timelines and log analysis. | <img src="art/frames/forensic-ferret/idle-20261019.png" width="48" height="48" alt="forensic-ferret idle"> |
+| 24 | **Role Fairy** | pet | hatching | private repo | Runs The Fairy Court: every Discord bot Astra uses, each with its own bot panel. Sets up and looks after a bot for each server (Mommy’s Mommies and Press Plai): role pickers, and help bots that answer members’ questions from what Astra posts or authorizes and walk them through their commands; assigns or  | <img src="art/frames/role-fairy/idle-20261112.png" width="48" height="48" alt="role-fairy idle"> |
 
 ## Every mood
 
@@ -68,7 +69,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### API Fairy
 
-*Redrawn in the Cage style from her 32x24 LCD original (pink hair, mint wings).*
+*Redrawn in the shared pet style from her 32x24 LCD original (mint hair, lilac wings, a purple dress, holding a key).*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -172,7 +173,7 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 
 ### Gone Ghost
 
-*Art approved by Astra on 2026-10-08. A pale mint ghost with bright teal inner folds. Its checklist is live; the Cage character is not connected to checklist progress or security monitoring.*
+*Art approved by Astra on 2026-10-08: a pale mint ghost with bright teal inner folds, arms and a scalloped hem. That is the approved design; on 2026-11-12 Astra chose it again over the armless 2026-10-11 desktop draft, so his page, mood pictures, icon and desktop pet all show it. Its checklist is live; the pet character is not connected to checklist progress or security monitoring.*
 
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -225,6 +226,14 @@ Sheet order: rows are Friendly Farmer, GitHub Goldfish, Data Chip, API Fairy, Un
 | idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | <img src="art/frames/forensic-ferret/idle-20261019.png" width="56" height="56" alt="forensic-ferret idle"> | <img src="art/frames/forensic-ferret/blink-20261019.png" width="56" height="56" alt="forensic-ferret blink"> | <img src="art/frames/forensic-ferret/happy-20261019.png" width="56" height="56" alt="forensic-ferret happy"> | <img src="art/frames/forensic-ferret/curious-20261019.png" width="56" height="56" alt="forensic-ferret curious"> | <img src="art/frames/forensic-ferret/worried-20261019.png" width="56" height="56" alt="forensic-ferret worried"> | <img src="art/frames/forensic-ferret/sad-20261019.png" width="56" height="56" alt="forensic-ferret sad"> | <img src="art/frames/forensic-ferret/sick-20261019.png" width="56" height="56" alt="forensic-ferret sick"> | <img src="art/frames/forensic-ferret/alarmed-20261019.png" width="56" height="56" alt="forensic-ferret alarmed"> | <img src="art/frames/forensic-ferret/sleep-20261019.png" width="56" height="56" alt="forensic-ferret sleep"> |
+
+### Role Fairy
+
+*Astra, 2026-10-17: Role Fairy is a pet; her pet program is The Fairy Court (#83, renamed from Fairy Ring on 2026-11-11 so it no longer reads like API Fairy Ring). Art drafted 2026-10-18 with Astra's OK, redrawn once with --match on 2026-11-11 so the wand is in every face, and registered the same day (Astra in chat: "just do all recommended"). Claude Opus 5.5.*
+
+| idle | blink | happy | curious | worried | sad | sick | alarmed | sleep |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| <img src="art/frames/role-fairy/idle-20261112.png" width="56" height="56" alt="role-fairy idle"> | <img src="art/frames/role-fairy/blink-20261112.png" width="56" height="56" alt="role-fairy blink"> | <img src="art/frames/role-fairy/happy-20261112.png" width="56" height="56" alt="role-fairy happy"> | <img src="art/frames/role-fairy/curious-20261112.png" width="56" height="56" alt="role-fairy curious"> | <img src="art/frames/role-fairy/worried-20261112.png" width="56" height="56" alt="role-fairy worried"> | <img src="art/frames/role-fairy/sad-20261112.png" width="56" height="56" alt="role-fairy sad"> | <img src="art/frames/role-fairy/sick-20261112.png" width="56" height="56" alt="role-fairy sick"> | <img src="art/frames/role-fairy/alarmed-20261112.png" width="56" height="56" alt="role-fairy alarmed"> | <img src="art/frames/role-fairy/sleep-20261112.png" width="56" height="56" alt="role-fairy sleep"> |
 
 ## Candidates (not counted until Astra says yes)
 

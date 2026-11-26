@@ -11,14 +11,14 @@ work, port it to the desktop pets, rebuild and restart); (3) on 2026-10-11, put 
 screenshots (her desktop full of pets, and the tray star) near the top of the README.
 
 ## What I did
-- **PR #1**, branch `claude/readme-cage-movement`, commit `19253e2` (not on `main`): README
-  paragraph describing movement by kind in the Cage. **Stale**: the Cage is retired (AGENTS.md);
+- **PR #1**, branch `claude/readme-pet-movement`, commit `19253e2` (not on `main`): README
+  paragraph describing movement by kind on the old pets page. **Stale**: the old pets page is retired (AGENTS.md);
   close it or rewrite it for the desktop.
 - **Branch `claude/movement-by-kind-merge-wip-20261009`, commit `e8759fc`** (not on `main`,
   unfinished, untested, never built): merge of `ba2259a` into a snapshot of Astra's PC working
   copy as of 2026-10-09 00:45 (then `Documents\Projects\findastra-pet-apps`, branch
   `codex/astras-pet-os` at `437bf7e` plus uncommitted roam-free work). Contents:
-  `cage_life` renamed `pet_life`; Voicemeeter Bug `kind: "bug"`; movement ported into
+  movement rules renamed `pet_life`; Voicemeeter Bug `kind: "bug"`; movement ported into
   `pets.html` without enclosure modes; movement tests ported into
   `test/pets-controls-test-20261008.mjs`; PET-FILES.md "How pets move" section; a half-done
   `PetLife`/`Mover` port in `scripts/desktop-pets-20261008.cs` that is **not wired** into
@@ -33,9 +33,9 @@ screenshots (her desktop full of pets, and the tray star) near the top of the RE
 - `main` has since moved far on (desktop pets in `scripts/desktop-pets-20261011.cs` by Codex,
   tray star, 30+ desktop pets, ASTRAS_PET_OS plan, System Map). The 2026-10-09 PC snapshot and the
   WIP branch predate all of that; use the WIP branch only as reference.
-- The live desktop pets (`desktop-pets-20261011.cs`) do **not** read `cage_life`/`pet_life`:
+- The live desktop pets (`desktop-pets-20261011.cs`) do **not** read `pet_life`:
   pets do not move by kind on the desktop. PLAN.md already schedules this for Phase 7
-  ("`cage_life` movement rules … move to the desktop host"). Desktop files are Codex's area
+  ("`pet_life` movement rules … move to the desktop host"). Desktop files are Codex's area
   ("Who edits what" in PLAN.md).
 
 ## Open decisions waiting on Astra
@@ -44,7 +44,7 @@ screenshots (her desktop full of pets, and the tray star) near the top of the RE
    creators' artwork. Options offered: blur/crop BSOD (recommended), use as-is, or desktop shot
    only. She put this on hold.
 2. Whether to still bring movement by kind to the desktop pets now, or leave it for Phase 7.
-3. Close PR #1 (stale Cage wording)?
+3. Close PR #1 (stale old pets page wording)?
 
 ## Next steps, in order
 1. Ask Astra decision 3; close PR #1 if yes.

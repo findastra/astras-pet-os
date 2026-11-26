@@ -14,8 +14,8 @@ and how fresh it was.
 
 | Who | What it is today |
 |---|---|
-| **File Master** (#12, `file-master`) | Owns finding and indexing files on the PC. Its shared tool `everything-search` (`pet-program-12-v1.0-everything-search-v1.0`) is **planned, not built**: until it is, do its job by hand with the steps below. Other pets get read grants through it, never their own copy (`skills/new-pet-or-tool`). |
-| **Everything** (voidtools, third party) | Installed in `C:\Program Files (x86)\Everything`. Settings in `%APPDATA%\Everything`, index in `%LOCALAPPDATA%\Everything\Everything.db`. It runs as administrator with no service, so starting it brings up a Windows prompt for Astra. No `es.exe` command line yet (File Master's pet.json lists it as optional). When Everything is not running, its index is only as new as the date on `Everything.db`. |
+| **File Master** (#12, `file-master`) | Owns finding and indexing files on the PC. Its shared tool `everything-search` (`pet-program-12-v1.0-everything-search-v1.0`) works since 2026-11-09 (file-master `scripts/lib/file-master-everything-20261109.ps1`: `Find-FMEverything`, `Measure-FMEverything`, `Get-FMFolderFacts`). Use it when the PC's `file-master` folder has that file; when it does not, or Everything is not running, do its job by hand with the steps below. Other pets get read grants through it, never their own copy (`skills/new-pet-or-tool`). |
+| **Everything** (voidtools, third party) | Installed in `C:\Program Files (x86)\Everything`. Settings in `%APPDATA%\Everything`, index in `%LOCALAPPDATA%\Everything\Everything.db`. It runs as administrator with no service, so starting it brings up a Windows prompt for Astra and it does not start by itself at sign-in. Its command line `es.exe` (1.1.0.37) sits next to it since 2026-11-03. It indexes C: only: D: is exFAT and is not in its index (2026-11-09). When Everything is not running, its index is only as new as the date on `Everything.db`. |
 | **Index Mole** | Astra's name (2026-10-12), not in `pet-programs.json` yet (`docs/naming-audit-20261016.md`, A06), so it has no program or tools to run. Say so, and do the search File Master's way. Never invent tools for it. |
 
 ## Steps
@@ -29,6 +29,16 @@ and how fresh it was.
 3. **The places things hide on this PC:**
    - Assistants' private copies. AppData written by Claude or Codex lands in
      `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\` or `OpenAI.Codex_*\LocalCache\`, not in the real AppData.
+     **A shell started by a Claude chat sees the Claude app's private copy merged over the real `%LOCALAPPDATA%`**
+     (found 2026-11-09), so a folder can look as if it were in Local app data when only the Claude app sees it. To list
+     the real folder, start the listing outside the app (`Invoke-CimMethod -ClassName Win32_Process -MethodName Create`);
+     Everything's index holds the real paths. Look in these two folders; never move or rearrange anything inside them.
+   - Program homes: a program's own dot folder or dot file (`.claude`, `.codex`, `.gitconfig`, `.vscode`) lives in the
+     user folder and stays there. One found in Documents was moved by mistake: File Kingdom's program-home-restorer
+     puts it back (file-master `scripts/program-home-restorer-20261109.ps1`, in its pull request 14 until that merges).
+   - Temp (`%LOCALAPPDATA%\Temp`): chats and test runs leave copies of projects there, and Windows deletes old files in
+     it, leaving folders whose `.git` is empty. File Kingdom's temp-copies-check says which copies still hold work
+     (file-master `scripts/temp-copies-check-20261109.ps1`, in the same pull request). Found there is not kept there.
    - Codex task folders: `%USERPROFILE%\Documents\Codex\<date>\<task>\outputs` (downloads, installers, tools).
    - Claude scratchpads: `%LOCALAPPDATA%\Temp\claude\<project>\<session>\scratchpad`.
    - A stray `C:\c\` folder, made by Git Bash paths that were never converted.

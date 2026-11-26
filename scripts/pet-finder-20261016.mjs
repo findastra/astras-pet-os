@@ -16,6 +16,7 @@
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { farmOwner, ownerOf, sameAccount } from './farm-owner-20261020.mjs';
+import { NUMBERED } from './pet-stages-20261102.mjs';
 const PLACEHOLDER = /pet-program-\d+|icon-\d+/i;
 
 /**
@@ -37,10 +38,13 @@ export function findPets({ programs, registry, repos, local = [] }) {
   const byRepo = new Map(programs.map((p) => [p.repo, p]));
   const byNumber = new Map(programs.map((p) => [p.number, p]));
   const registered = new Set([...(registry.pets || []), ...(registry.pipeline || [])].map((p) => p.repo));
+  // Retired or folded pets (skills/retire-a-pet, 2026-11-17): never "missing", only a leftover to clear.
+  const retired = new Map((registry.retired_pets || []).map((p) => [p.repo, p]));
 
   // 1. A repo on GitHub that is a pet (pet.json, or "pet program (#N)" in its description) but has no line.
   for (const r of all.filter((x) => sameAccount(x.owner, farm))) {
     if (byRepo.has(r.name)) continue;
+    if (retired.has(r.name)) { const t = retired.get(r.name); add('retired-leftover', { pet: t.pet, repo: r.name, number: t.number, detail: `${t.pet} was retired on ${t.retired}, but its repo ${r.name} is not archived. Archive it with Astra's OK (skills/retire-a-pet).` }); continue; }
     const pj = r.petJson || null;
     const num = pj && Number.isInteger(pj.number) ? pj.number : Number((/pet program \(#(\d+)/i.exec(r.description || '') || [])[1]) || null;
     if (!pj && !num) continue;
@@ -58,6 +62,12 @@ export function findPets({ programs, registry, repos, local = [] }) {
     if (pj?.pet && pj.pet !== p.icon) add('name-mismatch', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number}: pet-programs.json says ${p.icon}, ${p.repo}/pet.json says ${pj.pet}.` });
     // 4. Registered or pipeline pet programs that the registry does not know.
     if (['registered', 'pipeline'].includes(p.stage) && !registered.has(p.repo)) add('not-in-registry', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon} (${p.stage}) is missing from pets.json. Registering it moves it through the gate, so Astra decides.` });
+    // 4b. A pet at the wrong stage (Astra, 2026-11-02): a seed or roadmap pet whose repo has real work (tools or an entry
+    // page in its pet.json), or a pet whose own pet.json names another stage. The Farmer moves it on a branch.
+    const tools = Array.isArray(pj?.tools) ? pj.tools.length : 0;
+    if (['seed', 'roadmap'].includes(p.stage) && (tools || (typeof pj?.entry === 'string' && pj.entry))) add('wrong-stage', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon} is a ${p.stage} pet, but ${p.repo}/pet.json lists ${tools ? `${tools} tool${tools === 1 ? '' : 's'}` : `an entry page (${pj.entry})`}: real work. Move it to the pipeline (pet-programs.json and pets.json), npm run build, and a pull request for Astra.` });
+    const own = [pj?.stage, pj?.status].find((s) => NUMBERED.includes(s));
+    if (own && own !== p.stage) add('wrong-stage', { pet: p.icon, repo: p.repo, number: p.number, detail: `#${p.number} ${p.icon}: ${p.repo}/pet.json says ${own}, pet-programs.json says ${p.stage}. Fix whichever is out of date.` });
   }
   // 5. Placeholder names and missing homes (the profile shows them as they are; Astra names them).
   for (const p of programs) {
@@ -68,6 +78,7 @@ export function findPets({ programs, registry, repos, local = [] }) {
 
   // 6. Pets that live only on the PC.
   for (const l of local) {
+    if (retired.has(l.folder)) { const t = retired.get(l.folder); add('retired-leftover', { pet: t.pet, repo: l.folder, number: t.number, detail: `${t.pet} was retired on ${t.retired}, but its folder is still on the PC (${l.folder}). Check it for unsaved work, then the Recycle Bin (skills/retire-a-pet).` }); continue; }
     if (l.onGitHub || byRepo.has(l.folder)) continue;
     add('pc-only', { pet: l.pet, repo: l.folder, detail: `${l.pet || l.folder}${l.program ? ` (${l.program})` : ''} is only on the PC (${l.file}), not on GitHub.` });
   }

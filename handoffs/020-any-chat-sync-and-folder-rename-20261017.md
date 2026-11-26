@@ -5,7 +5,7 @@ needs: AGENTS.md ("One copy of each repo"), skills/pet-finder/SKILL.md, docs/nam
 ---
 ## What I did
 
-Astra asked me to bring what an older Claude chat (2026-10-07 to 2026-10-08, "the Cage chat") decided into this repo, and to take the best approach. I read the repo's rule files, compared them with `origin/main`, and found that almost everything from that chat is already here or was replaced by newer decisions.
+Astra asked me to bring what an older Claude chat (2026-10-07 to 2026-10-08, "the old pets page chat") decided into this repo, and to take the best approach. I read the repo's rule files, compared them with `origin/main`, and found that almost everything from that chat is already here or was replaced by newer decisions.
 
 - Branch `claude/chat-sync-20261017`, from `origin/main` at `beed649`, made in a separate worktree so the Codex checkout on `codex/world-caretakers-20261016` was not touched. Not merged.
 - Changed `docs/agent-account-20261014.md`: the `icacls` grant pointed at `Documents\Projects`, a folder that no longer exists; it now points at `Documents\Astra's PetOS`, the folder name Astra chose on 2026-10-17 (commit `beed649`).
@@ -16,7 +16,7 @@ Astra asked me to bring what an older Claude chat (2026-10-07 to 2026-10-08, "th
 
 **Already on main, nothing to do:** the registry and nine moods; Goldfish, Chip, API Fairy, Unity Unicorn, Python Panther, Astra Wisp, Health Hummy, Finance Finch, Mommy's Mommies (the twins share one sprite), Patty, File Master, Discord Damsel; the employer-name rule; the one-working-copy rule with the new folder name.
 
-**Superseded, deliberately not carried over:** the Cage features asked for in the old chat (the Farmer opening the cage door, Nullbot standing on the cage, browser roaming), because the Cage is retired (Astra, 2026-10-12 and 2026-10-14); the old 32×32 hand-drawn art (replaced by generated 256×256 sprites); the old chat's spellings "Healthy Hummy" and "Paper Girl" (the list says Health Hummy and Patty); the old profile README draft on local branch `update-projects` in the `findastra` folder (the Farmer's profile round writes the profile now).
+**Superseded, deliberately not carried over:** the old pets page features asked for in the old chat (the Farmer opening the old pets page door, Nullbot standing on the old pets page, browser roaming), because the old pets page is retired (Astra, 2026-10-12 and 2026-10-14); the old 32×32 hand-drawn art (replaced by generated 256×256 sprites); the old chat's spellings "Healthy Hummy" and "Paper Girl" (the list says Health Hummy and Patty); the old profile README draft on local branch `update-projects` in the `findastra` folder (the Farmer's profile round writes the profile now).
 
 ## Task
 

@@ -9,7 +9,7 @@ OpenAI Codex (GPT-6), 2026-10-11, America/Denver.
 - Left click on the tray star toggles the desktop launcher (star and attached Farmer). Roaming pets stay visible and animated. The desktop star still toggles the desktop pets. Tray right click opens the existing menu, plus Show/Hide desktop star.
 - Removed ownership of roaming windows by the launcher so hiding the launcher does not hide the desktop pets; shutdown still explicitly closes all roaming windows.
 - Tray icon and native icon handle are cleaned up on exit. No startup setting was changed.
-- Added tray state to diagnostics and --toggle-star to exercise the click handler. The browser menu falls back to cage.html when pets.html is absent.
+- Added tray state to diagnostics and --toggle-star to exercise the click handler. The browser menu falls back to the old pets page when pets.html is absent.
 - Built with build-desktop-pets-20261011.ps1 -CandidateOnly. Self-tests passed, including launcher hide/show preserving the desktop pets' state.
 - Saved the prior installed executable as bin/desktop-pets-before-tray-20261011.exe, quit gracefully, and installed the candidate at the existing bin/desktop-pets-20261008.exe path.
 - Live diagnostics confirmed tray_visible true; desktop visibility true -> false -> true; 18 roaming windows visible throughout; animation running; 19 registered pets; Bug present; docking true. The physical tray click and Windows overflow placement still need owner visual confirmation.

@@ -1,0 +1,69 @@
+/* github-goldfish-cyberhome: the GitHub Aquarium, drawn small inside the cyberhome (Astra, 2026-11-11: "make a little
+   mini version of the cyber home in that top left square that fits in that panel").
+   The tool is the cyberhome itself (the same night: "the tool that is the GitHub Goldfish Cyberhome with the buttons on
+   it, that one is going to be the Cyberhome ... essentially just where the pink border is"). A plain pink case (2026-11-12:
+   "get rid of all the weird details"), its two lights inside the top edge on the left, like every tool's lights, and on
+   the right an antenna like a walkie-talkie's ("I don't want the buttons to be like sticking out like that. It should look
+   like an antenna on a walkie-talkie almost ... buttons on the left side and then the antenna on the right because it
+   would match the other tools"). The room inside is the Aquarium app's tank: striped water, dotted sand, dark seaweed,
+   bubbles. The Goldfish stays at its desktop size in front. Only pages whose pet has this cyberhome load this file
+   (CYBERHOMES in scripts/pet-program-pages-20261018.mjs). By Astra; Claude Opus 5.5, 2026-11-11 and 2026-11-12. */
+.habitat.aquarium-home {
+  --aq-case: #f2a7d0; --aq-case-edge: #805872; --aq-glass: #3c3b5a; --aq-water: #bfe6f6; --aq-stripe: #d6f0fa;
+  --aq-weed: #24503a; --aq-sand: #3a3550; --aq-bubble: #ffffff;
+  position: relative; margin-top: 16px; padding: 18px 7px 3px; box-sizing: border-box;
+  border: 2px solid var(--aq-case-edge); border-radius: 12px; box-shadow: 0 3px 0 var(--aq-case-edge); background: var(--aq-case);
+}
+/* The tool's name is printed on the case's bottom edge, like the app's status line. */
+.habitat.aquarium-home > .render-label {
+  order: 2; position: static; align-self: stretch; justify-content: center; min-height: 0; margin: 3px 0 0; padding: 0;
+  border: 0; border-radius: 0; background: none;
+}
+.habitat.aquarium-home > .render-label .render-name { font-size: 8px; line-height: 1.2; white-space: nowrap; letter-spacing: -.1px; color: #4a2340; font-weight: 700; text-align: center; }
+/* Its lights are the case's two buttons, set into the top edge on the left, where every tool keeps its lights. */
+.habitat.aquarium-home > .render-label .lights { position: absolute; top: 4px; left: 9px; gap: 6px; margin: 0; z-index: 3; }
+.habitat.aquarium-home > .render-label .light { border-color: var(--aq-case-edge); }
+/* The antenna on the right, like a walkie-talkie's: a short, thick, rounded rod on a little collar. */
+.habitat.aquarium-home > .ch-antenna {
+  position: absolute; top: -16px; right: 14px; width: 7px; height: 16px; box-sizing: border-box;
+  background: #4a2340; border-radius: 4px 4px 1px 1px;
+}
+.habitat.aquarium-home > .ch-antenna::after {
+  content: ''; position: absolute; bottom: -2px; left: -2px; width: 11px; height: 4px; background: var(--aq-case-edge); border-radius: 2px 2px 0 0;
+}
+/* The room: the Aquarium's glass. */
+.habitat.aquarium-home > .den.aquarium {
+  order: 1; margin-top: 0; height: 68px; min-height: 68px; box-sizing: border-box; overflow: hidden; isolation: isolate;
+  border: 2px solid var(--aq-glass); border-radius: 6px; background: var(--aq-water);
+}
+.den.aquarium .aq-tank { position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(180deg, var(--aq-stripe) 0 1px, var(--aq-water) 1px 3px); }
+/* The sand line: a row of dots near the bottom of the glass, like the app's. */
+.den.aquarium .aq-tank::after {
+  content: ''; position: absolute; left: 3px; right: 3px; bottom: 4px; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--aq-sand) 0 2px, transparent 2px 5px);
+}
+/* Seaweed tufts, drawn in 2px pixels like the app's. */
+.den.aquarium .aq-weed {
+  position: absolute; bottom: 6px; width: 2px; height: 2px; background: var(--aq-weed);
+  box-shadow: 2px 0 var(--aq-weed), 4px 0 var(--aq-weed), 6px 0 var(--aq-weed), 8px 0 var(--aq-weed),
+    2px -2px var(--aq-weed), 4px -2px var(--aq-weed), 6px -2px var(--aq-weed),
+    0 -4px var(--aq-weed), 4px -4px var(--aq-weed), 8px -4px var(--aq-weed), 4px -6px var(--aq-weed);
+}
+.den.aquarium .aq-weed.w1 { left: 8%; }
+.den.aquarium .aq-weed.w2 { left: 46%; }
+.den.aquarium .aq-weed.w3 { right: 10%; }
+/* Bubbles rise from the bottom and pop at the waterline. */
+.den.aquarium .aq-bubble {
+  position: absolute; bottom: 8px; width: 2px; height: 2px; background: var(--aq-bubble); opacity: 0;
+  box-shadow: 0 -2px var(--aq-bubble), 2px -1px var(--aq-bubble);
+  animation: aq-rise 4.2s linear infinite;
+}
+.den.aquarium .aq-bubble.b1 { left: 22%; }
+.den.aquarium .aq-bubble.b2 { left: 70%; animation-delay: 1.6s; animation-duration: 5s; }
+.den.aquarium .aq-bubble.b3 { left: 84%; animation-delay: 3s; animation-duration: 3.6s; }
+@keyframes aq-rise { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .9; } 85% { opacity: .9; } 100% { transform: translateY(-44px); opacity: 0; } }
+/* The Goldfish swims in front of the glass, at the size it has on the desktop. */
+.den.aquarium img.pet { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .den.aquarium .aq-bubble { animation: none; opacity: .8; } .den.aquarium .aq-bubble.b2 { transform: translateY(-18px); } .den.aquarium .aq-bubble.b3 { transform: translateY(-30px); }
+}

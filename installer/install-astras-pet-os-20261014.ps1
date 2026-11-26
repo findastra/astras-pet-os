@@ -51,7 +51,7 @@ param(
     [string]$SetupWindowPicture
 )
 $ErrorActionPreference = 'Stop'
-$Version = 'v0.3.0-beta'
+$Version = 'v0.4.0-beta'
 
 # A locked-down computer (Astra, 2026-10-19): when its administrator does not allow what this installer needs, stop
 # before anything is copied and say how to use Astra's PetOS with nothing to install. Never work around its security.
@@ -256,7 +256,7 @@ function Get-PetAccount($Registry, [string]$Repo) {
     $farm = [string](Get-Field $Registry 'github_owner'); if (-not $farm) { $farm = $upstreamOwner }
     foreach ($p in @(Get-Field $Registry 'pets') + @(Get-Field $Registry 'pipeline')) {
         if ($p -and [string](Get-Field $p 'repo') -eq $Repo) { $o = Get-Field $p 'github_owner'; if ($null -ne $o) { return [string]$o }; return $farm } }
-    if ($Repo -and $Repo -eq [string](Get-Field $Registry 'cage')) { return $farm }
+    if ($Repo -and $Repo -eq [string](Get-Field $Registry 'hub')) { return $farm }
     foreach ($c in @(Get-Field $Registry 'candidates')) {
         if ($c -and [string](Get-Field $c 'repo') -eq $Repo) { $o = Get-Field $c 'github_owner'; if ($null -ne $o) { return [string]$o }; return $farm } }
     $upstreamOwner
@@ -578,10 +578,12 @@ try {
         Start-Sleep -Milliseconds 300
     }
 
-    # 4. Copy the release (never the git history, local builds or packages), then keep only the chosen pets
+    # 4. Copy the release (never the git history, local builds or packages), then keep only the chosen pets.
+    # .git is skipped as a folder (a clone) and as a file (a git worktree's pointer to the hub's history): a copied
+    # pointer would make the new farm look like a hub copy to the Friendly Farmer, and git there would use the hub's.
     Write-Host "Copying to $InstallDir"
     New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-    $null = & robocopy $source $InstallDir /E /XD .git node_modules bin .claude $farmCatalog /XF $farmLock /NFL /NDL /NJH /NJS /NP
+    $null = & robocopy $source $InstallDir /E /XD .git node_modules bin .claude $farmCatalog /XF $farmLock .git /NFL /NDL /NJH /NJS /NP
     if ($LASTEXITCODE -ge 8) { throw "Copy failed (robocopy exit $LASTEXITCODE)." }
     Get-ChildItem -LiteralPath $InstallDir -Recurse -File | Unblock-File -ErrorAction SilentlyContinue
     # The farm's list of pets (its catalog): the release's own pets.json and draft list, unfiltered, so the Friendly

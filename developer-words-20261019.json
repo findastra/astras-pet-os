@@ -178,7 +178,6 @@
     "cluster-shore": { "agent": "Cluster Agent" },
     "storage-warren": { "agent": "Storage Agent" },
     "white-hat-lab": { "agent": "Security Assessment Agent" },
-    "port-web": { "agent": "Port Exposure Agent" },
     "cipher-hollow": { "agent": "Encryption Agent" },
     "evidence-locker": { "agent": "Forensics Agent" },
     "model-library": { "agent": "Model Inventory Agent" },
@@ -195,6 +194,7 @@
     "the-threshold": { "agent": "Liminal Doors Agent" },
     "role-fairy": { "agent": "Discord Bot Agent" },
     "workflow-whirlpool": { "agent": "Screen Markup Agent" },
-    "pc-master-race": { "agent": "System Utilities Agent" }
+    "pc-master-race": { "agent": "System Utilities Agent" },
+    "the-pilot-plant": { "agent": "Engineering Agent" }
   }
 }

@@ -12,7 +12,10 @@ import { fileURLToPath } from 'node:url';
 import { DRAFTS_LIST, choosePets, farmPets, writeFarm, writeFarmFiles } from '../scripts/farm-setup-20261019.mjs';
 import { CATALOG, LOCK, SCHEMA, buildLock, canonicalJson, coreParts, denverNow, entryHash, missingNeeds, requiredClosure } from '../scripts/farm-lock-20261021.mjs';
 import { TOOL_LABEL, applyPlan, checkFarm, planAdd, planRemove, readFarm, writeLock } from '../scripts/farm-pets-20261021.mjs';
-import { ownerOf, upstream } from '../scripts/farm-owner-20261020.mjs';
+import { farmOwner, ownerOf, upstream } from '../scripts/farm-owner-20261020.mjs';
+
+// These tests stand in for Astra's Windows farm, so they read the same on GitHub's Linux runner (2026-11-08).
+process.env.PETOS_OS = 'windows';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (rel) => readFileSync(join(root, rel), 'utf8').replace(/^﻿/, '');
@@ -76,9 +79,17 @@ test('setting up a farm from scratch (Linux) brings the needed pets and writes t
     const pet = (id) => lock.pets.find((p) => p.id === id);
     assert.deepEqual(pet('goldfish').missing.map((m) => [m.kind, m.id, m.state]), [['core', 'daily-round', 'not on this farm'], ['program', 'github', 'not checked']], 'answer 4: it comes in, and the lock marks it');
     assert.deepEqual(pet('voicemeeter-bug').missing.map((m) => m.name), ['Voicemeeter']);
+    process.env.PETOS_OS = 'linux';
+    try {
+      const linuxDir = temp();
+      writeFarm(root, linuxDir, choice, { version: 'v-test', now: NOW });
+      const onLinux = json(join(linuxDir, LOCK)).pets.find((p) => p.id === 'voicemeeter-bug');
+      assert.deepEqual(onLinux.missing.map((m) => m.name), ['Windows 10 or 11', 'Voicemeeter'], 'on Linux the lock says a Windows-only pet needs Windows');
+      rmSync(linuxDir, { recursive: true, force: true });
+    } finally { process.env.PETOS_OS = 'windows'; }
     assert.equal(pet('forensic-ferret').entry.sha256, entryHash(json(join(dir, 'pets.json')).pets.find((p) => p.art === 'forensic-ferret')));
     assert.equal(pet('forensic-ferret').account, upstream().owner);
-    assert.equal(lock.farm.github_owner, upstream().owner);
+    assert.equal(lock.farm.github_owner, farmOwner(json(join(root, 'pets.json'))), 'the farm owner pets.json names (Astra on her farm)');
     assert.ok(!JSON.stringify(lock).includes(tmpdir()), 'no folder path of this computer in the farm lock');
     writeFarm(root, dir, choosePets(all, { farm: 'scratch', pets: ['goldfish'] }), { version: 'v-test', now: NOW });
     const again = json(join(dir, LOCK));

@@ -175,7 +175,7 @@ for (const config of configs) {
   if (requested.size && !requested.has(config.repo)) continue;
   const output = `apps/${config.file || config.repo}-20261008.html`;
   // Published companions retain their exact source bytes and version footer.
-  // The Farmer's manager is generated from the current Cage registry.
+  // The Farmer's manager is generated from the current hub registry.
   if (config.type !== 'manager' && existsSync(output) && !refreshExisting) { preserved++; continue; }
   const pet = petFor(registry, config);
   const image = 'data:image/png;base64,' + readFileSync(art.pets[pet.art].frames.idle).toString('base64');

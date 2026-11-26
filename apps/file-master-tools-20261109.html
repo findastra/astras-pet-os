@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The save map · File Kingdom</title>
+<!-- File Kingdom's tool page (Astra, 2026-11-09: "some kind of flow tree that shows me where everything is saved and
+     where I should save things"; "I need the File Kingdom (Pet Program) to have this information in panels"). Each of
+     the save map's tool boxes in L1 shows this page with ?tool=<id>; opened on its own with no ?tool it shows every
+     tool. It reads only what File Master's look wrote on this PC,
+     Documents\Astra's PetOS Data\file-master\file-kingdom-page-data.js, and shows nothing about any PC anywhere else:
+     with no look to read it shows a made-up example. Self-contained, no dependencies, works by double-click.
+     Written with Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{
+  /* The pet program page's blueprint: Prussian blue paper, white lines and lettering, yellow marks. */
+  --paper:#173f78; --ink:#f4f8ff; --dim:#c3d5ef; --line:#e8f0ff; --line-dim:#7d9fcf; --mark:#ffd84d;
+  --ok:#4fb35a; --bad:#ff8f8a; --warn:#ff9a3c; --cool:#6cc7e8;
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--paper); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper)}
+html.in-tool,html.in-tool body{background:transparent}
+/* color-scheme back to normal inside a tool box: a frame whose scheme differs from its page's gets a solid backdrop */
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:0 0 6px;max-width:none}
+html.in-tool header{display:none}
+html.in-tool .tool{margin:0;border:0;padding:0}
+html.in-tool .tool>h2{display:none}
+main{max-width:1040px;margin:0 auto;padding:20px 16px 48px}
+header h1{margin:0 0 4px;font-size:1.5rem}
+.sub{color:var(--dim)}
+.tool{border:1px solid var(--line-dim);padding:14px 16px;margin:14px 0}
+.tool>h2{margin:0 0 8px;font-size:1.1rem;color:var(--mark)}
+h3{margin:16px 0 6px;font-size:.98rem;color:var(--mark);font-weight:600}
+p{margin:4px 0}
+a{color:var(--mark)}
+code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:.86em;border:1px solid var(--line-dim);padding:0 5px;overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.chip{border:1px solid var(--line-dim);padding:0 8px;font-size:.82rem;white-space:nowrap;border-radius:999px}
+.chip.ok{border-color:var(--ok);color:#9be3a3}
+.chip.no{border-color:var(--warn);color:#ffc48f}
+.chip.bad{border-color:var(--bad);color:var(--bad)}
+.chip.cool{border-color:var(--cool);color:var(--cool)}
+.note{border-left:3px solid var(--warn);padding:3px 10px;margin:8px 0}
+.use{border-left:3px solid var(--cool);padding:3px 10px;margin:8px 0}
+.empty{color:var(--dim);font-style:italic}
+button{font:inherit;font-size:.8rem;color:var(--ink);background:transparent;border:1px solid var(--line-dim);border-radius:999px;padding:0 9px;cursor:pointer;white-space:nowrap}
+button:hover,button:focus-visible{border-color:var(--mark);color:var(--mark);outline:none}
+button.done{border-color:var(--ok);color:#9be3a3}
+.path{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:3px 0}
+/* where-to-save: the questions, in order */
+ol.asks{list-style:none;margin:8px 0 0;padding:0;counter-reset:ask}
+ol.asks>li{counter-increment:ask;border-top:1px solid var(--line-dim);padding:8px 0 8px 40px;position:relative}
+ol.asks>li::before{content:counter(ask);position:absolute;left:0;top:8px;width:28px;height:28px;border:1px solid var(--mark);color:var(--mark);border-radius:50%;display:grid;place-items:center;font-size:.85rem}
+.ask{font-weight:600}
+/* where-things-live: one row per place */
+input[type=search]{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line-dim);padding:4px 10px;width:100%;max-width:420px;border-radius:999px}
+input[type=search]::placeholder{color:var(--dim)}
+.place{border-top:1px solid var(--line-dim);padding:8px 0;display:grid;grid-template-columns:200px 1fr;gap:4px 12px}
+.place .chip{white-space:normal;display:inline-block}
+.place .facts{color:var(--dim);font-size:.88rem}
+.place[hidden]{display:none}
+@media (max-width:560px){.place{grid-template-columns:1fr}ol.asks>li{padding-left:36px}}
+/* out-of-place: one block per finding */
+.finding{border-top:1px solid var(--line-dim);padding:10px 0}
+.finding h4{margin:0 0 2px;font-size:1rem;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.finding ul{margin:6px 0 0;padding-left:18px}
+.finding li{margin:2px 0}
+details>summary{cursor:pointer;color:var(--mark);font-size:.88rem;margin-top:4px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:4px 0}
+th,td{border:1px solid var(--line-dim);padding:3px 7px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{color:var(--mark);font-weight:600}
+td.n{text-align:right;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>The save map</h1>
+<p class="sub">File Kingdom: one place for each kind of thing. <span data-looked></span></p>
+</header>
+<div data-tools><p class="empty">Reading File Master’s last look…</p></div>
+</main>
+<script src="file-master-tools-20261109.js"></script>
+</body>
+</html>
