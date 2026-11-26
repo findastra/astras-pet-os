@@ -8,7 +8,7 @@ import { mkdtempSync, mkdirSync, readFileSync, existsSync, writeFileSync } from 
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { classify, reach, where, privacy, build, ask, menu, mood, close, once, quit, watching, lockPid, LEFTOVER_MS, PAGE_DATA, SCHEMA, SERVER, LOCK } from '../scripts/white-hat-lab-server-20261120.mjs';
+import { classify, reach, where, privacy, build, ask, menu, mood, close, once, quit, watching, lockPid, serversFrom, LEFTOVER_MS, PAGE_DATA, SCHEMA, SERVER, LOCK } from '../scripts/white-hat-lab-server-20261120.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HOME = 'C:\\Users\\example';
@@ -42,6 +42,26 @@ test('each port gets a kind and a label Astra knows', () => {
   assert.deepEqual(classify('node.exe', 'ai-discord-presence\\openai-discord-presence\\src\\server.js').label, 'OpenAI Discord Presence');
   assert.equal(classify('svchost.exe', '').kind, 'windows');
   assert.equal(classify('Spotify.exe', 'Spotify.exe').label, 'Spotify');
+});
+
+test('our own servers are known by the name written once in pets.json, wherever they run from (A72)', () => {
+  const pets = { pets: [{ repo: 'y', pet: 'Y' }], pipeline: [{ repo: 'rift-rabbit', pet: 'Rift Rabbit', server: 'wonderland-launchpad-server-20261121.exe' }, { repo: 'b', pet: 'B', server: 'bin/b-server-20261120.exe' }] };
+  assert.deepEqual(serversFrom(pets, [{ repo: 'rift-rabbit', program: 'Wonderland Launchpad' }]), [
+    ['wonderland-launchpad-server-20261121.exe', "Wonderland Launchpad's server", 'Rift Rabbit'],
+    ['b-server-20261120.exe', "b's server", 'B'],
+  ]);
+  assert.deepEqual(serversFrom({}), []);
+  // This hub's pets.json: every named server is one of ours, so the Weasel may close it, even from a folder no marker names.
+  const hub = JSON.parse(readFileSync(join(root, 'pets.json'), 'utf8'));
+  const named = [...hub.pets, ...hub.pipeline].filter((p) => p.server);
+  assert.ok(named.some((p) => p.repo === 'rift-rabbit'));
+  for (const p of named) {
+    const file = p.server.split('/').pop();
+    const c = classify(file, `D:\\elsewhere\\${file} --startup`);
+    assert.equal(c.kind, 'petos', file);
+    assert.match(c.label, /'s server$/, file);
+    assert.equal(c.pet, p.pet, file);
+  }
   assert.match(classify('mystery.exe', '').label, /not in the Weasel’s list yet/);
 });
 
