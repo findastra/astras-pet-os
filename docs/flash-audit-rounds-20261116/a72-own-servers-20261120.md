@@ -72,6 +72,21 @@ Each server's name is written once, as `server` in its pet's entry in `pets.json
 path inside the pet's folder (`bin/benchmark-rock-server-20261120.exe`). Startup Star, the Weasel and the pages read it
 there, so a later rename is the pet's own repo and that one line.
 
+## Servers made since the dry run (checked 2026-11-26)
+
+These were built by other chats with the right name from the start, so they need no rename. They are in `pets.json`,
+and Startup Star runs them:
+
+- **Workflow Whirlpool:** `workflow-whirlpool-server-20261120.mjs` runs the screen watch and the Deskflow watch in one
+  process (findastra/workflow-whirlpool#7 and #427, merged 2026-11-21).
+- **PC Master Race:** `pc-master-race-server-20261120.mjs` does a weekly look, and quick looks only while its page is
+  open (findastra/pc-master-race#3, then #417 and #426, merged 2026-11-21). A restart gives it a new port, so its page
+  data is stale until its first look ends, a few minutes later.
+
+Still open in another chat: Light Hive's server (row 18), `light-hive-server-20261120`, in findastra/rgbee#16 and #403.
+#403 still edits the port watch by its old name, `scripts/port-watch-20261119.mjs`, which #425 renamed; since #431 the
+Weasel knows any server named in `pets.json`. The rest of the table is still to do: rows 5 to 11, 13 to 17.
+
 ## How each rename goes
 
 1. A branch in the owner's repo: the file, its build or launch script, its README and `pet.json`.
