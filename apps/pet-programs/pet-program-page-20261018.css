@@ -119,6 +119,18 @@
   --tool-bg: rgba(255, 255, 255, .08); --tool-bg-hover: rgba(200, 240, 255, .16);
 }
 :root[data-pet="vscode-angel"] .footer-group::before, :root[data-pet="vscode-angel"] .footer-sparkle { color: #ffe08a; }
+/* Workflow Whirlpool's own colours, Workflow Whale's (Astra, 2026-11-26: "assign a background color"): a deep-sea page
+   from his body blue (#2878f8) taken down to the dark, his belly mint (#e6fbf2) for lettering, his fin's light blue
+   (#50c0f8) for the panel lines and connections, and his cheek pink (#fcacbf) for links, marks, the working-copy box and
+   the footer's sparkles. Sampled from art/moods/workflow-whale/idle.png. */
+:root[data-pet="workflow-whale"] {
+  --slate: #0b2650; --slate-2: #081b3a; --chalk: #e6fbf2; --chalk-dim: #a9cbd6; --line: #50c0f8; --line-dim: #2a6a9a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fcacbf;
+  --editorial: #fcacbf; --editorial-ink: #ffe3ea; --editorial-glow: rgba(252, 172, 191, .22); --grid: none; --editorial-by: #ffc9d6; --serial: #fcacbf;
+  --link: #fcacbf; --connection: #9fdcfb;
+  --tool-bg: rgba(80, 192, 248, .06); --tool-bg-hover: rgba(252, 172, 191, .1);
+}
+:root[data-pet="workflow-whale"] .footer-group::before, :root[data-pet="workflow-whale"] .footer-sparkle { color: #fcacbf; }
 /* The Threshold's own colours, Door Dormouse's (Astra, 2026-11-11: "I like that color of his tail. Can we make the
    background of the pet program that color?"): the page is his tail tip's indigo (#31316f, sampled from his desktop
    drawing), with the deeper indigo inside his ears for the darker parts, his belly cream for lettering, his orange fur
