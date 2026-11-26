@@ -52,9 +52,11 @@ test('the page reads the real list only from one fixed file on Astra\'s PC, and 
   // Three script elements in the page script: this list, GitHub Aquarium's outstanding items and Inference Iguana's
   // open programs (2026-10-23, read again every five seconds, so its address carries the time), each from its own
   // fixed constant and only on this PC. A fourth since 2026-11-14: GitHub Aquarium's branch-sweeper list. A fifth the
-  // same day: The Farm's pet-moods, every pet's one mood (test/pet-moods-test-20261114.mjs).
-  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 5, 'one script element per local list');
-  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_MOODS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS', 'LOCAL_SWEEPER'], 'each address is a fixed constant, never from data');
+  // same day: The Farm's pet-moods, every pet's one mood (test/pet-moods-test-20261114.mjs). A sixth since 2026-11-26:
+  // the tool Deck Duck's Stream Deck knob is on (deck-pick-page-data.js), read only while the page is in front.
+  assert.equal((js.match(/createElement\('script'\)/g) || []).length, 6, 'one script element per local list');
+  assert.deepEqual([...js.matchAll(/script\.setAttribute\('src', (\w+)(?: \+ '\?t=' \+ Date\.now\(\))?\)/g)].map((m) => m[1]), ['LOCAL_PROGRAMS', 'LOCAL_MOODS', 'LOCAL_REQUESTS', 'LOCAL_ITEMS', 'LOCAL_SWEEPER', 'LOCAL_PICK'], 'each address is a fixed constant, never from data');
+  assert.match(js, /var LOCAL_PICK = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/deck-duck\/deck-pick-page-data\.js";/);
   assert.match(js, /var LOCAL_MOODS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/astras-pet-os\/pet-moods\/pet-moods-page-data-20261114\.js";/);
   assert.match(js, /var LOCAL_SWEEPER = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/github-aquarium\/branch-sweeper-page-data\.js";/);
   assert.match(js, /var LOCAL_PROGRAMS = "\.\.\/\.\.\/\.\.\/\.\.\/Astra's PetOS Data\/benchmark-rock\/programs-page-data\.js";/);
