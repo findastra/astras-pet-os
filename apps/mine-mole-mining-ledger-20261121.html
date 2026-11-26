@@ -32,7 +32,7 @@
 </fieldset>
 
 <fieldset><legend>coins-and-cost-over-time</legend>
-<p class="note">Dark teal: CC mined so far. Plum dashes: power cost so far, in thousandths of a dollar. Each step is one block.</p>
+<p class="note">Teal: CC mined so far. Pale pink dashes: power cost so far, in thousandths of a dollar. Each step is one block.</p>
 <svg id="chart" viewBox="0 0 640 200" width="100%" role="img" aria-label="Coins mined and power cost, block by block"></svg>
 </fieldset>
 
@@ -83,8 +83,8 @@
 
     // Chart
     var ch = $('chart'); empty(ch);
-    ch.appendChild(svg('line', { x1: 40, y1: 180, x2: 630, y2: 180, stroke: '#3d1028' }));
-    ch.appendChild(svg('line', { x1: 40, y1: 10, x2: 40, y2: 180, stroke: '#3d1028' }));
+    ch.appendChild(svg('line', { x1: 40, y1: 180, x2: 630, y2: 180, stroke: '#fb5582' }));
+    ch.appendChild(svg('line', { x1: 40, y1: 10, x2: 40, y2: 180, stroke: '#fb5582' }));
     if (blocks.length) {
       var pts = [], cpts = [], c = 0, k = 0, maxC = 0, maxK = 0;
       blocks.forEach(function (b) { c += b.reward; k += b.cost * 1000; maxC = Math.max(maxC, c); maxK = Math.max(maxK, k); });
@@ -96,8 +96,8 @@
         pts.push(x.toFixed(1) + ',' + (180 - 165 * c / top).toFixed(1));
         cpts.push(x.toFixed(1) + ',' + (180 - 165 * k / top).toFixed(1));
       });
-      ch.appendChild(svg('polyline', { points: pts.join(' '), fill: 'none', stroke: '#0b4f5c', 'stroke-width': 2 }));
-      ch.appendChild(svg('polyline', { points: cpts.join(' '), fill: 'none', stroke: '#2b0e1c', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+      ch.appendChild(svg('polyline', { points: pts.join(' '), fill: 'none', stroke: '#3fd0e6', 'stroke-width': 2 }));
+      ch.appendChild(svg('polyline', { points: cpts.join(' '), fill: 'none', stroke: '#ffd6e2', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
       ch.appendChild(svg('text', { x: 4, y: 16 }, C.fmtNum(top, 1)));
       ch.appendChild(svg('text', { x: 28, y: 194 }, '0'));
       ch.appendChild(svg('text', { x: 560, y: 194 }, 'block ' + blocks[n - 1].block));

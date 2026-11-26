@@ -1,10 +1,10 @@
 /* Crypto Burrow's mining tools (Mine Mole, pet program #23): one look for all five tool pages, in Crypto Burrow's own
-   colours (Astra, 2026-11-26): his claw pink, dark plum lettering and lines, no white anywhere, and a solid page
+   colours (Astra, 2026-11-26): a very dark rose in his claw pink's hue, pale pink lettering, claw-pink lines, no white anywhere, and a solid page
    inside the tool box so the browser never paints white behind it.
    Inside a tool box (html.in-tool, set by mine-mole-in-tool-20261121.js) the page hides its own header. Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. */
-:root{--bg:#fb5582;--ink:#2b0e1c;--dim:#4a1530;--line:#3d1028;--faint:rgba(43,14,28,.25);--accent:#2b0e1c;--zero:#0b4f5c;
-  --good:#0d5c2e;--bad:#7a0010;--well:rgba(43,14,28,.07);
-  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:light}
+:root{--bg:#360814;--ink:#ffd6e2;--dim:#e8a3b8;--line:#fb5582;--faint:rgba(251,85,130,.3);--accent:#fb5582;--zero:#3fd0e6;
+  --good:#7ee2a8;--bad:#ffb08a;--well:rgba(251,85,130,.08);
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);
   }
@@ -17,7 +17,7 @@ h1{margin:0 0 4px;font-size:1.7rem}
 h2{margin:18px 0 6px;font-size:1.15rem}
 h3{margin:14px 0 4px;font-size:1rem}
 p{margin:6px 0}
-a{color:var(--accent)}
+a{color:#ff8fb0}
 .sub,.note{color:var(--dim)}
 .note{font-size:.88rem}
 code,.mono{font-family:ui-monospace,Consolas,monospace;font-size:.9em}

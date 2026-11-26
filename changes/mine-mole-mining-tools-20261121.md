@@ -52,3 +52,8 @@ tools (cant read this)". The page and the five tools are now his claw pink (#fb5
 (#2b0e1c, 5.9:1) for lettering, lines and links and his helmet's deep teal for the working-copy box. The white inside
 the tools came from each tool page being see-through with a different colour scheme from the page around it, so the
 browser painted white behind it; each tool now has a solid pink page and the same light scheme.
+
+**Then darker:** Astra, 2026-11-26: "make it wayyyyy darker but i like the shade of pink". Same hue as the claw pink
+(344°), taken down to a very dark rose (#360814), with pale pink lettering (#ffd6e2, not white), the claw pink for
+lines, links and marks, and his helmet's teal for the working-copy box. Page and tools both use the dark scheme, so
+nothing paints white behind a tool.
