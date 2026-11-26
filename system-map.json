@@ -907,8 +907,8 @@
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-ghost-in-the-walls-tool-v1.0",
       "url": "https://findastra.github.io/ghost-in-the-walls/",
-      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. Tracking the attempts is next: the router does not list wrong passwords, so the tool will record every device that joins the guest network (name, first and last seen) and which ones got through, read from the router with the tplinkrouterc6u library and a router login Astra keeps in API Fairy's care. The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo.",
-      "does": "Your guest network's puzzle portal; soon, everyone who tried to get in."
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want the ghost in the walls tool to be a white hat tool. And I want you to track attempted password logins to it\"). Ghost In The Walls is the home router's guest network: a portal sign-in page with a password puzzle, then the rabbit page. Guests never see the home network. The router does not list wrong passwords, so since 2026-11-26 the tool records every device that gets onto the guest network: its name, address and band, first and last seen, and how many visits (scripts/ghost-walls-watch-20261126.mjs, with the Python reader scripts/ghost-walls-guest-reader-20261126.py and the third-party tplinkrouterc6u library). White Hat Lab's server looks every 30 minutes, read only, once Astra has added the router login herself (WHITE_HAT_LAB_ROUTER_PASSWORD, API Fairy's key request). The record stays on her PC (white-hat-lab folder of Astra's PetOS Data), never in a repo.",
+      "does": "Your guest network's puzzle portal, and a record of every device that got onto it."
     },
     {
       "id": "learn-computer-organization-tool",
