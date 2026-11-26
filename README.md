@@ -261,7 +261,7 @@ What is not done, plainly:
 
 ## Credits
 
-1. Made by Astra.
+1. By Astra.
 2. Built with Claude Sonnet 5.5 (`claude-sonnet-5-5`), 2026-10-07; Ghost Protocol and dated asset support with OpenAI
    Codex (GPT-6), 2026-10-08; Astra's PetOS restructuring, the System Map and the intelligence levels with Claude
    Opus 5.5 (`claude-opus-5-5`), 2026-10-12.

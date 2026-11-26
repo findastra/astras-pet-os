@@ -18,8 +18,12 @@ const scratch = () => mkdtempSync(join(tmpdir(), 'idle-flash-dots-'));
 test('the matrix gives every check once, in priority order, each with a grey or blue dot', () => {
   const m = readMatrix();
   // A62 to A71: the parts of the Model Pet Program that had no check (2026-11-12, flash-template-test-20261112.mjs).
-  const ids = Array.from({ length: 71 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
-  assert.deepEqual([...m.order].sort(), ids, 'A01 to A71, each once');
+  // A72: every pet's own server (Astra, 2026-11-20), in "4. Tools and safety" after A21 (Tool OFF enforcement).
+  const ids = Array.from({ length: 72 }, (_, i) => `A${String(i + 1).padStart(2, '0')}`);
+  assert.deepEqual([...m.order].sort(), ids, 'A01 to A72, each once');
+  assert.deepEqual(m.order.slice(m.order.indexOf('A21'), m.order.indexOf('A21') + 2), ['A21', 'A72'], 'A72 sits after A21');
+  assert.equal(m.title.A72, 'Its own server');
+  assert.equal(m.dot.A72, GREY);
   assert.equal(m.title.A60, 'System Map link', 'A60: every pet program page links back to the System Map (Astra, 2026-10-19)');
   assert.equal(m.dot.A60, GREY);
   for (const id of ids) assert.ok([GREY, BLUE].includes(m.dot[id]), `${id} has a dot`);
