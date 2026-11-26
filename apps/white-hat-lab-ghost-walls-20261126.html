@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ghost In The Walls · White Hat Weasel</title>
+<!-- White Hat Lab's ghost-in-the-walls-tool: every device that got onto the guest network, Ghost In The Walls (Astra,
+     2026-11-20: "track attempted password logins to it somehow"; 2026-11-26: "Yes, add it"). The ghost-in-the-walls-tool
+     box in White Hat Lab's L1 shows this page. It reads only the page data White Hat Weasel's Ghost In The Walls watch
+     writes on this PC every 30 minutes (scripts/ghost-walls-watch-20261126.mjs, run by White Hat Lab's server, in the
+     white-hat-lab folder of Astra's PetOS Data), so the guest list never reaches GitHub; anywhere else it says the list is
+     private. Black with white borders, like White Hat Lab's page since 2026-11-25. Self-contained, no dependencies.
+     Written with Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{
+  --page:#000000; --box:#000000; --box2:#0e0e0e; --line:#ffffff; --line-dim:#4a4a4a; --ink:#ffffff; --dim:#bdbdbd;
+  --ok:#39ff88; --check:#ffd23f; --you:#ff4fd8; --link:#39ff88;
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--page);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page)}
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{overflow:hidden}
+html.in-tool main{padding:0 0 6px}
+html.in-tool header{display:none}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+header h1{margin:0 0 4px;font-size:1.6rem}
+.sub,.meta{color:var(--dim)}
+.meta{font-size:.85rem}
+.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.box h2{margin:0 0 6px;font-size:1.05rem}
+.now{display:flex;flex-wrap:wrap;gap:8px 22px;margin:2px 0 10px}
+.now b{font-size:1.6rem;color:var(--ok);font-family:ui-monospace,Consolas,monospace;margin-right:6px}
+.now .zero b{color:var(--dim)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;color:#000;white-space:nowrap}
+.tag.ok{background:var(--ok)} .tag.dim{background:#3a3a3a;color:#fff}
+.list{max-height:520px;overflow:auto;scrollbar-color:#555 transparent}
+table{border-collapse:collapse;width:100%;font-size:.87rem}
+th,td{border-bottom:1px solid var(--line-dim);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;position:sticky;top:0;background:var(--box)}
+td code{font-family:ui-monospace,Consolas,monospace;font-size:.82em;color:#ddd;word-break:break-all}
+tr.on td:first-child{box-shadow:inset 3px 0 0 var(--ok)}
+.how{border-left:3px solid var(--check);padding-left:10px}
+.warn{border-left:3px solid var(--you);padding-left:10px}
+.empty{color:var(--dim);font-style:italic}
+a{color:var(--link)}
+@media (max-width:560px){ .hide-narrow{display:none} }
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Ghost In The Walls</h1>
+<p class="sub">Every device that got onto your guest network. <span data-checked></span></p>
+</header>
+<div data-watch><p class="empty">Reading White Hat Weasel’s newest look at the guest network…</p></div>
+</main>
+<script src="white-hat-lab-ghost-walls-20261126.js"></script>
+</body>
+</html>
