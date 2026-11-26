@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Port watch · White Hat Weasel</title>
+<!-- White Hat Lab's port-watch-tool (Astra, 2026-11-19: "I want to be able to click on a port, labeled, and I can read
+     info about the latest traffic"; her answers "All recommended"). White Hat Lab's port-watch-tool box in L1 shows this
+     page. It reads only the page data White Hat Weasel's port watch writes on this PC every 10 minutes
+     (scripts/white-hat-lab-server-20261120.mjs, White Hat Lab's server, in the white-hat-lab folder of Astra's PetOS
+     Data), so the port list never reaches
+     GitHub; anywhere else it says the list is private. White background, black boxes, like the port check.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5). -->
+<style>
+:root{
+  --page:#ffffff; --box:#000000; --box2:#161616; --line:#3a3a3a; --ink:#ffffff; --dim:#b9b9b9; --page-ink:#000000;
+  --ok:#39ff88; --check:#ffd23f; --you:#ff4fd8; --link:#7fd4ff; --net:#ff9f43;
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--page-ink); background:var(--page);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page)}
+html.in-tool,html.in-tool body{background:transparent;color:var(--ink)}
+html.in-tool{overflow:hidden}
+html.in-tool main{padding:0 0 6px}
+html.in-tool header{display:none}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 40px}
+header h1{margin:0 0 4px;font-size:1.6rem}
+.sub{color:#444}
+html.in-tool .sub{color:var(--dim)}
+.box{background:var(--box);color:var(--ink);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+html.in-tool .box{border:1px solid var(--line)}
+.box h2{margin:0 0 6px;font-size:1.05rem}
+.ask{border:2px solid var(--you)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;color:#000;margin-left:6px;white-space:nowrap}
+.tag.ok{background:var(--ok)} .tag.check{background:var(--check)} .tag.you{background:var(--you)} .tag.net{background:var(--net)} .tag.dim{background:#555;color:#fff}
+.meta{color:var(--dim);font-size:.85rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.chips button{font:inherit;font-size:.82rem;background:var(--box2);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:3px 12px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ok);color:#000;border-color:var(--ok)}
+.ports{display:flex;flex-direction:column;gap:4px;max-height:560px;overflow-y:auto;padding-right:4px;scrollbar-color:#555 transparent}
+.port{border:1px solid var(--line);border-radius:8px;background:var(--box2)}
+.port > button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:4.2em 1fr auto;gap:10px;align-items:center;width:100%;padding:7px 10px;cursor:pointer;color:var(--ink)}
+.port > button:focus-visible{outline:2px solid var(--link);outline-offset:-2px;border-radius:8px}
+.num{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:var(--ok)}
+.port.left .num{color:var(--you)}
+.name{min-width:0}
+.name small{display:block;color:var(--dim);font-size:.78rem}
+.detail{padding:4px 12px 12px;border-top:1px solid var(--line)}
+.detail h3{font-size:.85rem;margin:10px 0 4px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.detail p{margin:4px 0}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.82em;word-break:break-all;color:#ddd}
+.how{border-left:3px solid var(--check);padding-left:10px}
+.empty{color:var(--dim);font-style:italic}
+a{color:var(--link)}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Port watch</h1>
+<p class="sub">Every port open on this PC, who is connected, and what White Hat Weasel asks you to close. <span data-checked></span></p>
+</header>
+<div data-watch><p class="empty">Reading White Hat Weasel’s newest look at your ports…</p></div>
+</main>
+<script src="white-hat-lab-port-watch-20261119.js"></script>
+</body>
+</html>

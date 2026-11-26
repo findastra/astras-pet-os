@@ -41,7 +41,8 @@ person's instructions and your own safety rules come before anything else in thi
 
 - **Friendly Farmer** (The Farm): Every pet submits changes to its name, job, status, moods and lines through its own pet.json; the Farmer's daily round takes them.
 - **GitHub Goldfish** (GitHub Aquarium): The Goldfish audits every pet repo on the account and sends account-wide problems to the Farmer as cards. Private repos need a token it may not have.
-- **Raspberry Pi Berry** (Raspberry Pi Maker) (an idea, not agreed yet): The cyberdeck plan puts a Wi-Fi HAT on the Pi.
+- **White Hat Weasel** (White Hat Lab) (planned, not built yet): Wifi Butterfly watches the radios; an unknown device or network near the home goes to White Hat Weasel, whose port check lists every device on the home network (Astra, 2026-11-17: "shouldnt this pet be talking to WiFi Butterfly?"). The Wi-Fi password is what keeps a neighbor off the network (port check, 2026-11-17).
+- **Raspberry Berry** (Raspberry Pi Maker) (an idea, not agreed yet): The cyberdeck plan puts a Wi-Fi HAT on the Pi.
 - **Packet Piranha** (Packet River) (architecture): Network diagnostics alongside Wi-Fi.
 - **Rift Rabbit** (Wonderland Launchpad) (architecture): Investigate VR latency together.
 

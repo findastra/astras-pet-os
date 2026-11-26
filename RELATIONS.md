@@ -73,10 +73,10 @@ flowchart LR
   profile["Profile README"]
   data_dealer["Data Chip"]
   mail_snail["Mail Snail *"]
-  role_fairy["Role Fairy *"]
+  role_fairy["Role Fairy"]
   mine_mole["Mine Mole *"]
   mesh_moth["Mesh Moth *"]
-  raspberry_berry["Raspberry Pi Berry *"]
+  raspberry_berry["Raspberry Berry *"]
   wifi_butterfly["Wifi Butterfly *"]
   packet_river["Packet Piranha"]
   log_den["Log Lynx"]
@@ -171,11 +171,11 @@ flowchart LR
 | File Master | Backup Beaver * | `findings` | idea | What File Master finds unprotected is what Backup Beaver should copy. |
 | Mail Snail * | Finance Finch | `findings` | planned | Bills Astra has not paid yet, found in her mail, go to Finance Finch. Astra, 2026-10-12. Finance data stays on her PC. |
 | Mommy's Mommies | Discord Damsel | `cue` | planned | Mommy's Mommies lists a Discord connection as planned; Discord Damsel manages Astra's Discord apps. |
-| Role Fairy * | Discord Damsel | `status` | planned | Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are. |
+| Role Fairy | Discord Damsel | `status` | planned | Role Fairy runs every Discord bot (Astra, 2026-10-18); Discord Damsel keeps Astra's own presence and shows how the bots are. |
 | GitHub Goldfish | Portfolio Puffer | `shipped` | idea | Portfolio Puffer plans a GitHub connection; the Goldfish already reads the whole account. |
 | Mine Mole * | Finance Finch | `findings` | idea | Whether mining is worth the power is a money question for Finance Finch. Finance data stays on the PC. |
-| Mesh Moth * | Raspberry Pi Berry * | `status` | idea | The cyberdeck plan puts a LoRa HAT on the Pi: the Meshtastic node runs on the Raspberry Pi. |
-| Wifi Butterfly * | Raspberry Pi Berry * | `status` | idea | The cyberdeck plan puts a Wi-Fi HAT on the Pi. |
+| Mesh Moth * | Raspberry Berry * | `status` | idea | The cyberdeck plan puts a LoRa HAT on the Pi: the Meshtastic node runs on the Raspberry Pi. |
+| Wifi Butterfly * | Raspberry Berry * | `status` | idea | The cyberdeck plan puts a Wi-Fi HAT on the Pi. |
 | Packet Piranha | Log Lynx | `findings` | now | Every network sample and change is a farm event in Log Den’s record format, so a crash can be checked against the network at that moment. |
 | Log Lynx | Forensic Ferret | `findings` | now | Every crash Log Lynx catches, with its picture and stack trace; Forensic Ferret opens a case two minutes later. |
 | Packet Piranha | Forensic Ferret | `findings` | now | The network samples around each case: fine, or what was wrong. |
@@ -189,4 +189,4 @@ Health Hummy, Finance Finch. These pets' data never leaves the PC. Other pets do
 
 ### On their own so far
 
-Python Panther, Astra Wisp, Paper Patty, Voicemeeter Bug, Platform Platypus, Spoonfed Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *, Linux Penguin *, Inference Iguana *, Skill Scout *, Journal Jellyfish *, AI Dashund *, White Hat Weasel *, Gatekeeper Goddess *, Cipher Owl *, Roaming Raven *, Pet Police Officer *, Port Spider *, Server Salamander *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.
+Python Panther, Astra Wisp, Paper Patty, Voicemeeter Bug, Platform Platypus, Spoonfed Sugarcube *, Patch Cat *, Fuzzboi Friend *, Chat Rat *, Workflow Whale *, Linux Penguin *, Inference Iguana *, Skill Scout *, Journal Jellyfish *, AI Dashund *, White Hat Weasel *, Gatekeeper Goddess *, Cipher Owl *, Roaming Raven *, Pet Police Officer *, Flowsheet Flamingo *, Server Salamander *. Every pet still submits to the Farmer and audits itself; these have no links to other pets yet.

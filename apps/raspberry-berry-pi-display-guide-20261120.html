@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pi 4 + 7" Touch Display guide · Raspberry Berry</title>
+<!-- pi-display-guide-tool: Raspberry Pi Maker's build guide for a Raspberry Pi 4 mounted on the back of the official
+     7" Touch Display (v1), with heatsinks and a 2-wire fan under the clear case lid. Moved here from a two-page PDF made
+     in chat (Astra, 2026-11-20: "put the features from the PDF on to the other program and dump the PDF").
+     Steps follow the official Touch Display documentation and were checked against Astra's own build.
+     Self-contained, no dependencies. Ticks are kept in this browser only.
+     Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-20. -->
+<style>
+:root{--bg:#173f78;--ink:#f4f8ff;--dim:#c3d5ef;--line:#e8f0ff;--line-dim:#7d9fcf;--accent:#ffd84d;--ok:#8fe39a;--warn:#ff6b5e;
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+html.in-tool main{padding:0 0 8px}
+html.in-tool header{display:none}
+main{max-width:920px;margin:0 auto;padding:24px 16px 48px}
+h1{margin:0 0 4px;font-size:1.7rem}
+h2{margin:0 0 6px;font:600 1rem ui-monospace,Consolas,monospace;color:var(--accent)}
+p{margin:4px 0}
+a{color:var(--accent)}
+b{color:#fff}
+.sub{color:var(--dim)}
+.box{border:1px solid var(--line);padding:12px 14px;margin:14px 0}
+.box.warn{border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 14px}
+ol.steps{list-style:none;margin:0;padding:0}
+ol.steps li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(232,240,255,.15)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--ok)}
+ol.steps li.done span{opacity:.6}
+ol.steps .n{font:700 .85rem ui-monospace,Consolas,monospace;color:var(--accent);min-width:1.6em}
+table{border-collapse:collapse;width:100%}
+td,th{text-align:left;padding:4px 6px;border-bottom:1px solid rgba(232,240,255,.2);vertical-align:top}
+th{font:600 .8rem ui-monospace,Consolas,monospace;color:var(--dim)}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+button{font:inherit;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line-dim);border-radius:6px;padding:4px 10px;cursor:pointer}
+button:hover{background:rgba(255,255,255,.14)}
+.count{font:.85rem ui-monospace,Consolas,monospace;color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Pi 4 + 7&Prime; Touch Display</h1>
+<p class="sub">Raspberry Pi Maker's build guide: the Pi mounted on the back of the official 7&Prime; Touch Display, with fins and a fan.</p>
+</header>
+
+<div class="box warn">
+<h2>before you start</h2>
+<p>Unplug all power. Leave the orange ribbon and the thin touch ribbon on the display board alone. <b>Red always goes to 5V and black always to GND</b>. Swapping them can damage the boards.</p>
+<p class="bar"><span class="count" id="count">0 of 0 done</span><button type="button" id="reset">Clear my ticks</button></p>
+</div>
+
+<div class="grid">
+<div class="box">
+<h2>1 · fins (heatsinks)</h2>
+<ol class="steps" data-group="fins">
+<li><input type="checkbox" aria-label="step 1"><span class="n">1</span><span>Peel each pad and press for 10 s, fins up: <b>big</b> on the silver CPU, <b>medium</b> on the RAM beside it, <b>small</b> on the USB chip and the network chip.</span></li>
+<li><input type="checkbox" aria-label="step 2"><span class="n">2</span><span>Keep them off each other, off the 4 little pins by the Ethernet port, and away from the ribbon.</span></li>
+</ol>
+</div>
+
+<div class="box">
+<h2>2 · flat ribbon</h2>
+<ol class="steps" data-group="ribbon">
+<li><input type="checkbox" aria-label="step 3"><span class="n">3</span><span><b>Display board (RPI-DISPLAY):</b> slide the tan bar out 1-2 mm. Insert <b>silver stripes up, blue tab down</b>, then slide the bar back.</span></li>
+<li><input type="checkbox" aria-label="step 4"><span class="n">4</span><span><b>Pi (DISPLAY):</b> lift the black top 1-2 mm. Bring the ribbon over in a <b>smooth U with no twist</b>, push it straight in, then press the top down. Don't flip that end.</span></li>
+<li><input type="checkbox" aria-label="step 5"><span class="n">5</span><span>Tug each end gently. Neither should move.</span></li>
+</ol>
+</div>
+
+<div class="box">
+<h2>3 · wires</h2>
+<ol class="steps" data-group="wires">
+<li><input type="checkbox" aria-label="step 6"><span class="n">6</span><span><b>Display board</b> (5V, INT, SDA, SCL, GND): <b>red on 5V</b>, <b>black on GND</b>. Leave the middle three empty. Don't use the yellow or green wires.</span></li>
+<li><input type="checkbox" aria-label="step 7"><span class="n">7</span><span>Screw the Pi onto the 4 brass posts. The ribbon loop and wires go out the side, not under the board.</span></li>
+<li><input type="checkbox" aria-label="step 8"><span class="n">8</span><span><b>Pi:</b> display <b>red on pin 4</b>, display <b>black on pin 6</b>. The outer row is only even pins, so these sit side by side with no gaps (see the pin map tool).</span></li>
+</ol>
+</div>
+
+<div class="box">
+<h2>4 · fan + lid</h2>
+<ol class="steps" data-group="fan">
+<li><input type="checkbox" aria-label="step 9"><span class="n">9</span><span><b>Fan red on pin 2</b>, <b>fan black on pin 14</b>. The fan sits in the clear lid, over the CPU heatsink.</span></li>
+<li><input type="checkbox" aria-label="step 10"><span class="n">10</span><span>The lid has nothing to clip to. Hold it with 2-3 squares of <b>double-sided foam tape</b> on the metal tops of the USB/Ethernet ports. Never put tape on chips or pins.</span></li>
+<li><input type="checkbox" aria-label="step 11"><span class="n">11</span><span>Before pressing it down: the ribbon isn't pinched, the fan spins freely, and the spare wire is folded away from the blades.</span></li>
+</ol>
+</div>
+
+<div class="box">
+<h2>5 · sd card + power on</h2>
+<ol class="steps" data-group="power">
+<li><input type="checkbox" aria-label="step 12"><span class="n">12</span><span>Put Raspberry Pi OS (or RetroPie) on a microSD card with <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">Raspberry Pi Imager</a>. This erases the card.</span></li>
+<li><input type="checkbox" aria-label="step 13"><span class="n">13</span><span>Slide the card into the slot on the underside of the Pi, at the end opposite the USB ports, <b>gold contacts facing the Pi</b>.</span></li>
+<li><input type="checkbox" aria-label="step 14"><span class="n">14</span><span>Plug power into the <b>Pi's USB-C</b> only, never the display board's micro-USB. The green light should flicker.</span></li>
+</ol>
+</div>
+</div>
+
+<div class="box">
+<h2>if something's wrong</h2>
+<table>
+<tr><th>You see</th><th>Do this</th></tr>
+<tr><td><b>Green light solid, no flicker</b></td><td>No working SD card. Check that there is one and it has Raspberry Pi OS on it.</td></tr>
+<tr><td><b>Black screen, green flickers</b></td><td>Recheck both ribbon ends and both latches. The screen stays fully dark until the Pi starts talking to it.</td></tr>
+<tr><td><b>No backlight</b></td><td>Recheck the red/black wires: 5V/GND on the display, pins 4 and 6 on the Pi.</td></tr>
+<tr><td><b>Picture, no touch</b></td><td>Reseat the thin touch ribbon on the display board.</td></tr>
+<tr><td><b>Fan doesn't spin</b></td><td>Recheck pins 2 and 14.</td></tr>
+</table>
+</div>
+
+<div class="box">
+<h2>parts + official guide</h2>
+<table>
+<tr><td>7&Prime; Touch Display</td><td><a href="https://www.raspberrypi.com/products/raspberry-pi-touch-display/" target="_blank" rel="noopener">raspberrypi.com</a> · <a href="https://thepihut.com/products/official-raspberry-pi-7-touchscreen-display" target="_blank" rel="noopener">The Pi Hut</a></td></tr>
+<tr><td>Raspberry Pi 4 Model B</td><td><a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" target="_blank" rel="noopener">raspberrypi.com</a></td></tr>
+<tr><td>15W USB-C power supply</td><td><a href="https://www.raspberrypi.com/products/type-c-power-supply/" target="_blank" rel="noopener">raspberrypi.com</a></td></tr>
+<tr><td>Heatsinks + 2-wire fan</td><td>From the clear-case kit</td></tr>
+<tr><td>Official instructions</td><td><a href="https://www.raspberrypi.com/documentation/accessories/display.html" target="_blank" rel="noopener">Touch Display docs</a></td></tr>
+</table>
+</div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'raspberry-berry-pi-display-guide-ticks';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ol.steps input'));
+  var saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
+  function show() {
+    var done = 0;
+    boxes.forEach(function (b) { b.closest('li').classList.toggle('done', b.checked); if (b.checked) done++; });
+    document.getElementById('count').textContent = done + ' of ' + boxes.length + ' done';
+  }
+  function save() {
+    var on = boxes.map(function (b, i) { return b.checked ? i : -1; }).filter(function (i) { return i >= 0; });
+    try { localStorage.setItem(KEY, JSON.stringify(on)); } catch (e) { /* storage blocked: ticks last this visit only */ }
+  }
+  boxes.forEach(function (b, i) {
+    b.checked = saved.indexOf(i) >= 0;
+    b.addEventListener('change', function () { save(); show(); });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; }); save(); show();
+  });
+  show();
+})();
+</script>
+<script src="raspberry-berry-in-tool-20261120.js"></script>
+</body>
+</html>

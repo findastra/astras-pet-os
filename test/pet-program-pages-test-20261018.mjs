@@ -199,7 +199,7 @@ test('the page sizes pets by the star\'s own rules (LayoutPets in desktop-pets-2
   assert.deepEqual(full, [...FULL_HEIGHT].sort(), 'the pets that keep NormalHeight when wide');
 });
 
-test('every pet picture is as big as on the desktop, its empty margin cut off, never squeezed into 60px', () => {
+test('every page pet uses the same square while desktop size metadata remains available', () => {
   // Rift Rabbit: 0.9 of NormalHeight on the desktop, measured from his drawings the way the star crops them.
   const rabbit = pages.find((x) => x.repo === 'rift-rabbit');
   const crop = unionBox([rabbit.art.plain.idle, rabbit.art.plain.blink].map((p) => drawnBox(`${root}/${p}`, 127)));
@@ -219,7 +219,10 @@ test('every pet picture is as big as on the desktop, its empty margin cut off, n
   const css = readFileSync(`${root}/${DIR}/${ASSETS.css}`, 'utf8');
   assert.doesNotMatch(css, /--pet-height|\.den \{[^}]*[{;] ?height: 60px/, 'no 60px slot shrinks the pet');
   assert.doesNotMatch(css, /discord-damsel"\] \.den img\.pet \{ scale/, 'Damsel needs no size of her own');
-  assert.match(css, /img\.fit, \.den img\.pet\.fit, \.mood img\.fit \{ width: var\(--fit-w\); height: var\(--fit-h\); max-width: none; max-height: none;/);
+  assert.match(css, /--pet-square: 80px/);
+  assert.match(css, /width: var\(--pet-square\); height: var\(--pet-square\)/);
+  assert.match(css, /margin: 0; clip-path: none; object-fit: contain/);
+  assert.match(css, /grid-template-columns: minmax\(0, 1fr\) var\(--pet-square\)/);
 });
 
 // Astra, 2026-11-08: "I think a lot of these buttons aren't really working on the farm. We should know how they're
@@ -258,6 +261,21 @@ test('every friend says what it does and has a picture: no line shared by three 
   assert.match(goddess.why, /^Security and approvals/, 'and says what it does');
   assert.match(farmer.related.find((r) => r.pet === 'Rift Rabbit').idle, /^art\/moods\/rift-rabbit\//, 'a pet with a drawing keeps it');
   assert.match(farmer.related.find((r) => r.pet === 'Skill Scout').idle, /^art\/icons\/skill-scout-\d{8}\.png$/, 'an icon is found by the pet\'s name');
+});
+
+// Astra, 2026-11-20: "Can we save separate emotion files, and then add those layers over the new roll once we get it".
+// His page shows one Fuzzboi of her layers (the one his 2026-10-09 drawing was made from) in all nine faces, each face a
+// layer in place of her eyes, with the same shared symbols as every pet (fuzzboi-mood-layers-test-20261120.mjs checks
+// the layers themselves).
+test('Fuzzboi Friend: one Fuzzboi of her layers on his page, in all nine faces with the shared symbols', () => {
+  const html = files[pagePath('fuzzboi-friend')];
+  const faces = (face) => [...html.matchAll(new RegExp(`data-face="${face}" src="\\.\\./\\.\\./(art/[a-z]+/fuzzboi-friend/[^"]+)"`, 'g'))].map((m) => m[1]);
+  for (const mood of ['idle', 'blink', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) { // pages show no sleep face
+    assert.ok(faces(mood).length, `his ${mood} face is on his page`);
+    for (const p of faces(mood)) assert.equal(p, `art/moods/fuzzboi-friend/${mood}.png`, `${mood}: his face with the shared symbol`);
+  }
+  for (const mood of ['idle', 'blink', 'sleep', 'happy', 'curious', 'worried', 'sad', 'sick', 'alarmed']) assert.ok(existsSync(`${root}/desktop-art/fuzzboi-friend/${mood}-20261120.png`), `${mood}: made from her layers`);
+  assert.ok(!existsSync(`${root}/desktop-art/fuzzboi-friend/idle-20261114.png`), 'no whole-body drawing stands in for his roll');
 });
 
 // Astra, 2026-11-08, on Discord Tower's page: "I don't see Discord Canary on here. Can you make sure that that's on
@@ -489,7 +507,7 @@ test('related pets sit at the bottom: every pet it talks to, linked to its own p
   }
   const damsel = pages.find((d) => d.repo === 'discord-tower');
   for (const id of ['role-fairy', 'mommys-mommies', 'claude-bot']) assert.ok(damsel.related.some((r) => r.id === id), `Discord Damsel is related to ${id}`);
-  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'Fairy Ring');
+  assert.equal(damsel.related.find((r) => r.id === 'role-fairy').home, 'The Fairy Court');
   // Astra, 2026-10-23: "rift-rabbit-plays-with ... need to show OSC Sealion, etc. and in order of most used to least used".
   const rabbit = pages.find((d) => d.repo === 'rift-rabbit');
   assert.ok(rabbit.related.some((r) => r.id === 'osc-sealion'), 'Rift Rabbit plays with OSC Sealion, a seed');

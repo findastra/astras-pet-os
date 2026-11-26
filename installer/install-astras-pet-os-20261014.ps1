@@ -578,10 +578,12 @@ try {
         Start-Sleep -Milliseconds 300
     }
 
-    # 4. Copy the release (never the git history, local builds or packages), then keep only the chosen pets
+    # 4. Copy the release (never the git history, local builds or packages), then keep only the chosen pets.
+    # .git is skipped as a folder (a clone) and as a file (a git worktree's pointer to the hub's history): a copied
+    # pointer would make the new farm look like a hub copy to the Friendly Farmer, and git there would use the hub's.
     Write-Host "Copying to $InstallDir"
     New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-    $null = & robocopy $source $InstallDir /E /XD .git node_modules bin .claude $farmCatalog /XF $farmLock /NFL /NDL /NJH /NJS /NP
+    $null = & robocopy $source $InstallDir /E /XD .git node_modules bin .claude $farmCatalog /XF $farmLock .git /NFL /NDL /NJH /NJS /NP
     if ($LASTEXITCODE -ge 8) { throw "Copy failed (robocopy exit $LASTEXITCODE)." }
     Get-ChildItem -LiteralPath $InstallDir -Recurse -File | Unblock-File -ErrorAction SilentlyContinue
     # The farm's list of pets (its catalog): the release's own pets.json and draft list, unfiltered, so the Friendly

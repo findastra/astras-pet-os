@@ -56,7 +56,10 @@ export const CYBERHOMES = {
     frame: '<span class="ch-antenna" aria-hidden="true"></span>',
     decor: '<span class="aq-tank" aria-hidden="true"></span><span class="aq-weed w1" aria-hidden="true"></span><span class="aq-weed w2" aria-hidden="true"></span><span class="aq-weed w3" aria-hidden="true"></span><span class="aq-bubble b1" aria-hidden="true"></span><span class="aq-bubble b2" aria-hidden="true"></span><span class="aq-bubble b3" aria-hidden="true"></span>' },
 };
-export const PRESENCE_JS = '../discord-damsel-presence-control-20261030.js';
+// Pet programs whose native tools come first in L1, above their programs. White Hat Lab (Astra, 2026-11-17: "need to
+// see an assessment. port assessment must be first"): its port-check-tool is the assessment.
+export const TOOLS_FIRST = new Set(['white-hat-lab']);
+export const PRESENCE_JS ='../discord-damsel-presence-control-20261030.js';
 // The Flash Audit's Run buttons and newest results on The Farm's page (2026-11-08); the page script itself sends nothing.
 export const FLASH_AUDIT_JS = '../flash-audit-control-20261108.js';
 // Developer mode (Astra, 2026-10-19): the installer's choice of words, then the word swap, both in <head> so the page
@@ -550,7 +553,7 @@ function itemList(items, prefix, empty) {
     const inPanel = i.embed && !i.inPill;
     const href = inPanel ? `#${i.id}-tool-panel` : i.url;
     const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
-    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
+    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
     const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${tool}${open}`;
@@ -734,7 +737,8 @@ export const OUTSTANDING_TOOL_IDS = OUTSTANDING_GROUPS.map(([, label]) => label)
 // GitHub Aquarium's branch-sweeper (Astra, 2026-11-14: "a branch deleter, assessor and deleter", then "Plan is fine,
 // build it", card 364): every branch sorted into safe to delete, ask Astra and keep, the first few of each. Like the
 // five tools above it is filled only on Astra's PC (scripts/branch-sweeper-20261114.mjs writes the list there); the
-// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log.
+// page never deletes anything: deleting runs in the hub folder from a plan, with an undo log. Since 2026-11-17 the keep
+// group starts with the branches on her keep list, each with her reason (the script reads that list, not the page).
 export const SWEEPER_TOOL_ID = 'branch-sweeper';
 export const SWEEPER_GROUPS = [
   ['delete', 'Safe to delete', 'No branch is ready to delete.'],
@@ -750,7 +754,7 @@ function branchSweeperBox() {
   const groups = SWEEPER_GROUPS.map(([id, label, empty]) => `<fieldset class="request-group sweep-${id}"><legend>${esc(label)}</legend><p class="small request-count" data-sweep-count="${id}"></p><ul class="requests" data-sweep-group="${id}"></ul><p class="empty" data-sweep-empty="${id}">${esc(empty)}</p></fieldset>`).join('');
   return toolBox(SWEEPER_TOOL_ID, SWEEPER_TOOL_ID, `<p class="small" id="branch-sweeper-source" aria-live="polite">Looking for the Goldfish's branch list on this PC.</p>
 <div class="request-groups" id="branch-sweeper">${groups}</div>
-${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. The list names private repos, so it stays on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
+${about('branch-sweeper (<code>github-aquarium-v1.0-branch-sweeper-v1.0</code>) sorts every branch on every repo the farm owner owns. <b>Safe to delete:</b> all its work is already on the main branch, or its pull request was merged and nothing was added after, so deleting it loses nothing. <b>Ask Astra:</b> it may hold the only copy of some work (closed without merging, more added after a merge, or old work with no pull request). <b>Keep:</b> first the branches on your keep list, each with your reason, then the main branch, publishing, release and protected branches, open pull requests, branches an open handoff card names, and anything worked on in the last week. Checking changes nothing: <code>npm run branch-sweeper -- --plan</code> in the hub folder. Deleting happens only from that plan, only the rows marked to delete, only with your OK (<code>--apply &lt;plan&gt; --yes</code>), and each branch goes into an undo log on this PC first, so <code>--undo</code> puts it back. A branch you decided to keep goes on the keep list (<code>branch-sweeper-keep-20261117.json</code>, next to the plans on this PC): it is never offered for deleting again, even after its repo is renamed, and <code>--apply</code> refuses it even in an older plan and does not run without the list. The lists name private repos, so they stay on this PC; anywhere else this tool shows made-up examples.')}`, { cls: 'branch-sweeper' });
 }
 function outstandingTools(d) {
   // `g-<id>`: a bare `chat` class would take the chat pill's fixed place on the page.
@@ -1025,11 +1029,12 @@ ${panel(`${d.homeSlug}-quick-summary-panel`, `<p>${esc(d.summary)}</p>`, { cls: 
   // plays with are in the friends list panel below (mapRelated is no longer drawn here).
 
   const boxes = petBoxes(d);
-  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
-<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
+  const programSections = `<section>${heading('3rd party programs', d.thirdParty)}${itemList(d.thirdParty, 'third-party', 'None on the map yet.')}</section>
 <section>${heading('Native programs', d.programs)}${itemList(d.programs, 'program', 'None on the map yet.')}</section>
-${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}
-${d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count)}
+${d.shared.length ? `<section>${heading('Shared programs', d.shared)}${itemList(d.shared, 'shared', '')}</section>` : ''}`;
+  const nativeTools = d.repo === 'rift-rabbit' ? toolSections(d.tools, vrchatSetups(), 2) : d.repo === 'github-goldfish' ? toolSections(d.tools.filter((t) => !OUTSTANDING_TOOL_IDS.includes(t.id) && t.id !== SWEEPER_TOOL_ID), outstandingTools(d), OUTSTANDING_GROUPS.length + 1, { first: true }) : toolSections(d.tools.filter((t) => !boxes.toolIds.includes(t.id)), boxes.html, boxes.count);
+  const L1 = panel(`${d.petSlug}-L1-control-panel`, `<div class="columns">
+${TOOLS_FIRST.has(d.repo) ? `${nativeTools}\n${programSections}` : `${programSections}\n${nativeTools}`}
 ${d.devices.length ? `<section>${heading('Devices it looks after', d.devices)}${deviceGroups(d.devices)}</section>` : ''}</div>
 ${about({
     how: 'Click a name to open it. Click a light to change it: a bubble says what it means. Something not built yet is off and its second light grey (not created); the second light says report issues until someone checks the item, and blue once it was checked and works.',
@@ -1366,12 +1371,12 @@ const MODEL_FACES = {
 // across all pets"), from the one sticker set (art-kit STICKERS, indicators INDICATORS), placed the way stampRgba places
 // it on a desktop drawing: top right, biting a little into the head, one sticker pixel to 8 of the drawing's.
 const stickerAt = (mood) => {
-  const art = STICKERS[INDICATORS[mood].sticker], px = 8, sw = art.rows[0].length * px, sh = art.rows.length * px;
-  return { art, px, sw, sh, ox: Math.max(px, Math.min(256 - sw - px, 218 - Math.round(sw * 0.35))), oy: Math.max(px, Math.min(256 - sh - px, 43 - Math.round(sh * 0.55))) };
+  return {sw:59,sh:59,ox:193,oy:4};
 };
 const stickerSvg = (mood) => {
-  const { art, px, ox, oy } = stickerAt(mood);
-  return art.rows.flatMap((row, y) => [...row].map((ch, x) => (art.pal[ch] ? `<rect x="${ox + x * px}" y="${oy + y * px}" width="${px}" height="${px}" fill="${art.pal[ch]}"/>` : ''))).join('');
+  const {sw,sh,ox,oy}=stickerAt(mood);
+  const data=readFileSync(new URL(`../art/mood-symbols/${mood}-20261120.png`,import.meta.url)).toString('base64');
+  return `<image x="${ox}" y="${oy}" width="${sw}" height="${sh}" href="data:image/png;base64,${data}"/>`;
 };
 const petSvg = (label, fill, mood) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="${label}, ${mood}">`
   + `<style>.body{fill:${fill};stroke:#141218;stroke-width:6}.line{fill:none;stroke:#141218;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:5}.tear{fill:#6cc7e8;stroke:#141218;stroke-width:3}circle,ellipse{fill:#141218}.shine{fill:#f4f8ff}</style>`

@@ -1,6 +1,6 @@
 ---
 name: show-pet-panel
-description: Keep the pet's program page (its panels) open in the browser pane on the right while working on any of Astra's pets. Use at the start of every task that touches a pet, its pet program, its repo, its tools or tricks, or a world or avatar a pet looks after (Unity Stable, Infinite Studio, AI Doghouse, The Farm, ...), and again after changing that page.
+description: Keep the pet's program page (its panels) open in the browser pane on the right while working on any of Astra's pets. Use when a task touches a pet, its pet program, its repo, its tools or tricks, or a world or avatar a pet looks after (Unity Stable, Infinite Studio, AI Doghouse, The Farm, ...): at its start, and again after changing that page. Not for a page that is not a pet's program page (that is show-working-copy).
 ---
 
 # Show the pet's panels on the right (Astra, 2026-10-19)

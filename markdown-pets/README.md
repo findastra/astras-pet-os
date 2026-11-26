@@ -59,7 +59,7 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 31 | [Wifi Butterfly](wifi-butterfly-20261019.md) | Signal Garden | Watches the radios: unknown Wi-Fi networks and Bluetooth devices nearby (its confirmed security role; the rest of its job is Astra’s to choose). | no app yet |
 | 32 | [Deck Duck](deck-duck-20261019.md) | Deck Pond | Helps you manage your Elgato Stream Deck: what every button does, on every profile. | no app yet |
 | 33 | [Mesh Moth](mesh-moth-20261019.md) | Mesh Lantern | Manages Astra’s Meshtastic node: its place in the radio mesh, its health and its messages. | no app yet |
-| 34 | [Raspberry Pi Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
+| 34 | [Raspberry Berry](raspberry-berry-20261019.md) | Raspberry Pi Maker | Keeps track of Astra’s Raspberry Pi projects and tells her which Pis need a backup or an OS update. | no app yet |
 | 35 | [Chat Rat](chat-rat-20261019.md) | Chat Stack | Saves local AI conversations and imported exports, filed by model and YYYYMMDD date, with a button that opens each folder. | no app yet |
 | 36 | [Platform Platypus](platform-platypus-20261019.md) | Mirror Pool | Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms. | no app yet |
 | 40 | [Skill Scout](lunas-log-20261019.md) | Luna's Log | Watches the agent and skill files (AGENTS.md, CLAUDE.md, SKILL.md) for every AI assistant and model, and tracks what changed, who changed it and why. | no app yet |
@@ -71,7 +71,6 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 61 | [Journal Jellyfish](journal-lagoon-20261019.md) | Journal Lagoon | Private travel diary and itineraries. | no app yet |
 | 63 | [Kernel Koala](kernel-grove-20261019.md) | Kernel Grove | What runs on your PC: programs, memory and what starts at sign-in. | no app yet |
 | 67 | [White Hat Weasel](white-hat-lab-20261019.md) | White Hat Lab | Authorized security assessment and remediation. | no app yet |
-| 68 | [Port Spider](port-web-20261019.md) | Port Web | Authorized port and service exposure checks. | no app yet |
 | 69 | [Cipher Owl](cipher-hollow-20261019.md) | Cipher Hollow | Encryption, keys, certificates and crypto education. | no app yet |
 | 70 | [Forensic Ferret](evidence-locker-20261019.md) | Evidence Locker | Incident timelines and log analysis. | no app yet |
 | 72 | [Inference Iguana](benchmark-rock-20261019.md) | Benchmark Rock | Inference benchmarks, GPU/VRAM, latency, and the graphics card watch: what is using it and how much of its memory. | no app yet |
@@ -79,8 +78,9 @@ the pet sleeps. Nothing here reaches your files, accounts or settings.
 | 78 | [Pet Police Officer](the-police-station-20261019.md) | The Police Station | Runs The Police Station: watches every write and every agent key use, live; switches a tool, connection or key OFF (never ON); alerts Gatekeeper Goddess and Astra (L4); raises the alarm everywhere on a live break or a past breach. | no app yet |
 | 79 | [AI Dashund](ai-doghouse-20261019.md) | AI Doghouse | Keeps vetted research on AI agents, agentic harnesses, security and provenance, applies it to Astra’s PetOS, and writes the research paper. | no app yet |
 | 82 | [Door Dormouse](the-threshold-20261019.md) | The Threshold | Door Dormouse looks after Liminal Doors, Astra's VRChat world of doors: 34 Doorspaces built in Unity, the concept art for every floor, the tools that made them and the found floors page. Not uploaded to VRChat yet; L3 is not connected. | no app yet |
-| 83 | [Role Fairy](role-fairy-20261019.md) | Fairy Ring | Runs Fairy Ring: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
+| 83 | [Role Fairy](role-fairy-20261019.md) | The Fairy Court | Runs The Fairy Court: every Discord bot Astra uses. Sets up and looks after a bot for each server, starting with role pickers; assigns or changes members’ roles when asked; and keeps each bot’s permissions, servers and health in one place, only where she has been granted. Discord Damsel keeps Astra’s own presence. | no app yet |
 | 84 | [Workflow Whale](workflow-whirlpool-20261019.md) | Workflow Whirlpool | Pairs a private PC screen with an iPad for deliberate captures, PencilKit markup, handwritten notes, image return and separately enabled remote scrolling. | [opens in a browser](https://findastra.github.io/astras-pet-os/apps/workflow-whirlpool-20261018.html) |
 | 86 | [PC Master](pc-master-race-20261019.md) | PC Master Race | Your PC’s core tools and how a computer is organized: every tool’s live preview in its own pill, and lessons with your own parts as the example. | no app yet |
+| 87 | [Flowsheet Flamingo](the-pilot-plant-20261019.md) | The Pilot Plant | Your home engineering, maths and study programs in one place: a process simulator, a calculator, notebooks, graphing, a proof game, your paper library and a plot digitizer, each with a live preview in its own pill. | no app yet |
 
 56 pets: the registered and pipeline pets in the registry. Counts come from the registry, never from memory.

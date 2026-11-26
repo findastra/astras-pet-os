@@ -22,6 +22,12 @@ no "I'll read it if I need it". This applies to small tasks too.
    before doing anything else.
 Skills in `skills/` are not loaded automatically, so finding and reading them is your job.
 
+## PAC: Provenance, Authenticity and Creativity, at all costs (Astra, 2026-11-17)
+
+Astra: "Provenance, Authenticity, and Creativity must be preserved at all costs." Every pet, page, tool and asset
+credits where each part came from, never passes anything off as what it is not, and leaves the choices to the person
+using it. The full rule, with what each letter asks for, is in [PROVENANCE.md](PROVENANCE.md#pac-provenance-authenticity-and-creativity).
+
 ## Show the working copy, one page at a time (Astra, 2026-11-02)
 
 Astra: "Stop giving me the live pages. I want to look at the page that we're working on actively... I'm sick of
@@ -106,7 +112,7 @@ Every agent Astra uses, and what really limits it:
 | **ChatGPT** | Adviser (ring 7), no access | Astra | OpenAI's servers | Nothing reaches the farm except through Astra | Astra's ChatGPT plan |
 | **Local farmhands** (AI Astra's mind) | Farmhand; no harness of its own yet | Astra only | Astra's PC or local network | Only Astra changes them; a key and binding to this PC are planned (known gap 9) | Her own hardware |
 | **OpenClaw** | Provider harness made by others (open source): an always-on gateway with chat channels such as Discord, a scheduler and a skills store (ClawHub) | Anyone its channel settings let in | A background gateway on the PC | Only its own settings (DM policy, server and channel allowlists, tool policy): PetOS grants do not reach inside it | An Anthropic API key. **Not adopted** (weighed 2026-10-17 to 2026-10-19) |
-| **A Discord bot** (Role Fairy's) | Not a harness: a Discord application, a native program of Fairy Ring. Its commands are its tools (code, no AI); its answers come from the farmhand in Fairy Ring's seat | Members of its servers, through its commands | Astra's PC, one process per bot | Discord's bot permissions and role order, its channel allowlist and its code | Its answers: an Anthropic API key with a monthly spend limit |
+| **A Discord bot** (Role Fairy's) | Not a harness: a Discord application, a native program of The Fairy Court. Its commands are its tools (code, no AI); its answers come from the farmhand in The Fairy Court's seat | Members of its servers, through its commands | Astra's PC, one process per bot | Discord's bot permissions and role order, its channel allowlist and its code | Its answers: an Anthropic API key with a monthly spend limit |
 
 - **Ask who an agent takes orders from.** One that takes orders from other people (a server bot, OpenClaw in Discord)
   gets the smallest grants, and never runs commands or touches files on the PC.

@@ -6,7 +6,7 @@ Tool label: `the-farm-v1.0-flash-audit-v1.0` (was `github-aquarium-v1.0-flash-au
 By Astra. Compiled with OpenAI Codex (GPT-6), 2026-10-14.
 
 This is a usable manual audit procedure and a specification for a future tool interface.
-Goldfish now also has a read-only local metadata preflight at `scripts/flash-audit-local-20261015.mjs`. It is not a complete automated auditor, deployed service, or security certification.
+Goldfish also has a read-only local metadata preflight, `scripts/flash-audit-local-20261015.mjs` in the `github-goldfish` repo (not this hub). It is not a complete automated auditor, deployed service, or security certification.
 Use it for new pets, existing pets, and the restarted rapid-question review of every pet.
 **On The Farm** (Astra, 2026-11-08: "the flash audit needs to be a panel on the farm so that each of those shows up as
 a tool and I can click it"; deck "The Farm: art and lights", "All recommended"): The Farm's L1 has a `flash-audit` tool
@@ -16,10 +16,8 @@ box with every check below as a tool, in this order. Each shows the last saved r
 checks the rows listed in `scripts/flash-audit-checks-20261108.mjs` by itself; the others say an assistant checks them.
 The Farm owns the audit and registry/admission coordination; **GitHub Goldfish keeps the checks about words on GitHub**
 (A15 README and credit, A31 Status and link labels, A57 Current names only), marked as Goldfish's in the tool box.
-**The page checks are the template** (Astra, 2026-11-12: "when we do audits and we're looking at user interface, that
-we're auditing it based off of what's on the template, and then those are items on the Flash audit"): section 3, "6.
-The page", has one check for each part of the Model Pet Program, in its order, and `npm run build` compares every pet
-program page with the template part by part, so those checks on The Farm show the result as built, with no Run.
+**The page checks are the template** (Astra, 2026-11-12): see section 3, "6. The page". Those checks on The Farm show
+the result of the last build, with no Run.
 
 ## 1. Source rules and precedence
 
@@ -36,16 +34,14 @@ The sheet combines Astra's approved audit matrix and latest instructions with:
 - [Farm security](../skills/farm-security/SKILL.md) and [protection rings](../PROTECTION-RINGS.md).
 - [Canonical architecture](../ASTRAS_PET_OS.md), [pet words](../PET-WORDS.md),
   [intelligence levels](../INTELLIGENCE-LEVELS.md), and [handoff rules](../skills/handoff/SKILL.md).
-- [Security implementation limits](security-boundaries-20261014.md): planned enforcement
-  must never be reported as deployed protection.
+- [Security model](security-model-20261018.md): most of it is designed, not yet enforced, and planned
+  enforcement must never be reported as deployed protection.
 
-GitHub main source snapshot inspected: `04cb6416015f02478f716c0869f31066ff8133cd`.
-The earlier left-side maintenance-control refinement and selected names are on the Codex working
-branch, checkpoint `6ecb54b`, not necessarily main. Re-read current sources each run.
+Record the commit you audit in each run's ledger, and re-read current sources each run.
 
 Resolve conflicts explicitly: direct owner instructions take precedence; the canonical
-architecture governs conflicting legacy product descriptions. The old pets page is retired as
-a product concept: preserve compatibility files but do not demand new hub behavior.
+architecture governs conflicting legacy product descriptions. The old pets page is gone for good
+(#96, #353): never revive, link or rename anything back to it, and report anything that still points to it.
 Missing optional software that was never installed is asleep / "not on this PC",
 not a defect. A selected required connection that needs the owner is a blocked check.
 Do not overwrite approved artwork to satisfy older generic palette/accessory rules.
@@ -91,7 +87,7 @@ After **each round**, and after substantial owner corrections within a round:
 5. Hand off the next round with exact progress and open decisions. Never count a
    Not verified check as passed merely to finish a round.
 
-All checks, A01-A71, are in one matrix in section 3, most important first. The dot at the start of each row says
+All checks, A01-A72, are in one matrix in section 3, most important first. The dot at the start of each row says
 whether it needs Astra (section 3, "Grey and blue dots"). The page checks (section 3, "6. The page") follow the Model
 Pet Program part by part, and every build compares every pet program page with it.
 
@@ -135,7 +131,7 @@ Nothing else matters until these pass.
 | ⚪ A59 | Pet program and its link | Every pet has exactly one pet program: its numbered entry in `pet-programs.json` (`icon` is the pet, `program` the program, `repo` its repo) and a repo that exists (A13). Every place that shows the pet links to that program, and to the same one: pet.json `entry`, `interface_url` and `interface_local_url` in pets.json, the profile line's home link, The Farm's card, the System Map node and the README. A missing, broken or wrong link is connected by the audit itself on a branch. **The program they all open is the pet program page** in the hub, `apps/pet-programs/<repo>-20261018.html`, and today's app is `app_url`, a button on that page (Astra, 2026-10-19: "one click always points to program page (Pet Program)"); `pet.json` `entry` is the app in the pet's own repo. Whether the link opens the right, working app is A10; the program's name is A07; a program page not built yet is A09, Missing (planned). A registered or pipeline pet with no number in `pet-programs.json` gets the next free one, its program called `pet-program-N` until Astra names it (A07). **A pet shows on the System Map and The Farm only when `pets.json` lists it** (registered or pipeline; both are built from it): a pet that `pet-programs.json` numbers but `pets.json` does not list is reported here (Astra, 2026-10-18, after Chat Rat). 🔵 Something that is not a pet yet (a candidate, a repo that only says it is one), two pets on one program, or a numbered pet that `pets.json` does not list, is Astra's: putting it in `pets.json` moves it through the gate (A33; nobody becomes an animal by saying so). Added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-18. |
 | ⚪ A06 | Pet name | Compare mascot name across page, registry, map and metadata. Report conflicts, typos and placeholders. A place that differs is brought in line with `pet-programs.json` on a branch. 🔵 A placeholder or a new name is Astra's: four explained options and free text. |
 | 🔵 A07 | Program name/version | Preserve chosen names; check versioned labels and stable numbers. Ask four suggestions plus custom only where undecided. ⚪ A versioned label or number that differs from `pet-programs.json` is fixed idle. |
-| 🔵 A01 | Current icon | Show the actual image; identify desktop and page sources. Report absent, stale or inconsistent art. New or redrawn art is Astra's (it costs money). ⚪ A page or folder showing a stale copy is pointed at the hub's icon (A58). |
+| 🔵 A01 | Current icon | Show the actual image; identify desktop and page sources. Report absent, stale or inconsistent art. `npm run build` makes every icon from the calm picture the pet's page shows (make-icons-20261012.mjs) and records what each was made from in `art/icons/icon-sources-20261120.json`; the Run reports an icon Incorrect when it was made from another picture or an older copy of it (Astra, 2026-11-20). New or redrawn art is Astra's (it costs money). ⚪ A page or folder showing a stale copy is pointed at the hub's icon (A58). |
 | ⚪ A53 | Program icon matches its folder | Every program a pet folder opens (its shortcut in the folder, the Start menu copy, the Desktop copy) wears the same icon as that folder, never the program's generic icon. Startup Star's folder is the Windows star (`shell32.dll,43`), so its shortcut is the star. Read the folder's `desktop.ini` IconResource and each shortcut's IconLocation; check installers set the folder icon too, so a reinstall does not undo it. A folder with no icon of its own is reported, not passed (🔵 Astra picks its icon). Fix: `scripts/match-shortcut-icons-20261017.ps1` (only changes shortcut icons). Recorded by Claude Opus 5.5 (`claude-opus-5-5`). |
 | ⚪ A09 | Program interface | Inspect a real interface and required framework sections. Flag missing page, placeholder, dead controls or incomplete blocks. The pet program page's parts are checked against the Model Pet Program one by one in "6. The page" below. Missing framework sections are built to PET-PROGRAM-FRAMEWORK.md (code: the round card names the fix for the pet's chat). 🔵 What a program with no job yet should do waits for A08. |
 | 🔵 A11 | Desktop launch | Exercise the actual pet's double-click and verify the intended interface appears. If unavailable, mark Not verified. Needs Astra there for the click on her desktop. |
@@ -152,7 +148,7 @@ Repo, files and folders.
 | ⚪ A14 | Required repo files | Check pet.json, sprite target, entry target, README, AGENTS.md, CLAUDE.md, LICENSE and applicable pet-app topic. |
 | ⚪ A15 | README and credit | Check how-to-run and Limits, public credit "By Astra." (Astra, 2026-10-20; a README that still has a retired credit line is a finding, card 059), model/version/date, license, truthful status and naming exceptions. |
 | 🔵 A56 | Work saved in its native folder | Everything the project works on lives where a developer expects it: source, tools, pictures, docs and build output in its own repo folder (`%USERPROFILE%\Documents\Astra's PetOS\<repo>`); the user's own data (private records, saved chats, settings) in its declared data folder outside the repo (`%LOCALAPPDATA%\<repo>\`, recorded as `data_folder` in pet.json); caches and logs in that data folder, never in the repo. Nothing it makes lands in Downloads, the Desktop, a dated chat folder (`Documents\Codex\<date>`, `Documents\ChatGPT\...`), the hub or another pet's folder. Check pet.json, the code's write paths and a File Master scan of the PC. Report each stray file with its proper home; moving it goes through a File Master plan that Astra approves. ⚪ Declaring `data_folder` in pet.json and writing the plan rows are idle; changing where the code writes is named on the round card for the pet's chat. |
-| ⚪ A57 | Current names only | Live text uses today's names: **Astra's PetOS** and `astras-pet-os` (never `Astra's PetOS`, `astras-pet-os` or `findastra-pet-apps`), the folder `Documents\Astra's PetOS` (never `Documents\Projects`), each repo's current GitHub name, and the pet and program names in `pet-programs.json`. Lines that tell history keep the old name, and so do names that code depends on (browser storage keys, `%LOCALAPPDATA%\astras-pet-os`, file names other programs open): report those with what a rename would take. Fix documents on a branch; code waits for its owner. Added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17, in the first Idle Flash Audit. 🔵 Renaming a name that code depends on is Astra's. |
+| ⚪ A57 | Current names only | Live text uses today's names: **Astra's PetOS** and `astras-pet-os` (never the retired folder name, the old hub names or `findastra-pet-apps`), the folder `Documents\Astra's PetOS` (never `Documents\Projects`), each repo's current GitHub name, and the pet and program names in `pet-programs.json`. Lines that tell history keep the old name, and so do names that code depends on (browser storage keys, `%LOCALAPPDATA%\astras-pet-os`, file names other programs open): report those with what a rename would take. Fix documents on a branch; code waits for its owner. Added by Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17, in the first Idle Flash Audit. 🔵 Renaming a name that code depends on is Astra's. |
 | ⚪ A16 | Metadata and self-audit | Validate pet.json including job, runs_on, entry, sprite, status, framework, tools, links and audit cadence/subject/needs. Hatching/growing/grown must reflect evidence. 🔵 A field the pet submitted itself (`hub.submit`) that the registry has not taken is a decision, not an idle fix. |
 | ⚪ A17 | Git and deployment | Record dirty files, ahead/behind commits, pushed branch, merged state and deployed version separately. Do not reset/stash/discard another agent's work. |
 
@@ -176,6 +172,7 @@ What people see first.
 | 🔵 A18 | Official tool and trick inventory | Separate implemented, owner-approved planned, and proposed tools. Record purpose, version, owner, permissions, dependencies and add-your-own decisions. List the pet's tricks the same way: its own skills (L2 tool panel, kept by Skill Scout), apart from the harness skills the seat brings (L3; PET-PROGRAM-FRAMEWORK.md section 3). Which tools and tricks each pet should have is Astra's. ⚪ Listing what is built, merged or only on a branch, from the code, is idle. |
 | ⚪ A19 | Tool behavior | Verify inputs, outputs, errors and intended actions for each tool. Use safe fixtures for changing actions; live checks require authorized scope. Fixture checks run in a scratch copy with made-up data and no sign-in. 🔵 A live check (Astra's real data, an account, her PC) needs her there. |
 | 🔵 A21 | Tool OFF enforcement | Verify execution actually stops/prevents new work, state is controlled outside the tool, and security OFF cannot be self-reenabled. Report unsupported enforcement as a gap. Enforcement is a security change, so L4 (Astra) approves it, and checking it live needs her there. |
+| ⚪ A72 | Its own server | Astra, 2026-11-20: every pet gets its own server, run on its own "so we can end separate ones of them at a time on demand and not the whole system at once". A server here is the pet program's background program, with a port or without one (a watch). One server per pet (Astra, 2026-11-20: "I want the one server per pet, I dont care if [it] stops stuff together. cant have that many [running]"): a pet with more than one background job runs them all in its one server, and they stop together. It runs in its own process: never inside Startup Star, which only starts, adopts and stops them (a process supervisor), and never inside another pet's program, except where Astra chose one host (2026-11-08: Log Den runs Packet River's and Evidence Locker's watches, each on its own thread with its own Quit). It is named after its pet program: `<program>-server-YYYYMMDD.<ext>`, with the date of its last rename (Light Hive's: `light-hive-server-20261120.exe`). Its name is written once, as `server` in the pet's entry in `pets.json` (Astra, 2026-11-20, "all recommended"), and Startup Star, the White Hat Weasel and the pages read it from there. Startup Star's menu can stop it and start it again without touching the other pets' servers. Report each server under another name, each pet with more than one, each one running inside another program, each one missing from `pets.json`, and each one with no Stop of its own. A pet with no server yet is noted as "no server yet", not failed. ⚪ Renaming a server, or joining a pet's servers into one, with every place that starts, adopts or names it, is idle, on a branch. 🔵 Whether a pet gets a server, its port, and restarting one on her PC are Astra's. |
 | ⚪ A20 | Manual maintenance light | Every tool has a maintenance light, the right one of its pair (Astra, 2026-10-24 and 2026-10-26: blue checked and works, orange report issues or not checked yet, yellow an update waiting for her OK, grey not created), distinct from ON/OFF and automatic health. Report persists to backlog/Farmer; tests cannot silently clear it. |
 | 🔵 A26 | Privacy and permissions | Check exact allowed data/actions, owner approvals, secret storage and untrusted inputs. No private data or credentials in public repos/reports. Every permission, grant and leaked secret is Astra's (L4). ⚪ A personal path in a public document is replaced with `%USERPROFILE%` on a branch. |
 | 🔵 A25 | Integrations/accounts | Check supported services, feature detection, account selection, connection denial, expiry, disconnect and provider-specific limits. No connection from domain guessing alone. Accounts and connections are Astra's; nothing signs in while she is away. |
@@ -189,7 +186,7 @@ What people see first.
 |---|---|---|
 | 🔵 A23 | Chat-created tools | Verify request capture, authorized agent dispatch, build progress, independent review, tests, version registration and list entry. No self-granted access. Needs a live seat and Astra there. |
 | ⚪ A24 | Ready indicator | Green plus text refers to a checked version; connection and authorization are separate. Failures or unreviewed code cannot appear ready. |
-| 🔵 A43 | Emotion/message hierarchy | Verify simultaneous conditions select one highest-priority unresolved message and matching emotion using explicit policy, not frame order. Test stale success, failure, owner-needed state, dismissal and cosmetic blink. Missing global hierarchy is Not verified, not an invented priority order. The priority order is Astra's to approve (the framework's emotions table holds a proposed order, 2026-10-18). |
+| 🔵 A43 | Emotion/message hierarchy | Verify simultaneous conditions select one highest-priority unresolved message and matching emotion using explicit policy, not frame order. Test stale success, failure, owner-needed state and dismissal (nothing blinks, A03). Missing global hierarchy is Not verified, not an invented priority order. The priority order is Astra's to approve (the framework's emotions table holds a proposed order, 2026-10-18). |
 
 ### 6. The page: the Model Pet Program, part by part
 
@@ -223,7 +220,7 @@ has one. What a build cannot see (how the page fits a screen, its colours, anyth
 | ⚪ A70 | R W X panel | Right after the four levels, beside the session notes: what each level should be (R W X, at least one row per level, L1 at the top), whether it is ✓ In code, ⚠︎ Rule only or ○ Not built, each row opening to its grants and their proof, then what the pet program may use; from `system-map.json` `access` (2026-10-19). A level with no row is Missing. 🔵 The grants themselves are Astra's (A26, A28). Added 2026-11-12. |
 | ⚪ A71 | Session notes | The `notes` tool box with its paired lights: a text box, what the note is about (the whole program or one of its items), add file and submit. Beside the R W X panel, stacking on a narrow window (2026-10-22). That every note reaches the backlog first is A29. Added 2026-11-12. |
 | ⚪ A49 | Emotions | The template's nine moods in its order, three to a row (sleepy, awake, idle / curious, happy, worried / alarmed, sick, sad), each the pet beside a cloud with its name in the border and when it shows; awake shows its own drawing, the `blink` frame (A03). A mood with no picture is Missing: the art is A02, new art is Astra's. Describe actual signal/threshold sources and unknown queues. Was "Emotion key" in section 3 ("Pictures and art") until 2026-11-12. |
-| ⚪ A41 | Clicker Training | Every program has a bordered list of real desktop click bindings, each number of clicks a pill with its paired lights, in the template's order. One click shows the most important emotion-linked message; two clicks show/hide the Pet Program window (background work is controlled separately); three clicks runs an explicitly assigned quick tool. Verify sequence disambiguation, drag suppression, OFF/permissions and honest unavailable states before claiming native support. 🔵 Binding more tools to clicks is Astra's choice, and the check on her desktop needs her there. |
+| ⚪ A41 | Clicker Training | Every program has a bordered list of real desktop click bindings, each number of clicks a pill with its paired lights, in the template's order. One click shows the most important emotion-linked message; two clicks show/hide the Pet Program window (background work is controlled separately); three clicks runs an explicitly assigned quick tool. Verify sequence disambiguation, drag suppression, OFF/permissions and honest unavailable states before claiming native support. The panel is never folded into a generic click-bindings bubble, swapped for chat instructions or dropped in a layout change; it shows the assigned quick tool, or says unassigned or not verified, at desktop and 390px widths and after every rebuild (2026-10-15). 🔵 Binding more tools to clicks is Astra's choice, and the check on her desktop needs her there. |
 | ⚪ A39 | Friends list | Just above the footer: every pet it talks to or is planned to, each in a cloud like the emotions with its name in the border ("I manage <its pet program>"), its picture beside it, and the whole of it opening that pet's program page (2026-10-19, 2026-10-22). Each link has an accessible name, keyboard focus and a usable hit area; a pet program not named yet says planned, never a repo standing in for the program. Always open. Was "Pet-icon navigation" until 2026-11-12. |
 | ⚪ A51 | Unified footer | One box like every panel: By Astra, a sparkle, her photostar, a sparkle, Find Out More and her links, on one line (Astra, 2026-10-22 and 2026-10-24); no code languages, coin or horizontal scrollbar. Always open, with no More details (2026-11-11). Verify all links remain reachable. |
 | 🔵 A22 | Chat | Fixed bottom right: the `<pet>-chat` tool, a pill with its paired lights, its name, a count of what needs you and the open button, opening its square window at once (2026-10-19, 2026-10-20; the framework's section 3, item 10). ⚪ The tool, its button and its window are compared with the template at every build. Then click it (on Data Dealer's page, Data Chip's yellow phone, A44): verify the pet's face, name and seat, the actual L3 connection, agent and task from the pet chat helper, consent, replies, close/reopen and honest disconnected state. A rendered panel alone is not a functioning chatbot. Needs a live seat and Astra there; the Idle Flash Audit marks it Not verified. Was "Chatbot and seat status" in section 5 until 2026-11-12. |
@@ -240,7 +237,7 @@ has one. What a build cannot see (how the page fits a screen, its colours, anyth
 
 | ID | Check | Evidence required / exception to report |
 |---|---|---|
-| 🔵 A36 | First-visit tutorial | The Farm has tutorial-tools and a reopenable first-time-here-tutorial. Its page tool box launches the L3 chatbot into that tutorial and retains a left-side maintenance light and separate ON/OFF switch. Verify OFF prevents launch/stops the active tour. Launching the tour needs a live seat and Astra there. ⚪ The tool box, its lights and its switch on The Farm's page are idle (A20, A48). |
+| 🔵 A36 | First-visit tutorial | The Farm has tutorial-tools and a reopenable first-time-here-tutorial. Its page tool box launches the L3 chatbot into that tutorial and keeps its paired lights (ON/OFF on the left, maintenance on the right, A48). Verify OFF prevents launch/stops the active tour. Launching the tour needs a live seat and Astra there. ⚪ The tool box, its lights and its switch on The Farm's page are idle (A20, A48). |
 | 🔵 A37 | Play and care SOPs | Every pet has Play with and Care for numbered SOPs delivered in L3 chat, listed as the tricks `play-with` and `care-for` in its L2 control panel and off until L3 can run them there (Astra, 2026-11-03, Flash Audit deck, answer 4: A). Click each one; verify correct chat context, real steps, prerequisites, expected results, version and stop/help path. No standalone tutorial page or fictional steps for planned features. Clicking each tutorial needs a live seat and Astra there. ⚪ Drafting the numbered steps from what the program really does is idle. |
 | 🔵 A40 | Guided focus and functioning tour | Exercise Next/Back/Pause/Resume/Exit. Only a step number and soft border/background glow appear at the real target; explanations remain in chat. Verify scroll/resize alignment, missing-target handling, keyboard access, reduced motion, and cleanup on completion/OFF. Verify actual user-visible results, not just source/tests. Needs Astra there; the Idle Flash Audit marks it Not verified. |
 
@@ -296,8 +293,8 @@ Do not publish personal paths, addresses, mailbox contents or credentials with e
 Owner-facing round:
 
 Use a strict **Tools:** list with one exact tool name per line and its status.
-List **Tutorial tools:** separately, currently Play with and Care for, rather than
-mixing them into the regular tool inventory.
+List **Tricks:** separately (the L2 tricks, including `play-with` and `care-for`, A37 and A67),
+rather than mixing them into the tool list.
 Where source has only a feature/button and no official tool ID, label the suggested
 ID **proposed name for existing feature**. Keep implemented source, live deployment,
 approved plans and new proposals distinct. Follow with exceptions keyed to tool name
@@ -316,49 +313,26 @@ vague grouped description for the individual tool list.
 If no exceptions remain, use one line: "No exceptions found in the checks completed."
 Do not claim an unaudited pet, live interaction, security boundary or deployment passed.
 
-## 6. Goldfish tool contract and remaining implementation
+## 6. Tool contract and remaining implementation
 
-The manual procedure can be used now. Its future tool box must have the versioned label,
-left-side maintenance light, enforced ON/OFF, scope selector, run/progress/cancel,
+The manual procedure can be used now. The tool box must have the versioned label,
+paired lights (enforced ON/OFF and maintenance, A48), scope selector, run/progress/cancel,
 exception matrix, evidence links, review questions and exportable report. Account access
 must be declared; read-only inspection is the default. Repair is a separate authorized action.
 
-Goldfish's pet.json and README record partial implementation: manual instructions plus
-the read-only local preflight. The complete interactive audit flow is still pending.
+Built so far: the manual procedure, Goldfish's read-only local preflight, and The Farm's
+`flash-audit` tool box with its Run (top of this page). The complete interactive audit flow is still pending.
 No MCP endpoint or schedule is created by this sheet or the local CLI.
 
 ## 7. Name suggestions (unselected alternatives)
 
-Owner refinement, 2026-10-14: tutorial-tools belongs to The Farm; each pet owns its
-Play with / Care for numbered SOPs, indexed by The Farm. Cross-pet navigation uses
-icon hyperlinks throughout the programs. The shared framework defines these standards;
-checks A36-A40 enforce them. Tutorials run in L3 chat, launched from page tool boxes
-that retain manual health reporting and ON/OFF. This supersedes the earlier standalone,
-agent-optional tutorial wording. These are requirements, not implemented UI claims.
-
 - **Flash Audit**: the owner's working name; quick rounds backed by thorough checks.
-- **Fin Check**: short and specific to GitHub Goldfish. Recommended pet-themed option.
+- **Fin Check**: short, named for GitHub Goldfish, the audit's first owner.
 - **School Inspection**: a school of fish reviewing the whole pet collection.
 - **Pet Collar Check**: emphasizes identity, provenance and readiness, though the audit
   also covers behavior and tools beyond the collar.
 
 Keep Flash Audit until Astra chooses otherwise; no renaming based on suggestions alone.
-
-## Current visual checks A44–A52 — owner corrections, 2026-10-15
-
-These replace the October 14 coin, pink-theme, hidden-control and never-wrap footer rules.
-
-Rows moved into the matrix in section 3, in priority order.
-
-## Program icons — owner correction, 2026-10-17
-
-Rows moved into the matrix in section 3, in priority order.
-
-## Mandatory Clicker Training preservation — owner correction, 2026-10-15
-
-A41 is a required shared Pet Program control, not an optional tutorial or a chat-launcher description. Every page must visibly retain a bordered Clicker Training section with One click, Two clicks, and Three clicks rows. Do not collapse it into a generic Click bindings bubble, remove it during a layout migration, or replace it with phone/chat instructions. Display the actual assigned quick tool and verification state; say unassigned or not verified where appropriate. Audit desktop and 390px mobile layouts, and confirm the section remains after regeneration. Native timing, drag suppression, permissions and OFF checks remain required before claiming the desktop bindings work.
-
-Recorded by OpenAI Codex (GPT-6).
 
 ## The Flash Audit against the pages — owner answers, 2026-11-03
 
@@ -375,19 +349,17 @@ Astra, 2026-11-03: "i like the phone on data dealer, its program needs its own c
 | 5. App icons on program pills | A: names only | A46 |
 | 6. One palette, or one per pet | A: the blueprint, a pet's own colours only on request, shown to her first | A50 |
 | 7. Page width | A: keep the wide page, no sideways scroll on any screen (Platform Platypus's `fit-check`) | A45 |
-| 8. More details | A: four lines on every panel (how it works, where it comes from, your rules, not built yet), only the arrow in the two top squares and the chat | A47 |
+| 8. More details | A: four lines on every panel (how it works, where it comes from, your rules, not built yet), only the arrow in the two top squares and the chat (A47 now holds the exact list, with the footer's taken off 2026-11-11) | A47 |
 
 Rows a later decision of hers had already replaced are updated to it: A20 and A48 (the lights' colours, 2026-10-24 and
 2026-10-26), A61 (the nine stickers, 2026-10-24), A51 (the footer, 2026-10-22 and 2026-10-24), A46 (pills, 2026-10-19)
-and A47 (the L1 headings, 2026-10-21). The 2026-10-15 notes below keep their history; where one disagrees with a row,
-the row wins.
+and A47 (the L1 headings, 2026-10-21). The 2026-10-15 notes that used to follow this sheet were all replaced by later
+decisions; they are in its git history, and the rows hold what still stands.
 
 ## The page checks follow the Model Pet Program — 2026-11-12
 
-Astra, 2026-11-12: "We need to focus on the Flash audit and how it works, and its connection to the template pet
-program, because those two things kind of need to go hand in hand, so that when we do audits and we're looking at user
-interface, that we're auditing it based off of what's on the template, and then those are items on the Flash audit."
-Claude Opus 5.5 (`claude-opus-5-5`) lined section 3's page checks up with the template, one check per part, in the
+Astra asked for the Flash Audit and the template pet program to go hand in hand (her words open section 3, "6. The
+page"). Claude Opus 5.5 (`claude-opus-5-5`) lined section 3's page checks up with the template, one check per part, in the
 template's order, and made every build compare every pet program page with it (`scripts/flash-template-20261112.mjs`).
 No ID changed; a check that moved keeps its ID.
 
@@ -418,18 +390,19 @@ no longer use (A41's old section, A44's phone on every page, A45's old stationer
 each on 2026-11-08), and stopped counting as its own the checks the preflight only marks Not verified, which The Farm
 had shown as "all pass" (`PREFLIGHT_LEFT_OUT` in `scripts/flash-audit-checks-20261108.mjs`).
 
+## Every pet's own server — owner decision, 2026-11-20
 
-### Owner visual standard — 2026-10-15
-Every visible text item must sit inside a bubble, card, label plate, or other intentional background; never leave raw copy floating on the stationery. Emotion labels use the normal page text color, set into the rounded speech-bubble border, with the pet on the right. Status and emotion settings need their own surfaces. Keep the portrait sheet fixed in width (replaced 2026-11-03: the wide page, A45) and let footer groups wrap into spacious, slightly staggered rows between its top and bottom rules. No horizontal footer scrollbar, clipping, or hidden footer links. Verify at desktop and mobile widths; preserve Clicker Training.
+Astra, 2026-11-20: "The model now is that every pet gets its own server, because eventually they'll all have their
+own server ... I think maybe it makes more sense to have them separate so we can end separate ones of them at a time on
+demand and not the whole system at once. So maybe write this into the flash audit. And then I want that to be the next
+thing you check for, is renaming all the servers for them correctly. They should all be named after their pet
+program, and then dash server dash the date it was updated, which would be today."
 
+Check A72 holds it. Startup Star stays the one program that starts them at sign-in and adopts leftovers (hub #389,
+#394), and each server it starts is its own process: one process per service, so one can stop, crash or update
+without the rest. The first A72 pass over every pet is `flash-audit-rounds-20261116/a72-own-servers-20261120.md`.
 
-### Base structure and application launchers — owner correction 2026-10-15
-Replaced in part: every item is a pill with no app icon (2026-10-19 and 2026-11-03, A46), and the tutorials are two
-tricks in L2 (2026-11-03, A37, A47). Order: Third Party Programs, Your Programs, Your Tools, then one shared two-column section with Your Tutorials on the left and Your Notes on the right. Stack that pair on narrow screens. Preserve Clicker Training and About below it. Application rows use square cloud-framed tiles containing actual application icons and names, with one-click launch actions; do not hide launchers behind a disclosure or send an installed-app launcher to a marketing website. Clearly distinguish installers from standalone apps (BetterDiscord opens its verified installer; it is a Discord modification). Launch routes must be fixed and bounded, with visible failure feedback. Verify the real application launch separately from rendering. No invented app integrations. Damsel uses slightly deeper blue wrinkled stationery with purple/light-blue controls and small neon-pink accents; no pink base theme or sharp diagonal folds.
-
-
-Tool controls standard (2026-10-15; replaced in part by Astra's sketch of 2026-10-18: the two lights side by side
-before the name, never stacked, with the maintenance colours of A20 and A48): two compact glossy, lightly sparkling status-light buttons stacked together on the left edge of each tool bubble, vertically centered when possible and aligned at the top for expanded content. Keep a fixed 6px gap between the lights; move the pair as one unit. Top: green on / red off. Bottom: blue working / orange owner-marked maintenance. No visible ON or Not Working text. Keep title tooltips, explicit accessible state labels, keyboard focus and reduced-motion support. Both lamps remain usable when collapsed or disabled; maintenance toggles persist and feed existing health reporting. Blue is the manual health flag, not proof of a successful runtime check.
-
-
-Owner correction, 2026-10-15 (replaced 2026-10-19: every item is a pill, A46): cloud-shaped square tiles are for Third Party Programs only. OpenAI and Anthropic presence controllers belong under Your Tools in the regular rounded tool bubbles, with their paired left lights and Discord-style profile-card previews inside. Other owner-created programs use regular program/tool bubbles rather than third-party cloud tiles. Hide an empty Your Programs row.
+Her two answers, the same day, to the deck "Pet Servers: Two Questions": "I want the one server per pet, I dont care
+if [it] stops stuff together. cant have that many [running]. all recommended everything else". So a pet with several
+background jobs (The Farm has five, Discord Tower three) joins them into its one server, and each server's name is
+written once, as `server` in its entry in `pets.json`.
