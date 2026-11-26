@@ -37,3 +37,12 @@ fetches nothing. No new grant.
   tool list should gain these five in that repo's own pull request.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-21.
+
+## Crypto Burrow's own colours (2026-11-26)
+
+Astra, 2026-11-26: "pick a color for the background", after "i hate white screens". Crypto Burrow's page and its five
+tools are the dark soil of Mine Mole's burrow (#2a1d17), the only brown page on the farm (Mirror Pool already has
+plum), with cream lettering, his lilac fur for the lines, his helmet's teal for links and marks, his headlamp's gold
+for the working-copy box and his pink paws for connections, sampled from `art/moods/mine-mole/idle.png`. One block
+`:root[data-pet="mine-mole"]` in `apps/pet-programs/pet-program-page-20261018.css`; the tools' own
+`apps/mine-mole-tools-20261121.css` follows it. Claude Opus 5.5 (`claude-opus-5-5`).
