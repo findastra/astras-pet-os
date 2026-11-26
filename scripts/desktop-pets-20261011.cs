@@ -658,8 +658,10 @@ namespace AstraDesktopPets {
       list.Add(new Entry{Repo="benchmark-rock",Pet="Inference Iguana",Exe=ServerIn("benchmark-rock",Path.Combine(parent,"benchmark-rock"),Path.Combine(parent,"benchmark-rock","bin","benchmark-rock-20261023.exe")),Folder=Path.Combine(DataRoot,"benchmark-rock"),StartArgs=new[]{"--startup"}});
       // Rift Rabbit's launcher, behind the Launch buttons on its page (rift-rabbit#8, card 239's step 4). It runs from
       // Documents\Astra's PetOS Data\rift-rabbit\program, not the repo, and starts at sign-in: with it off, every Launch
-      // button is dead (2026-11-01, after a restart).
-      list.Add(new Entry{Repo="rift-rabbit",Pet="Rift Rabbit",Exe=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program","rift-rabbit-20261024.exe"),Folder=Path.Combine(DataRoot,"rift-rabbit"),StartArgs=new[]{"--startup"}});
+      // button is dead (2026-11-01, after a restart). It is Wonderland Launchpad's server, named in pets.json (2026-11-21,
+      // A72) as a file in that program folder, where it is installed; without that line, the launcher's old name there.
+      string rabbitDir=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program");
+      list.Add(new Entry{Repo="rift-rabbit",Pet="Rift Rabbit",Exe=ServerIn("rift-rabbit",rabbitDir,Path.Combine(rabbitDir,"rift-rabbit-20261024.exe")),Folder=Path.Combine(DataRoot,"rift-rabbit"),StartArgs=new[]{"--startup"}});
       // The pet chat helper, the seat behind every pet program page's chat window (card 283; Astra, 2026-11-03: "it
       // should be Claude Code answering first and then Codex"). The Farm's own tool, built next to the star; it starts at
       // sign-in, and its menu here says Stop pet chat.
@@ -1551,8 +1553,10 @@ namespace AstraDesktopPets {
         if(chatLeft.Count!=1||chatLeft[0].Id!=40)throw new Exception("Chat Rat's own server is a leftover; another chat's Temp test copy is not.");
         if(Adoptable().Find(x=>x.Repo=="voicemeeter-bug")==null||Adoptable().Exists(x=>x.Host!=null))throw new Exception("The Bug is adopted too; a watch hosted in Log Den is not.");
       }
-      var rabbit=BackgroundPets.Find("rift-rabbit");
-      if(rabbit==null||!rabbit.Exe.EndsWith(Path.Combine("rift-rabbit","program","rift-rabbit-20261024.exe"))||BackgroundPets.Watches("rift-rabbit"))throw new Exception("Rift Rabbit's launcher must start from its program folder, with no alarmed face.");
+      var rabbit=BackgroundPets.Find("rift-rabbit");string rabbitServer;
+      if(rabbit==null||!BackgroundPets.Servers().TryGetValue("rift-rabbit",out rabbitServer)||!System.Text.RegularExpressions.Regex.IsMatch(rabbitServer,"^wonderland-launchpad-server-[0-9]{8}\\.exe$")
+        ||rabbit.Exe!=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Astra's PetOS Data","rift-rabbit","program",rabbitServer)||BackgroundPets.Watches("rift-rabbit"))
+        throw new Exception("Rift Rabbit's launcher must be Wonderland Launchpad's server, named in pets.json, started from its program folder, with no alarmed face.");
       var petChat=BackgroundPets.Find("pet-chat");
       if(petChat==null||petChat.Pet!="Pet chat"||petChat.Exe!=Path.Combine(PetFiles.Root,"bin","pet-chat-helper-20261103.exe")||BackgroundPets.Watches("pet-chat"))throw new Exception("The pet chat helper must start from the farm's bin, under Pet chat in the menu, with no alarmed face.");
       testActions.RemoveRange(signIn,testActions.Count-signIn);
