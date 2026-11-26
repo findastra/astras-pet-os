@@ -7,7 +7,7 @@
   'use strict';
   var LOCAL = "../../../Astra's PetOS Data/pc-master-race/pc-tools-page-data.js";
   var SCHEMA = 'pc-master-race-tools-v1';
-  var STALE_MS = 30 * 60 * 1000;
+  var STALE_MS = 8 * 24 * 60 * 60 * 1000; // its server looks weekly, and every 10 minutes while this page is open (Astra, 2026-11-20)
   var wanted = (new URLSearchParams(location.search).get('tool') || '').toLowerCase();
   var box = document.querySelector('[data-tools]');
   var lookedLine = document.querySelector('[data-looked]');
@@ -83,7 +83,7 @@
       var tools = d.tools || {}, ids = Object.keys(tools), on = ids.filter(function (k) { return tools[k].installed; });
       return [para('Last look: ' + when(d.looked) + '. ' + on.length + ' of ' + ids.length + ' tools are on this PC.'),
         table(['Tool', 'On this PC', 'Version', 'Signed by'], ids.map(function (k) { var t = tools[k]; return { cells: [t.name, t.held ? 'held' : t.installed ? 'yes' : 'not yet', t.version || '', t.signer || (t.unsigned ? 'not signed' : '')], t: t }; }), { off: function (r) { return !r.t.installed; } }),
-        use('It looks every 10 minutes while its watch runs (winget and WizTree every hour), only reads, and never runs anything as administrator.')];
+        use('Its server looks once a week (winget and WizTree only then), and every 10 minutes while this page is open on the PC. It only reads, and never runs anything as administrator.')];
     } },
     everything: { title: 'Everything', render: function (d) {
       var t = d.tools.everything, es = d.tools.es, p = (t && t.preview) || {}, out = [status(t), where(t)];
@@ -106,7 +106,7 @@
     wiztree: { title: 'WizTree', render: function (d) {
       var t = d.tools.wiztree, p = t && t.preview, out = [status(t), where(t)];
       if (p && p.biggest) { out.push(el('h3', null, 'Biggest folders in your user folder')); out.push(table(['Folder', 'GB', 'Files'], p.biggest.map(function (b) { return { cells: [b.path, b.gb, b.files] }; }), { num: [1, 2] })); out.push(para('Scanned ' + when(p.checked) + '.', 'sub')); }
-      else if (t && t.installed) out.push(para('Its first scan comes with the next hourly look.', 'empty'));
+      else if (t && t.installed) out.push(para('Its first scan comes with the next weekly look.', 'empty'));
       out.push(use('WizTree scans without administrator here, so it walks the folders (slower than its admin mode). Its own window shows the whole drive in seconds.'));
       return out.concat(notes(t));
     } },
@@ -181,7 +181,7 @@
     winget: { title: 'winget', render: function (d) {
       var t = d.tools.winget, p = t && t.preview, out = [status(t)];
       if (p) { out.push(para((p.note || '') + ' Checked ' + when(p.checked) + '.')); if (p.updates.length) out.push(table(['Program', 'You have', 'Newest', 'winget id'], p.updates.map(function (u) { return { cells: [u.name, u.version, u.available, u.id] }; }))); }
-      else out.push(para('Its first check comes with the next hourly look.', 'empty'));
+      else out.push(para('Its first check comes with the next weekly look.', 'empty'));
       out.push(use('Nothing is updated from here. Patch Cat keeps programs patched; an update waits for your OK.'));
       return out.concat(notes(t));
     } },
@@ -279,7 +279,7 @@
       if (!inTool) sec.appendChild(el('h2', null, v.title));
       var parts = []; try { parts = v.render(d) || []; } catch (e) { parts = [el('p', 'note', 'This box could not draw: ' + e.message)]; }
       parts.forEach(function (n) { if (n) sec.appendChild(n); });
-      if (age > STALE_MS && id !== 'learn') sec.insertBefore(el('p', 'note', 'This look is from ' + when(d.looked) + ': PC Master Race’s watch may not be running.'), sec.firstChild);
+      if (age > STALE_MS && id !== 'learn') sec.insertBefore(el('p', 'note', 'This look is from ' + when(d.looked) + ': more than a week old, so PC Master Race’s server may not be running. Double-click start-server-20261120.vbs in its folder.'), sec.firstChild);
       box.appendChild(sec);
     });
     tell();
@@ -288,10 +288,22 @@
   function load() {
     var s = document.createElement('script');
     s.src = LOCAL + '?t=' + Date.now();
-    s.onload = function () { draw(window.pcMasterRaceTools); s.remove(); };
+    s.onload = function () { draw(window.pcMasterRaceTools); s.remove(); seen(); };
     s.onerror = function () { draw(null); s.remove(); };
     document.head.appendChild(s);
   }
+  // While this page is visible on the PC, it tells PC Master Race's server every two minutes, so the look runs every
+  // 10 minutes only while you are looking (Astra, 2026-11-20). It sends only the server's own code, to the loopback
+  // address the server wrote into the page data; it never reads an answer.
+  var lastSeen = 0;
+  function seen() {
+    var d = window.pcMasterRaceTools, l = d && d.link;
+    if (!l || typeof l.url !== 'string' || typeof l.code !== 'string' || !/^http:\/\/127\.0\.0\.1:\d{1,5}\/$/.test(l.url)) return;
+    if (document.visibilityState !== 'visible' || Date.now() - lastSeen < 110000) return;
+    lastSeen = Date.now();
+    try { fetch(l.url + 'seen', { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ code: l.code }), cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }).catch(function () {}); } catch (e) { /* no server */ }
+  }
+  document.addEventListener('visibilitychange', seen);
   load();
   setInterval(load, 60000);
   window.addEventListener('load', tell);

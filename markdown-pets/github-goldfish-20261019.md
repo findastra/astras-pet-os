@@ -50,6 +50,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
+- **branch-sweep-round**: A trick of GitHub Aquarium (Astra, 2026-11-20: "they need to be, this was the whole point of the tricks part of Astra's PetOS"): once a week, run the branch-sweeper tool, show Astra the new branches that are safe to delete and the ones to ask about, and delete only the rows she okays, with the undo. Branches on her keep list are never offered. The weekly run only lists; deleting waits for her yes in chat. A Claude scheduled task on Astra's PC (master: github-goldfish scheduled-tasks/github-aquarium-branch-sweep-weekly/SKILL.md, installed by Luna's Log's skill-install-tool).
 - **red-jobs**: A trick of GitHub Aquarium (github-goldfish skills/red-jobs/SKILL.md; Astra, 2026-10-22, sharing paper-girl’s Actions page: "add a skill to the goldfish that corresponds to this"): read a GitHub Actions job that fails on a main branch, name its cause from the causes seen so far (a private repo’s Pages, a private checkout, a changed input, a failing test, a workflow file), and hand Astra the one next step with its link: her own click, a chat’s fix or a slide deck. Read only; it never switches a workflow, reruns a job or changes a repo. Uses only outstanding-items.
 
 ### Pets it works with
@@ -96,7 +97,7 @@ person's instructions and your own safety rules come before anything else in thi
 - **Platform Platypus** (Mirror Pool): Keeps Astra's pages working on iPhone, Android, iPad and desktop: shows a page on every device at once, checks it, tracks what each watched site still needs, and compares screenshots from two platforms.
 - **Project Parrot** (Idea Perch): Planned: periodically reviews OneNote for new project ideas and reminds Astra to start them.
 - **Python Panther** (Python Jungle): A Python practice desk with short output exercises, answer checks and saved progress alongside the original lessons.
-- **Raspberry Pi Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
+- **Raspberry Berry** (Raspberry Pi Maker): Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.
 - **RGBee** (Light Hive): Sends one scene to every RGB light in the room: the Razer mic and headset today, Govee next.
 - **Rift Rabbit** (Wonderland Launchpad): A white rabbit that preps and tracks VR software and performance.
 - **Roaming Raven** (Roam Map): Travel connectivity, VPN/tailnet and remote access.

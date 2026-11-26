@@ -48,16 +48,18 @@
 :root[data-pet="pc-master"] .footer-group::before, :root[data-pet="pc-master"] .footer-sparkle { color: #9dff3a; }
 /* White Hat Lab's own colours (Astra, 2026-11-17: "lets give white hat lab a white background of all things ..... and
    black boxes... on the page"): a white page with black panels, white lines and lettering inside them, neon green
-   links like a terminal's. --page-ink is for the title and anything else set straight on the white page. */
+   links like a terminal's. --page-ink is for the title and anything else set straight on the page.
+   Since 2026-11-25 (Astra: "I want the white hat weasel to actually be all black background and the borders white"):
+   the page is black too, with white borders and lettering everywhere; the green links stay. */
 :root[data-pet="white-hat-weasel"] {
-  --slate: #ffffff; --slate-2: #f1f1f1; --chalk: #ffffff; --chalk-dim: #bdbdbd; --line: #ffffff; --line-dim: #6a6a6a;
-  --box: #000000; --surface: #000000; --page-ink: #000000; --page-ink-dim: #3c3c3c; --accent: #39ff88;
+  --slate: #000000; --slate-2: #0b0b0b; --chalk: #ffffff; --chalk-dim: #bdbdbd; --line: #ffffff; --line-dim: #6a6a6a;
+  --box: #000000; --surface: #000000; --page-ink: #ffffff; --page-ink-dim: #bdbdbd; --accent: #39ff88;
   --editorial: #39ff88; --editorial-ink: #d9ffe9; --editorial-glow: rgba(57, 255, 136, .22); --grid: none; --editorial-by: #9dffc6; --serial: #39ff88;
   --link: #39ff88; --connection: #9dffc6;
   --tool-bg: rgba(255, 255, 255, .06); --tool-bg-hover: rgba(57, 255, 136, .1);
 }
 :root[data-pet="white-hat-weasel"] .panel { border-radius: 10px; }
-:root[data-pet="white-hat-weasel"] .footer-group::before, :root[data-pet="white-hat-weasel"] .footer-sparkle { color: #000000; }
+:root[data-pet="white-hat-weasel"] .footer-group::before, :root[data-pet="white-hat-weasel"] .footer-sparkle { color: #ffffff; }
 /* Chat Stack’s own colours, Chat Rat’s (Astra, 2026-11-08: "some kind of gray and pink. Like, I want these to kind of
    match the colors of the animal so that we can make the star on the GitHub profile the same color"): a graphite page,
    panel lines in his fur gray (#c1c0c0, sampled from his picture), and his ear pink (#fc8086) for links, marks and the
@@ -81,6 +83,18 @@
   --tool-bg: rgba(205, 161, 229, .06); --tool-bg-hover: rgba(245, 118, 102, .1);
 }
 :root[data-pet="skill-scout"] .footer-group::before, :root[data-pet="skill-scout"] .footer-sparkle { color: #f57666; }
+/* API Fairy's own colours (Astra, 2026-11-12: "Give this fairy like a background color that matches her, maybe her
+   hair"): a deep mint page from the darkest green of her hair (#23c06a), her light mint hair (#a6fbb1) for the panel
+   lines, her wings' lilac (#ddc8fa) for links, marks and the working-copy box, and her skin's peach for connections.
+   Sampled from art/frames/api-fairy/idle.png. */
+:root[data-pet="api-fairy"] {
+  --slate: #0f3a2a; --slate-2: #0a2c1f; --chalk: #f1fff3; --chalk-dim: #b5e6c0; --line: #a6fbb1; --line-dim: #3c8a59;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #ddc8fa;
+  --editorial: #ddc8fa; --editorial-ink: #f4ecff; --editorial-glow: rgba(221, 200, 250, .22); --grid: none; --editorial-by: #ebdcff; --serial: #ddc8fa;
+  --link: #ddc8fa; --connection: #fcd5aa;
+  --tool-bg: rgba(166, 251, 177, .06); --tool-bg-hover: rgba(221, 200, 250, .09);
+}
+:root[data-pet="api-fairy"] .footer-group::before, :root[data-pet="api-fairy"] .footer-sparkle { color: #a6fbb1; }
 /* Spoonfed's own colours, Spoonfed Sugarcube's (Astra, 2026-11-11: "Give him like a background. Maybe we can make this
    one like blackish or grayish, or like pretty gray for the pet program"): a soft charcoal page with a hint of lilac,
    sugar white lettering (#f6f3ea, his cube's lit side), his spoon's silver (#c8c4cc) for the panel lines, a neon lilac
@@ -105,6 +119,18 @@
   --tool-bg: rgba(255, 255, 255, .08); --tool-bg-hover: rgba(200, 240, 255, .16);
 }
 :root[data-pet="vscode-angel"] .footer-group::before, :root[data-pet="vscode-angel"] .footer-sparkle { color: #ffe08a; }
+/* Workflow Whirlpool's own colours, Workflow Whale's (Astra, 2026-11-26: "assign a background color"): a deep-sea page
+   from his body blue (#2878f8) taken down to the dark, his belly mint (#e6fbf2) for lettering, his fin's light blue
+   (#50c0f8) for the panel lines and connections, and his cheek pink (#fcacbf) for links, marks, the working-copy box and
+   the footer's sparkles. Sampled from art/moods/workflow-whale/idle.png. */
+:root[data-pet="workflow-whale"] {
+  --slate: #0b2650; --slate-2: #081b3a; --chalk: #e6fbf2; --chalk-dim: #a9cbd6; --line: #50c0f8; --line-dim: #2a6a9a;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fcacbf;
+  --editorial: #fcacbf; --editorial-ink: #ffe3ea; --editorial-glow: rgba(252, 172, 191, .22); --grid: none; --editorial-by: #ffc9d6; --serial: #fcacbf;
+  --link: #fcacbf; --connection: #9fdcfb;
+  --tool-bg: rgba(80, 192, 248, .06); --tool-bg-hover: rgba(252, 172, 191, .1);
+}
+:root[data-pet="workflow-whale"] .footer-group::before, :root[data-pet="workflow-whale"] .footer-sparkle { color: #fcacbf; }
 /* The Threshold's own colours, Door Dormouse's (Astra, 2026-11-11: "I like that color of his tail. Can we make the
    background of the pet program that color?"): the page is his tail tip's indigo (#31316f, sampled from his desktop
    drawing), with the deeper indigo inside his ears for the darker parts, his belly cream for lettering, his orange fur

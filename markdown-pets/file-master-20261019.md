@@ -52,7 +52,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
-- None recorded yet.
+- **weekly-organizing-proposal**: A trick of File Kingdom (Astra, 2026-11-20: "they need to be, this was the whole point of the tricks part of Astra's PetOS"): File Master's weekly check-in, a Claude scheduled task on Astra's PC (master: file-master scheduled-tasks/file-master-weekly/SKILL.md, installed by Luna's Log's skill-install-tool). It runs the file-scan tool read-only, compares with last week, and writes a short summary: what is new or worse, new projects and the setup each is missing, repos with unpushed work, and the top three actions with their plan rows. It never applies the plan; that waits for Astra's yes.
 
 ### Pets it works with
 

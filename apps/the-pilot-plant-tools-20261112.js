@@ -8,7 +8,7 @@
   'use strict';
   var LOCAL = "../../../Astra's PetOS Data/the-pilot-plant/pilot-plant-page-data.js";
   var SCHEMA = 'the-pilot-plant-tools-v1';
-  var STALE_MS = 30 * 60 * 1000;
+  var STALE_MS = 8 * 24 * 60 * 60 * 1000; // it looks at sign-in and weekly (Astra, 2026-11-20), so only a look over 8 days old is late
   var wanted = (new URLSearchParams(location.search).get('tool') || '').toLowerCase();
   var box = document.querySelector('[data-tools]');
   var lookedLine = document.querySelector('[data-looked]');
@@ -133,7 +133,7 @@
       if (v.local && !ok) parts = [para('Nothing to show here: this box shows your PC only when The Pilot Plant’s pet program page is opened on that PC, after its look has run.', 'empty')];
       else { try { parts = v.render() || []; } catch (e) { parts = [el('p', 'note', 'This box could not draw: ' + e.message)]; } }
       parts.forEach(function (n) { if (n) sec.appendChild(n); });
-      if (ok && v.local && Date.now() - new Date(D.looked).getTime() > STALE_MS) sec.insertBefore(el('p', 'note', 'This look is from ' + when(D.looked) + ': The Pilot Plant’s watch may not be running.'), sec.firstChild);
+      if (ok && v.local && Date.now() - new Date(D.looked).getTime() > STALE_MS) sec.insertBefore(el('p', 'note', 'This look is from ' + when(D.looked) + ': more than a week old. Run start-look-20261120.vbs in The Pilot Plant’s folder for a fresh one.'), sec.firstChild);
       box.appendChild(sec);
     });
     tell();

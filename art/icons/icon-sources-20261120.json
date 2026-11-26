@@ -1,0 +1,338 @@
+{
+ "art/icons/agent-ant-20261012.png": {
+  "from": "desktop-art/agent-ant/idle-20261114.png",
+  "blob": "e5cda59fdfc327a954c956ebac64899211b57578"
+ },
+ "art/icons/ai-doghouse-20261012.png": {
+  "from": "desktop-art/ai-dashund/idle-20261114.png",
+  "blob": "3ba6082b14473f07584420d0388d492812b3c014"
+ },
+ "art/icons/api-fairy-20261012.png": {
+  "from": "desktop-art/api-fairy/idle-20261114.png",
+  "blob": "c95c2ea130b666d062ec28f8628ba7509d1957c1"
+ },
+ "art/icons/astras-gif-maker-20261012.png": {
+  "from": "desktop-art/gif-giraffe/idle-20261114.png",
+  "blob": "c120ffbe5b962af76d46b040d11f0f2cb7e2d193"
+ },
+ "art/icons/astras-pet-os-20261012.png": {
+  "from": "desktop-art/farmer/idle-20261114.png",
+  "blob": "2288c6311593ac65d1f7417b66acf99776a7b307"
+ },
+ "art/icons/backup-beaver-20261012.png": {
+  "from": "desktop-art/backup-beaver/idle-20261114.png",
+  "blob": "128ab40079170303b782b5a2cfcdbeb14227aa18"
+ },
+ "art/icons/benchmark-rock-20261012.png": {
+  "from": "desktop-art/inference-iguana/idle-20261114.png",
+  "blob": "9ab9ced75a091acaa01c33283a284fc96a1ce6f6"
+ },
+ "art/icons/browser-bat-20261012.png": {
+  "from": "desktop-art/browser-bat/idle-20261114.png",
+  "blob": "d53e996129c87c3396f515d3f70c09ae8f5424d2"
+ },
+ "art/icons/cache-coyote-20261012.png": {
+  "from": "desktop-art/cache-coyote/idle-20261114.png",
+  "blob": "a8c61762a4ef009c84ff82cc590d9f66a81b5f5f"
+ },
+ "art/icons/calendar-crow-20261012.png": {
+  "from": "desktop-art/calendar-crow/idle-20261114.png",
+  "blob": "f39c992e5f2137c397d3ca527bd6163a5aefc443"
+ },
+ "art/icons/chat-rat-20261012.png": {
+  "from": "desktop-art/chat-rat/idle-20261114.png",
+  "blob": "51f020307e3f642235824605a2de432ccef6ad0b"
+ },
+ "art/icons/cipher-hollow-20261012.png": {
+  "from": "desktop-art/cipher-owl/idle-20261114.png",
+  "blob": "71427e01d5458f2fee899c5486254200c9468820"
+ },
+ "art/icons/closet-cat-20261012.png": {
+  "from": "desktop-art/closet-cat/idle-20261114.png",
+  "blob": "78e0e9221d7de54e5854a919dd856ce72d0031e0"
+ },
+ "art/icons/cluster-crab-20261012.png": {
+  "from": "desktop-art/cluster-crab/idle-20261114.png",
+  "blob": "07bcb0472ae4619e89c4fa75b877259ddaaf5200"
+ },
+ "art/icons/data-dealer-20261012.png": {
+  "from": "desktop-art/chip/idle-20261011.png",
+  "blob": "f01f98641e9a82f210795e0af537db9155e3e298"
+ },
+ "art/icons/data-dragonfly-20261012.png": {
+  "from": "desktop-art/data-dragonfly/idle-20261114.png",
+  "blob": "1a0da0d11e49aff9c30cf74fd20f13125592de17"
+ },
+ "art/icons/deck-duck-20261012.png": {
+  "from": "desktop-art/deck-duck/idle-20261114.png",
+  "blob": "5b0137ad135e802d8340d6ddd3e329b3d6513253"
+ },
+ "art/icons/discord-tower-20261012.png": {
+  "from": "desktop-art/discord-damsel/idle-20261114.png",
+  "blob": "e461983221573528e660cdefe66c294f54f223bf"
+ },
+ "art/icons/docker-dragon-20261012.png": {
+  "from": "desktop-art/docker-dragon/idle-20261114.png",
+  "blob": "839e4576ae067e32c1edd682f42a74e5f30df8c9"
+ },
+ "art/icons/drum-dog-20261012.png": {
+  "from": "desktop-art/drum-dog/idle-20261114.png",
+  "blob": "0c4e7e30f417e97cc2ac2a48e31cb6ad55e4b46d"
+ },
+ "art/icons/dubstep-gunsmith-20261012.png": {
+  "from": "desktop-art/dubstep-gunsmith/idle-20261114.png",
+  "blob": "657e7dfdd3b3b93b901e1252bc2f2fa8d158c2ad"
+ },
+ "art/icons/evidence-locker-20261012.png": {
+  "from": "desktop-art/forensic-ferret/idle-20261114.png",
+  "blob": "6c3b0a8c879b8a4cfac83efc7129294297b623ed"
+ },
+ "art/icons/file-master-20261012.png": {
+  "from": "desktop-art/file-master/idle-20261114.png",
+  "blob": "7d592b2d8d451ed9f48f0c13c7d1687ccbd195e4"
+ },
+ "art/icons/finance-finch-20261012.png": {
+  "from": "desktop-art/finance-finch/idle-20261114.png",
+  "blob": "f14d58cab9b88329190d6742651dd8175a4afb31"
+ },
+ "art/icons/fuzzboi-friend-20261012.png": {
+  "from": "desktop-art/fuzzboi-friend/idle-20261120.png",
+  "blob": "6d7f27347b9b4da6a6eaa1e98888ce7aeaefc93e"
+ },
+ "art/icons/ghost-protocol-20261012.png": {
+  "from": "desktop-art/ghost-protocol/idle-20261114.png",
+  "blob": "47a0b59528a06f100696f29645cd2f3c046deb82"
+ },
+ "art/icons/github-goldfish-20261012.png": {
+  "from": "desktop-art/goldfish/idle-20261114.png",
+  "blob": "43c75765bc198d254675080762c8b6e149de537b"
+ },
+ "art/icons/health-hummy-20261012.png": {
+  "from": "desktop-art/health-hummy/idle-20261114.png",
+  "blob": "15c7a3d43d4d47c80502630313edb053ae2d1e73"
+ },
+ "art/icons/intel-owl-20261012.png": {
+  "from": "desktop-art/intel-owl/idle-20261114.png",
+  "blob": "fa23349d43743e6809fe65d61276dd2e86969e01"
+ },
+ "art/icons/iron-gates-20261012.png": {
+  "from": "desktop-art/gatekeeper-goddess/idle-20261114.png",
+  "blob": "dcc3c614be6199e18854d2f1f95dfd0ad4ed3c9e"
+ },
+ "art/icons/journal-lagoon-20261012.png": {
+  "from": "desktop-art/journal-jellyfish/idle-20261114.png",
+  "blob": "272a344e8b06a7098712f2f9a11cb2fed90d0c93"
+ },
+ "art/icons/kernel-grove-20261012.png": {
+  "from": "desktop-art/kernel-koala/idle-20261114.png",
+  "blob": "a96d4ed3ce6ec7515565f3687e90084bb8a96f2b"
+ },
+ "art/icons/learn-python-20261012.png": {
+  "from": "desktop-art/python-panther/idle-20261114.png",
+  "blob": "a9c31ccef0d7ef592e645cd7d763343860026a60"
+ },
+ "art/icons/linux-iceberg-20261012.png": {
+  "from": "desktop-art/linux-penguin/idle-20261114.png",
+  "blob": "a8fc275bf3094035700e7d81cecf8ea044485323"
+ },
+ "art/icons/llama-librarian-20261012.png": {
+  "from": "desktop-art/llama-librarian/idle-20261114.png",
+  "blob": "d97eb2bca9b563abea25bbe947ab272f90061834"
+ },
+ "art/icons/log-den-20261012.png": {
+  "from": "desktop-art/log-lynx/idle-20261114.png",
+  "blob": "e3def70b110ed149a7f8ac80caa58758515ce51d"
+ },
+ "art/icons/mail-snail-20261012.png": {
+  "from": "desktop-art/mail-snail/idle-20261114.png",
+  "blob": "3e739b58e49fdf9009ca0b9e77b33da384739f87"
+ },
+ "art/icons/meme-fiend-20261012.png": {
+  "from": "desktop-art/meme-fiend/idle-20261114.png",
+  "blob": "45f74e94880172394ccdf73c0f939d085f9248f9"
+ },
+ "art/icons/mesh-moth-20261012.png": {
+  "from": "desktop-art/mesh-moth/idle-20261114.png",
+  "blob": "ad1e942765e796e1e728932d35e6e83801bca532"
+ },
+ "art/icons/mine-mole-20261012.png": {
+  "from": "desktop-art/mine-mole/idle-20261114.png",
+  "blob": "744c402bbfb95cf5a85b1f0cc78b0ffca50cf441"
+ },
+ "art/icons/mommys-mommies-20261012.png": {
+  "from": "desktop-art/mommys-mommies/idle-20261114.png",
+  "blob": "f7cc47846c0ede6f2bfb519f2d5e3774be65538a"
+ },
+ "art/icons/osc-sealion-20261012.png": {
+  "from": "desktop-art/osc-sealion/idle-20261114.png",
+  "blob": "ba87d3598e711f11f672161d122a547b8a8877b4"
+ },
+ "art/icons/packet-river-20261012.png": {
+  "from": "desktop-art/packet-piranha/idle-20261114.png",
+  "blob": "0e04b1403ffb058bd9fc2face4cd1c76c205c12d"
+ },
+ "art/icons/paper-girl-20261012.png": {
+  "from": "desktop-art/paper-girl/idle-20261114.png",
+  "blob": "9328e1c5f3e493b444e34a6f5ee670c9b56595ff"
+ },
+ "art/icons/passport-pelican-20261012.png": {
+  "from": "desktop-art/passport-pelican/idle-20261114.png",
+  "blob": "6bb9a93841148b4de94569c77dd99e69f187867d"
+ },
+ "art/icons/patch-cat-20261012.png": {
+  "from": "desktop-art/patch-cat/idle-20261114.png",
+  "blob": "cde7114d20b68d7cc9af5663e57afa8cf95779f5"
+ },
+ "art/icons/pc-master-race-20261103.png": {
+  "from": "desktop-art/pc-master/idle-20261114.png",
+  "blob": "c7f23d43735a536e1b4e855f0f387c5bb1a4c03d"
+ },
+ "art/icons/photo-dodo-20261012.png": {
+  "from": "desktop-art/photo-dodo/idle-20261114.png",
+  "blob": "7c60758c6b85f638b4506db87f315ed09185120b"
+ },
+ "art/icons/piranesi-nessi-20261012.png": {
+  "from": "desktop-art/piranesi-nessi/idle-20261114.png",
+  "blob": "8cf89792b81433e92737ba5c311db60dd7104a68"
+ },
+ "art/icons/platform-platypus-20261012.png": {
+  "from": "desktop-art/platform-platypus/idle-20261114.png",
+  "blob": "ea4d3e211a937b13b03c345b228eb1130c64dbae"
+ },
+ "art/icons/pole-puff-20261012.png": {
+  "from": "desktop-art/pole-puff/idle-20261114.png",
+  "blob": "ab8455235655e2072c48e122b2deb5ec6e5e8bba"
+ },
+ "art/icons/portfolio-puffer-20261012.png": {
+  "from": "desktop-art/portfolio-puffer/idle-20261114.png",
+  "blob": "ebab28f873cdcd0ed1358e09df490e695e9bced9"
+ },
+ "art/icons/procreate-panda-20261012.png": {
+  "from": "desktop-art/procreate-panda/idle-20261114.png",
+  "blob": "17421536fb8445161343e7d807fa13170e59f9fe"
+ },
+ "art/icons/project-parrot-20261012.png": {
+  "from": "desktop-art/project-parrot/idle-20261114.png",
+  "blob": "347670cf710fcde6f2198c12d44732fcc761b297"
+ },
+ "art/icons/proxy-axolotl-20261012.png": {
+  "from": "desktop-art/proxy-axolotl/idle-20261114.png",
+  "blob": "c357176157a8c255c92a0ac5c95670e44b23c80a"
+ },
+ "art/icons/queue-quokka-20261012.png": {
+  "from": "desktop-art/queue-quokka/idle-20261114.png",
+  "blob": "78b2e0d6d74203d131096cde1f831a580f7a6419"
+ },
+ "art/icons/raspberry-berry-20261012.png": {
+  "from": "desktop-art/raspberry-berry/idle-20261114.png",
+  "blob": "2ea0d66936db72b7fbc4e2f762c2541f799dd4ea"
+ },
+ "art/icons/rescue-retriever-20261012.png": {
+  "from": "desktop-art/rescue-retriever/idle-20261114.png",
+  "blob": "0f1490a706f3c8818b20cf67d0a9a65b7fae4a56"
+ },
+ "art/icons/rgbee-20261012.png": {
+  "from": "desktop-art/rgbee/idle-20261114.png",
+  "blob": "9f22452a730cbe4201adda7146782d2e6539a539"
+ },
+ "art/icons/rift-rabbit-20261012.png": {
+  "from": "desktop-art/rift-rabbit/idle-20261114.png",
+  "blob": "6851baa8944b5de669bfddebf6bc6c1b764a2ff8"
+ },
+ "art/icons/roam-map-20261012.png": {
+  "from": "desktop-art/roaming-raven/idle-20261114.png",
+  "blob": "e774add6ca9e9f79cf7ffb1a9cd99378fd533765"
+ },
+ "art/icons/role-fairy-20261012.png": {
+  "from": "desktop-art/role-fairy/idle-20261114.png",
+  "blob": "248e9bab97ea7a6008c8a6e2a8ed3aa1c6720d67"
+ },
+ "art/icons/server-hearth-20261012.png": {
+  "from": "desktop-art/server-salamander/idle-20261114.png",
+  "blob": "fb93f6488a7c7230bc81436617674487b45b779d"
+ },
+ "art/icons/shell-squid-20261012.png": {
+  "from": "desktop-art/shell-squid/idle-20261114.png",
+  "blob": "db2b22da20b9692c068a6908fd17f62ab59c7c24"
+ },
+ "art/icons/skill-scout-20261012.png": {
+  "from": "art/seeds/skill-scout-sheet-20261012.png",
+  "blob": "f0ba4dc32da8cab32ad52198de7699ab03c5e10c"
+ },
+ "art/icons/spoonfed-20261012.png": {
+  "from": "desktop-art/spoonfed-sugarcube/idle-20261114.png",
+  "blob": "0fc1501b6358b7c8b3b7ddd0333dbfa831649951"
+ },
+ "art/icons/stock-fox-20261012.png": {
+  "from": "desktop-art/stock-fox/idle-20261114.png",
+  "blob": "17f318d87df2cbcff6882b506aab5047e4c3d2d1"
+ },
+ "art/icons/storage-stoat-20261012.png": {
+  "from": "desktop-art/storage-stoat/idle-20261114.png",
+  "blob": "7927d57cb069a782bd23b0c66f12a629c0657d0e"
+ },
+ "art/icons/sync-mink-20261012.png": {
+  "from": "desktop-art/sync-mink/idle-20261114.png",
+  "blob": "3e1b1652a6381309603850fe576255feb5036e3c"
+ },
+ "art/icons/test-tortoise-20261012.png": {
+  "from": "desktop-art/test-tortoise/idle-20261114.png",
+  "blob": "f3af272e8665e0690149c8ad43fd6afb38ff3f1e"
+ },
+ "art/icons/the-astral-plane-20261012.png": {
+  "from": "desktop-art/astra-wisp/idle-20261114.png",
+  "blob": "acfc83e1b353bd626c35675c3dd3f6f7687d4314"
+ },
+ "art/icons/the-pilot-plant-20261111.png": {
+  "from": "desktop-art/flowsheet-flamingo/idle-20261114.png",
+  "blob": "bd84fcc619c11d7c5dc57763d5f0fa125b9d800d"
+ },
+ "art/icons/the-police-station-20261012.png": {
+  "from": "desktop-art/pet-police-officer/idle-20261114.png",
+  "blob": "748f0aba4f96a836392cf396fd253159c0994087"
+ },
+ "art/icons/the-threshold-20261012.png": {
+  "from": "desktop-art/door-dormouse/idle-20261114.png",
+  "blob": "79faeb39e2c03f7e8b7d00a37a38ffbef4a0e876"
+ },
+ "art/icons/token-toucan-20261012.png": {
+  "from": "desktop-art/token-toucan/idle-20261114.png",
+  "blob": "5683516586a3479dc8362b5fc1f46e6da60ece29"
+ },
+ "art/icons/triage-tapir-20261012.png": {
+  "from": "desktop-art/triage-tapir/idle-20261114.png",
+  "blob": "fbc3cc79d8e7916d0a25404e8075945100706f2b"
+ },
+ "art/icons/unity-unicorn-20261012.png": {
+  "from": "desktop-art/unity-unicorn/idle-20261114.png",
+  "blob": "a58455565b1beb4c2a3702d5a6d69fab8feec219"
+ },
+ "art/icons/update-urchin-20261012.png": {
+  "from": "desktop-art/update-urchin/idle-20261114.png",
+  "blob": "5a0695dfd838a9e10e8d9ee805c69c2a2369f5be"
+ },
+ "art/icons/video-vulture-20261012.png": {
+  "from": "desktop-art/video-vulture/idle-20261114.png",
+  "blob": "5d3c41ff35cb8cc8facf123750cfb871c8b9a4da"
+ },
+ "art/icons/voicemeeter-bug-20261012.png": {
+  "from": "desktop-art/voicemeeter-bug/idle-20261114.png",
+  "blob": "f8d35d8798321b954120523b7b014257166b35ed"
+ },
+ "art/icons/vscode-angel-20261012.png": {
+  "from": "desktop-art/vscode-angel/idle-20261114.png",
+  "blob": "02a7f7309bbfd2c1495c3d6122d4fd487370d058"
+ },
+ "art/icons/white-hat-lab-20261012.png": {
+  "from": "desktop-art/white-hat-weasel/idle-20261114.png",
+  "blob": "bcb52ec5c044f241f29ca431d6691407dd0618eb"
+ },
+ "art/icons/wifi-butterfly-20261012.png": {
+  "from": "desktop-art/wifi-butterfly/idle-20261114.png",
+  "blob": "45826409936b958df34c7ec43c0a70bae3fe7164"
+ },
+ "art/icons/workflow-whirlpool-20261018.png": {
+  "from": "desktop-art/workflow-whale/idle-20261114.png",
+  "blob": "e7721ee632a69891998a7e26ab76eb4f083634a6"
+ }
+}

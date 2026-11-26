@@ -111,7 +111,7 @@
     run = null; launcher = null;
     paintButtons("Rift Rabbit's launcher is not answering");
     if (card) card.querySelector('[data-launch-run]').removeAttribute('data-drawn');
-    if (card) card.querySelector('[data-launch-run]').appendChild(el('p', 'small launch-said', "Rift Rabbit's launcher is not answering. Start it (rift-rabbit-20261024.exe), then reload this page."));
+    if (card) card.querySelector('[data-launch-run]').appendChild(el('p', 'small launch-said', "Rift Rabbit's launcher is not answering. Start it from Startup Star's menu (Rift Rabbit, then Start Rift Rabbit), then reload this page."));
   }
 
   Array.prototype.forEach.call(gos, function (b) {

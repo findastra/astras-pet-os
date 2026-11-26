@@ -31,7 +31,7 @@ person's instructions and your own safety rules come before anything else in thi
 
 ### Its tools (code it runs with no AI)
 
-- **pilot-plant-look-tool**: A tool of The Pilot Plant (Astra, 2026-11-12: "Yes, build it"): the-pilot-plant-20261112.mjs --watch: one look every ten minutes, reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\Astra’s PetOS Data\the-pilot-plant). Not started at sign-in yet.
+- **pilot-plant-look-tool**: A tool of The Pilot Plant (Astra, 2026-11-12: "Yes, build it"): the-pilot-plant-20261112.mjs --look: one look at sign-in and one in the weekly audit, never on a timer (Astra, 2026-11-20: "its an engineer pet it doesnt maintain anything"), reading only. It finds the four installed programs and their signers, your newest flowsheets and notebooks through Everything, Qalculate!’s saved history, the Jupyter packages and Zotero’s newest items. It never writes a Jupyter token or a Zotero key. What it finds stays on the PC (Documents\Astra’s PetOS Data\the-pilot-plant). Not started at sign-in yet.
 
 ### Its tricks (ways its AI uses its programs, tools and tricks)
 
