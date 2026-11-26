@@ -83,7 +83,9 @@ The items are the pet programs in `pet-programs.json` by number: 86 of them, num
   2026-11-20, after merging `main` (5db73a02) and adding round 3: 494 tests, 488 pass, 0 fail, 6 skipped. After
   merging `main` again (The Farm's page taken from `main` and rebuilt) and adding round 8: 497 tests, 491 pass, 0 fail,
   6 skipped. After merging `main` again (466a641f) and adding A72 (the dots test now expects A01 to A72, with A72
-  after A21): 499 tests, 493 pass, 0 fail, 6 skipped.
+  after A21): 499 tests, 493 pass, 0 fail, 6 skipped. 2026-11-26, after merging `main` again (6612de44, 102 commits;
+  one conflict, the sheet's end, where main's cleanup #410 took out the old October owner notes and this branch keeps
+  only its A72 note): 528 tests, 522 pass, 0 fail, 6 skipped, and `npm run build` changed nothing.
 - The template check on The Farm's page found no differences. The page fits at 390, 768 and 1024 px in the browser pane.
 - The ledger passed `assertPublic` after `redactData`. No private details are in any file of this PR.
 - No maker-checker review yet: the round card is one assistant's reading.
