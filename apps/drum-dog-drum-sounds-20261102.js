@@ -135,8 +135,28 @@
   function findKit(id) { var all = allKits(); for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i]; return null; }
   function currentKit() { return findKit(read(CURRENT_KEY, 'starter')) || READY[0]; }
   function setCurrent(id) { write(CURRENT_KEY, id); }
-  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), colors: k.colors, pads: k.pads }); return write(KITS_KEY, mine); }
+  function saveMyKit(k) { var mine = myKits().filter(function (x) { return x.id !== k.id; }); mine.push({ id: k.id, name: String(k.name).slice(0, 40), colors: k.colors, pads: k.pads, made: k.made }); return write(KITS_KEY, mine); }
   function deleteMyKit(id) { write(KITS_KEY, myKits().filter(function (x) { return x.id !== id; })); if (read(CURRENT_KEY, '') === id) setCurrent('starter'); }
+  // Four kits at once: one per 4x4 quarter of the APC64's 8x8 (Astra, 2026-11-05: "I want to be able to do 4 at a
+  // time"). A quarter no kit was dropped on plays the current kit.
+  var QUARTERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'], QUARTERS_KEY = 'bass-biscuits-quarters-20261105';
+  function quarters() {
+    var q = read(QUARTERS_KEY, {}), cur = currentKit();
+    return QUARTERS.map(function (name) { return (q && findKit(q[name])) || cur; });
+  }
+  function setQuarter(name, id) { var q = read(QUARTERS_KEY, {}); if (!q || typeof q !== 'object') q = {}; q[name] = id; write(QUARTERS_KEY, q); }
+  // One click on a kit loads it (Astra, 2026-11-17: "click these drums to see them immediately and load them onto my
+  // pad when i click"). The kit tool puts the kit on the picked quarter and asks; the deck, which talks to Ableton,
+  // hears the ask through the storage event and sends that quarter to the APC64.
+  var TARGET_KEY = 'bass-biscuits-load-quarter-20261117', ASK_KEY = 'bass-biscuits-load-ask-20261117';
+  function loadTarget() { var t = read(TARGET_KEY, 'bottom-left'); return QUARTERS.indexOf(t) >= 0 ? t : 'bottom-left'; }
+  function setLoadTarget(name) { if (QUARTERS.indexOf(name) >= 0) write(TARGET_KEY, name); }
+  // The other three quarters keep the kits they show now (a quarter with no kit of its own follows the current kit,
+  // so it is pinned first), and only the clicked quarter changes.
+  function askLoad(id, quarter) {
+    var now = quarters(); QUARTERS.forEach(function (q, i) { setQuarter(q, now[i].id); });
+    setQuarter(quarter, id); setCurrent(id); write(ASK_KEY, { quarter: quarter, id: id, at: Date.now() });
+  }
   function surprise() { var all = allKits(), cur = currentKit().id, pick = all[Math.floor(Math.random() * all.length)]; if (all.length > 1 && pick.id === cur) return surprise(); setCurrent(pick.id); return pick; }
 
   // Astra's own sound files: kept in IndexedDB, decoded once.
@@ -168,13 +188,74 @@
     }
     (VOICES[pad.sound] || VOICES.Click)(v, k);
   }
+  // One pad as a sound file (WAV, 16-bit mono, 44.1 kHz), at full strength: the same voices, made offline instead of
+  // out loud, so Ableton plays exactly what the page plays (Astra, 2026-11-05: kits from the page on the real APC64).
+  function renderPad(pad) {
+    var O = window.OfflineAudioContext || window.webkitOfflineAudioContext, rate = 44100;
+    if (!O || !pad) return Promise.resolve(null);
+    var off = new O(1, rate * 2.5, rate), keep = [ac, out, noiseBuf], k = pad.tune || 1;
+    // The same "random" every time, so the same kit always makes the same files (Ableton keeps one copy of each).
+    var seed = 20261105, rnd = Math.random;
+    function fixed() { seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t ^= t + Math.imul(t ^ t >>> 7, 61 | t); return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+    function make() {
+      Math.random = fixed;
+      ac = off; out = off.createDynamicsCompressor(); out.connect(off.destination);
+      noiseBuf = off.createBuffer(1, rate, rate);
+      var d = noiseBuf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    var ready = pad.file
+      ? getFile(pad.file).then(function (b) { return b ? b.arrayBuffer() : null; }).then(function (ab) {
+          if (!ab) return;
+          return off.decodeAudioData(ab).then(function (buf) {
+            make(); var s = off.createBufferSource(); s.buffer = buf; s.playbackRate.value = k; s.connect(out); s.start(0);
+            ac = keep[0]; out = keep[1]; noiseBuf = keep[2]; Math.random = rnd;
+          });
+        })
+      : Promise.resolve().then(function () {
+          make();
+          try { (VOICES[pad.sound] || VOICES.Click)(1, k); } finally { ac = keep[0]; out = keep[1]; noiseBuf = keep[2]; Math.random = rnd; }
+        });
+    return ready.then(function () { return off.startRendering(); }).then(wav);
+  }
+  // A rendered sound as WAV bytes, with the silence at its end cut off.
+  function wav(buf) {
+    var d = buf.getChannelData(0), n = d.length;
+    while (n > 441 && Math.abs(d[n - 1]) < 0.0005) n--;
+    var b = new ArrayBuffer(44 + n * 2), v = new DataView(b);
+    function s(o, t) { for (var i = 0; i < t.length; i++) v.setUint8(o + i, t.charCodeAt(i)); }
+    s(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); s(8, 'WAVE'); s(12, 'fmt '); v.setUint32(16, 16, true);
+    v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, buf.sampleRate, true); v.setUint32(28, buf.sampleRate * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, n * 2, true);
+    for (var i = 0; i < n; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, d[i])) * 32767, true);
+    return b;
+  }
   function padName(pad) { return pad ? (pad.file ? (pad.label || 'My sound') : pad.sound) : ''; }
   // A pad's colour in its kit (kits saved before 2026-11-03 have no colours of their own and light in the first set).
-  function padColor(pad, k) { return pad && pad.file ? FILE_COLOR : ((k && k.colors) || PALETTES[0])[family(pad ? pad.sound : '')]; }
+  // A colour Astra picked for one pad wins over everything (Astra, 2026-11-17: "a tool for how to pick colors myself").
+  function padColor(pad, k) {
+    if (pad && /^#[0-9a-fA-F]{6}$/.test(pad.color || '')) return pad.color;
+    return pad && pad.file ? FILE_COLOR : ((k && k.colors) || PALETTES[0])[family(pad ? pad.sound : '')];
+  }
+  // The five colour groups a kit lights its pads in, in order (family() above).
+  var FAMILIES = ['Kicks', 'Snares and claps', 'Hats and cymbals', 'Toms and bongos', 'Everything else'];
+
+  // Provenance, Authenticity and Creativity (Astra, 2026-11-17): every kit says who made it, what it came from, who
+  // picked its colours, and where every sound came from. Nothing here is a recording or a sample from anywhere else.
+  var MADE_BY_CLAUDE = 'Claude Opus 5.5 (claude-opus-5-5)';
+  var SOUND_SOURCE = 'Made in code in this page (Web Audio synthesis) by ' + MADE_BY_CLAUDE + ', 2026-11-02 and 11-03, for Astra. No recordings, samples or sound packs from anyone else.';
+  function made(k) {
+    var m = (k && k.made) || {};
+    if (k && k.ready) return { kit: MADE_BY_CLAUDE + ', picked for Astra', from: '', colours: MADE_BY_CLAUDE + ' (ready-made colour set)' };
+    // Kits saved before 2026-11-17 kept no record of who picked what, so they say so instead of guessing.
+    if (!k || !k.made) return { kit: 'Astra', from: '', colours: 'not recorded (kit saved before 2026-11-17)' };
+    return { kit: m.by || 'Astra', from: m.from || '', colours: m.colorsBy || MADE_BY_CLAUDE + ' (colour set given to a new kit)' };
+  }
+  function soundCredit(pad) { return pad && pad.file ? 'Your own file' + (pad.label ? ' “' + pad.label + '”' : '') + ', kept only in this browser.' : SOUND_SOURCE; }
 
   window.DrumSounds = {
     audio: audio, voices: Object.keys(VOICES), ready: READY, allKits: allKits, myKits: myKits, findKit: findKit,
     currentKit: currentKit, setCurrent: setCurrent, saveMyKit: saveMyKit, deleteMyKit: deleteMyKit, surprise: surprise,
-    freshColors: freshColors, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor
+    freshColors: freshColors, families: FAMILIES, made: made, soundCredit: soundCredit, putFile: putFile, playPad: playPad, padName: padName, padColor: padColor,
+    renderPad: renderPad, quarters: quarters, loadTarget: loadTarget, setLoadTarget: setLoadTarget, askLoad: askLoad, ASK_KEY: ASK_KEY, setQuarter: setQuarter, QUARTERS: QUARTERS
   };
 })();
