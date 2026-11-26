@@ -20,3 +20,13 @@ dark yellow gray ish".
 Checked: the page drawn from this branch in the browser pane, served on 127.0.0.1 with the EDITORIAL bar: lettering,
 panel lines, lights, the emotions, clicker training, the friends list, the footer and the duck in his cyberhome all
 read on the dark yellow-gray.
+
+## 2026-11-26: merged with main again
+
+Astra, 2026-11-26: "fix merge conflicts". `main` had moved 218 commits on. The one conflict was
+PET-PROGRAM-FRAMEWORK.md's list of pages with their own colours: `main` added API Fairy's mint, this branch Deck Pond's
+dark yellow-gray; both are kept. Deck Duck's INTELLIGENCE-LEVELS row is brought up to date: the plugin is merged
+(deck-duck#9 to #11 on 2026-11-21, the moods in #12 on 2026-11-26), 0.12.0 is installed, the knobs are the pages of
+pets, tools, Page Up and Down and tabs, and the one error is deck-duck#14 (0.13.0) not merged yet. `npm run build`
+changed nothing; `npm test` from Git Bash in an LF clone: 533 tests, 527 pass, 0 fail, 6 skipped.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-26.
