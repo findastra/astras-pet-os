@@ -19,3 +19,9 @@ device that joins the guest network, read with the tplinkrouterc6u library; that
 Fairy key request, and its record stays on her PC. No TP-Link MCP server exists.
 
 Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-20.
+
+## 2026-11-25: all black
+
+Astra: "I want the white hat weasel to actually be all black background and the borders white". White Hat Lab's
+colours in `apps/pet-programs/pet-program-page-20261018.css`: the page is black like its panels, with white borders and
+lettering everywhere (it was a white page with black boxes since 2026-11-17); the neon green links stay.
