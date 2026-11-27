@@ -500,6 +500,13 @@ img.fit, .den img.pet, .den img.pet.fit, .mood img, .mood img.fit {
 .items li.pill:has(> .pill-more[open]) { padding-bottom: 9px; }
 .pill > .item-name, .pill > .pill-more:not([open]) { grid-row: 1; }
 .items li.pill:hover .item-name, .items li.pill:has(> .pill-more[open]) .item-name { text-decoration: underline; text-underline-offset: 3px; }
+/* The tool the Stream Deck's second knob is on (Deck Duck, 2026-11-26: "I want to be able to see which ones are
+   highlighted on the pet program"): the look the mouse gives a pill, set by the page script, since a script cannot
+   hover. A pill inside a folded panel or tool box lights that panel's name or that box instead. */
+.items li.pill.deck-pick { border-color: var(--line); background: var(--tool-bg-hover); }
+.items li.pill.deck-pick .item-name { text-decoration: underline; text-underline-offset: 3px; }
+.toolbox.deck-pick, .launch-headset.deck-pick, .launch-mode.deck-pick { border-color: var(--line); background: var(--tool-bg-hover); }
+.panel.deck-pick > summary .legend { text-decoration: underline; text-underline-offset: 3px; color: var(--line); }
 .pill > .item-desc, .pill > .label, .pill > .pill-more { justify-self: stretch; min-width: 0; }
 /* A device's serial, first when it is opened (Astra, 2026-10-24: "I need the first thing I see to be the tracker
    serial #"). */
