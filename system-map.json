@@ -5567,6 +5567,24 @@
       "frame": "wide",
       "in_pill": true,
       "cadence": "at sign-in and weekly"
+    },
+    {
+      "id": "astras-pet-os-name-correction",
+      "name": "astras-pet-os-name-correction",
+      "type": "tool",
+      "of": "file-kingdom",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "file-kingdom-v1.0-astras-pet-os-name-correction-v1.0",
+      "job": "Review a private local scan of the old Pet Apps name. Select text corrections with backups and undo; paths and historical records require separate review.",
+      "does": "Review old names and export selected corrections. Local command required to scan or apply.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/astras-pet-os-name-correction-20261127.html",
+      "frame": "wide",
+      "in_pill": true,
+      "visibility": "private",
+      "use": "Review private scan reports locally. No upload or automatic disk access."
     }
   ],
   "links": [

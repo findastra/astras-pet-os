@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-465 rows: 23 native programs, 193 native tools, 34 native tricks, 215 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+466 rows: 23 native programs, 194 native tools, 34 native tricks, 215 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -288,6 +288,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 11 | Paper Patty | Paper Girl | third-party program | GitHub |  | Works today |
 | 11 | Paper Patty | Paper Girl | third-party program | alphaXiv |  | Planned |
 | 11 | Paper Patty | Paper Girl | third-party program | PubMed |  | Planned |
+| 12 | File Master | File Kingdom | native tool | astras-pet-os-name-correction | `file-kingdom-v1.0-astras-pet-os-name-correction-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | claude-chat-repointer | `file-kingdom-v1.0-claude-chat-repointer-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | cleanup-plan | `file-kingdom-v1.0-cleanup-plan-v1.0` | Works today |
 | 12 | File Master | File Kingdom | native tool | everything-search | `pet-program-12-v1.0-everything-search-v1.0` | Works today |
