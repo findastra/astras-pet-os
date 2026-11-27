@@ -148,6 +148,7 @@ const HELPER_DATA = "../../../Astra's PetOS Data/rgbee/light-hive-helper-data.js
 let HELPER = null;
 function findHelper() {
   return new Promise((done) => {
+    if (location.pathname.startsWith('/light-hive/')) { HELPER = location.origin; done(); return; } // served by light-hive-server (this PC or Astra's phone)
     if (!ON_THIS_PC) { HELPER = null; done(); return; }
     const s = document.createElement('script'); s.src = HELPER_DATA + '?t=' + Date.now();
     s.onload = () => { s.remove(); const d = window.lightHiveHelper; HELPER = d && d.schema === 'light-hive-helper-v1' && Date.now() - new Date(d.time).getTime() < 60000 && /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(d.control) ? d.control : null; done(); };
@@ -238,7 +239,7 @@ async function ask(path, body) {
 async function lookLights() {
   const box = $('lights'); const a = await ask('/lights');
   box.replaceChildren(pill('This screen', 'on'));
-  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: Light Hive’s helper isn’t running' : 'Real lights: open your PC’s copy', 'wait')); tell(); return; }
+  if (!a) { box.append(pill(ON_THIS_PC ? 'Real lights: light-hive-server isn’t running' : 'Real lights: open your PC’s copy', 'wait')); tell(); return; }
   box.append(pill(a.razer && a.razer.ok ? 'Razer mic and headset' : 'Razer: open the Chroma App', a.razer && a.razer.ok ? 'on' : 'wait'));
   const g = (a.govee || []).length;
   box.append(pill(g ? 'Govee: ' + g + ' light' + (g === 1 ? '' : 's') : 'Govee: LAN Control is off', g ? 'on' : 'wait'));
