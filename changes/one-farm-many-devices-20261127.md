@@ -23,7 +23,7 @@ the hub built since: one computer = one farm. This change writes the decision do
 - **docs/migration/PLAN.md:** decision 6 (where the Farm runs first) is still open, but whatever the answer, it is
   one farm; Phase 8 now reads "more devices join the same farm as hosts".
 
-Next steps (card #PRNUM): hosts in `pets.json` with a test; Startup Star starts only servers placed on its own PC;
+Next steps (card 451): hosts in `pets.json` with a test; Startup Star starts only servers placed on its own PC;
 the Linux package joins a farm instead of making one; then leases, heartbeats and "runs on" on the Farm's cards.
 
-Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-27. Card and pull request: #PRNUM.
+Claude Opus 5.5 (`claude-opus-5-5`), 2026-11-27. Card and pull request: #451.
