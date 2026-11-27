@@ -3165,7 +3165,13 @@
           "macos"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Linux Penguin on the desktop; Linux Iceberg's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "macattack",
@@ -3222,7 +3228,13 @@
             "why": "Log Den owns the farm event format and the background-pet contract Kernel Grove is built with."
           }
         ],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Kernel Koala on the desktop; Kernel Grove's page works without it."
+          }
+        ],
         "programs": []
       },
       "tools": [
@@ -3290,7 +3302,13 @@
             "why": "Kernel Grove's Stop it is where a program that holds the graphics card is stopped; Benchmark Rock only looks and opens it."
           }
         ],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Inference Iguana on the desktop; Benchmark Rock's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "unity-editor",
@@ -3698,7 +3716,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Skill Scout on the desktop; Luna's Log's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "nodejs",
@@ -3737,7 +3761,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Journal Jellyfish on the desktop; Journal Lagoon's page works without it."
+          }
+        ],
         "programs": []
       },
       "tools": [
@@ -3804,7 +3834,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows AI Dashund on the desktop; AI Doghouse's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "context7",
@@ -3934,7 +3970,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows White Hat Weasel on the desktop; White Hat Lab's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "mcp-inspector",
@@ -3968,7 +4010,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Gatekeeper Goddess on the desktop; Iron Gates's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -3991,7 +4039,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Cipher Owl on the desktop; Cipher Hollow's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4014,7 +4068,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Roaming Raven on the desktop; Roam Map's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4037,7 +4097,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Pet Police Officer on the desktop; The Police Station's page works without it."
+          }
+        ],
         "programs": []
       }
     },
@@ -4081,7 +4147,13 @@
           "windows"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows PC Master on the desktop; PC Master Race's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "everything-search",
@@ -4407,7 +4479,13 @@
           "windows"
         ],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Flowsheet Flamingo on the desktop; The Pilot Plant's page works without it."
+          }
+        ],
         "programs": [
           {
             "node": "dwsim",
@@ -4508,7 +4586,13 @@
       "needs": {
         "os": [],
         "pets": [],
-        "core": [],
+        "core": [
+          {
+            "part": "startup-star",
+            "how": "optional",
+            "why": "Startup Star shows Server Salamander on the desktop; Server Hearth's page works without it."
+          }
+        ],
         "programs": []
       }
     }
