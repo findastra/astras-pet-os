@@ -22,6 +22,12 @@ Startup Star showed 42 of the 85 pets: the 24 in `pets.json` and the 18 hand-kep
 - **Check:** `test/desktop-drafts-test-20261018.mjs` fails when a pet on the list is left off the desktop, when two
   desktop pets share an id, or when the count stops matching `pet-programs.json`. The writer warns about any pet with
   no picture at all.
+- **`npm run build` writes the list too** (`writeDraftList`, first and again after the pet program pages), so a new pet
+  on `pet-programs.json` or a newer drawing comes out after the next build, the Farmer's daily round included, without
+  anyone remembering the script.
+- Pets whose repo has no pet program page yet (29 seeds and roadmap pets) open their repo on GitHub on two clicks, the
+  same fallback Door Dormouse has had since 2026-10-19. A draft pet's menu name ends in "(draft)", as before: its
+  drawing waits for Astra's approval.
 - The star's code is unchanged: it already loads every entry on the draft list. Live sync restarts the star when a
   merge brings new pets or art, so the new list shows on the next restart after this merges.
 

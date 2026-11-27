@@ -120,6 +120,16 @@ export function missingFromDesktop(list = draftList()) {
   return programs.filter((p) => !shown.has(p.icon)).map((p) => `${p.icon} (${p.repo})`);
 }
 
+/** Writes the list when it changed, and returns it. `npm run build` runs this too (2026-11-27), so a pet added to
+ *  pet-programs.json, or a newer drawing, comes out on the desktop after the next build without anyone remembering
+ *  this script. */
+export function writeDraftList() {
+  const list = draftList();
+  const file = join(hub, LIST), text = JSON.stringify(list, null, 1) + '\n';
+  if (!existsSync(file) || readFileSync(file, 'utf8') !== text) writeFileSync(file, text);
+  return list;
+}
+
 /** Where the desktop will find Claude Bot's pictures on this PC, and whether they are the ones on his repo's main. */
 export function claudeBotCheck() {
   const dir = [join(petos, 'claude-bot', 'desktop-art', 'claude-bot'), join(petos, 'claude-bot', 'claude-bot-draft-art-20261011', 'desktop-art', 'claude-bot')]
@@ -130,12 +140,10 @@ export function claudeBotCheck() {
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  const list = draftList();
-  if (process.argv.includes('--print')) console.log(JSON.stringify(list, null, 2));
-  else {
-    writeFileSync(join(hub, LIST), JSON.stringify(list, null, 1) + '\n');
-    console.log(`${list.pets.length} draft pets in ${LIST}; every picture but Claude Bot's is in this hub.`);
-  }
+  const print = process.argv.includes('--print');
+  const list = print ? draftList() : writeDraftList();
+  if (print) console.log(JSON.stringify(list, null, 2));
+  else console.log(`${list.pets.length} draft pets in ${LIST}; every picture but Claude Bot's is in this hub.`);
   const missing = missingFromDesktop(list);
   if (missing.length) console.warn(`Not on the desktop (no picture in this hub): ${missing.join(', ')}`);
   console.warn(claudeBotCheck());
