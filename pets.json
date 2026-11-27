@@ -2937,6 +2937,11 @@
         ],
         "programs": [
           {
+            "node": "web-browser",
+            "how": "required",
+            "why": "The Stream Deck + deck runs in the browser and hears the real deck through WebHID (Edge)."
+          },
+          {
             "node": "stream-deck",
             "how": "optional",
             "why": "Installed (7.6.1); Deck Duck's Stream Deck plugin and its art-link-tool run inside it. Deck Duck works without it."
