@@ -21,6 +21,11 @@ A59, A31, A15, A57, A16, A18, A56 and A55. Ten decisions went to her as a deck: 
 (router model, private scan-log paths), A56 (the old lock), A08, A19 (the guest list's full-screen button) and A20
 (planned programs and devices grey).
 
+**Her answers (2026-11-27): "all recommended", then "Yes, do all ten".** Hub part in
+`changes/white-hat-lab-decisions-20261127.md`; white-hat-lab's `entry`, the six private repos' paths and File Master's
+two rows in their own changes. One answer was carried out more narrowly than its slide said: planned 3rd party
+programs turn grey only when the program itself is not set up on the farm (see that file).
+
 ## How it was checked
 
 - **The Run's checks:** the auditor ran again for item 67 alone (`idle-flash-audit-20261017.mjs <out> 67`), with

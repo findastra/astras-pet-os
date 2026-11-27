@@ -222,8 +222,12 @@ for (const prog of catalog) {
   // A53 is checked on the PC separately (folder icons and shortcuts).
 
   // A09 interface and A10 route.
+  // A pet whose program lives in the hub names the hub's own page as its entry (White Hat Lab: Astra, 2026-11-27, Flash
+  // Audit round 67 deck, answer 1: "Is the hub page White Hat Lab's app?" yes).
+  const hubEntry = pet?.entry === `https://${OWNER}.github.io/astras-pet-os/apps/pet-programs/${meta.name}-20261018.html`;
+  rec.entryHub = hubEntry;
   if (!pet?.entry) add('A09', 'Missing', 'pet.json declares no entry (the program page).');
-  else if (!entryPath) add('A09', 'Missing', `Entry ${pet.entry} is not in the repo.`);
+  else if (!entryPath && !hubEntry) add('A09', 'Missing', `Entry ${pet.entry} is not in the repo.`);
   const routes = [...new Set([reg?.interface_live_url, meta.homepage, !meta.private ? pagesUrl(meta.name) : null].filter((u) => u && /^https?:/.test(u)))];
   rec.routes = [];
   for (const u of routes) {

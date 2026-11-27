@@ -209,7 +209,10 @@ export function build(raw, state = {}, now = Date.now(), home = homedir()) {
     seen.sort((a, b) => Date.parse(b.last) - Date.parse(a.last));
     peers[e.port] = seen.slice(0, PEERS_KEPT);
     const age = e.started ? now - Date.parse(e.started) : null;
-    const leftover = c.kind === 'preview' && age != null && age > LEFTOVER_MS;
+    // Only a left-over that something besides this PC can reach is the Weasel's to raise; one only this PC can reach
+    // is Kernel Grove's leftover-watch to clean up (Astra, 2026-11-27, Flash Audit round 67 deck, answer 8: "all
+    // recommended"), so she is not asked twice about the same server.
+    const leftover = c.kind === 'preview' && age != null && age > LEFTOVER_MS && widest.reach !== 'this-pc';
     list.push({
       port: e.port, pid: e.pid, program: e.program, command: e.command, started: e.started,
       kind: c.kind, label: c.label, pet: c.pet, addresses: e.addresses, reach: widest.reach, reach_words: widest.words,

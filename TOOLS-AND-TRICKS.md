@@ -127,7 +127,7 @@ runs, by pet program number. Generated from `system-map.json` and `pet-programs.
 data, never this table. Private pets (Health Hummy, Finance Finch) and private repos are left out.
 
 <!-- registry:start (generated from system-map.json by scripts/system-map-20261012.mjs; do not edit by hand) -->
-469 rows: 23 native programs, 194 native tools, 34 native tricks, 218 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
+470 rows: 23 native programs, 194 native tools, 35 native tricks, 218 third-party programs. A pet program itself is listed in [PET-PROGRAMS.md](PET-PROGRAMS.md); a third-party program is listed once for each pet program that runs it.
 
 | # | Pet | Pet program | Kind | Name | Label | State |
 |---|---|---|---|---|---|---|
@@ -463,6 +463,7 @@ data, never this table. Private pets (Health Hummy, Finance Finch) and private r
 | 67 | White Hat Weasel | White Hat Lab | native tool | port-check-tool | `white-hat-lab-v1.0-port-check-tool-v1.0` | Works today |
 | 67 | White Hat Weasel | White Hat Lab | native tool | port-watch-tool | `white-hat-lab-v1.0-port-watch-tool-v1.0` | Works today |
 | 67 | White Hat Weasel | White Hat Lab | native tool | TP-Link | `white-hat-lab-v1.0-tp-link-tool-v1.0` | Works today |
+| 67 | White Hat Weasel | White Hat Lab | native trick | reverse-engineer-anything | `white-hat-lab-v1.0-reverse-engineer-anything-trick-v1.0` | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | REA |  | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | tplinkrouterc6u |  | Works today |
 | 67 | White Hat Weasel | White Hat Lab | third-party program | Wireshark |  | Works today |

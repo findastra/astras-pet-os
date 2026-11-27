@@ -2,7 +2,7 @@
 
 Astra, 2026-11-20: "I want you to track attempted password logins to it somehow." 2026-11-26: "Start the tracker".
 
-The router (TP-Link Archer AXE75) keeps no record of wrong guest passwords, so the tool records who got onto the guest
+The home TP-Link router keeps no record of wrong guest passwords, so the tool records who got onto the guest
 network instead.
 
 - **`scripts/ghost-walls-guest-reader-20261126.py`:** signs in to the router read-only with the third-party

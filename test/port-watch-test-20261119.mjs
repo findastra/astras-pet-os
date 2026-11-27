@@ -16,7 +16,7 @@ const now = Date.parse('2026-11-19T20:00:00Z');
 const old = new Date(now - LEFTOVER_MS - 60000).toISOString(), fresh = new Date(now - 60000).toISOString();
 const raw = () => ({
   listen: [
-    { LocalAddress: '127.0.0.1', LocalPort: 8813, OwningProcess: 11 },
+    { LocalAddress: '0.0.0.0', LocalPort: 8813, OwningProcess: 11 },
     { LocalAddress: '127.0.0.1', LocalPort: 8886, OwningProcess: 12 },
     { LocalAddress: '127.0.0.1', LocalPort: 38761, OwningProcess: 13 },
     { LocalAddress: '0.0.0.0', LocalPort: 57621, OwningProcess: 14 },
@@ -88,7 +88,10 @@ test('the port list: connections now, peers kept, left-over previews', () => {
   const state = {};
   const { ports, peers } = build(raw(), state, now, HOME);
   const by = Object.fromEntries(ports.map((p) => [p.port, p]));
-  assert.equal(by[8813].leftover, true, 'a preview open more than two hours looks left over');
+  assert.equal(by[8813].leftover, true, 'a preview open more than two hours, reachable from the network, looks left over');
+  // Astra, 2026-11-27 (deck answer 8): one only this PC can reach is Kernel Grove's leftover-watch's, not the Weasel's.
+  const local = raw(); local.listen[0].LocalAddress = '127.0.0.1';
+  assert.equal(build(local, {}, now, HOME).ports.find((p) => p.port === 8813).leftover, false, 'an old preview only this PC can reach is not the Weasel\'s to raise');
   assert.equal(by[8886].leftover, false, 'a fresh preview does not');
   assert.equal(by[38761].leftover, false, 'our own helpers are never called left over');
   assert.equal(by[57621].reach, 'network');

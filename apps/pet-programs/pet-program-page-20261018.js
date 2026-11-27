@@ -109,7 +109,9 @@
   // A check is the hub's record (pets.json `checks`): data-check on the light, with its note and date.
   function care(b) {
     var k = b.dataset.item, s = lights[k] || {}, c = b.dataset.check || '';
-    if (c === 'missing' || (!c && b.dataset.planned && !b.dataset.unseen)) return 'none';
+    // A 3rd party program not set up on the farm at all (data-unmade) is grey too; one she has, and a device, stay orange
+    // until checked (Astra, 2026-11-27, Flash Audit round 67 deck, answer 10).
+    if (c === 'missing' || (!c && b.dataset.planned && (!b.dataset.unseen || b.dataset.unmade))) return 'none';
     if (s.health === 'fix' || s.fix) return 'fix';
     if (isProgram(b) && update(b) === 'fix') return 'update';
     if (c === 'update') return 'update';
