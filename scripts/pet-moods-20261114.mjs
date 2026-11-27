@@ -7,7 +7,7 @@
 //   - the desktop pets (Startup Star, scripts/desktop-pets-20261011.cs, PetMoods),
 //   - every pet program page: the pet in its cyberhome at the top, the emotions panel and every friend at the bottom
 //     (apps/pet-programs/pet-program-page-20261018.js),
-//   - the Stream Deck keys, once Deck Duck's plugin (findastra/deck-duck) reads it: not built yet (this pull request's card).
+//   - the Stream Deck keys: Deck Duck's plugin (findastra/deck-duck, stream-deck/mood-keys-20261125.js), since 2026-11-26.
 // Developer term: a single source of truth, one writer and many readers (a shared status file).
 //
 // Where a mood comes from, checked every five seconds (the meanings are MOOD-KEY.md's, most urgent first: when several
@@ -178,7 +178,7 @@ export function readBoard(where = places(), now = Date.now()) {
 }
 
 /** The page copy of the board. */
-export const pageFile = (board) => `// Written by The Farm's pet-moods (${LABEL}) on this PC only: every pet's mood, the same on the desktop and the\n// pages (the Stream Deck next). Key names and pets' own lines, never a key. Rewritten whole; do not edit by hand.\nwindow.${PAGE_VAR} = ${JSON.stringify(board)};\n`;
+export const pageFile = (board) => `// Written by The Farm's pet-moods (${LABEL}) on this PC only: every pet's mood, the same on the desktop, the\n// pages and the Stream Deck keys. Key names and pets' own lines, never a key. Rewritten whole; do not edit by hand.\nwindow.${PAGE_VAR} = ${JSON.stringify(board)};\n`;
 
 // Written next to the file, then moved over it, so a reader never sees half a file. Windows refuses the move while a
 // reader has the file open (the desktop pets, a page's server): try again a few times, then write it in place.
