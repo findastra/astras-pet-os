@@ -50,15 +50,15 @@ files are built pages that `npm run build` rewrites. Q1 and Q2 are the two quest
 | 5 | Log Den | `bin/log-den-20261018.exe` (hosts 6 and 7) | no | the star | `log-den-server-20261126.exe` (the day it was updated) | hub 73, log-den 7 | 5 to 7 build together. **Merged 2026-11-27**: findastra/log-den#17, packet-river#18, evidence-locker#17 and #443, with her OK ("go ahead"); Log Den's server still runs 6 and 7; switched on her PC the same day |
 | 6 | Packet River | inside Log Den (`packet-river-20261018.exe --alone`) | no | Log Den | `packet-river-server-20261126.exe` | hub 20, packet-river 7 | with 5: **merged 2026-11-27** |
 | 7 | Evidence Locker | inside Log Den (`evidence-locker-20261018.exe --alone`) | no | Log Den | `evidence-locker-server-20261126.exe` | hub 69, evidence-locker 7 | with 5: **merged 2026-11-27** |
-| 8 | Audio Rescue | `voicemeeter-bug-20261008.exe --hosted` | no | the star | `audio-rescue-server-20261127.exe` (the day it was updated) | hub 22 | its build wants the hub beside its folder (known trap). Open 2026-11-27: findastra/voicemeeter-bug#16 and the hub's pull request; one program, no second copy (his status window comes from the running copy) |
+| 8 | Audio Rescue | `voicemeeter-bug-20261008.exe --hosted` | no | the star | `audio-rescue-server-20261127.exe` (the day it was updated) | hub 22 | its build wants the hub beside its folder (known trap). **Done 2026-11-27**: findastra/voicemeeter-bug#16 and #450 merged, swapped on her PC at 03:10 (Voicemeeter stayed up); one program, no second copy (his status window comes from the running copy) |
 | 9 | The Farm | `bin/pet-chat-helper-20261103.exe` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 15 | written again in Node: it is C# today |
 | 10 | The Farm | `scripts/flash-audit-helper-20261108.mjs` | yes | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
 | 11 | The Farm | `scripts/pet-moods-20261114.mjs` | no | the star | joins `the-farm-server-20261120.mjs` | hub 14 | |
 | 12 | The Farm | `mcp/server-20261026.mjs` (the read-only PetOS connector) | no | each chat, its own copy | stays out: not a background program | hub 13, and every chat's MCP settings | it starts and stops with its chat, so A72 does not count it |
 | 13 | The Farm (Startup Star) | `startup-star/scripts/live-sync-20261017.ps1` | no | the star | joins `the-farm-server-20261120.mjs` | hub 4, startup-star 4 | one uncommitted file in startup-star's folder |
-| 14 | Discord Tower | `openai-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 17, ai-discord-presence 9 | two uncommitted files in that folder |
-| 15 | Discord Tower | `anthropic-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 14, ai-discord-presence 9 | as 14 |
-| 16 | Discord Tower | `ableton-live-discord-presence/src/server-20261102.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | ableton-live-discord-presence 3 | |
+| 14 | Discord Tower | `openai-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 17, ai-discord-presence 9 | two uncommitted files in that folder. **Held 2026-11-27** (Astra: "Wait for Codex"): Codex's findastra/ai-discord-presence#61, ableton-live-discord-presence#3 and discord-tower#7 change these same servers (saved sharing modes, display turns); the join is built on top of them once they land |
+| 15 | Discord Tower | `anthropic-discord-presence/src/server.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | hub 14, ai-discord-presence 9 | as 14 (held 2026-11-27) |
+| 16 | Discord Tower | `ableton-live-discord-presence/src/server-20261102.js` | yes | the star, then it lets go | joins `discord-tower-server-20261120.js` | ableton-live-discord-presence 3 | held with 14 (2026-11-27) |
 | 17 | Chat Stack | `chat-rat-20261016.mjs serve` | yes | the star | `chat-stack-server-20261120.mjs`: only the `serve` part moves; Chat Rat's other commands stay | hub 13, chat-rat 12 | her folder is on Codex's `codex/chat-rat-save-20261016` with 3 uncommitted files |
 | 18 | Light Hive | `rgbee/helper` (light-hive-helper) | yes | not the star yet: a test copy started by another chat | `light-hive-server-20261120.exe` | hub 13, rgbee 6 | another chat's Light Hive work, uncommitted on two branches. Wait for it to land |
 
@@ -85,8 +85,8 @@ and Startup Star runs them:
 
 Still open in another chat: Light Hive's server (row 18), `light-hive-server-20261120`, in findastra/rgbee#16 and #403.
 #403 still edits the port watch by its old name, `scripts/port-watch-20261119.mjs`, which #425 renamed; since #431 the
-Weasel knows any server named in `pets.json`. Rows 5 to 7 are merged and switched on her PC (2026-11-27), row 8 is
-open; the rest of the table is still to do: rows 9 to 11, 13 to 17.
+Weasel knows any server named in `pets.json`. Rows 5 to 8 are merged and switched on her PC (2026-11-27). Rows 14 to 16
+wait on Codex's presence pull requests. The rest of the table is still to do: rows 9 to 11, 13 and 17.
 
 ## How each rename goes
 
