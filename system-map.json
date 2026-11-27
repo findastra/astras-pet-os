@@ -232,7 +232,7 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-spotify-sync-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-spotify-sync-20261127.html",
-      "job": "The storm and other Light Hive themes react to whatever Voicemeeter plays (its A-bus meters), so Spotify on the PC drives the lightning. It has its own page now, the spotify-sync show’s settings: start and stop, presets, every setting (how the lights move on the beat, the Light Strip as colour blocks or as the wave length, the palette, a colour for each part of the sound, brightness, how many beats it finds, the shortest gap, each light’s part and side) and a live view of what the server hears: five parts of the sound, the 15-section line and the beat. It runs inside Light Hive’s server (light-hive-server 1.5.0 and later, findastra/rgbee#17, not merged yet), which hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC), splits the sound into bands and finds the beats; nothing is recorded. Music playing on another device never reaches the PC: pick this PC in Spotify Connect. Never more than three changes a second.",
+      "job": "The storm and other Light Hive themes react to whatever Voicemeeter plays (its A-bus meters), so Spotify on the PC drives the lightning. It has its own page now, the spotify-sync show’s settings: start and stop, a table of which light follows which part of the song (kick and bass, bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat or the tempo), presets, every other setting (Pulse, where dark lights flash on their own part’s hits; the wall line as waves or segments; colour scaling; colours by song component, room or part; white only as a short accent on drops and hard kicks; the palette; flash, base and hold; how many beats it finds, the shortest gap) and a live view of what the server hears: the song’s BPM, sections, drops and accents, the five parts, the 15-section line. It runs inside Light Hive’s server (light-hive-server 1.5.0 and later, findastra/rgbee#17, not merged yet), which hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC), splits the sound into bands and finds the beats; nothing is recorded. Music playing on another device never reaches the PC: pick this PC in Spotify Connect. Fast strobing is on by Astra’s choice for her own room (2026-11-27).",
       "does": "Light Hive’s themes and the spotify-sync show follow the music; its page holds every setting.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-spotify-sync-20261127.html",
       "frame": "wide",
@@ -283,7 +283,7 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-rainforest-storm-tool-v1.0",
       "url": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
-      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches. Never more than three flashes a second.",
+      "job": "Rain, wind and thunder, with lightning on the screen and every light Light Hive reaches.",
       "does": "A rainforest storm across every light and screen.",
       "embed": "https://findastra.github.io/astras-pet-os/apps/rgbee-rainforest-storm-20261108.html",
       "frame": "wide",
@@ -300,7 +300,7 @@
       "version": "v1.0",
       "label": "light-hive-v1.0-light-hive-server-v1.0",
       "url": "https://github.com/findastra/rgbee/tree/main/server",
-      "job": "Light Hive’s server (light-hive-server-YYYYMMDD.exe, named light-hive-helper until 2026-11-20): the small Windows program that sends Light Hive’s colours, themes and the spotify-sync show to the real lights, listening on this PC only: Razer through Razer’s Chroma SDK while Razer Synapse runs, the Corsair K65 through iCUE’s SDK, Govee by Bluetooth, the home network or Govee’s cloud. It hears the music for its themes and the spotify-sync show, keeps the Light Strip’s colour corrections, and is the light-hive MCP, so Claude can set the lights. MSI’s lights aren’t reached yet. Never more than three flashes a second, in code. Not started at sign-in yet.",
+      "job": "Light Hive’s server (light-hive-server-YYYYMMDD.exe, named light-hive-helper until 2026-11-20): the small Windows program that sends Light Hive’s colours, themes and the spotify-sync show to the real lights, listening on this PC only: Razer through Razer’s Chroma SDK while Razer Synapse runs, the Corsair K65 through iCUE’s SDK, Govee by Bluetooth, the home network or Govee’s cloud. It hears the music for its themes and the spotify-sync show, keeps the Light Strip’s colour corrections, and is the light-hive MCP, so Claude can set the lights. MSI’s lights aren’t reached yet. Its flash limit is off by Astra’s choice for her own room since 2026-11-27 (it was three a second, then six); 40 ms per light is the show’s own step. Not started at sign-in yet.",
       "does": "Sends Light Hive’s colours, themes, lightning and the spotify-sync show to the real lights, from this PC only."
     },
     {
