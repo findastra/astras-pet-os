@@ -144,6 +144,20 @@
   --tool-bg: rgba(255, 244, 232, .05); --tool-bg-hover: rgba(253, 166, 116, .09);
 }
 :root[data-pet="door-dormouse"] .footer-group::before, :root[data-pet="door-dormouse"] .footer-sparkle { color: #fd8891; }
+/* Crypto Burrow's own colours, Mine Mole's (Astra, 2026-11-26: "make it the color of his claws", then "make it
+   wayyyyy darker but i like the shade of pink"): the page is his claw pink's own hue (344°, from #fb5582 sampled from
+   art/moods/mine-mole/idle.png) taken down to a very dark rose (#360814). Lettering is a pale pink (#ffd6e2), never
+   white (she dislikes white screens); the claw pink itself draws the panel lines, links and marks, and his helmet's
+   teal (#3fd0e6) the working-copy box. */
+:root[data-pet="mine-mole"] {
+  --slate: #360814; --slate-2: #24050d; --chalk: #ffd6e2; --chalk-dim: #e8a3b8; --line: #fb5582; --line-dim: #8a2a4c;
+  --box: transparent; --surface: var(--slate); --page-ink: var(--chalk); --page-ink-dim: var(--chalk-dim); --accent: #fb5582;
+  --editorial: #3fd0e6; --editorial-ink: #c9f4fa; --editorial-glow: rgba(63, 208, 230, .18); --grid: none; --editorial-by: #8fe3f0; --serial: #fb5582;
+  --link: #ff8fb0; --connection: #ffb3c9;
+  --tool-bg: transparent; --tool-bg-hover: transparent;
+  color-scheme: dark;
+}
+:root[data-pet="mine-mole"] .footer-group::before, :root[data-pet="mine-mole"] .footer-sparkle { color: #fb5582; }
 /* Mirror Pool's own colours, Platform Platypus's (Astra, 2026-11-11: "Pick like a dark purple color for the background
    that matches him"): a dark plum page from his fur, panel lines a lighter violet from the same fur, his banana-yellow
    bill for links, marks and pill edges, and his cyan phone for L3's note. */

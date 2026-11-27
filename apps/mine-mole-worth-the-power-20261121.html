@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worth the power? · Mine Mole</title>
+<!-- worth-the-power-tool: Crypto Burrow's check of whether real mining is worth the power, Mine Mole's job
+     (pet-programs.json #23: "checks whether mining is worth the power"). You give your machine's hash rate and watts,
+     your power price and the coin's numbers; it shows every variable, the equations with equals signs and the answer
+     worked out step by step (skills/explain-equations), and keeps a list of your checks in this browser
+     (crypto-burrow-worth-v1). The presets are example numbers from November 2026, not live data: prices and network
+     sizes change daily, so type today's from a live source. Nothing is fetched or sent.
+     Self-contained, no dependencies. Written with Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. -->
+<link rel="stylesheet" href="mine-mole-tools-20261121.css">
+</head>
+<body>
+<main>
+<header class="page">
+<h1>Worth the power?</h1>
+<p class="sub">Would a real miner make or lose money for you? Fill in your numbers; everything is worked out in the open.</p>
+</header>
+
+<fieldset><legend>your-numbers</legend>
+<label>Start from an example
+<select id="preset">
+<option value="">Choose…</option>
+<option value="laptop">Monero on a laptop CPU</option>
+<option value="desktop">Monero on a Ryzen 9 desktop CPU</option>
+<option value="asic">Bitcoin on a 200 TH/s ASIC</option>
+</select></label>
+<p class="note">Examples, not live data. Type today's coin price and network hash rate from a live source (a mining
+calculator or the coin's block explorer), and your power price from your electricity bill.</p>
+<div class="row">
+<label>Your hash rate<input type="number" id="h" min="0" step="any"></label>
+<label>unit<select id="hu"><option value="1">H/s</option><option value="1e3">kH/s</option><option value="1e6">MH/s</option><option value="1e9">GH/s</option><option value="1e12">TH/s</option></select></label>
+<label>Extra watts while mining<input type="number" id="P" min="0" step="any"></label>
+<label>Power price ($/kWh)<input type="number" id="p" min="0" step="any"></label>
+</div>
+<div class="row">
+<label>Network hash rate<input type="number" id="H" min="0" step="any"></label>
+<label>unit<select id="Hu"><option value="1e9">GH/s</option><option value="1e12">TH/s</option><option value="1e15">PH/s</option><option value="1e18">EH/s</option></select></label>
+<label>Coins per block<input type="number" id="R" min="0" step="any"></label>
+<label>Blocks per day<input type="number" id="B" min="0" step="any"></label>
+<label>Coin price ($)<input type="number" id="v" min="0" step="any"></label>
+<label>Pool fee (%)<input type="number" id="f" min="0" max="100" step="any"></label>
+</div>
+<label>Coin name (for your list)<input id="coin" maxlength="20"></label>
+</fieldset>
+
+<fieldset><legend>the-answer</legend>
+<p id="verdict" class="mark" style="font-size:1.1rem" aria-live="polite"></p>
+<div class="stats">
+<div class="stat"><b id="o-coins">–</b><span>coins a day</span></div>
+<div class="stat"><b id="o-earn">–</b><span>earned a day</span></div>
+<div class="stat"><b id="o-cost">–</b><span>power a day</span></div>
+<div class="stat"><b id="o-net">–</b><span>profit a day</span></div>
+<div class="stat"><b id="o-year">–</b><span>profit a year</span></div>
+<div class="stat"><b id="o-break">–</b><span>break-even power price</span></div>
+</div>
+<button type="button" id="keep">Save this check to my list</button>
+</fieldset>
+
+<fieldset><legend>worked-out</legend>
+<div class="eq">
+<p><b>Variables</b></p>
+<ul class="vars" id="vars"></ul>
+<p><b>Equations</b></p>
+<p class="formula">D = (h ÷ H) × R × B × (1 − f)</p>
+<p class="formula">C = P × 24 ÷ 1000 × p</p>
+<p class="formula">N = D × v − C</p>
+<p class="formula">p<sub>even</sub> = (D × v) ÷ (P × 24 ÷ 1000)</p>
+<p class="formula">T = (H ÷ h) ÷ B</p>
+<p><b>Your numbers, step by step</b></p>
+<ol class="steps" id="steps"></ol>
+</div>
+</fieldset>
+
+<fieldset><legend>my-checks</legend>
+<div class="wrap"><table><thead><tr><th>When</th><th>Coin</th><th class="n">Hash rate</th><th class="n">Watts</th><th class="n">$/kWh</th><th class="n">Profit a day</th><th></th></tr></thead><tbody id="list"></tbody></table></div>
+<p class="note">Saved in this browser only. Mine Mole's weekly check compares these with today's numbers once its runtime is built.</p>
+</fieldset>
+</main>
+<script src="mine-mole-mining-core-20261121.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.CryptoBurrow, $ = function (id) { return document.getElementById(id); }, KEY = 'crypto-burrow-worth-v1';
+  var FIELDS = ['h', 'hu', 'P', 'p', 'H', 'Hu', 'R', 'B', 'v', 'f', 'coin'];
+  var PRESETS = {
+    laptop: { h: 4, hu: '1e3', P: 65, p: 0.15, H: 5, Hu: '1e9', R: 0.6, B: 720, v: 300, f: 1, coin: 'Monero (XMR)' },
+    desktop: { h: 22, hu: '1e3', P: 150, p: 0.15, H: 5, Hu: '1e9', R: 0.6, B: 720, v: 300, f: 1, coin: 'Monero (XMR)' },
+    asic: { h: 200, hu: '1e12', P: 3500, p: 0.15, H: 1000, Hu: '1e18', R: 3.125, B: 144, v: 100000, f: 2, coin: 'Bitcoin (BTC)' }
+  };
+  var saved = { form: PRESETS.laptop, list: [] };
+  try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.form) saved = { form: s.form, list: Array.isArray(s.list) ? s.list.slice(-100) : [] }; } catch (e) { /* none yet */ }
+  function store() { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* private window */ } }
+  function fill(o) { FIELDS.forEach(function (k) { if (o[k] != null) $(k).value = o[k]; }); }
+  function read() { var o = {}; FIELDS.forEach(function (k) { o[k] = $(k).value; }); return o; }
+  function li(parent, text) { var e = document.createElement('li'); e.textContent = text; parent.appendChild(e); }
+  function empty(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+  var n = C.fmtNum, money = C.fmtMoney, result = null;
+
+  function calc() {
+    var o = read(); saved.form = o; store();
+    var h = (+o.h || 0) * (+o.hu), H = (+o.H || 0) * (+o.Hu), P = +o.P || 0, p = +o.p || 0, R = +o.R || 0, B = +o.B || 0, v = +o.v || 0, f = (+o.f || 0) / 100;
+    var vars = $('vars'), steps = $('steps'); empty(vars); empty(steps);
+    li(vars, 'h = your hash rate = ' + C.fmtRate(h) + ' (from your miner\'s benchmark)');
+    li(vars, 'H = the whole network\'s hash rate = ' + C.fmtRate(H) + ' (from a live source)');
+    li(vars, 'R = coins paid per block = ' + n(R) + ' (the coin\'s current block reward)');
+    li(vars, 'B = blocks the network finds per day = ' + n(B, 0));
+    li(vars, 'f = pool fee as a fraction = ' + n(f));
+    li(vars, 'P = extra watts while mining = ' + n(P, 0) + ' W (a plug-in power meter tells you)');
+    li(vars, 'p = power price = ' + money(p) + ' per kWh (your electricity bill)');
+    li(vars, 'v = price of one coin = ' + money(v));
+    li(vars, 'D = coins per day · C = power cost per day · N = profit per day · p_even = power price where N = 0 · T = days to win a block alone');
+    if (!(h > 0 && H > 0)) { $('verdict').textContent = 'Fill in both hash rates to see the answer.'; result = null; return; }
+    var share = h / H, D = C.dailyCoins(h, H, R, B, f), earn = D * v, cost = C.dailyPowerCost(P, p), N = C.dailyProfit(D, v, cost);
+    var kwh = P * 24 / 1000, even = kwh > 0 ? earn / kwh : Infinity, T = C.soloDays(h, H, B);
+    li(steps, 'h ÷ H = ' + C.fmtRate(h) + ' ÷ ' + C.fmtRate(H) + ' = ' + n(share, 12) + ' (your share of the guessing)');
+    li(steps, 'D = ' + n(share, 12) + ' × ' + n(R) + ' × ' + n(B, 0) + ' × ' + n(1 - f) + ' = ' + n(D, 10) + ' coins a day');
+    li(steps, 'D × v = ' + n(D, 10) + ' × ' + money(v) + ' = ' + money(earn) + ' earned a day');
+    li(steps, 'C = ' + n(P, 0) + ' × 24 ÷ 1000 × ' + n(p) + ' = ' + n(kwh, 3) + ' kWh × ' + money(p) + ' = ' + money(cost) + ' a day');
+    li(steps, 'N = ' + money(earn) + ' − ' + money(cost) + ' = ' + money(N) + ' a day, ' + money(N * 365) + ' a year');
+    li(steps, 'p_even = ' + money(earn) + ' ÷ ' + n(kwh, 3) + ' kWh = ' + money(even) + ' per kWh');
+    li(steps, 'T = (' + C.fmtRate(H) + ' ÷ ' + C.fmtRate(h) + ') ÷ ' + n(B, 0) + ' = ' + n(T, 0) + ' days (' + n(T / 365, 1) + ' years) to win one block alone');
+    $('o-coins').textContent = n(D, 8); $('o-earn').textContent = money(earn); $('o-cost').textContent = money(cost);
+    $('o-net').textContent = money(N); $('o-net').className = N >= 0 ? 'good' : 'bad';
+    $('o-year').textContent = money(N * 365); $('o-break').textContent = isFinite(even) ? money(even) + '/kWh' : '–';
+    $('verdict').textContent = N >= 0
+      ? 'This makes about ' + money(N) + ' a day after power, before the machine\'s cost and wear. It stops paying if your power price goes above ' + money(even) + ' per kWh.'
+      : 'This loses about ' + money(-N) + ' a day: the power costs more than the coins. It would only pay at a power price below ' + money(even) + ' per kWh.';
+    result = { at: new Date().toISOString(), coin: String(o.coin || 'coin').slice(0, 20), h: h, P: P, p: p, N: N };
+  }
+  function drawList() {
+    var tb = $('list'); empty(tb);
+    saved.list.slice().reverse().forEach(function (r, i) {
+      var tr = document.createElement('tr');
+      [new Date(r.at).toLocaleDateString(), r.coin, C.fmtRate(r.h), n(r.P, 0), money(r.p), money(r.N)].forEach(function (t, j) {
+        var td = document.createElement('td'); td.textContent = t; if (j >= 2) td.className = 'n'; if (j === 5) td.className = 'n ' + (r.N >= 0 ? 'good' : 'bad'); tr.appendChild(td);
+      });
+      var td = document.createElement('td'), x = document.createElement('button'); x.type = 'button'; x.className = 'ghost'; x.textContent = 'Remove';
+      x.addEventListener('click', function () { saved.list.splice(saved.list.length - 1 - i, 1); store(); drawList(); });
+      td.appendChild(x); tr.appendChild(td); tb.appendChild(tr);
+    });
+  }
+  $('preset').addEventListener('change', function () { if (PRESETS[this.value]) { fill(PRESETS[this.value]); calc(); } });
+  FIELDS.forEach(function (k) { $(k).addEventListener('input', calc); $(k).addEventListener('change', calc); });
+  $('keep').addEventListener('click', function () { if (result) { saved.list.push(result); store(); drawList(); } });
+  fill(saved.form); calc(); drawList();
+})();
+</script>
+<script src="mine-mole-in-tool-20261121.js"></script>
+</body>
+</html>

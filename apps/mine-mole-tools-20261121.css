@@ -1,0 +1,61 @@
+/* Crypto Burrow's mining tools (Mine Mole, pet program #23): one look for all five tool pages, in Crypto Burrow's own
+   colours (Astra, 2026-11-26): a very dark rose in his claw pink's hue, pale pink lettering, claw-pink lines, no white anywhere, and a solid page
+   inside the tool box so the browser never paints white behind it.
+   Inside a tool box (html.in-tool, set by mine-mole-in-tool-20261121.js) the page hides its own header. Claude Opus 5.5 (claude-opus-5-5), 2026-11-21. */
+:root{--bg:#360814;--ink:#ffd6e2;--dim:#e8a3b8;--line:#fb5582;--faint:rgba(251,85,130,.3);--accent:#fb5582;--zero:#3fd0e6;
+  --good:#7ee2a8;--bad:#ffb08a;--well:rgba(251,85,130,.08);
+  font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);
+  }
+html.in-tool,html.in-tool body{background:var(--bg)}
+html.in-tool{overflow:hidden}
+html.in-tool main{padding:0 0 8px}
+html.in-tool header.page{display:none}
+main{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{margin:0 0 4px;font-size:1.7rem}
+h2{margin:18px 0 6px;font-size:1.15rem}
+h3{margin:14px 0 4px;font-size:1rem}
+p{margin:6px 0}
+a{color:#ff8fb0}
+.sub,.note{color:var(--dim)}
+.note{font-size:.88rem}
+code,.mono{font-family:ui-monospace,Consolas,monospace;font-size:.9em}
+.hash{font-family:ui-monospace,Consolas,monospace;font-size:.82rem;word-break:break-all}
+.hash .z{color:var(--zero);font-weight:700;text-decoration:underline}
+fieldset{border:1px solid var(--line);border-radius:6px;margin:12px 0;padding:8px 12px 12px;min-width:0}
+legend{font:600 .8rem ui-monospace,Consolas,monospace;padding:0 6px;color:var(--ink)}
+label{display:inline-flex;flex-direction:column;gap:2px;font-size:.85rem;color:var(--dim);margin:4px 12px 4px 0;vertical-align:top}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--well);border:1px solid var(--line);border-radius:4px;padding:5px 7px;min-width:0}
+input[type=number]{width:9.5em}
+input[type=checkbox]{width:auto;accent-color:var(--accent)}
+textarea{width:100%;min-height:3.2em;resize:vertical}
+button{font:600 .9rem system-ui,sans-serif;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:6px 12px;cursor:pointer;margin:4px 6px 4px 0}
+button.ghost{color:var(--ink);background:transparent;border-color:var(--line)}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th{text-align:left;font:600 .78rem ui-monospace,Consolas,monospace;color:var(--dim);border-bottom:1px solid var(--line);padding:3px 6px}
+td{padding:3px 6px;border-bottom:1px solid var(--faint);vertical-align:top}
+td.n{text-align:right;font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+.wrap{overflow-x:auto}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.stat{border:1px solid var(--faint);border-radius:6px;padding:6px 10px}
+.stat b{display:block;font:700 1.15rem ui-monospace,Consolas,monospace;color:var(--ink)}
+.stat span{font-size:.78rem;color:var(--dim)}
+.good{color:var(--good)} .bad{color:var(--bad)} .mark{color:var(--accent)}
+.eq{border-left:3px solid var(--accent);padding:6px 10px;margin:8px 0;background:var(--well)}
+.eq .vars{margin:0 0 6px;padding-left:18px}
+.eq .formula{font:700 1rem ui-monospace,Consolas,monospace;margin:6px 0}
+.eq .steps{font-family:ui-monospace,Consolas,monospace;font-size:.88rem;margin:4px 0;padding-left:18px}
+details.lesson{border:1px solid var(--line);border-radius:6px;margin:8px 0;padding:0 12px}
+details.lesson>summary{cursor:pointer;padding:8px 0;font-weight:600;list-style-position:inside}
+details.lesson[open]>summary{border-bottom:1px solid var(--faint);margin-bottom:6px}
+.done-tick{float:right;font-weight:400;font-size:.85rem;color:var(--dim)}
+.progress{height:8px;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin:6px 0}
+.progress>i{display:block;height:100%;background:var(--accent);width:0}
+.row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:0 4px}
+.quiz button.ghost{display:block;text-align:left;width:100%;font-weight:400}
+.quiz .right{border-color:var(--good);color:var(--good)} .quiz .wrong{border-color:var(--bad);color:var(--bad)}
+svg text{fill:var(--dim);font:11px ui-monospace,Consolas,monospace}
+@media (max-width:560px){input[type=number]{width:7.5em}label{margin-right:8px}}
