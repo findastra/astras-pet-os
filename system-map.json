@@ -893,7 +893,7 @@
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-tp-link-tool-v1.0",
       "url": "http://tplinkwifi.net",
-      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing.",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing. It opens in a new tab of your own browser (2026-11-27): in the Claude chat's browser pane the router's page stays blank on \"Opening...\", because the pane blocks the router's own scripts.",
       "does": "Opens your TP-Link router's sign-in page."
     },
     {

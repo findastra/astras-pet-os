@@ -3918,6 +3918,43 @@
       "added": "2026-11-02",
       "version": "v0.1.0",
       "server": "scripts/white-hat-lab-server-20261120.mjs",
+      "checks": {
+        "tool:port-check-tool": {
+          "result": "works",
+          "note": "Its tool box shows the newest private assessment on your PC. A new port check still waits on your OK each time.",
+          "on": "2026-11-27"
+        },
+        "tool:port-watch-tool": {
+          "result": "works",
+          "note": "White Hat Lab's server is running and writes a fresh look every 10 minutes.",
+          "on": "2026-11-27"
+        },
+        "tool:tp-link-tool": {
+          "result": "issues",
+          "note": "The router answers at tplinkwifi.net, and the button now opens it in a new tab of your own browser or phone. In the Claude chat's browser pane it stays blank on \"Opening...\": the pane blocks the router's own scripts.",
+          "on": "2026-11-27"
+        },
+        "tool:ghost-in-the-walls-tool": {
+          "result": "works",
+          "note": "It reads the guest list every 30 minutes, read only, and keeps the record on your PC. It records devices that got on; the router keeps no record of tries that failed.",
+          "on": "2026-11-27"
+        },
+        "third-party:wireshark": {
+          "result": "works",
+          "note": "Wireshark 4.6.9 is installed and its TShark answered.",
+          "on": "2026-11-27"
+        },
+        "third-party:mcp-inspector": {
+          "result": "missing",
+          "note": "Planned (hub card 319): not set up on this PC yet.",
+          "on": "2026-11-27"
+        },
+        "third-party:macattack": {
+          "result": "missing",
+          "note": "An idea: Kali on the old MacBook is not set up for White Hat Lab yet.",
+          "on": "2026-11-27"
+        }
+      },
       "audit": {
         "cadence": "weekly",
         "subject": "authorized security tests, port checks of your devices and the scan log",
