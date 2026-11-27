@@ -648,8 +648,10 @@ namespace AstraDesktopPets {
     internal static string ServerIn(string repo,string folder,string otherwise) { string server;return Servers().TryGetValue(repo,out server)?Path.Combine(folder,server.Replace('/',Path.DirectorySeparatorChar)):otherwise; }
     internal static List<Entry> All() {
       var list=new List<Entry>();string parent=Path.GetDirectoryName(PetFiles.Root);
+      // Log Den's server runs all three crash watches (2026-11-08); each pet's own server is named in pets.json (2026-11-26).
+      // Without that line, its program keeps its old name.
       foreach(var p in new[]{new[]{"log-den","Log Lynx"},new[]{"packet-river","Packet Piranha"},new[]{"evidence-locker","Forensic Ferret"}})
-        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe"),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
+        list.Add(new Entry{Repo=p[0],Pet=p[1],Exe=ServerIn(p[0],Path.Combine(parent,p[0]),Path.Combine(parent,p[0],"bin",p[0]+"-20261018.exe")),Folder=Path.Combine(DataRoot,p[0]),StartArgs=new[]{"--startup"},Host=p[0]=="log-den"?null:"log-den"});
       // Kernel Koala's leftover-watch (Astra, 2026-10-21: "monitoring unnecessary applications"); no desktop pet yet. Its
       // server is named in pets.json (2026-11-20); without that line, its window program keeps watch the same way.
       list.Add(new Entry{Repo="kernel-grove",Pet="Kernel Koala",Exe=ServerIn("kernel-grove",Path.Combine(parent,"kernel-grove"),Path.Combine(parent,"kernel-grove","bin","kernel-grove-20261021.exe")),Folder=Path.Combine(DataRoot,"kernel-grove"),StartArgs=new[]{"--startup"}});
@@ -1563,12 +1565,17 @@ namespace AstraDesktopPets {
       // One crash watch (2026-11-08): Packet Piranha's and Forensic Ferret's watches run in Log Den's program.
       foreach(var repo in new[]{"packet-river","evidence-locker"}) {
         var hosted=BackgroundPets.Find(repo);
-        if(hosted==null||hosted.Host!="log-den"||!BackgroundPets.Watches(repo)||!hosted.Exe.EndsWith(repo+"-20261018.exe"))throw new Exception(repo+"'s watch must run in Log Den's program, with its own menu and alarmed face.");
+        if(hosted==null||hosted.Host!="log-den"||!BackgroundPets.Watches(repo))throw new Exception(repo+"'s watch must run in Log Den's program, with its own menu and alarmed face.");
         var item=new ToolStripMenuItem(hosted.Pet);BackgroundPets.Fill(item,hosted,RunBackground,false);
         ((ToolStripMenuItem)item.DropDownItems[1]).PerformClick();
         if(testActions[testActions.Count-1]!="background:log-den:--startup")throw new Exception("Start "+hosted.Pet+" must run Log Den's program with --startup.");
       }
       if(BackgroundPets.Find("log-den").Host!=null)throw new Exception("Log Lynx's watch is the host.");
+      // Their own servers (A72, 2026-11-26): each named once in pets.json, in its own repo's bin folder.
+      foreach(var repo in new[]{"log-den","packet-river","evidence-locker"}) {
+        var e=BackgroundPets.Find(repo);string name=Path.GetFileName(e.Exe);
+        if(!System.Text.RegularExpressions.Regex.IsMatch(name,"^"+repo+"-server-[0-9]{8}\\.exe$")||e.Exe!=Path.Combine(Path.GetDirectoryName(PetFiles.Root),repo,"bin",name))throw new Exception(repo+"'s server must be the one named in pets.json, in its repo's bin folder: "+e.Exe);
+      }
       if(BackgroundPets.MutexName("packet-river","C:\\Example\\astras-pet-os")!="Local\\astras-pet-os-packet-river-932e39dc287c")throw new Exception("A hosted watch is found by its program's own single-copy name.");
       string held=BackgroundPets.MutexName("evidence-locker",Path.Combine(Path.GetTempPath(),"star-hosted-test-"+Guid.NewGuid().ToString("N")));
       if(BackgroundPets.Held(held))throw new Exception("A watch that is not running must not look running.");
