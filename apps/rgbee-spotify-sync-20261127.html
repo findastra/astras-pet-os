@@ -107,6 +107,10 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 .who td:nth-child(2){width:45%}
 .segs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .dotbox{display:grid;justify-items:center;gap:8px}
+.notekey{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+.notekey span{display:grid;gap:3px;justify-items:center;font-size:13px;color:var(--soft)}
+.notekey i{width:100%;height:26px;border-radius:7px;background:linear-gradient(var(--nc),var(--nl))}
+.notes b{display:inline-block;min-width:1.9em;padding:1px 6px;margin:0 2px;border-radius:6px;color:#050507;background:var(--nc);text-align:center;font-weight:700}
 .fams{display:grid;gap:8px}
 .fams.made .dot{opacity:.45;filter:saturate(.6)}
 .fams.made .dot input{pointer-events:none}
@@ -130,7 +134,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 .about dd{margin:0}
 .about .row{margin:12px 0 0 18px}
 @media (max-width:560px){.stage{grid-template-columns:1fr;justify-items:center}.side,.line,.ends,.wall,.wallcap{width:100%;justify-self:stretch}.wall .seg{font-size:11px;padding:10px 2px}.about dl{grid-template-columns:1fr}.about dd{margin-bottom:6px}
-  .line{gap:3px}.slider{grid-template-columns:6.5em 1fr 3.8em}.segs{grid-template-columns:repeat(2,minmax(0,1fr))}.who td{padding:6px}.who .hint{display:none}
+  .line{gap:3px}.slider{grid-template-columns:6.5em 1fr 3.8em}.notekey{grid-template-columns:repeat(6,minmax(0,1fr))}.segs{grid-template-columns:repeat(2,minmax(0,1fr))}.who td{padding:6px}.who .hint{display:none}
   .who td:last-child{width:4.2em}.who td:nth-child(2){width:auto}.who b{font-size:15px}.who select{padding:7px 4px;font-size:14px}}
 /* Smooth, never sudden: only when the computer doesn't ask for less motion. */
 @media (prefers-reduced-motion:no-preference){.bar{transition:height .22s linear}.line i{transition:opacity .22s linear,background-color .3s}
@@ -152,6 +156,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
       </div>
       <p class="hear" id="hear"></p>
       <p class="hear" id="nowPlaying" hidden></p>
+      <p class="hear notes" id="notes" hidden></p>
       <div class="bands" id="bands" role="img" aria-label="How loud each part of the song is, from the kick to the hi-hats"></div>
     </div>
     <div class="line" id="line" role="img" aria-label="The sound from the lowest to the highest notes, as the Light Strip's 15 sections show it in Wavelength line"></div>
@@ -183,6 +188,8 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
 
   <section class="card" aria-labelledby="colourTitle">
     <h2 id="colourTitle">Colours</h2>
+    <p class="hint">Synesthesia’s note key: each note’s colour, in rainbow order through the scale, lighter as the melody sits higher.</p>
+    <div class="notekey" id="noteKey" role="list" aria-label="The colour of each of the 12 notes"></div>
     <label class="choice switch"><span><input type="checkbox" id="songColors"> Song colour converter</span>
       <span class="hint">Each song gets its own colour families, made from one base colour and a harmony, so the next song looks different. Turn it off to use your own colour groups below.</span></label>
     <p class="hint" id="groupsSaid">Colour groups: each part’s own family of colours, used when colours come from Colour groups.</p>
@@ -207,7 +214,7 @@ select{font:inherit;font-size:15px;color:var(--ink);background:#101016;border:1p
   <details class="about">
     <summary>More details</summary>
     <dl>
-      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The table at the top says which light follows which part of the song: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), and the line from the lowest to the highest notes.</dd>
+      <dt>How it works</dt><dd>Press Start the show and play something on Spotify on this PC. The table at the top says which light follows which part of the song: the kick and bass, the bass line, vocals and melody, snares and claps, hi-hats and cymbals, every beat, the tempo or the song’s sections. Song structure gives each device its job (the wall line the hard hits, snares and kick; Squiggle, the mic and the headset the vocals; the keyboard the hats in ripples, the mouse pad an even metronome, the Mirror the sections) and each part its own colour family. Synesthesia colours each part by the notes it hears, in rainbow order through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, the sharps between) and paler as the melody sits higher, after the pitch-class synesthesia studies Paper Girl’s chromesthesia quiz cites (Itoh et al. 2017; Ward, Huckstep and Tsakanikos 2006). Pick a preset or change any setting: it goes to the lights straight away and is saved on the PC. In Pulse every light sits dark (or at Base) and flashes on its own part’s hits; White patterns does it in white, to learn the patterns first. The live view shows what the server hears: the song’s tempo in the dot, its sections, drops and accents, the five parts (a part’s bar lights up on its hits), and the line from the lowest to the highest notes.</dd>
       <dt>Where it comes from</dt><dd>Light Hive’s server on this PC (findastra/rgbee <code>server/</code>, light-hive-server 1.5.0 and later). It hears Windows’ loopback of the default speakers (Voicemeeter Input on this PC, where Spotify plays), splits the sound into bands and finds the beats. Nothing is recorded or saved. Only your PC’s copy of this page reaches it; the live site only previews.</dd>
       <dt>Your rules</dt><dd>2026-11-27: every beat changes the colour, parts of the line answer different parts of the sound, the line is the wave length, lots of settings to experiment with, solid blocks; dim lighting with bright flashes on the beats, one colour across larger sections, plain white to learn the patterns. Fast strobing is on by your choice: you lifted Light Hive’s flash limit for your own room on 2026-11-27 (it was three a second, then six), so the lights can change every 40 ms. This page’s own preview changes about four times a second at most, and nothing on it moves when your computer asks for less motion.</dd>
       <dt>Not built yet</dt><dd>The server doesn’t start by itself at sign-in, and the show doesn’t come back on after a restart (your settings do). Music playing on another device can’t be heard: pick this PC in Spotify Connect. MSI’s lights aren’t reached yet.</dd>
@@ -264,7 +271,8 @@ const LINES = [['wave', 'Waves', 'Each hit of the first segment’s part sends a
   ['segments', 'Segments', 'The wall line is cut into stretches, each following its own part of the song (below the table).']];
 const SCALES = [['level', 'Follows loudness', 'A part’s brightness follows how loud it is, in Steps.'],
   ['blocks', 'Solid blocks', 'A part lights as one solid block on its hits.']];
-const COLORS_BY = [['groups', 'Colour groups', 'Each part has its own family of colours (the rows below), stepping within it when the song changes section.'],
+const COLORS_BY = [['synesthesia', 'Synesthesia', 'Each part takes the colour of the notes it hears, in rainbow order through the scale (the note key below), lighter as the melody sits higher.'],
+  ['groups', 'Colour groups', 'Each part has its own family of colours (the rows below), stepping within it when the song changes section.'],
   ['components', 'Each part, together', 'Each part of the song has its own palette colour, and they all move on together.'],
   ['room', 'One room colour', 'Every light takes the same palette colour.'],
   ['parts', 'Each part its colour', 'Each light takes the colour of its part (the part colours below).']];
@@ -305,7 +313,7 @@ const LIGHTS = [
   { id: 'mousepad', name: 'Mouse pad', note: 'Razer Goliathus Chroma' }];
 // [setting, label, lowest, highest, step, unit, what it does]
 const FEEL = [['brightness', 'Brightness', 5, 100, 1, '%', ''],
-  ['flash', 'Flash', 20, 100, 1, '%', 'How bright a light flashes on a hit (Pulse).'],
+  ['flash', 'Flash', 5, 100, 1, '%', 'How bright a light flashes on a hit (Pulse).'],
   ['base', 'Base', 0, 30, 1, '%', 'How bright a light sits between hits; 0 is dark (Pulse).'],
   ['hold_ms', 'Hold', 40, 1000, 10, ' ms', 'How long a flash stays before it drops back (Pulse).'],
   ['change_every', 'Colour every', 1, 64, 1, ' beats', 'Colours move on every so many beats.'],
@@ -330,6 +338,9 @@ const DEFAULTS = { mode: 'pulse', line: 'segments', scale: 'blocks', colors_by: 
   side: { strip: 'A', keyboard: 'A', mirror: 'B', squiggle: 'B', razer: 'B', mousepad: 'A' } };
 // A preset's assign or side names only the lights it changes; the others keep theirs.
 const PRESETS = [
+  // Astra: "still feels too random ... can you do a setting where it matches to synthestesia", "still too bright"
+  // (light-hive-server 1.17.0): each part in the colour of its notes, flash 12.
+  { name: 'Synesthesia', set: { colors_by: 'synesthesia', flash: 12 } },
   // Astra: "i like the speed but its lacking structure. can you divide up by device for what makes sense ... can we do
   // color groupings" (light-hive-server 1.14.0): each device its job, each part its colour family, blocks. 1.14.1: "make
   // that the squiggle and put the all the hard hitting music on the light strip": the strip is snares, kick, snares.
@@ -520,7 +531,7 @@ function build() {
     box.append(r, out); if (what) box.append(el('span', 'hint', what));
     $('feel').append(box);
   }
-  lightRows();
+  lightRows(); noteKey();
   $('songColors').addEventListener('change', () => change({ song_colors: $('songColors').checked }));
 }
 function lightRows() {   // the main table: one row per light the server drives, and the part of the song it follows
@@ -567,6 +578,19 @@ function songFamilies() {
   const song = live && live.song && typeof live.song === 'object' ? live.song : null, hue = song ? Number(song.hue) : NaN, off = song && HARMONY[song.harmony];
   if (!off || !Number.isFinite(hue)) return null;
   return Object.fromEntries(SONG_PARTS.map((p, i) => [p, [hsvHex(hue + off[i], 1, 1), hsvHex(hue + off[i] + 18, 0.85, 1)]]));
+}
+// Synesthesia (light-hive-server 1.17.0): each note's colour in rainbow order through the scale, as the server makes
+// it (after Itoh et al. 2017 and Ward, Huckstep and Tsakanikos 2006): full colour, paler as the melody sits higher.
+const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const NOTE_HUE = [0, 18, 35, 48, 62, 120, 160, 185, 210, 235, 255, 280];
+const noteHex = (name, lighter) => { const i = NOTE_NAMES.indexOf(name); return i < 0 ? null : hsvHex(NOTE_HUE[i], 1 - 0.45 * unit(lighter), 1); };
+function noteKey() {
+  const box = $('noteKey'); box.replaceChildren();
+  for (const n of NOTE_NAMES) {
+    const s = el('span'); s.setAttribute('role', 'listitem'); s.setAttribute('aria-label', n + ': ' + noteHex(n, 0));
+    const chip = el('i'); chip.style.setProperty('--nc', noteHex(n, 0)); chip.style.setProperty('--nl', noteHex(n, 1));
+    s.append(chip, document.createTextNode(n)); box.append(s);
+  }
 }
 let groupsSig = '';
 function renderGroups() {   // a row per part: its family of 1 to 6 colours, or the song's own when the converter is on
@@ -633,6 +657,11 @@ const BAND_IDS = ['bass', 'low-mid', 'mid', 'high-mid', 'treble'];
 const lastWall = {}, wallAt = [0, 0, 0, 0, 0], wallT = [0, 0, 0, 0, 0];
 function partColour(p) {
   const k = BAND_IDS.indexOf(p), n = S.palette.length;
+  if (S.colors_by === 'synesthesia') {   // as the server: vocals and sections the melody, snares the next note, hats the third, the rest the bass note
+    const nt = live && live.notes && typeof live.notes === 'object' ? live.notes : {}, chord = Array.isArray(nt.chord) ? nt.chord : [], h = nt.height;
+    const pick = p === 'mid' || p === 'section' ? [chord[0] || nt.melody, h] : p === 'high-mid' ? [chord[1], h] : p === 'treble' ? [chord[2], h] : [nt.bass || nt.melody, 0];
+    return noteHex(pick[0], pick[1]) || '#ff00ff';
+  }
   if (S.colors_by === 'groups') {
     const made = S.song_colors ? songFamilies() : null, fam = (made && made[p]) || S.groups[p] || [S.palette[0]];
     return fam[(Number(live && live.sections) || 0) % fam.length];
@@ -717,6 +746,19 @@ function drawLive() {
   if (title) {
     const dot = el('i'); const fam = songFamilies(); if (fam) np.style.setProperty('--songc', fam.bass[0]);
     np.append(dot, document.createTextNode('♪ ' + title + (info.harmony ? ' · ' + String(info.harmony) + (S.song_colors ? ' colours' : ' colours (converter off)') : '')));
+  }
+  // The notes it hears (Synesthesia colours them): the bass note, the melody and the chord, each in its note colour.
+  const nb = $('notes'), nt = live && live.notes && typeof live.notes === 'object' ? live.notes : null;
+  const chord = nt && Array.isArray(nt.chord) ? nt.chord.filter((x) => NOTE_NAMES.includes(x)).slice(0, 3) : [];
+  const bassN = nt && NOTE_NAMES.includes(nt.bass) ? nt.bass : '', melN = nt && NOTE_NAMES.includes(nt.melody) ? nt.melody : '';
+  nb.hidden = !(bassN || melN || chord.length); nb.replaceChildren();
+  if (!nb.hidden) {
+    const chip = (name, lighter) => { const b = el('b', null, name); b.style.setProperty('--nc', noteHex(name, lighter)); return b; };
+    nb.append(document.createTextNode('Notes: '));
+    if (bassN) nb.append(document.createTextNode('bass '), chip(bassN, 0), document.createTextNode(' '));
+    if (melN) nb.append(document.createTextNode('melody '), chip(melN, nt.height), document.createTextNode(' '));
+    if (chord.length) { nb.append(document.createTextNode('chord ')); for (const c of chord) nb.append(chip(c, nt.height)); }
+    if (Number.isFinite(Number(nt.height))) nb.append(document.createTextNode(' · height ' + Math.round(unit(nt.height) * 100) + '%'));
   }
   renderGroups();
   // The mouse pad's metronome: an even tick on its own timer. The dot ticks on this page's own clock at the same gap

@@ -108,6 +108,21 @@ groupings".
   - the keyboard's picture (ripple, spectrum, gradient, solid);
   - a metronome dot that ticks evenly at the mouse pad's tempo, timed on the page from the server's gap, with its BPM.
 
+## Synesthesia (light-hive-server 1.17.0, later 2026-11-27)
+
+Astra: "still feels too random ... can you do a setting where it matches to synthestesia", "still too bright".
+
+- **Colours come from Synesthesia:** each part takes the colour of the notes it hears. The low end takes the bass note,
+  the vocals the strongest melody note, the snares the next note and the hats the third. Colours run in rainbow order
+  through the scale (C red, D orange, E yellow, F green, G cyan, A blue, B violet, with the sharps between) and get
+  paler as the melody sits higher. This follows Itoh et al. 2017 and Ward, Huckstep and Tsakanikos 2006, the studies
+  Paper Girl's chromesthesia quiz cites.
+- **On the page:**
+  - a 12-note colour key, worked out the same way the server does;
+  - the notes it hears (bass, melody, chord), as coloured chips;
+  - Flash from 5;
+  - a Synesthesia preset (flash 12), first.
+
 ## Song colours and the keyboard (light-hive-server 1.15.0, later 2026-11-27)
 
 Astra: "keyboard looks fire, dont be afraid to switch up the patterns and colors on it between chrous", "we need some
