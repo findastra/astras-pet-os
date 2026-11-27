@@ -67,3 +67,21 @@ test('the reader answers in JSON and refuses politely with no login', { skip: !h
 });
 
 function hasPython() { try { execFileSync('python', ['--version'], { stdio: 'ignore' }); return true; } catch { return false; } }
+
+test('the guest list page reads only local data, builds with textContent, and its tool box embeds it', () => {
+  const js = readFileSync(new URL('../apps/white-hat-lab-ghost-walls-20261126.js', import.meta.url), 'utf8');
+  assert.ok(!/innerHTML/.test(js), 'textContent only');
+  assert.ok(!/fetch\(|XMLHttpRequest/.test(js), 'the page sends nothing');
+  assert.match(js, /ghost-walls-page-data-20261126\.js/);
+  const map = JSON.parse(readFileSync(new URL('../system-map.json', import.meta.url), 'utf8'));
+  const list = Array.isArray(map.nodes) ? map.nodes : Object.values(map.nodes || map).flat();
+  const node = list.find((n) => n && n.id === 'ghost-in-the-walls-tool');
+  assert.match(node.embed, /white-hat-lab-ghost-walls-20261126\.html$/);
+});
+
+test("White Hat Lab's tool pages tell their box the content's own height, so a box can shrink", () => {
+  for (const f of ['white-hat-lab-tools-20261117.js', 'white-hat-lab-port-watch-20261119.js', 'white-hat-lab-ghost-walls-20261126.js']) {
+    const js = readFileSync(new URL(`../apps/${f}`, import.meta.url), 'utf8');
+    assert.match(js, /tool-panel-height', height: Math\.ceil\(document\.body\.getBoundingClientRect\(\)\.height\)/, f);
+  }
+});
