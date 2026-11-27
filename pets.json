@@ -3990,6 +3990,16 @@
             "node": "wireshark",
             "how": "optional",
             "why": "Traffic recordings when a check needs one (Astra, 2026-11-17)."
+          },
+          {
+            "node": "tplinkrouterc6u",
+            "how": "required",
+            "why": "The Ghost In The Walls reader signs in to the router with it, read only (Astra, 2026-11-26: \"Start the tracker\")."
+          },
+          {
+            "node": "rea",
+            "how": "optional",
+            "why": "Taking a program apart when a check needs it, through White Hat Lab's reverse-engineer-anything skill (white-hat-lab#12, 2026-11-20)."
           }
         ]
       }
