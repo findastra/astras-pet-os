@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stream Deck + deck · Deck Pond</title>
+<!-- use-my-stream-deck-tool, a native tool of Deck Pond (Deck Duck), shown inside its pet program page, the same way
+     Bass & Biscuits shows the APC64 (apps/drum-dog-apc64-deck-20261102.html).
+     Geometry: the panel is Elgato's 800 x 480 px LCD (keys 120 px at x 13 + 219n, y 12 + 160n; touch strip 800 x 100 at
+     y 380), from Elgato's dimensioned HID drawings (docs.elgato.com/streamdeck/hid) as transcribed in the MIT library
+     @elgato-stream-deck/core 7.8.0. The strip is 108 mm (Elgato's spec), so 1 px = 0.135 mm. Dials: 120 px, centred under
+     each key column, 222 px below the strip (the library's measurement of Elgato's simulator bezel). The body is 140 mm
+     wide (Elgato's spec); its top and bottom margins are estimates, not measured.
+     "Use my Stream Deck" listens to the real deck in the browser (WebHID): it only reads, never writes to the deck, so
+     the Stream Deck app keeps its pictures and actions. Labels stay in this browser. Claude Opus 5.5 (claude-opus-5-5),
+     2026-11-02. -->
+<style>
+:root{--bg:#1b1d22;--panel:#24272e;--line:#3a3f49;--ink:#e9ebf0;--dim:#a3a9b5;--pond:#2ee6c4;--pink:#ff4fd8;--amber:#ffc23b;--sky:#5ab8ff;
+  font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+/* Inside its tool box on Deck Pond's page: no background of its own, the box shows through (drum-dog-in-tool-20261102.js). */
+html.in-tool,html.in-tool body{background:transparent}
+html.in-tool{color-scheme:normal;overflow:hidden}
+.top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 4px}
+button,input,select{font:inherit;color:var(--ink);background:#2c3038;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+button{cursor:pointer}
+button.on{border-color:var(--pond);color:var(--pond)}
+#hidState{color:var(--dim);font-size:.9rem}
+svg{display:block;width:100%;max-width:720px;margin:0 auto;height:auto;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.info{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:6px 4px;min-height:64px}
+.info b{color:var(--pond);font-size:1.15rem}
+.info input{flex:1 1 200px;max-width:320px}
+.swatches{display:flex;gap:6px}
+.swatches[hidden]{display:none}
+.swatches button{width:26px;height:26px;padding:0;border-radius:50%}
+.swatches button[aria-pressed="true"]{outline:2px solid #fff;outline-offset:2px}
+.body{fill:#121316;stroke:#3a3f49;stroke-width:3}
+.glass{fill:#060607}
+.ctl{cursor:pointer}
+.ctl .k{fill:#17191d;stroke:#3d424c;stroke-width:3;transition:fill .08s}
+.ctl.dial .k{fill:#1d1f24;stroke:#4a505c;stroke-width:4}
+.ctl.zone .k{fill:#0d1013;stroke:#2a2e35;stroke-width:2}
+.ctl:hover .k{stroke:var(--pond);stroke-width:5}
+.ctl.sel .k{stroke:#fff;stroke-width:7}
+.ctl.down .k{fill:#2ee6c4 !important}
+.ctl.down .needle{stroke:#06120f}
+.needle{stroke:#cfd3da;stroke-width:9;stroke-linecap:round}
+.knurl{fill:none;stroke:#2c2f36;stroke-width:3;stroke-dasharray:4 7}
+.mylabel{fill:var(--ink);font:700 22px system-ui,sans-serif;pointer-events:none;text-anchor:middle;dominant-baseline:middle}
+.num{fill:#5b616d;font:700 18px system-ui,sans-serif;pointer-events:none;text-anchor:middle}
+.zonetxt{fill:#8a919d;font:600 20px system-ui,sans-serif;pointer-events:none;text-anchor:middle;dominant-baseline:middle}
+.touch{fill:var(--pond);opacity:.85;pointer-events:none}
+.swipe{stroke:var(--pond);stroke-width:8;stroke-linecap:round;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="top">
+  <button type="button" id="hid">Use my Stream Deck</button>
+  <label>Profile <select id="profile" aria-label="Profile"></select></label>
+  <button type="button" id="newProfile" title="Add a profile">+</button>
+  <span id="hidState">Tap anything to label it.</span>
+</div>
+<svg id="deck" viewBox="-130 -75 1060 926" role="img" aria-label="Elgato Stream Deck +"></svg>
+<div class="info" aria-live="polite">
+  <b id="tName">Tap anything</b> <span id="tWhat"></span>
+  <input id="note" maxlength="24" placeholder="What it does" aria-label="My label for this control" hidden>
+  <span class="swatches" id="swatches" hidden></span>
+</div>
+<script src="drum-dog-in-tool-20261102.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('deck');
+  // ---- Labels, one set per profile (the Stream Deck app's profiles), kept in this browser ----
+  var KEY = 'use-my-stream-deck-tool-labels-20261102', store;
+  try { store = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { store = null; }
+  if (!store || typeof store !== 'object' || !store.profiles) store = { schema: 1, current: 'Default', profiles: { Default: {} } };
+  if (!store.profiles[store.current]) store.current = Object.keys(store.profiles)[0] || 'Default';
+  if (!store.profiles[store.current]) store.profiles[store.current] = {};
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) { /* private window */ } }
+  function mine() { return store.profiles[store.current]; }
+  function el(tag, a, parent, text) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (text != null) e.textContent = text; (parent || svg).appendChild(e); return e; }
+
+  // ---- The deck, in panel pixels (1 px = 0.135 mm) ----
+  var C = [];
+  // Body: 140 mm = 1037 px wide, centred on the 800 px panel. Top and bottom margins are estimates.
+  // The faceplate covers the panel except under the keys and the strip, as on the real deck.
+  el('rect', { class: 'body', x: -118, y: -62, width: 1037, height: 900, rx: 46 });
+  el('rect', { class: 'glass', x: -4, y: 376, width: 808, height: 108, rx: 6 });
+  for (var r = 0; r < 2; r++) for (var c = 0; c < 4; c++) {
+    var i = r * 4 + c;
+    C.push({ id: 'key-' + i, kind: 'key', name: 'Key ' + (i + 1), what: 'An LCD key: press it to run its action.', x: 13 + 219 * c, y: 12 + 160 * r, w: 120, h: 120 });
+  }
+  for (var z = 0; z < 4; z++) {
+    C.push({ id: 'strip-' + z, kind: 'zone', name: 'Strip ' + (z + 1), what: 'Touch screen for dial ' + (z + 1) + ': tap, hold or swipe.', x: 200 * z, y: 380, w: 200, h: 100 });
+  }
+  for (var d = 0; d < 4; d++) {
+    C.push({ id: 'dial-' + d, kind: 'dial', name: 'Dial ' + (d + 1), what: 'Turn to adjust, push to press. Its screen is the strip above it.', cx: 73 + 219 * d, cy: 702, rr: 60, turn: 0 });
+  }
+  var byId = {}, current = null;
+  var touchLayer;
+  C.forEach(function (o) {
+    byId[o.id] = o;
+    var g = el('g', { class: 'ctl ' + o.kind, tabindex: 0, role: 'button', 'aria-label': o.name });
+    o.g = g;
+    if (o.kind === 'dial') {
+      o.k = el('circle', { class: 'k', cx: o.cx, cy: o.cy, r: o.rr }, g);
+      el('circle', { class: 'knurl', cx: o.cx, cy: o.cy, r: o.rr - 7 }, g);
+      o.needle = el('line', { class: 'needle', x1: o.cx, y1: o.cy - 48, x2: o.cx, y2: o.cy - 26 }, g);
+      o.lx = o.cx; o.ly = o.cy + o.rr + 30;
+      el('text', { class: 'num', x: o.cx, y: o.cy + 7 }, g, String(o.id.slice(5) * 1 + 1));
+    } else {
+      o.k = el('rect', { class: 'k', x: o.x, y: o.y, width: o.w, height: o.h, rx: o.kind === 'key' ? 14 : 0 }, g);
+      o.lx = o.x + o.w / 2; o.ly = o.y + o.h / 2;
+      if (o.kind === 'key') el('text', { class: 'num', x: o.x + 16, y: o.y + 26 }, g, String(o.id.slice(4) * 1 + 1));
+    }
+    o.mine = el('text', { class: o.kind === 'zone' ? 'zonetxt' : 'mylabel', x: o.lx, y: o.ly }, g, '');
+    function act(e) { if (e) e.preventDefault(); pick(o); }
+    g.addEventListener('pointerdown', act);
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') act(e); });
+  });
+  // Lines between the strip's four sections, and the layer that shows touches.
+  [200, 400, 600].forEach(function (x) { el('line', { x1: x, y1: 384, x2: x, y2: 476, stroke: '#2a2e35', 'stroke-width': 2, 'pointer-events': 'none' }); });
+  touchLayer = el('g', {});
+
+  // ---- Picking and labelling ----
+  var COLORS = ['', '#2ee6c4', '#5ab8ff', '#ff4fd8', '#ffc23b', '#ff5a5a', '#b6ff3b'];
+  var note = document.getElementById('note'), sw = document.getElementById('swatches');
+  COLORS.forEach(function (col) {
+    var b = document.createElement('button'); b.type = 'button'; b.dataset.color = col;
+    b.style.background = col || '#17191d'; b.setAttribute('aria-label', col ? 'Colour ' + col : 'No colour'); b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { if (!current) return; setEntry(current.id, null, col); });
+    sw.appendChild(b);
+  });
+  function setEntry(id, text, color) {
+    var m = mine(), e = m[id] || { t: '', c: '' };
+    if (text != null) e.t = text;
+    if (color != null) e.c = color;
+    if (!e.t && !e.c) delete m[id]; else m[id] = e;
+    save(); draw();
+  }
+  function pick(o) {
+    if (current) current.g.classList.remove('sel');
+    current = o; o.g.classList.add('sel');
+    var e = mine()[o.id] || {};
+    document.getElementById('tName').textContent = o.name;
+    document.getElementById('tWhat').textContent = o.what;
+    note.hidden = false; sw.hidden = false; note.value = e.t || '';
+    draw();
+  }
+  note.addEventListener('input', function () { if (current) setEntry(current.id, note.value.trim(), null); });
+  function draw() {
+    var m = mine();
+    C.forEach(function (o) {
+      var e = m[o.id] || {};
+      o.mine.textContent = e.t || '';
+      o.k.style.fill = e.c && o.kind !== 'dial' ? e.c : '';
+      if (o.kind === 'dial') o.k.style.stroke = e.c || '';
+      o.mine.style.fill = e.c && o.kind !== 'dial' ? '#06120f' : '';
+    });
+    var cur = current && m[current.id] ? m[current.id].c || '' : '';
+    Array.prototype.forEach.call(sw.children, function (b) { b.setAttribute('aria-pressed', String(!!current && b.dataset.color === cur)); });
+  }
+
+  // ---- Profiles ----
+  var sel = document.getElementById('profile');
+  function fillProfiles() {
+    sel.textContent = '';
+    Object.keys(store.profiles).forEach(function (p) { var op = document.createElement('option'); op.value = p; op.textContent = p; if (p === store.current) op.selected = true; sel.appendChild(op); });
+  }
+  sel.addEventListener('change', function () { store.current = sel.value; save(); if (current) pick(current); else draw(); });
+  document.getElementById('newProfile').addEventListener('click', function () {
+    var n = (window.prompt('Name of the new profile (the same name as in the Stream Deck app):') || '').trim().slice(0, 40);
+    if (!n || store.profiles[n]) return;
+    store.profiles[n] = {}; store.current = n; save(); fillProfiles(); draw();
+  });
+  window.addEventListener('storage', function (e) { if (e.key !== KEY) return; try { store = JSON.parse(e.newValue) || store; } catch (x) { /* keep */ } fillProfiles(); draw(); });
+  fillProfiles(); draw();
+
+  // ---- The real Stream Deck +: read-only, through WebHID (the browser asks first) ----
+  // Input report 1: byte 0 says what moved. 0x00 keys (byte 3 + key = 1 while held); 0x02 touch strip (byte 3: 1 tap,
+  // 2 hold, 3 swipe; x, y at bytes 5 and 7, swipe end at 9 and 11, little-endian); 0x03 dials (byte 3: 0 push with
+  // byte 4 + dial = 1 while held, 1 turn with byte 4 + dial = signed ticks). From @elgato-stream-deck/core 7.8.0.
+  var VENDOR = 0x0fd9, PLUS = 0x0084;
+  var btn = document.getElementById('hid'), state = document.getElementById('hidState');
+  function flash(o, on) { o.g.classList.toggle('down', on); }
+  function onReport(e) {
+    if (e.reportId !== 0x01) return;
+    var b = new Uint8Array(e.data.buffer, e.data.byteOffset, e.data.byteLength), dv = e.data, k;
+    if (b[0] === 0x00) {
+      for (k = 0; k < 8; k++) flash(byId['key-' + k], !!b[3 + k]);
+      for (k = 0; k < 8; k++) if (b[3 + k]) { pick(byId['key-' + k]); state.textContent = 'Key ' + (k + 1); }
+    } else if (b[0] === 0x03 && b[3] === 0x00) {
+      for (k = 0; k < 4; k++) { flash(byId['dial-' + k], !!b[4 + k]); if (b[4 + k]) { pick(byId['dial-' + k]); state.textContent = 'Dial ' + (k + 1) + ' pushed'; } }
+    } else if (b[0] === 0x03 && b[3] === 0x01) {
+      for (k = 0; k < 4; k++) {
+        var t = dv.getInt8(4 + k);
+        if (!t) continue;
+        var o = byId['dial-' + k]; o.turn += t;
+        o.needle.setAttribute('transform', 'rotate(' + (o.turn * 12) + ' ' + o.cx + ' ' + o.cy + ')');
+        state.textContent = 'Dial ' + (k + 1) + (t > 0 ? ' turned right' : ' turned left');
+      }
+    } else if (b[0] === 0x02) {
+      var x = dv.getUint16(5, true), y = dv.getUint16(7, true), kind = b[3];
+      touchLayer.textContent = '';
+      if (kind === 3) {
+        var x2 = dv.getUint16(9, true), y2 = dv.getUint16(11, true);
+        el('line', { class: 'swipe', x1: x, y1: 380 + y, x2: x2, y2: 380 + y2 }, touchLayer);
+        state.textContent = 'Swipe ' + (x2 > x ? 'right' : 'left') + ' on the strip';
+      } else {
+        el('circle', { class: 'touch', cx: x, cy: 380 + y, r: kind === 2 ? 30 : 18 }, touchLayer);
+        state.textContent = (kind === 2 ? 'Hold' : 'Tap') + ' on strip ' + (Math.min(3, Math.floor(x / 200)) + 1);
+      }
+      setTimeout(function () { touchLayer.textContent = ''; }, 600);
+    }
+  }
+  function readText(dev, id, from) {
+    return dev.receiveFeatureReport(id).then(function (dv) {
+      var v = new Uint8Array(dv.buffer, dv.byteOffset, dv.byteLength);
+      // The same offsets as the library's own WebHID driver (feature report 5: firmware from byte 6).
+      var len = v[1], s = '';
+      for (var j = from; j < Math.min(v.length, len + 2); j++) if (v[j]) s += String.fromCharCode(v[j]);
+      return s.trim();
+    }).catch(function () { return ''; });
+  }
+  function use(dev) {
+    var open = dev.opened ? Promise.resolve() : dev.open();
+    return open.then(function () {
+      dev.removeEventListener('inputreport', onReport);
+      dev.addEventListener('inputreport', onReport);
+      btn.classList.add('on'); btn.textContent = 'Stream Deck + connected';
+      state.textContent = 'Press a key, turn a dial or touch the strip.';
+      return readText(dev, 5, 6).then(function (fw) { if (fw) btn.title = 'Firmware ' + fw; });
+    }, function () {
+      state.textContent = 'Found it, but could not open it. Is another program holding it?';
+    });
+  }
+  function find(devs) { return devs.filter(function (x) { return x.vendorId === VENDOR && x.productId === PLUS && x.collections.some(function (c) { return c.inputReports && c.inputReports.length; }); })[0] || devs.filter(function (x) { return x.vendorId === VENDOR && x.productId === PLUS; })[0]; }
+  if (!('hid' in navigator)) {
+    btn.addEventListener('click', function () { state.textContent = 'This browser can’t hear the Stream Deck. Use Edge.'; });
+  } else {
+    btn.addEventListener('click', function () {
+      navigator.hid.requestDevice({ filters: [{ vendorId: VENDOR, productId: PLUS }] }).then(function (devs) {
+        var dev = find(devs);
+        if (!dev) { state.textContent = 'Stream Deck + not picked. Is it plugged in?'; return; }
+        return use(dev);
+      }, function () { state.textContent = 'The browser said no. Allow it and try again.'; });
+    });
+    // Already allowed before: connect by itself.
+    navigator.hid.getDevices().then(function (devs) { var dev = find(devs); if (dev) use(dev); }).catch(function () {});
+    navigator.hid.addEventListener('connect', function (e) { if (e.device.vendorId === VENDOR && e.device.productId === PLUS) use(e.device); });
+    navigator.hid.addEventListener('disconnect', function (e) {
+      if (e.device.vendorId !== VENDOR || e.device.productId !== PLUS) return;
+      btn.classList.remove('on'); btn.textContent = 'Use my Stream Deck'; state.textContent = 'Stream Deck + unplugged.';
+    });
+  }
+})();
+</script>
+</body>
+</html>

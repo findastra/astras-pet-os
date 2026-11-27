@@ -167,7 +167,7 @@ time"). Easiest means the fewest findings once the art and the `pet-app` topic a
 | 64 | Proxy Axolotl | Proxy Lake | roadmap | 7 | 1 | 0 | A01 A09 A10 A16 A55 A18 A31 | next |
 | 65 | Cluster Crab | Cluster Shore | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
 | 66 | Storage Stoat | Storage Warren | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |
-| 67 | White Hat Weasel | White Hat Lab | pipeline | 8 | 3 | 0 | A59 A01 A09 A10 A16 A55 A18 A26 | next |
+| 67 | White Hat Weasel | White Hat Lab | pipeline | 8 | 3 | 0 | see round 67 | [done 11-27](round-67-white-hat-lab-20261127.md) |
 | 69 | Cipher Owl | Cipher Hollow | pipeline | 8 | 2 | 0 | A59 A01 A09 A10 A16 A17 A55 A18 | next |
 | 70 | Forensic Ferret | Evidence Locker | registered | 4 | 2 | 1 | A59 A10 A54 A15 A16 A31 | next |
 | 71 | Llama Librarian | Model Library | roadmap | 7 | 0 | 0 | A01 A09 A10 A16 A55 A18 | next |

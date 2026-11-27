@@ -211,6 +211,23 @@
       "start_closed": true
     },
     {
+      "id": "use-my-stream-deck-tool",
+      "name": "use-my-stream-deck-tool",
+      "type": "tool",
+      "of": "deck-duck",
+      "state": "now",
+      "layer": 6,
+      "category": "Tool",
+      "version": "v1.0",
+      "label": "deck-pond-v1.0-use-my-stream-deck-tool-v1.0",
+      "url": "https://findastra.github.io/astras-pet-os/apps/deck-duck-stream-deck-plus-deck-20261102.html",
+      "job": "The Elgato Stream Deck +’s face at Elgato’s own panel geometry, right on Deck Pond’s page, the way Bass & Biscuits shows the APC64 (Astra, 2026-11-02: \"I want to see the elgato on here the same way I see the MIDI controller on Drum Dog\"). Tap a key, dial or strip section to label what it does, per Stream Deck profile, with a colour. \"Use my Stream Deck\" hears the real deck in the browser (WebHID, read only): keys light up, dials turn, touches show on the strip. Labels stay in this browser.",
+      "does": "Your Stream Deck + on the page: press, turn and touch it to see it move, and label every control.",
+      "embed": "https://findastra.github.io/astras-pet-os/apps/deck-duck-stream-deck-plus-deck-20261102.html",
+      "frame": "square",
+      "in_pill": true
+    },
+    {
       "id": "dm-archive-review",
       "name": "DM archive review",
       "type": "own-program",
@@ -893,7 +910,7 @@
       "version": "v1.0",
       "label": "white-hat-lab-v1.0-tp-link-tool-v1.0",
       "url": "http://tplinkwifi.net",
-      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing.",
+      "job": "A tool of White Hat Lab (Astra, 2026-11-20: \"I want a tool on the White Hat Weasel to just be a button that links me to this TP-Link network login page. Like, just call it TP-Link\"). One button that opens the home router's own sign-in page through tplinkwifi.net, the name every TP-Link router answers to on its own network, so no home address is published. It works on any device joined to the home network (her phone too, so no computer is needed). Astra signs in and changes the router herself; the tool keeps no password and changes nothing. It opens in a new tab of your own browser (2026-11-27): in the Claude chat's browser pane the router's page stays blank on \"Opening...\", because the pane blocks the router's own scripts.",
       "does": "Opens your TP-Link router's sign-in page."
     },
     {
@@ -3786,6 +3803,15 @@
       "layer": 6,
       "category": "MIDI controller",
       "job": "Astra’s drum pad controller (2026-11-02): 64 pads and 8 touch faders, USB-C only (no Bluetooth and no sound of its own). Windows sees it as APC64. Its Live Lite registration is with Akai support."
+    },
+    {
+      "id": "elgato-stream-deck-plus",
+      "name": "Elgato Stream Deck +",
+      "type": "host-machine",
+      "state": "now",
+      "layer": 6,
+      "category": "USB controller",
+      "job": "Astra’s Stream Deck + (plugged into the Desktop PC on 2026-11-02): 8 LCD keys, 4 push dials and a 108 mm touch strip, USB-C. Windows sees it as USB 0FD9:0084."
     },
     {
       "id": "speaker-bar",
@@ -7846,6 +7872,20 @@
       "why": "The browser makes the drum sounds and, with Web MIDI, hears the APC64’s pads."
     },
     {
+      "from": "deck-duck",
+      "to": "elgato-stream-deck-plus",
+      "carries": "manages",
+      "state": "now",
+      "why": "The Stream Deck + deck shows it live and keeps a label for every control."
+    },
+    {
+      "from": "use-my-stream-deck-tool",
+      "to": "web-browser",
+      "carries": "runs-on",
+      "state": "now",
+      "why": "The browser draws the deck and, with WebHID, hears the Stream Deck +’s keys, dials and strip (read only)."
+    },
+    {
       "from": "drum-dog",
       "to": "ableton-live",
       "carries": "manages",
@@ -7877,8 +7917,8 @@
       "from": "deck-duck",
       "to": "stream-deck",
       "carries": "manages",
-      "state": "planned",
-      "why": "Deck Duck is the Elgato Stream Deck pet."
+      "state": "now",
+      "why": "Deck Pond labels what the Stream Deck app’s keys, dials and strip do, profile by profile."
     },
     {
       "from": "the-astral-plane",

@@ -263,7 +263,7 @@ export function pageData({ reg, prog, registry, map, frameIndex, drafts, status,
   // built yet" (Astra, 2026-11-07, "all recommended"), and Benchmark Rock's table leaves it out too.
   const watched = new Map(map.links.filter((l) => l.from === PROGRAM_WATCH && l.carries === 'manages' && built(nodes.get(l.to)?.state))
     .map((l) => [l.to, WATCH_KINDS.includes(nodes.get(l.to)?.watch) ? nodes.get(l.to).watch : 'window']));
-  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: n.frame === 'wide' ? 'wide' : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
+  const item = (n, l) => ({ id: n.id, name: n.name, watch: watched.get(n.id) || null, site: isSite(n.site) ? n.site : null, state: l?.state || n.state || 'now', why: l?.why || n.job || '', desc: n.does || brief(n.job), url: isUrl(n.url) ? n.url : null, picture: isUrl(n.picture) ? n.picture : null, embed: isUrl(n.embed) ? hubRelative(n.embed) : null, frame: ['wide', 'square'].includes(n.frame) ? n.frame : null, inL1: n.in_l1 === true, inPill: n.in_pill === true || isUrl(n.embed), pillOpen: (n.in_pill === true || isUrl(n.embed)) && n.start_closed !== true, startClosed: n.start_closed === true, panel: n.panel || null, sharedWith: n.shared_with || null, cadence: n.cadence || null, serial: n.serial || null, group: n.in || null, groupName: (n.in && nodes.get(n.in)?.name) || null });
   const uniq = (arr) => [...new Map(arr.map((x) => [x.id, x])).values()];
   const ofType = (types, links = from) => uniq(links.filter((l) => types.includes(nodes.get(l.to)?.type)).map((l) => item(nodes.get(l.to), l)));
   // A tool node may say which side it is on, avatar or world (Astra, 2026-10-19, for Unity Stable: "separate the page by
@@ -522,7 +522,7 @@ const showPicture = (i) => !!i.picture && !i.embed;
 
 // A tool that works right on the page: its own tool panel inside L1, labelled with its name on the map. A `frame: "wide"`
 // tool fills the panel's width (Bass & Biscuits' APC64 deck, Astra 2026-11-02: "build that right on the base and
-// biscuit"); `allow="midi"` lets it hear a controller plugged into this PC after the browser asks.
+// biscuit"); `allow="midi"` and `allow="hid"` let it hear a controller plugged into this PC after the browser asks (`hid`: the Stream Deck +, 2026-11-02).
 // `in_l1: true` puts it inside the L1 control panel with the other tools instead of above the levels (Astra, 2026-11-02,
 // of the APC64 deck: "remember this is a tool... its not above it"; tools "under L1").
 // `in_pill: true` goes further: no panel at all, the tool works inside its own rounded tool box in L1, which starts open
@@ -552,8 +552,13 @@ function itemList(items, prefix, empty) {
     // page or panel is a button inside.
     const inPanel = i.embed && !i.inPill;
     const href = inPanel ? `#${i.id}-tool-panel` : i.url;
-    const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
-    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
+    // A device's own page on the home network (plain http, like the router's tplinkwifi.net) opens in a new tab, never
+    // in place of the pet program (Astra, 2026-11-27: "the TP link wasnt working"): the router's page refuses to show
+    // inside a frame (X-Frame-Options: deny), and in the Claude chat's browser pane its scripts are blocked, so opened
+    // in place it went blank and took the pet program with it. Links to websites keep opening as before.
+    const elsewhere = !inPanel && /^http:\/\//i.test(href || '');
+    const open = href ? `\n<p><a class="button" href="${esc(href)}"${i.inPill || elsewhere ? ' target="_blank" rel="noopener"' : ''}>${esc(inPanel ? 'Use it below' : i.inPill ? 'Open it full screen' : 'Open it')}</a></p>` : '';
+    const tool = i.inPill && i.embed ? `\n<div class="pill-tool" id="${esc(i.id)}"><iframe class="tool-frame${i.frame ? ` ${i.frame}` : ''}" src="${esc(i.embed)}" title="${esc(i.name)}" allow="midi; autoplay; fullscreen; hid"${i.pillOpen ? "" : " loading=\"lazy\""}></iframe></div>` : '';
     const more = i.more != null ? `<p class="small">${esc(i.more)}</p>` : `${i.why && i.why !== i.desc ? `<p>${esc(i.why)}</p>` : ''}
 <p class="small">${esc(STATE[i.state] || i.state || STATE.now)}${href ? '' : ' · its own page is not linked on the System Map yet'}</p>${showPicture(i) ? `
 <p class="pill-picture"><img src="${esc(i.picture)}" alt="${esc(`${i.name}, as it is live now`)}" width="160" loading="lazy"></p>` : ''}${tool}${open}`;
